@@ -5,7 +5,6 @@ export class DataForm {
     @bindable error = {};
 
     constructor() {
-
     }
 
     activate() {

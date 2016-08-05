@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../rest-service';
  
-const serviceUri = 'https://dl-core-webapi-pinkgorilla.c9users.io/v1/core/buyers';
+const serviceUri = 'http://localhost:8900/v1/core/buyers';
  
 export class Service extends RestService{
 
