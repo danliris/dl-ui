@@ -1,0 +1,32 @@
+<template>
+    <h3>Buyers</h3>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Local</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.code}</td>
+                <td>${item.name}</td>
+                <td>${item.description}</td>
+                <td>${item.phone}</td>
+                <td>${item.address}</td>
+                <td>${item.local}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        There is no data found in the list.
+    </div>
+    <hr/>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary" click.delegate="create()">Create</button>
+    </div>
+</template>
