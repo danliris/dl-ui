@@ -14,20 +14,8 @@
                 <span class="help-block">${error.name}</span>
             </div>
         </div>
-        <div class="form-group ${error.description?'has-error':''}">
-            <label for="description" class="col-sm-2 control-label">Description</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" name="description" value.bind="data.description"></textarea>
-                <span class="help-block">${error.description}</span>
-            </div>
-        </div>
-        <div class="form-group ${error.phone?'has-error':''}">
-            <label for="phone" class="col-sm-2 control-label">Phone</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="phone" value.bind="data.phone" />
-                <span class="help-block">${error.phone}</span>
-            </div>
-        </div>
+        <!---->
+        
         <div class="form-group ${error.address?'has-error':''}">
             <label for="address" class="col-sm-2 control-label">Address</label>
             <div class="col-sm-10">
@@ -35,7 +23,21 @@
                 <span class="help-block">${error.address}</span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group ${error.contact?'has-error':''}">
+            <label for="phone" class="col-sm-2 control-label">Contact</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="contact" value.bind="data.contact" />
+                <span class="help-block">${error.contact}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.tempo?'has-error':''}">
+            <label for="tempo" class="col-sm-2 control-label">Tempo</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="tempo" value.bind="data.tempo"></textarea>
+                <span class="help-block">${error.tempo}</span>
+            </div>
+        </div>
+        <!--<div class="form-group">
             <label class="col-sm-2 control-label">Local</label>
             <div class="col-sm-5">
                 <label class="radio-inline">
@@ -46,6 +48,6 @@
                 </label>
             </div>
         </div> 
-        memory = ${data.local}
+        memory = ${data.local}-->
     </form>
 </template>

@@ -38,5 +38,10 @@ export class Service extends RestService{
     return super.delete(endpoint, data);
   }
   
+  getByCode(code) 
+  {
+      var endpoint = `${serviceUri}?keyword=${code}`;
+      return super.get(endpoint);
+  }
  
 }
