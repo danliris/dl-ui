@@ -9,8 +9,6 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router; 
-          this.buyerId = "";
-         this.buyers = [];
     } 
 
     activate() {
@@ -20,18 +18,7 @@ export class List {
                 this.data = data;
             })
     }
-    
 
-    searching(){
-        this.service.getByCode(this.data.code)
-        .then(data => {
-                 this.data=data;
-            }) 
-            .catch(e=> {
-            console.log(e);
-            alert('Data Buyer tidak ditemukan');
-        })
-    }
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
@@ -40,5 +27,14 @@ export class List {
         this.router.navigateToRoute('create');
     }
     
-    
+    searching(){
+        this.service.getByCode(this.data.code)
+        .then(data => {
+                 this.data=data;
+            }) 
+            .catch(e=> {
+            console.log(e);
+            alert('Data Supplier tidak ditemukan');
+        })
+    }
 }

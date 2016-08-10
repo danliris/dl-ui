@@ -1,0 +1,12 @@
+<template>
+    <h3>Edit Storage</h3>
+    <require from="./data-form"></require>
+    <block>
+        <data-form data.bind="data" error.bind="error"></data-form>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="view()">Back</button>
+            <button class="btn btn-success" click.delegate="save()">Save</button>
+        </div>
+    </block>
+</template>
