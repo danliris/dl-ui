@@ -1,13 +1,13 @@
 <template>
-    <h3>Textiles</h3>
+    <h3>General Merchandises</h3>
     <br>
     <div class="form-group">
         <label for="description" class="col-sm-1 control-label">Searching</label>
         <div class="col-sm-8">
             <div class="input-group">
-                <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="search by keyword" />
+                <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="search by code" />
                 <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="searching()"> Search </button>
+                        <button class="btn btn-default" click.delegate="search()"> Search </button>
                     </span>
                 <span class="input-group-btn">
                         <button class="btn btn-default" click.delegate="activate()"> View All </button>
@@ -20,13 +20,18 @@
             <tr>
                 <th>Code</th>
                 <th>Name</th>
+                <th>Price</th>
+                <th>Supplier</th>
                 <th>Description</th>
+                <th>Unit of Measurement</th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.code}</td>
                 <td>${item.name}</td>
+                <td>${item.price}</td>
+                <td>${item.supplier.name}</td>
                 <td>${item.description}</td>
                 <td>${item.UoM ? item.UoM.category : ''}</td>
             </tr>

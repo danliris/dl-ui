@@ -1,4 +1,5 @@
 <template>
+    <require from="../UoM-form-shared/uom-editor"></require>
     <form class="form-horizontal">
         <div class="form-group ${error.code?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Code</label>
@@ -20,7 +21,8 @@
                 <textarea class="form-control" name="description" value.bind="data.description"></textarea>
                 </div>
         </div>
-        
+        <!-- Shared UoM component -->
+        <uom-editor data.bind="data" error.bind="error"></uom-editor>
         
     </form>
 </template>
