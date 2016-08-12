@@ -9,8 +9,6 @@
                 <span class="input-group-btn">
                         <button class="btn btn-primary" click.delegate="searching()"> Cari </button>
                 </span>
-
-
             </div>
         </div>
     </div>
@@ -20,7 +18,7 @@
                 <th>Kode</th>
                 <th>Nama</th>
                 <th>Deskripsi</th>
-                <th>UoM</th>
+                <th>Unit of Measurement</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +26,7 @@
                 <td>${item.code}</td>
                 <td>${item.name}</td>
                 <td>${item.description}</td>
-                <td>${item.name}</td>
+                 <td>${item.UoM ? item.UoM.category : ''}</td>
 
             </tr>
         </tbody>
