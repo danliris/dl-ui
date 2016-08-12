@@ -68,6 +68,7 @@
   },
   "dependencies": {
     "aurelia-bootstrapper-webpack": "^1.0.0",
+    "aurelia-dialog": "^1.0.0-beta.3.0.0",
     "aurelia-event-aggregator": "^1.0.0",
     "aurelia-fetch-client": "^1.0.0",
     "aurelia-framework": "^1.0.0",
@@ -84,6 +85,7 @@
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.6.3",
+    "horsey": "^4.2.2",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.0"
   },
