@@ -1,0 +1,90 @@
+<template>
+
+
+    <div class="form-group ${error.UoM ? 'has-error':''}">
+        <label for="UoM" class="col-sm-2 control-label">UoM</label>
+        <div class="col-sm-10">
+            <!--Show buttons only if there is no UoM data-->
+            <span if.bind="!data.UoM">
+                <button class="btn btn-primary" click.trigger="create()">Create</button>
+                <button class="btn btn-primary" click.delegate="">Load</button>
+            </span>
+            <span if.bind="data.UoM">
+                <div class="row">
+                    <div class="col-sm-2">Category</div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="default.mainValue" value.bind="data.UoM.category" />
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-2">Default Unit</div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <input type="number" class="form-control" name="default.mainValue" value.bind="data.UoM.default.mainValue" />
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" name="default.mainUnit" value.bind="data.UoM.default.mainUnit" />
+                            </div>
+                            <div class="col-sm-1" style="text-align:center"><label style="">--</label></div>
+                            <div class="col-sm-1">
+                                <input type="number" class="form-control" name="default.convertedValue" value.bind="data.UoM.default.convertedValue" />       
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" name="default.convertedUnit" value.bind="data.UoM.default.convertedUnit" />
+                            </div>    
+                        </div> 
+                        <!--${data.UoM.default.mainValue + " " + data.UoM.default.mainUnit + " -- " + data.UoM.default.convertedValue + " " + data.UoM.default.convertedUnit}-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Other units</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Main Value</th>
+                                    <th>Main Unit</th>
+                                    <th>Converted Value</th>
+                                    <th>Converted Unit</th>
+                                    <th><button click.delegate="addUnit(data.UoM.default)" class="btn btn-success btn-sm pull-right">Add Unit</button></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr repeat.for="unit of data.UoM.units">
+                                    <td>${$index+1}</td>
+                                    <td>
+                                        <input class="form-control" type="number" name="mainValue" value.bind="unit.mainValue" readonly />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" name="mainUnit" value.bind="unit.mainUnit" readonly />
+                                    </td>
+                                    <td>
+                                        <div class="form-group ${error.UoM.units[$index].convertedValue?'has-error':''}">
+                                            <input class="form-control" type="number" name="convertedValue" value.bind="unit.convertedValue" />
+                                            <span class="help-block">${error.UoM.units[$index].convertedValue}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group ${error.UoM.units[$index].convertedUnit?'has-error':''}">
+                                            <input class="form-control" type="text" name="convertedUnit" value.bind="unit.convertedUnit" />
+                                            <span class="help-block">${error.UoM.units[$index].convertedUnit}</span>
+                                        </div>
+                                    </td>
+                                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeUnit(unit)">Remove</button></td>
+                                </tr>
+                            </tbody>
+                         </table>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+
+</template>
+
