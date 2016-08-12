@@ -1,0 +1,30 @@
+<template>
+    <h3>Detil Accessories</h3> 
+    <form class="form-horizontal"> 
+        <div class="form-group">
+            <label for="code" class="col-sm-2 control-label">Kode</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.code}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-2 control-label">Nama</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.name}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">keterangan</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.description}</p>
+            </div>
+    </form> 
+    <hr/>
+
+    <div class="btn-group pull-center">
+            <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
+            <a click.delegate="edit()" class='btn btn-primary btn-sm'>Ubah</a>
+            <a click.delegate="delete()" class='btn btn-danger btn-sm'>Hapus</a>
+    </div> 
+
+</template>

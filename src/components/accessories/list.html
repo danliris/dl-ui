@@ -1,0 +1,51 @@
+<template>
+    <h3>Accessories</h3>
+    <br>
+    <div class="form-group">
+        <!--<label for="description" class="col-sm-1 control-label"></label>-->
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="cari accessories" />
+                <span class="input-group-btn">
+                        <button class="btn btn-primary" click.delegate="searching()"> Cari </button>
+                </span>
+
+
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Deskripsi</th>
+                <th>UoM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.code}</td>
+                <td>${item.name}</td>
+                <td>${item.description}</td>
+                <td>${item.name}</td>
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        Data tidak ditemukan!
+    </div>
+    <hr/>
+    <div class="col-sm-1">
+        <div class="btn-group pull-left">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" click.delegate="create()">Tambah</button>
+            </span>
+            <span class="input-group-btn">
+                <button class="btn btn-danger" click.delegate="activate()"> Semua List </button>
+            </span>
+        </div>
+    </div>
+    
+</template>
