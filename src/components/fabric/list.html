@@ -1,13 +1,13 @@
 <template>
-    <h3>Buyers</h3>
+    <h3>Fabrics</h3>
     <br>
     <div class="form-group">
         <label for="description" class="col-sm-1 control-label">Searching</label>
         <div class="col-sm-8">
             <div class="input-group">
-                <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="search by keyword" />
+                <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="search by code" />
                 <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="searching()"> Search </button>
+                        <button class="btn btn-default" click.delegate="search()"> Search </button>
                     </span>
                 <span class="input-group-btn">
                         <button class="btn btn-default" click.delegate="activate()"> View All </button>
@@ -20,23 +20,27 @@
             <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <th>Address</th>
-                <th>Contact</th>
-                <th>Tempo</th>
+                <th>Composition</th>
+                <th>Construction</th>
+                <th>Thread</th>
+                <th>Width</th>
+                <th>Unit of Measurement</th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.code}</td>
                 <td>${item.name}</td>
-                <td>${item.address}</td>
-                <td>${item.contact}</td>
-                <td>${item.tempo}</td>
+                <td>${item.composition}</td>
+                <td>${item.construction}</td>
+                <td>${item.thread}</td>
+                <td>${item.width}</td>
+                <td>${item.UoM ? item.UoM.category : ''}</td>
             </tr>
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        Data accessories tidak ada.
+        There is no data found in the list.
     </div>
     <hr/>
     <div class="btn-group pull-right">

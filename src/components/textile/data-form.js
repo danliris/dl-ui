@@ -4,7 +4,15 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    constructor() { }
-    activate() { }
-    attached() { }
+    constructor() {
+
+    }
+
+    activate() {
+         
+    }
+
+    attached() { 
+        
+    } 
 } 
