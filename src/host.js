@@ -1,3 +1,3 @@
 module.exports = {
-    core: "http://dl-core-api.mybluemix.net/v1/core"
+    core: "http://127.0.0.1:8900"
 }

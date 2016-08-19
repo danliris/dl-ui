@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding-top:50px;
 }
 
 .splash {
@@ -171,5 +172,22 @@ div.au-stagger {
   }
   100% {
     opacity: 1;
+  }
+}
+
+
+@media screen {
+  .print-wrapper {
+    display: none;
+  }
+}
+        
+@media print {
+  .print-wrapper {
+    display: block;
+  }
+            
+ .display-wrapper {
+    display: none;
   }
 }
