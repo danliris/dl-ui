@@ -1,0 +1,92 @@
+<template>
+    <div class="display-wrapper">
+        <h3>PO Barang Umum</h3>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari nomor po" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-primary" click.delegate="gotoListPODL()">List PODL</button>
+                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+                </div>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-sm-3" >
+                <div style="border:1px solid #eaeaea;padding:10px;margin:10px auto;">
+                    <span class="control-label" style="padding-right:20px;">Posting</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
+                    </div>
+                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}">Post</button>
+                </div>
+            </div>
+            <div class="col-sm-3" >
+                <div style="border:1px solid #eaeaea;padding:10px;margin:10px auto;">
+                    <span class="control-label" style="padding-right:20px;">Cetak</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" click.delegate="tooglePrintTrue()">Ya</button>
+                        <button type="button" class="btn btn-default" click.delegate="tooglePrintFalse()">Tidak</button>
+                    </div>
+                    <button type="button" class="btn btn-success ${isPrint ? '' : 'hide'}" click.delegate="print()">Cetak</button>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="${isPosting ? '' : 'hide'}"></th>
+                        <th class="${isPrint ? '' : 'hide'}"></th>
+                        <th>Nomor PO</th>
+                        <th>Nomor Referensi PO</th>
+                        <th>Nomor RO</th>
+                        <th>Supplier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
+                    <tr repeat.for="item of data">
+                        <td class="${isPosting ? '' : 'hide'}">
+                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                        </td>
+                        <td class="${isPrint ? '' : 'hide'}">
+                            <input checked.bind="item.isPrint" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                        </td>
+                        <td>${item.PONo}</td>
+                        <td>${item.RefPONo}</td>
+                        <td>${item.RONo}</td>
+                        <td>${item.supplier.name}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Data po umum tidak ada.
+        </div>
+        <hr/>
+    </div><!-- /.display-wrapper -->
+    <div class="print-wrapper">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, in quas nisi sit cupiditate, commodi repellendus ab velit labore inventore rerum necessitatibus beatae enim laborum, ipsum amet atque assumenda, accusantium.
+        <ul>
+            <li repeat.for="item of dataToBePrinting">
+                ${item.PONo}
+            </li>
+        </ul>
+        <ul>
+            <li repeat.for="item of dataToBePosting">
+                ${item.PONo}
+            </li>
+        </ul>
+    </div><!-- /.print-wrapper -->
+</template>
