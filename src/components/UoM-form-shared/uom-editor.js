@@ -3,7 +3,9 @@ import {inject, bindable} from 'aurelia-framework';
 export class UomEditor {
     @bindable data = {};
     @bindable error = {};
-
+    @bindable uom = {};
+    uomApiUri = require('../../host').core + '/uoms/categorylist';
+    
     constructor() { }
     activate() { }
     attached() { }

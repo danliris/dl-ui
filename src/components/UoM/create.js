@@ -4,32 +4,30 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class Edit {
+export class Create {
     constructor(router, service) {
         this.router = router;
-        this.service = service; 
+        this.service = service;
+        this.data = {};
     }
 
     activate(params) {
-        var id = params.id;
-        this.service.getById(id)
-            .then(data => {
-                this.data = data;
-            })
+
     }
 
-    view() {
-        this.router.navigateToRoute('view', { id: this.data._id });
+    list() {
+        this.router.navigateToRoute('list');
     }
 
     save() {
-        console.log(this.data);
-        this.service.update(this.data)
+        this.service.create(this.data)
             .then(result => {
-                this.view();
+                this.list();
             })
             .catch(e => {
+                console.log(e);
                 this.error = e;
             })
     }
+    
 }
