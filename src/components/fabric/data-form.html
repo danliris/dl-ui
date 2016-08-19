@@ -1,9 +1,8 @@
 <template>
-    <!-- Import shared component for UoM in Editor mode --> 
+    <!-- Import shared component for UoM in Editor mode -->
     <require from="../UoM-form-shared/uom-editor"></require>
-
-    <!-- Actual Fabric form-->
     <form class="form-horizontal">
+        <!-- Actual Fabric form-->
         <div class="form-group ${error.code?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Code</label>
             <div class="col-sm-10">
@@ -21,29 +20,36 @@
         <div class="form-group ${error.composition?'has-error':''}">
             <label for="composition" class="col-sm-2 control-label">Composition</label>
             <div class="col-sm-10">
-                <textarea class="form-control" name="composition" value.bind="data.composition"></textarea>
+                <textarea class="form-control" name="composition" value.bind="data.detail.composition"></textarea>
                 <span class="help-block">${error.composition}</span>
             </div>
         </div>
         <div class="form-group ${error.construction?'has-error':''}">
             <label for="construction" class="col-sm-2 control-label">Construction</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="construction" value.bind="data.construction" />
+                <input type="text" class="form-control" name="construction" value.bind="data.detail.construction" />
                 <span class="help-block">${error.construction}</span>
             </div>
         </div>
-        <div class="form-group ${error.thread?'has-error':''}">
-            <label for="thread" class="col-sm-2 control-label">Thread</label>
+        <div class="form-group ${error.yarn?'has-error':''}">
+            <label for="thread" class="col-sm-2 control-label">Yarn</label>
             <div class="col-sm-10">
-                <textarea class="form-control" name="thread" value.bind="data.thread"></textarea>
-                <span class="help-block">${error.thread}</span>
+                <textarea class="form-control" name="yarn" value.bind="data.detail.yarn"></textarea>
+                <span class="help-block">${error.yarn}</span>
             </div>
         </div>
         <div class="form-group ${error.width?'has-error':''}">
             <label for="width" class="col-sm-2 control-label">Width</label>
             <div class="col-sm-10">
-                <textarea class="form-control" name="width" value.bind="data.width"></textarea>
+                <input type="number" class="form-control" name="width" value.bind="data.detail.width"></textarea>
                 <span class="help-block">${error.width}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.price?'has-error':''}">
+            <label for="price" class="col-sm-2 control-label">Price</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="price" value.bind="data.price"></textarea>
+                <span class="help-block">${error.price}</span>
             </div>
         </div>
         <!-- Shared UoM component -->
