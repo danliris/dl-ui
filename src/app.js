@@ -11,7 +11,9 @@ export class App {
       { route: 'suppliers', name: 'suppliers', moduleId: './components/supplier/index', nav: true, title: 'Suppliers' },
       { route: 'textiles',     name: 'textiles',    moduleId: './components/textile/index',       nav: true, title: 'Textiles' },
       { route: 'accessories', name: 'accessories', moduleId: './components/accessories/index', nav: true, title: 'Accessories' },
-      { route: 'generalmerchandises', name: 'generalmerchandises', moduleId: './components/general-merchandise/index', nav: true, title: 'General Merchandises' }
+      { route: 'generalmerchandises', name: 'generalmerchandises', moduleId: './components/general-merchandise/index', nav: true, title: 'General Merchandises' },
+      { route: 'uoms', name: 'uoms', moduleId: './components/UoM/index', nav: true, title: 'Unit of Measurements' },
+      { route: 'spareparts', name: 'spareparts', moduleId: './components/sparepart/index', nav: true, title: 'Spareparts' }
     ]);
 
     this.router = router;
