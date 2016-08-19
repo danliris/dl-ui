@@ -8,6 +8,11 @@ export class Horsey {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) selection;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) default;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) units;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) category;
+    
+    
 
     @bindable options;
 
@@ -39,7 +44,10 @@ export class Horsey {
                 // }
                 // this.element.dispatchEvent(changeEvent); 
                 this.selection = info.selection;
-                this.value = info.selection[eval(this.options).value]
+                this.value = info.selection[eval(this.options).value];
+                this.default = info.selection[eval(this.options).default_uom];
+                this.units = info.selection[eval(this.options).uom_units];
+                this.category = info.selection[eval(this.options).label];
             },
             source: (data, done) => {
                 fetch(`${uri}=${data.input}`)

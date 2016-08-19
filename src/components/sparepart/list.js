@@ -9,8 +9,8 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router; 
-          this.textileId = "";
-         this.textiles = [];
+          this.sparepartId = "";
+         this.spareparts = [];
     } 
 
     activate() {
@@ -29,7 +29,7 @@ export class List {
             }) 
             .catch(e=> {
             console.log(e);
-            alert('Data Tekstile tidak ditemukan');
+            alert('Data Sparepart tidak ditemukan');
         })
     }
     view(data) {
