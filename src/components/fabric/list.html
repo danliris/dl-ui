@@ -22,7 +22,7 @@
                 <th>Name</th>
                 <th>Composition</th>
                 <th>Construction</th>
-                <th>Thread</th>
+                <th>Yarn</th>
                 <th>Width</th>
                 <th>Unit of Measurement</th>
             </tr>
@@ -31,10 +31,10 @@
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.code}</td>
                 <td>${item.name}</td>
-                <td>${item.composition}</td>
-                <td>${item.construction}</td>
-                <td>${item.thread}</td>
-                <td>${item.width}</td>
+                <td>${item.detail.composition}</td>
+                <td>${item.detail.construction}</td>
+                <td>${item.detail.yarn}</td>
+                <td>${item.detail.width}</td>
                 <td>${item.UoM ? item.UoM.category : ''}</td>
             </tr>
         </tbody>
