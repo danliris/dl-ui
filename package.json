@@ -50,12 +50,8 @@
   "license": "CC0-1.0",
   "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
   "contributors": [
-    {
-      "name": "Arjen de Blok"
-    },
-    {
-      "name": "Bazyli Brzóska <bazyli.brzoska@gmail.com> (https://invent.life)"
-    }
+    "Arjen de Blok",
+    "Bazyli Brzóska <bazyli.brzoska@gmail.com> (https://invent.life)"
   ],
   "bugs": {
     "url": "https://github.com/aurelia/skeleton-navigation/issues"
@@ -138,5 +134,8 @@
       "es2015",
       "stage-1"
     ]
+  },
+  "directories": {
+    "test": "test"
   }
 }
