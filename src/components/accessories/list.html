@@ -17,6 +17,7 @@
             <tr>
                 <th>Kode</th>
                 <th>Nama</th>
+                <th>Harga</th>
                 <th>Deskripsi</th>
                 <th>Unit of Measurement</th>
             </tr>
@@ -25,6 +26,7 @@
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.code}</td>
                 <td>${item.name}</td>
+                 <td>${item.price}</td>
                 <td>${item.description}</td>
                  <td>${item.UoM ? item.UoM.category : ''}</td>
 

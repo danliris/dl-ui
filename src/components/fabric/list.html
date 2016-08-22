@@ -1,20 +1,22 @@
 <template>
     <h3>Fabrics</h3>
     <br>
-    <div class="form-group">
-        <label for="description" class="col-sm-1 control-label">Searching</label>
-        <div class="col-sm-8">
-            <div class="input-group">
-                <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="search by code" />
-                <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="search()"> Search </button>
+    <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="cari" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="search()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
                     </span>
-                <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="activate()"> View All </button>
-                    </span>
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+                </div>
+            </div>
+        </div> 
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -22,7 +24,7 @@
                 <th>Name</th>
                 <th>Composition</th>
                 <th>Construction</th>
-                <th>Thread</th>
+                <th>Yarn</th>
                 <th>Width</th>
                 <th>Unit of Measurement</th>
             </tr>
@@ -31,10 +33,10 @@
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.code}</td>
                 <td>${item.name}</td>
-                <td>${item.composition}</td>
-                <td>${item.construction}</td>
-                <td>${item.thread}</td>
-                <td>${item.width}</td>
+                <td>${item.detail.composition}</td>
+                <td>${item.detail.construction}</td>
+                <td>${item.detail.yarn}</td>
+                <td>${item.detail.width}</td>
                 <td>${item.UoM ? item.UoM.category : ''}</td>
             </tr>
         </tbody>
@@ -43,7 +45,4 @@
         There is no data found in the list.
     </div>
     <hr/>
-    <div class="btn-group pull-right">
-        <button class="btn btn-primary" click.delegate="create()">Create</button>
-    </div>
 </template>

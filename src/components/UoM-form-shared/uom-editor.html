@@ -1,19 +1,26 @@
 <template>
-
+<require from="customs/elements/horsey"></require>
 
     <div class="form-group ${error.UoM ? 'has-error':''}">
         <label for="UoM" class="col-sm-2 control-label">UoM</label>
         <div class="col-sm-10">
             <!--Show buttons only if there is no UoM data-->
-            <span if.bind="!data.UoM">
+            <!--<span if.bind="!data.UoM">
                 <button class="btn btn-primary" click.trigger="create()">Create</button>
                 <button class="btn btn-primary" click.delegate="">Load</button>
-            </span>
-            <span if.bind="data.UoM">
+            </span>-->
+            <!--<span if.bind="data.UoM">-->
                 <div class="row">
                     <div class="col-sm-2">Category</div>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="default.mainValue" value.bind="data.UoM.category" />
+                            <horsey 
+                                src.bind="uomApiUri" 
+                                category.bind="data.UoM.category" 
+                                value.bind="data.UoMID" 
+                                default.bind="data.UoM.default"
+                                units.bind="data.UoM.units"
+                                options.bind="{value:'_id', label:'category', default_uom:'default', uom_units:'units'}"></horsey>
+                        <!--<label>${data.UoM.category} - ${data.UoMID}</label>-->
                     </div>
                 </div>
                 <br/>
@@ -82,7 +89,7 @@
                          </table>
                     </div>
                 </div>
-            </span>
+            <!--</span>-->
         </div>
     </div>
 

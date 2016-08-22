@@ -1,0 +1,72 @@
+<template>
+    <!--<require from="../UoM-form-shared/uom-editor"></require>-->
+    <form class="form-horizontal">
+        <div class="form-group ${error.PRNo?'has-error':''}">
+            <label for="PRNo" class="col-sm-2 control-label">Nomor PR</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="PRNo" value.bind="data.PRNo" />
+                <span class="help-block">${error.PRNo}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.PONo?'has-error':''}">
+            <label for="PONo" class="col-sm-2 control-label">Nomor PO</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="PONo" value.bind="data.PONo" />
+                <span class="help-block">${error.PONo}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.RefPONo?'has-error':''}">
+            <label for="RefPONo" class="col-sm-2 control-label">Referensi Nomor PO</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="RefPONo" value.bind="data.RefPONo" />
+                <span class="help-block">${error.RefPONo}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.suppliername?'has-error':''}">
+            <label for="suppliername" class="col-sm-2 control-label">Nama Supplier</label>
+            <div class="col-sm-5">
+                <input class="form-control" name="suppliername" value.bind="data.supplier.name"></input>
+                <span class="help-block">${error.suppliername}</span>
+            </div>
+        </div>
+
+        <div class="form-group ${error.deliveryFeeByBuyer?'has-error':''}">
+            <label for="deliveryFeeByBuyer" class="col-sm-2 control-label">Ongkos Kirim</label>
+            <div class="col-sm-5">
+                  <select id="deliveryFeeByBuyer" value.bind="deliveryFeeByBuyer">
+                        <option value="false">Penjual</option>
+                        <option value="true">Pembeli</option>
+                    </select>
+                <span class="help-block">${error.deliveryFeeByBuyer}</span>
+            </div>
+        </div>
+
+        <div class="form-group ${error.deliveryDate?'has-error':''}">
+            <label for="deliveryDate" class="col-sm-2 control-label">Tanggal Kirim</label>
+            <div class="col-sm-5">
+                <input class="form-control" name="deliveryDate" value.bind="data.deliveryDate"></input>
+                <span class="help-block">${error.deliveryDate}</span>
+            </div>
+        </div>
+
+        <div class="form-group ${error.PPn?'has-error':''}">
+            <label for="PPn" class="col-sm-2 control-label">PPn</label>
+            <div class="col-sm-5">
+                <input class="form-control" name="PPn" value.bind="data.PPn"></input>
+                <span class="help-block">${error.PPn}</span>
+            </div>
+        </div>
+
+        <div class="form-group ${error.description?'has-error':''}">
+            <label for="description" class="col-sm-2 control-label">Keterangan</label>
+            <div class="col-sm-5">
+                <input class="form-control" name="description" value.bind="data.description"></input>
+                <span class="help-block">${error.description}</span>
+            </div>
+        </div>
+
+
+        <!-- Shared items component -->
+        <!--<uom-editor data.bind="data" error.bind="error"></uom-editor>-->
+    </form>
+</template>

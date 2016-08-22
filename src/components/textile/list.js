@@ -29,7 +29,7 @@ export class List {
             }) 
             .catch(e=> {
             console.log(e);
-            alert('Data Textile tidak ditemukan');
+            alert('Data Tekstile tidak ditemukan');
         })
     }
     view(data) {
