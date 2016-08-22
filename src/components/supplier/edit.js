@@ -8,10 +8,10 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service; 
+        
     }
 
     activate(params) {
-        document.getElementById("code").disabled = true;
         var id = params.id;
         this.service.getById(id)
             .then(data => {

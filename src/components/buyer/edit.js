@@ -11,7 +11,6 @@ export class Edit {
     }
 
     activate(params) {
-        document.getElementById("code").disabled = true;
         var id = params.id;
         this.service.getById(id)
             .then(data => {
