@@ -191,3 +191,13 @@ div.au-stagger {
     display: none;
   }
 }
+
+.padding-right-20 {
+  padding-right: 20px;
+}
+
+.gray-box {
+  border:1px solid #eaeaea;
+  padding:10px;
+  margin:10px auto;
+}

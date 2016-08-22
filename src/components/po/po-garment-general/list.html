@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari nomor po" />
+                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari" />
                     <span class="input-group-btn">
                         <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
                         <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
@@ -21,8 +21,8 @@
         </div> 
         <div class="row">
             <div class="col-sm-3" >
-                <div style="border:1px solid #eaeaea;padding:10px;margin:10px auto;">
-                    <span class="control-label" style="padding-right:20px;">Posting</span>
+                <div class="gray-box">
+                    <span class="control-label" class="padding-right-20">Posting</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
                         <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="col-sm-3" >
-                <div style="border:1px solid #eaeaea;padding:10px;margin:10px auto;">
-                    <span class="control-label" style="padding-right:20px;">Cetak</span>
+                <div class="gray-box">
+                    <span class="control-label" class="padding-right-20">Cetak</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default" click.delegate="tooglePrintTrue()">Ya</button>
                         <button type="button" class="btn btn-default" click.delegate="tooglePrintFalse()">Tidak</button>
