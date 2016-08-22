@@ -1,20 +1,22 @@
 <template>
     <h3>Unit of Measuremets</h3>
     <br>
-    <div class="form-group">
-        <label for="description" class="col-sm-1 control-label">Searching</label>
-        <div class="col-sm-8">
-            <div class="input-group">
-                <input type="text" class="form-control" name="keyword" value.bind="data.category" placeholder="search by keyword" />
-                <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="searching()"> Search </button>
+    <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" value.bind="data.category" placeholder="cari" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
                     </span>
-                <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="activate()"> View All </button>
-                    </span>
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+                </div>
+            </div>
+        </div> 
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -36,7 +38,4 @@
         There is no data found in the list.
     </div>
     <hr/>
-    <div class="btn-group pull-right">
-        <button class="btn btn-primary" click.delegate="create()">Create</button>
-    </div>
 </template>
