@@ -54,7 +54,7 @@ const coreBundles = {
     'aurelia-templating-resources'
   ]
 }
-
+let jsonLoader = require('json-loader');
 const baseConfig = {
   entry: {
     'app': [/* this is filled by the aurelia-webpack-plugin */],

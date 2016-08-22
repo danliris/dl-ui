@@ -14,6 +14,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="pull-right">
+                    <button class="btn btn-default" click.delegate="back()" >Kembali</button>
                     <button class="btn btn-primary" click.delegate="print()" >Cetak</button>
                 </div>
             </div>
@@ -50,12 +51,4 @@
         </div>
         <hr/>
     </div><!-- /.display-wrapper -->
-    <div class="print-wrapper">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, in quas nisi sit cupiditate, commodi repellendus ab velit labore inventore rerum necessitatibus beatae enim laborum, ipsum amet atque assumenda, accusantium.
-        <ul>
-            <li repeat.for="item of dataToBePrinting">
-                ${item.PODLNo}
-            </li>
-        </ul>
-    </div><!-- /.print-wrapper -->
 </template>

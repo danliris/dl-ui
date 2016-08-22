@@ -56,6 +56,10 @@ export class List {
         }
     }
     
+    back() {
+        this.router.navigateToRoute('list');
+    }
+    
     print() {
         window.print();
     }
