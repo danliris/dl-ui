@@ -1,4 +1,6 @@
 <template>
+    <require from="../../../utils/date-format"></require>
+  
     <div class="display-wrapper">
         <h3>PO Barang Umum</h3>
         <br>
@@ -60,7 +62,7 @@
                             <input checked.bind="item.isPosting" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
                         </td>
                         <td class="${isPrint ? '' : 'hide'}">
-                            <input checked.bind="item.isPrint" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.PONo}</td>
                         <td>${item.RefPONo}</td>
@@ -76,17 +78,96 @@
         </div>
         <hr/>
     </div><!-- /.display-wrapper -->
-    <div class="print-wrapper">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, in quas nisi sit cupiditate, commodi repellendus ab velit labore inventore rerum necessitatibus beatae enim laborum, ipsum amet atque assumenda, accusantium.
-        <ul>
-            <li repeat.for="item of dataToBePrinting">
-                ${item.PONo}
-            </li>
-        </ul>
-        <ul>
-            <li repeat.for="item of dataToBePosting">
-                ${item.PONo}
-            </li>
-        </ul>
+    <div class="print-wrapper a5" repeat.for="data of dataToBePrinting">
+        <div class="row">
+            <div class="col-xs-8">
+                <address>
+                    <label class="header">PT. DAN LIRIS</label><br />
+                    Head Office : <br />
+                    Jalan Merapi no.23<br />
+                    Desa Banaran, Kec. Grogol, Kab.Sukoharjo 57193<br />
+                    Telp. (0271) 714400, 740888<br />
+                    Fax.  (0271) 717177<br />
+                    Website http://www.danliris.com/<br />
+                    PO. BOX 166 Solo 57100
+                </address>
+            </div>
+            <div class="col-xs-4">
+                <span class="iso">FM-6.00-06-005/R 1</span><br />
+                ${data.PONo}
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-xs-7">
+                Kepada Yth : ${data.supplier.name}
+            </div>
+            <div class="col-xs-5">
+                <div class="pull-right">
+                    <div class="text-right">Solo, ${currentDate | dateFormat:'D MMMM YYYY'}</div>
+                    <div class="gray-box">
+                        Mohon di-fax kembali setelah ditandatangani dan distempel perusahaan. Terima kasih.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-justify">
+                    Dengan hormat,<br />
+                    Yang bertanda tangan di bawah ini, PT. DAN LIRIS, SOLO (selanjutnya disebut sebagai Pembeli)
+                    dan ${data.supplier.name} (selanjutnya disebut sebagai Penjual) saling menyetujui
+                    untuk mengadakan kontrak jual beli dengan ketentuan sebagai berikut :
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">NAMA DAN JENIS BARANG</th>
+                        <th class="text-center">JUMLAH</th>
+                        <th class="text-center">HARGA SATUAN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
+                    <tr repeat.for="item of data.items">
+                        <td>${item.product.name}</td>
+                        <td class="text-center">${item.qty}</td>
+                        <td class="text-right">${item.price}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <div class="row">
+                <div class="col-xs-8">
+                    Ongkos kirim : Ditanggung oleh ${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}<br />
+                    Pembayaran   : ${data.termOfPayment}
+                </div>
+                <div class="col-xs-4">
+                    Delivery     : ${data.deliveryDate | dateFormat:'D MMMM YYYY'} <br />
+                    Lain - lain  :
+                </div>
+            </div>
+            <div class="row sign-footer">
+                <div class="col-xs-5">
+                    <div style="text-align:center;">
+                        Pembeli,<br /><br /><br /><br /><br /><br />
+                        Nama<br />
+                        Bag. Pembelian
+                    </div>
+                </div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-5">
+                    <div style="text-align:center;">
+                        Penjual,<br /><br /><br /><br /><br /><br />
+                        _______________________
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="page-break-after:always;"></div>
     </div><!-- /.print-wrapper -->
 </template>

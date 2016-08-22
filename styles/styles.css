@@ -1,5 +1,8 @@
 body {
   margin: 0;
+}
+
+.container {
   padding-top:50px;
 }
 
@@ -175,6 +178,10 @@ div.au-stagger {
   }
 }
 
+@page {
+    size: A5;
+    margin: 0 5mm;
+}
 
 @media screen {
   .print-wrapper {
@@ -183,8 +190,57 @@ div.au-stagger {
 }
         
 @media print {
+  
   .print-wrapper {
     display: block;
+    margin-top:50px;
+    position:relative;
+  }
+
+  .print-wrapper * {
+    line-height: 1.2em;      
+  } 
+   
+  .container {
+    padding: 0;
+  }
+  
+  .header {
+    font-size:1.5em;
+  }
+  
+  address {
+    font-weight:bold;
+  }
+  
+  .a5 table {
+    margin-top: .5cm;
+    height: 6.5cm;
+  }
+  
+  .a4 {
+    width: 210mm;
+    height: 297mm;
+  }
+  
+  .a5 {
+    width: 148mm;
+    height: 210mm;
+    font-size:10pt;
+  }
+  
+  .iso {
+    font-weight:bold;
+  }
+  
+  .footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+  }
+  
+  .sign-footer {
+    margin-top:10px;    
   }
             
  .display-wrapper {
