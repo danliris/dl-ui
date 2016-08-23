@@ -1,0 +1,20 @@
+<template> 
+    <require from="customs/elements/horsey"></require>
+    <div class="row">
+        <div class="col-md-3">
+            <horsey src.bind="uri" selection.bind="data.product" options.bind="{label:'label', value:'_id'}" map.bind="map"></horsey>
+        </div>
+        <div class="col-md-2">
+            <input type="number" value.bind="data.price"></input>
+        </div>
+        <div class="col-md-2">
+            <input type="number" value.bind="quantity"></input>
+        </div>
+        <div class="col-md-2">
+            <input type="number" value.bind="data.qty"></input>
+        </div>
+        <div class="col-md-3">
+            <button click.delegate="remove()">remove</button>
+        </div>
+    </div>
+</template>

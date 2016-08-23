@@ -1,0 +1,8 @@
+<template>
+    <!--<require from="../UoM-form-shared/uom-editor"></require>-->
+    <require from="../po-item"></require> 
+    <form class="form-horizontal"> 
+        <button click.delegate="addItem()">add</button>        
+        <po-item repeat.for="item of data.items" data.bind="item" uri.bind="uri" remove.delegate="removeItem(item)"></po-item>
+    </form>
+</template>

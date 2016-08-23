@@ -1,0 +1,49 @@
+<template>
+    <h3>Job Orders</h3>
+    <br>  
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Nomor PR</th>
+                <th>Nomor PO</th>
+                <th>Nama Buyer</th>
+                <th>Nama Supplier</th>
+                <th>Tanggal Kirim</th>
+                <th>Term of Payment</th>
+                <th>Status Post</th>
+                <th>Nomor PO DL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.PRNo}</td>
+                <td>${item.PONo}</td>
+                <td>${item.buyer.name}</td>
+                <td>${item.supplier.name}</td>
+                <td>${item.deliveryDate}</td>
+                <td>${item.termOfPayment}</td>
+                <td if.bind="item.isPosted">
+                    POSTED
+                </td>
+                <td if.bind="!item.isPosted">
+                    DRAFT
+                </td>
+                <!--<% if(item.isPosted) { %>
+                    POSTED
+                    <%} else {%>
+                       
+                        <% } %>
+                        </TD>-->
+                <td>${item.PODLNo}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        There is no data found in the list.
+    </div>
+    <hr/>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary" click.delegate="create()">Create</button>
+    </div>
+</template>
