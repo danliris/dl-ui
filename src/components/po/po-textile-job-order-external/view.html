@@ -1,0 +1,93 @@
+<template>
+    <h3>View PO Tekstil Eksternal</h3>
+    <form class="form-horizontal">
+        
+        <div class="form-group" if.bind="data.PODLNo != ''">
+            <label for="contact" class="col-sm-3 control-label">Nomor PODL</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PODLNo}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Nomor Referensi PO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RefPONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Nomor PR</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PRNo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Supplier</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.supplier.name}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Buyer</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.buyer.name}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-3 control-label">Ongkos Kirim Ditanggung oleh</label>
+            <div class="col-sm-9">
+                <p if.bind="data.deliveryFeeByBuyer" class="form-control-static">Pembeli</p>
+                <p if.bind="!data.deliveryFeeByBuyer" class="form-control-static">Penjual</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contact" class="col-sm-3 control-label">Tanggal Kirim</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.deliveryDate}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contact" class="col-sm-3 control-label">PPn %</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.ppn}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contact" class="col-sm-3 control-label">Tempo Pembarayan</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.termOfPayment}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contact" class="col-sm-3 control-label">Keterangan</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.description}</p>
+            </div>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>Kwantum</th>
+                        <th>Harga Barang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data.items">
+                        <td>${item.product.name}</td>
+                        <td>${item.qty}</td>
+                        <td>${item.price}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <hr/>
+    <div class="pull-right">
+        <button click.delegate="list()" class='btn btn-default'>Kembali</button>
+        <button click.delegate="edit()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Ubah</button>
+        <button click.delegate="delete()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-danger">Hapus</button>
+    </div>
+</template>

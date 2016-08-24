@@ -2,7 +2,7 @@
     <require from="../../../utils/date-format"></require>
   
     <div class="display-wrapper">
-        <h3>PO Tekstil Eksternal</h3>
+        <h3>PO Tekstil - Umum  ATK & Kebersihan</h3>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -52,7 +52,6 @@
                         <th>Nomor PO</th>
                         <th>Nomor Referensi PO</th>
                         <th>Supplier</th>
-                        <th>Buyer</th>
                         <th>Tanggal Kirim</th>
                         <th>Nomor PODL</th>
                         <th></th>
@@ -70,7 +69,6 @@
                         <td>${item.PONo}</td>
                         <td>${item.RefPONo}</td>
                         <td>${item.supplier.name}</td>
-                        <td>${item.buyer.name}</td>
                         <td>${item.deliveryDate | dateFormat:'D MMMM YYYY'}</td>
                         <td>${item.PODLNo}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
