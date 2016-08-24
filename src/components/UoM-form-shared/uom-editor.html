@@ -4,42 +4,39 @@
     <div class="form-group ${error.UoM ? 'has-error':''}">
         <label for="UoM" class="col-sm-2 control-label">UoM</label>
         <div class="col-sm-10">
-            <!--Show buttons only if there is no UoM data-->
-            <!--<span if.bind="!data.UoM">
-                <button class="btn btn-primary" click.trigger="create()">Create</button>
-                <button class="btn btn-primary" click.delegate="">Load</button>
-            </span>-->
-            <!--<span if.bind="data.UoM">-->
-                <div class="row">
+                <div class="row ${error.category?'has-error':''}">
                     <div class="col-sm-2">Category</div>
                     <div class="col-sm-5">
-                            <horsey 
+                            <!--<horsey 
                                 src.bind="uomApiUri" 
                                 category.bind="data.UoM.category" 
                                 value.bind="data.UoMID" 
                                 default.bind="data.UoM.default"
                                 units.bind="data.UoM.units"
-                                options.bind="{value:'_id', label:'category', default_uom:'default', uom_units:'units'}"></horsey>
-                        <!--<label>${data.UoM.category} - ${data.UoMID}</label>-->
+                                options.bind="{value:'_id', label:'category', default_uom:'default', uom_units:'units'}"></horsey>-->
+                                 <horsey src.bind="uomApiUri" selection.bind="data.UoM" options.bind="{label:'category', value:'_id'}"></horsey>
+                                <span class="help-block">${error.category}</span>
+                                
                     </div>
                 </div>
                 <br/>
-                <div class="row">
+                <div class="row ${error.default?'has-error':''}">
                     <div class="col-sm-2">Default Unit</div>
                     <div class="col-sm-10">
                         <div class="row">
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <input type="number" class="form-control" name="default.mainValue" value.bind="data.UoM.default.mainValue" />
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <input type="text" class="form-control" name="default.mainUnit" value.bind="data.UoM.default.mainUnit" />
                             </div>    
                         </div> 
-                        <!--${data.UoM.default.mainValue + " " + data.UoM.default.mainUnit + " -- " + data.UoM.default.convertedValue + " " + data.UoM.default.convertedUnit}-->
-                    </div>
+                        <span class="help-block">${error.default}</span>
+                        </div>
                 </div>
-                <div class="row">
+                <div class="row ${error.units?'has-error':''}">
                     <div class="col-sm-2">Other units</div>
+                    <span class="help-block">${error.units}</span>
                 </div>
                 <div class="row">
                     <div class="col-sm-10">
