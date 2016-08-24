@@ -26,6 +26,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="PIC" class="col-sm-2 control-label">PIC</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.PIC}</p>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="import" class="col-sm-2 control-label">Import</label>
             <div class="col-sm-10">
                 <p class="form-control-static">${data.import}</p>
@@ -33,8 +39,8 @@
         </div>
     </form> 
     <hr/><div class="btn-group pull-right">
-        <a click.delegate="list()" class='btn btn-default btn-sm'>Back</a>
+        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
         <a click.delegate="edit()" class='btn btn-primary btn-sm'>Edit</a>
-        <a click.delegate="delete()" class='btn btn-danger btn-sm'>Delete</a>
+        <a click.delegate="delete()" class='btn btn-danger btn-sm'>Hapus</a>
     </div> 
 </template>

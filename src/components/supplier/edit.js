@@ -8,6 +8,7 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service; 
+        
     }
 
     activate(params) {
