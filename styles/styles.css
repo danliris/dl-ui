@@ -218,6 +218,11 @@ div.au-stagger {
     height: 6.5cm;
   }
   
+  .a4 table {
+    margin-top: .5cm;
+    height: 14cm;
+  }
+  
   .a4 {
     width: 210mm;
     height: 297mm;
