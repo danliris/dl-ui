@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-  padding-top:50px;
+  padding:100px 0;
 }
 
 .splash {
@@ -248,8 +248,8 @@ div.au-stagger {
   }
 }
 
-.padding-right-20 {
-  padding-right: 20px;
+.padding-right-10 {
+  padding-right: 10px;
 }
 
 .gray-box {

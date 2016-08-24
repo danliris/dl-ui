@@ -22,6 +22,7 @@ export class Service extends RestService {
     }
 
     create(data) {
+        data.PRNo = "pr/test/212312312"
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
