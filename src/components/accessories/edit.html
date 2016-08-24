@@ -2,6 +2,14 @@
     <h3>Ubah Accessories</h3>
     <require from="./data-form"></require>
     <block>
+        <form class="form-horizontal">
+        <div class="form-group ${error.code?'has-error':''}">
+            <label for="code" class="col-sm-2 control-label">Kode</label>
+            <div class="col-sm-10">
+                <label for="code" class="control-label">${data.code}</label>
+                <span class="help-block"></span>
+            </div>
+        </div>
         <data-form data.bind="data" error.bind="error"></data-form>
         <hr/>
         <div class="btn-group pull-right">
