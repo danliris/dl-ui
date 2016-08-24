@@ -10,7 +10,7 @@ export class App {
       { route: 'buyers', name: 'buyers', moduleId: './components/buyer/index', nav: true, title: 'Buyer' },
       { route: 'suppliers', name: 'suppliers', moduleId: './components/supplier/index', nav: true, title: 'Supplier' },
       { route: 'uoms', name: 'uoms', moduleId: './components/UoM/index', nav: true, title: 'Satuan' },
-      { route: 'fabrics', name: 'fabrics', moduleId: './components/fabric/index', nav: true, title: 'Kain' },
+      { route: 'fabrics', name: 'fabrics', moduleId: './components/fabric/index', nav: true, title: 'Fabric' },
       { route: 'textiles', name: 'textiles', moduleId: './components/textile/index', nav: true, title: 'Tekstil' },
       { route: 'accessories', name: 'accessories', moduleId: './components/accessories/index', nav: true, title: 'Aksesoris' },
       { route: 'spareparts', name: 'spareparts', moduleId: './components/sparepart/index', nav: true, title: 'Sparepart' },
