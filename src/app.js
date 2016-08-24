@@ -15,15 +15,10 @@ export class App {
       { route: 'uoms', name: 'uoms', moduleId: './components/UoM/index', nav: true, title: 'Satuan' },
       { route: 'spareparts', name: 'spareparts', moduleId: './components/sparepart/index', nav: true, title: 'Sparepart' },
       { route: 'generalmerchandises', name: 'generalmerchandises', moduleId: './components/general-merchandise/index', nav: true, title: 'Barang Umum' },
-<<<<<<< HEAD
       { route: 'pogarmentgenerals', name: 'pogarmentgenerals', moduleId: './components/po/po-garment-general/index', nav: true, title: 'PO Barang Umum' },
       { route: 'garmentspareparts', name: 'garmentspareparts', moduleId: './components/po/po-garment-sparepart/index', nav: true, title: 'Garment Sparepart' },
-      { route: 'garmentaccessories', name: 'garmentaccessories', moduleId: './components/po/po-garment-accessories/index', nav: true, title: 'Garment Accessories' }
-=======
-      { route: 'pogarmentgenerals', name: 'pogarmentgenerals', moduleId: './components/po/po-garment-general/index', nav: true, title: 'PO Garment Barang Umum' },
-      { route: 'garmentspareparts', name: 'garmentspareparts', moduleId: './components/po/po-garment-sparepart/index', nav: true, title: 'PO Garment Sparepart' },
+      { route: 'garmentaccessories', name: 'garmentaccessories', moduleId: './components/po/po-garment-accessories/index', nav: true, title: 'Garment Accessories' },
       { route: 'jo/textile/external', name: 'jo-textile-external', moduleId: './components/po/po-textile-job-order-external/index', nav: true, title: 'JO Textile: External' }
->>>>>>> b1655e35a0b3e273d1863ad3799a1040e99a4c5c
 
     ]);
 
