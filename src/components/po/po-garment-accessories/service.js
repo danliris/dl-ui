@@ -2,8 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../rest-service';
 
-const serviceUri = require('../../../host').core + '/v1/po/garmentaccessories';
-const serviceUriPODL = require('../../../host').core + '/v1/po/garmentaccessories/podl';
+const serviceUri = require('../../../host').core + '/v1/po/poGarmentAccessoriess';
 
 export class Service extends RestService {
 
