@@ -93,39 +93,39 @@
                     
                 </address>
                 
-                Kepada Yth : ${data.supplier.name}
+                Kepada Yth : ${data.supplier.name}<br /><br />
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-4"">
                 <div class="row">
                     <div class="col-xs-4">
                         Ref. No
                     </div>
-                    <div class="col-xs-8">
-                        : ${data.iso}
+                    <div class="col-xs-7">
+                        ${data.iso}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-4">
                         PA. No
                     </div>
-                    <div class="col-xs-8">
-                        : ${data.RefPONo}
+                    <div class="col-xs-7">
+                        ${data.RefPONo}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-4">
                         No
                     </div>
-                    <div class="col-xs-8">
-                        : ${data.RONo}
+                    <div class="col-xs-7">
+                        ${data.RONo}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-4">
                         Pesanan
                     </div>
-                    <div class="col-xs-8">
-                        : ${data.buyer.code}<br />
+                    <div class="col-xs-7">
+                        ${data.buyer.code}<br />
                         ${data.article}<br />
                         ${data.deliveryDate | dateFormat :'YYMMDD'}<br />
                     </div>
@@ -157,19 +157,121 @@
                         <td>${item.product.name}</td>
                         <td class="text-center">${item.qty}</td>
                         <td class="text-right">${item.price}</td>
+                        <td class="text-right">${item.price}</td>
                     </tr>
                 </tbody>
+                 <tfoot>
+                    <tr>
+                        <td class="text-center">Jumlah Total</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">PPN 10 %</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">Nominal</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div class="footer">
             <div class="row">
-                <div class="col-xs-8">
-                    Ongkos kirim : Ditanggung oleh ${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}<br />
-                    Pembayaran   : ${data.termOfPayment}
+                <div class="col-xs-2">
+                    Ongkos kirim
                 </div>
-                <div class="col-xs-4">
-                    Delivery     : ${data.deliveryDate | dateFormat:'D MMMM YYYY'} <br />
-                    Lain - lain  :
+                <div class="col-xs-10">
+                    : Ditanggung oleh ${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}
+                </div>
+                <div class="col-xs-2">
+                    Delivery    
+                </div>
+                <div class="col-xs-10">
+                    : ${data.deliveryDate | dateFormat:'D MMMM YYYY'}
+                </div>
+                <div class="col-xs-2">
+                    Pembayaran   
+                </div>
+                <div class="col-xs-10">
+                    : ${data.termOfPayment} 
+                </div>
+                <div class="col-xs-2">
+                    Lain - lain  
+                </div>
+                <div class="col-xs-10">
+                    : ${data.description}
+                </div>
+                <div class="col-xs-2">
+                    Standard Quality 
+                </div>
+                <div class="col-xs-10">
+                    Jls ; AATCC ; ISO
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-10">
+                    Shrinkage test untuk ${data.standardQuality.shrinkage} %
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-10">
+                    <div class="col-xs-3">
+                        Rubbing Test :
+                    </div>
+                    <div class="col-xs-9">
+                        WET Rubbing ${data.standardQuality.wetRubbing} %
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-10">
+                    <div class="col-xs-3">
+                    </div>
+                    <div class="col-xs-9">
+                        Dry Rubbing ${data.standardQuality.dryRubbing} %
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-10">
+                    Washing test : ${data.standardQuality.washing} %
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-10">
+                    <div class="col-xs-3">
+                        Prespiration Test :
+                    </div>
+                    <div class="col-xs-9">
+                        Dark ${data.standardQuality.darkPrespiration} %
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-10">
+                    <div class="col-xs-3">
+                    </div>
+                    <div class="col-xs-9">
+                        Light / Med ${data.standardQuality.lightMedPrespiration} %
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    Piece Length
+                </div>
+                <div class="col-xs-10">
+                    60 yards up 20 %
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-10">
+                    120 yards up 80 %
                 </div>
             </div>
             <div class="row sign-footer">
