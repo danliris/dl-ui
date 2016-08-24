@@ -1,66 +1,78 @@
-import {inject, bindable, bindingMode} from 'aurelia-framework';
-var HorseyJs = require('horsey');
+import {inject, bindable, bindingMode, computedFrom} from 'aurelia-framework';
+var horsey = require('horsey');
 
 @inject(Element)
 export class Horsey {
     @bindable src;
     @bindable filter;
+    @bindable options;
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) selection;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) default;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) units;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) category;
-    
-    
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) map;
 
-    @bindable options;
 
     constructor(element) {
         this.element = element;
     }
 
     attached() {
-        // console.log(this.options);
-        this.selection = {};
         var uri = `${this.src}?${this.filter ? this.filter : 'keyword'}`;
-        HorseyJs(this.element.querySelector('input'), {
+
+        horsey(this.element.querySelector('input'), {
             predictNextSearch: info => {
-                // let changeEvent;
-                // if (window.CustomEvent) {
-                //     changeEvent = new CustomEvent('ce', {
-                //         detail: {
-                //             value: info.selection
-                //         },
-                //         bubbles: true
-                //     });
-                // } else {
-                //     changeEvent = document.createEvent('CustomEvent');
-                //     changeEvent.initCustomEvent('ce', true, true, {
-                //         detail: {
-                //             value: info.selection
-                //         }
-                //     });
-                // }
-                // this.element.dispatchEvent(changeEvent); 
-                this.selection = info.selection;
-                this.value = info.selection[eval(this.options).value];
-                this.default = info.selection[eval(this.options).default_uom];
-                this.units = info.selection[eval(this.options).uom_units];
-                this.category = info.selection[eval(this.options).label];
+                this.setSelection(info.selection);
             },
             source: (data, done) => {
-                fetch(`${uri}=${data.input}`)
-                    .then(result => {
-                        result.json().then(json => {
-                            done(null, [{
-                                list: json.data
-                            }])
-                        })
+                this.fetch(`${uri}=${data.input}`)
+                    .then(list => {
+                        done(null, [{
+                            list: list
+                        }])
                     });
             },
-            getText: eval(this.options).label,
-            getValue: eval(this.options).value
-        })
+            getText: this.options.label,
+            getValue: this.options.value
+        });
+
+        if (this.selection) {
+            this.fetch(`${uri}=${this.text}`)
+                .then(list => {
+                    var item = list.find((item, index, arr) => {
+                        return this.getValue(item) == this.getValue(this.selection);
+                    });
+                    if (item) {
+                        this.setSelection(item);
+                    }
+                })
+        }
+    }
+
+    fetch(uri) {
+        return new Promise((resolve, reject) => {
+            fetch(uri)
+                .then(result => {
+                    result.json().then(json => {
+                        resolve(this.map ? this.map(json) : json.data);
+                    });
+                });
+        });
+    }
+
+    @computedFrom("selection", "options.label")
+    get text() {
+        return this.selection ? this.selection[this.options.label] : '';
+    }
+    set text(value) {
+        this.selection[this.options.label] = value;
+    }
+
+    setSelection(selection) {
+        this.selection = selection;
+        this.value = this.getValue(this.selection);
+    }
+
+    getValue(data) {
+        return data[this.options.value];
     }
 }

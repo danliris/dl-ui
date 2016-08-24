@@ -15,6 +15,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        this.today = new Date();
     }
 
     activate() {
