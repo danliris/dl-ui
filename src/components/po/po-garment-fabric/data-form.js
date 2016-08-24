@@ -6,7 +6,6 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    uri = "http://dl-core-api.mybluemix.net/v1/core/fabrics";
     uriSupplier = "http://dl-core-api.mybluemix.net/v1/core/suppliers";
     uriBuyer = "http://dl-core-api.mybluemix.net/v1/core/buyers";
 
@@ -20,7 +19,7 @@ export class DataForm {
     activate() {
 
     }
-
+    
     attached() {
         this.bindingEngine.propertyObserver(this.data, "supplier").subscribe((newValue, oldValue) => {
             this.data.supplier = newValue;
@@ -31,17 +30,6 @@ export class DataForm {
             this.data.buyer = newValue;
             this.data.buyerId = newValue._id;
         });
-    }
-
-    addItem() {
-        this.data.items = this.data.items ? this.data.items : [];
-        this.data.items.push({ product: { name: 'item' } });
-        console.log(this.data);
-    }
-
-    removeItem(item) {
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
     }
 
     mapSupplier(result) {
@@ -67,4 +55,6 @@ export class DataForm {
 
         return list;
     }
+    
+    
 } 
