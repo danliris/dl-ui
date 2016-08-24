@@ -8,6 +8,14 @@
             </div>
         </div>
         
+        <div class="form-group ${error.RONo?'has-error':''}">
+            <label for="RONo" class="col-sm-3 control-label">Nomor RO</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="RONo" value.bind="data.RONo" />
+                <span class="help-block">${error.RONo}</span>
+            </div>
+        </div>
+        
         <require from="customs/elements/horsey"></require>
         <div class="form-group ${error.suppliername?'has-error':''}">
             <label for="suppliername" class="col-sm-3 control-label">Supplier</label>

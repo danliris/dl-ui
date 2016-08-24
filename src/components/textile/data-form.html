@@ -21,7 +21,7 @@
         <div class="form-group ${error.price?'has-error':''}">
             <label for="price" class="col-sm-2 control-label">Harga</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="price" value.bind="data.price" />
+                <input type="number" class="form-control" name="price" value.bind="data.price" />
                 <span class="help-block">${error.price}</span>
             </div>
         </div>
