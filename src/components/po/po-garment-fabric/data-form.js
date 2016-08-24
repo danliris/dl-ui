@@ -6,8 +6,9 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    uri = "http://dl-core-api.mybluemix.net/v1/core/generalmerchandises";
+    uri = "http://dl-core-api.mybluemix.net/v1/core/fabrics";
     uriSupplier = "http://dl-core-api.mybluemix.net/v1/core/suppliers";
+    uriBuyer = "http://dl-core-api.mybluemix.net/v1/core/buyers";
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -24,6 +25,11 @@ export class DataForm {
         this.bindingEngine.propertyObserver(this.data, "supplier").subscribe((newValue, oldValue) => {
             this.data.supplier = newValue;
             this.data.supplierId = newValue._id;
+        });
+        
+        this.bindingEngine.propertyObserver(this.data, "buyer").subscribe((newValue, oldValue) => {
+            this.data.buyer = newValue;
+            this.data.buyerId = newValue._id;
         });
     }
 
@@ -42,6 +48,18 @@ export class DataForm {
         var list = result.data.map(item => {
             var _item = item;
             _item.labelSupplier = `${_item.code} - ${_item.name}`;
+
+            console.log(_item);
+            return _item
+        });
+
+        return list;
+    }
+
+    mapBuyer(result) {
+        var list = result.data.map(item => {
+            var _item = item;
+            _item.labelBuyer = `${_item.code} - ${_item.name}`;
 
             console.log(_item);
             return _item

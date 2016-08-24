@@ -1,5 +1,5 @@
 <template>
-    <h3>View PO Barang Umum</h3>
+    <h3>View PO Master Fabric</h3>
     <form class="form-horizontal">
         
         <div class="form-group" if.bind="data.PODLNo != ''">
@@ -13,6 +13,36 @@
             <label for="code" class="col-sm-3 control-label">Nomor Referensi PO</label>
             <div class="col-sm-9">
                 <p class="form-control-static">${data.RefPONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Nomor RO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Nomor PR</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PRNo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Nomor Referensi PO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RefPONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Artikel</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.artikel}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Buyer</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.buyer.name}</p>
             </div>
         </div>
         <div class="form-group">
