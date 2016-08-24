@@ -61,16 +61,31 @@ export class List {
     
     pushDataToBePosting(item) {
         if (item.isPosting) {
-            this.dataToBePosting.push(item);
+            this.dataToBePosting.push(item.PONo);
         }
         else {
-            var index = this.dataToBePosting.indexOf(item);
+            var index = this.dataToBePosting.indexOf(item.PONo);
             this.dataToBePosting.splice(index, 1);
         }
     }
     
+    view(data) {
+        this.router.navigateToRoute('view', { id: data._id });
+    }
+    
     print() {
         window.print();
+    }
+    
+    posting() {
+        this.service.createGroup(this.dataToBePosting)
+            .then(result => {
+                this.gotoListPODL();
+            })
+            .catch(e => {
+                console.log(e);
+                this.error = e;
+            })
     }
     
     create() {

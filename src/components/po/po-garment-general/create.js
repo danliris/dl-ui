@@ -15,9 +15,10 @@ export class Create {
     }
 
     save() {
+        console.log(JSON.stringify(this.data));
         this.service.create(this.data)
             .then(result => {
-                this.list();
+                this.back();
             })
             .catch(e => {
                 console.log(e);
