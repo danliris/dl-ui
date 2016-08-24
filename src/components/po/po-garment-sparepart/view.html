@@ -1,74 +1,94 @@
 <template>
-   <h3>Detail PO Garment Sparepart</h3> 
+    <h3>View PO Master Fabric</h3>
     <form class="form-horizontal">
-           <div class="form-group">
-            <label for="iso" class="col-sm-2 control-label">ISO</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.iso}</p>
+        
+        <div class="form-group" if.bind="data.PODLNo != ''">
+            <label for="contact" class="col-sm-3 control-label">Nomor PODL</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PODLNo}</p>
             </div>
         </div>
+        
         <div class="form-group">
-            <label for="PRNo" class="col-sm-2 control-label">Nomor PR</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.PRNo}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="PONo" class="col-sm-2 control-label">Nomor PO</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.PONo}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="RefPONo" class="col-sm-2 control-label">Referensi PO </label>
-            <div class="col-sm-10">
+            <label for="code" class="col-sm-3 control-label">Nomor Referensi PO</label>
+            <div class="col-sm-9">
                 <p class="form-control-static">${data.RefPONo}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="suppliername" class="col-sm-2 control-label">Nama Supplier</label>
-            <div class="col-sm-10">
+            <label for="code" class="col-sm-3 control-label">Nomor PR</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PRNo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Nomor Referensi PO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RefPONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Supplier</label>
+            <div class="col-sm-9">
                 <p class="form-control-static">${data.supplier.name}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="deliveryFeeByBuyer" class="col-sm-2 control-label">Ongkos Kirim</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.deliveryFeeByBuyer}</p>
+            <label for="address" class="col-sm-3 control-label">Ongkos Kirim Ditanggung oleh</label>
+            <div class="col-sm-9">
+                <p if.bind="data.deliveryFeeByBuyer" class="form-control-static">Pembeli</p>
+                <p if.bind="!data.deliveryFeeByBuyer" class="form-control-static">Penjual</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="termOfPayment" class="col-sm-2 control-label">Term of Payment</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.termOfPayment}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="deliveryDate" class="col-sm-2 control-label">Tanggal Kirim</label>
-            <div class="col-sm-10">
+            <label for="contact" class="col-sm-3 control-label">Tanggal Kirim</label>
+            <div class="col-sm-9">
                 <p class="form-control-static">${data.deliveryDate}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="ppn" class="col-sm-2 control-label">PPn</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.ppn}</p>
+            <label for="contact" class="col-sm-3 control-label">Dikenakan PPn 10% ?</label>
+            <div class="col-sm-9">
+                <p class="form-control-static" if.bind="data.usePPn">Ya</p>
+                <p class="form-control-static" if.bind="!data.usePPn">Tidak</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">Keterangan</label>
-            <div class="col-sm-10">
+            <label for="contact" class="col-sm-3 control-label">Tempo Pembayaran</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.termOfPayment}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contact" class="col-sm-3 control-label">Keterangan</label>
+            <div class="col-sm-9">
                 <p class="form-control-static">${data.description}</p>
             </div>
         </div>
- 
+        
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>Kwantum</th>
+                        <th>Harga Barang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data.items">
+                        <td>${item.product.name}</td>
+                        <td>${item.qty}</td>
+                        <td>${item.price}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </form>
     <hr/>
-
-    <div class="btn-group pull-center">
-        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
-        <a click.delegate="edit()" class='btn btn-primary btn-sm'>Ubah</a>
-        <a click.delegate="delete()" class='btn btn-danger btn-sm'>Hapus</a>
+    <div class="pull-right">
+        <button click.delegate="list()" class='btn btn-default'>Kembali</button>
+        <button click.delegate="edit()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Ubah</button>
+        <button click.delegate="delete()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-danger">Hapus</button>
     </div>
-
 </template>

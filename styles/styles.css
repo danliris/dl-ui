@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-  padding:150px 0;
+  padding:100px 0;
 }
 
 .splash {
@@ -179,10 +179,10 @@ div.au-stagger {
 }
 
 @page {
-    size: A5;
-    margin: 0 5mm;
+  size: A5;
+  margin: 0 5mm;
 }
-
+        
 @media screen {
   .print-wrapper {
     display: none;

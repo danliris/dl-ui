@@ -132,24 +132,5 @@
                 <span class="help-block">${error.standardQuality.lightMedPrespiration}</span>
             </div>
         </div>
-        
-        <require from="../po-item"></require> 
-        <div class="row">
-            <div class="col-md-4">   
-                <span>Nama Barang</span>
-            </div>
-            <div class="col-md-2">
-                <span>Kwantum</span>
-            </div>
-            <div class="col-md-3">
-                <span>Harga Barang</span>
-            </div>
-            <div class="col-md-3">
-                <button class="btn btn-success" click.delegate="addItem()">Tambah Barang</button> 
-            </div>
-        </div>     
-        <hr />
-        <po-item repeat.for="item of data.items" data.bind="item" uri.bind="uri" remove.delegate="removeItem(item)"></po-item>
-
     </form>
 </template>

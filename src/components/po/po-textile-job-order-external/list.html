@@ -80,9 +80,8 @@
         </div>
         
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data po umum tidak ada.
+            Data po tekstil external tidak ada.
         </div>
-        <hr/>
     </div><!-- /.display-wrapper -->
     <div class="print-wrapper a5" repeat.for="data of dataToBePrinting">
         <div class="row">
@@ -99,7 +98,7 @@
                 </address>
             </div>
             <div class="col-xs-4">
-                <span class="iso">FM-6.00-06-005/R 1</span><br />
+                <span class="iso">${data.iso}</span><br />
                 ${data.PONo}
             </div>  
         </div>
@@ -157,11 +156,11 @@
         </div>
         <div class="footer">
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-7">
                     Ongkos kirim : Ditanggung oleh ${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}<br />
                     Pembayaran   : ${data.termOfPayment}
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-5">
                     Delivery     : ${data.deliveryDate | dateFormat:'D MMMM YYYY'} <br />
                     Lain - lain  : ${data.description}
                 </div>

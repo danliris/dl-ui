@@ -70,6 +70,9 @@ export class List {
     }
     
     print() {
+        this.ppn = this.ppn * this.totalPrice;
+        this.nominal = this.totalPrice - this.ppn;
+        
         window.print();
     }
     
