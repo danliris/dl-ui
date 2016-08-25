@@ -2,7 +2,7 @@
     <require from="../../../utils/date-format"></require>
   
     <div class="display-wrapper">
-        <h3>PO Accessories</h3>
+        <h3>PO Tekstil Sparepart</h3>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -49,13 +49,10 @@
                     <tr>
                         <th class="${isPosting ? '' : 'hide'}"></th>
                         <th class="${isPrint ? '' : 'hide'}"></th>
-                        <th>RO</th>
-                        <th>Nomor PR</th>
                         <th>Nomor PO</th>
-                        <th>Buyer</th>
+                        <th>Nomor Referensi PO</th>
                         <th>Supplier</th>
                         <th>Tanggal Kirim</th>
-                        <th>Term of Payment</th>
                         <th>Nomor PODL</th>
                         <th></th>
                     </tr>
@@ -69,13 +66,10 @@
                         <td class="${isPrint ? '' : 'hide'}">
                             <input checked.bind="item.isPrint" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
                         </td>
-                        <td>${item.RO}</td>
-                        <td>${item.PRNo}</td>
                         <td>${item.PONo}</td>
-                        <td>${item.buyer.name}</td>
+                        <td>${item.RefPONo}</td>
                         <td>${item.supplier.name}</td>
                         <td>${item.deliveryDate | dateFormat:'D MMMM YYYY'}</td>
-                        <td>${item.termOfPayment}</td>
                         <td>${item.PODLNo}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                     </tr>
@@ -84,7 +78,7 @@
         </div>
         
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data po garment sparepart tidak ada.
+            Data po tekstil sparepart tidak ada.
         </div>
     </div><!-- /.display-wrapper -->
     <div class="print-wrapper a5" repeat.for="data of dataToBePrinting">
@@ -141,8 +135,7 @@
                 <tbody>
                     <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data.items">
-                        <td>${item.product.name} <br/>
-                            ${data.PO}   ${data.RO}  ${data.buyer.code}  ${data.description}    ${data.deliveryDate}</td>
+                        <td>${item.product.name}</td>
                         <td class="text-center">${item.qty}</td>
                         <td class="text-right">${item.price}</td>
                     </tr>
