@@ -9,15 +9,17 @@ export class DataForm {
     }
 
     activate() {
-         
+
     }
 
-    attached() { 
-        
-    } 
-    
+    attached() {
+
+    }
+
     addUnit(default_unit) {
-        if (!this.data.default)
+        if (!this.data.category)
+            alert('Category is required.');
+        else if (!this.data.default.mainValue || !this.data.default.mainUnit)
             alert('Default Measurement must be specified.');
         else {
             var unit = {};
@@ -37,15 +39,15 @@ export class DataForm {
         var itemIndex = this.data.units.indexOf(unit);
         this.data.units.splice(itemIndex, 1);
     }
-    
+
     bindDefaultMainValue(defaultMainValue) {
         this.data.default.convertedValue = defaultMainValue;
     }
-    
+
     bindDefaultMainUnit(defaultMainUnit) {
         this.data.default.convertedUnit = defaultMainUnit;
     }
-    
+
 
     create() {
         this.data = {};

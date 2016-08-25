@@ -5,43 +5,43 @@
         <!-- Actual Fabric form-->
         <div class="form-group ${error.name?'has-error':''}">
             <label for="name" class="col-sm-2 control-label">Nama Barang</label>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
                 <input type="text" class="form-control" name="name" value.bind="data.name" />
                 <span class="help-block">${error.name}</span>
             </div>
         </div>
         <div class="form-group ${error.composition?'has-error':''}">
             <label for="composition" class="col-sm-2 control-label">Komposisi</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" name="composition" value.bind="data.detail.composition"></textarea>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="composition" value.bind="data.detail.composition"></input>
                 <span class="help-block">${error.composition}</span>
             </div>
         </div>
         <div class="form-group ${error.construction?'has-error':''}">
             <label for="construction" class="col-sm-2 control-label">Konstruksi</label>
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 <input type="text" class="form-control" name="construction" value.bind="data.detail.construction" />
                 <span class="help-block">${error.construction}</span>
             </div>
         </div>
         <div class="form-group ${error.yarn?'has-error':''}">
             <label for="thread" class="col-sm-2 control-label">Benang</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" name="yarn" value.bind="data.detail.yarn"></textarea>
+            <div class="col-sm-3">
+                 <input type="text" class="form-control" name="yarn" value.bind="data.detail.yarn"></input>
                 <span class="help-block">${error.yarn}</span>
             </div>
         </div>
         <div class="form-group ${error.width?'has-error':''}">
             <label for="width" class="col-sm-2 control-label">Lebar</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" name="width" value.bind="data.detail.width"></textarea>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="width" value.bind="data.detail.width"/>
                 <span class="help-block">${error.width}</span>
             </div>
         </div>
         <div class="form-group ${error.price?'has-error':''}">
             <label for="price" class="col-sm-2 control-label">Harga</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" name="price" value.bind="data.price"></textarea>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" name="price" value.bind="data.price" min ="1" />
                 <span class="help-block">${error.price}</span>
             </div>
         </div>

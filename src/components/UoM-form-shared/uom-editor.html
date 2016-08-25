@@ -2,30 +2,23 @@
 <require from="customs/elements/horsey"></require>
 
     <div class="form-group ${error.UoM ? 'has-error':''}">
-        <label for="UoM" class="col-sm-2 control-label">UoM</label>
+        <label for="UoM" class="col-sm-2 control-label">UOM</label>
         <div class="col-sm-10">
                 <div class="row ${error.category?'has-error':''}">
-                    <div class="col-sm-2">Category</div>
-                    <div class="col-sm-5">
-                            <!--<horsey 
-                                src.bind="uomApiUri" 
-                                category.bind="data.UoM.category" 
-                                value.bind="data.UoMID" 
-                                default.bind="data.UoM.default"
-                                units.bind="data.UoM.units"
-                                options.bind="{value:'_id', label:'category', default_uom:'default', uom_units:'units'}"></horsey>-->
-                                 <horsey src.bind="uomApiUri" selection.bind="data.UoM" options.bind="{label:'category', value:'_id'}"></horsey>
-                                <span class="help-block">${error.category}</span>
-                                
+                    <label class="col-sm-2 control-label" style="text-align:left">Category</label>
+                    <div class="col-sm-4">
+                        <horsey src.bind="uomApiUri" selection.bind="data.UoM" options.bind="{label:'category', value:'category'}"></horsey>
+                        <!--<horsey src.bind="uomApiUri" selection.bind="data.UoM" value.bind = "data.UoM.category" options.bind="{label:'category', value:'_id'}"></horsey>-->
+                        <span class="help-block">${error.category}</span>
                     </div>
                 </div>
-                <br/>
+                </br>
                 <div class="row ${error.default?'has-error':''}">
-                    <div class="col-sm-2">Default Unit</div>
+                    <label class="col-sm-2 control-label" style="text-align:left">Default Unit</label>
                     <div class="col-sm-10">
                         <div class="row">
                             <div class="col-sm-2">
-                                <input type="number" class="form-control" name="default.mainValue" value.bind="data.UoM.default.mainValue" />
+                                <input type="number" class="form-control" name="default.mainValue" min="1" value.bind="data.UoM.default.mainValue" value ="0"/>
                             </div>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" name="default.mainUnit" value.bind="data.UoM.default.mainUnit" />
@@ -35,7 +28,7 @@
                         </div>
                 </div>
                 <div class="row ${error.units?'has-error':''}">
-                    <div class="col-sm-2">Other units</div>
+                    <label class="col-sm-2 control-label" style="text-align:left" >Other Unit</label>
                     <span class="help-block">${error.units}</span>
                 </div>
                 <div class="row">
@@ -63,7 +56,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group ${error.UoM.units[$index].convertedValue?'has-error':''}">
-                                            <input class="form-control" type="number" name="convertedValue" value.bind="unit.convertedValue" />
+                                            <input class="form-control" min="1" type="number" name="convertedValue" min="1" value.bind="unit.convertedValue" />
                                             <span class="help-block">${error.UoM.units[$index].convertedValue}</span>
                                         </div>
                                     </td>
@@ -84,4 +77,3 @@
     </div>
 
 </template>
-
