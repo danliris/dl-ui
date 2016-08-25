@@ -11,14 +11,6 @@ export class List {
     keyword = '';
     isPrint = false;
     isPosting = false;
-<<<<<<< HEAD
-    sumQty=0;
-    sumUnitPrice=0;
-    sumTotalUnit=0;
-    
-=======
-
->>>>>>> 636aa11aabfc6b0bf8cb5141a035e4f1564aeb16
     constructor(router, service) {
         this.service = service;
         this.router = router;
