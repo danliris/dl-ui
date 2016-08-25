@@ -11,10 +11,14 @@ export class List {
     keyword = '';
     isPrint = false;
     isPosting = false;
+<<<<<<< HEAD
     sumQty=0;
     sumUnitPrice=0;
     sumTotalUnit=0;
     
+=======
+
+>>>>>>> 636aa11aabfc6b0bf8cb5141a035e4f1564aeb16
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -46,23 +50,7 @@ export class List {
                 alert('Data PO tidak ditemukan');
             })
     }
-
-    // view(data) {
-    //     this.router.navigateToRoute('view', { id: data._id });
-    // }
-    calculateSum() {
-    let sumQty=0;
-    let sumUnitPrice=0;
-    let sumTotalUnit=0;
-    for (let item of this.items) {
-      sumQty = sumQty + parseFloat(item.qty);
-      sumUnitPrice = sumUnitPrice + parseFloat(item.product.price);
-      sumTotalUnit = sumTotalUnit + parseFloat(item.price);
-    }
-    this.sumQty=0;
-    this.sumUnitPrice=0;
-    this.sumTotalUnit=0;
-  }
+    
     pushDataToBePrinting(item) {
         
         if (item.isPrint) {
@@ -89,7 +77,6 @@ export class List {
     }
     
     print() {
-        
         window.print();
     }
     
