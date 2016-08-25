@@ -2,7 +2,7 @@
     <require from="../../../utils/date-format"></require>
   
     <div class="display-wrapper">
-        <h3>PO Tekstil Eksternal</h3>
+        <h3>PO Tekstil Sparepart</h3>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -52,7 +52,6 @@
                         <th>Nomor PO</th>
                         <th>Nomor Referensi PO</th>
                         <th>Supplier</th>
-                        <th>Buyer</th>
                         <th>Tanggal Kirim</th>
                         <th>Nomor PODL</th>
                         <th></th>
@@ -70,7 +69,6 @@
                         <td>${item.PONo}</td>
                         <td>${item.RefPONo}</td>
                         <td>${item.supplier.name}</td>
-                        <td>${item.buyer.name}</td>
                         <td>${item.deliveryDate | dateFormat:'D MMMM YYYY'}</td>
                         <td>${item.PODLNo}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
@@ -80,7 +78,7 @@
         </div>
         
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data po tekstil external tidak ada.
+            Data po tekstil sparepart tidak ada.
         </div>
     </div><!-- /.display-wrapper -->
     <div class="print-wrapper a5" repeat.for="data of dataToBePrinting">
@@ -137,19 +135,9 @@
                 <tbody>
                     <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data.items">
-                        <td >
-                            <p if.bind="$index === 0" align="center"><b>${data.PRNo}</b> <br></p>
-                                ${item.product.name}
-                        </td>
-                        <td class="text-center">
-                            <p if.bind="$index === 0" ><br></p>
-                            ${item.qty}
-                            </td>
-                        <td class="text-right">
-                            <p if.bind="$index === 0" ><br></p>
-                            ${item.price}
-                            </td>
-                    </tr>
+                        <td>${item.product.name}</td>
+                        <td class="text-center">${item.qty}</td>
+                        <td class="text-right">${item.price}</td>
                     </tr>
                 </tbody>
             </table>
