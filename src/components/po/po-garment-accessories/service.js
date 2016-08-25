@@ -4,6 +4,8 @@ import {RestService} from '../../../rest-service';
 
 const serviceUri = require('../../../host').core + '/v1/po/poGarmentAccessoriess';
 
+const serviceUriPODL = require('../../../host').core + '/v1/po/poGarmentAccessoriess/podl';
+
 export class Service extends RestService {
 
     constructor(http, aggregator) {

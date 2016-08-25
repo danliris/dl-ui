@@ -24,17 +24,17 @@
         <div class="row">
             <div class="col-sm-3" >
                 <div class="gray-box">
-                    <span class="control-label" class="padding-right-20">Posting</span>
+                    <span class="control-label padding-right-10">Posting</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
                         <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
                     </div>
-                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}">Post</button>
+                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Post</button>
                 </div>
             </div>
             <div class="col-sm-3" >
                 <div class="gray-box">
-                    <span class="control-label" class="padding-right-20">Cetak</span>
+                    <span class="control-label padding-right-10">Cetak</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default" click.delegate="tooglePrintTrue()">Ya</button>
                         <button type="button" class="btn btn-default" click.delegate="tooglePrintFalse()">Tidak</button>
@@ -44,30 +44,34 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table">
                 <thead>
                     <tr>
                         <th class="${isPosting ? '' : 'hide'}"></th>
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>Nomor PO</th>
                         <th>Nomor Referensi PO</th>
-                        <th>Nomor RO</th>
                         <th>Supplier</th>
+                        <th>Tanggal Kirim</th>
+                        <th>Nomor PODL</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data">
                         <td class="${isPosting ? '' : 'hide'}">
-                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
                         </td>
                         <td class="${isPrint ? '' : 'hide'}">
-                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.PONo}</td>
                         <td>${item.RefPONo}</td>
-                        <td>${item.RONo}</td>
                         <td>${item.supplier.name}</td>
+                        <td>${item.deliveryDate | dateFormat:'D MMMM YYYY'}</td>
+                        <td>${item.PODLNo}</td>
+                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -76,7 +80,6 @@
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Data po umum tidak ada.
         </div>
-        <hr/>
     </div><!-- /.display-wrapper -->
     <div class="print-wrapper a5" repeat.for="data of dataToBePrinting">
         <div class="row">
@@ -93,7 +96,7 @@
                 </address>
             </div>
             <div class="col-xs-4">
-                <span class="iso">FM-6.00-06-005/R 1</span><br />
+                <span class="iso">${data.iso}</span><br />
                 ${data.PONo}
             </div>  
         </div>
@@ -141,13 +144,13 @@
         </div>
         <div class="footer">
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-7">
                     Ongkos kirim : Ditanggung oleh ${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}<br />
                     Pembayaran   : ${data.termOfPayment}
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-5">
                     Delivery     : ${data.deliveryDate | dateFormat:'D MMMM YYYY'} <br />
-                    Lain - lain  :
+                    Lain - lain  : ${data.description}
                 </div>
             </div>
             <div class="row sign-footer">

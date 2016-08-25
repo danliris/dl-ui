@@ -15,15 +15,15 @@
             <div class="col-sm-4">
                 <div class="pull-right">
                     <button class="btn btn-default" click.delegate="back()" >Kembali</button>
-                    <button class="btn btn-primary" click.delegate="print()" >Cetak</button>
+                    <!--<button class="btn btn-primary" click.delegate="print()" >Cetak</button>-->
                 </div>
             </div>
         </div> 
         <div class="table-responsive">
-            <table class="table table-responsive table-striped table-hover">
+            <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th></th>
+                        <!--<th></th>-->
                         <th>Nomor PODL</th>
                         <th>List PO</th>
                     </tr>
@@ -31,11 +31,11 @@
                 <tbody>
                     <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data">
-                        <td>
+                        <!--<td>
                             <input type="checkbox"
                                 checked.bind="item.isPrint"
                                 change.delegate="pushDataToBePrinting(item)" />
-                        </td>
+                        </td>-->
                         <td>${item.PODLNo}</td>
                         <td>
                             <ul>
@@ -49,6 +49,5 @@
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Data po dl umum tidak ada.
         </div>
-        <hr/>
     </div><!-- /.display-wrapper -->
 </template>

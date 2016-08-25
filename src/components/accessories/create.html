@@ -1,7 +1,15 @@
 <template>
-    <h3>Tambah Accessories</h3>
+    <h3>Buat Data Aksesoris Baru</h3>
     <require from="./data-form"></require>
     <block>
+        <form class="form-horizontal">
+        <div class="form-group ${error.code?'has-error':''}">
+            <label for="code" class="col-sm-2 control-label">Kode Barang</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="code" name="code" value.bind="data.code" />
+                <span class="help-block">${error.code}</span>
+            </div>
+        </div>
         <data-form data.bind="data" error.bind="error"></data-form>
         <hr/>
         <div class="btn-group pull-right">

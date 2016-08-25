@@ -4,7 +4,8 @@ export class UomEditor {
     @bindable data = {};
     @bindable error = {};
     @bindable uom = {};
-    uomApiUri = require('../../host').core + '/uoms/categorylist';
+    
+    uomApiUri = require('../../host').core + '/v1/core/uoms';
     
     constructor() { }
     activate() { }

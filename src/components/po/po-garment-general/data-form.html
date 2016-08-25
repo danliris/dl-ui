@@ -7,10 +7,20 @@
                 <span class="help-block">${error.RefPONo}</span>
             </div>
         </div>
+        
+        <div class="form-group ${error.RONo?'has-error':''}">
+            <label for="RONo" class="col-sm-3 control-label">Nomor RO</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="RONo" value.bind="data.RONo" />
+                <span class="help-block">${error.RONo}</span>
+            </div>
+        </div>
+        
+        <require from="customs/elements/horsey"></require>
         <div class="form-group ${error.suppliername?'has-error':''}">
-            <label for="suppliername" class="col-sm-3 control-label">Nama Supplier</label>
+            <label for="suppliername" class="col-sm-3 control-label">Supplier</label>
             <div class="col-sm-5">
-                <input class="form-control" name="suppliername" value.bind="data.supplier.name"></input>
+                <horsey src.bind="uriSupplier" selection.bind="data.supplier" options.bind="{label:'labelSupplier', value:'_id'}" map.bind="mapSupplier"></horsey>
                 <span class="help-block">${error.supplierId}</span>
             </div>
         </div>
@@ -18,25 +28,33 @@
         <div class="form-group ${error.deliveryFeeByBuyer?'has-error':''}">
             <label for="deliveryFeeByBuyer" class="col-sm-3 control-label">Ongkos Kirim Ditanggung oleh</label>
             <div class="col-sm-5">
-                <input type="radio" name="deliveryFeeByBuyer" value="true"> Pembeli
-                <input type="radio" name="deliveryFeeByBuyer" value="false"> Penjual
+                <input type="radio" name="deliveryFeeByBuyer" model.bind="true" checked.bind="data.deliveryFeeByBuyer"> Pembeli
+                <input type="radio" name="deliveryFeeByBuyer" model.bind="false" checked.bind="data.deliveryFeeByBuyer"> Penjual
                 <span class="help-block">${error.deliveryFeeByBuyer}</span>
             </div>
         </div>
 
+        <require from="utils/date-format"></require>
         <div class="form-group ${error.deliveryDate?'has-error':''}">
             <label for="deliveryDate" class="col-sm-3 control-label">Tanggal Kirim</label>
             <div class="col-sm-3">
-                <input type="date" class="form-control" name="deliveryDate" value.bind="data.deliveryDate"></input>
+                <input type="date" class="form-control" name="deliveryDate" value.bind="data.deliveryDate | dateFormat : 'YYYY-MM-DD'"></input>
                 <span class="help-block">${error.deliveryDate}</span>
             </div>
         </div>
 
-        <div class="form-group ${error.PPn?'has-error':''}">
-            <label for="PPn" class="col-sm-3 control-label">PPn %</label>
-            <div class="col-sm-1">
-                <input type="number" class="form-control" name="PPn" value.bind="data.PPn"></input>
-                <span class="help-block">${error.PPn}</span>
+        <div class="form-group">
+            <label for="import" class="col-sm-3 control-label">Dikenakan PPn 10% ?</label>
+            <div class="col-sm-9">
+                <input type="checkbox" checked.bind="data.usePPn"></input>
+            </div>
+        </div>
+        
+        <div class="form-group ${error.termOfPayment?'has-error':''}">
+            <label for="termOfPayment" class="col-sm-3 control-label">Tempo Pembayaran</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="termOfPayment" value.bind="data.termOfPayment"></input>
+                <span class="help-block">${error.termOfPayment}</span>
             </div>
         </div>
 
@@ -48,12 +66,23 @@
             </div>
         </div>
         
-        <div class="form-group ${error.items?'has-error':''}">
-            <label for="description" class="col-sm-3 control-label">Barang</label>
-            <div class="col-sm-5">
-                <textarea class="form-control" name="description" value.bind="data.description"></textarea>
-                <span class="help-block">${error.description}</span>
+        <require from="../po-item"></require> 
+        <div class="row">
+            <div class="col-md-4">   
+                <span>Nama Barang</span>
             </div>
-        </div>
+            <div class="col-md-2">
+                <span>Kwantum</span>
+            </div>
+            <div class="col-md-3">
+                <span>Harga Barang</span>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success" click.delegate="addItem()">Tambah Barang</button> 
+            </div>
+        </div>     
+        <hr />
+        <po-item repeat.for="item of data.items" data.bind="item" uri.bind="uri" remove.delegate="removeItem(item)"></po-item>
+
     </form>
 </template>

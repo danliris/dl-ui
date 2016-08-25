@@ -11,23 +11,19 @@ export class Create {
         this.data = {};
     }
 
-    activate(params) {
-
-    }
-
-    list() {
+    back() {
         this.router.navigateToRoute('list');
     }
 
     save() {
-        // this.service.create(this.data)
-        //     .then(result => {
-        //         this.list();
-        //     })
-        //     .catch(e => {
-        //         console.log(e);
-        //         this.error = e;
-        //     })
-        console.log(this.data);
+        console.log(JSON.stringify(this.data));
+        this.service.create(this.data)
+            .then(result => {
+                this.back();
+            })
+            .catch(e => {
+                console.log(e);
+                this.error = e;
+            })
     }
 }
