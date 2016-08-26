@@ -1,22 +1,22 @@
 <template>
     <div class="form-group ${error.UoM ? 'has-error':''}">
-        <label for="UoM" class="col-sm-2 control-label">UoM</label>
+        <label for="UoM" class="col-sm-2 control-label">UOM</label>
         <div class="col-sm-10">
             <span if.bind="data.UoM">
                 <div class="row">
-                    <div class="col-sm-1">Category</div>
+                    <label class="col-sm-2 control-label" style="text-align:left">Category</label>
                     <div class="col-sm-5">
-                        <label>${data.UoM.category}</label>
+                        <label class="col-sm-10 control-label" style="text-align:left">${data.UoM.category}</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-1">Default Unit</div>
+                    <label class="col-sm-2 control-label" style="text-align:left">Default Unit</label>
                     <div class="col-sm-10">
-                        <label>${data.UoM.default.mainValue + " " + data.UoM.default.mainUnit + " -- " + data.UoM.default.convertedValue + " " + data.UoM.default.convertedUnit}</label>
+                        <label  class="col-sm-10 control-label" style="text-align:left">${data.UoM.default.mainValue + " " + data.UoM.default.mainUnit + " -- " + data.UoM.default.convertedValue + " " + data.UoM.default.convertedUnit}</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2">Other units</div>
+                    <label class="col-sm-2 control-label" style="text-align:left">Other units</label>
                 </div>
                 <div class="row">
                     <div class="col-sm-10">

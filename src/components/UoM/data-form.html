@@ -1,52 +1,30 @@
 <template>
     <div class="form-group ${error.UoM ? 'has-error':''}">
-        <label for="UoM" class="col-sm-2 control-label">UoM</label>
-        <div class="col-sm-10">
-            <!--Show buttons only if there is no UoM data-->
-            <span if.bind="!data">
-                <button class="btn btn-primary" click.trigger="create()">Create</button>
-                <button class="btn btn-primary" click.delegate="">Load</button>
-            </span>
-            <span if.bind="data">
-                <div class="row ${error.category?'has-error':''}">
-                    <div class="col-sm-2">Category</div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" name="default.mainValue" value.bind="data.category" />
-                        <span class="help-block">${error.category}</span>
+        <form class="form-horizontal">
+            <div class="form-group ${error.category?'has-error':''}">
+                <label for="category" class="col-sm-2 control-label" style="text-align:left">Category</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="data.category" value.bind="data.category" />
+                    <span class="help-block">${error.category}</span>
+                </div>
+            </div>
+            <div class="form-group ${error.default?'has-error':''}">
+                <label for="default" class="col-sm-2 control-label" style="text-align:left">Default Unit</label>
+                <div class="col-sm-10"><div class="row">
+                    <div class="col-sm-2">
+                        <input type="number" min="1" class="form-control" name="default.mainValue" value.bind="data.default.mainValue" change.delegate="bindDefaultMainValue(data.default.mainValue)"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" name="default.mainUnit" value.bind="data.default.mainUnit" change.delegate="bindDefaultMainUnit(data.default.mainUnit)"/>
+                    </div>
+                    <span class="help-block">${error.default}</span> 
                     </div>
                 </div>
-                <br/>
-                <div class="row ${error.default?'has-error':''}">
-                    <div class="col-sm-2">Default Unit</div>
-                    
-                    <div class="col-sm-10">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" name="default.mainValue" value.bind="data.default.mainValue" change.delegate="bindDefaultMainValue(data.default.mainValue)"/>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" name="default.mainUnit" value.bind="data.default.mainUnit" change.delegate="bindDefaultMainUnit(data.default.mainUnit)"/>
-                            </div>
-                            <!--<div class="col-sm-1" style="text-align:center"><label style="">--</label></div>
-                            <div class="col-sm-1">
-                                <input type="number" class="form-control" name="default.convertedValue" value.bind="data.default.convertedValue" disabled/>       
-                            </div>
-                            <div class="col-sm-1">
-                                <input type="text" class="form-control" name="default.convertedUnit" value.bind="data.default.convertedUnit" disabled/>
-                            </div>    -->
-                        </div>
-                        <span class="help-block">${error.default}</span>
-                        <!--${data.UoM.default.mainValue + " " + data.UoM.default.mainUnit + " -- " + data.UoM.default.convertedValue + " " + data.UoM.default.convertedUnit}-->
-                    </div>
-                </div>
-                <div class="row ${error.units?'has-error':''}">
-                    <div class="col-sm-2">Other units</div>
-                    <span class="help-block">${error.units}</span>
-                </div>
-                <div class="row">
-                    <div class="col-sm-10">
-
-                        <table class="table">
+            </div>
+            <div class="form-group ${error.units?'has-error':''}">
+                <label for="units" class="col-sm-2 control-label" style="text-align:left">Other Unit</label>
+                <div class="col-sm-10">
+                    <table class="table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -82,10 +60,7 @@
                                 </tr>
                             </tbody>
                          </table>
-                    </div>
                 </div>
-            </span>
-        </div>
-    </div>
-
+            </div>
+</form>
 </template>

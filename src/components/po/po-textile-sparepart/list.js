@@ -11,6 +11,7 @@ export class List {
     keyword = '';
     isPrint = false;
     isPosting = false;
+
     constructor(router, service) {
         this.service = service;
         this.router = router;

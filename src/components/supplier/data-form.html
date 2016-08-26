@@ -3,33 +3,33 @@
         
         <div class="form-group ${error.name?'has-error':''}">
             <label for="name" class="col-sm-2 control-label">Nama</label>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
                 <input type="text" class="form-control" name="name" value.bind="data.name" />
                 <span class="help-block">${error.name}</span>
             </div>
         </div>
         <div class="form-group">
             <label for="contact" class="col-sm-2 control-label">Kontak</label>
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 <input type="text" class="form-control" name="contact" value.bind="data.contact"></input>
             </div>
         </div>
         <div class="form-group ${error.address?'has-error':''}">
             <label for="address" class="col-sm-2 control-label">Alamat</label>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
                 <textarea class="form-control" name="address" value.bind="data.address"></textarea>
                 <span class="help-block">${error.address}</span>
             </div>
         </div>
         <div class="form-group">
             <label for="PIC" class="col-sm-2 control-label">PIC</label>
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 <input type="text" class="form-control" name="PIC" value.bind="data.PIC"></input>
             </div>
         </div>
         <div class="form-group">
             <label for="import" class="col-sm-2 control-label">Import</label>
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 <input type="checkbox" checked.bind="data.import"></input>
             </div>
         </div>
