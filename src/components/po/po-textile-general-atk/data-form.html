@@ -16,7 +16,7 @@
         </div>
         
         <require from="customs/elements/horsey"></require>
-        <div class="form-group ${error.suppliername?'has-error':''}">
+        <div class="form-group ${error.supplierId?'has-error':''}">
             <label for="suppliername" class="col-sm-3 control-label">Supplier</label>
             <div class="col-sm-5">
                 <horsey src.bind="uriSupplier" selection.bind="data.supplier" options.bind="{label:'labelSupplier', value:'_id'}" map.bind="mapSupplier"></horsey>

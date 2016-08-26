@@ -8,10 +8,10 @@
             <input type="number" value.bind="quantity"></input>
         </div>-->
         <div class="col-md-2">
-            <input type="number" value.bind="data.qty" min="1"></input>
+            <input type="number" class="form-control" value.bind="data.qty" min="1"></input>
         </div>
         <div class="col-md-3">
-            <input type="number" value.bind="data.price" min="0"></input>
+            <input type="number" class="form-control" value.bind="data.price" min="0"></input>
         </div>
         <div class="col-md-3">
             <button class="btn btn-danger" click.delegate="remove()">Hapus</button>

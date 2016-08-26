@@ -1,5 +1,5 @@
 <template>
-    <h3>Detail PO Garment :  Barang Umum</h3>
+    <h3>View PO Tekstil : Umum  Selain ATK & Kebersihan</h3>
     <form class="form-horizontal">
         
         <div class="form-group" if.bind="data.PODLNo != ''">
@@ -13,6 +13,12 @@
             <label for="code" class="col-sm-3 control-label">Nomor Referensi PO</label>
             <div class="col-sm-9">
                 <p class="form-control-static">${data.RefPONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-3 control-label">Nomor PR</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PRNo}</p>
             </div>
         </div>
         <div class="form-group">
