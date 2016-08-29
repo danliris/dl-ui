@@ -25,7 +25,7 @@
             </div>
         </div>
         
-        <div class="form-group ${error.suppliername?'has-error':''}">
+        <div class="form-group ${error.supplierId?'has-error':''}">
             <label for="suppliername" class="col-sm-3 control-label">Supplier</label>
             <div class="col-sm-5">
                 <horsey src.bind="uriSupplier" selection.bind="data.supplier" options.bind="{label:'labelSupplier', value:'_id'}" map.bind="mapSupplier"></horsey>
@@ -33,7 +33,7 @@
             </div>
         </div>
         
-        <div class="form-group ${buyerId.name?'has-error':''}">
+        <div class="form-group ${error.buyerId?'has-error':''}">
             <label for="buyerId" class="col-sm-3 control-label">Buyer</label>
             <div class="col-sm-3">
                          <horsey src.bind="uriBuyer" selection.bind="data.buyer" options.bind="{label:'labelBuyer', value:'_id'}" map.bind="mapBuyer"></horsey>

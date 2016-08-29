@@ -2,14 +2,14 @@
     <div class="form-group ${error.UoM ? 'has-error':''}">
         <form class="form-horizontal">
             <div class="form-group ${error.category?'has-error':''}">
-                <label for="category" class="col-sm-2 control-label" style="text-align:left">Category</label>
+                <label for="category" class="col-sm-2 control-label" style="text-align:left">Kategori</label>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" name="data.category" value.bind="data.category" />
                     <span class="help-block">${error.category}</span>
                 </div>
             </div>
             <div class="form-group ${error.default?'has-error':''}">
-                <label for="default" class="col-sm-2 control-label" style="text-align:left">Default Unit</label>
+                <label for="default" class="col-sm-2 control-label" style="text-align:left">Satuan Besar</label>
                 <div class="col-sm-10"><div class="row">
                     <div class="col-sm-2">
                         <input type="number" min="1" class="form-control" name="default.mainValue" value.bind="data.default.mainValue" change.delegate="bindDefaultMainValue(data.default.mainValue)"/>
@@ -22,17 +22,17 @@
                 </div>
             </div>
             <div class="form-group ${error.units?'has-error':''}">
-                <label for="units" class="col-sm-2 control-label" style="text-align:left">Other Unit</label>
+                <label for="units" class="col-sm-2 control-label" style="text-align:left">Satuan Kecil</label>
                 <div class="col-sm-10">
                     <table class="table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Main Value</th>
-                                    <th>Main Unit</th>
-                                    <th>Converted Value</th>
-                                    <th>Converted Unit</th>
-                                    <th><button click.delegate="addUnit(data.default)" class="btn btn-success btn-sm pull-right">Add Unit</button></th>
+                                    <th>Satuan Besar</th>
+                                    <th>Kwantum Satuan Besar</th>
+                                    <th>Satuan Kecil</th>
+                                    <th>Kwantum Satuan Kecil</th>
+                                    <th><button click.delegate="addUnit(data.default)" class="btn btn-success btn-sm pull-right">Tambah Unit</button></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,7 +56,7 @@
                                             <span class="help-block">${error.units[$index].convertedUnit}</span>
                                         </div>
                                     </td>
-                                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeUnit(unit)">Remove</button></td>
+                                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeUnit(unit)">Hapus</button></td>
                                 </tr>
                             </tbody>
                          </table>

@@ -5,7 +5,7 @@
         <label for="UoM" class="col-sm-2 control-label">UOM</label>
         <div class="col-sm-10">
                 <div class="row ${error.category?'has-error':''}">
-                    <label class="col-sm-2 control-label" style="text-align:left">Category</label>
+                    <label class="col-sm-2 control-label" style="text-align:left">Kategori</label>
                     <div class="col-sm-4">
                         <horsey src.bind="uomApiUri" selection.bind="data.UoM" options.bind="{label:'category', value:'category'}"></horsey>
                         <!--<horsey src.bind="uomApiUri" selection.bind="data.UoM" value.bind = "data.UoM.category" options.bind="{label:'category', value:'_id'}"></horsey>-->
@@ -14,7 +14,7 @@
                 </div>
                 </br>
                 <div class="row ${error.default?'has-error':''}">
-                    <label class="col-sm-2 control-label" style="text-align:left">Default Unit</label>
+                    <label class="col-sm-2 control-label" style="text-align:left">Satuan Besar</label>
                     <div class="col-sm-10">
                         <div class="row">
                             <div class="col-sm-2">
@@ -28,7 +28,7 @@
                         </div>
                 </div>
                 <div class="row ${error.units?'has-error':''}">
-                    <label class="col-sm-2 control-label" style="text-align:left" >Other Unit</label>
+                    <label class="col-sm-2 control-label" style="text-align:left" >Satuan Kecil</label>
                     <span class="help-block">${error.units}</span>
                 </div>
                 <div class="row">
@@ -38,11 +38,11 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Main Value</th>
-                                    <th>Main Unit</th>
-                                    <th>Converted Value</th>
-                                    <th>Converted Unit</th>
-                                    <th><button click.delegate="addUnit(data.UoM.default)" class="btn btn-success btn-sm pull-right">Add Unit</button></th>
+                                    <th>Satuan Besar</th>
+                                    <th>Kwantum Satuan Besar</th>
+                                    <th>Satuan Kecil</th>
+                                    <th>Kwantum Satuan Kecil</th>
+                                    <th><button click.delegate="addUnit(data.UoM.default)" class="btn btn-success btn-sm pull-right">Tambah Unit</button></th>
                                 </tr>
                             </thead>
                             <tbody>
