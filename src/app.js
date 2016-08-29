@@ -19,6 +19,7 @@ export class App {
       { route: 'garmentaccessories', name: 'garmentaccessories', moduleId: './components/po/po-garment-accessories/index', nav: true, title: 'PO Garment : Master Accessories' }, 
       { route: 'pogarmentgenerals', name: 'pogarmentgenerals', moduleId: './components/po/po-garment-general/index', nav: true, title: 'PO Garment : Barang Umum' },
       { route: 'garmentspareparts', name: 'garmentspareparts', moduleId: './components/po/po-garment-sparepart/index', nav: true, title: 'PO Garment : Sparepart' },
+      { route: 'garmentjoborderaccessories', name: 'garmentjoborderaccessories', moduleId: './components/po/po-garment-job-order-accessories/index', nav: true, title: 'PO Garment : Job Order Accessories' },
       { route: 'textileexternals', name: 'textileexternals', moduleId: './components/po/po-textile-job-order-external/index', nav: true, title: 'PO Tekstil : Job Order/Eksternal' },
       { route: 'textilegeneralatk', name: 'textile-general-atk', moduleId: './components/po/po-textile-general-atk/index', nav: true, title: 'PO Tekstil : Umum ATK & Kebersihan' },
       { route: 'textilespareparts', name: 'textilespareparts', moduleId: './components/po/po-textile-sparepart/index', nav: true, title: 'PO Tekstil : Sparepart' }
