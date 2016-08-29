@@ -1,7 +1,15 @@
 <template>
     <div class="form-group ${error.UoM ? 'has-error':''}">
         <form class="form-horizontal">
-            <div class="form-group ${error.category?'has-error':''}">
+            <div class="form-group ${error.unit?'has-error':''}">
+                <label for="unit" class="col-sm-2 control-label" style="text-align:left">Satuan</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="data.unit" value.bind="data.unit" />
+                    <span class="help-block">${error.unit}</span>
+                </div>
+            </div>
+            
+            <!--<div class="form-group ${error.category?'has-error':''}">
                 <label for="category" class="col-sm-2 control-label" style="text-align:left">Kategori</label>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" name="data.category" value.bind="data.category" />
@@ -61,6 +69,7 @@
                             </tbody>
                          </table>
                 </div>
-            </div>
+            </div>-->
 </form>
+    </div>
 </template>

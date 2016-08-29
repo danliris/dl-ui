@@ -1,7 +1,13 @@
 <template>
      <h3>Detail UOM</h3>
      <form class="form-horizontal"> 
-                <div class="form-group">
+         <div class="form-group">
+                    <label for="unit" class="col-sm-2 control-label">Satuan</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">${data.unit}</p>
+                    </div>
+                </div>
+                <!--<div class="form-group">
                     <label for="code" class="col-sm-2 control-label">Kategori</label>
                     <div class="col-sm-10">
                         <p class="form-control-static">${data.category}</p>
@@ -45,7 +51,7 @@
                             </tbody>
                          </table>
                          </div>
-    </div>
+                    </div>-->
     </form>
 <hr/><div class="btn-group pull-right">
         <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>

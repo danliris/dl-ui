@@ -26,8 +26,9 @@
                 <th>Konstruksi</th>
                 <th>Benang</th>
                 <th>Lebar</th>
-                <th>Harga</th>
-                <th>Kategori UoM</th>
+                <!--<th>Harga</th>-->
+                <th>Satuan Default</th>
+                <!--<th>Kategori UoM</th>-->
             </tr>
         </thead>
         <tbody>
@@ -38,13 +39,14 @@
                 <td>${item.detail.construction}</td>
                 <td>${item.detail.yarn}</td>
                 <td>${item.detail.width}</td>
-                <td>${item.price}</td>
-                <td>${item.UoM ? item.UoM.category : ''}</td>
+                <!--<td>${item.price}</td>-->
+                 <td>${item.UoM ? item.UoM.unit : ''}</td>   
+                <!--<td>${item.UoM ? item.UoM.category : ''}</td>-->
             </tr>
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        There is no data found in the list.
+        Data fabric tidak ditemukan.
     </div>
     <hr/>
 </template>
