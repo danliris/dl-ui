@@ -5,34 +5,22 @@ import {inject, bindable, BindingEngine, observable} from 'aurelia-framework'
 export class PoItem {
     @bindable data;
     @bindable uri;
-
-    // @observable quantity;
-
-    // quantityChanged(newValue, oldValue) {
-    //     this.data.price = this.data.product.price * newValue;
-    //     this.data.qty = newValue;
-    // }
-
+    
+    uomUri = "http://127.0.0.1:8900/v1/core/uoms";
+    
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
     }
 
     attached() {
-        this.data.qty = this.data.qty || 1;
 
         this.bindingEngine.propertyObserver(this.data, "product").subscribe((newValue, oldValue) => {
-            this.updatePrice(newValue, this.data.qty);
-        });
-        this.bindingEngine.propertyObserver(this.data, "qty").subscribe((newValue, oldValue) => {
-            this.updatePrice(this.data.product, newValue);
+            console.log(newValue.UoM.unit);
+            this.data.defaultMeasurement = newValue.UoM.unit
         });
     }
 
-    updatePrice(product, qty) {
-        console.log('update')
-        this.data.price = product.price * qty;
-    }
     remove() {
         var event; // The custom event that will be created
 
@@ -56,7 +44,7 @@ export class PoItem {
     map(result) {
         var list = result.data.map(item => {
             var _item = item;
-            _item.label = `${_item.code} - ${_item.name} @ ${_item.price}`;
+            _item.label = `${_item.code} - ${_item.name}`;
             return _item
         });
         console.log(list);

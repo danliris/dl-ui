@@ -6,9 +6,9 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    uri = "http://dl-core-api.mybluemix.net/v1/core/textiles";
-    uriSupplier = "http://dl-core-api.mybluemix.net/v1/core/suppliers";
-    uriBuyer = "http://dl-core-api.mybluemix.net/v1/core/buyers";
+    uri = "http://127.0.0.1:8900/v1/core/fabrics";
+    uriSupplier = "http://127.0.0.1:8900/v1/core/suppliers";
+    uriBuyer = "http://127.0.0.1:8900/v1/core/buyers";
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
