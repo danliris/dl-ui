@@ -1,0 +1,39 @@
+<template>
+    <h3>Ubah PO Garment : Fabric</h3>
+    <require from="./data-form"></require>
+    <require from="customs/elements/horsey"></require>
+    <block>
+        <data-form data.bind="data" error.bind="error"></data-form>
+        
+        <require from="../po-item"></require> 
+        <div class="row">
+            <div class="col-md-5">   
+                <span>Nama Barang</span>
+            </div>
+            <div class="col-md-3">
+                <span>Kwantum</span>
+            </div>
+            <div class="col-md-4">
+                <span>Harga Barang</span>
+            </div>
+        </div>     
+        <hr />
+        <div class="row" style="padding:5px 0;">
+            <div class="col-md-5">
+                <horsey src.bind="uri" selection.bind="product" options.bind="{label:'label', value:'_id'}" map.bind="map"></horsey>
+            </div>
+            <div class="col-md-3">
+                <input type="number" value.bind="qty" min="1"></input>
+            </div>
+            <div class="col-md-4">
+                <input type="number" value.bind="price" min="0"></input>
+            </div>
+        </div>
+        
+        <hr/>
+        <div class="pull-right">
+            <button class="btn btn-default" click.delegate="view()">Kembali</button>
+            <button class="btn btn-success" click.delegate="save()">Simpan</button>
+        </div>
+    </block>
+</template>

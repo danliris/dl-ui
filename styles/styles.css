@@ -179,10 +179,10 @@ div.au-stagger {
 }
 
 @page {
-    size: A5;
-    margin: 0 5mm;
+  size: A5;
+  margin: 0 5mm;
 }
-
+        
 @media screen {
   .print-wrapper {
     display: none;
@@ -216,6 +216,11 @@ div.au-stagger {
   .a5 table {
     margin-top: .5cm;
     height: 6.5cm;
+  }
+  
+  .a4 table {
+    margin-top: .5cm;
+    height: 14cm;
   }
   
   .a4 {

@@ -2,46 +2,52 @@
     <!-- Import shared component for UoM in Editor mode --> 
     <require from="../UoM-form-shared/uom-display"></require>
 
-    <h3>View Fabrics</h3>
+    <h3>Detail Fabric</h3>
     <form class="form-horizontal">
         <div class="form-group">
-            <label for="code" class="col-sm-2 control-label">Code</label>
-            <div class="col-sm-10">
+            <label for="code" class="col-sm-2 control-label">Kode Barang</label>
+            <div class="col-sm-3">
                 <p class="form-control-static">${data.code}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="code" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
+            <label for="code" class="col-sm-2 control-label">Nama Barang</label>
+            <div class="col-sm-5">
                 <p class="form-control-static">${data.name}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="address" class="col-sm-2 control-label">Composition</label>
-            <div class="col-sm-10">
+            <label for="address" class="col-sm-2 control-label">Komposisi</label>
+            <div class="col-sm-3">
                 <p class="form-control-static">${data.detail.composition}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="contact" class="col-sm-2 control-label">Construction</label>
-            <div class="col-sm-10">
+            <label for="contact" class="col-sm-2 control-label">Konstruksi</label>
+            <div class="col-sm-3">
                 <p class="form-control-static">${data.detail.construction}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="contact" class="col-sm-2 control-label">Yarn</label>
-            <div class="col-sm-10">
+            <label for="contact" class="col-sm-2 control-label">Benang</label>
+            <div class="col-sm-3">
                 <p class="form-control-static">${data.detail.yarn}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="contact" class="col-sm-2 control-label">Width</label>
-            <div class="col-sm-10">
+            <label for="contact" class="col-sm-2 control-label">Lebar</label>
+            <div class="col-sm-3">
                 <p class="form-control-static">${data.detail.width}</p>
             </div>
         </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-2 control-label">Satuan</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.UoM.unit}</p>
+            </div>
+        </div>
         <!-- Shared UoM component -->
-        <uom-display data.bind="data" error.bind="error"></uom-display>
+        <!--<uom-display data.bind="data" error.bind="error"></uom-display>-->
     </form>
     <hr/>
     <div class="btn-group pull-right">

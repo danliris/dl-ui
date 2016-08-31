@@ -4,14 +4,15 @@ export class UomEditor {
     @bindable data = {};
     @bindable error = {};
     @bindable uom = {};
-    uomApiUri = require('../../host').core + '/uoms/categorylist';
     
-    constructor() { }
-    activate() { }
-    attached() { }
+    uomApiUri = require('../../host').core + '/v1/core/uoms';
+    
+    constructor() {}
+    activate() {}
+    attached() {}
 
     addUnit(default_unit) {
-        if (!this.data.UoM.default)
+        if (!this.data.UoM.category && !this.data.UoM.default.mainValue && !this.data.UoM.default.mainUnit)
             alert('Default Measurement must be specified.');
         else {
             var unit = {};
@@ -34,6 +35,5 @@ export class UomEditor {
 
     create() {
         this.data.UoM = {};
-
     }
 } 

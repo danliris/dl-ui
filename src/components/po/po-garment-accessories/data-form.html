@@ -1,0 +1,88 @@
+<template>
+    <form class="form-horizontal">
+        <div class="form-group ${error.RO?'has-error':''}">
+            <label for="RO" class="col-sm-3 control-label">RO</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="RO" value.bind="data.RO" />
+                <span class="help-block">${error.RO}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.article?'has-error':''}">
+            <label for="article" class="col-sm-3 control-label">Artikel</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="article" value.bind="data.article" />
+                <span class="help-block">${error.article}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.PRNo?'has-error':''}">
+            <label for="PRNo" class="col-sm-3 control-label">Nomor PR</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="PRNo" value.bind="data.PRNo" />
+                <span class="help-block">${error.PRNo}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.RefPONo?'has-error':''}">
+            <label for="RefPONo" class="col-sm-3 control-label">Nomor Referensi PO</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="RefPONo" value.bind="data.RefPONo" />
+                <span class="help-block">${error.RefPONo}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.buyername?'has-error':''}">
+            <label for="buyername" class="col-sm-3 control-label">Nama Buyer</label>
+            <div class="col-sm-5">
+                <input class="form-control" name="buyername" value.bind="data.buyer.name"></input>
+                <span class="help-block">${error.buyername}</span>
+            </div>
+        </div>
+        <require from="customs/elements/horsey"></require>
+        <div class="form-group ${error.supplierId?'has-error':''}">
+            <label for="suppliername" class="col-sm-3 control-label">Supplier</label>
+            <div class="col-sm-5">
+                <horsey src.bind="uriSupplier" selection.bind="data.supplier" options.bind="{label:'labelSupplier', value:'_id'}" map.bind="mapSupplier"></horsey>
+                <span class="help-block">${error.supplierId}</span>
+            </div>
+        </div>
+
+        <div class="form-group ${error.deliveryFeeByBuyer?'has-error':''}">
+            <label for="deliveryFeeByBuyer" class="col-sm-3 control-label">Ongkos Kirim Ditanggung oleh</label>
+            <div class="col-sm-5">
+                <input type="radio" name="deliveryFeeByBuyer" model.bind="true" checked.bind="data.deliveryFeeByBuyer"> Pembeli
+                <input type="radio" name="deliveryFeeByBuyer" model.bind="false" checked.bind="data.deliveryFeeByBuyer"> Penjual
+                <span class="help-block">${error.deliveryFeeByBuyer}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.termOfPayment?'has-error':''}">
+            <label for="termOfPayment" class="col-sm-3 control-label">Term of Payment</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="termOfPayment" value.bind="data.termOfPayment" />
+                <span class="help-block">${error.termOfPayment}</span>
+            </div>
+        </div>
+
+        <require from="utils/date-format"></require>
+        <div class="form-group ${error.deliveryDate?'has-error':''}">
+            <label for="deliveryDate" class="col-sm-3 control-label">Tanggal Kirim</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" name="deliveryDate" value.bind="data.deliveryDate | dateFormat : 'YYYY-MM-DD'"></input>
+                <span class="help-block">${error.deliveryDate}</span>
+            </div>
+        </div>
+
+        <div class="form-group ${error.PPn?'has-error':''}">
+            <label for="PPn" class="col-sm-3 control-label">PPn</label>
+            <div class="col-sm-5">
+                <input class="form-control" name="PPn" value.bind="data.PPn"></input>
+                <span class="help-block">${error.PPn}</span>
+            </div>
+        </div>
+
+        <div class="form-group ${error.description?'has-error':''}">
+            <label for="description" class="col-sm-3 control-label">Keterangan</label>
+            <div class="col-sm-5">
+                <input class="form-control" name="description" value.bind="data.description"></input>
+                <span class="help-block">${error.description}</span>
+            </div>
+        </div>    
+    </form>
+</template>

@@ -2,44 +2,34 @@
 <require from="customs/elements/horsey"></require>
 
     <div class="form-group ${error.UoM ? 'has-error':''}">
-        <label for="UoM" class="col-sm-2 control-label">UoM</label>
+        <label for="UoM" class="col-sm-2 control-label">UOM</label>
         <div class="col-sm-10">
-            <!--Show buttons only if there is no UoM data-->
-            <!--<span if.bind="!data.UoM">
-                <button class="btn btn-primary" click.trigger="create()">Create</button>
-                <button class="btn btn-primary" click.delegate="">Load</button>
-            </span>-->
-            <!--<span if.bind="data.UoM">-->
-                <div class="row">
-                    <div class="col-sm-2">Category</div>
-                    <div class="col-sm-5">
-                            <horsey 
-                                src.bind="uomApiUri" 
-                                category.bind="data.UoM.category" 
-                                value.bind="data.UoMID" 
-                                default.bind="data.UoM.default"
-                                units.bind="data.UoM.units"
-                                options.bind="{value:'_id', label:'category', default_uom:'default', uom_units:'units'}"></horsey>
-                        <!--<label>${data.UoM.category} - ${data.UoMID}</label>-->
+                <div class="row ${error.category?'has-error':''}">
+                    <label class="col-sm-2 control-label" style="text-align:left">Kategori</label>
+                    <div class="col-sm-4">
+                        <horsey src.bind="uomApiUri" selection.bind="data.UoM" options.bind="{label:'category', value:'category'}"></horsey>
+                        <!--<horsey src.bind="uomApiUri" selection.bind="data.UoM" value.bind = "data.UoM.category" options.bind="{label:'category', value:'_id'}"></horsey>-->
+                        <span class="help-block">${error.category}</span>
                     </div>
                 </div>
-                <br/>
-                <div class="row">
-                    <div class="col-sm-2">Default Unit</div>
+                </br>
+                <div class="row ${error.default?'has-error':''}">
+                    <label class="col-sm-2 control-label" style="text-align:left">Satuan Besar</label>
                     <div class="col-sm-10">
                         <div class="row">
-                            <div class="col-sm-1">
-                                <input type="number" class="form-control" name="default.mainValue" value.bind="data.UoM.default.mainValue" />
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" name="default.mainValue" min="1" value.bind="data.UoM.default.mainValue" value ="0"/>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <input type="text" class="form-control" name="default.mainUnit" value.bind="data.UoM.default.mainUnit" />
                             </div>    
                         </div> 
-                        <!--${data.UoM.default.mainValue + " " + data.UoM.default.mainUnit + " -- " + data.UoM.default.convertedValue + " " + data.UoM.default.convertedUnit}-->
-                    </div>
+                        <span class="help-block">${error.default}</span>
+                        </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2">Other units</div>
+                <div class="row ${error.units?'has-error':''}">
+                    <label class="col-sm-2 control-label" style="text-align:left" >Satuan Kecil</label>
+                    <span class="help-block">${error.units}</span>
                 </div>
                 <div class="row">
                     <div class="col-sm-10">
@@ -48,11 +38,11 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Main Value</th>
-                                    <th>Main Unit</th>
-                                    <th>Converted Value</th>
-                                    <th>Converted Unit</th>
-                                    <th><button click.delegate="addUnit(data.UoM.default)" class="btn btn-success btn-sm pull-right">Add Unit</button></th>
+                                    <th>Satuan Besar</th>
+                                    <th>Kwantum Satuan Besar</th>
+                                    <th>Satuan Kecil</th>
+                                    <th>Kwantum Satuan Kecil</th>
+                                    <th><button click.delegate="addUnit(data.UoM.default)" class="btn btn-success btn-sm pull-right">Tambah Unit</button></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,7 +56,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group ${error.UoM.units[$index].convertedValue?'has-error':''}">
-                                            <input class="form-control" type="number" name="convertedValue" value.bind="unit.convertedValue" />
+                                            <input class="form-control" min="1" type="number" name="convertedValue" min="1" value.bind="unit.convertedValue" />
                                             <span class="help-block">${error.UoM.units[$index].convertedValue}</span>
                                         </div>
                                     </td>
@@ -87,4 +77,3 @@
     </div>
 
 </template>
-

@@ -1,30 +1,43 @@
 <template>
     <require from="../UoM-form-shared/uom-display"></require>
-    <h3>View Sparepart</h3> 
+    <h3>Detail Sparepart</h3> 
     <form class="form-horizontal"> 
         <div class="form-group">
-            <label for="code" class="col-sm-2 control-label">Code</label>
-            <div class="col-sm-10">
+            <label for="code" class="col-sm-2 control-label">Kode Barang</label>
+            <div class="col-sm-3">
                 <p class="form-control-static">${data.code}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="code" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
+            <label for="code" class="col-sm-2 control-label">Nama Barang</label>
+            <div class="col-sm-4">
                 <p class="form-control-static">${data.name}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="address" class="col-sm-2 control-label">Description</label>
+            <label for="code" class="col-sm-2 control-label">Harga</label>
+            <div class="col-sm-3">
+                <p class="form-control-static">${data.price}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-2 control-label">Satuan</label>
             <div class="col-sm-10">
+                <p class="form-control-static">${data.UoM.unit}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">Keterangan</label>
+            <div class="col-sm-5">
                 <p class="form-control-static">${data.description}</p>
             </div>
          </div>
-         <uom-display data.bind="data" error.bind="error"></uom-display>
+         <!--<uom-display data.bind="data" error.bind="error"></uom-display>-->
     </form> 
-    <hr/><div class="btn-group pull-right">
-        <a click.delegate="list()" class='btn btn-default btn-sm'>Back</a>
+    <hr/>
+    <div class="btn-group pull-right">
+        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
         <a click.delegate="edit()" class='btn btn-primary btn-sm'>Edit</a>
-        <a click.delegate="delete()" class='btn btn-danger btn-sm'>Delete</a>
-    </div> 
+        <a click.delegate="delete()" class='btn btn-danger btn-sm'>Hapus</a>
+    </div>
 </template>

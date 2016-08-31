@@ -14,7 +14,6 @@ export class DataForm {
         this.element = element;
 
         this.data.deliveryDate = moment().format('YYYYMMDD');
-        this.data.PRNo = 'pr123456';
     }
 
     activate() {
