@@ -4,6 +4,7 @@ import {RestService} from '../../rest-service';
  
 const serviceUri = require('../../host').core + '/v1/core/buyers';
  
+
 export class Service extends RestService{
 
   constructor(http, aggregator) {
@@ -44,4 +45,5 @@ export class Service extends RestService{
       return super.get(endpoint);
   }
  
+
 }
