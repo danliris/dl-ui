@@ -253,6 +253,10 @@ div.au-stagger {
   }
 }
 
+label {
+  padding-top: 0 !important;  
+}
+
 .padding-right-10 {
   padding-right: 10px;
 }

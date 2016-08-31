@@ -3,7 +3,7 @@ import {Service} from "./service";
 import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
-export class List {
+export class ListPodl {
     data = [];
     dataToBePrinting = [];
     keyword = '';
@@ -62,5 +62,9 @@ export class List {
     
     print() {
         window.print();
+    }
+    
+    create() {
+        this.router.navigateToRoute('create-podl');
     }
 }

@@ -9,8 +9,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     
-    supplierApiUri='http://localhost:8900/v1/core/suppliers'; 
-    
+    uomApiUri = require('../../host').core + '/v1/core/uoms';
     constructor(router, service) { 
         this.router = router;
         this.service = service;  

@@ -1,12 +1,10 @@
-import {inject, bindable, BindingEngine, observable} from 'aurelia-framework'
+import {inject, bindable, BindingEngine, bindingMode, observable} from 'aurelia-framework'
 
 
 @inject(BindingEngine, Element)
-export class PoItem {
-    @bindable data;
+export class PodlItem {
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) data;
     @bindable uri;
-    
-    uriUom = require('../../host').core + "/v1/core/uoms";
     
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -15,13 +13,13 @@ export class PoItem {
 
     attached() {
 
-        this.bindingEngine.propertyObserver(this.data, "product").subscribe((newValue, oldValue) => {
-            console.log(newValue.UoM.unit);
-            this.data.defaultMeasurement = newValue.UoM.unit;
+        this.bindingEngine.propertyObserver(this, "data").subscribe((newValue, oldValue) => {
+            
         });
     }
 
     remove() {
+        console.log(this.data);
         var event; // The custom event that will be created
 
         if (document.createEvent) {
@@ -44,20 +42,10 @@ export class PoItem {
     map(result) {
         var list = result.data.map(item => {
             var _item = item;
-            _item.label = `${_item.code} - ${_item.name}`;
+            _item.label = `${_item.RefPONo}`;
             return _item
         });
-        console.log(list);
-        return list;
-    }
-
-    mapUom(result) {
-        var list = result.data.map(item => {
-            var _item = item;
-            _item.labelUom = `${_item.unit}`;
-            return _item
-        });
-        console.log(list);
+        
         return list;
     }
 }

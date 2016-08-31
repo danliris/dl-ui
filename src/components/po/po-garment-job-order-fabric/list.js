@@ -5,12 +5,12 @@ import {Router} from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     data = [];
-    dataToBePosting = [];
+    // dataToBePosting = [];
     dataToBePrinting = [];
     
     keyword = '';
     isPrint = false;
-    isPosting = false;
+    // isPosting = false;
 
     constructor(router, service) {
         this.service = service;
@@ -43,10 +43,6 @@ export class List {
                 alert('Data PO tidak ditemukan');
             })
     }
-
-    // view(data) {
-    //     this.router.navigateToRoute('view', { id: data._id });
-    // }
     
     pushDataToBePrinting(item) {
         
@@ -59,15 +55,15 @@ export class List {
         }
     }
     
-    pushDataToBePosting(item) {
-        if (item.isPosting) {
-            this.dataToBePosting.push(item.PONo);
-        }
-        else {
-            var index = this.dataToBePosting.indexOf(item.PONo);
-            this.dataToBePosting.splice(index, 1);
-        }
-    }
+    // pushDataToBePosting(item) {
+    //     if (item.isPosting) {
+    //         this.dataToBePosting.push(item.PONo);
+    //     }
+    //     else {
+    //         var index = this.dataToBePosting.indexOf(item.PONo);
+    //         this.dataToBePosting.splice(index, 1);
+    //     }
+    // }
     
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
@@ -77,38 +73,38 @@ export class List {
         window.print();
     }
     
-    posting() {
-        this.service.createGroup(this.dataToBePosting)
-            .then(result => {
-                this.gotoListPODL();
-            })
-            .catch(e => {
-                console.log(e);
-                this.error = e;
-            })
-    }
+    // posting() {
+    //     this.service.createGroup(this.dataToBePosting)
+    //         .then(result => {
+    //             this.gotoListPODL();
+    //         })
+    //         .catch(e => {
+    //             console.log(e);
+    //             this.error = e;
+    //         })
+    // }
     
     create() {
         this.router.navigateToRoute('create');
     }
 
     gotoListPODL() {
-        this.router.navigateToRoute('listPODL');
+        this.router.navigateToRoute('list-podl');
     }
 
-    tooglePostingTrue() {
-        this.isPosting = true;
-        this.isPrint = false;
+    // tooglePostingTrue() {
+    //     this.isPosting = true;
+    //     this.isPrint = false;
 
-        this.newStatus();
-    }
+    //     this.newStatus();
+    // }
 
-    tooglePostingFalse() {
-        this.isPosting = false;
-        this.isPrint = false;
+    // tooglePostingFalse() {
+    //     this.isPosting = false;
+    //     this.isPrint = false;
 
-        this.newStatus();
-    }
+    //     this.newStatus();
+    // }
 
     tooglePrintTrue() {
         this.isPosting = false;
@@ -125,11 +121,11 @@ export class List {
     }
 
     newStatus() {
-        this.dataToBePosting = [];
+        // this.dataToBePosting = [];
         this.dataToBePrinting = [];
         
         for (var item of this.data) {
-            item.isPosting = false;
+            // item.isPosting = false;
             item.isPrint = false;
         }
     }
