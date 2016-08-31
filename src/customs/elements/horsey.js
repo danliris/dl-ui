@@ -35,17 +35,17 @@ export class Horsey {
             getValue: this.options.value
         });
 
-        if (this.selection) {
-            this.fetch(`${uri}=${this.text}`)
-                .then(list => {
-                    var item = list.find((item, index, arr) => {
-                        return this.getValue(item) == this.getValue(this.selection);
-                    });
-                    if (item) {
-                        this.setSelection(item);
-                    }
-                })
-        }
+        // if (this.selection) {
+        //     this.fetch(`${uri}=${this.text}`)
+        //         .then(list => {
+        //             var item = list.find((item, index, arr) => {
+        //                 return this.getValue(item) == this.getValue(this.selection);
+        //             });
+        //             if (item) {
+        //                 this.setSelection(item);
+        //             }
+        //         })
+        // }
     }
 
     fetch(uri) {
@@ -53,7 +53,13 @@ export class Horsey {
             fetch(uri)
                 .then(result => {
                     result.json().then(json => {
-                        resolve(this.map ? this.map(json) : json.data);
+                        var list = this.map ? this.map(json) : json.data;
+                        if (!list || list.length < 1) {
+                            var newSelection = {};
+                            newSelection[this.options.label] = this.text;
+                            this.setSelection(newSelection);
+                        }
+                        resolve(list);
                     });
                 });
         });
@@ -64,15 +70,43 @@ export class Horsey {
         return this.selection ? this.selection[this.options.label] : '';
     }
     set text(value) {
+        this.selection = this.selection || {};
         this.selection[this.options.label] = value;
     }
 
     setSelection(selection) {
         this.selection = selection;
         this.value = this.getValue(this.selection);
+        this.selectionChanged();
     }
 
     getValue(data) {
-        return data[this.options.value];
+        return this.options.value ? data[this.options.value] : null;
+    }
+
+    textchanged(event) { 
+        var newSelection = {};
+        newSelection[this.options.label] = this.text;
+        this.setSelection(newSelection);
+
+    }
+    selectionChanged() {
+        var event;
+
+        if (document.createEvent) {
+            event = document.createEvent("CustomEvent");
+            event.initCustomEvent("changed", true, true, this.selection);
+        } else {
+            event = document.createEventObject();
+            event.eventType = "changed";
+        }
+
+        event.eventName = "changed";
+
+        if (document.createEvent) {
+            this.element.dispatchEvent(event);
+        } else {
+            this.element.fireEvent("on" + event.eventType, event);
+        }
     }
 }
