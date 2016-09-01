@@ -1,86 +1,65 @@
 <template>
-   <h3>Detail PO Garment Job Order Accessories</h3> 
+    <h3>View PO Garment : Job Order Aksesoris</h3>
     <form class="form-horizontal">
-           <div class="form-group">
-            <label for="iso" class="col-sm-2 control-label">ISO</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.iso}</p>
+        
+        <div class="form-group" if.bind="data.PODLNo != ''">
+            <label for="PODLNo" class="col-sm-3 control-label">Nomor PODL</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PODLNo}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="RefPONo" class="col-sm-3 control-label">Nomor Referensi PO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RefPONo}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="RO" class="col-sm-2 control-label">Nomor RO</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.RO}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="PRNo" class="col-sm-2 control-label">Nomor PR</label>
-            <div class="col-sm-10">
+            <label for="PRNo" class="col-sm-3 control-label">Nomor PR</label>
+            <div class="col-sm-9">
                 <p class="form-control-static">${data.PRNo}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="PONo" class="col-sm-2 control-label">Nomor PO</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.PONo}</p>
+            <label for="RONo" class="col-sm-3 control-label">Nomor RO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RONo}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="buyer" class="col-sm-2 control-label">Buyer </label>
-            <div class="col-sm-10">
+            <label for="buyer.name" class="col-sm-3 control-label">Buyer</label>
+            <div class="col-sm-9">
                 <p class="form-control-static">${data.buyer.name}</p>
             </div>
         </div>
         <div class="form-group">
-            <label for="suppliername" class="col-sm-2 control-label">Nama Supplier</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.supplier.name}</p>
+            <label for="buyer.shipmentDate" class="col-sm-3 control-label">Tanggal Shipment</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.shipmentDate}</p>
             </div>
         </div>
-        <div class="form-group">
-            <label for="deliveryFeeByBuyer" class="col-sm-2 control-label">Ongkos Kirim</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.deliveryFeeByBuyer}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="termOfPayment" class="col-sm-2 control-label">Term of Payment</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.termOfPayment}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="deliveryDate" class="col-sm-2 control-label">Tanggal Kirim</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.deliveryDate}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="ppn" class="col-sm-2 control-label">PPn</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.ppn}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">Keterangan</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.description}</p>
-            </div>
-        </div>
- 
-    <div class="table-responsive">
+        <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                         <th>Nama Barang</th>
+                        <th>Keterangan</th>
                         <th>Kwantum</th>
+                        <th>satuan</th>
+                        <th>Kwantum</th>
+                        <th>satuan</th>
                         <th>Harga Barang</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data.items">
                         <td>${item.product.name}</td>
-                        <td>${item.qty}</td>
+                        <td>${item.description}</td>
+                        <td>${item.dealQuantity}</td>
+                        <td>${item.dealMeasurement.unit}</td>
+                        <td>${item.defaultQuantity}</td>
+                        <td>${item.defaultMeasurement}</td>
                         <td>${item.price}</td>
                     </tr>
                 </tbody>

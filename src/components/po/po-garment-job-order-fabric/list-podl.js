@@ -3,10 +3,18 @@ import {Service} from "./service";
 import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
-export class List {
+export class ListPodl {
     data = [];
     dataToBePrinting = [];
     keyword = '';
+    
+    today = new Date();
+    
+    totalKwantum = 0;
+    totalHargaSatuan = 0;
+    total = 0;
+    ppn = 0;
+    nominal = 0;
 
     constructor(router, service) {
         this.service = service;
@@ -40,6 +48,7 @@ export class List {
     }
     
     addIsPrint() {
+        this.dataToBePrinting = [];
         for (var podl of this.data) {
             podl.isPrint = false;
         }
@@ -54,6 +63,8 @@ export class List {
             var index = this.dataToBePrinting.indexOf(item);
             this.dataToBePrinting.splice(index, 1);
         }
+        
+        this.calculateTotal();
     }
     
     back() {
@@ -61,6 +72,38 @@ export class List {
     }
     
     print() {
+        
         window.print();
+        
+        this.addIsPrint();
     }
+    
+    calculateTotal() {
+        
+        for (var podl of this.dataToBePrinting) {
+            this.total = 0;
+            this.ppn = 0;
+            this.nominal = 0;
+            
+            for (var po of podl.items) {
+                for (var item of po.items) {
+                    this.total = this.total + (Number(item.price) * Number(item.dealQuantity));  
+                } 
+            } 
+            if (podl.usePPn)
+                this.ppn = 10/100 * this.total;
+            else
+                this.ppn = 0;
+            this.nominal = this.total - this.ppn;
+                
+            podl.total = this.total;
+            podl.ppn = this.ppn;
+            podl.nominal = this.nominal;
+        }
+        
+    }
+    
+    // create() {
+    //     this.router.navigateToRoute('create-podl');
+    // }
 }
