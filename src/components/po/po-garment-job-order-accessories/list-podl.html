@@ -3,7 +3,7 @@
     <require from="../../../utils/currency-format"></require>
     
     <div class="display-wrapper">
-        <h3>PO DL Garment : Job Order Aksesoris</h3>
+        <h3>PO DL Garment : Job Order Fabric</h3>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -168,20 +168,11 @@
                                 <div class="col-xs-2">
                                     ${product.product.code}
                                 </div>
-                                <div class="col-xs-3">
-                                    ${product.product.detail.composition}
+                                <div class="col-xs-4">
+                                    ${product.product.name}
                                 </div>
-                                <div class="col-xs-2">
-                                    ${product.product.detail.construction}
-                                </div>
-                                <div class="col-xs-2">
-                                    ${product.product.detail.yarn}
-                                </div>
-                                <div class="col-xs-2">
-                                    ${product.product.detail.width}
-                                </div>
-                                <div class="col-xs-1">
-                                    ${product.defaultMeasurement}
+                                <div class="col-xs-6">
+                                    ${product.product.description}
                                 </div>
                             </td>
                             <td style="width:75px;" class="text-center">${product.dealQuantity} ${product.product.UoM.unit}</td>
@@ -237,43 +228,6 @@
                         <td>
                             ${data.description}
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Standart Quality</td>
-                        <td>
-                            Jls ; AATcc ; ISO
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="padding:0;">
-                            <table class="table table-no-bordered">
-                                <tr>
-                                    <td colspan="2">Shringkage test untuk ${data.standardQuality.shrinkage} %</td>
-                                    <td colspan="2">Washing test ${data.standardQuality.washing} %</td>
-                                </tr>
-                                <tr>
-                                    <td>Rubbing test</td>
-                                    <td>WET Rubbing ${data.standardQuality.wetRubbing} %</td>
-                                    <td>Prespiration test</td>
-                                    <td>Dark ${data.standardQuality.darkPrespiration} %</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>DRY Rubbing ${data.standardQuality.dryRubbing} %</td>
-                                    <td></td>
-                                    <td>Light/ Med ${data.standardQuality.lightMedPrespiration} %</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Piece length</td>
-                        <td>60 yards up 20 %</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>120 yards up 80 %</td>
                     </tr>
                     <tr if.bind="data.otherTest != ''">
                         <td>Other Test</td>

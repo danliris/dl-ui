@@ -1,10 +1,12 @@
-import {inject, bindable, BindingEngine, bindingMode, observable} from 'aurelia-framework'
+import {inject, bindable, BindingEngine} from 'aurelia-framework'
 
 
 @inject(BindingEngine, Element)
 export class PodlItem {
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) data;
+    @bindable data;
     @bindable uri;
+    
+    selection = {};
     
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -17,9 +19,16 @@ export class PodlItem {
             
         });
     }
+    
+    horseyChanged(event) {
+        Object.keys(this.data).forEach(key => {
+            delete this.data[key];
+        })
+        
+        Object.assign(this.data, event.detail);
+    }
 
     remove() {
-        console.log(this.data);
         var event; // The custom event that will be created
 
         if (document.createEvent) {

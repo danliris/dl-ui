@@ -191,10 +191,23 @@ div.au-stagger {
         
 @media print {
   
+  body {
+    font-family: calibri;  
+  }
+  
+  h3 {
+    margin:0;
+  }
+  
   .print-wrapper {
+    page-break-after: always;
     display: block;
-    margin-top:50px;
-    position:relative;
+    margin-top:.5cm;
+    /*margin-bottom:.5cm;*/
+  }
+  
+  .print-wrapper:first-of-type {
+    margin-top:1cm;
   }
 
   .print-wrapper * {
@@ -211,21 +224,49 @@ div.au-stagger {
   
   address {
     font-weight:bold;
+    margin-bottom: 0 !important;
   }
   
   .a5 table {
-    margin-top: .5cm;
     height: 6.5cm;
   }
   
-  .a4 table {
-    margin-top: .5cm;
+  .a4-table-po-item {
+    margin-top:.5cm;
     height: 14cm;
   }
   
+  .a4 table {
+    margin-bottom: 0;
+  }
+  
+  .table-no-bordered {
+    margin-top:.25cm;
+  }
+  
+  .table-no-bordered > thead > tr > th, .table-no-bordered > tbody > tr > th, .table-no-bordered > tfoot > tr > th, .table-no-bordered > thead > tr > td, .table-no-bordered > tbody > tr > td, .table-no-bordered > tfoot > tr > td { 
+    border:0;
+    line-height: 0.8em;
+    padding:5px;
+  }
+  
+  .table-item > tbody > tr > td {
+    border:0;
+    border-left:1px solid #eaeaea;
+    border-right:1px solid #eaeaea;
+    line-height: 0.8em;
+  }
+  
+  .table-po > tbody > tr > td {
+    border:1px solid #eaeaea;
+    border-bottom:0;
+    line-height: 0.8em;
+  }
+  
   .a4 {
-    width: 210mm;
-    height: 297mm;
+    width: 207mm;
+    height: 302mm;
+    overflow: hidden;
   }
   
   .a5 {
@@ -236,12 +277,6 @@ div.au-stagger {
   
   .iso {
     font-weight:bold;
-  }
-  
-  .footer {
-    position:absolute;
-    bottom:0;
-    width:100%;
   }
   
   .sign-footer {
@@ -259,6 +294,14 @@ label {
 
 .padding-right-10 {
   padding-right: 10px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-top-57 {
+  margin-top: 57px;
 }
 
 .gray-box {

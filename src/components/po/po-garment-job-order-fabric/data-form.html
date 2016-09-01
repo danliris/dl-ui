@@ -37,9 +37,19 @@
         <div class="form-group ${error.buyerId?'has-error':''}">
             <label for="buyerId" class="col-sm-3 control-label">Buyer</label>
             <div class="col-sm-5">
-                         <horsey src.bind="uriBuyer" selection.bind="data.buyer" options.bind="{label:'labelBuyer', value:'_id'}" map.bind="mapBuyer"></horsey>
-                         <span class="help-block">${error.buyerId}</span>
-                         </div>
+                <horsey src.bind="uriBuyer" selection.bind="data.buyer" options.bind="{label:'labelBuyer', value:'_id'}" map.bind="mapBuyer"></horsey>
+                <span class="help-block">${error.buyerId}</span>
+            </div>
+        </div>
+
+        <require from="utils/date-format"></require>
+        <div class="form-group ${error.shipmentDate?'has-error':''}">
+            <label for="shipmentDate" class="col-sm-3 control-label">Tanggal Kirim</label>
+            <div class="col-sm-3">
+                <!--<input type="date" class="form-control" name="shipmentDate" value.bind="data.shipmentDate | dateFormat : 'YYYY-MM-DD'"></input>-->
+                <input type="date" class="form-control" name="shipmentDate" value.bind="data.shipmentDate"></input>
+                <span class="help-block">${error.shipmentDate}</span>
+            </div>       
         </div>
         
         <require from="../po-item"></require> 

@@ -8,5 +8,7 @@ export class Index {
             { route: 'create', moduleId: './create', name: 'create', nav: false, title: 'Create:PO Job Order Fabric' },
             { route: 'create-podl', moduleId: './create-podl', name: 'create-podl', nav: false, title: 'Create:PODL Job Order Fabric' }
         ]);
+        
+        this.router = router;
     }
 }

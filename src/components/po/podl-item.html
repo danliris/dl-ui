@@ -2,10 +2,10 @@
     <require from="customs/elements/horsey"></require>
     <div class="row" style="padding:5px 0;">
         <div class="col-md-3">
-            <horsey src.bind="uri" selection.bind="data" options.bind="{label:'label', value:'_id'}" map.bind="map"></horsey>
+            <horsey src.bind="uri" selection.bind="selection" options.bind="{label:'label', value:'_id'}" map.bind="map" change.delegate="horseyChanged($event)"></horsey>
         </div>
         <div class="col-md-3">
-            <input class="form-control" disabled value.bind="data.RONo" min="1"></input>
+            <input class="form-control" disabled value.bind="selection.RONo" min="1"></input>
         </div>
         <div class="col-md-1 col-md-offset-4">
             <button class="btn btn-danger" click.delegate="remove()">Hapus</button>

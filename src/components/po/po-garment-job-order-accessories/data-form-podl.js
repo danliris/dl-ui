@@ -7,7 +7,7 @@ export class DataFormPodl {
     @bindable error = {};
 
     uriSupplier = require('../../../host').core + "/v1/core/suppliers";
-    uri = require('../../../host').core + "/v1/po/garmentjoborderfabrics";
+    uri = require('../../../host').core + "/v1/po/garmentjoborderaccessories";
 
     termPaymentOptions = ['Free', 'Cash', 'Credit', 'Letter of Credit'];
     currencyOptions = ['Rupiah', '$ USD'];
