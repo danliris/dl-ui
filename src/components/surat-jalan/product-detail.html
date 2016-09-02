@@ -1,0 +1,27 @@
+<template>
+            <h4>Rincian Barang PO ${data.PONo}</h4>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Keterangan</th>
+                        <th>Satuan</th>
+                        <th>Jumlah Barang di PO</th>
+                        <th>Jumlah Barang di SJ</th>
+                        <th>Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data.items">
+                        <td>${item.product.code}</td>
+                        <td>${item.product.name}</td>
+                        <td>${item.product.description}</td>
+                        <td>${item.product.UoM ? item.product.UoM.unit : ''}</td>                
+                        <td>${item.defaultQuantity}</td>                 
+                        <td>${item.realizationQuantity}</td>                 
+                        <td>${item.price}</td> 
+                    </tr>
+                </tbody>
+            </table>
+</template>

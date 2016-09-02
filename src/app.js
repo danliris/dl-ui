@@ -24,7 +24,8 @@ export class App {
       { route: 'textileexternals', name: 'textileexternals', moduleId: './components/po/po-textile-job-order-external/index', nav: true, title: 'PO Tekstil : Job Order/Eksternal' },
       { route: 'textilegeneralatk', name: 'textile-general-atk', moduleId: './components/po/po-textile-general-atk/index', nav: true, title: 'PO Tekstil : Umum ATK & Kebersihan' },
       { route: 'textilegeneralotheratk', name: 'textile-general-other-atk', moduleId: './components/po/po-textile-general-other-atk/index', nav: true, title: 'PO Tekstil : Umum Selain ATK & Kebersihan' },
-      { route: 'textilespareparts', name: 'textilespareparts', moduleId: './components/po/po-textile-sparepart/index', nav: true, title: 'PO Tekstil : Sparepart' }
+      { route: 'textilespareparts', name: 'textilespareparts', moduleId: './components/po/po-textile-sparepart/index', nav: true, title: 'PO Tekstil : Sparepart' },
+      { route: 'suratjalan', name: 'suratjalan', moduleId: './components/surat-jalan/index', nav: true, title: 'Surat Jalan' }
       
     ]);
 

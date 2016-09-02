@@ -1,0 +1,68 @@
+<template>
+    <require from="utils/date-format"></require>
+    <require from="customs/elements/horsey"></require>
+    <require from="./product-editor"></require>
+    <form class="form-horizontal">
+        <div class="form-group ${error.SJNo?'has-error':''}">
+            <label for="SJNo" class="col-sm-2 control-label">Nomor Surat Jalan</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="SJNo" value.bind="data.SJNo" />
+                <span class="help-block">${error.SJNo}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.SJDate?'has-error':''}">
+            <label for="SJDate" class="col-sm-2 control-label">Tanggal Surat Jalan</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" name="SJDate" value.bind="data.SJDate | dateFormat : 'YYYY-MM-DD'"></input>
+                <span class="help-block">${error.SJDate}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.productArriveDate?'has-error':''}">
+            <label for="productArriveDate" class="col-sm-2 control-label">Tanggal Datang Barang</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" name="productArriveDate" value.bind="data.productArriveDate | dateFormat : 'YYYY-MM-DD'"></input>
+                <span class="help-block">${error.productArriveDate}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.supplier?'has-error':''}">
+            <label class="col-sm-2 control-label">Kode Supplier</label>
+            <div class="col-sm-3">
+                <horsey src.bind="uriSupplier" selection.bind="data.supplier" options.bind="{label:'labelSupplier', value:'_id'}" map.bind="mapSupplier"></horsey>
+            </div>
+        </div>
+        
+        <div class="${data.supplier._id ? '' : 'hide'} form-group">
+            <label class="col-sm-2 control-label">Nama Supplier</label>
+            <div class="col-sm-5">
+                <p class="form-control-static">${data.supplier.name}</p>
+            </div>
+         </div>
+         <div class="form-group ${error.deliveryType?'has-error':''}">
+            <label class="col-sm-2 control-label">Jenis Pengiriman</label>
+            <div class="col-sm-3">
+                <select value.bind="data.deliveryType">
+                    <option>Pilih Jenis Pengiriman</option>
+                    <option>Lokal</option>
+                    <option>AWB</option>
+                    <option>BL</option>                    
+                </select>
+                <span class="help-block">${error.deliveryType}</span>
+            </div>
+        </div>
+        <div class="${data.deliveryType == 'Lokal' ? 'hide' : ''} form-group ${error.deliveryNo?'has-error':''}">
+            <label for="deliveryNo" class="col-sm-2 control-label">Nomor Pengiriman</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="deliveryNo" value.bind="data.deliveryNo"></input>
+                <span class="help-block">${error.deliveryNo}</span>
+            </div>
+        </div>
+        <div class="${!data.items? 'hide' : ''} form-group">
+            <label class="col-sm-2 control-label">Jumlah total</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${totalQty}</p>
+            </div>
+        </div>
+        <!--<div class="${data.supplier._id ? '' : 'hide'} form-group">--><div>
+            <product-editor data.bind="data" uri.bind="uri" remove.delegate="removeItem(item)">
+    </form>
+</template>
