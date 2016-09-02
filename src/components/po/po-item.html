@@ -1,19 +1,31 @@
 <template> 
     <require from="customs/elements/horsey"></require>
     <div class="row" style="padding:5px 0;">
-        <div class="col-md-4">
+        <div class="col-md-2">
             <horsey src.bind="uri" selection.bind="data.product" options.bind="{label:'label', value:'_id'}" map.bind="map"></horsey>
         </div>
         <!--<div class="col-md-2">
             <input type="number" value.bind="quantity"></input>
         </div>-->
-        <div class="col-md-2">
-            <input type="number" class="form-control" value.bind="data.qty" min="1"></input>
-        </div>
         <div class="col-md-3">
+            <textarea class="form-control" value.bind="data.description" min="1"></textarea>
+        </div>
+        <div class="col-md-1">
+            <input type="number" class="form-control" value.bind="data.dealQuantity" min="1"></input>
+        </div>
+        <div class="col-md-1">
+            <horsey src.bind="uriUom" selection.bind="data.dealMeasurement" options.bind="{label:'labelUom', value:'_id'}" map.bind="mapUom"></horsey>
+        </div>
+        <div class="col-md-1">
+            <input type="number" class="form-control" value.bind="data.defaultQuantity" min="1"></input>
+        </div>
+        <div class="col-md-1">
+            <input type="text" disabled class="form-control" value.bind="data.defaultMeasurement"></input>
+        </div>
+        <div class="col-md-2">
             <input type="number" class="form-control" value.bind="data.price" min="0"></input>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-1">
             <button class="btn btn-danger" click.delegate="remove()">Hapus</button>
         </div>
     </div>

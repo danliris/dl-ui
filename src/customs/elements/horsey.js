@@ -23,6 +23,7 @@ export class Horsey {
             predictNextSearch: info => {
                 this.setSelection(info.selection);
             },
+            cache: false,
             source: (data, done) => {
                 this.fetch(`${uri}=${data.input}`)
                     .then(list => {
@@ -34,18 +35,6 @@ export class Horsey {
             getText: this.options.label,
             getValue: this.options.value
         });
-
-        // if (this.selection) {
-        //     this.fetch(`${uri}=${this.text}`)
-        //         .then(list => {
-        //             var item = list.find((item, index, arr) => {
-        //                 return this.getValue(item) == this.getValue(this.selection);
-        //             });
-        //             if (item) {
-        //                 this.setSelection(item);
-        //             }
-        //         })
-        // }
     }
 
     fetch(uri) {
@@ -53,7 +42,7 @@ export class Horsey {
             fetch(uri)
                 .then(result => {
                     result.json().then(json => {
-                        var list = this.map ? this.map(json) : json.data;
+                        var list = this.map ? this.map(json) : json.data;                 
                         if (!list || list.length < 1) {
                             var newSelection = {};
                             newSelection[this.options.label] = this.text;
@@ -76,8 +65,8 @@ export class Horsey {
 
     setSelection(selection) {
         this.selection = selection;
-        this.value = this.getValue(this.selection);
-        this.selectionChanged();
+        this.value = this.getValue(selection);
+        this.selectionChanged(selection);
     }
 
     getValue(data) {
@@ -90,18 +79,20 @@ export class Horsey {
         this.setSelection(newSelection);
 
     }
-    selectionChanged() {
+    selectionChanged(selection) {
         var event;
 
         if (document.createEvent) {
+            console.log(1)
             event = document.createEvent("CustomEvent");
-            event.initCustomEvent("changed", true, true, this.selection);
+            event.initCustomEvent("change", true, true, selection);
         } else {
+            console.log(2)
             event = document.createEventObject();
-            event.eventType = "changed";
+            event.eventType = "change";
         }
 
-        event.eventName = "changed";
+        event.eventName = "change";
 
         if (document.createEvent) {
             this.element.dispatchEvent(event);

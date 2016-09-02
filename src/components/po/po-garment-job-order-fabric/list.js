@@ -43,10 +43,6 @@ export class List {
                 alert('Data PO tidak ditemukan');
             })
     }
-
-    // view(data) {
-    //     this.router.navigateToRoute('view', { id: data._id });
-    // }
     
     pushDataToBePrinting(item) {
         
@@ -57,14 +53,16 @@ export class List {
             var index = this.dataToBePrinting.indexOf(item);
             this.dataToBePrinting.splice(index, 1);
         }
+        
+        this.calculateTotal();
     }
     
     pushDataToBePosting(item) {
         if (item.isPosting) {
-            this.dataToBePosting.push(item.PONo);
+            this.dataToBePosting.push(item._id);
         }
         else {
-            var index = this.dataToBePosting.indexOf(item.PONo);
+            var index = this.dataToBePosting.indexOf(item._id);
             this.dataToBePosting.splice(index, 1);
         }
     }
@@ -78,14 +76,19 @@ export class List {
     }
     
     posting() {
-        this.service.createGroup(this.dataToBePosting)
-            .then(result => {
-                this.gotoListPODL();
-            })
-            .catch(e => {
-                console.log(e);
-                this.error = e;
-            })
+        
+        if (this.dataToBePosting.length > 0) {
+            this.router.navigateToRoute('create-podl', { items: this.dataToBePosting });
+        }
+        
+        // this.service.createGroup(this.dataToBePosting)
+        //     .then(result => {
+        //         this.gotoListPODL();
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //         this.error = e;
+        //     })
     }
     
     create() {
@@ -93,7 +96,7 @@ export class List {
     }
 
     gotoListPODL() {
-        this.router.navigateToRoute('listPODL');
+        this.router.navigateToRoute('list-podl');
     }
 
     tooglePostingTrue() {
@@ -132,5 +135,29 @@ export class List {
             item.isPosting = false;
             item.isPrint = false;
         }
+    }
+    
+    calculateTotal() {
+        
+        for (var po of this.dataToBePrinting) {
+            this.total = 0;
+            this.ppn = 0;
+            this.nominal = 0;
+            
+            for (var item of po.items) {
+                this.total = this.total + (Number(item.price) * Number(item.dealQuantity));  
+                 
+            } 
+            if (po.usePPn)
+                this.ppn = 10/100 * this.total;
+            else
+                this.ppn = 0;
+            this.nominal = this.total - this.ppn;
+                
+            po.total = this.total;
+            po.ppn = this.ppn;
+            po.nominal = this.nominal;
+        }
+        
     }
 }

@@ -17,6 +17,15 @@
                 <span class="help-block">${error.PRNo}</span>
             </div>
         </div>
+        
+        <div class="form-group ${error.RONo?'has-error':''} ">
+            <label for="RONo" class="col-sm-3 control-label">Nomor RO</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="RONo" value.bind="data.RONo" />
+                <span class="help-block">${error.RONo}</span>
+            </div>
+        </div>
+        
         <div class="form-group ${error.article?'has-error':''} ">
             <label for="article" class="col-sm-3 control-label">Artikel</label>
             <div class="col-sm-3">
@@ -24,76 +33,49 @@
                 <span class="help-block">${error.article}</span>
             </div>
         </div>
-        
-        <div class="form-group ${error.supplierId?'has-error':''}">
-            <label for="suppliername" class="col-sm-3 control-label">Supplier</label>
-            <div class="col-sm-5">
-                <horsey src.bind="uriSupplier" selection.bind="data.supplier" options.bind="{label:'labelSupplier', value:'_id'}" map.bind="mapSupplier"></horsey>
-                <span class="help-block">${error.supplierId}</span>
-            </div>
-        </div>
-        
+   
         <div class="form-group ${error.buyerId?'has-error':''}">
             <label for="buyerId" class="col-sm-3 control-label">Buyer</label>
             <div class="col-sm-5">
-                         <horsey src.bind="uriBuyer" selection.bind="data.buyer" options.bind="{label:'labelBuyer', value:'_id'}" map.bind="mapBuyer"></horsey>
-                         <span class="help-block">${error.buyerId}</span>
-                         </div>
-        </div>
-
-        <div class="form-group ${error.deliveryFeeByBuyer?'has-error':''}">
-            <label for="deliveryFeeByBuyer" class="col-sm-3 control-label">Ongkos Kirim Ditanggung oleh</label>
-            <div class="col-sm-5">
-                <input type="radio" name="deliveryFeeByBuyer" model.bind="true" checked.bind="data.deliveryFeeByBuyer"> Pembeli
-                <input type="radio" name="deliveryFeeByBuyer" model.bind="false" checked.bind="data.deliveryFeeByBuyer"> Penjual
-                <span class="help-block">${error.deliveryFeeByBuyer}</span>
+                <horsey src.bind="uriBuyer" selection.bind="data.buyer" options.bind="{label:'labelBuyer', value:'_id'}" map.bind="mapBuyer"></horsey>
+                <span class="help-block">${error.buyerId}</span>
             </div>
         </div>
 
         <require from="utils/date-format"></require>
-        <div class="form-group ${error.deliveryDate?'has-error':''}">
-            <label for="deliveryDate" class="col-sm-3 control-label">Tanggal Kirim</label>
+        <div class="form-group ${error.shipmentDate?'has-error':''}">
+            <label for="shipmentDate" class="col-sm-3 control-label">Tanggal Kirim</label>
             <div class="col-sm-3">
-                <input type="date" class="form-control" name="deliveryDate" value.bind="data.deliveryDate | dateFormat : 'YYYY-MM-DD'"></input>
-                <span class="help-block">${error.deliveryDate}</span>
-            </div>
-        </div>
-
-        <div class="form-group ${error.PPn?'has-error':''}">
-            <label for="import" class="col-sm-3 control-label">Dikenakan PPn 10% ?</label>
-            <div class="col-sm-9">
-                <input type="checkbox" checked.bind="data.usePPn"></input>
-            </div>
-        </div>
-        
-        <div class="form-group ${error.termOfPayment?'has-error':''}">
-            <label for="termOfPayment" class="col-sm-3 control-label">Tempo Pembayaran</label>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="termOfPayment" value.bind="data.termOfPayment"></input>
-                <span class="help-block">${error.termOfPayment}</span>
-            </div>
-        </div>
-
-        <div class="form-group ${error.description?'has-error':''}">
-            <label for="description" class="col-sm-3 control-label">Keterangan</label>
-            <div class="col-sm-5">
-                <textarea class="form-control" name="description" value.bind="data.description"></textarea>
-                <span class="help-block">${error.description}</span>
-            </div>
+                <!--<input type="date" class="form-control" name="shipmentDate" value.bind="data.shipmentDate | dateFormat : 'YYYY-MM-DD'"></input>-->
+                <input type="date" class="form-control" name="shipmentDate" value.bind="data.shipmentDate"></input>
+                <span class="help-block">${error.shipmentDate}</span>
+            </div>       
         </div>
         
         <require from="../po-item"></require> 
         <div class="row">
-            <div class="col-md-4">   
+            <div class="col-md-2">   
                 <span>Nama Barang</span>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">   
+                <span>Keterangan</span>
+            </div>
+            <div class="col-md-1">
                 <span>Kwantum</span>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-1">
+                <span>Satuan</span>
+            </div>
+            <div class="col-md-1">
+                <span>Kwantum</span>
+            </div>
+            <div class="col-md-1">
+                <span>Satuan</span>
+            </div>
+            <div class="col-md-2">
                 <span>Harga Barang</span>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-1">
                 <button class="btn btn-success" click.delegate="addItem()">Tambah Barang</button> 
             </div>
         </div>     
