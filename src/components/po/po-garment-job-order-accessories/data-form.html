@@ -80,7 +80,7 @@
         <div class="form-group ${error.description?'has-error':''}">
             <label for="description" class="col-sm-3 control-label">Keterangan</label>
             <div class="col-sm-5">
-                <input class="form-control" name="description" value.bind="data.description"></input>
+                <textarea class="form-control" name="description" value.bind="data.description"></textarea>
                 <span class="help-block">${error.description}</span>
             </div>
         </div>
