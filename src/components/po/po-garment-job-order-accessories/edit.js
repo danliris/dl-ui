@@ -13,7 +13,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
+        this.data.isSplit = params.isSplit == "true" ? true : false;
+        // this.data.RefPONo = params.isSplit == "true" ? "" : this.data.RefPONo;
     }
 
     view() {
@@ -26,5 +27,30 @@ export class Edit {
         }).catch(e => {
             this.error = e;
         })
+    }
+
+    split() {
+        
+        this.service.split(this.copyForSplit(this.data)).then(result => {
+            this.view();
+        }).catch(e => {
+            this.error = e;
+        })
+    }
+    
+    copyForSplit(purchaseOrder) {
+        var newPurchaseOrder = {};
+        newPurchaseOrder.iso = purchaseOrder.iso;
+        newPurchaseOrder.RONo = purchaseOrder.RONo;
+        newPurchaseOrder.PRNo = purchaseOrder.PRNo;
+        newPurchaseOrder.RefPONo = purchaseOrder.PRNo;
+        newPurchaseOrder.linkedPONo = purchaseOrder.PONo;
+        newPurchaseOrder.article = purchaseOrder.article;
+        newPurchaseOrder.buyerId = purchaseOrder.buyerId;
+        newPurchaseOrder.buyer = purchaseOrder.buyer;
+        newPurchaseOrder.shipmentDate = purchaseOrder.shipmentDate;
+        newPurchaseOrder.items = purchaseOrder.items;
+
+        return newPurchaseOrder;
     }
 }

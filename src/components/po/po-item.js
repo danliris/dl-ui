@@ -14,7 +14,7 @@ export class PoItem {
     }
 
     attached() {
-
+        console.log(this.data);
         this.bindingEngine.propertyObserver(this.data, "product").subscribe((newValue, oldValue) => {
             console.log(newValue.UoM.unit);
             this.data.defaultMeasurement = newValue.UoM.unit;

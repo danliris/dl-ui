@@ -21,8 +21,20 @@ export class DataForm {
         });
         
         this.bindingEngine.propertyObserver(this.data, "RefPONo").subscribe((newValue, oldValue) => {
-            this.data.PRNo = newValue;
+             if (!this.data.isSplit) {
+                this.data.PRNo = newValue;
+            }
         });
+        
+        if (this.data.isSplit) {
+            this.splitPO();
+        }
+    }
+    
+    splitPO() {
+        for (var item of this.data.items) {
+            item.isSplit = this.data.isSplit;
+        }
     }
     
     addItem() {

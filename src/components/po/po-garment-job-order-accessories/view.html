@@ -70,6 +70,7 @@
     <div class="pull-right">
         <button click.delegate="list()" class='btn btn-default'>Kembali</button>
         <button click.delegate="edit()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Ubah</button>
+        <button click.delegate="split()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Pecah</button>
         <button click.delegate="delete()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-danger">Hapus</button>
     </div>
 </template>

@@ -26,6 +26,10 @@ export class View {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
+    split() {
+        this.router.navigateToRoute('edit', { id: this.data._id, isSplit: true });
+    }
+
     delete() {
         this.service.delete(this.data).then(result => {
             this.list();
