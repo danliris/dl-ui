@@ -42,12 +42,12 @@ export class Horsey {
             fetch(uri)
                 .then(result => {
                     result.json().then(json => {
-                        var list = this.map ? this.map(json) : json.data;                 
+                        var list = this.map ? this.map(json) : json.data;
                         if (!list || list.length < 1) {
                             var newSelection = {};
                             newSelection[this.options.label] = this.text;
                             this.setSelection(newSelection);
-                        }
+                        } 
                         resolve(list);
                     });
                 });
@@ -73,7 +73,7 @@ export class Horsey {
         return this.options.value ? data[this.options.value] : null;
     }
 
-    textchanged(event) { 
+    textchanged(event) {
         var newSelection = {};
         newSelection[this.options.label] = this.text;
         this.setSelection(newSelection);
@@ -83,11 +83,9 @@ export class Horsey {
         var event;
 
         if (document.createEvent) {
-            console.log(1)
             event = document.createEvent("CustomEvent");
             event.initCustomEvent("change", true, true, selection);
         } else {
-            console.log(2)
             event = document.createEventObject();
             event.eventType = "change";
         }
