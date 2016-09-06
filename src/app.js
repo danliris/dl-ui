@@ -15,18 +15,17 @@ export class App {
       { route: 'accessories', name: 'accessories', moduleId: './components/accessories/index', nav: true, title: 'Aksesoris' },
       { route: 'spareparts', name: 'spareparts', moduleId: './components/sparepart/index', nav: true, title: 'Sparepart' },
       { route: 'generalmerchandises', name: 'generalmerchandises', moduleId: './components/general-merchandise/index', nav: true, title: 'Barang Umum' },
-      { route: 'pogarmentfabrics', name: 'pogarmentfabrics', moduleId: './components/po/po-garment-fabric/index', nav: true, title: 'PO Garment : Master Fabric' },
-      { route: 'garmentaccessories', name: 'garmentaccessories', moduleId: './components/po/po-garment-accessories/index', nav: true, title: 'PO Garment : Master Accessories' }, 
+      // { route: 'pogarmentfabrics', name: 'pogarmentfabrics', moduleId: './components/po/po-garment-fabric/index', nav: true, title: 'PO Garment : Master Fabric' },
+      // { route: 'garmentaccessories', name: 'garmentaccessories', moduleId: './components/po/po-garment-accessories/index', nav: true, title: 'PO Garment : Master Accessories' }, 
       { route: 'pogarmentgenerals', name: 'pogarmentgenerals', moduleId: './components/po/po-garment-general/index', nav: true, title: 'PO Garment : Barang Umum' },
-      { route: 'garmentspareparts', name: 'garmentspareparts', moduleId: './components/po/po-garment-sparepart/index', nav: true, title: 'PO Garment : Sparepart' },
+      // { route: 'garmentspareparts', name: 'garmentspareparts', moduleId: './components/po/po-garment-sparepart/index', nav: true, title: 'PO Garment : Sparepart' },
       { route: 'garmentjoborderfabrics', name: 'garmentjoborderfabrics', moduleId: './components/po/po-garment-job-order-fabric/index', nav: true, title: 'PO Garment : Job Order Fabric' },
       { route: 'garmentjoborderaccessories', name: 'garmentjoborderaccessories', moduleId: './components/po/po-garment-job-order-accessories/index', nav: true, title: 'PO Garment : Job Order Accessories' },
-      { route: 'textileexternals', name: 'textileexternals', moduleId: './components/po/po-textile-job-order-external/index', nav: true, title: 'PO Tekstil : Job Order/Eksternal' },
-      { route: 'textilegeneralatk', name: 'textile-general-atk', moduleId: './components/po/po-textile-general-atk/index', nav: true, title: 'PO Tekstil : Umum ATK & Kebersihan' },
-      { route: 'textilegeneralotheratk', name: 'textile-general-other-atk', moduleId: './components/po/po-textile-general-other-atk/index', nav: true, title: 'PO Tekstil : Umum Selain ATK & Kebersihan' },
-      { route: 'textilespareparts', name: 'textilespareparts', moduleId: './components/po/po-textile-sparepart/index', nav: true, title: 'PO Tekstil : Sparepart' },
+      // { route: 'textileexternals', name: 'textileexternals', moduleId: './components/po/po-textile-job-order-external/index', nav: true, title: 'PO Tekstil : Job Order/Eksternal' },
+      // { route: 'textilegeneralatk', name: 'textile-general-atk', moduleId: './components/po/po-textile-general-atk/index', nav: true, title: 'PO Tekstil : Umum ATK & Kebersihan' },
+      // { route: 'textilegeneralotheratk', name: 'textile-general-other-atk', moduleId: './components/po/po-textile-general-other-atk/index', nav: true, title: 'PO Tekstil : Umum Selain ATK & Kebersihan' },
+      // { route: 'textilespareparts', name: 'textilespareparts', moduleId: './components/po/po-textile-sparepart/index', nav: true, title: 'PO Tekstil : Sparepart' },
       { route: 'suratjalan', name: 'suratjalan', moduleId: './components/surat-jalan/index', nav: true, title: 'Surat Jalan' }
-      
     ]);
 
     this.router = router;

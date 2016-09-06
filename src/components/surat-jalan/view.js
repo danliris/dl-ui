@@ -8,30 +8,29 @@ export class View {
     totalAmount=0;
     showProductDetail = false;
     index=4;
+    konfeksi="";
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
-        this.service.getById(id)
+        await this.service.getById(id)
         .then(data=>{
             this.data = data;
             this.sumSJ();
+            this.data.items.forEach(item=>{
+            item.showDetails = false
+        })
         })
     }
-    
-    showDetail(index) {
-        this.showProductDetail=true;
-        this.index=index;
+    showDetail(item) {
+        if (item.showDetails)
+            item.showDetails = false;
+        else
+            item.showDetails = true;
    }
-   
-   hideDetail(index) {
-        this.index=index;
-        this.showProductDetail=false;
-   }
-   
     list()
     {
         this.router.navigateToRoute('list');
@@ -65,4 +64,22 @@ export class View {
         this.totalQty=qty
         this.totalAmount=amount
     }
+    
+    setKonfeksi(RONo) {
+        var ro = RONo.substr(2, 1);
+        console.log(ro);
+        if (ro == "1")
+            return "K2A"
+        else if (ro == "2")
+            return "K2B"
+        else if (ro == "3")
+            return "K1A"
+        else if (ro == "4")
+            return "K1B"
+        else if (ro == "5")
+            return "K1C"
+        else
+            return ro
+    }
+
 }

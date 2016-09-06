@@ -1,6 +1,5 @@
 <template>
     <require from="../../utils/date-format"></require>
-    <require from="./product-detail"></require>
     <h3>Detail Surat Jalan</h3> 
     <form class="form-horizontal"> 
         <div class="form-group">
@@ -54,7 +53,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Total Nominal</label>
             <div class="col-sm-5">
-                <p class="form-control-static">${data.items[0].currency} ${totalAmount}</p>
+                <p class="form-control-static">${totalAmount}</p>
             </div>
          </div>
          <div class="form-group">
@@ -73,24 +72,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="item of data.items">
+                    <template repeat.for="item of data.items">
+                    <tr >
                         <td>${item.PONo}</td>
                         <td>${item.PRNo}</td>
                         <td>${item.RONo}</td>
                         <td>${item.article}</td>
-                        <td>${item.RONo.substr(1,2)}</td>
+                        <td>${setKonfeksi(item.RONo)}</td>
                         <td>${item.currency}</td>
                         <td>${item.paymentDue}</td>
                         <td>
-                            <button class="btn btn-default" click.delegate="showDetail($index)">Rincian Barang</button>
+                            <button class="btn btn-primary" click.delegate="showDetail(item)">Rincian Barang</button>
                             </td>
+                    </tr>
+                    <tr if.bind="item.showDetails">
+                        <td colspan="8">
+                        <table class="table " style='border: 1px solid gray;'>
+                <thead>
+                    <tr>
+                        <td align="center"colspan="7"><b>Rincian Barang</b></td>
+                    </tr>
+                    <tr>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Keterangan</th>
+                        <th>Satuan</th>
+                        <th>Jumlah Barang di PO</th>
+                        <th>Jumlah Barang di SJ</th>
+                        <th>Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="poItem of item.items">
+                        <td>${poItem.product.code}</td>
+                        <td>${poItem.product.name}</td>
+                        <td>${poItem.product.description}</td>
+                        <td>${poItem.product.UoM ? poItem.product.UoM.unit : ''}</td>                
+                        <td>${poItem.dealQuantity}</td>                 
+                        <td>${poItem.realizationQuantity}</td>                 
+                        <td>${poItem.price}</td> 
                     </tr>
                 </tbody>
             </table>
-         </div>
-         <div class="${showProductDetail ? '' : 'hide'}  form-group">
-             <product-detail data.bind="data.items[index]" error.bind="error"></product-detail>
-             <button class="btn btn-success" click.delegate="hideDetail($index)">Tutup</button>
+                        </td>
+                    </tr>
+                    
+                    </template>
+                </tbody>
+            </table>
          </div>
     </form> 
     <hr/>

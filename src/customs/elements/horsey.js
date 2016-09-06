@@ -23,6 +23,7 @@ export class Horsey {
             predictNextSearch: info => {
                 this.setSelection(info.selection);
             },
+            cache: false,
             source: (data, done) => {
                 this.fetch(`${uri}=${data.input}`)
                     .then(list => {
@@ -34,18 +35,6 @@ export class Horsey {
             getText: this.options.label,
             getValue: this.options.value
         });
-
-        if (this.selection) {
-            this.fetch(`${uri}=${this.text}`)
-                .then(list => {
-                    var item = list.find((item, index, arr) => {
-                        return this.getValue(item) == this.getValue(this.selection);
-                    });
-                    if (item) {
-                        this.setSelection(item);
-                    }
-                })
-        }
     }
 
     fetch(uri) {
@@ -53,7 +42,13 @@ export class Horsey {
             fetch(uri)
                 .then(result => {
                     result.json().then(json => {
-                        resolve(this.map ? this.map(json) : json.data);
+                        var list = this.map ? this.map(json) : json.data;
+                        if (!list || list.length < 1) {
+                            var newSelection = {};
+                            newSelection[this.options.label] = this.text;
+                            this.setSelection(newSelection);
+                        } 
+                        resolve(list);
                     });
                 });
         });
@@ -64,15 +59,43 @@ export class Horsey {
         return this.selection ? this.selection[this.options.label] : '';
     }
     set text(value) {
+        this.selection = this.selection || {};
         this.selection[this.options.label] = value;
     }
 
     setSelection(selection) {
         this.selection = selection;
-        this.value = this.getValue(this.selection);
+        this.value = this.getValue(selection);
+        this.selectionChanged(selection);
     }
 
     getValue(data) {
-        return data[this.options.value];
+        return this.options.value ? data[this.options.value] : null;
+    }
+
+    textchanged(event) {
+        var newSelection = {};
+        newSelection[this.options.label] = this.text;
+        this.setSelection(newSelection);
+
+    }
+    selectionChanged(selection) {
+        var event;
+
+        if (document.createEvent) {
+            event = document.createEvent("CustomEvent");
+            event.initCustomEvent("change", true, true, selection);
+        } else {
+            event = document.createEventObject();
+            event.eventType = "change";
+        }
+
+        event.eventName = "change";
+
+        if (document.createEvent) {
+            this.element.dispatchEvent(event);
+        } else {
+            this.element.fireEvent("on" + event.eventType, event);
+        }
     }
 }
