@@ -26,6 +26,12 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
+    split(data) {
+        
+        var endpoint = require('../../../host').core + '/v1/po/split/garmentjoborderfabrics';
+        return super.post(endpoint, data);
+    }
+
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.put(endpoint, data);
