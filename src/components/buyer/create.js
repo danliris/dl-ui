@@ -8,7 +8,7 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
+        this.data = {address:'alamat'};
     }
 
     activate(params) {
