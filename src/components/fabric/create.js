@@ -8,7 +8,7 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
+        this.data = { detail: {} };
 
         // this.data.code = '1tte';
         // this.data.name = 'name_1';
