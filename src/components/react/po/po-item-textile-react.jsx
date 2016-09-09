@@ -1,7 +1,7 @@
 import React from 'react';
- 
+
 import PoItemReact from './po-item-react.jsx';
-import TextileAutoSuggestReact from '../auto-suggests/textile-auto-suggest-react.jsx'; 
+import TextileAutoSuggestReact from '../auto-suggests/textile-auto-suggest-react.jsx';
 
 'use strict';
 
@@ -13,7 +13,7 @@ export default class PoItemTextileReact extends React.Component {
         this.handleProductChange = this.handleProductChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
-        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this); 
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
     handleValueChange(value) {
@@ -30,11 +30,11 @@ export default class PoItemTextileReact extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ value: this.props.value || '', options: this.props.options || {} });
+        this.setState({ value: this.props.value || {}, options: this.props.options || {} });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value, options: this.props.options || {} });
+        this.setState({ value: props.value || {}, options: this.props.options || {} });
     }
 
     render() {

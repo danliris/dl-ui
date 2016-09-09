@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import PoItemTextileReact from '../react/po/po-item-textile-react.jsx';
+import PoItemTextileReact from '../../react/po/po-item-textile-react.jsx';
 
 
 @noView()
@@ -23,7 +23,15 @@ export class PoItemTextileCollection {
 
     handleItemAdd() {
 
-        this.value.push({ product: { name: 'item' } });
+        this.value.push({
+            product: { toString: function () { return '' } },            
+            defaultQuantity:0,
+            defaultMeasurement:'',
+            dealQuantity:0,
+            dealMeasurement:'',
+            price:0,
+            description:''
+        });
         this.bind();
     }
 

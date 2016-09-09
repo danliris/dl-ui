@@ -1,38 +1,38 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../../host').core + '/v1/core/fabrics';
+const serviceUri = require('../../../host').core + '/v1/core/uoms';
 
 'use strict';
 
-export default class FabricAutoSuggestReact extends React.Component {
+export default class UomAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
-    getFabricSuggestions(text) { 
+    getUomSuggestions(text) {
         return fetch(serviceUri).then(results => results.json()).then(json => {
-            return json.data.map(textile => {
-                textile.toString = function () {
-                    return `${this.code} - ${this.name}`;
+            return json.data.map(uom => {
+                uom.toString = function () {
+                    return `${this.unit}`;
                 }
-                return textile;
+                return uom;
             })
         })
     }
 
     componentWillMount() {
-        var _options = Object.assign({ suggestions: this.getFabricSuggestions }, this.props.options)
+        var _options = Object.assign({ suggestions: this.getUomSuggestions }, this.props.options)
         this.setState({ value: this.props.value, options: _options });
     }
     componentWillReceiveProps(props) {
-        var _options = Object.assign({ suggestions: this.getFabricSuggestions }, props.options)
+        var _options = Object.assign({ suggestions: this.getUomSuggestions }, props.options)
         this.setState({ value: props.value, options: _options });
     }
 
-    render() { 
+    render() {
         return (
             <AutoSuggestReact
                 value={this.state.value}

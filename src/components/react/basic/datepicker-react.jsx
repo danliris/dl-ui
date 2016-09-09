@@ -2,7 +2,7 @@ import React from 'react';
 
 'use strict';
 
-export default class MultilineReact extends React.Component {
+export default class DatePickerReact extends React.Component {
     constructor(props) {
         super(props);
         this.handleValueChange = this.handleValueChange.bind(this);
@@ -20,7 +20,7 @@ export default class MultilineReact extends React.Component {
         this.setState({ value: this.props.value || '', options: this.props.options || {} });
     }
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value, options: this.props.options || {} });
+        this.setState({ value: props.value|| '', options: this.props.options || {} });
     }
 
     render() {
@@ -30,7 +30,7 @@ export default class MultilineReact extends React.Component {
             );
         else
             return (
-                <textarea value={this.state.value} onChange={this.handleValueChange} className="form-control"/>
+                <input type="date" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>
             );
     }
 } 

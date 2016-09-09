@@ -2,7 +2,7 @@ import React from 'react';
 
 'use strict';
 
-export default class DatePickerReact extends React.Component {
+export default class DropdownReact extends React.Component {
     constructor(props) {
         super(props);
         this.handleValueChange = this.handleValueChange.bind(this);
@@ -17,10 +17,10 @@ export default class DatePickerReact extends React.Component {
             this.props.onChange(event.target.value);
     }
     componentWillMount() {
-        this.setState({ value: this.props.value || '', options: this.props.options || {} });
+        this.setState({ value: this.props.value || '', options: this.props.options || {}, items: this.props.items || [] });
     }
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value, options: this.props.options || {} });
+        this.setState({ value: props.value || '', options: this.props.options || {}, items: this.props.items || [] });
     }
 
     render() {
@@ -28,9 +28,19 @@ export default class DatePickerReact extends React.Component {
             return (
                 <p className="form-control-static">{(this.state.value || '').toString() }</p>
             );
-        else
+        else {
+            var items = this.state.items.map(item => {
+                return (
+                    <option key={item} value={item}>{item.toString() }</option>
+                );
+            });
             return (
-                <input type="date" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>
+                <select value={this.state.value} onChange={this.handleValueChange} className="form-control">
+                    {
+                        items
+                    }
+                </select>
             );
+        }
     }
 } 

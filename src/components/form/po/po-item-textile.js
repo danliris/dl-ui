@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import TextboxReact from '../react/textbox-react.jsx';
-import NumericReact from '../react/numeric-react.jsx';
-import TextileAutoSuggestReact from '../react/auto-suggests/textile-auto-suggest-react.jsx';
-import UomAutoSuggestReact from '../react/auto-suggests/uom-auto-suggest-react.jsx';
-import PoItemTextileReact from '../react/po/po-item-textile-react.jsx';
+import TextboxReact from '../../react/basic/textbox-react.jsx';
+import NumericReact from '../../react/basic/numeric-react.jsx';
+import TextileAutoSuggestReact from '../../react/auto-suggests/textile-auto-suggest-react.jsx';
+import UomAutoSuggestReact from '../../react/auto-suggests/uom-auto-suggest-react.jsx';
+import PoItemTextileReact from '../../react/po/po-item-textile-react.jsx';
 
 
 @noView()

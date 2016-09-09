@@ -2,7 +2,7 @@ import React from 'react';
 
 'use strict';
 
-export default class DropdownReact extends React.Component {
+export default class MultilineReact extends React.Component {
     constructor(props) {
         super(props);
         this.handleValueChange = this.handleValueChange.bind(this);
@@ -17,10 +17,10 @@ export default class DropdownReact extends React.Component {
             this.props.onChange(event.target.value);
     }
     componentWillMount() {
-        this.setState({ value: this.props.value || '', options: this.props.options || {}, items: this.props.items || [] });
+        this.setState({ value: this.props.value || '', options: this.props.options || {} });
     }
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value, options: this.props.options || {}, items: this.props.items || [] });
+        this.setState({ value: props.value || '', options: this.props.options || {} });
     }
 
     render() {
@@ -28,19 +28,9 @@ export default class DropdownReact extends React.Component {
             return (
                 <p className="form-control-static">{(this.state.value || '').toString() }</p>
             );
-        else {
-            var items = this.state.items.map(item => {
-                return (
-                    <option key={item} value={item}>{item.toString() }</option>
-                );
-            });
+        else
             return (
-                <select value={this.state.value} onChange={this.handleValueChange} className="form-control">
-                    {
-                        items
-                    }
-                </select>
+                <textarea value={this.state.value} onChange={this.handleValueChange} className="form-control"/>
             );
-        }
     }
 } 

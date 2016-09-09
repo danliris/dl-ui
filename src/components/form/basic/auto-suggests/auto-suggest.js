@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import AutoSuggestReact from '../../react/auto-suggests/auto-suggest-react.jsx';
+import AutoSuggestReact from '../../../react/auto-suggests/auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)

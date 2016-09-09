@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TextboxReact from '../textbox-react.jsx';
-import NumericReact from '../numeric-react.jsx'; 
+import TextboxReact from '../basic/textbox-react.jsx';
+import NumericReact from '../basic/numeric-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
 
 'use strict';
@@ -12,7 +12,6 @@ export default class PoItem extends React.Component {
 
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
-        this.handleProductChange = this.handleProductChange.bind(this);
         this.handleDefaultQuantityChange = this.handleDefaultQuantityChange.bind(this);
         this.handleDealQuantityChange = this.handleDealQuantityChange.bind(this);
         this.handleDealMeasurementChange = this.handleDealMeasurementChange.bind(this);
@@ -22,20 +21,13 @@ export default class PoItem extends React.Component {
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
 
-        this.dealMeasurement = {};
+        this.dealMeasurement = { toString: () => '' };
     }
 
     handleValueChange(value) {
         this.setState({ value: value });
         if (this.props.onChange)
             this.props.onChange(value);
-    }
-
-    handleProductChange(event, product) {
-        var value = this.state.value;
-        value.product = product;
-        value.defaultMeasurement = product.uom.unit;
-        this.handleValueChange(value);
     }
 
     handleDefaultQuantityChange(quantity) {
@@ -71,11 +63,11 @@ export default class PoItem extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ value: this.props.value || '', options: this.props.options || {} });
+        this.setState({ value: this.props.value || {}, options: this.props.options || {} });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value, options: this.props.options || {} });
+        this.setState({ value: props.value || {}, options: this.props.options || {} });
     }
 
     render() {
