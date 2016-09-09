@@ -1,0 +1,132 @@
+<template>
+    <require from="../../../utils/date-format"></require>
+    <h3>Detail Ekternal PO Tekstil</h3>
+    <form class="form-horizontal">
+        
+        <div class="form-group">
+            <label for="PODLNo" class="col-sm-3 control-label">Nomor PODL</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PODLNo}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="supplier" class="col-sm-3 control-label">Supplier</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.supplier.name}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="buyer.PODate" class="col-sm-3 control-label">Tanggal PO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PODate | dateFormat:'D MMMM YYYY'}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="buyer.deliveryDate" class="col-sm-3 control-label">Tanggal Kirim</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.deliveryDate | dateFormat:'D MMMM YYYY'}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="deliveryFeeByBuyer" class="col-sm-3 control-label">Ongkos Kirim Ditanggung oleh</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="termOfPayment" class="col-sm-3 control-label">Term Pembayaran</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.termOfPayment}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="currency" class="col-sm-3 control-label">Mata Uang</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.currency}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="rate" class="col-sm-3 control-label">Rate</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.rate}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="paymentDue" class="col-sm-3 control-label">Tempo Pembayaran</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.paymentDue} hari</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="description" class="col-sm-3 control-label">Keterangan</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.description}</p>
+            </div>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nomor Referensi PO</th>
+                        <th>Nomor PR</th>
+                        <th>Dikenakan PPn ?</th>
+                        <th>Dikenakan PPh ?</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template repeat.for="item of data.items">
+                    <tr>
+                        <td>${item.RefPONo}</td>
+                        <td>${item.PRNo}</td>
+                        <td>${item.usePPn ? 'Ya' : 'Tidak'}</td>
+                        <td>${item.usePPh ? 'Ya' : 'Tidak'}</td>
+                        <td> <button class="${item.PRNo? '' : 'hide'}  btn btn-primary" click.delegate="showDetail(item)">Rincian Barang</button> </td>
+                    </tr>
+                    <tr if.bind="item.showDetails">
+                         <td></td>
+                         <td colspan="4">
+                             <table style='padding-top: 10px; padding-bottom:10px; border: 1px solid gray;' class="table">
+                                <thead>
+                                    <tr> <td align="center"colspan="4"><b>Rincian Barang</b></td> </tr>
+                                    <tr>
+                                        <th>Kode Barang</th>
+                                        <th>Nama Barang</th>
+                                        <th>Satuan</th>
+                                        <th>Jumlah Barang</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr repeat.for="poItem of item.items">
+                                        <td>${poItem.product.code}</td>
+                                        <td>${poItem.product.name}</td>
+                                        <td>${poItem.defaultMeasurement}</td>
+                                        <td>${poItem.defaultQuantity}</td>
+                                    </tr>
+                                </tbody>
+                             </table>
+                        </td>
+                     </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <hr/>
+    <div class="pull-right">
+        <button click.delegate="list()" class='btn btn-default'>Kembali</button>
+        <button click.delegate="edit()" class="btn btn-primary">Ubah</button>
+        <!--<button click.delegate="split()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Pecah</button>
+        <button click.delegate="delete()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-danger">Hapus</button>-->
+    </div>
+</template>

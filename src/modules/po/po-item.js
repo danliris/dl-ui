@@ -5,6 +5,7 @@ import {inject, bindable, BindingEngine, observable} from 'aurelia-framework'
 export class PoItem {
     @bindable data;
     @bindable uri;
+    @bindable error;
     
     uriUom = require('../../host').core + "/v1/core/uoms";
     
@@ -14,9 +15,9 @@ export class PoItem {
     }
 
     attached() {
-        console.log(this.data);
+        // console.log(this.data);
         this.bindingEngine.propertyObserver(this.data, "product").subscribe((newValue, oldValue) => {
-            console.log(newValue.UoM.unit);
+            // console.log(newValue.UoM.unit);
             this.data.defaultMeasurement = newValue.UoM.unit;
         });
     }
@@ -52,12 +53,14 @@ export class PoItem {
     }
 
     mapUom(result) {
+        console.log(result.data);
         var list = result.data.map(item => {
             var _item = item;
+            console.log(_item);
             _item.labelUom = `${_item.unit}`;
             return _item
         });
-        console.log(list);
+        // console.log(list);
         return list;
     }
 }

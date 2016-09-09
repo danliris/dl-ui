@@ -1,0 +1,76 @@
+<template>
+    <h3>View PO Garment : Job Order Fabric</h3>
+    <form class="form-horizontal">
+        
+        <div class="form-group" if.bind="data.PODLNo != ''">
+            <label for="PODLNo" class="col-sm-3 control-label">Nomor PODL</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PODLNo}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="RefPONo" class="col-sm-3 control-label">Nomor Referensi PO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RefPONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="PRNo" class="col-sm-3 control-label">Nomor PR</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.PRNo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RONo" class="col-sm-3 control-label">Nomor RO</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.RONo}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="buyer.name" class="col-sm-3 control-label">Buyer</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.buyer.name}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="buyer.shipmentDate" class="col-sm-3 control-label">Tanggal Shipment</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">${data.shipmentDate}</p>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>Keterangan</th>
+                        <th>Kwantum</th>
+                        <th>satuan</th>
+                        <th>Kwantum Kesepakatan</th>
+                        <th>satuan Kesepakatan</th>
+                        <th>Harga Barang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data.items">
+                        <td>${item.product.name}</td>
+                        <td>${item.description}</td>
+                        <td>${item.defaultQuantity}</td>
+                        <td>${item.defaultMeasurement}</td>
+                        <td>${item.dealQuantity}</td>
+                        <td>${item.dealMeasurement.unit}</td>
+                        <td>${item.price}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <hr/>
+    <div class="pull-right">
+        <button click.delegate="list()" class='btn btn-default'>Kembali</button>
+        <button click.delegate="edit()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Ubah</button>
+        <button click.delegate="split()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Pecah</button>
+        <button click.delegate="delete()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-danger">Hapus</button>
+    </div>
+</template>
