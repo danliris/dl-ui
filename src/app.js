@@ -25,7 +25,7 @@ export class App {
       // { route: 'textilegeneralatk', name: 'textile-general-atk', moduleId: './components/po/po-textile-general-atk/index', nav: true, title: 'PO Tekstil : Umum ATK & Kebersihan' },
       // { route: 'textilegeneralotheratk', name: 'textile-general-other-atk', moduleId: './components/po/po-textile-general-other-atk/index', nav: true, title: 'PO Tekstil : Umum Selain ATK & Kebersihan' },
       // { route: 'textilespareparts', name: 'textilespareparts', moduleId: './components/po/po-textile-sparepart/index', nav: true, title: 'PO Tekstil : Sparepart' }
-      
+      { route: 'costcalculations', name: 'costcalculations', moduleId: './components/cost-calculation/index', nav: true, title: 'Cost Calculation' }
     ]);
 
     this.router = router;

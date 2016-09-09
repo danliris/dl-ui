@@ -51,19 +51,21 @@
                 <span class="help-block">${error.shipmentDate}</span>
             </div>       
         </div>
+        <div class="form-group ${error.description?'has-error':''}">
+            <label for="description" class="col-sm-3 control-label">Keterangan</label>
+            <div class="col-sm-5">
+                <textarea class="form-control" name="description" value.bind="data.description"></textarea>
+                <span class="help-block">${error.description}</span>
+            </div>
+        </div>
         
         <require from="../po-item"></require> 
         <div class="row">
             <div class="col-md-2">   
                 <span>Nama Barang</span>
             </div>
-        </div>
-
-        <div class="form-group ${error.description?'has-error':''}">
-            <label for="description" class="col-sm-3 control-label">Keterangan</label>
-            <div class="col-sm-5">
-                <textarea class="form-control" name="description" value.bind="data.description"></textarea>
-                <span class="help-block">${error.description}</span>
+            <div class="col-md-3">   
+                <span>Keterangan</span>
             </div>
             <div class="col-md-1">
                 <span>Kwantum</span>
