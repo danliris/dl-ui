@@ -35,13 +35,12 @@ export class DataForm {
     addPO() {
         if (!this.data.items)
             this.data.items = [];
-        this.data.items.push({ item: { showDetails: true } });
+        this.data.items.push({ showDetails: false } );
     }
 
     removePO(item) {
         var itemIndex = this.data.items.indexOf(item);
         this.data.items.splice(itemIndex, 1);
-        // console.log(this.data);
     }
 
     horseyChanged(index, event) {
@@ -58,6 +57,6 @@ export class DataForm {
     removeProduct(po, poItem) {
         var poIndex = this.data.items.indexOf(po);
         var poItemIndex = this.data.items[poIndex].indexOf(poItem);
-        this.data.items[poItemIndex].items.splice(itemIndex, 1);
+        this.data.items[poIndex].items.splice(poItemIndex, 1);
     }
 } 
