@@ -16,6 +16,6 @@ export class DataForm {
     }
 
     attached() { 
-        
+        // console.log(this.data);
     } 
 } 

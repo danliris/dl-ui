@@ -12,6 +12,7 @@ export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
+    .feature('components/form')
     // .plugin('aurelia-dialog');
     .plugin('aurelia-dialog', config => {
       config.useDefaults();

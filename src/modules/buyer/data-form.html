@@ -1,46 +1,10 @@
 <template>
     <form class="form-horizontal">
-
-        <div class="form-group ${error.name?'has-error':''}">
-            <label for="name" class="col-sm-2 control-label">Nama</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="name" value.bind="data.name" />
-                <span class="help-block">${error.name}</span>
-            </div>
-        </div>
-        <div class="form-group ${error.address?'has-error':''}">
-            <label for="address" class="col-sm-2 control-label">Alamat</label>
-            <div class="col-sm-5">
-                <textarea class="form-control" name="address" value.bind="data.address"></textarea>
-                <span class="help-block">${error.address}</span>
-            </div>
-        </div>
-        <div class="form-group ${error.country?'has-error':''}">
-            <label for="country" class="col-sm-2 control-label">Negara</label>
-            <div class="col-sm-5">
-                <select name="country" class="form-control" value.bind="data.country">
-                    <option value="">Pilih Negara...</option>
-                    <option repeat.for="item of countries" value.bind="item">
-                            ${item}
-                    </option>
-                </select>
-                <span class="help-block">${error.country}</span>
-            </div>
-        </div>
-
-        <div class="form-group ${error.contact?'has-error':''}">
-            <label for="phone" class="col-sm-2 control-label">Kontak</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" name="contact" value.bind="data.contact" />
-                <span class="help-block">${error.contact}</span>
-            </div>
-        </div>
-        <div class="form-group ${error.tempo?'has-error':''}">
-            <label for="tempo" class="col-sm-2 control-label">Tempo</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" name="tempo" value.bind="data.tempo"></input>
-                <span class="help-block">${error.tempo}</span>
-            </div>
-        </div>
+        <textbox    label="Code"    value.bind="data.code"      error.bind="error.code" read-only.bind="(data._id||'').toString()!=''"></textbox>
+        <textbox    label="Nama"    value.bind="data.name"      error.bind="error.name"></textbox>
+        <multiline  label="Alamat"  value.bind="data.address"   error.bind="error.address"></multiline>
+        <dropdown   label="Negara"  value.bind="data.country"   error.bind="error.country" items.bind="countries"></dropdown>
+        <textbox    label="Kontak"  value.bind="data.contact"   error.bind="error.contact"></textbox>
+        <numeric    label="Tempo"   value.bind="data.tempo"     error.bind="error.tempo"></numeric>
     </form>
 </template>
