@@ -4,6 +4,10 @@ export function configure(config) {
         './basic/numeric',
         './basic/multiline',
         './basic/dropdown',
-        './basic/auto-suggest'
+        './basic/datepicker',
+        './basic/auto-suggests/auto-suggest',
+        './basic/auto-suggests/uom-auto-suggest',
+        './po/po-item-textile',
+        './po/po-item-textile-collection'
     );
 }

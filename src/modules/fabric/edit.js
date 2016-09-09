@@ -10,19 +10,16 @@ export class Edit {
         this.service = service;
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
-        this.service.getById(id).then(data => {
-            this.data = data;
-        })
+        this.data = await this.service.getById(id);
     }
 
     view() {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    save() {
-        console.log(this.data);
+    save() { 
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {

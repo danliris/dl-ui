@@ -4,14 +4,14 @@
     <require from="customs/elements/horsey"></require>
     <form class="form-horizontal">
 
-        <textbox    label="Kode"        value.bind="data.code"                  error.bind="error.code" read-only.bind="(data._id||'').toString()!=''"></textbox>
-        <textbox    label="Nama"        value.bind="data.name"                  error.bind="error.name"></textbox>
-        <textbox    label="Komposisi"   value.bind="data.detail.composition"    error.bind="error.detail.composition"></textbox>
-        <textbox    label="Konstruksi"  value.bind="data.detail.construction"   error.bind="error.detail.construction"></textbox>
-        <textbox    label="Benang"      value.bind="data.detail.yarn"           error.bind="error.detail.yarn"></textbox>
-        <textbox    label="Lebar"       value.bind="data.detail.width"          error.bind="error.detail.width"></textbox>
-        <multiline  label="Keterangan"  value.bind="data.description"          error.bind="error.description"></multiline>
-        <textbox    label="Satuan"      value.bind="data.uom"                   error.bind="error.uom"></textbox>
+        <textbox            label="Kode"        value.bind="data.code"                  error.bind="error.code"                 read-only.bind="isEdit"></textbox>
+        <textbox            label="Nama"        value.bind="data.name"                  error.bind="error.name"                 read-only.bind="readOnly"></textbox>
+        <textbox            label="Komposisi"   value.bind="data.detail.composition"    error.bind="error.detail.composition"   read-only.bind="readOnly"></textbox>
+        <textbox            label="Konstruksi"  value.bind="data.detail.construction"   error.bind="error.detail.construction"  read-only.bind="readOnly"></textbox>
+        <textbox            label="Benang"      value.bind="data.detail.yarn"           error.bind="error.detail.yarn"          read-only.bind="readOnly"></textbox>
+        <textbox            label="Lebar"       value.bind="data.detail.width"          error.bind="error.detail.width"         read-only.bind="readOnly"></textbox>
+        <multiline          label="Keterangan"  value.bind="data.description"           error.bind="error.description"          read-only.bind="readOnly"></multiline>
+        <uom-auto-suggest   label="Satuan"      value.bind="data.uom"                   error.bind="error.uom"                  read-only.bind="readOnly"   change.delegate="uomChanged($event)"></uom-auto-suggest>
 
         <!-- Actual Fabric form-->
         <!--<div class="form-group ${error.name?'has-error':''}">

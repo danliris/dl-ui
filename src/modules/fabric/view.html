@@ -1,21 +1,10 @@
 <template>
     <!-- Import shared component for UoM in Editor mode --> 
-    <require from="../UoM-form-shared/uom-display"></require>
+    <require from="./data-form"></require>
 
     <h3>Detail Fabric</h3>
     <form class="form-horizontal"> 
-
-        <textbox    label="Kode"        value.bind="data.code"                  error.bind="error.code"                 read-only="true"></textbox>
-        <textbox    label="Nama"        value.bind="data.name"                  error.bind="error.name"                 read-only="true"></textbox>
-        <textbox    label="Komposisi"   value.bind="data.detail.composition"    error.bind="error.detail.composition"   read-only="true"></textbox>
-        <textbox    label="Konstruksi"  value.bind="data.detail.construction"   error.bind="error.detail.construction"  read-only="true"></textbox>
-        <textbox    label="Benang"      value.bind="data.detail.yarn"           error.bind="error.detail.yarn"          read-only="true"></textbox>
-        <textbox    label="Lebar"       value.bind="data.detail.width"          error.bind="error.detail.width"         read-only="true"></textbox>
-        <multiline  label="Keterangan"  value.bind="data.description"          error.bind="error.description"           read-only="true"></multiline>
-        <textbox    label="Satuan"      value.bind="data.uom"                   error.bind="error.uom"                  read-only="true"></textbox>
-
-        <!-- Shared UoM component -->
-        <!--<uom-display data.bind="data" error.bind="error"></uom-display>-->
+        <data-form data.bind="data" error.bind="error" read-only="true"></data-form> 
     </form>
     <hr/>
     <div class="btn-group pull-right">

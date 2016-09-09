@@ -20,7 +20,7 @@ export default class TextboxReact extends React.Component {
         this.setState({ value: this.props.value || '', options: this.props.options || {} });
     }
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value, options: this.props.options || {} });
+        this.setState({ value: props.value || '', options: this.props.options || {} });
     }
 
     render() {

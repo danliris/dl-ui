@@ -1,104 +1,19 @@
 <template>
     <require from="utils/date-format"></require>
     <form class="form-horizontal">
-        
-        <require from="customs/elements/horsey"></require>
-        <div class="form-group ${error.RefPONo?'has-error':''}">
-            <label for="RefPONo" class="col-sm-3 control-label">Nomor Referensi PO</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" name="RefPONo" value.bind="data.RefPONo" />
-                <span class="help-block">${error.RefPONo}</span>
-            </div>
-        </div>
-        
-        <div class="form-group ${error.PRNo?'has-error':''} ">
-            <label for="PRNo" class="col-sm-3 control-label">Nomor PR</label>
-            <div class="col-sm-3">
-                <input readonly.bind="data.isSplit" type="text" class="form-control" name="PRNo" value.bind="data.PRNo" />
-                <span class="help-block">${error.PRNo}</span>
-            </div>
-        </div>
-        
-        <div class="form-group ${error.unit?'has-error':''} ">
-            <label for="unit" class="col-sm-3 control-label">Nama Unit</label>
-            <div class="col-sm-3">
-                <input readonly.bind="data.isSplit" type="text" class="form-control" name="unit" value.bind="data.unit" />
-                <span class="help-block">${error.unit}</span>
-            </div>
-        </div>
+        <textbox label="No. Ref. PO" value.bind="data.RefPONo" error.bind="error.RefPONo" read-only.bind="(readOnly || isEdit)"></textbox>
+        <textbox label="No. PR" value.bind="data.PRNo" error.bind="error.PRNo" read-only.bind="(readOnly || isEdit)"></textbox>
+        <textbox label="Unit" value.bind="data.unit" error.bind="error.unit" read-only.bind="data.isSplit"></textbox>
+        <datepicker label="Tgl. PR" value.bind="data.PRDate" error.bind="error.PRDate" read-only.bind="data.isSplit"></datepicker>
+        <textbox label="Kategori" value.bind="data.category" error.bind="error.category" read-only.bind="data.isSplit"></textbox>
+        <datepicker label="Tgl. Minta" value.bind="data.requestDate" error.bind="error.requestDate" read-only.bind="data.isSplit"></datepicker>
+        <textbox label="Penerima PR" value.bind="data.staffName" error.bind="error.staffName" read-only.bind="data.isSplit"></textbox>
+        <datepicker label="Tgl. Terima" value.bind="data.receivedDate" error.bind="error.receivedDate" read-only.bind="data.isSplit"></datepicker>
+        <multiline label="Keterangan" value.bind="data.descriptions" error.bind="error.description" read-only.bind="readOnly"></multiline>
 
-        <div class="form-group ${error.PRDate?'has-error':''}">
-            <label for="PRDate" class="col-sm-3 control-label">Tanggal PR</label>
-            <div class="col-sm-3">
-                <input readonly.bind="data.isSplit" type="date" class="form-control" name="PRDate" value.bind="data.PRDate"></input>
-                <span class="help-block">${error.PRDate}</span>
-            </div>       
-        </div>
-        
-        <div class="form-group ${error.category?'has-error':''} ">
-            <label for="category" class="col-sm-3 control-label">Kategori </label>
-            <div class="col-sm-3">
-                <input readonly.bind="data.isSplit" type="text" class="form-control" name="category" value.bind="data.category" />
-                <span class="help-block">${error.category}</span>
-            </div>
-        </div>
-        
-        <div class="form-group ${error.requestDate?'has-error':''}">
-            <label for="requestDate" class="col-sm-3 control-label">Tanggal diminta datang</label>
-            <div class="col-sm-3">
-                <input readonly.bind="data.isSplit" type="date" class="form-control" name="requestDate" value.bind="data.requestDate"></input>
-                <span class="help-block">${error.requestDate}</span>
-            </div>       
-        </div>
-        
-        <div class="form-group ${error.staffName?'has-error':''} ">
-            <label for="staffName" class="col-sm-3 control-label">Staff pembelian yang menerima PR </label>
-            <div class="col-sm-3">
-                <input readonly.bind="data.isSplit" type="text" class="form-control" name="staffName" value.bind="data.staffName" />
-                <span class="help-block">${error.staffName}</span>
-            </div>
-        </div>
-            
-        <div class="form-group ${error.receivedDate?'has-error':''}">
-            <label for="receivedDate" class="col-sm-3 control-label">Tanggal terima PR</label>
-            <div class="col-sm-3">
-                <input readonly.bind="data.isSplit" type="date" class="form-control" name="receivedDate" value.bind="data.receivedDate"></input>
-                <span class="help-block">${error.receivedDate}</span>
-            </div>       
-        </div>
-        
-        <require from="../po-item"></require> 
-        <div class="form-group  ${error.items ?'has-error':''}">
-            <span class="help-block">${error.items}</span>
-            <div class="col-md-2">   
-                <span>Nama Barang</span>
-            </div>
-            <div class="col-md-2">   
-                <span>Keterangan</span>
-            </div>
-            <div class="col-md-1">
-                <span>Kwantum</span>
-            </div>
-            <div class="col-md-1">
-                <span>Satuan</span>
-            </div>
-            <div class="col-md-1" style="text-align:center">
-                <span>Kwantum Kesepakatan</span>
-            </div>
-            <div class="col-md-1" style="text-align:center">
-                <span align>Satuan Kesepakatan</span>
-            </div>
-            <div class="col-md-2">
-                <span>Harga Barang</span>
-            </div>
-            <div class="col-md-1">
-                <button class="${data.isSplit ? 'hide': ''} btn btn-success" click.delegate="addItem()">Tambah Barang</button> 
-            </div>
-        </div>     
+        <button class="${data.isSplit ? 'hide': ''} btn btn-success" click.delegate="addItem()">Tambah Barang</button>
         <hr />
-        <po-item repeat.for="item of data.items" error.bind="error" data.bind="item" uri.bind="uri" remove.delegate="removeItem(item)">
-        
-        </po-item>
+        <po-item-textile-collection value.bind="data.items" error.bind="error.items"></po-item-textile-collection>
 
     </form>
 </template>

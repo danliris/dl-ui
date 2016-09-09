@@ -2,27 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import AutoSuggestReact from '../react/auto-suggest-react.jsx';
+import AutoSuggestReact from '../../react/auto-suggests/auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)
 @customElement('auto-suggest')
 export class AutoSuggest {
 
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
     reactComponent = {};
 
     constructor(element) {
         this.element = element;
-        this.handleValueChange = this.handleValueChange.bind(this);
-        this.options = {
-            suggestions: [{}, {}]
-            // suggestions: function (value) {
-            //    
-            // }
-        }
+        this.handleValueChange = this.handleValueChange.bind(this); 
     }
 
     handleValueChange(event, value) {
@@ -37,6 +33,7 @@ export class AutoSuggest {
     }
 
     render() {
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <AutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />,
             this.element

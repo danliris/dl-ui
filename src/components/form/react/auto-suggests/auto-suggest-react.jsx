@@ -8,7 +8,6 @@ export default class AutoSuggestReact extends React.Component {
         super(props);
 
         this.options = Object.assign({}, this.props.options);
-
         this.onFocus = this.onFocus.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
@@ -49,6 +48,7 @@ export default class AutoSuggestReact extends React.Component {
     }
 
     onSuggestionSelected(event, {suggestion, suggestionValue, sectionIndex, method}) {
+        console.log(suggestion)
         this.text = (suggestion || '').toString();
         this.setState({ value: suggestion });
         if (this.props.onChange)
@@ -68,37 +68,44 @@ export default class AutoSuggestReact extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ value: this.props.value, label: (this.props.value || '').toString(), suggestions: [] });
+        var obj = (this.props.value || '');
+        // console.log(this.props.value);
+        this.setState({ value: this.props.value, label: obj.toString(), options: this.props.options, suggestions: [] });
     }
 
     componentWillReceiveProps(props) {
         var label = (props.value || '').toString();
-        this.setState({ value: props.value, label: label });
+        this.setState({ value: props.value, label: label, options: props.options });
     }
 
     render() {
-        this.options = Object.assign({}, this.props.options);
-
-        var {value, label, suggestions} = this.state;
-        var inputProps = {
-            placeholder: '',
-            value: label,
-            onChange: this.onChange,
-            onBlur: this.onBlur,
-            onFocus: this.onFocus
+        if (this.state.options.readOnly)
+            return (
+                <p className="form-control-static">{(this.state.value || '').toString() }</p>
+            );
+        else {
+            var {value, label, suggestions} = this.state;
+            // console.log(label);
+            var inputProps = {
+                placeholder: '',
+                value: label,
+                onChange: this.onChange,
+                onBlur: this.onBlur,
+                onFocus: this.onFocus,
+                className: 'form-control'
+            } 
+            return (
+                <Autosuggest
+                    suggestions = {suggestions}
+                    onSuggestionsFetchRequested = {this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested = {this.onSuggestionsClearRequested}
+                    onSuggestionSelected = {this.onSuggestionSelected}
+                    getSuggestionValue = {this.getSuggestionValue}
+                    renderSuggestion = {this.renderSuggestion}
+                    inputProps = {inputProps}
+                    />
+            );
         }
-
-        return (
-            <Autosuggest
-                suggestions = {suggestions}
-                onSuggestionsFetchRequested = {this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested = {this.onSuggestionsClearRequested}
-                onSuggestionSelected = {this.onSuggestionSelected}
-                getSuggestionValue = {this.getSuggestionValue}
-                renderSuggestion = {this.renderSuggestion}
-                inputProps = {inputProps}
-                />
-        );
     }
 }
 
