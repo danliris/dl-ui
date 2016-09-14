@@ -11,12 +11,9 @@ export class Edit {
         
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
-        this.service.getById(id)
-            .then(data => {
-                this.data = data;
-            })
+        this.data = await this.service.getById(id);
     }
 
     view() {
@@ -24,7 +21,6 @@ export class Edit {
     }
 
     save() {
-        console.log(this.data);
         this.service.update(this.data)
             .then(result => {
                 this.view();

@@ -1,8 +1,5 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
 
-@inject(Router, Service)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};

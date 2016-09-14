@@ -17,7 +17,6 @@ export class Create {
 
     save() {
         console.log(this.data)
-        // console.log(JSON.stringify(this.data));
         this.service.create(this.data)
             .then(result => {
                 this.back();

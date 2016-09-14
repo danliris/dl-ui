@@ -6,19 +6,14 @@ import {Service} from './service';
 @inject(Router, Service)
 export class View {
     
-    supplierApiUri='http://localhost:8900/v1/core/suppliers';
-    
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
-        console.log(id);
-        this.service.getById(id).then(data => {
-            this.data = data;
-        })
+        this.data = await this.service.getById(id);
     }
 
     list() {

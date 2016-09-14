@@ -154,7 +154,7 @@
                         ${product.product.name} <br />
                         <b>${product.product.code}</b>
                     </td>
-                    <td style="width:85px;modules" class="text-left"> ${product.dealQuantity} ${product.product.UoM.unit}</td>
+                    <td style="width:85px;modules" class="text-left"> ${product.dealQuantity} ${product.product.uom.unit}</td>
                     <td style="width:100px;" class="text-right"> ${product.price | currencyFormat}</td>
                     <td style="width:100px;" class="text-right">${product.price * product.dealQuantity | currencyFormat}</td>
                 </tr>
