@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import PodlItemTextileReact from '../../react/podl/podl-item-textile-react.jsx';
+import PodlItemTextileCollectionReact from '../../react/podl/podl-item-textile-collection-react.jsx';
 
 
 @noView()
@@ -23,9 +23,9 @@ export class PodlItemTextileCollection {
 
     handleItemAdd() {
 
-        this.value.push({     
-            usePPh:false,
-            usePPn:false
+        this.value.push({
+            usePPh: false,
+            usePPn: false
         });
         this.bind();
     }
@@ -38,34 +38,8 @@ export class PodlItemTextileCollection {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
-
-        var items = this.value.map((item, index) => {
-            var error = this.error[index] || {};
-            return (
-                <PodlItemTextileReact key={'__item_' + index} value={item} error={error} onRemove={this.handleItemRemove}/>
-            );
-        });
-
-        if (items.length < 1)
-            items = <tr><td colSpan="5">No Item</td></tr>;
-
         this.reactComponent = ReactDOM.render(
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>No. Internal PO</th>
-                        <th>No. PR</th>
-                        <th>Dikenakan PPn?</th>
-                        <th>Dikenakan PPh?</th>
-                        <th>
-                            <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items}
-                </tbody>
-            </table>,
+            <PodlItemTextileCollectionReact value={this.value} error={this.error} options = {this.options}></PodlItemTextileCollectionReact>,
             this.element
         );
     }

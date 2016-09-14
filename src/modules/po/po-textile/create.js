@@ -8,15 +8,25 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
+        this.data = {items: [{}, {}] };
+        this.error = {
+            unit: "unit is required",
+            items: [
+                {
+                    product: "product does not exist"
+                },
+                {
+                    defaultQuantity: "default quantity error"
+                }
+            ]
+        }
     }
 
     back() {
         this.router.navigateToRoute('list');
     }
 
-    save() {
-        console.log(this.data)
+    save() { 
         this.service.create(this.data)
             .then(result => {
                 this.back();

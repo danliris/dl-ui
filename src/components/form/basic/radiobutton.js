@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
 import FieldReact from '../../react/basic/field-react.jsx';
-import CheckboxReact from '../../react/basic/checkbox-react.jsx';
+import RadiobuttonReact from '../../react/basic/radiobutton-react.jsx';
 
 @noView()
 @inject(Element)
-@customElement('checkbox')
-export class Checkbox {
+@customElement('radiobutton')
+export class Radiobutton {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) selections;
 
     reactComponent = {};
     constructor(element) {
@@ -21,15 +22,15 @@ export class Checkbox {
         this.handleValueChange = this.handleValueChange.bind(this);
     }
 
-    handleValueChange(value) {
+    handleValueChange(value) { 
         this.value = value;
     }
 
-    render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+    render() { 
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', selections : this.selections||[] };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <CheckboxReact value={this.value} onChange={this.handleValueChange} options={this.options} />
+                <RadiobuttonReact value={this.value} onChange={this.handleValueChange} options={this.options} />
             </FieldReact>,
             this.element
         );

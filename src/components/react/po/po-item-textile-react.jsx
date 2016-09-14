@@ -11,6 +11,7 @@ export default class PoItemTextileReact extends React.Component {
 
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleProductChange = this.handleProductChange.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -25,22 +26,28 @@ export default class PoItemTextileReact extends React.Component {
     handleProductChange(event, product) {
         var value = this.state.value;
         value.product = product;
-        value.defaultMeasurement = product.uom.unit;
+        value.defaultMeasurement = product.uom;
         this.handleValueChange(value);
     }
 
+    handleRemove(value) {
+        if (this.props.onRemove)
+            this.props.onRemove(value);
+    }
+
     componentWillMount() {
-        this.setState({ value: this.props.value || {}, options: this.props.options || {} });
+        this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value || {}, options: this.props.options || {} });
+        this.setState({ value: props.value || {}, error: props.error || {}, options: props.options || {} });
     }
 
     render() {
+        var readOnlyOptions = { readOnly: this.state.options.readOnly || this.state.options.isSplit };
         return (
-            <PoItemReact value={this.state.value} error={this.props.error} onChange={this.handleValueChange} options={this.state.options} >
-                <TextileAutoSuggestReact value={this.state.value.product} onChange={this.handleProductChange} options={this.state.options} />
+            <PoItemReact value={this.state.value} error={this.props.error} options={this.state.options} onChange={this.handleValueChange} onRemove={this.handleRemove}>
+                <TextileAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} onChange={this.handleProductChange}/>
             </PoItemReact>
         )
     }

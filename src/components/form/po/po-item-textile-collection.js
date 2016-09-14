@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import PoItemTextileReact from '../../react/po/po-item-textile-react.jsx';
+import PoItemTextileCollectionReact from '../../react/po/po-item-textile-collection-react.jsx';
 
 
 @noView()
@@ -13,6 +13,7 @@ export class PoItemTextileCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) isSplit;
 
     reactComponent = {};
     constructor(element) {
@@ -24,13 +25,13 @@ export class PoItemTextileCollection {
     handleItemAdd() {
 
         this.value.push({
-            product: { toString: function () { return '' } },            
-            defaultQuantity:0,
-            defaultMeasurement:'',
-            dealQuantity:0,
-            dealMeasurement:'',
-            price:0,
-            description:''
+            product: { toString: function () { return '' } },
+            defaultQuantity: 0,
+            defaultMeasurement: '',
+            dealQuantity: 0,
+            dealMeasurement: '',
+            price: 0,
+            description: ''
         });
         this.bind();
     }
@@ -42,42 +43,9 @@ export class PoItemTextileCollection {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
-
-        var items = this.value.map((item, index) => {
-            var error = this.error[index] || {};
-            return (
-                <PoItemTextileReact key={'__item_' + index} value={item} error={error} onRemove={this.handleItemRemove}/>
-            );
-        });
-
-        if (items.length < 1)
-            items = <tr><td colSpan="8">No Item</td></tr>;
-
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th rowSpan="2" width="20%">Textile</th>
-                        <th colSpan="2" width="20%">Default</th>
-                        <th colSpan="2" width="20%">Deal</th>
-                        <th rowSpan="2" width="10%">Harga</th>
-                        <th rowSpan="2" width="20%">Ket.</th>
-                        <th rowSpan="2" width="10%">
-                            <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th width="10%">Qty.</th>
-                        <th width="10%">Uom.</th>
-                        <th width="10%">Qty.</th>
-                        <th width="10%">Uom.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items}
-                </tbody>
-            </table>,
+            <PoItemTextileCollectionReact value={this.value} error={this.error} options={this.options}></PoItemTextileCollectionReact>,
             this.element
         );
     }

@@ -20,8 +20,6 @@ export default class PoItem extends React.Component {
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
-
-        this.dealMeasurement = { toString: () => '' };
     }
 
     handleValueChange(value) {
@@ -35,22 +33,25 @@ export default class PoItem extends React.Component {
         value.defaultQuantity = quantity;
         this.handleValueChange(value);
     }
+
     handleDealQuantityChange(quantity) {
         var value = this.state.value;
         value.dealQuantity = quantity;
         this.handleValueChange(value);
     }
+
     handleDealMeasurementChange(event, uom) {
         var value = this.state.value;
-        this.dealMeasurement = uom;
-        value.dealMeasurement = uom.unit;
+        value.dealMeasurement = uom;
         this.handleValueChange(value);
     }
+
     handleDescriptionChange(desc) {
         var value = this.state.value;
         value.description = desc;
         this.handleValueChange(value);
     }
+
     handlePriceChange(price) {
         var value = this.state.value;
         value.price = price;
@@ -63,44 +64,74 @@ export default class PoItem extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ value: this.props.value || {}, options: this.props.options || {} });
+        this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value || {}, options: this.props.options || {} });
+        this.setState({ value: props.value || {}, error: props.error || {}, options: props.options || {} });
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        var readOnlyOptions = { readOnly: this.state.options.readOnly || this.state.options.isSplit };
+        var defaultMeasurementOptions = Object.assign({}, this.state.options, { readOnly: true });
+        var dealQtyOptions = Object.assign({}, this.state.options, { min: 0 });
+        var descOptions = readOnlyOptions;
+        var dealMeasurementOptions = readOnlyOptions;
+        var removeButton = null
 
-        var defaultMeasurementOptions = { readOnly: true };
-        var dealQtyOptions = { min: 0 }
+        if (!this.state.options.readOnly)
+            removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
+
+        var style = {
+            margin: 0 + 'px'
+        }
 
         return (
             <tr>
                 <td>
-                    {this.props.children}
+                    <div className={`form-group ${this.state.error.product ? 'has-error' : ''}`} style={style}>
+                        {this.props.children}
+                        <span className="help-block">{this.state.error.product}</span>
+                    </div>
                 </td>
                 <td>
-                    <NumericReact value={this.state.value.defaultQuantity} onChange={this.handleDefaultQuantityChange} options={this.state.options} />
+                    <div className={`form-group ${this.state.error.defaultQuantity ? 'has-error' : ''}`} style={style}>
+                        <NumericReact value={this.state.value.defaultQuantity} options={this.state.options} onChange={this.handleDefaultQuantityChange}/>
+                        <span className="help-block">{this.state.error.defaultQuantity}</span>
+                    </div>
                 </td>
                 <td>
-                    <TextboxReact value={this.state.value.defaultMeasurement} options={defaultMeasurementOptions} />
+                    <div className={`form-group ${this.state.error.defaultMeasurement ? 'has-error' : ''}`} style={style}>
+                        <UomAutoSuggestReact value={this.state.value.defaultMeasurement} options={defaultMeasurementOptions} />
+                        <span className="help-block">{this.state.error.defaultMeasurement}</span>
+                    </div>
                 </td>
                 <td>
-                    <NumericReact value={this.state.value.dealQuantity} onChange={this.handleDealQuantityChange} options={dealQtyOptions} />
+                    <div className={`form-group ${this.state.error.dealQuantity ? 'has-error' : ''}`} style={style}>
+                        <NumericReact value={this.state.value.dealQuantity} options={dealQtyOptions} onChange={this.handleDealQuantityChange}/>
+                        <span className="help-block">{this.state.error.dealQuantity}</span>
+                    </div>
                 </td>
                 <td>
-                    <UomAutoSuggestReact value={this.dealMeasurement} onChange={this.handleDealMeasurementChange} options={this.state.options} />
+                    <div className={`form-group ${this.state.error.dealMeasurement ? 'has-error' : ''}`} style={style}>
+                        <UomAutoSuggestReact value={this.state.value.dealMeasurement} options={dealMeasurementOptions} onChange={this.handleDealMeasurementChange}/>
+                        <span className="help-block">{this.state.error.dealMeasurement}</span>
+                    </div>
                 </td>
                 <td>
-                    <NumericReact value={this.state.value.price} onChange={this.handlePriceChange} options={this.state.options} />
+                    <div className={`form-group ${this.state.error.price ? 'has-error' : ''}`} style={style}>
+                        <NumericReact value={this.state.value.price} options={this.state.options} onChange={this.handlePriceChange}/>
+                        <span className="help-block">{this.state.error.price}</span>
+                    </div>
                 </td>
                 <td>
-                    <TextboxReact value={this.state.value.description} onChange={this.handleDescriptionChange} options={this.state.options} />
+                    <div className={`form-group ${this.state.error.description ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.description} options={descOptions} onChange={this.handleDescriptionChange}/>
+                        <span className="help-block">{this.state.error.description}</span>
+                    </div>
                 </td>
                 <td>
-                    <button className="btn btn-danger" onClick={this.handleRemove}>-</button>
+                    {removeButton}
                 </td>
             </tr>
         )

@@ -1,7 +1,4 @@
 <template>
-    <require from="../../../utils/date-format"></require>
-    <require from="../../../utils/currency-format"></require>
-  
     <div class="display-wrapper">
         <h3>PO Garment : Job Order Aksesoris</h3>
         <br>
@@ -21,9 +18,9 @@
                     <button class="btn btn-primary" click.delegate="create()">Buat</button>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="row">
-            <div class="col-sm-3" >
+            <div class="col-sm-3">
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Posting</span>
                     <div class="btn-group">
@@ -33,7 +30,7 @@
                     <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
                 </div>
             </div>
-            <div class="col-sm-3" >
+            <div class="col-sm-3">
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
                     <div class="btn-group">
@@ -64,10 +61,12 @@
                     <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data">
                         <td class="${isPosting ? '' : 'hide'}">
-                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePosting(item)"
+                            />
                         </td>
                         <td class="${isPrint ? '' : 'hide'}">
-                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)"
+                            />
                         </td>
                         <td>${item.PONo}</td>
                         <td>${item.RefPONo}</td>
@@ -81,21 +80,21 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Data po garment job order aksesoris tidak ada.
         </div>
-    </div><!-- /.display-wrapper -->
-    
+    </div>
+    <!-- /.display-wrapper -->
+
     <div class="print-wrapper a4" repeat.for="data of dataToBePrinting">
         <div class="row">
             <div class="col-xs-8">
                 <address>
-                    <label class="header">PT. DAN LIRIS</label><br />
-                    Kel. Banaran (Selatan Laweyan), Kec. Grogol, Kab.Sukoharjo, Solo, Indonesia<br />
-                    Telp. (0271) 714400, Fax.  (0271) 717177, PO. BOX 166 Solo 57100<br />
-                    Email : purch.gmt@danliris.com<br />
-                    
+                    <label class="header">PT. DAN LIRIS</label><br /> Kel. Banaran (Selatan Laweyan), Kec. Grogol, Kab.Sukoharjo,
+                    Solo, Indonesia<br /> Telp. (0271) 714400, Fax. (0271) 717177, PO. BOX 166 Solo 57100<br /> Email : purch.gmt@danliris.com<br
+                    />
+
                 </address>
             </div>
             <div class="col-xs-4">
@@ -128,12 +127,10 @@
                         Pesanan
                     </div>
                     <div class="col-xs-7">
-                        ${data.buyer.code} <br />
-                        ${data.article} <br />
-                        ${data.shipmentDate | dateFormat : 'YYMMDD'}
+                        ${data.buyer.code} <br /> ${data.article} <br /> ${data.shipmentDate | dateFormat : 'YYMMDD'}
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
         <div class="row text-center">
             <h3>PURCHASE ORDER</h3>
@@ -146,10 +143,9 @@
         <div class="row margin-top-10">
             <div class="col-xs-12">
                 <div class="text-justify">
-                    Dengan hormat,<br />
-                    Yang bertanda tangan di bawah ini, PT. DAN LIRIS, SOLO (selanjutnya disebut sebagai Pembeli)
-                    dan ${data.supplier.name} (selanjutnya disebut sebagai Penjual) saling menyetujui
-                    untuk mengadakan kontrak jual beli dengan ketentuan sebagai berikut :
+                    Dengan hormat,<br /> Yang bertanda tangan di bawah ini, PT. DAN LIRIS, SOLO (selanjutnya disebut sebagai
+                    Pembeli) dan ${data.supplier.name} (selanjutnya disebut sebagai Penjual) saling menyetujui untuk mengadakan
+                    kontrak jual beli dengan ketentuan sebagai berikut :
                 </div>
             </div>
         </div>
@@ -160,13 +156,12 @@
                     <th class="text-center" style="width:75px;">Kwantum</th>
                     <th class="text-center" style="width:79px;">Harga Sat.</th>
                     <th class="text-center" style="width:78px;">Total</th>
-                 </tr>
+                </tr>
             </thead>
             <tbody>
                 <tr repeat.for="product of data.items">
                     <td style="width:560px;">
-                        ${product.product.code} ${product.product.name} <br />
-                        ${product.product.description}
+                        ${product.product.code} ${product.product.name} <br /> ${product.product.description}
                     </td>
                     <td style="width:75px;" class="text-center">${product.dealQuantity} ${product.product.uom.unit}</td>
                     <td style="width:79px;" class="text-right">${product.price | currencyFormat}</td>
@@ -231,21 +226,20 @@
             <div class="row margin-top-10">
                 <div class="col-xs-5">
                     <div style="text-align:center;">
-                        Pembeli<br /><br /><br /><br /><br />
-                        (_______________________)
+                        Pembeli<br /><br /><br /><br /><br /> (_______________________)
                     </div>
                 </div>
                 <div class="col-xs-2"></div>
                 <div class="col-xs-5">
                     <div style="text-align:center;">
-                        Penjual<br /><br /><br /><br /><br />
-                        (_______________________)
+                        Penjual<br /><br /><br /><br /><br /> (_______________________)
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!--<div style="page-break-after:always;page-break-inside: avoid;"></div>-->
-    </div>  <!--/.print-wrapper -->
-    
+    </div>
+    <!--/.print-wrapper -->
+
 </template>

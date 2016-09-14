@@ -10,8 +10,8 @@
         <datepicker label="Tgl. Terima" value.bind="data.receivedDate"  error.bind="error.receivedDate" read-only.bind="(readOnly || data.isSplit)""></datepicker>
         <multiline  label="Keterangan"  value.bind="data.descriptions"  error.bind="error.description"  read-only.bind="readOnly"></multiline>
 
-        <button     class="${data.isSplit ? 'hide': ''} btn btn-success" click.delegate="addItem()">Tambah Barang</button>
+        <!--<button     class="${data.isSplit ? 'hide': ''} btn btn-success" click.delegate="addItem()">Tambah Barang</button>-->
         <hr />
-        <po-item-textile-collection value.bind="data.items" error.bind="error.items"></po-item-textile-collection>
+        <po-item-textile-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" is-split.bind="data.isSplit"></po-item-textile-collection>
     </form>
 </template>

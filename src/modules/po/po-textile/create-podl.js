@@ -8,7 +8,7 @@ export class CreatePodl {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
+        this.data = { deliveryFeeByBuyer:true};
     }
     
     // async activate(params) {
@@ -32,14 +32,14 @@ export class CreatePodl {
     }
 
     save() {
-        console.log(JSON.stringify(this.data));
-        this.service.createGroup(this.data)
-            .then(result => {
-                this.back();
-            })
-            .catch(e => {
-                console.log(e);
-                this.error = e;
-            })
+        console.log(this.data);
+        // this.service.createGroup(this.data)
+        //     .then(result => {
+        //         this.back();
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //         this.error = e;
+        //     })
     }
 }

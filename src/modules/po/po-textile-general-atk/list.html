@@ -1,8 +1,6 @@
 <template>
-    <require from="../../../utils/date-format"></require>
-  
     <div class="display-wrapper">
-        <h3>PO Tekstil : Umum  ATK & Kebersihan</h3>
+        <h3>PO Tekstil : Umum ATK & Kebersihan</h3>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -20,9 +18,9 @@
                     <button class="btn btn-primary" click.delegate="create()">Buat</button>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="row">
-            <div class="col-sm-3" >
+            <div class="col-sm-3">
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Posting</span>
                     <div class="btn-group">
@@ -32,7 +30,7 @@
                     <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Post</button>
                 </div>
             </div>
-            <div class="col-sm-3" >
+            <div class="col-sm-3">
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
                     <div class="btn-group">
@@ -61,10 +59,12 @@
                     <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data">
                         <td class="${isPosting ? '' : 'hide'}">
-                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePosting(item)"
+                            />
                         </td>
                         <td class="${isPrint ? '' : 'hide'}">
-                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)"
+                            />
                         </td>
                         <td>${item.PONo}</td>
                         <td>${item.RefPONo}</td>
@@ -76,29 +76,24 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Data po tekstil umum atk tidak ada.
         </div>
-    </div><!-- /.display-wrapper -->
+    </div>
+    <!-- /.display-wrapper -->
     <div class="print-wrapper a5" repeat.for="data of dataToBePrinting">
         <div class="row">
             <div class="col-xs-8">
                 <address>
-                    <label class="header">PT. DAN LIRIS</label><br />
-                    Head Office : <br />
-                    Jalan Merapi no.23<br />
-                    Desa Banaran, Kec. Grogol, Kab.Sukoharjo 57193<br />
-                    Telp. (0271) 714400, 740888<br />
-                    Fax.  (0271) 717177<br />
-                    Website http://www.danliris.com/<br />
-                    PO. BOX 166 Solo 57100
+                    <label class="header">PT. DAN LIRIS</label><br /> Head Office : <br /> Jalan Merapi no.23<br /> Desa
+                    Banaran, Kec. Grogol, Kab.Sukoharjo 57193<br /> Telp. (0271) 714400, 740888<br /> Fax. (0271) 717177<br
+                    /> Website http://www.danliris.com/<br /> PO. BOX 166 Solo 57100
                 </address>
             </div>
             <div class="col-xs-4">
-                <span class="iso">${data.iso}</span><br />
-                ${data.PONo}
-            </div>  
+                <span class="iso">${data.iso}</span><br /> ${data.PONo}
+            </div>
         </div>
         <div class="row">
             <div class="col-xs-7">
@@ -116,10 +111,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="text-justify">
-                    Dengan hormat,<br />
-                    Yang bertanda tangan di bawah ini, PT. DAN LIRIS, SOLO (selanjutnya disebut sebagai Pembeli)
-                    dan ${data.supplier.name} (selanjutnya disebut sebagai Penjual) saling menyetujui
-                    untuk mengadakan kontrak jual beli dengan ketentuan sebagai berikut :
+                    Dengan hormat,<br /> Yang bertanda tangan di bawah ini, PT. DAN LIRIS, SOLO (selanjutnya disebut sebagai
+                    Pembeli) dan ${data.supplier.name} (selanjutnya disebut sebagai Penjual) saling menyetujui untuk mengadakan
+                    kontrak jual beli dengan ketentuan sebagai berikut :
                 </div>
             </div>
         </div>
@@ -135,18 +129,18 @@
                 <tbody>
                     <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data.items">
-                        <td >
+                        <td>
                             <p if.bind="$index === 0" align="center"><b>${data.PRNo}</b> <br></p>
-                                ${item.product.name}
+                            ${item.product.name}
                         </td>
                         <td class="text-center">
-                            <p if.bind="$index === 0" ><br></p>
+                            <p if.bind="$index === 0"><br></p>
                             ${item.qty}
-                            </td>
+                        </td>
                         <td class="text-right">
-                            <p if.bind="$index === 0" ><br></p>
+                            <p if.bind="$index === 0"><br></p>
                             ${item.price}
-                            </td>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -154,32 +148,30 @@
         <div class="footer">
             <div class="row">
                 <div class="col-xs-7">
-                    Ongkos kirim : Ditanggung oleh ${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}<br />
-                    Pembayaran   : ${data.termOfPayment}
+                    Ongkos kirim : Ditanggung oleh ${data.deliveryFeeByBuyer ? 'Pembeli' : 'Penjual'}<br /> Pembayaran :
+                    ${data.termOfPayment}
                 </div>
                 <div class="col-xs-5">
-                    Delivery     : ${data.deliveryDate | dateFormat:'D MMMM YYYY'} <br />
-                    Lain - lain  : ${data.description}
+                    Delivery : ${data.deliveryDate | dateFormat:'D MMMM YYYY'} <br /> Lain - lain : ${data.description}
                 </div>
             </div>
             <div class="row sign-footer">
                 <div class="col-xs-5">
                     <div style="text-align:center;">
-                        Pembeli,<br /><br /><br /><br /><br /><br />
-                        Nama<br />
-                        Bag. Pembelian
+                        Pembeli,<br /><br /><br /><br /><br /><br /> Nama
+                        <br /> Bag. Pembelian
                     </div>
                 </div>
                 <div class="col-xs-2"></div>
                 <div class="col-xs-5">
                     <div style="text-align:center;">
-                        Penjual,<br /><br /><br /><br /><br /><br />
-                        _______________________
+                        Penjual,<br /><br /><br /><br /><br /><br /> _______________________
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div style="page-break-after:always;"></div>
-    </div><!-- /.print-wrapper -->
+    </div>
+    <!-- /.print-wrapper -->
 </template>

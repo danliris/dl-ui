@@ -5,9 +5,21 @@ import React from 'react';
 export default class DropdownReact extends React.Component {
     constructor(props) {
         super(props);
+        this.init = this.init.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    init(props) {
+        var selections = (props.items || []);
+        var defaultValue = selections.find((item, index) => {
+            return true;
+        })
+        var initialValue = props.value || defaultValue;
+        if (props.value != initialValue && props.onChange)
+            props.onChange(initialValue);
+        this.setState({ value: initialValue, options: props.options || {}, items: props.items || [] });
     }
 
     handleValueChange(event) {
@@ -16,11 +28,13 @@ export default class DropdownReact extends React.Component {
         if (this.props.onChange)
             this.props.onChange(event.target.value);
     }
+
     componentWillMount() {
-        this.setState({ value: this.props.value || '', options: this.props.options || {}, items: this.props.items || [] });
+        this.init(this.props);
     }
+
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value || '', options: this.props.options || {}, items: this.props.items || [] });
+        this.init(props);
     }
 
     render() {
@@ -29,9 +43,9 @@ export default class DropdownReact extends React.Component {
                 <p className="form-control-static">{(this.state.value || '').toString() }</p>
             );
         else {
-            var items = this.state.items.map(item => {
+            var items = this.state.items.map((item, index) => {
                 return (
-                    <option key={item} value={item}>{item.toString() }</option>
+                    <option key={`__option_${index}`} value={item}>{item.toString() }</option>
                 );
             });
             return (

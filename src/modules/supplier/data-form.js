@@ -2,7 +2,7 @@ import {inject, bindable,computedFrom} from 'aurelia-framework';
 
 export class DataForm {
     @bindable readOnly = false;
-    @bindable data = {};
+    @bindable data = {"import":true};
     @bindable error = {};
 
     constructor() {

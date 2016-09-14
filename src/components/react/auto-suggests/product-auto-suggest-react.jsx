@@ -1,44 +1,49 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../host').core + '/v1/core/uoms';
+const serviceUri = require('../../../host').core + '/v1/core/textiles';
 const empty = {
-    unit: ''
+    code: '',
+    name: ''
 }
 'use strict';
 
-export default class UomAutoSuggestReact extends React.Component {
+export default class ProductAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
-    getUomSuggestions(text) {
+    getTextileSuggestions(text) {
         return fetch(serviceUri).then(results => results.json()).then(json => {
-            return json.data.map(uom => {
-                uom.toString = function () {
-                    return `${this.unit}`;
+            return json.data.map(textile => {
+                textile.toString = function () {
+                    return `${this.code} - ${this.name}`;
                 }
-                return uom;
+                textile.uom = textile.uom || { unit: '' };
+                textile.uom.toString = function () {
+                    return this.unit;
+                }
+                return textile;
             })
         })
     }
 
     componentWillMount() {
-        var _options = Object.assign({ suggestions: this.getUomSuggestions }, this.props.options);
+        var _options = Object.assign({ suggestions: this.getTextileSuggestions }, this.props.options)
         var _value = Object.assign({}, empty, this.props.value);
         _value.toString = function () {
-            return this.unit;
-        }
+            return `${this.code} - ${this.name}`;
+        };
         this.setState({ value: _value, options: _options });
     }
     componentWillReceiveProps(props) {
-        var _options = Object.assign({ suggestions: this.getUomSuggestions }, props.options);
+        var _options = Object.assign({ suggestions: this.getTextileSuggestions }, props.options)
         var _value = Object.assign({}, empty, props.value);
         _value.toString = function () {
-            return this.unit;
-        }
+            return `${this.code} - ${this.name}`;
+        };
         this.setState({ value: _value, options: _options });
     }
 

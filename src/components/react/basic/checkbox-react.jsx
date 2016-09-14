@@ -5,38 +5,38 @@ import React from 'react';
 export default class CheckboxReact extends React.Component {
     constructor(props) {
         super(props);
+        this.init = this.init.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
+    init(props) {
+        this.setState({ value: props.value, options: props.options || {} });
+    }
+
     handleValueChange(event) {
-        console.log(event);
-        event.preventDefault();
-        this.setState({value: !this.state.value });
+        this.setState({ value: event.target.checked });
         if (this.props.onChange)
-            this.props.onChange(this.state);
+            this.props.onChange(event.target.checked);
     }
+
     componentWillMount() {
-        console.log("componentWillMount");
-        this.setState({ value: this.props.value || '', options: this.props.options || {} });
-        console.log(this.props);
-        console.log(this.state);
+        this.init(this.props);
     }
+
     componentWillReceiveProps(props) {
-        this.setState({ value: this.props.value || '', options: this.props.options || {} });
+        this.init(props);
     }
 
     render() {
-        console.log("render");
-        console.log(this.state);
         if (this.state.options.readOnly)
             return (
-                <p className="form-control-static">{(this.state.value==true ? 'Ya' : 'Tidak' || '').toString() }</p>
+                <p className="form-control-static">{(this.state.value == true ? 'Ya' : 'Tidak' || '').toString() }</p>
             );
         else
             return (
-                <input type="checkbox" checked={this.state.value} onChange={this.handleValueChange} className="form-control"></input>
+                <input type="checkbox" checked={this.state.value} onChange={this.handleValueChange}></input>
             );
     }
 } 

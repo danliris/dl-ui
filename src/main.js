@@ -13,6 +13,7 @@ export async function configure(aurelia) {
     .standardConfiguration()
     .developmentLogging()
     .feature('components/form')
+    .feature('converters')
     // .plugin('aurelia-dialog');
     .plugin('aurelia-dialog', config => {
       config.useDefaults();
