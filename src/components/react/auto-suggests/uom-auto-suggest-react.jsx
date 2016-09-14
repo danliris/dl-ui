@@ -10,36 +10,26 @@ const empty = {
 export default class UomAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
+        this.init = this.init.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
-    getUomSuggestions(text) {
-        return fetch(serviceUri).then(results => results.json()).then(json => {
-            return json.data.map(uom => {
-                uom.toString = function () {
-                    return `${this.unit}`;
-                }
-                return uom;
-            })
-        })
+    init(props) {
+        var options = Object.assign({}, UomAutoSuggestReact.defaultProps.options, props.options);
+        var initialValue = Object.assign({}, empty, props.value);
+        initialValue.toString = function () {
+            return `${this.unit}`;
+        };
+        this.setState({ value: initialValue, options: options });
     }
 
     componentWillMount() {
-        var _options = Object.assign({ suggestions: this.getUomSuggestions }, this.props.options);
-        var _value = Object.assign({}, empty, this.props.value);
-        _value.toString = function () {
-            return this.unit;
-        }
-        this.setState({ value: _value, options: _options });
+        this.init(this.props);
     }
+
     componentWillReceiveProps(props) {
-        var _options = Object.assign({ suggestions: this.getUomSuggestions }, props.options);
-        var _value = Object.assign({}, empty, props.value);
-        _value.toString = function () {
-            return this.unit;
-        }
-        this.setState({ value: _value, options: _options });
+        this.init(props);
     }
 
     render() {
@@ -53,3 +43,29 @@ export default class UomAutoSuggestReact extends React.Component {
     }
 }
 
+UomAutoSuggestReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        suggestions: React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.func
+        ])
+    })
+};
+
+UomAutoSuggestReact.defaultProps = {
+    options: {
+        readOnly: false,
+        suggestions:
+        function (text) {
+            return fetch(serviceUri).then(results => results.json()).then(json => {
+                return json.data.map(uom => {
+                    uom.toString = function () {
+                        return `${this.unit}`;
+                    }
+                    return uom;
+                })
+            })
+        }
+    }
+};

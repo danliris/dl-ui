@@ -25,9 +25,10 @@ export default class AutoSuggestReact extends React.Component {
         var initialValue = (props.value || '');
         if (props.value != initialValue && props.onChange)
             props.onChange(initialValue);
-        this.setState({ value: initialValue, label: initialValue.toString(), options: props.options, suggestions: [] });
-    }
 
+        var options = Object.assign({}, AutoSuggestReact.defaultProps.options, props.options);
+        this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [] });
+    }
 
     onFocus(event) {
         this.text = event.target.value;
@@ -46,7 +47,7 @@ export default class AutoSuggestReact extends React.Component {
     }
 
     onSuggestionsFetchRequested({value}) {
-        var suggestions = (this.options && this.options.suggestions) || [];
+        var suggestions = this.state.options.suggestions;
         Promise.resolve(typeof (suggestions) === "function" ? suggestions(value) : suggestions)
             .then(result => {
                 this.setState({ suggestions: result });
@@ -88,7 +89,7 @@ export default class AutoSuggestReact extends React.Component {
     render() {
         if (this.state.options.readOnly)
             return (
-                <p className="form-control-static">{(this.state.value || 'kosong').toString() }</p>
+                <p className="form-control-static">{(this.state.value || '').toString() }</p>
             );
         else {
             var {value, label, suggestions} = this.state;
@@ -116,5 +117,19 @@ export default class AutoSuggestReact extends React.Component {
     }
 }
 
-AutoSuggestReact.defaultProps = { data: [] };
+AutoSuggestReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        suggestions: React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.func
+        ])
+    })
+};
 
+AutoSuggestReact.defaultProps = {
+    options: {
+        readOnly: false,
+        suggestions: []
+    }
+};

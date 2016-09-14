@@ -11,40 +11,26 @@ const empty = {
 export default class ProductAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
+        this.init = this.init.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
-    getTextileSuggestions(text) {
-        return fetch(serviceUri).then(results => results.json()).then(json => {
-            return json.data.map(textile => {
-                textile.toString = function () {
-                    return `${this.code} - ${this.name}`;
-                }
-                textile.uom = textile.uom || { unit: '' };
-                textile.uom.toString = function () {
-                    return this.unit;
-                }
-                return textile;
-            })
-        })
+    init(props) {
+        var options = Object.assign({}, ProductAutoSuggestReact.defaultProps.options, props.options);
+        var initialValue = Object.assign({}, empty, props.value);
+        initialValue.toString = function () {
+            return `${this.code} - ${this.name}`;
+        };
+        this.setState({ value: initialValue, options: options });
     }
 
     componentWillMount() {
-        var _options = Object.assign({ suggestions: this.getTextileSuggestions }, this.props.options)
-        var _value = Object.assign({}, empty, this.props.value);
-        _value.toString = function () {
-            return `${this.code} - ${this.name}`;
-        };
-        this.setState({ value: _value, options: _options });
+        this.init(this.props);
     }
+
     componentWillReceiveProps(props) {
-        var _options = Object.assign({ suggestions: this.getTextileSuggestions }, props.options)
-        var _value = Object.assign({}, empty, props.value);
-        _value.toString = function () {
-            return `${this.code} - ${this.name}`;
-        };
-        this.setState({ value: _value, options: _options });
+        this.init(props);
     }
 
     render() {
@@ -58,3 +44,33 @@ export default class ProductAutoSuggestReact extends React.Component {
     }
 }
 
+ProductAutoSuggestReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        suggestions: React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.func
+        ])
+    })
+};
+
+ProductAutoSuggestReact.defaultProps = {
+    options: {
+        readOnly: false,
+        suggestions:
+        function (text) {
+            return fetch(serviceUri).then(results => results.json()).then(json => {
+                return json.data.map(product => {
+                    product.toString = function () {
+                        return `${this.code} - ${this.name}`;
+                    }
+                    product.uom = product.uom || { unit: '' };
+                    product.uom.toString = function () {
+                        return this.unit;
+                    }
+                    return product;
+                })
+            })
+        }
+    }
+};
