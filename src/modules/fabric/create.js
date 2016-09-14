@@ -35,7 +35,6 @@ export class Create {
         this.service.create(this.data).then(result => {
             this.list();
         }).catch(e => {
-            console.log(e);
             this.error = e;
         })
     }

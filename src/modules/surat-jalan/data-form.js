@@ -1,11 +1,12 @@
 import {inject, bindable} from 'aurelia-framework';
 
 export class DataForm {
+    @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
 
-    uriSupplier = require('../../host').core + "/v1/core/suppliers";
-    uri = require('../../host').core + "/v1/po/garmentjoborderfabrics";
+    // uriSupplier = require('../../host').core + "/v1/core/suppliers";
+    // uri = require('../../host').core + "/v1/po/garmentjoborderfabrics";
 
     constructor() {
 
@@ -14,7 +15,20 @@ export class DataForm {
     activate() {
 
     }
-
+    
+    bind() {
+        if (this.data && this.data.supplier)
+            this.data.supplier.toString = function () {
+                return this.code+" - "+this.name;
+            };
+    }
+    
+    supplierChanged(e) {
+        var selectedSupplier = e.detail;
+        if (selectedSupplier)
+            this.data.supplierId = selectedSupplier._id;
+    }
+    
     attached() {
         if (this.data.items) {
             this.data.items.forEach(item => {
@@ -23,14 +37,14 @@ export class DataForm {
         }
     }
 
-    mapSupplier(result) {
-        var list = result.data.map(item => {
-            var _item = item;
-            _item.labelSupplier = `${_item.code} - ${_item.name}`;
-            return _item
-        });
-        return list;
-    }
+    // mapSupplier(result) {
+    //     var list = result.data.map(item => {
+    //         var _item = item;
+    //         _item.labelSupplier = `${_item.code} - ${_item.name}`;
+    //         return _item
+    //     });
+    //     return list;
+    // }
 
     addPO() {
         if (!this.data.items)
@@ -43,9 +57,9 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    horseyChanged(index, event) {
-        Object.assign(this.data.items[index], event.detail);
-    }
+    // horseyChanged(index, event) {
+    //     Object.assign(this.data.items[index], event.detail);
+    // }
 
     showDetail(item) {
         if (item.showDetails)

@@ -1,8 +1,9 @@
-import {inject, bindable, BindingEngine, observable} from 'aurelia-framework'
+import {inject, bindable, BindingEngine, observable,computedFrom} from 'aurelia-framework'
 var moment = require('moment');
 
 @inject(BindingEngine, Element)
 export class DataFormPodl {
+    @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
 
@@ -15,8 +16,11 @@ export class DataFormPodl {
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
-        
-        // this.data.deliveryDate = moment().format('YYYYMMDD');
+    }
+    
+    @computedFrom("data._id")
+    get isEdit() {
+        return (this.data._id || '').toString() != '';
     }
     
     attached() {
@@ -31,14 +35,14 @@ export class DataFormPodl {
         });
     }
     
-    horseyChanged(index,event) {
-        // Object.keys(this.data).forEach(key => {
-        //     delete this.data[key];
-        // })
+    // horseyChanged(index,event) {
+    //     // Object.keys(this.data).forEach(key => {
+    //     //     delete this.data[key];
+    //     // })
         
-        // Object.assign(this.data, event.detail);
-        Object.assign(this.data.items[index], event.detail);
-    }
+    //     // Object.assign(this.data, event.detail);
+    //     Object.assign(this.data.items[index], event.detail);
+    // }
     
     addItem() {
         console.log(this.data);
@@ -52,32 +56,45 @@ export class DataFormPodl {
         this.data.items.splice(itemIndex, 1);
     }
     
-    mapSupplier(result) {
-        var list = result.data.map(item => {
-            var _item = item;
-            _item.labelSupplier = `${_item.code} - ${_item.name}`;
+    // mapSupplier(result) {
+    //     var list = result.data.map(item => {
+    //         var _item = item;
+    //         _item.labelSupplier = `${_item.code} - ${_item.name}`;
 
-            console.log(_item);
-            return _item
-        });
+    //         console.log(_item);
+    //         return _item
+    //     });
 
-        return list;
-    }
+    //     return list;
+    // }
     
-    map(result) {
-        var list = result.data.map(item => {
-            var _item = item;
-            _item.label = `${_item.RefPONo}`;
-            return _item
-        });
+    // map(result) {
+    //     var list = result.data.map(item => {
+    //         var _item = item;
+    //         _item.label = `${_item.RefPONo}`;
+    //         return _item
+    //     });
         
-        return list;
-    }
+    //     return list;
+    // }
     
     showDetail(item) {
         if (item.showDetails)
             item.showDetails = false;
         else
             item.showDetails = true;
+    }
+    
+    bind() {
+        if (this.data && this.data.supplier)
+            this.data.supplier.toString = function () {
+                return this.code +" - "+this.name ;
+            };
+    }
+
+    supplierChanged(e) {
+        var selectedSupplier = e.detail;
+        if (selectedSupplier)
+            this.data.supplierId = selectedSupplier._id;
     }
 } 

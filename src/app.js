@@ -9,7 +9,7 @@ export class App {
 
       { route: 'buyers', name: 'buyers', moduleId: './modules/buyer/index', nav: true, title: 'Buyer' },
       { route: 'suppliers', name: 'suppliers', moduleId: './modules/supplier/index', nav: true, title: 'Supplier' },
-      { route: 'uoms', name: 'uoms', moduleId: './modules/UoM/index', nav: true, title: 'Satuan' },
+      { route: 'uoms', name: 'uoms', moduleId: './modules/uom/index', nav: true, title: 'Satuan' },
       { route: 'fabrics', name: 'fabrics', moduleId: './modules/fabric/index', nav: true, title: 'Fabric' },
       { route: 'textiles', name: 'textiles', moduleId: './modules/textile/index', nav: true, title: 'Tekstil' },
       { route: 'accessories', name: 'accessories', moduleId: './modules/accessories/index', nav: true, title: 'Aksesoris' },
@@ -25,8 +25,8 @@ export class App {
       // { route: 'textilegeneralatk', name: 'textile-general-atk', moduleId: './modules/po/po-textile-general-atk/index', nav: true, title: 'PO Tekstil : Umum ATK & Kebersihan' },
       // { route: 'textilegeneralotheratk', name: 'textile-general-other-atk', moduleId: './modules/po/po-textile-general-other-atk/index', nav: true, title: 'PO Tekstil : Umum Selain ATK & Kebersihan' },
       // { route: 'textilespareparts', name: 'textilespareparts', moduleId: './modules/po/po-textile-sparepart/index', nav: true, title: 'PO Tekstil : Sparepart' },
-      { route: 'potextiles', name: 'potextiles', moduleId: './modules/po/po-textile/index', nav: true, title: 'PO Textile' },
-      { route: 'suratjalan', name: 'suratjalan', moduleId: './modules/surat-jalan/index', nav: true, title: 'Surat Jalan' }
+      { route: 'potextiles', name: 'potextiles', moduleId: './modules/po/po-textile/index', nav: true, title: 'PO Tekstil' },
+      { route: 'suratjalan', name: 'suratjalan', moduleId: './modules/surat-jalan/index', nav: true, title: 'Surat Jalan Tekstil' }
     ]);
 
     this.router = router;

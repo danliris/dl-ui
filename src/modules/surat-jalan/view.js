@@ -16,14 +16,19 @@ export class View {
 
     async activate(params) {
         var id = params.id;
-        await this.service.getById(id)
-        .then(data=>{
-            this.data = data;
-            this.sumSJ();
-            this.data.items.forEach(item=>{
+        this.data = await this.service.getById(id);
+        this.sumSJ();
+        this.data.items.forEach(item=>{
             item.showDetails = false
         })
-        })
+        // await this.service.getById(id)
+        // .then(data=>{
+        //     this.data = data;
+        //     this.sumSJ();
+        //     this.data.items.forEach(item=>{
+        //     item.showDetails = false
+        // })
+        // })
     }
     showDetail(item) {
         if (item.showDetails)

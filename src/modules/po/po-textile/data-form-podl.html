@@ -1,8 +1,27 @@
 <template>
-        <require from="utils/date-format"></require>
     <form class="form-horizontal">
+        <supplier-auto-suggest  label="Supplier"            value.bind="data.supplier"          error.bind="error.supplierId"       read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
+        <datepicker             label="Tgl. PO"             value.bind="data.PODate"            error.bind="error.PODate"           read-only.bind="readOnly"></datepicker>
+        <datepicker             label="Tgl. Kirim"          value.bind="data.deliveryDate"      error.bind="error.deliveryDate"     read-only.bind="readOnly"></datepicker>
+        <div                    class="form-group ${error.deliveryFeeByBuyer?'has-error':''}">
+            <label for="deliveryFeeByBuyer" class="col-sm-3 control-label">Ongkos Kirim Ditanggung oleh</label>
+            <div class="col-sm-3">
+                <input type="radio" name="deliveryFeeByBuyer" model.bind="true" checked.bind="data.deliveryFeeByBuyer"> Pembeli
+                <input type="radio" name="deliveryFeeByBuyer" model.bind="false" checked.bind="data.deliveryFeeByBuyer"> Penjual
+                <span class="help-block">${error.deliveryFeeByBuyer}</span>
+            </div>
+        </div>
+        <dropdown               label="Term Pembayaran"     value.bind="data.termOfPayment"     error.bind="error.termOfPayment"    read-only.bind="readOnly"   items.bind="termPaymentOptions"></dropdown>
+        <dropdown               label="Mata Uang"           value.bind="data.currency"          error.bind="error.currency"         read-only.bind="readOnly"   items.bind="currencyOptions"></dropdown>
+        <numeric                label="Rate"                value.bind="data.rate"              error.bind="error.rate"             read-only.bind="readOnly"></numeric>
+        <numeric                label="Tempo Pembayaran"    value.bind="data.paymentDue"        error.bind="error.paymentDue"       read-only.bind="readOnly"></numeric>
+        <multiline              label="Keterangan"          value.bind="data.description"       error.bind="error.description"      read-only.bind="readOnly"></multiline>
         
-        <require from="customs/elements/horsey"></require>
+        <hr />
+        <podl-item-textile-collection value.bind="data.items" error.bind="error.items"></podl-item-textile-collection>
+    </form>
+    <!--<form class="form-horizontal">
+        
         <div class="form-group ${error.supplierId?'has-error':''}">
             <label for="suppliername" class="col-sm-3 control-label">Supplier</label>
             <div class="col-sm-3">
@@ -137,24 +156,5 @@
                 </tbody>
             </table>
         </div>
-        <!--<div class="form-group ${error.items?'has-error':''}">
-            <span class="help-block">${error.items}</span>
-            <require from="../podl-item"></require> 
-            <div class="col-md-3">   
-                <span>PO No</span>
-            </div>
-            <div class="col-md-2">
-                <span>>Dikenakan PPn ?</span>
-            </div>
-            <div class="col-md-1">
-                <span>>Dikenakan PPh ?</span>
-            </div>
-            <div class="col-md-1 col-md-offset-4">
-                <button class="btn btn-success" click.delegate="addItem()">Tambah Barang</button> 
-            </div>    
-            <hr />
-        </div>
-        <podl-item repeat.for="item of data.items" data.bind="item" uri.bind="uri" remove.delegate="removeItem(item)"></po-item>-->
-            
-    </form>
+    </form>-->
 </template>

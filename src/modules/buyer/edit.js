@@ -20,7 +20,6 @@ export class Edit {
     }
 
     save() {
-        console.log(this.data);
         this.service.update(this.data)
             .then(result => {
                 this.view();

@@ -1,13 +1,7 @@
 <template>
-    <div class="form-group ${error.UoM ? 'has-error':''}">
+    <div class="form-group ${error.uom ? 'has-error':''}">
         <form class="form-horizontal">
-            <div class="form-group ${error.unit?'has-error':''}">
-                <label for="unit" class="col-sm-2 control-label" style="text-align:left">Satuan</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" name="data.unit" value.bind="data.unit" />
-                    <span class="help-block">${error.unit}</span>
-                </div>
-            </div>
+            <textbox            label="Unit"        value.bind="data.unit"          error.bind="error.unit"         read-only.bind="readOnly"></textbox>
             
             <!--<div class="form-group ${error.category?'has-error':''}">
                 <label for="category" class="col-sm-2 control-label" style="text-align:left">Kategori</label>

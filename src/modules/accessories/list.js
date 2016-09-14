@@ -16,7 +16,6 @@ export class List {
     activate() {
         this.service.search('')
             .then(data => {
-
                 this.data = data;
             })
     }
@@ -28,7 +27,6 @@ export class List {
                 this.data = data;
             })
             .catch(e => {
-                console.log(e);
                 alert('Data Accessories tidak ditemukan');
             })
     }

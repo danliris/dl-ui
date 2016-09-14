@@ -84,5 +84,8 @@ export class UomAutoSuggest {
             this.element.fireEvent("on" + event.eventType, event);
         }
     }
+    errorChanged(newError) {
+        this.bind();
+    }
 
 }

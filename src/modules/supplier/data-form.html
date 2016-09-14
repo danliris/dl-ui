@@ -1,37 +1,10 @@
 <template> 
-    <form class="form-horizontal">  
-        
-        <div class="form-group ${error.name?'has-error':''}">
-            <label for="name" class="col-sm-2 control-label">Nama</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="name" value.bind="data.name" />
-                <span class="help-block">${error.name}</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="contact" class="col-sm-2 control-label">Kontak</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" name="contact" value.bind="data.contact"></input>
-            </div>
-        </div>
-        <div class="form-group ${error.address?'has-error':''}">
-            <label for="address" class="col-sm-2 control-label">Alamat</label>
-            <div class="col-sm-5">
-                <textarea class="form-control" name="address" value.bind="data.address"></textarea>
-                <span class="help-block">${error.address}</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="PIC" class="col-sm-2 control-label">PIC</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" name="PIC" value.bind="data.PIC"></input>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="import" class="col-sm-2 control-label">Import</label>
-            <div class="col-sm-3">
-                <input type="checkbox" checked.bind="data.import"></input>
-            </div>
-        </div>
-    </form> 
+    <form class="form-horizontal">
+        <textbox        label="Code"       value.bind="data.code"      error.bind="error.code"      read-only.bind="(readOnly || isEdit)"></textbox>
+        <textbox        label="Nama"       value.bind="data.name"      error.bind="error.name"      read-only.bind="readOnly"></textbox>
+        <textbox        label="Kontak"     value.bind="data.contact"   error.bind="error.contact"   read-only.bind="readOnly"></textbox>
+        <multiline      label="Alamat"     value.bind="data.address"   error.bind="error.address"   read-only.bind="readOnly"></multiline>
+        <textbox        label="PIC"        value.bind="data.PIC"       error.bind="error.PIC"       read-only.bind="readOnly"></textbox>
+        <checkbox       label="Import"     value.bind="data.import"    error.bind="error.import"    read-only.bind="readOnly"></checkbox>
+    </form>
 </template>

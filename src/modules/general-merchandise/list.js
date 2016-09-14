@@ -24,7 +24,7 @@ export class List {
             this.data = data;
         }).catch(e => {
             console.log(e);
-            alert('General Merchandise not found.');
+            alert('Data Barang Umum tidak ditemukan.');
         })
     }
 
