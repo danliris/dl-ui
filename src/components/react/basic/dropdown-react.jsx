@@ -12,14 +12,16 @@ export default class DropdownReact extends React.Component {
     }
 
     init(props) {
-        var selections = (props.items || []);
+        var options = Object.assign({}, DropdownReact.defaultProps.options, props.options);
+        var selections = options.selections;
         var defaultValue = selections.find((item, index) => {
             return true;
         })
         var initialValue = props.value || defaultValue;
         if (props.value != initialValue && props.onChange)
             props.onChange(initialValue);
-        this.setState({ value: initialValue, options: props.options || {}, items: props.items || [] });
+
+        this.setState({ value: initialValue, options: options });
     }
 
     handleValueChange(event) {
@@ -43,7 +45,7 @@ export default class DropdownReact extends React.Component {
                 <p className="form-control-static">{(this.state.value || '').toString() }</p>
             );
         else {
-            var items = this.state.items.map((item, index) => {
+            var items = this.state.options.selections.map((item, index) => {
                 return (
                     <option key={`__option_${index}`} value={item}>{item.toString() }</option>
                 );
@@ -57,4 +59,17 @@ export default class DropdownReact extends React.Component {
             );
         }
     }
-} 
+}
+
+DropdownReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        selections: React.PropTypes.array
+    })
+};
+DropdownReact.defaultProps = {
+    options: {
+        readOnly: false,
+        selections: []
+    }
+};

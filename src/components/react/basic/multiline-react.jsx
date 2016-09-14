@@ -16,7 +16,8 @@ export default class MultilineReact extends React.Component {
         if (props.value != initialValue && props.onChange)
             props.onChange(initialValue);
 
-        this.setState({ value: initialValue, options: props.options || {} });
+        var options = Object.assign({}, MultilineReact.defaultProps.options, props.options);
+        this.setState({ value: initialValue, options: options });
     }
 
     handleValueChange(event) {
@@ -41,7 +42,25 @@ export default class MultilineReact extends React.Component {
             );
         else
             return (
-                <textarea value={this.state.value} onChange={this.handleValueChange} className="form-control"/>
+                <textarea value={this.state.value} onChange={this.handleValueChange} className="form-control" rows={this.state.options.rows} style={{ resize: this.state.options.resize ? "inherit" : "none" }}/>
             );
     }
-} 
+}
+
+MultilineReact.propTypes = {
+    value: React.PropTypes.string,
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        rows: React.PropTypes.number,
+        resize: React.PropTypes.bool
+    })
+};
+
+MultilineReact.defaultProps = {
+    value: '',
+    options: {
+        readOnly: false,
+        rows: 3,
+        resize: false
+    }
+};

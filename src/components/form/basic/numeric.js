@@ -27,7 +27,7 @@ export class Numeric {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' , postFix:this.postFix ||''};
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', postFix: this.postFix || '' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
                 <NumericReact value={this.value} onChange={this.handleValueChange} options={this.options} />

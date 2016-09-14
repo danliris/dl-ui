@@ -27,10 +27,10 @@ export class Dropdown {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', selections: this.items };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <DropdownReact value={this.value} onChange={this.handleValueChange} options={this.options} items ={this.items} />
+                <DropdownReact value={this.value} options={this.options} onChange={this.handleValueChange}/>
             </FieldReact>,
             this.element
         );

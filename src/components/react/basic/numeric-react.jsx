@@ -12,18 +12,20 @@ export default class NumericReact extends React.Component {
     }
 
     init(props) {
-        var initialValue = props.value || 0;
+        var initialValue = props.value;
         if (props.value != initialValue && props.onChange)
             props.onChange(initialValue);
 
-        this.setState({ value: initialValue, options: props.options || {} });
+        var options = Object.assign({}, NumericReact.defaultProps.options, props.options);
+        this.setState({ value: initialValue, options: options });
     }
 
     handleValueChange(event) {
         event.preventDefault();
-        this.setState({ value: event.target.value });
+        var value = parseInt(event.target.value);
+        this.setState({ value: value });
         if (this.props.onChange)
-            this.props.onChange(event.target.value);
+            this.props.onChange(value);
     }
 
     componentWillMount() {
@@ -35,22 +37,37 @@ export default class NumericReact extends React.Component {
     }
 
     render() {
-        var options = Object.assign({ min: '0' }, this.state.options);
+        var control = null;
 
         if (this.state.options.readOnly)
-            return (
-                <p className="form-control-static">{(this.state.value || 0) }</p>
-            );
-        else {
-            var postFix = this.state.options.postFix || '';
-            var input = <input type="number" value={this.state.value} onChange={this.handleValueChange} className="form-control" min={options.min} style={{ textAlign: "right" }}></input>
-            if (postFix.trim() != '') {
-                input = <div className="input-group">
-                    {input}
-                    <span className="input-group-addon">{postFix}</span>
-                </div>;
-            }
-            return input;
+            control = <p className="form-control-static">{ this.state.value }</p>;
+        else
+            control = <input type="number" value={this.state.value} onChange={this.handleValueChange} className="form-control" min={this.state.options.min} style={{ textAlign: "right" }}></input>;
+
+        if (this.state.options.postFix.trim() != '') {
+            control = <div className="input-group">
+                {control}
+                <span className="input-group-addon">{this.state.options.postFix}</span>
+            </div>;
         }
+        return control;
     }
-} 
+}
+
+NumericReact.propTypes = {
+    value: React.PropTypes.number,
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        min: React.PropTypes.number,
+        postFix: React.PropTypes.string
+    })
+};
+
+NumericReact.defaultProps = {
+    value: 0,
+    options: {
+        readOnly: false,
+        min: 0,
+        postFix: "",
+    }
+};

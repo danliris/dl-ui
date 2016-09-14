@@ -12,11 +12,12 @@ export default class TextboxReact extends React.Component {
     }
 
     init(props) {
-        var initialValue = props.value || '';
+        var initialValue = props.value;
         if (props.value != initialValue && props.onChange)
             props.onChange(initialValue);
 
-        this.setState({ value: initialValue, options: props.options || {} });
+        var options = Object.assign({}, TextboxReact.defaultProps.options, props.options);
+        this.setState({ value: initialValue, options: options });
     }
 
     handleValueChange(event) {
@@ -35,13 +36,34 @@ export default class TextboxReact extends React.Component {
     }
 
     render() {
+        var control = null;
         if (this.state.options.readOnly)
-            return (
-                <p className="form-control-static">{(this.state.value || '').toString() }</p>
-            );
+            control = <p className="form-control-static">{ this.state.value }</p>;
         else
-            return (
-                <input type="text" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>
-            );
+            control = <input type="text" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>;
+
+        if (this.state.options.postFix.trim() != '') {
+            control = <div className="input-group">
+                {control}
+                <span className="input-group-addon">{this.state.options.postFix}</span>
+            </div>;
+        }
+        return control;
     }
-} 
+}
+
+TextboxReact.propTypes = {
+    value: React.PropTypes.string,
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        postFix: React.PropTypes.string
+    })
+};
+
+TextboxReact.defaultProps = {
+    value: '',
+    options: {
+        readOnly:false,
+        postFix: ""
+    }
+};

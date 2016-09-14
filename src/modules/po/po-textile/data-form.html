@@ -3,11 +3,11 @@
         <textbox    label="No. Ref. PO" value.bind="data.RefPONo"       error.bind="error.RefPONo"      read-only.bind="(readOnly || isEdit)"></textbox>
         <textbox    label="No. PR"      value.bind="data.PRNo"          error.bind="error.PRNo"         read-only.bind="(readOnly || isEdit)"></textbox>
         <textbox    label="Unit"        value.bind="data.unit"          error.bind="error.unit"         read-only.bind="(readOnly || data.isSplit)"></textbox>
-        <datepicker label="Tgl. PR"     value.bind="data.PRDate"        error.bind="error.PRDate"       read-only.bind="(readOnly || data.isSplit)""></datepicker>
-        <textbox    label="Kategori"    value.bind="data.category"      error.bind="error.category"     read-only.bind="(readOnly || data.isSplit)""></textbox>
-        <datepicker label="Tgl. Minta"  value.bind="data.requestDate"   error.bind="error.requestDate"  read-only.bind="(readOnly || data.isSplit)""></datepicker>
-        <textbox    label="Penerima PR" value.bind="data.staffName"     error.bind="error.staffName"    read-only.bind="(readOnly || data.isSplit)""></textbox>
-        <datepicker label="Tgl. Terima" value.bind="data.receivedDate"  error.bind="error.receivedDate" read-only.bind="(readOnly || data.isSplit)""></datepicker>
+        <datepicker label="Tgl. PR"     value.bind="data.PRDate"        error.bind="error.PRDate"       read-only.bind="(readOnly || data.isSplit)"></datepicker>
+        <textbox    label="Kategori"    value.bind="data.category"      error.bind="error.category"     read-only.bind="(readOnly || data.isSplit)" post-fix="Hello"></textbox>
+        <datepicker label="Tgl. Minta"  value.bind="data.requestDate"   error.bind="error.requestDate"  read-only.bind="(readOnly || data.isSplit)"></datepicker>
+        <textbox    label="Penerima PR" value.bind="data.staffName"     error.bind="error.staffName"    read-only.bind="(readOnly || data.isSplit)"></textbox>
+        <datepicker label="Tgl. Terima" value.bind="data.receivedDate"  error.bind="error.receivedDate" read-only.bind="(readOnly || data.isSplit)"></datepicker>
         <multiline  label="Keterangan"  value.bind="data.descriptions"  error.bind="error.description"  read-only.bind="readOnly"></multiline>
 
         <!--<button     class="${data.isSplit ? 'hide': ''} btn btn-success" click.delegate="addItem()">Tambah Barang</button>-->

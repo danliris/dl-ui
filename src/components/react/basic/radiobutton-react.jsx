@@ -12,15 +12,18 @@ export default class RadiobuttonReact extends React.Component {
     }
 
     init(props) {
-        var selections = (props.options.selections || []).map(item => item.value);
+        var selections = props.options.selections.map(item => item.value);
         var defaultValue = selections.find((item, index) => {
             return true;
         });
+
         var initialValue = props.value == undefined ? defaultValue : props.value;
 
         if (props.value != initialValue && props.onChange)
             props.onChange(initialValue);
-        this.setState({ value: initialValue, options: props.options || {} });
+
+        var options = Object.assign({}, RadiobuttonReact.defaultProps.options, props.options);
+        this.setState({ value: initialValue, options: options });
     }
 
     handleValueChange(event) {
@@ -39,8 +42,7 @@ export default class RadiobuttonReact extends React.Component {
 
     render() {
         if (this.state.options.readOnly) {
-
-            var selected = (this.state.options.selections || []).find(item => {
+            var selected = this.state.options.selections.find(item => {
                 return item.value == this.state.value;
             })
             return (
@@ -61,4 +63,20 @@ export default class RadiobuttonReact extends React.Component {
             );
         }
     }
-} 
+}
+
+RadiobuttonReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        selections: React.PropTypes.arrayOf(React.PropTypes.shape({
+            value: React.PropTypes.any.isRequired,
+            label: React.PropTypes.string
+        }))
+    })
+};
+RadiobuttonReact.defaultProps = {
+    options: {
+        readOnly: false,
+        selections: []
+    }
+};

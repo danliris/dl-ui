@@ -12,7 +12,8 @@ export default class CheckboxReact extends React.Component {
     }
 
     init(props) {
-        this.setState({ value: props.value, options: props.options || {} });
+        var options = Object.assign({}, CheckboxReact.defaultProps.options, props.options);
+        this.setState({ value: props.value, options: options });
     }
 
     handleValueChange(event) {
@@ -39,4 +40,15 @@ export default class CheckboxReact extends React.Component {
                 <input type="checkbox" checked={this.state.value} onChange={this.handleValueChange}></input>
             );
     }
-} 
+}
+
+CheckboxReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool
+    })
+};
+CheckboxReact.defaultProps = {
+    options: {
+        readOnly: false
+    }
+};

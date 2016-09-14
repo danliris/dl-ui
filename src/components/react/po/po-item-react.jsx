@@ -84,8 +84,8 @@ export default class PoItem extends React.Component {
 
         var style = {
             margin: 0 + 'px'
-        }
-
+        } 
+        
         return (
             <tr>
                 <td>
