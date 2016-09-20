@@ -42,7 +42,7 @@ export default class NumericReact extends React.Component {
         if (this.state.options.readOnly)
             control = <p className="form-control-static">{ this.state.value }</p>;
         else
-            control = <input type="number" value={this.state.value} onChange={this.handleValueChange} className="form-control" min={this.state.options.min} style={{ textAlign: "right" }}></input>;
+            control = <input type="number" value={this.state.value} onChange={this.handleValueChange} className="form-control" min={this.state.options.min} max={this.state.options.max instanceof Number ? this.state.options.max : "" } style={{ textAlign: "right" }}></input>;
 
         if (this.state.options.postFix.trim() != '') {
             control = <div className="input-group">
@@ -59,6 +59,7 @@ NumericReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         min: React.PropTypes.number,
+        max: React.PropTypes.number,
         postFix: React.PropTypes.string
     })
 };

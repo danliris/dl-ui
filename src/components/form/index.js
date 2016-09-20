@@ -12,6 +12,7 @@ export function configure(config) {
         './basic/auto-suggests/supplier-auto-suggest',
         './basic/auto-suggests/po-textile-auto-suggest', 
         './po/po-item-textile-collection',
-        './podl/podl-item-textile-collection'
+        './podl/podl-item-textile-collection',
+        './do/do-item-textile-collection'
     );
 }

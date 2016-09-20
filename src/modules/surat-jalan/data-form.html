@@ -6,5 +6,6 @@
         <supplier-auto-suggest  label="Supplier"            value.bind="data.supplier"          error.bind="error.supplierId"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
         <multiline              label="Keterangan"          value.bind="data.description"       error.bind="error.description"          read-only.bind="readOnly"></multiline>
         <hr/>
+        <do-item-textile-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly"></do-item-textile-collection>
     </form>
 </template>
