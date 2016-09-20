@@ -1,0 +1,45 @@
+<template>
+ <require from="../../../utils/date-format"></require>
+
+ <h3>Laporan Rekap Total Pembelian per Unit per Periode Periode :</h3>
+     <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <require from="utils/date-format"></require>
+                    <label for="startDate" class="col-sm-2 control-label">Dari tgl</label>
+                    <div class="col-sm-4">
+                        <input type="date" class="form-control" name="startDate"></input>
+                    </div>
+                    <label for="startDate" class="col-sm-2 control-label">s/d tgl</label>
+                    <div class="col-sm-4">
+                        <input type="date" class="form-control" name="endDate"></input>
+                    </div>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+<br>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">Nomor</th>
+                <th class="text-center">Unit</th>
+                <th class="text-center">Rp</th>
+                <th class="text-center">%</th>
+                <!--<th>Kategori UOM</th>-->
+            </tr>
+            
+        </thead>
+        <tbody>
+            <tr repeat.for="item of datas">
+                <td class="text-center">${$index + 1}</td>
+                <td class="text-center">${item.unit}</td>
+                <td class="text-center">${item.rp}</td>
+                <td class="text-center">${item.code}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+</template>

@@ -21,7 +21,6 @@ export class List {
             })
     }
     
-
     searching(){
         this.service.getByCode(this.data.code)
         .then(data => {
@@ -32,6 +31,7 @@ export class List {
             alert('Data Sparepart tidak ditemukan');
         })
     }
+
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
