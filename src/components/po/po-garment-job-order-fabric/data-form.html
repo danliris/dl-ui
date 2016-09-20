@@ -13,7 +13,7 @@
         <div class="form-group ${error.PRNo?'has-error':''} ">
             <label for="PRNo" class="col-sm-3 control-label">Nomor PR</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" name="PRNo" value.bind="data.PRNo" />
+                <input readonly.bind="data.isSplit" type="text" class="form-control" name="PRNo" value.bind="data.PRNo" />
                 <span class="help-block">${error.PRNo}</span>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="form-group ${error.RONo?'has-error':''} ">
             <label for="RONo" class="col-sm-3 control-label">Nomor RO</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" name="RONo" value.bind="data.RONo" />
+                <input readonly.bind="data.isSplit" type="text" class="form-control" name="RONo" value.bind="data.RONo" />
                 <span class="help-block">${error.RONo}</span>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group ${error.article?'has-error':''} ">
             <label for="article" class="col-sm-3 control-label">Artikel</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" name="article" value.bind="data.article" />
+                <input readonly.bind="data.isSplit" type="text" class="form-control" name="article" value.bind="data.article" />
                 <span class="help-block">${error.article}</span>
             </div>
         </div>
@@ -37,7 +37,8 @@
         <div class="form-group ${error.buyerId?'has-error':''}">
             <label for="buyerId" class="col-sm-3 control-label">Buyer</label>
             <div class="col-sm-5">
-                <horsey src.bind="uriBuyer" selection.bind="data.buyer" options.bind="{label:'labelBuyer', value:'_id'}" map.bind="mapBuyer"></horsey>
+                <horsey if.bind="!data.isSplit" src.bind="uriBuyer" selection.bind="data.buyer" options.bind="{label:'labelBuyer', value:'_id'}" map.bind="mapBuyer"></horsey>
+                <input readonly if.bind="data.isSplit" class="form-control" value.bind="data.buyer.name"></input>                
                 <span class="help-block">${error.buyerId}</span>
             </div>
         </div>
@@ -47,7 +48,7 @@
             <label for="shipmentDate" class="col-sm-3 control-label">Tanggal Kirim</label>
             <div class="col-sm-3">
                 <!--<input type="date" class="form-control" name="shipmentDate" value.bind="data.shipmentDate | dateFormat : 'YYYY-MM-DD'"></input>-->
-                <input type="date" class="form-control" name="shipmentDate" value.bind="data.shipmentDate"></input>
+                <input readonly.bind="data.isSplit" type="date" class="form-control" name="shipmentDate" value.bind="data.shipmentDate"></input>
                 <span class="help-block">${error.shipmentDate}</span>
             </div>       
         </div>
@@ -76,7 +77,7 @@
                 <span>Harga Barang</span>
             </div>
             <div class="col-md-1">
-                <button class="btn btn-success" click.delegate="addItem()">Tambah Barang</button> 
+                <button class="${data.isSplit ? 'hide': ''} btn btn-success" click.delegate="addItem()">Tambah Barang</button> 
             </div>
         </div>     
         <hr />
