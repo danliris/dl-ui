@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../rest-service';
  
-const serviceUri = require('../../../host').core + '/v1/reports/PurchaseOrderPerPeriode';
+const serviceUri = require('../../../host').core + '/v1/po/purchaseorders';
  
 export class Service extends RestService{
 
@@ -38,9 +38,9 @@ export class Service extends RestService{
     return super.delete(endpoint, data);
   }
   
-  getByCode(query) 
+  getByDate(sdate,edate) 
   {
-      var endpoint = `${serviceUri}?query=${query}`;
+      var endpoint = `${serviceUri}?dateFrom=:${sdate}&dateTo=:${edate}`;
       return super.get(endpoint);
   }
  
