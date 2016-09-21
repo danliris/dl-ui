@@ -4,6 +4,14 @@ export function configure(config) {
         './basic/numeric',
         './basic/multiline',
         './basic/dropdown',
-        './basic/auto-suggest'
+        './basic/datepicker',
+        './basic/checkbox',
+        './basic/radiobutton',
+        './basic/auto-suggests/auto-suggest',
+        './basic/auto-suggests/uom-auto-suggest',
+        './basic/auto-suggests/supplier-auto-suggest',
+        './basic/auto-suggests/po-textile-auto-suggest', 
+        './po/po-item-textile-collection',
+        './podl/podl-item-textile-collection'
     );
 }

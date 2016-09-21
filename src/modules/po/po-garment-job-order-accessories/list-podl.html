@@ -1,0 +1,257 @@
+<template> 
+    <div class="display-wrapper">
+        <h3>PO DL Garment : Job Order Fabric</h3>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari nomor podl" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-default" click.delegate="back()" >Kembali</button>
+                    <!--<button class="btn btn-primary" click.delegate="create()">Buat</button>-->
+                    <button class="btn btn-primary" click.delegate="print()" >Cetak</button>
+                </div>
+            </div>
+        </div> 
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nomor PODL</th>
+                        <th>List PO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
+                    <tr repeat.for="item of data">
+                        <td>
+                            <input type="checkbox"
+                                checked.bind="item.isPrint"
+                                change.delegate="pushDataToBePrinting(item)" />
+                        </td>
+                        <td>${item.PODLNo}</td>
+                        <td>
+                            <ul>
+                            <li repeat.for="po of item.items">${po.PONo}</li> 
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Data po dl garment job order aksesoris tidak ada.
+        </div>
+    </div><!-- /.display-wrapper -->
+    
+    <div class="print-wrapper a4" repeat.for="data of dataToBePrinting">
+        <div class="row">
+            <div class="col-xs-8">
+                <address>
+                    <label class="header">PT. DAN LIRIS</label><br />
+                    Kel. Banaran (Selatan Laweyan), Kec. Grogol, Kab.Sukoharjo, Solo, Indonesia<br />
+                    Telp. (0271) 714400, Fax.  (0271) 717177, PO. BOX 166 Solo 57100<br />
+                    Email : purch.gmt@danliris.com<br />
+                    
+                </address>
+            </div>
+            <div class="col-xs-4">
+                <div class="row">
+                    <div class="col-xs-4">
+                        Ref. No
+                    </div>
+                    <div class="col-xs-7">
+                        ${data.iso}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        PO/DL
+                    </div>
+                    <div class="col-xs-7">
+                        ${data.PODLNo}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        Tanggal
+                    </div>
+                    <div class="col-xs-7">
+                        ${today | dateFormat : 'DD/MM/YYYY'}
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="row text-center">
+            <h3>PURCHASE ORDER</h3>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <span>Kepada Yth : ${data.supplier.name}</span>
+            </div>
+        </div>
+        <div class="row margin-top-10">
+            <div class="col-xs-12">
+                <div class="text-justify">
+                    Dengan hormat,<br />
+                    Yang bertanda tangan di bawah ini, PT. DAN LIRIS, SOLO (selanjutnya disebut sebagai Pembeli)
+                    dan ${data.supplier.name} (selanjutnya disebut sebagai Penjual) saling menyetujui
+                    untuk mengadakan kontrak jual beli dengan ketentuan sebagai berikut :
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width:560px;">Nama dan Jenis Barang</th>
+                        <th class="text-center" style="width:75px;">Kwantum</th>
+                        <th class="text-center" style="width:79px;">Harga Sat.</th>
+                        <th class="text-center" style="width:78px;">Total</th>
+                    </tr>
+                </thead>
+            </table>
+            <div repeat.for="po of data.items">
+                <table class="table table-po">
+                    <tbody>
+                        <tr>
+                            <td style="width:557px;">
+                                <div class="row">
+                                    <div class="col-xs-1">
+                                        ${$index+1}.
+                                    </div>
+                                    <div class="col-xs-6">
+                                        ${po.PONo}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        ${po.RONo}
+                                    </div>
+                                    <div class="col-xs-4">
+                                        ${po.shipmentDate | dateFormat : 'DD/MM/YYYY'}
+                                    </div>
+                                    <div class="col-xs-4">
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        ${po.buyer.code}
+                                    </div>
+                                    <div class="col-xs-6">
+                                        ${po.article}
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width:75px;"></td>
+                            <td style="width:79px;"></td>
+                            <td style="width:78px;"></td>
+                        </tr>         
+                    </tbody>
+                </table>
+                <table class="table table-item">
+                    <tbody>
+                        <tr repeat.for="product of po.items">
+                            <td style="width:560px;">
+                                <div class="col-xs-2">
+                                    ${product.product.code}
+                                </div>
+                                <div class="col-xs-4">
+                                    ${product.product.name}
+                                </div>
+                                <div class="col-xs-6">
+                                    ${product.product.description}
+                                </div>
+                            </td>
+                            <td style="width:75px;" class="text-center">${product.dealQuantity} ${product.product.uom.unit}</td>
+                            <td style="width:79px;" class="text-right">${product.price | currencyFormat}</td>
+                            <td style="width:78px;" class="text-right">${product.price * product.dealQuantity | currencyFormat}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table class="table table-bordered">
+                <tfoot>
+                    <tr>
+                        <td style="width:557px;" class="text-center">Jumlah Total</td>
+                        <td style="width:75px;"></td>
+                        <td style="width:79px;"></td>
+                        <td style="width:78px;" class="text-right">${data.total | currencyFormat}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">PPN 10 %</td>
+                        <td class="text-right" if.bind="data.usePPn">${data.ppn | currencyFormat}</td>
+                        <td class="text-right" if.bind="!data.usePPn">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">Nominal</td>
+                        <td class="text-right">${data.nominal | currencyFormat}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-no-bordered">
+                <tbody>
+                    <tr>
+                        <td>Ongkos kirim</td>
+                        <td>
+                            Ditanggung <span if.bind="data.deliveryFeeByBuyer">Pembeli</span> <span if.bind="!data.deliveryFeeByBuyer">Penjual</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Delivery</td>
+                        <td>
+                            ${data.deliveryDate | dateFormat : 'DD/MM/YYYY'}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pembayaran</td>
+                        <td>
+                            ${data.paymentDue} hari setelah terima barang
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Lain - lain</td>
+                        <td>
+                            ${data.description}
+                        </td>
+                    </tr>
+                    <tr if.bind="data.otherTest != ''">
+                        <td>Other Test</td>
+                        <td>${data.otherTest}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div class="row margin-top-10">
+                <div class="col-xs-5">
+                    <div style="text-align:center;">
+                        Pembeli<br /><br /><br /><br /><br />
+                        (_______________________)
+                    </div>
+                </div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-5">
+                    <div style="text-align:center;">
+                        Penjual<br /><br /><br /><br /><br />
+                        (_______________________)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--<div style="page-break-after:always;page-break-inside: avoid;"></div>-->
+    </div> <!-- /.print-wrapper -->
+    
+</template>

@@ -1,0 +1,47 @@
+<template>
+    <h3>Barang Umum</h3>
+    <br>
+    <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" value.bind="data.code" placeholder="cari" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="search()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+                </div>
+            </div>
+        </div> 
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Kode Barang</th>
+                <th>Nama Barang</th>
+                <th>Harga</th>
+                <th>Satuan Default</th>
+                <th>Keterangan</th>
+                <!--<th>Kategori UOM</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.code}</td>
+                <td>${item.name}</td>
+                 <td>${item.price}</td>
+                 <td>${item.uom ? item.uom.unit : ''}</td>                 
+                <td>${item.description}</td>
+                 <!--<td>${item.uom ? item.uom.category : ''}</td>-->
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        Data barang umum tidak ditemukan.
+    </div>
+    <hr/>
+</template>
