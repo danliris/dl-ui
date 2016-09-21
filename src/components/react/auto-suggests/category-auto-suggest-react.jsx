@@ -1,15 +1,13 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../host').core + '/v1/master/suppliers';
+const serviceUri = require('../../../host').core + '/v1/master/categories';
 const empty = {
-    code: '',
     name: ''
 }
-
 'use strict';
 
-export default class SupplierAutoSuggestReact extends React.Component {
+export default class CategoryAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -18,10 +16,10 @@ export default class SupplierAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, SupplierAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, CategoryAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code} - ${this.name}`;
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -45,7 +43,7 @@ export default class SupplierAutoSuggestReact extends React.Component {
     }
 }
 
-SupplierAutoSuggestReact.propTypes = {
+CategoryAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -55,17 +53,17 @@ SupplierAutoSuggestReact.propTypes = {
     })
 };
 
-SupplierAutoSuggestReact.defaultProps = {
+CategoryAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
         function (text) {
             return fetch(serviceUri).then(results => results.json()).then(json => {
-                return json.data.map(supplier => {
-                    supplier.toString = function () {
-                        return `${this.code} - ${this.name}`;
+                return json.data.map(uom => {
+                    uom.toString = function () {
+                        return `${this.name}`;
                     }
-                    return supplier;
+                    return uom;
                 })
             })
         }

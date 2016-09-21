@@ -1,15 +1,14 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../host').core + '/v1/master/suppliers';
+const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals';
 const empty = {
-    code: '',
-    name: ''
+    no: ''
 }
 
 'use strict';
 
-export default class SupplierAutoSuggestReact extends React.Component {
+export default class PoExternalAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -18,10 +17,10 @@ export default class SupplierAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, SupplierAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, PoExternalAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code} - ${this.name}`;
+            return `${this.no}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -45,7 +44,7 @@ export default class SupplierAutoSuggestReact extends React.Component {
     }
 }
 
-SupplierAutoSuggestReact.propTypes = {
+PoExternalAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -55,17 +54,17 @@ SupplierAutoSuggestReact.propTypes = {
     })
 };
 
-SupplierAutoSuggestReact.defaultProps = {
+PoExternalAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
         function (text) {
             return fetch(serviceUri).then(results => results.json()).then(json => {
-                return json.data.map(supplier => {
-                    supplier.toString = function () {
-                        return `${this.code} - ${this.name}`;
+                return json.data.map(poExternal => {
+                    poExternal.toString = function () {
+                        return `${this.no}`;
                     }
-                    return supplier;
+                    return poExternal;
                 })
             })
         }

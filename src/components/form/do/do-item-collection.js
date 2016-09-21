@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import DoItemTextileCollectionReact from '../../react/do/do-item-textile-collection-react.jsx';
+import DoItemCollectionReact from '../../react/do/do-item-collection-react.jsx';
 
 
 @noView()
@@ -36,7 +36,7 @@ export class DoItemTextileCollection {
         console.log(this.value)
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <DoItemTextileCollectionReact value={this.value} error={this.error} options = {this.options}></DoItemTextileCollectionReact>,
+            <DoItemCollectionReact value={this.value} error={this.error} options = {this.options}></DoItemCollectionReact>,
             this.element
         );
     }

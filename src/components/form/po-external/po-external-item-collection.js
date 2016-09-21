@@ -2,18 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import PoItemTextileCollectionReact from '../../react/po/po-item-textile-collection-react.jsx';
+import PoExternalItemCollectionReact from '../../react/po-external/po-external-item-collection-react.jsx';
 
 
 @noView()
 @inject(Element)
-@customElement('po-item-textile-collection')
-export class PoItemTextileCollection {
+@customElement('po-external-item-collection')
+export class PoExternalItemCollection {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) isSplit;
 
     reactComponent = {};
     constructor(element) {
@@ -25,13 +24,8 @@ export class PoItemTextileCollection {
     handleItemAdd() {
 
         this.value.push({
-            product: { toString: function () { return '' } },
-            defaultQuantity: 0,
-            defaultMeasurement: '',
-            dealQuantity: 0,
-            dealMeasurement: '',
-            price: 0,
-            description: ''
+            usePPh: false,
+            usePPn: false
         });
         this.bind();
     }
@@ -43,9 +37,9 @@ export class PoItemTextileCollection {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' }; 
         this.reactComponent = ReactDOM.render(
-            <PoItemTextileCollectionReact value={this.value} error={this.error} options={this.options}></PoItemTextileCollectionReact>,
+            <PoExternalItemCollectionReact value={this.value} error={this.error} options = {this.options}></PoExternalItemCollectionReact>,
             this.element
         );
     }

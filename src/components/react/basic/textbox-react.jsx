@@ -12,7 +12,7 @@ export default class TextboxReact extends React.Component {
     }
 
     init(props) {
-        var initialValue = props.value;
+        var initialValue = props.value || TextboxReact.defaultProps.value ; 
         if (props.value != initialValue && props.onChange)
             props.onChange(initialValue);
 
@@ -36,18 +36,23 @@ export default class TextboxReact extends React.Component {
     }
 
     render() {
+
         var control = null;
-        if (this.state.options.readOnly)
-            control = <p className="form-control-static">{ this.state.value }</p>;
-        else
+        var usePostFix = this.state.options.postFix.trim() != '';
+        var postFix = usePostFix ? this.state.options.postFix : '';
+        if (this.state.options.readOnly) {
+            control = <p className="form-control-static">{ this.state.value } {postFix}</p>;
+        }
+        else {            
             control = <input type="text" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>;
 
-        if (this.state.options.postFix.trim() != '') {
-            control = <div className="input-group">
-                {control}
-                <span className="input-group-addon">{this.state.options.postFix}</span>
-            </div>;
-        }
+            if (this.state.options.postFix.trim() != '') {
+                control = <div className="input-group">
+                    {control}
+                    <span className="input-group-addon">{postFix}</span>
+                </div>;
+            }
+        } 
         return control;
     }
 }

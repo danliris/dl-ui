@@ -35,7 +35,8 @@
     "server:dev:hmr": "npm run server:dev -- --hot",
     "server:prod": "http-server dist --cors",
     "webpack": "cross-env ./node_modules/.bin/webpack",
-    "webpack-dev-server": "cross-env ./node_modules/.bin/webpack-dev-server"
+    "webpack-dev-server": "cross-env ./node_modules/.bin/webpack-dev-server",
+    "deploy": "cf push dl-ui -p dist -b https://github.com/cloudfoundry/staticfile-buildpack.git"
   },
   "repository": {
     "type": "git",

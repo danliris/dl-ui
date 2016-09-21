@@ -1,0 +1,85 @@
+import React from 'react';
+
+import TextboxReact from '../basic/textbox-react.jsx';
+import RadiobuttonReact from '../basic/radiobutton-react.jsx';
+import NumericReact from '../basic/numeric-react.jsx'; 
+import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
+import PoAutoSuggestReact from '../auto-suggests/po-auto-suggest-react.jsx';
+import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
+
+'use strict';
+
+export default class DoItemFulfillmentReact extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.init = this.init.bind(this);
+        this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleDeliveredQuantityChanged = this.handleDeliveredQuantityChanged.bind(this);
+        this.handleRemarkChanged = this.handleRemarkChanged.bind(this);
+
+        this.componentWillMount = this.componentWillMount.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+
+    }
+
+    handleValueChange(value) {
+        this.setState({ value: value });
+        if (this.props.onChange)
+            this.props.onChange(value);
+    }
+
+    handleDeliveredQuantityChanged(quantity) {
+        var value = this.state.value;
+        value.deliveredQuantity = quantity;
+        this.handleValueChange(value);
+    }
+
+    handleRemarkChanged(remark) {
+        var value = this.state.value;
+        value.remark = remark;
+        this.handleValueChange(value);
+    }
+  
+    init(props) {
+        var value = props.value;
+        var error = props.error;
+        var options = props.options;
+
+        this.setState({ value: value, error: error, options: options });
+    }
+
+    componentWillMount() {
+        this.init(this.props);
+    }
+
+    componentWillReceiveProps(props) {
+        this.init(props);
+    }
+
+    render() {
+        var readOnlyOptions = { readOnly: true };
+        return (
+            <tr >
+                <td>
+                    <PoAutoSuggestReact value={this.state.value.purchaseOrder} options={readOnlyOptions} />
+                </td>
+                <td>
+                    <ProductAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} />
+                </td>
+                <td>
+                    <NumericReact value={this.state.value.purchaseOrderQuantity} options={readOnlyOptions} />
+                </td>
+                <td>
+                    <UomAutoSuggestReact value={this.state.value.purchaseOrderUom} options={readOnlyOptions} />
+                </td>
+                <td>
+                    <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
+                </td>
+                <td>
+                    <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemarkChanged}  />
+                </td>
+            </tr>);
+
+    }
+}

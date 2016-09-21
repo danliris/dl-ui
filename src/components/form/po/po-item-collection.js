@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import PodlItemTextileCollectionReact from '../../react/podl/podl-item-textile-collection-react.jsx';
+import PoItemCollectionReact from '../../react/po/po-item-collection-react.jsx';
 
 
 @noView()
 @inject(Element)
-@customElement('podl-item-textile-collection')
-export class PodlItemTextileCollection {
+@customElement('po-item-collection')
+export class PoItemCollection {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) isSplit;
 
     reactComponent = {};
     constructor(element) {
@@ -24,8 +25,13 @@ export class PodlItemTextileCollection {
     handleItemAdd() {
 
         this.value.push({
-            usePPh: false,
-            usePPn: false
+            product: { toString: function () { return '' } },
+            defaultQuantity: 0,
+            defaultMeasurement: '',
+            dealQuantity: 0,
+            dealMeasurement: '',
+            price: 0,
+            description: ''
         });
         this.bind();
     }
@@ -37,9 +43,9 @@ export class PodlItemTextileCollection {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <PodlItemTextileCollectionReact value={this.value} error={this.error} options = {this.options}></PodlItemTextileCollectionReact>,
+            <PoItemCollectionReact value={this.value} error={this.error} options={this.options}></PoItemCollectionReact>,
             this.element
         );
     }

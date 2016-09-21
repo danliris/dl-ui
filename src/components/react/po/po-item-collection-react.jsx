@@ -1,6 +1,5 @@
 import React from 'react';
-
-import PoItemTextileReact from './po-item-textile-react.jsx';
+import PoItemReact from './po-item-react.jsx';
 
 'use strict';
 
@@ -9,17 +8,19 @@ export default class PoItemCollectionReact extends React.Component {
         super(props);
 
         this.handleItemAdd = this.handleItemAdd.bind(this);
+        this.handleItemRemove = this.handleItemRemove.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
+
     componentWillMount() {
-        this.setState({ value: this.props.value || {}, options: this.props.options || {} });
+        this.setState({ value: this.props.value || [], error: this.props.error || [], options: this.props.options || {} });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value || {}, options: props.options || {} });
+        this.setState({ value: props.value || [], error: props.error || [], options: props.options || {} });
     }
 
     handleItemAdd() {
@@ -38,7 +39,21 @@ export default class PoItemCollectionReact extends React.Component {
             this.props.onAddItem(newItem);
     }
 
+    handleItemRemove(item) {
+        var value = this.state.value;
+        var itemIndex = value.indexOf(item);
+        value.splice(itemIndex, 1);
+        this.setState({ value: value });
+    }
+
     render() {
+        var items = (this.state.value || []).map(function (item, index) {
+            var error = this.state.error[index] || {};
+            return (
+                <PoItemReact key={"__item" + index} value={item} error={error} options={this.state.options} onRemove={this.handleItemRemove}></PoItemReact>
+            );
+        }.bind(this))
+
         var addButton = <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>;
         if (this.state.options.readOnly || this.state.options.isSplit)
             addButton = <span></span>;
@@ -46,24 +61,17 @@ export default class PoItemCollectionReact extends React.Component {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th rowSpan="2" width="20%">Textile</th>
-                        <th colSpan="2" width="20%">Default</th>
-                        <th colSpan="2" width="20%">Deal</th>
-                        <th rowSpan="2" width="10%">Harga</th>
-                        <th rowSpan="2" width="20%">Ket.</th>
-                        <th rowSpan="2" width="10%">
+                        <th width="40%">Product</th>
+                        <th width="10%">Qty.</th>
+                        <th width="10%">Uom.</th>
+                        <th width="30%">Ket.</th>
+                        <th width="10%">
                             {addButton}
                         </th>
                     </tr>
-                    <tr>
-                        <th width="10%">Qty.</th>
-                        <th width="10%">Uom.</th>
-                        <th width="10%">Qty.</th>
-                        <th width="10%">Uom.</th>
-                    </tr>
                 </thead>
                 <tbody>
-                    {this.props.children}
+                    {items}
                 </tbody>
             </table>
         )

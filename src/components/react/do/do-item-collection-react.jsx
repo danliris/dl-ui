@@ -1,4 +1,5 @@
 import React from 'react';
+import DoItemReact from './do-item-react.jsx';
 
 'use strict';
 
@@ -8,6 +9,7 @@ export default class DoItemCollectionReact extends React.Component {
 
         this.init = this.init.bind(this);
         this.handleItemAdd = this.handleItemAdd.bind(this);
+        this.handleItemChange = this.handleItemChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -20,9 +22,16 @@ export default class DoItemCollectionReact extends React.Component {
             }
         };
         this.state.value.push(newItem);
+        this.setState({ value: this.state.value });
 
         if (this.props.onAddItem)
             this.props.onAddItem(newItem);
+    }
+
+    handleItemChange(doItem) { 
+        var i = this.state.value[0] == doItem;
+        console.log(i);
+        this.setState({ value: this.state.value });
     }
 
     init(props) {
@@ -45,21 +54,26 @@ export default class DoItemCollectionReact extends React.Component {
         var addButton = <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>;
         if (this.state.options.readOnly)
             addButton = <span></span>;
+        console.log(this.state.value)
+        var items = (this.state.value || []).map((doItem, index) => {
+            var error = this.state.error[index] || {};
+            return (
+                <DoItemReact key={"__item" + index} value={doItem} error={error} options={this.state.options} onChange={this.handleItemChange} onRemove={this.handleItemRemove}></DoItemReact>
+            );
+        })
+
         return (
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th width="25%">No.PO.int</th>
-                        <th width="25%">No.PR.</th>
-                        <th width="20%">PPH</th>
-                        <th width="20%">PPN</th>
+                        <th width="90%">No.PO.ext</th>
                         <th width="10%">
                             {addButton}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.children}
+                    {items}
                 </tbody>
             </table>
         )

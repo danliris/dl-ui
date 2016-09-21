@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
 import FieldReact from '../../../react/basic/field-react.jsx';
-import UomAutoSuggestReact from '../../../react/auto-suggests/po-textile-auto-suggest-react.jsx';
+import UnitAutoSuggestReact from '../../../react/auto-suggests/unit-auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)
-@customElement('po-textile-auto-suggest')
-export class POTextileAutoSuggest {
+@customElement('unit-auto-suggest')
+export class UnitAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -37,7 +37,7 @@ export class POTextileAutoSuggest {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <POTextileAutoSuggest value={this.value} options={this.options} onChange={this.handleValueChange} />
+                <UnitAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
             </FieldReact>,
             this.element
         );

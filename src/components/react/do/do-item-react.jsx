@@ -3,9 +3,11 @@ import React from 'react';
 import TextboxReact from '../basic/textbox-react.jsx';
 import RadiobuttonReact from '../basic/radiobutton-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
-import POTextileAutoSuggestReact from '../auto-suggests/po-textile-auto-suggest-react.jsx';
+// import POTextileAutoSuggestReact from '../auto-suggests/po-textile-auto-suggest-react.jsx';
 import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
+import PoExternalAutoSuggestReact from '../auto-suggests/po-external-auto-suggest-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
+import DoItemFulfillmentReact from './do-item-fulfillment-react.jsx';
 
 'use strict';
 
@@ -23,10 +25,14 @@ export default class DoItemReact extends React.Component {
 
     }
 
-    handleValueChange(value) {
-        this.setState({ value: value });
+    handleValueChange(event, poExternal) {
+        var doItem = this.state.value;
+        doItem.purchaseOrderExternal = poExternal;
+        doItem.purchaseOrderExternalId = poExternal._id;
+        console.log(doItem);
+        this.setState({ value: doItem });
         if (this.props.onChange)
-            this.props.onChange(value);
+            this.props.onChange(doItem);
     }
 
     handleRemove() {
@@ -36,14 +42,35 @@ export default class DoItemReact extends React.Component {
 
     handleToggleDetail() {
         this.setState({ showDetail: !this.state.showDetail });
-    } 
+    }
 
     init(props) {
-        var value = Object.assign({}, DoItemReact.defaultProps.value, props.value);
+        var value = props.value;
+        var poExternal = value.purchaseOrderExternal || {};
+        var poCollection = poExternal.items || [];
+        var fulfillments = [].concat.apply([], poCollection.map((purchaseOrder, index) => {
+            var doItemFulfillments = (purchaseOrder.items || []).map((poItem, index) => {
+                return {
+                    purchaseOrderId: purchaseOrder._id,
+                    purchaseOrder: purchaseOrder,
+                    productId: poItem.product._id,
+                    product: poItem.product,
+                    purchaseOrderQuantity: poItem.dealQuantity,
+                    purchaseOrderUom: poItem.dealUom,
+                    deliveredQuantity: 0,
+                    remark: ''
+                }
+            });
+            return doItemFulfillments;
+        }));
+
+        value.fulfillments = fulfillments;
+
         var error = Object.assign({}, DoItemReact.defaultProps.error, props.error);
         var options = Object.assign({}, DoItemReact.defaultProps.options, props.options);
+        var showDetail = (this.state || this.props).showDetail || true;
 
-        this.setState({ value: value, error: error, options: options }); 
+        this.setState({ value: value, error: error, options: options, showDetail: showDetail });
     }
 
     componentWillMount() {
@@ -58,25 +85,12 @@ export default class DoItemReact extends React.Component {
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         var details = null;
+
         if (this.state.showDetail) {
-            var items = this.state.value.items.map((item, index) => {
+            var items = this.state.value.fulfillments.map((fulfillment, index) => {
                 var itemOptions = { readOnly: true };
                 var realizationQtyOptions = { readOnly: false };
-                return (
-                    <tr key={`__item_${item.PONo}_${index}`}>
-                        <td>
-                            <ProductAutoSuggestReact value={item.product} options={itemOptions} />
-                        </td>
-                        <td>
-                            <NumericReact value={item.dealQuantity} options={itemOptions} />
-                        </td>
-                        <td>
-                            <UomAutoSuggestReact value={item.dealMeasurement} options={itemOptions} />
-                        </td>
-                        <td>
-                            <NumericReact value={item.realizationQuantity} options={realizationQtyOptions} />
-                        </td>
-                    </tr>);
+                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment} />;
             });
 
             details = <tr>
@@ -84,10 +98,12 @@ export default class DoItemReact extends React.Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th width="40%">Barang</th>
-                                <th width="20%">Jumlah</th>
-                                <th width="20%">Satuan</th>
-                                <th width="20%">Diterima</th>
+                                <th width="20%">PO</th>
+                                <th width="20%">Barang</th>
+                                <th width="10%">Dipesan</th>
+                                <th width="10%">Satuan</th>
+                                <th width="10%">Diterima</th>
+                                <th width="20%">Catatan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,27 +113,15 @@ export default class DoItemReact extends React.Component {
                 </td>
             </tr>
         }
-        var options = {
-            selections: [
-                { value: true, label: 'YA' },
-                { value: false, label: 'TIDAK' },
-            ]
-        };
+
         return (
             <tr>
                 <td colSpan="5">
                     <table className="table">
                         <tbody>
                             <tr>
-                                <td width="25%">
-                                    {this.props.children}
-                                </td>
-                                <td width="25%">
-                                    <TextboxReact value={this.state.value.PRNo} options={this.state.options} />
-                                </td>
-                                <td width="20%">
-                                </td>
-                                <td width="20%">
+                                <td width="90%">
+                                    <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} onChange={this.handleValueChange}/>
                                 </td>
                                 <td width="10%">
                                     <button className="btn btn-danger" onClick={this.handleRemove}>-</button>
@@ -138,8 +142,7 @@ DoItemReact.propTypes = {
     error: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.string]),
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool
-    }),
-    children: React.PropTypes.element.isRequired
+    })
 };
 
 DoItemReact.defaultProps = {
