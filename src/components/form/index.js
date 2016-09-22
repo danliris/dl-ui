@@ -1,3 +1,4 @@
+
 export function configure(config) {
     config.globalResources(
         './basic/textbox',
@@ -11,6 +12,8 @@ export function configure(config) {
         './basic/auto-suggests/uom-auto-suggest',
         './basic/auto-suggests/supplier-auto-suggest',
         './basic/auto-suggests/po-unposted-auto-suggest', 
+        './basic/auto-suggests/category-auto-suggest',
+        './basic/auto-suggests/unit-auto-suggest',
         './po/po-item-collection',
         './po-external/po-external-item-collection',
         './do/do-item-collection'

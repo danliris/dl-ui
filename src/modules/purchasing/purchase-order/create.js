@@ -8,18 +8,19 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {items: [{}, {}] };
-        this.error = {
-            purchaseRequest:{unit: "unit is required"},
-            items: [
-                {
-                    product: "product does not exist"
-                },
-                {
-                    defaultQuantity: "default quantity error"
-                }
-            ]
-        }
+        this.data = {};
+        this.error={};
+        // this.error = {
+        //     purchaseRequest:{unit: "unit is required"},
+        //     items: [
+        //         {
+        //             product: "product does not exist"
+        //         },
+        //         {
+        //             defaultQuantity: "default quantity error"
+        //         }
+        //     ]
+        // }
     }
 
     back() {
