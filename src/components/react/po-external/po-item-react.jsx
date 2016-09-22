@@ -16,6 +16,7 @@ export default class PoItem extends React.Component {
         this.handleDealQuantityChange = this.handleDealQuantityChange.bind(this);
         this.handleDealUomChange = this.handleDealUomChange.bind(this);
         this.handlePricePerDealUnitChange = this.handlePricePerDealUnitChange.bind(this);
+        this.handleconversionChange = this.handleconversionChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -44,7 +45,12 @@ export default class PoItem extends React.Component {
         value.pricePerDealUnit = price;
         this.handleValueChange(value);
     }
-
+    
+    handleconversionChange(conversion) {
+        var value = this.state.value;
+        value.conversion = conversion;
+        this.handleValueChange(value);
+    }
     componentWillMount() {
         this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });
     }
@@ -97,6 +103,12 @@ export default class PoItem extends React.Component {
                     <div className={`form-group ${this.state.error.pricePerDealUnit ? 'has-error' : ''}`} style={style}>
                         <NumericReact value={this.state.value.pricePerDealUnit} options={this.state.options} onChange={this.handlePricePerDealUnitChange}/>
                         <span className="help-block">{this.state.error.pricePerDealUnit}</span>
+                    </div>
+                </td>
+                <td>
+                    <div className={`form-group ${this.state.error.conversion ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.conversion} options={this.state.options} onChange={this.handleconversionChange}/>
+                        <span className="help-block">{this.state.error.conversion}</span>
                     </div>
                 </td>
                 <td>
