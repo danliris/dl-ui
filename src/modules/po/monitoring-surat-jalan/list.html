@@ -1,0 +1,59 @@
+<template>
+    <h3>Monitoring Surat Jalan</h3>
+    <form class="form-horizontal"> 
+        <textbox label="No. Surat Jalan" value.bind="no"></textbox>
+        <supplier-auto-suggest value.bind="supplierId" label="Supplier"></supplier-auto-suggest>
+        <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+            </div>
+        </div> 
+        <table class="table table-striped table-hover" border="1">
+            <thead align="center">
+                <tr> 
+                    <td colspan="2">SUPPLIER</td>
+                    <td colspan="3">SURAT JALAN</td> 
+                    <td rowspan="2">NO PO EXTERNAL</td>
+                    <td colspan="6">BARANG</td>
+                </tr>
+                <tr> 
+                    <td>KODE</td>
+                    <td>NAMA</td> 
+                    <td>NOMOR</td>
+                    <td>TANGGAL</td> 
+                    <td>TANGGAL DATANG BARANG</td> 
+                    <td>KODE</td>
+                    <td>NAMA</td>
+                    <td>DESKRIPSI</td>
+                    <td>JUMLAH YANG DIMINTA</td>   
+                    <td>JUMLAH YANG DATANG</td> 
+                    <td>SISA QTY</td> 
+                </tr> 
+            </thead>
+            <tbody repeat.for="SJ of data">  
+                <tr repeat.for="item of SJ.items">    
+                    <td>${SJ.supplier.code}</td>
+                    <td>${SJ.supplier.name}</td>
+                    <td>${SJ.no}</td>
+                    <td>${SJ.date.substr(0, 10)}</td>
+                    <td>${SJ.date.substr(0, 10)}</td>
+                    <td>${item.purchaseOrderExternal.no}</td>
+                    <td>${item.fulfillments[$index].product.code}</td>
+                    <td>${item.fulfillments[$index].product.name}</td>
+                    <td>${item.fulfillments[$index].product.description}</td>
+                    <td>${item.fulfillments[$index].purchaseOrder.items[$index].dealQuantity}</td>   
+                    <td>${item.fulfillments[$index].quantity}</td> 
+                    <td>${item.fulfillments[$index].purchaseOrder.items[$index].dealQuantity - item.fulfillments[$index].quantity}</td> 
+                </tr> 
+            </tbody>
+        </table>
+
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+    </form>
+</template>

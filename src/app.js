@@ -13,11 +13,12 @@ export class App {
       { route: 'products', name: 'products', moduleId: './modules/master/product/index', nav: true, title: 'Barang' },
       { route: 'po', name: 'purchase-order', moduleId: './modules/purchasing/purchase-order/index', nav: true, title: 'Purchase Order' },
       { route: 'po-external', name: 'purchase-order-external', moduleId: './modules/purchasing/purchase-order-external/index', nav: true, title: 'Purchase Order External' },
-      { route: 'do', name: 'delivery-order', moduleId: './modules/purchasing/delivery-order/index', nav: true, title: 'Delivery Order' }
+      { route: 'do', name: 'delivery-order', moduleId: './modules/purchasing/delivery-order/index', nav: true, title: 'Delivery Order' },
+      { route: 'monitoringpurchase', name: 'monitoringpurchase', moduleId: './modules/po/monitoring-purchase/index', nav: true, title: 'Monitoring Purchase' },
+      { route: 'monitoringsuratjalan', name: 'monitoringsuratjalan', moduleId: './modules/po/monitoring-surat-jalan/index', nav: true, title: 'Monitoring Surat Jalan' },
     ]);
 
     this.router = router;
   }
 }
 
-      
