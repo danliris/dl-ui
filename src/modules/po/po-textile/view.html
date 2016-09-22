@@ -1,0 +1,15 @@
+<template>
+    <require from="../../../utils/date-format"></require>
+    <h3>Detail Internal PO Tekstil</h3>
+    <require from="./data-form"></require>
+    <block>
+        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
+        <hr/>
+        <div class="btn-group pull-right">
+            <a click.delegate="list()" class='btn btn-default'>Kembali</a>
+            <a click.delegate="edit()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Ubah</a>
+            <a click.delegate="split()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-primary">Pecah</a>
+            <a click.delegate="delete()" class="${data.PODLNo == '' ? '' : 'hide'} btn btn-danger">Hapus</a>
+        </div>
+    </block>
+</template>

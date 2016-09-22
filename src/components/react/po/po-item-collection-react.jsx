@@ -34,6 +34,7 @@ export default class PoItemCollectionReact extends React.Component {
             description: ''
         };
         this.state.value.push(newItem);
+         this.setState({ value: this.state.value });
 
         if (this.props.onAddItem)
             this.props.onAddItem(newItem);

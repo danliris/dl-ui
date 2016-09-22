@@ -2,6 +2,7 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
 const serviceUri = require('../../../host').core + '/v1/master/uoms';
+
 const empty = {
     unit: ''
 }

@@ -90,7 +90,8 @@ export default class DoItemReact extends React.Component {
             var items = this.state.value.fulfillments.map((fulfillment, index) => {
                 var itemOptions = { readOnly: true };
                 var realizationQtyOptions = { readOnly: false };
-                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment} />;
+                var error = (this.state.error.fulfillment || [])[index] || {};
+                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment}  error={error}/>;
             });
 
             details = <tr>
@@ -121,7 +122,10 @@ export default class DoItemReact extends React.Component {
                         <tbody>
                             <tr>
                                 <td width="90%">
-                                    <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} onChange={this.handleValueChange}/>
+                                <div className={`form-group ${this.state.error.purchaseOrderExternal ? 'has-error' : ''}`}>
+                                        <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} onChange={this.handleValueChange}/>
+                                        <span className="help-block">{this.state.error.purchaseOrderExternal}</span>
+                                    </div>
                                 </td>
                                 <td width="10%">
                                     <button className="btn btn-danger" onClick={this.handleRemove}>-</button>
