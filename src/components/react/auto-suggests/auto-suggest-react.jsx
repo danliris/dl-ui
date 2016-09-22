@@ -7,6 +7,7 @@ export default class AutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
 
+        this.init = this.init.bind(this);
         this.options = Object.assign({}, this.props.options);
         this.onFocus = this.onFocus.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -20,9 +21,19 @@ export default class AutoSuggestReact extends React.Component {
         this.renderSuggestion = this.renderSuggestion.bind(this);
     }
 
+    init(props) {
+        var initialValue = (props.value || '');
+        if (props.value != initialValue && props.onChange)
+            props.onChange(initialValue);
+
+        var options = Object.assign({}, AutoSuggestReact.defaultProps.options, props.options);
+        this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [] });
+    }
+
     onFocus(event) {
         this.text = event.target.value;
     }
+
     onChange(event, {newValue, method}) {
         this.setState({ label: newValue });
     }
@@ -36,7 +47,7 @@ export default class AutoSuggestReact extends React.Component {
     }
 
     onSuggestionsFetchRequested({value}) {
-        var suggestions = (this.options && this.options.suggestions) || [];
+        var suggestions = this.state.options.suggestions;
         Promise.resolve(typeof (suggestions) === "function" ? suggestions(value) : suggestions)
             .then(result => {
                 this.setState({ suggestions: result });
@@ -48,7 +59,6 @@ export default class AutoSuggestReact extends React.Component {
     }
 
     onSuggestionSelected(event, {suggestion, suggestionValue, sectionIndex, method}) {
-        console.log(suggestion)
         this.text = (suggestion || '').toString();
         this.setState({ value: suggestion });
         if (this.props.onChange)
@@ -68,15 +78,13 @@ export default class AutoSuggestReact extends React.Component {
     }
 
     componentWillMount() {
-        var obj = (this.props.value || '');
-        // console.log(this.props.value);
-        this.setState({ value: this.props.value, label: obj.toString(), options: this.props.options, suggestions: [] });
+        this.init(this.props);
     }
 
     componentWillReceiveProps(props) {
-        var label = (props.value || '').toString();
-        this.setState({ value: props.value, label: label, options: props.options });
+        this.init(props);
     }
+
 
     render() {
         if (this.state.options.readOnly)
@@ -93,7 +101,7 @@ export default class AutoSuggestReact extends React.Component {
                 onBlur: this.onBlur,
                 onFocus: this.onFocus,
                 className: 'form-control'
-            } 
+            }
             return (
                 <Autosuggest
                     suggestions = {suggestions}
@@ -109,5 +117,19 @@ export default class AutoSuggestReact extends React.Component {
     }
 }
 
-AutoSuggestReact.defaultProps = { data: [] };
+AutoSuggestReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        suggestions: React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.func
+        ])
+    })
+};
 
+AutoSuggestReact.defaultProps = {
+    options: {
+        readOnly: false,
+        suggestions: []
+    }
+};

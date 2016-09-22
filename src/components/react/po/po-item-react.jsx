@@ -3,6 +3,7 @@ import React from 'react';
 import TextboxReact from '../basic/textbox-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
+import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
 
 'use strict';
 
@@ -12,16 +13,15 @@ export default class PoItem extends React.Component {
 
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleProductChange = this.handleProductChange.bind(this);
         this.handleDefaultQuantityChange = this.handleDefaultQuantityChange.bind(this);
         this.handleDealQuantityChange = this.handleDealQuantityChange.bind(this);
         this.handleDealMeasurementChange = this.handleDealMeasurementChange.bind(this);
-        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleRemarkChange = this.handleRemarkChange.bind(this);
         this.handlePriceChange = this.handlePriceChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
-
-        this.dealMeasurement = { toString: () => '' };
     }
 
     handleValueChange(value) {
@@ -30,27 +30,37 @@ export default class PoItem extends React.Component {
             this.props.onChange(value);
     }
 
+    handleProductChange(event, product) {
+        var value = this.state.value;
+        value.product = product;
+        value.defaultUom = product.uom;
+        this.handleValueChange(value);
+    }
+
     handleDefaultQuantityChange(quantity) {
         var value = this.state.value;
         value.defaultQuantity = quantity;
         this.handleValueChange(value);
     }
+
     handleDealQuantityChange(quantity) {
         var value = this.state.value;
         value.dealQuantity = quantity;
         this.handleValueChange(value);
     }
+
     handleDealMeasurementChange(event, uom) {
         var value = this.state.value;
-        this.dealMeasurement = uom;
-        value.dealMeasurement = uom.unit;
+        value.dealUom = uom;
         this.handleValueChange(value);
     }
-    handleDescriptionChange(desc) {
+
+    handleRemarkChange(remark) {
         var value = this.state.value;
-        value.description = desc;
+        value.remark = remark;
         this.handleValueChange(value);
     }
+
     handlePriceChange(price) {
         var value = this.state.value;
         value.price = price;
@@ -63,44 +73,56 @@ export default class PoItem extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ value: this.props.value || {}, options: this.props.options || {} });
+        this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value || {}, options: this.props.options || {} });
+        this.setState({ value: props.value || {}, error: props.error || {}, options: props.options || {} });
     }
 
-    render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+    render() { 
+        var readOnlyOptions = { readOnly: this.state.options.readOnly || this.state.options.isSplit };
+        var defaultUomOptions = Object.assign({}, this.state.options, { readOnly: true });
+        var dealQtyOptions = Object.assign({}, this.state.options, { min: 0 });
+        var descOptions = readOnlyOptions;
+        var dealMeasurementOptions = readOnlyOptions;
+        var removeButton = null
 
-        var defaultMeasurementOptions = { readOnly: true };
-        var dealQtyOptions = { min: 0 }
+        if (!this.state.options.readOnly)
+            removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
+
+        var style = {
+            margin: 0 + 'px'
+        }
 
         return (
             <tr>
                 <td>
-                    {this.props.children}
+                    <div className={`form-group ${this.state.error.product ? 'has-error' : ''}`} style={style}> 
+                        <ProductAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} onChange={this.handleProductChange}></ProductAutoSuggestReact>
+                        <span className="help-block">{this.state.error.product}</span>
+                    </div>
                 </td>
                 <td>
-                    <NumericReact value={this.state.value.defaultQuantity} onChange={this.handleDefaultQuantityChange} options={this.state.options} />
+                    <div className={`form-group ${this.state.error.defaultQuantity ? 'has-error' : ''}`} style={style}>
+                        <NumericReact value={this.state.value.defaultQuantity} options={this.state.options} onChange={this.handleDefaultQuantityChange}/>
+                        <span className="help-block">{this.state.error.defaultQuantity}</span>
+                    </div>
                 </td>
                 <td>
-                    <TextboxReact value={this.state.value.defaultMeasurement} options={defaultMeasurementOptions} />
+                    <div className={`form-group ${this.state.error.defaultUom ? 'has-error' : ''}`} style={style}>
+                        <UomAutoSuggestReact value={this.state.value.defaultUom} options={defaultUomOptions} />
+                        <span className="help-block">{this.state.error.defaultUom}</span>
+                    </div>
+                </td> 
+                <td>
+                    <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemarkChange}/>
+                        <span className="help-block">{this.state.error.remark}</span>
+                    </div>
                 </td>
                 <td>
-                    <NumericReact value={this.state.value.dealQuantity} onChange={this.handleDealQuantityChange} options={dealQtyOptions} />
-                </td>
-                <td>
-                    <UomAutoSuggestReact value={this.dealMeasurement} onChange={this.handleDealMeasurementChange} options={this.state.options} />
-                </td>
-                <td>
-                    <NumericReact value={this.state.value.price} onChange={this.handlePriceChange} options={this.state.options} />
-                </td>
-                <td>
-                    <TextboxReact value={this.state.value.description} onChange={this.handleDescriptionChange} options={this.state.options} />
-                </td>
-                <td>
-                    <button className="btn btn-danger" onClick={this.handleRemove}>-</button>
+                    {removeButton}
                 </td>
             </tr>
         )

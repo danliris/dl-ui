@@ -5,9 +5,15 @@ import React from 'react';
 export default class DatePickerReact extends React.Component {
     constructor(props) {
         super(props);
+        this.init = this.init.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    init(props) {
+        var options = Object.assign({}, DatePickerReact.defaultProps.options, props.options);
+        this.setState({ value: props.value || '', options: options });
     }
 
     handleValueChange(event) {
@@ -16,11 +22,13 @@ export default class DatePickerReact extends React.Component {
         if (this.props.onChange)
             this.props.onChange(event.target.value);
     }
+
     componentWillMount() {
-        this.setState({ value: this.props.value || '', options: this.props.options || {} });
+        this.init(this.props);
     }
+
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value|| '', options: this.props.options || {} });
+        this.init(props);
     }
 
     render() {
@@ -33,4 +41,15 @@ export default class DatePickerReact extends React.Component {
                 <input type="date" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>
             );
     }
-} 
+}
+
+DatePickerReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool
+    })
+};
+DatePickerReact.defaultProps = {
+    options: {
+        readOnly: false
+    }
+};
