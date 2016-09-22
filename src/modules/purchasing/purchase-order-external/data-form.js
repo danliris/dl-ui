@@ -9,7 +9,7 @@ export class DataForm {
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)','RETENSI'];
     freightCostByOptions = ['BUYER', 'SUPPLIER', '3rd PARTY'];
-    currencyOptions = ['IDR', 'USD'];
+    currencyOptions = ['IDR', 'USD','THB','SGD','JPY','HKD','GBP','EUR','AUD','NZD','MYR','CAD','CNY','INR'];
     usePphOptions = [{ value: true, label: 'YA' }, { value: false, label: 'TIDAK' }];
 
     constructor(bindingEngine, element) {
