@@ -10,18 +10,11 @@ export class View {
         this.service = service;
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
-
-        this.service.getById(id).then(data => {
-            this.data = data;
-
-            if (this.data.items) {
-                this.data.items.forEach(item => {
-                    item.showDetails = false
-                })
-            }
-        })
+        this.data = await this.service.getById(id);
+        console.log("Data");
+        console.log(this.data);
     }
 
     list() {

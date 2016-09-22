@@ -45,7 +45,7 @@ export default class PoItem extends React.Component {
         value.pricePerDealUnit = price;
         this.handleValueChange(value);
     }
-    
+
     handleconversionChange(conversion) {
         var value = this.state.value;
         value.conversion = conversion;
@@ -63,6 +63,7 @@ export default class PoItem extends React.Component {
         var readOnlyOptions = Object.assign({}, this.state.options, { readOnly: true });
         var dealQtyOptions = Object.assign({}, this.state.options, { min: 0 });
         var dealUomOptions = this.state.options;
+
         var style = {
             margin: 0 + 'px'
         }

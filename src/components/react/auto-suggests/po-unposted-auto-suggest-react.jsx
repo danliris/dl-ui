@@ -3,7 +3,10 @@ import AutoSuggestReact from './auto-suggest-react.jsx';
 
 const serviceUri = require('../../../host').core + '/v1/purchasing/po/unposted';
 const empty = {
-    no: ''
+    no: '',
+    purchaseRequest:{
+        no:''
+    }
 }
 
 'use strict';
@@ -20,7 +23,7 @@ export default class PoUnpostedAutoSuggestReact extends React.Component {
         var options = Object.assign({}, PoUnpostedAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.no}`;
+            return `${this.no} - ${this.purchaseRequest.no}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -62,7 +65,7 @@ PoUnpostedAutoSuggestReact.defaultProps = {
             return fetch(serviceUri).then(results => results.json()).then(json => {
                 return json.data.map(poTextile => {
                     poTextile.toString = function () {
-                        return `${this.no}`;
+                        return `${this.no} - ${this.purchaseRequest.no}`;
                     }
                     return poTextile;
                 })

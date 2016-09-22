@@ -15,31 +15,7 @@
             </div> 
             <div class="col-sm-4">
                 <div class="pull-right">
-                    <button class="btn btn-default" click.delegate="back()" >List Internal PO</button>
                     <button class="btn btn-primary" click.delegate="create()">Buat</button>
-                    <!--<button  class="btn btn-primary" click.delegate="print()" >Cetak</button>-->
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!--<div class="col-sm-3" >
-                <div class="gray-box">
-                    <span class="control-label padding-right-10">Posting</span>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
-                        <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
-                    </div>
-                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
-                </div>
-            </div>-->
-            <div class="col-sm-3" >
-                <div class="gray-box">
-                    <span class="control-label padding-right-10">Cetak</span>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" click.delegate="tooglePrintTrue()">Ya</button>
-                        <button type="button" class="btn btn-default" click.delegate="tooglePrintFalse()">Tidak</button>
-                    </div>
-                    <button type="button" class="btn btn-success ${isPrint ? '' : 'hide'}" click.delegate="print()">Cetak</button>
                 </div>
             </div>
         </div>
@@ -48,8 +24,8 @@
                 <thead>
                     <tr>
                         <th class="${isPrint ? '' : 'hide'}"></th>
-                        <th>Nomor Eksternal PO</th>
-                        <th>List Internal PO</th>
+                        <th>Nomor Surat Jalan</th>
+                        <th>List Nomor Eksternal PO</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -64,7 +40,7 @@
                         <td>${item.no}</td>
                         <td>
                             <ul>
-                            <li repeat.for="po of item.items">${po.no}</li> 
+                            <li repeat.for="po of item.items">${po.purchaseOrderExternal.no}</li> 
                             </ul>
                         </td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>

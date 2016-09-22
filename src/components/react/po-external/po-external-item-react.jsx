@@ -117,6 +117,9 @@ export default class PoExternalItemReact extends React.Component {
         }
 
         var prNoOptions = Object.assign({}, this.state.options, { readOnly: true });
+        var style = {
+            margin: 0 + 'px'
+        }
 
         return (
             <tr>
@@ -125,13 +128,13 @@ export default class PoExternalItemReact extends React.Component {
                         <tbody>
                             <tr>
                                 <td width="45%">
-                                    <div className={`form-group ${this.state.error.no ? 'has-error' : ''}`}>
+                                    <div className={`form-group ${this.state.error.no ? 'has-error' : ''}`}style={style}>
                                         <PoUnpostedAutoSuggestReact value={purchaseOrder} options={this.state.options} onChange={this.handlePoChange} />
                                         <span className="help-block">{this.state.error.no}</span>
                                     </div>
                                 </td>
                                 <td width="45%">
-                                    <div className={`form-group ${this.state.error.purchaseRequest && this.state.error.purchaseRequest.no ? 'has-error' : ''}`}>
+                                    <div className={`form-group ${this.state.error.purchaseRequest && this.state.error.purchaseRequest.no ? 'has-error' : ''}`}style={style}>
                                         <TextboxReact value={purchaseOrder.purchaseRequest.no} options={prNoOptions} />
                                         <span className="help-block">{this.state.error.purchaseRequest ? this.state.error.purchaseRequest.no : ''}</span>
                                     </div>
