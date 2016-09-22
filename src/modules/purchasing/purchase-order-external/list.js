@@ -88,7 +88,7 @@ export class List {
 
             for (var po of poExternal.items) {
                 for (var item of po.items) {
-                    this.total = this.total + (Number(item.price) * Number(item.dealQuantity));
+                    this.total = this.total + (Number(item.pricePerDealUnit) * Number(item.dealQuantity));
                 }
             }
             if (poExternal.usePPn)

@@ -17,21 +17,10 @@
                 <div class="pull-right">
                     <button class="btn btn-default" click.delegate="back()" >List Internal PO</button>
                     <button class="btn btn-primary" click.delegate="create()">Buat</button>
-                    <!--<button  class="btn btn-primary" click.delegate="print()" >Cetak</button>-->
                 </div>
             </div>
         </div>
         <div class="row">
-            <!--<div class="col-sm-3" >
-                <div class="gray-box">
-                    <span class="control-label padding-right-10">Posting</span>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
-                        <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
-                    </div>
-                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
-                </div>
-            </div>-->
             <div class="col-sm-3" >
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
@@ -96,7 +85,7 @@
                     <label class="header">${data.iso}</label>
                 </div>
                 <div class="row ">
-                    <h4>${data.No}</h4></br></br>
+                    <h4>${data.no}</h4></br></br>
                 </div>
             </div>
         </div><br /><br />
@@ -105,8 +94,8 @@
                 <table >
                     <tr><td rowspan="4"  style="padding: 0px 15px 5px 0px; vertical-align:top; " >Kepada Yth   : </td></tr>
                     <tr><td style="border-bottom: solid 1px #000000; width:200px;" >${data.supplier.name}</td></tr>
-                    <tr><td style="border-bottom: solid 1px #000000; width:200px;">Attn : </td></tr>
-                    <tr><td style="border-bottom: solid 1px #000000; width:200px;">Telp : </td></tr>
+                    <tr><td style="border-bottom: solid 1px #000000; width:200px;">Attn : ${data.supplier.PIC}</td></tr>
+                    <tr><td style="border-bottom: solid 1px #000000; width:200px;">Telp : ${data.supplier.contact}</td></tr>
                 </table>
             </div>
             <div class="col-xs-4">
@@ -135,64 +124,28 @@
                         <th class="text-center" style="width:400px;">NAMA DAN JENIS BARANG</th>
                         <th class="text-center" style="width:85px;">JUMLAH</th>
                         <th class="text-center" style="width:100px;">HARGA SATUAN</th>
-                        <th class="text-center" style="width:100px;">TOTAL</th>
+                        <th class="text-center" style="width:100px;">SUB TOTAL</th>
                     </tr>
                 </thead>
-            </table>
-            <div repeat.for="po of data.items">
-                <table class="table table-po">
-                    <tbody>
-                        <tr>
+                <tbody repeat.for="po of data.items">
+                        <tr repeat.for="poItem of po.items">
                             <td style="width:400px;">
                                 <div class="row">
                                     <div class="col-xs-1">
                                         ${$index+1}.
                                     </div>
                                     <div class="col-xs-6">
-                                        ${po.PONo}
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-1">
-                                    </div>
-                                    <div class="col-xs-6">
-                                        ${po.receivedDate | dateFormat : 'DD-MM-YYYY'}
+                                         ${poItem.product.name} <br />
+                                            ${po.purchaseRequest.no}
                                     </div>
                                 </div>
                             </td>
-                            <td style="width:85px;"></td>
-                            <td style="width:100px;"></td>
-                            <td style="width:100px;"></td>
-                        </tr>         
-                    </tbody>
-                </table>
-                <table class="table table-item">
-                    <tbody>
-                        <tr repeat.for="product of po.items">
-                            <td style="width:400px;">
-                                <div class="col-xs-1">
-                                    </div>
-                                <div class="col-xs-2">
-                                    ${product.product.code} 
-                                </div>
-                                <div class="col-xs-3">
-                                    ${product.product.name}
-                                </div>
-                                <div class="col-xs-1">
-                                    ${product.defaultQuantity}
-                                </div>
-                                <div class="col-xs-1">
-                                    ${product.defaultMeasurement}
-                                </div>
-                            </td>
-                            <td style="width:85px;" class="text-center">${product.dealQuantity} ${product.product.uom.unit}</td>
-                            <td style="width:100px;" class="text-right">${product.price | currencyFormat}</td>
-                            <td style="width:100px;" class="text-right">${product.price * product.dealQuantity | currencyFormat}</td>
+                            <td style="width:85px;" class="text-center">${poItem.dealQuantity} ${poItem.product.uom.unit}</td>
+                            <td style="width:100px;" class="text-right">${poItem.pricePerDealUnit | currencyFormat}</td>
+                            <td style="width:100px;" class="text-right">${poItem.pricePerDealUnit * poItem.dealQuantity | currencyFormat}</td>
                         </tr>
                     </tbody>
-                </table>
-            </div>
+            </table>
             <table class="table table-bordered">
                 <tfoot>
                     <tr>
@@ -217,28 +170,42 @@
             <table class="table table-no-bordered">
                 <tbody>
                     <tr>
-                        <td style="width:100px;">Ongkos kirim</td>
-                        <td>:</td>
-                        <td> Ditanggung <span if.bind="data.deliveryFeeByBuyer">Pembeli</span> <span if.bind="!data.deliveryFeeByBuyer">Penjual</span> </td>
+                        <td>
+                            <div class="col-xs-4">Ongkos kirim</div>
+                            <div class="col-xs-1">:</div>
+                            <div class="col-xs-6">Ditanggung oleh ${data.freightCostBy}</div>
+                        </td>
+                        <td>
+                            <div class="col-xs-5">Tempo Pembayaran</div>
+                            <div class="col-xs-1">:</div>
+                            <div class="col-xs-6">${data.paymentDueDays} hari setelah terima barang</div>
+                        </td>
                     </tr>
                     <tr>
-                        <td style="width:100px;">Delivery</td>
-                        <td>:</td>
-                        <td> ${data.deliveryDate | dateFormat : 'DD-MM-YYYY'} </td>
+                        <td>
+                            <div class="col-xs-4">Delivery</div>
+                            <div class="col-xs-1">:</div>
+                            <div class="col-xs-6">${data.expectedDeliveryDate | dateFormat:'DD-MM-YYYY'}</div>
+                        </td>
+                        <td>
+                            <div class="col-xs-5">Tipe Pembayaran</div>
+                            <div class="col-xs-1">:</div>
+                            <div class="col-xs-6">${data.paymentMethod}</div>
+                        </td>
                     </tr>
                     <tr>
-                        <td style="width:100px;">Pembayaran</td>
-                        <td>:</td>
-                        <td> ${data.paymentDue} hari setelah terima barang </td>
-                    </tr>
-                    <tr>
-                        <td style="width:100px;">Lain - lain</td>
-                        <td>:</td>
-                        <td> ${data.description} </td>
+                        <td>
+                            <div class="col-xs-4">Lain - lain</div>
+                            <div class="col-xs-1">:</div>
+                            <div class="col-xs-6">${data.paymentMethod}</div>
+                        </td>
+                        <td>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <br/>
         <div>
             <div class="row margin-top-10">
                 <div class="col-xs-5">

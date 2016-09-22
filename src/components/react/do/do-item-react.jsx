@@ -36,8 +36,10 @@ export default class DoItemReact extends React.Component {
     }
 
     handleRemove() {
-        if (this.props.onRemove)
-            this.props.onRemove(this.state.value);
+        // if (this.props.onRemove)
+        //     this.props.onRemove(this.state.value);
+        if (this.props.onItemRemove)
+            this.props.onItemRemove(this.state.value);
     }
 
     handleToggleDetail() {
@@ -46,6 +48,7 @@ export default class DoItemReact extends React.Component {
 
     init(props) {
         var value = props.value;
+        var doFulfillments = value.fulfillments ||[];
         var poExternal = value.purchaseOrderExternal || {};
         var poCollection = poExternal.items || [];
         var fulfillments = [].concat.apply([], poCollection.map((purchaseOrder, index) => {
@@ -55,9 +58,9 @@ export default class DoItemReact extends React.Component {
                     purchaseOrder: purchaseOrder,
                     productId: poItem.product._id,
                     product: poItem.product,
-                    purchaseOrderQuantity: poItem.dealQuantity,
+                    purchaseOrderQuantity: poItem.dealQuantity - poItem.realizationQuantity,
                     purchaseOrderUom: poItem.dealUom,
-                    deliveredQuantity: 0,
+                    deliveredQuantity: doFulfillments[index].deliveredQuantity,
                     remark: ''
                 }
             });
@@ -85,13 +88,16 @@ export default class DoItemReact extends React.Component {
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         var details = null;
-
+        var removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
+        if (this.state.options.readOnly)
+            removeButton = <span></span>;
+            
         if (this.state.showDetail) {
             var items = this.state.value.fulfillments.map((fulfillment, index) => {
                 var itemOptions = { readOnly: true };
                 var realizationQtyOptions = { readOnly: false };
                 var error = (this.state.error.fulfillment || [])[index] || {};
-                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment}  error={error}/>;
+                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment}  error={error} options={this.state.options}/>;
             });
 
             details = <tr>
@@ -123,12 +129,12 @@ export default class DoItemReact extends React.Component {
                             <tr>
                                 <td width="90%">
                                 <div className={`form-group ${this.state.error.purchaseOrderExternal ? 'has-error' : ''}`}>
-                                        <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} onChange={this.handleValueChange}/>
+                                        <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} options={this.state.options} onChange={this.handleValueChange}/>
                                         <span className="help-block">{this.state.error.purchaseOrderExternal}</span>
                                     </div>
                                 </td>
                                 <td width="10%">
-                                    <button className="btn btn-danger" onClick={this.handleRemove}>-</button>
+                                    {removeButton}
                                     <button className="btn btn-info" onClick={this.handleToggleDetail}>i</button>
                                 </td>
                             </tr>
