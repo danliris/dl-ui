@@ -14,7 +14,6 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
     }
-
     list()
     {
         this.router.navigateToRoute('list');

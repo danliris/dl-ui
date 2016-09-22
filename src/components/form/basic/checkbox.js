@@ -26,8 +26,6 @@ export class Checkbox {
     }
 
     render() {
-        console.log("render--js");
-        console.log(this);
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>

@@ -59,6 +59,9 @@ export default class DoItemFulfillmentReact extends React.Component {
 
     render() {
         var readOnlyOptions = { readOnly: true };
+        var style = {
+            margin: 0 + 'px'
+        }
         return (
             <tr >
                 <td>
@@ -74,7 +77,10 @@ export default class DoItemFulfillmentReact extends React.Component {
                     <UomAutoSuggestReact value={this.state.value.purchaseOrderUom} options={readOnlyOptions} />
                 </td>
                 <td>
-                    <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
+                <div className={`form-group ${this.state.error.deliveredQuantity ? 'has-error' : ''}`} style={style}>
+                        <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
+                        <span className="help-block">{this.state.error.deliveredQuantity}</span>
+                    </div>
                 </td>
                 <td>
                     <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemarkChanged}  />

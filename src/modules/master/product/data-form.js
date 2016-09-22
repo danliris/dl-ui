@@ -1,4 +1,4 @@
-import {inject, bindable,computedFrom} from 'aurelia-framework';
+import {inject, bindable, computedFrom} from 'aurelia-framework';
 
 export class DataForm {
     @bindable readOnly = false;

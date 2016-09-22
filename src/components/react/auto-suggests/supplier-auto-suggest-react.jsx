@@ -1,38 +1,40 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../host').core + '/v1/core/suppliers';
+const serviceUri = require('../../../host').core + '/v1/master/suppliers';
+const empty = {
+    code: '',
+    name: ''
+}
 
 'use strict';
 
 export default class SupplierAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
+        this.init = this.init.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
-    getSupplierSuggestions(text) { 
-        return fetch(serviceUri).then(results => results.json()).then(json => {
-            return json.data.map(supplier => {
-                supplier.toString = function () {
-                    return `${this.code} - ${this.name}`;
-                }
-                return supplier;
-            })
-        })
+    init(props) {
+        var options = Object.assign({}, SupplierAutoSuggestReact.defaultProps.options, props.options);
+        var initialValue = Object.assign({}, empty, props.value);
+        initialValue.toString = function () {
+            return `${this.code} - ${this.name}`;
+        };
+        this.setState({ value: initialValue, options: options });
     }
 
     componentWillMount() {
-        var _options = Object.assign({ suggestions: this.getSupplierSuggestions }, this.props.options)
-        this.setState({ value: this.props.value, options: _options });
-    }
-    componentWillReceiveProps(props) {
-        var _options = Object.assign({ suggestions: this.getSupplierSuggestions }, props.options)
-        this.setState({ value: props.value, options: _options });
+        this.init(this.props);
     }
 
-    render() { 
+    componentWillReceiveProps(props) {
+        this.init(props);
+    }
+
+    render() {
         return (
             <AutoSuggestReact
                 value={this.state.value}
@@ -43,3 +45,29 @@ export default class SupplierAutoSuggestReact extends React.Component {
     }
 }
 
+SupplierAutoSuggestReact.propTypes = {
+    options: React.PropTypes.shape({
+        readOnly: React.PropTypes.bool,
+        suggestions: React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.func
+        ])
+    })
+};
+
+SupplierAutoSuggestReact.defaultProps = {
+    options: {
+        readOnly: false,
+        suggestions:
+        function (text) {
+            return fetch(serviceUri).then(results => results.json()).then(json => {
+                return json.data.map(supplier => {
+                    supplier.toString = function () {
+                        return `${this.code} - ${this.name}`;
+                    }
+                    return supplier;
+                })
+            })
+        }
+    }
+};
