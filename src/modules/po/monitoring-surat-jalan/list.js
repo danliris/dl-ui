@@ -23,18 +23,17 @@ export class List {
         this.router.navigateToRoute('view', { id: data._id });
     }
 
-    search() {
-        var supplierId;
-        if (this.supplierId !=null) 
-            supplierId=this.supplierId._id;   
-        else
-            supplierId=this.supplierId;
-            this.service.search(this.no, supplierId, this.dateFrom, this.dateTo)  
+    search() { 
+            this.service.search(this.no, this.supplierId? this.supplierId_id:"", this.dateFrom, this.dateTo)  
             .then(data => {
                 this.data = data;
-            }) 
-         
-       
+                for( var SJ of data) { 
+                    this.SJ=SJ;
+                    SJ=SJ;
+                    for( var item of SJ.items) {  
+                    }
+                }
+            })  
     }
 
 }
