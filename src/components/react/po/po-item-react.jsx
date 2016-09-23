@@ -3,6 +3,7 @@ import React from 'react';
 import TextboxReact from '../basic/textbox-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
+import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
 
 'use strict';
 
@@ -12,10 +13,11 @@ export default class PoItem extends React.Component {
 
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleProductChange = this.handleProductChange.bind(this);
         this.handleDefaultQuantityChange = this.handleDefaultQuantityChange.bind(this);
         this.handleDealQuantityChange = this.handleDealQuantityChange.bind(this);
         this.handleDealMeasurementChange = this.handleDealMeasurementChange.bind(this);
-        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleRemarkChange = this.handleRemarkChange.bind(this);
         this.handlePriceChange = this.handlePriceChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
@@ -26,6 +28,13 @@ export default class PoItem extends React.Component {
         this.setState({ value: value });
         if (this.props.onChange)
             this.props.onChange(value);
+    }
+
+    handleProductChange(event, product) {
+        var value = this.state.value;
+        value.product = product;
+        value.defaultUom = product.uom;
+        this.handleValueChange(value);
     }
 
     handleDefaultQuantityChange(quantity) {
@@ -42,13 +51,13 @@ export default class PoItem extends React.Component {
 
     handleDealMeasurementChange(event, uom) {
         var value = this.state.value;
-        value.dealMeasurement = uom;
+        value.dealUom = uom;
         this.handleValueChange(value);
     }
 
-    handleDescriptionChange(desc) {
+    handleRemarkChange(remark) {
         var value = this.state.value;
-        value.description = desc;
+        value.remark = remark;
         this.handleValueChange(value);
     }
 
@@ -71,9 +80,9 @@ export default class PoItem extends React.Component {
         this.setState({ value: props.value || {}, error: props.error || {}, options: props.options || {} });
     }
 
-    render() {
+    render() { 
         var readOnlyOptions = { readOnly: this.state.options.readOnly || this.state.options.isSplit };
-        var defaultMeasurementOptions = Object.assign({}, this.state.options, { readOnly: true });
+        var defaultUomOptions = Object.assign({}, this.state.options, { readOnly: true });
         var dealQtyOptions = Object.assign({}, this.state.options, { min: 0 });
         var descOptions = readOnlyOptions;
         var dealMeasurementOptions = readOnlyOptions;
@@ -84,13 +93,13 @@ export default class PoItem extends React.Component {
 
         var style = {
             margin: 0 + 'px'
-        } 
-        
+        }
+
         return (
             <tr>
                 <td>
-                    <div className={`form-group ${this.state.error.product ? 'has-error' : ''}`} style={style}>
-                        {this.props.children}
+                    <div className={`form-group ${this.state.error.product ? 'has-error' : ''}`} style={style}> 
+                        <ProductAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} onChange={this.handleProductChange}></ProductAutoSuggestReact>
                         <span className="help-block">{this.state.error.product}</span>
                     </div>
                 </td>
@@ -101,33 +110,15 @@ export default class PoItem extends React.Component {
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.defaultMeasurement ? 'has-error' : ''}`} style={style}>
-                        <UomAutoSuggestReact value={this.state.value.defaultMeasurement} options={defaultMeasurementOptions} />
-                        <span className="help-block">{this.state.error.defaultMeasurement}</span>
+                    <div className={`form-group ${this.state.error.defaultUom ? 'has-error' : ''}`} style={style}>
+                        <UomAutoSuggestReact value={this.state.value.defaultUom} options={defaultUomOptions} />
+                        <span className="help-block">{this.state.error.defaultUom}</span>
                     </div>
-                </td>
+                </td> 
                 <td>
-                    <div className={`form-group ${this.state.error.dealQuantity ? 'has-error' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.dealQuantity} options={dealQtyOptions} onChange={this.handleDealQuantityChange}/>
-                        <span className="help-block">{this.state.error.dealQuantity}</span>
-                    </div>
-                </td>
-                <td>
-                    <div className={`form-group ${this.state.error.dealMeasurement ? 'has-error' : ''}`} style={style}>
-                        <UomAutoSuggestReact value={this.state.value.dealMeasurement} options={dealMeasurementOptions} onChange={this.handleDealMeasurementChange}/>
-                        <span className="help-block">{this.state.error.dealMeasurement}</span>
-                    </div>
-                </td>
-                <td>
-                    <div className={`form-group ${this.state.error.price ? 'has-error' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.price} options={this.state.options} onChange={this.handlePriceChange}/>
-                        <span className="help-block">{this.state.error.price}</span>
-                    </div>
-                </td>
-                <td>
-                    <div className={`form-group ${this.state.error.description ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.description} options={descOptions} onChange={this.handleDescriptionChange}/>
-                        <span className="help-block">{this.state.error.description}</span>
+                    <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemarkChange}/>
+                        <span className="help-block">{this.state.error.remark}</span>
                     </div>
                 </td>
                 <td>

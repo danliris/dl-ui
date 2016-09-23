@@ -1,0 +1,7 @@
+<template>
+    <div class="form-group ${error.uom ? 'has-error':''}">
+        <form class="form-horizontal">
+            <textbox    label="Unit"    value.bind="data.unit"  error.bind="error.unit"     read-only.bind="readOnly"></textbox>
+        </form>
+    </div>
+</template>

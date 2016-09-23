@@ -12,7 +12,6 @@ export class DataFormPodl {
 
     termPaymentOptions = ['Free', 'Cash', 'Credit', 'Letter of Credit'];
     currencyOptions = ['Rupiah', '$ USD'];
-    ongkosSelection = [{value:true, label:"BUYER"},{value:false, label:"SUPPLIER"}];
     
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -33,10 +32,6 @@ export class DataFormPodl {
         this.bindingEngine.propertyObserver(this.data, "supplier").subscribe((newValue, oldValue) => {
             this.data.supplier = newValue;
             this.data.supplierId = newValue._id;
-        });
-        
-        this.bindingEngine.propertyObserver(this.data, "deliveryFeeByBuyer").subscribe((newValue, oldValue) => {
-            this.data.deliveryFeeByBuyer = (newValue||'').toString().toLowerCase() == 'true'; 
         });
     }
     

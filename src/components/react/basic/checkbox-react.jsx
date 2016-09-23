@@ -13,7 +13,8 @@ export default class CheckboxReact extends React.Component {
 
     init(props) {
         var options = Object.assign({}, CheckboxReact.defaultProps.options, props.options);
-        this.setState({ value: props.value, options: options });
+        var initialValue = props.value == undefined ? CheckboxReact.defaultProps.value : props.value;
+        this.setState({ value: initialValue, options: options });
     }
 
     handleValueChange(event) {
@@ -43,11 +44,13 @@ export default class CheckboxReact extends React.Component {
 }
 
 CheckboxReact.propTypes = {
+    value: React.PropTypes.bool,
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool
     })
 };
 CheckboxReact.defaultProps = {
+    value: false,
     options: {
         readOnly: false
     }

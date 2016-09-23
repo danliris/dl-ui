@@ -1,0 +1,65 @@
+<template> 
+    <div class="display-wrapper">
+        <h3>Purchase Order Internal</h3>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-primary" click.delegate="create()">Buat PO</button>
+                </div>
+            </div>
+        </div> 
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="${isPosting ? '' : 'hide'}"></th>
+                        <th class="${isPrint ? '' : 'hide'}"></th>
+                        <th style="text-align:center">Nomor PR</th>
+                        <th style="text-align:center">Nomor PO</th>
+                        <th style="text-align:center">Nama Unit</th>
+                        <th style="text-align:center">Tanggal PR</th>
+                        <th style="text-align:center">Kategori</th>
+                        <th style="text-align:center">Tanggal Diminta Datang</th>
+                        <th style="text-align:center">Staff Pembelian </th>
+                        <th style="text-align:center">Status Post</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
+                    <tr repeat.for="item of data">
+                        <td class="${isPosting ? '' : 'hide'}">
+                            <input checked.bind="item.isPosting" disabled.bind="item.PODLNo != ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                        </td>
+                        <td class="${isPrint ? '' : 'hide'}">
+                            <input checked.bind="item.isPrint" disabled.bind="item.PODLNo == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                        </td>
+                        <td style="text-align:center">${item.purchaseRequest.no}</td>
+                        <td style="text-align:center">${item.no}</td>
+                        <td style="text-align:center">${item.unit.division}</td>
+                        <td style="text-align:center">${item.purchaseRequest.date | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center">${item.category.name}</td>
+                        <td style="text-align:center">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center">${item._createdBy}</td>
+                        <td style="text-align:center">${item.purchaseOrderExternal && item.purchaseOrderExternal.no ? 'Posted' : 'UnPosted'}</td>
+                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Data internal po tekstil tidak ada.
+        </div>
+    </div><!-- /.display-wrapper -->
+</template>
