@@ -1,42 +1,42 @@
-import {inject} from 'aurelia-framework'; 
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+// import {inject} from 'aurelia-framework'; 
+// import {Service} from "./service";
+// import {Router} from 'aurelia-router';
 
-@inject(Router, Service)
-export class List {
-    data = [];
+// @inject(Router, Service)
+// export class List {
+//     data = [];
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router; 
-          this.sparepartId = "";
-         this.spareparts = [];
-    } 
+//     constructor(router, service) {
+//         this.service = service;
+//         this.router = router; 
+//           this.sparepartId = "";
+//          this.spareparts = [];
+//     } 
 
-    activate() {
-        this.service.search('')
-            .then(data => {
-                this.data = data;
-            })
-    }
+//     activate() {
+//         this.service.search('')
+//             .then(data => {
+//                 this.data = data;
+//             })
+//     }
     
-    searching(){
-        this.service.getByCode(this.data.code)
-        .then(data => {
-                 this.data=data;
-            }) 
-            .catch(e=> {
-            alert('Data Sparepart tidak ditemukan');
-        })
-    }
+//     searching(){
+//         this.service.getByCode(this.data.code)
+//         .then(data => {
+//                  this.data=data;
+//             }) 
+//             .catch(e=> {
+//             alert('Data Sparepart tidak ditemukan');
+//         })
+//     }
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
-    }
+//     view(data) {
+//         this.router.navigateToRoute('view', { id: data._id });
+//     }
     
-    create() {
-        this.router.navigateToRoute('create');
-    }
+//     create() {
+//         this.router.navigateToRoute('create');
+//     }
     
     
-}
+// }
