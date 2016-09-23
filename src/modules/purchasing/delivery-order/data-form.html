@@ -2,8 +2,8 @@
     <form class="form-horizontal">
         <textbox                label="Nomor Surat Jalan"   value.bind="data.no"                error.bind="error.no"                 read-only.bind="readOnly"></textbox>
         <datepicker             label="Tgl. Tiba"           value.bind="data.date"              error.bind="error.date"               read-only.bind="readOnly"></datepicker> 
-        <supplier-auto-suggest  label="Supplier"            value.bind="data.supplier"          error.bind="error.supplier"             read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
-        <multiline              label="Keterangan"          value.bind="data.remark"            error.bind="error.remark"          read-only.bind="readOnly"></multiline>
+        <supplier-auto-suggest  label="Supplier"            value.bind="data.supplier"          error.bind="error.supplier"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
+        <multiline              label="Keterangan"          value.bind="data.remark"            error.bind="error.remark"             read-only.bind="readOnly"></multiline>
         <hr/>
         <do-item-textile-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly"></do-item-textile-collection>
     </form> 

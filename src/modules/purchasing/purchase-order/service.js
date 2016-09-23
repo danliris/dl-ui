@@ -20,11 +20,6 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
     }
-    
-    getPODLById(id) {
-        var endpoint = `${serviceUriPODL}/${id}`;
-        return super.get(endpoint);
-    }
 
     create(data) {
         var endpoint = `${serviceUri}`;
@@ -44,20 +39,5 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
-    }
-    
-    searchPODL(keyword) {
-        var endpoint = `${serviceUriPODL}?keyword=${keyword}`;
-        return super.get(endpoint);
-    }
-
-    getPODLById(id) {
-        var endpoint = `${serviceUriPODL}/${id}`;
-        return super.get(endpoint);
-    }
-
-    createGroup(data) {
-        var endpoint = `${serviceUriPODL}`;
-        return super.post(endpoint, data);
     }
 }

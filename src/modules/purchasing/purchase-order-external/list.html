@@ -22,6 +22,16 @@
         <div class="row">
             <div class="col-sm-3" >
                 <div class="gray-box">
+                    <span class="control-label padding-right-10">Posting</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
+                    </div>
+                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
+                </div>
+            </div>
+            <div class="col-sm-3" >
+                <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default" click.delegate="tooglePrintTrue()">Ya</button>
@@ -35,19 +45,21 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th class="${isPosting ? '' : 'hide'}"></th>
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>Nomor Eksternal PO</th>
                         <th>List Internal PO</th>
+                        <th style="text-align:center">Status Post</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data">
+                        <td class="${isPosting ? '' : 'hide'}">
+                            <input checked.bind="item.isPosting" disabled.bind="item.isPosted != ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                        </td>
                         <td class="${isPrint ? '' : 'hide'}">
-                            <input type="checkbox"
-                                checked.bind="item.isPrint"
-                                change.delegate="pushDataToBePrinting(item)" />
+                            <input checked.bind="item.isPrint" disabled.bind="item.isPosted == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.no}</td>
                         <td>
@@ -55,6 +67,7 @@
                             <li repeat.for="po of item.items">${po.no}</li> 
                             </ul>
                         </td>
+                        <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                     </tr>
                 </tbody>
