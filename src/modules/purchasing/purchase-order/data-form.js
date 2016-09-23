@@ -34,11 +34,10 @@ export class DataForm {
             this.splitPO();
         }
     }
-bind()
-{
-    console.log('bind')
-    console.log(this.error)
-}
+    bind() {
+        console.log('bind')
+        console.log(this.error)
+    }
     splitPO() {
         for (var item of this.data.items) {
             item.isSplit = this.data.isSplit;
@@ -54,15 +53,13 @@ bind()
         this.data.items.splice(itemIndex, 1);
     }
 
-    unitChanged(e)
-    {
-        var unit = e.detail;
-        this.data.purchaseRequest.unitId = unit._id;
+    unitChanged(e) {
+        var unit = e.detail || {};
+        this.data.purchaseRequest.unitId = unit._id ? unit._id : "";
     }
 
-    categoryChanged(e)
-    {
-        var category = e.detail;
-        this.data.purchaseRequest.categoryId = category._id;
+    categoryChanged(e) {
+        var category = e.detail || {};
+        this.data.purchaseRequest.categoryId = category._id ? category._id : "";
     }
 } 

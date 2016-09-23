@@ -62,9 +62,9 @@ export default class PoItemCollectionReact extends React.Component {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th width="40%">Product</th>
-                        <th width="10%">Qty.</th>
-                        <th width="10%">Uom.</th>
+                        <th width="40%">Barang</th>
+                        <th width="10%">Jumlah</th>
+                        <th width="10%">Satuan</th>
                         <th width="30%">Ket.</th>
                         <th width="10%">
                             {addButton}

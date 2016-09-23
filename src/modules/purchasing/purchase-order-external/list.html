@@ -15,12 +15,21 @@
             </div> 
             <div class="col-sm-4">
                 <div class="pull-right">
-                    <button class="btn btn-default" click.delegate="back()" >List Internal PO</button>
                     <button class="btn btn-primary" click.delegate="create()">Buat</button>
                 </div>
             </div>
         </div>
         <div class="row">
+            <div class="col-sm-3" >
+                <div class="gray-box">
+                    <span class="control-label padding-right-10">Posting</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
+                    </div>
+                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
+                </div>
+            </div>
             <div class="col-sm-3" >
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
@@ -36,33 +45,38 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th class="${isPosting ? '' : 'hide'}"></th>
                         <th class="${isPrint ? '' : 'hide'}"></th>
-                        <th>Nomor Eksternal PO</th>
+                        <th>No. Eksternal PO</th>
+                        <th>No. Ref Eksternal PO</th>
                         <th>List Internal PO</th>
+                        <th style="text-align:center">Status Post</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
                     <tr repeat.for="item of data">
+                        <td class="${isPosting ? '' : 'hide'}">
+                            <input checked.bind="item.isPosting" disabled.bind="item.isPosted != ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                        </td>
                         <td class="${isPrint ? '' : 'hide'}">
-                            <input type="checkbox"
-                                checked.bind="item.isPrint"
-                                change.delegate="pushDataToBePrinting(item)" />
+                            <input checked.bind="item.isPrint" disabled.bind="item.isPosted == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.no}</td>
+                        <td>${item.refNo==''?'-':item.refNo}</td>
                         <td>
                             <ul>
                             <li repeat.for="po of item.items">${po.no}</li> 
                             </ul>
                         </td>
+                        <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data eksternal po tekstil tidak ada.
+            Data purchase order eksternal tidak ditemukan.
         </div>
     </div><!-- /.display-wrapper -->
     
@@ -119,14 +133,14 @@
         </div>
         <div>
             <table class="table table-bordered">
-                <thead>
+                <tbody>
                     <tr>
                         <th class="text-center" style="width:400px;">NAMA DAN JENIS BARANG</th>
                         <th class="text-center" style="width:85px;">JUMLAH</th>
                         <th class="text-center" style="width:100px;">HARGA SATUAN</th>
                         <th class="text-center" style="width:100px;">SUB TOTAL</th>
                     </tr>
-                </thead>
+                </tbody>
                 <tbody repeat.for="po of data.items">
                         <tr repeat.for="poItem of po.items">
                             <td style="width:400px;">
@@ -173,7 +187,7 @@
                         <td>
                             <div class="col-xs-4">Ongkos kirim</div>
                             <div class="col-xs-1">:</div>
-                            <div class="col-xs-6">Ditanggung oleh ${data.freightCostBy}</div>
+                            <div class="col-xs-6">Ditanggung oleh ${data.freightCostBy.charAt(0)}${data.freightCostBy.slice(1).toLowerCase()}</div>
                         </td>
                         <td>
                             <div class="col-xs-5">Tempo Pembayaran</div>
@@ -197,7 +211,7 @@
                         <td>
                             <div class="col-xs-4">Lain - lain</div>
                             <div class="col-xs-1">:</div>
-                            <div class="col-xs-6">${data.paymentMethod}</div>
+                            <div class="col-xs-6">${data.remark}</div>
                         </td>
                         <td>
                         </td>

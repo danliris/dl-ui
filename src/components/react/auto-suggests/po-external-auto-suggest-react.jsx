@@ -1,7 +1,7 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals';
+const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals/unposted';
 const empty = {
     no: ''
 }

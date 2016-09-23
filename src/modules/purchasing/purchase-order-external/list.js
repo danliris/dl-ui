@@ -5,12 +5,14 @@ import {Router} from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     data = [];
+    dataToBePosting = [];
     dataToBePrinting = [];
     keyword = '';
 
     today = new Date();
 
     isPrint = false;
+    isPosting = false;
     totalKwantum = 0;
     totalHargaSatuan = 0;
     total = 0;
@@ -30,7 +32,7 @@ export class List {
         this.service.search('')
             .then(data => {
                 this.data = data;
-                this.addIsPrint();
+                this.newStatus();
             })
 
         this.keyword = ''
@@ -40,11 +42,11 @@ export class List {
         this.service.search(this.keyword)
             .then(data => {
                 this.data = data;
-                this.addIsPrint();
+                this.newStatus();
             })
             .catch(e => {
                 console.log(e);
-                alert('Data PO tidak ditemukan');
+                alert('Data purchase order eksternal tidak ditemukan');
             })
     }
 
@@ -68,19 +70,37 @@ export class List {
         this.calculateTotal();
     }
 
+    pushDataToBePosting(item) {
+        if (item.isPosting) {
+            this.dataToBePosting.push(item);
+        }
+        else {
+            var index = this.dataToBePosting.indexOf(item);
+            this.dataToBePosting.splice(index, 1);
+        }
+    }
+
     back() {
         this.router.navigateToRoute('list');
     }
 
     print() {
-
         window.print();
-
         this.addIsPrint();
     }
 
-    calculateTotal() {
+    posting() {
+        if (this.dataToBePosting.length > 0) {
+            this.service.post(this.dataToBePosting).then(result => {
+                this.activate();
+                    this.back();
+                }).catch(e => {
+                    this.error = e;
+                })
+        }
+    }
 
+    calculateTotal() {
         for (var poExternal of this.dataToBePrinting) {
             this.total = 0;
             this.ppn = 0;
@@ -108,10 +128,25 @@ export class List {
         console.log(data);
         this.router.navigateToRoute('view', { id: data._id });
     }
-
+    
     create() {
         this.router.navigateToRoute('create');
     }
+
+    tooglePostingTrue() {
+        this.isPosting = true;
+        this.isPrint = false;
+
+        this.newStatus();
+    }
+
+    tooglePostingFalse() {
+        this.isPosting = false;
+        this.isPrint = false;
+
+        this.newStatus();
+    }
+
     tooglePrintTrue() {
         this.isPosting = false;
         this.isPrint = true;
@@ -125,4 +160,15 @@ export class List {
 
         this.newStatus();
     }
+
+    newStatus() {
+        this.dataToBePosting = [];
+        this.dataToBePrinting = [];
+
+        for (var item of this.data) {
+            item.isPosting = false;
+            item.isPrint = false;
+        }
+    }
+
 }

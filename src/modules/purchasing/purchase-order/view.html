@@ -1,15 +1,15 @@
 <template>
     
-    <h3>Detail Internal PO Tekstil</h3>
+    <h3>Detail Purchase Order Internal</h3>
     <require from="./data-form"></require>
     <block>
         <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
         <hr/>
         <div class="btn-group pull-right">
-            <a click.delegate="list()" class='btn btn-default'>Kembali</a>
-            <a click.delegate="edit()" class="${data.no != '' ? '' : 'hide'} btn btn-primary">Ubah</a>
-            <a click.delegate="split()" class="${data.no != '' ? '' : 'hide'} btn btn-primary">Pecah</a>
-            <a click.delegate="delete()" class="${data.no != '' ? '' : 'hide'} btn btn-danger">Hapus</a>
+            <a  click.delegate="list()"     class='btn btn-default' >Kembali</a>
+            <a  click.delegate="edit()"     class="btn btn-primary" if.bind="!data.isPosted">Ubah</a>
+            <a  click.delegate="split()"    class="btn btn-primary" if.bind="!data.isPosted">Pecah</a>
+            <a  click.delegate="delete()"   class="btn btn-danger"  if.bind="!data.isPosted">Hapus</a>
         </div>
     </block>
 </template>
