@@ -22,21 +22,8 @@ export class List {
         this.router.navigateToRoute('view', { id: data._id });
     }
 
-    search() { 
-        var unitId, categoryId, supplierId;
-        if (this.unit !=null) 
-            unitId=this.unit._id; 
-        else 
-            unitId=this.unit; 
-        if (this.category !=null) 
-             categoryId=this.category._id; 
-        else 
-            categoryId=this.category 
-        if (this.supplier !=null)  
-             supplierId=this.supplier._id; 
-        else
-             supplierId=this.supplier;
-        this.service.search(unitId, categoryId, this.PODLNo, this.PRNo, supplierId, this.dateFrom, this.dateTo)  
+    search() {  
+        this.service.search(this.unit?this.unit._id:"", this.category ? this.category._id:"", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id:"", this.dateFrom, this.dateTo)  
             .then(data => {
                 this.data = data;
                  var counter = 1; 

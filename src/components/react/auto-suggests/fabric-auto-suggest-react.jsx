@@ -61,7 +61,8 @@ FabricAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            return fetch(serviceUri).then(results => results.json()).then(json => {
+            var uri = serviceUri+'?keyword='+text; 
+            return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(fabric => {
                     fabric.toString = function () {
                         return `${this.code} - ${this.name}`;

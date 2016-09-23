@@ -59,7 +59,8 @@ UnitAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            return fetch(serviceUri).then(results => results.json()).then(json => {
+            var uri = serviceUri + '?keyword=' + text;
+            return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(unit => {
                     unit.toString = function () {
                         return `${this.division} - ${this.subDivision}`;

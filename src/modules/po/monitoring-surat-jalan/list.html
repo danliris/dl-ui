@@ -1,7 +1,7 @@
 <template>
     <h3>Monitoring Surat Jalan</h3>
-    <form class="form-horizontal"> 
-        <textbox label="No. Surat Jalan" value.bind="no"></textbox>
+    <form class="form-horizontal">  
+        <delivery-order-auto-suggest value.bind="no" label="No. Surat Jalan"></delivery-order-auto-suggest>
         <supplier-auto-suggest value.bind="supplierId" label="Supplier"></supplier-auto-suggest>
         <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
@@ -32,23 +32,23 @@
                     <td>JUMLAH YANG DATANG</td> 
                     <td>SISA QTY</td> 
                 </tr> 
-            </thead>
-            <tbody repeat.for="SJ of data">  
-                <tr repeat.for="item of SJ.items">    
+            </thead> 
+            <tbody repeat.for="item of SJ.items">  
+                <tr  repeat.for="fulfillment of item.fulfillments">    
                     <td>${SJ.supplier.code}</td>
                     <td>${SJ.supplier.name}</td>
                     <td>${SJ.no}</td>
                     <td>${SJ.date.substr(0, 10)}</td>
                     <td>${SJ.date.substr(0, 10)}</td>
                     <td>${item.purchaseOrderExternal.no}</td>
-                    <td>${item.fulfillments[$index].product.code}</td>
-                    <td>${item.fulfillments[$index].product.name}</td>
-                    <td>${item.fulfillments[$index].product.description}</td>
-                    <td>${item.fulfillments[$index].purchaseOrder.items[$index].dealQuantity}</td>   
-                    <td>${item.fulfillments[$index].quantity}</td> 
-                    <td>${item.fulfillments[$index].purchaseOrder.items[$index].dealQuantity - item.fulfillments[$index].quantity}</td> 
+                    <td>${fulfillment.product.code}</td>
+                    <td>${fulfillment.product.name}</td>
+                    <td>${fulfillment.product.description}</td>
+                    <td>${fulfillment.purchaseOrderQuantity}</td>   
+                    <td>${fulfillment.deliveredQuantity}</td> 
+                    <td>${fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity}</td> 
                 </tr> 
-            </tbody>
+            </tbody> 
         </table>
 
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
