@@ -5,12 +5,12 @@ import {Router} from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     data = [];
-    dataToBePosting = [];
-    dataToBePrinting = [];
+    // dataToBePosting = [];
+    // dataToBePrinting = [];
     
     keyword = '';
-    isPrint = false;
-    isPosting = false;
+    // isPrint = false;
+    // isPosting = false;
 
     constructor(router, service) {
         this.service = service;
@@ -26,7 +26,6 @@ export class List {
         this.service.search('')
             .then(data => {
                 this.data = data;
-                this.newStatus();
             })
 
         this.keyword = ''
@@ -36,119 +35,118 @@ export class List {
         this.service.search(this.keyword)
             .then(data => {
                 this.data = data;
-                this.newStatus();
             })
             .catch(e => {
                 console.log(e);
-                alert('Data PO tekstil tidak ditemukan');
+                alert('Data purchase order internal tidak ditemukan');
             })
     }
     
-    pushDataToBePrinting(item) {
+    // pushDataToBePrinting(item) {
         
-        if (item.isPrint) {
-            this.dataToBePrinting.push(item);
-        }
-        else {
-            var index = this.dataToBePrinting.indexOf(item);
-            this.dataToBePrinting.splice(index, 1);
-        }
+    //     if (item.isPrint) {
+    //         this.dataToBePrinting.push(item);
+    //     }
+    //     else {
+    //         var index = this.dataToBePrinting.indexOf(item);
+    //         this.dataToBePrinting.splice(index, 1);
+    //     }
         
-        this.calculateTotal();
-    }
+    //     this.calculateTotal();
+    // }
     
-    pushDataToBePosting(item) {
-        if (item.isPosting) {
-            this.dataToBePosting.push(item._id);
-        }
-        else {
-            var index = this.dataToBePosting.indexOf(item._id);
-            this.dataToBePosting.splice(index, 1);
-        }
-    }
+    // pushDataToBePosting(item) {
+    //     if (item.isPosting) {
+    //         this.dataToBePosting.push(item._id);
+    //     }
+    //     else {
+    //         var index = this.dataToBePosting.indexOf(item._id);
+    //         this.dataToBePosting.splice(index, 1);
+    //     }
+    // }
     
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
     
-    print() {
-        window.print();
-    }
+    // print() {
+    //     window.print();
+    // }
     
-    posting() {
+    // posting() {
         
-        if (this.dataToBePosting.length > 0) {
-            this.router.navigateToRoute('create-podl', { items: this.dataToBePosting });
-        }
-    }
+    //     if (this.dataToBePosting.length > 0) {
+    //         this.router.navigateToRoute('create-podl', { items: this.dataToBePosting });
+    //     }
+    // }
     
     create() {
         this.router.navigateToRoute('create');
     }
 
-    gotoListPODL() {
-        this.router.navigateToRoute('list-podl');
-    }
+    // gotoListPODL() {
+    //     this.router.navigateToRoute('list-podl');
+    // }
 
-    tooglePostingTrue() {
-        this.isPosting = true;
-        this.isPrint = false;
+    // tooglePostingTrue() {
+    //     this.isPosting = true;
+    //     this.isPrint = false;
 
-        this.newStatus();
-    }
+    //     this.newStatus();
+    // }
 
-    tooglePostingFalse() {
-        this.isPosting = false;
-        this.isPrint = false;
+    // tooglePostingFalse() {
+    //     this.isPosting = false;
+    //     this.isPrint = false;
 
-        this.newStatus();
-    }
+    //     this.newStatus();
+    // }
 
-    tooglePrintTrue() {
-        this.isPosting = false;
-        this.isPrint = true;
+    // tooglePrintTrue() {
+    //     this.isPosting = false;
+    //     this.isPrint = true;
 
-        this.newStatus();
-    }
+    //     this.newStatus();
+    // }
 
-    tooglePrintFalse() {
-        this.isPosting = false;
-        this.isPrint = false;
+    // tooglePrintFalse() {
+    //     this.isPosting = false;
+    //     this.isPrint = false;
 
-        this.newStatus();
-    }
+    //     this.newStatus();
+    // }
 
-    newStatus() {
-        this.dataToBePosting = [];
-        this.dataToBePrinting = [];
+    // newStatus() {
+    //     this.dataToBePosting = [];
+    //     this.dataToBePrinting = [];
         
-        for (var item of this.data) {
-            item.isPosting = false;
-            item.isPrint = false;
-        }
-    }
+    //     for (var item of this.data) {
+    //         item.isPosting = false;
+    //         item.isPrint = false;
+    //     }
+    // }
     
-    calculateTotal() {
+    // calculateTotal() {
         
-        for (var po of this.dataToBePrinting) {
-            this.total = 0;
-            this.ppn = 0;
-            this.nominal = 0;
+    //     for (var po of this.dataToBePrinting) {
+    //         this.total = 0;
+    //         this.ppn = 0;
+    //         this.nominal = 0;
             
-            for (var item of po.items) {
-                this.total = this.total + (Number(item.price) * Number(item.dealQuantity));  
+    //         for (var item of po.items) {
+    //             this.total = this.total + (Number(item.price) * Number(item.dealQuantity));  
                  
-            } 
-            if (po.usePPn)
-                this.ppn = 10/100 * this.total;
-            else
-                this.ppn = 0;
-            this.nominal = this.total - this.ppn;
+    //         } 
+    //         if (po.usePPn)
+    //             this.ppn = 10/100 * this.total;
+    //         else
+    //             this.ppn = 0;
+    //         this.nominal = this.total - this.ppn;
                 
-            po.total = this.total;
-            po.ppn = this.ppn;
-            po.nominal = this.nominal;
-        }
+    //         po.total = this.total;
+    //         po.ppn = this.ppn;
+    //         po.nominal = this.nominal;
+    //     }
         
-    }
+    // }
 }

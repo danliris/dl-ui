@@ -29,6 +29,11 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.put(endpoint, data);
     }
+    
+    post(data) {
+        var endpoint = require('../../../host').core + '/v1/purchasing/po/externals/post';
+        return super.post(endpoint, data);
+    }
 
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
