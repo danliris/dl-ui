@@ -6,7 +6,6 @@ import {Service} from './service';
 @inject(Router, Service)
 export class Edit {
     
-    dataToBeSplit = {};
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -16,10 +15,6 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.data.isSplit = params.isSplit == "true" ? true : false;
-        if(this.data.isSplit)
-        {
-            this.dataToBeSplit = Object.assign({},this.data);
-        }
     }
 
     view() {
@@ -35,7 +30,7 @@ export class Edit {
     }
 
     split() {
-        console.log(this.dataToBeSplit);
+        console.log(this)
         this.service.split(this.copyForSplit(this.data)).then(result => {
             this.view();
         }).catch(e => {
@@ -48,7 +43,7 @@ export class Edit {
         delete newPurchaseOrder._id;
 
         newPurchaseOrder.sourcePurchaseOrderId = purchaseOrder._id;
-        newPurchaseOrder.sourcePurchaseOrder = Object.assign({}, this.dataToBeSplit);
+        newPurchaseOrder.sourcePurchaseOrder = Object.assign({}, purchaseOrder);
         return newPurchaseOrder;
     }
 }

@@ -54,12 +54,12 @@ export class DataForm {
     }
 
     unitChanged(e) {
-        var unit = e.detail;
+        var unit = e.detail || {};
         this.data.purchaseRequest.unitId = unit._id ? unit._id : "";
     }
 
     categoryChanged(e) {
-        var category = e.detail;
+        var category = e.detail || {};
         this.data.purchaseRequest.categoryId = category._id ? category._id : "";
     }
 } 

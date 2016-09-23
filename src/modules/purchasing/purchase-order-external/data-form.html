@@ -9,8 +9,8 @@
         <dropdown               label="Mata Uang"                       value.bind="data.currency"              error.bind="error.currency"             read-only.bind="readOnly"   items.bind="currencyOptions"></dropdown>
         <numeric                label="Rate"                            value.bind="data.currencyRate"          error.bind="error.currencyRate"         read-only.bind="readOnly"></numeric>
         <numeric                label="Tempo Pembayaran"                value.bind="data.paymentDueDays"        error.bind="error.paymentDueDays"       read-only.bind="readOnly"   post-fix="hari"></numeric>
-        <checkbox               label="Pph"                             value.bind="data.useVat"                error.bind="error.useVat"               read-only.bind="readOnly"></checkbox> 
-        <checkbox               label="Ppn"                             value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"         read-only.bind="readOnly"></checkbox> 
+        <checkbox               label="Apakah kena Pph?"                value.bind="data.useVat"                error.bind="error.useVat"               read-only.bind="readOnly"></checkbox> 
+        <checkbox               label="Apakah kena Ppn?"                value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"         read-only.bind="readOnly"></checkbox> 
         <multiline              label="Keterangan"                      value.bind="data.remark"                error.bind="error.remark"               read-only.bind="readOnly"></multiline>
 
         <hr />
