@@ -17,7 +17,7 @@ export class App {
       { route: 'monitoringpurchase', name: 'monitoringpurchase', moduleId: './modules/po/monitoring-purchase/index', nav: true, title: 'Monitoring Purchase' },
       { route: 'monitoringsuratjalan', name: 'monitoringsuratjalan', moduleId: './modules/po/monitoring-surat-jalan/index', nav: true, title: 'Monitoring Surat Jalan' },
       { route: 'costcalculations', name: 'costcalculations', moduleId: './components/cost-calculation/index', nav: true, title: 'Cost Calculation' },
-      { route: 'poperperiode', name: 'poperperiode', moduleId: './components/reports/purchase-order-per-periode/index', nav: true, title: 'Rekap Total Pembelian per Unit per Periode' }
+      { route: 'poreportsperperiode', name: 'poreportsperperiode', moduleId: './modules/purchasing/reports/purchase-order-report/index', nav: true, title: 'Rekap Total Pembelian per Unit per Periode' }
 
     ]);
 
