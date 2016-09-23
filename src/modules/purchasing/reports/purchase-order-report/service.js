@@ -12,7 +12,7 @@ export class Service extends RestService{
   
   getByDate(sdate,edate) 
   {
-      var endpoint = `${serviceUri}?dateFrom=:${sdate}&dateTo=:${edate}`;
+      var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
       return super.get(endpoint);
   }
  
