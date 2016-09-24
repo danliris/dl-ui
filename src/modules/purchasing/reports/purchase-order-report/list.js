@@ -32,7 +32,7 @@ export class List {
                 for( var item of data) { 
                     if(item.pricetotal!=0 && this.pricetotals!=0)
                     {
-                        this.persen= Math.round((item.pricetotal*100)/this.pricetotals);
+                        this.persen= ((item.pricetotal*100)/this.pricetotals).toFixed(2);
                     }
                     else
                     {
@@ -43,7 +43,7 @@ export class List {
                 }
                 for (var p of percentage)
                 {
-                    percentagetotal+=p;
+                    percentagetotal+=parseFloat(p);
                 }
                 this.percentage=percentage;
                 this.percentagetotal=percentagetotal;
