@@ -81,6 +81,7 @@
             </thead>  
             <tbody repeat.for="PO of data">   
                 <tr repeat.for="item of PO.items"> 
+                    ${$index}
                     <td> ${item.index}</td>
                     <td>${PO.purchaseRequest.no}</td>
                     <td>${item.product.name}</td>
@@ -105,8 +106,8 @@
                     <td>${PO.purchaseOrderExternal.date}</td>
                     <td>${PO.purchaseOrderExternal.expectedDeliveryDate.substr(0, 10)}</td>
                     <td>${PO.purchaseOrderExternal.no}</td> 
-                    <td>${item.fulfillments[$index].date.substr(0, 10)}</td>
-                    <td>${item.fulfillments[$index].no}</td> 
+                    <td>${item.fulfillments[0].date.substr(0, 10)}</td>
+                    <td>${item.fulfillments[0].no}</td> 
 
 
                     <!--<td>bon tgl</td>
