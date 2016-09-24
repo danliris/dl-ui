@@ -46,7 +46,7 @@ export class List {
                     percentagetotal+=parseFloat(p);
                 }
                 this.percentage=percentage;
-                this.percentagetotal=percentagetotal;
+                this.percentagetotal=(percentagetotal).toFixed(2);
             })
             
     }
