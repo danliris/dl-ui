@@ -35,9 +35,15 @@ export class List {
                         this.persen= Math.round((item.pricetotal*100)/this.pricetotals);
                     }
                     else
+                    {
                         this.persen=0;
+                    }
                     percentage.push(this.persen);
-                    percentagetotal+=persen;
+                    
+                }
+                for (var p of percentage)
+                {
+                    percentagetotal+=p;
                 }
                 this.percentage=percentage;
                 this.percentagetotal=percentagetotal;
