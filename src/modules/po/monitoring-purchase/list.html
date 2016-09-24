@@ -81,7 +81,6 @@
             </thead>  
             <tbody repeat.for="PO of data">   
                 <tr repeat.for="item of PO.items"> 
-                    ${$index}
                     <td> ${item.index}</td>
                     <td>${PO.purchaseRequest.no}</td>
                     <td>${item.product.name}</td>
