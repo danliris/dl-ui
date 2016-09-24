@@ -94,7 +94,7 @@ export default class PoExternalItemReact extends React.Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th rowSpan="2" width="15%">Product</th>
+                                <th rowSpan="2" width="15%">Barang</th>
                                 <th colSpan="2" width="24%">Default</th>
                                 <th colSpan="2" width="24%">Deal</th>
                                 <th rowSpan="2" width="11%">Harga</th>
@@ -102,10 +102,10 @@ export default class PoExternalItemReact extends React.Component {
                                 <th rowSpan="2" width="15%">Ket.</th>
                             </tr>
                             <tr>
-                                <th width="12%">Qty.</th>
-                                <th width="12%">Uom.</th>
-                                <th width="12%">Qty.</th>
-                                <th width="12%">Uom.</th>
+                                <th width="12%">Jumlah</th>
+                                <th width="12%">Satuan</th>
+                                <th width="12%">Jumlah</th>
+                                <th width="12%">Satuan</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -50,6 +50,6 @@ export class DataForm {
     supplierChanged(e) {
         var selectedSupplier = e.detail;
         if (selectedSupplier)
-            this.data.supplierId = selectedSupplier._id;
+            this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
     }
 } 

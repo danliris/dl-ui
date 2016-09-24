@@ -60,8 +60,8 @@ export default class DoItemReact extends React.Component {
                     product: poItem.product,
                     purchaseOrderQuantity: poItem.dealQuantity - poItem.realizationQuantity,
                     purchaseOrderUom: poItem.dealUom,
-                    deliveredQuantity: doFulfillments[index].deliveredQuantity,
-                    remark: ''
+                    deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
+                    remark: (doFulfillments[index] || {}).remark ? doFulfillments[index].remark : ''
                 }
             });
             return doItemFulfillments;
@@ -96,7 +96,7 @@ export default class DoItemReact extends React.Component {
             var items = this.state.value.fulfillments.map((fulfillment, index) => {
                 var itemOptions = { readOnly: true };
                 var realizationQtyOptions = { readOnly: false };
-                var error = (this.state.error.fulfillment || [])[index] || {};
+                var error = (this.state.error.fulfillments || [])[index] || {};
                 return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment}  error={error} options={this.state.options}/>;
             });
 
