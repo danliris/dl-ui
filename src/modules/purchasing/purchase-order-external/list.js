@@ -111,7 +111,7 @@ export class List {
                     this.total = this.total + (Number(item.pricePerDealUnit) * Number(item.dealQuantity));
                 }
             }
-            if (poExternal.usePPn)
+            if (poExternal.useIncomeTax)
                 this.ppn = 10 / 100 * this.total;
             else
                 this.ppn = 0;

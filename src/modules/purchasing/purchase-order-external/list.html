@@ -85,13 +85,13 @@
             <div class="col-xs-6">
                 <address>
                     <label class="header">PT. DAN LIRIS</label><br />
-                    Head Office : <br />
-                    Jalan Merapi no.23<br />
-                    Desa Banaran, Kec. Grogol, Kab.Sukoharjo 57193<br />
-                    Telp. (0271) 714400, 740888<br />
-                    Fax.  (0271) 717177<br />
-                    Website http://www.danliris.com/<br />
-                    PO. BOX 166 Solo 57100
+                    Head Office:<br />
+                    Kelurahan Banaran<br />
+                    Kecamatan Grogol<br />
+                    Sukoharjo 57193 - INDONESIA<br />
+                    PO BOX 166 SOLO 57100<br />
+                    Telp. (0271) 740888, 714400<br />
+                    Fax. (0271)735222, 740777<br />
                 </address>
             </div>
             <div class="col-xs-6 text-center">
@@ -155,8 +155,8 @@
                                 </div>
                             </td>
                             <td style="width:85px;" class="text-center">${poItem.dealQuantity} ${poItem.product.uom.unit}</td>
-                            <td style="width:100px;" class="text-right">${poItem.pricePerDealUnit | currencyFormat}</td>
-                            <td style="width:100px;" class="text-right">${poItem.pricePerDealUnit * poItem.dealQuantity | currencyFormat}</td>
+                            <td style="width:100px;" class="text-right">${data.currency} ${poItem.pricePerDealUnit | currencyFormat}</td>
+                            <td style="width:100px;" class="text-right">${data.currency} ${poItem.pricePerDealUnit * poItem.dealQuantity | currencyFormat}</td>
                         </tr>
                     </tbody>
             </table>
@@ -170,11 +170,11 @@
                     </tr>
                     <tr>
                         <td colspan="3" class="text-right">PPN 10 %</td>
-                        <td class="text-right" if.bind="data.usePPn">${data.ppn | currencyFormat}</td>
-                        <td class="text-right" if.bind="!data.usePPn">0</td>
+                        <td class="text-right" if.bind="data.useIncomeTax">${data.ppn | currencyFormat}</td>
+                        <td class="text-right" if.bind="!data.useIncomeTax">0</td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="text-right">Nominal</td>
+                        <td colspan="3" class="text-right">GRAND TOTAL</td>
                         <td class="text-right">${data.nominal | currencyFormat}</td>
                     </tr>
                 </tfoot>
@@ -190,9 +190,9 @@
                             <div class="col-xs-6">Ditanggung oleh ${data.freightCostBy.charAt(0)}${data.freightCostBy.slice(1).toLowerCase()}</div>
                         </td>
                         <td>
-                            <div class="col-xs-5">Tempo Pembayaran</div>
+                            <div class="col-xs-3">Pembayaran</div>
                             <div class="col-xs-1">:</div>
-                            <div class="col-xs-6">${data.paymentDueDays} hari setelah terima barang</div>
+                            <div class="col-xs-8"> ${data.paymentMethod} ${data.paymentDueDays} hari setelah terima barang</div>
                         </td>
                     </tr>
                     <tr>
@@ -202,18 +202,9 @@
                             <div class="col-xs-6">${data.expectedDeliveryDate | dateFormat:'DD-MM-YYYY'}</div>
                         </td>
                         <td>
-                            <div class="col-xs-5">Tipe Pembayaran</div>
+                            <div class="col-xs-3">Lain - lain</div>
                             <div class="col-xs-1">:</div>
-                            <div class="col-xs-6">${data.paymentMethod}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="col-xs-4">Lain - lain</div>
-                            <div class="col-xs-1">:</div>
-                            <div class="col-xs-6">${data.remark}</div>
-                        </td>
-                        <td>
+                            <div class="col-xs-8">${data.remark}</div>
                         </td>
                     </tr>
                 </tbody>
