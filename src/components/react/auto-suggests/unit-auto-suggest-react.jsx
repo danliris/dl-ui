@@ -22,7 +22,7 @@ export default class UnitAutoSuggestReact extends React.Component {
         initialValue.toString = function () {
             return [this.division, this.subDivision]
                 .filter((item, index) => {
-                    item && item.toString().trim().length > 0;
+                    return item && item.toString().trim().length > 0;
                 }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
@@ -68,7 +68,7 @@ UnitAutoSuggestReact.defaultProps = {
                     unit.toString = function () {
                         return [this.division, this.subDivision]
                             .filter((item, index) => {
-                                item && item.toString().trim().length > 0;
+                                return item && item.toString().trim().length > 0;
                             }).join(" - ");
                     }
                     return unit;

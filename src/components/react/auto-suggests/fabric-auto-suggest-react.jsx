@@ -24,7 +24,7 @@ export default class FabricAutoSuggestReact extends React.Component {
         initialValue.toString = function () {
             return [this.code, this.name]
                 .filter((item, index) => {
-                    item && item.toString().trim().length > 0;
+                    return item && item.toString().trim().length > 0;
                 }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
@@ -70,7 +70,7 @@ FabricAutoSuggestReact.defaultProps = {
                     fabric.toString = function () {
                         return [this.code, this.name]
                             .filter((item, index) => {
-                                item && item.toString().trim().length > 0;
+                                return item && item.toString().trim().length > 0;
                             }).join(" - ");
                     }
                     fabric.uom = fabric.uom || { unit: '' };
