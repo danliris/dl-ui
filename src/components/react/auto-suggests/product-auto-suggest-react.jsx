@@ -25,7 +25,7 @@ export default class ProductAutoSuggestReact extends React.Component {
         initialValue.toString = function () {
             return [this.code, this.name]
                 .filter((item, index) => {
-                    item && item.toString().trim().length > 0;
+                    return item && item.toString().trim().length > 0;
                 }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
@@ -71,7 +71,7 @@ ProductAutoSuggestReact.defaultProps = {
                     product.toString = function () {
                         return [this.code, this.name]
                             .filter((item, index) => {
-                                item && item.toString().trim().length > 0;
+                                return item && item.toString().trim().length > 0;
                             }).join(" - ");
                     }
                     product.uom = product.uom || { unit: '' };
