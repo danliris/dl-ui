@@ -1,0 +1,10 @@
+<template>
+    <template repeat.for="[key, value] of group">
+        <h3>${key}</h3>
+        <ul class="nav nav-sidebar"> 
+            <li repeat.for="row of value" class="${row.isActive ? 'active' : ''}">
+                <a data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse.in" href.bind="row.href">${row.title}</a>
+            </li>
+        </ul>
+    </template> 
+</template>

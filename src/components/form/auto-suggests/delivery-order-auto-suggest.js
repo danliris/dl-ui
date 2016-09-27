@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import FieldReact from '../../../react/basic/field-react.jsx';
-import CategoryAutoSuggestReact from '../../../react/auto-suggests/category-auto-suggest-react.jsx';
+import FieldReact from '../../react/basic/field-react.jsx';
+import DeliveryOrderAutoSuggestReact from '../../react/auto-suggests/delivery-order-auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)
-@customElement('category-auto-suggest')
-export class CategoryAutoSuggest {
+@customElement('delivery-order-auto-suggest')
+export class DeliveryOrderAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -37,7 +37,7 @@ export class CategoryAutoSuggest {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <CategoryAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
+                <DeliveryOrderAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
             </FieldReact>,
             this.element
         );

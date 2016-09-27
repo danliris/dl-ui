@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import FieldReact from '../../../react/basic/field-react.jsx';
-import SuppplierAutoSuggestReact from '../../../react/auto-suggests/supplier-auto-suggest-react.jsx';
+import FieldReact from '../../react/basic/field-react.jsx';
+import PoAutoSuggestReact from '../../react/auto-suggests/po-auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)
-@customElement('supplier-auto-suggest')
-export class SuppplierAutoSuggest {
+@customElement('po-auto-suggest')
+export class POTextileAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -37,7 +37,7 @@ export class SuppplierAutoSuggest {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <SuppplierAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
+                <PoAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
             </FieldReact>,
             this.element
         );

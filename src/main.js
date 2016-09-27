@@ -2,7 +2,9 @@
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/styles.css';
+import '../styles/dashboard.css';
 import 'bootstrap';
+import {Session} from './utils/session';
 
 // comment out if you don't want a Promise polyfill (remove also from webpack.common.js)
 import * as Bluebird from 'bluebird';
@@ -15,6 +17,7 @@ export async function configure(aurelia) {
     .feature('components/form')
     .feature('converters')
     // .plugin('aurelia-dialog');
+    .plugin('aurelia-cookie')
     .plugin('aurelia-dialog', config => {
       config.useDefaults();
       config.settings.lock = true;
@@ -30,7 +33,12 @@ export async function configure(aurelia) {
   // aurelia.use.plugin('aurelia-html-import-template-loader')
 
   await aurelia.start();
-  aurelia.setRoot('app');
+
+  var session = new Session();
+  if (session.isAuthenticated)
+    aurelia.setRoot('app');
+  else
+    aurelia.setRoot('login');
 
   // if you would like your website to work offline (Service Worker), 
   // install and enable the @easy-webpack/config-offline package in webpack.config.js and uncomment the following code:

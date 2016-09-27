@@ -1,22 +1,25 @@
 
 export function configure(config) {
     config.globalResources(
-        './basic/textbox',
-        './basic/numeric',
-        './basic/multiline',
-        './basic/dropdown',
-        './basic/datepicker',
         './basic/checkbox',
+        './basic/datepicker',
+        './basic/dropdown',
+        './basic/multiline',
+        './basic/numeric',
         './basic/radiobutton',
-        './basic/auto-suggests/auto-suggest',
-        './basic/auto-suggests/uom-auto-suggest',
-        './basic/auto-suggests/supplier-auto-suggest',
-        './basic/auto-suggests/po-unposted-auto-suggest', 
-        './basic/auto-suggests/category-auto-suggest',
-        './basic/auto-suggests/unit-auto-suggest', 
-        './basic/auto-suggests/delivery-order-auto-suggest',
+        './basic/textbox',
+
+        './auto-suggests/auto-suggest',
+        './auto-suggests/category-auto-suggest',
+        './auto-suggests/delivery-order-auto-suggest',
+        './auto-suggests/po-auto-suggest', 
+        './auto-suggests/po-unposted-auto-suggest', 
+        './auto-suggests/supplier-auto-suggest',
+        './auto-suggests/unit-auto-suggest', 
+        './auto-suggests/uom-auto-suggest',
+
+        './do/do-item-collection',
         './po/po-item-collection',
-        './po-external/po-external-item-collection',
-        './do/do-item-collection'
+        './po-external/po-external-item-collection'
     );
 }

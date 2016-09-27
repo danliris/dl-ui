@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import FieldReact from '../../../react/basic/field-react.jsx';
-import PoUnpostedAutoSuggestReact from '../../../react/auto-suggests/po-unposted-auto-suggest-react.jsx';
+import FieldReact from '../../react/basic/field-react.jsx';
+import UomAutoSuggestReact from '../../react/auto-suggests/uom-auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)
-@customElement('po-unposted-auto-suggest')
-export class PoUnpostedAutoSuggest {
+@customElement('uom-auto-suggest')
+export class UomAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -37,7 +37,7 @@ export class PoUnpostedAutoSuggest {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <PoUnpostedAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
+                <UomAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
             </FieldReact>,
             this.element
         );

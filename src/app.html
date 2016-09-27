@@ -1,11 +1,20 @@
 <template>
   <require from="./nav-bar.html"></require>
+  <require from="./side-nav-bar"></require>
   <require from="./utils/loading-modal/loading-modal"></require>
-  
+
   <nav-bar router.bind="router"></nav-bar>
   <loading-modal></loading-modal>
 
-  <div class="container">
-    <router-view></router-view>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <side-nav-bar router.bind="router"></side-nav-bar>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
 </template>

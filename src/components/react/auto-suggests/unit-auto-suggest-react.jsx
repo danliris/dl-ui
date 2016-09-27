@@ -20,7 +20,10 @@ export default class UnitAutoSuggestReact extends React.Component {
         var options = Object.assign({}, UnitAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.division} - ${this.subDivision}`;
+            return [this.division, this.subDivision]
+                .filter((item, index) => {
+                    item && item.toString().trim().length > 0;
+                }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -63,7 +66,10 @@ UnitAutoSuggestReact.defaultProps = {
             return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(unit => {
                     unit.toString = function () {
-                        return `${this.division} - ${this.subDivision}`;
+                        return [this.division, this.subDivision]
+                            .filter((item, index) => {
+                                item && item.toString().trim().length > 0;
+                            }).join(" - ");
                     }
                     return unit;
                 })

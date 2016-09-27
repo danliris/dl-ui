@@ -4,7 +4,10 @@ import AutoSuggestReact from './auto-suggest-react.jsx';
 const serviceUri = require('../../../host').core + '/v1/master/suppliers';
 const empty = {
     code: '',
-    name: ''
+    name: '',
+    toString: function () {
+        return '';
+    }
 }
 
 'use strict';
@@ -21,7 +24,10 @@ export default class SupplierAutoSuggestReact extends React.Component {
         var options = Object.assign({}, SupplierAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code} - ${this.name}`;
+            return [this.code, this.name]
+                .filter((item, index) => {
+                    item && item.toString().trim().length > 0;
+                }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -60,11 +66,14 @@ SupplierAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri+'?keyword='+text; 
+            var uri = serviceUri + '?keyword=' + text;
             return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(supplier => {
                     supplier.toString = function () {
-                        return `${this.code} - ${this.name}`;
+                        return [this.code, this.name]
+                            .filter((item, index) => {
+                                item && item.toString().trim().length > 0;
+                            }).join(" - ");
                     }
                     return supplier;
                 })

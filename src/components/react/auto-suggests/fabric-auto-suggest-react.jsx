@@ -22,7 +22,10 @@ export default class FabricAutoSuggestReact extends React.Component {
         var options = Object.assign({}, FabricAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code} - ${this.name}`;
+            return [this.code, this.name]
+                .filter((item, index) => {
+                    item && item.toString().trim().length > 0;
+                }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -61,11 +64,14 @@ FabricAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri+'?keyword='+text; 
+            var uri = serviceUri + '?keyword=' + text;
             return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(fabric => {
                     fabric.toString = function () {
-                        return `${this.code} - ${this.name}`;
+                        return [this.code, this.name]
+                            .filter((item, index) => {
+                                item && item.toString().trim().length > 0;
+                            }).join(" - ");
                     }
                     fabric.uom = fabric.uom || { unit: '' };
                     fabric.uom.toString = function () {
