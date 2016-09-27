@@ -36,6 +36,9 @@ export default class PoItem extends React.Component {
 
     handleDealUomChange(event, uom) {
         var value = this.state.value;
+        if(value.dealUom.unit)
+            if(value.dealUom.unit == value.dealQuantity.unit)
+                value.conversion=1;
         value.dealUom = uom;
         this.handleValueChange(value);
     }
@@ -48,10 +51,18 @@ export default class PoItem extends React.Component {
 
     handleconversionChange(conversion) {
         var value = this.state.value;
+        if(value.dealUom.unit)
+            if(value.dealUom.unit == value.dealQuantity.unit)
+                value.conversion=1;
         value.conversion = conversion;
         this.handleValueChange(value);
     }
+
     componentWillMount() {
+        var _value = this.props.value;
+        _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
+        _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
+        _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
         this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });
     }
 
@@ -108,7 +119,7 @@ export default class PoItem extends React.Component {
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.conversion ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.conversion} options={this.state.options} onChange={this.handleconversionChange}/>
+                        <NumericReact value={this.state.value.conversion} options={this.state.options} onChange={this.handleconversionChange}/>
                         <span className="help-block">{this.state.error.conversion}</span>
                     </div>
                 </td>

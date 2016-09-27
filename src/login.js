@@ -13,7 +13,7 @@ export class login {
     login() {
         console.log(this.session);
         this.session.username = "john.doe";
-        this.session.roles = ["admin", ""]
+        this.session.roles = ["admin", "purchasing"]
         this.aurelia.setRoot('app');
     }
 }

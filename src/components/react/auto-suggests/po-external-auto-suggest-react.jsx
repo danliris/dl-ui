@@ -3,7 +3,8 @@ import AutoSuggestReact from './auto-suggest-react.jsx';
 
 const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals/unposted';
 const empty = {
-    no: ''
+    no: '',
+    refNo:''
 }
 
 'use strict';
@@ -20,7 +21,7 @@ export default class PoExternalAutoSuggestReact extends React.Component {
         var options = Object.assign({}, PoExternalAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.no}`;
+            return `${this.no} - ${this.refNo}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -63,7 +64,7 @@ PoExternalAutoSuggestReact.defaultProps = {
             return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(poExternal => {
                     poExternal.toString = function () {
-                        return `${this.no}`;
+                        return `${this.no} - ${this.refNo}`;
                     }
                     return poExternal;
                 })

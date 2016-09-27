@@ -22,12 +22,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th style="text-align:center">Nomor PR</th>
-                        <th style="text-align:center">Nomor PO</th>
-                        <th style="text-align:center">Nama Unit</th>
-                        <th style="text-align:center">Tgl. PR</th>
+                        <th style="text-align:center">Unit</th>
                         <th style="text-align:center">Kategori</th>
-                        <th style="text-align:center">Tgl. Tersedia</th>
+                        <th style="text-align:center">Tgl. PR</th>
+                        <th style="text-align:center">Nomor PR</th>
+                        <th style="text-align:center">Tgl. Diminta Datang</th>
                         <th style="text-align:center">Staff Pembelian </th>
                         <th style="text-align:center">Status Post</th>
                         <th></th>
@@ -35,11 +34,10 @@
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <td style="text-align:center">${item.purchaseRequest.no}</td>
-                        <td style="text-align:center">${item.no}</td>
                         <td style="text-align:center">${item.unit.division}</td>
-                        <td style="text-align:center">${item.purchaseRequest.date | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.category.name}</td>
+                        <td style="text-align:center">${item.purchaseRequest.date | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center">${item.purchaseRequest.no}</td>
                         <td style="text-align:center">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item._createdBy}</td>
                         <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
