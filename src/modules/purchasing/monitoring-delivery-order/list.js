@@ -10,7 +10,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.today = new Date();
+        this.today = new Date(); 
     }
     attached() {
     }
@@ -18,22 +18,26 @@ export class List {
     activate() {
 
     }
+ 
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
-    }
-
-    search() { 
-            this.service.search(this.no?this.no:"", this.supplierId? this.supplierId._id:"", this.dateFrom, this.dateTo)  
+    search() {
+        this.SJ=[];
+        this.service.search(this.no ? this.no : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
-                for( var SJ of data) { 
-                    this.SJ=SJ;
-                    SJ=SJ;
-                    for( var item of SJ.items) {  
+                for (var SJ of data) { 
+                    this.SJ = SJ;
+                    SJ = SJ;
+                    for (var item of SJ.items) {
                     }
                 }
-            })  
+            })
+    }
+    reset() {
+        this.no = "undefined";
+        this.supplier = "undefined";
+        this.dateFrom = null;
+        this.dateTo = null;
     }
 
 }
