@@ -23,7 +23,7 @@ export default class PoUnpostedAutoSuggestReact extends React.Component {
         var options = Object.assign({}, PoUnpostedAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.no} - ${this.purchaseRequest.no}`;
+            return `${this.purchaseRequest.no} - ${this.no}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -66,7 +66,7 @@ PoUnpostedAutoSuggestReact.defaultProps = {
             return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(poTextile => {
                     poTextile.toString = function () {
-                        return `${this.no} - ${this.purchaseRequest.no}`;
+                        return `${this.purchaseRequest.no} - ${this.no}`;
                     }
                     return poTextile;
                 })

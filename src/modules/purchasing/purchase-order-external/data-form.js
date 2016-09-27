@@ -7,9 +7,9 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)','RETENSI'];
+    termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
-    currencyOptions = ['IDR', 'USD','THB','SGD','JPY','HKD','GBP','EUR','AUD','NZD','MYR','CAD','CNY','INR'];
+    currencyOptions = ['IDR', 'USD', 'THB', 'SGD', 'JPY', 'HKD', 'GBP', 'EUR', 'AUD', 'NZD', 'MYR', 'CAD', 'CNY', 'INR'];
     usePphOptions = [{ value: true, label: 'YA' }, { value: false, label: 'TIDAK' }];
 
     constructor(bindingEngine, element) {
@@ -27,10 +27,10 @@ export class DataForm {
             this.data.items.forEach(item => {
                 item.showDetails = false
             })
-        }         
+        }
     }
 
-    addItem() { 
+    addItem() {
         this.data.items = this.data.items ? this.data.items : [];
         this.data.items.push({ showDetails: false });
     }
