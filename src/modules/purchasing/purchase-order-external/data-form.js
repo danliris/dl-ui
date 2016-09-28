@@ -52,4 +52,10 @@ export class DataForm {
         if (selectedSupplier)
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
     }
+    
+    currencyChanged(e) {
+        var selectedCurrency = e.detail;
+        if (selectedCurrency)
+            this.data.currencyRate = selectedCurrency.rate ? selectedCurrency.rate : 1;
+    }
 } 
