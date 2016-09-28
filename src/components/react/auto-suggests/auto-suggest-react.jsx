@@ -48,7 +48,9 @@ export default class AutoSuggestReact extends React.Component {
 
     onSuggestionsFetchRequested({value}) {
         var suggestions = this.state.options.suggestions;
-        Promise.resolve(typeof (suggestions) === "function" ? suggestions(value) : suggestions)
+        var filter = this.state.options.filter ? this.state.options.filter : {};
+        
+        Promise.resolve(typeof (suggestions) === "function" ? suggestions(value, filter) : suggestions)
             .then(result => {
                 this.setState({ suggestions: result });
             });

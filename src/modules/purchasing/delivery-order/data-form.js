@@ -27,10 +27,10 @@ export class DataForm {
             this.data.items.forEach(item => {
                 item.showDetails = false
             })
-        }         
+        }
     }
 
-    addItem() { 
+    addItem() {
         this.data.items = this.data.items ? this.data.items : [];
         this.data.items.push({ showDetails: false });
     }
@@ -49,7 +49,9 @@ export class DataForm {
 
     supplierChanged(e) {
         var selectedSupplier = e.detail;
-        if (selectedSupplier)
+        if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
+            this.filter = { supplierId: selectedSupplier._id };
+        }
     }
 } 
