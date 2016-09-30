@@ -36,7 +36,7 @@ export class DataForm {
     }
     bind() {
         console.log('bind')
-        console.log(this.error)
+        console.log(this.data)
     }
     splitPO() {
         for (var item of this.data.items) {

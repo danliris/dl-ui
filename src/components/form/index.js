@@ -2,6 +2,7 @@
 export function configure(config) {
     config.globalResources(
         './basic/checkbox',
+        './basic/datepicker-no-default',
         './basic/datepicker',
         './basic/dropdown',
         './basic/multiline',

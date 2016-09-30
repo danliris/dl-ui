@@ -36,10 +36,10 @@ export default class DoItemReact extends React.Component {
     }
 
     handleRemove() {
-        // if (this.props.onRemove)
-        //     this.props.onRemove(this.state.value);
-        if (this.props.onItemRemove)
-            this.props.onItemRemove(this.state.value);
+        if (this.props.onRemove)
+            this.props.onRemove(this.state.value);
+        // if (this.props.onItemRemove)
+        //     this.props.onItemRemove(this.state.value);
     }
 
     handleToggleDetail() {

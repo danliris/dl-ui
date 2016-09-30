@@ -36,10 +36,10 @@ export default class PoItem extends React.Component {
 
     handleDealUomChange(event, uom) {
         var value = this.state.value;
-        if(value.dealUom.unit)
-            if(value.dealUom.unit == value.dealQuantity.unit)
-                value.conversion=1;
         value.dealUom = uom;
+        if(value.dealUom.unit)
+            if(value.dealUom.unit == value.defaultUom.unit)
+                value.conversion=1;
         this.handleValueChange(value);
     }
 
@@ -51,10 +51,10 @@ export default class PoItem extends React.Component {
 
     handleconversionChange(conversion) {
         var value = this.state.value;
-        if(value.dealUom.unit)
-            if(value.dealUom.unit == value.dealQuantity.unit)
-                value.conversion=1;
         value.conversion = conversion;
+        if(value.dealUom.unit)
+            if(value.dealUom.unit == value.defaultUom.unit)
+                value.conversion=1;
         this.handleValueChange(value);
     }
 
@@ -63,11 +63,15 @@ export default class PoItem extends React.Component {
         _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
         _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
         _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
-        this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });
+        this.setState({ value: _value || {}, error: this.props.error || {}, options: this.props.options || {} });
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ value: props.value || {}, error: props.error || {}, options: props.options || {} });
+        var _value = props.value;
+        // if(_value.dealUom.unit)
+        //     if(_value.dealUom.unit == _value.dealQuantity.unit)
+        //         _value.conversion=1;
+        this.setState({ value: _value || {}, error: props.error || {}, options: props.options || {} });
     }
 
     render() {

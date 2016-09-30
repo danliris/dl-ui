@@ -2,54 +2,41 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import DoItemCollectionReact from '../../react/do/do-item-collection-react.jsx';
-
+import FieldReact from '../../react/basic/field-react.jsx';
+import DatePickerReact from '../../react/basic/datepicker-react.jsx';
+import moment from 'moment';
 
 @noView()
 @inject(Element)
-@customElement('do-item-textile-collection')
-export class DoItemTextileCollection {
+@customElement('datepicker-no-default')
+export class DatepickerNoDefault {
 
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
 
     reactComponent = {};
     constructor(element) {
         this.element = element;
-        this.handleItemAdd = this.handleItemAdd.bind(this);
-        this.handleItemRemove = this.handleItemRemove.bind(this);
+        this.handleValueChange = this.handleValueChange.bind(this);
     }
 
-    handleItemAdd() {
-        this.value.push({});
-        this.bind();
-    }
-
-    handleItemRemove(item) {
-        var itemIndex = this.value.indexOf(item);
-        this.value.splice(itemIndex, 1);
-        this.bind();
+    handleValueChange(value) {
+        this.value = value;
     }
 
     render() {
-        console.log(this.value)
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
-        if (this.filter)
-            this.options.filter = this.filter;
-        else
-            this.options.filter = null;
-
         this.reactComponent = ReactDOM.render(
-            <DoItemCollectionReact value={this.value} error={this.error} options = {this.options}></DoItemCollectionReact>,
+            <FieldReact label={this.label} error={this.error}>
+                <DatePickerReact value={this.value} onChange={this.handleValueChange} options={this.options} />
+            </FieldReact>,
             this.element
         );
     }
 
     bind() {
-        this.value = this.value || [];
-        this.error = this.error || [];
         this.render();
     }
 
@@ -72,9 +59,6 @@ export class DoItemTextileCollection {
         this.bind();
     }
     errorChanged(newError) {
-        this.bind();
-    }
-    filterChanged(newFilter) {
         this.bind();
     }
 

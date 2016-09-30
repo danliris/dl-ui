@@ -52,6 +52,7 @@ export class DataForm {
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
             this.filter = { supplierId: selectedSupplier._id };
+            this.data.items=[];
         }
     }
 } 
