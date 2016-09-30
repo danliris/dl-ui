@@ -29,7 +29,7 @@ export default class DoItemReact extends React.Component {
         var doItem = this.state.value;
         doItem.purchaseOrderExternal = poExternal;
         doItem.purchaseOrderExternalId = poExternal._id;
-        console.log(doItem);
+        // console.log(doItem);
         this.setState({ value: doItem });
         if (this.props.onChange)
             this.props.onChange(doItem);

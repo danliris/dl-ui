@@ -29,8 +29,7 @@ export class Edit {
         })
     }
 
-    split() {
-        console.log(this)
+    split() { 
         this.service.split(this.copyForSplit(this.data)).then(result => {
             this.view();
         }).catch(e => {

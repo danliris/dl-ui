@@ -22,7 +22,7 @@ export default class PoExternalPostedAutoSuggestReact extends React.Component {
 
     init(props) {
         var options = Object.assign({}, PoExternalPostedAutoSuggestReact.defaultProps.options, props.options);
-        console.log(options);
+        // console.log(options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
             return [this.no, this.refNo]

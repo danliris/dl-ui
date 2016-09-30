@@ -43,7 +43,7 @@ export class List {
                 this.addIsPrint();
             })
             .catch(e => {
-                console.log(e);
+                // console.log(e);
                 alert('Data PO tidak ditemukan');
             })
     }
@@ -105,7 +105,7 @@ export class List {
     }
 
     view(data) {
-        console.log(data);
+        // console.log(data);
         this.router.navigateToRoute('view', { id: data._id });
     }
 

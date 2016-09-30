@@ -35,8 +35,7 @@ export class DataForm {
         }
     }
     bind() {
-        console.log('bind')
-        console.log(this.data)
+        
     }
     splitPO() {
         for (var item of this.data.items) {
@@ -45,7 +44,7 @@ export class DataForm {
     }
 
     addItem() {
-        console.log(this.data);
+        
     }
 
     removeItem(item) {
