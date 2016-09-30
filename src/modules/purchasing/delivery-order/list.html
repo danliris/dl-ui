@@ -24,6 +24,7 @@
                     <tr>
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>Nomor Surat Jalan</th>
+                        <th>Nama Supplier</th>
                         <th>List Nomor Eksternal PO</th>
                         <th></th>
                     </tr>
@@ -37,6 +38,7 @@
                                 change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.no}</td>
+                        <td>${item.supplier.name}</td>
                         <td>
                             <ul>
                             <li repeat.for="po of item.items">${po.purchaseOrderExternal.no}</li> 

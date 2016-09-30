@@ -1,14 +1,18 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../host').core + '/v1/master/products';
+const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals/posted';
 const empty = {
-    code: '',
-    name: ''
+    no: '',
+    refNo: '',
+    toString: function () {
+        return '';
+    }
 }
+
 'use strict';
 
-export default class TextileAutoSuggestReact extends React.Component {
+export default class PoExternalPostedAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -17,12 +21,13 @@ export default class TextileAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, TextileAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, PoExternalPostedAutoSuggestReact.defaultProps.options, props.options);
+        console.log(options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
+            return [this.no, this.refNo]
                 .filter((item, index) => {
-                    item && item.toString().trim().length > 0;
+                    return item && item.toString().trim().length > 0;
                 }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
@@ -47,7 +52,7 @@ export default class TextileAutoSuggestReact extends React.Component {
     }
 }
 
-TextileAutoSuggestReact.propTypes = {
+PoExternalPostedAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -57,25 +62,22 @@ TextileAutoSuggestReact.propTypes = {
     })
 };
 
-TextileAutoSuggestReact.defaultProps = {
+PoExternalPostedAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
+        filter: {},
         suggestions:
-        function (text) {
-            var uri = serviceUri + '?keyword=' + text;
+        function (text, filter) {
+            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
             return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(textile => {
-                    textile.toString = function () {
-                        return [this.code, this.name]
+                return json.data.map(poExternal => {
+                    poExternal.toString = function () {
+                        return [this.no, this.refNo]
                             .filter((item, index) => {
-                                item && item.toString().trim().length > 0;
+                                return item && item.toString().trim().length > 0;
                             }).join(" - ");
                     }
-                    textile.uom = textile.uom || { unit: '' };
-                    textile.uom.toString = function () {
-                        return this.unit;
-                    }
-                    return textile;
+                    return poExternal;
                 })
             })
         }

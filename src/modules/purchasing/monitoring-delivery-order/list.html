@@ -1,10 +1,10 @@
 <template>
     <h1 class="page-header">Monitoring Surat Jalan</h1>
     <form class="form-horizontal">  
-        <delivery-order-auto-suggest value.bind="no" label="No. Surat Jalan"></delivery-order-auto-suggest>
-        <supplier-auto-suggest value.bind="supplierId" label="Supplier"></supplier-auto-suggest>
-        <datepicker label="Tanggal Awal" value.bind="dateFrom"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
+        <delivery-order-auto-suggest    label="No. Surat Jalan"     value.bind="no"         ></delivery-order-auto-suggest>
+        <supplier-auto-suggest          label="Supplier"            value.bind="supplierId" ></supplier-auto-suggest>
+        <datepicker-no-default          label="Tanggal Awal"        value.bind="dateFrom"   ></datepicker-no-default>
+        <datepicker-no-default          label="Tanggal Akhir"       value.bind="dateTo"     ></datepicker-no-default> 
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -24,7 +24,7 @@
                     <td>KODE</td>
                     <td>NAMA</td> 
                     <td>NOMOR</td>
-                    <td>TANGGAL</td> 
+                    <td>TANGGAL SURAT JALAN</td> 
                     <td>TANGGAL DATANG BARANG</td> 
                     <td>KODE</td>
                     <td>NAMA</td>
@@ -39,7 +39,7 @@
                     <td>${SJ.supplier.code}</td>
                     <td>${SJ.supplier.name}</td>
                     <td>${SJ.no}</td>
-                    <td>${SJ.date.substr(0, 10)}</td>
+                    <td>${SJ.supplierDoDate.substr(0, 10)}</td>
                     <td>${SJ.date.substr(0, 10)}</td>
                     <td>${item.purchaseOrderExternal.no}</td>
                     <td>${fulfillment.product.code}</td>

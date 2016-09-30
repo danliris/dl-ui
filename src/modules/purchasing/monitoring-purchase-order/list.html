@@ -1,18 +1,18 @@
 <template>
     <h1 class="page-header">Monitoring Pembelian</h1>
     <form class="form-horizontal">
-        <unit-auto-suggest value.bind="unit" label="Unit yang mengajukan"></unit-auto-suggest>
-        <category-auto-suggest value.bind="category" label="Kategori"></category-auto-suggest> 
-        <textbox label="Nomor External PO" value.bind="PODLNo"></textbox> 
-        <textbox label="Nomor PR" value.bind="PRNo"></textbox> 
-        <supplier-auto-suggest value.bind="supplier" label="Supplier"></supplier-auto-suggest>
-        <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
+        <unit-auto-suggest      label="Unit yang mengajukan"    value.bind="unit"       ></unit-auto-suggest>
+        <category-auto-suggest  label="Kategori"                value.bind="category"   ></category-auto-suggest> 
+        <textbox                label="Nomor External PO"       value.bind="PODLNo"     ></textbox> 
+        <textbox                label="Nomor PR"                value.bind="PRNo"       ></textbox> 
+        <supplier-auto-suggest  label="Supplier"                value.bind="supplier"   ></supplier-auto-suggest>
+        <datepicker-no-default  label="Tanggal Awal"            value.bind="dateFrom"   ></datepicker-no-default>
+        <datepicker-no-default  label="Tanggal Akhir"           value.bind="dateTo"     ></datepicker-no-default> 
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
-               <button click.delegate="search()" class='btn btn-success'>Cari</button> 
-               <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+               <button  click.delegate="search()"    class='btn btn-success'>Cari</button> 
+               <button  click.delegate="reset()"     class='btn btn-success'>Reset</button>
             </div>
         </div>  
         <table class="table table-striped table-hover" border="1">
@@ -28,7 +28,7 @@
                     <td rowspan="3">TERIMA PO INTERN</td>
                     <td colspan="2">TANGGAL</td> <!--<td colspan="8">TANGGAL</td>-->
                     <td rowspan="3">NOMOR PO EXTERN</td>
-                    <td colspan="2">SURAT JALAN</td>
+                    <td colspan="3">SURAT JALAN</td>
                     <!--<td colspan="4">BON PENERIMAAN</td>
                     <td colspan="2">INVOICE</td>
                     <td colspan="2">FAKTUR PAJAK</td>
@@ -55,8 +55,9 @@
                     <td rowspan="2">DIREKTUR PRODUKSI</td>-->  
                     <td rowspan="2">TGL PO EXTERN</td>
                     <td rowspan="2">TARGET DATANG</td>
-                    <td rowspan="2">TANGGAL</td>
-                    <td rowspan="2">NOMOR</td>  
+                    <td rowspan="2">TANGGAL SURAT JALAN</td>
+                    <td rowspan="2">TANGGAL DATANG BARANG</td>
+                    <td rowspan="2">NOMOR SURAT JALAN</td>  
                     <!--<td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>-->
                     <!--<td colspan="2">JUMLAH</td>
@@ -106,6 +107,7 @@
                     <td>${PO.purchaseOrderExternal.date}</td>
                     <td>${PO.purchaseOrderExternal.expectedDeliveryDate.substr(0, 10)}</td>
                     <td>${PO.purchaseOrderExternal.no}</td> 
+                    <td>${item.fulfillments[0].supplierDoDate.substr(0, 10)}</td>
                     <td>${item.fulfillments[0].date.substr(0, 10)}</td>
                     <td>${item.fulfillments[0].no}</td>  
 

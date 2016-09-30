@@ -95,17 +95,17 @@ export default class PoExternalItemReact extends React.Component {
                         <thead>
                             <tr>
                                 <th rowSpan="2" width="15%">Barang</th>
-                                <th colSpan="2" width="24%">Default</th>
-                                <th colSpan="2" width="24%">Deal</th>
-                                <th rowSpan="2" width="11%">Harga</th>
+                                <th colSpan="2" width="15%">Default</th>
+                                <th colSpan="2" width="20%">Deal</th>
+                                <th rowSpan="2" width="24%">Harga</th>
                                 <th rowSpan="2" width="11%">Konversi</th>
                                 <th rowSpan="2" width="15%">Ket.</th>
                             </tr>
                             <tr>
-                                <th width="12%">Jumlah</th>
-                                <th width="12%">Satuan</th>
-                                <th width="12%">Jumlah</th>
-                                <th width="12%">Satuan</th>
+                                <th width="7%">Jumlah</th>
+                                <th width="8%">Satuan</th>
+                                <th width="9%">Jumlah</th>
+                                <th width="11%">Satuan</th>
                             </tr>
                         </thead>
                         <tbody>

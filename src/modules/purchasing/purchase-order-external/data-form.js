@@ -6,7 +6,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-
+    
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
     currencyOptions = ['IDR', 'USD', 'THB', 'SGD', 'JPY', 'HKD', 'GBP', 'EUR', 'AUD', 'NZD', 'MYR', 'CAD', 'CNY', 'INR'];
@@ -58,4 +58,11 @@ export class DataForm {
         if (selectedCurrency)
             this.data.currencyRate = selectedCurrency.rate ? selectedCurrency.rate : 1;
     }
+    
+    paymentMethodChanged(e) {
+        var selectedPayment = e.srcElement.value;
+        if (selectedPayment=="CASH")
+            this.data.paymentDueDays = 0;
+    }
+    
 } 

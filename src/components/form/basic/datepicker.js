@@ -4,6 +4,7 @@ import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-fram
 
 import FieldReact from '../../react/basic/field-react.jsx';
 import DatePickerReact from '../../react/basic/datepicker-react.jsx';
+import moment from 'moment';
 
 @noView()
 @inject(Element)
@@ -36,6 +37,9 @@ export class Datepicker {
     }
 
     bind() {
+        if(this.value==undefined)
+            this.value= moment().format('YYYY-MM-DD');
+        console.log(this.value);
         this.render();
     }
 

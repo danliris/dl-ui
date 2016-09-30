@@ -4,8 +4,11 @@ import AutoSuggestReact from './auto-suggest-react.jsx';
 const serviceUri = require('../../../host').core + '/v1/purchasing/po/unposted';
 const empty = {
     no: '',
-    purchaseRequest:{
-        no:''
+    purchaseRequest: {
+        no: ''
+    },
+    toString: function () {
+        return '';
     }
 }
 
@@ -23,7 +26,10 @@ export default class PoUnpostedAutoSuggestReact extends React.Component {
         var options = Object.assign({}, PoUnpostedAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.purchaseRequest.no} - ${this.no}`;
+            return [this.purchaseRequest.no, this.no]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -62,11 +68,14 @@ PoUnpostedAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri+'?keyword='+text; 
+            var uri = serviceUri + '?keyword=' + text;
             return fetch(uri).then(results => results.json()).then(json => {
                 return json.data.map(poTextile => {
                     poTextile.toString = function () {
-                        return `${this.purchaseRequest.no} - ${this.no}`;
+                        return [this.purchaseRequest.no, this.no]
+                            .filter((item, index) => {
+                                return item && item.toString().trim().length > 0;
+                            }).join(" - ");
                     }
                     return poTextile;
                 })

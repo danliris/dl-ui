@@ -49,6 +49,7 @@
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>No. Eksternal PO</th>
                         <th>No. Ref Eksternal PO</th>
+                        <th>Nama Supplier</th>
                         <th>List Internal PO</th>
                         <th style="text-align:center">Status Post</th>
                         <th></th>
@@ -64,6 +65,7 @@
                         </td>
                         <td>${item.no}</td>
                         <td>${item.refNo==''?'-':item.refNo}</td>
+                        <td>${item.supplier.name}</td>
                         <td>
                             <ul>
                             <li repeat.for="po of item.items">${po.no}</li> 
