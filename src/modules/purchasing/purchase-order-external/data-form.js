@@ -7,9 +7,9 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     
+    paymentDueDaysReadOnly = this.readOnly;
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
-    currencyOptions = ['IDR', 'USD', 'THB', 'SGD', 'JPY', 'HKD', 'GBP', 'EUR', 'AUD', 'NZD', 'MYR', 'CAD', 'CNY', 'INR'];
     usePphOptions = [{ value: true, label: 'YA' }, { value: false, label: 'TIDAK' }];
 
     constructor(bindingEngine, element) {
@@ -61,8 +61,12 @@ export class DataForm {
     
     paymentMethodChanged(e) {
         var selectedPayment = e.srcElement.value;
-        if (selectedPayment=="CASH")
+        console.log(this.paymentDueDaysReadOnly);
+        if (selectedPayment=="CASH"){
             this.data.paymentDueDays = 0;
+            this.paymentDueDaysReadOnly=true}
+            else
+            this.paymentDueDaysReadOnly=this.readOnly;
     }
     
 } 
