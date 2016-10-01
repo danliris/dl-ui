@@ -7,7 +7,8 @@
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
-               <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+               <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
+               <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>  
 <br>
@@ -30,10 +31,10 @@
             </tr>
         </tfoot>
         <tbody>
-            <tr repeat.for="item of data">
+            <tr repeat.for="item of data" click.delegate="view(item,dateFrom,dateTo)">
                 <td class="text-center">${$index + 1}</td>
                 <td class="text-center">${item._id}</td>
-                <td class="text-center">${item.pricetotal}</td>
+                <td class="text-center">${amounts[$index]}</td>
                 <td class="text-center">${percentage[$index]}%</td>
                 
             </tr>
