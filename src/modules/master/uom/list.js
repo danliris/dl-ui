@@ -28,7 +28,7 @@ export class List {
                  this.data=data;
             }) 
             .catch(e=> {
-            console.log(e);
+            // console.log(e);
             alert('Data satuan tidak ditemukan');
         })
     }

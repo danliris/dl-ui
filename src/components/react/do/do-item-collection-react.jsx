@@ -31,7 +31,7 @@ export default class DoItemCollectionReact extends React.Component {
     
     handleItemChange(doItem) { 
         var i = this.state.value[0] == doItem;
-        console.log(i);
+        // console.log(i);
         this.setState({ value: this.state.value });
     }
     
@@ -59,7 +59,7 @@ export default class DoItemCollectionReact extends React.Component {
 
     render() {
         var addButton = <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>;
-        if (this.state.options.readOnly)
+        if (this.state.options.readOnly || this.state.options.filter==null)
             addButton = <span></span>;
         var items = (this.state.value || []).map((doItem, index) => {
             var error = this.state.error[index] || {};

@@ -13,6 +13,7 @@ export class DoItemTextileCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
 
     reactComponent = {};
     constructor(element) {
@@ -21,7 +22,7 @@ export class DoItemTextileCollection {
         this.handleItemRemove = this.handleItemRemove.bind(this);
     }
 
-    handleItemAdd() { 
+    handleItemAdd() {
         this.value.push({});
         this.bind();
     }
@@ -33,8 +34,13 @@ export class DoItemTextileCollection {
     }
 
     render() {
-        console.log(this.value)
+        // console.log(this.value)
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        if (this.filter)
+            this.options.filter = this.filter;
+        else
+            this.options.filter = null;
+
         this.reactComponent = ReactDOM.render(
             <DoItemCollectionReact value={this.value} error={this.error} options = {this.options}></DoItemCollectionReact>,
             this.element
@@ -66,6 +72,9 @@ export class DoItemTextileCollection {
         this.bind();
     }
     errorChanged(newError) {
+        this.bind();
+    }
+    filterChanged(newFilter) {
         this.bind();
     }
 

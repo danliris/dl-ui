@@ -13,8 +13,8 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log("Data");
-        console.log(this.data);
+        // console.log("Data");
+        // console.log(this.data);
     }
 
     list() {

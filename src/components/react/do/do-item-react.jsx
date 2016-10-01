@@ -5,7 +5,7 @@ import RadiobuttonReact from '../basic/radiobutton-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
 // import POTextileAutoSuggestReact from '../auto-suggests/po-textile-auto-suggest-react.jsx';
 import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
-import PoExternalAutoSuggestReact from '../auto-suggests/po-external-auto-suggest-react.jsx';
+import PoExternalAutoSuggestReact from '../auto-suggests/po-external-posted-auto-suggest-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
 import DoItemFulfillmentReact from './do-item-fulfillment-react.jsx';
 
@@ -29,17 +29,17 @@ export default class DoItemReact extends React.Component {
         var doItem = this.state.value;
         doItem.purchaseOrderExternal = poExternal;
         doItem.purchaseOrderExternalId = poExternal._id;
-        console.log(doItem);
+        // console.log(doItem);
         this.setState({ value: doItem });
         if (this.props.onChange)
             this.props.onChange(doItem);
     }
 
     handleRemove() {
-        // if (this.props.onRemove)
-        //     this.props.onRemove(this.state.value);
-        if (this.props.onItemRemove)
-            this.props.onItemRemove(this.state.value);
+        if (this.props.onRemove)
+            this.props.onRemove(this.state.value);
+        // if (this.props.onItemRemove)
+        //     this.props.onItemRemove(this.state.value);
     }
 
     handleToggleDetail() {

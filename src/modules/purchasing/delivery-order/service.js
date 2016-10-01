@@ -10,7 +10,7 @@ export class Service extends RestService {
         super(http, aggregator);
     }
 
-    search(keyword) {
+    search(keyword) {        
         var endpoint = `${serviceUri}?keyword=${keyword}`;
         return super.get(endpoint);
     }

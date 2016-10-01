@@ -2,6 +2,7 @@
 export function configure(config) {
     config.globalResources(
         './basic/checkbox',
+        './basic/datepicker-no-default',
         './basic/datepicker',
         './basic/dropdown',
         './basic/multiline',
@@ -17,6 +18,7 @@ export function configure(config) {
         './auto-suggests/supplier-auto-suggest',
         './auto-suggests/unit-auto-suggest', 
         './auto-suggests/uom-auto-suggest',
+        './auto-suggests/currency-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',

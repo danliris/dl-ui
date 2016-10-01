@@ -49,6 +49,7 @@
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>No. Eksternal PO</th>
                         <th>No. Ref Eksternal PO</th>
+                        <th>Nama Supplier</th>
                         <th>List Internal PO</th>
                         <th style="text-align:center">Status Post</th>
                         <th></th>
@@ -64,6 +65,7 @@
                         </td>
                         <td>${item.no}</td>
                         <td>${item.refNo==''?'-':item.refNo}</td>
+                        <td>${item.supplier.name}</td>
                         <td>
                             <ul>
                             <li repeat.for="po of item.items">${po.no}</li> 
@@ -95,12 +97,9 @@
                 </address>
             </div>
             <div class="col-xs-6 text-center">
-                <div class="row ">
-                    <label class="header">${data.iso}</label>
-                </div>
-                <div class="row ">
-                    <h4>${data.no}</h4></br></br>
-                </div>
+                <label class="header">FM-6.00-06-005</label>
+                <hr style="border-top: 1px solid #8c8b8b;margin: 0;">
+                <h4>${data.no}</h4>
             </div>
         </div><br /><br />
         <div class="row">

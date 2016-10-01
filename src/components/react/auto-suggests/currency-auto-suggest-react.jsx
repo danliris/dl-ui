@@ -1,15 +1,14 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 
-const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals/unposted';
+const serviceUri = require('../../../host').core + '/v1/master/currencies';
 const empty = {
-    no: '',
-    refNo:''
+    code: ''
 }
 
 'use strict';
 
-export default class PoExternalAutoSuggestReact extends React.Component {
+export default class CurrencyAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -18,10 +17,10 @@ export default class PoExternalAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, PoExternalAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, CurrencyAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.no} - ${this.refNo}`;
+            return `${this.code}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -45,7 +44,7 @@ export default class PoExternalAutoSuggestReact extends React.Component {
     }
 }
 
-PoExternalAutoSuggestReact.propTypes = {
+CurrencyAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -55,18 +54,18 @@ PoExternalAutoSuggestReact.propTypes = {
     })
 };
 
-PoExternalAutoSuggestReact.defaultProps = {
+CurrencyAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri+'?keyword='+text; 
+            var uri = serviceUri + '?keyword=' + text;
             return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(poExternal => {
-                    poExternal.toString = function () {
-                        return `${this.no} - ${this.refNo}`;
+                return json.data.map(currency => {
+                    currency.toString = function () {
+                        return `${this.code}`;
                     }
-                    return poExternal;
+                    return currency;
                 })
             })
         }

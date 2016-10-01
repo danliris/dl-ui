@@ -27,14 +27,12 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    save() { 
-        console.log(this.data);
+    save() {  
         this.service.create(this.data)
             .then(result => {
                 this.back();
             })
-            .catch(e => {
-                console.log(e);
+            .catch(e => { 
                 this.error = e;
             })
     }

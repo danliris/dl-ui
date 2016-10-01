@@ -3,18 +3,18 @@ import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
 import FieldReact from '../../react/basic/field-react.jsx';
-import RadiobuttonReact from '../../react/basic/radiobutton-react.jsx';
+import DatePickerReact from '../../react/basic/datepicker-react.jsx';
+import moment from 'moment';
 
 @noView()
 @inject(Element)
-@customElement('radiobutton')
-export class Radiobutton {
+@customElement('datepicker-no-default')
+export class DatepickerNoDefault {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) selections;
 
     reactComponent = {};
     constructor(element) {
@@ -22,22 +22,21 @@ export class Radiobutton {
         this.handleValueChange = this.handleValueChange.bind(this);
     }
 
-    handleValueChange(value) { 
+    handleValueChange(value) {
         this.value = value;
     }
 
-    render() { 
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', selections : this.selections||[] };
+    render() {
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <RadiobuttonReact value={this.value} onChange={this.handleValueChange} options={this.options} />
+                <DatePickerReact value={this.value} onChange={this.handleValueChange} options={this.options} />
             </FieldReact>,
             this.element
         );
     }
 
     bind() {
-        // console.log(this.selections);
         this.render();
     }
 

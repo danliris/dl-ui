@@ -44,8 +44,7 @@ export class List {
                 this.data = data;
                 this.newStatus();
             })
-            .catch(e => {
-                console.log(e);
+            .catch(e => {  
                 alert('Data purchase order eksternal tidak ditemukan');
             })
     }
@@ -124,8 +123,7 @@ export class List {
 
     }
 
-    view(data) {
-        console.log(data);
+    view(data) { 
         this.router.navigateToRoute('view', { id: data._id });
     }
     
