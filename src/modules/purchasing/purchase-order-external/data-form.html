@@ -14,7 +14,6 @@
         <numeric                label="Nilai Pph"                       value.bind="data.vatRate"               error.bind="error.vatRate"              read-only.bind="readOnly"   post-fix="%"></numeric> 
         <checkbox               label="Apakah kena Ppn?"                value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"         read-only.bind="readOnly"></checkbox> 
         <multiline              label="Keterangan"                      value.bind="data.remark"                error.bind="error.remark"               read-only.bind="readOnly"></multiline>
-       <p>${data.paymentMethod}-${data.paymentDueDays}</p>
         <hr />
         <po-external-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly"></po-external-item-collection>
     </form>
