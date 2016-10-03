@@ -34,7 +34,7 @@ export class DoItemTextileCollection {
     }
 
     render() {
-        console.log(this.value)
+        // console.log(this.value)
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         if (this.filter)
             this.options.filter = this.filter;

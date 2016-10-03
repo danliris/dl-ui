@@ -21,7 +21,7 @@ export class Create {
                 this.back();
             })
             .catch(e => {
-                console.log(e);
+                // console.log(e);
                 this.error = e;
             })
     }

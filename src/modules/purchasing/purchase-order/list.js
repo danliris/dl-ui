@@ -36,8 +36,7 @@ export class List {
             .then(data => {
                 this.data = data;
             })
-            .catch(e => {
-                console.log(e);
+            .catch(e => { 
                 alert('Data purchase order internal tidak ditemukan');
             })
     }

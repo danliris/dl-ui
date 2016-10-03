@@ -1,9 +1,14 @@
 import {Aurelia, inject} from 'aurelia-framework';
 import {Session} from './utils/session';
+import {AuthService} from './utils/auth-service';
+import '../styles/signin.css';
 
-@inject(Aurelia, Session)
-export class login {
-    constructor(aurelia, session) {
+@inject(Aurelia, Session, AuthService)
+export class Login {
+    username = "dev";
+    password = "Standar123";
+    constructor(aurelia, session, authService) {
+        this.service = authService;
         this.aurelia = aurelia;
         this.session = session;
         if (this.session.isAuthenticated)
@@ -11,9 +16,14 @@ export class login {
     }
 
     login() {
-        console.log(this.session);
-        this.session.username = "john.doe";
-        this.session.roles = ["admin", "purchasing"]
-        this.aurelia.setRoot('app');
+        this.service.authenticate(this.username, this.password)
+            .then(token => {
+                this.service.me(token)
+                    .then(account => {
+                        this.session.data = account;
+                        this.aurelia.setRoot('app');
+                    })
+            })
+        // console.log(this.session);
     }
-}
+} 

@@ -39,7 +39,7 @@ export class Datepicker {
     bind() {
         if(this.value==undefined)
             this.value= moment().format('YYYY-MM-DD');
-        console.log(this.value);
+        // console.log(this.value);
         this.render();
     }
 

@@ -22,6 +22,7 @@ export class List {
         var percentagetotal=0;
         var persen=0;
         var data=[];
+        var amounts=[];
         this.service.getByDate(this.dateFrom,this.dateTo)
             .then(data => {
                 this.data = data;
@@ -39,7 +40,10 @@ export class List {
                         this.persen=0;
                     }
                     percentage.push(this.persen);
-                    
+                    var x= item.pricetotal.toFixed(4).toString().split('.');
+                    var x1=x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    var amount= x1 + '.' + x[1];
+                    amounts.push(amount);
                 }
                 for (var p of percentage)
                 {
@@ -47,8 +51,17 @@ export class List {
                 }
                 this.percentage=percentage;
                 this.percentagetotal=(percentagetotal).toFixed(2);
+                this.amounts=amounts;
+                var y= this.pricetotals.toFixed(4).toString().split('.');
+                var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                this.pricetotals= y1 + '.' + y[1];
             })
             
+    }
+
+    reset() {
+        this.dateFrom = "undefined";
+        this.dateTo = "undefined";
     }
 
 }

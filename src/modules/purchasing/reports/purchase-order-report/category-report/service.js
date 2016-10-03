@@ -1,8 +1,8 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../../rest-service';
+import {RestService} from '../../../../../rest-service';
  
-const serviceUri = require('../../../../host').core + '/v1/po/poreport';
+const serviceUri = require('../../../../../host').core + '/v1/po/poreportcategory';
  
 export class Service extends RestService{
 
@@ -16,4 +16,5 @@ export class Service extends RestService{
       return super.get(endpoint);
   }
  
+
 }
