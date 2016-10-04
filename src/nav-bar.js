@@ -8,6 +8,15 @@ export class NavBar {
         this.aurelia = aurelia;
         this.router = router;
         this.session = session;
+
+        var stage = process.env.STAGE;
+        stage = (stage || "").trim().toLowerCase();
+
+        this.title = ["DANLIRIS", stage].filter(item => {
+            return item && item != '';
+        }).join(" - ");
+
+        this.bgColor = stage == "development" ? "#d61010" : stage == "uat" ? "#008729" : "#222";
     }
 
     logout() {
