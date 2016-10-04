@@ -19,6 +19,7 @@ export function configure(config) {
         './auto-suggests/unit-auto-suggest', 
         './auto-suggests/uom-auto-suggest',
         './auto-suggests/currency-auto-suggest',
+        './auto-suggests/vat-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',
