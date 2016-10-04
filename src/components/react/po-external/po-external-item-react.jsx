@@ -97,8 +97,8 @@ export default class PoExternalItemReact extends React.Component {
                                 <th rowSpan="2" width="15%">Barang</th>
                                 <th colSpan="2" width="15%">Default</th>
                                 <th colSpan="2" width="20%">Deal</th>
-                                <th rowSpan="2" width="24%">Harga</th>
                                 <th rowSpan="2" width="11%">Konversi</th>
+                                <th rowSpan="2" width="24%">Harga</th>
                                 <th rowSpan="2" width="15%">Ket.</th>
                             </tr>
                             <tr>
@@ -127,16 +127,10 @@ export default class PoExternalItemReact extends React.Component {
                     <table className="table">
                         <tbody>
                             <tr>
-                                <td width="45%">
+                                <td width="90%">
                                     <div className={`form-group ${this.state.error.no ? 'has-error' : ''}`}style={style}>
                                         <PoUnpostedAutoSuggestReact value={purchaseOrder} options={this.state.options} onChange={this.handlePoChange} />
                                         <span className="help-block">{this.state.error.no}</span>
-                                    </div>
-                                </td>
-                                <td width="45%">
-                                    <div className={`form-group ${this.state.error.purchaseRequest && this.state.error.purchaseRequest.no ? 'has-error' : ''}`}style={style}>
-                                        <TextboxReact value={purchaseOrder.purchaseRequest.no} options={prNoOptions} />
-                                        <span className="help-block">{this.state.error.purchaseRequest ? this.state.error.purchaseRequest.no : ''}</span>
                                     </div>
                                 </td>
                                 <td width="10%">
