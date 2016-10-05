@@ -89,10 +89,10 @@
                     <td>${PO.purchaseRequest.no}</td>
                     <td>${item.product.name}</td>
                     <td>${item.product.code}</td>
-                    <td align="right">${item.dealQuantity}</td>
+                    <td align="right">${(item.dealQuantity).toLocaleString()}</td>
                     <td>${item.dealUom.unit}</td>
-                    <td align="right">${item.pricePerDealUnit*PO.purchaseOrderExternal.currencyRate}</td>
-                    <td align="right">${item.pricePerDealUnit*item.dealQuantity}</td>
+                    <td align="right">${(item.pricePerDealUnit*PO.purchaseOrderExternal.currencyRate).toLocaleString()}</td>
+                    <td align="right">${(item.pricePerDealUnit*item.dealQuantity).toLocaleString()}</td>
                     <td>${PO.supplier.code}</td>
                     <td>${PO.supplier.name}</td> 
                     <td>${PO.purchaseRequest.date.substr(0, 10)}</td> 
