@@ -4,13 +4,13 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import {RestService} from '../rest-service';
 import {Session} from './session';
 
-@inject(HttpClient, EventAggregator, Session)
+@inject(HttpClient, EventAggregator)
 export class SecureService extends RestService {
-    constructor(http, aggregator, session) {
+    constructor(http, aggregator) {
         super(http, aggregator);
-        this.session = session;
+        this.session = new Session();
         this.header = {
-            "Authentication": `JWT ${this.session.token}`
+            "Authorization": `JWT ${this.session.token}`
         };
     }
 }

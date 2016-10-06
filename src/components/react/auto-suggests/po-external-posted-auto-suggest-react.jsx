@@ -1,5 +1,6 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
+import {Session} from '../../../utils/session';
 
 const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals/posted';
 const empty = {
@@ -68,8 +69,13 @@ PoExternalPostedAutoSuggestReact.defaultProps = {
         filter: {},
         suggestions:
         function (text, filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
-            return fetch(uri).then(results => results.json()).then(json => {
+            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`; 
+            
+            var session = new Session();
+            var requestHeader = new Headers();
+            requestHeader.append('Authorization', `JWT ${session.token}`);
+
+            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
                 return json.data.map(poExternal => {
                     poExternal.toString = function () {
                         return [this.no, this.refNo]
