@@ -10,8 +10,8 @@
         <numeric                label="Rate"                            value.bind="data.currencyRate"          error.bind="error.currencyRate"         read-only.bind="readOnly"></numeric>
         <numeric                label="Tempo Pembayaran"                value.bind="data.paymentDueDays"        error.bind="error.paymentDueDays"       read-only.bind="true"       post-fix="hari" if.bind="data.paymentMethod=='CASH'"></numeric>
         <numeric                label="Tempo Pembayaran"                value.bind="data.paymentDueDays"        error.bind="error.paymentDueDays"       read-only.bind="readOnly"   post-fix="hari" if.bind="data.paymentMethod!='CASH'"></numeric>
-        <checkbox               label="Apakah kena Pph?"                value.bind="data.useVat"                error.bind="error.useVat"               read-only.bind="readOnly"></checkbox>
-        <vat-auto-suggest       label="Jenis Pph"                       value.bind="data.vat"                   error.bind="error.vat"                  read-only.bind="readOnly"   change.delegate="vatChanged($event)"></vat-auto-suggest>
+        <!--<checkbox           label="Apakah kena Pph?"                value.bind="data.useVat"                error.bind="error.useVat"               read-only.bind="readOnly"></checkbox>-->
+        <vat-auto-suggest       label="Pph"                             value.bind="data.vat"                   error.bind="error.vat"                  read-only.bind="readOnly"   change.delegate="vatChanged($event)"></vat-auto-suggest>
         <numeric                label="Rate Pph"                        value.bind="data.vatRate"               error.bind="error.vatRate"              read-only.bind="true"   post-fix="%"></numeric> 
         <checkbox               label="Apakah kena Ppn?"                value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"         read-only.bind="readOnly"></checkbox> 
         <multiline              label="Keterangan"                      value.bind="data.remark"                error.bind="error.remark"               read-only.bind="readOnly"></multiline>
