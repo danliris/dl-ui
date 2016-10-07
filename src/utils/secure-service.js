@@ -10,6 +10,7 @@ export class SecureService extends RestService {
         super(http, aggregator);
         this.session = new Session();
         this.header = {
+            "Content-Type": "application/json; charset=UTF-8",
             "Authorization": `JWT ${this.session.token}`
         };
     }
