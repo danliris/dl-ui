@@ -64,5 +64,11 @@ export class DataForm {
         if (selectedPayment=="CASH")
             this.data.paymentDueDays = 0;
     }
+
+    vatChanged(e) {
+        var selectedVat = e.detail;
+        if (selectedVat)
+            this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
+    }
     
 } 
