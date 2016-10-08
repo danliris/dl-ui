@@ -61,9 +61,15 @@ export class View {
             })
     }
 
-    list()
+    list(sdate,edate)
     {
-        this.router.navigateToRoute('list');
+        if(this.sdate==null || this.edate==null)
+        {
+            this.dateFrom=undefined;
+            this.dateTo=undefined;
+        }
+            
+        this.router.navigateToRoute('list', { sdate:this.dateFrom, edate:this.dateTo });
     }
 
 }
