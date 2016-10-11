@@ -1,113 +1,106 @@
-import {inject} from 'aurelia-framework'; 
+import {inject} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    a={};
+    a = {};
 
     constructor(router, service) {
         this.service = service;
-        this.router = router; 
+        this.router = router;
         this.today = new Date();
-    } 
+    }
 
 
     async activate(params) {
-        if(params.sdate!=null || params.edate!=null)
-        {
-            this.dateFrom= params.sdate;
+        if (params.sdate != null || params.edate != null) {
+            this.dateFrom = params.sdate;
             this.dateTo = params.edate;
 
-            var pricetotals=0;
-            var percentage=[];
-            var percentagetotal=0;
-            var persen=0;
-            var data=[];
-            var amounts=[];
-            this.service.getByDate(this.dateFrom,this.dateTo)
-            .then(data => {
-                this.data = data;
-                for( var price of data) { 
-                    pricetotals += price.pricetotal;
-                }
-                this.pricetotals=pricetotals;
-                
-                for( var item of data) { 
-                    if(item.pricetotal!=0 && this.pricetotals!=0)
-                    {
-                        this.persen= ((item.pricetotal*100)/this.pricetotals).toFixed(2);
+            var pricetotals = 0;
+            var percentage = [];
+            var percentagetotal = 0;
+            var persen = 0;
+            var data = [];
+            var amounts = [];
+            this.service.getByDate(this.dateFrom, this.dateTo)
+                .then(data => {
+                    this.data = data;
+                    for (var price of data) {
+                        pricetotals += price.pricetotal;
                     }
-                    else
-                    {
-                        this.persen=0;
+                    this.pricetotals = pricetotals;
+
+                    for (var item of data) {
+                        if (item.pricetotal != 0 && this.pricetotals != 0) {
+                            this.persen = ((item.pricetotal * 100) / this.pricetotals).toFixed(2);
+                        }
+                        else {
+                            this.persen = 0;
+                        }
+                        percentage.push(this.persen);
+                        var x = item.pricetotal.toFixed(4).toString().split('.');
+                        var x1 = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        var amount = x1 + '.' + x[1];
+                        amounts.push(amount);
                     }
-                    percentage.push(this.persen);
-                    var x= item.pricetotal.toFixed(4).toString().split('.');
-                    var x1=x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    var amount= x1 + '.' + x[1];
-                    amounts.push(amount);
-                }
-                for (var p of percentage)
-                {
-                    percentagetotal+=parseFloat(p);
-                }
-                this.percentage=percentage;
-                this.percentagetotal=(percentagetotal).toFixed(2);
-                this.amounts=amounts;
-                var y= this.pricetotals.toFixed(4).toString().split('.');
-                var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                this.pricetotals= y1 + '.' + y[1];
-            })
+                    for (var p of percentage) {
+                        percentagetotal += parseFloat(p);
+                    }
+                    this.percentage = percentage;
+                    this.percentagetotal = (percentagetotal).toFixed(2);
+                    this.amounts = amounts;
+                    var y = this.pricetotals.toFixed(4).toString().split('.');
+                    var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    this.pricetotals = y1 + '.' + y[1];
+                })
         }
     }
 
-    searching(){
-        var pricetotals=0;
-        var percentage=[];
-        var percentagetotal=0;
-        var persen=0;
-        var data=[];
-        var amounts=[];
-        this.service.getByDate(this.dateFrom,this.dateTo)
+    searching() {
+        var pricetotals = 0;
+        var percentage = [];
+        var percentagetotal = 0;
+        var persen = 0;
+        var data = [];
+        var amounts = [];
+        this.service.getByDate(this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
-                for( var price of data) { 
+                for (var price of data) {
                     pricetotals += price.pricetotal;
                 }
-                this.pricetotals=pricetotals;
-                
-                for( var item of data) { 
-                    if(item.pricetotal!=0 && this.pricetotals!=0)
-                    {
-                        this.persen= ((item.pricetotal*100)/this.pricetotals).toFixed(2);
+                this.pricetotals = pricetotals;
+
+                for (var item of data) {
+                    if (item.pricetotal != 0 && this.pricetotals != 0) {
+                        this.persen = ((item.pricetotal * 100) / this.pricetotals).toFixed(2);
                     }
-                    else
-                    {
-                        this.persen=0;
+                    else {
+                        this.persen = 0;
                     }
                     percentage.push(this.persen);
-                    var x= item.pricetotal.toFixed(4).toString().split('.');
-                    var x1=x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    var amount= x1 + '.' + x[1];
+                    var x = item.pricetotal.toFixed(4).toString().split('.');
+                    var x1 = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    var amount = x1 + '.' + x[1];
                     amounts.push(amount);
                 }
-                for (var p of percentage)
-                {
-                    percentagetotal+=parseFloat(p);
+                for (var p of percentage) {
+                    percentagetotal += parseFloat(p);
                 }
-                this.percentage=percentage;
-                this.percentagetotal=(percentagetotal).toFixed(2);
-                this.amounts=amounts;
-                var y= this.pricetotals.toFixed(4).toString().split('.');
-                var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                this.pricetotals= y1 + '.' + y[1];
+                this.percentage = percentage;
+                this.percentagetotal = (percentagetotal).toFixed(2);
+                this.amounts = amounts;
+                var y = this.pricetotals.toFixed(4).toString().split('.');
+                var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                this.pricetotals = y1 + '.' + y[1];
             })
-            
+
     }
 
-    view(data,sdate,edate) {
-        this.router.navigateToRoute('view', { id: data._id, sdate:this.dateFrom, edate:this.dateTo });
+    view(data, sdate, edate) {
+        this.router.navigateToRoute('view', { id: data._id, sdate: this.dateFrom, edate: this.dateTo });
     }
 
     reset() {
@@ -115,18 +108,18 @@ export class List {
         this.dateTo = "undefined";
     }
 
-    ExportToExcel(myTable){
-        var fs = require('fs');
-var writeStream = fs.createWriteStream("file.xls");
+    // ExportToExcel(myTable) {
+    //     var fs = require('fs');
+    //     var writeStream = fs.createWriteStream("file.xls");
 
-var header="Sl No"+"\t"+" Age"+"\t"+"Name"+"\n";
-var row1 = "0"+"\t"+" 21"+"\t"+"Rob"+"\n";
-var row2 = "1"+"\t"+" 22"+"\t"+"bob"+"\n";
+    //     var header = "Sl No" + "\t" + " Age" + "\t" + "Name" + "\n";
+    //     var row1 = "0" + "\t" + " 21" + "\t" + "Rob" + "\n";
+    //     var row2 = "1" + "\t" + " 22" + "\t" + "bob" + "\n";
 
-writeStream.write(header);
-writeStream.write(row1);
-writeStream.write(row2);
+    //     writeStream.write(header);
+    //     writeStream.write(row1);
+    //     writeStream.write(row2);
 
-writeStream.close();
-    }
+    //     writeStream.close();
+    // }
 }
