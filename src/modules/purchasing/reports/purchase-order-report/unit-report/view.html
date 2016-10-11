@@ -4,12 +4,7 @@
         <textbox label="Tanggal Awal" value.bind="dateFrom" read-only="true"></textbox>
         <textbox label="Tanggal Akhir" value.bind="dateTo" read-only="true"></textbox>
         <textbox label="Unit" value.bind="unit" read-only="true"></textbox>
-        <div class="form-group">
-            <label for="contact" class="col-sm-6 control-label"></label>
-            <div class="col-sm-3">
-               <button click.delegate="searching()" class='btn btn-success'>Cari</button>
-            </div>
-        </div>  
+         
 <br>
         <table class="table table-bordered table-hover">
         <thead>
@@ -49,6 +44,6 @@
 
     <hr/>
         <div class="btn-group pull-right">
-            <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
+            <a click.delegate="list(dateFrom,dateTo)" class='btn btn-default btn-sm'>Kembali</a>
         </div>
 </template>
