@@ -2,13 +2,18 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').core + '/v1/master/categories';
+const serviceUri = require('../../../host').core + '/v1/master/vats';
+
 const empty = {
-    name: ''
+    name: '',
+    rate: 0,
+    toString: function () {
+        return '';
+    }
 }
 'use strict';
 
-export default class CategoryAutoSuggestReact extends React.Component {
+export default class VatAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -17,10 +22,13 @@ export default class CategoryAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, CategoryAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, VatAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.name}`;
+             return [this.name, this.rate]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -44,7 +52,7 @@ export default class CategoryAutoSuggestReact extends React.Component {
     }
 }
 
-CategoryAutoSuggestReact.propTypes = {
+VatAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -54,7 +62,7 @@ CategoryAutoSuggestReact.propTypes = {
     })
 };
 
-CategoryAutoSuggestReact.defaultProps = {
+VatAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
@@ -66,11 +74,14 @@ CategoryAutoSuggestReact.defaultProps = {
             requestHeader.append('Authorization', `JWT ${session.token}`);
 
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(uom => {
-                    uom.toString = function () {
-                        return `${this.name}`;
+                return json.data.map(vat => {
+                    vat.toString = function () {
+                       return [this.name, this.rate]
+                            .filter((item, index) => {
+                                return item && item.toString().trim().length > 0;
+                            }).join(" - ");
                     }
-                    return uom;
+                    return vat;
                 })
             })
         }

@@ -89,10 +89,10 @@
                     <td>${PO.purchaseRequest.no}</td>
                     <td>${item.product.name}</td>
                     <td>${item.product.code}</td>
-                    <td align="right">${item.dealQuantity}</td>
+                    <td align="right">${(item.dealQuantity).toLocaleString()}</td>
                     <td>${item.dealUom.unit}</td>
-                    <td align="right">${item.pricePerDealUnit*PO.purchaseOrderExternal.currencyRate}</td>
-                    <td align="right">${item.pricePerDealUnit*item.dealQuantity}</td>
+                    <td align="right">${(item.pricePerDealUnit*PO.purchaseOrderExternal.currencyRate).toLocaleString()}</td>
+                    <td align="right">${(item.pricePerDealUnit*item.dealQuantity*PO.purchaseOrderExternal.currencyRate).toLocaleString()}</td>
                     <td>${PO.supplier.code}</td>
                     <td>${PO.supplier.name}</td> 
                     <td>${PO.purchaseRequest.date.substr(0, 10)}</td> 
@@ -108,8 +108,8 @@
                     <td>${PO.purchaseOrderExternal.expectedDeliveryDate.substr(0, 10)}</td>
                     <td>${PO.purchaseOrderExternal.no}</td> 
                     <td>${item.fulfillments[0].supplierDoDate.substr(0, 10)}</td>
-                    <td>${item.fulfillments[0].date.substr(0, 10)}</td>
-                    <td>${item.fulfillments[0].no}</td>  
+                    <td>${item.fulfillments[0].deliveryOderDate.substr(0, 10)}</td>
+                    <td>${item.fulfillments[0].deliveryOderNo}</td>  
 
                     <!--<td>bon tgl</td>
                     <td>bon no</td>
