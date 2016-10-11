@@ -1,5 +1,5 @@
 import React from 'react';
-
+import TextboxReact from '../basic/textbox-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
 import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
@@ -68,6 +68,12 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
                 <td>
                     <div className={`form-group`} style={style}>
                         <UomAutoSuggestReact value={this.state.value.deliveredUom} options={readOnlyOptions} onChange={this.handleDeliveredUom}/>
+                    </div>
+                </td>
+                <td>
+                    <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.remark} options={this.state.options}/>
+                        <span className="help-block">{this.state.error.remark}</span>
                     </div>
                 </td>
             </tr>
