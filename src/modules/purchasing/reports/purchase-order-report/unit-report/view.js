@@ -63,12 +63,6 @@ export class View {
 
     list(sdate,edate)
     {
-        if(this.sdate==null || this.edate==null)
-        {
-            this.dateFrom=undefined;
-            this.dateTo=undefined;
-        }
-            
         this.router.navigateToRoute('list', { sdate:this.dateFrom, edate:this.dateTo });
     }
 
