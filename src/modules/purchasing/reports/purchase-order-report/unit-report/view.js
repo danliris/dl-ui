@@ -50,7 +50,7 @@ export class View {
                     percentagetotal+=parseFloat(p);
                 }
                 this.percentage=percentage;
-                this.percentagetotal=(percentagetotal).toFixed(2);
+                this.percentagetotal=Math.round(percentagetotal).toFixed(2);
                 this.dateFrom=dateFrom;
                 this.dateTo=dateTo;
                 this.unit=id;
