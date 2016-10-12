@@ -1,49 +1,49 @@
 <template>
- <h1 class="page-header">Laporan Rekap Total Pembelian per Unit per Periode</h1>
-     <form class="form-horizontal">
-        
-        <datepicker-no-default label="Tanggal Awal" value.bind="dateFrom" ></datepicker-no-default>
-        <datepicker-no-default label="Tanggal Akhir" value.bind="dateTo" ></datepicker-no-default> 
+    <h1 class="page-header">Laporan Rekap Total Pembelian per Unit per Periode</h1>
+    <form class="form-horizontal">
+
+        <datepicker-no-default label="Tanggal Awal" value.bind="dateFrom"></datepicker-no-default>
+        <datepicker-no-default label="Tanggal Akhir" value.bind="dateTo"></datepicker-no-default>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
-               <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
-               <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
-        </div>  
-<br>
-    <table class="table table-bordered table-hover" id="myTable">
-        <thead>
-            <tr>
-                <th class="text-center">Nomor</th>
-                <th class="text-center">Unit</th>
-                <th class="text-center">Rp</th>
-                <th class="text-center">%</th>
-                <!--<th>Kategori UOM</th>-->
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="item of data" click.delegate="view(item,dateFrom,dateTo)">
-                <td class="text-center">${$index + 1}</td>
-                <td class="text-center">${item._id}</td>
-                <td class="text-center">${amounts[$index]}</td>
-                <td class="text-center">${percentage[$index]}%</td>
-            </tr>
-        </tbody>
-        <tfoot if.bind="data.length > 0">
-            <tr>
-                <td colspan="2" class="text-center">Total</td>
-                <td class="text-center" >${pricetotals}</td>
-                <td class="text-center" >${percentagetotal}%</td>
-            </tr>
-        </tfoot>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th class="text-center">Nomor</th>
+                    <th class="text-center">Unit</th>
+                    <th class="text-center">Rp</th>
+                    <th class="text-center">%</th>
+                    <!--<th>Kategori UOM</th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data" click.delegate="view(item,dateFrom,dateTo)">
+                    <td class="text-center">${$index + 1}</td>
+                    <td class="text-center">${item._id}</td>
+                    <td class="text-center">${amounts[$index]}</td>
+                    <td class="text-center">${percentage[$index]}%</td>
+                </tr>
+            </tbody>
+            <tfoot if.bind="data.length > 0">
+                <tr>
+                    <td colspan="2" class="text-center">Total</td>
+                    <td class="text-center">${pricetotals}</td>
+                    <td class="text-center">${percentagetotal}%</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.
         </div>
         <hr/>
     </form>
-    <div class="btn-group pull-right" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel(myTable)" class='btn btn-info btn-sm'>Excel</a>
-        </div>
+    <!--<div class="btn-group pull-right" if.bind="data.length > 0">
+        <a click.delegate="ExportToExcel(myTable)" class='btn btn-info btn-sm'>Excel</a>
+    </div>-->
 </template>
