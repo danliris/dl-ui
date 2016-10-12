@@ -11,9 +11,7 @@ export class List {
         this.today = new Date();
     } 
 
-
     activate() {
-        
     }
 
     searching(){
@@ -56,7 +54,6 @@ export class List {
                 var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.pricetotals= y1 + '.' + y[1];
             })
-            
     }
 
     reset() {

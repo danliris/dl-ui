@@ -4,7 +4,6 @@ import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    a={};
 
     constructor(router, service) {
         this.service = service;
@@ -13,7 +12,7 @@ export class List {
     } 
 
 
-    async activate(params) {
+     async activate(params) {
         if(params.sdate!=null || params.edate!=null)
         {
             this.dateFrom= params.sdate;
@@ -25,7 +24,7 @@ export class List {
             var persen=0;
             var data=[];
             var amounts=[];
-            this.service.getByDate(this.dateFrom,this.dateTo)
+            this.service.getDetailUnit(this.dateFrom,this.dateTo,"undefined")
             .then(data => {
                 this.data = data;
                 for( var price of data) { 
@@ -69,7 +68,7 @@ export class List {
         var persen=0;
         var data=[];
         var amounts=[];
-        this.service.getByDate(this.dateFrom,this.dateTo)
+        this.service.getDetailUnit(this.dateFrom,this.dateTo,"undefined")
             .then(data => {
                 this.data = data;
                 for( var price of data) { 
@@ -103,7 +102,6 @@ export class List {
                 var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.pricetotals= y1 + '.' + y[1];
             })
-            
     }
 
     view(data,sdate,edate) {
@@ -116,17 +114,5 @@ export class List {
     }
 
     ExportToExcel(myTable){
-        var fs = require('fs');
-var writeStream = fs.createWriteStream("file.xls");
-
-var header="Sl No"+"\t"+" Age"+"\t"+"Name"+"\n";
-var row1 = "0"+"\t"+" 21"+"\t"+"Rob"+"\n";
-var row2 = "1"+"\t"+" 22"+"\t"+"bob"+"\n";
-
-writeStream.write(header);
-writeStream.write(row1);
-writeStream.write(row2);
-
-writeStream.close();
     }
 }
