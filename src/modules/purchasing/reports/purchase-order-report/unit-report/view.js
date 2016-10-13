@@ -50,7 +50,7 @@ export class View {
                     percentagetotal+=parseFloat(p);
                 }
                 this.percentage=percentage;
-                this.percentagetotal=(percentagetotal).toFixed(2);
+                this.percentagetotal=Math.round(percentagetotal).toFixed(2);
                 this.dateFrom=dateFrom;
                 this.dateTo=dateTo;
                 this.unit=id;
@@ -63,12 +63,6 @@ export class View {
 
     list(sdate,edate)
     {
-        if(this.sdate==null || this.edate==null)
-        {
-            this.dateFrom=undefined;
-            this.dateTo=undefined;
-        }
-            
         this.router.navigateToRoute('list', { sdate:this.dateFrom, edate:this.dateTo });
     }
 
