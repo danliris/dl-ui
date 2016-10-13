@@ -14,7 +14,7 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
 
         this.handleDeliveredQuantity = this.handleDeliveredQuantity.bind(this);
         this.handleDeliveredUom = this.handleDeliveredUom.bind(this);
-
+        this.handleRemark = this.handleRemark.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
@@ -34,6 +34,12 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
     handleDeliveredUom(event, uom) {
         var value = this.state.value;
         value.deliveredUom = uom;
+        this.handleValueChange(value);
+    }
+    
+    handleRemark(event, remark) {
+        var value = this.state.value;
+        value.remark = remark;
         this.handleValueChange(value);
     }
 
@@ -72,7 +78,7 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.remark} options={this.state.options}/>
+                        <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemark}/>
                         <span className="help-block">{this.state.error.remark}</span>
                     </div>
                 </td>
