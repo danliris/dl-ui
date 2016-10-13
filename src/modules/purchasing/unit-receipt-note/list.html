@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col-sm-3" >
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
@@ -30,12 +30,12 @@
                     <button type="button" class="btn btn-success ${isPrint ? '' : 'hide'}" click.delegate="print()">Cetak</button>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div>
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="${isPrint ? '' : 'hide'}"></th>
+                        <!--<th class="${isPrint ? '' : 'hide'}"></th>-->
                         <th style="text-align:center">Unit</th>
                         <th style="text-align:center">No. Bon Unit</th>
                         <th style="text-align:center">Tanggal Bon Unit</th>
@@ -46,15 +46,20 @@
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <td class="${isPrint ? '' : 'hide'}">
+                        <!--<td class="${isPrint ? '' : 'hide'}">
                             <input checked.bind="item.isPrint" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
-                        </td>
+                        </td>-->
                         <td style="text-align:center">${item.unit.division}</td>
                         <td style="text-align:center">${item.no}</td>
                         <td style="text-align:center">${item.date  | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.supplier.name}</td>
                         <td style="text-align:center">${item.deliveryOrder.no}</td>
-                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
+                        <td>
+                            <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
+                            <a href=${servicePdfUri}${item._id}>
+                                <button class="btn btn-primary" >Cetak</button>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

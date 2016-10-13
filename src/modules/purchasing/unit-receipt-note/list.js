@@ -2,8 +2,10 @@ import {inject} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
 
+
 @inject(Router, Service)
 export class List {
+    servicePdfUri = require('../../../host').core + '/v1/purchasing/receipt-note/unit/pdf/';
     data = [];
     dataToBePrinting = [];
     keyword = '';
@@ -66,11 +68,6 @@ export class List {
         this.router.navigateToRoute('list');
     }
 
-    print() {
-        window.print();
-        this.addIsPrint();
-    }
-
     view(data) { 
         this.router.navigateToRoute('view', { id: data._id });
     }
@@ -98,5 +95,4 @@ export class List {
             item.isPrint = false;
         }
     }
-
 }

@@ -1,10 +1,11 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../rest-service';
+import {SecureService} from '../../../utils/secure-service';
   
 const serviceUri = require('../../../host').core + '/v1/purchasing/receipt-note/unit';
 
-export class Service extends RestService {
+export class Service extends SecureService {
 
     constructor(http, aggregator) {
         super(http, aggregator);
@@ -33,5 +34,5 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
-    } 
+    }
 }
