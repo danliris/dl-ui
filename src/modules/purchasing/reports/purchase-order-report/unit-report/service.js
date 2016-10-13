@@ -1,8 +1,9 @@
 import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client'; 
+import {HttpClient} from 'aurelia-fetch-client';
+import {RestService} from '../../../../../rest-service';
 import {SecureService} from '../../../../../utils/secure-service';
 
-const serviceUri = require('../../../../../host').core + '/v1/purchasing/po/reports';
+const serviceUri = require('../../../../../host').core + '/v1/purchasing/po/report/unit';
 
 export class Service extends SecureService {
 
@@ -10,7 +11,8 @@ export class Service extends SecureService {
     super(http, aggregator);
   }
 
-  getByDate(sdate, edate) {
+  getDataUnit(sdate,edate)
+  {
     var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
     return super.get(endpoint);
   }

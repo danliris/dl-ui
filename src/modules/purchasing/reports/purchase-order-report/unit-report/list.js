@@ -4,7 +4,6 @@ import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    a = {};
 
     constructor(router, service) {
         this.service = service;
@@ -13,22 +12,30 @@ export class List {
     }
 
 
-    async activate(params) {
-        if (params.sdate != null || params.edate != null) {
-            this.dateFrom = params.sdate;
+     async activate(params) {
+        if(params.sdate!=null || params.edate!=null)
+        {
+            this.dateFrom= params.sdate;
             this.dateTo = params.edate;
 
-            var pricetotals = 0;
-            var percentage = [];
-            var percentagetotal = 0;
-            var persen = 0;
-            var data = [];
-            var amounts = [];
-            this.service.getByDate(this.dateFrom, this.dateTo)
-                .then(data => {
-                    this.data = data;
-                    for (var price of data) {
-                        pricetotals += price.pricetotal;
+            var pricetotals=0;
+            var percentage=[];
+            var percentagetotal=0;
+            var persen=0;
+            var data=[];
+            var amounts=[];
+            this.service.getDataUnit(this.dateFrom,this.dateTo)
+            .then(data => {
+                this.data = data;
+                for( var price of data) { 
+                    pricetotals += price.pricetotal;
+                }
+                this.pricetotals=pricetotals;
+                
+                for( var item of data) { 
+                    if(item.pricetotal!=0 && this.pricetotals!=0)
+                    {
+                        this.persen= ((item.pricetotal*100)/this.pricetotals).toFixed(2);
                     }
                     this.pricetotals = pricetotals;
 
@@ -49,23 +56,26 @@ export class List {
                         percentagetotal += parseFloat(p);
                     }
                     this.percentage = percentage;
-                    this.percentagetotal = (percentagetotal).toFixed(2);
+                    this.percentagetotal = Math.round(percentagetotal).toFixed(2);
                     this.amounts = amounts;
                     var y = this.pricetotals.toFixed(4).toString().split('.');
                     var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     this.pricetotals = y1 + '.' + y[1];
-                })
+                }
+            }
+            )
+            
         }
     }
 
-    searching() {
-        var pricetotals = 0;
-        var percentage = [];
-        var percentagetotal = 0;
-        var persen = 0;
-        var data = [];
-        var amounts = [];
-        this.service.getByDate(this.dateFrom, this.dateTo)
+    searching(){
+        var pricetotals=0;
+        var percentage=[];
+        var percentagetotal=0;
+        var persen=0;
+        var data=[];
+        var amounts=[];
+        this.service.getDataUnit(this.dateFrom,this.dateTo)
             .then(data => {
                 this.data = data;
                 for (var price of data) {
@@ -90,13 +100,12 @@ export class List {
                     percentagetotal += parseFloat(p);
                 }
                 this.percentage = percentage;
-                this.percentagetotal = (percentagetotal).toFixed(2);
+                this.percentagetotal = Math.round(percentagetotal).toFixed(2);
                 this.amounts = amounts;
                 var y = this.pricetotals.toFixed(4).toString().split('.');
                 var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.pricetotals = y1 + '.' + y[1];
             })
-
     }
 
     view(data, sdate, edate) {
@@ -108,18 +117,6 @@ export class List {
         this.dateTo = "undefined";
     }
 
-    // ExportToExcel(myTable) {
-    //     var fs = require('fs');
-    //     var writeStream = fs.createWriteStream("file.xls");
-
-    //     var header = "Sl No" + "\t" + " Age" + "\t" + "Name" + "\n";
-    //     var row1 = "0" + "\t" + " 21" + "\t" + "Rob" + "\n";
-    //     var row2 = "1" + "\t" + " 22" + "\t" + "bob" + "\n";
-
-    //     writeStream.write(header);
-    //     writeStream.write(row1);
-    //     writeStream.write(row2);
-
-    //     writeStream.close();
-    // }
+    ExportToExcel(myTable){
+    }
 }
