@@ -24,7 +24,7 @@ export class List {
             var persen=0;
             var data=[];
             var amounts=[];
-            this.service.getDetailUnit(this.dateFrom,this.dateTo,"undefined")
+            this.service.getDataUnit(this.dateFrom,this.dateTo)
             .then(data => {
                 this.data = data;
                 for( var price of data) { 
@@ -75,7 +75,7 @@ export class List {
         var persen=0;
         var data=[];
         var amounts=[];
-        this.service.getDetailUnit(this.dateFrom,this.dateTo,"undefined")
+        this.service.getDataUnit(this.dateFrom,this.dateTo)
             .then(data => {
                 this.data = data;
                 for (var price of data) {
