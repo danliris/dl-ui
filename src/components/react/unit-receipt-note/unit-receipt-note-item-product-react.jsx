@@ -37,7 +37,7 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
         this.handleValueChange(value);
     }
     
-    handleRemark(event, remark) {
+    handleRemark(remark) {
         var value = this.state.value;
         value.remark = remark;
         this.handleValueChange(value);
