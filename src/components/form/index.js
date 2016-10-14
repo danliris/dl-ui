@@ -21,6 +21,7 @@ export function configure(config) {
         './auto-suggests/currency-auto-suggest',
         './auto-suggests/delivery-order-by-supplier-unit-auto-suggest',
         './auto-suggests/vat-auto-suggest',
+        './auto-suggests/unit-receipt-note-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',
