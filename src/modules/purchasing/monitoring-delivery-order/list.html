@@ -45,9 +45,9 @@
                     <td>${fulfillment.product.code}</td>
                     <td>${fulfillment.product.name}</td>
                     <td>${fulfillment.product.description}</td>
-                    <td align="right">${fulfillment.purchaseOrderQuantity}</td>   
-                    <td align="right">${fulfillment.deliveredQuantity}</td> 
-                    <td align="right">${fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity}</td> 
+                    <td align="right">${(fulfillment.purchaseOrderQuantity).toLocaleString()}</td>   
+                    <td align="right">${(fulfillment.deliveredQuantity).toLocaleString()}</td> 
+                    <td align="right">${(fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity).toLocaleString()}</td> 
                 </tr> 
             </tbody> 
         </table>

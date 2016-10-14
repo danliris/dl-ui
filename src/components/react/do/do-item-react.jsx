@@ -58,9 +58,10 @@ export default class DoItemReact extends React.Component {
                     purchaseOrder: purchaseOrder,
                     productId: poItem.product._id,
                     product: poItem.product,
-                    purchaseOrderQuantity: poItem.dealQuantity - poItem.realizationQuantity,
+                    purchaseOrderQuantity: poItem.dealQuantity,
                     purchaseOrderUom: poItem.dealUom,
-                    deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
+                    //deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
+                    deliveredQuantity: poItem.dealQuantity - poItem.realizationQuantity,
                     remark: (doFulfillments[index] || {}).remark ? doFulfillments[index].remark : ''
                 }
             });

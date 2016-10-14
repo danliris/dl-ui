@@ -19,9 +19,13 @@ export function configure(config) {
         './auto-suggests/unit-auto-suggest', 
         './auto-suggests/uom-auto-suggest',
         './auto-suggests/currency-auto-suggest',
+        './auto-suggests/delivery-order-by-supplier-unit-auto-suggest',
+        './auto-suggests/vat-auto-suggest',
+        './auto-suggests/unit-receipt-note-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',
-        './po-external/po-external-item-collection'
+        './po-external/po-external-item-collection',
+        './unit-receipt-note/unit-receipt-note-item-collection'
     );
 }
