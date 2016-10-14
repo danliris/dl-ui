@@ -21,7 +21,9 @@ export class App {
       { route: 'po/reports/periode/unit',  name: 'purchase-order-reports-periode-unit', moduleId: './modules/purchasing/reports/purchase-order-report/unit-report/index',     nav: true, title: 'Laporan Total Pembelian per Unit per Periode', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'po/reports/periode/category',  name: 'purchase-order-reports-periode-category', moduleId: './modules/purchasing/reports/purchase-order-report/category-report/index', nav: true, title: 'Laporan Total Pembelian per Kategori per Periode', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'do',                  name: 'delivery-order',                 moduleId: './modules/purchasing/delivery-order/index',                                nav: true, title: 'Surat Jalan', settings: { group:"purchasing", roles:["purchasing"] }},
-      { route: 'do/monitoring',       name: 'delivery-order-monitoring',      moduleId: './modules/purchasing/monitoring-delivery-order/index',                     nav: true, title: 'Monitoring Surat Jalan', settings: { group:"purchasing", roles:["purchasing"] }}
+      { route: 'do/monitoring',       name: 'delivery-order-monitoring',      moduleId: './modules/purchasing/monitoring-delivery-order/index',                     nav: true, title: 'Monitoring Surat Jalan', settings: { group:"purchasing", roles:["purchasing"] }},
+      { route: 'receipt-note/unit',   name: 'receipt-note-unit',                 moduleId: './modules/purchasing/unit-receipt-note/index',                                nav: true, title: 'Bon Terima Unit', settings: { group:"purchasing", roles:["purchasing"] }},
+      { route: 'receipt-note/unit/monitoring',   name: 'receipt-note-unit-monitoring',                 moduleId: './modules/purchasing/unit-receipt-note-monitoring/index',                                nav: true, title: 'Monitoring Bon Terima Unit', settings: { group:"purchasing", roles:["purchasing"] }},
     ];
  
     if (!this.session.isAuthenticated)
