@@ -1,5 +1,4 @@
-<template>
-     
+<template> 
     <div class="display-wrapper">
         <h1 class="page-header">Purchase Order External</h1>
         <br>
@@ -12,7 +11,7 @@
                         <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
                     </span>
                 </div>
-            </div> 
+            </div>
             <div class="col-sm-4">
                 <div class="pull-right">
                     <button class="btn btn-primary" click.delegate="create()">Buat</button>
@@ -20,7 +19,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3" >
+            <div class="col-sm-3">
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Posting</span>
                     <div class="btn-group">
@@ -30,7 +29,7 @@
                     <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
                 </div>
             </div>
-            <div class="col-sm-3" >
+            <!--<div class="col-sm-3" >
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Cetak</span>
                     <div class="btn-group">
@@ -39,7 +38,7 @@
                     </div>
                     <button type="button" class="btn btn-success ${isPrint ? '' : 'hide'}" click.delegate="print()">Cetak</button>
                 </div>
-            </div>
+            </div>-->
         </div>
         <div>
             <table class="table">
@@ -47,10 +46,10 @@
                     <tr>
                         <th class="${isPosting ? '' : 'hide'}"></th>
                         <th class="${isPrint ? '' : 'hide'}"></th>
-                        <th>No. Eksternal PO</th>
-                        <th>No. Ref Eksternal PO</th>
+                        <th>Nomor PO Eksternal</th>
+                        <th>Nomor Ref PO Eksternal</th>
                         <th>Nama Supplier</th>
-                        <th>List Internal PO</th>
+                        <th>Nomor Purcase Request</th>
                         <th style="text-align:center">Status Post</th>
                         <th></th>
                     </tr>
@@ -58,21 +57,24 @@
                 <tbody>
                     <tr repeat.for="item of data">
                         <td class="${isPosting ? '' : 'hide'}">
-                            <input checked.bind="item.isPosting" disabled.bind="item.isPosted != ''" type="checkbox" change.delegate="pushDataToBePosting(item)" />
+                            <input checked.bind="item.isPosting" disabled.bind="item.isPosted != ''" type="checkbox" change.delegate="pushDataToBePosting(item)"
+                            />
                         </td>
                         <td class="${isPrint ? '' : 'hide'}">
-                            <input checked.bind="item.isPrint" disabled.bind="item.isPosted == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                            <input checked.bind="item.isPrint" disabled.bind="item.isPosted == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)"
+                            />
                         </td>
                         <td>${item.no}</td>
                         <td>${item.refNo==''?'-':item.refNo}</td>
                         <td>${item.supplier.name}</td>
                         <td>
                             <ul>
-                            <li repeat.for="po of item.items">${po.no}</li> 
+                                <li repeat.for="po of item.items">${po.purchaseRequest.no}</li>
                             </ul>
                         </td>
                         <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
+                        <td><button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted'>Cetak Pdf</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -80,9 +82,10 @@
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Data purchase order eksternal tidak ditemukan.
         </div>
-    </div><!-- /.display-wrapper -->
-    
-    <div class="print-wrapper a4" repeat.for="data of dataToBePrinting">
+    </div>
+    <!-- /.display-wrapper -->
+
+    <!--<div class="print-wrapper a4" repeat.for="data of dataToBePrinting">
         <div class="row">
             <div class="col-xs-6">
                 <address>
@@ -226,9 +229,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!--<div style="page-break-after:always;page-break-inside: avoid;"></div>-->
-    </div> <!-- /.print-wrapper -->
-    
+        </div>-->
+
+    <!--<div style="page-break-after:always;page-break-inside: avoid;"></div>-->
+    </div>
+    <!-- /.print-wrapper -->
+
 </template>
