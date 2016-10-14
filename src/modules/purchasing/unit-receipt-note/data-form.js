@@ -61,6 +61,8 @@ export class DataForm {
                         _item.product = fulfillment.product;
                         _item.deliveredQuantity = fulfillment.deliveredQuantity;
                         _item.deliveredUom = fulfillment.purchaseOrderUom;
+                        _item.PrNo = fulfillment.purchaseOrder.refNo;
+                        _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
                         _items.push(_item);
                     }
                 }
