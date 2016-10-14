@@ -1,11 +1,12 @@
 <template>
     <h1 class="page-header">Monitoring Bon Terima Unit</h1>
     <form class="form-horizontal">  
-        <unit-receipt-note-auto-suggest                    label="No. Bon Unit"    value.bind="no"         ></unit-receipt-note-auto-suggest>
-        <unit-auto-suggest                              label="Unit"            value.bind="unitId"       ></unit-auto-suggest>
-        <supplier-auto-suggest      label="Supplier"        value.bind="supplierId" ></supplier-auto-suggest>
-        <datepicker-no-default      label="Tanggal Awal"    value.bind="dateFrom"   ></datepicker-no-default>
-        <datepicker-no-default      label="Tanggal Akhir"   value.bind="dateTo"     ></datepicker-no-default> 
+        <unit-receipt-note-auto-suggest label="No. Bon Unit"    value.bind="no"         ></unit-receipt-note-auto-suggest>
+        <unit-auto-suggest              label="Unit"            value.bind="unitId"     ></unit-auto-suggest>
+        <category-auto-suggest          label="Kategori"        value.bind="categoryId" ></category-auto-suggest>
+        <supplier-auto-suggest          label="Supplier"        value.bind="supplierId" ></supplier-auto-suggest>
+        <datepicker-no-default          label="Tanggal Awal"    value.bind="dateFrom"   ></datepicker-no-default>
+        <datepicker-no-default          label="Tanggal Akhir"   value.bind="dateTo"     ></datepicker-no-default> 
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -43,9 +44,9 @@
             <tbody repeat.for="unitReceiptNote of data">  
                 <tr  repeat.for="item of unitReceiptNote.items">
                     <td align="center">${item.index}</td>
-                    <td align="center">${unitReceiptNote.unit.division}</td> 
-                    <td align="center">${unitReceiptNote.category.name}</td> 
-                    <td align="center">${item.PrNo || "-"}</td>  
+                    <td align="center">${item.purchaseOrder.unit.division}</td> 
+                    <td align="center">${item.purchaseOrder.category.name}</td> 
+                    <td align="center">${item.purchaseOrder.no || "-"}</td>  
                     <td align="center">${item.product.code}</td>
                     <td align="center">${item.product.name}</td>
                     <td align="center">${unitReceiptNote.supplier.name}</td>

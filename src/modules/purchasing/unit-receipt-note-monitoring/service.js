@@ -11,8 +11,8 @@ export class Service extends SecureService {
         super(http, aggregator);
     }
 
-    search(no, unitId, supplierId, dateFrom, dateTo) {
-        var endpoint = `${serviceUri}?no=${no}&unitId=${unitId}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    search(no, unitId, categoryId, supplierId, dateFrom, dateTo) {
+        var endpoint = `${serviceUri}?no=${no}&unitId=${unitId}&categoryId=${categoryId}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.get(endpoint);
     }
 
