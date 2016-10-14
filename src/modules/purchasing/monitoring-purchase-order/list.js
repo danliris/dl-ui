@@ -45,4 +45,9 @@ export class List {
         this.dateTo = null;
     }
 
+    exportToXls(poReport) {
+        var htmltable = document.getElementById('poReport');
+        var html = htmltable.outerHTML;
+        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+    } 
 }
