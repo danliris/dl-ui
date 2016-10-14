@@ -21,7 +21,15 @@ export class List {
     search() {
         this.service.search(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
             .then(data => {
+                var counter=1;
                 this.data = data;
+                for(var unitReceiptNote of this.data){
+                    for(var item of unitReceiptNote.items)
+                    {
+                        item.index=counter;
+                        counter++;
+                    }
+                }
             })
     }
     reset() {

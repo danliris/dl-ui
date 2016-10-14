@@ -13,7 +13,6 @@ export class Service extends SecureService {
 
     search(no, unitId, supplierId, dateFrom, dateTo) {
         var endpoint = `${serviceUri}?no=${no}&unitId=${unitId}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
-        console.log(endpoint);
         return super.get(endpoint);
     }
 

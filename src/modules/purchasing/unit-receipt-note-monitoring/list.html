@@ -13,36 +13,49 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
-        <div class="btn-group pull-right" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel(myTable)" class='btn btn-info btn-sm'>Cetak Excel</a>
+        <div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel(myTable)" class='btn btn-primary'>Cetak Excel</a>
         </div> 
         <table class="table table-striped table-hover" border="1" id="myTable">
             <thead align="center">
                 <tr> 
-                    <td>NO. BON UNIT</td> 
-                    <td>TANGGAL BON UNIT</td>
-                    <td>SUPPLIER</td> 
-                    <td>NO. PR</td> 
-                    <td>KODE</td>
-                    <td>NAMA</td>
-                    <td>JUMLAH YANG DIMINTA</td>   
-                    <td>JUMLAH YANG DATANG</td> 
-                    <td>SATUAN</td>
-                    <td>KET.</td> 
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">NO.</th>
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">UNIT</th>
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">KATEGORI</th>
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">NO. PO INTERNAL</th>
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">NAMA BARANG</th>
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">KODE MASTER</th>
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">SUPPLIER</th>
+                    <th style="vertical-align:middle; text-align: center;" colspan="2">BON PENERIMAAN</th>
+                    <th style="vertical-align:middle; text-align: center;" colspan="2">BELI</th> 
+                    <th style="vertical-align:middle; text-align: center;" colspan="2">TERIMA</th>        
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">JUMLAH</th>             
                 </tr> 
+                <tr>
+                    <th style="vertical-align:middle; text-align: center;" >TANGGAL</th>
+                    <th style="vertical-align:middle; text-align: center;" >NOMOR</th>
+                    <th style="vertical-align:middle; text-align: center;" >JUMLAH</th>
+                    <th style="vertical-align:middle; text-align: center;" >SATUAN</th>
+                    <th style="vertical-align:middle; text-align: center;" >JUMLAH</th>
+                    <th style="vertical-align:middle; text-align: center;" >SATUAN</th>
+                </tr>
             </thead> 
             <tbody repeat.for="unitReceiptNote of data">  
-                <tr  repeat.for="item of unitReceiptNote.items">    
-                    <td>${unitReceiptNote.no}</td>
-                    <td>${unitReceiptNote.date  | dateFormat:'D MMM YYYY'}</td>
-                    <td>${unitReceiptNote.supplier.name}</td>
-                    <td>${item.PrNo || "-"}</td>
-                    <td>${item.product.code}</td>
-                    <td>${item.product.name}</td>
-                    <td align="right">${(item.purchaseOrderQuantity || 0).toLocaleString()}</td>   
+                <tr  repeat.for="item of unitReceiptNote.items">
+                    <td align="center">${item.index}</td>
+                    <td align="center">${unitReceiptNote.unit.division}</td> 
+                    <td align="center">${unitReceiptNote.category.name}</td> 
+                    <td align="center">${item.PrNo || "-"}</td>  
+                    <td align="center">${item.product.code}</td>
+                    <td align="center">${item.product.name}</td>
+                    <td align="center">${unitReceiptNote.supplier.name}</td>
+                    <td align="center">${unitReceiptNote.date  | dateFormat:'D MMM YYYY'}</td>
+                    <td align="center">${unitReceiptNote.no}</td>
+                    <td align="right">${(item.purchaseOrderQuantity || 0).toLocaleString()}</td>
+                    <td align="center">${item.deliveredUom.unit}</td>    
                     <td align="right">${(item.deliveredQuantity || 0).toLocaleString()}</td> 
-                    <td>${item.deliveredUom.unit}</td> 
-                    <td>${item.remark}</td>
+                    <td align="center">${item.deliveredUom.unit}</td>  
+                    <td align="right">${(item.purchaseOrderQuantity || 0)-(item.deliveredQuantity || 0)}</td> 
                 </tr> 
             </tbody> 
         </table>
