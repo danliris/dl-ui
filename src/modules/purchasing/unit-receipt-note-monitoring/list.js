@@ -31,5 +31,11 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
     }
+    
+    ExportToExcel(myTable){
+       var htmltable= document.getElementById('myTable');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+    }
 
 }

@@ -12,8 +12,11 @@
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
+        </div>
+        <div class="btn-group pull-right" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel(myTable)" class='btn btn-info btn-sm'>Cetak Excel</a>
         </div> 
-        <table class="table table-striped table-hover" border="1">
+        <table class="table table-striped table-hover" border="1" id="myTable">
             <thead align="center">
                 <tr> 
                     <td>NO. BON UNIT</td> 
