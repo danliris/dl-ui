@@ -1,7 +1,7 @@
 <template>
      
     <div class="display-wrapper">
-        <h1 class="page-header">Unit Receipt Note</h1>
+        <h1 class="page-header">Bon Terima Unit</h1>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -56,16 +56,14 @@
                         <td style="text-align:center">${item.deliveryOrder.no}</td>
                         <td>
                             <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
-                            <a href=${servicePdfUri}${item._id}>
-                                <button class="btn btn-primary" >Cetak</button>
-                            </a>
+                            <button class="btn btn-primary" click.delegate="getPDF(item)">Cetak Pdf</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data bon unit tidak ditemukan.
+            Data bon terima unit tidak ditemukan.
         </div>
     </div>
 </template>

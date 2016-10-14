@@ -39,7 +39,7 @@ export class List {
                 this.data = data;
                 this.newStatus();
             })
-            .catch(e => {  
+            .catch(e => {
                 alert('Data purchase order eksternal tidak ditemukan');
             })
     }
@@ -68,10 +68,10 @@ export class List {
         this.router.navigateToRoute('list');
     }
 
-    view(data) { 
+    view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
-    
+
     create() {
         this.router.navigateToRoute('create');
     }
@@ -94,5 +94,9 @@ export class List {
         for (var item of this.data) {
             item.isPrint = false;
         }
+    }
+
+    getPDF(data) {
+        this.service.getPdfById(data._id);
     }
 }
