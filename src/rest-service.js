@@ -38,10 +38,6 @@ export class RestService {
                 });
         });
 
-        // this.header = {
-        //     "Content-Type": "application/json; charset=UTF-8"
-        // };
-
         this.eventAggregator = EventAggregator;
     }
 
@@ -85,13 +81,28 @@ export class RestService {
         var getRequest = this.http.fetch(endpoint, request)
         this.publish(getRequest);
 
+        return this._downloadFile(getRequest);
+    }
 
-        return getRequest.then(response => {
-            if (response.status == 200)
-                return Promise.resolve(response);
-            else
-                return Promise.reject(new Error('Error downloading csv'));
-        })
+    getPdf(endpoint, header) {
+        var request = {
+            method: 'GET',
+            headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf" }))
+        };
+        var getRequest = this.http.fetch(endpoint, request)
+        this.publish(getRequest);
+        return this._downloadFile(getRequest);
+
+    }
+
+    _downloadFile(request) {
+        return request
+            .then(response => {
+                if (response.status == 200)
+                    return Promise.resolve(response);
+                else
+                    return Promise.reject(new Error('Error downloading file'));
+            })
             .then(response => {
                 return new Promise((resolve, reject) => {
                     response.blob()
@@ -99,9 +110,8 @@ export class RestService {
                             var filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(response.headers.get("Content-Disposition"))[1];
                             filename = filename.replace(/"/g, '');
                             var fileSaver = require('file-saver');
-                            console.log(data.filename);
                             fileSaver.saveAs(blob, filename);
-                            this.publish(getRequest);
+                            this.publish(request);
                             resolve(true);
                         })
                         .catch(e => reject(e));
