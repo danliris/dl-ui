@@ -1,41 +1,43 @@
 <template>
     <h1 class="page-header">Monitoring Surat Jalan</h1>
-    <form class="form-horizontal">  
-        <delivery-order-auto-suggest    label="No. Surat Jalan"     value.bind="no"         ></delivery-order-auto-suggest>
-        <supplier-auto-suggest          label="Supplier"            value.bind="supplierId" ></supplier-auto-suggest>
-        <datepicker-no-default          label="Tanggal Awal"        value.bind="dateFrom"   ></datepicker-no-default>
-        <datepicker-no-default          label="Tanggal Akhir"       value.bind="dateTo"     ></datepicker-no-default> 
+    <form class="form-horizontal">
+        <delivery-order-auto-suggest label="No. Surat Jalan" value.bind="no"></delivery-order-auto-suggest>
+        <supplier-auto-suggest label="Supplier" value.bind="supplierId"></supplier-auto-suggest>
+        <datepicker-no-default label="Tanggal Awal" value.bind="dateFrom"></datepicker-no-default>
+        <datepicker-no-default label="Tanggal Akhir" value.bind="dateTo"></datepicker-no-default>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
-        </div> 
-        <table class="table table-striped table-hover" border="1">
+        </div>
+        <button click.delegate="exportToXls(doReport)" class='btn btn-primary'>Cetak Excel</button>
+        <table class="table table-striped table-hover" border="1" id="doReport">
             <thead align="center">
-                <tr> 
+                <tr>
                     <td colspan="2">SUPPLIER</td>
-                    <td colspan="3">SURAT JALAN</td> 
+                    <td colspan="3">SURAT JALAN</td>
                     <td rowspan="2">NO PO EXTERNAL</td>
-                    <td colspan="6">BARANG</td>
+                    <td colspan="7">BARANG</td>
                 </tr>
-                <tr> 
+                <tr>
                     <td>KODE</td>
-                    <td>NAMA</td> 
+                    <td>NAMA</td>
                     <td>NOMOR</td>
-                    <td>TANGGAL SURAT JALAN</td> 
-                    <td>TANGGAL DATANG BARANG</td> 
+                    <td>TANGGAL SURAT JALAN</td>
+                    <td>TANGGAL DATANG BARANG</td>
                     <td>KODE</td>
                     <td>NAMA</td>
                     <td>DESKRIPSI</td>
-                    <td>JUMLAH YANG DIMINTA</td>   
-                    <td>JUMLAH YANG DATANG</td> 
-                    <td>SISA QTY</td> 
-                </tr> 
-            </thead> 
-            <tbody repeat.for="item of SJ.items">  
-                <tr  repeat.for="fulfillment of item.fulfillments">    
+                    <td>JUMLAH YANG DIMINTA</td>
+                    <td>JUMLAH YANG DATANG</td>
+                    <td>SISA QTY</td>
+                    <td>SATUAN</td>
+                </tr>
+            </thead>
+            <tbody repeat.for="item of SJ.items">
+                <tr repeat.for="fulfillment of item.fulfillments">
                     <td>${SJ.supplier.code}</td>
                     <td>${SJ.supplier.name}</td>
                     <td>${SJ.no}</td>
@@ -45,11 +47,12 @@
                     <td>${fulfillment.product.code}</td>
                     <td>${fulfillment.product.name}</td>
                     <td>${fulfillment.product.description}</td>
-                    <td align="right">${(fulfillment.purchaseOrderQuantity).toLocaleString()}</td>   
-                    <td align="right">${(fulfillment.deliveredQuantity).toLocaleString()}</td> 
-                    <td align="right">${(fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity).toLocaleString()}</td> 
-                </tr> 
-            </tbody> 
+                    <td align="right">${(fulfillment.purchaseOrderQuantity).toLocaleString()}</td>
+                    <td align="right">${(fulfillment.deliveredQuantity).toLocaleString()}</td>
+                    <td align="right">${(fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity).toLocaleString()}</td>
+                    <td>${fulfillment.product.uom.unit}</td>
+                </tr>
+            </tbody>
         </table>
 
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
