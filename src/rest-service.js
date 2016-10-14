@@ -7,9 +7,40 @@ export class RestService {
 
     constructor(HttpClient, EventAggregator) {
         this.http = HttpClient;
-        this.header = {
-            "Content-Type": "application/json; charset=UTF-8"
-        };
+        this.http.configure(config => {
+            config
+                .withDefaults({
+                    headers: {
+                        'Accept': 'application/json',
+                        "Content-Type": "application/json; charset=UTF-0"
+                    }
+                })
+                .withInterceptor({
+                    request(request) {
+                        console.log(`Requesting ${request.method} ${request.url}`);
+                        return request; // you can return a modified Request, or you can short-circuit the request by returning a Response
+                    },
+                    requestError(e) {
+                        console.log(e);
+                    },
+                    response(response) {
+                        // console.log(`Received ${response.status} ${response.url}`);
+                        // if (response.headers.get("Content-Type") == "application/json") {
+                        //     var init = { status: response.status, statusText: response.statusText, headers: response.headers };
+                        //     var data = data;
+                        //     var r = new Response(data, init);
+                        // }
+                        return response; // you can return a modified Response
+                    },
+                    responseError(e) {
+                        console.log(e);
+                    }
+                });
+        });
+
+        // this.header = {
+        //     "Content-Type": "application/json; charset=UTF-8"
+        // };
 
         this.eventAggregator = EventAggregator;
     }
@@ -44,6 +75,38 @@ export class RestService {
                 return this.parseResult(result);
             });
 
+    }
+
+    getXls(endpoint, header) {
+        var request = {
+            method: 'GET',
+            headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/xls" }))
+        };
+        var getRequest = this.http.fetch(endpoint, request)
+        this.publish(getRequest);
+
+
+        return getRequest.then(response => {
+            if (response.status == 200)
+                return Promise.resolve(response);
+            else
+                return Promise.reject(new Error('Error downloading csv'));
+        })
+            .then(response => {
+                return new Promise((resolve, reject) => {
+                    response.blob()
+                        .then(blob => {
+                            var filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(response.headers.get("Content-Disposition"))[1];
+                            filename = filename.replace(/"/g, '');
+                            var fileSaver = require('file-saver');
+                            console.log(data.filename);
+                            fileSaver.saveAs(blob, filename);
+                            this.publish(getRequest);
+                            resolve(true);
+                        })
+                        .catch(e => reject(e));
+                })
+            });
     }
 
     post(endpoint, data, header) {
