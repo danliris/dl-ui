@@ -169,4 +169,7 @@ export class List {
         }
     }
 
+     exportPDF(data) {
+         this.service.getPdfById(data._id );
+     }    
 }
