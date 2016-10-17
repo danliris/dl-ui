@@ -13,6 +13,8 @@ export class SecureService extends RestService {
             config
                 .withDefaults({
                     headers: {
+                        'Accept': 'application/json',
+                        "Content-Type": "application/json; charset=UTF-0",
                         "Authorization": `JWT ${this.session.token}`
                     }
                 }); 
