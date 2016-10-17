@@ -23,9 +23,9 @@ export default class NumericReact extends React.Component {
         this.setState({ value: initialValue, options: options });
     }
 
-    handleValueChange(event) {
+    handleValueChange(event, modelValue, viewValue) {
         event.preventDefault();
-        var value = parseInt(event.target.value);
+        var value = modelValue;// parseInt(event.target.value);
         this.setState({ value: value });
         if (this.props.onChange)
             this.props.onChange(value);
