@@ -2,8 +2,8 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../rest-service';
 import {SecureService} from '../../../utils/secure-service';
- 
-const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals';
+  
+const serviceUri = require('../../../host').core + '/v1/purchasing/receipt-note/unit';
 
 export class Service extends SecureService {
 
@@ -31,19 +31,13 @@ export class Service extends SecureService {
         return super.put(endpoint, data);
     }
     
-    post(data) {
-        var endpoint = require('../../../host').core + '/v1/purchasing/po/externals/post';
-        return super.post(endpoint, data);
-    }
-
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
-    } 
+    }
     
     getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.getPdf(endpoint);
-    }  
-     
+       var endpoint = `${serviceUri}/${id}`;
+       return super.getPdf(endpoint);
+   }
 }
