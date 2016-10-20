@@ -12,9 +12,10 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
 
         this.handleValueChange = this.handleValueChange.bind(this);
 
+        this.handleRemove = this.handleRemove.bind(this);
         this.handlePricePerUnit = this.handlePricePerUnit.bind(this);
         this.handlePriceTotal = this.handlePriceTotal.bind(this);
-        
+
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
@@ -23,6 +24,11 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
         this.setState({ value: value });
         if (this.props.onChange)
             this.props.onChange(value);
+    }
+
+    handleRemove() {
+        if (this.props.onRemove)
+            this.props.onRemove(this.state.value);
     }
 
     handlePricePerUnit(_pricePerUnit) {
@@ -52,6 +58,10 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
         var style = {
             margin: 0 + 'px'
         }
+        var removeButton = null
+
+        if (!this.state.options.readOnly)
+            removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
         return (
             <tr>
                 <td >
@@ -90,6 +100,9 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
                         <NumericReact value={this.state.value.priceTotal} options={this.state.options} onChange={this.handlePriceTotal}/>
                         <span className="help-block">{this.state.error.priceTotal}</span>
                     </div>
+                </td>
+                <td>
+                    {removeButton}
                 </td>
             </tr>
         )
