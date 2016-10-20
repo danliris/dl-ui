@@ -24,6 +24,7 @@ export class App {
       { route: 'do/monitoring',       name: 'delivery-order-monitoring',      moduleId: './modules/purchasing/monitoring-delivery-order/index',                     nav: true, title: 'Monitoring Surat Jalan', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'receipt-note/unit',   name: 'receipt-note-unit',                 moduleId: './modules/purchasing/unit-receipt-note/index',                                nav: true, title: 'Bon Terima Unit', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'receipt-note/unit/monitoring',   name: 'receipt-note-unit-monitoring',                 moduleId: './modules/purchasing/unit-receipt-note-monitoring/index',                                nav: true, title: 'Monitoring Bon Terima Unit', settings: { group:"purchasing", roles:["purchasing"] }},
+      { route: 'unit-payment-note/price-correction',   name: 'unit-payment-price-correction-note',                 moduleId: './modules/purchasing/unit-payment-price-correction-note/index',                                nav: true, title: 'Koreksi Harga Pembelian', settings: { group:"purchasing", roles:["purchasing"] }},
     ];
  
     if (!this.session.isAuthenticated)
