@@ -64,6 +64,14 @@ export class DataForm {
                         _item.purchaseOrder = fulfillment.purchaseOrder;
                         _item.purchaseOrderId = fulfillment.purchaseOrderId;
                         _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
+                        for (var _poItem of fulfillment.purchaseOrder.items)
+                        {
+                            if(_poItem.product._id == fulfillment.product._id)
+                            {
+                                _item.pricePerDealUnit=_poItem.pricePerDealUnit;
+                                break;
+                            }
+                        }
                         _items.push(_item);
                     }
                 }
