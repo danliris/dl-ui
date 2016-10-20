@@ -64,6 +64,8 @@ export class DataForm {
                         _item.purchaseOrder = fulfillment.purchaseOrder;
                         _item.purchaseOrderId = fulfillment.purchaseOrderId;
                         _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
+                        _item.currency = fulfillment.purchaseOrder.currency;
+                        _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
                         for (var _poItem of fulfillment.purchaseOrder.items)
                         {
                             if(_poItem.product._id == fulfillment.product._id)
