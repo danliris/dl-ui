@@ -24,8 +24,8 @@ export class List {
         this.SJ = [];
         this.service.search(this.no ? this.no : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
             .then(data => {
-                this.data = data;
-                for (var SJ of data) {
+                this.data = data.data;
+                for (var SJ of this.data) {
                     this.SJ = SJ;
                     SJ = SJ;
                     for (var item of SJ.items) {

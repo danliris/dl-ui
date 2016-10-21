@@ -94,6 +94,7 @@
     "numeral": "^1.5.3",
     "react": "^15.3.1",
     "react-autosuggest": "^6.0.3",
+    "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.1",
     "react-dynamic-number": "^1.4.0"
   },

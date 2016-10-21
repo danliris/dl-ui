@@ -1,6 +1,8 @@
 
 export function configure(config) {
     config.globalResources(
+        './pagination',
+
         './basic/checkbox',
         './basic/datepicker-no-default',
         './basic/datepicker',
