@@ -1,0 +1,79 @@
+<template> 
+    <div class="display-wrapper">
+        <h1 class="page-header">Purchase Request</h1>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="gray-box">
+                    <span class="control-label padding-right-10">Posting</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingTrue()">Ya</button>
+                        <button type="button" class="btn btn-default" click.delegate="tooglePostingFalse()">Tidak</button>
+                    </div>
+                    <button type="button" class="btn btn-success ${isPosting ? '' : 'hide'}" click.delegate="posting()">Posting</button>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="${isPosting ? '' : 'hide'}"></th>
+                        <th class="${isPrint ? '' : 'hide'}"></th>
+                        <th>Unit</th>
+                        <th>Kategori</th>
+                        <th>Tanggal PR</th>
+                        <th>Nomor PR</th>
+                        <th>Tanggal Diminta Datang</th>
+                        <th>Staff Pembelian</th>
+                        <th style="text-align:center">Status Post</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td class="${isPosting ? '' : 'hide'}">
+                            <input checked.bind="item.isPosting" disabled.bind="item.isPosted != ''" type="checkbox" change.delegate="pushDataToBePosting(item)"
+                            />
+                        </td>
+                        <td class="${isPrint ? '' : 'hide'}">
+                            <input checked.bind="item.isPrint" disabled.bind="item.isPosted == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)"
+                            />
+                        </td>
+                        <td style="text-align:center">${item.unit.division}</td>
+                        <td style="text-align:center">${item.category.name}</td>
+                        <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center">${item.no}</td>
+                        <td style="text-align:center">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center">${item._createdBy}</td>
+                        <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
+                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
+                        <td><button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted'>Cetak Pdf</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Data purchase request tidak ditemukan.
+        </div>
+    </div>
+    </div>
+
+</template>
