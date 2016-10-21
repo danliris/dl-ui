@@ -6,7 +6,6 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -18,38 +17,40 @@ export class DataForm {
     }
 
     bind() {
-        // if (this.data && this.data.supplier)
-        //     this.data.supplier.toString = function () {
-        //         return this.code + " - " + this.name;
-        //     };
+        if (this.data)
+            this.flag = true;
+            else
+            this.flag=false;
     }
 
     unitPaymentOrderChanged(e) {
         var selectedPaymentOrder = e.detail || {};
-        if (selectedPaymentOrder._id) {
+        if (selectedPaymentOrder) {
             this.data.unitPaymentOrderId = selectedPaymentOrder._id;
+            var _items = []
+            for (var unitPaymentOrder of selectedPaymentOrder.items) {
 
-            var _item = []
-            for (var unitReceiptNote of selectedPaymentOrder.unitReceiptNote.items) {
-                var unitPaymentPriceCorrectionNoteItem = {};
+                for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
 
-                for (var unitReceiptNoteItem of unitReceiptNote.items) {
+                    var unitPaymentPriceCorrectionNoteItem = {};
                     unitPaymentPriceCorrectionNoteItem.purchaseOrderExternalId = unitReceiptNoteItem.purchaseOrder.purchaseOrderExternalId;
                     unitPaymentPriceCorrectionNoteItem.purchaseOrderExternal = unitReceiptNoteItem.purchaseOrder.purchaseOrderExternal;
                     unitPaymentPriceCorrectionNoteItem.purchaseRequestId = unitReceiptNoteItem.purchaseOrder.purchaseRequestId;
                     unitPaymentPriceCorrectionNoteItem.purchaseRequest = unitReceiptNoteItem.purchaseOrder.purchaseRequest;
-                    unitPaymentPriceCorrectionNoteItem.product = unitReceiptNote.product;
-                    unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNote.deliveredQuantity;
-                    unitPaymentPriceCorrectionNoteItem.uom = unitReceiptNote.deliveredUom;
-                    unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNote.pricePerDealUnit;
-                    unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNote.pricePerDealUnit * unitReceiptNote.deliveredQuantity;
+                    unitPaymentPriceCorrectionNoteItem.product = unitReceiptNoteItem.product;
+                    unitPaymentPriceCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
+                    unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                    unitPaymentPriceCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
+                    unitPaymentPriceCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
+                    unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+                    unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                     unitPaymentPriceCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
                     unitPaymentPriceCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
 
-                    _item.push(unitPaymentPriceCorrectionNoteItem);
+                    _items.push(unitPaymentPriceCorrectionNoteItem);
                 }
             }
-            this.data.items = _item;
+            this.data.items = _items;
         }
     }
 } 
