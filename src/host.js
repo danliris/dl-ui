@@ -1,5 +1,5 @@
 module.exports = {
-    //core: "http://127.0.0.1:9080"
+    // core: "http://127.0.0.1:9080"
     core: "http://dl-core-api-dev.mybluemix.net"
     ,
     // auth: "http://127.0.0.1:9070"
