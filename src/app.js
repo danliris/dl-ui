@@ -7,9 +7,9 @@ export class App {
     this.session = session;
   }
 
-  configureRouter(config, router) { 
+  configureRouter(config, router) {
     config.title = '';
-    var routes = [
+    var routes = [ 
       { route: ['', 'Welcome'], name: 'welcome', moduleId: './welcome', nav: false, title: '' }, 
       { route: 'buyers',              name: 'buyers',                         moduleId: './modules/master/buyer/index',                                             nav: true, title: 'Buyer', settings: { group:"master", roles:["admin"] }},
       { route: 'suppliers',           name: 'suppliers',                      moduleId: './modules/master/supplier/index',                                          nav: true, title: 'Supplier', settings: { group:"master", roles:["admin"] }},
@@ -24,9 +24,14 @@ export class App {
       { route: 'do/monitoring',       name: 'delivery-order-monitoring',      moduleId: './modules/purchasing/monitoring-delivery-order/index',                     nav: true, title: 'Monitoring Surat Jalan', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'receipt-note/unit',   name: 'receipt-note-unit',                 moduleId: './modules/purchasing/unit-receipt-note/index',                                nav: true, title: 'Bon Terima Unit', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'receipt-note/unit/monitoring',   name: 'receipt-note-unit-monitoring',                 moduleId: './modules/purchasing/unit-receipt-note-monitoring/index',                                nav: true, title: 'Monitoring Bon Terima Unit', settings: { group:"purchasing", roles:["purchasing"] }},
+<<<<<<< HEAD
       { route: 'unit-payment-note/price-correction',   name: 'unit-payment-price-correction-note',                 moduleId: './modules/purchasing/unit-payment-price-correction-note/index',                                nav: true, title: 'Koreksi Harga Pembelian', settings: { group:"purchasing", roles:["purchasing"] }},
+=======
+      { route: 'unit-payment-order', name: 'unit-payment-order', moduleId: './modules/purchasing/unit-payment-order/index', nav: true, title: 'Surat Perintah Bayar', settings: { group: "purchasing", roles: ["purchasing"] } },
+      { route: 'pr',                  name: 'purchase-request',                 moduleId: './modules/purchasing/purchase-request/index',                                nav: true, title: 'Purchase Request', settings: { group:"purchasing", roles:["purchasing"] }},
+>>>>>>> upstream/dev
     ];
- 
+
     if (!this.session.isAuthenticated)
       routes = [
         { route: ['', 'login'], name: 'login', moduleId: './login', nav: false, title: 'login' }
