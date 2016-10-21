@@ -55,7 +55,7 @@ export class View {
                 this.dateTo=dateTo;
                 this.unit=id;
                 this.amounts=amounts;
-                var y= this.pricetotals.toFixed(4).toString().split('.');
+                var y= this.pricetotals.toFixed(2).toString().split('.');
                 var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.pricetotals= y1 + '.' + y[1];
             })
