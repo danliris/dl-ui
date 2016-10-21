@@ -30,7 +30,7 @@ export class DataForm {
             this.data.unitPaymentOrderId = selectedPaymentOrder._id;
 
             var _item = []
-            for (var unitReceiptNote of selectedPaymentOrder.items) {
+            for (var unitReceiptNote of selectedPaymentOrder.unitReceiptNote.items) {
                 var unitPaymentPriceCorrectionNoteItem = {};
 
                 for (var unitReceiptNoteItem of unitReceiptNote.items) {
