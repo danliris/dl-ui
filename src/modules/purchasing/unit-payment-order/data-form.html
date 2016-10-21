@@ -1,0 +1,19 @@
+<template>
+    <form class="form-horizontal">
+        <unit-auto-suggest                              label="Unit"                        value.bind="data.unit"                  error.bind="error.unit"             read-only.bind="(readOnly || isEdit)"   change.delegate="unitChanged($event)"></unit-auto-suggest>
+        <textbox                                        label="No. Nota Intern"             value.bind="data.no"                    error.bind="error.no"               read-only.bind="readOnly"></textbox>
+        <datepicker                                     label="Tanggal Nota Intern"         value.bind="data.date"                  error.bind="error.date"             read-only.bind="readOnly"></datepicker>
+        <supplier-auto-suggest                          label="Supplier"                    value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
+        <textbox                                        label="No. Invoice"                 value.bind="data.invoceNo"              error.bind="error.invoceNo"         read-only.bind="readOnly"></textbox>
+        <datepicker                                     label="Tanggal Invoice"             value.bind="data.invoceDate"            error.bind="error.invoceDate"       read-only.bind="readOnly"></datepicker> 
+        <textbox                                        label="No. Faktur Pajak (PPN)"      value.bind="data.incomeTaxNo"           error.bind="error.incomeTaxNo"      read-only.bind="readOnly"></textbox>
+        <datepicker                                     label="Tanggal Faktur Pajak (PPN)"  value.bind="data.incomeTaxDate"         error.bind="error.incomeTaxDate"    read-only.bind="readOnly"></datepicker> 
+        <textbox                                        label="No. Faktur Pajak (PPH)"      value.bind="data.vatNo"                 error.bind="error.vatNo"            read-only.bind="readOnly"></textbox>
+        <datepicker                                     label="Tanggal Faktur Pajak (PPH)"  value.bind="data.vatDate"               error.bind="error.vatDate"          read-only.bind="readOnly"></datepicker>
+        <datepicker                                     label="Tanggal Jatuh Tempo"         value.bind="data.dueDate"               error.bind="error.dueDate"             read-only.bind="readOnly"></datepicker>
+        <numeric                                        label="Rate PPH"                    value.bind="data.vatRate"               error.bind="error.vatRate"          read-only.bind="readOnly"></numeric> 
+        <multiline                                      label="Keterangan"                  value.bind="data.remark"                error.bind="error.remark"           read-only.bind="readOnly"></multiline>
+        <hr />
+        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.unitId && data.supplierId"></unit-payment-order-item-collection>
+    </form>
+</template>

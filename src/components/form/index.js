@@ -28,6 +28,8 @@ export function configure(config) {
         './do/do-item-collection',
         './po/po-item-collection',
         './po-external/po-external-item-collection',
-        './unit-receipt-note/unit-receipt-note-item-collection'
+        './unit-receipt-note/unit-receipt-note-item-collection',
+        './unit-payment-order/unit-payment-order-item-collection'
+        
     );
 }
