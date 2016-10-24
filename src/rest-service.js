@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {HttpClient, json} from 'aurelia-fetch-client';
-import {EventAggregator} from 'aurelia-event-aggregator';
+import { inject } from 'aurelia-framework';
+import { HttpClient, json } from 'aurelia-fetch-client';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 @inject(HttpClient, EventAggregator)
 export class RestService {
@@ -17,7 +17,7 @@ export class RestService {
                 })
                 .withInterceptor({
                     request(request) {
-                        console.log(`Requesting ${request.method} ${request.url}`);
+                        // console.log(`Requesting ${request.method} ${request.url}`);
                         return request; // you can return a modified Request, or you can short-circuit the request by returning a Response
                     },
                     requestError(e) {
@@ -53,6 +53,34 @@ export class RestService {
                 resolve(result.data)
             }
         });
+    }
+
+    list(endpoint, info, header) {
+
+        var params = [];
+        // if (!info.keyword)
+        //     delete info.keyword;
+
+        for (var key in info) { 
+            if(info[key])
+                params.push(`${encodeURIComponent(key)}=${encodeURIComponent(info[key])}`)
+        } 
+
+        var request = {
+            method: 'GET',
+            headers: new Headers(Object.assign({}, this.header, header))
+        };
+
+        var getRequest = this.http.fetch(`${endpoint}?${params.join("&")}`, request);
+        this.publish(getRequest);
+        return getRequest
+            .then(response => {
+                return response.json();
+            })
+            .then(result => {
+                this.publish(getRequest);
+                return result;
+            });
     }
 
     get(endpoint, header) {
