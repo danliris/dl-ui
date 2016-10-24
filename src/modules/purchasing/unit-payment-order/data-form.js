@@ -7,6 +7,8 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
+    termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
+
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -34,7 +36,7 @@ export class DataForm {
                     supplierId: this.data.supplierId
                 };
         }
-        
+
     }
 
     unitChanged(e) {
@@ -43,12 +45,16 @@ export class DataForm {
             this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
             if (this.data.unitId && this.data.supplierId)
                 this.filter = {
-                    unitId: this.data.unitId, 
+                    unitId: this.data.unitId,
                     supplierId: this.data.supplierId
-                     
+
                 };
         }
     }
+    vatChanged(e) {
+        var selectedVat = e.detail;
+        if (selectedVat)
+            this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
+    }
 
-    
 } 
