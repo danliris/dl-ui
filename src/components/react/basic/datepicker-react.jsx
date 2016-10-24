@@ -36,14 +36,8 @@ export default class DatePickerReact extends React.Component {
             var locale = 'id-ID';
             var moment = require('moment');
             moment.locale(locale);
-
-            if (this.state.options.format != null)
                 return (
                     <p className="form-control-static">{moment(new Date(this.state.value)).format(this.state.options.format) }</p>
-                );
-            else
-                return (
-                    <p className="form-control-static">{moment(new Date(this.state.value)) }</p>
                 );
         }
         else
