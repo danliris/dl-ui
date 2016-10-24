@@ -8,7 +8,7 @@ export class App {
   }
 
   configureRouter(config, router) {
-    config.title = '';
+    config.title = ''; 
     var routes = [ 
       { route: ['', 'Welcome'], name: 'welcome', moduleId: './welcome', nav: false, title: '' }, 
       { route: 'buyers',              name: 'buyers',                         moduleId: './modules/master/buyer/index',                                             nav: true, title: 'Buyer', settings: { group:"master", roles:["admin"] }},
