@@ -41,10 +41,11 @@ export class List {
         this.dateTo = null;
     }
     
-    ExportToExcel(myTable){
-       var htmltable= document.getElementById('myTable');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+    ExportToExcel(){
+    //    var htmltable= document.getElementById('myTable');
+    //    var html = htmltable.outerHTML;
+    //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+    this.service.generateExcel(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
     }
 
 }
