@@ -32,10 +32,20 @@ export default class DatePickerReact extends React.Component {
     }
 
     render() {
-        if (this.state.options.readOnly)
-            return (
-                <p className="form-control-static">{(this.state.value || '').toString() }</p>
-            );
+        if (this.state.options.readOnly) {
+            var locale = 'id-ID';
+            var moment = require('moment');
+            moment.locale(locale);
+
+            if (this.state.options.format != null)
+                return (
+                    <p className="form-control-static">{moment(new Date(this.state.value)).format(this.state.options.format) }</p>
+                );
+            else
+                return (
+                    <p className="form-control-static">{moment(new Date(this.state.value)) }</p>
+                );
+        }
         else
             return (
                 <input type="date" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>
