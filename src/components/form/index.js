@@ -4,7 +4,6 @@ export function configure(config) {
         './pagination',
 
         './basic/checkbox',
-        './basic/datepicker-no-default',
         './basic/datepicker',
         './basic/dropdown',
         './basic/multiline',
@@ -15,21 +14,24 @@ export function configure(config) {
         './auto-suggests/auto-suggest',
         './auto-suggests/category-auto-suggest',
         './auto-suggests/delivery-order-auto-suggest',
-        './auto-suggests/po-auto-suggest', 
-        './auto-suggests/po-unposted-auto-suggest', 
+        './auto-suggests/po-auto-suggest',
+        './auto-suggests/po-unposted-auto-suggest',
         './auto-suggests/supplier-auto-suggest',
-        './auto-suggests/unit-auto-suggest', 
+        './auto-suggests/unit-auto-suggest',
         './auto-suggests/uom-auto-suggest',
         './auto-suggests/currency-auto-suggest',
         './auto-suggests/delivery-order-by-supplier-unit-auto-suggest',
         './auto-suggests/vat-auto-suggest',
         './auto-suggests/unit-receipt-note-auto-suggest',
         './auto-suggests/budget-auto-suggest',
+        './auto-suggests/unit-payment-order-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',
         './po-external/po-external-item-collection',
         './unit-receipt-note/unit-receipt-note-item-collection',
+        './unit-payment-order/unit-payment-order-item-collection',
         './pr/pr-item-collection',
+        './unit-payment-price-correction-note/unit-payment-price-correction-note-collection'
     );
 }
