@@ -38,7 +38,7 @@ export class List {
                         this.persen=0;
                     }
                     percentage.push(this.persen);
-                    var x= item.pricetotal.toFixed(4).toString().split('.');
+                    var x= item.pricetotal.toFixed(2).toString().split('.');
                     var x1=x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     var amount= x1 + '.' + x[1];
                     amounts.push(amount);
