@@ -1,6 +1,6 @@
 <template>
     <form class="form-horizontal">
-        <textbox                label="No. Referensi PO"                value.bind="data.refNo"                 error.bind="error.refNo"                read-only.bind="readOnly"></textbox>
+        <!--<textbox                label="No. Referensi PO"                value.bind="data.refNo"                 error.bind="error.refNo"                read-only.bind="readOnly"></textbox>-->
         <supplier-auto-suggest  label="Supplier"                        value.bind="data.supplier"              error.bind="error.supplierId"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
         <datepicker             label="Tgl"                             value.bind="data.date"                  error.bind="error.date"                 read-only.bind="readOnly"></datepicker>
         <datepicker             label="Tgl. Delivery"                   value.bind="data.expectedDeliveryDate"  error.bind="error.expectedDeliveryDate" read-only.bind="readOnly"></datepicker>
