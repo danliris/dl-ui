@@ -45,9 +45,7 @@ export class List {
         this.dateTo = null;
     }
 
-    exportToXls(poReport) {
-        var htmltable = document.getElementById('poReport');
-        var html = htmltable.outerHTML;
-        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+    exportToXls() {
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo);
     } 
 }
