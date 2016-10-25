@@ -119,5 +119,6 @@ export class List {
 
     ExportToExcel(){
        this.service.generateExcel(this.dateFrom, this.dateTo);
+       this.service.generateExcel2(this.dateFrom, this.dateTo,"undefined");
     }
 }

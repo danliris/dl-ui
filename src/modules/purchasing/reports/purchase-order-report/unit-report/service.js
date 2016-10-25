@@ -27,4 +27,9 @@ export class Service extends SecureService {
         return super.getXls(endpoint);
     }
 
+  generateExcel2(sdate,edate,unit) {
+        var endpoint = `${serviceUri}/${unit}?dateFrom=${sdate}&dateTo=${edate}`;
+        return super.getXls(endpoint);
+    }
+
 }
