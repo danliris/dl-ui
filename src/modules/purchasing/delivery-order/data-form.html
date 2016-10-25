@@ -1,7 +1,7 @@
 <template>
     <form class="form-horizontal">
         <textbox                label="Nomor Surat Jalan"   value.bind="data.no"                error.bind="error.no"                 read-only.bind="readOnly"></textbox>
-        <datepicker             label="Tgl. Surat Jalan"    value.bind="data.supplierDoDate"    error.bind="error.supplierDoDate"     read-only.bind="readOnly"></datepicker> 
+        <datepicker             label="Tgl. Surat Jalan"    value.bind="data.supplierDoDate"    error.bind="error.supplierDoDate"     read-only.bind="readOnly" format="DD MMMM YYYY"></datepicker> 
         <datepicker             label="Tgl. Tiba"           value.bind="data.date"              error.bind="error.date"               read-only.bind="readOnly"></datepicker>
         <supplier-auto-suggest  label="Supplier"            value.bind="data.supplier"          error.bind="error.supplier"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
         <multiline              label="Keterangan"          value.bind="data.remark"            error.bind="error.remark"             read-only.bind="readOnly"></multiline>
