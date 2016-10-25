@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Dan Liris UI with Aurelia",
   "main": "dist/electron.js",
+  "engines": {
+    "node": "6.3.0",
+    "npm": "3.10.9"
+  },
   "productName": "Aurelia Electron",
   "scripts": {
     "test": "cross-env NODE_ENV=test ./node_modules/karma/bin/karma start test/karma.conf.js",
