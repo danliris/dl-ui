@@ -64,6 +64,8 @@ export class List {
     ExportToExcel(myTable){
        var htmltable= document.getElementById('myTable');
        var html = htmltable.outerHTML;
+       htmltable.download= "report.xls";
        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+       
     }
 }

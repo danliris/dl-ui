@@ -4,7 +4,6 @@ export function configure(config) {
         './pagination',
 
         './basic/checkbox',
-        './basic/datepicker-no-default',
         './basic/datepicker',
         './basic/dropdown',
         './basic/multiline',
