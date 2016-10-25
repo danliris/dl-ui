@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="btn-group pull-left" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel(myTable)" class='btn btn-primary'>Cetak Excel</a>
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
         </div> 
         <table class="table table-striped table-hover" border="1" id="myTable">
             <thead align="center">
@@ -25,12 +25,12 @@
                     <th style="vertical-align:middle; text-align: center;" rowspan="2">KATEGORI</th>
                     <th style="vertical-align:middle; text-align: center;" rowspan="2">NO. PO INTERNAL</th>
                     <th style="vertical-align:middle; text-align: center;" rowspan="2">NAMA BARANG</th>
-                    <th style="vertical-align:middle; text-align: center;" rowspan="2">KODE MASTER</th>
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">KODE BARANG</th>
                     <th style="vertical-align:middle; text-align: center;" rowspan="2">SUPPLIER</th>
                     <th style="vertical-align:middle; text-align: center;" colspan="2">BON PENERIMAAN</th>
                     <th style="vertical-align:middle; text-align: center;" colspan="2">BELI</th> 
                     <th style="vertical-align:middle; text-align: center;" colspan="2">TERIMA</th>        
-                    <th style="vertical-align:middle; text-align: center;" rowspan="2">JUMLAH</th>             
+                    <th style="vertical-align:middle; text-align: center;" rowspan="2">JUMLAH (+/-/0)</th>             
                 </tr> 
                 <tr>
                     <th style="vertical-align:middle; text-align: center;" >TANGGAL</th>
@@ -44,9 +44,9 @@
             <tbody repeat.for="unitReceiptNote of data">  
                 <tr  repeat.for="item of unitReceiptNote.items">
                     <td align="center">${item.index}</td>
-                    <td align="center">${item.purchaseOrder.unit.division}</td> 
+                    <td align="center">${item.purchaseOrder.unit.division} - ${item.purchaseOrder.unit.subDivision}</td> 
                     <td align="center">${item.purchaseOrder.category.name}</td> 
-                    <td align="center">${item.purchaseOrder.no || "-"}</td>  
+                    <td align="center">${item.purchaseOrder.refNo || "-"}</td>  
                     <td align="center">${item.product.code}</td>
                     <td align="center">${item.product.name}</td>
                     <td align="center">${unitReceiptNote.supplier.name}</td>
