@@ -61,7 +61,7 @@
                         <td style="text-align:center">${item.category.name}</td>
                         <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.no}</td>
-                        <td style="text-align:center">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center">${item.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item._createdBy}</td>
                         <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
