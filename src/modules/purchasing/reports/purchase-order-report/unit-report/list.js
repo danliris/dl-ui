@@ -117,6 +117,7 @@ export class List {
         this.dateTo = "undefined";
     }
 
-    ExportToExcel(myTable){
+    ExportToExcel(){
+       this.service.generateExcel(this.dateFrom, this.dateTo);
     }
 }

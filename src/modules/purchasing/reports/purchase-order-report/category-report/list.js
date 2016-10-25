@@ -61,11 +61,10 @@ export class List {
         this.dateTo = "undefined";
     }
 
-    ExportToExcel(myTable){
-       var htmltable= document.getElementById('myTable');
-       var html = htmltable.outerHTML;
-       htmltable.download= "report.xls";
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-       
+    ExportToExcel(){
+    //    var htmltable= document.getElementById('myTable');
+    //    var html = htmltable.outerHTML;
+    //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+       this.service.generateExcel(this.dateFrom, this.dateTo);
     }
 }
