@@ -15,6 +15,7 @@ export class Datepicker {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) format;
 
     reactComponent = {};
     constructor(element) {
@@ -28,6 +29,11 @@ export class Datepicker {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        if (this.format)
+            this.options.format = this.format;
+        else
+            this.options.format = "DD MMMM YYYY";
+        
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
                 <DatePickerReact value={this.value} onChange={this.handleValueChange} options={this.options} />
@@ -37,9 +43,6 @@ export class Datepicker {
     }
 
     bind() {
-        if(this.value==undefined)
-            this.value= moment().format('YYYY-MM-DD');
-        // console.log(this.value);
         this.render();
     }
 

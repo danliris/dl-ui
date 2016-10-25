@@ -11,9 +11,7 @@ export class List {
         this.today = new Date();
     } 
 
-
     activate() {
-        
     }
 
     searching(){
@@ -50,13 +48,12 @@ export class List {
                     percentagetotal+=parseFloat(p);
                 }
                 this.percentage=percentage;
-                this.percentagetotal=(percentagetotal).toFixed(2);
+                this.percentagetotal=Math.round(percentagetotal).toFixed(2);
                 this.amounts=amounts;
-                var y= this.pricetotals.toFixed(4).toString().split('.');
+                var y= this.pricetotals.toFixed(2).toString().split('.');
                 var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.pricetotals= y1 + '.' + y[1];
             })
-            
     }
 
     reset() {
@@ -64,4 +61,9 @@ export class List {
         this.dateTo = "undefined";
     }
 
+    ExportToExcel(myTable){
+       var htmltable= document.getElementById('myTable');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+    }
 }

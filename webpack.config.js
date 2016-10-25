@@ -87,7 +87,6 @@ switch (ENV) {
 
       require('@easy-webpack/config-env-production')
         ({ compress: true }),
-
       require('@easy-webpack/config-aurelia')
         ({ root: rootDir, src: srcDir, title: title, baseUrl: baseUrl }),
 
@@ -173,5 +172,7 @@ switch (ENV) {
     );
     break;
 }
+
+
 
 module.exports = config;

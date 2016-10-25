@@ -50,20 +50,20 @@ export class View {
                     percentagetotal+=parseFloat(p);
                 }
                 this.percentage=percentage;
-                this.percentagetotal=(percentagetotal).toFixed(2);
+                this.percentagetotal=Math.round(percentagetotal).toFixed(2);
                 this.dateFrom=dateFrom;
                 this.dateTo=dateTo;
                 this.unit=id;
                 this.amounts=amounts;
-                var y= this.pricetotals.toFixed(4).toString().split('.');
+                var y= this.pricetotals.toFixed(2).toString().split('.');
                 var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.pricetotals= y1 + '.' + y[1];
             })
     }
 
-    list()
+    list(sdate,edate)
     {
-        this.router.navigateToRoute('list');
+        this.router.navigateToRoute('list', { sdate:this.dateFrom, edate:this.dateTo });
     }
 
 }

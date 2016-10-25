@@ -10,7 +10,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.today = new Date(); 
+        this.today = new Date();
     }
     attached() {
     }
@@ -18,14 +18,14 @@ export class List {
     activate() {
 
     }
- 
+
 
     search() {
-        this.SJ=[];
+        this.SJ = [];
         this.service.search(this.no ? this.no : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
             .then(data => {
-                this.data = data;
-                for (var SJ of data) { 
+                this.data = data.data;
+                for (var SJ of this.data) {
                     this.SJ = SJ;
                     SJ = SJ;
                     for (var item of SJ.items) {
@@ -38,6 +38,12 @@ export class List {
         this.supplier = "undefined";
         this.dateFrom = null;
         this.dateTo = null;
+    }
+
+    exportToXls(doReport) {
+        var htmltable = document.getElementById('doReport');
+        var html = htmltable.outerHTML;
+        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
     }
 
 }

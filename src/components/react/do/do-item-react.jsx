@@ -48,7 +48,7 @@ export default class DoItemReact extends React.Component {
 
     init(props) {
         var value = props.value;
-        var doFulfillments = value.fulfillments ||[];
+        var doFulfillments = value.fulfillments || [];
         var poExternal = value.purchaseOrderExternal || {};
         var poCollection = poExternal.items || [];
         var fulfillments = [].concat.apply([], poCollection.map((purchaseOrder, index) => {
@@ -58,9 +58,10 @@ export default class DoItemReact extends React.Component {
                     purchaseOrder: purchaseOrder,
                     productId: poItem.product._id,
                     product: poItem.product,
-                    purchaseOrderQuantity: poItem.dealQuantity - poItem.realizationQuantity,
+                    purchaseOrderQuantity: poItem.dealQuantity,
                     purchaseOrderUom: poItem.dealUom,
-                    deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
+                    //deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
+                    deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
                     remark: (doFulfillments[index] || {}).remark ? doFulfillments[index].remark : ''
                 }
             });
@@ -91,7 +92,7 @@ export default class DoItemReact extends React.Component {
         var removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
         if (this.state.options.readOnly)
             removeButton = <span></span>;
-            
+
         if (this.state.showDetail) {
             var items = this.state.value.fulfillments.map((fulfillment, index) => {
                 var itemOptions = { readOnly: true };
@@ -128,7 +129,7 @@ export default class DoItemReact extends React.Component {
                         <tbody>
                             <tr>
                                 <td width="90%">
-                                <div className={`form-group ${this.state.error.purchaseOrderExternal ? 'has-error' : ''}`}>
+                                    <div className={`form-group ${this.state.error.purchaseOrderExternal ? 'has-error' : ''}`}>
                                         <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} options={this.state.options} onChange={this.handleValueChange}/>
                                         <span className="help-block">{this.state.error.purchaseOrderExternal}</span>
                                     </div>

@@ -82,6 +82,7 @@
     "aurelia-templating-router": "^1.0.0",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
+    "file-saver": "^1.3.3",
     "font-awesome": "^4.6.3",
     "horsey": "^4.2.2",
     "isomorphic-fetch": "^2.2.1",
@@ -93,6 +94,7 @@
     "numeral": "^1.5.3",
     "react": "^15.3.1",
     "react-autosuggest": "^6.0.3",
+    "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.1",
     "react-dynamic-number": "^1.4.0"
   },
