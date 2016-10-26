@@ -4,4 +4,4 @@ module.exports = {
     ,
     // auth: "http://127.0.0.1:9070"
     auth: "http://dl-auth-api-dev.mybluemix.net" 
-}
+} 

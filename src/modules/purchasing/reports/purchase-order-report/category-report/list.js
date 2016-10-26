@@ -38,7 +38,7 @@ export class List {
                         this.persen=0;
                     }
                     percentage.push(this.persen);
-                    var x= item.pricetotal.toFixed(4).toString().split('.');
+                    var x= item.pricetotal.toFixed(2).toString().split('.');
                     var x1=x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     var amount= x1 + '.' + x[1];
                     amounts.push(amount);
@@ -61,9 +61,10 @@ export class List {
         this.dateTo = "undefined";
     }
 
-    ExportToExcel(myTable){
-       var htmltable= document.getElementById('myTable');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+    ExportToExcel(){
+    //    var htmltable= document.getElementById('myTable');
+    //    var html = htmltable.outerHTML;
+    //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+       this.service.generateExcel(this.dateFrom, this.dateTo);
     }
 }
