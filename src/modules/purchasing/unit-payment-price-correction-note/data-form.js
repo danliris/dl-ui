@@ -6,6 +6,10 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+
+    priceCorrectionTypes = ["Harga Satuan", "Harga Total"];
+    priceCorrectionType = "Harga Satuan";
+    pricePerUnitCorrectionReadOnly = false;
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -17,17 +21,22 @@ export class DataForm {
     }
 
     bind() {
-        if (this.data)
+        if (this.data) {
             this.flag = true;
-            else
-            this.flag=false;
+            if (this.data.priceCorrectionType == "Harga Satuan")
+                    this.pricePerUnitCorrectionReadOnly = false;
+                else if (this.data.priceCorrectionType == "Harga Total")
+                    this.pricePerUnitCorrectionReadOnly = true;
+        }
+        else
+            this.flag = false;
     }
 
     unitPaymentOrderChanged(e) {
         var selectedPaymentOrder = e.detail || {};
         if (selectedPaymentOrder && !this.readOnly) {
-            if(!this.readOnly)
-                this.data.items=[];
+            if (!this.readOnly)
+                this.data.items = [];
             this.data.unitPaymentOrderId = selectedPaymentOrder._id;
             var _items = []
             for (var unitPaymentOrder of selectedPaymentOrder.items) {
@@ -54,8 +63,22 @@ export class DataForm {
             }
             this.data.items = _items;
         }
-        else{
-            this.data.items=[];
+        else {
+            this.data.items = [];
         }
+    }
+
+    priceCorrectionTypeChanged(e) {
+        if (e.srcElement) {
+            if (e.srcElement.value) {
+                this.data.priceCorrectionType = e.srcElement.value;
+                if (this.data.priceCorrectionType == "Harga Satuan")
+                    this.pricePerUnitCorrectionReadOnly = false;
+                else if (this.data.priceCorrectionType == "Harga Total")
+                    this.pricePerUnitCorrectionReadOnly = true;
+            }
+        }
+        
+        console.log(this.pricePerUnitCorrectionReadOnly);
     }
 } 

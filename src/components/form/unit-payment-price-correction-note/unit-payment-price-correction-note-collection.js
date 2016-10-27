@@ -13,6 +13,7 @@ export class  UnitPaymentPriceCorrectionNoteCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) priceReadOnly;
 
     reactComponent = {};
     constructor(element) {
@@ -21,6 +22,10 @@ export class  UnitPaymentPriceCorrectionNoteCollection {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        if (this.priceReadOnly)
+            this.options.priceReadOnly = this.priceReadOnly;
+        else
+            this.options.priceReadOnly = false;
         this.reactComponent = ReactDOM.render(
             <UnitPaymentPriceCorrectionNoteCollectionReact value={this.value} error={this.error} options={this.options}></UnitPaymentPriceCorrectionNoteCollectionReact>,
             this.element
@@ -55,4 +60,7 @@ export class  UnitPaymentPriceCorrectionNoteCollection {
         this.bind();
     }
 
+    priceReadOnlyChanged(newVal) {
+        this.bind();
+    }
 }
