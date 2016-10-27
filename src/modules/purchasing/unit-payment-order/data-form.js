@@ -20,6 +20,14 @@ export class DataForm {
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
+    @computedFrom("data.vatNo")
+    get isUseVat() {
+        return this.data.vatNo.trim().length > 0;
+    }
+    @computedFrom("data.incomeTaxNo")
+    get isUseIncomeTax() {
+        return this.data.incomeTaxNo.trim().length > 0;
+    }
 
     bind() {
         if (this.data && this.data.supplier)
