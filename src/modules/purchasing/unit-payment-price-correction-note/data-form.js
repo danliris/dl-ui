@@ -25,7 +25,9 @@ export class DataForm {
 
     unitPaymentOrderChanged(e) {
         var selectedPaymentOrder = e.detail || {};
-        if (selectedPaymentOrder) {
+        if (selectedPaymentOrder && !this.readOnly) {
+            if(!this.readOnly)
+                this.data.items=[];
             this.data.unitPaymentOrderId = selectedPaymentOrder._id;
             var _items = []
             for (var unitPaymentOrder of selectedPaymentOrder.items) {
@@ -51,6 +53,9 @@ export class DataForm {
                 }
             }
             this.data.items = _items;
+        }
+        else{
+            this.data.items=[];
         }
     }
 } 

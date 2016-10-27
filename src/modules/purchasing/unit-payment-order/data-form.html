@@ -18,6 +18,6 @@
         <datepicker                                     label="Tanggal Jatuh Tempo"         value.bind="data.dueDate"               error.bind="error.dueDate"          read-only.bind="readOnly"></datepicker>
         <multiline                                      label="Keterangan"                  value.bind="data.remark"                error.bind="error.remark"           read-only.bind="readOnly"></multiline>
         <hr />
-        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.unitId && data.supplierId"></unit-payment-order-item-collection>
+        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.unitId || data.supplierId"></unit-payment-order-item-collection>
     </form>
 </template>
