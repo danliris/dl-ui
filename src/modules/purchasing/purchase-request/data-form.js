@@ -13,19 +13,21 @@ export class DataForm {
     }
 
     unitChanged(e) {
-        var unit = e.detail || {};
-        this.data.unitId = unit._id ? unit._id : "";
+        var selectedUnit = e.detail || {};
+        if (selectedUnit)
+            this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
     }
 
     
     budgetChanged(e) {
-        var budget = e.detail || {};
-        this.data.budgetId = budget._id ? budget._id : "";
+        var selectedbudget = e.detail || {};
+        this.data.budgetId = selectedbudget._id ? selectedbudget._id : "";
     }
 
     categoryChanged(e) {
-        var category = e.detail || {};
-        this.data.categoryId = category._id ? category._id : "";
+        var selectedcategory = e.detail || {};
+        if (selectedcategory)
+            this.data.categoryId = selectedcategory._id ? selectedcategory._id : "";
     }
 
     removeItem(item) {
