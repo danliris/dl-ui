@@ -9,7 +9,6 @@ export class List {
     dataToBePosting = [];
     dataToBePrinting = [];
 
-    
     isPrint = false;
     isPosting = false;
 
@@ -21,13 +20,15 @@ export class List {
     }
 
     activate() {
-        this.showAll()
+        this.showAll();
+        
     }
 
     showAll() {
         this.service.search('')
             .then(data => {
                 this.data = data;
+                
                 this.newStatus();
             })
 
