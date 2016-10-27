@@ -7,11 +7,13 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
+
+
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
-        this.element = element;
+        this.element = element; 
     }
 
     @computedFrom("data._id")
@@ -61,5 +63,8 @@ export class DataForm {
         if (selectedVat)
             this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
     }
+
+    
+
 
 } 
