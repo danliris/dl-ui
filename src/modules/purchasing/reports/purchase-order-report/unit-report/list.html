@@ -27,10 +27,10 @@
             </thead>
             <tbody>
                 <tr repeat.for="item of data" click.delegate="view(item,dateFrom,dateTo)">
-                    <td class="text-center">${$index + 1}</td>
-                    <td class="text-center">${item._id}</td>
-                    <td class="text-center">${amounts[$index]}</td>
-                    <td class="text-center">${percentage[$index]}%</td>
+                    <td class="text-center"> <a> ${$index + 1}</a></td>
+                    <td class="text-center"> <a> ${item._id}</a> </td>
+                    <td class="text-center"> <a>${amounts[$index]}</a></td>
+                    <td class="text-center"> <a>${percentage[$index]}%</a></td>
                 </tr>
             </tbody>
             <tfoot if.bind="data.length > 0">
