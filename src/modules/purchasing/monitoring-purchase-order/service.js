@@ -19,6 +19,11 @@ export class Service extends SecureService {
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
+    }
+    
+    generateExcel(unitId, categoryId, PODLNo, PRNo, supplierId, dateFrom, dateTo) { 
+        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&PODLNo=${PODLNo}&PRNo=${PRNo}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        return super.getXls(endpoint);
     }  
     
 }

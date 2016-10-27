@@ -11,6 +11,9 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
+        <div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
         <br>
         <table class="table table-bordered table-hover" id="myTable">
             <thead>
@@ -46,7 +49,5 @@
         </span>
         <hr/>
     </form>
-    <!--<div class="btn-group pull-right" if.bind="data.length > 0">
-        <a click.delegate="ExportToExcel(myTable)" class='btn btn-info btn-sm'>Excel</a>
-    </div>-->
+    
 </template>
