@@ -34,6 +34,7 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
     handlePricePerUnit(_pricePerUnit) {
         var value = this.state.value;
         value.pricePerUnit = _pricePerUnit;
+        value.priceTotal = value.pricePerUnit * value.quantity;
         this.handleValueChange(value);
     }
 
@@ -58,6 +59,14 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
         var style = {
             margin: 0 + 'px'
         }
+        if (this.state.options.readOnly) {
+            var pricePerUnitReadOnlyOptions = Object.assign({}, this.state.options, { readOnly: this.state.options.readOnly });
+            var priceTotalReadOnlyOptions = Object.assign({}, this.state.options, { readOnly: this.state.options.readOnly });
+        } else {
+            var pricePerUnitReadOnlyOptions = Object.assign({}, this.state.options, { readOnly: this.state.options.priceReadOnly });
+            var priceTotalReadOnlyOptions = Object.assign({}, this.state.options, { readOnly: !this.state.options.priceReadOnly });
+        }
+
         var removeButton = null
 
         if (!this.state.options.readOnly)
@@ -91,13 +100,13 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.pricePerUnit ? 'has-error' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.pricePerUnit} options={this.state.options} onChange={this.handlePricePerUnit}/>
+                        <NumericReact value={this.state.value.pricePerUnit} options={pricePerUnitReadOnlyOptions} onChange={this.handlePricePerUnit}/>
                         <span className="help-block">{this.state.error.pricePerUnit}</span>
                     </div>
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.priceTotal ? 'has-error' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.priceTotal} options={this.state.options} onChange={this.handlePriceTotal}/>
+                        <NumericReact value={this.state.value.priceTotal} options={priceTotalReadOnlyOptions} onChange={this.handlePriceTotal}/>
                         <span className="help-block">{this.state.error.priceTotal}</span>
                     </div>
                 </td>

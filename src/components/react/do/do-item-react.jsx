@@ -51,22 +51,40 @@ export default class DoItemReact extends React.Component {
         var doFulfillments = value.fulfillments || [];
         var poExternal = value.purchaseOrderExternal || {};
         var poCollection = poExternal.items || [];
-        var fulfillments = [].concat.apply([], poCollection.map((purchaseOrder, index) => {
-            var doItemFulfillments = (purchaseOrder.items || []).map((poItem, index) => {
-                return {
+        // var fulfillments = [].concat.apply([], poCollection.map((purchaseOrder, index) => {
+        //     var doItemFulfillments = (purchaseOrder.items || []).map((poItem, index) => {
+        //         return {
+        //             purchaseOrderId: purchaseOrder._id,
+        //             purchaseOrder: purchaseOrder,
+        //             productId: poItem.product._id,
+        //             product: poItem.product,
+        //             purchaseOrderQuantity: poItem.dealQuantity,
+        //             purchaseOrderUom: poItem.dealUom,
+        //             //deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
+        //             deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
+        //             remark: (doFulfillments[index] || {}).remark ? doFulfillments[index].remark : ''
+        //         }
+        //     });
+        //     return doItemFulfillments;
+        // }));
+        var fulfillments=[];
+        for (var purchaseOrder of poCollection)
+        {
+            for(var poItem of purchaseOrder.items)
+            {
+                var fulfillment={
                     purchaseOrderId: purchaseOrder._id,
                     purchaseOrder: purchaseOrder,
                     productId: poItem.product._id,
                     product: poItem.product,
                     purchaseOrderQuantity: poItem.dealQuantity,
                     purchaseOrderUom: poItem.dealUom,
-                    //deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
-                    deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
-                    remark: (doFulfillments[index] || {}).remark ? doFulfillments[index].remark : ''
-                }
-            });
-            return doItemFulfillments;
-        }));
+                    deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
+                    remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
+                };
+                fulfillments.push(fulfillment);
+            }
+        }
 
         value.fulfillments = fulfillments;
 

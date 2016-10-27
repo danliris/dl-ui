@@ -28,6 +28,11 @@ export class DataForm {
         var selectedSupplier = e.detail;
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
+            if (!this.readOnly) {
+                this.data.items = [];
+                this.data.deliveryOrder = {};
+                this.deliveryOrderChanged({});
+            }
             if (this.data.unitId && this.data.supplierId)
                 this.filter = {
                     unitId: this.data.unitId,
@@ -40,6 +45,11 @@ export class DataForm {
         var selectedUnit = e.detail || {};
         if (selectedUnit) {
             this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
+            if (!this.readOnly) {
+                this.data.items = [];
+                this.data.deliveryOrder = {};
+                this.deliveryOrderChanged({});
+            }
             if (this.data.unitId && this.data.supplierId)
                 this.filter = {
                     unitId: this.data.unitId,
@@ -66,11 +76,9 @@ export class DataForm {
                         _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
                         _item.currency = fulfillment.purchaseOrder.currency;
                         _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
-                        for (var _poItem of fulfillment.purchaseOrder.items)
-                        {
-                            if(_poItem.product._id == fulfillment.product._id)
-                            {
-                                _item.pricePerDealUnit=_poItem.pricePerDealUnit;
+                        for (var _poItem of fulfillment.purchaseOrder.items) {
+                            if (_poItem.product._id == fulfillment.product._id) {
+                                _item.pricePerDealUnit = _poItem.pricePerDealUnit;
                                 break;
                             }
                         }
@@ -80,5 +88,7 @@ export class DataForm {
             }
             this.data.items = _items;
         }
+        else
+            this.data.items = [];
     }
 } 
