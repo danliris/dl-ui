@@ -10,20 +10,15 @@ export class View {
         this.service = service;
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
 
-        this.service.getById(id).then(data => {
-            this.data = data;
-
-            if (this.data.items) {
-                this.data.items.forEach(item => {
-                    item.showDetails = false
-                })
-            }
-            
-        console.log(this.data);
-        })
+        this.data = await this.service.getById(id);
+        if (this.data.items) {
+            this.data.items.forEach(item => {
+                item.showDetails = false
+            })
+        }
     }
 
     list() {
