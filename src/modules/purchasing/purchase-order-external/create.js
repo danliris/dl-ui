@@ -10,7 +10,11 @@ export class Create {
         this.service = service;
         this.data = {};
     }
-
+    
+    activate() {
+        this.data.paymentDueDays =  0;
+    }
+    
     back() {
         this.router.navigateToRoute('list');
     }

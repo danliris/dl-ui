@@ -26,7 +26,7 @@ export class List {
     showAll() {
         this.service.search('')
             .then(data => {
-                this.data = data; 
+                this.data = data;
             })
 
         this.keyword = ''
@@ -35,12 +35,12 @@ export class List {
     searching() {
         this.service.search(this.keyword)
             .then(data => {
-                this.data = data; 
+                this.data = data;
             })
             .catch(e => {
                 alert('Data tidak ditemukan');
             })
-    } 
+    }
 
     back() {
         this.router.navigateToRoute('list');
@@ -52,5 +52,8 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
-    } 
+    }
+    getPDF(data) {
+        this.service.getPdfById(data._id);
+    }
 }

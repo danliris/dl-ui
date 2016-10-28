@@ -46,7 +46,7 @@
                     <tr>
                         <th class="${isPosting ? '' : 'hide'}"></th>
                         <th class="${isPrint ? '' : 'hide'}"></th>
-                        <th>Nomor PO Eksternal</th> 
+                        <th>Nomor PO Eksternal</th>
                         <th>Tanggal PO Eksternal </th>
                         <th>Nama Supplier</th>
                         <th>Nomor Purcase Request</th>
@@ -64,7 +64,7 @@
                             <input checked.bind="item.isPrint" disabled.bind="item.isPosted == ''" type="checkbox" change.delegate="pushDataToBePrinting(item)"
                             />
                         </td>
-                        <td>${item.no}</td> 
+                        <td>${item.no}</td>
                         <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td>${item.supplier.name}</td>
                         <td>
@@ -236,3 +236,4 @@
     <!-- /.print-wrapper -->
 
 </template>
+Contact GitHub 
