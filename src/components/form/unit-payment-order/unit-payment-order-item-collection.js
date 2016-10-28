@@ -42,7 +42,6 @@ export class UnitPaymentOrderItemCollection {
             this.options.filter = this.filter;
         else
             this.options.filter = null;
-            console.log(this.value);
         this.reactComponent = ReactDOM.render(
             <UnitPaymentOrderItemCollectionReact value={this.value} error={this.error} options = {this.options}></UnitPaymentOrderItemCollectionReact>,
             this.element

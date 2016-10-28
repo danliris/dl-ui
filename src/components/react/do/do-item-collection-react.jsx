@@ -31,7 +31,6 @@ export default class DoItemCollectionReact extends React.Component {
     
     handleItemChange(doItem) { 
         var i = this.state.value[0] == doItem;
-        // console.log(i);
         this.setState({ value: this.state.value });
     }
     

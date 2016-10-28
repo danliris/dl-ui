@@ -71,9 +71,6 @@ UnitReceipNoteBySupplierUnitAutoSuggestReact.defaultProps = {
         suggestions:
         function (text, filter) {
             var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
-            console.log(serviceUri);
-            console.log(uri);
-            console.log(filter);
             var session = new Session();
             var requestHeader = new Headers();
             requestHeader.append('Authorization', `JWT ${session.token}`);

@@ -43,7 +43,6 @@ export class List {
                         _data.productUom = item.dealUom.unit ? item.dealUom.unit : "-";
                         _data.pricePerUnit = PO.purchaseOrderExternal.currencyRate ? (item.pricePerDealUnit * PO.purchaseOrderExternal.currencyRate) : 0;
                         _data.priceTotal = PO.purchaseOrderExternal.currencyRate ? (item.pricePerDealUnit * item.dealQuantity * PO.purchaseOrderExternal.currencyRate) : 0;
-                        console.log(_data.pricePerUnit);
                         _data.supplierCode = PO.supplier.code ? PO.supplier.code : "-";
                         _data.supplierName = PO.supplier.name ? PO.supplier.name : "-";
                         _data.poIntDate = moment(new Date(PO.purchaseRequest.date)).format(dateFormat);
