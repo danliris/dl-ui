@@ -10,6 +10,10 @@ export class List {
     dataToBePrinting = [];
     keyword = '';
 
+    today = new Date();
+
+    isPrint = false;
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -23,6 +27,7 @@ export class List {
         this.service.search('')
             .then(data => {
                 this.data = data;
+                this.newStatus();
             })
 
         this.keyword = ''
@@ -32,10 +37,31 @@ export class List {
         this.service.search(this.keyword)
             .then(data => {
                 this.data = data;
+                this.newStatus();
             })
             .catch(e => {
                 alert('Data purchase order eksternal tidak ditemukan');
             })
+    }
+
+    addIsPrint() {
+        this.dataToBePrinting = [];
+        for (var poExternal of this.data) {
+            poExternal.isPrint = false;
+        }
+    }
+
+    pushDataToBePrinting(item) {
+
+        if (item.isPrint) {
+            this.dataToBePrinting.push(item);
+        }
+        else {
+            var index = this.dataToBePrinting.indexOf(item);
+            this.dataToBePrinting.splice(index, 1);
+        }
+
+        this.calculateTotal();
     }
 
     back() {
@@ -48,6 +74,26 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    tooglePrintTrue() {
+        this.isPrint = true;
+
+        this.newStatus();
+    }
+
+    tooglePrintFalse() {
+        this.isPrint = false;
+
+        this.newStatus();
+    }
+
+    newStatus() {
+        this.dataToBePrinting = [];
+
+        for (var item of this.data) {
+            item.isPrint = false;
+        }
     }
 
     getPDF(data) {
