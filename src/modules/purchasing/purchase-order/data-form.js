@@ -19,23 +19,12 @@ export class DataForm {
 
     attached() {
 
-        // this.bindingEngine.propertyObserver(this.data, "buyer").subscribe((newValue, oldValue) => {
-        //     this.data.buyer = newValue;
-        //     this.data.buyerId = newValue._id;
-        // });
-
-        // this.bindingEngine.propertyObserver(this.data, "RefPONo").subscribe((newValue, oldValue) => {
-        //     if (!this.data.isSplit) {
-        //         this.data.PRNo = newValue;
-        //     }
-        // });
-
         if (this.data.isSplit) {
             this.splitPO();
         }
     }
     bind() {
-        
+
     }
     splitPO() {
         for (var item of this.data.items) {
@@ -44,7 +33,7 @@ export class DataForm {
     }
 
     addItem() {
-        
+
     }
 
     removeItem(item) {
