@@ -1,24 +1,30 @@
 <template>
     <form class="form-horizontal">
-        <unit-auto-suggest                              label="Unit"                        value.bind="data.unit"                  error.bind="error.unit"             read-only.bind="(readOnly || isEdit)"   change.delegate="unitChanged($event)"></unit-auto-suggest>
-        <supplier-auto-suggest                          label="Supplier"                    value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"               change.delegate="supplierChanged($event)"></supplier-auto-suggest>
-        <category-auto-suggest                          label="Kategori"                    value.bind="data.category"              error.bind="error.category"         read-only.bind="readOnly"   change.delegate="categoryChanged($event)"></category-auto-suggest>
-        <dropdown                                       label="Term Pembayaran"             value.bind="data.paymentMethod"         error.bind="error.paymentMethod"    read-only.bind="readOnly"   items.bind="termPaymentOptions"  change.delegate="paymentMethodChanged($event)"></dropdown>
-        <currency-auto-suggest                          label="Mata Uang"                   value.bind="data.currency"              error.bind="error.currency"         read-only.bind="readOnly"   change.delegate="currencyChanged($event)"></currency-auto-suggest>
-        <checkbox                                       label="Apakah kena Pph?"            value.bind="isUseVat"                   error.bind="error.useVat"           read-only.bind="readOnly"></checkbox>
-        <vat-auto-suggest                               label="Jenis Pph"                   value.bind="data.vat"                   error.bind="error.vat"              read-only.bind="readOnly"   change.delegate="vatChanged($event)" if.bind=isUseVat></vat-auto-suggest>
-        <textbox                                        label="No. Faktur Pajak (PPH)"      value.bind="data.vatNo"                 error.bind="error.vatNo"            read-only.bind="readOnly" if.bind=isUseVat></textbox>
-        <datepicker                                     label="Tanggal Faktur Pajak (PPH)"  value.bind="data.vatDate"               error.bind="error.vatDate"          read-only.bind="readOnly" if.bind=isUseVat></datepicker>
-        <numeric                                        label="Rate PPH"                    value.bind="data.vatRate"               error.bind="error.vatRate"          read-only.bind="true"   post-fix="%" if.bind=isUseVat></numeric> 
-        <checkbox                                       label="Apakah kena Ppn?"            value.bind="isUseIncomeTax"             error.bind="error.useIncomeTax"     read-only.bind="readOnly" click.delegate=isIncomeTaxChanged()></checkbox>
-        <textbox                                        label="No. Faktur Pajak (PPN)"      value.bind="data.incomeTaxNo"           error.bind="error.incomeTaxNo"      read-only.bind="readOnly" if.bind=isUseIncomeTax></textbox>
-        <datepicker                                     label="Tanggal Faktur Pajak (PPN)"  value.bind="data.incomeTaxDate"         error.bind="error.incomeTaxDate"    read-only.bind="readOnly" if.bind=isUseIncomeTax></datepicker>   
-        <textbox                                        label="No. Nota Intern"             value.bind="data.no"                    error.bind="error.no"               read-only.bind="readOnly"></textbox>
-        <datepicker                                     label="Tanggal Nota Intern"         value.bind="data.date"                  error.bind="error.date"             read-only.bind="readOnly"></datepicker> 
-        <textbox                                        label="No. Invoice"                 value.bind="data.invoceNo"              error.bind="error.invoceNo"         read-only.bind="readOnly"></textbox>
-        <datepicker                                     label="Tanggal Invoice"             value.bind="data.invoceDate"            error.bind="error.invoceDate"       read-only.bind="readOnly"></datepicker> 
-        <datepicker                                     label="Tanggal Jatuh Tempo"         value.bind="data.dueDate"               error.bind="error.dueDate"          read-only.bind="readOnly"></datepicker>
-        <multiline                                      label="Keterangan"                  value.bind="data.remark"                error.bind="error.remark"           read-only.bind="readOnly"></multiline>
+        <div class="row">
+            <div class="col-md-6">
+                <unit-auto-suggest                              label="Unit"                        value.bind="data.unit"                  error.bind="error.unit"             read-only.bind="(readOnly || isEdit)"   change.delegate="unitChanged($event)"></unit-auto-suggest>
+                <supplier-auto-suggest                          label="Supplier"                    value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"               change.delegate="supplierChanged($event)"></supplier-auto-suggest>
+                <category-auto-suggest                          label="Kategori"                    value.bind="data.category"              error.bind="error.category"         read-only.bind="readOnly"   ></category-auto-suggest>
+                <dropdown                                       label="Term Pembayaran"             value.bind="data.paymentMethod"         error.bind="error.paymentMethod"    read-only.bind="readOnly"   items.bind="termPaymentOptions"  change.delegate="paymentMethodChanged($event)"></dropdown>
+                <currency-auto-suggest                          label="Mata Uang"                   value.bind="data.currency"              error.bind="error.currency"         read-only.bind="readOnly"   ></currency-auto-suggest>
+                <textbox                                        label="No. Nota Intern"             value.bind="data.no"                    error.bind="error.no"               read-only.bind="readOnly"></textbox>
+                <datepicker                                     label="Tanggal Nota Intern"         value.bind="data.date"                  error.bind="error.date"             read-only.bind="readOnly"></datepicker> 
+                <textbox                                        label="No. Invoice"                 value.bind="data.invoceNo"              error.bind="error.invoceNo"         read-only.bind="readOnly"></textbox>
+                <datepicker                                     label="Tanggal Invoice"             value.bind="data.invoceDate"            error.bind="error.invoceDate"       read-only.bind="readOnly"></datepicker> 
+                <datepicker                                     label="Tanggal Jatuh Tempo"         value.bind="data.dueDate"               error.bind="error.dueDate"          read-only.bind="readOnly"></datepicker>
+                <multiline                                      label="Keterangan"                  value.bind="data.remark"                error.bind="error.remark"           read-only.bind="readOnly"></multiline>
+            </div>
+            <div class="col-md-6">
+                <checkbox                                       label="Apakah kena Pph?"            value.bind="isUseVat"                   error.bind="error.useVat"           read-only.bind="readOnly"></checkbox>
+                <vat-auto-suggest                               label="Jenis Pph"                   value.bind="data.vat"                   error.bind="error.vat"              read-only.bind="readOnly"   change.delegate="vatChanged($event)" if.bind=isUseVat></vat-auto-suggest>
+                <numeric                                        label="Rate PPH"                    value.bind="data.vatRate"               error.bind="error.vatRate"          read-only.bind="true"   post-fix="%" if.bind=isUseVat></numeric>
+                <textbox                                        label="No. Faktur Pajak (PPH)"      value.bind="data.vatNo"                 error.bind="error.vatNo"            read-only.bind="readOnly" if.bind=isUseVat></textbox>
+                <datepicker                                     label="Tanggal Faktur Pajak (PPH)"  value.bind="data.vatDate"               error.bind="error.vatDate"          read-only.bind="readOnly" if.bind=isUseVat></datepicker>                 
+                <checkbox                                       label="Apakah kena Ppn?"            value.bind="isUseIncomeTax"             error.bind="error.useIncomeTax"     read-only.bind="readOnly" click.delegate=isIncomeTaxChanged()></checkbox>
+                <textbox                                        label="No. Faktur Pajak (PPN)"      value.bind="data.incomeTaxNo"           error.bind="error.incomeTaxNo"      read-only.bind="readOnly" if.bind=isUseIncomeTax></textbox>
+                <datepicker                                     label="Tanggal Faktur Pajak (PPN)"  value.bind="data.incomeTaxDate"         error.bind="error.incomeTaxDate"    read-only.bind="readOnly" if.bind=isUseIncomeTax></datepicker>           
+            </div>
+        </div>                                    
         <hr />
         <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.unitId || data.supplierId"></unit-payment-order-item-collection>
     </form>

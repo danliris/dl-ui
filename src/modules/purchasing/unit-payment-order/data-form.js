@@ -20,20 +20,26 @@ export class DataForm {
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
-    @computedFrom("data.vatNo")
-    get isUseVat() {
-        return this.data.vatNo.trim().length > 0;
-    }
-    @computedFrom("data.incomeTaxNo")
-    get isUseIncomeTax() {
-        return this.data.incomeTaxNo.trim().length > 0;
-    }
+    isUseVat = false;
+    isUseIncomeTax = false;
+
+    // @computedFrom("data.vatNo")
+    // get isUseVat() {
+
+    //     return (this.data.vatNo||'').trim().length > 0;
+    // }
+    // @computedFrom("data.incomeTaxNo")
+    // get isUseIncomeTax() {
+    //     return (this.data.incomeTaxNo||'').trim().length > 0;
+    // }
 
     bind() {
         if (this.data && this.data.supplier)
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
+        this.isUseVat = (this.data.vatNo||'').trim().length > 0;
+        this.isUseIncomeTax = (this.data.incomeTaxNo||'').trim().length > 0;
     }
 
     supplierChanged(e) {
@@ -51,7 +57,6 @@ export class DataForm {
         }
 
     }
-
     unitChanged(e) {
         var selectedUnit = e.detail || {};
         if (selectedUnit) {
@@ -66,6 +71,7 @@ export class DataForm {
                 };
         }
     }
+    
     vatChanged(e) {
         var selectedVat = e.detail;
         if (selectedVat)
