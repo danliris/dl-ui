@@ -22,11 +22,11 @@ export class DataForm {
     }
     @computedFrom("data.vatNo")
     get isUseVat() {
-        return this.data.vatNo.trim().length > 0;
+        return (this.data.vatNo||'').trim().length > 0;
     }
     @computedFrom("data.incomeTaxNo")
     get isUseIncomeTax() {
-        return this.data.incomeTaxNo.trim().length > 0;
+        return (this.data.incomeTaxNo||'').trim().length > 0;
     }
 
     bind() {
@@ -51,7 +51,6 @@ export class DataForm {
         }
 
     }
-
     unitChanged(e) {
         var selectedUnit = e.detail || {};
         if (selectedUnit) {
@@ -66,6 +65,7 @@ export class DataForm {
                 };
         }
     }
+    
     vatChanged(e) {
         var selectedVat = e.detail;
         if (selectedVat)
