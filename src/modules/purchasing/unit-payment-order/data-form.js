@@ -13,7 +13,7 @@ export class DataForm {
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
-        this.element = element; 
+        this.element = element;
     }
 
     @computedFrom("data._id")
@@ -38,17 +38,17 @@ export class DataForm {
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
-        this.isUseVat = (this.data.vatNo||'').trim().length > 0;
-        this.isUseIncomeTax = (this.data.incomeTaxNo||'').trim().length > 0;
+        this.isUseVat = (this.data.vatNo || '').trim().length > 0;
+        this.isUseIncomeTax = (this.data.incomeTaxNo || '').trim().length > 0;
     }
 
     supplierChanged(e) {
         var selectedSupplier = e.detail;
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
-            
-            if(!this.readOnly)
-                this.data.items=[];
+
+            if (!this.readOnly)
+                this.data.items = [];
             if (this.data.unitId && this.data.supplierId)
                 this.filter = {
                     unitId: this.data.unitId,
@@ -61,8 +61,8 @@ export class DataForm {
         var selectedUnit = e.detail || {};
         if (selectedUnit) {
             this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
-            if(!this.readOnly)
-                this.data.items=[];
+            if (!this.readOnly)
+                this.data.items = [];
             if (this.data.unitId && this.data.supplierId)
                 this.filter = {
                     unitId: this.data.unitId,
@@ -71,14 +71,14 @@ export class DataForm {
                 };
         }
     }
-    
+
     vatChanged(e) {
         var selectedVat = e.detail;
         if (selectedVat)
             this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
     }
 
-    
+
 
 
 } 
