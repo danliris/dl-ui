@@ -42,14 +42,14 @@
                    <td>${pr.unit}</td>
                    <td>${pr.category}</td>
                    <td>${pr.budget}</td>
-                   <td>${pr.prDate | dateFormat:'D MMM YYYY'}</td>
+                   <td>${pr.prDate}</td>
                    <td>${pr.prNo}</td>
                    <td>${pr.productName}</td>
                    <td>${pr.productCode}</td>
                    <td>${pr.productQty}</td>
                    <td>${pr.productUom}</td>
-                   <td if.bind="item.expectedDeliveryDate!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>
-                   <td if.bind="item.expectedDeliveryDate==''"> - </td>
+                   <td if.bind="pr.expected!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>
+                   <td if.bind="pr.expected==''|| pr.expected=='undefined'"> - </td>
                 </tr>
 </tbody>
 </table>
