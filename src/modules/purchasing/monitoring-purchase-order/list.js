@@ -53,7 +53,7 @@ export class List {
                         _data.remark = PO.purchaseOrderExternal.remark ? PO.purchaseOrderExternal.remark : "-";
                         if (item.fulfillments.length > 0) {
                             for (var fulfillment of item.fulfillments) {
-                                _data.supplierDoDate =fulfillment.supplierDoDate ? moment(new Date(fulfillment.supplierDoDate)).format(dateFormat) : "-";
+                                _data.supplierDoDate = fulfillment.supplierDoDate ? moment(new Date(fulfillment.supplierDoDate)).format(dateFormat) : "-";
                                 _data.doDate = fulfillment.deliveryOderDate ? moment(new Date(fulfillment.deliveryOderDate)).format(dateFormat) : "-";
                                 _data.doNo = fulfillment.deliveryOderNo ? fulfillment.deliveryOderNo : "-";
                                 _data.unitReceiptNoteDate = fulfillment.unitReceiptNoteDate ? moment(new Date(fulfillment.unitReceiptNoteDate)).format(dateFormat) : "-";
