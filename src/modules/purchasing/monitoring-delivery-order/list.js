@@ -44,9 +44,6 @@ export class List {
     }
 
     ExportToExcel() {
-        // var htmltable = document.getElementById('doReport');
-        // var html = htmltable.outerHTML;
-        // window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
         this.service.generateExcel(this.no ? this.no : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
     }
 
