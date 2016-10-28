@@ -63,7 +63,6 @@ export class UomAutoSuggest {
      * 
      */
     valueChanged(newVal) {
-        // console.log(`${this.no} - changed`); 
         this.bind();
 
         var event;
