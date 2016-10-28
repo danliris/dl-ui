@@ -26,7 +26,8 @@ export class App {
       { route: 'receipt-note/unit/monitoring',   name: 'receipt-note-unit-monitoring',                 moduleId: './modules/purchasing/unit-receipt-note-monitoring/index',                                nav: true, title: 'Monitoring Bon Terima Unit', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'unit-payment-note/price-correction',   name: 'unit-payment-price-correction-note',                 moduleId: './modules/purchasing/unit-payment-price-correction-note/index',                                nav: true, title: 'Koreksi Harga Pembelian', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'unit-payment-order', name: 'unit-payment-order', moduleId: './modules/purchasing/unit-payment-order/index', nav: true, title: 'Surat Perintah Bayar', settings: { group: "purchasing", roles: ["purchasing"] } },
-      { route: 'pr',                  name: 'purchase-request',                 moduleId: './modules/purchasing/purchase-request/index',                                nav: true, title: 'Purchase Request', settings: { group:"purchasing", roles:["purchasing"] }},
+      { route: 'pr',                  name: 'purchase-request',                 moduleId: './modules/purchasing/purchase-request/index',                            nav: true, title: 'Purchase Request', settings: { group:"purchasing", roles:["purchasing"] }},
+      { route: 'pr/monitoring',       name: 'purchase-request-monitoring',      moduleId: './modules/purchasing/monitoring-purchase-request/index',                 nav: true, title: 'Monitoring Purchase Request', settings: { group:"purchasing", roles:["purchasing"] }},
     ];
 
     if (!this.session.isAuthenticated)
