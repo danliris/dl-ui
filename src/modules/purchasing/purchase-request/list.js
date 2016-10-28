@@ -5,14 +5,7 @@ import {Router} from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     keyword = '';
-    data = [];
     dataToBePosting = [];
-    dataToBePrinting = [];
-
-    isPrint = false;
-    isPosting = false;
-
-    today = new Date();
 
     constructor(router, service) {
         this.service = service;
@@ -21,29 +14,17 @@ export class List {
 
     activate() {
         this.showAll();
-        
+
     }
 
     showAll() {
         this.service.search('')
             .then(data => {
                 this.data = data;
-                
-                this.newStatus();
             })
-
         this.keyword = ''
     }
 
-    newStatus() {
-        this.dataToBePosting = [];
-        this.dataToBePrinting = [];
-
-        for (var item of this.data) {
-            item.isPosting = false;
-            item.isPrint = false;
-        }
-    }
 
     tooglePostingTrue() {
         this.isPosting = true;
@@ -53,20 +34,6 @@ export class List {
     }
 
     tooglePostingFalse() {
-        this.isPosting = false;
-        this.isPrint = false;
-
-        this.newStatus();
-    }
-
-    tooglePrintTrue() {
-        this.isPosting = false;
-        this.isPrint = true;
-
-        this.newStatus();
-    }
-
-    tooglePrintFalse() {
         this.isPosting = false;
         this.isPrint = false;
 
@@ -89,7 +56,7 @@ export class List {
                 this.data = data;
                 this.newStatus();
             })
-            .catch(e => {  
+            .catch(e => {
                 alert('Data purchase request tidak ditemukan');
             })
     }
@@ -98,34 +65,22 @@ export class List {
         if (this.dataToBePosting.length > 0) {
             this.service.post(this.dataToBePosting).then(result => {
                 this.activate();
-                    this.back();
-                }).catch(e => {
-                    this.error = e;
-                })
+                this.back();
+            }).catch(e => {
+                this.error = e;
+            })
         }
     }
 
-    addIsPrint() {
-        this.dataToBePrinting = [];
-        for (var poExternal of this.data) {
-            poExternal.isPrint = false;
-        }
-    }
-
-    view(data) { 
+    view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
-    
+
     create() {
         this.router.navigateToRoute('create');
     }
 
     exportPDF(data) {
-         this.service.getPdfById(data._id );
-     }  
-      print() {
-        window.print();
-        this.addIsPrint();
+        this.service.getPdfById(data._id);
     }
-
 }
