@@ -14,7 +14,6 @@ export class View {
         var id = params.id;
 
         this.data = await this.service.getById(id);
-        this.data = data;
         if (this.data.expectedDeliveryDate == 'undefined' || this.data.expectedDeliveryDate == "") {
             this.data.expectedDeliveryDate = "-";
         }
