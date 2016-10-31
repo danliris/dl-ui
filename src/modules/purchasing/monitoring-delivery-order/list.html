@@ -38,22 +38,21 @@
                     <td>SATUAN</td>
                 </tr>
             </thead>
-            <tbody repeat.for="SJ of data">
-                <template repeat.for="item of SJ.items">
-                <tr repeat.for="fulfillment of item.fulfillments">
-                    <td>${SJ.supplier.code}</td>
-                    <td>${SJ.supplier.name}</td>
-                    <td>${SJ.no}</td>
-                    <td>${SJ.supplierDoDate.substr(0, 10)}</td>
-                    <td>${SJ.date.substr(0, 10)}</td>
-                    <td>${item.purchaseOrderExternal.no}</td>
-                    <td>${fulfillment.product.code}</td>
-                    <td>${fulfillment.product.name}</td>
-                    <td>${fulfillment.product.description}</td>
-                    <td align="right">${(fulfillment.purchaseOrderQuantity).toLocaleString()}</td>
-                    <td align="right">${(fulfillment.deliveredQuantity).toLocaleString()}</td>
-                    <td align="right">${(fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity).toLocaleString()}</td>
-                    <td>${fulfillment.product.uom.unit}</td>
+            <tbody >
+                <tr repeat.for="SJ of data">
+                    <td>${SJ['Kode Supplier']}</td>
+                    <td>${SJ['Nama Supplier']}</td>
+                    <td>${SJ['Nomor Surat Jalan']}</td>
+                    <td>${SJ['Tanggal Surat Jalan']}</td>
+                    <td>${SJ['Tanggal Datang Barang']}</td>
+                    <td>${SJ['Nomor PO Eksternal']}</td>
+                    <td>${SJ['Kode Barang']}</td>
+                    <td>${SJ['Nama Barang']}</td>
+                    <td>${SJ['Deskripsi Barang']}</td>
+                    <td align="right">${SJ['Jumlah Barang yang Diminta']}</td>
+                    <td align="right">${SJ['Jumlah Barang yang Datang']}</td>
+                    <td align="right">${SJ['Jumlah Sisa Barang']}</td>
+                    <td>${SJ['Satuan Barang']}</td>
                 </tr>
                 </template>
 </tbody>

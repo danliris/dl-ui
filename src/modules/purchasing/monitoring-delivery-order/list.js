@@ -25,15 +25,15 @@ export class List {
         this.service.search(this.no ? this.no : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
-                for (var SJ of this.data) {
-                    this.SJ = SJ;
-                    for (var item of SJ.items) {
-                        this.item = item;
-                        for (var fulfillment of item.fulfillments) {
-                            this.fulfillment = fulfillment;
-                        }
-                    }
-                }
+                // for (var SJ of this.data) {
+                //     this.SJ = SJ;
+                //     for (var item of SJ.items) {
+                //         this.item = item;
+                //         for (var fulfillment of item.fulfillments) {
+                //             this.fulfillment = fulfillment;
+                //         }
+                //     }
+                // }
             })
     }
     reset() {
