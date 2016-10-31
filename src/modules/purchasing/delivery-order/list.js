@@ -4,30 +4,35 @@ import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
+    data = [];
+    info = { page: 1, keyword: '' };
+    
     constructor(router, service) {
         this.service = service;
         this.router = router;
     }
 
-    activate() {
-        this.showAll()
+    async activate() {
+        this.info.keyword = '';
+        var result = await this.service.search(this.info);
+        this.data = result.data;
+        this.info = result.info;
     }
 
-    showAll() {
-        this.service.search('')
-            .then(data => {
-                this.data = data;
+    loadPage() {
+        var keyword = this.info.keyword;
+        this.service.search(this.info)
+            .then(result => {
+                this.data = result.data;
+                this.info = result.info;
+                this.info.keyword = keyword;
             })
     }
 
-    searching() {
-        this.service.search(this.keyword)
-            .then(data => {
-                this.data = data;
-            })
-            .catch(e => {
-                alert('Data surat jalan tidak ditemukan');
-            })
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.loadPage();
     }
 
     back() {
