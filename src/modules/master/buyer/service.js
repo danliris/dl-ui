@@ -12,8 +12,9 @@ export class Service extends SecureService {
     super(http, aggregator);
   }
 
-  search(keyword) {
-    return super.get(serviceUri);
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
   }
 
   getById(id) {
