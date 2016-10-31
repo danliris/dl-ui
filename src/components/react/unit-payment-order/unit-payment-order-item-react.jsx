@@ -98,7 +98,7 @@ export default class UnitPaymentOrderItemReact extends React.Component {
                                 <th width="15%">Barang</th>
                                 <th width="15%">Jumlah</th>
                                 <th width="15%">Satuan</th>
-                                <th width="20%">Harga Invoice</th>
+                                <th width="20%">Harga Satuan</th>
                                 <th width="24%">Total Harga</th>
                             </tr>
                         </thead>
