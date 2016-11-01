@@ -20,8 +20,8 @@ export class DataForm {
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
-    isUseVat = false;
-    isUseIncomeTax = false;
+    // isUseVat = false;
+    // isUseIncomeTax = false;
 
     // @computedFrom("data.vatNo")
     // get isUseVat() {
@@ -38,8 +38,8 @@ export class DataForm {
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
-        this.isUseVat = (this.data.vatNo || '').trim().length > 0;
-        this.isUseIncomeTax = (this.data.incomeTaxNo || '').trim().length > 0;
+        // this.isUseVat = (this.data.vatNo || '').trim().length > 0;
+        // this.isUseIncomeTax = (this.data.incomeTaxNo || '').trim().length > 0;
     }
 
     supplierChanged(e) {
