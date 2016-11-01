@@ -78,7 +78,5 @@ export class DataForm {
                     this.pricePerUnitCorrectionReadOnly = true;
             }
         }
-        
-        console.log(this.pricePerUnitCorrectionReadOnly);
     }
 } 

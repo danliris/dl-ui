@@ -25,6 +25,5 @@ export class Login {
                         this.aurelia.setRoot('app');
                     })
             })
-        // console.log(this.session);
     }
 } 

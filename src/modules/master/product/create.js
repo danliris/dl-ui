@@ -8,7 +8,7 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {"import":true};
+        this.data = { "import": true };
     }
 
     activate(params) {

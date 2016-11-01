@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../rest-service';
 import {SecureService} from '../../../utils/secure-service';
- 
+
 const serviceUri = require('../../../host').core + '/v1/purchasing/po';
 const serviceUriPODL = require('../../../host').core + '/v1/purchasing/po/externals';
 
@@ -12,9 +12,9 @@ export class Service extends SecureService {
         super(http, aggregator);
     }
 
-    search(keyword) {
-        var endpoint = `${serviceUri}?keyword=${keyword}`;
-        return super.get(endpoint);
+    search(info) {
+        var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
     }
 
     getById(id) {
@@ -27,7 +27,7 @@ export class Service extends SecureService {
         return super.post(endpoint, data);
     }
 
-    split(data) { 
+    split(data) {
         var endpoint = require('../../../host').core + '/v1/purchasing/po/split';
         return super.post(endpoint, data);
     }

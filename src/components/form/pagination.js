@@ -42,7 +42,6 @@ export class Pagination {
 
     render() {
         // this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
-        // console.log(this.info)
         var totalPage = Math.ceil(this.info.total / this.info.size);
         this.reactComponent = ReactDOM.render(
             <ReactPagination
@@ -79,8 +78,7 @@ export class Pagination {
      * @returns {void}
      * 
      */
-    infoChanged(newVal) {
-        // console.log(`${this.no} - changed`);  
+    infoChanged(newVal) {  
         this.bind();
     }
 
