@@ -44,10 +44,8 @@ export class DataForm {
                 for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
 
                     var unitPaymentPriceCorrectionNoteItem = {};
-                    unitPaymentPriceCorrectionNoteItem.purchaseOrderExternalId = unitReceiptNoteItem.purchaseOrder.purchaseOrderExternalId;
-                    unitPaymentPriceCorrectionNoteItem.purchaseOrderExternal = unitReceiptNoteItem.purchaseOrder.purchaseOrderExternal;
-                    unitPaymentPriceCorrectionNoteItem.purchaseRequestId = unitReceiptNoteItem.purchaseOrder.purchaseRequestId;
-                    unitPaymentPriceCorrectionNoteItem.purchaseRequest = unitReceiptNoteItem.purchaseOrder.purchaseRequest;
+                    unitPaymentPriceCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
+                    unitPaymentPriceCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
                     unitPaymentPriceCorrectionNoteItem.product = unitReceiptNoteItem.product;
                     unitPaymentPriceCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
                     unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;

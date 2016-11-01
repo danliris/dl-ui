@@ -8,7 +8,8 @@ export class DataForm {
     @bindable error = {};
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
-
+    freightCostByOptions = ['Penjual', 'Pembeli'];
+    
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
