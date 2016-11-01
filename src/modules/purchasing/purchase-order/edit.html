@@ -1,6 +1,6 @@
 <template>
-    <h3 if.bind="!data.isSplit">Ubah Internal PO Tekstil</h1>
-    <h3 if.bind="data.isSplit">Pecah Internal PO Tekstil</h1>
+    <h1 if.bind="!data.isSplit">Ubah Internal PO Tekstil</h1>
+    <h1 if.bind="data.isSplit">Pecah Internal PO Tekstil</h1>
     <require from="./data-form"></require>
     <block>
         <data-form data.bind="data" error.bind="error"></data-form>

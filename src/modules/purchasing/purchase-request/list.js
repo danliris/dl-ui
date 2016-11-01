@@ -5,45 +5,37 @@ import {Router} from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     keyword = '';
-    data = [];
     dataToBePosting = [];
-    dataToBePrinting = [];
-
-    isPrint = false;
-    isPosting = false;
-
-    today = new Date();
+    info = { page: 1, keyword: '' };
 
     constructor(router, service) {
         this.service = service;
         this.router = router;
     }
 
-    activate() {
-        this.showAll();
-        
+    async activate() {
+        this.info.keyword = '';
+        var result = await this.service.search(this.info);
+        this.data = result.data;
+        this.info = result.info;
     }
 
-    showAll() {
-        this.service.search('')
-            .then(data => {
-                this.data = data;
-                
-                this.newStatus();
+    loadPage() {
+        var keyword = this.info.keyword;
+        this.service.search(this.info)
+            .then(result => {
+                this.data = result.data;
+                this.info = result.info;
+                this.info.keyword = keyword;
             })
-
-        this.keyword = ''
     }
 
-    newStatus() {
-        this.dataToBePosting = [];
-        this.dataToBePrinting = [];
-
-        for (var item of this.data) {
-            item.isPosting = false;
-            item.isPrint = false;
-        }
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.loadPage();
     }
+
 
     tooglePostingTrue() {
         this.isPosting = true;
@@ -53,20 +45,6 @@ export class List {
     }
 
     tooglePostingFalse() {
-        this.isPosting = false;
-        this.isPrint = false;
-
-        this.newStatus();
-    }
-
-    tooglePrintTrue() {
-        this.isPosting = false;
-        this.isPrint = true;
-
-        this.newStatus();
-    }
-
-    tooglePrintFalse() {
         this.isPosting = false;
         this.isPrint = false;
 
@@ -83,49 +61,26 @@ export class List {
         }
     }
 
-    searching() {
-        this.service.search(this.keyword)
-            .then(data => {
-                this.data = data;
-                this.newStatus();
-            })
-            .catch(e => {  
-                alert('Data purchase request tidak ditemukan');
-            })
-    }
-
     posting() {
         if (this.dataToBePosting.length > 0) {
             this.service.post(this.dataToBePosting).then(result => {
                 this.activate();
-                    this.back();
-                }).catch(e => {
-                    this.error = e;
-                })
+                this.back();
+            }).catch(e => {
+                this.error = e;
+            })
         }
     }
 
-    addIsPrint() {
-        this.dataToBePrinting = [];
-        for (var poExternal of this.data) {
-            poExternal.isPrint = false;
-        }
-    }
-
-    view(data) { 
+    view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
-    
+
     create() {
         this.router.navigateToRoute('create');
     }
 
     exportPDF(data) {
-         this.service.getPdfById(data._id );
-     }  
-      print() {
-        window.print();
-        this.addIsPrint();
+        this.service.getPdfById(data._id);
     }
-
 }

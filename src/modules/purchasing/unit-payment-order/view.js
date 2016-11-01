@@ -19,10 +19,6 @@ export class View {
                 item.showDetails = false
             })
         }
-        // this.service.getById(id).then(data => {
-        //     this.data = data;
-
-        // })
     }
 
     list() {

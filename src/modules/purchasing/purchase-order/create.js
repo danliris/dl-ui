@@ -9,30 +9,19 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = {};
-        this.error={};
-        // this.error = {
-        //     purchaseRequest:{unit: "unit is required"},
-        //     items: [
-        //         {
-        //             product: "product does not exist"
-        //         },
-        //         {
-        //             defaultQuantity: "default quantity error"
-        //         }
-        //     ]
-        // }
+        this.error = {};
     }
 
     back() {
         this.router.navigateToRoute('list');
     }
 
-    save() {  
+    save() {
         this.service.create(this.data)
             .then(result => {
                 this.back();
             })
-            .catch(e => { 
+            .catch(e => {
                 this.error = e;
             })
     }

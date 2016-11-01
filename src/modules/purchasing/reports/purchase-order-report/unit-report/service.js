@@ -11,8 +11,7 @@ export class Service extends SecureService {
     super(http, aggregator);
   }
 
-  getDataUnit(sdate,edate)
-  {
+  getDataUnit(sdate, edate) {
     var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
     return super.get(endpoint);
   }
@@ -22,14 +21,14 @@ export class Service extends SecureService {
     return super.get(endpoint);
   }
 
-  generateExcel(sdate,edate) {
-        var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-        return super.getXls(endpoint);
-    }
+  generateExcel(sdate, edate) {
+    var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
+    return super.getXls(endpoint);
+  }
 
-  generateExcel2(sdate,edate,unit) {
-        var endpoint = `${serviceUri}/${unit}?dateFrom=${sdate}&dateTo=${edate}`;
-        return super.getXls(endpoint);
-    }
+  generateExcel2(sdate, edate, unit) {
+    var endpoint = `${serviceUri}/${unit}?dateFrom=${sdate}&dateTo=${edate}`;
+    return super.getXls(endpoint);
+  }
 
 }

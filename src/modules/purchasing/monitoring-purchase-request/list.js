@@ -23,6 +23,7 @@ export class List {
         var moment = require('moment');
         moment.locale(locale);
         this.service.search(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "",this.budget ? this.budget._id : "",this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
+
             .then(data => {
                 this.data = data;
                 this.data = [];
@@ -37,7 +38,7 @@ export class List {
                         _data.unit = pr.unit.subDivision;
                         _data.category = pr.category.name;
                         _data.productCode = item.product.code;
-                        _data.budget=pr.budget.name;
+                        _data.budget = pr.budget.name;
                         _data.productQty = item.quantity ? item.quantity : 0;
                         _data.productUom = item.uom.unit ? item.uom.unit : "-";
                         _data.expected = pr.expectedDeliveryDate;
@@ -56,10 +57,7 @@ export class List {
     }
 
     ExportToExcel() {
-        // var htmltable = document.getElementById('doReport');
-        // var html = htmltable.outerHTML;
-        // window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "",this.budget ? this.budget._id : "",this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo);
     }
 
 }

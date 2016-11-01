@@ -60,7 +60,6 @@ export class AutoSuggest {
      * 
      */
     valueChanged(newVal) {
-        // console.log(`${this.no} - changed`); 
         this.bind();
     }
 

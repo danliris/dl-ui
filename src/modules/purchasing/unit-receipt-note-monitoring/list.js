@@ -8,7 +8,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.today = new Date(); 
+        this.today = new Date();
     }
     attached() {
     }
@@ -16,17 +16,16 @@ export class List {
     activate() {
 
     }
- 
+
 
     search() {
         this.service.search(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
             .then(data => {
-                var counter=1;
+                var counter = 1;
                 this.data = data;
-                for(var unitReceiptNote of this.data){
-                    for(var item of unitReceiptNote.items)
-                    {
-                        item.index=counter;
+                for (var unitReceiptNote of this.data) {
+                    for (var item of unitReceiptNote.items) {
+                        item.index = counter;
                         counter++;
                     }
                 }
@@ -40,12 +39,9 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
     }
-    
-    ExportToExcel(){
-    //    var htmltable= document.getElementById('myTable');
-    //    var html = htmltable.outerHTML;
-    //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-    this.service.generateExcel(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
+
+    ExportToExcel() {
+        this.service.generateExcel(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
     }
 
 }
