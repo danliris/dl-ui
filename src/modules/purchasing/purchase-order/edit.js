@@ -5,7 +5,7 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class Edit {
-    
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -29,7 +29,7 @@ export class Edit {
         })
     }
 
-    split() { 
+    split() {
         this.service.split(this.copyForSplit(this.data)).then(result => {
             this.view();
         }).catch(e => {

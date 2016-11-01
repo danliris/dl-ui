@@ -69,7 +69,6 @@ export class DeliveryOrderBySupplierUnitAutoSuggest {
      * 
      */
     valueChanged(newVal) {
-        // console.log(`${this.no} - changed`); 
         this.bind();
 
         var event;

@@ -43,7 +43,6 @@ export class List {
                         _data.productUom = item.dealUom.unit ? item.dealUom.unit : "-";
                         _data.pricePerUnit = PO.purchaseOrderExternal.currencyRate ? (item.pricePerDealUnit * PO.purchaseOrderExternal.currencyRate) : 0;
                         _data.priceTotal = PO.purchaseOrderExternal.currencyRate ? (item.pricePerDealUnit * item.dealQuantity * PO.purchaseOrderExternal.currencyRate) : 0;
-                        console.log(_data.pricePerUnit);
                         _data.supplierCode = PO.supplier.code ? PO.supplier.code : "-";
                         _data.supplierName = PO.supplier.name ? PO.supplier.name : "-";
                         _data.poIntDate = moment(new Date(PO.purchaseRequest.date)).format(dateFormat);
@@ -53,7 +52,7 @@ export class List {
                         _data.remark = PO.purchaseOrderExternal.remark ? PO.purchaseOrderExternal.remark : "-";
                         if (item.fulfillments.length > 0) {
                             for (var fulfillment of item.fulfillments) {
-                                _data.supplierDoDate =fulfillment.supplierDoDate ? moment(new Date(fulfillment.supplierDoDate)).format(dateFormat) : "-";
+                                _data.supplierDoDate = fulfillment.supplierDoDate ? moment(new Date(fulfillment.supplierDoDate)).format(dateFormat) : "-";
                                 _data.doDate = fulfillment.deliveryOderDate ? moment(new Date(fulfillment.deliveryOderDate)).format(dateFormat) : "-";
                                 _data.doNo = fulfillment.deliveryOderNo ? fulfillment.deliveryOderNo : "-";
                                 _data.unitReceiptNoteDate = fulfillment.unitReceiptNoteDate ? moment(new Date(fulfillment.unitReceiptNoteDate)).format(dateFormat) : "-";

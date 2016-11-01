@@ -63,7 +63,6 @@ export class UnitReceiptNoteAutoSuggest {
      * 
      */
     valueChanged(newVal) {
-        // console.log(`${this.no} - changed`); 
         this.bind();
 
         var event;
