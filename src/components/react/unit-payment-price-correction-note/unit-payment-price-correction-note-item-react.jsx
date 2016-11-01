@@ -75,12 +75,12 @@ export default class UnitPaymentPriceCorrectionNoteItemReact extends React.Compo
             <tr>
                 <td >
                     <div className={`form-group`} style={style}>
-                        <TextboxReact value={this.state.value.purchaseOrderExternal.no} options={readOnlyOptions} ></TextboxReact>
+                        <TextboxReact value={this.state.value.purchaseOrder.purchaseOrderExternal.no} options={readOnlyOptions} ></TextboxReact>
                     </div>
                 </td>
                 <td>
                     <div className={`form-group`} style={style}>
-                        <TextboxReact value={this.state.value.purchaseRequest.no} options={readOnlyOptions} ></TextboxReact>
+                        <TextboxReact value={this.state.value.purchaseOrder.purchaseRequest.no} options={readOnlyOptions} ></TextboxReact>
                     </div>
                 </td>
                 <td>
