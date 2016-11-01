@@ -89,49 +89,49 @@
             </thead>
             <tbody >
                 <tr repeat.for="PO of data">
-                    <td>${PO.no}</td>
-                    <td>${PO.prDate}</td>
-                    <td>${PO.prNo}</td>
-                    <td>${PO.productName}</td>
-                    <td>${PO.productCode}</td>
-                    <td align="right">${(PO.productQty).toLocaleString()}</td>
-                    <td>${PO.productUom}</td>
-                    <td align="right">${(PO.pricePerUnit).toLocaleString()}</td>
-                    <td align="right">${(PO.priceTotal).toLocaleString()}</td>
-                    <td>${PO.supplierCode}</td>
-                    <td>${PO.supplierName}</td>
-                    <td>${PO.poIntDate}</td>
+                    <td>${PO['No']}</td>
+                    <td>${PO['Tanggal Purchase Request']}</td>
+                    <td>${PO['No Purchase Request']}</td>
+                    <td>${PO['Nama Barang']}</td>
+                    <td>${PO['Kode Barang']}</td>
+                    <td align="right">${(PO['Jumlah Barang']).toLocaleString()}</td>
+                    <td>${PO['Satuan Barang']}</td>
+                    <td align="right">${(PO['Harga Barang']).toLocaleString()}</td>
+                    <td align="right">${(PO['Harga Total']).toLocaleString()}</td>
+                    <td>${PO['Kode Supplier']}</td>
+                    <td>${PO['Nama Supplier']}</td>
+                    <td>${PO['Tanggal Terima PO Internal']}</td>
                     <!--<td>kosong</td>
                     <td>kosong</td>
                     <td>kosong</td>
                     <td>kosong</td>
                     <td>kosong</td>
                     <td>kosong</td>--> 
-                    <td>${PO.poExtDate}</td>
-                    <td>${PO.poExtExpectedDate}</td>
-                    <td>${PO.poExtNo}</td>
-                    <td>${PO.supplierDoDate}</td>
-                    <td>${PO.doDate}</td>
-                    <td>${PO.doNo}</td>  
-                    <td>${PO.unitReceiptNoteDate}</td>
-                    <td>${PO.unitReceiptNoteNo}</td>
-                    <td>${PO.unitReceiptNoteDeliveredQty}</td>
-                    <td>${PO.unitReceiptDeliveredUom.unit || "-"}</td>
-                    <td>${PO.invoiceDate}</td>
-                    <td>${PO.invoiceNo}</td>
-                    <td>${PO.unitPaymentOrderDate}</td>
-                    <td>${PO.unitPaymentOrderNo}</td>
-                    <td>${PO.unitPaymentOrderValue}</td>
-                    <td>${PO.unitPaymentOrderDueDays}</td>
-                    <td>${PO.incomeTaxDate}</td>
-                    <td>${PO.incomeTaxNo}</td>
-                    <td>${PO.incomeTaxValue}</td>
-                    <td>${PO.vatDate}</td>
-                    <td>${PO.vatNo}</td>
-                    <td>${PO.vatValue}</td> 
+                    <td>${PO['Tanggal Terima PO Eksternal']}</td>
+                    <td>${PO['Tanggal Target Datang']}</td>
+                    <td>${PO['No PO Eksternal']}</td>
+                    <td>${PO['Tanggal Surat Jalan']}</td>
+                    <td>${PO['Tanggal Datang Barang']}</td>
+                    <td>${PO['No Surat Jalan']}</td>  
+                    <td>${PO['Tanggal Bon Terima Unit']}</td>
+                    <td>${PO['No Bon Terima Unit']}</td>
+                    <td>${PO['Jumlah Diminta']}</td>
+                    <td>${PO['Satuan Diminta']}</td>
+                    <td>${PO['Tanggal Invoice']}</td>
+                    <td>${PO['No Invoice']}</td>
+                    <td>${PO['Tanggal Nota Intern']}</td>
+                    <td>${PO['No Nota Intern']}</td>
+                    <td>${PO['Nilai Nota Intern']}</td>
+                    <td>${PO['Tanggal Jatuh Tempo']}</td>
+                    <td>${PO['Tanggal PPN']}</td>
+                    <td>${PO['No PPN']}</td>
+                    <td>${PO['Nilai PPN']}</td>
+                    <td>${PO['Tanggal PPH']}</td>
+                    <td>${PO['No PPH']}</td>
+                    <td>${PO['Nilai PPH']}</td> 
                     <!--<td>kosong</td>
                     <td>kosong</td>-->
-                    <td>${PO.remark || "-"}</td>
+                    <td>${PO['Keterangan']}</td>
                 </tr>
 </tbody>
 </table>
