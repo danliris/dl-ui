@@ -43,11 +43,11 @@ export class DataForm {
 
     unitChanged(e) {
         var unit = e.detail || {};
-        this.data.unitId = unit._id ? unit._id : "";
+        this.data.purchaseRequest.unitId = unit._id ? unit._id : "";
     }
 
     categoryChanged(e) {
         var category = e.detail || {};
-        this.data.categoryId = category._id ? category._id : "";
+        this.data.purchaseRequest.categoryId = category._id ? category._id : "";
     }
 } 
