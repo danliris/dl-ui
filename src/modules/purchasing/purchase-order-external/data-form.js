@@ -9,7 +9,7 @@ export class DataForm {
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
-    
+
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -55,6 +55,8 @@ export class DataForm {
         var selectedCurrency = e.detail;
         if (selectedCurrency)
             this.data.currencyRate = selectedCurrency.rate ? selectedCurrency.rate : 1;
+        else
+            this.data.currencyRate = 0;
     }
 
     paymentMethodChanged(e) {
@@ -69,6 +71,8 @@ export class DataForm {
         var selectedVat = e.detail;
         if (selectedVat)
             this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
+        else
+            this.data.vatRate = 0;
     }
 
 } 
