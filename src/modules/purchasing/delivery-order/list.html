@@ -24,6 +24,7 @@
                     <tr>
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>Nomor Surat Jalan</th>
+                        <th>Tanggal Surat Jalan</th>
                         <th>Nama Supplier</th>
                         <th>List Nomor Eksternal PO</th>
                         <th></th>
@@ -38,6 +39,7 @@
                                 change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.no}</td>
+                        <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td>${item.supplier.name}</td>
                         <td>
                             <ul>
