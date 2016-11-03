@@ -7,7 +7,6 @@
         <hr/>
         <div class="btn-group pull-right">
             <a  click.delegate="list()"     class='btn btn-default' >Kembali</a>
-            <a  click.delegate="edit()"     class="btn btn-primary" if.bind="!data.purchaseOrderExternal.isPosted">Ubah</a>
             <a  click.delegate="split()"    class="btn btn-primary" if.bind="!data.purchaseOrderExternal.isPosted">Pecah PO</a>
             <a  click.delegate="delete()"   class="btn btn-danger"  if.bind="!data.purchaseOrderExternal.isPosted">Hapus</a>
         </div>
