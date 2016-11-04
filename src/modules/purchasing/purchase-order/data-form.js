@@ -52,7 +52,7 @@ export class DataForm {
     async prChanged(e) {
         var pr={};
         pr = await e.detail || {};
-        if(pr)
+        if(this.data.purchaseRequest!=undefined && pr!=undefined)
         {
             this.data.purchaseRequest._id=pr._id;
             this.data.purchaseRequest.no=pr.no;
