@@ -52,7 +52,8 @@ export class List {
 
     pushDataToBePosting(item) {
         if (item.isPosting) {
-            this.dataToBePosting.push(item);
+            var dataitem = this.service.getById(item._id);
+            this.dataToBePosting.push(dataitem);
         }
         else {
             var index = this.dataToBePosting.indexOf(item);
