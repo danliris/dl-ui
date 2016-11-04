@@ -30,6 +30,11 @@ export class DataForm {
 
     }
     splitPO() {
+        for(var i=0; i<pr.items.length; i++)
+        {
+            this.data.items[i].defaultUom=this.data.items[i].uom;
+            this.data.items[i].defaultQuantity=this.data.items[i].quantity;
+        }
         for (var item of this.data.items) {
             item.isSplit = this.data.isSplit;
         }
