@@ -68,9 +68,9 @@ export default class PoItem extends React.Component {
 
     componentWillReceiveProps(props) {
         var _value = props.value;
-        // if(_value.dealUom.unit)
-        //     if(_value.dealUom.unit == _value.dealQuantity.unit)
-        //         _value.conversion=1;
+        _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
+        _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
+        _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
         this.setState({ value: _value || {}, error: props.error || {}, options: props.options || {} });
     }
 
