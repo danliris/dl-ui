@@ -96,7 +96,6 @@ export default class AutoSuggestReact extends React.Component {
             );
         else {
             var {value, label, suggestions} = this.state;
-            // console.log(label);
             var inputProps = {
                 placeholder: '',
                 value: label,

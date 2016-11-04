@@ -2,20 +2,13 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').core + '/v1/purchasing/unit-receipt-note-suplier-unit';
+const serviceUri = require('../../../host').core + '/v1/purchasing/pr/posted';
 const empty = {
-    no: '',
-    deliveryOrder: {
-        no: ''
-    },
-    toString: function () {
-        return '';
-    }
+    no: ''
 }
-
 'use strict';
 
-export default class UnitReceipNoteBySupplierUnitAutoSuggestReact extends React.Component {
+export default class PrAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -24,13 +17,10 @@ export default class UnitReceipNoteBySupplierUnitAutoSuggestReact extends React.
     }
 
     init(props) {
-        var options = Object.assign({}, UnitReceipNoteBySupplierUnitAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, PrAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.deliveryOrder.no, this.no]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
+            return `${this.no}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -54,7 +44,7 @@ export default class UnitReceipNoteBySupplierUnitAutoSuggestReact extends React.
     }
 }
 
-UnitReceipNoteBySupplierUnitAutoSuggestReact.propTypes = {
+PrAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -64,26 +54,23 @@ UnitReceipNoteBySupplierUnitAutoSuggestReact.propTypes = {
     })
 };
 
-UnitReceipNoteBySupplierUnitAutoSuggestReact.defaultProps = {
+PrAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
-        filter: {},
         suggestions:
-        function (text, filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
+        function (text) {
+            var uri = serviceUri + '?keyword=' + text;
+            
             var session = new Session();
             var requestHeader = new Headers();
             requestHeader.append('Authorization', `JWT ${session.token}`);
 
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(poTextile => {
-                    poTextile.toString = function () {
-                        return [ this.no,this.deliveryOrder.no]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
+                return json.data.map(pr => {
+                    pr.toString = function () {
+                        return `${this.no}`;
                     }
-                    return poTextile;
+                    return pr;
                 })
             })
         }

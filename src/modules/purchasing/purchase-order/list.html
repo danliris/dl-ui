@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
-                        <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
+					<input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
+					<span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
                     </span>
-                </div>
+				</div>
             </div>
             <div class="col-sm-4">
                 <div class="pull-right">
@@ -38,7 +38,8 @@
                         <td style="text-align:center">${item.category.name}</td>
                         <td style="text-align:center">${item.purchaseRequest.date | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.purchaseRequest.no}</td>
-                        <td style="text-align:center">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center" if.bind="item.purchaseRequest.expectedDeliveryDate==''" > - </td>
+                        <td style="text-align:center" if.bind="item.purchaseRequest.expectedDeliveryDate!=''">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item._createdBy}</td>
                         <td style="text-align:center">${item.purchaseOrderExternal.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
@@ -50,5 +51,7 @@
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Data internal po tekstil tidak ada.
         </div>
-    </div><!-- /.display-wrapper -->
+        <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
+        <hr/>
+    </div>
 </template>

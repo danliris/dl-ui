@@ -7,11 +7,6 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    termPaymentOptions = ['FREE', 'CASH', 'CREDIT', 'LETTER OF CREDIT'];
-    freightCostByOptions = ['BUYER', 'SUPPLIER', '3rd PARTY'];
-    currencyOptions = ['IDR', 'USD'];
-    usePphOptions = [{ value: true, label: 'YA' }, { value: false, label: 'TIDAK' }];
-
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -52,10 +47,10 @@ export class DataForm {
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
             this.filter = { supplierId: selectedSupplier._id };
-            if(!this.readOnly)
-                this.data.items=[];
+            if (!this.readOnly)
+                this.data.items = [];
         }
         else
-            this.data.items=[];
+            this.data.items = [];
     }
 } 

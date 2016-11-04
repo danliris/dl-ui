@@ -50,10 +50,6 @@ export default class PoExternalItemReact extends React.Component {
         var itemIndex = purchaseOrder.items.indexOf(poItem);
         var item = purchaseOrder.items[itemIndex];
         this.handlePoChange(null, purchaseOrder);
-        // var item = purchaseOrder.items.indexOf(poItem);
-        // console.log(item);
-        // Object.assign(purchaseOrder, purchaseOrder);
-        // this.handleValueChange(purchaseOrder);
     }
 
     handleToggleDetail() {

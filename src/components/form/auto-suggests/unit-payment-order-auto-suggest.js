@@ -62,8 +62,7 @@ export class UnitPaymentOrderAutoSuggest {
      * @returns {void}
      * 
      */
-    valueChanged(newVal) {
-        // console.log(`${this.no} - changed`); 
+    valueChanged(newVal) { 
         this.bind();
 
         var event;

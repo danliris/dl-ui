@@ -3,19 +3,18 @@ import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
 import FieldReact from '../../react/basic/field-react.jsx';
-import DoBySupplierandUnitAutoSuggestReact from '../../react/auto-suggests/delivery-order-auto-suggest-by-supplier-unit-react.jsx';
+import PrAutoSuggestReact from '../../react/auto-suggests/pr-auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)
-@customElement('delivery-order-by-supplier-unit-auto-suggest')
-export class DeliveryOrderBySupplierUnitAutoSuggest {
+@customElement('pr-auto-suggest')
+export class PrAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
     reactComponent = {};
 
     constructor(element) {
@@ -36,14 +35,9 @@ export class DeliveryOrderBySupplierUnitAutoSuggest {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
-        if (this.filter)
-            this.options.filter = this.filter;
-        else
-            this.options.filter = null;
-            
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <DoBySupplierandUnitAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange}/>
+                <PrAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
             </FieldReact>,
             this.element
         );
