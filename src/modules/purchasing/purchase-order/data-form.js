@@ -19,7 +19,7 @@ export class DataForm {
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
-
+    
     attached() {
 
         if (this.data.isSplit) {
