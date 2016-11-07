@@ -4,7 +4,6 @@ import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    keyword = '';
     dataToBePosting = [];
     info = { page: 1, keyword: '' };
 
@@ -64,8 +63,8 @@ export class List {
     posting() {
         if (this.dataToBePosting.length > 0) {
             this.service.post(this.dataToBePosting).then(result => {
-                this.activate();
-                this.back();
+                this.info.keyword = '';
+                this.loadPage();
             }).catch(e => {
                 this.error = e;
             })

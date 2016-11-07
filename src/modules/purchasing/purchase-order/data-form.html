@@ -2,11 +2,11 @@
     <form class="form-horizontal">
         <fieldset>
             <legend>Informasi PR</legend>
-            <textbox                label="No. PR"              value.bind="data.purchaseRequest.no"                    error.bind="error.purchaseRequest.no"                       read-only.bind="(readOnly || isEdit)"></textbox>
-            <datepicker             label="Tgl. PR"             value.bind="data.purchaseRequest.date"                  error.bind="error.purchaseRequest.date"                     read-only.bind="(readOnly || data.isSplit)"></datepicker>
-            <datepicker             label="Tgl. Diminta Datang" value.bind="data.purchaseRequest.expectedDeliveryDate"  error.bind="error.purchaseRequest.expectedDeliveryDate"     read-only.bind="(readOnly || data.isSplit)"></datepicker>
-            <unit-auto-suggest      label="Unit"                value.bind="data.purchaseRequest.unit"                  error.bind="error.purchaseRequest.unit"                     read-only.bind="(readOnly || isEdit)"   change.delegate="unitChanged($event)"></unit-auto-suggest>
-            <category-auto-suggest  label="Kategori"            value.bind="data.purchaseRequest.category"              error.bind="error.purchaseRequest.category"                 read-only.bind="(readOnly || isEdit)"   change.delegate="categoryChanged($event)"></category-auto-suggest>
+            <pr-auto-suggest        label="No. PR"              value.bind="data.purchaseRequest"                    error.bind="error.purchaseRequest.no"                       read-only.bind="(isEdit)" change.delegate="prChanged($event)"></pr-auto-suggest>
+            <datepicker             label="Tgl. PR"             value.bind="data.purchaseRequest.date"                  read-only.bind="(readOnly || data.isSplit)" ></datepicker>
+            <datepicker             label="Tgl. Diminta Datang" value.bind="data.purchaseRequest.expectedDeliveryDate"  read-only.bind="(readOnly || data.isSplit)"></datepicker>
+            <unit-auto-suggest      label="Unit"                value.bind="data.purchaseRequest.unit"                  read-only.bind="(readOnly || isEdit)" ></unit-auto-suggest>
+            <category-auto-suggest  label="Kategori"            value.bind="data.purchaseRequest.category"              read-only.bind="(readOnly || isEdit)" ></category-auto-suggest>
         </fieldset>
         <hr />
         <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>

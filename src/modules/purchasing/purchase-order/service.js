@@ -41,4 +41,9 @@ export class Service extends SecureService {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
     }
+    getPR(id)
+    {
+        var endpoint = `${serviceUriPr}/${id}`;
+        return super.get(endpoint);
+    }
 }
