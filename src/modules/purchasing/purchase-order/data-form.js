@@ -45,11 +45,12 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    async prChanged(e) {
+    prChanged(e) {
         var pr = e.detail || {};
         if (pr) {
-            this.data.purchaseRequest = pr._id;
-            var selectedItem = pr.items || []
+            this.data.purchaseRequest = pr;
+            this.data.purchaseRequestId = pr._id;
+            var selectedItem = pr.items || [];
             var _items = [];
             this.data.remark=pr.remark;
             for (var item of selectedItem) {
