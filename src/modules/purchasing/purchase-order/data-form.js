@@ -30,11 +30,7 @@ export class DataForm {
 
     }
     splitPO() {
-        for(var i=0; i<pr.items.length; i++)
-        {
-            this.data.items[i].defaultUom=this.data.items[i].uom;
-            this.data.items[i].defaultQuantity=this.data.items[i].quantity;
-        }
+        
         for (var item of this.data.items) {
             item.isSplit = this.data.isSplit;
         }
@@ -49,25 +45,28 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    async prChanged(e) {
-        var pr={};
-        pr = await e.detail || {};
-        if(this.data.purchaseRequest!=undefined && pr!=undefined)
-        {
-            this.data.purchaseRequest._id=pr._id;
-            this.data.purchaseRequest.no=pr.no;
-            this.data.purchaseRequest.date= pr.date;
-            this.data.purchaseRequest.expectedDeliveryDate= pr.expectedDeliveryDate;
-            this.data.purchaseRequest.unit= pr.unit;
-            this.data.purchaseRequest.category= pr.category;
+    prChanged(e) {
+        var pr = e.detail || {};
+        if (pr) {
+            this.data.purchaseRequestId = pr._id;
+            var selectedItem = pr.items || [];
+            var _items = [];
             this.data.remark=pr.remark;
-            this.data.items=pr.items;
-            for(var i=0; i<pr.items.length; i++)
-            {
-                this.data.items[i].defaultUom=pr.items[i].uom;
-                this.data.items[i].defaultQuantity=pr.items[i].quantity;
+            for (var item of selectedItem) {
+                var _item = {};
+                _item.product = item.product;
+                _item.defaultUom = item.uom;
+                _item.defaultQuantity = item.quantity;
+                _items.push(_item);
+
             }
+            this.data.items = _items;
         }
-        
-    }
+        else
+        {
+            this.data.remark="";
+            this.data.items=[];
+        }
+     }
+
 } 
