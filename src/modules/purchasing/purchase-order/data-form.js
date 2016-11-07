@@ -30,11 +30,7 @@ export class DataForm {
 
     }
     splitPO() {
-        for(var i=0; i<pr.items.length; i++)
-        {
-            this.data.items[i].defaultUom=this.data.items[i].uom;
-            this.data.items[i].defaultQuantity=this.data.items[i].quantity;
-        }
+        
         for (var item of this.data.items) {
             item.isSplit = this.data.isSplit;
         }
@@ -51,9 +47,10 @@ export class DataForm {
 
     async prChanged(e) {
         var pr={};
-        pr = await e.detail || {};
-        if(this.data.purchaseRequest!=undefined && pr!=undefined)
+         pr = await e.detail;
+        if(this.data!=undefined && pr!=undefined)
         {
+            this.data.purchaseRequest._id = pr._id ? pr._id : undefined;
             this.data.purchaseRequest._id=pr._id;
             this.data.purchaseRequest.no=pr.no;
             this.data.purchaseRequest.date= pr.date;
@@ -62,12 +59,19 @@ export class DataForm {
             this.data.purchaseRequest.category= pr.category;
             this.data.remark=pr.remark;
             this.data.items=pr.items;
-            for(var i=0; i<pr.items.length; i++)
+            if( pr.items.length>0)
             {
-                this.data.items[i].defaultUom=pr.items[i].uom;
-                this.data.items[i].defaultQuantity=pr.items[i].quantity;
+                for(var i=0; i<pr.items.length; i++)
+                {
+                    this.data.items[i].defaultUom=pr.items[i].uom;
+                    this.data.items[i].defaultQuantity=pr.items[i].quantity;
+                }
             }
         }
-        
+        else
+        {
+            this.data.remark="";
+            this.data.items=[];
+        }
     }
 } 
