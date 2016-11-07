@@ -71,15 +71,11 @@ export class List {
     tooglePostingTrue() {
         this.isPosting = true;
         this.isPrint = false;
-
-        this.newStatus();
     }
 
     tooglePostingFalse() {
         this.isPosting = false;
         this.isPrint = false;
-
-        this.newStatus();
     }
 
     exportPDF(data) {

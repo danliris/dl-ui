@@ -55,6 +55,7 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                     unitPaymentPriceCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
                     unitPaymentPriceCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
+                    unitPaymentPriceCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
 
                     _items.push(unitPaymentPriceCorrectionNoteItem);
                 }
