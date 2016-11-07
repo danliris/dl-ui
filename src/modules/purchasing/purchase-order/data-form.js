@@ -58,6 +58,7 @@ export class DataForm {
                 _item.defaultUom = item.uom;
                 _item.defaultQuantity = item.quantity;
                 _items.push(_item);
+
             }
             this.data.items = _items;
         }
@@ -66,6 +67,6 @@ export class DataForm {
             this.data.remark="";
             this.data.items=[];
         }
-            
      }
+
 } 
