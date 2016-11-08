@@ -77,6 +77,11 @@ export class DataForm {
         if (selectedVat)
             this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
     }
+    
+    categoryChanged(e) {
+        var category = e.detail || {};
+        this.data.categoryId = category._id ? category._id : "";
+    }
 
 
 

@@ -2,7 +2,7 @@
     <h1 class="page-header">Tambah Purchase Order Internal</h1>
     <require from="./data-form"></require>
     <block>
-        <data-form data.bind="data" error.bind="error"></data-form>
+        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
         <hr/>
         <div class="btn-group pull-right">
             <button class="btn btn-default" click.delegate="back()">Kembali</button>

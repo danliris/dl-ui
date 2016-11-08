@@ -52,8 +52,8 @@ export class List {
     posting() {
         if (this.dataToBePosting.length > 0) {
             this.service.post(this.dataToBePosting).then(result => {
-                this.activate();
-                this.back();
+                this.info.keyword = '';
+                this.loadPage();
             }).catch(e => {
                 this.error = e;
             })
@@ -71,15 +71,11 @@ export class List {
     tooglePostingTrue() {
         this.isPosting = true;
         this.isPrint = false;
-
-        this.newStatus();
     }
 
     tooglePostingFalse() {
         this.isPosting = false;
         this.isPrint = false;
-
-        this.newStatus();
     }
 
     exportPDF(data) {
