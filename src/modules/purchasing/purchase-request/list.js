@@ -39,21 +39,16 @@ export class List {
     tooglePostingTrue() {
         this.isPosting = true;
         this.isPrint = false;
-
-        this.newStatus();
     }
 
     tooglePostingFalse() {
         this.isPosting = false;
         this.isPrint = false;
-
-        this.newStatus();
     }
 
     pushDataToBePosting(item) {
         if (item.isPosting) {
-            var dataitem = this.service.getById(item._id);
-            this.dataToBePosting.push(dataitem);
+            this.dataToBePosting.push(item);
         }
         else {
             var index = this.dataToBePosting.indexOf(item);
