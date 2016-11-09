@@ -2,6 +2,51 @@ body {
   margin: 0;
 }
 
+.navbar-brand {
+  padding: 10px 15px;
+  line-height: 29px;
+}
+
+.logo {
+  height:29px;
+  float:left;
+  margin-right:5px;
+}
+
+.sidebar {
+  background-color: #173250 !important;
+  color: #ffffff;
+}
+
+.sidebar hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-sidebar > li > a {
+  color: #ffffff;
+}
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+  background-color: #25456b !important;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  color: #25456b;
+  background-color: #ffffff;
+}
+
+.navbar-inverse {
+  background-color: #061b30;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+}
+
 .container {
   padding:100px 0;
 }
