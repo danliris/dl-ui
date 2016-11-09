@@ -62,7 +62,7 @@ const baseConfig = {
     'aurelia': coreBundles.aurelia.filter(pkg => coreBundles.bootstrap.indexOf(pkg) === -1)
   },
   output: {
-    path: outDir,
+    path: outDir
   },
   module: {
     loaders: [{
