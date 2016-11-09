@@ -17,7 +17,6 @@ const baseUrl = '/';
 const rootDir = path.resolve();
 const srcDir = path.resolve('src');
 const outDir = path.resolve('dist');
-const publicDir = '/build';
 
 const coreBundles = {
   bootstrap: [
@@ -63,8 +62,7 @@ const baseConfig = {
     'aurelia': coreBundles.aurelia.filter(pkg => coreBundles.bootstrap.indexOf(pkg) === -1)
   },
   output: {
-    path: outDir,
-    publicPath: publicDir
+    path: outDir
   },
   module: {
     loaders: [{
