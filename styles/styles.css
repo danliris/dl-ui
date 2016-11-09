@@ -9,8 +9,12 @@ body {
 
 .logo {
   height:29px;
+  width:29px;
   float:left;
   margin-right:5px;
+  background-image: url('../images/Logo-DL-Blue.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .sidebar {
