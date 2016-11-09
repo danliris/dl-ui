@@ -27,7 +27,7 @@ export default class UnitReceipNoteBySupplierUnitAutoSuggestReact extends React.
         var options = Object.assign({}, UnitReceipNoteBySupplierUnitAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.deliveryOrder.no, this.no]
+            return [this.no, this.deliveryOrder.no]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
