@@ -2,6 +2,10 @@ body {
   margin: 0;
 }
 
+.main {
+  padding: 20px !important;
+}
+
 .navbar-brand {
   padding: 10px 15px;
   line-height: 29px;
