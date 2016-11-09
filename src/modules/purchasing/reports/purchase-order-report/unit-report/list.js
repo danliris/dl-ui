@@ -23,8 +23,13 @@ export class List {
             var persen = 0;
             var data = [];
             var amounts = [];
-            this.service.getDataUnit(this.dateFrom, this.dateTo)
-                .then(data => {
+            var uri="";
+            if(this.dateFrom==undefined && this.dateTo==undefined)
+                uri= this.service.getDataUnitnoDate();
+            else
+                uri = this.service.getDataUnit(this.dateFrom, this.dateTo);
+            
+                uri.then(data => {
                     this.data = data;
                     for (var price of data) {
                         pricetotals += price.pricetotal;
@@ -66,8 +71,13 @@ export class List {
         var persen = 0;
         var data = [];
         var amounts = [];
-        this.service.getDataUnit(this.dateFrom, this.dateTo)
-            .then(data => {
+        var uri="";
+        if(this.dateFrom==undefined && this.dateTo==undefined)
+            uri= this.service.getDataUnitnoDate();
+        else
+            uri = this.service.getDataUnit(this.dateFrom, this.dateTo);
+
+            uri.then(data => {
                 this.data = data;
                 for (var price of data) {
                     pricetotals += price.pricetotal;
@@ -104,12 +114,15 @@ export class List {
     }
 
     reset() {
-        this.dateFrom = "undefined";
-        this.dateTo = "undefined";
+        this.dateFrom = undefined;
+        this.dateTo = undefined;
     }
 
     ExportToExcel() {
         this.service.generateExcel(this.dateFrom, this.dateTo);
-        this.service.generateExcel2(this.dateFrom, this.dateTo, "undefined");
+        if(this.dateFrom==undefined && this.dateTo==undefined)
+            this.service.generateExcelnoDate2();
+        else
+            this.service.generateExcel2(this.dateFrom, this.dateTo);
     }
 }
