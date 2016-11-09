@@ -17,6 +17,7 @@ const baseUrl = '/';
 const rootDir = path.resolve();
 const srcDir = path.resolve('src');
 const outDir = path.resolve('dist');
+const publicDir = '/build';
 
 const coreBundles = {
   bootstrap: [
@@ -63,6 +64,7 @@ const baseConfig = {
   },
   output: {
     path: outDir,
+    publicPath: publicDir
   },
   module: {
     loaders: [{
