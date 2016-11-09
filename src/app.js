@@ -10,7 +10,7 @@ export class App {
   configureRouter(config, router) {
     config.title = ''; 
     var routes = [ 
-      { route: ['', 'Welcome'], name: 'welcome', moduleId: './welcome', nav: false, title: '' }, 
+      { route: ['', 'Welcome'], name: 'welcome', moduleId: './welcome', nav: false, title: 'Home' }, 
       { route: 'buyers',              name: 'buyers',                         moduleId: './modules/master/buyer/index',                                             nav: true, title: 'Buyer', settings: { group:"master", roles:["admin"] }},
       { route: 'suppliers',           name: 'suppliers',                      moduleId: './modules/master/supplier/index',                                          nav: true, title: 'Supplier', settings: { group:"master", roles:["admin"] }},
       { route: 'uoms',                name: 'uoms',                           moduleId: './modules/master/uom/index',                                               nav: true, title: 'Satuan', settings: { group:"master", roles:["admin"] }},
