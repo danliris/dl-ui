@@ -72,6 +72,10 @@ const baseConfig = {
       query: {
         presets: ['es2015', 'react']
       }
+    },
+    { 
+      test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, 
+      loader: "file" 
     }]
   },
   resolve: {
@@ -104,8 +108,7 @@ switch (ENV) {
         ({ minify: true }),
 
       require('@easy-webpack/config-copy-files')
-        ({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }, 
-        { from: 'images/Logo-DL-Blue.png', to: 'images/Logo-DL-Blue.png' }] }),
+        ({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }] }),
 
       require('@easy-webpack/config-common-chunks-simple')
         ({ appChunkName: 'app', firstChunk: 'aurelia-bootstrap' }),
@@ -166,8 +169,7 @@ switch (ENV) {
         ({ minify: false }),
 
       require('@easy-webpack/config-copy-files')
-        ({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }, 
-        { from: 'images/Logo-DL-Blue.png', to: 'images/Logo-DL-Blue.png' }] }),
+        ({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }] }),
 
       require('@easy-webpack/config-common-chunks-simple')
         ({ appChunkName: 'app', firstChunk: 'aurelia-bootstrap' })
