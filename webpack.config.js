@@ -104,7 +104,8 @@ switch (ENV) {
         ({ minify: true }),
 
       require('@easy-webpack/config-copy-files')
-        ({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }] }),
+        ({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }, 
+        { from: './images/Logo-DL-Blue.png', to: './images/Logo-DL-Blue.png' }] }),
 
       require('@easy-webpack/config-common-chunks-simple')
         ({ appChunkName: 'app', firstChunk: 'aurelia-bootstrap' }),
