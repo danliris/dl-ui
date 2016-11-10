@@ -21,7 +21,7 @@ export default class FieldReact extends React.Component {
     render() {
         return (
             <div className={`form-group ${this.state.error ? 'has-error' : ''}`}>
-                <label htmlFor="name" className="col-sm-2 control-label">{this.state.label}</label>
+                <label htmlFor="name" className="col-sm-4 control-label">{this.state.label}</label>
                 <div className="col-sm-5">
                     {this.props.children}
                     <span className="help-block">{this.state.error}</span>

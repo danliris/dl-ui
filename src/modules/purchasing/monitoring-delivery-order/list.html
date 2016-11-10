@@ -1,60 +1,66 @@
 <template>
     <h1 class="page-header">Monitoring Surat Jalan</h1>
-    <form class="form-horizontal">  
-        <delivery-order-auto-suggest    label="No. Surat Jalan"     value.bind="no"         ></delivery-order-auto-suggest>
-        <supplier-auto-suggest          label="Supplier"            value.bind="supplierId" ></supplier-auto-suggest>
-        <datepicker-no-default          label="Tanggal Awal"        value.bind="dateFrom"   ></datepicker-no-default>
-        <datepicker-no-default          label="Tanggal Akhir"       value.bind="dateTo"     ></datepicker-no-default> 
+    <form class="form-horizontal">
+        <delivery-order-auto-suggest label="No. Surat Jalan" value.bind="no"></delivery-order-auto-suggest>
+        <supplier-auto-suggest       label="Supplier"        value.bind="supplierId"></supplier-auto-suggest>
+        <datepicker                  label="Tanggal Awal"    value.bind="dateFrom"></datepicker>
+        <datepicker                  label="Tanggal Akhir"   value.bind="dateTo"></datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
-        </div> 
-        <table class="table table-striped table-hover" border="1">
+        </div>
+         <div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>         
+        <table class="table table-striped table-hover" border="1" id="doReport">
             <thead align="center">
-                <tr> 
+                <tr>
                     <td colspan="2">SUPPLIER</td>
-                    <td colspan="3">SURAT JALAN</td> 
+                    <td colspan="3">SURAT JALAN</td>
                     <td rowspan="2">NO PO EXTERNAL</td>
-                    <td colspan="6">BARANG</td>
+                    <td colspan="7">BARANG</td>
                 </tr>
-                <tr> 
+                <tr>
                     <td>KODE</td>
-                    <td>NAMA</td> 
+                    <td>NAMA</td>
                     <td>NOMOR</td>
-                    <td>TANGGAL SURAT JALAN</td> 
-                    <td>TANGGAL DATANG BARANG</td> 
+                    <td>TANGGAL SURAT JALAN</td>
+                    <td>TANGGAL DATANG BARANG</td>
                     <td>KODE</td>
                     <td>NAMA</td>
                     <td>DESKRIPSI</td>
-                    <td>JUMLAH YANG DIMINTA</td>   
-                    <td>JUMLAH YANG DATANG</td> 
-                    <td>SISA QTY</td> 
-                </tr> 
-            </thead> 
-            <tbody repeat.for="item of SJ.items">  
-                <tr  repeat.for="fulfillment of item.fulfillments">    
-                    <td>${SJ.supplier.code}</td>
-                    <td>${SJ.supplier.name}</td>
-                    <td>${SJ.no}</td>
-                    <td>${SJ.supplierDoDate.substr(0, 10)}</td>
-                    <td>${SJ.date.substr(0, 10)}</td>
-                    <td>${item.purchaseOrderExternal.no}</td>
-                    <td>${fulfillment.product.code}</td>
-                    <td>${fulfillment.product.name}</td>
-                    <td>${fulfillment.product.description}</td>
-                    <td align="right">${fulfillment.purchaseOrderQuantity}</td>   
-                    <td align="right">${fulfillment.deliveredQuantity}</td> 
-                    <td align="right">${fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity}</td> 
-                </tr> 
-            </tbody> 
-        </table>
+                    <td>JUMLAH YANG DIMINTA</td>
+                    <td>JUMLAH YANG DATANG</td>
+                    <td>SISA QTY</td>
+                    <td>SATUAN</td>
+                </tr>
+            </thead>
+            <tbody >
+                <tr repeat.for="SJ of data">
+                    <td>${SJ['Kode Supplier']}</td>
+                    <td>${SJ['Nama Supplier']}</td>
+                    <td>${SJ['Nomor Surat Jalan']}</td>
+                    <td>${SJ['Tanggal Surat Jalan']}</td>
+                    <td>${SJ['Tanggal Datang Barang']}</td>
+                    <td>${SJ['Nomor PO Eksternal']}</td>
+                    <td>${SJ['Kode Barang']}</td>
+                    <td>${SJ['Nama Barang']}</td>
+                    <td>${SJ['Deskripsi Barang']}</td>
+                    <td align="right">${SJ['Jumlah Barang yang Diminta']}</td>
+                    <td align="right">${SJ['Jumlah Barang yang Datang']}</td>
+                    <td align="right">${SJ['Jumlah Sisa Barang']}</td>
+                    <td>${SJ['Satuan Barang']}</td>
+                </tr>
+                </template>
+</tbody>
+</table>
 
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Tidak ada data ditemukan.
-        </div>
-        <hr/>
-    </form>
+<div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+    Tidak ada data ditemukan.
+</div>
+<hr/>
+</form>
 </template>

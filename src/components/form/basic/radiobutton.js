@@ -37,7 +37,6 @@ export class Radiobutton {
     }
 
     bind() {
-        // console.log(this.selections);
         this.render();
     }
 

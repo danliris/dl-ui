@@ -1,5 +1,6 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
+import {Session} from '../../../utils/session';
 
 const serviceUri = require('../../../host').core + '/v1/master/currencies';
 const empty = {
@@ -60,7 +61,12 @@ CurrencyAutoSuggestReact.defaultProps = {
         suggestions:
         function (text) {
             var uri = serviceUri + '?keyword=' + text;
-            return fetch(uri).then(results => results.json()).then(json => {
+            
+            var session = new Session();
+            var requestHeader = new Headers();
+            requestHeader.append('Authorization', `JWT ${session.token}`);
+
+            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
                 return json.data.map(currency => {
                     currency.toString = function () {
                         return `${this.code}`;

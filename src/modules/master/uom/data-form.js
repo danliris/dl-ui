@@ -1,14 +1,14 @@
-import {inject, bindable,computedFrom} from 'aurelia-framework';
+import {inject, bindable, computedFrom} from 'aurelia-framework';
 
 export class DataForm {
     @bindable readOnly = false;
-    @bindable data = {"import":true};
+    @bindable data = { "import": true };
     @bindable error = {};
 
     constructor() {
 
     }
-     @computedFrom("data._id")
+    @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }

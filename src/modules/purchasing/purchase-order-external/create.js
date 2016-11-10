@@ -11,6 +11,10 @@ export class Create {
         this.data = {};
     }
 
+    activate() {
+        this.data.paymentDueDays = 0;
+    }
+
     back() {
         this.router.navigateToRoute('list');
     }
@@ -21,7 +25,6 @@ export class Create {
                 this.back();
             })
             .catch(e => {
-                // console.log(e);
                 this.error = e;
             })
     }

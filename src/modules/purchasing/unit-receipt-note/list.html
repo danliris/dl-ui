@@ -1,0 +1,72 @@
+<template>
+     
+    <div class="display-wrapper">
+        <h1 class="page-header">Bon Terima Unit</h1>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+				<div class="input-group">
+					<input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
+					<span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
+                    </span>
+				</div>
+			</div>
+            <div class="col-sm-4">
+                <div class="pull-right">
+                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-sm-3" >
+                <div class="gray-box">
+                    <span class="control-label padding-right-10">Cetak</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" click.delegate="tooglePrintTrue()">Ya</button>
+                        <button type="button" class="btn btn-default" click.delegate="tooglePrintFalse()">Tidak</button>
+                    </div>
+                    <button type="button" class="btn btn-success ${isPrint ? '' : 'hide'}" click.delegate="print()">Cetak</button>
+                </div>
+            </div>
+        </div>-->
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!--<th class="${isPrint ? '' : 'hide'}"></th>-->
+                        <th style="text-align:center">Unit</th>
+                        <th style="text-align:center">No. Bon Unit</th>
+                        <th style="text-align:center">Tanggal Bon Unit</th>
+                        <th style="text-align:center">Supplier</th>
+                        <th style="text-align:center">No. Surat Jalan</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <!--<td class="${isPrint ? '' : 'hide'}">
+                            <input checked.bind="item.isPrint" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
+                        </td>-->
+                        <td style="text-align:center">${item.unit.division}</td>
+                        <td style="text-align:center">${item.no}</td>
+                        <td style="text-align:center">${item.date  | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:center">${item.supplier.name}</td>
+                        <td style="text-align:center">${item.deliveryOrder.no}</td>
+                        <td>
+                            <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
+                            <button class="btn btn-primary" click.delegate="getPDF(item)">Cetak Pdf</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Data bon terima unit tidak ditemukan.
+        </div>
+        <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
+
+		<hr/>
+    </div>
+</template>

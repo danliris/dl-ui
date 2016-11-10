@@ -15,7 +15,6 @@ export default class NumericReact extends React.Component {
     init(props) {
         var initialValue = props.value || NumericReact.defaultProps.value;
         if (props.value != initialValue && props.onChange) {
-            // console.log('onChange');
             props.onChange(initialValue);
         }
 
@@ -23,9 +22,9 @@ export default class NumericReact extends React.Component {
         this.setState({ value: initialValue, options: options });
     }
 
-    handleValueChange(event) {
+    handleValueChange(event, modelValue, viewValue) {
         event.preventDefault();
-        var value = parseInt(event.target.value);
+        var value = modelValue;// parseInt(event.target.value);
         this.setState({ value: value });
         if (this.props.onChange)
             this.props.onChange(value);
@@ -43,7 +42,6 @@ export default class NumericReact extends React.Component {
         var control = null;
         var usePostFix = this.state.options.postFix.trim() != '';
         var postFix = usePostFix ? this.state.options.postFix : '';
-        console.log(this.state.value);
         if (this.state.options.readOnly) {
             control = <p className="form-control-static">{ parseFloat(this.state.value).toLocaleString() } {postFix}</p>;
         }

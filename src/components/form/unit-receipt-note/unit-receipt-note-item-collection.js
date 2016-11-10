@@ -2,16 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import FieldReact from '../../react/basic/field-react.jsx';
-import DatePickerReact from '../../react/basic/datepicker-react.jsx';
-import moment from 'moment';
+import UnitReceiptNoteItemCollectionReact from '../../react/unit-receipt-note/unit-receipt-note-item-collection-react.jsx';
+
 
 @noView()
 @inject(Element)
-@customElement('datepicker-no-default')
-export class DatepickerNoDefault {
+@customElement('unit-receipt-note-item-collection')
+export class  UnitReceiptNoteItemCollection {
 
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
@@ -19,24 +17,19 @@ export class DatepickerNoDefault {
     reactComponent = {};
     constructor(element) {
         this.element = element;
-        this.handleValueChange = this.handleValueChange.bind(this);
-    }
-
-    handleValueChange(value) {
-        this.value = value;
     }
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <FieldReact label={this.label} error={this.error}>
-                <DatePickerReact value={this.value} onChange={this.handleValueChange} options={this.options} />
-            </FieldReact>,
+            <UnitReceiptNoteItemCollectionReact value={this.value} error={this.error} options={this.options}></UnitReceiptNoteItemCollectionReact>,
             this.element
         );
     }
 
     bind() {
+        this.value = this.value || [];
+        this.error = this.error || [];
         this.render();
     }
 

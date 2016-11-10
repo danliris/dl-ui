@@ -1,41 +1,46 @@
 <template>
     <h1 class="page-header">Monitoring Pembelian</h1>
     <form class="form-horizontal">
-        <unit-auto-suggest      label="Unit yang mengajukan"    value.bind="unit"       ></unit-auto-suggest>
-        <category-auto-suggest  label="Kategori"                value.bind="category"   ></category-auto-suggest> 
-        <textbox                label="Nomor External PO"       value.bind="PODLNo"     ></textbox> 
-        <textbox                label="Nomor PR"                value.bind="PRNo"       ></textbox> 
-        <supplier-auto-suggest  label="Supplier"                value.bind="supplier"   ></supplier-auto-suggest>
-        <datepicker-no-default  label="Tanggal Awal"            value.bind="dateFrom"   ></datepicker-no-default>
-        <datepicker-no-default  label="Tanggal Akhir"           value.bind="dateTo"     ></datepicker-no-default> 
+        <unit-auto-suggest label="Unit yang mengajukan" value.bind="unit"></unit-auto-suggest>
+        <category-auto-suggest label="Kategori" value.bind="category"></category-auto-suggest>
+        <textbox label="Nomor External PO" value.bind="PODLNo"></textbox>
+        <textbox label="Nomor PR" value.bind="PRNo"></textbox>
+        <supplier-auto-suggest label="Supplier" value.bind="supplier"></supplier-auto-suggest>
+        <datepicker label="Tanggal Awal" value.bind="dateFrom"></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo"></datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
-               <button  click.delegate="search()"    class='btn btn-success'>Cari</button> 
-               <button  click.delegate="reset()"     class='btn btn-success'>Reset</button>
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
-        </div>  
-        <table class="table table-striped table-hover" border="1">
+        </div>
+        <div class="pull-left">
+            <button click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</button>
+        </div>
+        <table class="table table-striped table-hover" border="1" id="poReport">
             <thead align="center">
                 <tr>
                     <td rowspan="3">NO</td>
-                     <td colspan="2">PURCHASE REQUEST</td>
+                    <td colspan="2">PURCHASE REQUEST</td>
                     <td rowspan="3">NAMA BARANG</td>
-                    <td rowspan="3">KODE MASTER</td>
+                    <td rowspan="3">KODE BARANG</td>
                     <td colspan="2">JUMLAH</td>
                     <td colspan="2">HARGA</td>
                     <td colspan="2">SUPPLIER</td>
                     <td rowspan="3">TERIMA PO INTERN</td>
-                    <td colspan="2">TANGGAL</td> <!--<td colspan="8">TANGGAL</td>-->
+                    <td colspan="2">TANGGAL</td>
+                    <!--<td colspan="8">TANGGAL</td>-->
                     <td rowspan="3">NOMOR PO EXTERN</td>
                     <td colspan="3">SURAT JALAN</td>
-                    <!--<td colspan="4">BON PENERIMAAN</td>
+                    <td colspan="4">BON PENERIMAAN</td>
                     <td colspan="2">INVOICE</td>
-                    <td colspan="2">FAKTUR PAJAK</td>
+                    <!--<td colspan="2">FAKTUR PAJAK</td>-->
                     <td colspan="4">NOTA INTERN</td>
-                    <td colspan="2">PPN 10%</td>
-                    <td colspan="3">PPH Pasal 23</td>
-                    <td colspan="2">KASBON</td>-->
+                    <td colspan="3">PPN</td>
+                    <td colspan="3">PPH</td>
+                    <td colspan="4">CATATAN KOREKSI</td>
+                    <!--<td colspan="2">KASBON</td>-->
                     <td rowspan="3">KETERANGAN</td>
                 </tr>
                 <tr>
@@ -46,94 +51,99 @@
                     <td rowspan="2">SEKARANG</td>
                     <td rowspan="2">TOTAL</td>
                     <td rowspan="2">KODE</td>
-                    <td rowspan="2">NAMA</td> 
+                    <td rowspan="2">NAMA</td>
                     <!--<td rowspan="2">STAFF</td>
                     <td rowspan="2">KASIE</td>
                     <td rowspan="2">KABAG</td>
                     <td rowspan="2">ANGGARAN</td>
                     <td rowspan="2">KADIV PRODUKSI</td>
-                    <td rowspan="2">DIREKTUR PRODUKSI</td>-->  
+                    <td rowspan="2">DIREKTUR PRODUKSI</td>-->
                     <td rowspan="2">TGL PO EXTERN</td>
                     <td rowspan="2">TARGET DATANG</td>
                     <td rowspan="2">TANGGAL SURAT JALAN</td>
                     <td rowspan="2">TANGGAL DATANG BARANG</td>
-                    <td rowspan="2">NOMOR SURAT JALAN</td>  
+                    <td rowspan="2">NOMOR SURAT JALAN</td>
+                    <td rowspan="2">TANGGAL</td>
+                    <td rowspan="2">NOMOR</td>
+                    <td colspan="2">JUMLAH</td>
+                    <td rowspan="2">TANGGAL</td>
+                    <td rowspan="2">NOMOR</td>
                     <!--<td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>-->
-                    <!--<td colspan="2">JUMLAH</td>
-                    <td rowspan="2">TANGGAL</td>
-                    <td rowspan="2">NOMOR</td>
-                    <td rowspan="2">TANGGAL</td>
-                    <td rowspan="2">NOMOR</td>
                     <td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>
                     <td rowspan="2">NILAI</td>
                     <td rowspan="2">JATUH TEMPO</td>
                     <td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>
+                    <td rowspan="2">NILAI</td>
                     <td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>
                     <td rowspan="2">NILAI</td>
                     <td rowspan="2">TANGGAL</td>
+                    <td rowspan="2">NOMOR</td>
+                    <td rowspan="2">NILAI</td>
+                    <td rowspan="2">KET.</td>
+                    <!--<td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>-->
                 </tr>
                 <tr>
-                    <!--<td>QTY</td>
-                    <td>SAT</td>-->
+                    <td>QTY</td>
+                    <td>SAT</td>
                 </tr>
-            </thead>  
-            <tbody repeat.for="PO of data">   
-                <tr repeat.for="item of PO.items"> 
-                    <td> ${item.index}</td>
-                    <td> ${PO.purchaseRequest.date}</td>
-                    <td>${PO.purchaseRequest.no}</td>
-                    <td>${item.product.name}</td>
-                    <td>${item.product.code}</td>
-                    <td align="right">${item.dealQuantity}</td>
-                    <td>${item.dealUom.unit}</td>
-                    <td align="right">${item.pricePerDealUnit*PO.purchaseOrderExternal.currencyRate}</td>
-                    <td align="right">${item.pricePerDealUnit*item.dealQuantity}</td>
-                    <td>${PO.supplier.code}</td>
-                    <td>${PO.supplier.name}</td> 
-                    <td>${PO.purchaseRequest.date.substr(0, 10)}</td> 
-
+            </thead>
+            <tbody >
+                <tr repeat.for="PO of data">
+                    <td>${PO['No']}</td>
+                    <td>${PO['Tanggal Purchase Request']}</td>
+                    <td>${PO['No Purchase Request']}</td>
+                    <td>${PO['Nama Barang']}</td>
+                    <td>${PO['Kode Barang']}</td>
+                    <td align="right">${(PO['Jumlah Barang']).toLocaleString()}</td>
+                    <td>${PO['Satuan Barang']}</td>
+                    <td align="right">${(PO['Harga Barang']).toLocaleString()}</td>
+                    <td align="right">${(PO['Harga Total']).toLocaleString()}</td>
+                    <td>${PO['Kode Supplier']}</td>
+                    <td>${PO['Nama Supplier']}</td>
+                    <td>${PO['Tanggal Terima PO Internal']}</td>
                     <!--<td>kosong</td>
                     <td>kosong</td>
                     <td>kosong</td>
                     <td>kosong</td>
                     <td>kosong</td>
-                    <td>kosong</td>-->  
-
-                    <td>${PO.purchaseOrderExternal.date}</td>
-                    <td>${PO.purchaseOrderExternal.expectedDeliveryDate.substr(0, 10)}</td>
-                    <td>${PO.purchaseOrderExternal.no}</td> 
-                    <td>${item.fulfillments[0].supplierDoDate.substr(0, 10)}</td>
-                    <td>${item.fulfillments[0].date.substr(0, 10)}</td>
-                    <td>${item.fulfillments[0].no}</td>  
-
-                    <!--<td>bon tgl</td>
-                    <td>bon no</td>
-                    <td>bon jlh qty</td>
-                    <td>bon jlh sat</td>
-                    <td>invoice tgl</td>
-                    <td>invoice no</td>
-                    <td>faktur pajak tgl</td>
-                    <td>paktur pajak no</td>
-                    <td>no intern tgl</td>
-                    <td>no intern no</td>
-                    <td>no intern nilai</td>
-                    <td>no inter jth tempo</td>
-                    <td>ppn tgl</td>
-                    <td>ppn no</td>
-                    <td>pph tgl</td>
-                    <td>pph no</td>
-                    <td>pph nilai</td>
-                    <td>kosong</td>
                     <td>kosong</td>--> 
-                    <td>${PO.purchaseOrderExternal.remark}</td>
-                </tr> 
-            </tbody>
-        </table>
+                    <td>${PO['Tanggal Terima PO Eksternal']}</td>
+                    <td>${PO['Tanggal Target Datang']}</td>
+                    <td>${PO['No PO Eksternal']}</td>
+                    <td>${PO['Tanggal Surat Jalan']}</td>
+                    <td>${PO['Tanggal Datang Barang']}</td>
+                    <td>${PO['No Surat Jalan']}</td>  
+                    <td>${PO['Tanggal Bon Terima Unit']}</td>
+                    <td>${PO['No Bon Terima Unit']}</td>
+                    <td>${PO['Jumlah Diminta']}</td>
+                    <td>${PO['Satuan Diminta']}</td>
+                    <td>${PO['Tanggal Invoice']}</td>
+                    <td>${PO['No Invoice']}</td>
+                    <td>${PO['Tanggal Nota Intern']}</td>
+                    <td>${PO['No Nota Intern']}</td>
+                    <td>${PO['Nilai Nota Intern'].toLocaleString()}</td>
+                    <td>${PO['Tanggal Jatuh Tempo']}</td>
+                    <td>${PO['Tanggal PPN']}</td>
+                    <td>${PO['No PPN']}</td>
+                    <td>${PO['Nilai PPN']}</td>
+                    <td>${PO['Tanggal PPH']}</td>
+                    <td>${PO['No PPH']}</td>
+                    <td>${PO['Nilai PPH']}</td> 
+                    <td>${PO['Tanggal Koreksi']}</td>
+                    <td>${PO['No Koreksi']}</td>
+                    <td>${PO['Nilai Koreksi'].toLocaleString()}</td>
+                    <td>${PO['Ket. Koreksi']}</td>
+                    <!--<td>kosong</td>
+                    <td>kosong</td>-->
+                    <td>${PO['Keterangan']}</td>
+                </tr>
+</tbody>
+</table>
 
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.

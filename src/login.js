@@ -20,10 +20,10 @@ export class Login {
             .then(token => {
                 this.service.me(token)
                     .then(account => {
+                        this.session.token = token;
                         this.session.data = account;
                         this.aurelia.setRoot('app');
                     })
             })
-        // console.log(this.session);
     }
 } 

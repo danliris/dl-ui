@@ -1,10 +1,11 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../rest-service';
- 
-const serviceUri = require('../../../host').core + '/v1/purchasing/do/monitoring';
+import {SecureService} from '../../../utils/secure-service';
 
-export class Service extends RestService {
+const serviceUri = require('../../../host').core + '/v1/purchasing/do/monitoring/by-user';
+
+export class Service extends SecureService {
 
     constructor(http, aggregator) {
         super(http, aggregator);
@@ -18,6 +19,11 @@ export class Service extends RestService {
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
-    }  
-    
+    }
+
+    generateExcel(no, supplierId, dateFrom, dateTo) {
+        var endpoint = `${serviceUri}?no=${no}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        return super.getXls(endpoint);
+    }
+
 }

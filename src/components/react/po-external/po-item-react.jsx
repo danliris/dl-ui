@@ -68,9 +68,9 @@ export default class PoItem extends React.Component {
 
     componentWillReceiveProps(props) {
         var _value = props.value;
-        // if(_value.dealUom.unit)
-        //     if(_value.dealUom.unit == _value.dealQuantity.unit)
-        //         _value.conversion=1;
+        _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
+        _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
+        _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
         this.setState({ value: _value || {}, error: props.error || {}, options: props.options || {} });
     }
 
@@ -116,17 +116,17 @@ export default class PoItem extends React.Component {
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.pricePerDealUnit ? 'has-error' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.pricePerDealUnit} options={this.state.options} onChange={this.handlePricePerDealUnitChange}/>
-                        <span className="help-block">{this.state.error.pricePerDealUnit}</span>
-                    </div>
-                </td>
-                <td>
                     <div className={`form-group ${this.state.error.conversion ? 'has-error' : ''}`} style={style}>
                         <NumericReact value={this.state.value.conversion} options={this.state.options} onChange={this.handleconversionChange}/>
                         <span className="help-block">{this.state.error.conversion}</span>
                     </div>
                 </td>
+                <td>
+                    <div className={`form-group ${this.state.error.pricePerDealUnit ? 'has-error' : ''}`} style={style}>
+                        <NumericReact value={this.state.value.pricePerDealUnit} options={this.state.options} onChange={this.handlePricePerDealUnitChange}/>
+                        <span className="help-block">{this.state.error.pricePerDealUnit}</span>
+                    </div>
+                </td> 
                 <td>
                     <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
                         <TextboxReact value={this.state.value.remark} options={readOnlyOptions}/>

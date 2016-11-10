@@ -1,5 +1,6 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
+import '../../../../styles/auto-suggest-style.css';
 
 'use strict';
 
@@ -49,7 +50,7 @@ export default class AutoSuggestReact extends React.Component {
     onSuggestionsFetchRequested({value}) {
         var suggestions = this.state.options.suggestions;
         var filter = this.state.options.filter ? this.state.options.filter : {};
-        
+
         Promise.resolve(typeof (suggestions) === "function" ? suggestions(value, filter) : suggestions)
             .then(result => {
                 this.setState({ suggestions: result });
@@ -95,7 +96,6 @@ export default class AutoSuggestReact extends React.Component {
             );
         else {
             var {value, label, suggestions} = this.state;
-            // console.log(label);
             var inputProps = {
                 placeholder: '',
                 value: label,
