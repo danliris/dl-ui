@@ -26,6 +26,7 @@ export default class PrItemCollectionReact extends React.Component {
     handleItemAdd() {
         var newItem = {
             product: { toString: function () { return '' } },
+            productId: { toString: function () { return '' } },
             quantity: 0,
             uom: { toString: function () { return '' } },
             description: ''

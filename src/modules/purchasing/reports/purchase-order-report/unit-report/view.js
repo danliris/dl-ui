@@ -22,8 +22,13 @@ export class View {
         var persen = 0;
         var data = [];
         var amounts = [];
-        this.service.getDetailUnit(dateFrom, dateTo, id)
-            .then(data => {
+        var uri="";
+        if(this.dateFrom==undefined && this.dateTo==undefined)
+            uri= this.service.getDetailUnitnoDate(id);
+        else
+            uri = this.service.getDetailUnit(dateFrom, dateTo, id);
+            
+        uri.then(data => {
                 this.data = data;
                 for (var price of data) {
                     pricetotals += price.pricetotal;
