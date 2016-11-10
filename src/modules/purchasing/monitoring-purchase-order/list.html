@@ -126,7 +126,7 @@
                     <td>${PO['No Invoice']}</td>
                     <td>${PO['Tanggal Nota Intern']}</td>
                     <td>${PO['No Nota Intern']}</td>
-                    <td>${PO['Nilai Nota Intern']}</td>
+                    <td>${PO['Nilai Nota Intern'].toLocaleString()}</td>
                     <td>${PO['Tanggal Jatuh Tempo']}</td>
                     <td>${PO['Tanggal PPN']}</td>
                     <td>${PO['No PPN']}</td>
@@ -136,7 +136,7 @@
                     <td>${PO['Nilai PPH']}</td> 
                     <td>${PO['Tanggal Koreksi']}</td>
                     <td>${PO['No Koreksi']}</td>
-                    <td>${PO['Nilai Koreksi']}</td>
+                    <td>${PO['Nilai Koreksi'].toLocaleString()}</td>
                     <td>${PO['Ket. Koreksi']}</td>
                     <!--<td>kosong</td>
                     <td>kosong</td>-->
@@ -145,9 +145,9 @@
 </tbody>
 </table>
 
-<div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-    Tidak ada data ditemukan.
-</div>
-<hr/>
-</form>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+    </form>
 </template>
