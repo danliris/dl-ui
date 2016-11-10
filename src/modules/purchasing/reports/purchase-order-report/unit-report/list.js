@@ -119,7 +119,10 @@ export class List {
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.dateFrom, this.dateTo);
+        if(this.dateFrom==undefined && this.dateTo==undefined)
+            this.service.generateExcelnoDate();
+        else
+            this.service.generateExcel(this.dateFrom, this.dateTo);
         if(this.dateFrom==undefined && this.dateTo==undefined)
             this.service.generateExcelnoDate2();
         else
