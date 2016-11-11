@@ -10,13 +10,18 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
-
         this.handleDeliveredQuantity = this.handleDeliveredQuantity.bind(this);
         this.handleDeliveredUom = this.handleDeliveredUom.bind(this);
         this.handleRemark = this.handleRemark.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    handleRemove() {
+        if (this.props.onRemove)
+            this.props.onRemove(this.state.value);
     }
 
     handleValueChange(value) {
@@ -36,7 +41,7 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
         value.deliveredUom = uom;
         this.handleValueChange(value);
     }
-    
+
     handleRemark(remark) {
         var value = this.state.value;
         value.remark = remark;
@@ -55,7 +60,12 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
 
     render() {
         var readOnlyOptions = Object.assign({}, this.state.options, { readOnly: true });
-        var style = {
+       var removeButton = null
+
+        if (!this.state.options.readOnly)
+            removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
+
+       var style = {
             margin: 0 + 'px'
         }
         return (
@@ -67,20 +77,23 @@ export default class UnitReceiptNoteItemProductReact extends React.Component {
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.deliveredQuantity ? 'has-error' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantity}/>
+                        <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantity} />
                         <span className="help-block">{this.state.error.deliveredQuantity}</span>
                     </div>
                 </td>
                 <td>
                     <div className={`form-group`} style={style}>
-                        <UomAutoSuggestReact value={this.state.value.deliveredUom} options={readOnlyOptions} onChange={this.handleDeliveredUom}/>
+                        <UomAutoSuggestReact value={this.state.value.deliveredUom} options={readOnlyOptions} onChange={this.handleDeliveredUom} />
                     </div>
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemark}/>
+                        <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemark} />
                         <span className="help-block">{this.state.error.remark}</span>
                     </div>
+                </td>
+                <td>
+                    {removeButton}
                 </td>
             </tr>
         )
