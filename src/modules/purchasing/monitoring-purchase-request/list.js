@@ -25,6 +25,7 @@ export class List {
         this.service.search(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "",this.budget ? this.budget._id : "",this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
 
             .then(data => {
+                console.log(data);
                 this.data = data;
                 this.data = [];
                 var counter = 1;
@@ -35,7 +36,7 @@ export class List {
                         _data.prDate = moment(new Date(pr.date)).format(dateFormat);
                         _data.prNo = pr.no;
                         _data.productName = item.product.name;
-                        _data.unit = pr.unit.subDivision;
+                        _data.unit = `${pr.unit.division.name} - ${pr.unit.name}`;
                         _data.category = pr.category.name;
                         _data.productCode = item.product.code;
                         _data.budget = pr.budget.name;
