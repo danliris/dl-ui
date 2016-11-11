@@ -25,7 +25,6 @@ export class List {
         this.service.search(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "",this.budget ? this.budget._id : "",this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
 
             .then(data => {
-                console.log(data);
                 this.data = data;
                 this.data = [];
                 var counter = 1;
