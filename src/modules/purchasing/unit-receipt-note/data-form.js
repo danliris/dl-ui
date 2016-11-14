@@ -69,20 +69,27 @@ export class DataForm {
                     var _item = {};
                     if (fulfillment.purchaseOrder.unitId == this.data.unitId) {
                         _item.product = fulfillment.product;
-                        _item.deliveredQuantity = fulfillment.deliveredQuantity;
                         _item.deliveredUom = fulfillment.purchaseOrderUom;
                         _item.purchaseOrder = fulfillment.purchaseOrder;
                         _item.purchaseOrderId = fulfillment.purchaseOrderId;
                         _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
                         _item.currency = fulfillment.purchaseOrder.currency;
                         _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
+
+                        var total=0;
+                        for(var qty of fulfillment.realizationQuantity){
+                            total += qty.deliveredQuantity;
+                        }
+                        _item.deliveredQuantity = fulfillment.deliveredQuantity-total;
+
                         for (var _poItem of fulfillment.purchaseOrder.items) {
                             if (_poItem.product._id == fulfillment.product._id) {
                                 _item.pricePerDealUnit = _poItem.pricePerDealUnit;
                                 break;
                             }
                         }
-                        _items.push(_item);
+                        if(_item.deliveredQuantity >0)
+                            _items.push(_item);
                     }
                 }
             }

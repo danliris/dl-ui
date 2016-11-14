@@ -4,6 +4,7 @@ import {RestService} from '../../../rest-service';
 import {SecureService} from '../../../utils/secure-service';
 
 const serviceUri = require('../../../host').core + '/v1/purchasing//unit-payment-note/price-correction/by-user';
+const serviceUriretur = require('../../../host').core + '/v1/purchasing//unit-payment-note/price-correction/retur';
 
 export class Service extends SecureService {
 
@@ -38,6 +39,10 @@ export class Service extends SecureService {
 
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
+        return super.getPdf(endpoint);
+    }
+    getPdfReturById(id) {
+        var endpoint = `${serviceUriretur}/${id}`;
         return super.getPdf(endpoint);
     }
 }

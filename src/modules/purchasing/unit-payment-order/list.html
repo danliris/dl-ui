@@ -33,7 +33,7 @@
                 </thead>
                <tbody>
                     <tr repeat.for="item of data"> 
-                        <td style="text-align:center">${item.unit.division.name}</td>
+                        <td>${item.unit.division.name} - ${item.unit.name}</td>
                         <td style="text-align:center">${item.supplier.name}</td>
                         <td style="text-align:center">${item.date  | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.no}</td>

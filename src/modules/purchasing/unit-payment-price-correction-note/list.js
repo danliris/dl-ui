@@ -56,4 +56,8 @@ export class List {
     getPDF(data) {
         this.service.getPdfById(data._id);
     }
+
+    getPDFRetur(data) {
+        this.service.getPdfReturById(data._id);
+    }
 }

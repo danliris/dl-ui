@@ -4,10 +4,10 @@ import {Session} from '../../../utils/session';
 
 const serviceUri = require('../../../host').core + '/v1/master/units';
 const empty = {
-   division: {
-       name : ''
-   },
-   name: ''
+    division: {
+        name : ''
+    },
+    name: ''
 }
 'use strict';
 
@@ -19,17 +19,17 @@ export default class UnitAutoSuggestReact extends React.Component {
        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
    }
 
-   init(props) {
-       var options = Object.assign({}, UnitAutoSuggestReact.defaultProps.options, props.options);
-       var initialValue = Object.assign({}, empty, props.value);
-       initialValue.toString = function () {
-           return [this.division.name, this.name]
-               .filter((item, index) => {
-                   return item && item.toString().trim().length > 0;
-               }).join(" - ");
-       };
-       this.setState({ value: initialValue, options: options });
-   }
+    init(props) {
+        var options = Object.assign({}, UnitAutoSuggestReact.defaultProps.options, props.options);
+        var initialValue = Object.assign({}, empty, props.value);
+        initialValue.toString = function () {
+            return [this.division.name, this.name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
+        };
+        this.setState({ value: initialValue, options: options });
+    }
 
    componentWillMount() {
        this.init(this.props);
@@ -71,17 +71,17 @@ UnitAutoSuggestReact.defaultProps = {
            var requestHeader = new Headers();
            requestHeader.append('Authorization', `JWT ${session.token}`);
 
-           return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-               return json.data.map(unit => {
-                   unit.toString = function () {
-                       return [this.division.name, this.name]
-                           .filter((item, index) => {
-                               return item && item.toString().trim().length > 0;
-                           }).join(" - ");
-                   }
-                   return unit;
-               })
-           })
-       }
-   }
+            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
+                return json.data.map(unit => {
+                    unit.toString = function () {
+                        return [this.division.name, this.name]
+                            .filter((item, index) => {
+                                return item && item.toString().trim().length > 0;
+                            }).join(" - ");
+                    }
+                    return unit;
+                })
+            })
+        }
+    }
 };
