@@ -40,6 +40,8 @@ export class DataForm {
             };
         this.data.vatRate = this.data.vatRate ? this.data.vatRate : 0;
         this.data.useIncomeTax = this.data.useIncomeTax ? this.data.useIncomeTax : false;
+        this.data.currency.code = this.data.currency.code ? this.data.currency.code : "";
+        this.data.division.name = this.data.division.name ? this.data.division.name : "";
 
     }
 
@@ -50,11 +52,11 @@ export class DataForm {
             if (!this.readOnly)
                 this.data.items = [];
             this.filter = {
-                division: this.data.division,
+                division: this.data.division.name,
                 supplierId: this.data.supplierId,
                 categoryId: this.data.categoryId,
                 paymentMethod: this.data.paymentMethod,
-                currencyCode: this.data.currencyCode,
+                currencyCode: this.data.currency.code,
                 vatRate: this.data.vatRate,
                 useIncomeTax: this.data.useIncomeTax
             };
@@ -64,16 +66,15 @@ export class DataForm {
     divisionChanged(e) {
         var selectedDivision = e.detail || {};
         if (selectedDivision) {
-            this.data.division = selectedDivision.name ? selectedDivision.name : "";
             this.data.divisionId = selectedDivision._id ? selectedDivision._id : "";
             if (!this.readOnly)
                 this.data.items = [];
-           this.filter = {
-                division: this.data.division,
+            this.filter = {
+                division: this.data.division.name,
                 supplierId: this.data.supplierId,
                 categoryId: this.data.categoryId,
                 paymentMethod: this.data.paymentMethod,
-                currencyCode: this.data.currencyCode,
+                currencyCode: this.data.currency.code,
                 vatRate: this.data.vatRate,
                 useIncomeTax: this.data.useIncomeTax
             };
@@ -82,15 +83,14 @@ export class DataForm {
     currencyChanged(e) {
         var selectedCurrency = e.detail || {};
         if (selectedCurrency) {
-            this.data.currencyCode = selectedCurrency.code ? selectedCurrency.code : "";
             if (!this.readOnly)
                 this.data.items = [];
             this.filter = {
-                division: this.data.division,
+                division: this.data.division.name,
                 supplierId: this.data.supplierId,
                 categoryId: this.data.categoryId,
                 paymentMethod: this.data.paymentMethod,
-                currencyCode: this.data.currencyCode,
+                currencyCode: this.data.currency.code,
                 vatRate: this.data.vatRate,
                 useIncomeTax: this.data.useIncomeTax
             };
@@ -103,12 +103,12 @@ export class DataForm {
             this.data.paymentMethod = selectedPayment ? selectedPayment : "";
             if (!this.readOnly)
                 this.data.items = [];
-           this.filter = {
-                division: this.data.division,
+            this.filter = {
+                division: this.data.division.name,
                 supplierId: this.data.supplierId,
                 categoryId: this.data.categoryId,
                 paymentMethod: this.data.paymentMethod,
-                currencyCode: this.data.currencyCode,
+                currencyCode: this.data.currency.code,
                 vatRate: this.data.vatRate,
                 useIncomeTax: this.data.useIncomeTax
             };
@@ -121,11 +121,11 @@ export class DataForm {
         if (!this.readOnly)
             this.data.items = [];
         this.filter = {
-            division: this.data.division,
+            division: this.data.division.name,
             supplierId: this.data.supplierId,
             categoryId: this.data.categoryId,
             paymentMethod: this.data.paymentMethod,
-            currencyCode: this.data.currencyCode,
+            currencyCode: this.data.currency.code,
             vatRate: this.data.vatRate,
             useIncomeTax: this.data.useIncomeTax
         };
@@ -150,11 +150,11 @@ export class DataForm {
         this.data.vatNo = "";
         this.data.vatDate = null;
         this.filter = {
-            division: this.data.division,
+            division: this.data.division.name,
             supplierId: this.data.supplierId,
             categoryId: this.data.categoryId,
             paymentMethod: this.data.paymentMethod,
-            currencyCode: this.data.currencyCode,
+            currencyCode: this.data.currency.code,
             vatRate: this.data.vatRate,
             useIncomeTax: this.data.useIncomeTax
         };
@@ -166,11 +166,11 @@ export class DataForm {
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = null;
         this.filter = {
-            division: this.data.division,
+            division: this.data.division.name,
             supplierId: this.data.supplierId,
             categoryId: this.data.categoryId,
             paymentMethod: this.data.paymentMethod,
-            currencyCode: this.data.currencyCode,
+            currencyCode: this.data.currency.code,
             vatRate: this.data.vatRate,
             useIncomeTax: this.data.useIncomeTax
         };
