@@ -63,7 +63,7 @@
                         <td>${item.no}</td>
                         <td style="text-align:left" if.bind="item.expectedDeliveryDate!=''" >${item.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:left" if.bind="item.expectedDeliveryDate==''" > - </td>
-                        <td${item._createdBy}</td>
+                        <td>${item._createdBy}</td>
                         <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                         <td><button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted'>Cetak Pdf</button></td>
