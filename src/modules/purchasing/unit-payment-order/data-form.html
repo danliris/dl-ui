@@ -2,7 +2,7 @@
     <form class="form-horizontal">
         <div class="row">
             <div class="col-md-6">
-                <division-auto-suggest                          label="Unit"                         value.bind="data.division"              error.bind="error.division"         read-only.bind="readOnly"  change.delegate="divisionChanged($event)"></division-auto-suggest>
+                <division-auto-suggest                          label="Divisi"                       value.bind="data.division"              error.bind="error.division"         read-only.bind="readOnly"  change.delegate="divisionChanged($event)"></division-auto-suggest>
                 <supplier-auto-suggest                          label="Supplier"                     value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"  change.delegate="supplierChanged($event)"></supplier-auto-suggest>
                 <category-auto-suggest                          label="Kategori"                     value.bind="data.category"              error.bind="error.category"         read-only.bind="readOnly"  change.delegate="categoryChanged($event)"></category-auto-suggest>
                 <dropdown                                       label="Term Pembayaran"              value.bind="data.paymentMethod"         error.bind="error.paymentMethod"    read-only.bind="readOnly"  change.delegate="paymentMethodChanged($event)" items.bind="termPaymentOptions"></dropdown>
@@ -26,6 +26,6 @@
             </div>
         </div>                                    
         <hr />
-        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.division && data.supplierId && data.categoryId && data.paymentMethod && data.currencyCode"></unit-payment-order-item-collection>
+        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.division._id && data.supplierId && data.categoryId && data.paymentMethod && data.currency._id"></unit-payment-order-item-collection>
     </form>
 </template>
