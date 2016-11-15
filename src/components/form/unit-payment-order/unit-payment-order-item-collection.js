@@ -75,5 +75,8 @@ export class UnitPaymentOrderItemCollection {
     errorChanged(newError) {
         this.bind();
     }
+    filterChanged(newError) {
+        this.bind();
+    }
 
 }
