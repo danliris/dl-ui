@@ -28,6 +28,8 @@ export class App {
       { route: 'unit-payment-order', name: 'unit-payment-order', moduleId: './modules/purchasing/unit-payment-order/index', nav: true, title: 'Surat Perintah Bayar', settings: { group: "purchasing", roles: ["purchasing"] } },
       { route: 'pr',                  name: 'purchase-request',                 moduleId: './modules/purchasing/purchase-request/index',                            nav: true, title: 'Purchase Request', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'pr/monitoring',       name: 'purchase-request-monitoring',      moduleId: './modules/purchasing/monitoring-purchase-request/index',                 nav: true, title: 'Monitoring Purchase Request', settings: { group:"purchasing", roles:["purchasing"] }},
+      { route: 'production/spinning/winding/winding-quality-sampling',       name: 'winding-quality-sampling',      moduleId: './modules/production/spinning/winding/winding-quality-sampling/index',                 nav: true, title: 'Quality Hasil Produksi Spinning', settings: { group:"purchasing", roles:["purchasing"] }},
+      { route: 'production/spinning/winding/reports/winding-quality-sampling-report',       name: 'winding-quality-sampling-report',      moduleId: './modules/production/spinning/winding/reports/winding-quality-sampling-report/index',                 nav: true, title: 'Laporan Quality Hasil Produksi Spinning', settings: { group:"purchasing", roles:["purchasing"] }},
     ];
 
     if (!this.session.isAuthenticated)
