@@ -2,8 +2,8 @@
  <h1 class="page-header">Laporan Rekap Total Pembelian per Kategori per Periode</h1>
      <form class="form-horizontal">
         
-        <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
+        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker> 
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
