@@ -24,6 +24,7 @@
                     <tr>
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>Nomor Surat Jalan</th>
+                        <th>Tanggal Surat Jalan</th>
                         <th>Nama Supplier</th>
                         <th>List Nomor Eksternal PO</th>
                         <th></th>
@@ -38,6 +39,7 @@
                                 change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.no}</td>
+                        <td style="text-align:left">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td>${item.supplier.name}</td>
                         <td>
                             <ul>
@@ -50,7 +52,7 @@
             </table>
         </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data surat jalan tidak ada.
+            Data surat jalan tidak ditemukan.
         </div>
         <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
         <hr/>

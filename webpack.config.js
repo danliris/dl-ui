@@ -62,7 +62,7 @@ const baseConfig = {
     'aurelia': coreBundles.aurelia.filter(pkg => coreBundles.bootstrap.indexOf(pkg) === -1)
   },
   output: {
-    path: outDir,
+    path: outDir
   },
   module: {
     loaders: [{
@@ -72,6 +72,10 @@ const baseConfig = {
       query: {
         presets: ['es2015', 'react']
       }
+    },
+    { 
+      test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, 
+      loader: "file" 
     }]
   },
   resolve: {

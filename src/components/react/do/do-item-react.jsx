@@ -18,6 +18,7 @@ export default class DoItemReact extends React.Component {
         this.init = this.init.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleItemFulfillmentRemove = this.handleItemFulfillmentRemove.bind(this);
         this.handleToggleDetail = this.handleToggleDetail.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
@@ -28,10 +29,19 @@ export default class DoItemReact extends React.Component {
     handleValueChange(event, poExternal) {
         var doItem = this.state.value;
         doItem.purchaseOrderExternal = poExternal;
-        doItem.purchaseOrderExternalId = poExternal._id;
+        doItem.fulfillments = [];
+        doItem.purchaseOrderExternalId = poExternal ? poExternal._id : {};
         this.setState({ value: doItem });
         if (this.props.onChange)
             this.props.onChange(doItem);
+    }
+
+    handleItemFulfillmentRemove(fulfillment) {
+        var itemIndex = this.state.value.fulfillments.indexOf(fulfillment);
+        this.state.value.fulfillments.splice(itemIndex, 1);
+        this.setState({ value: this.state.value });
+        // if (this.props.onChange)
+        //     this.props.onChange(this.state.value);
     }
 
     handleRemove() {
@@ -50,42 +60,26 @@ export default class DoItemReact extends React.Component {
         var doFulfillments = value.fulfillments || [];
         var poExternal = value.purchaseOrderExternal || {};
         var poCollection = poExternal.items || [];
-        // var fulfillments = [].concat.apply([], poCollection.map((purchaseOrder, index) => {
-        //     var doItemFulfillments = (purchaseOrder.items || []).map((poItem, index) => {
-        //         return {
-        //             purchaseOrderId: purchaseOrder._id,
-        //             purchaseOrder: purchaseOrder,
-        //             productId: poItem.product._id,
-        //             product: poItem.product,
-        //             purchaseOrderQuantity: poItem.dealQuantity,
-        //             purchaseOrderUom: poItem.dealUom,
-        //             //deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : 0,
-        //             deliveredQuantity: (doFulfillments[index] || {}).deliveredQuantity ? doFulfillments[index].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
-        //             remark: (doFulfillments[index] || {}).remark ? doFulfillments[index].remark : ''
-        //         }
-        //     });
-        //     return doItemFulfillments;
-        // }));
-        var fulfillments=[];
-        for (var purchaseOrder of poCollection)
-        {
-            for(var poItem of purchaseOrder.items)
-            {
-                var fulfillment={
-                    purchaseOrderId: purchaseOrder._id,
-                    purchaseOrder: purchaseOrder,
-                    productId: poItem.product._id,
-                    product: poItem.product,
-                    purchaseOrderQuantity: poItem.dealQuantity,
-                    purchaseOrderUom: poItem.dealUom,
-                    deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
-                    remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
-                };
-                fulfillments.push(fulfillment);
+        var fulfillments = [];
+        for (var purchaseOrder of poCollection) {
+            for (var poItem of purchaseOrder.items) {
+                if ((poItem.dealQuantity - poItem.realizationQuantity) > 0) {
+                    var fulfillment = {
+                        purchaseOrderId: purchaseOrder._id,
+                        purchaseOrder: purchaseOrder,
+                        productId: poItem.product._id,
+                        product: poItem.product,
+                        purchaseOrderQuantity: poItem.dealQuantity,
+                        purchaseOrderUom: poItem.dealUom,
+                        deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
+                        remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
+                    };
+                    fulfillments.push(fulfillment);
+                }
             }
         }
 
-        value.fulfillments = fulfillments;
+        value.fulfillments = doFulfillments.length > 0 ? doFulfillments : fulfillments;
 
         var error = Object.assign({}, DoItemReact.defaultProps.error, props.error);
         var options = Object.assign({}, DoItemReact.defaultProps.options, props.options);
@@ -115,7 +109,7 @@ export default class DoItemReact extends React.Component {
                 var itemOptions = { readOnly: true };
                 var realizationQtyOptions = { readOnly: false };
                 var error = (this.state.error.fulfillments || [])[index] || {};
-                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment}  error={error} options={this.state.options}/>;
+                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment}  error={error} options={this.state.options} onItemFulfillementRemove ={this.handleItemFulfillmentRemove}/>;
             });
 
             details = <tr>

@@ -17,7 +17,7 @@ export function configure(config) {
         './auto-suggests/po-auto-suggest',
         './auto-suggests/po-unposted-auto-suggest',
         './auto-suggests/supplier-auto-suggest',
-        './auto-suggests/unit-auto-suggest',
+        './auto-suggests/unit-auto-suggest', 
         './auto-suggests/uom-auto-suggest',
         './auto-suggests/currency-auto-suggest',
         './auto-suggests/delivery-order-by-supplier-unit-auto-suggest',
@@ -27,6 +27,8 @@ export function configure(config) {
         './auto-suggests/unit-payment-order-auto-suggest',
         './auto-suggests/machine-auto-suggest',
         './auto-suggests/product-by-uster-auto-suggest',
+        './auto-suggests/pr-auto-suggest',
+        './auto-suggests/division-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',

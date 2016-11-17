@@ -1,22 +1,24 @@
 <template>
     <h1 class="page-header">Buyer</h1>
     <br>
+
     <div class="row">
-            <div class="col-sm-8">
-                <div class="input-group">
-					<input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
-					<span class="input-group-btn">
+        <div class="col-sm-8">
+            <div class="input-group">
+                <input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
+                <span class="input-group-btn">
                         <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
                         <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
                     </span>
-				</div
+				</div>
             </div>
-            <div class="col-sm-4">
-                <div class="pull-right">
-                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
-                </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="pull-right">
+                <button class="btn btn-primary" click.delegate="create()">Buat</button>
             </div>
-        </div> 
+        </div>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
