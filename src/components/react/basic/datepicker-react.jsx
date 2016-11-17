@@ -42,7 +42,7 @@ export default class DatePickerReact extends React.Component {
         }
         else
             return (
-                <input type="date" value={this.state.value} onChange={this.handleValueChange} className="form-control"></input>
+                <input type="date" value={this.state.value} onChange={this.handleValueChange} className="form-control" min={this.state.options.min} max={this.state.options.max}></input>
             );
     }
 }
