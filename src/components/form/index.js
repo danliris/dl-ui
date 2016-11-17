@@ -25,6 +25,8 @@ export function configure(config) {
         './auto-suggests/unit-receipt-note-auto-suggest',
         './auto-suggests/budget-auto-suggest',
         './auto-suggests/unit-payment-order-auto-suggest',
+        './auto-suggests/machine-auto-suggest',
+        './auto-suggests/product-by-uster-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',
