@@ -4,7 +4,7 @@ import {RestService} from '../../../rest-service';
 import {SecureService} from '../../../utils/secure-service';
 
 const serviceUri = require('../../../host').core + '/v1/purchasing/unit-payment-note/price-correction/by-user';
-const serviceUriretur = require('../../../host').core + '/v1/purchasing/unit-payment-note/price-correction/retur';
+const serviceUriretur = require('../../../host').core + '/v1/purchasing/unit-payment-correction-note/retur';
 
 export class Service extends SecureService {
 
