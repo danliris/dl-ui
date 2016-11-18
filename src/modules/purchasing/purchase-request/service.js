@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../rest-service';
 import {SecureService} from '../../../utils/secure-service';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchasing/pr/by-user';
+const serviceUri = require('../../../host').purchasing+ '/v1/purchase-requests/by-user';
 
 export class Service extends SecureService {
 
@@ -37,7 +37,7 @@ export class Service extends SecureService {
     }
 
     post(data) {
-        var endpoint = require('../../../host').purchasing+ '/v1/purchasing/pr/post';
+        var endpoint = require('../../../host').purchasing+ '/v1/purchase-requests/post';
         return super.post(endpoint, data);
     }
 
