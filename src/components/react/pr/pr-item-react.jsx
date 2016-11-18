@@ -42,12 +42,6 @@ export default class PrItem extends React.Component {
         this.handleValueChange(value);
     }
 
-    handleUomChange(event, uom) {
-        var value = this.state.value;
-        value.uom = uom;
-        this.handleValueChange(value);
-    }
-
     handleRemarkChange(remark) {
         var value = this.state.value;
         value.remark = remark;
@@ -69,7 +63,6 @@ export default class PrItem extends React.Component {
 
     render() { 
         var readOnlyOptions = { readOnly: this.state.options.readOnly || this.state.options.isSplit };
-        var uomOptions = Object.assign({}, this.state.options, { readOnly: true });
         var QtyOptions = Object.assign({}, this.state.options, { min: 0 });
         var descOptions = readOnlyOptions;
         var removeButton = null
