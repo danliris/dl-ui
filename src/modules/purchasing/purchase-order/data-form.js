@@ -55,7 +55,7 @@ export class DataForm {
             for (var item of selectedItem) {
                 var _item = {};
                 _item.product = item.product;
-                _item.defaultUom = item.uom;
+                _item.defaultUom = item.product.uom;
                 _item.defaultQuantity = item.quantity;
                 _items.push(_item);
 
