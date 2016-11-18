@@ -35,7 +35,7 @@ export class List {
                         _data.prDate = moment(new Date(pr.date)).format(dateFormat);
                         _data.prNo = pr.no;
                         _data.productName = item.product.name;
-                        _data.unit = pr.unit.subDivision;
+                        _data.unit = `${pr.unit.division.name} - ${pr.unit.name}`;
                         _data.category = pr.category.name;
                         _data.productCode = item.product.code;
                         _data.budget = pr.budget.name;

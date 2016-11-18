@@ -2,7 +2,7 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').core + '/v1/purchasing/unit-receipt-note-suplier-unit';
+const serviceUri = require('../../../host').purchasing+ '/v1/purchasing/unit-receipt-note-suplier-unit';
 const empty = {
     no: '',
     deliveryOrder: {
@@ -27,7 +27,7 @@ export default class UnitReceipNoteBySupplierUnitAutoSuggestReact extends React.
         var options = Object.assign({}, UnitReceipNoteBySupplierUnitAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.deliveryOrder.no, this.no]
+            return [this.no, this.deliveryOrder.no]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");

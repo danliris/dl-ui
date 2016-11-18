@@ -2,12 +2,12 @@
     <form class="form-horizontal">
         <div class="row">
             <div class="col-md-6">
-                <unit-auto-suggest                              label="Unit"                         value.bind="data.unit"                  error.bind="error.unit"             read-only.bind="(readOnly || isEdit)"   change.delegate="unitChanged($event)"></unit-auto-suggest>
-                <supplier-auto-suggest                          label="Supplier"                     value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"               change.delegate="supplierChanged($event)"></supplier-auto-suggest>
-                <category-auto-suggest                          label="Kategori"                     value.bind="data.category"              error.bind="error.category"         read-only.bind="readOnly"               change.delegate="categoryChanged($event)"></category-auto-suggest>
-                <dropdown                                       label="Term Pembayaran"              value.bind="data.paymentMethod"         error.bind="error.paymentMethod"    read-only.bind="readOnly"   items.bind="termPaymentOptions"  change.delegate="paymentMethodChanged($event)"></dropdown>
-                <currency-auto-suggest                          label="Mata Uang"                    value.bind="data.currency"              error.bind="error.currency"         read-only.bind="readOnly"   ></currency-auto-suggest>
-                <textbox                                        label="No. Surat Perintah Bayar"     value.bind="data.no"                    error.bind="error.no"               read-only.bind="readOnly"></textbox>
+                <division-auto-suggest                          label="Divisi"                       value.bind="data.division"              error.bind="error.division"         read-only.bind="readOnly"  change.delegate="divisionChanged($event)"></division-auto-suggest>
+                <supplier-auto-suggest                          label="Supplier"                     value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"  change.delegate="supplierChanged($event)"></supplier-auto-suggest>
+                <category-auto-suggest                          label="Kategori"                     value.bind="data.category"              error.bind="error.category"         read-only.bind="readOnly"  change.delegate="categoryChanged($event)"></category-auto-suggest>
+                <dropdown                                       label="Term Pembayaran"              value.bind="data.paymentMethod"         error.bind="error.paymentMethod"    read-only.bind="readOnly"  change.delegate="paymentMethodChanged($event)" items.bind="termPaymentOptions"></dropdown>
+                <currency-auto-suggest                          label="Mata Uang"                    value.bind="data.currency"              error.bind="error.currency"         read-only.bind="readOnly"  change.delegate="currencyChanged($event)" ></currency-auto-suggest>
+                <textbox                                        label="No. Surat Perintah Bayar"     value.bind="data.no"                    error.bind="error.no"               read-only.bind="(readOnly || isEdit)" if.bind="readOnly || isEdit"></textbox>
                 <datepicker                                     label="Tanggal Surat Perintah Bayar" value.bind="data.date"                  error.bind="error.date"             read-only.bind="readOnly"></datepicker> 
                 <textbox                                        label="No. Invoice"                  value.bind="data.invoceNo"              error.bind="error.invoceNo"         read-only.bind="readOnly"></textbox>
                 <datepicker                                     label="Tanggal Invoice"              value.bind="data.invoceDate"            error.bind="error.invoceDate"       read-only.bind="readOnly"></datepicker> 
@@ -15,17 +15,17 @@
                 <multiline                                      label="Keterangan"                   value.bind="data.remark"                error.bind="error.remark"           read-only.bind="readOnly"></multiline>
             </div>
             <div class="col-md-6">
-                <checkbox                                       label="Apakah kena Pph?"            value.bind="data.useVat"                error.bind="error.useVat"           read-only.bind="readOnly"></checkbox>
+                <checkbox                                       label="Apakah kena Pph?"            value.bind="data.useVat"                error.bind="error.useVat"           read-only.bind="readOnly"   change.delegate="useVatChanged($event)"></checkbox>
                 <vat-auto-suggest                               label="Jenis Pph"                   value.bind="data.vat"                   error.bind="error.vat"              read-only.bind="readOnly"   change.delegate="vatChanged($event)" if.bind=data.useVat></vat-auto-suggest>
-                <numeric                                        label="Rate PPH"                    value.bind="data.vatRate"               error.bind="error.vatRate"          read-only.bind="true"   post-fix="%" if.bind=data.useVat></numeric>
-                <textbox                                        label="No. Faktur Pajak (PPH)"      value.bind="data.vatNo"                 error.bind="error.vatNo"            read-only.bind="readOnly" if.bind=data.useVat></textbox>
-                <datepicker                                     label="Tanggal Faktur Pajak (PPH)"  value.bind="data.vatDate"               error.bind="error.vatDate"          read-only.bind="readOnly" if.bind=data.useVat></datepicker>                 
-                <checkbox                                       label="Apakah kena Ppn?"            value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"     read-only.bind="readOnly" ></checkbox>
-                <textbox                                        label="No. Faktur Pajak (PPN)"      value.bind="data.incomeTaxNo"           error.bind="error.incomeTaxNo"      read-only.bind="readOnly" if.bind=data.useIncomeTax></textbox>
-                <datepicker                                     label="Tanggal Faktur Pajak (PPN)"  value.bind="data.incomeTaxDate"         error.bind="error.incomeTaxDate"    read-only.bind="readOnly" if.bind=data.useIncomeTax></datepicker>           
+                <numeric                                        label="Rate PPH"                    value.bind="data.vatRate"               error.bind="error.vatRate"          read-only.bind="true"       post-fix="%" if.bind=data.useVat></numeric>
+                <textbox                                        label="No. Faktur Pajak (PPH)"      value.bind="data.vatNo"                 error.bind="error.vatNo"            read-only.bind="readOnly"   if.bind=data.useVat></textbox>
+                <datepicker                                     label="Tanggal Faktur Pajak (PPH)"  value.bind="data.vatDate"               error.bind="error.vatDate"          read-only.bind="readOnly"   if.bind=data.useVat></datepicker>                 
+                <checkbox                                       label="Apakah kena Ppn?"            value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"     read-only.bind="readOnly"   change.delegate="useIncomeTaxChanged($event)"></checkbox>
+                <textbox                                        label="No. Faktur Pajak (PPN)"      value.bind="data.incomeTaxNo"           error.bind="error.incomeTaxNo"      read-only.bind="readOnly"   if.bind=data.useIncomeTax></textbox>
+                <datepicker                                     label="Tanggal Faktur Pajak (PPN)"  value.bind="data.incomeTaxDate"         error.bind="error.incomeTaxDate"    read-only.bind="readOnly"   if.bind=data.useIncomeTax></datepicker>           
             </div>
         </div>                                    
         <hr />
-        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.unitId || data.supplierId"></unit-payment-order-item-collection>
+        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.division && data.supplierId && data.categoryId && data.paymentMethod && data.currency"></unit-payment-order-item-collection>
     </form>
 </template>

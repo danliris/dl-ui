@@ -2,14 +2,13 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchasing/po';
+const serviceUri = require('../../../host').core + '/v1/master/divisions';
 const empty = {
-    no: ''
+    name: '' 
 }
-
 'use strict';
 
-export default class PoAutoSuggestReact extends React.Component {
+export default class DivisionAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -18,10 +17,10 @@ export default class PoAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, PoAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, DivisionAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.no}`;
+           return `${this.name}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -45,7 +44,7 @@ export default class PoAutoSuggestReact extends React.Component {
     }
 }
 
-PoAutoSuggestReact.propTypes = {
+DivisionAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -55,7 +54,7 @@ PoAutoSuggestReact.propTypes = {
     })
 };
 
-PoAutoSuggestReact.defaultProps = {
+DivisionAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
@@ -67,11 +66,11 @@ PoAutoSuggestReact.defaultProps = {
             requestHeader.append('Authorization', `JWT ${session.token}`);
 
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(poTextile => {
-                    poTextile.toString = function () {
-                        return `${this.no}`;
+                return json.data.map(unit => {
+                    unit.toString = function () {
+                       return `${this.name}`;
                     }
-                    return poTextile;
+                    return unit;
                 })
             })
         }
