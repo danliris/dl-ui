@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../../../../rest-service';
 import {SecureService} from '../../../../../../utils/secure-service';
 
-const serviceUri = require('../../../../../../host').core + '/v1/production/spinning/winding/reports/winding-quality-samplings';
+const serviceUri = require('../../../../../../host').production + '/v1/spinning/winding/reports/winding-quality-samplings';
 
 export class Service extends SecureService {
 

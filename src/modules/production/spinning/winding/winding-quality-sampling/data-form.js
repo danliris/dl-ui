@@ -35,7 +35,7 @@ export class DataForm {
     threadChanged(e) {
         var selectedThread = e.detail;
         if (selectedThread){
-            this.data.threadName = selectedThread.threadName ? selectedThread.threadName : "";
+            this.data.usterId = selectedThread._id ? selectedThread._id : "";
         }
     }
 }
