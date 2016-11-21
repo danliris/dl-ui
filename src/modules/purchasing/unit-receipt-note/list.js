@@ -5,7 +5,7 @@ import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    servicePdfUri = require('../../../host').purchasing+ '/v1/purchasing/receipt-note/unit/pdf/';
+    servicePdfUri = require('../../../host').purchasing+ '/v1/unit-receipt-notes/pdf/';
     data = [];
     dataToBePrinting = [];
     keyword = '';

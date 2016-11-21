@@ -2,7 +2,7 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchasing/receipt-note/unit';
+const serviceUri = require('../../../host').purchasing+ '/v1/unit-receipt-notes';
 const empty = {
     no: ''
 }

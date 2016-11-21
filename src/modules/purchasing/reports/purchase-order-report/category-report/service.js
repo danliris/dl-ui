@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../../../rest-service';
 import {SecureService} from '../../../../../utils/secure-service';
 
-const serviceUri = require('../../../../../host').purchasing+ '/v1/purchasing/po/reports/categories';
+const serviceUri = require('../../../../../host').purchasing+ '/v1/purchase-oders/reports/categories';
 
 export class Service extends SecureService {
 
