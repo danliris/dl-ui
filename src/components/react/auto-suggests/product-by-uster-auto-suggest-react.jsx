@@ -2,9 +2,9 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx'; 
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').core + '/v1/production/spinning/winding/thread-in-uster-classifications';
+const serviceUri = require('../../../host').core + '/v1/master/usters';
 const empty = {
-    threadName: ''
+    code: ''
 }
 'use strict';
 
@@ -21,7 +21,7 @@ export default class ProductByUsterAutoSuggestReact extends React.Component {
         var options = Object.assign({}, ProductByUsterAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.threadName}`;
+            return `${this.code}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -69,7 +69,7 @@ ProductByUsterAutoSuggestReact.defaultProps = {
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
                 return json.data.map(product => {
                     product.toString = function () {
-                        return `${this.threadName}`;
+                        return `${this.code}`;
                     }
                     return product;
                 })
