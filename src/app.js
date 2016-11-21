@@ -30,6 +30,8 @@ export class App {
       { route: 'unit-payment-note/price-correction',  name: 'unit-payment-price-correction-note',       moduleId: './modules/purchasing/unit-payment-price-correction-note/index',            nav: true,  title: 'Koreksi Harga Pembelian',     settings: { group:"purchasing",   roles:["purchasing"] }},
       { route: 'production/spinning/winding/winding-quality-sampling',       name: 'winding-quality-sampling',      moduleId: './modules/production/spinning/winding/winding-quality-sampling/index',                 nav: true, title: 'Quality Hasil Produksi Spinning', settings: { group:"purchasing", roles:["purchasing"] }},
       { route: 'production/spinning/winding/reports/winding-quality-sampling-report',       name: 'winding-quality-sampling-report',      moduleId: './modules/production/spinning/winding/reports/winding-quality-sampling-report/index',                 nav: true, title: 'Laporan Quality Hasil Produksi Spinning', settings: { group:"purchasing", roles:["purchasing"] }},
+      
+      { route: 'power-bi',                            name: 'power-bi',           moduleId: './modules/power-bi/index',               nav: true, title: 'Power BI Reports' ,                                                settings: { group:"reports", roles:["admin"] }}
     ];
 
     if (!this.session.isAuthenticated)
