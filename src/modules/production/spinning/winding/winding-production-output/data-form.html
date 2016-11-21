@@ -1,0 +1,14 @@
+<template>
+    <form class="form-horizontal">
+        <fieldset>
+            <dropdown               label="Spinning"                value.bind="data.spinning"         error.bind="error.spinning"      read-only.bind="(readOnly || isEdit)"   items.bind="spinningOptions"  change.delegate="SpinningChanged($event)"></dropdown>
+            <datepicker             label="Tanggal"                 value.bind="data.date"             error.bind="error.date"          read-only.bind="(readOnly || isEdit)" ></datepicker>
+            <dropdown               label="Shift"                   value.bind="data.shift"            error.bind="error.shift"         read-only.bind="(readOnly || isEdit)"   items.bind="shiftOptions"  change.delegate="paymentMethodChanged($event)"></dropdown>
+      
+            <numeric                label="Berat Benang per Cone"   value.bind="data.threadWeight"      error.bind="error.threadWeight" read-only.bind="(readOnly || isEdit)"></numeric>
+            <numeric                label="Jumlah Good Cone"        value.bind="data.goodCone"          error.bind="error.goodCone"     read-only.bind="(readOnly || isEdit)"></numeric>
+            <numeric                label="Jumlah Bad Cone"         value.bind="data.badCone"           error.bind="error.badCone"      read-only.bind="(readOnly || isEdit)"></numeric>
+            <numeric                label="Jumlah Drum"             value.bind="data.drum"              error.bind="error.drum"         read-only.bind="(readOnly || isEdit)"></numeric>
+        </fieldset>
+    </form>
+</template>
