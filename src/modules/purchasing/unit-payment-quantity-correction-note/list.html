@@ -1,7 +1,7 @@
 <template>
 
     <div class="display-wrapper">
-        <h1 class="page-header">Koreksi Harga Pembelian</h1>
+        <h1 class="page-header">Koreksi Jumlah Pembelian</h1>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -49,7 +49,7 @@
         </table>
     </div>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        Data Catatan Koreksi Harga Tidak Ditemukan.
+        Data Catatan Koreksi Jumlah Tidak Ditemukan.
     </div>
     <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
     <hr/>
