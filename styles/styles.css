@@ -2,6 +2,10 @@ body {
   margin: 0;
 }
 
+.main {
+  padding: 20px !important;
+}
+
 .navbar-brand {
   padding: 10px 15px;
   line-height: 29px;
@@ -12,7 +16,7 @@ body {
   width:29px;
   float:left;
   margin-right:5px;
-  /*background-image: url('../images/Logo-DL-Blue.png');*/
+  /*background-image: url('/images/Logo-DL-Blue.png');*/
   background-size: cover;
   background-repeat: no-repeat;
 }

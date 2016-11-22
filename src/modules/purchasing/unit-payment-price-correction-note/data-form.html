@@ -1,8 +1,8 @@
 <template>
     <form class="form-horizontal">
-        <dropdown                           label="Jenis Koreksi"                   value.bind="priceCorrectionType"            read-only.bind="readOnly"                       items.bind="priceCorrectionTypes" change.delegate="priceCorrectionTypeChanged($event)"></dropdown>
-        <textbox                            label="No. Nota Debet"                  value.bind="data.no"                        error.bind="error.no"                           read-only.bind="(readOnly || isEdit)" if.bind="readOnly || isEdit"></textbox>
-        <datepicker                         label="Tgl. Nota Debet"                 value.bind="data.date"                      error.bind="error.date"                         read-only.bind="readOnly"></datepicker> 
+        <dropdown                           label="Jenis Koreksi"                   value.bind="data.priceCorrectionType"       read-only.bind="readOnly"                       items.bind="priceCorrectionTypes" change.delegate="priceCorrectionTypeChanged($event)"></dropdown>
+        <textbox                            label="No. Koreksi"                     value.bind="data.no"                        error.bind="error.no"                           read-only.bind="true" if.bind="readOnly || isEdit"></textbox>
+        <datepicker                         label="Tgl. Koreksi"                    value.bind="data.date"                      error.bind="error.date"                         read-only.bind="readOnly"></datepicker> 
         <unit-payment-order-auto-suggest    label="No. Surat Perintah Bayar"        value.bind="data.unitPaymentOrder"          error.bind="error.unitPaymentOrder"             read-only.bind="readOnly"   change.delegate="unitPaymentOrderChanged($event)" if.bind="flag"></unit-payment-order-auto-suggest>
         <supplier-auto-suggest              label="Supplier"                        value.bind="data.unitPaymentOrder.supplier" error.bind="error.unitPaymentOrder.supplier"    read-only.bind="true"   if.bind="data.unitPaymentOrderId && data.unitPaymentOrder._id"></supplier-auto-suggest>
         <textbox                            label="No. Invoice Koreksi"             value.bind="data.invoiceCorrectionNo"       error.bind="error.invoiceCorrectionNo"          read-only.bind="readOnly"></textbox>

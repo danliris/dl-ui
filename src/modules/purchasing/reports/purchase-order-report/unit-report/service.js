@@ -3,12 +3,18 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../../../rest-service';
 import {SecureService} from '../../../../../utils/secure-service';
 
-const serviceUri = require('../../../../../host').core + '/v1/purchasing/po/reports/units';
+const serviceUri = require('../../../../../host').purchasing+ '/v1/purchase-oders/reports/units';
+const serviceUriDetail = require('../../../../../host').purchasing+ '/v1/purchase-oders/reports/subUnits';
 
 export class Service extends SecureService {
 
   constructor(http, aggregator) {
     super(http, aggregator);
+  }
+
+  getDataUnitnoDate() {
+    var endpoint = `${serviceUri}`;
+    return super.get(endpoint);
   }
 
   getDataUnit(sdate, edate) {
@@ -17,8 +23,19 @@ export class Service extends SecureService {
   }
 
   getDetailUnit(sdate, edate, unit) {
-    var endpoint = `${serviceUri}/${unit}?dateFrom=${sdate}&dateTo=${edate}`;
+    var endpoint = `${serviceUriDetail}?unit=${unit}&dateFrom=${sdate}&dateTo=${edate}`;
     return super.get(endpoint);
+  }
+
+  getDetailUnitnoDate(unit)
+  {
+    var endpoint = `${serviceUriDetail}?unit=${unit}`;
+    return super.get(endpoint);
+  }
+
+  generateExcelnoDate() {
+    var endpoint = `${serviceUri}`;
+    return super.getXls(endpoint);
   }
 
   generateExcel(sdate, edate) {
@@ -26,8 +43,14 @@ export class Service extends SecureService {
     return super.getXls(endpoint);
   }
 
+  generateExcelnoDate2()
+  {
+    var endpoint = `${serviceUriDetail}`;
+    return super.getXls(endpoint);
+  }
+
   generateExcel2(sdate, edate, unit) {
-    var endpoint = `${serviceUri}/${unit}?dateFrom=${sdate}&dateTo=${edate}`;
+    var endpoint = `${serviceUriDetail}?unit=${unit}&dateFrom=${sdate}&dateTo=${edate}`;
     return super.getXls(endpoint);
   }
 

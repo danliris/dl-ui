@@ -31,6 +31,7 @@ export default class PrItem extends React.Component {
     handleProductChange(event, product) {
         var value = this.state.value;
         value.product = product;
+        value.productId = product._id;
         value.uom = product.uom;
         this.handleValueChange(value);
     }

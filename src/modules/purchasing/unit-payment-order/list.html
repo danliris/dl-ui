@@ -23,7 +23,7 @@
             <table class="table">
                 <thead>
                     <tr> 
-                        <th style="text-align:center">Unit</th>
+                        <th style="text-align:center">Divisi</th>
                         <th style="text-align:center">Supplier</th>
                         <th style="text-align:center">Tanggal Surat Perintah Bayar</th>
                         <th style="text-align:center">Nomor Surat Perintah Bayar</th>
@@ -32,8 +32,8 @@
                     </tr>
                 </thead>
                <tbody>
-                    <tr repeat.for="item of data"> 
-                        <td style="text-align:center">${item.unit.division.name}</td>
+                    <tr repeat.for="item of data">  
+                        <td>${item.division.name}</td>
                         <td style="text-align:center">${item.supplier.name}</td>
                         <td style="text-align:center">${item.date  | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.no}</td>

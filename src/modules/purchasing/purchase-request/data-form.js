@@ -21,7 +21,8 @@ export class DataForm {
 
     budgetChanged(e) {
         var selectedbudget = e.detail || {};
-        this.data.budgetId = selectedbudget._id ? selectedbudget._id : "";
+        if (selectedbudget)
+            this.data.budgetId = selectedbudget._id ? selectedbudget._id : "";
     }
 
     categoryChanged(e) {
