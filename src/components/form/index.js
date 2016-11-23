@@ -37,6 +37,7 @@ export function configure(config) {
         './unit-receipt-note/unit-receipt-note-item-collection',
         './unit-payment-order/unit-payment-order-item-collection',
         './pr/pr-item-collection',
-        './unit-payment-price-correction-note/unit-payment-price-correction-note-collection'
+        './unit-payment-price-correction-note/unit-payment-price-correction-note-collection',
+        './unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection'
     );
 }

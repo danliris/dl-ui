@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
@@ -18,11 +18,11 @@ export class List {
 
 
     search() {
-       var dateFormat = "DD MMM YYYY";
+        var dateFormat = "DD MMM YYYY";
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        this.service.search(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "",this.budget ? this.budget._id : "",this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
+        this.service.search(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
 
             .then(data => {
                 this.data = data;
@@ -59,5 +59,13 @@ export class List {
     ExportToExcel() {
         this.service.generateExcel(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo);
     }
+    dateFromChanged(e) {
+        var _startDate = new Date(e.srcElement.value);
+        var _endDate = new Date(this.dateTo);
 
+
+        if (_startDate > _endDate)
+            this.dateTo = e.srcElement.value;
+
+    }
 }

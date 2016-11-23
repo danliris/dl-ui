@@ -44,7 +44,7 @@ export default class UnitReceiptNoteItemCollectionReact extends React.Component 
         })
         
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="20%">Barang</th>
