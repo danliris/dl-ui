@@ -20,14 +20,15 @@
             </div>
         </div> 
         <div>
-            <table class="table">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr> 
                         <th style="text-align:center">Spinning</th>
                         <th style="text-align:center">Tanggal</th>
                         <th style="text-align:center">Shift</th>
-                        <th style="text-align:center">Staff</th>
                         <th style="text-align:center">Mesin</th>
+                        <th style="text-align:center">Nama Operator</th>
+                        <th style="text-align:center">Benang</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -36,7 +37,10 @@
                         <td>${item.spinning}</td>
                         <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.shift}</td>
+                        <td style="text-align:center">${item.machine.name}</td>
                         <td style="text-align:center">${item._createdBy}</td>
+                        <td style="text-align:center">${item.product.name}</td>
+                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                     </tr>
                 </tbody>
             </table>
