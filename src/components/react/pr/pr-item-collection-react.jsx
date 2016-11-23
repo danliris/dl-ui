@@ -57,7 +57,7 @@ export default class PrItemCollectionReact extends React.Component {
         if (this.state.options.readOnly)
             addButton = <span></span>;
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="40%">Barang</th>

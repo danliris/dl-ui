@@ -1,8 +1,7 @@
 <template>
     <form class="form-horizontal">
         <div class="row">
-            <div class="col-md-6">
-                <textbox                                        label="No. Surat Perintah Bayar"     value.bind="data.no"                    error.bind="error.no"               read-only.bind="true" if.bind="readOnly || isEdit"></textbox>
+            <div class="col-md-6"> 
                 <datepicker                                     label="Tanggal Surat Perintah Bayar" value.bind="data.date"                  error.bind="error.date"             read-only.bind="readOnly"></datepicker> 
                 <division-auto-suggest                          label="Divisi"                       value.bind="data.division"              error.bind="error.division"         read-only.bind="readOnly"  change.delegate="divisionChanged($event)"></division-auto-suggest>
                 <supplier-auto-suggest                          label="Supplier"                     value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"  change.delegate="supplierChanged($event)"></supplier-auto-suggest>
@@ -25,7 +24,7 @@
                 <datepicker                                     label="Tanggal Faktur Pajak (PPN)"  value.bind="data.incomeTaxDate"         error.bind="error.incomeTaxDate"    read-only.bind="readOnly"   if.bind=data.useIncomeTax></datepicker>           
             </div>
         </div>                                    
-        <hr />
+        <hr /> 
         <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.division && data.supplierId && data.categoryId && data.paymentMethod && data.currency"></unit-payment-order-item-collection>
     </form>
 </template>
