@@ -65,18 +65,16 @@ const baseConfig = {
     path: outDir
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['es2015', 'react']
-      }
-    },
-    { 
-      test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, 
-      loader: "file" 
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react']
+        }
+      }]
+      // ,{ test: /\.(png|gif|jpg)$/, loader: 'file?name=images/[name].[ext]' }]
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

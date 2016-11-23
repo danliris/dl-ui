@@ -2,6 +2,9 @@
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/styles.css';
+import '../styles/styles.components.css';
+import '../styles/styles.login.css';
+import '../styles/styles.theme.css';
 import '../styles/dashboard.css';
 import 'bootstrap';
 import {Session} from './utils/session';

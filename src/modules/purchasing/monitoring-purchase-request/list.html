@@ -1,12 +1,12 @@
 <template>
     <h1 class="page-header">Monitoring Purchase Request</h1>
     <form class="form-horizontal">
-        <textbox                label="Nomor PR"    value.bind="PRNo"></textbox>
-        <unit-auto-suggest      label="Unit"        value.bind="unitId"></unit-auto-suggest>
-        <category-auto-suggest  label="Kategori"    value.bind="categoryId"></category-auto-suggest>
-        <budget-auto-suggest    label="Budget"      value.bind="budget"></budget-auto-suggest>
-        <datepicker label="Tanggal Awal" value.bind="dateFrom"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo"></datepicker>
+        <textbox                label="Nomor PR"        value.bind="PRNo"></textbox>
+        <unit-auto-suggest      label="Unit"            value.bind="unitId"></unit-auto-suggest>
+        <category-auto-suggest  label="Kategori"        value.bind="categoryId"></category-auto-suggest>
+        <budget-auto-suggest    label="Budget"          value.bind="budget"></budget-auto-suggest>
+        <datepicker             label="Tanggal Awal"    value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker             label="Tanggal Akhir"   value.bind="dateTo" min.bind="dateFrom"></datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -17,7 +17,7 @@
         <div class="pull-left" if.bind="data.length > 0">
             <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
         </div>
-        <table class="table table-striped table-hover" border="1" id="prMonitor" style="width: 100%;">
+        <table class="table table-bordered table-hover" border="1" id="prMonitor" style="width: 100%;">
             <thead align="center">
                 <tr>
                     <td rowspan="2">No</td>
