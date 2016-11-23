@@ -1,5 +1,8 @@
 //import {computedFrom} from 'aurelia-framework';
+import {inject, bindable} from 'aurelia-framework';
+import {App} from './app';
 
+@inject(App)
 export class Welcome {
   heading = 'Selamat datang di aplikasi Dan Liris';
   firstName = 'John';
@@ -11,6 +14,17 @@ export class Welcome {
   //To optimize by declaring the properties that this getter is computed from, uncomment the line below
   //as well as the corresponding import above.
   //@computedFrom('firstName', 'lastName')
+
+  constructor(app) {
+
+    this.app = app;
+
+    this.app.toggleMinimizeSideMenu = false;
+    this.app.activeMenu = [];
+    this.app.activeSubMenu = {};
+
+  }
+
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
   }
