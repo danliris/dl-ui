@@ -14,6 +14,7 @@ export class List {
 
     async activate() {
         this.info.keyword = '';
+        this.info.order = '';
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
@@ -21,6 +22,7 @@ export class List {
 
     loadPage() {
         var keyword = this.info.keyword;
+        this.info.order = '';
         this.service.search(this.info)
             .then(result => {
                 this.data = result.data;
