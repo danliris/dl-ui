@@ -9,7 +9,6 @@ export class DataForm {
 
     spinningOptions = ['Spinning 1','Spinning 2','Spinning 3'];
     shiftOptions = ['Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
-
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -24,4 +23,15 @@ export class DataForm {
         if (selectedmachine)
             this.data.machineId = selectedmachine._id ? selectedmachine._id : "";
     }
+
+    threadChanged(e) {
+        var selectedThread = e.detail || {};
+        if (selectedThread) {
+            this.data.productId=selectedThread.productId ? selectedThread.productId : "";
+        }
+        else
+        {
+            this.data.lotmachine.lot='';
+        }
+     }
 }
