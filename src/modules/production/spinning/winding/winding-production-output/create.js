@@ -11,6 +11,10 @@ export class Create {
         this.data = {};
     }
 
+    activate(params) {
+        this.data.threadWeight=1.89;
+    }
+
     back() {
         this.router.navigateToRoute('list');
     }
