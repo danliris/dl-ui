@@ -2,6 +2,7 @@
     <form class="form-horizontal">
         <div class="row">
             <div class="col-md-6"> 
+                <textbox                                        label="No. Surat Perintah Bayar"     value.bind="data.no"                    error.bind="error.no"               read-only.bind="true" if.bind="readOnly || isEdit"></textbox>
                 <datepicker                                     label="Tanggal Surat Perintah Bayar" value.bind="data.date"                  error.bind="error.date"             read-only.bind="readOnly"></datepicker> 
                 <division-auto-suggest                          label="Divisi"                       value.bind="data.division"              error.bind="error.division"         read-only.bind="readOnly"  change.delegate="divisionChanged($event)"></division-auto-suggest>
                 <supplier-auto-suggest                          label="Supplier"                     value.bind="data.supplier"              error.bind="error.supplier"         read-only.bind="readOnly"  change.delegate="supplierChanged($event)"></supplier-auto-suggest>
