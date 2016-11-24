@@ -1,17 +1,20 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
 var moment = require('moment');
+import {Service} from './service';
 
-@inject(BindingEngine, Element)
+@inject(BindingEngine, Element,Service)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable dataLot = {};
 
     spinningOptions = ['Spinning 1','Spinning 2','Spinning 3'];
     shiftOptions = ['Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
-    constructor(bindingEngine, element) {
+    constructor(bindingEngine, element,service) {
         this.bindingEngine = bindingEngine;
         this.element = element;
+        this.service = service;
     }
     @computedFrom("data._id")
     get isEdit() {
@@ -20,16 +23,31 @@ export class DataForm {
 
     machineChanged(e) {
         var selectedmachine= e.detail || {};
-        if (selectedmachine)
+        if (selectedmachine){
             this.data.machineId = selectedmachine._id ? selectedmachine._id : "";
+            if(this.data.machineId!=""&&this.data.productId!=""&&this.data.machineId!=undefined&&this.data.productId!=undefined){
+                this.service.getLot(this.data.productId,this.data.machineId).then(result => {
+                this.data.lotMachine=result[0];
+                this.data.lotMachine.lot=result[0].lot;
+            })
+                
+            }
+        }
+
     }
 
     threadChanged(e) {
         var selectedThread = e.detail || {};
         if (selectedThread) {
-            if(this.data.lotMachine!=undefined)
-            this.data.lotMachine.lot=selectedThread.lot ? selectedThread.lot : "";
-            this.data.productId=selectedThread.productId ? selectedThread.productId : null;
+            this.data.productId=selectedThread._id? selectedThread._id :"";
+            if(this.data.machineId!=""&&this.data.productId!=""&&this.data.machineId!=undefined&&this.data.productId!=undefined){
+                this.service.getLot(this.data.productId,this.data.machineId).then(result => {
+                this.data.lotMachine=result[0];
+                this.data.lotMachine.lot=result[0].lot;
+                console.log(result[0].lot);
+            })
+                
+            }
         }
      }
 }
