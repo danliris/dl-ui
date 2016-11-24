@@ -24,13 +24,17 @@ export class DataForm {
         var selectedmachine= e.detail || {};
         if (selectedmachine){
             this.data.machineId = selectedmachine._id ? selectedmachine._id : "";
-            if(this.data.machineId!=""&&this.data.productId!=""&&this.data.machineId!=undefined&&this.data.productId!=undefined){
-                this.service.getLot(this.data.productId,this.data.machineId).then(result => {
-                this.data.lotMachine=result[0];
-                this.data.lotMachine.lot=result[0].lot;
-            })
-                
+            if(this.data.lotMachine==undefined)
+            {
+                if(this.data.machineId!=""&&this.data.productId!=""&&this.data.machineId!=undefined&&this.data.productId!=undefined){
+                    this.service.getLot(this.data.productId,this.data.machineId).then(result => {
+                    this.data.lotMachine=result[0];
+                    this.data.lotMachine.lot=result[0].lot;
+                })
+                    
+                }
             }
+            
         }
     }
 
