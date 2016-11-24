@@ -7,7 +7,6 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-    @bindable dataLot = {};
 
     spinningOptions = ['Spinning 1','Spinning 2','Spinning 3'];
     shiftOptions = ['Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
@@ -33,7 +32,6 @@ export class DataForm {
                 
             }
         }
-
     }
 
     threadChanged(e) {
@@ -44,7 +42,6 @@ export class DataForm {
                 this.service.getLot(this.data.productId,this.data.machineId).then(result => {
                 this.data.lotMachine=result[0];
                 this.data.lotMachine.lot=result[0].lot;
-                console.log(result[0].lot);
             })
                 
             }

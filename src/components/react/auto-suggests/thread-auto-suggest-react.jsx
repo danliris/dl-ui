@@ -2,10 +2,19 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx'; 
 import {Session} from '../../../utils/session';
 
+<<<<<<< HEAD
 const serviceUri = require('../../../host').core + '/v1/master/threads';
 const empty = {
         code: '',
         name: '',
+=======
+const serviceUri = require('../../../host').core + '/v1/master/lots';
+const empty = {
+    product :{
+        code: '',
+        name: '',
+    },
+>>>>>>> upstream/dev
     toString: function () {
         return '';
     }
@@ -25,7 +34,11 @@ export default class ThreadAutoSuggestReact extends React.Component {
         var options = Object.assign({}, ThreadAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
+<<<<<<< HEAD
             return [this.code, this.name]
+=======
+            return [this.product.code, this.product.name]
+>>>>>>> upstream/dev
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
