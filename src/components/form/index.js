@@ -29,6 +29,7 @@ export function configure(config) {
         './auto-suggests/product-by-uster-auto-suggest',
         './auto-suggests/pr-auto-suggest',
         './auto-suggests/division-auto-suggest',
+        './auto-suggests/thread-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',

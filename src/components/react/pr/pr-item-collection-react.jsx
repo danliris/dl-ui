@@ -28,7 +28,6 @@ export default class PrItemCollectionReact extends React.Component {
             product: { toString: function () { return '' } },
             productId: { toString: function () { return '' } },
             quantity: 0,
-            uom: { toString: function () { return '' } },
             description: ''
         };
         this.state.value.push(newItem);
