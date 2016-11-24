@@ -27,11 +27,9 @@ export class DataForm {
     threadChanged(e) {
         var selectedThread = e.detail || {};
         if (selectedThread) {
-            this.data.productId=selectedThread.productId ? selectedThread.productId : "";
-        }
-        else
-        {
-            this.data.lotmachine.lot='';
+            if(this.data.lotMachine!=undefined)
+            this.data.lotMachine.lot=selectedThread.lot ? selectedThread.lot : "";
+            this.data.productId=selectedThread.productId ? selectedThread.productId : null;
         }
      }
 }
