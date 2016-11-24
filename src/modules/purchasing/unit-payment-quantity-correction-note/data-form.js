@@ -49,16 +49,8 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
 
                     if (unitReceiptNoteItem.correction) {
-                        if (unitReceiptNoteItem.correction.length > 0) {
-                            var _index;
-
-                            _index = unitReceiptNoteItem.correction.lastIndexOf({ correctionRemark: 'Koreksi Jumlah' });
-
-                            if (_index >= 0)
-                                unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[_index].correctionQuantity;
-                            else
-                                unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                        }
+                        if (unitReceiptNoteItem.correction.length > 0) 
+                                unitPaymentPriceCorrectionNoteItem.quantity =unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length-1].correctionQuantity;
                         else
                             unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
                     } else

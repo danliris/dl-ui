@@ -1,4 +1,4 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
 
 @inject(BindingEngine, Element)
@@ -24,9 +24,9 @@ export class DataForm {
         if (this.data) {
             this.flag = true;
             if (this.data.priceCorrectionType == "Harga Satuan")
-                    this.pricePerUnitCorrectionReadOnly = false;
-                else if (this.data.priceCorrectionType == "Harga Total")
-                    this.pricePerUnitCorrectionReadOnly = true;
+                this.pricePerUnitCorrectionReadOnly = false;
+            else if (this.data.priceCorrectionType == "Harga Total")
+                this.pricePerUnitCorrectionReadOnly = true;
         }
         else
             this.flag = false;
@@ -48,15 +48,22 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
                     unitPaymentPriceCorrectionNoteItem.product = unitReceiptNoteItem.product;
                     unitPaymentPriceCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
-                    unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
                     unitPaymentPriceCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
                     unitPaymentPriceCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
                     unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
-                    unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                     unitPaymentPriceCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
                     unitPaymentPriceCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
                     unitPaymentPriceCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
 
+                    if (unitReceiptNoteItem.correction) {
+                        if (unitReceiptNoteItem.correction.length > 0)
+                            unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                        else
+                            unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                    } else
+                        unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+
+                    unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitPaymentPriceCorrectionNoteItem.quantity;
                     _items.push(unitPaymentPriceCorrectionNoteItem);
                 }
             }
