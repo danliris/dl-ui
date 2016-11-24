@@ -15,7 +15,6 @@ export default class PrItem extends React.Component {
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleProductChange = this.handleProductChange.bind(this);
         this.handleQuantityChange = this.handleQuantityChange.bind(this);
-        this.handleUomChange = this.handleUomChange.bind(this);
         this.handleRemarkChange = this.handleRemarkChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
@@ -42,11 +41,6 @@ export default class PrItem extends React.Component {
         this.handleValueChange(value);
     }
 
-    handleUomChange(event, uom) {
-        var value = this.state.value;
-        value.uom = uom;
-        this.handleValueChange(value);
-    }
 
     handleRemarkChange(remark) {
         var value = this.state.value;
@@ -69,7 +63,6 @@ export default class PrItem extends React.Component {
 
     render() { 
         var readOnlyOptions = { readOnly: this.state.options.readOnly || this.state.options.isSplit };
-        var uomOptions = Object.assign({}, this.state.options, { readOnly: true });
         var QtyOptions = Object.assign({}, this.state.options, { min: 0 });
         var descOptions = readOnlyOptions;
         var removeButton = null
@@ -97,7 +90,7 @@ export default class PrItem extends React.Component {
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.uom ? 'has-error' : ''}`} style={style}>
-                        <UomAutoSuggestReact value={this.state.value.uom} options={uomOptions} />
+                        <UomAutoSuggestReact value={this.state.value.uom} options={readOnlyOptions} />
                         <span className="help-block">{this.state.error.uom}</span>
                     </div>
                 </td> 
