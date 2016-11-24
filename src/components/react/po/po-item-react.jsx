@@ -121,9 +121,6 @@ export default class PoItem extends React.Component {
                         <span className="help-block">{this.state.error.remark}</span>
                     </div>
                 </td>
-                <td>
-                    {removeButton}
-                </td>
             </tr>
         )
     }
