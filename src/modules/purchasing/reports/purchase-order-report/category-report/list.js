@@ -21,8 +21,13 @@ export class List {
         var persen = 0;
         var data = [];
         var amounts = [];
-        this.service.getByDate(this.dateFrom, this.dateTo)
-            .then(data => {
+        var uri="";
+        if(this.dateFrom==undefined && this.dateTo==undefined)
+            uri= this.service.getallData();
+        else
+            uri=this.service.getByDate(this.dateFrom, this.dateTo);
+
+            uri.then(data => {
                 this.data = data;
                 for (var price of data) {
                     pricetotals += price.pricetotal;
@@ -59,10 +64,10 @@ export class List {
     }
 
     ExportToExcel() {
-        //    var htmltable= document.getElementById('myTable');
-        //    var html = htmltable.outerHTML;
-        //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.dateFrom, this.dateTo);
+        if(this.dateFrom==undefined && this.dateTo==undefined)
+            this.service.generateExcelnoDate();
+        else
+            this.service.generateExcel(this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
