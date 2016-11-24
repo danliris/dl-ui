@@ -39,7 +39,7 @@
                     <td style="text-align:center">${item.unitPaymentOrder.supplier.name}</td>
                     <td style="text-align:center">${item.invoiceCorrectionNo}</td>
                     <td style="text-align:center">${item.unitPaymentOrder.dueDate | dateFormat:'D MMM YYYY'}</td>
-                    <td>
+                    <td style="text-align:center">
                         <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
                         <button class="btn btn-primary" click.delegate="getPDF(item)">Cetak Pdf</button>
                         <button class="btn btn-primary" click.delegate="getPDFRetur(item)" if.bind="item.unitPaymentOrder.useIncomeTax">Cetak Nota Retur</button>
