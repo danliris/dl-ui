@@ -65,6 +65,7 @@ export default class PrItem extends React.Component {
         var readOnlyOptions = { readOnly: this.state.options.readOnly || this.state.options.isSplit };
         var QtyOptions = Object.assign({}, this.state.options, { min: 0 });
         var descOptions = readOnlyOptions;
+        var uomOptions = Object.assign({}, this.state.options, { readOnly: true });
         var removeButton = null
 
         if (!this.state.options.readOnly)
@@ -90,7 +91,7 @@ export default class PrItem extends React.Component {
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.uom ? 'has-error' : ''}`} style={style}>
-                        <UomAutoSuggestReact value={this.state.value.uom} options={readOnlyOptions} />
+                        <UomAutoSuggestReact value={this.state.value.uom} options={uomOptions} />
                         <span className="help-block">{this.state.error.uom}</span>
                     </div>
                 </td> 

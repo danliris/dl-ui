@@ -11,27 +11,69 @@ export class Service extends SecureService {
         super(http, aggregator);
     }
 
-    getByDate(sdate, edate) {
-        if(sdate && edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-        else if(sdate && !edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}`;
-        else if(!sdate && edate)
-            var endpoint = `${serviceUri}?dateTo=${edate}`;
-        else
-            var endpoint = `${serviceUri}`;
+    getByDate(sdate, edate, spinning, machine, uster, grade) {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+        if(sdate){
+            if(query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if(edate){
+            if(query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        if(spinning){
+            if(query == '') query = `spinning=${spinning}`;
+            else query = `${query}&spinning=${spinning}`;
+        }
+        if(machine){
+            if(query == '') query = `machine=${machine._id}`;
+            else query = `${query}&machine=${machine._id}`;
+        }
+        if(uster){
+            if(query == '') query = `uster=${uster._id}`;
+            else query = `${query}&uster=${uster._id}`;
+        }
+        if(grade){
+            if(query == '') query = `grade=${grade}`;
+            else query = `${query}&grade=${grade}`;
+        }
+        if(query != '')
+            endpoint = `${serviceUri}?${query}`;
+
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate) {
-        if(sdate && edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-        else if(sdate && !edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}`;
-        else if(!sdate && edate)
-            var endpoint = `${serviceUri}?dateTo=${edate}`;
-        else
-            var endpoint = `${serviceUri}`;
+    generateExcel(sdate, edate, spinning, machine, uster, grade) {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+        if(sdate){
+            if(query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if(edate){
+            if(query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        if(spinning){
+            if(query == '') query = `spinning=${spinning}`;
+            else query = `${query}&spinning=${spinning}`;
+        }
+        if(machine){
+            if(query == '') query = `machine=${machine._id}`;
+            else query = `${query}&machine=${machine._id}`;
+        }
+        if(uster){
+            if(query == '') query = `uster=${uster._id}`;
+            else query = `${query}&uster=${uster._id}`;
+        }
+        if(grade){
+            if(query == '') query = `grade=${grade}`;
+            else query = `${query}&grade=${grade}`;
+        }
+        if(query != '')
+            endpoint = `${serviceUri}?${query}`;
+
         return super.getXls(endpoint);
     }
 }

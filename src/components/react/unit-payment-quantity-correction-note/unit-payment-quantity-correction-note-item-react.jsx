@@ -33,6 +33,7 @@ export default class UnitPaymentQuantityCorrectionNoteItemReact extends React.Co
     handleQuantityChanged(_quantity) {
         var value = this.state.value;
         value.quantity = _quantity;
+        value.priceTotal = value.pricePerUnit * value.quantity;
         this.handleValueChange(value);
     }
 

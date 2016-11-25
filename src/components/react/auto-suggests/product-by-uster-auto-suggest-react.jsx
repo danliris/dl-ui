@@ -4,7 +4,9 @@ import {Session} from '../../../utils/session';
 
 const serviceUri = require('../../../host').core + '/v1/master/usters';
 const empty = {
-    code: ''
+    product: {
+        name : ''
+    }
 }
 'use strict';
 
@@ -21,7 +23,7 @@ export default class ProductByUsterAutoSuggestReact extends React.Component {
         var options = Object.assign({}, ProductByUsterAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code}`;
+            return `${this.product.name}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -69,7 +71,7 @@ ProductByUsterAutoSuggestReact.defaultProps = {
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
                 return json.data.map(product => {
                     product.toString = function () {
-                        return `${this.code}`;
+                        return `${this.product.name}`;
                     }
                     return product;
                 })

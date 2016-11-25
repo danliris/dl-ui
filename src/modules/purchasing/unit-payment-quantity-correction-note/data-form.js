@@ -40,7 +40,6 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
                     unitPaymentPriceCorrectionNoteItem.product = unitReceiptNoteItem.product;
                     unitPaymentPriceCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
-                    unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
                     unitPaymentPriceCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
                     unitPaymentPriceCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
                     unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
@@ -48,6 +47,14 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
                     unitPaymentPriceCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
                     unitPaymentPriceCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
+
+                    if (unitReceiptNoteItem.correction) {
+                        if (unitReceiptNoteItem.correction.length > 0) 
+                                unitPaymentPriceCorrectionNoteItem.quantity =unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length-1].correctionQuantity;
+                        else
+                            unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                    } else
+                        unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
 
                     _items.push(unitPaymentPriceCorrectionNoteItem);
                 }
