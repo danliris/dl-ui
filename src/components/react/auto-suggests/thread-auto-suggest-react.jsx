@@ -2,7 +2,7 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx'; 
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').core + '/v1/master/threads';
+const serviceUri = require('../../../host').core + '/v1/master/products';
 const empty = {
         code: '',
         name: '',
@@ -65,9 +65,12 @@ ThreadAutoSuggestReact.propTypes = {
 ThreadAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
+        filter :{
+            tags:"benang spinning"
+        },
         suggestions:
-        function (text) {
-            var uri = serviceUri + '?keyword=' + text +'&&tags=benang spinning';
+        function (text,filter) {
+            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
 
             var session = new Session();
             var requestHeader = new Headers();
