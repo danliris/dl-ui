@@ -7,8 +7,6 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    spinningOption = ['SPINNING 1', 'SPINNING 2', 'SPINNING 3'];
-
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -19,10 +17,20 @@ export class DataForm {
     }
     
     attached() {
-        if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
+    }
+
+    unitChanged(e){
+        var selectedUnit = e.detail;
+        if(selectedUnit){
+            this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
+            if (!this.readOnly) {
+                this.machineChanged({});
+            }
+            if(this.data.unitId){
+                this.filter = {
+                    unitId : this.data.unitId
+                };
+            }
         }
     }
 

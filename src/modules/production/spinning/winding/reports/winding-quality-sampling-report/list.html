@@ -1,7 +1,7 @@
 <template>
  <h1 class="page-header">Laporan Kualitas Hasil Produksi Spinning</h1>
      <form class="form-horizontal">
-        <dropdown                       label="Spinning"	value.bind="spinning"   items.bind="spinningOption"></dropdown>
+        <unit-spinning-auto-suggest     label="Spinning"    value.bind="spinning" change.delegate="unitChanged($event)"></unit-spinning-auto-suggest>
         <machine-auto-suggest           label="Mesin"	    value.bind="machine"></machine-auto-suggest>
         <product-by-uster-auto-suggest  label="Benang"	    value.bind="uster"></product-by-uster-auto-suggest>
         <dropdown                       label="Kualifikasi" value.bind="grade"      items.bind="gradeOption"></dropdown>
@@ -26,7 +26,7 @@
                 <th class="text-center">Spinning</th>
                 <th class="text-center">Tanggal Pengetesan</th>
                 <th class="text-center">Mesin</th>
-                <th class="text-center">Jenis Barang</th>
+                <th class="text-center">Jenis Benang</th>
                 <th class="text-center">U%</th>
                 <th class="text-center">Sys</th>
                 <th class="text-center">Elongation</th>
@@ -38,7 +38,7 @@
         <tbody>
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
-                <td class="text-center">${item.spinning}</td>
+                <td class="text-center">${item.spinning.name}</td>
                 <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
                 <td class="text-center">${item.machine.name}</td>
                 <td class="text-right" >${item.uster.code}</td>
@@ -53,9 +53,6 @@
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.
         </div>
-        <span if.bind="data.length > 0">
-            *Persentase diatas merupakan hasil pembulatan.
-        </span>
         <hr/>
     </form>
     
