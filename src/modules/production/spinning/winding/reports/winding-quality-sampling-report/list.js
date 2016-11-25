@@ -16,8 +16,7 @@ export class List {
     machine = null;
     uster = null;
     grade = '';
-
-    spinningOption = ['','SPINNING 1', 'SPINNING 2', 'SPINNING 3'];
+    
     gradeOption = ['','Excellent', 'Good', 'Medium', 'Low', 'Bad'];
 
     activate() {

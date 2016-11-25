@@ -23,8 +23,8 @@ export class Service extends SecureService {
             else query = `${query}&dateTo=${edate}`;
         }
         if(spinning){
-            if(query == '') query = `spinning=${spinning}`;
-            else query = `${query}&spinning=${spinning}`;
+            if(query == '') query = `spinning=${spinning._id}`;
+            else query = `${query}&spinning=${spinning._id}`;
         }
         if(machine){
             if(query == '') query = `machine=${machine._id}`;
@@ -56,8 +56,8 @@ export class Service extends SecureService {
             else query = `${query}&dateTo=${edate}`;
         }
         if(spinning){
-            if(query == '') query = `spinning=${spinning}`;
-            else query = `${query}&spinning=${spinning}`;
+            if(query == '') query = `spinning=${spinning._id}`;
+            else query = `${query}&spinning=${spinning._id}`;
         }
         if(machine){
             if(query == '') query = `machine=${machine._id}`;
