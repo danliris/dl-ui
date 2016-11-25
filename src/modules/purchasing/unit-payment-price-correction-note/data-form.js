@@ -32,14 +32,10 @@ export class DataForm {
             this.flag = false;
     }
 
-    unitPaymentOrderChanged(e) {
-        var selectedPaymentOrder = e.detail || {};
-        if (selectedPaymentOrder && !this.readOnly) {
-            if (!this.readOnly)
-                this.data.items = [];
-            this.data.unitPaymentOrderId = selectedPaymentOrder._id;
+    setItems(_paymentOrder)
+    {
             var _items = []
-            for (var unitPaymentOrder of selectedPaymentOrder.items) {
+            for (var unitPaymentOrder of _paymentOrder.items) {
 
                 for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
 
@@ -68,6 +64,15 @@ export class DataForm {
                 }
             }
             this.data.items = _items;
+    }
+
+    unitPaymentOrderChanged(e) {
+        var selectedPaymentOrder = e.detail || {};
+        if (selectedPaymentOrder && !this.readOnly) {
+            if (!this.readOnly)
+                this.data.items = [];
+            this.data.unitPaymentOrderId = selectedPaymentOrder._id;
+            this.setItems(selectedPaymentOrder);
         }
         else {
             this.data.items = [];
@@ -82,6 +87,11 @@ export class DataForm {
                     this.pricePerUnitCorrectionReadOnly = false;
                 else if (this.data.priceCorrectionType == "Harga Total")
                     this.pricePerUnitCorrectionReadOnly = true;
+                if(this.data.unitPaymentOrderId && this.data.unitPaymentOrder)
+                {
+                    if(this.data.unitPaymentOrder.items)
+                        this.setItems(this.data.unitPaymentOrder);
+                }
             }
         }
     }

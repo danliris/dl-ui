@@ -31,7 +31,6 @@ export default class PrItem extends React.Component {
         var value = this.state.value;
         value.product = product;
         value.productId = product._id;
-        value.uom = product.uom;
         this.handleValueChange(value);
     }
 
@@ -90,9 +89,8 @@ export default class PrItem extends React.Component {
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.uom ? 'has-error' : ''}`} style={style}>
-                        <UomAutoSuggestReact value={this.state.value.uom} options={uomOptions} />
-                        <span className="help-block">{this.state.error.uom}</span>
+                    <div className="form-group" style={style}>
+                        <UomAutoSuggestReact value={this.state.value.product.uom ||''} options={uomOptions} />
                     </div>
                 </td> 
                 <td>

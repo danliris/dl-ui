@@ -72,7 +72,7 @@ export class DataForm {
                         _item.deliveredUom = fulfillment.purchaseOrderUom;
                         _item.purchaseOrder = fulfillment.purchaseOrder;
                         _item.purchaseOrderId = fulfillment.purchaseOrderId;
-                        _item.purchaseOrderQuantity = fulfillment.deliveredQuantity;
+                        _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
                         _item.currency = fulfillment.purchaseOrder.currency;
                         _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
 
