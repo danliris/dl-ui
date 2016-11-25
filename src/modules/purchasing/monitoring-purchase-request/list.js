@@ -40,7 +40,7 @@ export class List {
                         _data.productCode = item.product.code;
                         _data.budget = pr.budget.name;
                         _data.productQty = item.quantity ? item.quantity : 0;
-                        _data.productUom = item.uom.unit ? item.uom.unit : "-";
+                        _data.productUom = item.product.uom.unit ? item.product.uom.unit : "-";
                         _data.expected = pr.expectedDeliveryDate;
                         this.data.push(_data);
                     }
