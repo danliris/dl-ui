@@ -11,9 +11,9 @@
         <textbox                            label="No. Faktur Pajak Koreksi (PPH)"  value.bind="data.vatTaxCorrectionNo"        error.bind="error.vatTaxCorrectionNo"           read-only.bind="readOnly"></textbox>
         <datepicker                         label="Tgl. Faktur Pajak Koreksi (PPH)" value.bind="data.vatTaxCorrectionDate"      error.bind="error.vatTaxCorrectionDate"         read-only.bind="readOnly"></datepicker> 
         <datepicker                         label="Tgl. Jatuh Tempo"                value.bind="data.unitPaymentOrder.dueDate"  error.bind="error.unitPaymentOrder.dueDate"     read-only.bind="true"   if.bind="data.unitPaymentOrderId && data.unitPaymentOrder._id"></datepicker>         
-        <textbox                            label="No. Surat Pengantar"             value.bind="data.unitCoverLetterNo"         error.bind="error.unitCoverLetterNo"            read-only.bind="readOnly"></textbox>
+        <textbox                            label="No. Bon Keluar"                  value.bind="data.releaseOrderNoteNo"        error.bind="error.releaseOrderNoteNo"           read-only.bind="readOnly"></textbox>
         <multiline                          label="Keterangan"                      value.bind="data.remark"                    error.bind="error.remark"                       read-only.bind="readOnly" ></multiline>
         <hr />
-        <unit-payment-price-correction-note-collection      value.bind="data.items"         error.bind="error.items"        read-only.bind="readOnly"></unit-payment-price-correction-note-collection>
+        <unit-payment-quantity-correction-note-collection      value.bind="data.items"         error.bind="error.items"        read-only.bind="readOnly"></unit-payment-quantity-correction-note-collection>
     </form>
 </template>
