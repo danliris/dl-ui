@@ -1,7 +1,10 @@
 <template>
  <h1 class="page-header">Laporan Kualitas Hasil Produksi Spinning</h1>
      <form class="form-horizontal">
-        
+        <dropdown                       label="Spinning"	value.bind="spinning"   items.bind="spinningOption"></dropdown>
+        <machine-auto-suggest           label="Mesin"	    value.bind="machine"></machine-auto-suggest>
+        <product-by-uster-auto-suggest  label="Benang"	    value.bind="uster"></product-by-uster-auto-suggest>
+        <dropdown                       label="Kualifikasi" value.bind="grade"      items.bind="gradeOption"></dropdown>
         <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
         <div class="form-group">
@@ -20,6 +23,8 @@
         <thead>
             <tr>
                 <th class="text-center">Nomor</th>
+                <th class="text-center">Spinning</th>
+                <th class="text-center">Tanggal Pengetesan</th>
                 <th class="text-center">Mesin</th>
                 <th class="text-center">Jenis Barang</th>
                 <th class="text-center">U%</th>
@@ -33,6 +38,8 @@
         <tbody>
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
+                <td class="text-center">${item.spinning}</td>
+                <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
                 <td class="text-center">${item.machine.name}</td>
                 <td class="text-right" >${item.uster.code}</td>
                 <td class="text-right">${item.U}</td>

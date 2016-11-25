@@ -4,13 +4,18 @@ import {RestService} from '../../../../../rest-service';
 import {SecureService} from '../../../../../utils/secure-service';
 
 const serviceUri = require('../../../../../host').production+ '/v1/spinning/winding/production-outputs/by-user';
-
+const serviceUriLot = require('../../../../../host').production+ '/v1/spinning/winding/search-lots';
 export class Service extends SecureService {
 
     constructor(http, aggregator) {
         super(http, aggregator);
     }
 
+    getLot(_productId,_machineId)
+    {
+        var endpoint = `${serviceUriLot}?_productId=${_productId}&_machineId=${_machineId}`;
+        return super.get(endpoint);
+    }
 
     search(info) {
         var endpoint = `${serviceUri}`;
