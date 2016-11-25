@@ -42,7 +42,7 @@
                                 <li repeat.for="bo of item.items">${bo.unitReceiptNote.no}-${bo.unitReceiptNote.deliveryOrder.no}</li>
                             </ul>
                         </td>
-                        <td>
+                        <td style="text-align:center">
                             <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
                             <button class="btn btn-primary" click.delegate="getPDF(item)">Cetak Pdf</button>
                         </td>

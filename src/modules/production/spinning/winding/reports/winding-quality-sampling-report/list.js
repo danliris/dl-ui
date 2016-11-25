@@ -16,7 +16,7 @@ export class List {
     machine = null;
     uster = null;
     grade = '';
-
+    
     gradeOption = ['','Excellent', 'Good', 'Medium', 'Low', 'Bad'];
 
     activate() {

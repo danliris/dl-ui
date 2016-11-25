@@ -2,12 +2,10 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx'; 
 import {Session} from '../../../utils/session';
 
-const serviceUri = require('../../../host').core + '/v1/master/lots';
+const serviceUri = require('../../../host').core + '/v1/master/products';
 const empty = {
-    product :{
         code: '',
         name: '',
-    },
     toString: function () {
         return '';
     }
@@ -27,7 +25,7 @@ export default class ThreadAutoSuggestReact extends React.Component {
         var options = Object.assign({}, ThreadAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.product.code, this.product.name]
+            return [this.code, this.name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -67,23 +65,26 @@ ThreadAutoSuggestReact.propTypes = {
 ThreadAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
+        filter :{
+            tags:"benang spinning"
+        },
         suggestions:
-        function (text) {
-            var uri = serviceUri + '?keyword=' + text ;
+        function (text,filter) {
+            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
 
             var session = new Session();
             var requestHeader = new Headers();
             requestHeader.append('Authorization', `JWT ${session.token}`);
 
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(lot => {
-                    lot.toString = function () {
-                        return [this.product.code, this.product.name]
+                return json.data.map(thread => {
+                    thread.toString = function () {
+                        return [this.code, this.name]
                             .filter((item, index) => {
                                 return item && item.toString().trim().length > 0;
                             }).join(" - ");
                     }
-                    return lot;
+                    return thread;
                 })
             })
         }
