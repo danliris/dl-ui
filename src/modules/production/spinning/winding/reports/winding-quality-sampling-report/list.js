@@ -10,13 +10,22 @@ export class List {
         this.router = router;
         this.today = new Date();
     }
+    dateFrom = null;
+    dateTo = null;
+    spinning = '';
+    machine = null;
+    uster = null;
+    grade = '';
+
+    spinningOption = ['','SPINNING 1', 'SPINNING 2', 'SPINNING 3'];
+    gradeOption = ['','Excellent', 'Good', 'Medium', 'Low', 'Bad'];
 
     activate() {
     }
 
     searching() {
         var data = [];
-        this.service.getByDate(this.dateFrom, this.dateTo)
+        this.service.getByDate(this.dateFrom, this.dateTo, this.spinning, this.machine, this.uster, this.grade)
             .then(data => {
                 this.data = data;
             })
@@ -26,12 +35,16 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.data = null;
+        this.spinning = '';
+        this.machine = null;
+        this.uster = null;
+        this.grade = '';
     }
 
     ExportToExcel() {
         //    var htmltable= document.getElementById('myTable');
         //    var html = htmltable.outerHTML;
         //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.dateFrom, this.dateTo, this.spinning, this.machine, this.uster, this.grade);
     }
 }
