@@ -19,7 +19,7 @@
             </div>
         </div>
         <div>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th class="${isPrint ? '' : 'hide'}"></th>
@@ -39,9 +39,9 @@
                                 change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.no}</td>
-                        <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
+                        <td style="text-align:left">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td>${item.supplier.name}</td>
-                        <td>
+                        <td style="text-align:center">
                             <ul>
                             <li repeat.for="po of item.items">${po.purchaseOrderExternal.no}</li> 
                             </ul>
@@ -52,7 +52,7 @@
             </table>
         </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data surat jalan tidak ada.
+            Data surat jalan tidak ditemukan.
         </div>
         <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
         <hr/>

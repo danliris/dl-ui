@@ -28,7 +28,6 @@ export default class PrItemCollectionReact extends React.Component {
             product: { toString: function () { return '' } },
             productId: { toString: function () { return '' } },
             quantity: 0,
-            uom: { toString: function () { return '' } },
             description: ''
         };
         this.state.value.push(newItem);
@@ -57,7 +56,7 @@ export default class PrItemCollectionReact extends React.Component {
         if (this.state.options.readOnly)
             addButton = <span></span>;
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="40%">Barang</th>

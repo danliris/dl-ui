@@ -27,7 +27,6 @@ export class PoItemCollection {
         this.value.push({
             product: { toString: function () { return '' } },
             quantity: 0,
-            uom: '',
             description: ''
         });
         this.bind();

@@ -9,8 +9,16 @@ export default class UnitReceiptNoteItemCollectionReact extends React.Component 
     constructor(props) {
         super(props);
         this.handleItemChange = this.handleItemChange.bind(this);
+        this.handleItemRemove = this.handleItemRemove.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    handleItemRemove(item) {
+        var value = this.state.value;
+        var itemIndex = value.indexOf(item);
+        value.splice(itemIndex, 1);
+        this.setState({ value: value });
     }
 
     handleItemChange(item) {
@@ -31,12 +39,12 @@ export default class UnitReceiptNoteItemCollectionReact extends React.Component 
         var items = (this.state.value || []).map((item, index) => {
             var error = this.state.error[index] || {};
             return (
-                <UnitReceiptNoteItemProductReact key={"__item" + index} value={item} error={error} options={this.state.options} onChange={this.handleItemChange}></UnitReceiptNoteItemProductReact>
+                <UnitReceiptNoteItemProductReact key={"__item" + index} value={item} error={error} options={this.state.options} onChange={this.handleItemChange} onRemove={this.handleItemRemove}></UnitReceiptNoteItemProductReact>
             );
         })
         
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="20%">Barang</th>

@@ -1,11 +1,13 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
+import { Session } from '../../../utils/session';
 
 const serviceUri = require('../../../host').core + '/v1/master/units';
 const empty = {
-    division: '',
-    subDivision: ''
+    division: {
+        name: ''
+    },
+    name: ''
 }
 'use strict';
 
@@ -21,7 +23,7 @@ export default class UnitAutoSuggestReact extends React.Component {
         var options = Object.assign({}, UnitAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.division, this.subDivision]
+            return [this.division.name, this.name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -64,7 +66,7 @@ UnitAutoSuggestReact.defaultProps = {
         suggestions:
         function (text) {
             var uri = serviceUri + '?keyword=' + text;
-            
+
             var session = new Session();
             var requestHeader = new Headers();
             requestHeader.append('Authorization', `JWT ${session.token}`);
@@ -72,7 +74,7 @@ UnitAutoSuggestReact.defaultProps = {
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
                 return json.data.map(unit => {
                     unit.toString = function () {
-                        return [this.division, this.subDivision]
+                        return [this.division.name, this.name]
                             .filter((item, index) => {
                                 return item && item.toString().trim().length > 0;
                             }).join(" - ");

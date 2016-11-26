@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
@@ -36,5 +36,13 @@ export class List {
     ExportToExcel() {
         this.service.generateExcel(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
     }
+    dateFromChanged(e) {
+        var _startDate = new Date(e.srcElement.value);
+        var _endDate = new Date(this.dateTo);
 
+
+        if (_startDate > _endDate)
+            this.dateTo = e.srcElement.value;
+
+    }
 }

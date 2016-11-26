@@ -118,7 +118,7 @@ export default class UnitPaymentOrderItemReact extends React.Component {
         return (
             <tr>
                 <td colSpan="5">
-                    <table className="table">
+                    <table className="table table-bordered">
                         <tbody>
                             <tr>
                                 <td width="90%">

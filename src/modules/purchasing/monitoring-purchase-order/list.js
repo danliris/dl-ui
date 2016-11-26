@@ -117,4 +117,14 @@ export class List {
     exportToXls() {
         this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo);
     }
+
+    dateFromChanged(e){
+        var _startDate = new Date(e.srcElement.value);
+        var _endDate = new Date(this.dateTo);
+
+
+        if(_startDate > _endDate)
+            this.dateTo = e.srcElement.value;
+
+    }
 }

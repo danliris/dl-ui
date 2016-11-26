@@ -57,7 +57,7 @@ export default class PoExternalItemCollectionReact extends React.Component {
         })
 
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="90%">Nomor PR - Nomor PO Internal</th> 
