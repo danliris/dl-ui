@@ -20,9 +20,18 @@ export class DataForm {
     }
 
     spinningChanged(e){
-        var selectedspinning= e.detail || {};
-        if(selectedspinning){
-            this.data.unitId=selectedspinning._id?selectedspinning._id:{};
+        var selectedUnit = e.detail;
+        if(selectedUnit){
+            this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
+            if (!this.readOnly) {
+                this.data.machine={};
+                this.machineChanged({});
+            }
+            if(this.data.unitId){
+                this.filter = {
+                    unitId : this.data.unitId
+                };
+            }
         }
     }
 
