@@ -12,8 +12,11 @@ export class DataForm {
         this.element = element;
     }
     
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
+    get isFilter() {
+        this.filter ={
+            unitId : this.data.unitId
+        };
+        return this.filter;
     }
     
     attached() {
