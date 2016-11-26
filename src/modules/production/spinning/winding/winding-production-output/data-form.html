@@ -4,7 +4,7 @@
             <unit-spinning-auto-suggest     label="Spinning"                value.bind="data.unit"          error.bind="error.unit"         read-only.bind="(readOnly)"   change.delegate="spinningChanged($event)"></unit-spinning-auto-suggest>
             <datepicker                     label="Tanggal"                 value.bind="data.date"              error.bind="error.date"             read-only.bind="(readOnly)" ></datepicker>
             <dropdown                       label="Shift"                   value.bind="data.shift"             error.bind="error.shift"            read-only.bind="(readOnly)"   items.bind="shiftOptions"></dropdown>
-            <machine-auto-suggest           label="Mesin"                   value.bind="data.machine"           error.bind="error.machine"          read-only.bind="(readOnly)"	            change.delegate="machineChanged($event)"></machine-auto-suggest>
+            <machine-by-unit-auto-suggest   label="Mesin"       value.bind="data.machine"    error.bind="error.machine"     read-only.bind="readOnly"	change.delegate="machineChanged($event)" filter.bind="filter" if.bind="data.unitId"></machine-by-unit-auto-suggest>
             <thread-auto-suggest            label="Benang"                  value.bind="data.product"           error.bind="error.product"      read-only.bind="(readOnly)"	change.delegate="threadChanged($event)" ></thread-auto-suggest>
             <textbox                        label="Lot"                     value.bind="data.lotMachine.lot"    error.bind="error.lotMachine"    read-only="true"></textbox>
             <numeric                        label="Berat Benang per Cone"   value.bind="data.threadWeight"      error.bind="error.threadWeight"     read-only.bind="(readOnly)"></numeric>
