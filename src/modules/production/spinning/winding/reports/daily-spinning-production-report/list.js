@@ -10,6 +10,9 @@ export class List {
     firstDay = 1;
     lastDay = 30;
 
+    months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    years = ['2016'];
+
     constructor(router, service) {
 
         this.service = service;
@@ -17,10 +20,8 @@ export class List {
 
         var now = new Date();
 
-        var firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDate();
-        var lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-
         this.currentMonth = now.toLocaleString("id-ID", { month: "long" });
+        this.currentYear = now.getFullYear();
     }
 
     activate() {
@@ -29,7 +30,14 @@ export class List {
 
     searching() {
         var data = [];
-        this.service.getDailySpinningProductionReport(this.unitId)
+
+        var valueMonth = this.months.findIndex(x => x == this.currentMonth);
+        var selectedDate = new Date(this.currentYear, valueMonth, 1);
+
+        var firstDay = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+        var lastDay = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0);
+
+        this.service.getDailySpinningProductionReport(firstDay, lastDay, this.unitId)
             .then(data => {
                 this.data = data;
             })

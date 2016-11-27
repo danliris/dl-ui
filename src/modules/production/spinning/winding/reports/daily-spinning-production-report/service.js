@@ -11,14 +11,23 @@ export class Service extends SecureService {
         super(http, aggregator);
     }
 
-    getDailySpinningProductionReport(unitId) {
+    getDailySpinningProductionReport(firstDay, lastDay, unitId) {
         var endpoint = `${serviceUri}`;
         var query = '';
         
+        if(firstDay){
+            if(query == '') query = `firstDay=${firstDay}`;
+            else query = `${query}&firstDay=${firstDay}`;
+        }
+        if(lastDay){
+            if(query == '') query = `lastDay=${lastDay}`;
+            else query = `${query}&lastDay=${lastDay}`;
+        }
         if(unitId){
             if(query == '') query = `unitId=${unitId}`;
             else query = `${query}&unitId=${unitId}`;
         }
+
         if(query != '')
             endpoint = `${serviceUri}?${query}`;
 
