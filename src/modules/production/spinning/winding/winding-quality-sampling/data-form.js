@@ -27,6 +27,7 @@ export class DataForm {
         if(selectedUnit){
             this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
             if (!this.readOnly) {
+                this.data.machine={};
                 this.machineChanged({});
             }
             if(this.data.unitId){
@@ -38,7 +39,7 @@ export class DataForm {
     }
 
     machineChanged(e) {
-        var selectedMachine = e.detail;
+        var selectedMachine = e.detail || {};
         if (selectedMachine)
             this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
     }
