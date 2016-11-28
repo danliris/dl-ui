@@ -41,7 +41,7 @@ export default class UnitPaymentQuantityCorrectionNoteCollectionReact extends Re
         })
         
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="25%">No. PO Eksternal</th>
