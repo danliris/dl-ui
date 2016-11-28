@@ -24,14 +24,16 @@
                 <th>Tanggal</th>
                 <th>Jenis Benang</th>
                 <th>Mesin</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of data" click.delegate="view(item)">
+            <tr repeat.for="item of data">
                 <td>${item.spinning.name}</td>
                 <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
-                <td>${item.uster.code}</td>
+                <td>${item.uster.product.name}</td>
                 <td>${item.machine.name}</td>
+                <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
             </tr>
         </tbody>
     </table>
