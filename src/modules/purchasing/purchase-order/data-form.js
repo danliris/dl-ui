@@ -57,7 +57,6 @@ export class DataForm {
                 _item.product = item.product;
                 _item.defaultUom = item.product.uom;
                 _item.defaultQuantity = item.quantity;
-                _item.remark = item.remark;
                 _items.push(_item);
 
             }
