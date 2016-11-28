@@ -1,10 +1,8 @@
 <template>
     <h1 class="page-header">Laporan Kualitas Hasil Produksi Spinning</h1>
     <form class="form-horizontal">
-        <div class="form-group">
-            <label for="month" class="col-sm-4 control-label">Bulan</label>
-            <label for="month" class="col-sm-5 control-label" style="text-align:left;">${currentMonth}</label>
-        </div>
+        <dropdown label="Bulan" value.bind="currentMonth" items.bind="months" ></dropdown>
+        <dropdown label="Tahun" value.bind="currentYear" items.bind="years" ></dropdown>
         <unit-spinning-auto-suggest label="Spinning" value.bind="data.unit" error.bind="error.unit" read-only.bind="(readOnly)" change.delegate="spinningChanged($event)"></unit-spinning-auto-suggest>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -20,7 +18,7 @@
             <thead>
                 <tr>
                     <th class="text-center">Item</th>
-                    <th class="text-center" repeat.for="i of lastDay">${i + 1}</th>
+                    <th class="text-center" repeat.for="i of last">${i + 1}</th>
                 </tr>
             </thead>
             <tbody>

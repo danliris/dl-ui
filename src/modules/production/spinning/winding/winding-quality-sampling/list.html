@@ -30,7 +30,7 @@
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.spinning.name}</td>
                 <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
-                <td>${item.uster.code}</td>
+                <td>${item.uster.product.name}</td>
                 <td>${item.machine.name}</td>
             </tr>
         </tbody>
