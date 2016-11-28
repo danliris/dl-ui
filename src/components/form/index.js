@@ -26,10 +26,12 @@ export function configure(config) {
         './auto-suggests/budget-auto-suggest',
         './auto-suggests/unit-payment-order-auto-suggest',
         './auto-suggests/machine-auto-suggest',
+        './auto-suggests/machine-by-unit-auto-suggest',
         './auto-suggests/product-by-uster-auto-suggest',
         './auto-suggests/pr-auto-suggest',
         './auto-suggests/division-auto-suggest',
         './auto-suggests/thread-auto-suggest',
+        './auto-suggests/unit-spinning-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',

@@ -92,7 +92,7 @@ export default class UnitPaymentOrderItemReact extends React.Component {
 
             details = <tr>
                 <td colSpan="5">
-                    <table className="table">
+                    <table className="table table-bordered">
                         <thead>
                             <tr>
                                 <th width="15%">Barang</th>

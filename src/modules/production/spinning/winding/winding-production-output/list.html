@@ -34,7 +34,7 @@
                 </thead>
                <tbody>
                     <tr repeat.for="item of data"> 
-                        <td>${item.spinning}</td>
+                        <td>${item.unit.name}</td>
                         <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td style="text-align:center">${item.shift}</td>
                         <td style="text-align:center">${item.machine.name}</td>

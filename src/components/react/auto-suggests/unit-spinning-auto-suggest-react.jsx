@@ -1,19 +1,17 @@
 import React from 'react';
-import AutoSuggestReact from './auto-suggest-react.jsx'; 
-import {Session} from '../../../utils/session';
+import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Session } from '../../../utils/session';
 
-const serviceUri = require('../../../host').core + '/v1/master/products';
+const serviceUri = require('../../../host').core + '/v1/master/units';
 const empty = {
-        code: '',
-        name: '',
-    toString: function () {
-        return '';
-    }
+    division: {
+        name: ''
+    },
+    name: ''
 }
 'use strict';
 
-
-export default class ThreadAutoSuggestReact extends React.Component {
+export default class UnitSpinningAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -22,10 +20,10 @@ export default class ThreadAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, ThreadAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, UnitSpinningAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
+            return [this.division.name, this.name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -52,7 +50,7 @@ export default class ThreadAutoSuggestReact extends React.Component {
     }
 }
 
-ThreadAutoSuggestReact.propTypes = {
+UnitSpinningAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -62,29 +60,26 @@ ThreadAutoSuggestReact.propTypes = {
     })
 };
 
-ThreadAutoSuggestReact.defaultProps = {
+UnitSpinningAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
-        filter :{
-            tags:"benang spinning"
-        },
         suggestions:
-        function (text,filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
+        function (text) {
+            var uri = serviceUri + '?keyword=spinning';
 
             var session = new Session();
             var requestHeader = new Headers();
             requestHeader.append('Authorization', `JWT ${session.token}`);
 
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(thread => {
-                    thread.toString = function () {
-                        return [this.code, this.name]
+                return json.data.map(unit => {
+                    unit.toString = function () {
+                        return [this.division.name, this.name]
                             .filter((item, index) => {
                                 return item && item.toString().trim().length > 0;
                             }).join(" - ");
                     }
-                    return thread;
+                    return unit;
                 })
             })
         }
