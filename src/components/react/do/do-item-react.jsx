@@ -117,7 +117,7 @@ export default class DoItemReact extends React.Component {
                     <table className="table table-bordered">
                         <thead>
                             <tr>
-                                <th width="20%">PO</th>
+                                <th width="20%">Nomor PR</th>
                                 <th width="20%">Barang</th>
                                 <th width="10%">Dipesan</th>
                                 <th width="10%">Satuan</th>

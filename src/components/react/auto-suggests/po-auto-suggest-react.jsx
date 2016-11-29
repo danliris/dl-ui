@@ -4,7 +4,9 @@ import {Session} from '../../../utils/session';
 
 const serviceUri = require('../../../host').purchasing+ '/v1/purchase-oders';
 const empty = {
-    no: ''
+    purchaseRequest: {
+        no: ''
+    }
 }
 
 'use strict';
@@ -21,7 +23,7 @@ export default class PoAutoSuggestReact extends React.Component {
         var options = Object.assign({}, PoAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.no}`;
+            return `${this.purchaseRequest.no}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -69,7 +71,7 @@ PoAutoSuggestReact.defaultProps = {
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
                 return json.data.map(poTextile => {
                     poTextile.toString = function () {
-                        return `${this.no}`;
+                        return `${this.purchaseRequest.no}`;
                     }
                     return poTextile;
                 })
