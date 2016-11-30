@@ -49,12 +49,17 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
 
                     if (unitReceiptNoteItem.correction) {
-                        if (unitReceiptNoteItem.correction.length > 0) 
-                                unitPaymentPriceCorrectionNoteItem.quantity =unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length-1].correctionQuantity;
-                        else
+                        if (unitReceiptNoteItem.correction.length > 0) {
+                            unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                            unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                        } else {
                             unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                    } else
+                            unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+                        }
+                    } else {
                         unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                        unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+                    }
 
                     _items.push(unitPaymentPriceCorrectionNoteItem);
                 }
