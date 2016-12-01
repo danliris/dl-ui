@@ -1,15 +1,11 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
+import { Session } from '../../../utils/session';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchase-oders/unposted';
+const serviceUri = require('../../../host').purchasing + '/v1/purchase-oders/unposted';
 const empty = {
-    no: '',
     purchaseRequest: {
         no: ''
-    },
-    toString: function () {
-        return '';
     }
 }
 
@@ -27,10 +23,7 @@ export default class PoUnpostedAutoSuggestReact extends React.Component {
         var options = Object.assign({}, PoUnpostedAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.purchaseRequest.no, this.no]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
+            return `${this.purchaseRequest.no}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -70,7 +63,7 @@ PoUnpostedAutoSuggestReact.defaultProps = {
         suggestions:
         function (text) {
             var uri = serviceUri + '?keyword=' + text;
-            
+
             var session = new Session();
             var requestHeader = new Headers();
             requestHeader.append('Authorization', `JWT ${session.token}`);
@@ -78,10 +71,7 @@ PoUnpostedAutoSuggestReact.defaultProps = {
             return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
                 return json.data.map(poTextile => {
                     poTextile.toString = function () {
-                        return [this.purchaseRequest.no, this.no]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
+                        return `${this.purchaseRequest.no}`;
                     }
                     return poTextile;
                 })
