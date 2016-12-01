@@ -13,6 +13,7 @@ export class PoExternalItemCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) useIncomeTax;
 
     reactComponent = {};
     constructor(element) {
@@ -24,8 +25,7 @@ export class PoExternalItemCollection {
     handleItemAdd() {
 
         this.value.push({
-            usePPh: false,
-            usePPn: false
+            useIncomeTax: false,
         });
         this.bind();
     }
@@ -38,6 +38,10 @@ export class PoExternalItemCollection {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' }; 
+        if (this.useIncomeTax)
+            this.options.useIncomeTax = this.useIncomeTax;
+        else
+            this.options.useIncomeTax = false;
         this.reactComponent = ReactDOM.render(
             <PoExternalItemCollectionReact value={this.value} error={this.error} options = {this.options}></PoExternalItemCollectionReact>,
             this.element
@@ -69,6 +73,9 @@ export class PoExternalItemCollection {
         this.bind();
     }
     errorChanged(newError) {
+        this.bind();
+    }
+    useIncomeTaxChanged(newError) {
         this.bind();
     }
 
