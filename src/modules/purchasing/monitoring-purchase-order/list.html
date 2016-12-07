@@ -1,13 +1,13 @@
 <template>
     <h1 class="page-header">Monitoring Pembelian</h1>
     <form class="form-horizontal">
-        <unit-auto-suggest label="Unit yang mengajukan" value.bind="unit"></unit-auto-suggest>
-        <category-auto-suggest label="Kategori" value.bind="category"></category-auto-suggest>
-        <textbox label="Nomor External PO" value.bind="PODLNo"></textbox>
-        <textbox label="Nomor PR" value.bind="PRNo"></textbox>
-        <supplier-auto-suggest label="Supplier" value.bind="supplier"></supplier-auto-suggest>
-        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
+        <unit-auto-suggest      label="Unit yang mengajukan"    value.bind="info.unit"></unit-auto-suggest>
+        <category-auto-suggest  label="Kategori"                value.bind="info.category"></category-auto-suggest>
+        <textbox                label="Nomor External PO"       value.bind="info.PODLNo"></textbox>
+        <textbox                label="Nomor PR"                value.bind="info.PRNo"></textbox>
+        <supplier-auto-suggest  label="Supplier"                value.bind="info.supplier"></supplier-auto-suggest>
+        <datepicker             label="Tanggal Awal"            value.bind="info.dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker             label="Tanggal Akhir"           value.bind="info.dateTo" min.bind="info.dateFrom"></datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -43,6 +43,7 @@
                         <td colspan="4">CATATAN KOREKSI</td>
                         <!--<td colspan="2">KASBON</td>-->
                         <td rowspan="3">KETERANGAN</td>
+                        <td rowspan="3">STATUS</td>
                     </tr>
                     <tr>
                         <td rowspan="2">TANGGAL PR</td>
@@ -142,6 +143,7 @@
                         <!--<td>kosong</td>
                     <td>kosong</td>-->
                         <td>${PO['Keterangan']}</td>
+                        <td>${PO['Status']}</td>
                     </tr>
                 </tbody>
             </table>
@@ -149,6 +151,7 @@
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.
         </div>
+        <hr/>
         <hr/>
     </form>
 </template>
