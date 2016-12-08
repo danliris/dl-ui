@@ -79,6 +79,7 @@ export default class PoItem extends React.Component {
 
     componentWillMount() {
         var _value = this.props.value;
+        _value.priceBeforeTax = _value.priceBeforeTax != 0 ? _value.priceBeforeTax : _value.product.price;
         _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
         _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
         _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
@@ -87,6 +88,7 @@ export default class PoItem extends React.Component {
 
     componentWillReceiveProps(props) {
         var _value = props.value;
+        _value.priceBeforeTax = _value.priceBeforeTax != 0 ? _value.priceBeforeTax : _value.product.price;
         _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
         _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
         _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
