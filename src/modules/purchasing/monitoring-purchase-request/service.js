@@ -11,8 +11,8 @@ export class Service extends SecureService {
         super(http, aggregator);
     }
 
-    search(unitId, categoryId, budget, PRNo, dateFrom, dateTo) { 
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budget=${budget}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    search(unitId, categoryId, budgetId, PRNo, dateFrom, dateTo) { 
+        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budgetId=${budgetId}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.get(endpoint);
     }
 
@@ -21,13 +21,8 @@ export class Service extends SecureService {
         return super.get(endpoint);
     }
     
-    generateExcel(unitId, categoryId, budget, PRNo, dateFrom, dateTo) { 
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budget=${budget}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
-        return super.getXls(endpoint);
-    }  
-    
-    generateExcel(unitId, categoryId, budget, PRNo, dateFrom, dateTo) {
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budget=${budget}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    generateExcel(unitId, categoryId, budgetId, PRNo, dateFrom, dateTo) {
+        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budgetId=${budgetId}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.getXls(endpoint);
     }
 }
