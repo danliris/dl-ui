@@ -89,7 +89,7 @@ export default class DoItemFulfillmentReact extends React.Component {
                     <div className={`form-group ${this.state.error.deliveredQuantity ? 'has-error' : ''} ${this.state.value.remainingQuantity < this.state.value.deliveredQuantity ? 'has-warning' : ''}`} style={style}>
                         <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
                         <span className="help-block">{this.state.error.deliveredQuantity}</span>
-                        {(this.state.value.remainingQuantity < this.state.value.deliveredQuantity) ? <span className="help-block">Jumlah diterima lebih besar dari jumlah dipesan</span> : <span></span>}
+                        {(this.state.value.remainingQuantity < this.state.value.deliveredQuantity && !this.state.options.readOnly) ? <span className="help-block">Jumlah diterima lebih besar dari jumlah dipesan</span> : <span></span>}
                     </div>
                 </td>
                 <td>
