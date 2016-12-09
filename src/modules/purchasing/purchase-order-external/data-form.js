@@ -75,4 +75,19 @@ export class DataForm {
             this.data.vatRate = 0;
     }
 
+    useIncomeTaxChanged(e) {
+        var selectedUseIncomeTax =  e.srcElement.checked || false;
+        console.log(this.data);
+        if (!selectedUseIncomeTax){
+            for(var po of this.data.items){
+                for(var poItem of po.items)
+                {
+                    poItem.useIncomeTax=false;
+                    poItem.pricePerDealUnit = poItem.priceBeforeTax;
+                }
+            }
+        }
+        console.log(this.data);
+    }
+
 } 

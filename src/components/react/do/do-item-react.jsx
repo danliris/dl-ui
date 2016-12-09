@@ -71,6 +71,7 @@ export default class DoItemReact extends React.Component {
                         product: poItem.product,
                         purchaseOrderQuantity: poItem.dealQuantity,
                         purchaseOrderUom: poItem.dealUom,
+                        remainingQuantity: poItem.dealQuantity - poItem.realizationQuantity,
                         deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
                         remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                     };
@@ -80,6 +81,20 @@ export default class DoItemReact extends React.Component {
         }
 
         value.fulfillments = doFulfillments.length > 0 ? doFulfillments : fulfillments;
+
+        if (doFulfillments.length > 0) {
+            for (var fulfillment of doFulfillments) {
+                for (poItem of fulfillment.purchaseOrder.items) {
+                    if (poItem.product._id.toString() === fulfillment.product._id.toString()) {
+                        fulfillment.remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity + fulfillment.deliveredQuantity;
+                        break;
+                    }
+                }
+            }
+            value.fulfillments = doFulfillments;
+        } else {
+            value.fulfillments = fulfillments;
+        }
 
         var error = Object.assign({}, DoItemReact.defaultProps.error, props.error);
         var options = Object.assign({}, DoItemReact.defaultProps.options, props.options);
@@ -109,7 +124,7 @@ export default class DoItemReact extends React.Component {
                 var itemOptions = { readOnly: true };
                 var realizationQtyOptions = { readOnly: false };
                 var error = (this.state.error.fulfillments || [])[index] || {};
-                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment}  error={error} options={this.state.options} onItemFulfillementRemove ={this.handleItemFulfillmentRemove}/>;
+                return <DoItemFulfillmentReact key={`__item_${fulfillment.purchaseOrder.no}_${fulfillment.product._id}_${index}`} value={fulfillment} error={error} options={this.state.options} onItemFulfillementRemove={this.handleItemFulfillmentRemove} />;
             });
 
             details = <tr>
@@ -141,7 +156,7 @@ export default class DoItemReact extends React.Component {
                             <tr>
                                 <td width="90%">
                                     <div className={`form-group ${this.state.error.purchaseOrderExternal ? 'has-error' : ''}`}>
-                                        <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} options={this.state.options} onChange={this.handleValueChange}/>
+                                        <PoExternalAutoSuggestReact value={this.state.value.purchaseOrderExternal} options={this.state.options} onChange={this.handleValueChange} />
                                         <span className="help-block">{this.state.error.purchaseOrderExternal}</span>
                                     </div>
                                 </td>

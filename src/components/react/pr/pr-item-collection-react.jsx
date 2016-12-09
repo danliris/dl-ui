@@ -60,8 +60,8 @@ export default class PrItemCollectionReact extends React.Component {
                 <thead>
                     <tr>
                         <th width="40%">Barang</th>
-                        <th width="10%">Jumlah</th>
-                        <th width="10%">Satuan</th>
+                        <th width="14%">Jumlah</th>
+                        <th width="6%">Satuan</th>
                         <th width="30%">Ket.</th>
                         <th width="10%">
                             {addButton}
