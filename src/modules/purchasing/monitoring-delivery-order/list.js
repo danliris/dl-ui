@@ -4,8 +4,7 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-
-    supplierApiUri = require('../../../host').core + "/v1/core/suppliers";
+ 
 
     constructor(router, service) {
         this.service = service;

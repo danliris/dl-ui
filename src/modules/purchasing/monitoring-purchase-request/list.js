@@ -22,7 +22,7 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        this.service.search(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
 
             .then(data => {
                 this.data = data;
@@ -49,15 +49,15 @@ export class List {
     }
     reset() {
         this.PRNo = "";
-        this.categoryId = "undefined";
-        this.unitId = "undefined";
+        this.category = "undefined";
+        this.unit = "undefined";
         this.budget = "undefined";
         this.dateFrom = null;
         this.dateTo = null;
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);

@@ -51,6 +51,7 @@ export default class UnitReceiptNoteItemCollectionReact extends React.Component 
                         <th width="20%">Jumlah</th>
                         <th width="20%">Satuan</th>
                         <th width="20%">Keterangan</th>
+                        <th width="20%"></th>
                     </tr>
                 </thead>
                 <tbody>

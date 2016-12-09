@@ -1,11 +1,12 @@
 import React from 'react';
-import AutoSuggestReact from './auto-suggest-react.jsx'; 
-import {Session} from '../../../utils/session';
+import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/products';
 
-const serviceUri = require('../../../host').core + '/v1/master/products';
 const empty = {
-        code: '',
-        name: '',
+    code: '',
+    name: '',
     toString: function () {
         return '';
     }
@@ -65,28 +66,28 @@ ThreadAutoSuggestReact.propTypes = {
 ThreadAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
-        filter :{
-            tags:"benang spinning"
+        filter: {
+            tags: "benang spinning"
         },
         suggestions:
-        function (text,filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
+        function (text, filter) {
 
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(thread => {
-                    thread.toString = function () {
-                        return [this.code, this.name]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return thread;
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
+                .then(results => {
+                    return results.data.map(thread => {
+                        thread.toString = function () {
+                            return [this.code, this.name]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        return thread;
+                    })
                 })
-            })
+
         }
     }
 };

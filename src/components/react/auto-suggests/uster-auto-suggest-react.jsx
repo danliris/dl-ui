@@ -1,17 +1,18 @@
 import React from 'react';
-import AutoSuggestReact from './auto-suggest-react.jsx'; 
-import {Session} from '../../../utils/session';
+import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/usters';
 
-const serviceUri = require('../../../host').core + '/v1/master/usters';
 const empty = {
     product: {
-        name : ''
+        name: ''
     }
 }
 'use strict';
 
 
-export default class ProductByUsterAutoSuggestReact extends React.Component {
+export default class UsterAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -20,7 +21,7 @@ export default class ProductByUsterAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, ProductByUsterAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, UsterAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
             return `${this.product.name}`;
@@ -47,7 +48,7 @@ export default class ProductByUsterAutoSuggestReact extends React.Component {
     }
 }
 
-ProductByUsterAutoSuggestReact.propTypes = {
+UsterAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -57,25 +58,25 @@ ProductByUsterAutoSuggestReact.propTypes = {
     })
 };
 
-ProductByUsterAutoSuggestReact.defaultProps = {
+UsterAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
 
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(product => {
-                    product.toString = function () {
-                        return `${this.product.name}`;
-                    }
-                    return product;
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(uster => {
+                        uster.toString = function () {
+                            return `${this.product.name}`;
+                        }
+                        return uster;
+                    })
                 })
-            })
         }
     }
 };

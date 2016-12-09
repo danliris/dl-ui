@@ -1,8 +1,9 @@
 import React from 'react';
-import AutoSuggestReact from './auto-suggest-react.jsx'; 
-import {Session} from '../../../utils/session';
+import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/products';
 
-const serviceUri = require('../../../host').core + '/v1/master/products';
 const empty = {
     code: '',
     name: '',
@@ -67,27 +68,27 @@ ProductAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
 
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(product => {
-                    product.toString = function () {
-                        return [this.code, this.name]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    product.uom = product.uom || { unit: '' };
-                    product.uom.toString = function () {
-                        return this.unit;
-                    }
-                    return product;
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(product => {
+                        product.toString = function () {
+                            return [this.code, this.name]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        product.uom = product.uom || { unit: '' };
+                        product.uom.toString = function () {
+                            return this.unit;
+                        }
+                        return product;
+                    })
                 })
-            })
         }
     }
 };

@@ -1,18 +1,18 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
-import {SecureService} from '../../../utils/secure-service';
+import {RestService} from '../../../utils/rest-service';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchase-requests/monitoring';
 
-export class Service extends SecureService {
+const serviceUri = 'purchase-requests/monitoring';
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+export class Service extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
     }
 
-    search(unitId, categoryId, budget, PRNo, dateFrom, dateTo) { 
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budget=${budget}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    search(unitId, categoryId, budgetId, PRNo, dateFrom, dateTo) { 
+        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budgetId=${budgetId}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.get(endpoint);
     }
 
@@ -21,13 +21,8 @@ export class Service extends SecureService {
         return super.get(endpoint);
     }
     
-    generateExcel(unitId, categoryId, budget, PRNo, dateFrom, dateTo) { 
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budget=${budget}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
-        return super.getXls(endpoint);
-    }  
-    
-    generateExcel(unitId, categoryId, budget, PRNo, dateFrom, dateTo) {
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budget=${budget}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    generateExcel(unitId, categoryId, budgetId, PRNo, dateFrom, dateTo) {
+        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budgetId=${budgetId}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.getXls(endpoint);
     }
 }
