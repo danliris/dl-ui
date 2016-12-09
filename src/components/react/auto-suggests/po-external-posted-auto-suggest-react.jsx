@@ -1,8 +1,8 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
-
-const serviceUri = require('../../../host').purchasing+ '/v1/purchase-oders/externals/posted';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'purchase-oders/externals/posted'; 
 const empty = {
     no: '',
     refNo: '',
@@ -68,23 +68,21 @@ PoExternalPostedAutoSuggestReact.defaultProps = {
         filter: {},
         suggestions:
         function (text, filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`; 
-            
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(poExternal => {
-                    poExternal.toString = function () {
-                        return [this.no, this.refNo]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return poExternal;
-                })
-            })
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
+                .then(results => {
+                    return results.data.map(poExternal => {
+                        poExternal.toString = function () {
+                            return [this.no, this.refNo]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        return poExternal;
+                    });
+                });
         }
     }
 };
