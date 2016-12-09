@@ -1,14 +1,15 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'unit-payment-orders';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/unit-payment-orders';
 const empty = {
     no: ''
 }
 'use strict';
 
-export default class UnitReceiptNoteAutoSuggestReact extends React.Component {
+export default class UnitPaymentOrderAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -17,7 +18,7 @@ export default class UnitReceiptNoteAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, UnitReceiptNoteAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, UnitPaymentOrderAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
             return `${this.no}`;
@@ -44,7 +45,7 @@ export default class UnitReceiptNoteAutoSuggestReact extends React.Component {
     }
 }
 
-UnitReceiptNoteAutoSuggestReact.propTypes = {
+UnitPaymentOrderAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -54,25 +55,24 @@ UnitReceiptNoteAutoSuggestReact.propTypes = {
     })
 };
 
-UnitReceiptNoteAutoSuggestReact.defaultProps = {
+UnitPaymentOrderAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(unit => {
-                    unit.toString = function () {
-                        return `${this.no}`;
-                    }
-                    return unit;
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(paymentOrder => {
+                        paymentOrder.toString = function () {
+                            return `${this.no}`;
+                        }
+                        return paymentOrder;
+                    })
                 })
-            })
         }
     }
 };

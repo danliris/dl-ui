@@ -7,7 +7,7 @@ import '../styles/styles.login.css';
 import '../styles/styles.theme.css';
 import '../styles/dashboard.css';
 import 'bootstrap';
-import {Session} from './utils/session';
+import authConfig from "../auth-config";
 
 // comment out if you don't want a Promise polyfill (remove also from webpack.common.js)
 import * as Bluebird from 'bluebird';
@@ -19,8 +19,23 @@ export async function configure(aurelia) {
     .developmentLogging()
     .feature('components/form')
     .feature('converters')
-    // .plugin('aurelia-dialog');
-    .plugin('aurelia-cookie')
+    .plugin("aurelia-api", config => {
+
+      var core = "https://dl-core-api-dev.mybluemix.net/v1/";
+      var auth = "https://dl-auth-api-dev.mybluemix.net/v1/";
+      var production = "https://dl-production-webapi-dev.mybluemix.net/v1/";
+      var purchasing = "https://dl-purchasing-webapi-dev.mybluemix.net/v1/";
+
+      config.registerEndpoint('auth', auth);
+      config.registerEndpoint('core', core);
+      config.registerEndpoint('production', production);
+      config.registerEndpoint('purchasing', purchasing);
+
+    })
+    .plugin("aurelia-authentication", baseConfig => {
+      baseConfig.configure(authConfig);
+    })
+    // .plugin('aurelia-cookie')
     .plugin('aurelia-dialog', config => {
       config.useDefaults();
       config.settings.lock = true;
@@ -36,12 +51,7 @@ export async function configure(aurelia) {
   // aurelia.use.plugin('aurelia-html-import-template-loader')
 
   await aurelia.start();
-
-  var session = new Session();
-  if (session.isAuthenticated)
-    aurelia.setRoot('app');
-  else
-    aurelia.setRoot('login');
+  aurelia.setRoot('app'); 
 
   // if you would like your website to work offline (Service Worker), 
   // install and enable the @easy-webpack/config-offline package in webpack.config.js and uncomment the following code:

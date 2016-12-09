@@ -483,35 +483,31 @@ router-view > div > router-view,
             margin-top: 3px;
         }
 
-
-.wrapper.minimize-sidemenu .main-sidebar {
+.side-nav-bar.minimized > .main-sidebar {
     width: 55px;
 }
 
-.wrapper.has-submenu > router-view > div > router-view, 
-.wrapper.has-submenu .content-wrapper,
-.wrapper.has-submenu .main-footer {
+.side-nav-bar.expand + router-view > div > router-view,
+.side-nav-bar.expand + router-view > .content-wrapper {
     margin-left: 460px;
 }
 
 
-.wrapper.minimize-sidemenu.has-submenu .secondary-sidebar {
+.side-nav-bar.minimized.expand > .secondary-sidebar {
     transform: translateX(285px);
 }
 
-.wrapper.has-submenu .secondary-sidebar {
+.side-nav-bar.expand .secondary-sidebar {
     transform: translateX(460px);
 }
 
-.wrapper.minimize-sidemenu > router-view > div > router-view, 
-.wrapper.minimize-sidemenu .content-wrapper,
-.wrapper.minimize-sidemenu .main-footer {
+.side-nav-bar.minimized + router-view > .content-wrapper,
+.side-nav-bar.minimized + router-view > div > router-view {
     margin-left: 55px;
 }
 
-.wrapper.minimize-sidemenu.has-submenu > router-view > div > router-view, 
-.wrapper.minimize-sidemenu.has-submenu .content-wrapper,
-.wrapper.minimize-sidemenu.has-submenu .main-footer {
+.side-nav-bar.minimized.expand + router-view > .content-wrapper,
+.side-nav-bar.minimized.expand + router-view > div > router-view {
     margin-left: 280px;
 }
 

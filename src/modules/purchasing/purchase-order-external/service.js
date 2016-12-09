@@ -1,20 +1,20 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
-import {SecureService} from '../../../utils/secure-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchase-oders/externals/by-user';
 
-export class Service extends SecureService {
+const serviceUri = 'purchase-oders/externals/by-user';
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+export class Service extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
     }
 
     search(info) {
-    var endpoint = `${serviceUri}`;
-    return super.list(endpoint, info);
-  }
+        var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
@@ -32,7 +32,7 @@ export class Service extends SecureService {
     }
 
     post(data) {
-        var endpoint = require('../../../host').purchasing+ '/v1/purchase-oders/externals/post';
+        var endpoint = 'purchase-oders/externals/post';
         return super.post(endpoint, data);
     }
 

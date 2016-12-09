@@ -1,8 +1,6 @@
 //import {computedFrom} from 'aurelia-framework';
-import {inject, bindable} from 'aurelia-framework';
-import {App} from './app';
+import { inject, bindable } from 'aurelia-framework';
 
-@inject(App)
 export class Welcome {
   heading = 'Selamat datang di aplikasi Dan Liris';
   firstName = 'John';
@@ -15,13 +13,7 @@ export class Welcome {
   //as well as the corresponding import above.
   //@computedFrom('firstName', 'lastName')
 
-  constructor(app) {
-
-    this.app = app;
-
-    this.app.toggleMinimizeSideMenu = false;
-    this.app.activeMenu = [];
-    this.app.activeSubMenu = {};
+  constructor() {
 
   }
 

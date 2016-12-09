@@ -1,14 +1,14 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
-import {SecureService} from '../../../utils/secure-service';
+import {RestService} from '../../../utils/rest-service';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchase-requests/monitoring';
 
-export class Service extends SecureService {
+const serviceUri = 'purchase-requests/monitoring';
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+export class Service extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
     }
 
     search(unitId, categoryId, budget, PRNo, dateFrom, dateTo) { 

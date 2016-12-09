@@ -1,14 +1,13 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../../../rest-service';
-import {SecureService} from '../../../../../utils/secure-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = require('../../../../../host').production + '/v1/spinning/winding/winding-quality-samplings';
+const serviceUri = 'spinning/winding/winding-quality-samplings';
 
-export class Service extends SecureService {
+export class Service extends RestService {
 
-  constructor(http, aggregator) {
-    super(http, aggregator);
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "production");
   }
 
   search(info) {
