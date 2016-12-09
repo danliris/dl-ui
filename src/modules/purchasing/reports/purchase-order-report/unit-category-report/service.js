@@ -1,13 +1,14 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../../../utils/rest-service'; 
+import {RestService} from '../../../../../rest-service';
+import {SecureService} from '../../../../../utils/secure-service';
 
-const serviceUri = 'purchase-oders/reports/categories';
+const serviceUri ='purchase-oders/reports/units-categories';
 
-export class Service extends RestService {
- 
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+export class Service extends SecureService {
+
+    constructor(http, aggregator) {
+        super(http, aggregator);
     }
 
     getByDate(sdate, edate) {
