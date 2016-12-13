@@ -5,11 +5,7 @@ import { Config } from "aurelia-api"
 const resource = 'master/products';
 
 const empty = {
-    code: '',
-    name: '',
-    toString: function () {
-        return '';
-    }
+    name: ''
 }
 'use strict';
 
@@ -26,10 +22,7 @@ export default class ProductAutoSuggestReact extends React.Component {
         var options = Object.assign({}, ProductAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -77,10 +70,7 @@ ProductAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(product => {
                         product.toString = function () {
-                            return [this.code, this.name]
-                                .filter((item, index) => {
-                                    return item && item.toString().trim().length > 0;
-                                }).join(" - ");
+                            return `${this.name}`;
                         }
                         product.uom = product.uom || { unit: '' };
                         product.uom.toString = function () {
