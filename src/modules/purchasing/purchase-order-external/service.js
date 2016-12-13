@@ -46,4 +46,18 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    cancel(id) {
+        var endpoint = `purchase-orders/externals/cancel/${id}`;
+        return super.put(endpoint);
+    }
+
+    unpost(id) {
+        var endpoint = `purchase-orders/externals/unpost/${id}`;
+        return super.put(endpoint);
+    }
+
+    close(id) {
+        var endpoint = `purchase-orders/externals/close/${id}`;
+        return super.put(endpoint);
+    }
 }
