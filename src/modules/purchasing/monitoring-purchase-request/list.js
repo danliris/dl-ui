@@ -31,6 +31,12 @@ export class List {
                 for (var pr of data) {
                     for (var item of pr.items) {
                         var _data = {};
+                        var status = pr.status ? pr.status.label : "-";
+
+                        if(pr.status.value === 4 || pr.status.value === 9){
+                            status = `${status} (${item.deliveryOrderNos.join(", ")})`;
+                        }
+
                         _data.no = counter;
                         _data.prDate = moment(new Date(pr.date)).format(dateFormat);
                         _data.prNo = pr.no;
@@ -42,6 +48,7 @@ export class List {
                         _data.productQty = item.quantity ? item.quantity : 0;
                         _data.productUom = item.product.uom.unit ? item.product.uom.unit : "-";
                         _data.expected = pr.expectedDeliveryDate;
+                        _data.status = status;
                         this.data.push(_data);
                     }
                 }

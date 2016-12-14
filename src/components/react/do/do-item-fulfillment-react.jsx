@@ -4,7 +4,7 @@ import TextboxReact from '../basic/textbox-react.jsx';
 import RadiobuttonReact from '../basic/radiobutton-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
 import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
-import PoAutoSuggestReact from '../auto-suggests/po-auto-suggest-react.jsx';
+import PrAutoSuggestReact from '../auto-suggests/pr-auto-suggest-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
 
 'use strict';
@@ -74,7 +74,7 @@ export default class DoItemFulfillmentReact extends React.Component {
         return (
             <tr >
                 <td>
-                    <PoAutoSuggestReact value={this.state.value.purchaseOrder} options={readOnlyOptions} />
+                    <PrAutoSuggestReact value={this.state.value.purchaseOrder.purchaseRequest} options={readOnlyOptions} />
                 </td>
                 <td>
                     <ProductAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} />
