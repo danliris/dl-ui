@@ -11,7 +11,13 @@
             <ul class="sidebar-menu">
                 <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == key ? 'active' : ''">
                     <a href="#" title.bind="key.toUpperCase()">
-                        <i class="fa fa-dashboard"></i>&nbsp;<span if.bind="!minimized">${key.toUpperCase()}</span>
+                        <i class="fa fa-list-alt" if.bind="key.toUpperCase() == 'MASTER'"></i>
+                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
+                        <i class="fa fa-industry" if.bind="key.toUpperCase() == 'PRODUCTION'"></i>
+                        <i class="fa fa-table" if.bind="key.toUpperCase() == 'REPORTS'"></i>
+
+                        <!--<i class="fa fa-dashboard"></i>-->
+                        <span if.bind="!minimized">${key.toUpperCase()}</span>
                         <div class="pull-right" if.bind="value.length > 0 && !minimized">
                             <i class="fa fa-angle-right"></i>
                         </div>
@@ -27,7 +33,8 @@
             <ul class="sidebar-menu">
                 <li repeat.for="subMenu of activeMenu" click.delegate="selectSubMenu(subMenu)" class.bind="activeSubMenu == subMenu ? 'active' : ''">
                     <a data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse.in" href.bind="subMenu.href" title.bind="subMenu.title">
-                        <i class="${subMenu.settings.iconClass}"></i>&nbsp;<span>${subMenu.title}</span>
+                        <!--<i class="${subMenu.settings.iconClass}"></i>&nbsp;-->
+                        <span>${subMenu.title}</span>
                     </a>
                 </li>
             </ul>
