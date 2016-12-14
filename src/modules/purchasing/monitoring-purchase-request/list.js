@@ -42,6 +42,7 @@ export class List {
                         _data.productQty = item.quantity ? item.quantity : 0;
                         _data.productUom = item.product.uom.unit ? item.product.uom.unit : "-";
                         _data.expected = pr.expectedDeliveryDate;
+                        _data.status = pr.status ? pr.status.name : "-";
                         this.data.push(_data);
                     }
                 }

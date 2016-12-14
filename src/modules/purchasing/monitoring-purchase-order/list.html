@@ -26,10 +26,11 @@
                         <td colspan="2">PURCHASE REQUEST</td>
                         <td rowspan="3">NAMA BARANG</td>
                         <td rowspan="3">KODE BARANG</td>
-                        <td colspan="2">JUMLAH</td>
+                        <td rowspan="3">JUMLAH</td>
+                        <td rowspan="3">SATUAN</td>
                         <td colspan="2">HARGA</td>
                         <td colspan="2">SUPPLIER</td>
-                        <td rowspan="3">TERIMA PO INTERN</td>
+                        <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
                         <td colspan="2">TANGGAL</td>
                         <!--<td colspan="8">TANGGAL</td>-->
                         <td rowspan="3">NOMOR PO EXTERN</td>
@@ -43,13 +44,12 @@
                         <td colspan="4">CATATAN KOREKSI</td>
                         <!--<td colspan="2">KASBON</td>-->
                         <td rowspan="3">KETERANGAN</td>
+                        <td rowspan="3">STATUS</td>
                     </tr>
                     <tr>
-                        <td rowspan="2">TANGGAL PR</td>
-                        <td rowspan="2">PURCHASE ORDER INTERN</td>
-                        <td rowspan="2">QUANTITY</td>
+                        <td rowspan="2">TANGGAL</td>
+                        <td rowspan="2">NOMOR</td>
                         <td rowspan="2">SATUAN</td>
-                        <td rowspan="2">SEKARANG</td>
                         <td rowspan="2">TOTAL</td>
                         <td rowspan="2">KODE</td>
                         <td rowspan="2">NAMA</td>
@@ -61,9 +61,9 @@
                     <td rowspan="2">DIREKTUR PRODUKSI</td>-->
                         <td rowspan="2">TGL PO EXTERN</td>
                         <td rowspan="2">TARGET DATANG</td>
-                        <td rowspan="2">TANGGAL SURAT JALAN</td>
+                        <td rowspan="2">TANGGAL</td>
                         <td rowspan="2">TANGGAL DATANG BARANG</td>
-                        <td rowspan="2">NOMOR SURAT JALAN</td>
+                        <td rowspan="2">NOMOR</td>
                         <td rowspan="2">TANGGAL</td>
                         <td rowspan="2">NOMOR</td>
                         <td colspan="2">JUMLAH</td>
@@ -142,6 +142,7 @@
                         <!--<td>kosong</td>
                     <td>kosong</td>-->
                         <td>${PO['Keterangan']}</td>
+                        <td>${PO['Status']}</td>
                     </tr>
                 </tbody>
             </table>
