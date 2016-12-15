@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
 import FieldReact from '../../react/basic/field-react.jsx';
-import ProductByUsterAutoSuggestReact from '../../react/auto-suggests/product-by-uster-auto-suggest-react.jsx';
+import UnitSpinningAutoSuggestReact from '../../react/auto-suggests/unit-spinning-auto-suggest-react.jsx';
 
 @noView()
 @inject(Element)
-@customElement('product-by-uster-auto-suggest')
-export class ProductByUsterAutoSuggest {
+@customElement('unit-spinning-auto-suggest')
+export class UnitSpinningAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -37,7 +37,7 @@ export class ProductByUsterAutoSuggest {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <ProductByUsterAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
+                <UnitSpinningAutoSuggestReact value={this.value} options={this.options} onChange={this.handleValueChange} />
             </FieldReact>,
             this.element
         );

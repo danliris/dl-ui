@@ -74,7 +74,7 @@ export default class PoExternalItemReact extends React.Component {
         var removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
         if (this.state.options.readOnly)
             removeButton = <span></span>;
-
+        var isUseIncomeTax = this.state.options.useIncomeTax || false;
         var details = null;
         var purchaseOrder = Object.assign({ items: [], purchaseRequest: { no: '' } }, this.state.value);
         if (this.state.showDetail) {
@@ -87,14 +87,16 @@ export default class PoExternalItemReact extends React.Component {
 
             details = <tr>
                 <td colSpan="5">
-                    <table className="table">
+                    <table className="table table-bordered">
                         <thead>
                             <tr>
                                 <th rowSpan="2" width="15%">Barang</th>
                                 <th colSpan="2" width="15%">Default</th>
-                                <th colSpan="2" width="20%">Deal</th>
-                                <th rowSpan="2" width="11%">Konversi</th>
-                                <th rowSpan="2" width="24%">Harga</th>
+                                <th colSpan="2" width="15%">Deal</th>
+                                <th rowSpan="2" width="10%">Konversi</th>
+                                <th rowSpan="2" width="20%">Harga</th>
+                                {isUseIncomeTax ? 
+                                    <th rowSpan="2" width="10%">Kena Ppn?</th> : <th rowSpan="2" width="10%" className="hidden">Kena Ppn?</th>}
                                 <th rowSpan="2" width="15%">Ket.</th>
                             </tr>
                             <tr>
@@ -120,7 +122,7 @@ export default class PoExternalItemReact extends React.Component {
         return (
             <tr>
                 <td colSpan="5">
-                    <table className="table">
+                    <table className="table table-bordered">
                         <tbody>
                             <tr>
                                 <td width="90%">

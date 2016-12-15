@@ -1,8 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'purchase-orders';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchase-oders';
 const empty = {
     no: ''
 }
@@ -60,20 +61,19 @@ PoAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(poTextile => {
-                    poTextile.toString = function () {
-                        return `${this.no}`;
-                    }
-                    return poTextile;
-                })
-            })
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(poTextile => {
+                        poTextile.toString = function () {
+                            return `${this.no}`;
+                        }
+                        return poTextile;
+                    });
+                });
+
         }
     }
 };

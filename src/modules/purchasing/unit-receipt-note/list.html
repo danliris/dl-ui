@@ -32,10 +32,9 @@
             </div>
         </div>-->
         <div>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <!--<th class="${isPrint ? '' : 'hide'}"></th>-->
                         <th>Unit</th>
                         <th>No. Bon Unit</th>
                         <th>Tanggal Bon Unit</th>
@@ -46,15 +45,12 @@
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <!--<td class="${isPrint ? '' : 'hide'}">
-                            <input checked.bind="item.isPrint" type="checkbox" change.delegate="pushDataToBePrinting(item)" />
-                        </td>-->
                         <td>${item.unit.division.name} - ${item.unit.name}</td>
                         <td>${item.no}</td>
                         <td style="text-align:left">${item.date  | dateFormat:'D MMM YYYY'}</td>
                         <td>${item.supplier.name}</td>
                         <td>${item.deliveryOrder.no}</td>
-                        <td>
+                        <td style="text-align:center">
                             <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
                             <button class="btn btn-primary" click.delegate="getPDF(item)">Cetak Pdf</button>
                         </td>

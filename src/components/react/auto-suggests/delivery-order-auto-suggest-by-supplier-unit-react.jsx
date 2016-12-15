@@ -1,7 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
-const serviceUri = require('../../../host').purchasing+ '/v1/delivery-orders/by-supplier';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'delivery-orders/by-supplier';
+
 const empty = {
     no: ''
 }
@@ -60,22 +62,19 @@ DoBySupplierandUnitAutoSuggestReact.defaultProps = {
         filter: {},
         suggestions:
         function (text, filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
-            
-            
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
-            
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(deliveryOrder => {
-                    deliveryOrder.toString = function () {
-                        return `${this.no}`;
-                    }
-                    return deliveryOrder;
-                })
-            })
+
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
+
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
+                .then(results => {
+                    return results.data.map(deliveryOrder => {
+                        deliveryOrder.toString = function () {
+                            return `${this.no}`;
+                        }
+                        return deliveryOrder;
+                    });
+                });
         }
     }
 };
-    

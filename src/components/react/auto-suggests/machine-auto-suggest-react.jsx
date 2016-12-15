@@ -1,14 +1,11 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/machines';
 
-const serviceUri = require('../../../host').core + '/v1/master/machines';
 const empty = {
-    code: '',
-    name: '',
-    toString: function () {
-        return '';
-    }
+    name: ''
 }
 
 'use strict';
@@ -25,10 +22,7 @@ export default class MachineAutoSuggestReact extends React.Component {
         var options = Object.assign({}, MachineAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -67,23 +61,19 @@ MachineAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(machine => {
-                    machine.toString = function () {
-                        return [this.code, this.name]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return machine;
-                })
-            })
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(machine => {
+                        machine.toString = function () {
+                            return `${this.name}`;
+                        }
+                        return machine;
+                    });
+                });
         }
     }
 };

@@ -20,16 +20,16 @@
         <tfoot if.bind="data.length > 0">
             <tr>
                 <td colspan="2" class="text-center">Total</td>
-                <td class="text-center" >${pricetotals}</td>
-                <td class="text-center" >${percentagetotal}%</td>
+                <td class="text-right" >${pricetotals}</td>
+                <td class="text-right" >${percentagetotal}%</td>
             </tr>
         </tfoot>
         <tbody>
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
                 <td class="text-center">${item._id}</td>
-                <td class="text-center">${amounts[$index]}</td>
-                <td class="text-center">${percentage[$index]}%</td>
+                <td class="text-right">${amounts[$index]}</td>
+                <td class="text-right">${percentage[$index]}%</td>
                 
             </tr>
             

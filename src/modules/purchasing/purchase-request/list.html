@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="gray-box">
                     <span class="control-label padding-right-10">Posting</span>
                     <div class="btn-group">
@@ -32,7 +32,7 @@
         </div>
         
         <div>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th class="${isPosting ? '' : 'hide'}"></th>
@@ -65,8 +65,10 @@
                         <td style="text-align:left" if.bind="item.expectedDeliveryDate==''" > - </td>
                         <td>${item._createdBy}</td>
                         <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
-                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
-                        <td><button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted'>Cetak Pdf</button></td>
+                        <td style="text-align:center">
+                            <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
+                            <button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted'>Cetak Pdf</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

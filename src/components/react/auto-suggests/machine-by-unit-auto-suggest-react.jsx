@@ -1,15 +1,16 @@
 import React from 'react';
-import AutoSuggestReact from './auto-suggest-react.jsx'; 
-import {Session} from '../../../utils/session';
+import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'spinning/winding/machine-by-units';
 
-const serviceUri = require('../../../host').core + '/v1/master/usters';
 const empty = {
-    code: ''
+    name: ''
 }
+
 'use strict';
 
-
-export default class ProductByUsterAutoSuggestReact extends React.Component {
+export default class MachineByUnitAutoSuggestReact extends React.Component {
     constructor(props) {
         super(props);
         this.init = this.init.bind(this);
@@ -18,10 +19,10 @@ export default class ProductByUsterAutoSuggestReact extends React.Component {
     }
 
     init(props) {
-        var options = Object.assign({}, ProductByUsterAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, MachineByUnitAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code}`;
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -45,7 +46,7 @@ export default class ProductByUsterAutoSuggestReact extends React.Component {
     }
 }
 
-ProductByUsterAutoSuggestReact.propTypes = {
+MachineByUnitAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -55,25 +56,25 @@ ProductByUsterAutoSuggestReact.propTypes = {
     })
 };
 
-ProductByUsterAutoSuggestReact.defaultProps = {
+MachineByUnitAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
+        filter: {},
         suggestions:
-        function (text) {
-            var uri = serviceUri + '?keyword=' + text;
+        function (text, filter) {
 
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("production");
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(product => {
-                    product.toString = function () {
-                        return `${this.code}`;
-                    }
-                    return product;
-                })
-            })
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
+                .then(results => {
+                    return results.data.map(machine => {
+                        machine.toString = function () {
+                            return `${this.name}`;
+                        }
+                        return machine;
+                    });
+                });
         }
     }
 };

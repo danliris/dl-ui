@@ -19,7 +19,7 @@
             </div>
         </div>
         <div>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th class="${isPrint ? '' : 'hide'}"></th>
@@ -41,7 +41,7 @@
                         <td>${item.no}</td>
                         <td style="text-align:left">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td>${item.supplier.name}</td>
-                        <td>
+                        <td style="text-align:center">
                             <ul>
                             <li repeat.for="po of item.items">${po.purchaseOrderExternal.no}</li> 
                             </ul>

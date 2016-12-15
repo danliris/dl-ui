@@ -1,37 +1,78 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../../../../rest-service';
-import {SecureService} from '../../../../../../utils/secure-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../../../../utils/rest-service';
 
-const serviceUri = require('../../../../../../host').production + '/v1/spinning/winding/reports/winding-quality-samplings';
+const serviceUri = 'spinning/winding/reports/winding-quality-samplings';
 
-export class Service extends SecureService {
+export class Service extends RestService {
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "production");
     }
 
-    getByDate(sdate, edate) {
-        if(sdate && edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-        else if(sdate && !edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}`;
-        else if(!sdate && edate)
-            var endpoint = `${serviceUri}?dateTo=${edate}`;
-        else
-            var endpoint = `${serviceUri}`;
+    getByDate(sdate, edate, spinning, machine, uster, grade) {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+        if (sdate) {
+            if (query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if (edate) {
+            if (query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        if (spinning) {
+            if (query == '') query = `spinning=${spinning._id}`;
+            else query = `${query}&spinning=${spinning._id}`;
+        }
+        if (machine) {
+            if (query == '') query = `machine=${machine._id}`;
+            else query = `${query}&machine=${machine._id}`;
+        }
+        if (uster) {
+            if (query == '') query = `uster=${uster._id}`;
+            else query = `${query}&uster=${uster._id}`;
+        }
+        if (grade) {
+            if (query == '') query = `grade=${grade}`;
+            else query = `${query}&grade=${grade}`;
+        }
+        if (query != '')
+            endpoint = `${serviceUri}?${query}`;
+
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate) {
-        if(sdate && edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-        else if(sdate && !edate)
-            var endpoint = `${serviceUri}?dateFrom=${sdate}`;
-        else if(!sdate && edate)
-            var endpoint = `${serviceUri}?dateTo=${edate}`;
-        else
-            var endpoint = `${serviceUri}`;
+    generateExcel(sdate, edate, spinning, machine, uster, grade) {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+        if (sdate) {
+            if (query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if (edate) {
+            if (query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        if (spinning) {
+            if (query == '') query = `spinning=${spinning._id}`;
+            else query = `${query}&spinning=${spinning._id}`;
+        }
+        if (machine) {
+            if (query == '') query = `machine=${machine._id}`;
+            else query = `${query}&machine=${machine._id}`;
+        }
+        if (uster) {
+            if (query == '') query = `uster=${uster._id}`;
+            else query = `${query}&uster=${uster._id}`;
+        }
+        if (grade) {
+            if (query == '') query = `grade=${grade}`;
+            else query = `${query}&grade=${grade}`;
+        }
+        if (query != '')
+            endpoint = `${serviceUri}?${query}`;
+
         return super.getXls(endpoint);
     }
 }

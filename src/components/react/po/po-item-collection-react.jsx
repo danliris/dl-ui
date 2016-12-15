@@ -59,16 +59,14 @@ export default class PoItemCollectionReact extends React.Component {
         if (this.state.options.readOnly || this.state.options.isSplit)
             addButton = <span></span>;
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="40%">Barang</th>
                         <th width="10%">Jumlah</th>
-                        <th width="10%">Satuan</th>
-                        <th width="30%">Ket.</th>
-                        <th width="10%">
-                            {addButton}
-                        </th>
+                        <th width="20%">Satuan</th>
+                        <th width="25%">Ket.</th>
+                        <th width="5%"></th>
                     </tr>
                 </thead>
                 <tbody>
