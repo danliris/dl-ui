@@ -1,8 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import { Session } from '../../../utils/session';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/units';
 
-const serviceUri = require('../../../host').core + '/v1/master/units';
 const empty = {
     division: {
         name: ''
@@ -65,23 +66,22 @@ UnitSpinningAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=spinning';
 
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(unit => {
-                    unit.toString = function () {
-                        return [this.division.name, this.name]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return unit;
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify({ "division.name": "SPINNING" }) })
+                .then(results => {
+                    return results.data.map(unit => {
+                        unit.toString = function () {
+                            return [this.division.name, this.name]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        return unit;
+                    })
                 })
-            })
         }
     }
 };

@@ -2,9 +2,13 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-
 @inject(Router, Service)
 export class View {
+
+    poExId = "";
+    isVoid = false;
+    isCancel = false;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -12,6 +16,9 @@ export class View {
 
     async activate(params) {
         var id = params.id;
+
+        this.poExId = id;
+
         this.data = await this.service.getById(id);
 
         if (this.data.items) {
@@ -40,5 +47,29 @@ export class View {
             item.showDetails = false;
         else
             item.showDetails = true;
+    }
+
+    cancel() {
+        this.service.cancel(this.poExId).then(result => {
+            this.list();
+        }).catch(e => {
+            this.error = e;
+        })
+    }
+
+    unpost() {
+        this.service.unpost(this.poExId).then(result => {
+            this.list();
+        }).catch(e => {
+            this.error = e;
+        })
+    }
+
+    close() {
+        this.service.close(this.poExId).then(result => {
+            this.list();
+        }).catch(e => {
+            this.error = e;
+        })
     }
 }

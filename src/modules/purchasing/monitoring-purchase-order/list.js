@@ -5,7 +5,6 @@ import {Router} from 'aurelia-router';
 @inject(Router, Service)
 export class List {
 
-    supplierApiUri = require('../../../host').core + "/v1/core/suppliers";
 
     constructor(router, service) {
         this.service = service;
@@ -27,7 +26,7 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, -1)
             .then(data => {
                 this.data = data;
                 // this.data = [];
@@ -115,15 +114,15 @@ export class List {
     }
 
     exportToXls() {
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, -1);
     }
 
-    dateFromChanged(e){
+    dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);
 
 
-        if(_startDate > _endDate)
+        if (_startDate > _endDate)
             this.dateTo = e.srcElement.value;
 
     }

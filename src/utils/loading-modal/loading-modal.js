@@ -19,10 +19,10 @@ export class LoadingModal {
                 this.show = true;
             }
             else {
-                if (promise.isFulfilled()) {
+                // if (promise.isFulfilled()) {
                     this.promises.splice(promiseIndex, 1);
                     this.show = false;
-                }
+                // }
             }
         });
     }

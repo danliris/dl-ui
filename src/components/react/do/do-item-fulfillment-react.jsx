@@ -4,7 +4,7 @@ import TextboxReact from '../basic/textbox-react.jsx';
 import RadiobuttonReact from '../basic/radiobutton-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
 import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
-import PoAutoSuggestReact from '../auto-suggests/po-auto-suggest-react.jsx';
+import PrAutoSuggestReact from '../auto-suggests/pr-auto-suggest-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
 
 'use strict';
@@ -74,7 +74,7 @@ export default class DoItemFulfillmentReact extends React.Component {
         return (
             <tr >
                 <td>
-                    <PoAutoSuggestReact value={this.state.value.purchaseOrder} options={readOnlyOptions} />
+                    <PrAutoSuggestReact value={this.state.value.purchaseOrder.purchaseRequest} options={readOnlyOptions} />
                 </td>
                 <td>
                     <ProductAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} />
@@ -86,9 +86,10 @@ export default class DoItemFulfillmentReact extends React.Component {
                     <UomAutoSuggestReact value={this.state.value.purchaseOrderUom} options={readOnlyOptions} />
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.deliveredQuantity ? 'has-error' : ''}`} style={style}>
+                    <div className={`form-group ${this.state.error.deliveredQuantity ? 'has-error' : ''} ${this.state.value.remainingQuantity < this.state.value.deliveredQuantity ? 'has-warning' : ''}`} style={style}>
                         <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
                         <span className="help-block">{this.state.error.deliveredQuantity}</span>
+                        {(this.state.value.remainingQuantity < this.state.value.deliveredQuantity && !this.state.options.readOnly) ? <span className="help-block">Jumlah diterima lebih besar dari jumlah dipesan</span> : <span></span>}
                     </div>
                 </td>
                 <td>

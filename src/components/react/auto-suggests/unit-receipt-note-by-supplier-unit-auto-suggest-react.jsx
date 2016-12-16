@@ -1,8 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'unit-receipt-notes/by-suplier-unit';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/unit-receipt-notes/by-suplier-unit';
 const empty = {
     no: '',
     deliveryOrder: {
@@ -70,22 +71,22 @@ UnitReceipNoteBySupplierUnitAutoSuggestReact.defaultProps = {
         filter: {},
         suggestions:
         function (text, filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(poTextile => {
-                    poTextile.toString = function () {
-                        return [ this.no,this.deliveryOrder.no]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return poTextile;
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
+
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
+                .then(results => {
+                    return results.data.map(poTextile => {
+                        poTextile.toString = function () {
+                            return [this.no, this.deliveryOrder.no]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        return poTextile;
+                    })
                 })
-            })
         }
     }
 };

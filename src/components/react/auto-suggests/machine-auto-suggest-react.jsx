@@ -1,8 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-import {Session} from '../../../utils/session';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/machines';
 
-const serviceUri = require('../../../host').core + '/v1/master/machines';
 const empty = {
     name: ''
 }
@@ -60,20 +61,19 @@ MachineAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            
-            var session = new Session();
-            var requestHeader = new Headers();
-            requestHeader.append('Authorization', `JWT ${session.token}`);
 
-            return fetch(uri, { headers: requestHeader }).then(results => results.json()).then(json => {
-                return json.data.map(machine => {
-                    machine.toString = function () {
-                        return `${this.name}`;
-                    }
-                    return machine;
-                })
-            })
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(machine => {
+                        machine.toString = function () {
+                            return `${this.name}`;
+                        }
+                        return machine;
+                    });
+                });
         }
     }
 };

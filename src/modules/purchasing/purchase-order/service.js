@@ -1,15 +1,14 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
-import {SecureService} from '../../../utils/secure-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/purchase-oders/by-user';
-const serviceUriPODL = require('../../../host').purchasing+ '/v1/purchase-oders/externals';
 
-export class Service extends SecureService {
+const serviceUri = 'purchase-orders/by-user';
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+export class Service extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
     }
 
     search(info) {
@@ -28,7 +27,7 @@ export class Service extends SecureService {
     }
 
     split(data) {
-        var endpoint = require('../../../host').purchasing+ '/v1/purchase-oders/split';
+        var endpoint = 'purchase-orders/split';
         return super.post(endpoint, data);
     }
 
@@ -41,8 +40,7 @@ export class Service extends SecureService {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
     }
-    getPR(id)
-    {
+    getPR(id) {
         var endpoint = `${serviceUriPr}/${id}`;
         return super.get(endpoint);
     }
