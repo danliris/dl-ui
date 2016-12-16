@@ -2,7 +2,7 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
-const resource = 'purchase-oders/unposted';
+const resource = 'purchase-orders/unposted';
  
 const empty = {
     purchaseRequest: {

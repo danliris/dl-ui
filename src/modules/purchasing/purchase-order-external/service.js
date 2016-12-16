@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'purchase-oders/externals/by-user';
+const serviceUri = 'purchase-orders/externals/by-user';
 
 export class Service extends RestService {
 
@@ -32,7 +32,7 @@ export class Service extends RestService {
     }
 
     post(data) {
-        var endpoint = 'purchase-oders/externals/post';
+        var endpoint = 'purchase-orders/externals/post';
         return super.post(endpoint, data);
     }
 
@@ -46,4 +46,18 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    cancel(id) {
+        var endpoint = `purchase-orders/externals/cancel/${id}`;
+        return super.put(endpoint);
+    }
+
+    unpost(id) {
+        var endpoint = `purchase-orders/externals/unpost/${id}`;
+        return super.put(endpoint);
+    }
+
+    close(id) {
+        var endpoint = `purchase-orders/externals/close/${id}`;
+        return super.put(endpoint);
+    }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
-const resource = 'purchase-oders/externals/posted'; 
+const resource = 'purchase-orders/externals/posted'; 
 const empty = {
     no: '',
     refNo: '',

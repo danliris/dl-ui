@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'purchase-oders/by-user';
+const serviceUri = 'purchase-orders/by-user';
 
 export class Service extends RestService {
 
@@ -27,7 +27,7 @@ export class Service extends RestService {
     }
 
     split(data) {
-        var endpoint = 'purchase-oders/split';
+        var endpoint = 'purchase-orders/split';
         return super.post(endpoint, data);
     }
 
