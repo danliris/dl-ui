@@ -1,8 +1,8 @@
 import React from 'react';
-import AutoSuggestReact from './auto-suggest-react.jsx';
+import AutoSuggestReact from './auto-suggest-react.jsx'; 
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
-const resource = 'master/units';
+const resource = 'master/units'; 
 
 const empty = {
     division: {
@@ -65,10 +65,9 @@ UnitAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
-        function (text) {
-
+        function (text) { 
             var config = Container.instance.get(Config);
-            var endpoint = config.getEndpoint("core");
+            var endpoint = config.getEndpoint("core"); 
 
             return endpoint.find(resource, { keyword: text })
                 .then(results => {
