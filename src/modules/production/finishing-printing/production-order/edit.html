@@ -2,7 +2,35 @@
     <h1>Ubah Surat Order Produksi</h1>
     <require from="./data-form"></require>
     <block>
-        <data-form data.bind="data" error.bind="error"></data-form>
+    <form class="form-horizontal">
+        <fieldset>
+            <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only="true"></textbox>
+            <checkbox                   label="Buyer Export"        value.bind="data.isExport"              error.bind="error.isExport"       read-only.bind="readOnly" change.delegate="exportChanged($event)"></checkbox>
+            <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
+            <dropdown                   label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"   items.bind="processOptions"></dropdown>
+            <textbox                    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)"></textbox>
+            <textbox                    label="Konstruksi"          value.bind="data.construction"          error.bind="error.construction"                       read-only.bind="(readOnly)"></textbox>
+            <textbox                    label="Material"            value.bind="data.material"              error.bind="error.material"                       read-only.bind="(readOnly)"></textbox>
+            <numeric                    label="Jumlah Order"        value.bind="data.orderQuantity"         error.bind="error.orderQuantity"       read-only.bind="readOnly" change.delegate="qtyChange"></numeric>
+            <uom-auto-suggest           label="Satuan"              value.bind="data.uom"                   error.bind="error.uom"           read-only.bind="readOnly"   change.delegate="uomChanged($event)"></uom-auto-suggest>
+            <numeric                    label="Spelling"            value.bind="data.spelling"              error.bind="error.spelling"       read-only.bind="readOnly"></numeric>
+            <textbox                    label="Asal Kain Greige"    value.bind="data.originGreigeFabric"    error.bind="error.originGreigeFabric"                       read-only.bind="(readOnly)"></textbox>
+            <textbox                    label="Lebar Finish"        value.bind="data.finishWidth"           error.bind="error.finishWidth"                       read-only.bind="(readOnly)"></textbox>
+            <textbox                    label="Design"              value.bind="data.design"                error.bind="error.design"                       read-only.bind="(readOnly)"></textbox>
+            <textbox                    label="Standar Handling"    value.bind="data.handlingStandard"      error.bind="error.handlingStandard"                       read-only.bind="(readOnly)"></textbox>
+            <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions"></dropdown>
+            <textbox                    label="Standar Shrinkage"   value.bind="data.shrinkageStandard"     error.bind="error.shrinkageStandard"                       read-only.bind="(readOnly)"></textbox>
+            <textbox                    label="Panjang Roll"        value.bind="data.rollLength"            error.bind="error.rollLength"                       read-only.bind="(readOnly)"></textbox>
+            <lamp-standard-auto-suggest label="Standar Lampu"       value.bind="data.lampStandard"          error.bind="error.lampStandard"           read-only.bind="readOnly"   change.delegate="lampStandardChanged($event)"></lamp-standard-auto-suggest>
+            <textbox                    label="Sample"              value.bind="data.sample"                error.bind="error.sample"                       read-only.bind="(readOnly)"></textbox>
+            <datepicker                 label="Tanggal Delivery"    value.bind="data.deliveryDate"          error.bind="error.deliveryDate"                     read-only.bind="readOnly"></datepicker>
+
+        </fieldset>
+        <hr />
+        <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>
+        <hr />
+        <production-order-detail-collection     value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)" ></production-order-detail-collection>
+    </form>
         <hr/>
         <div class="pull-right">
             <button class="btn btn-default" click.delegate="view(item,item.orderNo)">Kembali</button>
