@@ -8,7 +8,7 @@
             <textbox                    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)"></textbox>
             <textbox                    label="Konstruksi"          value.bind="data.construction"          error.bind="error.construction"                       read-only.bind="(readOnly)"></textbox>
             <textbox                    label="Material"            value.bind="data.material"              error.bind="error.material"                       read-only.bind="(readOnly)"></textbox>
-            <numeric                    label="Jumlah Order"        value.bind="data.orderQuantity"         error.bind="error.orderQuantity"       read-only="true"></numeric>
+            <numeric                    label="Jumlah Order"        value.bind="data.orderQuantity"         error.bind="error.orderQuantity"       read-only.bind="readOnly" change.delegate="qtyChange"></numeric>
             <uom-auto-suggest           label="Satuan"              value.bind="data.uom"                   error.bind="error.uom"           read-only.bind="readOnly"   change.delegate="uomChanged($event)"></uom-auto-suggest>
             <numeric                    label="Spelling"            value.bind="data.spelling"              error.bind="error.spelling"       read-only.bind="readOnly"></numeric>
             <textbox                    label="Asal Kain Greige"    value.bind="data.originGreigeFabric"    error.bind="error.originGreigeFabric"                       read-only.bind="(readOnly)"></textbox>
@@ -26,6 +26,6 @@
         <hr />
         <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>
         <hr />
-        <production-order-detail-collection     value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)"></production-order-detail-collection>
+        <production-order-detail-collection     value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)" ></production-order-detail-collection>
     </form>
 </template>
