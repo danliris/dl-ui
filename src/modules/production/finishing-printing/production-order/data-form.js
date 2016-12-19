@@ -17,9 +17,14 @@ export class DataForm {
         this.element = element;
         this.service = service;
     }
+    qtyOrder=0;
     exportChanged(e){
         var selectedExport =  e.srcElement.checked || false;
         this.data.isExport=selectedExport;
+    }
+
+    qtyChange(e){
+        this.qtyOrder=this.data.orderQuantity;
     }
 
     uomChanged(e) {
@@ -46,12 +51,11 @@ export class DataForm {
     }
 
     addDetail(e){
-        var qty=0;
         for(var i=0;i<this.data.details.length;i++){
-            qty=qty+this.data.details[i].quantity;
             this.data.details[i].uom=this.data.uom;
-            this.data.orderQuantity=qty;
         }
         
     }
+
+   
 }
