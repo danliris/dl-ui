@@ -34,11 +34,12 @@
                <tbody>
                     <tr repeat.for="item of data"> 
                         <td>${item.salesContractNo}</td>
-                        <td style="text-align:center">${item.isExport}</td>
+                        <td style="text-align:center">${item.isExport ? 'export':'lokal'}</td>
                         <td style="text-align:center">${item.buyer.name}</td>
                         <td style="text-align:center">${item.processType}</td>
                         <td style="text-align:center">${item.deliveryDate | dateFormat:'D MMM YYYY'}</td>
-                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
+                        <td><button class="btn btn-default" click.delegate="view(item,item.orderNo)">Rincian</button>
+                        <button class="btn btn-primary" click.delegate="exportPDF(item)" >Cetak Pdf</button></td>
                     </tr>
                 </tbody>
             </table>

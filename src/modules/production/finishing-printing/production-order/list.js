@@ -4,45 +4,39 @@ import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    keyword = '';
+    dataToBePosting = [];
     info = { page: 1, keyword: '' };
-    data = [];
 
     constructor(router, service) {
-
         this.service = service;
         this.router = router;
-        this.today = new Date();
     }
 
     async activate() {
         this.info.keyword = '';
+        this.info.order = '';
         var result = await this.service.search(this.info);
-        this.data = result.data;
+        var dataSales = result.data;
         this.info = result.info;
+        this.data=[];
+        for(var i of dataSales){
+            var dataId=i._id;
+            for(var j of i.productionOrders){
+                j.dataId=i._id;
+                this.data.push(j);
+            }
+        }
     }
 
-    loadPage() {
-        var keyword = this.info.keyword;
-        this.service.search(this.info)
-            .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-                this.info.keyword = keyword;
-            })
-    }
-
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.loadPage();
-    }
-
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+    view(data,no) {
+        this.router.navigateToRoute('view', { id: data.dataId, no: `${data.orderNo}` });
     }
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    exportPDF(data) {
+        this.service.getPdfById(data.dataId,data.orderNo);
     }
 }
