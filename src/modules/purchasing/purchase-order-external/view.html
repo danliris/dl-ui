@@ -8,9 +8,9 @@
             <a click.delegate="list()" class='btn btn-default'  >Kembali</a>
             <a click.delegate="edit()" class="btn btn-primary"  if.bind="!data.isPosted">Ubah</a>
             <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isPosted">Hapus</a>
-            <a click.delegate="cancel()" class="btn btn-primary" if.bind="data.isPosted">Cancel</a>
-            <a click.delegate="unpost()" class="btn btn-primary" if.bind="data.isPosted">Unpost</a>
-            <a click.delegate="close()" class="btn btn-primary" if.bind="data.isPosted">Close</a>
+            <a click.delegate="cancel()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !isArriving">Cancel</a>
+            <a click.delegate="unpost()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !isArriving">Unpost</a>
+            <a click.delegate="close()" class="btn btn-primary" if.bind="data.isPosted && !isVoid">Close</a>
         </div>
     </block>
 </template>

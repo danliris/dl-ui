@@ -1,12 +1,12 @@
 <template>
     <h1 class="page-header">Monitoring Purchase Request</h1>
     <form class="form-horizontal">
-        <textbox                label="Nomor PR"        value.bind="PRNo"></textbox>
-        <unit-auto-suggest      label="Unit"            value.bind="unit"></unit-auto-suggest>
-        <category-auto-suggest  label="Kategori"        value.bind="category"></category-auto-suggest>
-        <budget-auto-suggest    label="Budget"          value.bind="budget"></budget-auto-suggest>
-        <datepicker             label="Tanggal Awal"    value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker             label="Tanggal Akhir"   value.bind="dateTo" min.bind="dateFrom"></datepicker>
+        <textbox label="Nomor PR" value.bind="PRNo"></textbox>
+        <unit-auto-suggest label="Unit" value.bind="unit"></unit-auto-suggest>
+        <category-auto-suggest label="Kategori" value.bind="category"></category-auto-suggest>
+        <budget-auto-suggest label="Budget" value.bind="budget"></budget-auto-suggest>
+        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -14,51 +14,52 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
-        <div class="pull-left" if.bind="data.length > 0">
+        <div if.bind="data.length > 0">
             <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
         </div>
-        <table class="table table-bordered table-hover" border="1" id="prMonitor" style="width: 100%;">
-            <thead align="center">
-                <tr>
-                    <td rowspan="2">No</td>
-                    <td rowspan="2">Unit</td>
-                    <td rowspan="2">Kategori</td>
-                    <td rowspan="2">Budget</td>
-                    <td rowspan="2">Tanggal PR</td>
-                    <td rowspan="2">Nomor PR</td>
-                    <td colspan="4">Barang yang diminta</td>
-                    <td rowspan="2">Tanggal diminta Datang</td>
-                    <td rowspan="2">Status</td>
-                </tr>
-                <tr>
-                    <td>Kode Barang</td>
-                    <td>Nama Barang</td>
-                    <td>Jumlah</td>
-                    <td>Satuan</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr repeat.for="pr of data">
-                   <td>${$index + 1}</td>
-                   <td>${pr.unit}</td>
-                   <td>${pr.category}</td>
-                   <td>${pr.budget}</td>
-                   <td>${pr.prDate}</td>
-                   <td>${pr.prNo}</td>
-                   <td>${pr.productCode}</td>
-                   <td>${pr.productName}</td>
-                   <td>${pr.productQty}</td>
-                   <td>${pr.productUom}</td>
-                   <td if.bind="pr.expected!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>
-                   <td if.bind="pr.expected==''|| pr.expected=='undefined'"> - </td>
-                   <td>${pr.status}</td>
-                </tr>
-</tbody>
-</table>
-
-<div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-    Tidak ada data ditemukan.
-</div>
-<hr/>
-</form>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="prMonitor">
+                <thead align="center">
+                    <tr>
+                        <td rowspan="2">No</td>
+                        <td rowspan="2">Unit</td>
+                        <td rowspan="2">Kategori</td>
+                        <td rowspan="2">Budget</td>
+                        <td rowspan="2">Tanggal PR</td>
+                        <td rowspan="2">Nomor PR</td>
+                        <td colspan="4">Barang yang diminta</td>
+                        <td rowspan="2">Tanggal diminta Datang</td>
+                        <td rowspan="2">Status</td>
+                    </tr>
+                    <tr>
+                        <td>Kode Barang</td>
+                        <td>Nama Barang</td>
+                        <td>Jumlah</td>
+                        <td>Satuan</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="pr of data">
+                        <td>${$index + 1}</td>
+                        <td>${pr.unit}</td>
+                        <td>${pr.category}</td>
+                        <td>${pr.budget}</td>
+                        <td>${pr.prDate}</td>
+                        <td>${pr.prNo}</td>
+                        <td>${pr.productCode}</td>
+                        <td>${pr.productName}</td>
+                        <td>${pr.productQty}</td>
+                        <td>${pr.productUom}</td>
+                        <td if.bind="pr.expected!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>
+                        <td if.bind="pr.expected==''|| pr.expected=='undefined'"> - </td>
+                        <td>${pr.status}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+    </form>
 </template>
