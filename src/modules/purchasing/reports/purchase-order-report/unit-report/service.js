@@ -21,13 +21,13 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getDetailUnit(sdate, edate, unit) {
-    var endpoint = `${serviceUriDetail}?unit=${unit}&dateFrom=${sdate}&dateTo=${edate}`;
+  getDetailUnit(sdate, edate, divisiId) {
+    var endpoint = `${serviceUriDetail}?divisiId=${divisiId}&dateFrom=${sdate}&dateTo=${edate}`;
     return super.get(endpoint);
   }
 
-  getDetailUnitnoDate(unit) {
-    var endpoint = `${serviceUriDetail}?unit=${unit}`;
+  getDetailUnitnoDate(divisiId) {
+    var endpoint = `${serviceUriDetail}?divisiId=${divisiId}`;
     return super.get(endpoint);
   }
 
@@ -46,8 +46,8 @@ export class Service extends RestService {
     return super.getXls(endpoint);
   }
 
-  generateExcel2(sdate, edate, unit) {
-    var endpoint = `${serviceUriDetail}?unit=${unit}&dateFrom=${sdate}&dateTo=${edate}`;
+  generateExcel2(sdate, edate, divisiId) {
+    var endpoint = `${serviceUriDetail}?divisiId=${divisiId}&dateFrom=${sdate}&dateTo=${edate}`;
     return super.getXls(endpoint);
   }
 
