@@ -28,7 +28,7 @@
             <tbody>
                 <tr repeat.for="item of data" click.delegate="view(item,dateFrom,dateTo)">
                     <td class="text-center"> ${$index + 1}</td>
-                    <td class="text-center"> <a> ${item._id}</a> </td>
+                    <td class="text-center"> <a> ${item._id.name}</a> </td>
                     <td class="text-right"> ${amounts[$index]}</td>
                     <td class="text-right"> ${percentage[$index]}%</td>
                 </tr>
