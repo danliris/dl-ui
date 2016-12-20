@@ -9,7 +9,6 @@ export class NavBar {
 
     @computedFrom('authService.authenticated')
     get isAuthenticated() {
-        console.log(2);
         if (this.authService.authenticated) {
             this.authService.getMe()
                 .then((result) => {
