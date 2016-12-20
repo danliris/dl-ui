@@ -96,7 +96,7 @@ export default class PoExternalItemReact extends React.Component {
                                 <th rowSpan="2" width="10%">Konversi</th>
                                 <th rowSpan="2" width="20%">Harga</th>
                                 {isUseIncomeTax ? 
-                                    <th rowSpan="2" width="10%">Kena Ppn?</th> : <th rowSpan="2" width="10%" className="hidden">Kena Ppn?</th>}
+                                    <th rowSpan="2" width="10%">Include Ppn?</th> : <th rowSpan="2" width="10%" className="hidden">Kena Ppn?</th>}
                                 <th rowSpan="2" width="15%">Ket.</th>
                             </tr>
                             <tr>
