@@ -8,6 +8,7 @@
         <supplier-auto-suggest label="Supplier"             value.bind="supplier"></supplier-auto-suggest>
         <datepicker            label="Tanggal Awal"         value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
         <datepicker            label="Tanggal Akhir"        value.bind="dateTo" min.bind="dateFrom"></datepicker>
+        <dropdown-enum         label="Status"               value.bind="poState" items.bind="poStates"></dropdown-enum>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -38,7 +39,7 @@
                         <td colspan="4">BON PENERIMAAN</td>
                         <td colspan="2">INVOICE</td>
                         <!--<td colspan="2">FAKTUR PAJAK</td>-->
-                        <td colspan="4">NOTA INTERN</td>
+                        <td colspan="4">NOTA INTERN (SPB)</td>
                         <td colspan="3">PPN</td>
                         <td colspan="3">PPH</td>
                         <td colspan="4">CATATAN KOREKSI</td>
