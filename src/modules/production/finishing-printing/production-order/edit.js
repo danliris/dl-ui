@@ -27,7 +27,7 @@ export class Edit {
                 this.data=i;
                 this.data.material={
                     _id:i.material
-                }
+                };
                 break;
             }
             
