@@ -12,7 +12,6 @@ export class SideNavBar {
         this.minimized = false;
         this.activeMenu = [];
         this.activeSubMenu = {};
-        this.group = new Map();
         this.authService = authService;
     }
 
@@ -28,6 +27,7 @@ export class SideNavBar {
 
     attached() {
 
+        this.group = new Map();
         const config = this.authService.authentication.config;
         const storage = this.authService.authentication.storage;
         const token = JSON.parse(storage.get(config.storageKey));
