@@ -31,7 +31,6 @@ export class Service extends RestService {
     }
 
     delete(data) {
-        console.log(data);
         var endpoint = `${serviceUri}/${data._id}?no=${data.orderNo}`;
         return super.delete(endpoint, data);
   }

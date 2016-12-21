@@ -35,6 +35,8 @@ export function configure(config) {
         './auto-suggests/unit-spinning-auto-suggest',
         './auto-suggests/lamp-standard-auto-suggest',
         './auto-suggests/buyer-auto-suggest',
+        './auto-suggests/material-by-process-type-auto-suggest',
+        './auto-suggests/construction-by-material-process-type-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',

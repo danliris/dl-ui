@@ -16,13 +16,88 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
         this.element = element;
         this.service = service;
+        
     }
+
+    get isFilter() {
+        if(this.data.processType){
+            this.filter ={
+                processType : this.data.processType
+            };
+        }
+        else{
+            this.filter ={
+                processType : "Finishing"
+            };
+        }
+        return this.filter;
+    }
+
     qtyOrder=0;
     exportChanged(e){
         var selectedExport =  e.srcElement.checked || false;
         this.data.isExport=selectedExport;
     }
 
+    processChanged(e){
+        this.filter={};
+        this.data.material={};
+        var selectedProcess = e.srcElement.value || "";
+        if(selectedProcess){
+            this.data.processType = selectedProcess ? selectedProcess : "";
+            if (!this.readOnly) {
+                this.data.material={};
+                this.materialChanged({});
+            }
+            if(this.data.processType){
+                this.filter = {
+                    processType : this.data.processType
+                };
+            }
+            
+        }
+        
+    }
+
+    materialChanged(e){
+        var selectedMaterial= e.detail;
+        if(selectedMaterial){
+            this.data.material=selectedMaterial._id ? selectedMaterial._id : "";
+            if (!this.readOnly) {
+                this.data.instruction={};
+                this.data.instruction.construction="";
+                this.constructionChanged({});
+            }
+            if(this.data.processType && this.data.material){
+                this.filter = {
+                    processType : this.data.processType,
+                    material : this.data.material
+                };
+            }
+        }
+        else{
+            if (!this.readOnly) {
+                this.data.instruction={};
+                this.data.instruction.construction="";
+                this.constructionChanged({});
+            }
+            if(this.data.processType){
+                this.filter = {
+                    processType : this.data.processType
+                };
+            }
+        }
+    }
+
+    constructionChanged(e){
+        var selectedConstruction= e.detail || {};
+        if(selectedConstruction){
+            this.data.construction=selectedConstruction.construction ? selectedConstruction.construction : "";
+            if(this.data.processType && this.data.material && this.data.construction){
+                this.data.instructionId=selectedConstruction._id ? selectedConstruction._id : "";
+            }
+        }
+    }
     qtyChange(e){
         this.qtyOrder=this.data.orderQuantity;
     }
