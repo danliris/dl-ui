@@ -55,4 +55,3 @@ export class App {
         return this.authService.authenticated;
     }
 }
-
