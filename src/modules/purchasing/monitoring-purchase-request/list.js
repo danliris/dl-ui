@@ -7,30 +7,30 @@ export class List {
 
     prStates = [
         {
-            'name': '',
-            'value': -1
+            "name": "",
+            "value": -1
         },
         {
-            'name': 'Dibatalkan',
-            'value': 0
+            "name": "Dibatalkan",
+            "value": 0
         }, {
-            'name': 'Purchase request dibuat',
-            'value': 1
+            "name": "Purchase request dibuat",
+            "value": 1
         }, {
-            'name': 'Belum diterima Pembelian',
-            'value': 2
+            "name": "Belum diterima Pembelian",
+            "value": 2
         }, {
-            'name': 'Sudah diterima Pembelian',
-            'value': 7
+            "name": "Sudah diterima Pembelian",
+            "value": 7
         }, {
-            'name': 'Sudah diorder ke Supplier',
-            'value': 3
+            "name": "Sudah diorder ke Supplier",
+            "value": 3
         }, {
-            'name': 'Barang sudah datang',
-            'value': 4
+            "name": "Barang sudah datang",
+            "value": 4
         }, {
-            'name': 'Complete',
-            'value': 9
+            "name": "Complete",
+            "value": 9
         }
     ];
     constructor(router, service) {

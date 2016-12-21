@@ -7,38 +7,38 @@ export class List {
 
     poStates =[
         {
-            'name': '',
-            'value': -1
+            "name": "",
+            "value": -1
         },{
-            'name': 'Dibatalkan',
-            'value': 0
+            "name": "Dibatalkan",
+            "value": 0
         }, {
-            'name': 'PO Internal belum diorder',
-            'value': 1
+            "name": "PO Internal belum diorder",
+            "value": 1
         }, {
-            'name': 'Sudah dibuat PO Eksternal',
-            'value': 2
+            "name": "Sudah dibuat PO Eksternal",
+            "value": 2
         }, {
-            'name': 'Sudah diorder ke Supplier',
-            'value': 3
+            "name": "Sudah diorder ke Supplier",
+            "value": 3
         },{
-            'name': 'Barang sudah datang',
-            'value': 4
+            "name": "Barang sudah datang",
+            "value": 4
         },{
-            'name': 'Barang sudah datang',
-            'value': 5
+            "name": "Barang sudah datang",
+            "value": 5
         },{
-            'name': 'Barang sudah diterima Unit',
-            'value': 6
+            "name": "Barang sudah diterima Unit",
+            "value": 6
         },{
-            'name': 'Barang sudah diterima Unit',
-            'value': 7
+            "name": "Barang sudah diterima Unit",
+            "value": 7
         },{
-            'name': 'Sebagian sudah dibuat SPB',
-            'value': 8
+            "name": "Sebagian sudah dibuat SPB",
+            "value": 8
         },{
-            'name': 'Complete',
-            'value': 9
+            "name": "Complete",
+            "value": 9
         }];
 
     constructor(router, service) {
