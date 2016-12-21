@@ -1,14 +1,23 @@
-import {Aurelia, inject} from 'aurelia-framework';
-import {AuthenticateStep} from 'aurelia-authentication'; 
+import {Aurelia, inject, computedFrom} from 'aurelia-framework';
+import {AuthService} from 'aurelia-authentication';  
+import {AuthenticateStep} from './utils/AuthenticateStep';  
+ 
+@inject(AuthService)
  
 export class App {  
+  constructor(authService)
+  {
+    this.authService = authService;
+  }
+
   configureRouter(config, router) {
     config.title = '';
     config.addPipelineStep('authorize', AuthenticateStep); // Add a route filter so only authenticated uses are authorized to access some routes
 
     var routes = [ 
-      { route: 'login',                                                                     name: 'login',                                    moduleId: './login',                                                                                  nav: true, title: 'login' },
-      { route: ['', 'Welcome'],                                                             name: 'welcome',                                  moduleId: './welcome',                                                                                nav: false, title: 'Home',                                            auth:true}, 
+      { route: 'login',                                                                     name: 'login',                                    moduleId: './login',                                                                                  nav: true,  title: 'login' },
+      { route: 'forbidden',                                                                 name: 'forbidden',                                moduleId: './forbidden',                                                                              nav: false, title: 'forbidden' ,                                                  settings: { roles:["*"] }},
+      { route: ['', 'Welcome'],                                                             name: 'welcome',                                  moduleId: './welcome',                                                                                nav: false, title: 'Home',                                            auth:true,  settings: { roles:["*"] }}, 
       { route: 'buyers',                                                                    name: 'buyers',                                   moduleId: './modules/master/buyer/index',                                                             nav: true,  title: 'Buyer',                                           auth:true,  settings: { group:"master",       roles:["admin"], iconClass:'fa fa-dashboard' }},
       { route: 'suppliers',                                                                 name: 'suppliers',                                moduleId: './modules/master/supplier/index',                                                          nav: true,  title: 'Supplier',                                        auth:true,  settings: { group:"master",       roles:["admin"], iconClass:'fa fa-dashboard' }},
       { route: 'uoms',                                                                      name: 'uoms',                                     moduleId: './modules/master/uom/index',                                                               nav: true,  title: 'Satuan',                                          auth:true,  settings: { group:"master",       roles:["admin"], iconClass:'fa fa-dashboard' }},
@@ -20,7 +29,7 @@ export class App {
       { route: 'po/monitoring',                                                             name: 'purchase-order-monitoring',                moduleId: './modules/purchasing/monitoring-purchase-order/index',                                     nav: true,  title: 'Monitoring Purchase',                             auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
       { route: 'po/reports/periode/unit',                                                   name: 'purchase-order-reports-periode-unit',      moduleId: './modules/purchasing/reports/purchase-order-report/unit-report/index',                     nav: true,  title: 'Laporan Total Pembelian per Unit',                auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
       { route: 'po/reports/periode/category',                                               name: 'purchase-order-reports-periode-category',  moduleId: './modules/purchasing/reports/purchase-order-report/category-report/index',                 nav: true,  title: 'Laporan Total Pembelian per Kategori',            auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
-      { route: 'po/reports/periode/unit-category',                                          name: 'purchase-order-reports-periode-unit-category',  moduleId: './modules/purchasing/reports/purchase-order-report/unit-category-report/index',       nav: true,  title: 'Laporan Total Pembelian per Unit per Kategori',            auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
+      { route: 'po/reports/periode/unit-category',                                          name: 'purchase-order-reports-periode-unit-category',  moduleId: './modules/purchasing/reports/purchase-order-report/unit-category-report/index',       nav: true,  title: 'Laporan Total Pembelian per Unit per Kategori',   auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
       { route: 'do',                                                                        name: 'delivery-order',                           moduleId: './modules/purchasing/delivery-order/index',                                                nav: true,  title: 'Surat Jalan',                                     auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
       { route: 'do/monitoring',                                                             name: 'delivery-order-monitoring',                moduleId: './modules/purchasing/monitoring-delivery-order/index',                                     nav: true,  title: 'Monitoring Surat Jalan',                          auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
       { route: 'receipt-note/unit',                                                         name: 'receipt-note-unit',                        moduleId: './modules/purchasing/unit-receipt-note/index',                                             nav: true,  title: 'Bon Terima Unit',                                 auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
@@ -28,10 +37,11 @@ export class App {
       { route: 'unit-payment-order',                                                        name: 'unit-payment-order',                       moduleId: './modules/purchasing/unit-payment-order/index',                                            nav: true,  title: 'Surat Perintah Bayar',                            auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
       { route: 'unit-payment-note/price-correction',                                        name: 'unit-payment-price-correction-note',       moduleId: './modules/purchasing/unit-payment-price-correction-note/index',                            nav: true,  title: 'Koreksi Harga Pembelian',                         auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
       { route: 'unit-payment-note/quantity-correction',                                     name: 'unit-payment-quantity-correction-note',    moduleId: './modules/purchasing/unit-payment-quantity-correction-note/index',                         nav: true,  title: 'Koreksi Jumlah Pembelian',                        auth:true,  settings: { group:"purchasing",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
-      { route: 'production/spinning/winding/winding-quality-sampling',                      name: 'winding-quality-sampling',                 moduleId: './modules/production/spinning/winding/winding-quality-sampling/index',                     nav: true, title: 'Quality Hasil Produksi Spinning',                  auth:true,  settings: { group:"production",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
-      { route: 'production/spinning/winding/winding-quality-sampling/report',               name: 'winding-quality-sampling-report',          moduleId: './modules/production/spinning/winding/reports/winding-quality-sampling-report/index',      nav: true, title: 'Laporan Quality Hasil Produksi Spinning',          auth:true,  settings: { group:"production",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
-      { route: 'production/spinning/winding/winding-production-output',                     name: 'winding-production-output',                moduleId: './modules/production/spinning/winding/winding-production-output/index',                    nav: true,  title: 'Output Hasil Produksi Spinning',                  auth:true,  settings: { group:"production",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
-      { route: 'production/spinning/winding/reports/daily-spinning-production-report',      name: 'daily-spinning-production-report',         moduleId: './modules/production/spinning/winding/reports/daily-spinning-production-report/index',     nav: true,  title: 'Monitoring Output Hasil Produksi Spinning',       auth:true,  settings: { group:"production",   roles:["purchasing"], iconClass:'fa fa-dashboard' }},
+      // { route: 'production/spinning/winding/winding-quality-sampling',                      name: 'winding-quality-sampling',                 moduleId: './modules/production/spinning/winding/winding-quality-sampling/index',                     nav: true,  title: 'Quality Hasil Produksi Spinning',                 auth:true,  settings: { group:"production",   roles:["production"], iconClass:'fa fa-dashboard' }},
+      // { route: 'production/spinning/winding/winding-quality-sampling/report',               name: 'winding-quality-sampling-report',          moduleId: './modules/production/spinning/winding/reports/winding-quality-sampling-report/index',      nav: true,  title: 'Laporan Quality Hasil Produksi Spinning',         auth:true,  settings: { group:"production",   roles:["production"], iconClass:'fa fa-dashboard' }},
+      // { route: 'production/spinning/winding/winding-production-output',                     name: 'winding-production-output',                moduleId: './modules/production/spinning/winding/winding-production-output/index',                    nav: true,  title: 'Output Hasil Produksi Spinning',                  auth:true,  settings: { group:"production",   roles:["production"], iconClass:'fa fa-dashboard' }},
+      // { route: 'production/spinning/winding/reports/daily-spinning-production-report',      name: 'daily-spinning-production-report',         moduleId: './modules/production/spinning/winding/reports/daily-spinning-production-report/index',     nav: true,  title: 'Monitoring Output Hasil Produksi Spinning',       auth:true,  settings: { group:"production",   roles:["production"], iconClass:'fa fa-dashboard' }},
+      { route: 'production/finishing-printing/production-order',                            name: 'production-order',                         moduleId: './modules/production/finishing-printing/production-order/index',                           nav: true,  title: 'Production Order',                                auth:true,  settings: { group:"production",   roles:["production"], iconClass:'fa fa-dashboard' }},
       
       { route: 'power-bi',                                                                  name: 'power-bi',                                 moduleId: './modules/power-bi/index',                                                                 nav: true, title: 'Power BI Reports' ,                                auth:true,  settings: { group:"reports",      roles:["admin"],      iconClass:'fa fa-dashboard' }}
     ]; 
@@ -39,5 +49,9 @@ export class App {
     config.map(routes);
     this.router = router;
   }
+  
+    @computedFrom('authService.authenticated')
+    get isAuthenticated() {
+        return this.authService.authenticated;
+    }
 }
-

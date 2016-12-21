@@ -6,5 +6,7 @@ export default {
     profileUrl: "/me",
 
     authTokenType: "JWT",
-    accessTokenProp: "data"
+    accessTokenProp: "data",
+
+    storageChangedReload : true
 };

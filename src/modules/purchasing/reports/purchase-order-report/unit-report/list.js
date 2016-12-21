@@ -110,7 +110,7 @@ export class List {
     }
 
     view(data, sdate, edate) {
-        this.router.navigateToRoute('view', { id: data._id, sdate: this.dateFrom, edate: this.dateTo });
+        this.router.navigateToRoute('view', { id: data._id._id, division: data._id.name, sdate: this.dateFrom, edate: this.dateTo });
     }
 
     reset() {

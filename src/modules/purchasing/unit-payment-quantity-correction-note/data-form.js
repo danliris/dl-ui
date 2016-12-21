@@ -36,35 +36,48 @@ export class DataForm {
 
                     for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
 
-                        var unitQuantityPriceCorrectionNoteItem = {};
-                        unitQuantityPriceCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
-                        unitQuantityPriceCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
-                        unitQuantityPriceCorrectionNoteItem.product = unitReceiptNoteItem.product;
-                        unitQuantityPriceCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
-                        unitQuantityPriceCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
-                        unitQuantityPriceCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
-                        unitQuantityPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
-                        unitQuantityPriceCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
-                        unitQuantityPriceCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
-                        unitQuantityPriceCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
+                        var unitQuantityCorrectionNoteItem = {};
+                        unitQuantityCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
+                        unitQuantityCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
+                        unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
+                        unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
+                        unitQuantityCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
+                        unitQuantityCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
+                        unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+                        unitQuantityCorrectionNoteItem.currency = unitReceiptNoteItem.currency;
+                        unitQuantityCorrectionNoteItem.currencyRate = unitReceiptNoteItem.currencyRate;
+                        unitQuantityCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
 
                         if (unitReceiptNoteItem.correction) {
                             if (unitReceiptNoteItem.correction.length > 0) {
-                                unitQuantityPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                                unitQuantityPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                unitQuantityPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
+                                var _qty = 0;
+                                var _hasQtyCorrection = false;
+                                for (var correction of unitReceiptNoteItem.correction) {
+                                    if (correction.correctionRemark === "Koreksi Jumlah") {
+                                        _qty += correction.correctionQuantity;
+                                        _hasQtyCorrection = true;
+                                    }
+                                }
+                                if (!_hasQtyCorrection) {
+                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
+                                } else {
+                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
+                                }
                             } else {
-                                unitQuantityPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                                unitQuantityPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
-                                unitQuantityPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                                unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+                                unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                             }
                         } else {
-                            unitQuantityPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                            unitQuantityPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
-                            unitQuantityPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+                            unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                            unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;
+                            unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                         }
-
-                        _items.push(unitQuantityPriceCorrectionNoteItem);
+                        _items.push(unitQuantityCorrectionNoteItem);
                     }
                 }
                 this.data.items = _items;
