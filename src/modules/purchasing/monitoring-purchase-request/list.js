@@ -4,6 +4,35 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
+
+    prStates = [
+        {
+            'name': '',
+            'value': -1
+        },
+        {
+            'name': 'Dibatalkan',
+            'value': 0
+        }, {
+            'name': 'Purchase request dibuat',
+            'value': 1
+        }, {
+            'name': 'Belum diterima Pembelian',
+            'value': 2
+        }, {
+            'name': 'Sudah diterima Pembelian',
+            'value': 7
+        }, {
+            'name': 'Sudah diorder ke Supplier',
+            'value': 3
+        }, {
+            'name': 'Barang sudah datang',
+            'value': 4
+        }, {
+            'name': 'Complete',
+            'value': 9
+        }
+    ];
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -22,7 +51,9 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, -1)
+        if(this.prState instanceof Object)
+            this.prState = -1;
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState)
 
             .then(data => {
                 this.data = data;
@@ -33,7 +64,7 @@ export class List {
                         var _data = {};
                         var status = pr.status ? pr.status.label : "-";
 
-                        if(pr.status.value === 4 || pr.status.value === 9){
+                        if (pr.status.value === 4 || pr.status.value === 9) {
                             status = `${status} (${item.deliveryOrderNos.join(", ")})`;
                         }
 
@@ -61,11 +92,15 @@ export class List {
         this.budget = "undefined";
         this.dateFrom = null;
         this.dateTo = null;
+        this.prState = -1;
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, -1);
+        if(this.prState instanceof Object)
+            this.prState = -1;
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState);
     }
+
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);
