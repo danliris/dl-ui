@@ -2,11 +2,12 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-
 @inject(Router, Service)
 export class View {
 
     poExId = "";
+    isVoid = false;
+    isArriving = false;
 
     constructor(router, service) {
         this.router = router;
@@ -24,6 +25,12 @@ export class View {
             this.data.items.forEach(item => {
                 item.showDetails = false
             })
+
+            if(this.data.status.value === 0)
+                this.isVoid = true;
+
+            if(this.data.items.find(po => { return po.status.value > 3 }) != undefined)
+                this.isArriving = true;
         }
     }
 

@@ -6,6 +6,7 @@ export function configure(config) {
         './basic/checkbox',
         './basic/datepicker',
         './basic/dropdown',
+        './basic/dropdown-enum',
         './basic/multiline',
         './basic/numeric',
         './basic/radiobutton',
@@ -32,6 +33,10 @@ export function configure(config) {
         './auto-suggests/division-auto-suggest',
         './auto-suggests/thread-auto-suggest',
         './auto-suggests/unit-spinning-auto-suggest',
+        './auto-suggests/lamp-standard-auto-suggest',
+        './auto-suggests/buyer-auto-suggest',
+        './auto-suggests/material-by-process-type-auto-suggest',
+        './auto-suggests/construction-by-material-process-type-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',
@@ -40,6 +45,7 @@ export function configure(config) {
         './unit-payment-order/unit-payment-order-item-collection',
         './pr/pr-item-collection',
         './unit-payment-price-correction-note/unit-payment-price-correction-note-collection',
-        './unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection'
+        './unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
+        './production-order/production-order-detail-collection'
     );
 }
