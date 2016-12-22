@@ -1,5 +1,6 @@
 import { inject, bindable, containerless, computedFrom } from 'aurelia-framework';
 import { AuthService } from "aurelia-authentication";
+import jwtDecode from 'jwt-decode';
 
 @containerless()
 @inject(AuthService)
@@ -11,23 +12,38 @@ export class SideNavBar {
         this.minimized = false;
         this.activeMenu = [];
         this.activeSubMenu = {};
-        this.group = new Map();
         this.authService = authService;
     }
-    
+
     @computedFrom('authService.authenticated')
-    get isAuthenticated()
-    {
+    get isAuthenticated() {
         return this.authService.authenticated;
     }
-    
+
     @computedFrom('activeMenu')
     get expand() {
         return (this.activeMenu || []).length > 0;
     }
 
     attached() {
-        for (var route of this.router.navigation) {
+
+        this.group = new Map();
+        const config = this.authService.authentication.config;
+        const storage = this.authService.authentication.storage;
+        const token = JSON.parse(storage.get(config.storageKey));
+        var me = jwtDecode(token.data);
+        // var me = meResult.data;
+
+        var routes = this.router.navigation.filter(route => {
+            var routeRoles = route.settings.roles || [];
+            var myRoles = me.roles;
+            myRoles.push("*");
+            return myRoles.some(role => {
+                return routeRoles.indexOf(role) >= 0;
+            })
+        })
+
+        for (var route of routes) {
             if (route.settings && ((route.settings.group || "").trim().length > 0)) {
                 var key = (route.settings.group || "").trim();
                 if (!this.group.has(key))

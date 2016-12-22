@@ -8,7 +8,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <side-nav-bar router.bind="router"></side-nav-bar>
+      <side-nav-bar router.bind="router" if.bind="isAuthenticated"></side-nav-bar>
       <router-view></router-view>
     </div>
   </div>

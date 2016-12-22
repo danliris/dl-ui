@@ -6,6 +6,7 @@ export function configure(config) {
         './basic/checkbox',
         './basic/datepicker',
         './basic/dropdown',
+        './basic/dropdown-enum',
         './basic/multiline',
         './basic/numeric',
         './basic/radiobutton',

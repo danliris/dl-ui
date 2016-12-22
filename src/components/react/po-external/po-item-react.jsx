@@ -39,9 +39,9 @@ export default class PoItem extends React.Component {
     handleDealUomChange(event, uom) {
         var value = this.state.value;
         value.dealUom = uom;
-        if(value.dealUom.unit)
-            if(value.dealUom.unit == value.defaultUom.unit)
-                value.conversion=1;
+        if (value.dealUom.unit)
+            if (value.dealUom.unit == value.defaultUom.unit)
+                value.conversion = 1;
         this.handleValueChange(value);
     }
 
@@ -60,18 +60,17 @@ export default class PoItem extends React.Component {
     handleconversionChange(conversion) {
         var value = this.state.value;
         value.conversion = conversion;
-        if(value.dealUom.unit)
-            if(value.dealUom.unit == value.defaultUom.unit)
-                value.conversion=1;
+        if (value.dealUom.unit)
+            if (value.dealUom.unit == value.defaultUom.unit)
+                value.conversion = 1;
         this.handleValueChange(value);
     }
 
-    updatePrice(value){
+    updatePrice(value) {
         this.setState({ value: value });
-        if(value.useIncomeTax)
-        {
-            value.pricePerDealUnit = value.priceBeforeTax - (value.priceBeforeTax * 0.1);
-        }else{
+        if (value.useIncomeTax) {
+            value.pricePerDealUnit = (100 * value.priceBeforeTax) / 110;
+        } else {
             value.pricePerDealUnit = value.priceBeforeTax;
         }
         this.handleValueChange(value);
@@ -149,23 +148,23 @@ export default class PoItem extends React.Component {
                         <span className="help-block">{this.state.error.priceBeforeTax}</span>
                     </div>
                 </td>
-                 { isUseIncomeTax ? 
+                { isUseIncomeTax ?
                     <td>
                         <div className={`form-group`} style={style}>
                             <CheckboxReact value={this.state.value.useIncomeTax} options={this.state.options} onChange={this.handleUseIncometaxChange}/>
                         </div>
-                    </td>  : 
+                    </td> :
                     <td className="hidden">
                         <div className={`form-group`} style={style}>
                             <CheckboxReact value={this.state.value.useIncomeTax} options={this.state.options} onChange={this.handleUseIncometaxChange}/>
                         </div>
                     </td> }
-                    <td>
-                        <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
-                            <TextboxReact value={this.state.value.remark} options={readOnlyOptions} onChange={this.handleRemarkChange}/>
-                            <span className="help-block">{this.state.error.remark}</span>
-                        </div>
-                    </td>
+                <td>
+                    <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.remark} options={readOnlyOptions} onChange={this.handleRemarkChange}/>
+                        <span className="help-block">{this.state.error.remark}</span>
+                    </div>
+                </td>
             </tr>
         )
     }
