@@ -11,7 +11,23 @@ export class List {
         this.today = new Date();
     }
 
+    dateFrom = null;
+    dateTo = null;
+    divisi=null;
+    unit=null;
+    category=null;
+    currency=null;
+
     activate() {
+    }
+
+    divisionChanged(e){
+        var division=e.detail ||{};
+        if(division){
+            this.filter={
+                "division.name":division.name
+            }
+        }
     }
 
     searching() {
@@ -21,11 +37,8 @@ export class List {
         var persen = 0;
         var data = [];
         var amounts = [];
-        var uri="";
-        if(this.dateFrom==undefined && this.dateTo==undefined)
-            uri= this.service.getallData();
-        else
-            uri=this.service.getByDate(this.dateFrom, this.dateTo);
+        var amountsperCurrency=[];
+        var uri=this.service.getData(this.dateFrom, this.dateTo, this.divisi, this.unit, this.category, this.currency);
 
             uri.then(data => {
                 this.data = data;
@@ -41,10 +54,17 @@ export class List {
                         this.persen = 0;
                     }
                     percentage.push(this.persen);
+                    
+                    var tx = item.pricePerCurrency.toFixed(2).toString().split('.');
+                    var tx1 = tx[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    var amountcurrency = tx1 + '.' + tx[1];
+                    amountsperCurrency.push(amountcurrency);
+
                     var x = item.pricetotal.toFixed(2).toString().split('.');
                     var x1 = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     var amount = x1 + '.' + x[1];
                     amounts.push(amount);
+                    
                 }
                 for (var p of percentage) {
                     percentagetotal += parseFloat(p);
@@ -52,6 +72,7 @@ export class List {
                 this.percentage = percentage;
                 this.percentagetotal = Math.round(percentagetotal).toFixed(2);
                 this.amounts = amounts;
+                this.amountsperCurrency=amountsperCurrency;
                 var y = this.pricetotals.toFixed(2).toString().split('.');
                 var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.pricetotals = y1 + '.' + y[1];
@@ -59,15 +80,16 @@ export class List {
     }
 
     reset() {
-        this.dateFrom = "undefined";
-        this.dateTo = "undefined";
+        this.dateFrom = null;
+        this.dateTo = null;
+        this.divisi=null;
+        this.unit=null;
+        this.category=null;
+        this.currency=null;
     }
 
     ExportToExcel() {
-        if(this.dateFrom==undefined && this.dateTo==undefined)
-            this.service.generateExcelnoDate();
-        else
-            this.service.generateExcel(this.dateFrom, this.dateTo);
+            this.service.generateExcel(this.dateFrom, this.dateTo, this.divisi, this.unit, this.category, this.currency);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);

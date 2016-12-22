@@ -37,6 +37,7 @@ export function configure(config) {
         './auto-suggests/buyer-auto-suggest',
         './auto-suggests/material-by-process-type-auto-suggest',
         './auto-suggests/construction-by-material-process-type-auto-suggest',
+        './auto-suggests/unit-by-division-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',

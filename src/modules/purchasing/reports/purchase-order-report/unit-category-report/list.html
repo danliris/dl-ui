@@ -1,9 +1,12 @@
 <template>
  <h1 class="page-header">Total Pembelian per Unit per Kategori</h1>
      <form class="form-horizontal">
-        
-        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker> 
+        <division-auto-suggest  label="Divisi"    value.bind="divisi" change.delegate="divisionChanged($event)"></division-auto-suggest>
+        <unit-by-division-auto-suggest      label="Unit"    value.bind="unit" filter.bind="filter" if.bind="divisi"></unit-by-division-auto-suggest>
+        <category-auto-suggest  label="Kategori"                value.bind="category"></category-auto-suggest>
+        <currency-auto-suggest  label="Mata Uang"               value.bind="currency"></currency-auto-suggest>
+        <datepicker             label="Tanggal Awal"            value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker             label="Tanggal Akhir"           value.bind="dateTo" min.bind="dateFrom"></datepicker> 
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -22,7 +25,9 @@
                 <th class="text-center">Divisi</th>
                 <th class="text-center">Unit</th>
                 <th class="text-center">Kategori</th>
-                <th class="text-center">Rp</th>
+                <th class="text-center">Mata Uang</th>
+                <th class="text-center">Harga per Mata Uang</th>
+                <th class="text-center">IDR</th>
                 <th class="text-center">%</th>
                 <!--<th>Kategori UOM</th>-->
             </tr>
@@ -33,13 +38,15 @@
                 <td class="text-center">${item._id.division}</td>
                 <td class="text-center">${item._id.unit}</td>
                 <td class="text-center">${item._id.category}</td>
+                <td class="text-center">${item._id.currency}</td>
+                <td class="text-right" >${amountsperCurrency[$index]}</td>
                 <td class="text-right" >${amounts[$index]}</td>
                 <td class="text-right">${percentage[$index]}%</td>
             </tr>
         </tbody>
         <tfoot if.bind="data.length > 0">
             <tr>
-                <td colspan="4" class="text-center">Total</td>
+                <td colspan="6" class="text-center">Total</td>
                 <td class="text-right" >${pricetotals}</td>
                 <td class="text-right" >${percentagetotal}%</td>
             </tr>
