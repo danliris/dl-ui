@@ -57,7 +57,7 @@ export class List {
         this.service.getPdfById(data._id);
     }
 
-    getPDFRetur(data) {
-        this.service.getPdfReturById(data._id);
-    }
+    // getPDFRetur(data) {
+    //     this.service.getPdfReturById(data._id);
+    // }
 }
