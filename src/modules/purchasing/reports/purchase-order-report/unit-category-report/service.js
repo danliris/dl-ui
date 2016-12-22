@@ -10,24 +10,72 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing");
     }
 
-    getByDate(sdate, edate) {
-        var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
+    getData(sdate, edate, divisi, unit, category, currency) {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+        if (sdate) {
+            if (query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if (edate) {
+            if (query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        if (unit) {
+            if (query == '') query = `unit=${encodeURIComponent(unit._id)}`;
+            else query = `${query}&unit=${encodeURIComponent(unit._id)}`;
+        }
+        if (divisi) {
+            if (query == '') query = `divisi=${encodeURIComponent(divisi._id)}`;
+            else query = `${query}&divisi=${encodeURIComponent(divisi._id)}`;
+        }
+        if (category) {
+            if (query == '') query = `category=${encodeURIComponent(category._id)}`;
+            else query = `${query}&category=${encodeURIComponent(category._id)}`;
+        }
+        if (currency) {
+            if (query == '') query = `currency=${encodeURIComponent(currency._id)}`;
+            else query = `${query}&currency=${encodeURIComponent(currency._id)}`;
+        }
+        if (query != '')
+            endpoint = `${serviceUri}?${query}`;
+
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate) {
-        var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
+    generateExcel(sdate, edate, divisi, unit, category, currency) {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+        if (sdate) {
+            if (query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if (edate) {
+            if (query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        if (unit) {
+            if (query == '') query = `unit=${encodeURIComponent(unit._id)}`;
+            else query = `${query}&unit=${encodeURIComponent(unit._id)}`;
+        }
+        if (divisi) {
+            if (query == '') query = `divisi=${encodeURIComponent(divisi._id)}`;
+            else query = `${query}&divisi=${encodeURIComponent(divisi._id)}`;
+        }
+        if (category) {
+            if (query == '') query = `category=${encodeURIComponent(category._id)}`;
+            else query = `${query}&category=${encodeURIComponent(category._id)}`;
+        }
+        if (currency) {
+            if (query == '') query = `currency=${encodeURIComponent(currency._id)}`;
+            else query = `${query}&currency=${encodeURIComponent(currency._id)}`;
+        }
+        if (query != '')
+            endpoint = `${serviceUri}?${query}`;
+
         return super.getXls(endpoint);
     }
 
-    getallData() {
-        var endpoint = `${serviceUri}`;
-        return super.get(endpoint);
-    }
-
-    generateExcelnoDate() {
-        var endpoint = `${serviceUri}`;
-        return super.getXls(endpoint);
-    }
+    
 
 }
