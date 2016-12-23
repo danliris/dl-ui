@@ -6,6 +6,7 @@ export function configure(config) {
         './basic/checkbox',
         './basic/datepicker',
         './basic/dropdown',
+        './basic/dropdown-enum',
         './basic/multiline',
         './basic/numeric',
         './basic/radiobutton',
@@ -34,6 +35,9 @@ export function configure(config) {
         './auto-suggests/unit-spinning-auto-suggest',
         './auto-suggests/lamp-standard-auto-suggest',
         './auto-suggests/buyer-auto-suggest',
+        './auto-suggests/material-by-process-type-auto-suggest',
+        './auto-suggests/construction-by-material-process-type-auto-suggest',
+        './auto-suggests/unit-by-division-auto-suggest',
 
         './do/do-item-collection',
         './po/po-item-collection',

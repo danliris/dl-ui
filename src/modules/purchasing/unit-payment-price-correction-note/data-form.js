@@ -7,8 +7,8 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    priceCorrectionTypes = ["Harga Satuan", "Harga Total"];
-    priceCorrectionType = "Harga Satuan";
+    correctionTypes = ["Harga Satuan", "Harga Total"];
+    correctionType = "Harga Satuan";
     pricePerUnitCorrectionReadOnly = false;
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -23,9 +23,9 @@ export class DataForm {
     bind() {
         if (this.data) {
             this.flag = true;
-            if (this.data.priceCorrectionType == "Harga Satuan")
+            if (this.data.correctionType == "Harga Satuan")
                 this.pricePerUnitCorrectionReadOnly = false;
-            else if (this.data.priceCorrectionType == "Harga Total")
+            else if (this.data.correctionType == "Harga Total")
                 this.pricePerUnitCorrectionReadOnly = true;
         }
         else
@@ -98,13 +98,13 @@ export class DataForm {
         }
     }
 
-    priceCorrectionTypeChanged(e) {
+    correctionTypeChanged(e) {
         if (e.srcElement) {
             if (e.srcElement.value) {
-                this.data.priceCorrectionType = e.srcElement.value;
-                if (this.data.priceCorrectionType == "Harga Satuan")
+                this.data.correctionType = e.srcElement.value;
+                if (this.data.correctionType == "Harga Satuan")
                     this.pricePerUnitCorrectionReadOnly = false;
-                else if (this.data.priceCorrectionType == "Harga Total")
+                else if (this.data.correctionType == "Harga Total")
                     this.pricePerUnitCorrectionReadOnly = true;
                 if (this.data.unitPaymentOrderId && this.data.unitPaymentOrder) {
                     if (this.data.unitPaymentOrder.items)
