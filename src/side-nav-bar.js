@@ -1,76 +1,43 @@
-import { inject, bindable, containerless, computedFrom } from 'aurelia-framework';
-import { AuthService } from "aurelia-authentication";
-import jwtDecode from 'jwt-decode';
+<template>
+    <div class="side-nav-bar ${minimized ? 'minimized' : ''} ${expand ? 'expand' : ''}" if.bind="isAuthenticated">
+        <aside class="main-sidebar">
+            <div class="sidebar-header">
+                <button type="button" class="sidebar-toggle" data-toggle="sidebar-toggle" click.delegate="toggleSideMenu()">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == key ? 'active' : ''">
+                    <a href="#" title.bind="key.toUpperCase()">
+                        <i class="fa fa-list-alt" if.bind="key.toUpperCase() == 'MASTER'"></i>
+                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
+                        <i class="fa fa-industry" if.bind="key.toUpperCase() == 'PRODUCTION'"></i>
+                        <i class="fa fa-table" if.bind="key.toUpperCase() == 'REPORTS'"></i>
 
-@containerless()
-@inject(AuthService)
-export class SideNavBar {
-    @bindable router = null;
-    @bindable navigations = null;
+                        <!--<i class="fa fa-dashboard"></i>-->
+                        <span if.bind="!minimized">${key.toUpperCase()}</span>
+                        <div class="pull-right" if.bind="value.length > 0 && !minimized">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
 
-    constructor(authService) {
-        this.minimized = false;
-        this.activeMenu = [];
-        this.activeSubMenu = {};
-        this.authService = authService;
-    }
-
-    @computedFrom('authService.authenticated')
-    get isAuthenticated() {
-        return this.authService.authenticated;
-    }
-
-    @computedFrom('activeMenu')
-    get expand() {
-        return (this.activeMenu || []).length > 0;
-    }
-
-    attached() {
-
-        this.group = new Map();
-        const config = this.authService.authentication.config;
-        const storage = this.authService.authentication.storage;
-        const token = JSON.parse(storage.get(config.storageKey));
-        var me = jwtDecode(token.data);
-        // var me = meResult.data;
-
-        var routes = this.router.navigation.filter(route => {
-            var routeRoles = route.settings.roles || [];
-            var myRoles = me.roles;
-            myRoles.push("*");
-            return myRoles.some(role => {
-                return routeRoles.indexOf(role) >= 0;
-            })
-        })
-
-        for (var route of routes) {
-            if (route.settings && ((route.settings.group || "").trim().length > 0)) {
-                var key = (route.settings.group || "").trim();
-                if (!this.group.has(key))
-                    this.group.set(key, []);
-
-                var groupedRoutes = this.group.get(key);
-                groupedRoutes.push(route);
-                this.group.set(key, groupedRoutes);
-            }
-        };
-    }
-
-    toggleSideMenu() {
-        this.minimized = !this.minimized;
-    }
-
-    selectMenu(menu, title) {
-        this.activeMenu = menu;
-        this.activeTitle = title;
-        this.activeSubMenu = [];
-    }
-
-    selectSubMenu(subMenu) {
-        this.minimized = false;
-        this.activeMenu = [];
-        this.activeSubMenu = {};
-
-        return true;
-    }
-}
+        <aside class="secondary-sidebar">
+            <div class="sidebar-header">
+                <span>${activeTitle.toUpperCase()}</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li repeat.for="subMenu of activeMenu" click.delegate="selectSubMenu(subMenu)" class.bind="activeSubMenu == subMenu ? 'active' : ''">
+                    <a data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse.in" href.bind="subMenu.href" title.bind="subMenu.title">
+                        <!--<i class="${subMenu.settings.iconClass}"></i>&nbsp;-->
+                        <span>${subMenu.title}</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</template>
