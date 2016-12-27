@@ -57,11 +57,10 @@ export default class PoExternalItemCollectionReact extends React.Component {
         })
 
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="45%">No.PO.int</th>
-                        <th width="45%">No.PR.</th>
+                        <th width="90%">Nomor PR</th> 
                         <th width="10%">
                             {addButton}
                         </th>

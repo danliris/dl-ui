@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
-                        <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
+					<input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
+					<span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
                     </span>
-                </div>
+				</div>
             </div>
             <div class="col-sm-4">
                 <div class="pull-right">
@@ -19,27 +19,28 @@
             </div>
         </div> 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th style="text-align:center">Unit</th>
-                        <th style="text-align:center">Kategori</th>
-                        <th style="text-align:center">Tgl. PR</th>
-                        <th style="text-align:center">Nomor PR</th>
-                        <th style="text-align:center">Tgl. Diminta Datang</th>
-                        <th style="text-align:center">Staff Pembelian </th>
+                        <th>Unit</th>
+                        <th>Kategori</th>
+                        <th>Tgl. PR</th>
+                        <th>Nomor PR</th>
+                        <th>Tgl. Diminta Datang</th>
+                        <th>Staff Pembelian </th>
                         <th style="text-align:center">Status Post</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <td style="text-align:center">${item.unit.division}</td>
-                        <td style="text-align:center">${item.category.name}</td>
-                        <td style="text-align:center">${item.purchaseRequest.date | dateFormat:'D MMM YYYY'}</td>
-                        <td style="text-align:center">${item.purchaseRequest.no}</td>
-                        <td style="text-align:center">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
-                        <td style="text-align:center">${item._createdBy}</td>
+                        <td>${item.unit.division.name} - ${item.unit.name}</td>
+                        <td>${item.category.name}</td>
+                        <td style="text-align:left">${item.purchaseRequest.date | dateFormat:'D MMM YYYY'}</td>
+                        <td>${item.purchaseRequest.no}</td>
+                        <td style="text-align:left" if.bind="item.purchaseRequest.expectedDeliveryDate==''" > - </td>
+                        <td style="text-align:left" if.bind="item.purchaseRequest.expectedDeliveryDate!=''">${item.purchaseRequest.expectedDeliveryDate | dateFormat:'D MMM YYYY'}</td>
+                        <td>${item._createdBy}</td>
                         <td style="text-align:center">${item.purchaseOrderExternal.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                     </tr>
@@ -48,7 +49,9 @@
         </div>
         
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data internal po tekstil tidak ada.
+            Data po internal tidak ada.
         </div>
-    </div><!-- /.display-wrapper -->
+        <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
+        <hr/>
+    </div>
 </template>

@@ -7,8 +7,8 @@ import {Service} from './service';
 export class Edit {
     constructor(router, service) {
         this.router = router;
-        this.service = service; 
-        
+        this.service = service;
+
     }
 
     async activate(params) {

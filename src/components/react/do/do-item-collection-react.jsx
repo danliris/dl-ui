@@ -31,7 +31,6 @@ export default class DoItemCollectionReact extends React.Component {
     
     handleItemChange(doItem) { 
         var i = this.state.value[0] == doItem;
-        // console.log(i);
         this.setState({ value: this.state.value });
     }
     
@@ -69,10 +68,10 @@ export default class DoItemCollectionReact extends React.Component {
         })
 
         return (
-            <table className="table table-striped">
+            <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="90%">No.PO.ext</th>
+                        <th width="90%">Nomor PO External</th>
                         <th width="10%">
                             {addButton}
                         </th>

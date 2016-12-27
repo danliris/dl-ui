@@ -1,47 +1,44 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
- 
-const serviceUri = require('../../../host').core + '/v1/master/uoms';
- 
-export class Service extends RestService{
+import {RestService} from '../../../utils/rest-service';
 
-  constructor(http, aggregator) {
-    super(http, aggregator);
+
+const serviceUri = 'master/uoms';
+
+export class Service extends RestService {
+
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "core");
   }
 
-  search(keyword) {
-    return super.get(serviceUri);
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
   }
 
-  getById(id)
-  {
+  getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
   }
 
-  create(data)
-  {
+  create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
 
-  update(data)
-  {
+  update(data) {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.put(endpoint, data);
-  }  
+  }
 
-  delete(data)
-  {
+  delete(data) {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.delete(endpoint, data);
   }
-  
-  getByCategory(category) 
-  {
-      var endpoint = `${serviceUri}?keyword=${category}`;
-      return super.get(endpoint);
+
+  getByCategory(category) {
+    var endpoint = `${serviceUri}?keyword=${category}`;
+    return super.get(endpoint);
   }
- 
+
 }

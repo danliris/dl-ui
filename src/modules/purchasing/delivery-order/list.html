@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="keyword" value.bind="keyword" placeholder="cari nomor " />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="searching()"><i class="fa fa-search"></i></button>
-                        <button class="btn btn-default" click.delegate="showAll()"> Tampilkan Semua </button>    
+					<input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
+					<span class="input-group-btn">
+                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
                     </span>
-                </div>
+				</div>
             </div> 
             <div class="col-sm-4">
                 <div class="pull-right">
@@ -19,11 +19,12 @@
             </div>
         </div>
         <div>
-            <table class="table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th class="${isPrint ? '' : 'hide'}"></th>
                         <th>Nomor Surat Jalan</th>
+                        <th>Tanggal Surat Jalan</th>
                         <th>Nama Supplier</th>
                         <th>List Nomor Eksternal PO</th>
                         <th></th>
@@ -38,8 +39,9 @@
                                 change.delegate="pushDataToBePrinting(item)" />
                         </td>
                         <td>${item.no}</td>
+                        <td style="text-align:left">${item.date | dateFormat:'D MMM YYYY'}</td>
                         <td>${item.supplier.name}</td>
-                        <td>
+                        <td style="text-align:center">
                             <ul>
                             <li repeat.for="po of item.items">${po.purchaseOrderExternal.no}</li> 
                             </ul>
@@ -50,7 +52,9 @@
             </table>
         </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data surat jalan tidak ada.
+            Data surat jalan tidak ditemukan.
         </div>
+        <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
+        <hr/>
     </div>
 </template>

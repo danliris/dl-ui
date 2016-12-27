@@ -1,7 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/suppliers';
 
-const serviceUri = require('../../../host').core + '/v1/master/suppliers';
 const empty = {
     code: '',
     name: '',
@@ -66,18 +68,22 @@ SupplierAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(supplier => {
-                    supplier.toString = function () {
-                        return [this.code, this.name]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return supplier;
-                })
-            })
+
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(supplier => {
+                        supplier.toString = function () {
+                            return [this.code, this.name]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        return supplier;
+                    })
+                }) 
         }
     }
 };

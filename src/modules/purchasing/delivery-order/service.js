@@ -1,29 +1,30 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
-  
-const serviceUri = require('../../../host').core + '/v1/purchasing/do';
+import {RestService} from '../../../utils/rest-service';
+
+
+const serviceUri = 'delivery-orders/by-user';
 
 export class Service extends RestService {
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
     }
 
-    search(keyword) {        
-        var endpoint = `${serviceUri}?keyword=${keyword}`;
-        return super.get(endpoint);
+    search(info) {
+        var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
     }
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
-    } 
+    }
 
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
-    } 
+    }
 
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
@@ -33,5 +34,5 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
-    } 
+    }
 }

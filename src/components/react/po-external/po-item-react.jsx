@@ -2,6 +2,7 @@ import React from 'react';
 
 import TextboxReact from '../basic/textbox-react.jsx';
 import NumericReact from '../basic/numeric-react.jsx';
+import CheckboxReact from '../basic/checkbox-react.jsx';
 import UomAutoSuggestReact from '../auto-suggests/uom-auto-suggest-react.jsx';
 import ProductAutoSuggestReact from '../auto-suggests/product-auto-suggest-react.jsx';
 
@@ -17,6 +18,7 @@ export default class PoItem extends React.Component {
         this.handleDealUomChange = this.handleDealUomChange.bind(this);
         this.handlePricePerDealUnitChange = this.handlePricePerDealUnitChange.bind(this);
         this.handleconversionChange = this.handleconversionChange.bind(this);
+        this.handleUseIncometaxChange = this.handleUseIncometaxChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -37,29 +39,46 @@ export default class PoItem extends React.Component {
     handleDealUomChange(event, uom) {
         var value = this.state.value;
         value.dealUom = uom;
-        if(value.dealUom.unit)
-            if(value.dealUom.unit == value.defaultUom.unit)
-                value.conversion=1;
+        if (value.dealUom.unit)
+            if (value.dealUom.unit == value.defaultUom.unit)
+                value.conversion = 1;
         this.handleValueChange(value);
     }
 
     handlePricePerDealUnitChange(price) {
         var value = this.state.value;
-        value.pricePerDealUnit = price;
-        this.handleValueChange(value);
+        value.priceBeforeTax = price;
+        this.updatePrice(value);
+    }
+
+    handleUseIncometaxChange(useIncomeTax) {
+        var value = this.state.value;
+        value.useIncomeTax = useIncomeTax;
+        this.updatePrice(value);
     }
 
     handleconversionChange(conversion) {
         var value = this.state.value;
         value.conversion = conversion;
-        if(value.dealUom.unit)
-            if(value.dealUom.unit == value.defaultUom.unit)
-                value.conversion=1;
+        if (value.dealUom.unit)
+            if (value.dealUom.unit == value.defaultUom.unit)
+                value.conversion = 1;
+        this.handleValueChange(value);
+    }
+
+    updatePrice(value) {
+        this.setState({ value: value });
+        if (value.useIncomeTax) {
+            value.pricePerDealUnit = (100 * value.priceBeforeTax) / 110;
+        } else {
+            value.pricePerDealUnit = value.priceBeforeTax;
+        }
         this.handleValueChange(value);
     }
 
     componentWillMount() {
         var _value = this.props.value;
+        _value.priceBeforeTax = _value.priceBeforeTax != 0 ? _value.priceBeforeTax : _value.product.price;
         _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
         _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
         _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
@@ -68,9 +87,10 @@ export default class PoItem extends React.Component {
 
     componentWillReceiveProps(props) {
         var _value = props.value;
-        // if(_value.dealUom.unit)
-        //     if(_value.dealUom.unit == _value.dealQuantity.unit)
-        //         _value.conversion=1;
+        _value.priceBeforeTax = _value.priceBeforeTax != 0 ? _value.priceBeforeTax : _value.product.price;
+        _value.dealQuantity = _value.dealQuantity != 0 ? _value.dealQuantity : _value.defaultQuantity;
+        _value.dealUom = _value.dealUom._id ? _value.dealUom : _value.defaultUom;
+        _value.conversion = _value.conversion != 1 ? _value.conversion : 1;
         this.setState({ value: _value || {}, error: props.error || {}, options: props.options || {} });
     }
 
@@ -78,6 +98,7 @@ export default class PoItem extends React.Component {
         var readOnlyOptions = Object.assign({}, this.state.options, { readOnly: true });
         var dealQtyOptions = Object.assign({}, this.state.options, { min: 0 });
         var dealUomOptions = this.state.options;
+        var isUseIncomeTax = this.state.options.useIncomeTax || false;
 
         var style = {
             margin: 0 + 'px'
@@ -116,20 +137,31 @@ export default class PoItem extends React.Component {
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.pricePerDealUnit ? 'has-error' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.pricePerDealUnit} options={this.state.options} onChange={this.handlePricePerDealUnitChange}/>
-                        <span className="help-block">{this.state.error.pricePerDealUnit}</span>
-                    </div>
-                </td>
-                <td>
                     <div className={`form-group ${this.state.error.conversion ? 'has-error' : ''}`} style={style}>
                         <NumericReact value={this.state.value.conversion} options={this.state.options} onChange={this.handleconversionChange}/>
                         <span className="help-block">{this.state.error.conversion}</span>
                     </div>
                 </td>
                 <td>
+                    <div className={`form-group ${this.state.error.priceBeforeTax ? 'has-error' : ''}`} style={style}>
+                        <NumericReact value={this.state.value.priceBeforeTax} options={this.state.options} onChange={this.handlePricePerDealUnitChange}/>
+                        <span className="help-block">{this.state.error.priceBeforeTax}</span>
+                    </div>
+                </td>
+                { isUseIncomeTax ?
+                    <td>
+                        <div className={`form-group`} style={style}>
+                            <CheckboxReact value={this.state.value.useIncomeTax} options={this.state.options} onChange={this.handleUseIncometaxChange}/>
+                        </div>
+                    </td> :
+                    <td className="hidden">
+                        <div className={`form-group`} style={style}>
+                            <CheckboxReact value={this.state.value.useIncomeTax} options={this.state.options} onChange={this.handleUseIncometaxChange}/>
+                        </div>
+                    </td> }
+                <td>
                     <div className={`form-group ${this.state.error.remark ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.remark} options={readOnlyOptions}/>
+                        <TextboxReact value={this.state.value.remark} options={readOnlyOptions} onChange={this.handleRemarkChange}/>
                         <span className="help-block">{this.state.error.remark}</span>
                     </div>
                 </td>

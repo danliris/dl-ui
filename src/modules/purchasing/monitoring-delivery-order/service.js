@@ -1,13 +1,14 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
- 
-const serviceUri = require('../../../host').core + '/v1/purchasing/do/monitoring';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service';
+
+
+const serviceUri = 'delivery-orders/monitoring/by-user';
 
 export class Service extends RestService {
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
     }
 
     search(no, supplierId, dateFrom, dateTo) {
@@ -18,6 +19,11 @@ export class Service extends RestService {
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
-    }  
-    
+    }
+
+    generateExcel(no, supplierId, dateFrom, dateTo) {
+        var endpoint = `${serviceUri}?no=${no}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        return super.getXls(endpoint);
+    }
+
 }

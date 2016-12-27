@@ -1,7 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/categories';
 
-const serviceUri = require('../../../host').core + '/v1/master/categories';
 const empty = {
     name: ''
 }
@@ -58,15 +60,19 @@ CategoryAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(uom => {
-                    uom.toString = function () {
-                        return `${this.name}`;
-                    }
-                    return uom;
-                })
-            })
+
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(category => {
+                        category.toString = function () {
+                            return `${this.name}`;
+                        }
+                        return category;
+                    });
+                });
         }
     }
 };

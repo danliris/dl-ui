@@ -12,7 +12,7 @@ const ENV = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() || 'devel
 let config;
 
 // basic configuration:
-const title = 'Aurelia Navigation Skeleton';
+const title = 'Dan Liris Management System';
 const baseUrl = '/';
 const rootDir = path.resolve();
 const srcDir = path.resolve('src');
@@ -62,17 +62,19 @@ const baseConfig = {
     'aurelia': coreBundles.aurelia.filter(pkg => coreBundles.bootstrap.indexOf(pkg) === -1)
   },
   output: {
-    path: outDir,
+    path: outDir
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['es2015', 'react']
-      }
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react']
+        }
+      }]
+      // ,{ test: /\.(png|gif|jpg)$/, loader: 'file?name=images/[name].[ext]' }]
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
@@ -87,7 +89,6 @@ switch (ENV) {
 
       require('@easy-webpack/config-env-production')
         ({ compress: true }),
-
       require('@easy-webpack/config-aurelia')
         ({ root: rootDir, src: srcDir, title: title, baseUrl: baseUrl }),
 
@@ -173,5 +174,7 @@ switch (ENV) {
     );
     break;
 }
+
+
 
 module.exports = config;

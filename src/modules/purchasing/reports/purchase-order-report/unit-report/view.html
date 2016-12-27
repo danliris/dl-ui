@@ -1,15 +1,10 @@
 <template>
-    <h1 class="page-header">Detail Unit</h1> 
+    <h1 class="page-header">Total Pembelian Per Unit</h1> 
     <form class="form-horizontal">
-        <textbox label="Tanggal Awal" value.bind="dateFrom" read-only="true"></textbox>
-        <textbox label="Tanggal Akhir" value.bind="dateTo" read-only="true"></textbox>
-        <textbox label="Unit" value.bind="unit" read-only="true"></textbox>
-        <div class="form-group">
-            <label for="contact" class="col-sm-6 control-label"></label>
-            <div class="col-sm-3">
-               <button click.delegate="searching()" class='btn btn-success'>Cari</button>
-            </div>
-        </div>  
+        <textbox label="Tanggal Awal" value.bind="dateFrom" if.bind="dateFrom" read-only="true"></textbox>
+        <textbox label="Tanggal Akhir" value.bind="dateTo" if.bind="dateTo" read-only="true"></textbox>
+        <textbox label="Divisi" value.bind="divisi" read-only="true"></textbox>
+         
 <br>
         <table class="table table-bordered table-hover">
         <thead>
@@ -25,16 +20,16 @@
         <tfoot if.bind="data.length > 0">
             <tr>
                 <td colspan="2" class="text-center">Total</td>
-                <td class="text-center" >${pricetotals}</td>
-                <td class="text-center" >${percentagetotal}%</td>
+                <td class="text-right" >${pricetotals}</td>
+                <td class="text-right" >${percentagetotal}%</td>
             </tr>
         </tfoot>
         <tbody>
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
                 <td class="text-center">${item._id}</td>
-                <td class="text-center">${amounts[$index]}</td>
-                <td class="text-center">${percentage[$index]}%</td>
+                <td class="text-right">${amounts[$index]}</td>
+                <td class="text-right">${percentage[$index]}%</td>
                 
             </tr>
             
@@ -44,11 +39,13 @@
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.
         </div>
+        <span if.bind="data.length > 0">
+            *Persentase diatas merupakan hasil pembulatan.
+        </span>
         <hr/>
-    </form>
-
-    <hr/>
         <div class="btn-group pull-right">
-            <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
+            <a click.delegate="list(dateFrom,dateTo)" class='btn btn-default btn-sm'>Kembali</a>
         </div>
+    </form>
+        
 </template>

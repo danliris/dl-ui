@@ -1,7 +1,8 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-
-const serviceUri = require('../../../host').core + '/v1/purchasing/po/externals/posted';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'purchase-orders/externals/posted'; 
 const empty = {
     no: '',
     refNo: '',
@@ -22,7 +23,6 @@ export default class PoExternalPostedAutoSuggestReact extends React.Component {
 
     init(props) {
         var options = Object.assign({}, PoExternalPostedAutoSuggestReact.defaultProps.options, props.options);
-        // console.log(options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
             return [this.no, this.refNo]
@@ -68,18 +68,21 @@ PoExternalPostedAutoSuggestReact.defaultProps = {
         filter: {},
         suggestions:
         function (text, filter) {
-            var uri = `${serviceUri}?keyword=${text}&filter=${JSON.stringify(filter)}`;
-            return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(poExternal => {
-                    poExternal.toString = function () {
-                        return [this.no, this.refNo]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return poExternal;
-                })
-            })
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
+
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
+                .then(results => {
+                    return results.data.map(poExternal => {
+                        poExternal.toString = function () {
+                            return [this.no, this.refNo]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        return poExternal;
+                    });
+                });
         }
     }
 };

@@ -1,20 +1,37 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../../../rest-service';
- 
-const serviceUri = require('../../../../../host').core + '/v1/po/poreportcategory';
- 
-export class Service extends RestService{
+import {RestService} from '../../../../../utils/rest-service'; 
 
-  constructor(http, aggregator) {
-    super(http, aggregator);
-  }
-  
-  getByDate(sdate,edate) 
-  {
-      var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-      return super.get(endpoint);
-  }
- 
+const serviceUri = 'purchase-orders/reports/categories';
 
+export class Service extends RestService {
+ 
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
+    }
+
+    getByDate(sdate, edate) {
+        var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
+        return super.get(endpoint);
+    }
+
+    generateExcel(sdate, edate) {
+        var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
+        return super.getXls(endpoint);
+    }
+
+    getallData() {
+        var endpoint = `${serviceUri}`;
+        return super.get(endpoint);
+    }
+
+    generateExcelnoDate() {
+        var endpoint = `${serviceUri}`;
+        return super.getXls(endpoint);
+    }
+
+    generateExcel(sdate, edate) {
+        var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
+        return super.getXls(endpoint);
+    }
 }

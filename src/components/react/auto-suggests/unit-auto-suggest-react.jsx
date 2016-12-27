@@ -1,10 +1,14 @@
 import React from 'react';
-import AutoSuggestReact from './auto-suggest-react.jsx';
+import AutoSuggestReact from './auto-suggest-react.jsx'; 
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/units'; 
 
-const serviceUri = require('../../../host').core + '/v1/master/units';
 const empty = {
-    division: '',
-    subDivision: ''
+    division: {
+        name: ''
+    },
+    name: ''
 }
 'use strict';
 
@@ -20,7 +24,7 @@ export default class UnitAutoSuggestReact extends React.Component {
         var options = Object.assign({}, UnitAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.division, this.subDivision]
+            return [this.division.name, this.name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -61,19 +65,22 @@ UnitAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
-        function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(unit => {
-                    unit.toString = function () {
-                        return [this.division, this.subDivision]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return unit;
+        function (text) { 
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core"); 
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(unit => {
+                        unit.toString = function () {
+                            return [this.division.name, this.name]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
+                        }
+                        return unit;
+                    })
                 })
-            })
         }
     }
 };

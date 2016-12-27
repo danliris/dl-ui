@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Dan Liris UI with Aurelia",
   "main": "dist/electron.js",
+  "engines": {
+    "node": "6.3.0",
+    "npm": "3.10.9"
+  },
   "productName": "Aurelia Electron",
   "scripts": {
     "test": "cross-env NODE_ENV=test ./node_modules/karma/bin/karma start test/karma.conf.js",
@@ -64,6 +68,8 @@
     }
   },
   "dependencies": {
+    "aurelia-api": "^3.0.0",
+    "aurelia-authentication": "^3.1.0",
     "aurelia-bootstrapper-webpack": "^1.0.0",
     "aurelia-cookie": "^1.0.9",
     "aurelia-dialog": "^1.0.0-beta.3.0.0",
@@ -82,17 +88,21 @@
     "aurelia-templating-router": "^1.0.0",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
+    "file-saver": "^1.3.3",
     "font-awesome": "^4.6.3",
     "horsey": "^4.2.2",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.0",
     "json-loader": "^0.5.4",
     "jsx": "^0.9.89",
+    "jwt-decode": "^2.1.0",
     "latest-version": "^2.0.0",
     "moment": "^2.14.1",
     "numeral": "^1.5.3",
+    "powerbi-client": "2.2.1",
     "react": "^15.3.1",
     "react-autosuggest": "^6.0.3",
+    "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.1",
     "react-dynamic-number": "^1.4.0"
   },
@@ -125,6 +135,7 @@
     "babel-register": "^6.11.6",
     "concurrently": "^2.2.0",
     "cross-env": "^2.0.0",
+    "file-loader": "^0.9.0",
     "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
@@ -139,7 +150,7 @@
     "rimraf": "^2.5.4",
     "wait-on": "^1.5.2",
     "webpack": "2.1.0-beta.22",
-    "webpack-dev-server": ">=2.1.0-beta.0 || ^2.1.0"
+    "webpack-dev-server": "2.1.0-beta.0 || ^2.1.0"
   },
   "babel": {
     "presets": [

@@ -1,50 +1,43 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import {Service} from './service';
 var moment = require('moment');
 
-@inject(BindingEngine, Element)
+
+@inject(BindingEngine, Element,Service)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
 
-    constructor(bindingEngine, element) {
+    constructor(bindingEngine, element,service) {
         this.bindingEngine = bindingEngine;
         this.element = element;
+        this.service = service;
     }
 
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
-
+    
     attached() {
-
-        // this.bindingEngine.propertyObserver(this.data, "buyer").subscribe((newValue, oldValue) => {
-        //     this.data.buyer = newValue;
-        //     this.data.buyerId = newValue._id;
-        // });
-
-        // this.bindingEngine.propertyObserver(this.data, "RefPONo").subscribe((newValue, oldValue) => {
-        //     if (!this.data.isSplit) {
-        //         this.data.PRNo = newValue;
-        //     }
-        // });
 
         if (this.data.isSplit) {
             this.splitPO();
         }
     }
     bind() {
-        
+
     }
     splitPO() {
+        
         for (var item of this.data.items) {
             item.isSplit = this.data.isSplit;
         }
     }
 
     addItem() {
-        
+
     }
 
     removeItem(item) {
@@ -52,13 +45,29 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    unitChanged(e) {
-        var unit = e.detail || {};
-        this.data.purchaseRequest.unitId = unit._id ? unit._id : "";
-    }
+    prChanged(e) {
+        var pr = e.detail || {};
+        if (pr) {
+            this.data.purchaseRequestId = pr._id;
+            var selectedItem = pr.items || [];
+            var _items = [];
+            this.data.remark=pr.remark;
+            for (var item of selectedItem) {
+                var _item = {};
+                _item.product = item.product;
+                _item.defaultUom = item.product.uom;
+                _item.defaultQuantity = item.quantity;
+                _item.remark = item.remark;
+                _items.push(_item);
 
-    categoryChanged(e) {
-        var category = e.detail || {};
-        this.data.purchaseRequest.categoryId = category._id ? category._id : "";
-    }
+            }
+            this.data.items = _items;
+        }
+        else
+        {
+            this.data.remark="";
+            this.data.items=[];
+        }
+     }
+
 } 

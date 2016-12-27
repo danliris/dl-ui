@@ -1,7 +1,9 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'delivery-orders';
 
-const serviceUri = require('../../../host').core + '/v1/purchasing/do';
 const empty = {
     no: ''
 }
@@ -58,15 +60,19 @@ DeliveryOrderAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text; 
-            return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(uom => {
-                    uom.toString = function () {
-                        return `${this.no}`;
-                    }
-                    return uom;
-                })
-            })
+ 
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(deliveryOrder => {
+                        deliveryOrder.toString = function () {
+                            return `${this.no}`;
+                        }
+                        return deliveryOrder;
+                    });
+                });
         }
     }
 };

@@ -2,6 +2,59 @@ body {
   margin: 0;
 }
 
+.main {
+  padding: 20px !important;
+}
+
+.navbar-brand {
+  padding: 10px 15px;
+  line-height: 29px;
+}
+
+.logo {
+  height:29px;
+  width:29px;
+  float:left;
+  margin-right:5px;
+  /*background-image: url('../images/Logo-DL-Blue.png');*/
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.sidebar {
+  background-color: #173250 !important;
+  color: #ffffff;
+}
+
+.sidebar hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-sidebar > li > a {
+  color: #ffffff;
+}
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+  background-color: #25456b !important;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  color: #25456b;
+  background-color: #ffffff;
+}
+
+.navbar-inverse {
+  background-color: #061b30;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+}
+
 .container {
   padding:100px 0;
 }
@@ -288,9 +341,9 @@ div.au-stagger {
   }
 }
 
-label {
+/*label {
   padding-top: 0 !important;  
-}
+}*/
 
 .padding-right-10 {
   padding-right: 10px;
@@ -305,7 +358,7 @@ label {
 }
 
 .gray-box {
-  border:1px solid #eaeaea;
+  border:1px solid #aaa;
   padding:10px;
   margin:10px auto;
 }
@@ -315,4 +368,14 @@ select {
     padding: 10px 16px;
     border: border-box;
     border-radius: 4px;
+}
+
+.page-header {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    /*color: #173250;*/
+    color: #2a2a2a;
+    text-transform: uppercase;
 }

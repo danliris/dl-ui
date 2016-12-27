@@ -1,15 +1,14 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'master/products';
 
-const serviceUri = require('../../../host').core + '/v1/master/products';
 const empty = {
-    code: '',
-    name: '',
-    toString: function () {
-        return '';
-    }
+    name: ''
 }
 'use strict';
+
 
 export default class ProductAutoSuggestReact extends React.Component {
     constructor(props) {
@@ -23,10 +22,7 @@ export default class ProductAutoSuggestReact extends React.Component {
         var options = Object.assign({}, ProductAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -65,22 +61,24 @@ ProductAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(product => {
-                    product.toString = function () {
-                        return [this.code, this.name]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    product.uom = product.uom || { unit: '' };
-                    product.uom.toString = function () {
-                        return this.unit;
-                    }
-                    return product;
+
+
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("core");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(product => {
+                        product.toString = function () {
+                            return `${this.name}`;
+                        }
+                        product.uom = product.uom || { unit: '' };
+                        product.uom.toString = function () {
+                            return this.unit;
+                        }
+                        return product;
+                    })
                 })
-            })
         }
     }
 };

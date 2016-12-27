@@ -1,19 +1,28 @@
-import {inject, Aurelia} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Session} from './utils/session';
+import { inject, computedFrom } from 'aurelia-framework';
+import { AuthService } from "aurelia-authentication";
 
-@inject(Aurelia, Router, Session)
+@inject(AuthService)
 export class NavBar {
-    constructor(aurelia, router, session) {
-        this.aurelia = aurelia;
-        this.router = router;
-        this.session = session;
+    constructor(authService) {
+        this.authService = authService;
+    }
+
+    @computedFrom('authService.authenticated')
+    get isAuthenticated() {
+        if (this.authService.authenticated) {
+            this.authService.getMe()
+                .then((result) => {
+                    this.me = result.data;
+                })
+        }
+        else {
+            this.me = null;
+        }
+
+        return this.authService.authenticated;
     }
 
     logout() {
-        this.session.remove();
-        this.router.navigate('/')
-        this.router.reset();
-        this.aurelia.setRoot('login');
+        this.authService.logout("#/login");
     }
 }

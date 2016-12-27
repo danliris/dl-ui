@@ -1,14 +1,12 @@
 import React from 'react';
 import AutoSuggestReact from './auto-suggest-react.jsx';
-
-const serviceUri = require('../../../host').core + '/v1/purchasing/po/unposted';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const resource = 'purchase-orders/unposted';
+ 
 const empty = {
-    no: '',
     purchaseRequest: {
         no: ''
-    },
-    toString: function () {
-        return '';
     }
 }
 
@@ -26,10 +24,7 @@ export default class PoUnpostedAutoSuggestReact extends React.Component {
         var options = Object.assign({}, PoUnpostedAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.purchaseRequest.no, this.no]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
+            return `${this.purchaseRequest.no}`;
         };
         this.setState({ value: initialValue, options: options });
     }
@@ -68,18 +63,18 @@ PoUnpostedAutoSuggestReact.defaultProps = {
         readOnly: false,
         suggestions:
         function (text) {
-            var uri = serviceUri + '?keyword=' + text;
-            return fetch(uri).then(results => results.json()).then(json => {
-                return json.data.map(poTextile => {
-                    poTextile.toString = function () {
-                        return [this.purchaseRequest.no, this.no]
-                            .filter((item, index) => {
-                                return item && item.toString().trim().length > 0;
-                            }).join(" - ");
-                    }
-                    return poTextile;
-                })
-            })
+            var config = Container.instance.get(Config);
+            var endpoint = config.getEndpoint("purchasing");
+
+            return endpoint.find(resource, { keyword: text })
+                .then(results => {
+                    return results.data.map(poTextile => {
+                        poTextile.toString = function () {
+                            return `${this.purchaseRequest.no}`;
+                        }
+                        return poTextile;
+                    });
+                });
         }
     }
 };
