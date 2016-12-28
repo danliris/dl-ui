@@ -22,13 +22,13 @@ export class List {
             "name": "Sudah diorder ke Supplier",
             "value": 3
         },{
-            "name": "Barang sudah datang",
+            "name": "Barang sudah datang parsial",
             "value": 4
         },{
             "name": "Barang sudah datang",
             "value": 5
         },{
-            "name": "Barang sudah diterima Unit",
+            "name": "Barang sudah diterima Unit parsial",
             "value": 6
         },{
             "name": "Barang sudah diterima Unit",

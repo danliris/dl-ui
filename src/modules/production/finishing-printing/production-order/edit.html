@@ -5,6 +5,7 @@
     <form class="form-horizontal">
         <fieldset>
             <textbox                        label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only="true" ></textbox>
+            <textbox                        label="No. Order Produksi"  value.bind="data.orderNo"       error.bind="error.orderNo"                       read-only="true" ></textbox>
             <checkbox                   label="Buyer Export"        value.bind="data.isExport"              error.bind="error.isExport"       read-only.bind="readOnly" change.delegate="exportChanged($event)"></checkbox>
             <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
             <textbox                    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)"></textbox>
