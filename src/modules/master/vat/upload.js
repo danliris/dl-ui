@@ -45,11 +45,11 @@ export class Create {
                         var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
                         this.service.publish(getRequest);
-                        alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detil dari error tersebut.");
+                        alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detail dari error tersebut.");
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Name, Rate, Description");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Nama, Rate, Deskripsi");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");
