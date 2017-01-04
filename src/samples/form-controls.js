@@ -30,6 +30,7 @@ export class FormControls {
     };
 
     showData() {
+        console.log(this.data);
     }
 
     dialogPrompt() {
