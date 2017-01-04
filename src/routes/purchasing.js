@@ -141,4 +141,30 @@ module.exports = [
             roles: ["purchasing"],
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'purchase-request-by-role',
+        name: 'purchase-request-by-role',
+        moduleId: './modules/purchasing/purchase-request-by-role/index',
+        nav: true,
+        title: 'Purchase Request By Purcashing Unit',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            roles: ["*"],
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'monitoring-purchase-request-all-unit',
+        name: 'monitoring-purchase-request-all-unit',
+        moduleId: './modules/purchasing/monitoring-purchase-request-all-unit/index',
+        nav: true,
+        title: 'Monitoring Purchase Request Semua Unit',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            roles: ["*"],
+            iconClass: 'fa fa-dashboard'
+        }
     }]
