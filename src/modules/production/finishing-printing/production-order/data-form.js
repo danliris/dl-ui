@@ -19,6 +19,11 @@ export class DataForm {
         
     }
 
+    @computedFrom("data.dataId")
+    get isEdit() {
+        return (this.data.dataId || '').toString() != '';
+    }
+
     get isFilter() {
         if(this.data.processType){
             this.filter ={
