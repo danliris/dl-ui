@@ -77,7 +77,6 @@ export class DataForm {
 
     useIncomeTaxChanged(e) {
         var selectedUseIncomeTax =  e.srcElement.checked || false;
-        console.log(this.data);
         if (!selectedUseIncomeTax){
             for(var po of this.data.items){
                 for(var poItem of po.items)
@@ -87,7 +86,6 @@ export class DataForm {
                 }
             }
         }
-        console.log(this.data);
     }
 
 } 

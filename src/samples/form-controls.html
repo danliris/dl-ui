@@ -1,0 +1,11 @@
+<template> 
+    <div>
+        <textbox value.bind="data.textboxValue" label="Textbox Label" postfix="Textbox Postfix"></textbox>
+        <textbox value.bind="data.textboxValue" postfix="Textbox Postfix"></textbox>
+        <auto-suggest value.bind="data.staticAutoSuggestValue" options.bind="staticAutoSuggestOptions"></auto-suggest>
+        <auto-suggest value.bind="data.apiAutoSuggestValue" options.bind="apiAutoSuggestOptions"></auto-suggest> 
+    </div>
+    <button click.delegate="showData()">Show Data</button>
+    <button click.delegate="dialogPrompt()">Dialog:prompt</button>
+    <button click.delegate="dialogShow()">Dialog:custom-view</button>
+</template>

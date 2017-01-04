@@ -45,6 +45,12 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
+        this.poStates = this.poStates.map(poState=>{
+            poState.toString = function(){
+                return this.name;
+            }
+            return poState;
+        })
     }
     attached() {
     }

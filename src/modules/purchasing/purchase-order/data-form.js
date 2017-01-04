@@ -46,7 +46,7 @@ export class DataForm {
     }
 
     prChanged(e) {
-        var pr = e.detail || {};
+        var pr = e.detail || {};   
         if (pr) {
             this.data.purchaseRequestId = pr._id;
             var selectedItem = pr.items || [];

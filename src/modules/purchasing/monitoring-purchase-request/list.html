@@ -7,7 +7,7 @@
         <budget-auto-suggest    label="Budget"          value.bind="budget"></budget-auto-suggest>
         <datepicker             label="Tanggal Awal"    value.bind="dateFrom"   change.delegate="dateFromChanged($event)"></datepicker>
         <datepicker             label="Tanggal Akhir"   value.bind="dateTo"     min.bind="dateFrom"></datepicker>
-        <dropdown-enum          label="Status"          value.bind="prState" items.bind="prStates"></dropdown-enum>
+        <dropdown               label="Status"          value.bind="prState" items.bind="prStates"></dropdown>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
+import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FieldReact from '../../react/basic/field-react.jsx';
-import CheckboxReact from '../../react/basic/checkbox-react.jsx';
+import FieldReact from './react/field-react.jsx';
+import CheckboxReact from './react/checkbox-react.jsx';
 
 @noView()
 @inject(Element)
