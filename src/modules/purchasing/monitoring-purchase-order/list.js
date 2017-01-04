@@ -1,15 +1,15 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
 
-    poStates =[
+    poStates = [
         {
             "name": "",
             "value": -1
-        },{
+        }, {
             "name": "Dibatalkan",
             "value": 0
         }, {
@@ -21,22 +21,22 @@ export class List {
         }, {
             "name": "Sudah diorder ke Supplier",
             "value": 3
-        },{
+        }, {
             "name": "Barang sudah datang parsial",
             "value": 4
-        },{
+        }, {
             "name": "Barang sudah datang",
             "value": 5
-        },{
+        }, {
             "name": "Barang sudah diterima Unit parsial",
             "value": 6
-        },{
+        }, {
             "name": "Barang sudah diterima Unit",
             "value": 7
-        },{
+        }, {
             "name": "Sebagian sudah dibuat SPB",
             "value": 8
-        },{
+        }, {
             "name": "Complete",
             "value": 9
         }];
@@ -45,8 +45,8 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
-        this.poStates = this.poStates.map(poState=>{
-            poState.toString = function(){
+        this.poStates = this.poStates.map(poState => {
+            poState.toString = function () {
                 return this.name;
             }
             return poState;
@@ -67,9 +67,10 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        if(this.poState instanceof Object)
-            this.poState = -1;
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState)
+        console.log(this.poState);
+        if (!this.poState)
+            this.poState = this.poStates[0];
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value)
             .then(data => {
                 this.data = data;
             })
@@ -83,13 +84,13 @@ export class List {
         this.supplier = "undefined";
         this.dateFrom = null;
         this.dateTo = null;
-        this.poState = -1;
+        this.poState = this.poStates[0];
     }
 
     exportToXls() {
-        if(this.poState instanceof Object)
-            this.poState = -1;
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState);
+        if (!this.poState)
+            this.poState = this.poStates[0];
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.PRNo, this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value);
     }
 
     dateFromChanged(e) {

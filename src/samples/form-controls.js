@@ -14,6 +14,9 @@ export class FormControls {
         suggestions: ["A", "B", "C", "D"]
     };
 
+    natives = [2, 3, 4, 5, 6];
+    objects = [{ text: "Zero", value: 0 }, { text: "One", value: 1 }]
+
     apiAutoSuggestOptions = {
         suggestions: function (value, filter) {
             return fetch("https://private-50b60-pinkgorilla.apiary-mock.com/activities")
@@ -30,6 +33,7 @@ export class FormControls {
     };
 
     showData() {
+        console.log(this.data);
     }
 
     dialogPrompt() {

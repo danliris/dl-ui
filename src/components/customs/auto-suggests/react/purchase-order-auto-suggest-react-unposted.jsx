@@ -6,7 +6,9 @@ import { Config } from "aurelia-api";
 const resource = 'purchase-orders/unposted';
 
 const empty = {
-    no: ''
+    purchaseRequest: {
+        no: ''
+    }
 }
 
 'use strict';
@@ -20,7 +22,7 @@ export default class PurchaseOrderAutoSuggestReactUnposted extends AutoSuggestRe
         var options = Object.assign({}, PurchaseOrderAutoSuggestReactUnposted.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.no}`;
+            return `${this.purchaseRequest.no}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -47,7 +49,7 @@ PurchaseOrderAutoSuggestReactUnposted.defaultProps = {
                 .then(results => {
                     return results.data.map(poTextile => {
                         poTextile.toString = function () {
-                            return `${this.no}`;
+                            return `${this.purchaseRequest.no}`;
                         }
                         return poTextile;
                     });
