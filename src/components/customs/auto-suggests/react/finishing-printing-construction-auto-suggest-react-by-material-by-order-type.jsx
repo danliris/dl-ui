@@ -3,30 +3,30 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'finishing-printing/construction-by-material-process-types';
+const resource = 'finishing-printing/construction-by-material-order-types';
 
 const empty = {
-    construction: ''
+    _id: ''
 }
 
 'use strict';
 
-export default class FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType extends AutoSuggestReact {
+export default class FinishingPrintingConstructionAutoSuggestReactByMaterialByOrderType extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.defaultProps.options, props.options);
+        var options = Object.assign({}, FinishingPrintingConstructionAutoSuggestReactByMaterialByOrderType.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.construction}`;
+            return `${this._id}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.propTypes = {
+FinishingPrintingConstructionAutoSuggestReactByMaterialByOrderType.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,7 +36,7 @@ FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.propTypes =
     })
 };
 
-FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.defaultProps = {
+FinishingPrintingConstructionAutoSuggestReactByMaterialByOrderType.defaultProps = {
     options: {
         readOnly: false,
         suggestions: function (text, filter) {
@@ -46,9 +46,9 @@ FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.defaultProp
 
             return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.data.map(construction => {
+                    return results.info.map(construction => {
                         construction.toString = function () {
-                            return `${this.construction}`;
+                            return `${this._id}`;
                         }
                         return construction;
                     });
