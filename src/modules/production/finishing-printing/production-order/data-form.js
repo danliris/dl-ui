@@ -9,7 +9,6 @@ export class DataForm {
     @bindable error = {};
     @bindable uom = {};
 
-    processOptions = ['Finishing','Printing','Yarn Dyed'];
     RUNOptions=['Tanpa RUN','1 RUN', '2 RUN'];
 
     constructor(bindingEngine, element,service) {
@@ -39,69 +38,74 @@ export class DataForm {
     }
 
     qtyOrder=0;
-    exportChanged(e){
-        var selectedExport =  e.srcElement.checked || false;
-        this.data.isExport=selectedExport;
-    }
-
-    processChanged(e){
-        this.filter={};
-        this.data.material={};
-        var selectedProcess = e.srcElement.value || "";
-        if(selectedProcess){
-            this.data.processType = selectedProcess ? selectedProcess : "";
+    orderChanged(e){
+        var selectedOrder=e.detail || {};
+        if(selectedOrder){
+            this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
             if (!this.readOnly) {
+                this.data.processType={};
+                this.processChanged({});
                 this.data.material={};
                 this.materialChanged({});
             }
-            if(this.data.processType){
-                this.filter = {
-                    processType : this.data.processType
+            if(this.data.orderType){
+                this.filterOrder={
+                    "orderType.code":this.data.orderType.code
+                };
+                this.filterProduct = {
+                    orderTypeId: this.data.orderTypeId
                 };
             }
-            
+        }
+    }
+
+    processChanged(e){
+        var selectedProcess = e.detail || {};
+        if(selectedProcess){
+            this.data.processTypeId = selectedProcess._id ? selectedProcess._id : "";
         }
         
     }
 
     materialChanged(e){
-        var selectedMaterial= e.detail;
+        var selectedMaterial= e.detail || {};
         if(selectedMaterial){
-            this.data.material=selectedMaterial._id ? selectedMaterial._id : "";
-            if (!this.readOnly) {
-                this.data.instruction={};
-                this.data.instruction.construction="";
-                this.constructionChanged({});
-            }
-            if(this.data.processType && this.data.material){
-                this.filter = {
-                    processType : this.data.processType,
-                    material : this.data.material
-                };
-            }
-        }
-        else{
-            if (!this.readOnly) {
-                this.data.instruction={};
-                this.data.instruction.construction="";
-                this.constructionChanged({});
-            }
-            if(this.data.processType){
-                this.filter = {
-                    processType : this.data.processType
-                };
+            if(selectedMaterial._id){
+                this.data.materialId=selectedMaterial._id._id ? selectedMaterial._id._id : "";
+                if (!this.readOnly) {
+                    this.data.construction={};
+                    this.constructionChanged({});
+                }
+                if(this.data.processType && this.data.material){
+                    this.filter = {
+                        orderTypeId : this.data.orderType._id,
+                        materialId : this.data.materialId
+                    };
+                }
             }
         }
+        // else{
+        //     if (!this.readOnly) {
+        //         this.data.instruction={};
+        //         this.data.instruction.construction="";
+        //         this.constructionChanged({});
+        //     }
+        //     if(this.data.processType){
+        //         this.filter = {
+        //             processType : this.data.processType
+        //         };
+        //     }
+        // }
     }
 
     constructionChanged(e){
         var selectedConstruction= e.detail || {};
-        if(selectedConstruction){
-            this.data.construction=selectedConstruction.construction ? selectedConstruction.construction : "";
-            if(this.data.processType && this.data.material && this.data.construction){
-                this.data.instructionId=selectedConstruction._id ? selectedConstruction._id : "";
-            }
-        }
+        // if(selectedConstruction){
+        //     this.data.construction=selectedConstruction._id ? selectedConstruction._id : "";
+        //     if(this.data.processType && this.data.material && this.data.construction){
+        //         this.data.instructionId=selectedConstruction._id ? selectedConstruction._id : "";
+        //     }
+        // }
     }
     qtyChange(e){
         this.qtyOrder=this.data.orderQuantity;
