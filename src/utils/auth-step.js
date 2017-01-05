@@ -23,13 +23,14 @@ export class AuthStep {
             else if (isLoggedIn && routingContext.getAllInstructions().some(route => {
                 const token = JSON.parse(storage.get(config.storageKey));
                 var user = jwtDecode(token.data);
-
                 var routeSettings = route.config.settings || {};
-                var routeRoles = routeSettings.roles || [];
-                var userRoles = user.roles;
-                userRoles.push("*");
-                
-                return routeRoles.some(role => userRoles.indexOf(role) < 0);
+                var routePermissions = routeSettings.permissions || [];
+                var userPermissions = user.permissions;
+
+                return routePermissions.some(permission => {
+                    return false;
+                    //userPermissions.indexOf(permission)
+                });
             })) {
                 return next.cancel(new Redirect(forbiddenRoute));
             }
