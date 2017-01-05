@@ -1,4 +1,4 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
 
 @inject(BindingEngine, Element)
@@ -76,11 +76,11 @@ export class DataForm {
                         _item.currency = fulfillment.purchaseOrder.currency;
                         _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
 
-                        var total=0;
-                        for(var qty of fulfillment.realizationQuantity){
+                        var total = 0;
+                        for (var qty of fulfillment.realizationQuantity) {
                             total += qty.deliveredQuantity;
                         }
-                        _item.deliveredQuantity = fulfillment.deliveredQuantity-total;
+                        _item.deliveredQuantity = fulfillment.deliveredQuantity - total;
 
                         for (var _poItem of fulfillment.purchaseOrder.items) {
                             if (_poItem.product._id == fulfillment.product._id) {
@@ -88,7 +88,7 @@ export class DataForm {
                                 break;
                             }
                         }
-                        if(_item.deliveredQuantity >0)
+                        if (_item.deliveredQuantity > 0)
                             _items.push(_item);
                     }
                 }

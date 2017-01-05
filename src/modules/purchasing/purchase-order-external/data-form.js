@@ -1,4 +1,4 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
 
 @inject(BindingEngine, Element)
@@ -53,8 +53,11 @@ export class DataForm {
 
     currencyChanged(e) {
         var selectedCurrency = e.detail;
-        if (selectedCurrency)
-            this.data.currencyRate = selectedCurrency.rate ? selectedCurrency.rate : 1;
+        if (selectedCurrency) {
+            var currencyRate = parseInt(selectedCurrency.rate ? selectedCurrency.rate : 1, 10);
+            console.log(currencyRate);
+            this.data.currencyRate = currencyRate;
+        }
         else
             this.data.currencyRate = 0;
     }
@@ -76,18 +79,15 @@ export class DataForm {
     }
 
     useIncomeTaxChanged(e) {
-        var selectedUseIncomeTax =  e.srcElement.checked || false;
-        console.log(this.data);
-        if (!selectedUseIncomeTax){
-            for(var po of this.data.items){
-                for(var poItem of po.items)
-                {
-                    poItem.useIncomeTax=false;
+        var selectedUseIncomeTax = e.srcElement.checked || false;
+        if (!selectedUseIncomeTax) {
+            for (var po of this.data.items) {
+                for (var poItem of po.items) {
+                    poItem.useIncomeTax = false;
                     poItem.pricePerDealUnit = poItem.priceBeforeTax;
                 }
             }
         }
-        console.log(this.data);
     }
 
 } 

@@ -37,6 +37,12 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
+        this.prStates = this.prStates.map(prState => {
+            prState.toString = function () {
+                return this.name;
+            }
+            return prState;
+        })
     }
     attached() {
     }
@@ -51,10 +57,11 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        if(this.prState instanceof Object)
-            this.prState = -1;
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState)
+        if (!this.prState)
+            this.prState = this.prStates[0];
 
+
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState.value)
             .then(data => {
                 this.data = data;
                 this.data = [];
@@ -87,18 +94,18 @@ export class List {
     }
     reset() {
         this.PRNo = "";
-        this.category = "undefined";
-        this.unit = "undefined";
-        this.budget = "undefined";
+        this.category = null;
+        this.unit = null;
+        this.budget = null;
         this.dateFrom = null;
         this.dateTo = null;
         this.prState = -1;
     }
 
     ExportToExcel() {
-        if(this.prState instanceof Object)
-            this.prState = -1;
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState);
+        if (!this.prState)
+            this.prState = this.prStates[0];
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 
     dateFromChanged(e) {

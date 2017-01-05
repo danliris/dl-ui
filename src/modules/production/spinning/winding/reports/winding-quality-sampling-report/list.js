@@ -19,6 +19,9 @@ export class List {
     
     gradeOption = ['','Excellent', 'Good', 'Medium', 'Low', 'Bad'];
 
+    spinningUnitFilter = {
+        "division.name": "SPINNING"
+    }
     activate() {
     }
 
