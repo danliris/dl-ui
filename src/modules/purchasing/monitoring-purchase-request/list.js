@@ -99,7 +99,7 @@ export class List {
         this.budget = null;
         this.dateFrom = null;
         this.dateTo = null;
-        this.prState = -1;
+        this.prState = this.prStates[0];
     }
 
     ExportToExcel() {
