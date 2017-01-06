@@ -25,10 +25,12 @@ export default class DropdownReact extends React.Component {
     }
 
     handleValueChange(event) {
+        var selectedIndex = event.target.options.selectedIndex;
+        var value = this.state.options.selections[selectedIndex];
         event.preventDefault();
-        this.setState({ value: event.target.value });
+        this.setState({ value: value });
         if (this.props.onChange)
-            this.props.onChange(event.target.value);
+            this.props.onChange(value);
     }
 
     componentWillMount() {
@@ -42,16 +44,16 @@ export default class DropdownReact extends React.Component {
     render() {
         if (this.state.options.readOnly)
             return (
-                <p className="form-control-static">{(this.state.value || '').toString() }</p>
+                <p className="form-control-static">{(this.state.value || '').toString()}</p>
             );
         else {
             var items = this.state.options.selections.map((item, index) => {
                 return (
-                    <option key={`__option_${index}`} value={item}>{item.toString() }</option>
+                    <option key={`__option_${index}`} value={item} data-value={item}>{item.toString()}</option>
                 );
             });
             return (
-                <select value={this.state.value} onChange={this.handleValueChange} className="form-control">
+                <select value={this.state.value} onChange={this.handleValueChange} className="form-control" data-value={this.state.value}>
                     {
                         items
                     }
