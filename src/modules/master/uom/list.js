@@ -44,7 +44,5 @@ export class List {
         this.router.navigateToRoute('create');
     }
 
-    upload() {
-        this.router.navigateToRoute('upload');
-    } 
+
 }

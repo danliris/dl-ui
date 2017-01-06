@@ -11,11 +11,10 @@
             <ul class="sidebar-menu">
                 <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == key ? 'active' : ''">
                     <a href="#" title.bind="key.toUpperCase()">
-                        <i class="fa fa-user-o" if.bind="key.toUpperCase() == 'GENERAL'"></i>
                         <i class="fa fa-list-alt" if.bind="key.toUpperCase() == 'MASTER'"></i>
                         <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
                         <i class="fa fa-industry" if.bind="key.toUpperCase() == 'PRODUCTION'"></i>
-                        <i class="fa fa-table" if.bind="key.toUpperCase() == 'REPORTS'"></i> 
+                        <i class="fa fa-table" if.bind="key.toUpperCase() == 'REPORTS'"></i>
 
                         <!--<i class="fa fa-dashboard"></i>-->
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
