@@ -4,6 +4,7 @@ import React from 'react';
 import TextboxReact from '../../../form/basic/react/textbox-react.jsx';
 import NumericReact from '../../../form/basic/react/numeric-react.jsx'; 
 import UomAutoSuggestReact from '../../auto-suggests/react/uom-auto-suggest-react.jsx'; 
+import ColorTypeAutoSuggestReact from '../../auto-suggests/react/color-type-auto-suggest-react.jsx'; 
 
 'use strict';
 
@@ -13,6 +14,7 @@ export default class ProductionOrderDetailReact extends React.Component {
 
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleColorTypeChange = this.handleColorTypeChange.bind(this);
         this.handleQuantityChange = this.handleQuantityChange.bind(this);
         this.handleUomChange = this.handleUomChange.bind(this);
         this.handleColorRequestChange = this.handleColorRequestChange.bind(this);
@@ -52,6 +54,12 @@ export default class ProductionOrderDetailReact extends React.Component {
         this.handleValueChange(value);
     }
 
+    handleColorTypeChange(event, colorType) {
+        var value = this.state.value;
+        value.colorType = colorType;
+        value.colorTypeId = colorType._id;
+        this.handleValueChange(value);
+    }
 
     handleRemove() {
         if (this.props.onRemove)
@@ -92,6 +100,12 @@ export default class ProductionOrderDetailReact extends React.Component {
                     <div className={`form-group ${this.state.error.colorTemplate ? 'has-error' : ''}`} style={style}>
                         <TextboxReact value={this.state.value.colorTemplate} options={readOnlyOptions} onChange={this.handleColorTemplateChange}></TextboxReact>
                         <span className="help-block">{this.state.error.colorTemplate}</span>
+                    </div>
+                </td>
+                <td>
+                    <div className={`form-group ${this.state.error.colorType ? 'has-error' : ''}`} style={style}> 
+                        <ColorTypeAutoSuggestReact value={this.state.value.colorType} options={readOnlyOptions} onChange={this.handleColorTypeChange}></ColorTypeAutoSuggestReact>
+                        <span className="help-block">{this.state.error.colorType}</span>
                     </div>
                 </td>
                 <td>

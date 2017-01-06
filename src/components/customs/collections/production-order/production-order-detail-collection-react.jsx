@@ -25,6 +25,8 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
 
     handleItemAdd() {
         var newItem = {
+            colorType: { toString: function () { return '' } },
+            colorTypeId: { toString: function () { return '' } },
             uom: { toString: function () { return '' } },
             uomId: { toString: function () { return '' } },
             colorRequest: '',
@@ -60,8 +62,9 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="40%">Warna yang Diminta</th>
-                        <th width="30%">Acuan Warna/Desain</th>
+                        <th width="25%">Warna yang Diminta</th>
+                        <th width="25%">Acuan Warna/Desain</th>
+                        <th width="30%">Jenis Warna</th>
                         <th width="14%">Jumlah</th>
                         <th width="6%">Satuan</th>
                         <th width="10%">

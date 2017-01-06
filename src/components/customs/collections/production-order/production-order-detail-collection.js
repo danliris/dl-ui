@@ -25,6 +25,7 @@ export class ProductionOrderCollection {
     handleItemAdd() {
 
         this.value.push({
+            colorType: { toString: function () { return '' } },
             uom: { toString: function () { return '' } },
             colorRequest: '',
             colorTemplate: '',
