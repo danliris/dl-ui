@@ -6,6 +6,6 @@
         <supplier-auto-suggest  label="Supplier"            value.bind="data.supplier"          error.bind="error.supplier"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
         <multiline              label="Keterangan"          value.bind="data.remark"            error.bind="error.remark"             read-only.bind="readOnly"></multiline>
         <hr/>
-        <do-item-textile-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.supplierId"></do-item-textile-collection>
+        <delivery-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.supplierId"></delivery-order-item-collection>
     </form> 
 </template>

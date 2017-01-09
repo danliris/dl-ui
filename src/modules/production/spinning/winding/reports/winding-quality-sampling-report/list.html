@@ -1,7 +1,7 @@
 <template>
  <h1 class="page-header">Laporan Kualitas Hasil Produksi Spinning</h1>
      <form class="form-horizontal">
-        <unit-spinning-auto-suggest     label="Spinning"    value.bind="spinning" change.delegate="unitChanged($event)"></unit-spinning-auto-suggest>
+        <unit-auto-suggest     label="Spinning"    value.bind="spinning" change.delegate="unitChanged($event)" filter.bind="spinningUnitFilter"></unit-auto-suggest>
         <machine-auto-suggest           label="Mesin"	    value.bind="machine"></machine-auto-suggest>
         <product-by-uster-auto-suggest  label="Benang"	    value.bind="uster"></product-by-uster-auto-suggest>
         <dropdown                       label="Kualifikasi" value.bind="grade"      items.bind="gradeOption"></dropdown>

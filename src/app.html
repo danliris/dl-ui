@@ -1,8 +1,8 @@
 <template>
   <require from="./nav-bar"></require>
   <require from="./side-nav-bar"></require>
-  <require from="./utils/loading-modal/loading-modal"></require>
-
+  <require from="./components/loading-modal/loading-modal"></require>
+  
   <nav-bar></nav-bar>
   <loading-modal></loading-modal>
 
@@ -11,5 +11,8 @@
       <side-nav-bar router.bind="router" if.bind="isAuthenticated"></side-nav-bar>
       <router-view></router-view>
     </div>
-  </div>
+  </div>  
+  <!--<div class="page-host">
+    <router-view></router-view>
+  </div>-->
 </template>

@@ -4,8 +4,11 @@ import '../styles/signin.css';
 
 @inject(AuthService)
 export class Login {
-    username = "dev";
-    password = "Standar123";
+    // username = "dev";
+    // password = "Standar123";
+
+    username="";
+    password="";
 
     constructor(authService) {
         this.authService = authService;

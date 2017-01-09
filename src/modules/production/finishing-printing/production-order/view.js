@@ -19,7 +19,11 @@ export class View {
             if(i.orderNo==orderNo)
             {
                 i._id=id;
-                this.data=i;break;
+                this.data=i;
+                this.data.material={
+                    _id:i.material
+                };
+                break;
             }
             
         }

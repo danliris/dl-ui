@@ -4,13 +4,14 @@
     <block>
     <form class="form-horizontal">
         <fieldset>
-            <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only="true"></textbox>
+            <textbox                        label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only="true" ></textbox>
+            <textbox                        label="No. Order Produksi"  value.bind="data.orderNo"       error.bind="error.orderNo"                       read-only="true" ></textbox>
             <checkbox                   label="Buyer Export"        value.bind="data.isExport"              error.bind="error.isExport"       read-only.bind="readOnly" change.delegate="exportChanged($event)"></checkbox>
             <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
-            <dropdown                   label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"   items.bind="processOptions"></dropdown>
             <textbox                    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)"></textbox>
-            <textbox                    label="Konstruksi"          value.bind="data.construction"          error.bind="error.construction"                       read-only.bind="(readOnly)"></textbox>
-            <textbox                    label="Material"            value.bind="data.material"              error.bind="error.material"                       read-only.bind="(readOnly)"></textbox>
+            <dropdown                   label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"   items.bind="processOptions" change.delegate="processChanged($event)"></dropdown>
+            <finishing-printing-material-auto-suggest-by-process-type   label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filter || isFilter" if.bind="data.processType"></finishing-printing-material-auto-suggest-by-process-type>
+            <finishing-printing-construction-auto-suggest-by-material-by-process-type                    label="Konstruksi"          value.bind="data.instruction"          error.bind="error.construction"                       read-only.bind="(readOnly)" change.delegate="constructionChanged($event)" filter.bind="filter" if.bind="data.processType && data.material"></finishing-printing-construction-auto-suggest-by-material-by-process-type>
             <numeric                    label="Jumlah Order"        value.bind="data.orderQuantity"         error.bind="error.orderQuantity"       read-only.bind="readOnly" change.delegate="qtyChange"></numeric>
             <uom-auto-suggest           label="Satuan"              value.bind="data.uom"                   error.bind="error.uom"           read-only.bind="readOnly"   change.delegate="uomChanged($event)"></uom-auto-suggest>
             <numeric                    label="Spelling"            value.bind="data.spelling"              error.bind="error.spelling"       read-only.bind="readOnly"></numeric>
@@ -20,7 +21,7 @@
             <textbox                    label="Standar Handling"    value.bind="data.handlingStandard"      error.bind="error.handlingStandard"                       read-only.bind="(readOnly)"></textbox>
             <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions"></dropdown>
             <textbox                    label="Standar Shrinkage"   value.bind="data.shrinkageStandard"     error.bind="error.shrinkageStandard"                       read-only.bind="(readOnly)"></textbox>
-            <textbox                    label="Panjang Roll"        value.bind="data.rollLength"            error.bind="error.rollLength"                       read-only.bind="(readOnly)"></textbox>
+            <multiline                    label="Panjang Roll"        value.bind="data.rollLength"            error.bind="error.rollLength"                       read-only.bind="(readOnly)"></multiline>
             <lamp-standard-auto-suggest label="Standar Lampu"       value.bind="data.lampStandard"          error.bind="error.lampStandard"           read-only.bind="readOnly"   change.delegate="lampStandardChanged($event)"></lamp-standard-auto-suggest>
             <textbox                    label="Sample"              value.bind="data.sample"                error.bind="error.sample"                       read-only.bind="(readOnly)"></textbox>
             <datepicker                 label="Tanggal Delivery"    value.bind="data.deliveryDate"          error.bind="error.deliveryDate"                     read-only.bind="readOnly"></datepicker>
