@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
+import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FieldReact from '../../react/basic/field-react.jsx';
-import TextareaReact from '../../react/basic/multiline-react.jsx';
+import FieldReact from './react/field-react.jsx';
+import TextareaReact from './react/multiline-react.jsx';
 
 @noView()
 @inject(Element)

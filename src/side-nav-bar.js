@@ -32,16 +32,36 @@ export class SideNavBar {
         const storage = this.authService.authentication.storage;
         const token = JSON.parse(storage.get(config.storageKey));
         var me = jwtDecode(token.data);
-        // var me = meResult.data;
 
         var routes = this.router.navigation.filter(route => {
-            var routeRoles = route.settings.roles || [];
-            var myRoles = me.roles;
-            myRoles.push("*");
-            return myRoles.some(role => {
-                return routeRoles.indexOf(role) >= 0;
+            if (route.config.auth !== true)
+                return true;
+
+            var routePermission = route.config.settings.permission || {};
+            var myPermission = me.permission;
+
+            var routeKeys = Object.getOwnPropertyNames(routePermission);
+            
+            if (routeKeys.find(key => key === "*"))
+                return true;
+
+            if (routeKeys.length == 0)
+                return false;
+
+            var keys = Object.getOwnPropertyNames(myPermission);
+
+            return keys.some(key => {
+                var keyFound = routeKeys.find((routeKey) => routeKey === key);
+                if (keyFound) {
+                    var mod = routePermission[keyFound];
+                    return mod <= myPermission[key];
+                }
+
+                return false;
             })
         })
+
+        console.log(routes);
 
         for (var route of routes) {
             if (route.settings && ((route.settings.group || "").trim().length > 0)) {

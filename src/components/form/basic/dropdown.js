@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
 
-import FieldReact from '../../react/basic/field-react.jsx';
-import DropdownReact from '../../react/basic/dropdown-react.jsx';
+import FieldReact from './react/field-react.jsx';
+import DropdownReact from './react/dropdown-react.jsx';
 
 @noView()
 @inject(Element)

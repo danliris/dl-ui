@@ -16,9 +16,9 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
-    .developmentLogging()
-    .feature('components/form')
+    .feature('components')
     .feature('converters')
+
     .plugin("aurelia-api", config => {
 
       var core = "https://dl-core-api-dev.mybluemix.net/v1/";
@@ -29,19 +29,18 @@ export async function configure(aurelia) {
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production);
-      config.registerEndpoint('purchasing', purchasing);
-
+      config.registerEndpoint('purchasing', purchasing); 
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
     })
-    // .plugin('aurelia-cookie')
     .plugin('aurelia-dialog', config => {
       config.useDefaults();
       config.settings.lock = true;
       config.settings.centerHorizontalOnly = false;
       config.settings.startingZIndex = 5;
-    });
+    })
+    .developmentLogging();
 
   // Uncomment the line below to enable animation.
   // aurelia.use.plugin('aurelia-animator-css');
@@ -51,7 +50,7 @@ export async function configure(aurelia) {
   // aurelia.use.plugin('aurelia-html-import-template-loader')
 
   await aurelia.start();
-  aurelia.setRoot('app'); 
+  aurelia.setRoot('app');
 
   // if you would like your website to work offline (Service Worker), 
   // install and enable the @easy-webpack/config-offline package in webpack.config.js and uncomment the following code:
