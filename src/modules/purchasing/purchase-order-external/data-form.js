@@ -64,13 +64,10 @@ export class DataForm {
 
     paymentMethodChanged(e) {
         var selectedPayment = e.srcElement.value;
-        this.data.paymentMethod = selectedPayment;
-        if (selectedPayment == "CASH") {
+        if (selectedPayment == "CASH")
             this.data.paymentDueDays = 0;
-        }
-        else {
+        else
             this.data.paymentDueDays = 30;
-        }
     }
 
     vatChanged(e) {
