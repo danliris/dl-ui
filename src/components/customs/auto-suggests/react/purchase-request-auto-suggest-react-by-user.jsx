@@ -11,13 +11,13 @@ const empty = {
 
 'use strict';
 
-export default class PurchaseRequestByUserAutoSuggestReact extends AutoSuggestReact {
+export default class PurchaseRequestAutoSuggestReactByUser extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, PurchaseRequestByUserAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, PurchaseRequestAutoSuggestReactByUser.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
             return `${this.no}`;
@@ -26,7 +26,7 @@ export default class PurchaseRequestByUserAutoSuggestReact extends AutoSuggestRe
     }
 }
 
-PurchaseRequestByUserAutoSuggestReact.propTypes = {
+PurchaseRequestAutoSuggestReactByUser.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,7 +36,7 @@ PurchaseRequestByUserAutoSuggestReact.propTypes = {
     })
 };
 
-PurchaseRequestByUserAutoSuggestReact.defaultProps = {
+PurchaseRequestAutoSuggestReactByUser.defaultProps = {
     options: {
         readOnly: false,
         suggestions: function (keyword, filter) {
