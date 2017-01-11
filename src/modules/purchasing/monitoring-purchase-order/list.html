@@ -11,7 +11,7 @@
     <unit-auto-suggest label="Unit yang mengajukan" value.bind="unit"></unit-auto-suggest>
     <category-auto-suggest label="Kategori" value.bind="category"></category-auto-suggest>
     <textbox label="Nomor External PO" value.bind="PODLNo"></textbox>
-    <textbox label="Nomor PR" value.bind="PRNo"></textbox>
+    <purchase-request-auto-suggest  label="Nomor PR"        value.bind="purchaseRequest" ></purchase-request-auto-suggest>
     <supplier-auto-suggest label="Supplier" value.bind="supplier"></supplier-auto-suggest>
     <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
     <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
