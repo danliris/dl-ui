@@ -41,7 +41,7 @@ export class List {
             "value": 9
         }];
     purchaseRequest = {};
-
+    filter = { isPosted: true, isUsed: true };
     constructor(router, service) {
         this.service = service;
         this.router = router;

@@ -34,6 +34,10 @@ export class List {
         }
     ];
     purchaseRequest = {};
+    filter = {
+        isPosted: true,
+        "unit.name": { $in: ["PEMBELIAN A", "PEMBELIAN C", "PEMBELIAN D", "PEMBELIAN E", "PEMBELIAN F"] }
+    };
     constructor(router, service) {
         this.service = service;
         this.router = router;

@@ -34,6 +34,7 @@ export class List {
         }
     ];
     purchaseRequest = {};
+    filter = { isPosted: true };
     constructor(router, service) {
         this.service = service;
         this.router = router;
