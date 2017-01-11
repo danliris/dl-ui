@@ -12,9 +12,6 @@
         <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>
 
         <hr />
-        <div className={`form-group ${error.items ? 'has-error' : ''}`} >
-            <span className="help-block">{error.items}</span>
-            <purchase-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" is-split.bind="data.isSplit"></purchase-order-item-collection>
-        </div>
+        <purchase-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" is-split.bind="data.isSplit"></purchase-order-item-collection>
     </form>
 </template>
