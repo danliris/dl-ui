@@ -1,6 +1,6 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import PurchaseRequestByUserAutoSuggestReact from './react/purchase-request-by-user-auto-suggest-react.jsx';
+import PurchaseRequestByUserAutoSuggestReact from './react/purchase-request-auto-suggest-react-by-user.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
