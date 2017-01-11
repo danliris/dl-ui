@@ -3,7 +3,7 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'purchase-requests';
+const resource = 'purchase-requests/by-user';
 
 const empty = {
     no: ''
@@ -11,13 +11,13 @@ const empty = {
 
 'use strict';
 
-export default class PurchaseRequestAutoSuggestReact extends AutoSuggestReact {
+export default class PurchaseRequestByUserAutoSuggestReact extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, PurchaseRequestAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, PurchaseRequestByUserAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
             return `${this.no}`;
@@ -26,7 +26,7 @@ export default class PurchaseRequestAutoSuggestReact extends AutoSuggestReact {
     }
 }
 
-PurchaseRequestAutoSuggestReact.propTypes = {
+PurchaseRequestByUserAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,7 +36,7 @@ PurchaseRequestAutoSuggestReact.propTypes = {
     })
 };
 
-PurchaseRequestAutoSuggestReact.defaultProps = {
+PurchaseRequestByUserAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions: function (keyword, filter) {
