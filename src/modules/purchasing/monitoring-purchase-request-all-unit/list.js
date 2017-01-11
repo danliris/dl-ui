@@ -33,6 +33,7 @@ export class List {
             "value": 9
         }
     ];
+    purchaseRequest = {};
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -61,7 +62,7 @@ export class List {
             this.prState = this.prStates[0];
 
 
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState.value)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value)
             .then(data => {
                 this.data = data;
                 this.data = [];
@@ -93,7 +94,7 @@ export class List {
             })
     }
     reset() {
-        this.PRNo = "";
+        this.purchaseRequest = {};
         this.category = null;
         this.unit = null;
         this.budget = null;
@@ -105,7 +106,7 @@ export class List {
     ExportToExcel() {
         if (!this.prState)
             this.prState = this.prStates[0];
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState.value);
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 
     dateFromChanged(e) {

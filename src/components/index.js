@@ -28,6 +28,7 @@ export function configure(config) {
         './customs/auto-suggests/purchase-order-auto-suggest',
         './customs/auto-suggests/purchase-order-external-auto-suggest',
         './customs/auto-suggests/purchase-request-auto-suggest',
+        './customs/auto-suggests/purchase-request-auto-suggest-by-user',
         './customs/auto-suggests/purchase-request-auto-suggest-posted',
         './customs/auto-suggests/supplier-auto-suggest',
         './customs/auto-suggests/thread-auto-suggest',
