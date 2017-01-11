@@ -1,7 +1,7 @@
 <template>
     <h1 class="page-header">Monitoring Purchase Request</h1>
     <form class="form-horizontal">
-        <purchase-request-auto-suggest-by-user  label="Nomor PR"        value.bind="purchaseRequest" ></purchase-request-auto-suggest-by-user>
+        <purchase-request-auto-suggest  label="Nomor PR"        value.bind="purchaseRequest" filter.bind="filter"></purchase-request-auto-suggest>
         <unit-auto-suggest              label="Unit"            value.bind="unit"></unit-auto-suggest>
         <category-auto-suggest          label="Kategori"        value.bind="category"></category-auto-suggest>
         <budget-auto-suggest            label="Budget"          value.bind="budget"></budget-auto-suggest>
