@@ -40,8 +40,8 @@ export class List {
             "name": "Complete",
             "value": 9
         }];
-    purchaseRequest = {};
-    filter = { isPosted: true, isUsed: true };
+    purchaseOrder = {};
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -71,7 +71,7 @@ export class List {
         console.log(this.poState);
         if (!this.poState)
             this.poState = this.poStates[0];
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseRequest._id ? this.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder.purchaseRequest ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value)
             .then(data => {
                 this.data = data;
             })
@@ -81,7 +81,7 @@ export class List {
         this.unit = "undefined";
         this.category = "undefined";
         this.PODLNo = "";
-        this.purchaseRequest = {};
+        this.purchaseOrder = {};
         this.supplier = "undefined";
         this.dateFrom = null;
         this.dateTo = null;
@@ -91,7 +91,7 @@ export class List {
     exportToXls() {
         if (!this.poState)
             this.poState = this.poStates[0];
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseRequest._id ? this.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value);
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder.purchaseRequest ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value);
     }
 
     dateFromChanged(e) {

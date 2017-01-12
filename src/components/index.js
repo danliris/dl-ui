@@ -26,6 +26,7 @@ export function configure(config) {
         './customs/auto-suggests/lamp-standard-auto-suggest',
         './customs/auto-suggests/machine-auto-suggest',
         './customs/auto-suggests/purchase-order-auto-suggest',
+        './customs/auto-suggests/purchase-order-auto-suggest-by-user',
         './customs/auto-suggests/purchase-order-external-auto-suggest',
         './customs/auto-suggests/purchase-request-auto-suggest',
         './customs/auto-suggests/purchase-request-auto-suggest-by-user',
