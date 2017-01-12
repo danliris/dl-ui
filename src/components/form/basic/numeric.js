@@ -14,7 +14,7 @@ export class Numeric {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) postFix;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) postfix;
 
     reactComponent = {};
     constructor(element) {
@@ -27,8 +27,9 @@ export class Numeric {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', postFix: this.postFix || '' };
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', postFix: this.postfix || "" };
         this.value = parseFloat((this.value||'0').toString());
+        
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
                 <NumericReact value={this.value} onChange={this.handleValueChange} options={this.options} />
@@ -56,8 +57,25 @@ export class Numeric {
      * @returns {void}
      * 
      */
-    valueChanged(newVal) {
+    valueChanged(newVal) { 
         this.bind();
+        var event;
+
+        if (document.createEvent) {
+            event = document.createEvent("CustomEvent");
+            event.initCustomEvent("change", true, true, newVal);
+        } else {
+            event = document.createEventObject();
+            event.eventType = "change";
+        }
+
+        event.eventName = "change";
+
+        if (document.createEvent) {
+            this.element.dispatchEvent(event);
+        } else {
+            this.element.fireEvent("on" + event.eventType, event);
+        }
     }
     errorChanged(newError) {
         this.bind();
