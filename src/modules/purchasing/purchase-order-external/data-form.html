@@ -17,8 +17,9 @@
         <multiline              label="Keterangan"                      value.bind="data.remark"                error.bind="error.remark"               read-only.bind="readOnly"></multiline>
         <hr />
         <div class="form-group ${error && error.items ? 'has-error' : ''}" >
-            <span class="help-block">${error.items}</span>
-            <purchase-order-external-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" use-income-tax.bind = "data.useIncomeTax"></purchase-order-external-item-collection>
+            <span class="help-block">${error.items.toString()==="[object Object]" ? "" : error.items}</span>
         </div>
+            <purchase-order-external-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" use-income-tax.bind = "data.useIncomeTax"></purchase-order-external-item-collection>
+        
             </form>
 </template>
