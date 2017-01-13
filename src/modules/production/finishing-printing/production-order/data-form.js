@@ -7,7 +7,6 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-    @bindable uom = {};
 
     RUNOptions=['Tanpa RUN','1 RUN', '2 RUN'];
 
@@ -22,22 +21,35 @@ export class DataForm {
     get isEdit() {
         return (this.data.dataId || '').toString() != '';
     }
-
-    get isFilter() {
-        if(this.data.processType){
-            this.filter ={
-                processType : this.data.processType
-            };
-        }
-        else{
-            this.filter ={
-                processType : "Finishing"
-            };
-        }
+    get isFilter(){
+        this.data.constructionId=this.data.construction._id;
+        this.filter={
+            orderTypeId : this.data.orderTypeId,
+            materialId : this.data.materialId,
+            construction : this.data.constructionId
+        };
         return this.filter;
     }
+    get isFilterOrder(){
+        this.filterOrder={
+            "orderType.code": this.data.orderType.code
+        };
+        return this.filterOrder;
+    }
+    get isFilterOrderId(){
+        this.filterOrderId={
+            orderTypeId: this.data.orderTypeId
+        };
+        return this.filterOrderId;
+    }
+    get isFilterProduct(){
+        this.filterProduct = {
+            orderTypeId : this.data.orderTypeId,
+            materialId : this.data.materialId
+        };
+        return this.filterProduct;
+    }
 
-    qtyOrder=0;
     orderChanged(e){
         var selectedOrder=e.detail || {};
         if(selectedOrder){
@@ -47,12 +59,15 @@ export class DataForm {
                 this.processChanged({});
                 this.data.material={};
                 this.materialChanged({});
+                this.data.construction={};
+                this.constructionChanged({});
+                this.data.details = [];
             }
             if(this.data.orderType){
                 this.filterOrder={
-                    "orderType.code":this.data.orderType.code
+                    "orderType.code": this.data.orderType.code
                 };
-                this.filterProduct = {
+                this.filterOrderId={
                     orderTypeId: this.data.orderTypeId
                 };
             }
@@ -70,45 +85,52 @@ export class DataForm {
     materialChanged(e){
         var selectedMaterial= e.detail || {};
         if(selectedMaterial){
+        this.data.materialId=selectedMaterial._id ? selectedMaterial._id._id : "";
             if(selectedMaterial._id){
-                this.data.materialId=selectedMaterial._id._id ? selectedMaterial._id._id : "";
+                if (!this.readOnly) {
+                    this.data.construction={};
+                    this.constructionChanged({});
+                    this.data.details = [];
+                }
+                if(this.data.processType && this.data.material){
+                    this.filterProduct = {
+                        orderTypeId : this.data.orderType._id,
+                        materialId : selectedMaterial._id._id
+                    };
+                }
+            }
+            else{
                 if (!this.readOnly) {
                     this.data.construction={};
                     this.constructionChanged({});
                 }
-                if(this.data.processType && this.data.material){
-                    this.filter = {
-                        orderTypeId : this.data.orderType._id,
-                        materialId : this.data.materialId
-                    };
-                }
             }
         }
-        // else{
-        //     if (!this.readOnly) {
-        //         this.data.instruction={};
-        //         this.data.instruction.construction="";
-        //         this.constructionChanged({});
-        //     }
-        //     if(this.data.processType){
-        //         this.filter = {
-        //             processType : this.data.processType
-        //         };
-        //     }
-        // }
+        else{
+            if (!this.readOnly) {
+                this.data.construction={};
+                this.constructionChanged({});
+            }
+        }
     }
 
     constructionChanged(e){
         var selectedConstruction= e.detail || {};
-        // if(selectedConstruction){
-        //     this.data.construction=selectedConstruction._id ? selectedConstruction._id : "";
-        //     if(this.data.processType && this.data.material && this.data.construction){
-        //         this.data.instructionId=selectedConstruction._id ? selectedConstruction._id : "";
-        //     }
-        // }
-    }
-    qtyChange(e){
-        this.qtyOrder=this.data.orderQuantity;
+        if(selectedConstruction){
+            this.data.constructionId=selectedConstruction._id ? selectedConstruction._id : "";
+             if(this.data.processType && this.data.material && this.data.constructionId){
+                 this.filter={
+                    orderTypeId : this.data.orderType._id,
+                    materialId : this.data.materialId,
+                    construction : this.data.constructionId
+                 }
+                 if (!this.readOnly)
+                    this.data.details = [];
+             }
+         }
+         else{
+             this.data.details = [];
+         }
     }
 
     uomChanged(e) {
@@ -124,8 +146,9 @@ export class DataForm {
 
     buyerChanged(e){
         var selectedBuyer = e.detail;
-        if (selectedBuyer)
+        if (selectedBuyer){
             this.data.buyerId = selectedBuyer._id;
+        }
     }
 
     lampStandardChanged(e){
@@ -138,8 +161,6 @@ export class DataForm {
         for(var i=0;i<this.data.details.length;i++){
             this.data.details[i].uom=this.data.uom;
         }
-        
     }
 
-   
 }
