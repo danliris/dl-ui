@@ -41,12 +41,12 @@ export default class NumericReact extends React.Component {
     render() {
         var control = null;
         var usePostFix = this.state.options.postFix.trim() != '';
+
         var postFix = usePostFix ? this.state.options.postFix : '';
         if (this.state.options.readOnly) {
-            control = <p className="form-control-static">{ parseFloat(this.state.value).toLocaleString() } {postFix}</p>;
+            control = <p className="form-control-static">{this.state.value} {postFix}</p>;
         }
         else {
-            // control = <input type="number" value={this.state.value} onChange={this.handleValueChange} className="form-control" min={this.state.options.min} max={this.state.options.max instanceof Number ? this.state.options.max : "" } style={{ textAlign: "right" }}></input>;
             control = <DynamicNumber className="form-control" value={this.state.value} onChange={this.handleValueChange}
                 separator={this.state.options.separator}
                 integer={this.state.options.integer}
@@ -62,8 +62,34 @@ export default class NumericReact extends React.Component {
                 </div>;
             }
         }
-
         return control;
+
+
+        // var control = null;
+        // var usePostFix = this.state.options.postFix.trim() != '';
+        // var postFix = usePostFix ? this.state.options.postFix : '';
+        // if (this.state.options.readOnly) {
+        //     control = <p className="form-control-static">{ parseFloat(this.state.value).toLocaleString() } {postFix}</p>;
+        // }
+        // else {
+        //     // control = <input type="number" value={this.state.value} onChange={this.handleValueChange} className="form-control" min={this.state.options.min} max={this.state.options.max instanceof Number ? this.state.options.max : "" } style={{ textAlign: "right" }}></input>;
+        //     control = <DynamicNumber className="form-control" value={this.state.value} onChange={this.handleValueChange}
+        //         separator={this.state.options.separator}
+        //         integer={this.state.options.integer}
+        //         fraction={this.state.options.fraction}
+        //         negative={this.state.options.negative}
+        //         positive={this.state.options.positive}
+        //         thousand={this.state.options.thousand} />
+
+        //     if (this.state.options.postFix.trim() != '') {
+        //         control = <div className="input-group">
+        //             {control}
+        //             <span className="input-group-addon">{postFix}</span>
+        //         </div>;
+        //     }
+        // }
+
+        // return control;
     }
 }
 
