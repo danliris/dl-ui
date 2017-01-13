@@ -24,7 +24,7 @@ export default class BaseAutoSuggest {
         this.control = AutoSuggestReact;
     }
 
-    handleValueChange(event, value) {
+    handleValueChange(event, value) { 
         this.value = value;
     }
 
@@ -63,7 +63,7 @@ export default class BaseAutoSuggest {
      * @returns {void}
      * 
      */
-    valueChanged(newVal) {
+    valueChanged(newVal) { 
         this.bind();
         var event;
 

@@ -24,14 +24,29 @@ export class DataForm {
     bind() {
         if (this.data && this.data.supplier)
             this.data.supplier.toString = function () {
-                return this.code + " - " + this.name; 
-            }; 
+                return this.code + " - " + this.name;
+            };
+    }
+    
+    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.vatRate", "data.useIncomeTax")
+    get xFilter() {
+        var filter =  {
+            divisionId: this.data.divisionId,
+            supplierId: this.data.supplierId,
+            categoryId: this.data.categoryId,
+            paymentMethod: this.data.paymentMethod,
+            currencyCode: (this.data.currency||{}).code||"",
+            vatRate: this.data.vatRate,
+            useIncomeTax: this.data.useIncomeTax
+        }
+        console.log(filter);
+        return filter;
     }
 
     supplierChanged(e) {
         var selectedSupplier = e.detail;
         if (selectedSupplier) {
-            this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : ""; 
+            this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
             if (!this.readOnly)
                 this.data.items = [];
             if (this.data.currency) {
@@ -78,12 +93,12 @@ export class DataForm {
                 currencyCode: this.data.currency.code,
                 vatRate: this.data.vatRate,
                 useIncomeTax: this.data.useIncomeTax
-            }; 
+            };
         }
     }
     currencyChanged(e) {
         var selectedCurrency = e.detail || {};
-        if (selectedCurrency) { 
+        if (selectedCurrency) {
             if (!this.readOnly)
                 this.data.items = [];
             if (this.data.currency) {
@@ -103,14 +118,14 @@ export class DataForm {
                 currencyCode: this.data.currency.code,
                 vatRate: this.data.vatRate,
                 useIncomeTax: this.data.useIncomeTax
-            }; 
+            };
         }
     }
 
     paymentMethodChanged(e) {
-        var selectedPayment = e.srcElement.value;  
+        var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
-            this.data.paymentMethod = selectedPayment ? selectedPayment : ""; 
+            this.data.paymentMethod = selectedPayment ? selectedPayment : "";
             if (!this.readOnly)
                 this.data.items = [];
             if (this.data.currency) {
@@ -130,13 +145,13 @@ export class DataForm {
                 currencyCode: this.data.currency.code,
                 vatRate: this.data.vatRate,
                 useIncomeTax: this.data.useIncomeTax
-            }; 
+            };
         }
     }
 
     categoryChanged(e) {
         var category = e.detail || {};
-        this.data.categoryId = category._id ? category._id : ""; 
+        this.data.categoryId = category._id ? category._id : "";
         if (!this.readOnly)
             this.data.items = [];
         if (this.data.currency) {
@@ -156,7 +171,7 @@ export class DataForm {
             currencyCode: this.data.currency.code,
             vatRate: this.data.vatRate,
             useIncomeTax: this.data.useIncomeTax
-        }; 
+        };
     }
 
     vatChanged(e) {
@@ -164,7 +179,7 @@ export class DataForm {
         this.data.vatRate = this.data.vatRate ? this.data.vatRate : 0;
         this.data.useIncomeTax = this.data.useIncomeTax ? this.data.useIncomeTax : false;
         if (selectedVat)
-            this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0; 
+            this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
         else
             this.data.vatRate = 0;
         if (this.data.currency) {
@@ -237,7 +252,7 @@ export class DataForm {
             currencyCode: this.data.currency.code,
             vatRate: this.data.vatRate,
             useIncomeTax: this.data.useIncomeTax
-        }; 
+        };
     }
 
 } 
