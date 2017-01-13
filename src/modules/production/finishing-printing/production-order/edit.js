@@ -22,6 +22,16 @@ export class Edit {
                 this.data.material={
                     _id:i.material
                 };
+                this.data.construction={
+                    _id:i.construction
+                };
+                var x=0;
+                for(var j of this.data.details){
+                    this.data.details[x].colorType={
+                        colorType:j.colorType
+                    };
+                    x++;
+                }
                 break;
             }
             
