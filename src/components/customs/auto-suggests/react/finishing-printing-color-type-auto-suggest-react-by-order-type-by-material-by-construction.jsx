@@ -3,10 +3,10 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/color-types';
+const resource = 'finishing-printing/color-type-by-material-order-type-constructions';
 
 const empty = {
-    name: ''
+    colorType :{name: ''}
 }
 
 'use strict';
@@ -20,7 +20,7 @@ export default class FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMate
         var options = Object.assign({}, FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.name}`;
+            return `${this.colorType.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -42,13 +42,13 @@ FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction.de
         suggestions:
         function (keyword, filter) {
             var config = Container.instance.get(Config);
-            var endpoint = config.getEndpoint("core");
+            var endpoint = config.getEndpoint("production");
 
             return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
                 .then(results => {
                     return results.data.map(color => {
                         color.toString = function () {
-                            return `${this.name}`;
+                            return `${this.colorType.name}`;
                         }
                         return color;
                     })
