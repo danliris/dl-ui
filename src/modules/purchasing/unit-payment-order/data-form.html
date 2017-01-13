@@ -26,6 +26,6 @@
             </div>
         </div>                                    
         <hr /> 
-        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.bind="filter" if.bind="data.division && data.supplierId && data.categoryId && data.paymentMethod && data.currency"></unit-payment-order-item-collection>
+        <unit-payment-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.one-way="xFilter"></unit-payment-order-item-collection>
     </form>
 </template>
