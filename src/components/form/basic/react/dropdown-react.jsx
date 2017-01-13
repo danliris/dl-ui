@@ -24,7 +24,7 @@ export default class DropdownReact extends React.Component {
         this.setState({ value: initialValue, options: options });
     }
 
-    handleValueChange(event) {
+    handleValueChange(event) { 
         var selectedIndex = event.target.options.selectedIndex;
         var value = this.state.options.selections[selectedIndex];
         event.preventDefault();
@@ -33,15 +33,15 @@ export default class DropdownReact extends React.Component {
             this.props.onChange(value);
     }
 
-    componentWillMount() {
+    componentWillMount() { 
         this.init(this.props);
     }
 
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps(props) { 
         this.init(props);
     }
 
-    render() {
+    render() { 
         if (this.state.options.readOnly)
             return (
                 <p className="form-control-static">{(this.state.value || '').toString()}</p>

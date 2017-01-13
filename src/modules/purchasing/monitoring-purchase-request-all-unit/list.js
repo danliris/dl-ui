@@ -33,12 +33,15 @@ export class List {
             "value": 9
         }
     ];
+    purchaseRequest = {};
+    filter = {isPosted: true};
+    
     constructor(router, service) {
         this.service = service;
         this.router = router;
         this.today = new Date();
-        this.prStates = this.prStates.map(prState=>{
-            prState.toString = function(){
+        this.prStates = this.prStates.map(prState => {
+            prState.toString = function () {
                 return this.name;
             }
             return prState;
@@ -57,10 +60,11 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        if (this.prState instanceof Object)
-            this.prState = -1;
+        if (!this.prState)
+            this.prState = this.prStates[0];
 
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState)
+
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value)
             .then(data => {
                 this.data = data;
                 this.data = [];
@@ -92,19 +96,19 @@ export class List {
             })
     }
     reset() {
-        this.PRNo = "";
+        this.purchaseRequest = {};
         this.category = null;
         this.unit = null;
         this.budget = null;
         this.dateFrom = null;
         this.dateTo = null;
-        this.prState = -1;
+        this.prState = this.prStates[0];;
     }
 
     ExportToExcel() {
-        if (this.prState instanceof Object)
-            this.prState = -1;
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState);
+        if (!this.prState)
+            this.prState = this.prStates[0];
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 
     dateFromChanged(e) {

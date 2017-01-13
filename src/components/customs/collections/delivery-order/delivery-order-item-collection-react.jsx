@@ -58,7 +58,7 @@ export default class DeliveryOrderItemCollectionReact extends React.Component {
 
     render() {
         var addButton = <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>;
-        if (this.state.options.readOnly || this.state.options.filter == null)
+        if (this.state.options.readOnly)
             addButton = <span></span>;
         var items = (this.state.value || []).map((doItem, index) => {
             var error = this.state.error[index] || {};
