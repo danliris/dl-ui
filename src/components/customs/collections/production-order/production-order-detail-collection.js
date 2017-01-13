@@ -13,7 +13,7 @@ export class ProductionOrderCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) isSplit;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
 
     reactComponent = {};
     constructor(element) {
@@ -42,7 +42,13 @@ export class ProductionOrderCollection {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true'};
+
+        if (this.filter)
+            this.options.filter = this.filter;
+        else
+            this.options.filter = null;
+
         this.reactComponent = ReactDOM.render(
             <ProductionOrderDetailCollectionReact value={this.value} error={this.error} options={this.options}></ProductionOrderDetailCollectionReact>,
             this.element
@@ -52,6 +58,7 @@ export class ProductionOrderCollection {
     bind() {
         this.value = this.value || [];
         this.error = this.error || [];
+        this.filter= this.filter|| {};
         this.render();
     }
 
@@ -76,5 +83,7 @@ export class ProductionOrderCollection {
     errorChanged(newError) {
         this.bind();
     }
-
+    filterChanged(newFilter) {
+        this.bind();
+    }
 }

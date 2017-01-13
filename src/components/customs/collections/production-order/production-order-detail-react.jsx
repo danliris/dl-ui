@@ -4,7 +4,7 @@ import React from 'react';
 import TextboxReact from '../../../form/basic/react/textbox-react.jsx';
 import NumericReact from '../../../form/basic/react/numeric-react.jsx'; 
 import UomAutoSuggestReact from '../../auto-suggests/react/uom-auto-suggest-react.jsx'; 
-import ColorTypeAutoSuggestReact from '../../auto-suggests/react/color-type-auto-suggest-react.jsx'; 
+import FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction from '../../auto-suggests/react/finishing-printing-color-type-auto-suggest-react-by-order-type-by-material-by-construction.jsx'; 
 
 'use strict';
 
@@ -57,7 +57,8 @@ export default class ProductionOrderDetailReact extends React.Component {
     handleColorTypeChange(event, colorType) {
         var value = this.state.value;
         value.colorType = colorType;
-        value.colorTypeId = colorType._id;
+        if(colorType)
+        value.colorTypeId = colorType.colorType._id;
         this.handleValueChange(value);
     }
 
@@ -104,7 +105,7 @@ export default class ProductionOrderDetailReact extends React.Component {
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.colorType ? 'has-error' : ''}`} style={style}> 
-                        <ColorTypeAutoSuggestReact value={this.state.value.colorType} options={readOnlyOptions} onChange={this.handleColorTypeChange}></ColorTypeAutoSuggestReact>
+                        <FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction value={this.state.value.colorType} options={this.state.options} onChange={this.handleColorTypeChange}></FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction>
                         <span className="help-block">{this.state.error.colorType}</span>
                     </div>
                 </td>
@@ -119,10 +120,13 @@ export default class ProductionOrderDetailReact extends React.Component {
                         <UomAutoSuggestReact value={this.state.value.uom || ''} options={uomOptions} onchange={this.handleUomChange} />
                     </div>
                 </td>
-
-                <td>
-                    {removeButton}
-                </td>
+                {this.state.options.readOnly ?
+                    <td className="hidden">
+                        {removeButton}
+                    </td> :
+                    <td>
+                        {removeButton}
+                    </td>}
             </tr>
         )
     }
