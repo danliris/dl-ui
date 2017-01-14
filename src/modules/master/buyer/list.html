@@ -14,6 +14,7 @@
         </div>
         <div class="col-sm-4">
             <div class="pull-right">
+                <button class="btn btn-primary" click.delegate="upload()">Upload File CSV</button>
                 <button class="btn btn-primary" click.delegate="create()">Buat</button>
             </div>
         </div>
@@ -45,4 +46,4 @@
     </div>
     <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
     <hr/>
-</template>
+</template> 

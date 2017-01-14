@@ -24,32 +24,32 @@ export default class AutoSuggestReact extends React.Component {
         this.renderSuggestion = this.renderSuggestion.bind(this);
     }
 
-    init(props) {
+    init(props) { 
         var initialValue = (props.value || '');
-        if (props.value != initialValue && props.onChange)
-            props.onChange(initialValue);
+        // if (props.value != initialValue && props.onChange)
+        //     props.onChange(null, initialValue);
 
         var options = Object.assign({}, AutoSuggestReact.defaultProps.options, props.options);
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [] });
     }
 
-    onFocus(event) {
+    onFocus(event) { 
         this.text = event.target.value;
     }
 
-    onChange(event, {newValue, method}) {
+    onChange(event, {newValue, method}) { 
         this.setState({ label: newValue });
     }
 
-    onBlur(event, suggestion) {
+    onBlur(event, suggestion) { 
         var value = this.text === event.target.value ? this.state.value : suggestion.focusedSuggestion;
         var text = (value || '').toString();
         this.setState({ value: value, label: text });
-        if (this.props.onChange)
-            this.props.onChange(event, value);
+        // if (this.props.onChange)
+        //     this.props.onChange(event, value);
     }
 
-    onSuggestionsFetchRequested({value}) {
+    onSuggestionsFetchRequested({value}) { 
         var suggestions = this.state.options.suggestions;
         var filter = this.state.options.filter ? this.state.options.filter : {};
 
@@ -59,22 +59,22 @@ export default class AutoSuggestReact extends React.Component {
             });
     }
 
-    onSuggestionsClearRequested() {
+    onSuggestionsClearRequested() { 
         this.setState({ suggestions: [] });
     }
 
-    onSuggestionSelected(event, {suggestion, suggestionValue, sectionIndex, method}) {
+    onSuggestionSelected(event, {suggestion, suggestionValue, sectionIndex, method}) { 
         this.text = (suggestion || '').toString();
         this.setState({ value: suggestion });
         if (this.props.onChange)
             this.props.onChange(event, suggestion);
     }
 
-    getSuggestionValue(suggestion) {
+    getSuggestionValue(suggestion) { 
         return (suggestion || '').toString();
     }
 
-    renderSuggestion(suggestion) {
+    renderSuggestion(suggestion) { 
         var func = this.options.renderSuggestion || function (s) {
             return (<span>{(s || '').toString()}</span>);
         };
@@ -82,16 +82,16 @@ export default class AutoSuggestReact extends React.Component {
         return func(suggestion);
     }
 
-    componentWillMount() {
+    componentWillMount() { 
         this.init(this.props);
     }
 
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps(props) { 
         this.init(props);
     }
 
 
-    render() {
+    render() { 
         if (this.state.options.readOnly)
             return (
                 <p className="form-control-static">{(this.state.value || '').toString()}</p>

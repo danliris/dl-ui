@@ -50,7 +50,9 @@ export class DataForm {
             if (!this.readOnly)
                 this.data.items = [];
         }
-        else
+        else {
+            this.data.supplierId = undefined;
             this.data.items = [];
+        }
     }
 } 
