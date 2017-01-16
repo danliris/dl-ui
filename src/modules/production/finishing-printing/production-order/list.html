@@ -36,9 +36,9 @@
                     <tr repeat.for="item of data"> 
                         <td>${item.salesContractNo}</td>
                         <td>${item.orderNo}</td>
-                        <td style="text-align:center">${item.isExport ? 'Export':'Lokal'}</td>
+                        <td style="text-align:center">${item.buyer.type}</td>
                         <td style="text-align:center">${item.buyer.name}</td>
-                        <td style="text-align:center">${item.processType}</td>
+                        <td style="text-align:center">${item.processType.name}</td>
                         <td style="text-align:center">${item.deliveryDate | dateFormat:'D MMM YYYY'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item,item.orderNo)">Rincian</button>
                         <button class="btn btn-primary" click.delegate="exportPDF(item)" >Cetak Pdf</button></td>
