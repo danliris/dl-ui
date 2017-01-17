@@ -33,6 +33,8 @@ export class List {
             "value": 9
         }
     ];
+    purchaseRequest = {};
+    filter = { isPosted: true };
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -61,7 +63,7 @@ export class List {
             this.prState = this.prStates[0];
 
 
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState.value)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value)
             .then(data => {
                 this.data = data;
                 this.data = [];
@@ -74,6 +76,7 @@ export class List {
                         if (pr.status.value === 4 || pr.status.value === 9) {
                             status = `${status} (${item.deliveryOrderNos.join(", ")})`;
                         }
+                        console.log(pr.no);
 
                         _data.no = counter;
                         _data.prDate = moment(new Date(pr.date)).format(dateFormat);
@@ -93,7 +96,7 @@ export class List {
             })
     }
     reset() {
-        this.PRNo = "";
+        this.purchaseRequest = {};
         this.category = null;
         this.unit = null;
         this.budget = null;
@@ -105,7 +108,7 @@ export class List {
     ExportToExcel() {
         if (!this.prState)
             this.prState = this.prStates[0];
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo, this.prState.value);
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 
     dateFromChanged(e) {

@@ -7,9 +7,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-    @bindable uom = {};
 
-    processOptions = ['Finishing','Printing','Yarn Dyed'];
     RUNOptions=['Tanpa RUN','1 RUN', '2 RUN'];
 
     constructor(bindingEngine, element,service) {
@@ -19,72 +17,99 @@ export class DataForm {
         
     }
 
-    get isFilter() {
-        if(this.data.processType){
-            this.filter ={
-                processType : this.data.processType
-            };
-        }
-        else{
-            this.filter ={
-                processType : "Finishing"
-            };
-        }
+    @computedFrom("data.dataId")
+    get isEdit() {
+        return (this.data.dataId || '').toString() != '';
+    }
+    get isFilter(){
+        this.data.constructionId=this.data.construction._id;
+        this.filter={
+            orderTypeId : this.data.orderTypeId,
+            materialId : this.data.materialId,
+            construction : this.data.constructionId
+        };
         return this.filter;
     }
+    get isFilterOrder(){
+        this.filterOrder={
+            "orderType.code": this.data.orderType.code
+        };
+        return this.filterOrder;
+    }
+    get isFilterOrderId(){
+        this.filterOrderId={
+            orderTypeId: this.data.orderTypeId
+        };
+        return this.filterOrderId;
+    }
+    get isFilterProduct(){
+        this.filterProduct = {
+            orderTypeId : this.data.orderTypeId,
+            materialId : this.data.materialId
+        };
+        return this.filterProduct;
+    }
 
-    qtyOrder=0;
-    exportChanged(e){
-        var selectedExport =  e.srcElement.checked || false;
-        this.data.isExport=selectedExport;
+    orderChanged(e){
+        var selectedOrder=e.detail || {};
+        if(selectedOrder){
+            this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
+            if (!this.readOnly) {
+                this.data.processType={};
+                this.processChanged({});
+                this.data.material={};
+                this.materialChanged({});
+                this.data.construction={};
+                this.constructionChanged({});
+                this.data.details = [];
+            }
+            if(this.data.orderType){
+                this.filterOrder={
+                    "orderType.code": this.data.orderType.code
+                };
+                this.filterOrderId={
+                    orderTypeId: this.data.orderTypeId
+                };
+            }
+        }
     }
 
     processChanged(e){
-        this.filter={};
-        this.data.material={};
-        var selectedProcess = e.srcElement.value || "";
+        var selectedProcess = e.detail || {};
         if(selectedProcess){
-            this.data.processType = selectedProcess ? selectedProcess : "";
-            if (!this.readOnly) {
-                this.data.material={};
-                this.materialChanged({});
-            }
-            if(this.data.processType){
-                this.filter = {
-                    processType : this.data.processType
-                };
-            }
-            
+            this.data.processTypeId = selectedProcess._id ? selectedProcess._id : "";
         }
         
     }
 
     materialChanged(e){
-        var selectedMaterial= e.detail;
+        var selectedMaterial= e.detail || {};
         if(selectedMaterial){
-            this.data.material=selectedMaterial._id ? selectedMaterial._id : "";
-            if (!this.readOnly) {
-                this.data.instruction={};
-                this.data.instruction.construction="";
-                this.constructionChanged({});
+        this.data.materialId=selectedMaterial._id ? selectedMaterial._id._id : "";
+            if(selectedMaterial._id){
+                if (!this.readOnly) {
+                    this.data.construction={};
+                    this.constructionChanged({});
+                    this.data.details = [];
+                }
+                if(this.data.processType && this.data.material){
+                    this.filterProduct = {
+                        orderTypeId : this.data.orderType._id,
+                        materialId : selectedMaterial._id._id
+                    };
+                }
             }
-            if(this.data.processType && this.data.material){
-                this.filter = {
-                    processType : this.data.processType,
-                    material : this.data.material
-                };
+            else{
+                if (!this.readOnly) {
+                    this.data.construction={};
+                    this.constructionChanged({});
+                }
             }
         }
         else{
             if (!this.readOnly) {
-                this.data.instruction={};
-                this.data.instruction.construction="";
+                this.data.construction={};
                 this.constructionChanged({});
-            }
-            if(this.data.processType){
-                this.filter = {
-                    processType : this.data.processType
-                };
             }
         }
     }
@@ -92,14 +117,20 @@ export class DataForm {
     constructionChanged(e){
         var selectedConstruction= e.detail || {};
         if(selectedConstruction){
-            this.data.construction=selectedConstruction.construction ? selectedConstruction.construction : "";
-            if(this.data.processType && this.data.material && this.data.construction){
-                this.data.instructionId=selectedConstruction._id ? selectedConstruction._id : "";
-            }
-        }
-    }
-    qtyChange(e){
-        this.qtyOrder=this.data.orderQuantity;
+            this.data.constructionId=selectedConstruction._id ? selectedConstruction._id : "";
+             if(this.data.processType && this.data.material && this.data.constructionId){
+                 this.filter={
+                    orderTypeId : this.data.orderType._id,
+                    materialId : this.data.materialId,
+                    construction : this.data.constructionId
+                 }
+                 if (!this.readOnly)
+                    this.data.details = [];
+             }
+         }
+         else{
+             this.data.details = [];
+         }
     }
 
     uomChanged(e) {
@@ -115,8 +146,9 @@ export class DataForm {
 
     buyerChanged(e){
         var selectedBuyer = e.detail;
-        if (selectedBuyer)
+        if (selectedBuyer){
             this.data.buyerId = selectedBuyer._id;
+        }
     }
 
     lampStandardChanged(e){
@@ -129,8 +161,6 @@ export class DataForm {
         for(var i=0;i<this.data.details.length;i++){
             this.data.details[i].uom=this.data.uom;
         }
-        
     }
 
-   
 }
