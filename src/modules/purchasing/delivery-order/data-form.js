@@ -17,6 +17,14 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
+    @computedFrom("data.supplier")
+    get filter() {
+        var filter = {
+            supplierId: this.data.supplierId
+        }
+        return filter;
+    }
+
     attached() {
         if (this.data.items) {
             this.data.items.forEach(item => {
@@ -46,7 +54,6 @@ export class DataForm {
         var selectedSupplier = e.detail;
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
-            this.filter = { supplierId: selectedSupplier._id };
             if (!this.readOnly)
                 this.data.items = [];
         }
