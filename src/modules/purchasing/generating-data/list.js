@@ -18,7 +18,19 @@ export class List {
     }
 
     ExportToExcel() {
-        this.service.generatePurchaseRequest(this.dateFrom, this.dateTo);
+        // this.service.generatePurchaseRequest(this.dateFrom, this.dateTo);
+        // this.service.generatePurchaseOrderExternal(this.dateFrom, this.dateTo);
+        // this.service.generateDeliveryOrder(this.dateFrom, this.dateTo);
+        // this.service.generateUnitReceiptNote(this.dateFrom, this.dateTo);
+        // this.service.generateUnitPaymentOrder(this.dateFrom, this.dateTo);
+        // this.service.generatePaymentCorrectionNote(this.dateFrom, this.dateTo);
+        this.service.exportData(this.dateFrom,this.dateTo)
+        .then(response => {
+            if (response)
+            {
+                alert("Data Berhasil Di Generate");
+            }
+        })
     }
 
     dateFromChanged(e) {
