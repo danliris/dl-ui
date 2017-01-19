@@ -27,10 +27,12 @@ export class Edit {
                 };
                 var x=0;
                 for(var j of this.data.details){
-                    this.data.details[x].colorType={
-                        colorType:j.colorType
-                    };
-                    x++;
+                    if(this.data.details[x].colorType!=null){
+                        this.data.details[x].colorType={
+                            colorType:j.colorType
+                        };
+                        x++;
+                    }
                 }
                 break;
             }
