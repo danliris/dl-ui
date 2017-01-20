@@ -68,7 +68,6 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        console.log(this.poState);
         if (!this.poState)
             this.poState = this.poStates[0];
         this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder.purchaseRequest ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value)
