@@ -57,7 +57,7 @@ module.exports = [
         name: 'purchase-order-monitoring',
         moduleId: './modules/purchasing/monitoring-purchase-order-all-user/index',
         nav: true,
-        title: 'Monitoring Purchase All',
+        title: 'Monitoring Purchase',
         auth: true,
         settings: {
             group: "purchasing",
