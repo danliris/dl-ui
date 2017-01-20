@@ -3,33 +3,30 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'finishing-printing/material-by-order-types';
+const resource = 'sales/construction-by-material-order-types';
 
 const empty = {
-    _id: {
-        name: ''
-    },
+    _id: ''
 }
-
 
 'use strict';
 
-export default class FinishingPrintingMaterialAutoSuggestReactByOrderType extends AutoSuggestReact {
+export default class SalesConstructionAutoSuggestReactByMaterialByOrderType extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, FinishingPrintingMaterialAutoSuggestReactByOrderType.defaultProps.options, props.options);
+        var options = Object.assign({}, SalesConstructionAutoSuggestReactByMaterialByOrderType.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this._id.name}`;
+            return `${this._id}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-FinishingPrintingMaterialAutoSuggestReactByOrderType.propTypes = {
+SalesConstructionAutoSuggestReactByMaterialByOrderType.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -39,7 +36,7 @@ FinishingPrintingMaterialAutoSuggestReactByOrderType.propTypes = {
     })
 };
 
-FinishingPrintingMaterialAutoSuggestReactByOrderType.defaultProps = {
+SalesConstructionAutoSuggestReactByMaterialByOrderType.defaultProps = {
     options: {
         readOnly: false,
         suggestions: function (text, filter) {
@@ -49,11 +46,11 @@ FinishingPrintingMaterialAutoSuggestReactByOrderType.defaultProps = {
 
             return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.info.map(material => {
-                        material.toString = function () {
-                            return `${this._id.name}`;
+                    return results.info.map(construction => {
+                        construction.toString = function () {
+                            return `${this._id}`;
                         }
-                        return material;
+                        return construction;
                     });
                 });
         }

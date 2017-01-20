@@ -4,7 +4,7 @@ import React from 'react';
 import TextboxReact from '../../../form/basic/react/textbox-react.jsx';
 import NumericReact from '../../../form/basic/react/numeric-react.jsx'; 
 import UomAutoSuggestReact from '../../auto-suggests/react/uom-auto-suggest-react.jsx'; 
-import FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction from '../../auto-suggests/react/finishing-printing-color-type-auto-suggest-react-by-order-type-by-material-by-construction.jsx'; 
+import SalesColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction from '../../auto-suggests/react/sales-color-type-auto-suggest-react-by-order-type-by-material-by-construction.jsx'; 
 
 'use strict';
 
@@ -107,13 +107,13 @@ export default class ProductionOrderDetailReact extends React.Component {
                 { this.state.options.printing ?
                     <td className="hidden">
                         <div  className={`form-group ${this.state.error.colorType ? 'has-error' : ''}`} style={style}> 
-                            <FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction value={this.state.value.colorType} options={this.state.options} onChange={this.handleColorTypeChange}></FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction>
+                            <SalesColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction value={this.state.value.colorType} options={this.state.options} onChange={this.handleColorTypeChange}></SalesColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction>
                             <span className="help-block">{this.state.error.colorType}</span>
                         </div>
                     </td> :
                     <td>
                         <div className={`form-group ${this.state.error.colorType ? 'has-error' : ''}`} style={style}> 
-                            <FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction value={this.state.value.colorType} options={this.state.options} onChange={this.handleColorTypeChange}></FinishingPrintingColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction>
+                            <SalesColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction value={this.state.value.colorType} options={this.state.options} onChange={this.handleColorTypeChange}></SalesColorTypeAutoSuggestReactByOrderTypeByMaterialByConstruction>
                             <span className="help-block">{this.state.error.colorType}</span>
                         </div>
                     </td>

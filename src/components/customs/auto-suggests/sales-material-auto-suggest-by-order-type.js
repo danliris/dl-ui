@@ -1,12 +1,12 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FinishingPrintingMaterialAutoSuggestReactByOrderType from './react/finishing-printing-construction-auto-suggest-react-by-material-by-order-type.jsx';
+import FinishingPrintingMaterialAutoSuggestReactByOrderType from './react/sales-material-auto-suggest-react-by-order-type.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
 @inject(Element)
-@customElement('finishing-printing-construction-auto-suggest-by-material-by-order-type')
-export default class FinishingPrintingConstructionAutoSuggestByMaterialByOrderType extends BaseAutoSuggest {
+@customElement('sales-material-auto-suggest-by-order-type')
+export default class SalesMaterialAutoSuggestByOrderType extends BaseAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -17,6 +17,6 @@ export default class FinishingPrintingConstructionAutoSuggestByMaterialByOrderTy
 
     constructor(element) {
         super(element);
-        this.control = FinishingPrintingMaterialAutoSuggestReactByOrderType;
+        this.control = SalesMaterialAutoSuggestReactByOrderType;
     }
 } 
