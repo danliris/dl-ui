@@ -51,17 +51,4 @@ module.exports = [
             roles: ["production"],
             iconClass: 'fa fa-dashboard'
         }
-    },
-    {
-        route: 'production/finishing-printing/production-order',
-        name: 'production-order',
-        moduleId: './modules/production/finishing-printing/production-order/index',
-        nav: true,
-        title: 'Production Order',
-        auth: true,
-        settings: {
-            group: "production",
-            roles: ["production"],
-            iconClass: 'fa fa-dashboard'
-        }
     }]
