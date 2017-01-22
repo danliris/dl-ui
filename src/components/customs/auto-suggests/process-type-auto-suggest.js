@@ -1,12 +1,12 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FinishingPrintingMaterialAutoSuggestReactByProcessType from './react/finishing-printing-material-auto-suggest-react-by-process-type.jsx';
+import ProcessTypeAutoSuggestReact from './react/process-type-auto-suggest-react.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
 @inject(Element)
-@customElement('finishing-printing-material-auto-suggest-by-process-type')
-export default class FinishingPrintingMaterialAutoSuggestByProcessType extends BaseAutoSuggest {
+@customElement('process-type-auto-suggest')
+export default class ProcessTypeAutoSuggest extends BaseAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -17,6 +17,6 @@ export default class FinishingPrintingMaterialAutoSuggestByProcessType extends B
 
     constructor(element) {
         super(element);
-        this.control = FinishingPrintingMaterialAutoSuggestReactByProcessType;
+        this.control = ProcessTypeAutoSuggestReact;
     }
 } 

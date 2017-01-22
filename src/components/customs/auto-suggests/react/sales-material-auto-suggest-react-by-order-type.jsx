@@ -3,30 +3,33 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'finishing-printing/construction-by-material-process-types';
+const resource = 'sales/material-by-order-types';
 
 const empty = {
-    construction: ''
+    _id: {
+        name: ''
+    },
 }
+
 
 'use strict';
 
-export default class FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType extends AutoSuggestReact {
+export default class SalesMaterialAutoSuggestReactByOrderType extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.defaultProps.options, props.options);
+        var options = Object.assign({}, SalesMaterialAutoSuggestReactByOrderType.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.construction}`;
+            return `${this._id.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.propTypes = {
+SalesMaterialAutoSuggestReactByOrderType.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,7 +39,7 @@ FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.propTypes =
     })
 };
 
-FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.defaultProps = {
+SalesMaterialAutoSuggestReactByOrderType.defaultProps = {
     options: {
         readOnly: false,
         suggestions: function (text, filter) {
@@ -46,11 +49,11 @@ FinishingPrintingConstructionAutoSuggestReactByMaterialByProcessType.defaultProp
 
             return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.data.map(construction => {
-                        construction.toString = function () {
-                            return `${this.construction}`;
+                    return results.info.map(material => {
+                        material.toString = function () {
+                            return `${this._id.name}`;
                         }
-                        return construction;
+                        return material;
                     });
                 });
         }
