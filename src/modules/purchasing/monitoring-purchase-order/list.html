@@ -8,14 +8,14 @@
 
 <h1 class="page-header">Monitoring Pembelian</h1>
 <form class="form-horizontal">
-    <unit-auto-suggest label="Unit yang mengajukan" value.bind="unit"></unit-auto-suggest>
-    <category-auto-suggest label="Kategori" value.bind="category"></category-auto-suggest>
-    <textbox label="Nomor External PO" value.bind="PODLNo"></textbox>
-    <textbox label="Nomor PR" value.bind="PRNo"></textbox>
-    <supplier-auto-suggest label="Supplier" value.bind="supplier"></supplier-auto-suggest>
-    <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-    <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
-    <dropdown label="Status" value.bind="poState" items.bind="poStates"></dropdown>
+    <unit-auto-suggest                      label="Unit yang mengajukan"    value.bind="unit"></unit-auto-suggest>
+    <category-auto-suggest                  label="Kategori"                value.bind="category"></category-auto-suggest>
+    <textbox                                label="Nomor External PO"       value.bind="PODLNo"></textbox>
+    <purchase-order-auto-suggest-by-user    label="Nomor PR"                value.bind="purchaseOrder"></purchase-order-auto-suggest-by-user>
+    <supplier-auto-suggest                  label="Supplier"                value.bind="supplier"></supplier-auto-suggest>
+    <datepicker                             label="Tanggal Awal"            value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+    <datepicker                             label="Tanggal Akhir"           value.bind="dateTo" min.bind="dateFrom"></datepicker>
+    <dropdown                               label="Status"                  value.bind="poState" items.bind="poStates"></dropdown>
     <div class="form-group">
         <label for="contact" class="col-sm-6 control-label"></label>
         <div class="col-sm-3">
@@ -23,7 +23,7 @@
             <button click.delegate="reset()" class='btn btn-success'>Reset</button>
         </div>
     </div>
-    <div if.bind="data.length > 0">
+    <div>
         <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
     </div>
     <div class="table-responsive">
