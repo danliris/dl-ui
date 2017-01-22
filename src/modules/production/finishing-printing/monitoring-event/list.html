@@ -24,20 +24,16 @@
                 <th>Jam</th>
                 <th>Mesin</th>
                 <th>No. Order Produksi</th>
-                <th>Event</th>
-                <th>Keterangan</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of data">
-                <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
-                <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
-                <td>${item.machine.name}</td>
-                <td>${item.uster.product.name}</td>
-                <td>${item.spinning.name}</td>
-                <td>${item.spinning.name}</td>
-                <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
+            <tr repeat.for="monitoringEvent of data">
+                <td style="text-align:center">${monitoringEvent.date | dateFormat:'D MMM YYYY'}</td>
+                <td style="text-align:center">${monitoringEvent.timeInMoment}</td>
+                <td>${monitoringEvent.machine.name}</td>
+                <td>${monitoringEvent.productionOrder.orderNo}</td>
+                <td><button class="btn btn-default" click.delegate="view(monitoringEvent)">Rincian</button></td>
             </tr>
         </tbody>
     </table>

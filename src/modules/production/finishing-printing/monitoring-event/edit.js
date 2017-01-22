@@ -2,6 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
+var moment = require('moment');
 
 @inject(Router, Service)
 export class Edit {
@@ -20,12 +21,10 @@ export class Edit {
     }
 
     save() {
-        this.service.update(this.data)
-            .then(result => {
-                this.view();
-            })
-            .catch(e => {
-                this.error = e;
-            })
+        this.service.update(this.data).then(result => {
+            this.view();
+        }).catch(e => {
+            this.error = e;
+        })
     }
 }

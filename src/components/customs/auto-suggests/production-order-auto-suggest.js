@@ -1,12 +1,12 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import ProductionOrderAutoSuggestReact from './react/machine-auto-suggest-react.jsx';
+import ProductionOrderAutoSuggestReact from './react/production-order-auto-suggest-react.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
 @inject(Element)
-@customElement('machine-auto-suggest')
-export default class MachineAutoSuggest extends BaseAutoSuggest {
+@customElement('production-order-auto-suggest')
+export default class ProductionOrderAutoSuggest extends BaseAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;

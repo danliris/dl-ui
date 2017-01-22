@@ -2,6 +2,8 @@ import {inject} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
 
+var moment = require('moment');
+
 @inject(Router, Service)
 export class List {
     data = [];
@@ -14,15 +16,17 @@ export class List {
 
     async activate() {
         this.info.keyword = '';
-        this.info.order = '';
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
+        for (var monitoringEvent of this.data)
+        {
+            monitoringEvent.timeInMoment = moment(monitoringEvent.timeInMillis).format('HH:mm');
+        }
     }
 
     loadPage() {
         var keyword = this.info.keyword;
-        this.info.order = '';
         this.service.search(this.info)
             .then(result => {
                 this.data = result.data;

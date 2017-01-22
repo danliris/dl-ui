@@ -2,6 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
+var moment = require('moment');
 
 @inject(Router, Service)
 export class View {
@@ -24,9 +25,8 @@ export class View {
     }
 
     delete() {
-        this.service.delete(this.data)
-            .then(result => {
+        this.service.delete(this.data).then(result => {
                 this.list();
-            });
+        });
     }
 }
