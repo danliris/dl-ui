@@ -37,6 +37,10 @@ export function configure(config) {
         './customs/auto-suggests/uom-auto-suggest',
         './customs/auto-suggests/uster-auto-suggest',
         './customs/auto-suggests/vat-auto-suggest',
+        './customs/auto-suggests/color-auto-suggest-by-production-order',
+        './customs/auto-suggests/instruction-auto-suggest-by-filter',
+        './customs/auto-suggests/production-order-auto-suggest',
+        './customs/auto-suggests/step-auto-suggest-by-filter',
 
         './customs/collections/account/role-item-collection',
         './customs/collections/role/role-permission-item-collection',

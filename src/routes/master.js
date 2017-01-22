@@ -128,4 +128,30 @@ module.exports = [
             permission: {"C9":1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'dailys',
+        name: 'dailys',
+        moduleId: './modules/production/finishing-printing/daily-operation/index',
+        nav: true,
+        title: 'Daily Operation',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: {"C9":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'daily-operation-reports',
+        name: 'report-dailys',
+        moduleId: './modules/production/finishing-printing/reports/daily-operation-report/index',
+        nav: true,
+        title: 'Report Daily Operation',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: {"C9":1},
+            iconClass: 'fa fa-dashboard'
+        }
     }]
