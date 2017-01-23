@@ -61,7 +61,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            roles: ["production"],
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -74,7 +74,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            roles: ["production"],
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     }]
