@@ -10,51 +10,43 @@ export class Service extends RestService {
         super(http, aggregator, config, "production");
     }
 
-    getReport(sdate, edate, machine, shift) {
+    getReport(sdate, edate, machine) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
-            if (query == '') query = `dateFrom=${sdate}`;
+            if (query === '') query = `dateFrom=${sdate}`;
             else query = `${query}&dateFrom=${sdate}`;
         }
         if (edate) {
-            if (query == '') query = `dateTo=${edate}`;
+            if (query === '') query = `dateTo=${edate}`;
             else query = `${query}&dateTo=${edate}`;
         }
         if (machine) {
-            if (query == '') query = `machine=${machine._id}`;
+            if (query === '') query = `machine=${machine._id}`;
             else query = `${query}&machine=${machine._id}`;
         }
-        if (shift) {
-            if (query == '') query = `shift=${shift}`;
-            else query = `${query}&shift=${shift}`;
-        }
-        if (query != '')
+        if (query !== '')
             endpoint = `${serviceUri}?${query}`;
 
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate, machine, shift) {
+    generateExcel(sdate, edate, machine) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
-            if (query == '') query = `dateFrom=${sdate}`;
+            if (query === '') query = `dateFrom=${sdate}`;
             else query = `${query}&dateFrom=${sdate}`;
         }
         if (edate) {
-            if (query == '') query = `dateTo=${edate}`;
+            if (query === '') query = `dateTo=${edate}`;
             else query = `${query}&dateTo=${edate}`;
         }
         if (machine) {
-            if (query == '') query = `machine=${machine._id}`;
+            if (query === '') query = `machine=${machine._id}`;
             else query = `${query}&machine=${machine._id}`;
         }
-        if (shift) {
-            if (query == '') query = `shift=${shift}`;
-            else query = `${query}&shift=${shift}`;
-        }
-        if (query != '')
+        if (query !== '')
             endpoint = `${serviceUri}?${query}`;
 
         return super.getXls(endpoint);
