@@ -1,6 +1,6 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FinishingPrintingMaterialAutoSuggestReactByOrderType from './react/sales-material-auto-suggest-react-by-order-type.jsx';
+import SalesMaterialAutoSuggestReactByOrderType from './react/sales-material-auto-suggest-react-by-order-type.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
