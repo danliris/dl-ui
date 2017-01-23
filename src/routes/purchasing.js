@@ -53,6 +53,19 @@ module.exports = [
         }
     },
     {
+        route: 'po/monitoring/all',
+        name: 'purchase-order-monitoring',
+        moduleId: './modules/purchasing/monitoring-purchase-order-all-user/index',
+        nav: true,
+        title: 'Monitoring Purchase',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: {"C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po/monitoring',
         name: 'purchase-order-monitoring',
         moduleId: './modules/purchasing/monitoring-purchase-order/index',
@@ -61,7 +74,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C9": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -230,7 +243,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "CG" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     }]
