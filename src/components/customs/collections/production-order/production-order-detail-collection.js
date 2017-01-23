@@ -14,6 +14,7 @@ export class ProductionOrderCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) printing;
 
     reactComponent = {};
     constructor(element) {
@@ -30,7 +31,8 @@ export class ProductionOrderCollection {
             colorRequest: '',
             colorTemplate: '',
             quantity: 0,
-            description: ''
+            description: '',
+            printing:false
         });
         this.bind();
     }
@@ -48,6 +50,11 @@ export class ProductionOrderCollection {
             this.options.filter = this.filter;
         else
             this.options.filter = null;
+
+        if (this.printing)
+            this.options.printing = true;
+        else
+            this.options.printing = false;
 
         this.reactComponent = ReactDOM.render(
             <ProductionOrderDetailCollectionReact value={this.value} error={this.error} options={this.options}></ProductionOrderDetailCollectionReact>,
@@ -84,6 +91,9 @@ export class ProductionOrderCollection {
         this.bind();
     }
     filterChanged(newFilter) {
+        this.bind();
+    }
+    printingChanged(newFilter) {
         this.bind();
     }
 }

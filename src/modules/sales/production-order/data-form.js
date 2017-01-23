@@ -49,11 +49,21 @@ export class DataForm {
         };
         return this.filterProduct;
     }
+    get isPrinting(){
+        this.printing=false;
+        if(this.data.orderType){
+            if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
+                this.printing=true;
+            }
+        }
+        return this.printing;
+    }
 
     orderChanged(e){
         var selectedOrder=e.detail || {};
         if(selectedOrder){
             this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
+            var code= selectedOrder.code;
             if (!this.readOnly) {
                 this.data.processType={};
                 this.processChanged({});
@@ -63,10 +73,11 @@ export class DataForm {
                 this.constructionChanged({});
                 this.data.details = [];
             }
-            if(this.data.orderType){
+            if(this.data.orderType && code){
                 this.filterOrder={
-                    "orderType.code": this.data.orderType.code
+                    "orderType.code": code
                 };
+                
                 this.filterOrderId={
                     orderTypeId: this.data.orderTypeId
                 };
@@ -118,14 +129,21 @@ export class DataForm {
         var selectedConstruction= e.detail || {};
         if(selectedConstruction){
             this.data.constructionId=selectedConstruction._id ? selectedConstruction._id : "";
-             if(this.data.processType && this.data.material && this.data.constructionId){
+             if(this.data.orderType && this.data.material && this.data.constructionId){
                  this.filter={
                     orderTypeId : this.data.orderType._id,
                     materialId : this.data.materialId,
                     construction : this.data.constructionId
                  }
-                 if (!this.readOnly)
+                 if (!this.readOnly){
                     this.data.details = [];
+                }
+                if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
+                    this.printing=true;
+                }
+                else{
+                    this.printing=false;
+                }
              }
          }
          else{
