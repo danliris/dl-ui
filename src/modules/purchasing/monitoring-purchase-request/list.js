@@ -14,9 +14,6 @@ export class List {
             "name": "Dibatalkan",
             "value": 0
         }, {
-            "name": "Purchase request dibuat",
-            "value": 1
-        }, {
             "name": "Belum diterima Pembelian",
             "value": 2
         }, {

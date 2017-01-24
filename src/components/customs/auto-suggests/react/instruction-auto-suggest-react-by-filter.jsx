@@ -3,30 +3,30 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'finishing-printing/data-production-orders';
+const resource = 'master/instructions';
 
 const empty = {
-    orderNo: ''
+    name: ''
 }
 
 'use strict';
 
-export default class ProductionOrderAutoSuggestReact extends AutoSuggestReact {
+export default class InstructionAutoSuggestReactByFilter extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, ProductionOrderAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, InstructionAutoSuggestReactByFilter.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.orderNo}`;
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-ProductionOrderAutoSuggestReact.propTypes = {
+InstructionAutoSuggestReactByFilter.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,21 +36,22 @@ ProductionOrderAutoSuggestReact.propTypes = {
     })
 };
 
-ProductionOrderAutoSuggestReact.defaultProps = {
+InstructionAutoSuggestReactByFilter.defaultProps = {
     options: {
         readOnly: false,
-        suggestions: function (keyword, filter) {
+        suggestions:
+        function (text, filter) {
 
             var config = Container.instance.get(Config);
-            var endpoint = config.getEndpoint("production");
+            var endpoint = config.getEndpoint("core");
 
-            return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.data.map(order => {
-                        order.toString = function () {
-                            return `${this.orderNo}`;
+                    return results.data.map(instruction => {
+                        instruction.toString = function () {
+                            return `${this.name}`;
                         }
-                        return order;
+                        return instruction;
                     });
                 });
         }

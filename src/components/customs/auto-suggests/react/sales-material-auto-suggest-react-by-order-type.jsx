@@ -3,30 +3,33 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'finishing-printing/data-production-orders';
+const resource = 'sales/material-by-order-types';
 
 const empty = {
-    orderNo: ''
+    _id: {
+        name: ''
+    },
 }
+
 
 'use strict';
 
-export default class ProductionOrderAutoSuggestReact extends AutoSuggestReact {
+export default class SalesMaterialAutoSuggestReactByOrderType extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, ProductionOrderAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, SalesMaterialAutoSuggestReactByOrderType.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.orderNo}`;
+            return `${this._id.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-ProductionOrderAutoSuggestReact.propTypes = {
+SalesMaterialAutoSuggestReactByOrderType.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,21 +39,21 @@ ProductionOrderAutoSuggestReact.propTypes = {
     })
 };
 
-ProductionOrderAutoSuggestReact.defaultProps = {
+SalesMaterialAutoSuggestReactByOrderType.defaultProps = {
     options: {
         readOnly: false,
-        suggestions: function (keyword, filter) {
+        suggestions: function (text, filter) {
 
             var config = Container.instance.get(Config);
             var endpoint = config.getEndpoint("production");
 
-            return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.data.map(order => {
-                        order.toString = function () {
-                            return `${this.orderNo}`;
+                    return results.info.map(material => {
+                        material.toString = function () {
+                            return `${this._id.name}`;
                         }
-                        return order;
+                        return material;
                     });
                 });
         }

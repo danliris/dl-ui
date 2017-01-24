@@ -66,9 +66,14 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
         var addButton = <button className="btn btn-success" onClick={this.handleItemAdd}>+</button>;
         var sumQty=0;
         var uom="";
+        var error="";
         for(var x=0;x<this.state.value.length;x++){
             sumQty+=this.state.value[x].quantity;
             uom=this.state.value[x].uom;
+            if(this.state.error[x]!=undefined)
+            {
+                error=this.state.error[x].total;
+            }
         }
         var style = {
             margin: 0 + 'px'
@@ -79,9 +84,11 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="25%">Warna yang Diminta</th>
                         <th width="25%">Acuan Warna/Desain</th>
-                        <th width="30%">Jenis Warna</th>
+                        <th width="25%">Warna yang Diminta</th>
+                        { this.state.options.printing ?
+                            <th width="30%" className="hidden">Jenis Warna</th>: <th width="30%">Jenis Warna</th>
+                        }
                         <th width="14%">Jumlah</th>
                         <th width="6%">Satuan</th>
                         {this.state.options.readOnly ?
@@ -98,12 +105,19 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
                 </tbody>
                 <tfoot>
                     <tr>
+                    
+                        { this.state.options.printing ?
+                        <th colSpan="2">
+                            <div className="form-group" style={style}>Total</div>
+                        </th> :
                         <th colSpan="3">
                             <div className="form-group" style={style}>Total</div>
                         </th>
+                        }
                         <td>
-                            <div className="form-group" style={style}>
+                            <div className={`form-group ${error ? 'has-error' : ''}`} style={style}>
                                 <NumericReact value={sumQty} options={readOnlyOptions} onChange={this.handleItemChange} />
+                                <span className="help-block">{error}</span>
                             </div>
                         </td>
                         <td>
