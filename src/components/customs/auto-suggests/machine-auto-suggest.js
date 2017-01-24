@@ -1,6 +1,6 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import ProductionOrderAutoSuggestReact from './react/machine-auto-suggest-react.jsx';
+import MachineAutoSuggestReact from './react/machine-auto-suggest-react.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
@@ -17,6 +17,6 @@ export default class MachineAutoSuggest extends BaseAutoSuggest {
 
     constructor(element) {
         super(element);
-        this.control = ProductionOrderAutoSuggestReact;
+        this.control = MachineAutoSuggestReact;
     }
 } 
