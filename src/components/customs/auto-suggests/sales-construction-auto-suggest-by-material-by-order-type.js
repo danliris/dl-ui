@@ -1,6 +1,6 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FinishingPrintingMaterialAutoSuggestReactByOrderType from './react/sales-construction-auto-suggest-react-by-material-by-order-type.jsx';
+import SalesConstructionAutoSuggestReactByMaterialByOrderType from './react/sales-construction-auto-suggest-react-by-material-by-order-type.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
@@ -17,6 +17,6 @@ export default class SalesConstructionAutoSuggestByMaterialByOrderType extends B
 
     constructor(element) {
         super(element);
-        this.control = SalesMaterialAutoSuggestReactByOrderType;
+        this.control = SalesConstructionAutoSuggestReactByMaterialByOrderType;
     }
 } 
