@@ -97,7 +97,7 @@ export class DataForm {
             this.data.construction = selectedProductionOrder.construction ? selectedProductionOrder.construction : "";
             if(this.data.material){
                 this.filterColor = {
-                    "productionOrder.orderNo" : this.data.productionOrder ? this.data.productionOrder.orderNo : ""
+                    "productionOrder.orderNo" : selectedProductionOrder.orderNo
                 };
             }
         }
