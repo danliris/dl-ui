@@ -13,6 +13,7 @@ export function configure(config) {
         './form/basic/password',
         './form/basic/textbox',
         './form/basic/auto-suggest',
+        './form/basic/timepicker',
 
         './customs/auto-suggests/budget-auto-suggest',
         './customs/auto-suggests/buyer-auto-suggest',
@@ -21,10 +22,11 @@ export function configure(config) {
         './customs/auto-suggests/delivery-order-auto-suggest',
         './customs/auto-suggests/delivery-order-auto-suggest-by-supplier',
         './customs/auto-suggests/division-auto-suggest',
-        './customs/auto-suggests/finishing-printing-construction-auto-suggest-by-material-by-order-type',
-        './customs/auto-suggests/finishing-printing-material-auto-suggest-by-order-type',
+        './customs/auto-suggests/sales-construction-auto-suggest-by-material-by-order-type',
+        './customs/auto-suggests/sales-material-auto-suggest-by-order-type',
         './customs/auto-suggests/lamp-standard-auto-suggest',
         './customs/auto-suggests/machine-auto-suggest',
+        './customs/auto-suggests/machine-auto-suggest-by-division',
         './customs/auto-suggests/purchase-order-auto-suggest',
         './customs/auto-suggests/purchase-order-auto-suggest-by-user',
         './customs/auto-suggests/purchase-order-external-auto-suggest',
@@ -39,8 +41,13 @@ export function configure(config) {
         './customs/auto-suggests/uom-auto-suggest',
         './customs/auto-suggests/uster-auto-suggest',
         './customs/auto-suggests/vat-auto-suggest',
+        './customs/auto-suggests/color-auto-suggest-by-production-order',
+        './customs/auto-suggests/instruction-auto-suggest-by-filter',
+        './customs/auto-suggests/production-order-auto-suggest',
+        './customs/auto-suggests/step-auto-suggest-by-filter',
         './customs/auto-suggests/order-type-auto-suggest',
         './customs/auto-suggests/process-type-auto-suggest',
+        './customs/auto-suggests/production-order-auto-suggest',
 
         './customs/collections/account/role-item-collection',
         './customs/collections/role/role-permission-item-collection',
@@ -52,6 +59,7 @@ export function configure(config) {
         './customs/collections/unit-payment-order/unit-payment-order-item-collection',
         './customs/collections/unit-payment-price-correction-note/unit-payment-price-correction-note-collection',
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
-        './customs/collections/unit-receipt-note/unit-receipt-note-item-collection'
+        './customs/collections/unit-receipt-note/unit-receipt-note-item-collection',
+        './customs/collections/monitoring-event/monitoring-event-item-collection'
     );
 }

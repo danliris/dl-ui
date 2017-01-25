@@ -4,12 +4,11 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class View {
+export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
-    orderNo="";
 
     async activate(params) {
         var orderNo = params.no;
@@ -18,7 +17,7 @@ export class View {
         for(var i of dataSales.productionOrders){
             if(i.orderNo==orderNo)
             {
-                i._id=id;
+                i.dataId=id;
                 this.data=i;
                 this.data.material={
                     _id:i.material
@@ -28,10 +27,12 @@ export class View {
                 };
                 var x=0;
                 for(var j of this.data.details){
-                    this.data.details[x].colorType={
-                        colorType:j.colorType
-                    };
-                    x++;
+                    if(this.data.details[x].colorType!=null){
+                        this.data.details[x].colorType={
+                            colorType:j.colorType
+                        };
+                        x++;
+                    }
                 }
                 break;
             }
@@ -39,18 +40,17 @@ export class View {
         }
     }
 
-    list() {
-        this.router.navigateToRoute('list');
+    view(data,no) {
+        this.router.navigateToRoute('view', { id: this.data.dataId, no: `${this.data.orderNo}` });
     }
 
-    edit(data, no) {
-        this.router.navigateToRoute('edit', { id: this.data._id , no: `${data.orderNo}`});
+    save() {
+        this.service.update(this.data,this.data.dataId).then(result => {
+            this.view();
+        }).catch(e => {
+            this.error = e;
+        })
     }
 
-    delete() {
-        this.service.delete(this.data)
-            .then(result => {
-                this.list();
-            });
-    }
+    
 }

@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            roles: ["production"],
+            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -22,7 +22,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            roles: ["production"],
+            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -35,7 +35,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            roles: ["production"],
+            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -48,20 +48,46 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            roles: ["production"],
+            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
     {
-        route: 'production/finishing-printing/production-order',
-        name: 'production-order',
-        moduleId: './modules/production/finishing-printing/production-order/index',
+        route: 'production/finishing-printing/daily-operation',
+        name: 'dailys',
+        moduleId: './modules/production/finishing-printing/daily-operation/index',
         nav: true,
-        title: 'Production Order',
+        title: 'Daily Operation',
         auth: true,
         settings: {
             group: "production",
-            roles: ["production"],
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/monitoring-event',
+        name: 'monitoring-event',
+        moduleId: './modules/production/finishing-printing/monitoring-event/index',
+        nav: true,
+        title: 'Monitoring Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission : {"*": 0},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/reports/daily-operation-report',
+        name: 'report-dailys',
+        moduleId: './modules/production/finishing-printing/reports/daily-operation-report/index',
+        nav: true,
+        title: 'Report Daily Operation',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     }]

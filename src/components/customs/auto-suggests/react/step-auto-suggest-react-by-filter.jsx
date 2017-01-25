@@ -3,33 +3,30 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'finishing-printing/material-by-order-types';
+const resource = 'master/steps';
 
 const empty = {
-    _id: {
-        name: ''
-    },
+    process: ''
 }
-
 
 'use strict';
 
-export default class FinishingPrintingMaterialAutoSuggestReactByOrderType extends AutoSuggestReact {
+export default class StepAutoSuggestReactByFilter extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, FinishingPrintingMaterialAutoSuggestReactByOrderType.defaultProps.options, props.options);
+        var options = Object.assign({}, StepAutoSuggestReactByFilter.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this._id.name}`;
+            return `${this.process}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-FinishingPrintingMaterialAutoSuggestReactByOrderType.propTypes = {
+StepAutoSuggestReactByFilter.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -39,21 +36,22 @@ FinishingPrintingMaterialAutoSuggestReactByOrderType.propTypes = {
     })
 };
 
-FinishingPrintingMaterialAutoSuggestReactByOrderType.defaultProps = {
+StepAutoSuggestReactByFilter.defaultProps = {
     options: {
         readOnly: false,
-        suggestions: function (text, filter) {
+        suggestions:
+        function (text, filter) {
 
             var config = Container.instance.get(Config);
-            var endpoint = config.getEndpoint("production");
+            var endpoint = config.getEndpoint("core");
 
             return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.info.map(material => {
-                        material.toString = function () {
-                            return `${this._id.name}`;
+                    return results.data.map(step => {
+                        step.toString = function () {
+                            return `${this.process}`;
                         }
-                        return material;
+                        return step;
                     });
                 });
         }
