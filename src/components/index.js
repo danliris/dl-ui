@@ -48,6 +48,7 @@ export function configure(config) {
         './customs/auto-suggests/order-type-auto-suggest',
         './customs/auto-suggests/process-type-auto-suggest',
         './customs/auto-suggests/production-order-auto-suggest',
+        './customs/auto-suggests/monitoring-event-type-auto-suggest',
 
         './customs/collections/account/role-item-collection',
         './customs/collections/role/role-permission-item-collection',
