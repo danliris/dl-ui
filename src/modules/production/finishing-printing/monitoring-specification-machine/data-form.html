@@ -1,0 +1,15 @@
+<template>
+    <form class="form-horizontal">
+
+        <fieldset>
+        <datepicker             label="Date"             value.bind="data.date"                  error.bind="error.date"                     read-only.bind="readOnly"></datepicker>
+        <timepicker             label="Time"             value.bind="data.time"                  error.bind="error.time"                     read-only.bind="readOnly"></timepicker>
+        
+        </fieldset>
+        <hr />
+        <multiline label="Description" value.bind="data.description" error.bind="error.remark" read-only.bind="readOnly"></multiline>
+        <hr />
+        <machine-type-indicator-collection value.bind="data.indicators" error.bind="error.indicators" read-only.bind="readOnly"></machine-type-indicator-collection>
+
+    </form>
+</template>

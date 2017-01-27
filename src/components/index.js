@@ -56,6 +56,7 @@ export function configure(config) {
         './customs/collections/unit-payment-order/unit-payment-order-item-collection',
         './customs/collections/unit-payment-price-correction-note/unit-payment-price-correction-note-collection',
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
-        './customs/collections/unit-receipt-note/unit-receipt-note-item-collection'
+        './customs/collections/unit-receipt-note/unit-receipt-note-item-collection',
+        './customs/collections/machine-type/machine-type-indicator-collection'
     );
 }
