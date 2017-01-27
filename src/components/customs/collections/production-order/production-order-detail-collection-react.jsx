@@ -84,8 +84,8 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="25%">Warna yang Diminta</th>
                         <th width="25%">Acuan Warna/Desain</th>
+                        <th width="25%">Warna yang Diminta</th>
                         { this.state.options.printing ?
                             <th width="30%" className="hidden">Jenis Warna</th>: <th width="30%">Jenis Warna</th>
                         }
