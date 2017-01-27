@@ -1,5 +1,6 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
 var moment = require('moment');
+var momentToMillis = require('../../../../utils/moment-to-millis')
 
 @inject(BindingEngine, Element)
 export class DataForm {
@@ -8,7 +9,8 @@ export class DataForm {
     @bindable error = {};
     @bindable divisionFilter = 'FINISHING & PRINTING'
     @bindable showSecond = false;
-    @bindable timeInMoment = {};
+    @bindable timeInMomentStart = {};
+    @bindable timeInMomentEnd = {};
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -17,9 +19,12 @@ export class DataForm {
 
     bind()
     {
-        this.timeInMoment = moment(this.data.timeInMillis);
-        var tempTime = moment.utc(this.timeInMoment);
-        this.data.timeInMillis = ((moment(tempTime).hour() * 3600) + (moment(tempTime).minute() * 60)) * 1000
+        this.timeInMomentStart = this.data ? moment(this.data.timeInMillisStart) : this.timeInMomentStart;
+        this.timeInMomentEnd = this.data ? moment(this.data.timeInMillisEnd) : this.timeInMomentEnd;
+        var tempTimeStart = moment.utc(this.timeInMomentStart);
+        var tempTimeEnd = moment.utc(this.timeInMomentEnd);
+        this.data.timeInMillisStart = momentToMillis(tempTimeStart);
+        this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
     }
 
     machineChanged(e) 
@@ -28,10 +33,17 @@ export class DataForm {
         this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
     }
 
-    timeChanged(e)
+    timeStartChanged(e)
     {
-        var tempTime = e.detail || {};
-        tempTime = moment.utc(tempTime);
-        this.data.timeInMillis = ((moment(tempTime).hour() * 3600) + (moment(tempTime).minute() * 60)) * 1000
+        var tempTimeStart = e.detail || {};
+        tempTimeStart = moment.utc(tempTimeStart);
+        this.data.timeInMillisStart = momentToMillis(tempTimeStart);
+    }
+
+    timeEndChanged(e)
+    {
+        var tempTimeEnd = e.detail || {};
+        tempTimeEnd = moment.utc(tempTimeEnd);
+        this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
     }
 }

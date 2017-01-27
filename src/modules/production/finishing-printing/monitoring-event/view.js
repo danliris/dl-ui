@@ -16,7 +16,7 @@ export class View {
         this.data = await this.service.getById(id);
     }
 
-    list() {
+    back() {
         this.router.navigateToRoute('list');
     }
 
@@ -26,7 +26,7 @@ export class View {
 
     delete() {
         this.service.delete(this.data).then(result => {
-                this.list();
+                this.back();
         });
     }
 }
