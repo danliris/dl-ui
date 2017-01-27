@@ -74,7 +74,10 @@ export default class DeliveryOrderItemFulfillmentReact extends React.Component {
         return (
             <tr >
                 <td>
-                    <PurchaseRequestAutoSuggestReactPosted value={this.state.value.purchaseOrder.purchaseRequest} options={readOnlyOptions} />
+                <div className={`form-group ${this.state.error.purchaseOrder ? 'has-error' : ''} `} style={style}>
+                        <PurchaseRequestAutoSuggestReactPosted value={this.state.value.purchaseOrder.purchaseRequest} options={readOnlyOptions} />
+                        <span className="help-block">{this.state.error.purchaseOrder}</span>
+                    </div>
                 </td>
                 <td>
                     <ProductAutoSuggestReact value={this.state.value.product} options={readOnlyOptions} />
