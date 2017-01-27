@@ -21,17 +21,6 @@ export class List {
     activate() {
     }
 
-    // divisionChanged(e) {
-    //     // console.log('division changed')
-    //     var division = e.detail || {};
-    //     console.log(this.divisi)
-    //     if (this.divisi) {
-    //         this.filter = {
-    //             "division.name": this.divisi.name
-    //         }
-    //     }
-    // }
-
     @computedFrom('divisi')
     get unitFilter() {
         if (this.divisi)

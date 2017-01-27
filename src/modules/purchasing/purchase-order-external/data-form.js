@@ -55,7 +55,6 @@ export class DataForm {
         var selectedCurrency = e.detail;
         if (selectedCurrency) {
             var currencyRate = parseInt(selectedCurrency.rate ? selectedCurrency.rate : 1, 10);
-            console.log(currencyRate);
             this.data.currencyRate = currencyRate;
         }
         else

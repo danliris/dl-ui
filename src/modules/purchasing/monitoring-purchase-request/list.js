@@ -71,9 +71,8 @@ export class List {
                         var status = pr.status ? pr.status.label : "-";
 
                         if (pr.status.value === 4 || pr.status.value === 9) {
-                            status = `${status} (${item.deliveryOrderNos.join(", ")})`;
+                            status = item.deliveryOrderNos.length > 0 ? `${status} (${item.deliveryOrderNos.join(", ")})` : status;
                         }
-                        console.log(pr.no);
 
                         _data.no = counter;
                         _data.prDate = moment(new Date(pr.date)).format(dateFormat);
