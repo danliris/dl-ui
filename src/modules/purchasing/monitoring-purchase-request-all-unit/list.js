@@ -18,13 +18,13 @@ export class List {
             "value": 2
         }, {
             "name": "Sudah diterima Pembelian",
-            "value": 7
-        }, {
-            "name": "Sudah diorder ke Supplier",
             "value": 3
         }, {
-            "name": "Barang sudah datang",
+            "name": "Sudah diorder ke Supplier",
             "value": 4
+        }, {
+            "name": "Barang sudah datang",
+            "value": 5
         }, {
             "name": "Complete",
             "value": 9
