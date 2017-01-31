@@ -26,6 +26,8 @@
                 <th>Time End</th>
                 <th>Machine</th>
                 <th>Production Order Number</th>
+                <th>Color</th>
+                <th>Cart Number</th>
                 <th>Event Type</th>
                 <th>Remark</th>
                 <th></th>
@@ -39,6 +41,8 @@
                 <td style="text-align:center">${monitoringEvent.timeInMomentEnd}</td>
                 <td>${monitoringEvent.machine.name}</td>
                 <td>${monitoringEvent.productionOrder.orderNo}</td>
+                <td>${monitoringEvent.selectedProductionOrderDetail.colorType.name}</td>
+                <td>${monitoringEvent.cartNumber}</td>
                 <td>${monitoringEvent.monitoringEventType.name}</td>
                 <td>${monitoringEvent.remark}</td>
                 <td><button class="btn btn-default" click.delegate="view(monitoringEvent)">Rincian</button></td>
