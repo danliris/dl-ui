@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
+            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -22,7 +22,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
+            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -35,7 +35,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
+            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -48,7 +48,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
+            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -61,7 +61,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "*": 0 },
+            permission: {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -74,7 +74,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"*": 0},
+            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -87,7 +87,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "*": 0 },
+            permission: {},
             iconClass: 'fa fa-dashboard'
         }
     }]
