@@ -56,13 +56,14 @@
 
             <textbox label="Cart Number" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
 
-            <monitoring-event-type-auto-suggest 
-                label="Monitoring Event Type" 
-                value.bind="data.monitoringEventType"
-                error.bind="error.monitoringEventType" 
+            <machine-event-auto-suggest
+                label="Machine Event" 
+                value.bind="data.machineEvent"
+                error.bind="error.machineEvent" 
                 read-only.bind="(readOnly)"
-                change.delegate=monitoringEventTypeChanged($event)>
-            </monitoring-event-type-auto-suggest>
+                filter.bind="machineCodeFilter"
+                if.bind="hasMachine"> 
+            </machine-event-auto-suggest>
 
             <multiline label="Remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly)"></multiline>
 

@@ -28,7 +28,7 @@
                 <th>Production Order Number</th>
                 <th>Color</th>
                 <th>Cart Number</th>
-                <th>Event Type</th>
+                <th>Machine Event</th>
                 <th>Remark</th>
                 <th></th>
             </tr>
@@ -43,7 +43,7 @@
                 <td>${monitoringEvent.productionOrder.orderNo}</td>
                 <td>${monitoringEvent.selectedProductionOrderDetail.colorType.name}</td>
                 <td>${monitoringEvent.cartNumber}</td>
-                <td>${monitoringEvent.monitoringEventType.name}</td>
+                <td>${monitoringEvent.machineEvent.name}</td>
                 <td>${monitoringEvent.remark}</td>
                 <td><button class="btn btn-default" click.delegate="view(monitoringEvent)">Rincian</button></td>
             </tr>

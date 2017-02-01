@@ -9,6 +9,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable divisionFilter = 'FINISHING & PRINTING'
+    @bindable machineCodeFilter = ''; 
     @bindable timePickerShowSecond = false;
     @bindable timePickerFormat = "HH:mm";
     @bindable timeInMomentStart = {};
@@ -38,8 +39,11 @@ export class DataForm {
 
     machineChanged(e) 
     {
+        this.data.machineEvent = {};
+
         var selectedMachine = e.detail || {};
         this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
+        this.machineCodeFilter = selectedMachine.code;
     }
 
     timeStartChanged(e)
@@ -56,15 +60,12 @@ export class DataForm {
         this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
     }
 
-    monitoringEventTypeChanged(e)
-    {
-        var selectedMonitoringEventType = e.detail || {};
-        this.data.monitoringEventTypeId = selectedMonitoringEventType._id ? selectedMonitoringEventType._id : "";
-    }
-
     async productionOrderChanged(e)
     {
         this.productionOrderDetails = [];
+        this.data.selectedProductionOrderDetail = {};
+        this.data.selectedProductionOrderDetail.colorType = {};
+        this.data.selectedProductionOrderDetail.colorType.name = '';
 
         var productionOrder = e.detail;
         if (productionOrder){
@@ -77,6 +78,10 @@ export class DataForm {
         return this.productionOrderDetails.length > 0;
     }
     
+    get hasMachine(){
+        return this.data && this.data.machineId && this.data.machineId !== '';
+    }
+
     _mapProductionOrderDetail()
     {
         this.productionOrderDetails.map(detail => {

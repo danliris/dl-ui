@@ -1,12 +1,12 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import MonitoringEventTypeAutoSuggestReact from './react/monitoring-event-type-auto-suggest-react.jsx';
+import MachineEventAutoSuggestReact from './react/machine-event-auto-suggest-react.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
 @inject(Element)
-@customElement('monitoring-event-type-auto-suggest')
-export default class MonitoringEventTypeAutoSuggest extends BaseAutoSuggest {
+@customElement('machine-event-auto-suggest')
+export default class MachineEventAutoSuggest extends BaseAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -17,6 +17,6 @@ export default class MonitoringEventTypeAutoSuggest extends BaseAutoSuggest {
 
     constructor(element) {
         super(element);
-        this.control = MonitoringEventTypeAutoSuggestReact;
+        this.control = MachineEventAutoSuggestReact;
     }
-} 
+}  
