@@ -6,8 +6,8 @@
         <hr/>
         <div class="btn-group pull-right">
             <a click.delegate="list()" class='btn btn-default'>Kembali</a>
-            <a click.delegate="edit()" class="btn btn-primary" if.bind="!data.isPosted">Ubah</a>
-            <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isPosted">Hapus</a>
+            <a click.delegate="edit()" class="btn btn-primary" if.bind="!data.isClosed">Ubah</a>
+            <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isClosed">Hapus</a>
         </div>
     </block>
 </template>

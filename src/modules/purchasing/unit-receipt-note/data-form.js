@@ -76,10 +76,12 @@ export class DataForm {
                         _item.currency = fulfillment.purchaseOrder.currency;
                         _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
 
-                        var total = 0;
-                        for (var qty of fulfillment.realizationQuantity) {
-                            total += qty.deliveredQuantity;
-                        }
+                        var total = fulfillment.realizationQuantity
+                            .map(qty => qty.deliveredQuantity)
+                            .reduce((prev, curr, index) => {
+                                return prev + curr;
+                            }, 0);
+                            
                         _item.deliveredQuantity = fulfillment.deliveredQuantity - total;
 
                         for (var _poItem of fulfillment.purchaseOrder.items) {
