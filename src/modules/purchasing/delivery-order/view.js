@@ -9,10 +9,24 @@ export class View {
         this.router = router;
         this.service = service;
     }
+    isReceived = false;
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        this.isReceived = this.data.items
+            .map((item) => {
+                var _isReceived = item.fulfillments
+                    .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
+                    .reduce((prev, curr, index) => {
+                        return prev || curr
+                    }, false);
+                return _isReceived
+            })
+            .reduce((prev, curr, index) => {
+                return prev || curr
+            }, false);
     }
 
     list() {
