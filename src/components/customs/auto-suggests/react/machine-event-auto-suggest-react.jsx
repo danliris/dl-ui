@@ -3,25 +3,28 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const resource = 'master/monitoring-event-types';
+const resource = 'master/machine-events';
 
 const empty = {
-    code: '',
+    no: '',
     name: '',
+    toString: function () {
+        return '';
+    }
 }
 
 'use strict';
 
-export default class MonitoringEventTypeAutoSuggestReact extends AutoSuggestReact {
+export default class MachineEventAutoSuggestReact extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, MonitoringEventTypeAutoSuggestReact.defaultProps.options, props.options);
+        var options = Object.assign({}, MachineEventAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
+            return [this.no, this.name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -30,7 +33,8 @@ export default class MonitoringEventTypeAutoSuggestReact extends AutoSuggestReac
     }
 }
 
-MonitoringEventTypeAutoSuggestReact.propTypes = {
+
+MachineEventAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -40,24 +44,23 @@ MonitoringEventTypeAutoSuggestReact.propTypes = {
     })
 };
 
-MonitoringEventTypeAutoSuggestReact.defaultProps = {
+MachineEventAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:
-        function (keyword, filter) {
+        function (keyword, machineCodeFilter) {
             var config = Container.instance.get(Config);
             var endpoint = config.getEndpoint("core");
-            
-            return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+            return endpoint.find(resource, { keyword: keyword, machineCode: machineCodeFilter })
                 .then(results => {
-                    return results.data.map(monitoringEventType => {
-                        monitoringEventType.toString = function () {
-                            return [this.code, this.name]
+                    return results.data.map(machineEvent => {
+                        machineEvent.toString = function () {
+                            return [this.no, this.name]
                                 .filter((item, index) => {
                                     return item && item.toString().trim().length > 0;
                                 }).join(" - ");
                         }
-                        return monitoringEventType;
+                        return machineEvent;
                     })
                 })
         }
