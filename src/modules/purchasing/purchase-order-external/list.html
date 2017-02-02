@@ -75,7 +75,7 @@
                         <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td style="text-align:center">
                             <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
-                            <button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted'>Cetak Pdf</button></td>
+                            <button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted && item.status.value !== 0 '>Cetak Pdf</button></td>
                     </tr>
                 </tbody>
             </table>
