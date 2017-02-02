@@ -17,6 +17,15 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
+    @computedFrom("data.supplier")
+    get filter() {
+        var filter = {
+            unitId: this.data.unitId,
+            supplierId: this.data.supplier._id
+        }
+        return filter;
+    }
+
     bind() {
         if (this.data && this.data.supplier)
             this.data.supplier.toString = function () {
@@ -33,11 +42,6 @@ export class DataForm {
                 this.data.deliveryOrder = {};
                 this.deliveryOrderChanged({});
             }
-            if (this.data.unitId && this.data.supplierId)
-                this.filter = {
-                    unitId: this.data.unitId,
-                    supplierId: this.data.supplierId
-                };
         }
     }
 
@@ -50,11 +54,6 @@ export class DataForm {
                 this.data.deliveryOrder = {};
                 this.deliveryOrderChanged({});
             }
-            if (this.data.unitId && this.data.supplierId)
-                this.filter = {
-                    unitId: this.data.unitId,
-                    supplierId: this.data.supplierId
-                };
         }
     }
 
