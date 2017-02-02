@@ -10,7 +10,7 @@
             <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isPosted">Hapus</a>
             <a click.delegate="cancel()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !isArriving && !data.isClosed">Cancel</a>
             <a click.delegate="unpost()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !isArriving && !data.isClosed">Unpost</a>
-            <a click.delegate="close()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !data.isClosed">Close</a>
+            <a click.delegate="close()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && isArriving && !data.isClosed">Close</a>
         </div>
     </block>
 </template>
