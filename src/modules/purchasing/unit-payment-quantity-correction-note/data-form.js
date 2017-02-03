@@ -50,23 +50,27 @@ export class DataForm {
 
                         if (unitReceiptNoteItem.correction) {
                             if (unitReceiptNoteItem.correction.length > 0) {
-                                var _qty = 0;
-                                var _hasQtyCorrection = false;
-                                for (var correction of unitReceiptNoteItem.correction) {
-                                    if (correction.correctionRemark === "Koreksi Jumlah") {
-                                        _qty += correction.correctionQuantity;
-                                        _hasQtyCorrection = true;
-                                    }
-                                }
-                                if (!_hasQtyCorrection) {
-                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-                                } else {
-                                    unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                                    unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                    unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
-                                }
+                                // var _qty = 0;
+                                // var _hasQtyCorrection = false;
+                                // for (var correction of unitReceiptNoteItem.correction) {
+                                //     if (correction.correctionRemark === "Koreksi Jumlah") {
+                                //         _qty += correction.correctionQuantity;
+                                //         _hasQtyCorrection = true;
+                                //     }
+                                // }
+                                // if (!_hasQtyCorrection) {
+                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
+                                // } else {
+                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
+                                // }
+                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                                unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
+                                unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
+
                             } else {
                                 unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
                                 unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.pricePerDealUnit;

@@ -20,7 +20,7 @@ export class DataForm {
     @computedFrom("data.supplier")
     get filter() {
         var filter = {
-            supplierId: this.data.supplierId
+            supplierId: this.data.supplier._id
         }
         return filter;
     }
