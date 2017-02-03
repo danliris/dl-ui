@@ -90,4 +90,17 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+        {
+        route: 'production/finishing-printing/reports/monitoring-event-report',
+        name: 'report-monitoring-events',
+        moduleId: './modules/production/finishing-printing/reports/monitoring-event-report/index',
+        nav: true,
+        title: 'Report Monitoring Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }]
