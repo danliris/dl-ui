@@ -6,6 +6,8 @@ var moment = require('moment');
 
 @inject(Router, Service)
 export class Edit {
+    selectedProductionOrderDetail = {};
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -16,11 +18,22 @@ export class Edit {
         this.data = await this.service.getById(id);
     }
 
+    bind()
+    {
+        if (this.data.selectedProductionOrderDetail.colorType && this.data.selectedProductionOrderDetail.colorType.name){
+            this.selectedProductionOrderDetail = this.data.selectedProductionOrderDetail;
+            this.data.selectedProductionOrderDetail = this.data.selectedProductionOrderDetail.colorType.name;
+        }
+    }
+    
     view() {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
     save() {
+        if (!(this.data.selectedProductionOrderDetail instanceof Object))
+            this.data.selectedProductionOrderDetail = this.selectedProductionOrderDetail;
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {

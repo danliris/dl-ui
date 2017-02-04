@@ -1,12 +1,72 @@
 <template>
     <form class="form-horizontal">
         <fieldset>
-            <datepicker                       label="Tanggal"                 value.bind="data.date"            error.bind="error.date"            read-only.bind="readOnly"></datepicker>
-            <timepicker                       label="Jam"                     value.bind="timeInMoment"         error.bind="error.timeInMillis"    disabled.bind="(readOnly)" showsecond.bind="showSecond" change.delegate=timeChanged($event)></timepicker>
-            <machine-auto-suggest-by-division label="Machine"                 value.bind="data.machine"         error.bind="error.machine"         read-only.bind="(readOnly)" filter.bind="divisionFilter" change.delegate="machineChanged($event)"></machine-auto-suggest-by-division>
-            <production-order-auto-suggest    label="Production Order Number" value.bind="data.productionOrder" error.bind="error.productionOrder" read-only.bind="(readOnly)"></production-order-auto-suggest>
+
+            <datepicker label="Date Start" value.bind="data.dateStart" error.bind="error.dateStart" read-only.bind="(readOnly)"></datepicker>
+
+            <timepicker 
+                label="Time Start" 
+                value.bind="timeInMomentStart" 
+                error.bind="error.timeInMillisStart" 
+                disabled.bind="(readOnly)" 
+                showsecond.bind="timePickerShowSecond" 
+                format.bind="timePickerFormat" 
+                change.delegate=timeStartChanged($event)>
+            </timepicker>
+
+            <datepicker label="Date End" value.bind="data.dateEnd" error.bind="error.dateEnd" read-only.bind="(readOnly)"></datepicker>
+
+            <timepicker 
+                label="Time End" 
+                value.bind="timeInMomentEnd" 
+                error.bind="error.timeInMillisEnd" 
+                disabled.bind="(readOnly)" 
+                showsecond.bind="timePickerShowSecond" 
+                format.bind="timePickerFormat" 
+                change.delegate=timeEndChanged($event)>
+            </timepicker>
+
+            <machine-auto-suggest-by-division 
+                label="Machine" 
+                value.bind="data.machine" 
+                error.bind="error.machine" 
+                read-only.bind="(readOnly)" 
+                filter.bind="divisionFilter" 
+                change.delegate="machineChanged($event)">
+            </machine-auto-suggest-by-division>
+
+            <production-order-auto-suggest 
+                label="Production Order Number" 
+                value.bind="data.productionOrder" 
+                error.bind="error.productionOrder" 
+                read-only.bind="(readOnly)" 
+                change.delegate=productionOrderChanged($event)>
+            </production-order-auto-suggest>
+            
+            <dropdown 
+                label="Color" 
+                value.bind="data.selectedProductionOrderDetail" 
+                error.bind="error.selectedProductionOrderDetail" 
+                read-only.bind="readOnly" 
+                items.bind="productionOrderDetails"
+                if.bind="hasProductionOrderDetails && !readOnly">
+            </dropdown>
+
+            <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorType.name" read-only.bind="readOnly" if.bind="readOnly"></textbox>
+
+            <textbox label="Cart Number" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
+
+            <machine-event-auto-suggest
+                label="Machine Event" 
+                value.bind="data.machineEvent"
+                error.bind="error.machineEvent" 
+                read-only.bind="(readOnly)"
+                filter.bind="machineCodeFilter"
+                if.bind="hasMachine"> 
+            </machine-event-auto-suggest>
+
+            <multiline label="Remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly)"></multiline>
+
         </fieldset>
-        <hr />
-        <monitoring-event-item-collection     value.bind="data.items"     error.bind="error.items"    read-only.bind="readOnly" ></monitoring-event-item-collection>
     </form>
 </template>

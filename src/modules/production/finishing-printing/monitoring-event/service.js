@@ -1,8 +1,11 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 
 const serviceUri = 'finishing-printing/monitoring-events';
+const productionOrderServiceUri = 'finishing-printing/data-production-orders';
 
 export class Service extends RestService {
 
@@ -38,6 +41,24 @@ export class Service extends RestService {
   getByCode(code) {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
+  }
+
+  getProductionOrderDetails(orderNo)
+  {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("production");
+
+    return endpoint.find(productionOrderServiceUri, { keyword: orderNo })
+        .then(results => {
+            var productionOrder = results.data[0];
+            var productionOrderDetails = [];
+
+            for(var detail of productionOrder.details){
+                productionOrderDetails.push(detail);
+            }
+
+            return productionOrderDetails;
+        });
   }
 
 }
