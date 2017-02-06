@@ -39,7 +39,7 @@ export class DataForm {
 
     machineChanged(e) 
     {
-        this.data.machineEvent = {};
+        delete this.data.machineEvent;
 
         var selectedMachine = e.detail || {};
         this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
@@ -48,16 +48,26 @@ export class DataForm {
 
     timeStartChanged(e)
     {
-        var tempTimeStart = e.detail || {};
-        tempTimeStart = moment.utc(tempTimeStart);
-        this.data.timeInMillisStart = momentToMillis(tempTimeStart);
+        var tempTimeStart = e.detail;
+        if (tempTimeStart){
+            tempTimeStart = moment.utc(tempTimeStart);
+            this.data.timeInMillisStart = momentToMillis(tempTimeStart);
+        }
+        else{
+            delete this.data.timeInMillisStart;
+        }
     }
 
     timeEndChanged(e)
     {
-        var tempTimeEnd = e.detail || {};
-        tempTimeEnd = moment.utc(tempTimeEnd);
-        this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
+        var tempTimeEnd = e.detail;
+        if (tempTimeEnd){
+            tempTimeEnd = moment.utc(tempTimeEnd);
+            this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
+        }
+        else{
+            delete this.data.timeInMillisEnd;
+        }
     }
 
     async productionOrderChanged(e)
@@ -67,9 +77,9 @@ export class DataForm {
         var productionOrder = e.detail;
         if (productionOrder){
             this.productionOrderDetails =  await this.service.getProductionOrderDetails(productionOrder.orderNo);
-            this._mapProductionOrderDetail();
 
             if (!this.data.selectedProductionOrderDetail && this.hasProductionOrderDetails){
+                this._mapProductionOrderDetail();
                 this.data.selectedProductionOrderDetail = {};
                 this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
             }
@@ -91,7 +101,7 @@ export class DataForm {
     {
         this.productionOrderDetails.map(detail => {
             detail.toString = function(){
-                return `${this.colorType.name}`;  
+                return `${this.colorRequest}`;  
             }
             return detail;
         });
