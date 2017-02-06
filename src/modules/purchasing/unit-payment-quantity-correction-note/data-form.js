@@ -31,6 +31,7 @@ export class DataForm {
                 this.data.items = [];
             this.data.unitPaymentOrderId = selectedPaymentOrder._id;
             var _items = []
+            debugger
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
 
@@ -67,7 +68,20 @@ export class DataForm {
                                 //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
                                 //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
                                 // }
-                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                                var _qty = unitReceiptNoteItem.correction
+                                    .map((correction) => {
+                                        if (correction.correctionRemark === "Koreksi Jumlah") {
+                                            return correction.correctionQuantity;
+                                        }
+                                        else {
+                                            return 0;
+                                        }
+                                    })
+                                    .reduce((prev, curr, index) => {
+                                        return prev + curr;
+                                    }, 0);
+
+                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
                                 unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
                                 unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
 
