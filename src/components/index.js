@@ -45,7 +45,12 @@ export function configure(config) {
         './customs/auto-suggests/step-auto-suggest-by-filter',
         './customs/auto-suggests/order-type-auto-suggest',
         './customs/auto-suggests/process-type-auto-suggest',
-
+        './customs/auto-suggests/material-construction-auto-suggest',
+        './customs/auto-suggests/yarn-material-auto-suggest',
+        './customs/auto-suggests/finish-type-auto-suggest',
+        './customs/auto-suggests/standard-test-auto-suggest',
+        './customs/auto-suggests/account-auto-suggest',
+        
         './customs/collections/account/role-item-collection',
         './customs/collections/role/role-permission-item-collection',
         './customs/collections/delivery-order/delivery-order-item-collection',
@@ -56,6 +61,7 @@ export function configure(config) {
         './customs/collections/unit-payment-order/unit-payment-order-item-collection',
         './customs/collections/unit-payment-price-correction-note/unit-payment-price-correction-note-collection',
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
-        './customs/collections/unit-receipt-note/unit-receipt-note-item-collection'
+        './customs/collections/unit-receipt-note/unit-receipt-note-item-collection',
+        './customs/collections/production-order-lamp-standard/production-order-lamp-standard-collection'
     );
 }
