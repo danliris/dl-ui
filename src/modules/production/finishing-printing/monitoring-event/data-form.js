@@ -1,37 +1,99 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import {Service} from './service';
 var moment = require('moment');
+var momentToMillis = require('../../../../utils/moment-to-millis')
 
-@inject(BindingEngine, Element)
+@inject(BindingEngine, Service, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
     @bindable divisionFilter = 'FINISHING & PRINTING'
-    @bindable showSecond = false;
-    @bindable timeInMoment = {};
+    @bindable machineCodeFilter = ''; 
+    @bindable timePickerShowSecond = false;
+    @bindable timePickerFormat = "HH:mm";
+    @bindable timeInMomentStart = {};
+    @bindable timeInMomentEnd = {};
+    @bindable productionOrderDetails = [];
 
-    constructor(bindingEngine, element) {
+    constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
+        this.service = service;
         this.element = element;
     }
 
     bind()
     {
-        this.timeInMoment = moment(this.data.timeInMillis);
-        var tempTime = moment.utc(this.timeInMoment);
-        this.data.timeInMillis = ((moment(tempTime).hour() * 3600) + (moment(tempTime).minute() * 60)) * 1000
+        this.timeInMomentStart = this.data ? moment(this.data.timeInMillisStart) : this.timeInMomentStart;
+        this.timeInMomentEnd = this.data ? moment(this.data.timeInMillisEnd) : this.timeInMomentEnd;
+        var tempTimeStart = moment.utc(this.timeInMomentStart);
+        var tempTimeEnd = moment.utc(this.timeInMomentEnd);
+        this.data.timeInMillisStart = momentToMillis(tempTimeStart);
+        this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
+
+        if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0){
+            this.productionOrderDetails = this.data.productionOrder.details;
+            this._mapProductionOrderDetail();
+        }
     }
 
     machineChanged(e) 
     {
+        this.data.machineEvent = {};
+
         var selectedMachine = e.detail || {};
         this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
+        this.machineCodeFilter = selectedMachine.code;
     }
 
-    timeChanged(e)
+    timeStartChanged(e)
     {
-        var tempTime = e.detail || {};
-        tempTime = moment.utc(tempTime);
-        this.data.timeInMillis = ((moment(tempTime).hour() * 3600) + (moment(tempTime).minute() * 60)) * 1000
+        var tempTimeStart = e.detail || {};
+        tempTimeStart = moment.utc(tempTimeStart);
+        this.data.timeInMillisStart = momentToMillis(tempTimeStart);
+    }
+
+    timeEndChanged(e)
+    {
+        var tempTimeEnd = e.detail || {};
+        tempTimeEnd = moment.utc(tempTimeEnd);
+        this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
+    }
+
+    async productionOrderChanged(e)
+    {
+        this.productionOrderDetails = [];
+
+        var productionOrder = e.detail;
+        if (productionOrder){
+            this.productionOrderDetails =  await this.service.getProductionOrderDetails(productionOrder.orderNo);
+            this._mapProductionOrderDetail();
+
+            if (!this.data.selectedProductionOrderDetail && this.hasProductionOrderDetails){
+                this.data.selectedProductionOrderDetail = {};
+                this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
+            }
+        }
+        else{
+            delete this.data.selectedProductionOrderDetail;
+        }
+    }
+
+    get hasProductionOrderDetails(){
+        return this.productionOrderDetails.length > 0;
+    }
+    
+    get hasMachine(){
+        return this.data && this.data.machineId && this.data.machineId !== '';
+    }
+
+    _mapProductionOrderDetail()
+    {
+        this.productionOrderDetails.map(detail => {
+            detail.toString = function(){
+                return `${this.colorType.name}`;  
+            }
+            return detail;
+        });
     }
 }

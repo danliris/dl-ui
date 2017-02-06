@@ -3,7 +3,7 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'unit-payment-orders';
+const resource = 'unit-payment-orders/read-all';
 
 const empty = {
     no: ''
