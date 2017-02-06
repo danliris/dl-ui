@@ -1,0 +1,74 @@
+<template>
+ <h1 class="page-header">Monitoring Event Report</h1>
+     <form class="form-horizontal">
+        <machine-auto-suggest-by-division 
+            label="Machine"
+            value.bind="machine"
+            filter.bind="divisionFilter"
+            change.delegate="machineChanged($event)">
+        </machine-auto-suggest-by-division>
+
+        <machine-event-auto-suggest
+            label="Machine Event" 
+            value.bind="machineEvent"
+            filter.bind="machineCodeFilter"
+            if.bind="hasMachine"> 
+        </machine-event-auto-suggest>
+
+        <production-order-auto-suggest 
+            label="Production Order Number" 
+            value.bind="productionOrder">
+        </production-order-auto-suggest>
+
+        <datepicker label="Report Date From" value.bind="dateFrom" ></datepicker>
+        <datepicker label="Report Date To" value.bind="dateTo" ></datepicker> 
+        
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+               <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
+               <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div> 
+        <div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
+    </form>
+<br>
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead align="center">
+            <th>No</th>
+            <th>Machine</th>
+            <th>Production Order Number </th>
+            <th>Color</th>
+            <th>Date Start</th>
+            <th>Time Start</th>
+            <th>Date End</th>
+            <th>Time End</th>
+            <th>Cart Number</th>
+            <th>Machine Event</th>
+            <th>Remark</th>
+        </thead>
+        <tbody>
+            <tr repeat.for="monitoringEvent of data">
+                <td class="text-center">${$index + 1}</td>
+                <td class="text-right">${monitoringEvent.machine.name}</td>
+                <td class="text-right">${monitoringEvent.productionOrder.orderNo}</td>
+                <td class="text-right">${monitoringEvent.selectedProductionOrderDetail.colorType.name}</td>
+                <td class="text-center">${monitoringEvent.dateStart | dateFormat:'D MMM YYYY'}</td>
+                <td class="text-center">${monitoringEvent.timeInMomentStart}</td>
+                <td class="text-center">${monitoringEvent.dateEnd | dateFormat:'D MMM YYYY'}</td>
+                <td class="text-center">${monitoringEvent.timeInMomentEnd}</td>
+                <td class="text-right">${monitoringEvent.cartNumber}</td>
+                <td class="text-right">${monitoringEvent.machineEvent.name}</td>
+                <td class="text-right">${monitoringEvent.remark}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+    </form>
+    
+</template>

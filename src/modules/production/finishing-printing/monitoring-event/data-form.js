@@ -63,14 +63,19 @@ export class DataForm {
     async productionOrderChanged(e)
     {
         this.productionOrderDetails = [];
-        this.data.selectedProductionOrderDetail = {};
-        this.data.selectedProductionOrderDetail.colorType = {};
-        this.data.selectedProductionOrderDetail.colorType.name = '';
 
         var productionOrder = e.detail;
         if (productionOrder){
             this.productionOrderDetails =  await this.service.getProductionOrderDetails(productionOrder.orderNo);
             this._mapProductionOrderDetail();
+
+            if (!this.data.selectedProductionOrderDetail && this.hasProductionOrderDetails){
+                this.data.selectedProductionOrderDetail = {};
+                this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
+            }
+        }
+        else{
+            delete this.data.selectedProductionOrderDetail;
         }
     }
 
