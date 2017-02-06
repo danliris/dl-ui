@@ -8,7 +8,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    RUNOptions=['Tanpa RUN','1 RUN', '2 RUN'];
+    RUNOptions=['Tanpa RUN','1 RUN', '2 RUN', '3 RUN', '4 RUN'];
 
     constructor(bindingEngine, element,service) {
         this.bindingEngine = bindingEngine;
@@ -21,34 +21,7 @@ export class DataForm {
     get isEdit() {
         return (this.data.dataId || '').toString() != '';
     }
-    get isFilter(){
-        this.data.constructionId=this.data.construction._id;
-        this.filter={
-            orderTypeId : this.data.orderTypeId,
-            materialId : this.data.materialId,
-            construction : this.data.constructionId
-        };
-        return this.filter;
-    }
-    get isFilterOrder(){
-        this.filterOrder={
-            "orderType.code": this.data.orderType.code
-        };
-        return this.filterOrder;
-    }
-    get isFilterOrderId(){
-        this.filterOrderId={
-            orderTypeId: this.data.orderTypeId
-        };
-        return this.filterOrderId;
-    }
-    get isFilterProduct(){
-        this.filterProduct = {
-            orderTypeId : this.data.orderTypeId,
-            materialId : this.data.materialId
-        };
-        return this.filterProduct;
-    }
+    
     get isPrinting(){
         this.printing=false;
         if(this.data.orderType){
@@ -67,21 +40,55 @@ export class DataForm {
             if (!this.readOnly) {
                 this.data.processType={};
                 this.processChanged({});
-                this.data.material={};
-                this.materialChanged({});
-                this.data.construction={};
-                this.constructionChanged({});
                 this.data.details = [];
             }
             if(this.data.orderType && code){
                 this.filterOrder={
                     "orderType.code": code
-                };
-                
-                this.filterOrderId={
-                    orderTypeId: this.data.orderTypeId
+                }; 
+            }
+            if(this.data.orderType){
+                if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
+                    this.printing=true;
+                }
+                else{
+                    this.printing=false;
+                }
+                if(this.data.orderType.name.trim().toLowerCase()=="printing"){
+                    this.printingOnly=true;
+                }
+                else{
+                    this.printingOnly=false;
+                }
+            } 
+        }
+        else{
+            if (!this.readOnly) {
+                this.data.processType={};
+                this.processChanged({});
+                this.data.details = [];
+            }
+            var code= this.data.orderType.code;
+            if(this.data.orderType && code){
+                this.filterOrder={
+                    "orderType.code": code
                 };
             }
+            if(this.data.orderType){
+                if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
+                        this.printing=true;
+                    }
+                else{
+                    this.printing=false;
+                }
+                if(this.data.orderType.name.trim().toLowerCase()=="printing"){
+                    this.printingOnly=true;
+                }
+                else{
+                    this.printingOnly=false;
+                }
+            }  
+               
         }
     }
 
@@ -96,59 +103,15 @@ export class DataForm {
     materialChanged(e){
         var selectedMaterial= e.detail || {};
         if(selectedMaterial){
-        this.data.materialId=selectedMaterial._id ? selectedMaterial._id._id : "";
-            if(selectedMaterial._id){
-                if (!this.readOnly) {
-                    this.data.construction={};
-                    this.constructionChanged({});
-                    this.data.details = [];
-                }
-                if(this.data.processType && this.data.material){
-                    this.filterProduct = {
-                        orderTypeId : this.data.orderType._id,
-                        materialId : selectedMaterial._id._id
-                    };
-                }
-            }
-            else{
-                if (!this.readOnly) {
-                    this.data.construction={};
-                    this.constructionChanged({});
-                }
-            }
-        }
-        else{
-            if (!this.readOnly) {
-                this.data.construction={};
-                this.constructionChanged({});
-            }
+            this.data.materialId=selectedMaterial._id ? selectedMaterial._id : "";
         }
     }
 
     constructionChanged(e){
         var selectedConstruction= e.detail || {};
         if(selectedConstruction){
-            this.data.constructionId=selectedConstruction._id ? selectedConstruction._id : "";
-             if(this.data.orderType && this.data.material && this.data.constructionId){
-                 this.filter={
-                    orderTypeId : this.data.orderType._id,
-                    materialId : this.data.materialId,
-                    construction : this.data.constructionId
-                 }
-                 if (!this.readOnly){
-                    this.data.details = [];
-                }
-                if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
-                    this.printing=true;
-                }
-                else{
-                    this.printing=false;
-                }
-             }
-         }
-         else{
-             this.data.details = [];
-         }
+            this.data.materialConstructionId=selectedConstruction._id ? selectedConstruction._id : "";
+        }
     }
 
     uomChanged(e) {
@@ -156,8 +119,10 @@ export class DataForm {
         if (selectedUom)
         {
             this.data.uomId = selectedUom._id;
-            for(var i of this.data.details){
-                i.uom=selectedUom;
+            if(this.data.details){
+                for(var i of this.data.details){
+                    i.uom=selectedUom;
+                }
             }
         }
     }
@@ -165,14 +130,74 @@ export class DataForm {
     buyerChanged(e){
         var selectedBuyer = e.detail;
         if (selectedBuyer){
-            this.data.buyerId = selectedBuyer._id;
+            this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
         }
     }
 
-    lampStandardChanged(e){
-        var selectedLamp = e.detail;
-        if (selectedLamp)
-            this.data.lampStandardId = selectedLamp._id;
+    yarnChanged(e){
+        var selectedYarn=e.detail || {};
+        if(selectedYarn){
+            this.data.yarnMaterialId=selectedYarn._id ? selectedYarn._id : "";
+        }
+    }
+
+    finishTypeChanged(e){
+        var selectedFinish=e.detail || {};
+        if(selectedFinish){
+            this.data.finishTypeId=selectedFinish._id ? selectedFinish._id : "";
+        }
+    }
+
+    RUNChanged(e){
+        var selectedRUN=e.srcElement.value;
+        if(selectedRUN){
+            this.data.runWidth = this.data.runWidth ? this.data.runWidth : [];
+            if(selectedRUN=="Tanpa RUN"){
+                this.run=false;
+            }
+            if(selectedRUN=="1 RUN"){
+                this.run=true;
+                this.run0=true;
+                this.run1=false;
+                this.run2=false;
+                this.run3=false;
+            }
+            if(selectedRUN=="2 RUN"){
+                this.run=true;
+                this.run0=true;
+                this.run1=true;
+                this.run2=false;
+                this.run3=false;
+            }
+            if(selectedRUN=="3 RUN"){
+                this.run=true;
+                this.run0=true;
+                this.run1=true;
+                this.run2=true;
+                this.run3=false;
+            }
+            if(selectedRUN=="4 RUN"){
+                this.run=true;
+                this.run0=true;
+                this.run1=true;
+                this.run2=true;
+                this.run3=true;
+            }
+        }
+    }
+
+    standardTestChanged(e){
+        var selectedTest=e.detail || {};
+        if(selectedTest){
+            this.data.standardTestId=selectedTest._id ? selectedTest._id : "";
+        }
+    }
+
+    accountChanged(e){
+        var selectedAccount=e.detail || {};
+        if(selectedAccount){
+            this.data.accountId=selectedAccount._id ? selectedAccount._id : "";
+        }
     }
 
     addDetail(e){

@@ -20,21 +20,11 @@ export class View {
             {
                 i._id=id;
                 this.data=i;
-                this.data.material={
-                    _id:i.material
-                };
-                this.data.construction={
-                    _id:i.construction
-                };
-                var x=0;
-                for(var j of this.data.details){
-                    if(this.data.details[x].colorType!=null){
-                        this.data.details[x].colorType={
-                            colorType:j.colorType
-                        };
-                        x++;
-                    }
+                var lampStands=[];
+                for(var lamps of i.lampStandards){
+                    lampStands.push(lamps.lampStandard.name + '\n');
                 }
+                this.data.lampStands=lampStands.toString();
                 break;
             }
             
