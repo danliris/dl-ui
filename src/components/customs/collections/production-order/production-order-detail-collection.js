@@ -14,7 +14,7 @@ export class ProductionOrderCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) printingYarnDyed;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) printing;
 
     reactComponent = {};
     constructor(element) {
@@ -32,7 +32,7 @@ export class ProductionOrderCollection {
             colorTemplate: '',
             quantity: 0,
             description: '',
-            printingYarnDyed:false
+            printing:false
         });
         this.bind();
     }
@@ -51,10 +51,10 @@ export class ProductionOrderCollection {
         else
             this.options.filter = null;
 
-        if (this.printingYarnDyed)
-            this.options.printingYarnDyed = true;
+        if (this.printing)
+            this.options.printing = true;
         else
-            this.options.printingYarnDyed = false;
+            this.options.printing = false;
 
         this.reactComponent = ReactDOM.render(
             <ProductionOrderDetailCollectionReact value={this.value} error={this.error} options={this.options}></ProductionOrderDetailCollectionReact>,
@@ -93,7 +93,7 @@ export class ProductionOrderCollection {
     filterChanged(newFilter) {
         this.bind();
     }
-    printingYarnDyedChanged(newFilter) {
+    printingChanged(newFilter) {
         this.bind();
     }
 }

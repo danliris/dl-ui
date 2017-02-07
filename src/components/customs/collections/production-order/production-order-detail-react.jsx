@@ -104,7 +104,7 @@ export default class ProductionOrderDetailReact extends React.Component {
                         <span className="help-block">{this.state.error.colorRequest}</span>
                     </div>
                 </td>
-                { this.state.options.printingYarnDyed ?
+                { this.state.options.printing ?
                     <td className="hidden">
                         <div  className={`form-group ${this.state.error.colorType ? 'has-error' : ''}`} style={style}> 
                             <ColorTypeAutoSuggestReact value={this.state.value.colorType} options={this.state.options} onChange={this.handleColorTypeChange}></ColorTypeAutoSuggestReact>

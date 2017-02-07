@@ -86,7 +86,7 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
                     <tr>
                         <th width="25%">Acuan Warna/Desain</th>
                         <th width="25%">Warna yang Diminta</th>
-                        { this.state.options.printingYarnDyed ?
+                        { this.state.options.printing ?
                             <th width="30%" className="hidden">Jenis Warna</th>:
                             <th width="30%">Jenis Warna</th>
                         }
@@ -106,7 +106,7 @@ export default class ProductionOrderDetailCollectionReact extends React.Componen
                 </tbody>
                 <tfoot>
                     <tr>
-                        { this.state.options.printingYarnDyed ?
+                        { this.state.options.printing ?
                         <th colSpan="2">
                             <div className="form-group" style={style}>Total</div>
                         </th> :

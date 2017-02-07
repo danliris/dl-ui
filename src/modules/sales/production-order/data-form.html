@@ -56,7 +56,7 @@
         </div>
         <hr />
         <production-order-lamp-standard-collection  value.bind="data.lampStandards"     error.bind="error.lampStandards"    read-only.bind="(readOnly)" ></production-order-lamp-standard-collection>
-        <production-order-detail-collection         value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)" if.bind="data.orderType" printingYarnDyed.bind="printingYarnDyed || isPrintingYarnDyed"></production-order-detail-collection>
+        <production-order-detail-collection         value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)" if.bind="data.orderType" printing.bind="printing || isPrinting"></production-order-detail-collection>
         
     </form>
 </template>

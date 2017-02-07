@@ -22,14 +22,14 @@ export class DataForm {
         return (this.data.dataId || '').toString() != '';
     }
     
-    get isPrintingYarnDyed(){
-        this.printingYarnDyed=false;
+    get isPrinting(){
+        this.printing=false;
         if(this.data.orderType){
             if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
-                this.printingYarnDyed=true;
+                this.printing=true;
             }
         }
-        return this.printingYarnDyed;
+        return this.printing;
     }
 
     get isPrintingOnly(){
@@ -66,10 +66,10 @@ export class DataForm {
                     this.printingOnly=false;
                 }
                 if(selectedOrder.name.trim().toLowerCase()=="printing" || selectedOrder.name.trim().toLowerCase()=="yarndyed"){
-                    this.printingYarnDyed=true;
+                    this.printing=true;
                 }
                 else{
-                    this.printingYarnDyed=false;
+                    this.printing=false;
                 }
             }
         }
