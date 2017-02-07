@@ -19,14 +19,15 @@ export class EditOutput {
         var ddInput = ('0' + dateInput.getDate()).slice(-2);
         var mmInput = ('0' + (dateInput.getMonth() + 1)).slice(-2);
         var dateOutput = new Date(this.data.dateOutput);
-        var ddOutput = ('0' + dateOutput.getDate()).slice(-2);
-        var mmOutput = ('0' + (dateOutput.getMonth() + 1)).slice(-2);
+        var now = new Date();
+        var ddOutput = dateOutput.getFullYear() === 1900 ? ('0' + now.getDate()).slice(-2) : ('0' + dateOutput.getDate()).slice(-2);
+        var mmOutput = dateOutput.getFullYear() === 1900 ? ('0' + (now.getMonth() + 1)).slice(-2) : ('0' + (dateOutput.getMonth() + 1)).slice(-2);
         this.data.dateInput = `${dateInput.getFullYear()}-${mmInput}-${ddInput}`;
         this.data.hourInput = ('0' + (dateInput.getHours())).slice(-2);
         this.data.minuteInput = ('0' + (dateInput.getMinutes())).slice(-2);
-        this.data.dateOutput = dateOutput.getFullYear() == 1900 ? '' : `${dateOutput.getFullYear()}-${mmOutput}-${ddOutput}`;
-        this.data.hourOutput = ('0' + (dateOutput.getHours())).slice(-2);
-        this.data.minuteOutput = ('0' + (dateOutput.getMinutes())).slice(-2);
+        this.data.dateOutput = dateOutput.getFullYear() === 1900 ? `${now.getFullYear()}-${mmOutput}-${ddOutput}` : `${dateOutput.getFullYear()}-${mmOutput}-${ddOutput}`;
+        this.data.hourOutput = dateOutput.getFullYear() === 1900 ? ('0' + (now.getHours())).slice(-2) : ('0' + (dateOutput.getHours())).slice(-2);
+        this.data.minuteOutput = dateOutput.getFullYear() === 1900 ? ('0' + (now.getMinutes())).slice(-2) : ('0' + (dateOutput.getMinutes())).slice(-2);
         var color = {
             color : this.data.color
         }
@@ -39,7 +40,7 @@ export class EditOutput {
 
     save() {
         var dateInput = `${this.data.dateInput} ${this.data.hourInput}:${this.data.minuteInput}:00`;
-        var dateOutput = `${this.data.dateOutput} ${this.data.hourOutput}:${this.data.minuteOutput}:00`;
+        var dateOutput = this.data.dateOutput ? `${this.data.dateOutput} ${this.data.hourOutput}:${this.data.minuteOutput}:00` : '';
         this.data.dateInput = dateInput;
         this.data.dateOutput = dateOutput;
         var color = this.data.color;

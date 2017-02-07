@@ -52,6 +52,7 @@ export function configure(config) {
         './customs/auto-suggests/standard-test-auto-suggest',
         './customs/auto-suggests/account-auto-suggest',
         './customs/auto-suggests/production-order-auto-suggest',
+        './customs/auto-suggests/account-auto-suggest',
         './customs/auto-suggests/machine-event-auto-suggest',
 
         './customs/collections/account/role-item-collection',
