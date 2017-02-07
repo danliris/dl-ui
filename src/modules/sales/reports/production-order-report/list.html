@@ -1,0 +1,81 @@
+<template>
+ <h1 class="page-header">Laporan Monitoring Surat Order Produksi</h1>
+     <form class="form-horizontal">
+        <textbox                    label="Nomor Sales Contract"    value.bind="salesContractNo"	></textbox>
+        <textbox                    label="Nomor Order Produksi"    value.bind="orderNo"            ></textbox>
+        <order-type-auto-suggest	label="Jenis Order"	            value.bind="orderType" 	        change.delegate="orderTypeChanged($event)"></order-type-auto-suggest>
+        <process-type-auto-suggest	label="Jenis Proses"	        value.bind="processType" 	    change.delegate="processTypeChanged($event)"></process-type-auto-suggest>
+        <buyer-auto-suggest	        label="Buyer"	                value.bind="buyer" 	            change.delegate="buyerChanged($event)"></buyer-auto-suggest>
+        <account-auto-suggest	    label="Staff Penjualan"	        value.bind="account" 	        change.delegate="accountChanged($event)"    filter.bind="filterAccount"></account-auto-suggest>
+        <datepicker                 label="Tanggal Awal"            value.bind="dateFrom"           ></datepicker>
+        <datepicker                 label="Tanggal Akhir"           value.bind="dateTo"             ></datepicker> 
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+               <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
+               <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div> 
+        <div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
+    </form>
+<br>
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead align="center">
+            <tr>
+                <td rowspan="2">No</td>
+                <td rowspan="2">Nomor Sales Kontrak</td>
+                <td colspan="2">Surat Order Produksi</td>
+                <td rowspan="2">Jenis Order</td>
+                <td rowspan="2">Jenis Proses</td>
+                <td rowspan="2">Buyer</td>
+                <td rowspan="2">Tipe Buyer</td>
+                <td rowspan="2">Jumlah Order</td>
+                <td rowspan="2">Satuan</td>
+                <td colspan="5">Detail Order</td>
+                <td rowspan="2">Tanggal Delivery</td>
+                <td rowspan="2">Staff Penjualan</td>
+                <td rowspan="2">Status</td>
+                <!--<th>Kategori UOM</th>-->
+            </tr>
+            <tr>
+                <td>Tgl</td>
+                <td>Nomor</td>
+                <td>Acuan Warna / Desain</td>
+                <td>Warna Yang Diminta</td>
+                <td>Jenis Warna</td>
+                <td>Jumlah</td>
+                <td>Satuan</td>
+                <!--<th>Kategori UOM</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data">
+                <td class="text-center">${$index + 1}</td>
+                <td class="text-right">${item.salesContractNo}</td>
+                <td class="text-center">${item.createdDate}</td>
+                <td class="text-right">${item.orderNo}</td>
+                <td class="text-right">${item.orderType}</td>
+                <td class="text-right">${item.processType}</td>
+                <td class="text-right">${item.buyer}</td>
+                <td class="text-right">${item.buyerType}</td>
+                <td class="text-left">${item.orderQuantity}</td>
+                <td class="text-right">${item.uom}</td>
+                <td class="text-right">${item.colorTemplate}</td>
+                <td class="text-right">${item.colorRequest}</td>
+                <td class="text-right">${item.colorType}</td>
+                <td class="text-left">${item.quantity}</td>
+                <td class="text-right">${item.uomDetail}</td>
+                <td class="text-right">${item.firstname} ${item.lastname}</td>
+                <td class="text-right"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+    </form>
+    
+</template>
