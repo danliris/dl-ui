@@ -66,5 +66,6 @@ export function configure(config) {
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
         './customs/collections/unit-receipt-note/unit-receipt-note-item-collection',
         './customs/collections/production-order-lamp-standard/production-order-lamp-standard-collection'
+        // './customs/collections/monitoring-event/monitoring-event-item-collection'
     );
 }
