@@ -8,7 +8,7 @@
                 <textbox                    label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
                 <order-type-auto-suggest    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
                 <process-type-auto-suggest  label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" if.bind="data.orderType" filter.bind="filterOrder || isFilterOrder"></process-type-auto-suggest >
-                <thread-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" ></thread-auto-suggest>
+                <thread-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></thread-auto-suggest>
                 <material-construction-auto-suggest                 label="Konstruksi Material"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
                 <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
                 <textbox                    label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
@@ -51,14 +51,13 @@
                 <multiline                  label="Packing Instruction"     value.bind="data.packingInstruction"    error.bind="error.packingInstruction"       read-only.bind="(readOnly)"></multiline>
                 <datepicker                 label="Tanggal Delivery"        value.bind="data.deliveryDate"          error.bind="error.deliveryDate"             read-only.bind="readOnly"></datepicker>
                 <multiline                  label="Keterangan"              value.bind="data.remark"                error.bind="error.remark"                   read-only.bind="readOnly"></multiline>
-                <account-auto-suggest       label="Nama Staff Penjualan"    value.bind="data.account"               error.bind="error.account"                  read-only.bind="readOnly"   change.delegate="accountChanged($event)"></account-auto-suggest>
+                <account-auto-suggest       label="Nama Staff Penjualan"    value.bind="data.account"               error.bind="error.account"                  read-only.bind="readOnly"   change.delegate="accountChanged($event)" filter.bind="filterAccount"></account-auto-suggest>
             </div>
         </div>
         <hr />
         <au-collection              items.bind="data.lampStandards" errors.bind="error.lampStandards" read-only.bind="readOnly" columns.bind="lampHeader" item-template="modules/sales/production-order/templates/lamp-standard" add.bind="addLamp" remove.bind="removeLamp"></au-collection>
         <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && printing" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailPrintingYarnDyed">
       </au-collection>
-
         <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && !printing" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailnonPrinting">
       </au-collection>
     </form>

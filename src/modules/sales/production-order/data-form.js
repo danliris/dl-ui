@@ -12,6 +12,24 @@ export class DataForm {
   
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
 
+  filterAccount = {
+            "roles" : {
+                "$elemMatch" : { 
+                    "permissions" : {
+                        "$elemMatch" : { 
+                            "unit.name" : "PENJUALAN FINISHING & PRINTING"
+                        }
+                    }
+                }
+            }
+        };
+  
+  filterMaterial = {
+    "tags" :{
+        "$regex" : (new RegExp("material", "i"))
+    }
+  }
+
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
     this.element = element;
@@ -23,6 +41,7 @@ export class DataForm {
   get isEdit() {
     return (this.data.dataId || '').toString() != '';
   }
+
 
   get isPrinting() {
     this.printing = false;

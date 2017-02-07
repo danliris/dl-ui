@@ -1,6 +1,6 @@
 <template>
   <td>
-    <au-autocomplete loader.bind="loader" value.bind="data.lampStandard" key="_id" text="name" read-only.bind="options.readOnly"
+    <au-autocomplete loader.bind="loader" value.bind="data.lampStandard" key="_id" text="name" read-only.bind="options.readOnly" change.delegate="setLampStandardId($event)"
       options.bind="autocompleteOption"></au-autocomplete>
   </td>
   <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>

@@ -15,6 +15,11 @@ export class LampStandard {
     }
   }
 
+  setLampStandardId(event) {
+    var lampStandard = event.detail;
+    this.data.lampStandardId = lampStandard._id;
+  }
+
   get loader() {
     return (keyword, query) => {
       const resource = 'master/lamp-standards';
