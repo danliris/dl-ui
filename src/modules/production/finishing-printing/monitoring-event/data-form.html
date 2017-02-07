@@ -52,7 +52,7 @@
                 if.bind="hasProductionOrderDetails && !readOnly">
             </dropdown>
 
-            <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorType.name" read-only.bind="readOnly" if.bind="readOnly"></textbox>
+            <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly" if.bind="readOnly"></textbox>
 
             <textbox label="Cart Number" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
 
