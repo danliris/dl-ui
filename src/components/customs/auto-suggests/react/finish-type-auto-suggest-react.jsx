@@ -3,30 +3,30 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'sales/construction-by-material-order-types';
+const resource = 'master/finish-types';
 
 const empty = {
-    _id: ''
+    name: ''
 }
 
 'use strict';
 
-export default class SalesConstructionAutoSuggestReactByMaterialByOrderType extends AutoSuggestReact {
+export default class FinishTypeAutoSuggestReact extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, SalesConstructionAutoSuggestReactByMaterialByOrderType.defaultProps.options, props.options);
+        var options = Object.assign({}, FinishTypeAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this._id}`;
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-SalesConstructionAutoSuggestReactByMaterialByOrderType.propTypes = {
+FinishTypeAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,21 +36,21 @@ SalesConstructionAutoSuggestReactByMaterialByOrderType.propTypes = {
     })
 };
 
-SalesConstructionAutoSuggestReactByMaterialByOrderType.defaultProps = {
+FinishTypeAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
-        suggestions: function (text, filter) {
+        suggestions: function (keyword, filter) {
 
             var config = Container.instance.get(Config);
-            var endpoint = config.getEndpoint("production");
+            var endpoint = config.getEndpoint("core");
 
-            return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
+            return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.info.map(construction => {
-                        construction.toString = function () {
-                            return `${this._id}`;
+                    return results.data.map(finishType => {
+                        finishType.toString = function () {
+                            return `${this.name}`;
                         }
-                        return construction;
+                        return finishType;
                     });
                 });
         }
