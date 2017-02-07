@@ -68,7 +68,20 @@ export class DataForm {
                         //     unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
                         //     unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitPaymentPriceCorrectionNoteItem.quantity;
                         // }
-                        unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
+                        var _qty = unitReceiptNoteItem.correction
+                            .map((correction) => {
+                                if (correction.correctionRemark === "Koreksi Jumlah") {
+                                    return correction.correctionQuantity;
+                                }
+                                else {
+                                    return 0;
+                                }
+                            })
+                            .reduce((prev, curr, index) => {
+                                return prev + curr;
+                            }, 0);
+
+                        unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
                         unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
                         unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
                     } else {

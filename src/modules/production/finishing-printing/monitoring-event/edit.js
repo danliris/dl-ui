@@ -20,10 +20,10 @@ export class Edit {
 
     bind()
     {
-        if (this.data.selectedProductionOrderDetail.colorType && this.data.selectedProductionOrderDetail.colorType.name){
+        if (this.data.selectedProductionOrderDetail.colorRequest){
             this.selectedProductionOrderDetail = this.data.selectedProductionOrderDetail;
-            this.data.selectedProductionOrderDetail = this.data.selectedProductionOrderDetail.colorType.name;
-        }
+            this.data.selectedProductionOrderDetail = this.data.selectedProductionOrderDetail.colorRequest;
+        }   
     }
     
     view() {
