@@ -41,7 +41,6 @@ export class Create {
 
             this.service.endpoint.client.fetch(endpoint, request)
                 .then(response => {
-                    debugger
                     if (response.status == 200) {
                         var getRequest =this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
