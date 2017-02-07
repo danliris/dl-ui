@@ -49,6 +49,7 @@ export function configure(config) {
         './customs/auto-suggests/process-type-auto-suggest',
         './customs/auto-suggests/production-order-auto-suggest',
         './customs/auto-suggests/account-auto-suggest',
+        './customs/auto-suggests/machine-event-auto-suggest',
 
         './customs/collections/account/role-item-collection',
         './customs/collections/role/role-permission-item-collection',
@@ -61,6 +62,5 @@ export function configure(config) {
         './customs/collections/unit-payment-price-correction-note/unit-payment-price-correction-note-collection',
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
         './customs/collections/unit-receipt-note/unit-receipt-note-item-collection',
-        './customs/collections/monitoring-event/monitoring-event-item-collection'
     );
 }

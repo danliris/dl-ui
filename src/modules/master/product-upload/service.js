@@ -1,9 +1,8 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../utils/rest-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service'; 
 
-
-const serviceUri = 'master/monitoring-event-types';
+const serviceUri = 'master/products';
 
 export class Service extends RestService {
 
@@ -19,7 +18,7 @@ export class Service extends RestService {
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  } 
+  }
 
   create(data) {
     var endpoint = `${serviceUri}`;
@@ -34,6 +33,11 @@ export class Service extends RestService {
   delete(data) {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.delete(endpoint, data);
+  }
+
+  getByCode(code) {
+    var endpoint = `${serviceUri}?keyword=${code}`;
+    return super.get(endpoint);
   }
 
 }

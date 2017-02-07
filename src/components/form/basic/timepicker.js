@@ -31,7 +31,7 @@ export class Timepicker {
 
     _beforeRender()
     {
-        if (Object.keys(this.value).length === 0 && this.value.constructor === Object)
+        if (this.value && Object.keys(this.value).length === 0 && this.value.constructor === Object)
             this.value = moment();
 
         this.disabled = (this.disabled || '').toString().toLowerCase() === 'true';
@@ -43,7 +43,7 @@ export class Timepicker {
             this.format = this.format;
         }
         else{
-            this.format = "HH:mm";
+            this.format = "HH:mm:ss";
         }
     }
 

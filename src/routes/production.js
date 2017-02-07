@@ -8,7 +8,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -22,7 +21,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -35,7 +33,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -48,7 +45,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -74,11 +70,10 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {"*": 0},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }]
-    // ,
+    },
     // {
     //     route: 'production/finishing-printing/reports/daily-operation-report',
     //     name: 'report-dailys',
@@ -88,7 +83,19 @@ module.exports = [
     //     auth: true,
     //     settings: {
     //         group: "production",
-    //         permission: { "*": 0 },
     //         iconClass: 'fa fa-dashboard'
     //     }
-    // }
+    // },
+        {
+        route: 'production/finishing-printing/reports/monitoring-event-report',
+        name: 'report-monitoring-events',
+        moduleId: './modules/production/finishing-printing/reports/monitoring-event-report/index',
+        nav: true,
+        title: 'Report Monitoring Event',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }]

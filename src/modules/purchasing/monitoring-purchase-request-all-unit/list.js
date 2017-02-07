@@ -23,10 +23,10 @@ export class List {
             "name": "Sudah diorder ke Supplier",
             "value": 3
         }, {
-            "name": "Barang sudah datang",
+            "name": "Barang sudah datang sebagian",
             "value": 4
         }, {
-            "name": "Complete",
+            "name": "Barang sudah datang semua",
             "value": 9
         }
     ];
