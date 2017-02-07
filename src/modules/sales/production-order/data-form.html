@@ -7,7 +7,7 @@
                 <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
                 <textbox                    label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
                 <order-type-auto-suggest    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
-                <process-type-auto-suggest  label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" if.bind="data.orderType" ></process-type-auto-suggest >
+                <process-type-auto-suggest  label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" if.bind="data.orderType" filter.bind="filterOrder"></process-type-auto-suggest >
                 <thread-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" ></thread-auto-suggest>
                 <material-construction-auto-suggest                 label="Konstruksi Material"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
                 <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
@@ -35,25 +35,16 @@
             </div>
             <div  class="col-md-6" style="padding:0">
                 <textbox                    label="Standar Handling"    value.bind="data.handlingStandard"      error.bind="error.handlingStandard"                       read-only.bind="(readOnly)"></textbox>
-                <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions" if.bind="printing" change.delegate="RUNChanged($event)"></dropdown>
+                <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions" if.bind="printingOnly" change.delegate="RUNChanged($event)"></dropdown>
                 <div class="row">
                     <div class="col-sm-4" style="padding-left:10%">
-                    <textbox value="Lebar RUN (cm)" read-only="true" if.bind="printingOnly && run"></textbox>  
+                    <textbox value="Lebar RUN (cm)" read-only="true" if.bind="printingOnly && run"  ></textbox>  
                     </div>
-                    <div class="col-sm-2" >
-                        <numeric value.bind="data.RUNWidth0" read-only.bind="(readOnly)" if.bind="printingOnly && run0"></numeric>
-                    </div>
-                    <div class="col-sm-2">
-                        <numeric value.bind="data.RUNWidth1" read-only.bind="(readOnly)" if.bind="printingOnly && run1"></numeric>
-                    </div>
-                    <div class="col-sm-2">
-                        <numeric value.bind="data.RUNWidth2" read-only.bind="(readOnly)" if.bind="printingOnly && run2" ></numeric>
-                    </div>
-                    <div class="col-sm-2">
-                        <numeric value.bind="data.RUNWidth3" read-only.bind="(readOnly)" if.bind="printingOnly && run3"></numeric>
+                    <div class="col-sm-2" repeat.for="i of data.RUNWidth.length" >
+                        <numeric value.bind="data.RUNWidth[i]" read-only.bind="(readOnly)" if.bind="printingOnly && run" error.bind="error.RUNWidth"></numeric>
                     </div>
                 </div>
-                <textbox                    label="Tulisan Pinggir Kain"    value.bind="data.articleFabricEdge"     error.bind="error.articleFabricEdge"        read-only.bind="(readOnly)" if.bind="printing"></textbox>
+                <textbox                    label="Tulisan Pinggir Kain"    value.bind="data.articleFabricEdge"     error.bind="error.articleFabricEdge"        read-only.bind="(readOnly)" if.bind="printingOnly"></textbox>
                 <textbox                    label="Standar Shrinkage"       value.bind="data.shrinkageStandard"     error.bind="error.shrinkageStandard"        read-only.bind="(readOnly)"></textbox>
                 <standard-test-auto-suggest label="Standar Test"            value.bind="data.standardTest"          error.bind="error.standardTest"             read-only.bind="readOnly"   change.delegate="standardTestChanged($event)"></standard-test-auto-suggest>
                 <textbox                    label="Sample"                  value.bind="data.sample"                error.bind="error.sample"                   read-only.bind="(readOnly)"></textbox>
@@ -62,11 +53,10 @@
                 <multiline                  label="Keterangan"              value.bind="data.remark"                error.bind="error.remark"                   read-only.bind="readOnly"></multiline>
                 <account-auto-suggest       label="Nama Staff Penjualan"    value.bind="data.account"               error.bind="error.account"                  read-only.bind="readOnly"   change.delegate="accountChanged($event)"></account-auto-suggest>
             </div>
-            
         </div>
         <hr />
-        <production-order-lamp-standard-collection  value.bind="data.lampStandards"     error.bind="error.lampStandards"    read-only.bind="(readOnly || isEdit)" ></production-order-lamp-standard-collection>
-        <production-order-detail-collection         value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)" if.bind="data.orderType" printing.bind="printing || isPrinting"></production-order-detail-collection>
+        <production-order-lamp-standard-collection  value.bind="data.lampStandards"     error.bind="error.lampStandards"    read-only.bind="(readOnly)" ></production-order-lamp-standard-collection>
+        <production-order-detail-collection         value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)" if.bind="data.orderType" printingYarnDyed.bind="printingYarnDyed || isPrintingYarnDyed"></production-order-detail-collection>
         
     </form>
 </template>

@@ -20,11 +20,6 @@ export class View {
             {
                 i._id=id;
                 this.data=i;
-                var lampStands=[];
-                for(var lamps of i.lampStandards){
-                    lampStands.push(lamps.lampStandard.name + '\n');
-                }
-                this.data.lampStands=lampStands.toString();
                 break;
             }
             

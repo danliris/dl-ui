@@ -22,14 +22,24 @@ export class DataForm {
         return (this.data.dataId || '').toString() != '';
     }
     
-    get isPrinting(){
-        this.printing=false;
+    get isPrintingYarnDyed(){
+        this.printingYarnDyed=false;
         if(this.data.orderType){
             if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
-                this.printing=true;
+                this.printingYarnDyed=true;
             }
         }
-        return this.printing;
+        return this.printingYarnDyed;
+    }
+
+    get isPrintingOnly(){
+        this.printingOnly=false;
+        if(this.data.orderType){
+            if(this.data.orderType.name.trim().toLowerCase()=="printing"){
+                this.printingOnly=true;
+            }
+        }
+        return this.printingOnly;
     }
 
     orderChanged(e){
@@ -42,53 +52,26 @@ export class DataForm {
                 this.processChanged({});
                 this.data.details = [];
             }
-            if(this.data.orderType && code){
+            if(code){
                 this.filterOrder={
                     "orderType.code": code
                 }; 
             }
-            if(this.data.orderType){
-                if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
-                    this.printing=true;
-                }
-                else{
-                    this.printing=false;
-                }
-                if(this.data.orderType.name.trim().toLowerCase()=="printing"){
+            if(selectedOrder.name)
+            {
+                if(selectedOrder.name.trim().toLowerCase()=="printing"){
                     this.printingOnly=true;
                 }
                 else{
                     this.printingOnly=false;
                 }
-            } 
-        }
-        else{
-            if (!this.readOnly) {
-                this.data.processType={};
-                this.processChanged({});
-                this.data.details = [];
-            }
-            var code= this.data.orderType.code;
-            if(this.data.orderType && code){
-                this.filterOrder={
-                    "orderType.code": code
-                };
-            }
-            if(this.data.orderType){
-                if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
-                        this.printing=true;
-                    }
-                else{
-                    this.printing=false;
-                }
-                if(this.data.orderType.name.trim().toLowerCase()=="printing"){
-                    this.printingOnly=true;
+                if(selectedOrder.name.trim().toLowerCase()=="printing" || selectedOrder.name.trim().toLowerCase()=="yarndyed"){
+                    this.printingYarnDyed=true;
                 }
                 else{
-                    this.printingOnly=false;
+                    this.printingYarnDyed=false;
                 }
-            }  
-               
+            }
         }
     }
 
@@ -151,38 +134,41 @@ export class DataForm {
     RUNChanged(e){
         var selectedRUN=e.srcElement.value;
         if(selectedRUN){
-            this.data.runWidth = this.data.runWidth ? this.data.runWidth : [];
+            this.data.RUNWidth = [];
             if(selectedRUN=="Tanpa RUN"){
                 this.run=false;
+                this.data.RUNWidth.length=0;
             }
             if(selectedRUN=="1 RUN"){
                 this.run=true;
-                this.run0=true;
-                this.run1=false;
-                this.run2=false;
-                this.run3=false;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth[0]=0;
+                }
+                console.log(this.data.RUNWidth);
             }
             if(selectedRUN=="2 RUN"){
                 this.run=true;
-                this.run0=true;
-                this.run1=true;
-                this.run2=false;
-                this.run3=false;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth.push(0,0);
+                }
             }
             if(selectedRUN=="3 RUN"){
                 this.run=true;
-                this.run0=true;
-                this.run1=true;
-                this.run2=true;
-                this.run3=false;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth.push(0,0,0);
+                }
             }
             if(selectedRUN=="4 RUN"){
                 this.run=true;
-                this.run0=true;
-                this.run1=true;
-                this.run2=true;
-                this.run3=true;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth.push(0,0,0,0);
+                }
             }
+            
         }
     }
 

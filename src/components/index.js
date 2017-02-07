@@ -22,7 +22,6 @@ export function configure(config) {
         './customs/auto-suggests/delivery-order-auto-suggest',
         './customs/auto-suggests/delivery-order-auto-suggest-by-supplier',
         './customs/auto-suggests/division-auto-suggest',
-        './customs/auto-suggests/sales-construction-auto-suggest-by-material-by-order-type',
         './customs/auto-suggests/sales-material-auto-suggest-by-order-type',
         './customs/auto-suggests/lamp-standard-auto-suggest',
         './customs/auto-suggests/machine-auto-suggest',
@@ -67,6 +66,5 @@ export function configure(config) {
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
         './customs/collections/unit-receipt-note/unit-receipt-note-item-collection',
         './customs/collections/production-order-lamp-standard/production-order-lamp-standard-collection'
-        './customs/collections/monitoring-event/monitoring-event-item-collection'
     );
 }
