@@ -16,16 +16,17 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
+    .feature('au-components')
     .feature('components')
     .feature('converters')
 
     .plugin("aurelia-api", config => {
 
 
-      var core = "https://dl-core-api.mybluemix.net/v1/";
-      var auth = "https://dl-auth-api.mybluemix.net/v1/";
-      var production = "https://dl-production-webapi.mybluemix.net/v1/";
-      var purchasing = "https://dl-purchasing-webapi.mybluemix.net/v1/";
+      var core = "https://dl-core-api-uat.mybluemix.net/v1/";
+      var auth = "https://dl-auth-api-uat.mybluemix.net/v1/";
+      var production = "https://dl-production-webapi-uat.mybluemix.net/v1/";
+      var purchasing = "https://dl-purchasing-webapi-uat.mybluemix.net/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);

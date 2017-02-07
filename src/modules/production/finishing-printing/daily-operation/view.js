@@ -25,7 +25,7 @@ export class View {
         this.data.dateInput = `${dateInput.getFullYear()}-${mmInput}-${ddInput}`;
         this.data.hourInput = ('0' + (dateInput.getHours())).slice(-2);
         this.data.minuteInput = ('0' + (dateInput.getMinutes())).slice(-2);
-        this.data.dateOutput = dateOutput.getFullYear() == 1900 ? '' : `${dateOutput.getFullYear()}-${mmOutput}-${ddOutput}`;
+        this.data.dateOutput = `${dateOutput.getFullYear()}-${mmOutput}-${ddOutput}`;
         this.data.hourOutput = ('0' + (dateOutput.getHours())).slice(-2);
         this.data.minuteOutput = ('0' + (dateOutput.getMinutes())).slice(-2);
         var color = {
@@ -48,7 +48,7 @@ export class View {
 
     delete() {
         var dateInput = `${this.data.dateInput} ${this.data.hourInput}:${this.data.minuteInput}:00`;
-        var dateOutput = this.data.dateOutput ? `${this.data.dateOutput} ${this.data.hourOutput}:${this.data.minuteOutput}:00` : '';
+        var dateOutput = `${this.data.dateOutput} ${this.data.hourOutput}:${this.data.minuteOutput}:00`;
         this.data.dateInput = dateInput;
         this.data.dateOutput = dateOutput;
         var color = this.data.color.color;

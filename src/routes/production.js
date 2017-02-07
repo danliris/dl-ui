@@ -8,7 +8,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -22,7 +21,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -35,7 +33,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -48,23 +45,22 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {},
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'production/finishing-printing/daily-operation',
-        name: 'dailys',
-        moduleId: './modules/production/finishing-printing/daily-operation/index',
-        nav: true,
-        title: 'Daily Operation',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: {},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'production/finishing-printing/daily-operation',
+    //     name: 'dailys',
+    //     moduleId: './modules/production/finishing-printing/daily-operation/index',
+    //     nav: true,
+    //     title: 'Daily Operation',
+    //     auth: true,
+    //     settings: {
+    //         group: "production",
+    //         permission: { "*": 0 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'production/finishing-printing/monitoring-event',
         name: 'monitoring-event',
@@ -74,20 +70,32 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission : {},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'production/finishing-printing/reports/daily-operation-report',
-        name: 'report-dailys',
-        moduleId: './modules/production/finishing-printing/reports/daily-operation-report/index',
+    // {
+    //     route: 'production/finishing-printing/reports/daily-operation-report',
+    //     name: 'report-dailys',
+    //     moduleId: './modules/production/finishing-printing/reports/daily-operation-report/index',
+    //     nav: true,
+    //     title: 'Report Daily Operation',
+    //     auth: true,
+    //     settings: {
+    //         group: "production",
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+        {
+        route: 'production/finishing-printing/reports/monitoring-event-report',
+        name: 'report-monitoring-events',
+        moduleId: './modules/production/finishing-printing/reports/monitoring-event-report/index',
         nav: true,
-        title: 'Report Daily Operation',
+        title: 'Report Monitoring Event',
         auth: true,
         settings: {
             group: "production",
-            permission: {},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }]

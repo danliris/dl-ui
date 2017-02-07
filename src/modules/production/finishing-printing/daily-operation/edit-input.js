@@ -22,7 +22,7 @@ export class EditInput {
         var dateOutput = new Date(this.data.dateOutput);
         var ddOutput = ('0' + dateOutput.getDate()).slice(-2);
         var mmOutput = ('0' + (dateOutput.getMonth() + 1)).slice(-2);
-        this.data.dateInput = dateInput.getFullYear() == 1900 ? '' : `${dateInput.getFullYear()}-${mmInput}-${ddInput}`;
+        this.data.dateInput = `${dateInput.getFullYear()}-${mmInput}-${ddInput}`;
         this.data.hourInput = ('0' + (dateInput.getHours())).slice(-2);
         this.data.minuteInput = ('0' + (dateInput.getMinutes())).slice(-2);
         this.data.dateOutput = `${dateOutput.getFullYear()}-${mmOutput}-${ddOutput}`;

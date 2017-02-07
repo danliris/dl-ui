@@ -25,7 +25,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-
+    {
+        route: 'monitoring-purchase-request-all-unit',
+        name: 'monitoring-purchase-request-all-unit',
+        moduleId: './modules/purchasing/monitoring-purchase-request-all-unit/index',
+        nav: true,
+        title: 'Monitoring Purchase Request Semua Unit',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'po',
         name: 'purchase-order',
@@ -61,7 +73,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"C9": 1, "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7},
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -201,32 +213,6 @@ module.exports = [
         moduleId: './modules/purchasing/unit-payment-quantity-correction-note/index',
         nav: true,
         title: 'Koreksi Jumlah Pembelian',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'purchase-request-by-role',
-        name: 'purchase-request-by-role',
-        moduleId: './modules/purchasing/purchase-request-by-role/index',
-        nav: true,
-        title: 'Purchase Request By Purcashing Unit',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'monitoring-purchase-request-all-unit',
-        name: 'monitoring-purchase-request-all-unit',
-        moduleId: './modules/purchasing/monitoring-purchase-request-all-unit/index',
-        nav: true,
-        title: 'Monitoring Purchase Request Semua Unit',
         auth: true,
         settings: {
             group: "purchasing",
