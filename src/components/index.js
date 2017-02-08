@@ -52,6 +52,7 @@ export function configure(config) {
         './customs/auto-suggests/standard-test-auto-suggest',
         './customs/auto-suggests/account-auto-suggest',
         './customs/auto-suggests/production-order-auto-suggest',
+        './customs/auto-suggests/machine-type-auto-suggest',
         './customs/auto-suggests/account-auto-suggest',
         './customs/auto-suggests/machine-event-auto-suggest',
 
@@ -66,7 +67,8 @@ export function configure(config) {
         './customs/collections/unit-payment-price-correction-note/unit-payment-price-correction-note-collection',
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
         './customs/collections/unit-receipt-note/unit-receipt-note-item-collection',
+        './customs/collections/machine-type/machine-type-indicator-collection',
+        './customs/collections/monitoring-specification-machine/monitoring-specification-machine-collection',
         './customs/collections/production-order-lamp-standard/production-order-lamp-standard-collection'
-        // './customs/collections/monitoring-event/monitoring-event-item-collection'
     );
 }
