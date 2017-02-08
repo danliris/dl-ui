@@ -155,19 +155,6 @@ module.exports = [
             group: "master",
             permission: { "C9": 1 },
         }
-    },
-    {
-        route: 'monitoring-event-types',
-        name: 'monitoring-event-types',
-        moduleId: './modules/master/monitoring-event-type/index',
-        nav: true,
-        title: 'Monitoring Event Type',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
     }
     ]
 
