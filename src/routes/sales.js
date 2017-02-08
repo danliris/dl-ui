@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"*",0},
+            permission: {"*":0},
             iconClass: 'fa fa-dashboard'
         }
     },
