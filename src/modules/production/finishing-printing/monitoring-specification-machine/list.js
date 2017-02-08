@@ -10,8 +10,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.machineTypeId = "";
-        this.machineType = [];
+
     }
 
     async activate() {
@@ -20,6 +19,17 @@ export class List {
         this.data = result.data;
         this.info = result.info;
     }
+
+    // async activate() {
+    //     this.info.keyword = '';
+    //     var result = await this.service.search(this.info);
+    //     this.data = result.data;
+    //     this.info = result.info;
+    //     for(var item of this.data){
+    //         item.timeInMoment=moment(item.time).format('HH:mm');
+    //     }
+    // }
+
 
     loadPage() {
         var keyword = this.info.keyword;
@@ -36,7 +46,7 @@ export class List {
         this.info.page = page;
         this.loadPage();
     }
-    
+
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
@@ -47,6 +57,6 @@ export class List {
 
     upload() {
         this.router.navigateToRoute('upload');
-    } 
+    }
 
 }

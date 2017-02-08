@@ -1,13 +1,20 @@
-<template>
+<template>  
     <h1 class="page-header">Detail Monitoring Specification Machine</h1>
     <require from="./data-form"></require>
-    <block>
-        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
+    <block> 
+    <form class="form-horizontal">
+        <fieldset>
+            <textbox            label="Kode"                value.bind="data.code"          error.bind="error.code"            read-only="true"></textbox>
+            <datepicker         label="Tanggal"             value.bind="data.date"          error.bind="error.date"            read-only="true"> </datepicker>
+            <textbox            label="Jam"                 value.bind="data.time | dateFormat:'HH:mm'"          error.bind="error.time"            read-only="true"></textbox>
+           <textbox             label="Mesin "              value.bind="data.machine.name"       error.bind="error.machine.name"    read-only="true"></textbox>
+        </fieldset>
+         <monitoring-specification-machine-collection       value.bind="data.items"         error.bind="error.items"   options.bind="Options" ></monitoring-specification-machine-collection>
+    </form>
         <hr/>
         <div class="btn-group pull-right">
-            <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
-            <a click.delegate="edit()" class='btn btn-primary btn-sm'>Ubah</a>
-            <a click.delegate="delete()" class='btn btn-danger btn-sm'>Hapus</a>
+            <a click.delegate="list()" class='btn btn-default'  >Kembali</a>
+            <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isPosted">Hapus</a>
         </div>
     </block>
-</template>
+</template> 

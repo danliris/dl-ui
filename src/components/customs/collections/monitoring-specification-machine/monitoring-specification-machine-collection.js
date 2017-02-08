@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import MachineTypeIndicatorCollectionReact from './machine-type-indicator-collection-react.jsx';
+import MonitoringSpecificationMachineCollectionReact from './monitoring-specification-machine-collection-react.jsx';
 
 
 @noView()
 @inject(Element)
-@customElement('machine-type-indicator-collection')
-export class MachineTypeIndicatorCollection {
+@customElement('monitoring-specification-machine-collection')
+export class MonitoringSpecificationMachineCollection {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
@@ -33,7 +33,7 @@ export class MachineTypeIndicatorCollection {
             indicator: "",
             dataType: "",
             defaultValue: "",
-    
+            value: "",
         });
         this.bind();
     }
@@ -47,7 +47,7 @@ export class MachineTypeIndicatorCollection {
     render() {
         // this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <MachineTypeIndicatorCollectionReact value={this.value} error={this.error} options={this.options}></MachineTypeIndicatorCollectionReact>,
+            <MonitoringSpecificationMachineCollectionReact value={this.value} error={this.error} options={this.options}></MonitoringSpecificationMachineCollectionReact>,
             this.element
         );
     }

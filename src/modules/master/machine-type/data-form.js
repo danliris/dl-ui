@@ -4,6 +4,10 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = { "import": true };
     @bindable error = {};
+    @bindable Options = {
+        "readOnly" : false,
+        "isMaster":true
+    }
 
 
 

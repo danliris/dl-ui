@@ -25,19 +25,25 @@
                     <tr>
                         <!--<th class="${isPosting ? '' : 'hide'}"></th>
                         <th class="${isPrint ? '' : 'hide'}"></th>-->
-                        <th>Code</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Machine</th>
+                        <th>Kode</th>
+                        <th>Tanggal</th>
+                        <th>Jam</th>
+                        <th>Mesin</th>
+                        <th>Indicators</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data" click.delegate="view(item)">
-                        <td>${item.Code}</td>
-                        <td>${item.Date}</td>
-                        <td>${item.Time}</td>
-                        <td>${item.Machine}</td>
+                        <td>${item.code}</td>
+                        <td>${item.date}</td>
+                        <td>${item.time | dateFormat:'HH:mm'}</td>
+                        <td>${item.machine.name}</td>
+                        <td>
+                            <ul>
+                                <li repeat.for="indicator of item.items">${indicator.indicator}</li>
+                            </ul>
+                        </td>
                     </tr>
                 </tbody>
             </table>

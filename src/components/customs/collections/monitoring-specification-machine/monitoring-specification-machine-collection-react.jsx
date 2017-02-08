@@ -1,9 +1,9 @@
 import React from 'react';
-import MachineTypeIndicatorReact from './machine-type-indicator-react.jsx';
+import MonitoringSpecificationMachineReact from './monitoring-specification-machine-react.jsx';
 
 'use strict';
 
-export default class MachineTypeIndicatorCollectionReact extends React.Component {
+export default class MonitoringSpecificationMachineCollectionReact extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,7 +28,7 @@ export default class MachineTypeIndicatorCollectionReact extends React.Component
             indicator: "",
             dataType: "",
             defaultValue: "",
-   
+            value: "",
         };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });
@@ -49,7 +49,7 @@ export default class MachineTypeIndicatorCollectionReact extends React.Component
         var items = (this.state.value || []).map(function (item, index) {
             var error = this.state.error[index] || {};
             return (
-                <MachineTypeIndicatorReact key={"__item" + index} value={item} error={error} options={this.state.options} onRemove={this.handleItemRemove}></MachineTypeIndicatorReact>
+                <MonitoringSpecificationMachineReact key={"__item" + index} value={item} error={error} options={this.state.options} onRemove={this.handleItemRemove}></MonitoringSpecificationMachineReact>
             );
         }.bind(this))
 
@@ -59,14 +59,15 @@ export default class MachineTypeIndicatorCollectionReact extends React.Component
         var table = null;
 
 
-        if (!this.state.options.isMaster) 
+        if (!this.state.options.isMaster == true) 
             addButton = <span></span>;
             return (<table className="table table-bordered">
                 <thead>
                     <tr>
                         <th width="40%">Indicator</th>
                         <th width="20%">Data Type</th>
-                        <th width="30%">Default Value</th>
+                        <th width="15%">Default Value</th>
+                        <th width="15%">Value</th>
                         <th width="5%">
                             {addButton}
                         </th>

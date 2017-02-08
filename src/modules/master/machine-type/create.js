@@ -9,6 +9,7 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = { "import": true };
+
     }
 
     activate(params) {
@@ -20,6 +21,16 @@ export class Create {
     }
 
     save() {
+
+        for (var d of this.data.indicators) {
+            if (d.dataType == "numeric") {
+                if (d.defaultValue == "" || !d.defaultValue || d.defaultValue == 0) {
+                    d.defaultValue = 0;
+                }
+            }
+
+        }
+
         this.service.create(this.data)
             .then(result => {
                 this.list();
@@ -27,5 +38,6 @@ export class Create {
             .catch(e => {
                 this.error = e;
             })
+
     }
 }

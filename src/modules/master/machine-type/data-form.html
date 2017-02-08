@@ -2,12 +2,13 @@
     <form class="form-horizontal">
 
         <fieldset>
-        <textbox label="Name" value.bind="data.name" error.bind="error.name"  read-only.bind="(readOnly || isEdit)"> </textbox>
+       
+        <textbox label="Name" value.bind="data.name" error.bind="error.name"  options.bind="Options"> </textbox>
         </fieldset>
         <hr />
-        <multiline label="Description" value.bind="data.description" error.bind="error.remark" read-only.bind="readOnly"></multiline>
+        <multiline label="Deskripsi" value.bind="data.description" error.bind="error.description" options.bind="Options" ></multiline>
         <hr />
-        <machine-type-indicator-collection value.bind="data.indicators" error.bind="error.indicators" read-only.bind="readOnly"></machine-type-indicator-collection>
+        <machine-type-indicator-collection value.bind="data.indicators" error.bind="error.indicators" options.bind="Options"></machine-type-indicator-collection>
 
     </form>
 </template>

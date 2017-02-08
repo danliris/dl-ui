@@ -1,15 +1,13 @@
 <template>
     <form class="form-horizontal">
 
-        <fieldset>
-        <datepicker             label="Date"             value.bind="data.date"                  error.bind="error.date"                     read-only.bind="readOnly"></datepicker>
-        <timepicker             label="Time"             value.bind="data.time"                  error.bind="error.time"                     read-only.bind="readOnly"></timepicker>
-        
-        </fieldset>
-        <hr />
-        <multiline label="Description" value.bind="data.description" error.bind="error.remark" read-only.bind="readOnly"></multiline>
-        <hr />
-        <machine-type-indicator-collection value.bind="data.indicators" error.bind="error.indicators" read-only.bind="readOnly"></machine-type-indicator-collection>
 
+        <fieldset>
+        <datepicker             label="Tanggal"             value.bind="data.date"                  error.bind="error.date"               ></datepicker>
+        <timepicker             label="Jam"             value.bind="data.time"                  error.bind="error.time"               showsecond.bind=showSecond> </timepicker>
+        </fieldset> 
+        <machine-auto-suggest    label="Mesin"         value.bind="data.machine"             error.bind="error.machine"                       read-only.bind="(readOnly)" change.delegate="machineChanged($event)"></machine-auto-suggest>
+        
+         <monitoring-specification-machine-collection        value.bind="data.items"         error.bind="error.items"   options.bind="Options"   change.delegate="machineChanged($event)" filter.bind="filterMachine || isFilterMachine" if.bind="data.machine" ></monitoring-specification-machine-collection>
     </form>
 </template>

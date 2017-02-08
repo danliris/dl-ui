@@ -1,8 +1,18 @@
 <template>
-    <h1 class="page-header">Detail Machine Type</h1>
+    <h1 class="page-header">Detail Machine Type</h1> 
     <require from="./data-form"></require>
     <block>
-        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
+        
+        <fieldset>
+        <textbox label="Kode" value.bind="data.code" error.bind="error.code"  read-only="true"> </textbox>
+        <textbox label="Name" value.bind="data.name" error.bind="error.name"  read-only="true"> </textbox>
+        </fieldset>
+        <hr />
+        <multiline label="Deskripsi" value.bind="data.description" error.bind="error.description" read-only="true" ></multiline>
+        <hr />
+        <machine-type-indicator-collection value.bind="data.indicators" error.bind="error.indicators" options.bind="Options"></machine-type-indicator-collection>
+
+        
         <hr/>
         <div class="btn-group pull-right">
             <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
