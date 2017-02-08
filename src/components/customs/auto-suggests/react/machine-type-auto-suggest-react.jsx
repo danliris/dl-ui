@@ -3,33 +3,33 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'sales/material-by-order-types';
+const resource = 'master/machine-types';
 
 const empty = {
-    _id: {
-        name: ''
-    },
+    name: '',
+    toString: function () {
+        return '';
+    }
 }
-
 
 'use strict';
 
-export default class SalesMaterialAutoSuggestReactByOrderType extends AutoSuggestReact {
+export default class MachineTypesAutoSuggestReact extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, SalesMaterialAutoSuggestReactByOrderType.defaultProps.options, props.options);
+        var options = Object.assign({}, MachineTypesAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this._id.name}`;
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-SalesMaterialAutoSuggestReactByOrderType.propTypes = {
+MachineTypesAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -39,21 +39,22 @@ SalesMaterialAutoSuggestReactByOrderType.propTypes = {
     })
 };
 
-SalesMaterialAutoSuggestReactByOrderType.defaultProps = {
+MachineTypesAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
-        suggestions: function (text, filter) {
+        suggestions:
+        function (text, filter) {
 
             var config = Container.instance.get(Config);
-            var endpoint = config.getEndpoint("production");
+            var endpoint = config.getEndpoint("core");
 
             return endpoint.find(resource, { keyword: text, filter: JSON.stringify(filter) })
                 .then(results => {
-                    return results.info.map(material => {
-                        material.toString = function () {
-                            return `${this._id.name}`;
+                    return results.data.map(order => {
+                        order.toString = function () {
+                            return `${this.name}`;
                         }
-                        return material;
+                        return order;
                     });
                 });
         }
