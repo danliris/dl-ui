@@ -16,6 +16,7 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
+    .feature('au-components')
     .feature('components')
     .feature('converters')
 

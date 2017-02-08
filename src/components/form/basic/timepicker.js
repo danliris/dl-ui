@@ -43,7 +43,7 @@ export class Timepicker {
             this.format = this.format;
         }
         else{
-            this.format = "HH:mm";
+            this.format = "HH:mm:ss";
         }
     }
 

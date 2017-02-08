@@ -21,7 +21,8 @@ export class List {
         this.info = result.info;
         for (var monitoringEvent of this.data)
         {
-            monitoringEvent.timeInMoment = moment(monitoringEvent.timeInMillis).format('HH:mm');
+            monitoringEvent.timeInMomentStart = moment(monitoringEvent.timeInMillisStart).format('HH:mm');
+            monitoringEvent.timeInMomentEnd = moment(monitoringEvent.timeInMillisEnd).format('HH:mm');
         }
     }
 
