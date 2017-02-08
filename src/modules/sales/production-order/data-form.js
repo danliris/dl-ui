@@ -56,7 +56,7 @@ export class DataForm {
   get isPrintingOnly(){
         this.printingOnly=false;
         if(this.data.orderType){
-            if(this.data.orderType.name.trim().toLowerCase()=="printing"){
+            if(this.data.orderType.name.toLowerCase()=="printing"){
                 this.printingOnly=true;
             }
         }
@@ -71,6 +71,43 @@ export class DataForm {
     return this.filterOrder;
   }
 
+  get isRUN(){
+      this.run=false;
+      if(this.data.RUN=="Tanpa RUN"){
+          this.run=false;
+          this.data.RUNWidth.length=0;
+      }
+      if(this.data.RUN=="1 RUN"){
+          this.run=true;
+          this.data.RUNWidth.length=1;
+          if(this.data.RUNWidth.length==0){
+              this.data.RUNWidth[0]=0;
+          }
+          console.log(this.data.RUNWidth);
+      }
+      if(this.data.RUN=="2 RUN"){
+          this.run=true;
+          this.data.RUNWidth.length=2;
+          if(this.data.RUNWidth.length==0){
+              this.data.RUNWidth.push(0,0);
+          }
+      }
+      if(this.data.RUN=="3 RUN"){
+          this.run=true;
+          this.data.RUNWidth.length=3;
+          if(this.data.RUNWidth.length==0){
+              this.data.RUNWidth.push(0,0,0);
+          }
+      }
+      if(this.data.RUN=="4 RUN"){
+          this.run=true;
+          this.data.RUNWidth.length=4;
+          if(this.data.RUNWidth.length==0){
+              this.data.RUNWidth.push(0,0,0,0);
+          }
+      }
+      return this.run;
+  }
   
     orderChanged(e){
         var selectedOrder=e.detail || {};
@@ -169,7 +206,7 @@ export class DataForm {
     }
   }
 
-    RUNChanged(e){
+   RUNChanged(e){
         var selectedRUN=e.srcElement.value;
         if(selectedRUN){
             this.data.RUNWidth = [];
