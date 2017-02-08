@@ -13,7 +13,7 @@
                 <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
                 <textbox                    label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
                 <div class="row">
-                  <div class="col-sm-4">
+                  <div class="col-sm-4" style="padding-left:20%">
                     <textbox label="Jumlah Order" read-only="true"></textbox>
                   </div>
                   <div class="col-sm-3">
@@ -22,7 +22,7 @@
                   <div class="col-sm-1">
                     <textbox label="Satuan" read-only="true"></textbox>
                   </div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-2">
                     <uom-auto-suggest value.bind="data.uom" error.bind="error.uom" read-only.bind="readOnly" change.delegate="uomChanged($event)"></uom-auto-suggest>
                   </div>
                 </div>
