@@ -10,7 +10,7 @@
       loader.bind="loader" options.bind="controlOption" change.delegate="setColorTypeId($event)"></au-autocomplete>
   </td>
   <td>
-    <au-numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="options.readOnly" options.bind="controlOption"></au-numeric>
+    <numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="options.readOnly" options.bind="controlOption"></numeric>
   </td>
   <td>
     <au-textbox value.one-way="data.uom.unit" error.bind="error.uom" read-only.bind="true" options.bind="controlOption"></au-textbox>
