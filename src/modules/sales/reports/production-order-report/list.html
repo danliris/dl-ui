@@ -4,7 +4,7 @@
         <textbox                    label="Nomor Sales Contract"    value.bind="salesContractNo"	></textbox>
         <textbox                    label="Nomor Order Produksi"    value.bind="orderNo"            ></textbox>
         <order-type-auto-suggest	label="Jenis Order"	            value.bind="orderType" 	        change.delegate="orderTypeChanged($event)"></order-type-auto-suggest>
-        <process-type-auto-suggest	label="Jenis Proses"	        value.bind="processType" 	    change.delegate="processTypeChanged($event)"></process-type-auto-suggest>
+        <process-type-auto-suggest	label="Jenis Proses"	        value.bind="processType" 	    change.delegate="processTypeChanged($event)" filter.bind="filterOrder" if.bind="orderType" ></process-type-auto-suggest>
         <buyer-auto-suggest	        label="Buyer"	                value.bind="buyer" 	            change.delegate="buyerChanged($event)"></buyer-auto-suggest>
         <account-auto-suggest	    label="Staff Penjualan"	        value.bind="account" 	        change.delegate="accountChanged($event)"    filter.bind="filterAccount"></account-auto-suggest>
         <datepicker                 label="Tanggal Awal"            value.bind="dateFrom"           ></datepicker>
@@ -16,8 +16,8 @@
                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div> 
-        <div class="btn-group pull-left" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        <div class="btn-group pull-left">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
         </div>
     </form>
 <br>
@@ -67,6 +67,7 @@
                 <td class="text-right">${item.colorType}</td>
                 <td class="text-left">${item.quantity}</td>
                 <td class="text-right">${item.uomDetail}</td>
+                <td class="text-right">${item.deliveryDate}</td>
                 <td class="text-right">${item.firstname} ${item.lastname}</td>
                 <td class="text-right"></td>
             </tr>

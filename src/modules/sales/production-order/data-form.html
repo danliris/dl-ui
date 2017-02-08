@@ -8,18 +8,18 @@
                 <textbox                    label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
                 <order-type-auto-suggest    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
                 <process-type-auto-suggest  label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" if.bind="data.orderType" filter.bind="filterOrder || isFilterOrder"></process-type-auto-suggest >
-                <thread-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></thread-auto-suggest>
+                <sales-material-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
                 <material-construction-auto-suggest                 label="Konstruksi Material"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
                 <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
                 <textbox                    label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
                 <div class="row">
-                  <div class="col-sm-4" style="padding-left:10%">
+                  <div class="col-sm-4" style="padding-left:20%">
                     <textbox label="Jumlah Order" read-only="true"></textbox>
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-3">
                     <numeric value.bind="data.orderQuantity" error.bind="error.orderQuantity" read-only.bind="(readOnly)"></numeric>
                   </div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-1">
                     <textbox label="Satuan" read-only="true"></textbox>
                   </div>
                   <div class="col-sm-2">
@@ -38,10 +38,10 @@
                 <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions" if.bind="printingOnly  || isPrintingOnly" change.delegate="RUNChanged($event)"></dropdown>
                 <div class="row">
                     <div class="col-sm-4" style="padding-left:10%">
-                    <textbox value="Lebar RUN (cm)" read-only="true" if.bind="(printingOnly  || isPrintingOnly) && (run || isRUN)"  ></textbox>  
+                    <textbox value="Lebar RUN (cm)" read-only="true" if.bind="run || isRUN"  ></textbox>  
                     </div>
                     <div class="col-sm-2" repeat.for="i of data.RUNWidth.length" >
-                        <numeric value.bind="data.RUNWidth[i]" read-only.bind="(readOnly)" if.bind="(printingOnly || isPrintingOnly) && (run || isRUN)" error.bind="error.RUNWidth"></numeric>
+                        <numeric value.bind="data.RUNWidth[i]" read-only.bind="(readOnly)" if.bind="(run || isRUN)" error.bind="error.RUNWidth"></numeric>
                     </div>
                 </div>
                 <textbox                    label="Tulisan Pinggir Kain"    value.bind="data.articleFabricEdge"     error.bind="error.articleFabricEdge"        read-only.bind="(readOnly)" if.bind="printingOnly || isPrintingOnly"></textbox>
