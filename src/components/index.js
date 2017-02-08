@@ -22,7 +22,7 @@ export function configure(config) {
         './customs/auto-suggests/delivery-order-auto-suggest',
         './customs/auto-suggests/delivery-order-auto-suggest-by-supplier',
         './customs/auto-suggests/division-auto-suggest',
-        './customs/auto-suggests/sales-material-auto-suggest-by-order-type',
+        './customs/auto-suggests/sales-material-auto-suggest',
         './customs/auto-suggests/lamp-standard-auto-suggest',
         './customs/auto-suggests/machine-auto-suggest',
         './customs/auto-suggests/machine-auto-suggest-by-division',
