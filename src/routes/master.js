@@ -39,6 +39,19 @@ module.exports = [
         }
     },
     {
+        route: 'products/upload',
+        name: 'products/upload',
+        moduleId: './modules/master/product-upload/index',
+        nav: true,
+        title: 'Upload Data Barang',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C5": 1, "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'products',
         name: 'products',
         moduleId: './modules/master/product/index',
@@ -128,6 +141,7 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+
     },
     {
 
@@ -156,3 +170,4 @@ module.exports = [
         }
     }
     ]
+
