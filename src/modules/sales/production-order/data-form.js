@@ -11,30 +11,28 @@ export class DataForm {
   lampHeader = [{ header: "Lamp Standard" }];
   
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
-
-  filterAccount = {
-            "roles" : {
-                "$elemMatch" : { 
-                    "permissions" : {
-                        "$elemMatch" : { 
-                            "unit.name" : "PENJUALAN FINISHING & PRINTING"
-                        }
-                    }
-                }
-            }
-        };
   
-  filterMaterial = {
-    "tags" :{
-        "$regex" : (new RegExp("material", "i"))
-    }
-  }
-
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
     this.element = element;
     this.service = service;
 
+    var unitName= encodeURIComponent("PENJUALAN FINISHING & PRINTING");
+    this.filterAccount = {
+              "roles" : {
+                  "$elemMatch" : { 
+                      "permissions" : {
+                          "$elemMatch" : { 
+                              "unit.name" : unitName
+                          }
+                      }
+                  }
+              }
+          };
+
+      this.filterMaterial = {
+      "tags" :"material"
+    }
   }
 
   @computedFrom("data.dataId")

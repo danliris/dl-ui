@@ -3,33 +3,36 @@ import AutoSuggestReact from '../../../form/basic/react/auto-suggest-react.jsx';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'sales/material-by-order-types';
+const resource = 'sales/materials';
 
 const empty = {
-    _id: {
-        name: ''
-    },
+    code: '',
+    name: '',
+    toString: function () {
+        return '';
+    }
 }
-
-
 'use strict';
 
-export default class SalesMaterialAutoSuggestReactByOrderType extends AutoSuggestReact {
+export default class SalesMaterialAutoSuggestReact extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, SalesMaterialAutoSuggestReactByOrderType.defaultProps.options, props.options);
+        var options = Object.assign({}, SalesMaterialAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this._id.name}`;
+            return [this.code, this.name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
 }
 
-SalesMaterialAutoSuggestReactByOrderType.propTypes = {
+SalesMaterialAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -39,7 +42,7 @@ SalesMaterialAutoSuggestReactByOrderType.propTypes = {
     })
 };
 
-SalesMaterialAutoSuggestReactByOrderType.defaultProps = {
+SalesMaterialAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions: function (text, filter) {
@@ -51,7 +54,10 @@ SalesMaterialAutoSuggestReactByOrderType.defaultProps = {
                 .then(results => {
                     return results.info.map(material => {
                         material.toString = function () {
-                            return `${this._id.name}`;
+                            return [this.code, this.name]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
                         }
                         return material;
                     });
