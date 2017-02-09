@@ -74,7 +74,7 @@ export default class DeliveryOrderItemFulfillmentReact extends React.Component {
         return (
             <tr >
                 <td>
-                <div className={`form-group ${this.state.error.purchaseOrder ? 'has-error' : ''} `} style={style}>
+                    <div className={`form-group ${this.state.error.purchaseOrder ? 'has-error' : ''} `} style={style}>
                         <PurchaseRequestAutoSuggestReactPosted value={this.state.value.purchaseOrder.purchaseRequest} options={readOnlyOptions} />
                         <span className="help-block">{this.state.error.purchaseOrder}</span>
                     </div>
@@ -89,11 +89,17 @@ export default class DeliveryOrderItemFulfillmentReact extends React.Component {
                     <UomAutoSuggestReact value={this.state.value.purchaseOrderUom} options={readOnlyOptions} />
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.deliveredQuantity ? 'has-error' : ''} ${this.state.value.remainingQuantity < this.state.value.deliveredQuantity ? 'has-warning' : ''}`} style={style}>
-                        <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
-                        <span className="help-block">{this.state.error.deliveredQuantity}</span>
-                        {(this.state.value.remainingQuantity < this.state.value.deliveredQuantity && !this.state.options.readOnly) ? <span className="help-block">Jumlah diterima lebih besar dari jumlah dipesan</span> : <span></span>}
-                    </div>
+                    {(this.state.value.remainingQuantity < this.state.value.deliveredQuantity && !this.state.options.readOnly) ?
+                        <div className={`form-group ${this.state.value.remainingQuantity < this.state.value.deliveredQuantity ? 'has-warning' : ''}`} style={style}>
+                            <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
+                            <span className="help-block">Jumlah diterima lebih besar dari jumlah dipesan</span>
+                        </div> :
+                        <div className={`form-group ${this.state.error.deliveredQuantity ? 'has-error' : ''} `} style={style}>
+                            <NumericReact value={this.state.value.deliveredQuantity} options={this.state.options} onChange={this.handleDeliveredQuantityChanged} />
+                            <span className="help-block">{this.state.value.remainingQuantity < this.state.value.deliveredQuantity ? '' : this.state.error.deliveredQuantity}</span>
+                        </div>
+                    }
+
                 </td>
                 <td>
                     <TextboxReact value={this.state.value.remark} options={this.state.options} onChange={this.handleRemarkChanged} />
