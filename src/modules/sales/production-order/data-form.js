@@ -38,17 +38,18 @@ export class DataForm {
     return (this.data.dataId || '').toString() != '';
   }
 
-
+  @computedFrom("data.orderType")
   get isPrinting() {
     this.printing = false;
     if (this.data.orderType) {
-      if (this.data.orderType.name.trim().toLowerCase() == "printing" || this.data.orderType.name.trim().toLowerCase() == "yarndyed") {
+      if (this.data.orderType.name.trim().toLowerCase() == "printing" || this.data.orderType.name.trim().toLowerCase() == "yarn dyed") {
         this.printing = true;
       }
     }
     return this.printing;
   }
 
+  @computedFrom("data.orderType")
   get isPrintingOnly(){
         this.printingOnly=false;
         if(this.data.orderType){
@@ -59,6 +60,7 @@ export class DataForm {
         return this.printingOnly;
     }
 
+  @computedFrom("data.orderType")
   get isFilterOrder(){
       this.filterOrder = {
         "orderType.code": this.data.orderType.code
@@ -66,42 +68,44 @@ export class DataForm {
     
     return this.filterOrder;
   }
-
+  @computedFrom("data.orderType")
   get isRUN(){
       this.run=false;
-      if(this.data.RUNWidth){
-        if(this.data.RUN=="Tanpa RUN"){
-            this.run=false;
-            this.data.RUNWidth.length=0;
-        }
-        if(this.data.RUN=="1 RUN"){
-            this.run=true;
-            this.data.RUNWidth.length=1;
-            if(this.data.RUNWidth.length==0){
-                this.data.RUNWidth[0]=0;
-            }
-            console.log(this.data.RUNWidth);
-        }
-        if(this.data.RUN=="2 RUN"){
-            this.run=true;
-            this.data.RUNWidth.length=2;
-            if(this.data.RUNWidth.length==0){
-                this.data.RUNWidth.push(0,0);
-            }
-        }
-        if(this.data.RUN=="3 RUN"){
-            this.run=true;
-            this.data.RUNWidth.length=3;
-            if(this.data.RUNWidth.length==0){
-                this.data.RUNWidth.push(0,0,0);
-            }
-        }
-        if(this.data.RUN=="4 RUN"){
-            this.run=true;
-            this.data.RUNWidth.length=4;
-            if(this.data.RUNWidth.length==0){
-                this.data.RUNWidth.push(0,0,0,0);
-            }
+      if(this.data.orderType.name.toLowerCase()=="printing"){
+        if(this.data.RUNWidth){
+          if(this.data.RUN=="Tanpa RUN"){
+              this.run=false;
+              this.data.RUNWidth.length=0;
+          }
+          if(this.data.RUN=="1 RUN"){
+              this.run=true;
+              this.data.RUNWidth.length=1;
+              if(this.data.RUNWidth.length==0){
+                  this.data.RUNWidth[0]=0;
+              }
+              console.log(this.data.RUNWidth);
+          }
+          if(this.data.RUN=="2 RUN"){
+              this.run=true;
+              this.data.RUNWidth.length=2;
+              if(this.data.RUNWidth.length==0){
+                  this.data.RUNWidth.push(0,0);
+              }
+          }
+          if(this.data.RUN=="3 RUN"){
+              this.run=true;
+              this.data.RUNWidth.length=3;
+              if(this.data.RUNWidth.length==0){
+                  this.data.RUNWidth.push(0,0,0);
+              }
+          }
+          if(this.data.RUN=="4 RUN"){
+              this.run=true;
+              this.data.RUNWidth.length=4;
+              if(this.data.RUNWidth.length==0){
+                  this.data.RUNWidth.push(0,0,0,0);
+              }
+          }
         }
       }
       return this.run;
@@ -314,7 +318,7 @@ export class DataForm {
             colorRequest: '',
             colorTemplate: '',
             quantity: 0,
-            printing : this.printing
+            printing : this.isPrinting
           };
       this.data.details.push(newDetail);
     };
@@ -328,7 +332,7 @@ export class DataForm {
             colorRequest: '',
             colorTemplate: '',
             quantity: 0,
-            printing : this.printing
+            printing : this.isPrinting
           };
       this.data.details.push(newDetail);
     };
