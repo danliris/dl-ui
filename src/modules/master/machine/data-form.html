@@ -1,0 +1,50 @@
+<template>
+  <au-input-form 
+    title.bind="title" 
+    cancel.bind="cancel" 
+    edit.bind="edit" 
+    save.bind="save" 
+    delete.bind="delete">
+
+    <au-textbox 
+      label="Machine Name" 
+      value.bind="data.name" 
+      error.bind="error.name" 
+      read-only.bind="(readOnly || isEdit)">
+    </au-textbox>
+
+    <au-autocomplete 
+      label="Unit" 
+      value.bind="data.unit" 
+      select.delegate="unitSelected($event)" 
+      loader.bind="unitLoader"
+      placeholder="search unit" 
+      key="code" 
+      text="division.name '-' name" 
+      template="modules/master/machine/template/unit">
+    </au-autocomplete>
+
+    <au-autocomplete 
+      label="Unit" 
+      value.bind="data.unit" 
+      change.delegate="unitChanged($event)" 
+      loader.bind="unitLoader"
+      placeholder="search unit" 
+      key="code" 
+      text="division.name '-' name" 
+      template="modules/master/machine/template/unit">
+    </au-autocomplete>
+
+    <au-collection 
+      items.bind="data.machineEvents" 
+      columns.bind="machineEventColumns" 
+      add.bind="addMachineEvent" 
+      remove.bind="removeMachineEvent"
+      title="Machine Events" 
+      read-only.bind="readOnly" 
+      header-template="modules/master/machine/template/machine-event-header"
+      item-template="modules/master/machine/template/machine-event-item">
+    </au-collection>
+
+  </au-input-form>
+</template>

@@ -1,0 +1,6 @@
+<template>
+  <tr>
+    <th repeat.for="column of machineEventColumns">${column.header}</th>
+    <th if.bind="!readOnly && buttons.add"><button click.delegate="onadd($event)">Add+</button></th>
+  </tr>
+</template>

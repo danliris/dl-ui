@@ -1,0 +1,7 @@
+<template>
+  <td>${machineEvent.no}</td>
+  <td>
+    ${machineEvent.name}
+  </td>
+  <td if.bind="!options.readOnly"><button click.delegate="onremove(data, $event)">remove</button></td>
+</template>
