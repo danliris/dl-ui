@@ -1,64 +1,112 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 var moment = require('moment');
-import {Service} from './service';
+import { Service } from './service';
 
-@inject(BindingEngine, Element,Service)
+@inject(BindingEngine, Element, Service)
 export class DataForm {
-    @bindable readOnly = false;
-    @bindable data = {};
-    @bindable error = {};
+  @bindable readOnly = false;
+  @bindable data = {};
+  @bindable error = {};
 
-    RUNOptions=['Tanpa RUN','1 RUN', '2 RUN'];
+  lampHeader = [{ header: "Lamp Standard" }];
+  
+  RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
+  
+  constructor(bindingEngine, element, service) {
+    this.bindingEngine = bindingEngine;
+    this.element = element;
+    this.service = service;
+    this.filterAccount = {
+            "roles" : {
+                "$elemMatch" : { 
+                    "permissions" : {
+                        "$elemMatch" : { 
+                            "unit.name" : "PENJUALAN FINISHING & PRINTING"
+                        }
+                    }
+                }
+            }
+        };
 
-    constructor(bindingEngine, element,service) {
-        this.bindingEngine = bindingEngine;
-        this.element = element;
-        this.service = service;
-        
+      this.filterMaterial = {
+      "tags" :"material"
     }
+  }
 
-    @computedFrom("data.dataId")
-    get isEdit() {
-        return (this.data.dataId || '').toString() != '';
+  @computedFrom("data.dataId")
+  get isEdit() {
+    return (this.data.dataId || '').toString() != '';
+  }
+
+
+  get isPrinting() {
+    this.printing = false;
+    if (this.data.orderType) {
+      if (this.data.orderType.name.trim().toLowerCase() == "printing" || this.data.orderType.name.trim().toLowerCase() == "yarndyed") {
+        this.printing = true;
+      }
     }
-    get isFilter(){
-        this.data.constructionId=this.data.construction._id;
-        this.filter={
-            orderTypeId : this.data.orderTypeId,
-            materialId : this.data.materialId,
-            construction : this.data.constructionId
-        };
-        return this.filter;
-    }
-    get isFilterOrder(){
-        this.filterOrder={
-            "orderType.code": this.data.orderType.code
-        };
-        return this.filterOrder;
-    }
-    get isFilterOrderId(){
-        this.filterOrderId={
-            orderTypeId: this.data.orderTypeId
-        };
-        return this.filterOrderId;
-    }
-    get isFilterProduct(){
-        this.filterProduct = {
-            orderTypeId : this.data.orderTypeId,
-            materialId : this.data.materialId
-        };
-        return this.filterProduct;
-    }
-    get isPrinting(){
-        this.printing=false;
+    return this.printing;
+  }
+
+  get isPrintingOnly(){
+        this.printingOnly=false;
         if(this.data.orderType){
-            if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
-                this.printing=true;
+            if(this.data.orderType.name.toLowerCase()=="printing"){
+                this.printingOnly=true;
             }
         }
-        return this.printing;
+        return this.printingOnly;
     }
 
+  get isFilterOrder(){
+      this.filterOrder = {
+        "orderType.code": this.data.orderType.code
+      };
+    
+    return this.filterOrder;
+  }
+
+  get isRUN(){
+      this.run=false;
+      if(this.data.RUNWidth){
+        if(this.data.RUN=="Tanpa RUN"){
+            this.run=false;
+            this.data.RUNWidth.length=0;
+        }
+        if(this.data.RUN=="1 RUN"){
+            this.run=true;
+            this.data.RUNWidth.length=1;
+            if(this.data.RUNWidth.length==0){
+                this.data.RUNWidth[0]=0;
+            }
+            console.log(this.data.RUNWidth);
+        }
+        if(this.data.RUN=="2 RUN"){
+            this.run=true;
+            this.data.RUNWidth.length=2;
+            if(this.data.RUNWidth.length==0){
+                this.data.RUNWidth.push(0,0);
+            }
+        }
+        if(this.data.RUN=="3 RUN"){
+            this.run=true;
+            this.data.RUNWidth.length=3;
+            if(this.data.RUNWidth.length==0){
+                this.data.RUNWidth.push(0,0,0);
+            }
+        }
+        if(this.data.RUN=="4 RUN"){
+            this.run=true;
+            this.data.RUNWidth.length=4;
+            if(this.data.RUNWidth.length==0){
+                this.data.RUNWidth.push(0,0,0,0);
+            }
+        }
+      }
+      return this.run;
+  }
+  
     orderChanged(e){
         var selectedOrder=e.detail || {};
         if(selectedOrder){
@@ -67,118 +115,222 @@ export class DataForm {
             if (!this.readOnly) {
                 this.data.processType={};
                 this.processChanged({});
-                this.data.material={};
-                this.materialChanged({});
-                this.data.construction={};
-                this.constructionChanged({});
-                this.data.details = [];
+                this.data.details.length=0;
             }
-            if(this.data.orderType && code){
+            if(code){
                 this.filterOrder={
                     "orderType.code": code
-                };
-                
-                this.filterOrderId={
-                    orderTypeId: this.data.orderTypeId
-                };
+                }; 
             }
-        }
-    }
-
-    processChanged(e){
-        var selectedProcess = e.detail || {};
-        if(selectedProcess){
-            this.data.processTypeId = selectedProcess._id ? selectedProcess._id : "";
-        }
-        
-    }
-
-    materialChanged(e){
-        var selectedMaterial= e.detail || {};
-        if(selectedMaterial){
-        this.data.materialId=selectedMaterial._id ? selectedMaterial._id._id : "";
-            if(selectedMaterial._id){
-                if (!this.readOnly) {
-                    this.data.construction={};
-                    this.constructionChanged({});
-                    this.data.details = [];
+            if(selectedOrder.name)
+            {
+                if(selectedOrder.name.toLowerCase()=="printing"){
+                    this.printingOnly=true;
                 }
-                if(this.data.processType && this.data.material){
-                    this.filterProduct = {
-                        orderTypeId : this.data.orderType._id,
-                        materialId : selectedMaterial._id._id
-                    };
+                else{
+                    this.printingOnly=false;
                 }
-            }
-            else{
-                if (!this.readOnly) {
-                    this.data.construction={};
-                    this.constructionChanged({});
-                }
-            }
-        }
-        else{
-            if (!this.readOnly) {
-                this.data.construction={};
-                this.constructionChanged({});
-            }
-        }
-    }
-
-    constructionChanged(e){
-        var selectedConstruction= e.detail || {};
-        if(selectedConstruction){
-            this.data.constructionId=selectedConstruction._id ? selectedConstruction._id : "";
-             if(this.data.orderType && this.data.material && this.data.constructionId){
-                 this.filter={
-                    orderTypeId : this.data.orderType._id,
-                    materialId : this.data.materialId,
-                    construction : this.data.constructionId
-                 }
-                 if (!this.readOnly){
-                    this.data.details = [];
-                }
-                if(this.data.orderType.name.trim().toLowerCase()=="printing" || this.data.orderType.name.trim().toLowerCase()=="yarndyed"){
+                if(selectedOrder.name.toLowerCase()=="printing" || selectedOrder.name.toLowerCase()=="yarn dyed"){
                     this.printing=true;
                 }
                 else{
                     this.printing=false;
                 }
-             }
-         }
-         else{
-             this.data.details = [];
-         }
-    }
-
-    uomChanged(e) {
-        var selectedUom = e.detail;
-        if (selectedUom)
-        {
-            this.data.uomId = selectedUom._id;
-            for(var i of this.data.details){
-                i.uom=selectedUom;
             }
+            
+        }
+        else {
+          if (!this.readOnly) {
+            this.data.processType = {};
+            this.processChanged({});
+            this.data.details = [];
+          }
+          var code = this.data.orderType.code;
+          if (this.data.orderType && code) {
+            this.filterOrder = {
+              "orderType.code": code
+            };
+          }
+          if (this.data.orderType) {
+            if (this.data.orderType.name.toLowerCase() == "printing" || this.data.orderType.name.toLowerCase() == "yarn dyed") {
+              this.printing = true;
+            }
+            else {
+              this.printing = false;
+            }
+            if (this.data.orderType.name.toLowerCase() == "printing") {
+              this.printingOnly = true;
+            }
+            else {
+              this.printingOnly = false;
+            }
+          }
+
+        }
+      }
+
+  processChanged(e) {
+    var selectedProcess = e.detail || {};
+    if (selectedProcess) {
+      this.data.processTypeId = selectedProcess._id ? selectedProcess._id : "";
+    }
+
+  }
+
+  materialChanged(e) {
+    var selectedMaterial = e.detail || {};
+    if (selectedMaterial) {
+      this.data.materialId = selectedMaterial._id ? selectedMaterial._id : "";
+    }
+  }
+
+  constructionChanged(e) {
+    var selectedConstruction = e.detail || {};
+    if (selectedConstruction) {
+      this.data.materialConstructionId = selectedConstruction._id ? selectedConstruction._id : "";
+    }
+  }
+
+  uomChanged(e) {
+    var selectedUom = e.detail;
+    if (selectedUom) {
+      this.data.uomId = selectedUom._id;
+      if (this.data.details) {
+        for (var i of this.data.details) {
+          i.uom = selectedUom;
+          i.uomId = selectedUom._id;
+        }
+      }
+    }
+  }
+
+   RUNChanged(e){
+        var selectedRUN=e.srcElement.value;
+        if(selectedRUN){
+            this.data.RUNWidth = [];
+            if(selectedRUN=="Tanpa RUN"){
+                this.run=false;
+                this.data.RUNWidth.length=0;
+            }
+            if(selectedRUN=="1 RUN"){
+                this.run=true;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth[0]=0;
+                }
+                console.log(this.data.RUNWidth);
+            }
+            if(selectedRUN=="2 RUN"){
+                this.run=true;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth.push(0,0);
+                }
+            }
+            if(selectedRUN=="3 RUN"){
+                this.run=true;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth.push(0,0,0);
+                }
+            }
+            if(selectedRUN=="4 RUN"){
+                this.run=true;
+                this.data.RUNWidth.length=0;
+                if(this.data.RUNWidth.length==0){
+                    this.data.RUNWidth.push(0,0,0,0);
+                }
+            }
+            
         }
     }
 
-    buyerChanged(e){
-        var selectedBuyer = e.detail;
-        if (selectedBuyer){
-            this.data.buyerId = selectedBuyer._id;
-        }
+  buyerChanged(e) {
+    var selectedBuyer = e.detail;
+    if (selectedBuyer) {
+      this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
     }
+  }
 
-    lampStandardChanged(e){
-        var selectedLamp = e.detail;
-        if (selectedLamp)
-            this.data.lampStandardId = selectedLamp._id;
+  yarnChanged(e) {
+    var selectedYarn = e.detail || {};
+    if (selectedYarn) {
+      this.data.yarnMaterialId = selectedYarn._id ? selectedYarn._id : "";
     }
+  }
 
-    addDetail(e){
-        for(var i=0;i<this.data.details.length;i++){
-            this.data.details[i].uom=this.data.uom;
-        }
+  finishTypeChanged(e) {
+    var selectedFinish = e.detail || {};
+    if (selectedFinish) {
+      this.data.finishTypeId = selectedFinish._id ? selectedFinish._id : "";
     }
+  }
 
+  standardTestChanged(e) {
+    var selectedTest = e.detail || {};
+    if (selectedTest) {
+      this.data.standardTestId = selectedTest._id ? selectedTest._id : "";
+    }
+  }
+
+  accountChanged(e) {
+    var selectedAccount = e.detail || {};
+    if (selectedAccount) {
+      this.data.accountId = selectedAccount._id ? selectedAccount._id : "";
+    }
+  }
+  // NEW CODE
+
+
+  bind() {
+    this.data = this.data || {};
+    this.data.lampStandards = this.data.lampStandards || [];
+    this.data.details = this.data.details || [];
+  }
+
+  get addLamp() {
+    return (event) => {
+      this.data.lampStandards.push({ lampStandard: {}, lampStandardId: {} });
+    };
+  }
+
+  get detailHeader(){
+    if(!this.printing){
+      return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jenis Warna" }, { header: "Jumlah" }, { header: "Satuan" }];
+    }
+    else{
+      return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jumlah" }, { header: "Satuan" }]; 
+    }
+  } 
+  get removeLamp() {
+    return (event) => console.log(event);
+  }
+
+  get addDetailnonPrinting() {
+    return (event) => {
+      var newDetail=   {
+            uom: this.data.uom,
+            uomId: this.data.uom._id,
+            colorRequest: '',
+            colorTemplate: '',
+            quantity: 0,
+            printing : this.printing
+          };
+      this.data.details.push(newDetail);
+    };
+  }
+
+  get addDetailPrintingYarnDyed(){
+    return (event) => {
+      var newDetail=   {
+            uom: this.data.uom,
+            uomId: this.data.uom._id,
+            colorRequest: '',
+            colorTemplate: '',
+            quantity: 0,
+            printing : this.printing
+          };
+      this.data.details.push(newDetail);
+    };
+  }
 }

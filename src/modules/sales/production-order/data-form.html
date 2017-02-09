@@ -1,36 +1,66 @@
 <template>
     <form class="form-horizontal">
-            <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only.bind="(readOnly || isEdit)" ></textbox>
-            <textbox                    label="No. Order Produksi"  value.bind="data.orderNo"       error.bind="error.orderNo"                       read-only="true"  if.bind="data.orderNo"></textbox>
-            <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
-            <textbox                    label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
-            <order-type-auto-suggest    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
-            <process-type-auto-suggest  label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" filter.bind="filterOrder || isFilterOrder" if.bind="data.orderType" ></process-type-auto-suggest >
-            <sales-material-auto-suggest-by-order-type       label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" if.bind="data.orderType" filter.bind="filterOrderId || isFilterOrderId" ></sales-material-auto-suggest-by-order-type>
-            <sales-construction-auto-suggest-by-material-by-order-type                    label="Konstruksi"          value.bind="data.construction"          error.bind="error.construction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)" filter.bind="filterProduct || isFilterProduct" if.bind="data.material" ></sales-construction-auto-suggest-by-material-by-order-type>
-            <div class="form-group">
-                <div class="col-sm-6" style="padding-left:27%">
-                    <numeric                    label="Jumlah Order"        value.bind="data.orderQuantity"         error.bind="error.orderQuantity"       read-only.bind="(readOnly)"></numeric>
+        <div class="row">
+            <div  class="col-md-6" style="padding:0">
+                <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only.bind="(readOnly || isEdit)" ></textbox>
+                <textbox                    label="No. Order Produksi"  value.bind="data.orderNo"       error.bind="error.orderNo"                       read-only="true"  if.bind="data.orderNo"></textbox>
+                <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
+                <textbox                    label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
+                <order-type-auto-suggest    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
+                <process-type-auto-suggest  label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" if.bind="data.orderType" filter.bind="filterOrder || isFilterOrder"></process-type-auto-suggest >
+                <sales-material-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
+                <material-construction-auto-suggest                 label="Konstruksi Material"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
+                <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
+                <textbox                    label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
+                <div class="row">
+                  <div class="col-sm-4" style="padding-left:20%">
+                    <textbox label="Jumlah Order" read-only="true"></textbox>
+                  </div>
+                  <div class="col-sm-3">
+                    <numeric value.bind="data.orderQuantity" error.bind="error.orderQuantity" read-only.bind="(readOnly)"></numeric>
+                  </div>
+                  <div class="col-sm-1">
+                    <textbox label="Satuan" read-only="true"></textbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <uom-auto-suggest value.bind="data.uom" error.bind="error.uom" read-only.bind="readOnly" change.delegate="uomChanged($event)"></uom-auto-suggest>
+                  </div>
                 </div>
-                <div class="col-sm-4" style="padding-left:0">
-                    <uom-auto-suggest           label="Satuan"              value.bind="data.uom"                   error.bind="error.uom"           read-only.bind="readOnly"   change.delegate="uomChanged($event)"></uom-auto-suggest>
-                </div>
+                <numeric                    label="Toleransi Jumlah Kirim (%)" value.bind="data.shippingQuantityTolerance" error.bind="error.shippingQuantityTolerance" read-only.bind="readOnly" post-fix="%"></numeric>
+                <textbox                    label="Asal Material" value.bind="data.materialOrigin" error.bind="error.materialOrigin" read-only.bind="(readOnly)"></textbox>
+                <textbox                    label="Lebar Finish" value.bind="data.finishWidth" error.bind="error.finishWidth" read-only.bind="(readOnly)"></textbox>
+                <finish-type-auto-suggest label="Jenis Finish" value.bind="data.finishType" error.bind="error.finishType" read-only.bind="readOnly" change.delegate="finishTypeChanged($event)"></finish-type-auto-suggest>
+                <textbox                    label="Kode Desain" value.bind="data.designCode" error.bind="error.designCode" read-only.bind="(readOnly)" if.bind="printingOnly || isPrintingOnly"></textbox>
+                <textbox                    label="Nomor Desain" value.bind="data.designNumber" error.bind="error.designNumber" read-only.bind="(readOnly)" if.bind="printingOnly || isPrintingOnly"></textbox>
             </div>
-            <numeric                    label="Spelling (%)"            value.bind="data.spelling"              error.bind="error.spelling"       read-only.bind="readOnly" post-fix="%"></numeric>
-            <textbox                    label="Asal Kain Greige"    value.bind="data.originGreigeFabric"    error.bind="error.originGreigeFabric"                       read-only.bind="(readOnly)"></textbox>
-            <textbox                    label="Lebar Finish"        value.bind="data.finishWidth"           error.bind="error.finishWidth"                       read-only.bind="(readOnly)"></textbox>
-            <textbox                    label="Design"              value.bind="data.design"                error.bind="error.design"                       read-only.bind="(readOnly)"></textbox>
-            <textbox                    label="Standar Handling"    value.bind="data.handlingStandard"      error.bind="error.handlingStandard"                       read-only.bind="(readOnly)"></textbox>
-            <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions"></dropdown>
-            <textbox                    label="Standar Shrinkage"   value.bind="data.shrinkageStandard"     error.bind="error.shrinkageStandard"                       read-only.bind="(readOnly)"></textbox>
-            <multiline                  label="Panjang Roll"        value.bind="data.rollLength"            error.bind="error.rollLength"                       read-only.bind="(readOnly)"></multiline>
-            <lamp-standard-auto-suggest label="Standar Lampu"       value.bind="data.lampStandard"          error.bind="error.lampStandard"           read-only.bind="readOnly"   change.delegate="lampStandardChanged($event)"></lamp-standard-auto-suggest>
-            <textbox                    label="Sample"              value.bind="data.sample"                error.bind="error.sample"                       read-only.bind="(readOnly)"></textbox>
-            <datepicker                 label="Tanggal Delivery"    value.bind="data.deliveryDate"          error.bind="error.deliveryDate"                     read-only.bind="readOnly"></datepicker>
+            <div  class="col-md-6" style="padding:0">
+                <textbox                    label="Standar Handling"    value.bind="data.handlingStandard"      error.bind="error.handlingStandard"                       read-only.bind="(readOnly)"></textbox>
+                <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions" if.bind="printingOnly  || isPrintingOnly" change.delegate="RUNChanged($event)"></dropdown>
+                <div class="row">
+                    <div class="col-sm-4" style="padding-left:10%">
+                    <textbox value="Lebar RUN (cm)" read-only="true" if.bind="run || isRUN"  ></textbox>  
+                    </div>
+                    <div class="col-sm-2" repeat.for="i of data.RUNWidth.length" >
+                        <numeric value.bind="data.RUNWidth[i]" read-only.bind="(readOnly)" if.bind="(run || isRUN)" error.bind="error.RUNWidth"></numeric>
+                    </div>
+                </div>
+                <textbox                    label="Tulisan Pinggir Kain"    value.bind="data.articleFabricEdge"     error.bind="error.articleFabricEdge"        read-only.bind="(readOnly)" if.bind="printingOnly || isPrintingOnly"></textbox>
+                <textbox                    label="Standar Shrinkage"       value.bind="data.shrinkageStandard"     error.bind="error.shrinkageStandard"        read-only.bind="(readOnly)"></textbox>
+                <standard-test-auto-suggest label="Standar Test"            value.bind="data.standardTest"          error.bind="error.standardTest"             read-only.bind="readOnly"   change.delegate="standardTestChanged($event)"></standard-test-auto-suggest>
+                <textbox                    label="Sample"                  value.bind="data.sample"                error.bind="error.sample"                   read-only.bind="(readOnly)"></textbox>
+                <multiline                  label="Packing Instruction"     value.bind="data.packingInstruction"    error.bind="error.packingInstruction"       read-only.bind="(readOnly)"></multiline>
+                <datepicker                 label="Tanggal Delivery"        value.bind="data.deliveryDate"          error.bind="error.deliveryDate"             read-only.bind="readOnly"></datepicker>
+                <multiline                  label="Keterangan"              value.bind="data.remark"                error.bind="error.remark"                   read-only.bind="readOnly"></multiline>
+                <account-auto-suggest       label="Nama Staff Penjualan"    value.bind="data.account"               error.bind="error.account"                  read-only.bind="readOnly"   change.delegate="accountChanged($event)" filter.bind="filterAccount"></account-auto-suggest>
+            </div>
+        </div>
         <hr />
-        <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>
-        <hr />
-        <production-order-detail-collection     value.bind="data.details"     error.bind="error.details"    read-only.bind="readOnly" change.delegate="addDetail($event)" filter.bind="filter || isFilter" if.bind="data.construction" printing.bind="printing || isPrinting"></production-order-detail-collection>
-        
+        <au-collection              items.bind="data.lampStandards" errors.bind="error.lampStandards" read-only.bind="readOnly" columns.bind="lampHeader" item-template="modules/sales/production-order/templates/lamp-standard" add.bind="addLamp" remove.bind="removeLamp"></au-collection>
+        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && printing" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailPrintingYarnDyed">
+      </au-collection>
+        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && !printing" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailnonPrinting">
+      </au-collection>
     </form>
 </template>
+
+      

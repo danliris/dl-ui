@@ -16,6 +16,7 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
+    .feature('au-components')
     .feature('components')
     .feature('converters')
 
@@ -30,7 +31,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production);
-      config.registerEndpoint('purchasing', purchasing); 
+      config.registerEndpoint('purchasing', purchasing);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
