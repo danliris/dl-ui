@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
+var UnitLoader = require('./loader/unit-loader');
 
 export class DataForm {
   @bindable readOnly = false;
@@ -33,6 +34,14 @@ export class DataForm {
   }
 
   unitChanged(e){
+    this.xxx = e;
+    this.yyy = this.data;
     console.log('changed : ' + e)
+    console.log('yiha');
+    console.log(e);
+  }
+
+  get unitLoader(){
+    return UnitLoader;
   }
 } 

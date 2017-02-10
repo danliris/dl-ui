@@ -16,22 +16,10 @@
     <au-autocomplete 
       label="Unit" 
       value.bind="data.unit" 
-      select.delegate="unitSelected($event)" 
-      loader.bind="unitLoader"
-      placeholder="search unit" 
-      key="code" 
-      text="division.name '-' name" 
-      template="modules/master/machine/template/unit">
-    </au-autocomplete>
-
-    <au-autocomplete 
-      label="Unit" 
-      value.bind="data.unit" 
       change.delegate="unitChanged($event)" 
       loader.bind="unitLoader"
       placeholder="search unit" 
       key="code" 
-      text="division.name '-' name" 
       template="modules/master/machine/template/unit">
     </au-autocomplete>
 
