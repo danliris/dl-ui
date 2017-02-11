@@ -65,6 +65,14 @@
 
       <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && isYarnDyed" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item-yarn-dyed" footer-template="modules/sales/production-order/templates/detail-footer-yarn-dyed" add.bind="addDetailPrintingYarnDyed">
       </au-collection>
+
+      <div if.bind="error.lampStandards.toString()">
+        <span style="color:red">-Standar Lampu tidak boleh kosong</span>
+      </div>
+      <br>
+      <div if.bind="error.details">
+        <span style="color:red">-Jumlah Total pada detail harus sama dengan jumlah order .</span>
+      </div>
     </form>
 </template>
 
