@@ -2,19 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import DeliveryOrderItemCollectionReact from './delivery-order-item-collection-react.jsx';
+import MonitoringSpecificationMachineCollectionReact from './monitoring-specification-machine-collection-react.jsx';
 
 
 @noView()
 @inject(Element)
-@customElement('delivery-order-item-collection')
-export class DeliveryOrderItemCollection {
+@customElement('monitoring-specification-machine-collection')
+export class MonitoringSpecificationMachineCollection {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) isEdit;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) isSplit;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
+    // @bindable({ defaultBindingMode: bindingMode.twoWay }) dropDown;
+
+
+    dataType = ["string", "numeric"];
 
     reactComponent = {};
     constructor(element) {
@@ -24,7 +28,13 @@ export class DeliveryOrderItemCollection {
     }
 
     handleItemAdd() {
-        this.value.push({});
+
+        this.value.push({
+            indicator: "",
+            dataType: "",
+            defaultValue: "",
+            value: "",
+        });
         this.bind();
     }
 
@@ -35,18 +45,9 @@ export class DeliveryOrderItemCollection {
     }
 
     render() {
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
-        if (this.filter)
-            this.options.filter = this.filter;
-        else
-            this.options.filter = null;
-        if (this.isEdit)
-            this.options.isEdit = this.isEdit;
-        else
-            this.options.isEdit = false;
-
+        // this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', isSplit: (this.isSplit || '').toString().toLowerCase() === 'true' };
         this.reactComponent = ReactDOM.render(
-            <DeliveryOrderItemCollectionReact value={this.value} error={this.error} options={this.options}></DeliveryOrderItemCollectionReact>,
+            <MonitoringSpecificationMachineCollectionReact value={this.value} error={this.error} options={this.options}></MonitoringSpecificationMachineCollectionReact>,
             this.element
         );
     }
@@ -76,9 +77,6 @@ export class DeliveryOrderItemCollection {
         this.bind();
     }
     errorChanged(newError) {
-        this.bind();
-    }
-    filterChanged(newFilter) {
         this.bind();
     }
 

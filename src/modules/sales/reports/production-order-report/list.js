@@ -21,16 +21,12 @@ export class List {
     filterAccount = {};
 
     activate() {
-        // var dataFilter = (new RegExp("penjualan", "i"));
         this.filterAccount = {
             "roles" : {
                 "$elemMatch" : { 
                     "permissions" : {
                         "$elemMatch" : { 
                             "unit.name" : "PENJUALAN FINISHING & PRINTING"
-                            // {
-                            //     "$regex" : (new RegExp("penjualan", "i"))
-                            // }
                         }
                     }
                 }
@@ -72,8 +68,14 @@ export class List {
 
     orderTypeChanged(e){
         var selectedOrderType = e.detail || null;
-        if(!selectedOrderType){
+        if(selectedOrderType){
+            this.filterOrder = {
+                "orderType.code": selectedOrderType.code
+            }
+        }else{
             this.orderType = null;
+            this.processType = null;
+            this.filterOrder = {};
         }
     }
 
