@@ -24,6 +24,8 @@
 				<th>Kode Barang</th>
 				<th>Nama Barang</th>
 				<th>Satuan Default</th>
+				<th style="text-align:right">Harga Barang</th>
+				<th>Mata Uang</th>
 				<th>Keterangan</th>
 			</tr>
 		</thead>
@@ -32,6 +34,8 @@
 				<td>${item.code}</td>
 				<td>${item.name}</td>
 				<td>${item.uom ? item.uom.unit : ''}</td>
+				<td style="text-align:right">${item.price}</td>
+				<td>${item.currency.code}</td>
 				<td>${item.description}</td>
 
 			</tr>

@@ -19,6 +19,12 @@ export class List {
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
+        this.data.forEach((product) => {
+            product.price = parseFloat(product.price).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })
+        })
     }
 
     loadPage() {
@@ -41,12 +47,8 @@ export class List {
         this.router.navigateToRoute('view', { id: data._id });
     }
 
-    create() {
-        this.router.navigateToRoute('create');
-    }
-
     upload() {
         this.router.navigateToRoute('upload');
-    } 
+    }
 
 }
