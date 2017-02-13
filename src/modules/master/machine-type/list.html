@@ -1,6 +1,6 @@
 <template>
     <div class="display-wrapper">
-        <h1 class="page-header">Machine Type</h1>
+        <h1 class="page-header">Jenis Mesin</h1>
         <br>
         <div class="row">
             <div class="col-sm-8">
@@ -23,17 +23,15 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <!--<th class="${isPosting ? '' : 'hide'}"></th>
-                        <th class="${isPrint ? '' : 'hide'}"></th>-->
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Indicators</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
+                        <th>Indikator</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="item of data" click.delegate="view(item)">
+                    <tr repeat.for="item of data">
                         <td>${item.code}</td>
                         <td>${item.name}</td>
                         <td>${item.description}</td>
@@ -41,6 +39,9 @@
                             <ul>
                                 <li repeat.for="indicator of item.indicators">${indicator.indicator}</li>
                             </ul>
+                        </td>
+                        <td style="text-align:center">
+                            <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
                         </td>
                     </tr>
                 </tbody>

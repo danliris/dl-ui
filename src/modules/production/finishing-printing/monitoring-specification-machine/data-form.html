@@ -3,11 +3,13 @@
 
 
         <fieldset>
-        <datepicker             label="Tanggal"             value.bind="data.date"                  error.bind="error.date"               ></datepicker>
-        <timepicker             label="Jam"             value.bind="data.time"                  error.bind="error.time"               showsecond.bind=showSecond> </timepicker>
-        </fieldset> 
-        <machine-auto-suggest    label="Mesin"         value.bind="data.machine"             error.bind="error.machine"                       read-only.bind="(readOnly)" change.delegate="machineChanged($event)"></machine-auto-suggest>
-        
-         <monitoring-specification-machine-collection        value.bind="data.items"         error.bind="error.items"   options.bind="Options"   change.delegate="machineChanged($event)" filter.bind="filterMachine || isFilterMachine" if.bind="data.machine" ></monitoring-specification-machine-collection>
+            <datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" format.bind="datePickerFormat"></datepicker>
+            <timepicker label="Jam" value.bind="data.time" error.bind="error.time" format.bind="timePickerFormat" showSecond.bind="showSecond">
+            </timepicker>
+        </fieldset>
+        <machine-auto-suggest label="Mesin" value.bind="data.machine" error.bind="error.machine" read-only.bind="(readOnly)" change.delegate="machineChanged($event)"></machine-auto-suggest>
+
+        <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options" change.delegate="machineChanged($event)"
+            filter.bind="filterMachine || isFilterMachine" if.bind="data.machine"></monitoring-specification-machine-collection>
     </form>
 </template>
