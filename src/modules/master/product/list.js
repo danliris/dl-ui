@@ -34,6 +34,12 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
+                this.data.forEach((product) => {
+                    product.price = parseFloat(product.price).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    })
+                })
             })
     }
 
