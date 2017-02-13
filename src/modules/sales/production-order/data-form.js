@@ -8,11 +8,15 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
 
-  lampHeader = [{ header: "Lamp Standard" }];
+  lampHeader = [{ header: "Standar Lampu" }];
   
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
-
-  filterAccount = {
+  
+  constructor(bindingEngine, element, service) {
+    this.bindingEngine = bindingEngine;
+    this.element = element;
+    this.service = service;
+    this.filterAccount = {
             "roles" : {
                 "$elemMatch" : { 
                     "permissions" : {
@@ -23,18 +27,10 @@ export class DataForm {
                 }
             }
         };
-  
-  filterMaterial = {
-    "tags" :{
-        "$regex" : (new RegExp("material", "i"))
+
+      this.filterMaterial = {
+      "tags" :"material"
     }
-  }
-
-  constructor(bindingEngine, element, service) {
-    this.bindingEngine = bindingEngine;
-    this.element = element;
-    this.service = service;
-
   }
 
   @computedFrom("data.dataId")
@@ -42,17 +38,29 @@ export class DataForm {
     return (this.data.dataId || '').toString() != '';
   }
 
-
+  @computedFrom("data.orderType")
   get isPrinting() {
     this.printing = false;
     if (this.data.orderType) {
-      if (this.data.orderType.name.trim().toLowerCase() == "printing" || this.data.orderType.name.trim().toLowerCase() == "yarndyed") {
+      if (this.data.orderType.name.trim().toLowerCase() == "printing") {
         this.printing = true;
       }
     }
     return this.printing;
   }
 
+  @computedFrom("data.orderType")
+  get isYarnDyed() {
+    this.yarndyed = false;
+    if (this.data.orderType) {
+      if (this.data.orderType.name.trim().toLowerCase() == "yarn dyed") {
+        this.yarndyed = true;
+      }
+    }
+    return this.yarndyed;
+  }
+
+  @computedFrom("data.orderType")
   get isPrintingOnly(){
         this.printingOnly=false;
         if(this.data.orderType){
@@ -63,6 +71,7 @@ export class DataForm {
         return this.printingOnly;
     }
 
+  @computedFrom("data.orderType")
   get isFilterOrder(){
       this.filterOrder = {
         "orderType.code": this.data.orderType.code
@@ -70,42 +79,13 @@ export class DataForm {
     
     return this.filterOrder;
   }
-
+  @computedFrom("data.dataId")
   get isRUN(){
       this.run=false;
-      if(this.data.RUN=="Tanpa RUN"){
-          this.run=false;
-          this.data.RUNWidth.length=0;
-      }
-      if(this.data.RUN=="1 RUN"){
-          this.run=true;
-          this.data.RUNWidth.length=1;
-          if(this.data.RUNWidth.length==0){
-              this.data.RUNWidth[0]=0;
-          }
-          console.log(this.data.RUNWidth);
-      }
-      if(this.data.RUN=="2 RUN"){
-          this.run=true;
-          this.data.RUNWidth.length=2;
-          if(this.data.RUNWidth.length==0){
-              this.data.RUNWidth.push(0,0);
-          }
-      }
-      if(this.data.RUN=="3 RUN"){
-          this.run=true;
-          this.data.RUNWidth.length=3;
-          if(this.data.RUNWidth.length==0){
-              this.data.RUNWidth.push(0,0,0);
-          }
-      }
-      if(this.data.RUN=="4 RUN"){
-          this.run=true;
-          this.data.RUNWidth.length=4;
-          if(this.data.RUNWidth.length==0){
-              this.data.RUNWidth.push(0,0,0,0);
-          }
-      }
+        if(this.data.RUNWidth){
+          if(this.data.RUNWidth.length>0)
+            this.run=true;
+        }
       return this.run;
   }
   
@@ -132,12 +112,19 @@ export class DataForm {
                 else{
                     this.printingOnly=false;
                 }
-                if(selectedOrder.name.toLowerCase()=="printing" || selectedOrder.name.toLowerCase()=="yarn dyed"){
+                if(selectedOrder.name.toLowerCase()=="printing" ){
                     this.printing=true;
                 }
                 else{
                     this.printing=false;
                 }
+                if( selectedOrder.name.toLowerCase()=="yarn dyed"){
+                    this.yarndyed=true;
+                }
+                else{
+                    this.yarndyed=false;
+                }
+                
             }
             
         }
@@ -215,8 +202,9 @@ export class DataForm {
                 this.data.RUNWidth.length=0;
             }
             if(selectedRUN=="1 RUN"){
+              console.log(selectedRUN)
                 this.run=true;
-                this.data.RUNWidth.length=0;
+                this.data.RUNWidth[0]=0;
                 if(this.data.RUNWidth.length==0){
                     this.data.RUNWidth[0]=0;
                 }
@@ -297,7 +285,7 @@ export class DataForm {
   }
 
   get detailHeader(){
-    if(!this.printing){
+    if(!this.printing && !this.yarndyed){
       return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jenis Warna" }, { header: "Jumlah" }, { header: "Satuan" }];
     }
     else{
@@ -316,7 +304,7 @@ export class DataForm {
             colorRequest: '',
             colorTemplate: '',
             quantity: 0,
-            printing : this.printing
+            printing : this.isPrinting
           };
       this.data.details.push(newDetail);
     };
@@ -330,7 +318,7 @@ export class DataForm {
             colorRequest: '',
             colorTemplate: '',
             quantity: 0,
-            printing : this.printing
+            printing : this.isPrinting
           };
       this.data.details.push(newDetail);
     };
