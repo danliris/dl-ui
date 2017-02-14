@@ -6,11 +6,7 @@ import { Config } from "aurelia-api";
 const resource = 'sales/materials';
 
 const empty = {
-    code: '',
-    name: '',
-    toString: function () {
-        return '';
-    }
+    name: ''
 }
 'use strict';
 
@@ -23,10 +19,7 @@ export default class SalesMaterialAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, SalesMaterialAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -54,10 +47,7 @@ SalesMaterialAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.info.map(material => {
                         material.toString = function () {
-                            return [this.code, this.name]
-                                .filter((item, index) => {
-                                    return item && item.toString().trim().length > 0;
-                                }).join(" - ");
+                            return `${this.name}`;
                         }
                         return material;
                     });

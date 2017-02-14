@@ -19,7 +19,7 @@
                   <div class="col-sm-3">
                     <numeric value.bind="data.orderQuantity" error.bind="error.orderQuantity" read-only.bind="(readOnly)"></numeric>
                   </div>
-                  <div class="col-sm-1">
+                  <div class="col-sm-2">
                     <textbox label="Satuan" read-only="true"></textbox>
                   </div>
                   <div class="col-sm-2">
@@ -30,21 +30,21 @@
                 <textbox                    label="Asal Material" value.bind="data.materialOrigin" error.bind="error.materialOrigin" read-only.bind="(readOnly)"></textbox>
                 <textbox                    label="Lebar Finish" value.bind="data.finishWidth" error.bind="error.finishWidth" read-only.bind="(readOnly)"></textbox>
                 <finish-type-auto-suggest label="Jenis Finish" value.bind="data.finishType" error.bind="error.finishType" read-only.bind="readOnly" change.delegate="finishTypeChanged($event)"></finish-type-auto-suggest>
-                <textbox                    label="Kode Desain" value.bind="data.designCode" error.bind="error.designCode" read-only.bind="(readOnly)" if.bind="printingOnly || isPrintingOnly"></textbox>
-                <textbox                    label="Nomor Desain" value.bind="data.designNumber" error.bind="error.designNumber" read-only.bind="(readOnly)" if.bind="printingOnly || isPrintingOnly"></textbox>
+                <textbox                    label="Kode Desain" value.bind="data.designCode" error.bind="error.designCode" read-only.bind="(readOnly)" if.bind="isPrintingOnly"></textbox>
+                <textbox                    label="Nomor Desain" value.bind="data.designNumber" error.bind="error.designNumber" read-only.bind="(readOnly)" if.bind="isPrintingOnly"></textbox>
             </div>
             <div  class="col-md-6" style="padding:0">
                 <textbox                    label="Standar Handling"    value.bind="data.handlingStandard"      error.bind="error.handlingStandard"                       read-only.bind="(readOnly)"></textbox>
-                <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions" if.bind="printingOnly  || isPrintingOnly" change.delegate="RUNChanged($event)"></dropdown>
+                <dropdown                   label="RUN"                 value.bind="data.RUN"                   error.bind="error.RUN"            read-only.bind="(readOnly)"   items.bind="RUNOptions" if.bind="isPrintingOnly" change.delegate="RUNChanged($event)"></dropdown>
                 <div class="row">
-                    <div class="col-sm-4" style="padding-left:10%">
-                    <textbox value="Lebar RUN (cm)" read-only="true" if.bind="run || isRUN"  ></textbox>  
+                    <div class="col-sm-4" style="padding-left:20%">
+                    <textbox value="Lebar RUN (cm)" read-only="true" if.bind="isPrinting && data.RUNWidth.length"  ></textbox>  
                     </div>
                     <div class="col-sm-2" repeat.for="i of data.RUNWidth.length" >
-                        <numeric value.bind="data.RUNWidth[i]" read-only.bind="(readOnly)" if.bind="(run || isRUN)" error.bind="error.RUNWidth"></numeric>
+                        <numeric value.bind="data.RUNWidth[i]" read-only.bind="(readOnly)" if.bind="isPrinting && (isRUN || run)" error.bind="error.RUNWidth"></numeric>
                     </div>
                 </div>
-                <textbox                    label="Tulisan Pinggir Kain"    value.bind="data.articleFabricEdge"     error.bind="error.articleFabricEdge"        read-only.bind="(readOnly)" if.bind="printingOnly || isPrintingOnly"></textbox>
+                <textbox                    label="Tulisan Pinggir Kain"    value.bind="data.articleFabricEdge"     error.bind="error.articleFabricEdge"        read-only.bind="(readOnly)" if.bind="isPrintingOnly"></textbox>
                 <textbox                    label="Standar Shrinkage"       value.bind="data.shrinkageStandard"     error.bind="error.shrinkageStandard"        read-only.bind="(readOnly)"></textbox>
                 <standard-test-auto-suggest label="Standar Test"            value.bind="data.standardTest"          error.bind="error.standardTest"             read-only.bind="readOnly"   change.delegate="standardTestChanged($event)"></standard-test-auto-suggest>
                 <textbox                    label="Sample"                  value.bind="data.sample"                error.bind="error.sample"                   read-only.bind="(readOnly)"></textbox>
@@ -56,10 +56,23 @@
         </div>
         <hr />
         <au-collection              items.bind="data.lampStandards" errors.bind="error.lampStandards" read-only.bind="readOnly" columns.bind="lampHeader" item-template="modules/sales/production-order/templates/lamp-standard" add.bind="addLamp" remove.bind="removeLamp"></au-collection>
-        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && printing" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailPrintingYarnDyed">
+        
+        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && isPrinting" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item-printing" footer-template="modules/sales/production-order/templates/detail-footer-printing" add.bind="addDetailPrintingYarnDyed">
       </au-collection>
-        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && !printing" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailnonPrinting">
+
+        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && !isPrinting && !isYarnDyed" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailnonPrinting">
       </au-collection>
+
+      <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && isYarnDyed" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item-yarn-dyed" footer-template="modules/sales/production-order/templates/detail-footer-yarn-dyed" add.bind="addDetailPrintingYarnDyed">
+      </au-collection>
+
+      <div if.bind="error.lampStandards.toString()">
+        <span style="color:red">-Standar Lampu tidak boleh kosong</span>
+      </div>
+      <br>
+      <div if.bind="error.details.toString()">
+        <span style="color:red">-Detail Warna harus diisi dan Jumlah Total pada detail harus sama dengan jumlah order .</span>
+      </div>
     </form>
 </template>
 
