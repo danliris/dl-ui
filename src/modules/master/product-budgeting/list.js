@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
@@ -10,7 +10,8 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-
+        this.accessoriesId = "";
+        this.accessories = [];
     }
 
     async activate() {
@@ -18,6 +19,12 @@ export class List {
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
+        this.data.forEach((product) => {
+            product.price = parseFloat(product.price).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })
+        })
     }
 
     loadPage() {
@@ -27,6 +34,12 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
+                this.data.forEach((product) => {
+                    product.price = parseFloat(product.price).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    })
+                })
             })
     }
 
@@ -39,17 +52,13 @@ export class List {
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
-    
-    exportPDF(data) {
-        this.service.getPdfById(data._id);
-    }
-
-    create() {
-        this.router.navigateToRoute('create');
-    }
 
     upload() {
         this.router.navigateToRoute('upload');
+    }
+    
+    create() {
+        this.router.navigateToRoute('create');
     }
 
 }

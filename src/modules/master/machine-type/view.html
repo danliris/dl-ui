@@ -1,11 +1,11 @@
 <template>
-    <h1 class="page-header">Detail Machine Type</h1> 
+    <h1 class="page-header">Detail Jenis Mesin</h1> 
     <require from="./data-form"></require>
     <block>
         
         <fieldset>
         <textbox label="Kode" value.bind="data.code" error.bind="error.code"  read-only="true"> </textbox>
-        <textbox label="Name" value.bind="data.name" error.bind="error.name"  read-only="true"> </textbox>
+        <textbox label="Nama" value.bind="data.name" error.bind="error.name"  read-only="true"> </textbox>
         </fieldset>
         <hr />
         <multiline label="Deskripsi" value.bind="data.description" error.bind="error.description" read-only="true" ></multiline>
