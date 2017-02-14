@@ -11,16 +11,26 @@ export class Edit {
     }
 
     async activate(params) {
-        var id = params.id;
-        this.data = await this.service.getById(id);
+        var orderNo = params.no;
+        var id=params.id;
+        var dataSales=await this.service.getById(id);
+        for(var i of dataSales.productionOrders){
+            if(i.orderNo==orderNo)
+            {
+                i.dataId=id;
+                this.data=i;
+                break;
+            }
+            
+        }
     }
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+    view(data,no) {
+        this.router.navigateToRoute('view', { id: this.data.dataId, no: `${this.data.orderNo}` });
     }
 
     save() {
-        this.service.update(this.data).then(result => {
+        this.service.update(this.data,this.data.dataId).then(result => {
             this.view();
         }).catch(e => {
             this.error = e;

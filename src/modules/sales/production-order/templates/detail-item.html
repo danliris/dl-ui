@@ -5,7 +5,7 @@
   <td>
     <au-textbox value.bind="data.colorRequest" error.bind="error.colorRequest" read-only.bind="options.readOnly" options.bind="controlOption"></au-textbox>
   </td>
-  <td>
+  <td if.bind="!data.printing">
     <au-autocomplete value.bind="data.colorType" error.bind="error.colorType" read-only.bind="options.readOnly" key="_id" text="name"
       loader.bind="loader" options.bind="controlOption" change.delegate="setColorTypeId($event)"></au-autocomplete>
   </td>

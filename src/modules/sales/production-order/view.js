@@ -12,16 +12,26 @@ export class View {
     orderNo="";
 
     async activate(params) {
-        var id = params.id;
-        this.data = await this.service.getById(id);
+        var orderNo = params.no;
+        var id=params.id;
+        var dataSales=await this.service.getById(id);
+        for(var i of dataSales.productionOrders){
+            if(i.orderNo==orderNo)
+            {
+                i._id=id;
+                this.data=i;
+                break;
+            }
+            
+        }
     }
 
     list() {
         this.router.navigateToRoute('list');
     }
 
-    edit(data) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+    edit(data, no) {
+        this.router.navigateToRoute('edit', { id: this.data._id , no: `${data.orderNo}`});
     }
 
     delete() {
