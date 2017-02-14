@@ -13,18 +13,4 @@ export class DetailFooter {
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
-
-  get uom() {
-    var uom=[];
-    if(this.context.items.length>0){
-      uom = this.context.items
-      .map((item) => item.data.uom.unit);
-        return uom
-      .reduce((prev, curr, index) => { return curr });
-      }
-      else{
-        return uom;
-      }
-    
-  }
 }
