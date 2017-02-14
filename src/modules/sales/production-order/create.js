@@ -9,7 +9,6 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = {};
-        this.error = {};
     }
 
 
