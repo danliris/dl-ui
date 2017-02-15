@@ -1,14 +1,13 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../rest-service';
-import { SecureService } from '../../../utils/secure-service';
+import { RestService } from '../../../utils/rest-service'; 
 
-const serviceUri = require('../../../host').core + '/v1/master/products';
+const serviceUri = 'master/products';
 
-export class Service extends SecureService {
+export class Service extends RestService {
 
-  constructor(http, aggregator) {
-    super(http, aggregator);
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "core");
   }
 
   search(info) {
@@ -19,21 +18,6 @@ export class Service extends SecureService {
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  }
-
-  create(data) {
-    var endpoint = `${serviceUri}`;
-    return super.post(endpoint, data);
-  }
-
-  update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.put(endpoint, data);
-  }
-
-  delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.delete(endpoint, data);
   }
 
   getByCode(code) {

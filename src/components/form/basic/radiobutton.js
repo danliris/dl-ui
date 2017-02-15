@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
+import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FieldReact from '../../react/basic/field-react.jsx';
-import RadiobuttonReact from '../../react/basic/radiobutton-react.jsx';
+import FieldReact from './react/field-react.jsx';
+import RadiobuttonReact from './react/radiobutton-react.jsx';
 
 @noView()
 @inject(Element)
@@ -22,12 +22,12 @@ export class Radiobutton {
         this.handleValueChange = this.handleValueChange.bind(this);
     }
 
-    handleValueChange(value) { 
+    handleValueChange(value) {
         this.value = value;
     }
 
-    render() { 
-        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', selections : this.selections||[] };
+    render() {
+        this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', selections: this.selections || [] };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
                 <RadiobuttonReact value={this.value} onChange={this.handleValueChange} options={this.options} />
@@ -57,6 +57,23 @@ export class Radiobutton {
      */
     valueChanged(newVal) {
         this.bind();
+        var event;
+
+        if (document.createEvent) {
+            event = document.createEvent("CustomEvent");
+            event.initCustomEvent("change", true, true, newVal);
+        } else {
+            event = document.createEventObject();
+            event.eventType = "change";
+        }
+
+        event.eventName = "change";
+
+        if (document.createEvent) {
+            this.element.dispatchEvent(event);
+        } else {
+            this.element.fireEvent("on" + event.eventType, event);
+        }
     }
     errorChanged(newError) {
         this.bind();

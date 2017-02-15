@@ -1,19 +1,69 @@
-import {inject, bindable} from 'aurelia-framework';
-import {Session} from './utils/session';
-import {App} from './app';
+import { inject, bindable, containerless, computedFrom } from 'aurelia-framework';
+import { AuthService } from "aurelia-authentication";
+import jwtDecode from 'jwt-decode';
 
-@inject(Session, App)
+@containerless()
+@inject(AuthService)
 export class SideNavBar {
     @bindable router = null;
-    constructor(session, app) {
-        // this.router = router;
-        this.session = session;
-        this.group = new Map();
+    @bindable navigations = null;
 
-        this.app = app;
+    constructor(authService) {
+        this.minimized = false;
+        this.activeMenu = [];
+        this.activeSubMenu = {};
+        this.authService = authService;
     }
+
+    @computedFrom('authService.authenticated')
+    get isAuthenticated() {
+        return this.authService.authenticated;
+    }
+
+    @computedFrom('activeMenu')
+    get expand() {
+        return (this.activeMenu || []).length > 0;
+    }
+
     attached() {
-        for (var route of this.router.navigation) {
+
+        this.group = new Map();
+        const config = this.authService.authentication.config;
+        const storage = this.authService.authentication.storage;
+        const token = JSON.parse(storage.get(config.storageKey));
+        var me = jwtDecode(token.data);
+
+        var routes = this.router.navigation.filter(route => {
+            if (route.config.auth !== true)
+                return true;
+
+            var routePermission = route.config.settings.permission || {};
+            var myPermission = me.permission;
+
+            var routeKeys = Object.getOwnPropertyNames(routePermission);
+            
+            if (routeKeys.find(key => key === "*"))
+                return true;
+
+            if (routeKeys.length == 0)
+                return false;
+
+            var keys = Object.getOwnPropertyNames(myPermission);
+
+            return keys.some(key => {
+                var keyFound = routeKeys.find((routeKey) => routeKey === key);
+                if (keyFound) {
+                    var mod = routePermission[keyFound];
+                    return mod <= myPermission[key];
+                }
+
+                return false;
+            })
+        })
+
+        console.log(routes);
+
+        for (var route of routes) {
             if (route.settings && ((route.settings.group || "").trim().length > 0)) {
                 var key = (route.settings.group || "").trim();
                 if (!this.group.has(key))
@@ -23,29 +73,24 @@ export class SideNavBar {
                 groupedRoutes.push(route);
                 this.group.set(key, groupedRoutes);
             }
-        }; 
+        };
     }
 
     toggleSideMenu() {
-        this.app.toggleMinimizeSideMenu = !this.app.toggleMinimizeSideMenu;
+        this.minimized = !this.minimized;
     }
-    
-    selectMenu(menu, title) {
-        this.app.activeMenu = menu;
-        this.activeTitle = title;
 
-        this.app.activeSubMenu = '';
+    selectMenu(menu, title) {
+        this.activeMenu = menu;
+        this.activeTitle = title;
+        this.activeSubMenu = [];
     }
 
     selectSubMenu(subMenu) {
-        // this.app.activeSubMenu = subMenu;
+        this.minimized = false;
+        this.activeMenu = [];
+        this.activeSubMenu = {};
 
-        // this.app.toggleMinimizeSideMenu = true;
-
-        this.app.toggleMinimizeSideMenu = false;
-        this.app.activeMenu = [];
-        this.app.activeSubMenu = {};
-        
-        return true; 
+        return true;
     }
 }

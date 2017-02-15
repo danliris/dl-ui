@@ -1,34 +1,10 @@
 <template>
-  <require from="./utils/loading-modal/loading-modal"></require>
-  <loading-modal></loading-modal>
-
-  <!--<div class="container">
-
-    <form class="form-signin">
-      <h2 class="form-signin-heading">Please sign in</h2>
-
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="text" class="form-control" placeholder="username" value.bind="username" required autofocus></input>
-
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" class="form-control" placeholder="password" value.bind="password" required></input>
-
-      <div class="checkbox">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" click.delegate="login()">Sign in</button>
-    </form>
-  </div>-->
-
   <div class="container login">
     <div class="row">
       <div class="col-xs-12">
         <div class="panel panel-default panel-login">
           <div class="panel-body">
             <h2 class="form-title">Sign In</h2>
-
             <form>
               <div class="form-group">
                 <label for="" class="control-label">Username</label>
@@ -38,28 +14,16 @@
                 <label for="" class="control-label">Password</label>
                 <input type="password" class="form-control" placeholder="Password" value.bind="password" required />
               </div>
-
               <div class="form-group">
                 <label>
                   <input type="checkbox" value="remember-me"> Remember me
                 </label>
-
-                <!--<a href="javascript:;" class="pull-right">Forgot Password</a>-->
               </div>
-
-              <!--<button class="btn btn-success btn-lg btn-block">Login</button>-->
-              <!--<a class="btn btn-success btn-lg btn-block" href="dashboard.html">Login</a>-->
               <button type="submit" class="btn btn-success btn-lg btn-block" click.delegate="login()">Sign in</button>
             </form>
-
-            <!--<p class="text-center">Don't have an account? <a href="javascript:;"><b>Sign Up</b></a></p>-->
           </div>
         </div>
-        <!-- /.panel-login -->
       </div>
     </div>
   </div>
-  <!-- /container -->
-  <!--<div class="container-fluid">
-  </div>-->
 </template>

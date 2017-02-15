@@ -1,9 +1,9 @@
 <template>
     <h1 class="page-header">Total Pembelian Per Unit</h1> 
     <form class="form-horizontal">
-        <textbox label="Tanggal Awal" value.bind="dateFrom" read-only="true"></textbox>
-        <textbox label="Tanggal Akhir" value.bind="dateTo" read-only="true"></textbox>
-        <textbox label="Divisi" value.bind="unit" read-only="true"></textbox>
+        <textbox label="Tanggal Awal" value.bind="dateFrom" if.bind="dateFrom" read-only="true"></textbox>
+        <textbox label="Tanggal Akhir" value.bind="dateTo" if.bind="dateTo" read-only="true"></textbox>
+        <textbox label="Divisi" value.bind="divisi" read-only="true"></textbox>
          
 <br>
         <table class="table table-bordered table-hover">

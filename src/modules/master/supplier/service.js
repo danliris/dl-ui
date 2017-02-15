@@ -1,14 +1,13 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
-import {SecureService} from '../../../utils/secure-service';
+import {RestService} from '../../../utils/rest-service';
+ 
+const serviceUri = 'master/suppliers';
 
-const serviceUri = require('../../../host').core + '/v1/master/suppliers';
+export class Service extends RestService {
 
-export class Service extends SecureService {
-
-  constructor(http, aggregator) {
-    super(http, aggregator);
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "core");
   }
 
   search(info) {

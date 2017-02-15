@@ -2,16 +2,19 @@
     <form class="form-horizontal">
         <fieldset>
             <legend>Informasi PR</legend>
-            <pr-auto-suggest        label="No. PR"              value.bind="data.purchaseRequest"                       error.bind="error.purchaseRequest"                       read-only.bind="(isEdit)" change.delegate="prChanged($event)"></pr-auto-suggest>
-            <datepicker             label="Tgl. PR"             value.bind="data.purchaseRequest.date"                  read-only.bind="(readOnly || data.isSplit)" ></datepicker>
-            <datepicker             label="Tgl. Diminta Datang" value.bind="data.purchaseRequest.expectedDeliveryDate"  read-only.bind="(readOnly || data.isSplit)"></datepicker>
-            <unit-auto-suggest      label="Unit"                value.bind="data.purchaseRequest.unit"                  read-only.bind="(readOnly || isEdit)" ></unit-auto-suggest>
-            <category-auto-suggest  label="Kategori"            value.bind="data.purchaseRequest.category"              read-only.bind="(readOnly || isEdit)" ></category-auto-suggest>
+            <purchase-request-auto-suggest-posted          label="No. PR"              value.bind="data.purchaseRequest"                       error.bind="error.purchaseRequest"                       read-only.bind="(isEdit)" change.delegate="prChanged($event)"></purchase-request-auto-suggest-posted>
+            <datepicker                             label="Tgl. PR"             value.bind="data.purchaseRequest.date"                  read-only.bind="(readOnly || data.isSplit)" ></datepicker>
+            <datepicker                             label="Tgl. Diminta Datang" value.bind="data.purchaseRequest.expectedDeliveryDate"  read-only.bind="(readOnly || data.isSplit)"></datepicker>
+            <unit-auto-suggest                      label="Unit"                value.bind="data.purchaseRequest.unit"                  read-only.bind="(readOnly || isEdit)" ></unit-auto-suggest>
+            <category-auto-suggest                  label="Kategori"            value.bind="data.purchaseRequest.category"              read-only.bind="(readOnly || isEdit)" ></category-auto-suggest>
         </fieldset>
         <hr />
         <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>
 
         <hr />
-        <po-item-collection     value.bind="data.items"     error.bind="error.items"    read-only.bind="readOnly" is-split.bind="data.isSplit"></po-item-collection>
+        <div class="form-group ${error && error.items ? 'has-error' : ''}">
+            <span class="help-block">${error.items.toString()==="[object Object]" ? "" : error.items}</span>
+        </div>
+            <purchase-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" is-split.bind="data.isSplit"></purchase-order-item-collection>
     </form>
 </template>

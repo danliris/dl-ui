@@ -1,18 +1,16 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../../../rest-service';
-import {SecureService} from '../../../../../utils/secure-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../../../utils/rest-service'; 
 
-const serviceUri = require('../../../../../host').production+ '/v1/spinning/winding/production-outputs/by-user';
-const serviceUriLot = require('../../../../../host').production+ '/v1/spinning/winding/search-lots';
-export class Service extends SecureService {
+const serviceUri = 'spinning/winding/production-outputs/by-user';
+const serviceUriLot = 'spinning/winding/search-lots';
+export class Service extends RestService {
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "production");
     }
 
-    getLot(_productId,_machineId)
-    {
+    getLot(_productId, _machineId) {
         var endpoint = `${serviceUriLot}?_productId=${_productId}&_machineId=${_machineId}`;
         return super.get(endpoint);
     }

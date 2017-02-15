@@ -13,6 +13,10 @@ export class List {
     months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     years = ['2016'];
 
+    spinningUnitFilter = {
+        "division.name": "SPINNING"
+    }
+    
     constructor(router, service) {
 
         this.service = service;

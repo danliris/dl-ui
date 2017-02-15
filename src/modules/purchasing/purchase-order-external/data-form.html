@@ -3,20 +3,23 @@
         <textbox                label="No. "                            value.bind="data.no"                    error.bind="error.no"                   read-only.bind="true" if.bind="readOnly || isEdit"></textbox>
         <!--<textbox                label="No. Referensi PO"                value.bind="data.refNo"                 error.bind="error.refNo"                read-only.bind="readOnly"></textbox>-->
         <supplier-auto-suggest  label="Supplier"                        value.bind="data.supplier"              error.bind="error.supplierId"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
-        <datepicker             label="Tgl"                             value.bind="data.date"                  error.bind="error.date"                 read-only.bind="readOnly"></datepicker>
+        <datepicker             label="Tgl. Order"                      value.bind="data.date"                  error.bind="error.date"                 read-only.bind="readOnly"></datepicker>
         <datepicker             label="Tgl. Delivery"                   value.bind="data.expectedDeliveryDate"  error.bind="error.expectedDeliveryDate" read-only.bind="readOnly"></datepicker>
         <dropdown               label="Ongkos Kirim Ditanggung oleh"    value.bind="data.freightCostBy"         error.bind="error.freightCostBy"        read-only.bind="readOnly"   items.bind="freightCostByOptions" ></dropdown>
         <dropdown               label="Term Pembayaran"                 value.bind="data.paymentMethod"         error.bind="error.paymentMethod"        read-only.bind="readOnly"   items.bind="termPaymentOptions"  change.delegate="paymentMethodChanged($event)"></dropdown>
         <currency-auto-suggest  label="Mata Uang"                       value.bind="data.currency"              error.bind="error.currency"             read-only.bind="readOnly"   change.delegate="currencyChanged($event)"></currency-auto-suggest>
-        <numeric                label="Rate"                            value.bind="data.currencyRate"          error.bind="error.currencyRate"         read-only.bind="readOnly"></numeric>
+        <numeric                label="Rate"                            value.bind="data.currencyRate"          error.bind="error.currencyRate"         read-only.bind="true"></numeric>
         <numeric                label="Tempo Pembayaran"                value.bind="data.paymentDueDays"        error.bind="error.paymentDueDays"       read-only.bind="true"       post-fix="hari" if.bind="data.paymentMethod=='CASH'"></numeric>
         <numeric                label="Tempo Pembayaran"                value.bind="data.paymentDueDays"        error.bind="error.paymentDueDays"       read-only.bind="readOnly"   post-fix="hari" if.bind="data.paymentMethod!='CASH'"></numeric>
-        <!--<checkbox           label="Apakah kena Pph?"                value.bind="data.useVat"                error.bind="error.useVat"               read-only.bind="readOnly"></checkbox>-->
         <vat-auto-suggest       label="Pph"                             value.bind="data.vat"                   error.bind="error.vat"                  read-only.bind="readOnly"   change.delegate="vatChanged($event)"></vat-auto-suggest>
-        <numeric                label="Rate Pph"                        value.bind="data.vatRate"               error.bind="error.vatRate"              read-only.bind="true"   post-fix="%"></numeric> 
-        <checkbox               label="Apakah kena Ppn?"                value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"         read-only.bind="readOnly"></checkbox> 
+        <numeric                label="Rate Pph"                        value.bind="data.vatRate"               error.bind="error.vatRate"              read-only.bind="true"       post-fix="%"></numeric> 
+        <checkbox               label="Apakah kena Ppn?"                value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"         read-only.bind="readOnly"   change.delegate="useIncomeTaxChanged($event)"></checkbox> 
         <multiline              label="Keterangan"                      value.bind="data.remark"                error.bind="error.remark"               read-only.bind="readOnly"></multiline>
         <hr />
-        <po-external-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly"></po-external-item-collection>
-    </form>
+        <div class="form-group ${error && error.items ? 'has-error' : ''}" >
+            <span class="help-block">${error.items.toString()==="[object Object]" ? "" : error.items}</span>
+        </div>
+            <purchase-order-external-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" use-income-tax.bind = "data.useIncomeTax"></purchase-order-external-item-collection>
+        
+            </form>
 </template>

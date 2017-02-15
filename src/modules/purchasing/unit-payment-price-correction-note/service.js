@@ -1,15 +1,15 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../rest-service';
-import {SecureService} from '../../../utils/secure-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = require('../../../host').purchasing+ '/v1/unit-payment-orders/corrections/prices/by-user';
-const serviceUriretur = require('../../../host').purchasing+ '/v1/unit-payment-orders/corrections/prices/retur';
 
-export class Service extends SecureService {
+const serviceUri = 'unit-payment-orders/corrections/prices/by-user';
+const serviceUriretur = 'unit-payment-orders/corrections/prices/retur';
 
-    constructor(http, aggregator) {
-        super(http, aggregator);
+export class Service extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing");
     }
 
     search(info) {
@@ -41,8 +41,8 @@ export class Service extends SecureService {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
     }
-    getPdfReturById(id) {
-        var endpoint = `${serviceUriretur}/${id}`;
-        return super.getPdf(endpoint);
-    }
+    // getPdfReturById(id) {
+    //     var endpoint = `${serviceUriretur}/${id}`;
+    //     return super.getPdf(endpoint);
+    // }
 }

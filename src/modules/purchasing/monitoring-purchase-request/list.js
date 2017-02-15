@@ -4,10 +4,44 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
+
+    prStates = [
+        {
+            "name": "",
+            "value": -1
+        },
+        {
+            "name": "Dibatalkan",
+            "value": 0
+        }, {
+            "name": "Belum diterima Pembelian",
+            "value": 2
+        }, {
+            "name": "Sudah diterima Pembelian",
+            "value": 7
+        }, {
+            "name": "Sudah diorder ke Supplier",
+            "value": 3
+        }, {
+            "name": "Barang sudah datang sebagian",
+            "value": 4
+        }, {
+            "name": "Barang sudah datang semua",
+            "value": 9
+        }
+    ];
+    purchaseRequest = {};
+    filter = { isPosted: true };
     constructor(router, service) {
         this.service = service;
         this.router = router;
         this.today = new Date();
+        this.prStates = this.prStates.map(prState => {
+            prState.toString = function () {
+                return this.name;
+            }
+            return prState;
+        })
     }
     attached() {
     }
@@ -22,8 +56,11 @@ export class List {
         var locale = 'id-ID';
         var moment = require('moment');
         moment.locale(locale);
-        this.service.search(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo)
+        if (!this.prState)
+            this.prState = this.prStates[0];
 
+
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value)
             .then(data => {
                 this.data = data;
                 this.data = [];
@@ -31,6 +68,12 @@ export class List {
                 for (var pr of data) {
                     for (var item of pr.items) {
                         var _data = {};
+                        var status = pr.status ? pr.status.label : "-";
+
+                        if (pr.status.value === 4 || pr.status.value === 9) {
+                            status = item.deliveryOrderNos.length > 0 ? `${status} (${item.deliveryOrderNos.join(", ")})` : status;
+                        }
+
                         _data.no = counter;
                         _data.prDate = moment(new Date(pr.date)).format(dateFormat);
                         _data.prNo = pr.no;
@@ -42,23 +85,28 @@ export class List {
                         _data.productQty = item.quantity ? item.quantity : 0;
                         _data.productUom = item.product.uom.unit ? item.product.uom.unit : "-";
                         _data.expected = pr.expectedDeliveryDate;
+                        _data.status = status;
                         this.data.push(_data);
                     }
                 }
             })
     }
     reset() {
-        this.PRNo = "";
-        this.categoryId = "undefined";
-        this.unitId = "undefined";
-        this.budget = "undefined";
+        this.purchaseRequest = {};
+        this.category = null;
+        this.unit = null;
+        this.budget = null;
         this.dateFrom = null;
         this.dateTo = null;
+        this.prState = this.prStates[0];
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.budget ? this.budget._id : "", this.PRNo ? this.PRNo : "", this.dateFrom, this.dateTo);
+        if (!this.prState)
+            this.prState = this.prStates[0];
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
+
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);

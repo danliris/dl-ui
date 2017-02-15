@@ -12,6 +12,7 @@ export class View {
 
     async activate(params) {
         var id = params.id;
+        var divisi = params.division;
         var dateFrom = params.sdate;
         var dateTo = params.edate;
         // this.data = await this.service.getDetailUnit(dateFrom,dateTo,id);
@@ -55,7 +56,7 @@ export class View {
                 this.percentagetotal = Math.round(percentagetotal).toFixed(2);
                 this.dateFrom = dateFrom;
                 this.dateTo = dateTo;
-                this.unit = id;
+                this.divisi = divisi;
                 this.amounts = amounts;
                 var y = this.pricetotals.toFixed(2).toString().split('.');
                 var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
