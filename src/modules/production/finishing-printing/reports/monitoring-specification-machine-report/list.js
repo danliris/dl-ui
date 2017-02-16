@@ -23,7 +23,7 @@ export class List {
 
         this.info.dateFrom = this.dateFrom;
         this.info.dateTo = this.dateTo;
-        this.info.machineId = this.machine._id;
+        this.info.machineId = this.info.machineId ? this.machine._id : '';
 
         this.service.search(this.info)
             .then(result => {
