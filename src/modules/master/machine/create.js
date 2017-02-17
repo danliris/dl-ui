@@ -14,12 +14,17 @@ export class Create {
 
   }
 
+  bind(){
+    this.data = { machineEvents:[] };
+  }
+
   get list() {
     return (event) => this.router.navigateToRoute('list');
   }
 
   get save() {
     return (event) => {
+
       this.service.create(this.data)
         .then(result => {
           this.list();

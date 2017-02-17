@@ -4,4 +4,10 @@ export class MachineEventItem {
     this.error = context.error;
     this.options = context.options;
   } 
+
+  controlOptions = {
+    control: {
+      length: 12
+    }
+  };
 }

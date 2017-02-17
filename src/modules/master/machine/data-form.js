@@ -1,7 +1,8 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api"
-var UnitLoader = require('./loader/unit-loader');
+
+var UnitLoader = require('../../../loader/unit-loader');
+var StepLoader = require('../../..//loader/step-loader');
+var MachineTypeLoader = require('../../../loader/machine-type-loader');
 
 export class DataForm {
   @bindable readOnly = false;
@@ -20,28 +21,36 @@ export class DataForm {
     { header: "Name", value: "name" },
   ]
 
-  bind(){
-    this.data = {};
-    this.data.machineEvents = [];
-  }
-
-  addMachineEvent() {
-    this.data.machineEvents.push({})
+  get addMachineEvent() {
+    return (event) => {
+      this.data.machineEvents.push({})
+    };
   }
 
   unitSelected(e){
-    console.log('selected : ' + e)
+    console.log('selected')
   }
 
   unitChanged(e){
-    this.xxx = e;
-    this.yyy = this.data;
-    console.log('changed : ' + e)
-    console.log('yiha');
-    console.log(e);
+    console.log('unit changed')
+  }
+
+  stepChanged(e){
+    console.log('step changed')
+  }
+
+  machineTypeChanged(e){
+    console.log('machineType changed')
   }
 
   get unitLoader(){
     return UnitLoader;
   }
+  get stepLoader(){
+    return StepLoader;
+  }
+  get machineTypeLoader(){
+    return MachineTypeLoader;
+  }
+
 } 
