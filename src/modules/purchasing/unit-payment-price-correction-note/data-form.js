@@ -99,6 +99,7 @@ export class DataForm {
             }
         }
         this.data.items = _items;
+        this.resetErrorItems();
     }
 
     unitPaymentOrderChanged(e) {
@@ -126,6 +127,14 @@ export class DataForm {
                     if (this.data.unitPaymentOrder.items)
                         this.setItems(this.data.unitPaymentOrder);
                 }
+            }
+        }
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
             }
         }
     }

@@ -107,5 +107,14 @@ export class DataForm {
         else {
             this.data.items = [];
         }
+        this.resetErrorItems();
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
     }
 } 
