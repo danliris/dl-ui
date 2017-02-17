@@ -1,6 +1,14 @@
-import {inject, bindable, computedFrom} from 'aurelia-framework';
 
-export class DataForm {
+import {Router} from 'aurelia-router';
+import {Service} from './service';
+
+import {inject, bindable, computedFrom} from 'aurelia-framework';
+var moment = require('moment');
+var momentToMillis = require('../../../../utils/moment-to-millis')
+
+
+@inject(Router, Service)
+export class View {
     @bindable data = { "import": true };
     @bindable error = {};
     @bindable showSecond = false;
@@ -11,30 +19,28 @@ export class DataForm {
 
     }
 
-
-    constructor(bindingEngine, element) {
+    constructor(router, service, bindingEngine, element) {
+        this.router = router;
+        this.service = service;
         this.bindingEngine = bindingEngine;
         this.element = element;
-
     }
+    // @computedFrom("data._id")
+    // get isEdit() {
+    //     return (this.data._id || '').toString() != '';
+    // }
 
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
-
-    get isFilterMachineType() {
-        this.filterMachineType = {
-            "machineType.code": this.data.machineType.code
-        };
-        return this.filterMachineType;
-    }
+    // get isFilterMachineType() {
+    //     this.filterMachineType = {
+    //         "code": this.data.code
+    //     };
+    //     return this.filterMachineType;
+    // }
 
 
     machineChanged(e) {
         if (e.detail) {
             var selectedProcess = e.detail || {};
-            // this.data.items = e.detail.indicators;
             if (selectedProcess) {
 
                 var items = [];
@@ -54,16 +60,29 @@ export class DataForm {
         }
     }
 
-    resetErrors() {
-        this.error = {};
+    bind() {
+        this.data;
+        this.timeInMoment = this.data ? moment(this.data.time) : "";
     }
 
+    async activate(params) {
 
-    activate() {
-
+        var id = params.id;
+        this.data = await this.service.getById(id);
     }
 
-    attached() {
-
+    view() {
+        this.router.navigateToRoute('view', { id: this.data._id });
     }
-} 
+
+    save() {
+        
+        this.service.update(this.data).then(result => {
+            this.view();
+            
+        }).catch(e => {
+            
+            this.error = e;
+        })
+    }
+}
