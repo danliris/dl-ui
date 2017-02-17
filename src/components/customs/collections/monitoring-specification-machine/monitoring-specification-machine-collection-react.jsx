@@ -64,8 +64,8 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
             return (<table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="40%">Indicator</th>
-                        <th width="20%">Data Type</th>
+                        <th width="40%">Indikator</th>
+                        <th width="20%">Tipe Data</th>
                         <th width="15%">Default Value</th>
                         <th width="15%">Value</th>
                         <th width="5%">

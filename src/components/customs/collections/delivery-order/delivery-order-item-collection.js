@@ -14,6 +14,7 @@ export class DeliveryOrderItemCollection {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) isEdit;
 
     reactComponent = {};
     constructor(element) {
@@ -39,6 +40,10 @@ export class DeliveryOrderItemCollection {
             this.options.filter = this.filter;
         else
             this.options.filter = null;
+        if (this.isEdit)
+            this.options.isEdit = this.isEdit;
+        else
+            this.options.isEdit = false;
 
         this.reactComponent = ReactDOM.render(
             <DeliveryOrderItemCollectionReact value={this.value} error={this.error} options={this.options}></DeliveryOrderItemCollectionReact>,
