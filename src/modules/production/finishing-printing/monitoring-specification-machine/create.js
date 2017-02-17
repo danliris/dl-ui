@@ -10,7 +10,7 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = { "import": true };
-        
+
     }
 
     activate(params) {
@@ -22,7 +22,7 @@ export class Create {
     }
 
     save() {
-        
+
         this.service.create(this.data)
             .then(result => {
                 this.list();
