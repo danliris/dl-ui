@@ -1,0 +1,21 @@
+<template>
+    <td colspan="2">
+      <table class="table table-hover">
+        <tr>
+          <td>
+            <au-textbox value.bind="step.name" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
+          </td>
+          <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(machineEvent, $event)">-</button></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <au-collection 
+                items.bind="step.stepIndicators" 
+                columns.bind="stepIndicatorColumns" 
+                read-only.bind="readOnly" >
+            </au-collection>
+          </td>
+        </tr>
+      </table>
+    </td>
+</template>
