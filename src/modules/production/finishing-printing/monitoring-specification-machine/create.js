@@ -32,8 +32,4 @@ export class Create {
             })
     }
 
-    reset() {
-        this.error = {};
-    }
-
 }
