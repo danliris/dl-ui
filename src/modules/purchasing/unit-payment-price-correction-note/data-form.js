@@ -103,7 +103,7 @@ export class DataForm {
     }
 
     unitPaymentOrderChanged(e) {
-        var selectedPaymentOrder = e.detail || {};
+        var selectedPaymentOrder = e.detail;
         if (selectedPaymentOrder && !this.readOnly) {
             if (!this.readOnly)
                 this.data.items = [];

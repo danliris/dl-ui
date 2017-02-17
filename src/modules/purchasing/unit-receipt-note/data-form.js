@@ -34,7 +34,7 @@ export class DataForm {
     }
 
     supplierChanged(e) {
-        var selectedSupplier = e.detail;
+        var selectedSupplier = e.detail || {};
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
             if (!this.readOnly) {
