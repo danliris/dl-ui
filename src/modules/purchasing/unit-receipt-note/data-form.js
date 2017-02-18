@@ -34,7 +34,7 @@ export class DataForm {
     }
 
     supplierChanged(e) {
-        var selectedSupplier = e.detail;
+        var selectedSupplier = e.detail || {};
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
             if (!this.readOnly) {
@@ -80,7 +80,7 @@ export class DataForm {
                             .reduce((prev, curr, index) => {
                                 return prev + curr;
                             }, 0);
-                            
+
                         _item.deliveredQuantity = fulfillment.deliveredQuantity - total;
 
                         for (var _poItem of fulfillment.purchaseOrder.items) {
@@ -96,7 +96,17 @@ export class DataForm {
             }
             this.data.items = _items;
         }
-        else
+        else {
             this.data.items = [];
+        }
+        this.resetErrorItems();
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
     }
 } 
