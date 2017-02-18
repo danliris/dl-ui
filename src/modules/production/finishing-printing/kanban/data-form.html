@@ -1,0 +1,13 @@
+<template>
+    <au-collection 
+      items.bind="data.steps" 
+      columns.bind="steps.columns" 
+      add.bind="steps.onAdd" 
+      remove.bind="steps.onRemove"
+      title="Steps" 
+      read-only.bind="readOnly" 
+      item-template="modules/production/finishing-printing/kanban/template/step-item">
+    </au-collection>
+
+  </au-input-form>
+</template>
