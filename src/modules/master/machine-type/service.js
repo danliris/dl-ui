@@ -28,7 +28,7 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data.name}`;
+        var endpoint = `${serviceUri}/${data._id}`;
         return super.put(endpoint, data);
     }
 

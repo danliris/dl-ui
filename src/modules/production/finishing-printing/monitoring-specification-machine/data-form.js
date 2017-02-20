@@ -4,6 +4,8 @@ export class DataForm {
     @bindable data = { "import": true };
     @bindable error = {};
     @bindable showSecond = false;
+    @bindable timePickerFormat = "HH:mm";
+    @bindable datePickerFormat = "DD MMMM YYYY";
     @bindable Options = {
         "readOnly": false,
 
@@ -51,6 +53,11 @@ export class DataForm {
             }
         }
     }
+
+    resetErrors() {
+        this.error = {};
+    }
+
 
     activate() {
 
