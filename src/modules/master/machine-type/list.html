@@ -23,18 +23,18 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Kode</th>
+           
                         <th>Nama</th>
-                        <th>Deskripsi</th>
+ 
                         <th>Indikator</th>
-                        <th></th>
+                  
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data" click.delegate="view(item)">
-                        <td>${item.code}</td>
+     
                         <td>${item.name}</td>
-                        <td>${item.description}</td>
+              
                         <td>
                             <ul>
                                 <li repeat.for="indicator of item.indicators">${indicator.indicator}</li>
