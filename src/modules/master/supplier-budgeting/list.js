@@ -38,4 +38,13 @@ export class List {
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
+
+    create() {
+        this.router.navigateToRoute('create');
+    }
+
+    upload() {
+        this.router.navigateToRoute('upload');
+    } 
+    
 }

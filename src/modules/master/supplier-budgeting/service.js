@@ -1,42 +1,43 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../utils/rest-service';
+import {RestService} from '../../../utils/rest-service';
  
-const serviceUri = 'core/power-bi/reports';
- 
-export class Service extends RestService{
+const serviceUri = 'master/suppliers';
+
+export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "core");
   }
 
-  search(keyword) {
-    return super.get(serviceUri);
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
   }
 
-  getById(id)
-  {
+  getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
   }
 
-  create(data)
-  {
+  create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
 
-  update(data)
-  {
+  update(data) {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.put(endpoint, data);
-  }  
+  }
 
-  delete(data)
-  {
+  delete(data) {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.delete(endpoint, data);
   }
-  
- 
+
+  getByCode(code) {
+    var endpoint = `${serviceUri}?keyword=${code}`;
+    return super.get(endpoint);
+  }
+
 }
