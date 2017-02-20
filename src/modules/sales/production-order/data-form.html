@@ -70,8 +70,8 @@
         <span style="color:red">-Standar Lampu tidak boleh kosong</span>
       </div>
       <br>
-      <div if.bind="error.total.toString()">
-        <span style="color:red">-Jumlah Total pada detail harus sama dengan jumlah order .</span>
+      <div if.bind="error.details.toString()">
+        <span style="color:red">-Detail Warna harus diisi dan Jumlah Total pada detail harus sama dengan jumlah order .</span>
       </div>
     </form>
 </template>
