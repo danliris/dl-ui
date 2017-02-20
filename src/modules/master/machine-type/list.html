@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="item of data">
+                    <tr repeat.for="item of data" click.delegate="view(item)">
                         <td>${item.code}</td>
                         <td>${item.name}</td>
                         <td>${item.description}</td>
@@ -40,9 +40,9 @@
                                 <li repeat.for="indicator of item.indicators">${indicator.indicator}</li>
                             </ul>
                         </td>
-                        <td style="text-align:center">
+                        <!--<td style="text-align:center">
                             <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
-                        </td>
+                        </td>-->
                     </tr>
                 </tbody>
             </table>
