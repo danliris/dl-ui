@@ -3,7 +3,7 @@
     <form class="form-horizontal">
         <dropdown label="Bulan" value.bind="currentMonth" items.bind="months" ></dropdown>
         <dropdown label="Tahun" value.bind="currentYear" items.bind="years" ></dropdown>
-        <unit-spinning-auto-suggest label="Spinning" value.bind="data.unit" error.bind="error.unit" read-only.bind="(readOnly)" change.delegate="spinningChanged($event)"></unit-spinning-auto-suggest>
+        <unit-auto-suggest label="Spinning" value.bind="data.unit" error.bind="error.unit" read-only.bind="(readOnly)" change.delegate="spinningChanged($event)" filter.bind="spinningUnitFilter"></unit-auto-suggest>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">

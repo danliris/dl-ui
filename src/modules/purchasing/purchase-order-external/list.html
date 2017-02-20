@@ -49,7 +49,7 @@
                         <th>Nomor PO Eksternal</th>
                         <th>Tanggal PO Eksternal </th>
                         <th>Nama Supplier</th>
-                        <th>Nomor Purcase Request</th>
+                        <th>Nomor Purchase Request</th>
                         <th style="text-align:center">Status Post</th>
                         <th></th>
                     </tr>
@@ -75,7 +75,7 @@
                         <td style="text-align:center">${item.isPosted ? 'Posted' : 'UnPosted'}</td>
                         <td style="text-align:center">
                             <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
-                            <button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted'>Cetak Pdf</button></td>
+                            <button class="btn btn-primary" click.delegate="exportPDF(item)" if.bind='item.isPosted && item.status.value !== 0 '>Cetak Pdf</button></td>
                     </tr>
                 </tbody>
             </table>
