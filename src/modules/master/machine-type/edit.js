@@ -5,6 +5,7 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class Edit {
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -20,6 +21,7 @@ export class Edit {
     }
 
     save() {
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {

@@ -1,0 +1,31 @@
+<template>
+    <td colspan="2">
+      <table class="table table-hover">
+        <tr>
+          <td>
+            <au-textbox value.bind="step.name" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
+          </td>
+          <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(step, $event)">-</button></td>
+        </tr>
+        <tr>
+          <td>
+            <au-collection 
+                items.bind="step.stepIndicators" 
+                columns.bind="stepIndicatorColumns" 
+                read-only.bind="readOnly" >
+            </au-collection>
+          </td>
+          <td style="vertical-align: middle" width="1%">
+            <button class="btn btn-info pull-right">
+              <i class="fa fa-caret-up" aria-hidden="true"></i>
+            </button>
+            </br>
+            </br>
+            <button class="btn btn-info pull-right">
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </td>
+</template>

@@ -54,6 +54,11 @@ export class DataForm {
         }
     }
 
+    resetErrors() {
+        this.error = {};
+    }
+
+
     activate() {
 
     }
