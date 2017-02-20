@@ -7,9 +7,8 @@ import {Service} from './service';
 export class List {
     data = [];
     listReport = [
-        "f2dec423-9b47-42e3-9d82-6103c8132015",
-        "b8e30ee2-eb32-485c-933b-f9fd91093d1f",
-        "0bee3506-5950-485b-9cda-6132e44c5764"
+        "7a433e2e-25fe-4b2e-8252-c806a4c1167a",//Top Ten Buyer
+        "26d7b499-2350-4833-a4ff-ddaf01d3b4cd"//Total Order Produksi
     ];
     constructor(router, service) {
         this.router = router;

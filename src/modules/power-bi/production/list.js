@@ -7,10 +7,7 @@ import {Service} from './service';
 export class List {
     data = [];
     listReport = [
-        "5316a960-fe55-46ee-a6ca-0f4ce2bf76c3",
-        "a6181ce8-f1cd-4624-9cbf-8eebe7792f82",
-        "c59843bc-b2b5-4b8d-a0a4-e8e2c1127973",
-        "f2dec423-9b47-42e3-9d82-6103c8132015"
+        "9401ddc4-47e3-49a3-9a8e-8ff59043cdb5"//Top Ten Event Monitoring
     ];
     constructor(router, service) {
         this.router = router;
