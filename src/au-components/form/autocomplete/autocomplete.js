@@ -1,5 +1,4 @@
 import { bindable, bindingMode, containerless, inject, computedFrom, customElement } from "aurelia-framework";
-import { _Control } from "../_control";
 import dispatchCustomEvent from "../../../lib/dispatch-custom-event";
 
 function startsWith(str, start) {
@@ -10,16 +9,15 @@ function startsWith(str, start) {
   return true;
 }
 
-@containerless()
 @customElement("au-autocomplete")
 @inject(Element)
-export class Autocomplete extends _Control {
+export class Autocomplete {
   // control properties
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) options; 
 
   // autocomplete properties
   @bindable loader = []; // can be either array of suggestions or function returning Promise resolving to such array
@@ -28,7 +26,7 @@ export class Autocomplete extends _Control {
   @bindable placeholder = ''; // placeholder for input control 
   @bindable filter // function to filter out suggestions
   @bindable query // query object
-  @bindable _input; // input field value;
+  @bindable editorValue; // input field value;
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) key;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) text;
@@ -39,33 +37,33 @@ export class Autocomplete extends _Control {
   _isLoading = false;
   _noSuggestions = false;
 
-  constructor(element) {
-    super(element);
+  constructor(component) {
+    this.component = component;
   }
 
-  valueChanged() {
+  valueChanged(newValue) {
     this.bind();
   }
 
   bind() {
     this._ignoreInputChange = true;
-    this._input = this._getSuggestionText(this.value);
+    this.editorValue = this._getSuggestionText(this.value);
     if (this.value)
       this._suggestions = [this.value];
   }
 
-  _inputChanged() {
+  editorValueChanged() {
     if (this._ignoreInputChange) {
       this._ignoreInputChange = false;
       return;
     }
-    if (this._input === "") {
+    if (this.editorValue === "") {
       this.value = null;
       this._noSuggestions = false;
       this._suggestions = [];
     }
     else {
-      this._loadSuggestions(this._input)
+      this._loadSuggestions(this.editorValue)
         .then(suggestions => {
           this._suggestions = suggestions || [];
           this._showSuggestions();
@@ -106,9 +104,9 @@ export class Autocomplete extends _Control {
     this.value = suggestion;
     this._suggestions = [suggestion];
     this._ignoreInputChange = true;
-    this._input = this._getSuggestionText(suggestion);
+    this.editorValue = this._getSuggestionText(suggestion);
     if (this.value) {
-      dispatchCustomEvent("change", this.element, this.value);
+      // dispatchCustomEvent("change", this.component, this.value);
       this._hideSuggestions();
     }
   }
@@ -119,7 +117,7 @@ export class Autocomplete extends _Control {
     }
   }
 
-  _getSuggestionText(suggestion) { 
+  _getSuggestionText(suggestion) {
     if (!suggestion)
       return "";
     else if (typeof suggestion === "string")
@@ -141,5 +139,9 @@ export class Autocomplete extends _Control {
     }
     else
       return suggestion;
+  }
+  
+  changeCallback(event) {
+    event.preventDefault();
   }
 }

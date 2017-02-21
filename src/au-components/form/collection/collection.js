@@ -7,8 +7,8 @@ import dispatchCustomEvent from "../../../lib/dispatch-custom-event";
 export class Collection {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) items;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) errors;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+  @bindable options;
 
   @bindable title = null;
   @bindable headerTemplate = null;

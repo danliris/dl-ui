@@ -1,31 +1,21 @@
 <template>
-    <td colspan="2">
-      <table class="table table-hover">
-        <tr>
-          <td>
-            <au-textbox value.bind="step.name" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
-          </td>
-          <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(step, $event)">-</button></td>
-        </tr>
-        <tr>
-          <td>
-            <au-collection 
-                items.bind="step.stepIndicators" 
-                columns.bind="stepIndicatorColumns" 
-                read-only.bind="readOnly" >
-            </au-collection>
-          </td>
-          <td style="vertical-align: middle" width="1%">
-            <button class="btn btn-info pull-right">
-              <i class="fa fa-caret-up" aria-hidden="true"></i>
-            </button>
-            </br>
-            </br>
-            <button class="btn btn-info pull-right">
-              <i class="fa fa-caret-down" aria-hidden="true"></i>
-            </button>
-          </td>
-        </tr>
-      </table>
+    <td click.delegate="onItemClicked(step, $event)" ref="tdStep">
+      <au-autocomplete 
+        value.bind="step" 
+        error.bind="error.step"
+        change.delegate="onStepChanged($event)" 
+        focus.delegate="onStepFocused($event)"
+        loader.bind="stepLoader"
+        placeholder="search step" 
+        key="process"
+        text="process"
+        read-only.bind="(readOnly || isEdit)"
+        options.bind="controlOptions">
+      </au-autocomplete>
+      </br>
+      <au-textbox value.bind="stepIndicatorInfo" read-only.bind="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td  click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(machineEvent, $event)">-</button>
     </td>
 </template>
