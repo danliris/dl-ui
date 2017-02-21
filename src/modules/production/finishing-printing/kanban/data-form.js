@@ -11,24 +11,24 @@ export class DataForm {
 
   @bindable title;
 
-  @bindable carts;
   @bindable productionOrderDetails = [];
 
   @bindable cancel;
   @bindable delete;
   @bindable save;
   @bindable edit;
+  @bindable isEdit;
+  @bindable isView;
 
   constructor(bindingEngine, service, element) {
       this.bindingEngine = bindingEngine;
       this.service = service;
       this.element = element;
-      this.index = 0;
   }
 
   bind() {
     this.data = this.data || {};
-    this.carts = this.carts || [];
+    this.data.carts = this.data.carts || [];
 
     if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0){
         this.productionOrderDetails = this.data.productionOrder.details;
@@ -38,18 +38,16 @@ export class DataForm {
 
   cartInfo = {
     columns : [
-      { header : "No", value : "no"},
+      { header : "Cart Number", value : "cartNumber"},
       { header : "Qty", value : "qty"},
       { header : "Pcs", value : "pcs"},
     ],
     onAdd: function () {
-      this.index++;
-      this.carts.push({ no : this.index, qty : 0, pcs : 0});
-      console.log("add, index : " + this.index);
+      this.data.carts.push({ cartNumber : "", qty : 0, pcs : 0});
+      console.log("add");
     }.bind(this),
     onRemove: function () {
-      this.index = this.index - 1;
-      console.log("remove, index : " + this.index);
+      console.log("remove");
     }.bind(this)
   };
 
@@ -65,11 +63,6 @@ export class DataForm {
       console.log("step removed");
     }.bind(this)
   };
-
-  stepIndicatorColumns = [
-      { header : "Name", value : "name"},
-      { header : "Value", value : "value"},
-    ];
 
   async productionOrderChanged(e) {
     this.productionOrderDetails = [];
@@ -101,33 +94,6 @@ export class DataForm {
     return this.data.instruction;
   }
 
-  get hasStepIndicators(){
-    return this.isStepSelected && this.data.instruction.steps[this.selectedStepIndex].stepIndicators;
-  }
-
-  get isStepSelected(){
-    return this.data.instruction 
-      && this.data.instruction.steps 
-      && this.data.instruction.steps.length > 0 
-      && this.data.instruction.steps[0].selectedIndex != null;
-  }
-
-  get selectedStepIndex(){
-    return this.isStepSelected ? this.data.instruction.steps[0].selectedIndex : -1;
-  }
-
-  get stepIndicatorTitle(){
-    return this.hasInstruction ? this.data.instruction.steps[this.selectedStepIndex].process + " - step indicator" : "";
-  }
-
-  get stepIndicators(){
-    return this.data.instruction.steps[this.selectedStepIndex].stepIndicators || [];
-  }
-
-  // set stepIndicators(stepIndicators){
-  //   this._stepIndicators = stepIndicators;
-  // }
-
   get instructionLoader(){
     return InstructionLoader;
   }
@@ -142,9 +108,9 @@ export class DataForm {
       });
   }  
 
-  onInstructionChanged($event){
+  onInstructionChanged(event){
     console.log("instructionChanged");
-    console.log($event);
+    console.log(event);
     console.log(this.data.instruction);
   }
 

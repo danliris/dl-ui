@@ -13,14 +13,6 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    
-    this.data.unit.toString = function () {
-      return [this.division.name, this.name]
-          .filter((item, index) => {
-              return item && item.toString().trim().length > 0;
-          }).join(" - ");
-    }
-
   }
 
   get view() {
@@ -30,6 +22,8 @@ export class Edit {
   }
 
   get save() {
+    this.data.productionOrderId = this.data.productionOrder._id || {};
+    this.data.instructionId = this.data.instruction._id || {};
     return () => {
       this.service.update(this.data)
         .then(result => {
@@ -39,5 +33,9 @@ export class Edit {
           this.error = e;
         })
     }
+  }
+
+  get isEdit(){
+    return true;
   }
 }

@@ -9,6 +9,10 @@ export class StepItem {
     this.error = context.error;
     this.options = context.options;
   } 
+  stepIndicatorColumns = [
+    { header : "Name", value : "name"},
+    { header : "Value", value : "value"},
+  ];
 
   controlOptions = {
     control: {
@@ -48,7 +52,7 @@ export class StepItem {
 
   get stepIndicatorInfo(){
     var info = "";
-    if (this.step.stepIndicators){
+    if (this.step.stepIndicators && this.step.stepIndicators.length > 0){
       for (var stepIndicator of this.step.stepIndicators){
         info += stepIndicator.name + "=" + stepIndicator.value + ",";
       }
@@ -59,5 +63,9 @@ export class StepItem {
     }
 
     return info;
+  }
+
+  get isStepSelected(){
+    return this.context.context.selectedStep && this.context.context.selectedStep.data === this.step;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <td style="text-align:center;" class="col-sm-2">
-    <au-textbox value.bind="cart.no" read-only.bind="true" options.bind="controlOptions"></au-textbox>
+    <au-textbox value.bind="cart.cartNumber" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
   </td>
   <td>
     <au-numeric value.bind="cart.qty" read-only.bind="options.readOnly" options.bind="controlOptions" format="0"></au-numeric>

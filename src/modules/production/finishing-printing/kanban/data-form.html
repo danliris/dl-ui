@@ -23,22 +23,50 @@
       if.bind="hasProductionOrderDetails && !readOnly">
     </dropdown>
 
-    <au-textbox 
+    <numeric 
       label="Quantity" 
       value.bind="data.selectedProductionOrderDetail.quantity" 
       read-only.bind="true"
       if.bind="hasColor">
-    </au-textbox>
+    </numeric>
 
+    <au-layout error.bind="error.cart"></au-layout>
     <au-collection 
-      items.bind="carts" 
+      items.bind="data.carts" 
       columns.bind="cartInfo.columns" 
       add.bind="cartInfo.onAdd" 
       remove.bind="cartInfo.onRemove"
       title="Carts" 
       read-only.bind="readOnly"
+      if.bind="!readOnly && !isEdit"
       item-template="modules/production/finishing-printing/kanban/template/cart-item">
     </au-collection>
+
+    <au-textbox 
+      label="Cart Number"
+      value.bind="data.cart.cartNumber" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Cart Qty"
+      value.bind="data.cart.qty" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
+
+    <au-numeric 
+      label="Cart Pcs"
+      value.bind="data.cart.pcs" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
 
     <au-autocomplete 
       value.bind="data.instruction" 
@@ -49,7 +77,7 @@
       key="code"
       text="name"
       change.delegate="onInstructionChanged($event)"
-      read-only.bind="(readOnly || isEdit)">
+      read-only.bind="readOnly">
     </au-autocomplete>
 
     <table 
@@ -68,26 +96,16 @@
             </au-collection>
           </td>
           <td style="vertical-align: middle" width="1%">
-              <button class="btn btn-info pull-right" click.delegate="moveItemUp($event)">
+              <button class="btn btn-info pull-right" click.delegate="moveItemUp($event)" if.bind="!readOnly">
                 <i class="fa fa-caret-up" aria-hidden="true"></i>
               </button>
               </br>
               </br>
-              <button class="btn btn-info pull-right" click.delegate="moveItemDown($event)">
+              <button class="btn btn-info pull-right" click.delegate="moveItemDown($event)" if.bind="!readOnly">
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
               </button>
           </td>
         </tr>
     </table>
-
-    <au-collection 
-      items.bind="stepIndicators" 
-      columns.bind="stepIndicatorColumns"
-      if.bind="isStepSelected"
-      title.bind="stepIndicatorTitle" 
-      read-only.bind="readOnly"
-      item-template="modules/production/finishing-printing/kanban/template/step-indicator-item">
-    </au-collection>
-
   </au-input-form>
 </template>
