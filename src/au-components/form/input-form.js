@@ -3,9 +3,9 @@ import { bindable, bindingMode, noView, inject, computedFrom, customElement, con
 @inject(Element)
 @containerless()
 @customElement("au-input-form")
-export class InputForm {
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
+export class InputForm { 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) title;
+  @bindable options;
 
   constructor(element) {
     this.element = element;
