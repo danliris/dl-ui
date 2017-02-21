@@ -40,4 +40,10 @@ export class List {
     exportPDF(data) {
         this.service.getPdfById(data._id);
     }
+
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.loadPage();
+    }
 }

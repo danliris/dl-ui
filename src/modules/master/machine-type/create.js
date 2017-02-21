@@ -21,7 +21,6 @@ export class Create {
     }
 
     save() {
-
         for (var d of this.data.indicators) {
             if (d.dataType == "numeric") {
                 if (d.defaultValue == "" || !d.defaultValue || d.defaultValue == 0) {
