@@ -7,7 +7,7 @@
                 <textbox label="Kode" value.bind="data.code" error.bind="error.code" read-only="true"></textbox>
                 <datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" read-only="false"> </datepicker>
                 <timepicker label="Jam" value.bind="timeInMoment" error.bind="error.time" format.bind="timePickerFormat"
-                    showSecond.bind="showSecond" change.delegate=timeStartChanged($event) disabled.bind="(readOnly)">
+                    showSecond.bind="showSecond" change.delegate=timeChanged($event)> 
                 </timepicker>
                 <machine-auto-suggest label="Mesin" value.bind="data.machine" error.bind="error.machine" read-only.bind="(readOnly)" change.delegate="machineChanged($event)"></machine-auto-suggest>
             </fieldset>

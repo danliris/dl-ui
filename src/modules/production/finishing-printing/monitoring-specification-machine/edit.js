@@ -61,8 +61,20 @@ export class View {
     }
 
     bind() {
-        this.data;
-        this.timeInMoment = this.data ? moment(this.data.time) : "";
+
+        this.timeInMoment = this.data.time ? moment(this.data.time) : "";
+        // this.data.time = this.timeInMoment;
+    }
+
+    timeChanged(e) {
+        var tempTime = e.detail;
+        if (tempTime) {
+            tempTime = moment(tempTime);
+            this.data.time = moment(tempTime);
+        }
+        else {
+            delete this.data.time;
+        }
     }
 
     async activate(params) {
@@ -76,12 +88,12 @@ export class View {
     }
 
     save() {
-        
+
         this.service.update(this.data).then(result => {
             this.view();
-            
+
         }).catch(e => {
-            
+
             this.error = e;
         })
     }
