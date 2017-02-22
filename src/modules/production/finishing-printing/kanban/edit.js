@@ -5,6 +5,9 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
+  
+  selectedProductionOrderDetail = {};
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -15,6 +18,14 @@ export class Edit {
     this.data = await this.service.getById(id);
   }
 
+  bind(){
+      if (this.data.selectedProductionOrderDetail.colorRequest){
+          this.data.selectedProductionOrderDetail.toString = function(){
+              return `${this.colorRequest}`;  
+          };
+      }   
+  }
+
   get view() {
     return () => {
       this.router.navigateToRoute('view', { id: this.data._id });
@@ -22,9 +33,12 @@ export class Edit {
   }
 
   get save() {
-    this.data.productionOrderId = this.data.productionOrder._id || {};
-    this.data.instructionId = this.data.instruction._id || {};
     return () => {
+      this.data.productionOrderId = this.data.productionOrder._id || {};
+      this.data.instructionId = this.data.instruction._id || {};
+      if (!(this.data.selectedProductionOrderDetail instanceof Object))
+        this.data.selectedProductionOrderDetail = this.selectedProductionOrderDetail;
+
       this.service.update(this.data)
         .then(result => {
           this.view();

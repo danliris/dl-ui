@@ -22,6 +22,7 @@
       items.bind="productionOrderDetails"
       if.bind="hasProductionOrderDetails && !readOnly">
     </dropdown>
+    <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly" if.bind="readOnly"></textbox>
 
     <numeric 
       label="Quantity" 
