@@ -71,7 +71,7 @@ export default class MonitoringSpecificationMachineReact extends React.Component
 
         } else if (this.state.value.dataType == "numeric") {
             valueBox = <NumericReact value={this.state.value.value} options={this.state.options} onChange={this.handleIndicatorValueChange} />
-        } else if (this.state.value.dataType == "option (use ',' as delimiter)"||this.state.value.dataType == "option") {
+        } else if (this.state.value.dataType == "option (use ',' as delimiter)" || this.state.value.dataType == "option") {
 
             var items = this.state.value.defaultValue.split(",");
             var valueOptions = Object.assign({}, this.state.options, { selections: items });
@@ -110,6 +110,12 @@ export default class MonitoringSpecificationMachineReact extends React.Component
                     <div className={`form-group ${this.state.error.value ? 'has-error' : ''}`} style={style}>
                         {valueBox}
                         <span className="help-block">{this.state.error.value} </span>
+                    </div>
+                </td>
+                <td>
+                    <div className={`form-group ${this.state.error.satuan ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.satuan} options={this.state.options}/>
+                        <span className="help-block">{this.state.error.satuan} </span>
                     </div>
                 </td>
             </tr>

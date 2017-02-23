@@ -54,6 +54,24 @@ export class DataForm {
         }
     }
 
+    async productionOrderChanged(e) {
+        this.productionOrderDetails = [];
+
+        var productionOrder = e.detail;
+        if (productionOrder) {
+            this.productionOrderDetails = await this.service.getProductionOrderDetails(productionOrder.orderNo);
+
+            if (!this.data.selectedProductionOrderDetail && this.hasProductionOrderDetails) {
+                this._mapProductionOrderDetail();
+                this.data.selectedProductionOrderDetail = {};
+                this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
+            }
+        }
+        else {
+            delete this.data.selectedProductionOrderDetail;
+        }
+    }
+
     resetErrors() {
         this.error = {};
     }
