@@ -6,7 +6,11 @@ import { Config } from "aurelia-api"
 const resource = 'master/categories';
 
 const empty = {
-    name: ''
+    code: '',
+    name: '',
+    toString: function () {
+        return '';
+    }
 }
 
 'use strict';
@@ -20,7 +24,10 @@ export default class CategoryAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, CategoryAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.name}`;
+            return [this.code, this.name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -49,7 +56,10 @@ CategoryAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(category => {
                         category.toString = function () {
-                            return `${this.name}`;
+                            return [this.code, this.name]
+                                .filter((item, index) => {
+                                    return item && item.toString().trim().length > 0;
+                                }).join(" - ");
                         }
                         return category;
                     });
