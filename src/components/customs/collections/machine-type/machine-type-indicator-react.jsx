@@ -9,7 +9,7 @@ import DropDownReact from '../../../form/basic/react/dropdown-react.jsx';
 export default class MachineTypeIndicatorReact extends React.Component {
     constructor(props) {
         super(props);
-
+        this.reset = this.reset.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleIndicatorChange = this.handleIndicatorChange.bind(this);
@@ -34,15 +34,18 @@ export default class MachineTypeIndicatorReact extends React.Component {
 
     handleDataTypeChange(dataType) {
         var value = this.state.value;
+        value.defaultValue="";
         value.dataType = dataType;
         this.handleValueChange(value);
     }
 
 
     handleIndicatorDefaultValueChange(defaultData) {
+        // this.state.value.defaultValue ="";
         var value = this.state.value;
         value.defaultValue = defaultData;
         this.handleValueChange(value);
+        // this.state.value.defaultValue ="";
     }
 
 
@@ -50,6 +53,13 @@ export default class MachineTypeIndicatorReact extends React.Component {
         if (this.props.onRemove)
             this.props.onRemove(this.state.value);
     }
+
+    reset(dataType) {
+        var value = this.state.value;
+        value.defaultValue = "";
+        this.reset(value);
+    }
+
 
     componentWillMount() {
         this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });
@@ -73,12 +83,13 @@ export default class MachineTypeIndicatorReact extends React.Component {
             removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
             if (this.state.value.dataType == "string") {
                 var defaultText = "";
-                var defaultNumeric = 0;
                 valueBox = <TextboxReact value={defaultText} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
             } else if (this.state.value.dataType == "numeric") {
                 valueBox = <TextboxReact value={defaultText} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
             } else if (this.state.value.dataType == "option (use ',' as delimiter)") {
-                valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange}/>
+      
+                valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
+                //  this.state.value.defaultValue ="";
             } else {
                 valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
             }
@@ -108,8 +119,9 @@ export default class MachineTypeIndicatorReact extends React.Component {
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.dataType ? 'has-error' : ''}`} style={style}>
-                        <DropDownReact value={this.state.value.dataType} options={dropdownOptions} onChange={this.handleDataTypeChange}/>
+                    <div className={`form-group ${this.state.error.dataType ? 'has-error' : ''}`} style={style} >
+                        <DropDownReact value={this.state.value.dataType} options={dropdownOptions} onChange={this.handleDataTypeChange} />
+
                         <span className="help-block">{this.state.error.dataType}</span>
                     </div>
                 </td>

@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <!--thead after search-->
-            <thead align="center" repeat.for="item of data">
+            <thead align="center" repeat.for="item of data" if.bind="$first" >
                 <tr>
                     <td rowspan="3">No</td>
                     <td rowspan="3">Nama Mesin</td>
@@ -61,7 +61,7 @@
                 <tr repeat.for="item of data">
                     <td class="text-center">${$index + 1}</td>
                     <td>${item.machine.name}</td>
-                    <td>${item.date}</td>
+                    <td>${item.date | dateFormat:'DD MMMM YYYY'}</td>
                     <td>${item.time | dateFormat:'HH:mm'}</td>
                     <td repeat.for="indicator of item.items">${indicator.value}</td>
                 </tr>

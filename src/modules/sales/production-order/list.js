@@ -14,40 +14,23 @@ export class List {
 
     async activate() {
         this.info.keyword = '';
-        this.info.order = '';
         var result = await this.service.search(this.info);
-        var dataSales = result.data;
+        this.data = result.data;
         this.info = result.info;
-        this.data=[];
-        for(var i of dataSales){
-            var dataId=i._id;
-            for(var j of i.productionOrders){
-                j.dataId=i._id;
-                this.data.push(j);
-            }
-        }
     }
 
     loadPage() {
         var keyword = this.info.keyword;
         this.service.search(this.info)
             .then(result => {
-                var dataSales = result.data;
+                this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
-                this.data=[];
-                for(var i of dataSales){
-                    var dataId=i._id;
-                    for(var j of i.productionOrders){
-                        j.dataId=i._id;
-                        this.data.push(j);
-                    }
-                }
             })
     }
 
     view(data,no) {
-        this.router.navigateToRoute('view', { id: data.dataId, no: `${data.orderNo}` });
+        this.router.navigateToRoute('view', { id: data._id });
     }
 
     create() {
@@ -55,6 +38,12 @@ export class List {
     }
 
     exportPDF(data) {
-        this.service.getPdfById(data.dataId,data.orderNo);
+        this.service.getPdfById(data._id);
+    }
+
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.loadPage();
     }
 }

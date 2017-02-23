@@ -66,11 +66,9 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
                     <tr>
                         <th width="40%">Indikator</th>
                         <th width="20%">Tipe Data</th>
-                        <th width="15%">Default Value</th>
-                        <th width="15%">Value</th>
-                        <th width="5%">
-                            {addButton}
-                        </th>
+                        <th width="20%">Contoh Data</th>
+                        <th width="20%">Value</th>
+
                     </tr>
                 </thead>
                 <tbody>

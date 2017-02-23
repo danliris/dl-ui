@@ -14,6 +14,7 @@ export class Multiline {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) rows;
 
     reactComponent = {};
     constructor(element) {
@@ -27,6 +28,9 @@ export class Multiline {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        if(parseInt(this.rows)){
+            Object.assign(this.options ,{rows: this.rows});
+        }
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
                 <TextareaReact value={this.value} onChange={this.handleValueChange} options={this.options} />

@@ -48,9 +48,9 @@
                 <textbox                    label="Standar Shrinkage"       value.bind="data.shrinkageStandard"     error.bind="error.shrinkageStandard"        read-only.bind="(readOnly)"></textbox>
                 <standard-test-auto-suggest label="Standar Test"            value.bind="data.standardTest"          error.bind="error.standardTest"             read-only.bind="readOnly"   change.delegate="standardTestChanged($event)"></standard-test-auto-suggest>
                 <textbox                    label="Sample"                  value.bind="data.sample"                error.bind="error.sample"                   read-only.bind="(readOnly)"></textbox>
-                <multiline                  label="Packing Instruction"     value.bind="data.packingInstruction"    error.bind="error.packingInstruction"       read-only.bind="(readOnly)"></multiline>
+                <multiline                  label="Packing Instruction"     value.bind="data.packingInstruction"    error.bind="error.packingInstruction"       read-only.bind="(readOnly)" rows.bind="10"></multiline>
                 <datepicker                 label="Tanggal Delivery"        value.bind="data.deliveryDate"          error.bind="error.deliveryDate"             read-only.bind="readOnly"></datepicker>
-                <multiline                  label="Keterangan"              value.bind="data.remark"                error.bind="error.remark"                   read-only.bind="readOnly"></multiline>
+                <multiline                  label="Keterangan"              value.bind="data.remark"                error.bind="error.remark"                   read-only.bind="readOnly" rows.bind="10"></multiline>
                 <account-auto-suggest       label="Nama Staff Penjualan"    value.bind="data.account"               error.bind="error.account"                  read-only.bind="readOnly"   change.delegate="accountChanged($event)" filter.bind="filterAccount"></account-auto-suggest>
             </div>
         </div>
@@ -70,8 +70,8 @@
         <span style="color:red">-Standar Lampu tidak boleh kosong</span>
       </div>
       <br>
-      <div if.bind="error.total.toString()">
-        <span style="color:red">-Jumlah Total pada detail harus sama dengan jumlah order .</span>
+      <div if.bind="error.details.toString()">
+        <span style="color:red">-Detail Warna harus diisi dan Jumlah Total pada detail harus sama dengan jumlah order .</span>
       </div>
     </form>
 </template>
