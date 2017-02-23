@@ -3,7 +3,6 @@ var StepLoader = require('../../../../../loader/step-loader');
 export class StepItem {
   activate(context) {
     console.log("step-Item")
-    console.log(context.data);
     this.context = context;
     this.step = context.data;
     this.error = context.error;
@@ -20,19 +19,10 @@ export class StepItem {
       length: 12
     }
   };
-created(owner, self)
-{
-  console.log("step-item:created");
-  console.log(owner);
-  console.log(self);
-}
+
   onStepChanged($event){
     console.log("changed");
     Object.assign(this.context.data, this.temp);
-    console.log("step :");
-    console.log(this.step);
-    console.log("context :");
-    console.log(this.context);
   }
   onStepFocused($event){
     console.log("focused");
