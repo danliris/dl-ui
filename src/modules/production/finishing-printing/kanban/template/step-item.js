@@ -3,11 +3,11 @@ var StepLoader = require('../../../../../loader/step-loader');
 export class StepItem {
   activate(context) {
     console.log("step-Item")
-    console.log(context.data);
     this.context = context;
     this.step = context.data;
     this.error = context.error;
     this.options = context.options;
+    this.temp = this.step;
   } 
   stepIndicatorColumns = [
     { header : "Name", value : "name"},
@@ -22,6 +22,7 @@ export class StepItem {
 
   onStepChanged($event){
     console.log("changed");
+    Object.assign(this.context.data, this.temp);
   }
   onStepFocused($event){
     console.log("focused");
@@ -43,6 +44,7 @@ export class StepItem {
       this.tdStep.setAttribute("class", "active");
       this.tdButton.setAttribute("class", "active");
       this.context.context.selectedStep = {data : step, index : index, tdStep : this.tdStep, tdButton : this.tdButton};
+      console.log("item clicked");
       console.log(this.context);
   }
 
