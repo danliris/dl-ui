@@ -20,7 +20,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "C5": 1, "C9": 1 },
+            permission: { "C5": 1, "C9": 1, "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 },
             iconClass: 'fa fa-dashboard'
         }
     },

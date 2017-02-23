@@ -21,6 +21,7 @@
             <a click.delegate="list()" class='btn btn-default'  >Kembali</a>
             <a click.delegate="edit()" class="btn btn-primary"  if.bind="!data.isPosted">Ubah</a>
             <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isPosted">Hapus</a>
+            <a click.delegate="unpost()" class="btn btn-primary" if.bind="data.isPosted && !data.isUsed && data.purchaseOrderIds.length === 0">Unpost</a>
         </div>
     </block>
 </template>
