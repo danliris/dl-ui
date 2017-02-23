@@ -13,13 +13,6 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    
-    this.data.unit.toString = function () {
-      return [this.division.name, this.name]
-          .filter((item, index) => {
-              return item && item.toString().trim().length > 0;
-          }).join(" - ");
-    }
   }
 
   get list() {
@@ -41,5 +34,9 @@ export class View {
           this.list();
         });
     }
+  }
+
+  get isView(){
+    return true;
   }
 }

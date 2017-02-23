@@ -16,8 +16,7 @@ export class LampStandard {
   }
 
   setLampStandardId(event) {
-    var lampStandard = event.detail;
-    this.data.lampStandardId = lampStandard._id;
+    this.data.lampStandardId = this.data.lampStandard._id;
   }
 
   get loader() {

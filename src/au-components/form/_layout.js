@@ -1,4 +1,4 @@
-import { bindable, bindingMode, noView, inject, computedFrom, customElement, containerless } from "aurelia-framework";
+import { transient, bindable, bindingMode, noView, inject, computedFrom, customElement, containerless } from "aurelia-framework";
 
 @inject(Element)
 @containerless()
@@ -12,13 +12,8 @@ export class _Layout {
     this.element = element;
   }
 
-  bind(context) { 
-    // console.log(this.options);
-  }
+  bind(context) {
 
-  @computedFrom("label")
-  get hasLabel() {
-    return (this.label || "").toString().length > 0;
   }
 
   @computedFrom("error")
@@ -26,23 +21,36 @@ export class _Layout {
     return (this.error || "").toString().length > 0;
   }
 
-  @computedFrom("options.label")
+  @computedFrom("label", "options.label.length", "options.label.align", "options.control.length")
   get _label() {
-    var _options = !this.options || !this.options.label ? {} : this.options.label;
-    _options.length = _options.length || 3;
+    var defaultLength = (this.label || "").toString().length > 0 ? 3 : 0;
+    var _options = Object.assign({}, (this.options || { label: {} }).label || {});
+    _options.length = _options.length || defaultLength;
     _options.align = (_options.align || "right").toLowerCase() === "right" ? "right" : "left";
+
+    // console.log(`${this.label} : ${JSON.stringify(_options)}`)
+    // console.log(JSON.stringify(this.options));
     return _options;
   }
 
-  @computedFrom("options.control")
+  @computedFrom("_label.length")
+  get hasLabel() {
+    var hasLabel = this._label.length > 0;
+
+    // console.log(JSON.stringify(this._label));
+    return hasLabel;
+  }
+
+  @computedFrom("hasLabel")
   get _control() {
-    const defaultLength = 4;
-    var _options = !this.options || !this.options.control ? {} : this.options.control; 
-    _options.length = _options.length || (!this.hasLabel ? 12 - this._label.length >= defaultLength ? defaultLength : 12 - this._label.length : defaultLength);
+    var defaultLength = this.hasLabel ? 12 - this._label.length : 12;
+    var _options = Object.assign({}, (this.options || { control: {} }).control || {});
+    _options.length = _options.length || defaultLength;
+    // console.log(`${this.label} : ${JSON.stringify(_options)} : ${defaultLength} : ${this.hasLabel}`)
     return _options;
   }
 
-  @computedFrom("hasLabel", "hasError", "_label")
+  @computedFrom("hasLabel", "hasError", "_label.length", "_label.align", "_control.length")
   get _style() {
     var style = {
       group: "form-group",
@@ -52,11 +60,11 @@ export class _Layout {
 
     if (this.hasError)
       style.group += ` has-error`;
+    if (this.hasLabel)
+      style.label = `col-sm-${this._label.length} text-${this._label.align} control-label`;
 
-    if (this.hasLabel) {
-      style.label = `col-sm-${this._label.length} control-label text-${this._label.align}`;
-      style.control = `col-sm-${this._control.length}`;
-    }
+    style.control = `col-sm-${this._control.length}`;
+    console.log(`${this.label} : ${JSON.stringify(this._label)} : ${JSON.stringify(style)} : ${this.hasLabel}`)
     return style;
   }
 }
