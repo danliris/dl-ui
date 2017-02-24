@@ -9,10 +9,11 @@ export class View {
         this.router = router;
         this.service = service;
     }
+    prId="";
 
     async activate(params) {
         var id = params.id;
-
+        this.prId = id;
         this.data = await this.service.getById(id);
 
     }
@@ -29,5 +30,13 @@ export class View {
         this.service.delete(this.data).then(result => {
             this.list();
         });
+    }
+
+    unpost() {
+        this.service.unpost(this.prId).then(result => {
+            this.list();
+        }).catch(e => {
+            this.error = e;
+        })
     }
 }

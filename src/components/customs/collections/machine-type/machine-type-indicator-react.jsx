@@ -54,12 +54,6 @@ export default class MachineTypeIndicatorReact extends React.Component {
             this.props.onRemove(this.state.value);
     }
 
-    reset(dataType) {
-        var value = this.state.value;
-        value.defaultValue = "";
-        this.reset(value);
-    }
-
 
     componentWillMount() {
         this.setState({ value: this.props.value || {}, error: this.props.error || {}, options: this.props.options || {} });

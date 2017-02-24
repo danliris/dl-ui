@@ -29,6 +29,7 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
             dataType: "",
             defaultValue: "",
             value: "",
+            satuan:"",
         };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });
@@ -65,9 +66,10 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
                 <thead>
                     <tr>
                         <th width="40%">Indikator</th>
-                        <th width="20%">Tipe Data</th>
-                        <th width="20%">Contoh Data</th>
-                        <th width="20%">Value</th>
+                        <th width="15%">Tipe Data</th>
+                        <th width="15%">Contoh Data</th>
+                        <th width="15%">Value</th>
+                        <th width="15%">Satuan</th>
 
                     </tr>
                 </thead>
