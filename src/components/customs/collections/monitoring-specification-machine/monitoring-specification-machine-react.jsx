@@ -15,6 +15,7 @@ export default class MonitoringSpecificationMachineReact extends React.Component
         this.handleIndicatorChange = this.handleIndicatorChange.bind(this);
         this.handleDataTypeChange = this.handleDataTypeChange.bind(this);
         this.handleIndicatorValueChange = this.handleIndicatorValueChange.bind(this);
+        this.handleSatuanChange=this.handleSatuanChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -42,6 +43,12 @@ export default class MonitoringSpecificationMachineReact extends React.Component
     handleIndicatorValueChange(data) {
         var value = this.state.value;
         value.value = (data);
+        this.handleValueChange((value));
+    }
+
+    handleSatuanChange(satuan) {
+        var value = this.state.value;
+        value.satuan = (satuan);
         this.handleValueChange((value));
     }
 
@@ -114,7 +121,7 @@ export default class MonitoringSpecificationMachineReact extends React.Component
                 </td>
                 <td>
                     <div className={`form-group ${this.state.error.satuan ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.satuan} options={this.state.options}/>
+                        <TextboxReact value={this.state.value.satuan} options={this.state.options} onChange={this.handleSatuanChange}/>
                         <span className="help-block">{this.state.error.satuan} </span>
                     </div>
                 </td>

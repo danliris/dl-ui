@@ -44,6 +44,7 @@ export class DataForm {
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
                         value: "",
+                        satuan:"",
                     };
                     items.push(item);
                 }
@@ -54,22 +55,13 @@ export class DataForm {
         }
     }
 
-    async productionOrderChanged(e) {
-        this.productionOrderDetails = [];
-
-        var productionOrder = e.detail;
-        if (productionOrder) {
-            this.productionOrderDetails = await this.service.getProductionOrderDetails(productionOrder.orderNo);
-
-            if (!this.data.selectedProductionOrderDetail && this.hasProductionOrderDetails) {
-                this._mapProductionOrderDetail();
-                this.data.selectedProductionOrderDetail = {};
-                this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
-            }
+       productionOrderChanged(e) {
+        var selectedProcess = e.detail || {};
+        this.data.productionOrder = e.detail;
+        if (selectedProcess) {
+            this.data.productionOrderId = selectedProcess._id ? selectedProcess._id : "";
         }
-        else {
-            delete this.data.selectedProductionOrderDetail;
-        }
+
     }
 
     resetErrors() {

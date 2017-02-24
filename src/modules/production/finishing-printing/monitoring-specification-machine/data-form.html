@@ -10,7 +10,7 @@
         <machine-auto-suggest label="Mesin" value.bind="data.machine" error.bind="error.machine" read-only.bind="(readOnly)" change.delegate="machineChanged($event)"
             click.delegate="resetErrors()"></machine-auto-suggest>
         <production-order-auto-suggest label="No Surat Produksi Order" value.bind="data.productionOrder" error.bind="error.productionOrder"
-            read-only.bind="(readOnly)" >
+            read-only.bind="(readOnly)" change.delegate="productionOrderChanged($event)">
         </production-order-auto-suggest>
         <textbox label="Cart Number" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
 

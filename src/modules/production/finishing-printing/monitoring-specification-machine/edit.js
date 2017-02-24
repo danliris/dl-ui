@@ -50,6 +50,7 @@ export class View {
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
                         value: "",
+                        satuan: "",
                     };
                     items.push(item);
                 }
@@ -58,6 +59,16 @@ export class View {
                 this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
             }
         }
+    }
+
+
+    productionOrderChanged(e) {
+        var selectedProcess = e.detail || {};
+        this.data.productionOrder = e.detail;
+        if (selectedProcess) {
+            this.data.productionOrderId = selectedProcess._id ? selectedProcess._id : "";
+        }
+
     }
 
     bind() {
