@@ -13,11 +13,6 @@
                     </span>
 				</div>
             </div> 
-            <div class="col-sm-4">
-                <div class="pull-right">
-                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
-                </div>
-            </div>
         </div> 
         <div>
             <table class="table table-striped table-hover">
@@ -40,8 +35,7 @@
                         <td style="text-align:center">${item.buyer.name}</td>
                         <td style="text-align:center">${item.processType.name}</td>
                         <td style="text-align:center">${item.deliveryDate | dateFormat:'D MMM YYYY'}</td>
-                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button>
-                        <button class="btn btn-primary" click.delegate="exportPDF(item)" >Cetak Pdf</button></td>
+                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
                     </tr>
                 </tbody>
             </table>
