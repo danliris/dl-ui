@@ -19,7 +19,7 @@
           <au-textbox value.bind="stepIndicatorInfo" read-only.bind="true" options.bind="controlOptions"></au-textbox>
         </td>
         <td  click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly">
-          <button class="btn btn-danger pull-right" click.delegate="onremove(machineEvent, $event)">-</button>
+          <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
         </td>
       </tr>
       <tr>
