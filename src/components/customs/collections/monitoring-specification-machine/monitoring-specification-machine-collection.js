@@ -34,6 +34,7 @@ export class MonitoringSpecificationMachineCollection {
             dataType: "",
             defaultValue: "",
             value: "",
+            satuan:"",
         });
         this.bind();
     }

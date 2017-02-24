@@ -99,10 +99,11 @@ export class DataForm {
             }
         }
         this.data.items = _items;
+        this.resetErrorItems();
     }
 
     unitPaymentOrderChanged(e) {
-        var selectedPaymentOrder = e.detail || {};
+        var selectedPaymentOrder = e.detail;
         if (selectedPaymentOrder && !this.readOnly) {
             if (!this.readOnly)
                 this.data.items = [];
@@ -126,6 +127,14 @@ export class DataForm {
                     if (this.data.unitPaymentOrder.items)
                         this.setItems(this.data.unitPaymentOrder);
                 }
+            }
+        }
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
             }
         }
     }

@@ -1,0 +1,112 @@
+<template>
+  <au-input-form 
+    title.bind="title" 
+    cancel.bind="cancel" 
+    edit.bind="edit" 
+    save.bind="save" 
+    delete.bind="delete">
+
+    <production-order-auto-suggest 
+      label="Production Order Number" 
+      value.bind="data.productionOrder" 
+      error.bind="error.productionOrder" 
+      read-only.bind="(readOnly)" 
+      change.delegate=productionOrderChanged($event)>
+    </production-order-auto-suggest>
+
+    <dropdown 
+      label="Color" 
+      value.bind="data.selectedProductionOrderDetail" 
+      error.bind="error.selectedProductionOrderDetail" 
+      read-only.bind="readOnly" 
+      items.bind="productionOrderDetails"
+      if.bind="hasProductionOrderDetails && !readOnly">
+    </dropdown>
+    <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly" if.bind="readOnly"></textbox>
+
+    <numeric 
+      label="Quantity" 
+      value.bind="data.selectedProductionOrderDetail.quantity" 
+      read-only.bind="true"
+      if.bind="hasColor">
+    </numeric>
+
+    <au-layout error.bind="error.cart"></au-layout>
+    <au-collection 
+      items.bind="data.carts" 
+      columns.bind="cartInfo.columns" 
+      add.bind="cartInfo.onAdd" 
+      remove.bind="cartInfo.onRemove"
+      title="Carts" 
+      read-only.bind="readOnly"
+      if.bind="!readOnly && !isEdit"
+      item-template="modules/production/finishing-printing/kanban/template/cart-item">
+    </au-collection>
+
+    <au-textbox 
+      label="Cart Number"
+      value.bind="data.cart.cartNumber" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Cart Qty"
+      value.bind="data.cart.qty" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
+
+    <au-numeric 
+      label="Cart Pcs"
+      value.bind="data.cart.pcs" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
+
+    <au-autocomplete 
+      value.bind="data.instruction" 
+      error.bind="error.instruction"
+      label="Instruction" 
+      loader.bind="instructionLoader"
+      placeholder="search instruction" 
+      key="code"
+      text="name"
+      change.delegate="onInstructionChanged($event)"
+      read-only.bind="readOnly">
+    </au-autocomplete>
+
+    <table 
+      class="table table-hover" 
+      if.bind="hasInstruction">
+        <tr>
+          <td class="col-md-10">
+            <au-collection 
+              items.bind="data.instruction.steps" 
+              columns.bind="stepInfo.columns"
+              add.bind="stepInfo.onAdd" 
+              remove.bind="stepInfo.onRemove"
+              title="Steps" 
+              read-only.bind="readOnly"
+              item-template="modules/production/finishing-printing/kanban/template/step-item">
+            </au-collection>
+          </td>
+          <td style="vertical-align: middle" width="1%">
+              <button class="btn btn-info pull-right" click.delegate="moveItemUp($event)" if.bind="!readOnly">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>
+              </button>
+              </br>
+              </br>
+              <button class="btn btn-info pull-right" click.delegate="moveItemDown($event)" if.bind="!readOnly">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </button>
+          </td>
+        </tr>
+    </table>
+  </au-input-form>
+</template>
