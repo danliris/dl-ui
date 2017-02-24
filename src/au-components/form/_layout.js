@@ -64,7 +64,7 @@ export class _Layout {
       style.label = `col-sm-${this._label.length} text-${this._label.align} control-label`;
 
     style.control = `col-sm-${this._control.length}`;
-    console.log(`${this.label} : ${JSON.stringify(this._label)} : ${JSON.stringify(style)} : ${this.hasLabel}`)
+    // console.log(`${this.label} : ${JSON.stringify(this._label)} : ${JSON.stringify(style)} : ${this.hasLabel}`)
     return style;
   }
 }
