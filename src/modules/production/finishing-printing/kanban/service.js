@@ -59,4 +59,9 @@ export class Service extends RestService {
         return productionOrderDetails;
       });
   }
+
+  getPdfById(id) {
+      var endpoint = `${serviceUri}/${id}`;
+      return super.getPdf(endpoint);
+  }
 }
