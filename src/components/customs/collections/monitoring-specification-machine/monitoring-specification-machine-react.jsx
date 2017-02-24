@@ -15,6 +15,7 @@ export default class MonitoringSpecificationMachineReact extends React.Component
         this.handleIndicatorChange = this.handleIndicatorChange.bind(this);
         this.handleDataTypeChange = this.handleDataTypeChange.bind(this);
         this.handleIndicatorValueChange = this.handleIndicatorValueChange.bind(this);
+        this.handleSatuanChange=this.handleSatuanChange.bind(this);
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -45,6 +46,12 @@ export default class MonitoringSpecificationMachineReact extends React.Component
         this.handleValueChange((value));
     }
 
+    handleSatuanChange(satuan) {
+        var value = this.state.value;
+        value.satuan = (satuan);
+        this.handleValueChange((value));
+    }
+
     handleRemove() {
         if (this.props.onRemove)
             this.props.onRemove(this.state.value);
@@ -71,7 +78,7 @@ export default class MonitoringSpecificationMachineReact extends React.Component
 
         } else if (this.state.value.dataType == "numeric") {
             valueBox = <NumericReact value={this.state.value.value} options={this.state.options} onChange={this.handleIndicatorValueChange} />
-        } else if (this.state.value.dataType == "option (use ',' as delimiter)"||this.state.value.dataType == "option") {
+        } else if (this.state.value.dataType == "option (use ',' as delimiter)" || this.state.value.dataType == "option") {
 
             var items = this.state.value.defaultValue.split(",");
             var valueOptions = Object.assign({}, this.state.options, { selections: items });
@@ -110,6 +117,12 @@ export default class MonitoringSpecificationMachineReact extends React.Component
                     <div className={`form-group ${this.state.error.value ? 'has-error' : ''}`} style={style}>
                         {valueBox}
                         <span className="help-block">{this.state.error.value} </span>
+                    </div>
+                </td>
+                <td>
+                    <div className={`form-group ${this.state.error.satuan ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.satuan} options={this.state.options} onChange={this.handleSatuanChange}/>
+                        <span className="help-block">{this.state.error.satuan} </span>
                     </div>
                 </td>
             </tr>
