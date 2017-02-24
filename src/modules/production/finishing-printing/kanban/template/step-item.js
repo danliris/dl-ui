@@ -10,8 +10,9 @@ export class StepItem {
     this.temp = this.step;
   } 
   stepIndicatorColumns = [
-    { header : "Name", value : "name"},
-    { header : "Value", value : "value"},
+    { header : "Indikator", value : "name"},
+    { header : "Nilai", value : "value"},
+    { header : "Satuan", value : "uom.unit"},
   ];
 
   controlOptions = {
@@ -31,7 +32,8 @@ export class StepItem {
   onItemClicked(step, event){
       if (this.context.context.selectedStep){
           this.context.context.selectedStep.tdStep.removeAttribute("class");
-          this.context.context.selectedStep.tdButton.removeAttribute("class");
+          if (this.context.context.selectedStep.tdButton)
+            this.context.context.selectedStep.tdButton.removeAttribute("class");
       }
 
       var index = this.context.context.items.indexOf(this.context);
@@ -42,7 +44,9 @@ export class StepItem {
       }
 
       this.tdStep.setAttribute("class", "active");
-      this.tdButton.setAttribute("class", "active");
+      if (this.tdButton) 
+        this.tdButton.setAttribute("class", "active");
+
       this.context.context.selectedStep = {data : step, index : index, tdStep : this.tdStep, tdButton : this.tdButton};
       console.log("item clicked");
       console.log(this.context);

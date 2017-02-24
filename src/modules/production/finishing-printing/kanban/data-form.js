@@ -36,14 +36,24 @@ export class DataForm {
     }
   }
 
+  controlOptions = {
+    label: {
+      length: 4
+    },
+    control: {
+      length: 5
+    }
+  }
+
   cartInfo = {
     columns : [
-      { header : "Cart Number", value : "cartNumber"},
-      { header : "Qty", value : "qty"},
-      { header : "Pcs", value : "pcs"},
+      { header : "Nomor Kereta", value : "cartNumber"},
+      { header : "Panjang", value : "qty"},
+      { header : "Satuan", value : "uom"},
+      { header : "Jumlah PCS", value : "pcs"},
     ],
     onAdd: function () {
-      this.data.carts.push({ cartNumber : "", qty : 0, pcs : 0});
+      this.data.carts.push({ cartNumber : "", qty : 0, uom : this.data.productionOrder ? this.data.productionOrder.uom.unit : '', pcs : 0});
       console.log("add");
     }.bind(this),
     onRemove: function () {
@@ -53,7 +63,7 @@ export class DataForm {
 
   stepInfo = {
     columns : [
-      { header : "Process", value : "process"},
+      { header : "Proses", value : "process"},
     ],
     onAdd: function () {
       this.data.instruction.steps = this.data.instruction.steps || [];
@@ -76,10 +86,22 @@ export class DataForm {
         this.data.selectedProductionOrderDetail = {};
         this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
       }
+
+      for (var cart of this.data.carts){
+        cart.uom = this.data.productionOrder.uom.unit;
+      }
     }
     else {
+      for (var cart of this.data.carts){
+        cart.uom = '';
+      }
+      delete this.data.productionOrder;
       delete this.data.selectedProductionOrderDetail;
     }
+  }
+
+  get hasProductionOrder(){
+    return this.data.productionOrder;
   }
 
   get hasProductionOrderDetails() {
@@ -106,7 +128,7 @@ export class DataForm {
           }
           return detail;
       });
-  }  
+  }
 
   onInstructionChanged(event){
     console.log("instructionChanged");
