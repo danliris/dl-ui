@@ -82,14 +82,13 @@ export class DataForm {
         var productionOrder = e.detail;
         if (productionOrder){
             this.productionOrderDetails =  await this.service.getProductionOrderDetails(productionOrder.orderNo);
-
+            
+            this.data.productionOrderId = productionOrder._id;
             if (this.hasProductionOrderDetails){
                 this._mapProductionOrderDetail();
                 this.data.selectedProductionOrderDetail = {};
                 this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
             }
-
-            this.data.productionOrderId = productionOrder._id;
         }
         else{
             delete this.data.selectedProductionOrderDetail;
