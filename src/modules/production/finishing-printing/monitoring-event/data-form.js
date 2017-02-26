@@ -12,8 +12,8 @@ export class DataForm {
     @bindable machineCodeFilter = ''; 
     @bindable timePickerShowSecond = false;
     @bindable timePickerFormat = "HH:mm";
-    @bindable timeInMomentStart = {};
-    @bindable timeInMomentEnd = {};
+    @bindable timeInMomentStart;
+    @bindable timeInMomentEnd;
     @bindable productionOrderDetails = [];
 
     constructor(bindingEngine, service, element) {
@@ -24,10 +24,10 @@ export class DataForm {
 
     bind()
     {
-        this.timeInMomentStart = this.data ? moment(this.data.timeInMillisStart) : this.timeInMomentStart;
-        this.timeInMomentEnd = this.data ? moment(this.data.timeInMillisEnd) : this.timeInMomentEnd;
-        var tempTimeStart = moment.utc(this.timeInMomentStart);
-        var tempTimeEnd = moment.utc(this.timeInMomentEnd);
+        this.timeInMomentStart = this.data.timeInMillisStart ? moment(this.data.timeInMillisStart) : this._adjustMoment();
+        this.timeInMomentEnd = this.data.timeInMillisEnd ? moment(this.data.timeInMillisEnd) : this._adjustMoment();
+        var tempTimeStart = moment(this.timeInMomentStart);
+        var tempTimeEnd = moment(this.timeInMomentEnd);
         this.data.timeInMillisStart = momentToMillis(tempTimeStart);
         this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
 
@@ -35,6 +35,11 @@ export class DataForm {
             this.productionOrderDetails = this.data.productionOrder.details;
             this._mapProductionOrderDetail();
         }
+
+        if (this.data.dateStart)
+            this.data.dateStart = moment().format("YYYY-MM-DD");
+        if (this.data.dateEnd)
+            this.data.dateEnd = moment().format("YYYY-MM-DD");
     }
 
     machineChanged(e) 
@@ -50,7 +55,7 @@ export class DataForm {
     {
         var tempTimeStart = e.detail;
         if (tempTimeStart){
-            tempTimeStart = moment.utc(tempTimeStart);
+            tempTimeStart = this._adjustMoment(tempTimeStart);
             this.data.timeInMillisStart = momentToMillis(tempTimeStart);
         }
         else{
@@ -62,7 +67,7 @@ export class DataForm {
     {
         var tempTimeEnd = e.detail;
         if (tempTimeEnd){
-            tempTimeEnd = moment.utc(tempTimeEnd);
+            tempTimeEnd = this._adjustMoment(tempTimeEnd);
             this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
         }
         else{
@@ -77,8 +82,9 @@ export class DataForm {
         var productionOrder = e.detail;
         if (productionOrder){
             this.productionOrderDetails =  await this.service.getProductionOrderDetails(productionOrder.orderNo);
+            
             this.data.productionOrderId = productionOrder._id;
-            if (!this.data.selectedProductionOrderDetail && this.hasProductionOrderDetails){
+            if (this.hasProductionOrderDetails){
                 this._mapProductionOrderDetail();
                 this.data.selectedProductionOrderDetail = {};
                 this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
@@ -105,5 +111,14 @@ export class DataForm {
             }
             return detail;
         });
+    }
+
+    _adjustMoment(timeInMoment){
+        if (!timeInMoment)
+            timeInMoment = moment();
+        timeInMoment.set('year', 1970);
+        timeInMoment.set('month', 0);
+        timeInMoment.set('date', 1);   
+        return timeInMoment;     
     }
 }
