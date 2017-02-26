@@ -25,13 +25,12 @@ export class DataForm {
     }
 
     unitPaymentOrderChanged(e) {
-        var selectedPaymentOrder = e.detail || {};
+        var selectedPaymentOrder = e.detail;
         if (selectedPaymentOrder && !this.readOnly) {
             if (!this.readOnly)
                 this.data.items = [];
             this.data.unitPaymentOrderId = selectedPaymentOrder._id;
-            var _items = []
-            debugger
+            var _items = [];
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
 
@@ -106,6 +105,15 @@ export class DataForm {
         }
         else {
             this.data.items = [];
+        }
+        this.resetErrorItems();
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
         }
     }
 } 
