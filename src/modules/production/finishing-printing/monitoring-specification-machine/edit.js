@@ -50,6 +50,7 @@ export class View {
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
                         value: "",
+                        satuan: "",
                     };
                     items.push(item);
                 }
@@ -60,9 +61,31 @@ export class View {
         }
     }
 
+
+    productionOrderChanged(e) {
+        var selectedProcess = e.detail || {};
+        this.data.productionOrder = e.detail;
+        if (selectedProcess) {
+            this.data.productionOrderId = selectedProcess._id ? selectedProcess._id : "";
+        }
+
+    }
+
     bind() {
-        this.data;
-        this.timeInMoment = this.data ? moment(this.data.time) : "";
+
+        this.timeInMoment = this.data.time ? moment(this.data.time) : "";
+        // this.data.time = this.timeInMoment;
+    }
+
+    timeChanged(e) {
+        var tempTime = e.detail;
+        if (tempTime) {
+            tempTime = moment(tempTime);
+            this.data.time = moment(tempTime);
+        }
+        else {
+            delete this.data.time;
+        }
     }
 
     async activate(params) {
@@ -76,12 +99,12 @@ export class View {
     }
 
     save() {
-        
+
         this.service.update(this.data).then(result => {
             this.view();
-            
+
         }).catch(e => {
-            
+
             this.error = e;
         })
     }

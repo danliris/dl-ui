@@ -11,7 +11,7 @@ export class View {
     @bindable showSecond = false;
     @bindable Options = {
         "readOnly": true,
- 
+
     }
 
     constructor(router, service, bindingEngine, element) {
@@ -39,6 +39,17 @@ export class View {
         }
 
     }
+
+
+       productionOrderChanged(e) {
+        var selectedProcess = e.detail || {};
+        this.data.productionOrder = e.detail;
+        if (selectedProcess) {
+            this.data.productionOrderId = selectedProcess._id ? selectedProcess._id : "";
+        }
+
+    }
+
 
     async activate(params) {
 

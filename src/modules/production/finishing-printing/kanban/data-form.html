@@ -7,12 +7,61 @@
     delete.bind="delete">
 
     <production-order-auto-suggest 
-      label="Production Order Number" 
+      label="Nomor Order" 
       value.bind="data.productionOrder" 
       error.bind="error.productionOrder" 
       read-only.bind="(readOnly)" 
       change.delegate=productionOrderChanged($event)>
     </production-order-auto-suggest>
+
+    <textbox 
+      label="Jenis Order" 
+      value.bind="data.productionOrder.orderType.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder">
+    </textbox>
+
+    <textbox 
+      label="Jenis Proses" 
+      value.bind="data.productionOrder.processType.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder">
+    </textbox>
+
+    <textbox 
+      label="Material" 
+      value.bind="data.productionOrder.material.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder">
+    </textbox>
+
+    <textbox 
+      label="Konstruksi" 
+      value.bind="data.productionOrder.materialConstruction.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder">
+    </textbox>
+
+    <textbox 
+      label="Nomor Benang" 
+      value.bind="data.productionOrder.yarnMaterial.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder">
+    </textbox>
+
+    <textbox 
+      label="Standard Handfeel" 
+      value.bind="data.productionOrder.handlingStandard"
+      read-only.bind="true"
+      if.bind="hasProductionOrder">
+    </textbox>
+
+    <textbox 
+      label="Lebar Finish" 
+      value.bind="data.productionOrder.finishWidth"
+      read-only.bind="true"
+      if.bind="hasProductionOrder">
+    </textbox>
 
     <dropdown 
       label="Color" 
@@ -25,11 +74,18 @@
     <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly" if.bind="readOnly"></textbox>
 
     <numeric 
-      label="Quantity" 
+      label="Jumlah" 
       value.bind="data.selectedProductionOrderDetail.quantity" 
       read-only.bind="true"
       if.bind="hasColor">
     </numeric>
+
+    <textbox 
+      label="Grade" 
+      value.bind="data.grade"
+      read-only.bind="readOnly"
+      error.bind="error.grade">
+    </textbox>
 
     <au-layout error.bind="error.cart"></au-layout>
     <au-collection 
@@ -37,14 +93,18 @@
       columns.bind="cartInfo.columns" 
       add.bind="cartInfo.onAdd" 
       remove.bind="cartInfo.onRemove"
-      title="Carts" 
+      title="Kereta" 
       read-only.bind="readOnly"
       if.bind="!readOnly && !isEdit"
       item-template="modules/production/finishing-printing/kanban/template/cart-item">
     </au-collection>
 
+    <div class="panel-heading" if.bind="isView || isEdit">
+      <h4>Kereta</h4>
+    </div>
+
     <au-textbox 
-      label="Cart Number"
+      label="Nomor Kereta"
       value.bind="data.cart.cartNumber" 
       read-only.bind="readOnly"
       if.bind="isView || isEdit" 
@@ -52,7 +112,7 @@
     </au-textbox>
 
     <au-numeric 
-      label="Cart Qty"
+      label="Panjang"
       value.bind="data.cart.qty" 
       read-only.bind="readOnly"
       if.bind="isView || isEdit" 
@@ -60,8 +120,16 @@
       format="0">
     </au-numeric>
 
+    <au-textbox 
+      label="Satuan"
+      value.bind="data.cart.uom" 
+      read-only.bind="true"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions">
+    </au-textbox>
+
     <au-numeric 
-      label="Cart Pcs"
+      label="Jumlah PCS"
       value.bind="data.cart.pcs" 
       read-only.bind="readOnly"
       if.bind="isView || isEdit" 
@@ -69,16 +137,23 @@
       format="0">
     </au-numeric>
 
+    </br>
+    
+    <div class="panel-heading" if.bind="isView || isEdit">
+      <h4>Instruksi</h4>
+    </div>
+
     <au-autocomplete 
       value.bind="data.instruction" 
       error.bind="error.instruction"
-      label="Instruction" 
+      label="Instruksi" 
       loader.bind="instructionLoader"
       placeholder="search instruction" 
       key="code"
       text="name"
       change.delegate="onInstructionChanged($event)"
-      read-only.bind="readOnly">
+      read-only.bind="readOnly"
+      options.bind="controlOptions">
     </au-autocomplete>
 
     <table 
@@ -108,5 +183,9 @@
           </td>
         </tr>
     </table>
+
+    </br>
+    </br>
+    </br>
   </au-input-form>
 </template>

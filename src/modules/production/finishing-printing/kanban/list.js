@@ -52,4 +52,8 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    exportPDF(data) {
+        this.service.getPdfById(data._id);
+    }
 }
