@@ -6,7 +6,7 @@
 
             <timepicker 
                 label="Time Start" 
-                value.bind="timeInMomentStart" 
+                value.bind="data.timeInMomentStart" 
                 error.bind="error.timeInMillisStart" 
                 disabled.bind="(readOnly)" 
                 showsecond.bind="timePickerShowSecond" 
@@ -18,7 +18,7 @@
 
             <timepicker 
                 label="Time End" 
-                value.bind="timeInMomentEnd" 
+                value.bind="data.timeInMomentEnd" 
                 error.bind="error.timeInMillisEnd" 
                 disabled.bind="(readOnly)" 
                 showsecond.bind="timePickerShowSecond" 
