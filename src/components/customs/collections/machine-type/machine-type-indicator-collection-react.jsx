@@ -66,7 +66,7 @@ export default class MachineTypeIndicatorCollectionReact extends React.Component
                     <tr>
                         <th width="40%">Indikator</th>
                         <th width="20%">Tipe Data</th>
-                        <th width="30%">Default Value</th>
+                        <th width="30%">Contoh Data</th>
                         <th width="5%">
                             {addButton}
                         </th>

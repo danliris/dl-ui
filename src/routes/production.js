@@ -125,6 +125,32 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'production/finishing-printing/kanban',
+        name: 'kanban',
+        moduleId: './modules/production/finishing-printing/kanban/index',
+        nav: true,
+        title: 'Kanban',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/monitoring-kanban',
+        name: 'monitoring-kanban',
+        moduleId: './modules/production/finishing-printing/monitoring-kanban/index',
+        nav: true,
+        title: 'Monitoring Kanban',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0  },
+            iconClass: 'fa fa-dashboard'
+        }
     }]
 
 
