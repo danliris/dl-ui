@@ -30,6 +30,8 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
+        
+                this._adjustDateTime();
             })
     }
 
@@ -63,9 +65,9 @@ export class List {
             monitoringEvent.timeInMomentEnd = monitoringEvent.timeInMillisEnd != undefined ? moment(monitoringEvent.timeInMillisEnd).format('HH:mm') : undefined;
 
             if (monitoringEvent.dateStart)
-                monitoringEvent.dateStart = moment().format("D MMM YYYY");
+                monitoringEvent.dateStart = moment(monitoringEvent.dateStart).format("D MMM YYYY");
             if (monitoringEvent.dateEnd)
-                monitoringEvent.dateEnd = moment().format("D MMM YYYY");
+                monitoringEvent.dateEnd = moment(monitoringEvent.dateEnd).format("D MMM YYYY");
         }
-    }
+    } 
 }

@@ -31,9 +31,9 @@ export class DataForm {
         }
 
         if (this.data.dateStart)
-            this.data.dateStart = moment().format("YYYY-MM-DD");
+            this.data.dateStart = moment(this.data.dateStart).format("YYYY-MM-DD");
         if (this.data.dateEnd)
-            this.data.dateEnd = moment().format("YYYY-MM-DD");
+            this.data.dateEnd = moment(this.data.dateEnd).format("YYYY-MM-DD");
     }
 
     machineChanged(e) 
