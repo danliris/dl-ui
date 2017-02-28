@@ -13,7 +13,7 @@ export default class MonitoringSpecificationMachineReact extends React.Component
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleIndicatorChange = this.handleIndicatorChange.bind(this);
-        this.handleDataTypeChange = this.handleDataTypeChange.bind(this);
+        // this.handleDataTypeChange = this.handleDataTypeChange.bind(this);
         this.handleIndicatorValueChange = this.handleIndicatorValueChange.bind(this);
         this.handleSatuanChange=this.handleSatuanChange.bind(this);
 
@@ -34,11 +34,11 @@ export default class MonitoringSpecificationMachineReact extends React.Component
         this.handleValueChange(value);
     }
 
-    handleDataTypeChange(dataType) {
-        var value = this.state.value;
-        value.dataType = dataType;
-        this.handleValueChange(value);
-    }
+    // handleDataTypeChange(dataType) {
+    //     var value = this.state.value;
+    //     value.dataType = dataType;
+    //     this.handleValueChange(value);
+    // }
 
     handleIndicatorValueChange(data) {
         var value = this.state.value;
@@ -99,18 +99,6 @@ export default class MonitoringSpecificationMachineReact extends React.Component
                     <div className={`form-group ${this.state.error.indicator ? 'has-error' : ''}`} style={style}>
                         <TextboxReact value={this.state.value.indicator} options={readOnlyOptions} />
                         <span className="help-block">{this.state.error.indicator}</span>
-                    </div>
-                </td>
-                <td>
-                    <div className={`form-group ${this.state.error.dataType ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.dataType} options={readOnlyOptions} />
-                        <span className="help-block">{this.state.error.dataType}</span>
-                    </div>
-                </td>
-                <td>
-                    <div className={`form-group ${this.state.error.defaultValue ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions}/>
-                        <span className="help-block">{this.state.error.defaultValue}</span>
                     </div>
                 </td>
                 <td>
