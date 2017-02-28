@@ -6,7 +6,7 @@
         }
     </style>
 
-    <h1 class="page-header">Monitoring Specification Machine Report</h1>
+    <h1 class="page-header">Laporan Monitoring Spesifikasi Mesin </h1>
     <form class="form-horizontal">
 
         <machine-auto-suggest label="Mesin" value.bind="machine"></machine-auto-suggest>
@@ -36,7 +36,7 @@
                     <td rowspan="3">No</td>
                     <td rowspan="3">Nama Mesin</td>
                     <td colspan="2">Waktu Input</td>
-                    <td rowspan="3">Indikator</td>
+                    <td rowspan="3">Indikator(satuan)</td>
                 </tr>
                 <tr>
                     <td rowspan="2">Tanggal</td>
@@ -49,7 +49,7 @@
                     <td rowspan="3">No</td>
                     <td rowspan="3">Nama Mesin</td>
                     <td colspan="2">Waktu Input</td>
-                    <td rowspan="3" repeat.for="indicator of item.items">${indicator.indicator}</td>
+                    <td rowspan="3" repeat.for="indicator of item.items">${indicator.indicator}(${indicator.satuan})</td>
                 </tr>
                 <tr>
                     <td rowspan="2">Tanggal</td>
