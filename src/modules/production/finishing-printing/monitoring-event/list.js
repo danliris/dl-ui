@@ -30,6 +30,8 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
+        
+                this._adjustDateTime();
             })
     }
 
@@ -67,5 +69,5 @@ export class List {
             if (monitoringEvent.dateEnd)
                 monitoringEvent.dateEnd = moment(monitoringEvent.dateEnd).format("D MMM YYYY");
         }
-    }
+    } 
 }
