@@ -26,7 +26,6 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
     handleItemAdd() {
         var newItem = {
             indicator: "",
-
             value: "",
             satuan: "",
         };
@@ -65,8 +64,10 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
             <thead>
                 <tr>
                     <th width="40%">Indikator</th>
+                    <th width="15%">Petunjuk Data</th>
                     <th width="30%">Value</th>
-                    <th width="30%">Satuan</th>
+                    
+                    <th width="15%">Satuan</th>
 
                 </tr>
             </thead>

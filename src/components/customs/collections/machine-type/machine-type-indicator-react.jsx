@@ -74,10 +74,9 @@ export default class MachineTypeIndicatorReact extends React.Component {
         var removeButton = null;
         var valueBox = null;
 
-        // var dropDownMenu = ["string", "numeric", "option (use ',' as delimiter)", "range (use '-' as delimiter)"];
-        var dropDownMenu = ["input teks", "angka", "pilihan", "skala angka pilihan"];
+        var dropDownMenu = ["input teks", "input angka", "input pilihan", "input skala angka"];
         var readOnlyOptions = this.state.options.isMaster == true ? this.state.options : Object.assign({}, this.state.options, { readOnly: true });
-        var readOnly = (this.state.value.dataType == "string" || this.state.value.dataType == "numeric") ? Object.assign({}, this.state.options, { readOnly: true }) : this.state.options;
+        var readOnly = (this.state.value.dataType == "input teks" || this.state.value.dataType == "input angka") ? Object.assign({}, this.state.options, { readOnly: true }) : this.state.options;
         var dropdownOptions = Object.assign({}, readOnlyOptions, { selections: dropDownMenu });
 
 
@@ -86,11 +85,10 @@ export default class MachineTypeIndicatorReact extends React.Component {
             if (this.state.value.dataType == "input teks") {
                 var defaultText = "";
                 valueBox = <TextboxReact value={defaultText} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
-            } else if (this.state.value.dataType == "angka") {
+            } else if (this.state.value.dataType == "input angka") {
                 valueBox = <TextboxReact value={defaultText} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
-            } else if (this.state.value.dataType == "pilihan (gunakan ',' sebagai pemisah)") {
+            } else if (this.state.value.dataType == "input pilihan") {
                 valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
-                //  this.state.value.defaultValue ="";
             } else {
                 valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
             }
@@ -98,9 +96,9 @@ export default class MachineTypeIndicatorReact extends React.Component {
         else {
             if (this.state.value.dataType == "input teks") {
                 valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
-            } else if (this.state.value.dataType == "angka") {
+            } else if (this.state.value.dataType == "input angka") {
                 valueBox = <NumericReact value={this.state.value.defaultValue} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
-            } else if (this.state.value.dataType == "pilihan") {
+            } else if (this.state.value.dataType == "input pilihan") {
                 valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnly} onChange={this.handleIndicatorDefaultValueChange}/>
             } else {
                 valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
@@ -135,7 +133,7 @@ export default class MachineTypeIndicatorReact extends React.Component {
                 <td>
                     <div className={`form-group ${this.state.error.satuan ? 'has-error' : ''}`} style={style}>
                         <TextboxReact value={this.state.value.satuan} options={this.state.options} onChange={this.handleSatuanChange}/>
-                        <span className="help-block">{this.state.error.satuan} </span>
+                        <span className="help-block">{this.state.error.satuan}</span>
                     </div>
                 </td>
                 <td>
