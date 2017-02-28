@@ -33,7 +33,10 @@
                 <td>${kanban.color}</td>
                 <td>${kanban.cart.cartNumber}</td>
                 <td>${kanban.instruction.name}</td>
-                <td><button class="btn btn-default" click.delegate="view(kanban)">Rincian</button></td>
+                <td style="text-align:center">
+                    <button class="btn btn-default" click.delegate="view(kanban)">Rincian</button>
+                    <button class="btn btn-primary" click.delegate="exportPDF(kanban)">Cetak Pdf</button>
+                </td>
             </tr>
         </tbody>
     </table>
