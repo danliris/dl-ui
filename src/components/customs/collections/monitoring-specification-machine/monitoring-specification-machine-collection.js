@@ -31,8 +31,6 @@ export class MonitoringSpecificationMachineCollection {
 
         this.value.push({
             indicator: "",
-            dataType: "",
-            defaultValue: "",
             value: "",
             satuan:"",
         });
