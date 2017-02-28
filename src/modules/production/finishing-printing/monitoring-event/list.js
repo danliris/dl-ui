@@ -19,11 +19,8 @@ export class List {
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
-        for (var monitoringEvent of this.data)
-        {
-            monitoringEvent.timeInMomentStart = moment(monitoringEvent.timeInMillisStart).format('HH:mm');
-            monitoringEvent.timeInMomentEnd = moment(monitoringEvent.timeInMillisEnd).format('HH:mm');
-        }
+        
+        this._adjustDateTime();
     }
 
     loadPage() {
@@ -52,5 +49,23 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    _adjustDateTime(){
+        for (var monitoringEvent of this.data)
+        {
+            if (monitoringEvent.dateEnd == null )
+                delete monitoringEvent.dateEnd;
+            if (monitoringEvent.timeInMillisEnd == null )
+                delete monitoringEvent.timeInMillisEnd;
+
+            monitoringEvent.timeInMomentStart = monitoringEvent.timeInMillisStart != undefined ? moment(monitoringEvent.timeInMillisStart).format('HH:mm') : undefined;
+            monitoringEvent.timeInMomentEnd = monitoringEvent.timeInMillisEnd != undefined ? moment(monitoringEvent.timeInMillisEnd).format('HH:mm') : undefined;
+
+            if (monitoringEvent.dateStart)
+                monitoringEvent.dateStart = moment().format("D MMM YYYY");
+            if (monitoringEvent.dateEnd)
+                monitoringEvent.dateEnd = moment().format("D MMM YYYY");
+        }
     }
 }
