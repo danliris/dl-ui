@@ -50,7 +50,7 @@ export class View {
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
                         value: indicator.value,
-                        satuan: indicator.satuan,
+                        uom: indicator.uom,
                     };
                     items.push(item);
                 }
