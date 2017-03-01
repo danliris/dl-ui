@@ -33,7 +33,7 @@ export class MachineTypeIndicatorCollection {
             indicator: "",
             dataType: "",
             defaultValue: "",
-            satuan:"",
+            uom:"",
     
         });
         this.bind();

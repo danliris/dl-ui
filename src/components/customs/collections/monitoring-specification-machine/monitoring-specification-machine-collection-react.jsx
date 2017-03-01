@@ -27,7 +27,7 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
         var newItem = {
             indicator: "",
             value: "",
-            satuan: "",
+            uom: "",
         };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });

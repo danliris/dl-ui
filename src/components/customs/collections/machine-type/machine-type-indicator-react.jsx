@@ -51,7 +51,7 @@ export default class MachineTypeIndicatorReact extends React.Component {
 
     handleSatuanChange(satuan) {
         var value = this.state.value;
-        value.satuan = (satuan);
+        value.uom = (satuan);
         this.handleValueChange((value));
     }
 
@@ -86,11 +86,11 @@ export default class MachineTypeIndicatorReact extends React.Component {
                 var defaultText = "";
                 valueBox = <TextboxReact value={defaultText} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
             } else if (this.state.value.dataType == "input angka") {
-                valueBox = <TextboxReact value={defaultText} options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
+                valueBox = <TextboxReact value={defaultText}  options={readOnly} onChange={this.handleIndicatorDefaultValueChange} />
             } else if (this.state.value.dataType == "input pilihan") {
-                valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
+                valueBox = <TextboxReact value={this.state.value.defaultValue} placeholder="gunakan , sebagai pembatas" options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
             } else {
-                valueBox = <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
+                valueBox = <TextboxReact value={this.state.value.defaultValue} placeholder="gunakan - sebagai pembatas" options={readOnlyOptions} onChange={this.handleIndicatorDefaultValueChange} />
             }
         }
         else {
@@ -113,7 +113,7 @@ export default class MachineTypeIndicatorReact extends React.Component {
             <tr>
                 <td>
                     <div className={`form-group ${this.state.error.indicator ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.indicator} options={this.state.options} onChange={this.handleIndicatorChange}/>
+                        <TextboxReact value={this.state.value.indicator} placeholder="input data" options={this.state.options} onChange={this.handleIndicatorChange}/>
                         <span className="help-block">{this.state.error.indicator}</span>
                     </div>
                 </td>
@@ -131,9 +131,9 @@ export default class MachineTypeIndicatorReact extends React.Component {
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.satuan ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.satuan} options={this.state.options} onChange={this.handleSatuanChange}/>
-                        <span className="help-block">{this.state.error.satuan}</span>
+                    <div className={`form-group ${this.state.error.uom ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.uom} placeholder="input data" options={this.state.options} onChange={this.handleSatuanChange}/>
+                        <span className="help-block">{this.state.error.uom}</span>
                     </div>
                 </td>
                 <td>
