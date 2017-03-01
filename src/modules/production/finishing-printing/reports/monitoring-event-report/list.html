@@ -1,27 +1,27 @@
 <template>
- <h1 class="page-header">Monitoring Event Report</h1>
+ <h1 class="page-header">Laporan Monitoring Event</h1>
      <form class="form-horizontal">
         <machine-auto-suggest-by-division 
-            label="Machine"
+            label="Mesin"
             value.bind="machine"
             filter.bind="divisionFilter"
             change.delegate="machineChanged($event)">
         </machine-auto-suggest-by-division>
 
         <machine-event-auto-suggest
-            label="Machine Event" 
+            label="Event Mesin" 
             value.bind="machineEvent"
             filter.bind="machineCodeFilter"
             if.bind="hasMachine"> 
         </machine-event-auto-suggest>
 
         <production-order-auto-suggest 
-            label="Production Order Number" 
+            label="Nomor Order Produksi" 
             value.bind="productionOrder">
         </production-order-auto-suggest>
 
-        <datepicker label="Report Date From" value.bind="dateFrom" ></datepicker>
-        <datepicker label="Report Date To" value.bind="dateTo" ></datepicker> 
+        <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
         
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -38,16 +38,16 @@
     <table class="table table-bordered table-hover" border="1" id="myTable">
         <thead align="center">
             <th>No</th>
-            <th>Machine</th>
-            <th>Production Order Number </th>
-            <th>Color</th>
-            <th>Date Start</th>
-            <th>Time Start</th>
-            <th>Date End</th>
-            <th>Time End</th>
-            <th>Cart Number</th>
-            <th>Machine Event</th>
-            <th>Remark</th>
+            <th>Mesin</th>
+            <th>Nomor Order Produksi </th>
+            <th>Warna</th>
+            <th>Tanggal Mulai</th>
+            <th>Jam Mulai</th>
+            <th>Tanggal Selesai</th>
+            <th>Jam Selesai</th>
+            <th>Nomor Kereta</th>
+            <th>Event Mesin</th>
+            <th>Keterangan</th>
         </thead>
         <tbody>
             <tr repeat.for="monitoringEvent of data">

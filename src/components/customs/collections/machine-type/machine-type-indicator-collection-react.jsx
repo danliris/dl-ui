@@ -28,6 +28,7 @@ export default class MachineTypeIndicatorCollectionReact extends React.Component
             indicator: "",
             dataType: "",
             defaultValue: "",
+            satuan:"",
    
         };
         this.state.value.push(newItem);
@@ -66,7 +67,8 @@ export default class MachineTypeIndicatorCollectionReact extends React.Component
                     <tr>
                         <th width="40%">Indikator</th>
                         <th width="20%">Tipe Data</th>
-                        <th width="30%">Contoh Data</th>
+                        <th width="20%">Petunjuk Data</th>
+                        <th width="15%">Satuan</th>
                         <th width="5%">
                             {addButton}
                         </th>

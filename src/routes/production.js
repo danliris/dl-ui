@@ -105,7 +105,7 @@ module.exports = [
         name: 'monitoring-specification-machine',
         moduleId: './modules/production/finishing-printing/monitoring-specification-machine/index',
         nav: true,
-        title: 'Monitoring Specification Machine',
+        title: 'Monitoring Spesifikasi Mesin',
         auth: true,
         settings: {
             group: "production",

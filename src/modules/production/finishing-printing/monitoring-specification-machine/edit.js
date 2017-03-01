@@ -49,8 +49,8 @@ export class View {
                         indicator: indicator.indicator,
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
-                        value: "",
-                        satuan: "",
+                        value: indicator.value,
+                        satuan: indicator.satuan,
                     };
                     items.push(item);
                 }
