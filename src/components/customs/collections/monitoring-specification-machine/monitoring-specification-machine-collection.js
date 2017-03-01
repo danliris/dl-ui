@@ -32,7 +32,7 @@ export class MonitoringSpecificationMachineCollection {
         this.value.push({
             indicator: "",
             value: "",
-            satuan:"",
+            uom:"",
         });
         this.bind();
     }
