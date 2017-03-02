@@ -25,11 +25,37 @@ module.exports = [
         }
     },
     {
+        route: 'suppliers/budgeting-new',
+        name: 'suppliers/budgeting-new',
+        moduleId: './modules/master/supplier-budgeting-new/index',
+        nav: true,
+        title: '* New Supplier *',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C5": 1, "C9": 1, "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'suppliers',
         name: 'suppliers',
         moduleId: './modules/master/supplier/index',
         nav: true,
         title: 'Supplier',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'suppliers-new',
+        name: 'suppliers-new',
+        moduleId: './modules/master/supplier-new/index',
+        nav: true,
+        title: '* New Supplier *',
         auth: true,
         settings: {
             group: "master",
@@ -103,11 +129,37 @@ module.exports = [
         }
     },
     {
+        route: 'vats-new',
+        name: 'vats-new',
+        moduleId: './modules/master/vat-new/index',
+        nav: true,
+        title: '* New Pajak PPH *',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'budgets',
         name: 'budgets',
         moduleId: './modules/master/budget/index',
         nav: true,
         title: 'Budget',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'budgets-new',
+        name: 'budgets-new',
+        moduleId: './modules/master/budget-new/index',
+        nav: true,
+        title: '* New Budget *',
         auth: true,
         settings: {
             group: "master",
@@ -168,11 +220,38 @@ module.exports = [
         }
     },
     {
+        route: 'categories-new',
+        name: 'categories-new',
+        moduleId: './modules/master/category-new/index',
+        nav: true,
+        title: '* New Kategori *',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'units',
         name: 'units',
         moduleId: './modules/master/unit/index',
         nav: true,
         title: 'Unit',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+    {
+        route: 'units-new',
+        name: 'units-new',
+        moduleId: './modules/master/unit-new/index',
+        nav: true,
+        title: '* New Unit *',
         auth: true,
         settings: {
             group: "master",

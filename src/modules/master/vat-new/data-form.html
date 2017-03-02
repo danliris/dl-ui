@@ -1,0 +1,23 @@
+<template>
+  <au-input-form 
+    title.bind="title"
+    with.bind="context"
+  >
+
+  <au-textbox 
+    label="Name"
+    value.bind="data.name"
+    error.bind="error.name"
+    read-only.bind="readOnly"
+  ></au-textbox>
+
+  <au-textbox 
+    label="Rate"
+    value.bind="data.rate"
+    error.bind="error.rate"
+    read-only.bind="readOnly"
+  ></au-textbox>
+
+
+  </au-input-form>
+</template>
