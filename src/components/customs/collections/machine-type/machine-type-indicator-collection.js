@@ -33,6 +33,7 @@ export class MachineTypeIndicatorCollection {
             indicator: "",
             dataType: "",
             defaultValue: "",
+            uom:"",
     
         });
         this.bind();

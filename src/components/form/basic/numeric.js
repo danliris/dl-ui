@@ -15,6 +15,7 @@ export class Numeric {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) postfix;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
 
     reactComponent = {};
     constructor(element) {
@@ -32,7 +33,7 @@ export class Numeric {
         
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <NumericReact value={this.value} onChange={this.handleValueChange} options={this.options} />
+                <NumericReact value={this.value} placeholder={this.placeholder} onChange={this.handleValueChange} options={this.options} />
             </FieldReact>,
             this.element
         );
