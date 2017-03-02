@@ -1,0 +1,16 @@
+<template>
+  <au-input-form 
+    title.bind="title" 
+    with.bind="context"
+  >
+ 
+  <au-textbox 
+      value.bind="data.unit"
+      label="Unit"
+      error.bind="error.unit"
+      read-only.bind="readOnly">
+    </au-textbox>
+
+
+  </au-input-form>
+</template>

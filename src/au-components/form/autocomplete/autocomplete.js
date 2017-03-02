@@ -17,7 +17,7 @@ export class Autocomplete {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) options; 
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
 
   // autocomplete properties
   @bindable loader = []; // can be either array of suggestions or function returning Promise resolving to such array
@@ -104,6 +104,7 @@ export class Autocomplete {
     this.value = suggestion;
     this._suggestions = [suggestion];
     this._ignoreInputChange = true;
+    this._index = -1;
     this.editorValue = this._getSuggestionText(suggestion);
     if (this.value) {
       // dispatchCustomEvent("change", this.component, this.value);
@@ -111,9 +112,54 @@ export class Autocomplete {
     }
   }
 
-  _highlightSuggestion(suggestion) {
-    if (suggestion) {
+  _selected = null;
+  _index = -1;
+  keyPressed(evt) {
+    let key = evt.keyCode;
+    //logger.debug(`Key pressed ${key}`);
+    if (this._suggestionVisible) {
+      switch (key) {
+        case 13: // Enter
+          var selectedSuggestion = this._getSuggestionByIndex(this._index);
+          if (selectedSuggestion) this._selectSuggestion(selectedSuggestion)
+          break;
+        case 40: // Down
+          this._index++;
+          if (this._index >= this._suggestions.length) this._index = this._suggestions.length - 1;
+          var selectedSuggestion = this._getSuggestionByIndex(this._index);
+          this._highlightSuggestion(selectedSuggestion);
+          break;
+        case 38: // Up
+          this._index--;
+          if (this._index < 0) this._index = 0;
+          var selectedSuggestion = this._getSuggestionByIndex(this._index);
+          this._highlightSuggestion(selectedSuggestion);
+          break;
+        case 27: // Escape
+          this._hideSuggestions();
+          break;
+      }
+    } else {
+      if (key === 13)
+        if (this.immediateValue && this.immediateValue !== this.value) {
+          //enable enter for fast typing - before delayed value changes
+          this.fireSelectedEvent(this.immediateValue);
 
+        } else if (this.value) {
+          this.fireSelectedEvent(this.value, this.selectedValue);
+        }
+    }
+
+    return true;
+  }
+
+  _highlightSuggestion(suggestion) {
+    if (this.list && suggestion) {
+      let item = $(this.list.children[this._index]);
+      let suggestionList = $(this.list);
+      if (item && item.position()) {
+        suggestionList.scrollTop(suggestionList.scrollTop() + item.position().top);
+      }
     }
   }
 
@@ -140,7 +186,15 @@ export class Autocomplete {
     else
       return suggestion;
   }
-  
+
+  _getSuggestionByIndex(index) {
+    this._suggestions = this._suggestions || [];
+    if (this._suggestions.length === 0 || this._suggestions.length < index)
+      return null;
+    var suggestion = this._suggestions[index];
+    return suggestion;
+  }
+
   changeCallback(event) {
     event.preventDefault();
   }

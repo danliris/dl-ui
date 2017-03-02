@@ -1,0 +1,22 @@
+<template> 
+  <button click.delegate="tr()">tr</button>
+  <table ref="table" class="au-table table">
+    <thead>
+      <tr>
+        <th>HEAD</th>
+      </tr>
+    </thead> 
+ 
+    <tbody replaceable part="tbody">
+      <tr repeat.for="item of items" role="au-row">
+        <template replaceable part="tr">
+          <td>hello</td>
+        </template>
+      </tr>
+    </tbody>
+
+    <tfoot>
+
+    </tfoot>
+  </table>
+</template>

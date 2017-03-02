@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../utils/rest-service';
 
 
-const serviceUri = 'master/uoms';
+const serviceUri = 'master/currencies';
 
 export class Service extends RestService {
 
@@ -19,26 +19,6 @@ export class Service extends RestService {
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  }
-
-  create(data) {
-    var endpoint = `${serviceUri}`;
-    return super.post(endpoint, data);
-  }
-
-  update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.put(endpoint, data);
-  }
-
-  delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.delete(endpoint, data);
-  }
-
-  getByCategory(category) {
-    var endpoint = `${serviceUri}?keyword=${category}`;
-    return super.get(endpoint);
-  }
+  } 
 
 }

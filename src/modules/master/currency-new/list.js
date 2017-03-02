@@ -10,6 +10,8 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        this.uomId = "";
+        this.uoms = [];
     }
 
     async activate() {
@@ -37,9 +39,11 @@ export class List {
     
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
+    } 
+
+    upload() {
+        this.router.navigateToRoute('upload');
     }
 
-    create() {
-        this.router.navigateToRoute('create');
-    }
+
 }

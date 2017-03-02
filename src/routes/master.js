@@ -51,6 +51,19 @@ module.exports = [
         }
     },
     {
+        route: 'uoms-new',
+        name: 'uoms-new',
+        moduleId: './modules/master/uom-new/index',
+        nav: true,
+        title: '* Satuan Baru *',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'products/budgeting',
         name: 'products/budgeting',
         moduleId: './modules/master/product-budgeting/index',
@@ -108,6 +121,19 @@ module.exports = [
         moduleId: './modules/master/currency/index',
         nav: true,
         title: 'Mata Uang',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'currencies-new',
+        name: 'currencies-new',
+        moduleId: './modules/master/currency-new/index',
+        nav: true,
+        title: '* New Mata Uang *',
         auth: true,
         settings: {
             group: "master",
