@@ -1,5 +1,6 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework';
 
+
 export class DataForm {
     @bindable data = { "import": true };
     @bindable error = {};
