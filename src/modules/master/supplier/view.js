@@ -17,15 +17,4 @@ export class View {
     list() {
         this.router.navigateToRoute('list');
     }
-
-    edit() {
-        this.router.navigateToRoute('edit', { id: this.data._id });
-    }
-
-    delete() {
-        this.service.delete(this.data)
-            .then(result => {
-                this.list();
-            });
-    }
 }

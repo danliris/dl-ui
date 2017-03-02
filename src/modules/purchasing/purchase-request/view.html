@@ -14,13 +14,14 @@
         <hr />
         <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only="true"></multiline>
         <hr />
-        <pr-item-collection     value.bind="data.items"     error.bind="error.items"    read-only="true" ></pr-item-collection>
+        <purchase-request-item-collection     value.bind="data.items"     error.bind="error.items"    read-only="true" ></purchase-request-item-collection>
     </form>
         <hr/>
         <div class="btn-group pull-right">
             <a click.delegate="list()" class='btn btn-default'  >Kembali</a>
             <a click.delegate="edit()" class="btn btn-primary"  if.bind="!data.isPosted">Ubah</a>
             <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isPosted">Hapus</a>
+            <a click.delegate="unpost()" class="btn btn-primary" if.bind="data.isPosted && !data.isUsed && data.purchaseOrderIds.length === 0">Unpost</a>
         </div>
     </block>
 </template>

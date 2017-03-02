@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {customElement, inject, bindable, bindingMode, noView} from 'aurelia-framework';
+import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import FieldReact from '../../react/basic/field-react.jsx';
-import TextareaReact from '../../react/basic/multiline-react.jsx';
+import FieldReact from './react/field-react.jsx';
+import TextareaReact from './react/multiline-react.jsx';
 
 @noView()
 @inject(Element)
@@ -14,6 +14,7 @@ export class Multiline {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) rows;
 
     reactComponent = {};
     constructor(element) {
@@ -27,6 +28,9 @@ export class Multiline {
 
     render() {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true' };
+        if(parseInt(this.rows)){
+            Object.assign(this.options ,{rows: this.rows});
+        }
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
                 <TextareaReact value={this.value} onChange={this.handleValueChange} options={this.options} />
@@ -56,6 +60,23 @@ export class Multiline {
      */
     valueChanged(newVal) {
         this.bind();
+        var event;
+
+        if (document.createEvent) {
+            event = document.createEvent("CustomEvent");
+            event.initCustomEvent("change", true, true, newVal);
+        } else {
+            event = document.createEventObject();
+            event.eventType = "change";
+        }
+
+        event.eventName = "change";
+
+        if (document.createEvent) {
+            this.element.dispatchEvent(event);
+        } else {
+            this.element.fireEvent("on" + event.eventType, event);
+        }
     }
     errorChanged(newError) {
         this.bind();

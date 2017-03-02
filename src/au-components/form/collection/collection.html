@@ -1,0 +1,56 @@
+<template>
+  <require from="./collection.css"></require>
+  <div class="panel panel-default collection">
+    <div class="panel-heading" if.bind="title">
+      <h4>${title}</h4>
+    </div>
+    <div class="panel-body">
+      <slot name="body"></slot>
+    </div>
+    <table class="table table-hover table-bordered">
+
+      <thead if.bind="!headerTemplate && columns && columns.length">
+        <tr>
+          <th repeat.for="column of columns">${column.header}</th>
+          <th if.bind="!readOnly && buttons.add"><button click.delegate="onadd($event)" class="btn btn-success pull-right">+</button></th>
+        </tr>
+      </thead>
+      <thead if.bind="headerTemplate && columns && columns.length" as-element="compose" view="${headerTemplate}.html" view-model="${headerTemplate}"
+        model.bind="context"></thead>
+
+        <tbody>
+
+          <!--no-columns-->
+          <tr if.bind="!columns || !columns.length">
+            <td>
+              <div class="alert alert-error">cannot display data with empty columns.</div>
+            </td>
+          </tr>
+
+          <!--default-->
+          <tr if.bind="!itemTemplate && columns && columns.length" repeat.for="item of data">
+            <td repeat.for="column of columns">
+              <textbox value.bind="item.data[column.value]" error.bind="item.error[column.value]" read-only.bind="item.options.readOnly"
+                options.bind="defaultOptions"></textbox>
+            </td>
+            <td if.bind="!readOnly && buttons.remove"><button click.delegate="onremove(data[$index].data)">Remove</button></td>
+          </tr>
+
+          <!--with-template-->
+          <tr if.bind="itemTemplate" repeat.for="item of context.items" as-element="compose" view="${itemTemplate}.html" view-model="${itemTemplate}"
+            model.bind="context.items[$index]"></tr>
+
+            <!--No data to display-->
+            <tr if.bind="!items || !items.length">
+              <td colspan="${columns.length + (!readOnly && buttons.remove ? 1 : 0)}">
+                <div class="alert alert-info"> No data found.</div>
+              </td>
+            </tr>
+        </tbody>
+
+        <tfoot if.bind="footerTemplate" as-element="compose" view="${footerTemplate}.html" view-model="${footerTemplate}" model.bind="context">
+
+        </tfoot>
+    </table>
+  </div>
+</template>
