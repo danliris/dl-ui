@@ -44,7 +44,7 @@ export class DataForm {
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
                         value: "",
-                        satuan:"",
+                        satuan:indicator.satuan,
                     };
                     items.push(item);
                 }

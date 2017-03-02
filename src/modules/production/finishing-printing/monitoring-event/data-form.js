@@ -8,12 +8,10 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-    @bindable divisionFilter = 'FINISHING & PRINTING'
-    @bindable machineCodeFilter = ''; 
-    @bindable timePickerShowSecond = false;
-    @bindable timePickerFormat = "HH:mm";
-    @bindable timeInMomentStart;
-    @bindable timeInMomentEnd;
+    divisionFilter = 'FINISHING & PRINTING'
+    machineCodeFilter = ''; 
+    timePickerShowSecond = false;
+    timePickerFormat = "HH:mm";
     @bindable productionOrderDetails = [];
 
     constructor(bindingEngine, service, element) {
@@ -24,12 +22,8 @@ export class DataForm {
 
     bind()
     {
-        this.timeInMomentStart = this.data.timeInMillisStart ? moment(this.data.timeInMillisStart) : this._adjustMoment();
-        this.timeInMomentEnd = this.data.timeInMillisEnd ? moment(this.data.timeInMillisEnd) : this._adjustMoment();
-        var tempTimeStart = moment(this.timeInMomentStart);
-        var tempTimeEnd = moment(this.timeInMomentEnd);
-        this.data.timeInMillisStart = momentToMillis(tempTimeStart);
-        this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
+        this.data.timeInMomentStart = this.data.timeInMillisStart != undefined ? moment(this.data.timeInMillisStart) : this._adjustMoment();
+        this.data.timeInMomentEnd = this.data.timeInMillisEnd != undefined && this.data.timeInMillisEnd != null ? moment(this.data.timeInMillisEnd) : this._adjustMoment();
 
         if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0){
             this.productionOrderDetails = this.data.productionOrder.details;
@@ -37,9 +31,9 @@ export class DataForm {
         }
 
         if (this.data.dateStart)
-            this.data.dateStart = moment().format("YYYY-MM-DD");
+            this.data.dateStart = moment(this.data.dateStart).format("YYYY-MM-DD");
         if (this.data.dateEnd)
-            this.data.dateEnd = moment().format("YYYY-MM-DD");
+            this.data.dateEnd = moment(this.data.dateEnd).format("YYYY-MM-DD");
     }
 
     machineChanged(e) 
@@ -114,11 +108,11 @@ export class DataForm {
     }
 
     _adjustMoment(timeInMoment){
-        if (!timeInMoment)
-            timeInMoment = moment();
-        timeInMoment.set('year', 1970);
-        timeInMoment.set('month', 0);
-        timeInMoment.set('date', 1);   
+        if (timeInMoment){
+            timeInMoment.set('year', 1970);
+            timeInMoment.set('month', 0);
+            timeInMoment.set('date', 1);   
+        }
         return timeInMoment;     
     }
 }
