@@ -15,7 +15,7 @@ export class Create {
   }
 
   bind(){
-    this.data = { machineEvents:[] };
+    this.data = this.data || {};
   }
 
   get list() {
@@ -24,12 +24,20 @@ export class Create {
 
   get save() {
     return (event) => {
+      var createPromise = [];
+      this.data.productionOrderId = this.data.productionOrder._id || {};
+      this.data.instructionId = this.data.instruction._id || {};
+      for (var cart of this.data.carts){
+        this.data.cart = cart;
+        createPromise.push(this.service.create(this.data))
+      }
 
-      this.service.create(this.data)
-        .then(result => {
+      return Promise.all(createPromise)
+        .then(responses => {
           this.list();
         })
         .catch(e => {
+          delete this.data.cart;
           this.error = e;
         })
     }

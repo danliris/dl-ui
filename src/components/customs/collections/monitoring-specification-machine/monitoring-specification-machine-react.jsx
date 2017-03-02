@@ -13,8 +13,9 @@ export default class MonitoringSpecificationMachineReact extends React.Component
         this.handleRemove = this.handleRemove.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleIndicatorChange = this.handleIndicatorChange.bind(this);
-        this.handleDataTypeChange = this.handleDataTypeChange.bind(this);
+        // this.handleDataTypeChange = this.handleDataTypeChange.bind(this);
         this.handleIndicatorValueChange = this.handleIndicatorValueChange.bind(this);
+
 
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -33,17 +34,20 @@ export default class MonitoringSpecificationMachineReact extends React.Component
         this.handleValueChange(value);
     }
 
-    handleDataTypeChange(dataType) {
-        var value = this.state.value;
-        value.dataType = dataType;
-        this.handleValueChange(value);
-    }
+    // handleDataTypeChange(dataType) {
+    //     var value = this.state.value;
+    //     value.dataType = dataType;
+    //     this.handleValueChange(value);
+    // }
 
     handleIndicatorValueChange(data) {
         var value = this.state.value;
+        // value.value=this.state.value.defaultValue;
         value.value = (data);
         this.handleValueChange((value));
     }
+
+
 
     handleRemove() {
         if (this.props.onRemove)
@@ -59,19 +63,18 @@ export default class MonitoringSpecificationMachineReact extends React.Component
     }
 
     render() {
-
         var valueBox = null;
 
         var readOnlyOptions = this.state.options.isMaster == true ? this.state.options : Object.assign({}, this.state.options, { readOnly: true });
 
 
-        if (this.state.value.dataType == "string") {
+        if (this.state.value.dataType == "input teks") {
 
             valueBox = <TextboxReact value={this.state.value.value} options={this.state.options} onChange={this.handleIndicatorValueChange} />
 
-        } else if (this.state.value.dataType == "numeric") {
+        } else if (this.state.value.dataType == "input angka") {
             valueBox = <NumericReact value={this.state.value.value} options={this.state.options} onChange={this.handleIndicatorValueChange} />
-        } else if (this.state.value.dataType == "option (use ',' as delimiter)"||this.state.value.dataType == "option") {
+        } else if (this.state.value.dataType == "input pilihan" || this.state.value.dataType == "option") {
 
             var items = this.state.value.defaultValue.split(",");
             var valueOptions = Object.assign({}, this.state.options, { selections: items });
@@ -95,15 +98,9 @@ export default class MonitoringSpecificationMachineReact extends React.Component
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.dataType ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.dataType} options={readOnlyOptions} />
-                        <span className="help-block">{this.state.error.dataType}</span>
-                    </div>
-                </td>
-                <td>
                     <div className={`form-group ${this.state.error.defaultValue ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions}/>
-                        <span className="help-block">{this.state.error.defaultValue}</span>
+                        <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} />
+                        <span className="help-block">{this.state.error.defaultValue} </span>
                     </div>
                 </td>
                 <td>
@@ -112,7 +109,13 @@ export default class MonitoringSpecificationMachineReact extends React.Component
                         <span className="help-block">{this.state.error.value} </span>
                     </div>
                 </td>
+                <td>
+                    <div className={`form-group ${this.state.error.satuan ? 'has-error' : ''}`} style={style}>
+                        <TextboxReact value={this.state.value.satuan} options = { readOnlyOptions } />
+                        <span className="help-block">{this.state.error.satuan} </span>
+                    </div>
+            </td>
             </tr>
-        )
-    }
+                ) 
+                }
 } 

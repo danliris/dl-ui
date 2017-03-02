@@ -6,7 +6,10 @@ export class _Control {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
+  @bindable options;
+ 
+  @bindable editorState;
+  @bindable editorValue;
 
   constructor(element) {
     this.element = element;

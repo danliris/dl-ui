@@ -45,4 +45,9 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
     }
+
+    unpost(id) {
+        var endpoint = `purchase-requests/unpost/${id}`;
+        return super.put(endpoint);
+    }
 }
