@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Detail Monitoring Specification Machine</h1>
+    <h1 class="page-header">Rincian Monitoring Spesifikasi Mesin</h1>
     <require from="./data-form"></require>
     <block>
         <form class="form-horizontal">
@@ -10,7 +10,7 @@
                 <textbox label="Mesin " value.bind="data.machine.name" error.bind="error.machine.name" read-only="true"></textbox>
                 <textbox label="No Surat Produksi Order " value.bind="data.productionOrder.orderNo" error.bind="error.productionOrder.orderNo"
                     read-only="true"></textbox>
-                <textbox label="Cart Number" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only="true"></textbox>
+                <textbox label="Nomor Kereta" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only="true"></textbox>
             </fieldset>
             <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options"></monitoring-specification-machine-collection>
         </form>

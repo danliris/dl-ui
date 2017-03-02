@@ -3,6 +3,8 @@ import DynamicNumber from 'react-dynamic-number';
 
 'use strict';
 
+const defaultPlaceholder = 'enter value';
+
 export default class NumericReact extends React.Component {
     constructor(props) {
         super(props);
@@ -13,13 +15,13 @@ export default class NumericReact extends React.Component {
     }
 
     init(props) {
-        var initialValue = props.value || NumericReact.defaultProps.value;
+        var initialValue = props.value;
         if (props.value != initialValue && props.onChange) {
             props.onChange(initialValue);
         }
-
+        var placeholder = props.placeholder || NumericReact.defaultProps.placeholder;
         var options = Object.assign({}, NumericReact.defaultProps.options, props.options);
-        this.setState({ value: initialValue, options: options });
+        this.setState({ value: initialValue, placeholder: placeholder, options: options });
     }
 
     handleValueChange(event, modelValue, viewValue) {
@@ -31,7 +33,16 @@ export default class NumericReact extends React.Component {
     }
 
     componentWillMount() {
-        this.init(this.props);
+        var initialValue = this.props.value;
+        if (this.props.placeholder === defaultPlaceholder)
+            initialValue = null;
+        var placeholder = this.props.placeholder || NumericReact.defaultProps.placeholder;
+        if (this.props.value != initialValue && this.props.onChange) {
+            this.props.onChange(initialValue);
+        }
+
+        var options = Object.assign({}, NumericReact.defaultProps.options, this.props.options);
+        this.setState({ value: initialValue, placeholder: placeholder, options: options });
     }
 
     componentWillReceiveProps(props) {
@@ -47,7 +58,7 @@ export default class NumericReact extends React.Component {
             control = <p className="form-control-static">{this.state.value} {postFix}</p>;
         }
         else {
-            control = <DynamicNumber className="form-control" value={this.state.value} onChange={this.handleValueChange}
+            control = <DynamicNumber className="form-control" value={this.state.value} placeholder={this.state.placeholder} onChange={this.handleValueChange}
                 separator={this.state.options.separator}
                 integer={this.state.options.integer}
                 fraction={this.state.options.fraction}
@@ -95,6 +106,7 @@ export default class NumericReact extends React.Component {
 
 NumericReact.propTypes = {
     value: React.PropTypes.number,
+    placeholder: React.PropTypes.string, 
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         min: React.PropTypes.number,
@@ -111,6 +123,7 @@ NumericReact.propTypes = {
 
 NumericReact.defaultProps = {
     value: 0,
+    placeholder: defaultPlaceholder,
     options: {
         readOnly: false,
         min: 0,

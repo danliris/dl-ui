@@ -20,13 +20,16 @@ export class Service extends RestService {
         return super.getXls(endpoint);
     }
 
-    _getEndPoint(info)
-    {
+    _getEndPoint(info) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (info.machineId) {
             if (query === '') query = `machineId=${info.machineId}`;
             else query = `${query}&machineId=${info.machineId}`;
+        }
+        if (info.productionOrderNumber) {
+            if (query === '') query = `productionOrderNumber=${info.productionOrderNumber}`;
+            else query = `${query}&productionOrderNumber=${info.productionOrderNumber}`;
         }
         if (info.dateFrom) {
             if (query === '') query = `dateFrom=${info.dateFrom}`;
@@ -38,7 +41,7 @@ export class Service extends RestService {
         }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
-        
+
         return endpoint;
     }
 }

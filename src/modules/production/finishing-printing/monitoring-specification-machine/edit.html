@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Update Monitoring Specification Machine</h1>
+    <h1 class="page-header">Ubah Monitoring Spesifikasi Mesin</h1>
     <require from="./data-form"></require>
     <block>
         <form class="form-horizontal">
@@ -12,7 +12,7 @@
                 <machine-auto-suggest label="Mesin" value.bind="data.machine" error.bind="error.machine" read-only.bind="(readOnly)" change.delegate="machineChanged($event)"></machine-auto-suggest>
                 <production-order-auto-suggest label="No Surat Produksi Order" value.bind="data.productionOrder" error.bind="error.productionOrder"
                     read-only.bind="(readOnly)" change.delegate="productionOrderChanged($event)"></production-order-auto-suggest>
-                <textbox label="Cart Number" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
+                <textbox label="Nomor kereta" value.bind="data.cartNumber" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
             </fieldset>
             <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options" change.delegate="machineChanged($event)"
                 filter.bind="filterMachine || isFilterMachine" if.bind="data.machine"></monitoring-specification-machine-collection>

@@ -1,5 +1,6 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework';
 
+
 export class DataForm {
     @bindable data = { "import": true };
     @bindable error = {};
@@ -44,7 +45,7 @@ export class DataForm {
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
                         value: "",
-                        satuan:"",
+                        uom:indicator.uom,
                     };
                     items.push(item);
                 }
