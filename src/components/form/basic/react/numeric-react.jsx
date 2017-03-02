@@ -16,13 +16,10 @@ export default class NumericReact extends React.Component {
 
     init(props) {
         var initialValue = props.value;
-        if (props.placeholder === defaultPlaceholder)
-            initialValue = null;
-        var placeholder = props.placeholder || NumericReact.defaultProps.placeholder;
         if (props.value != initialValue && props.onChange) {
             props.onChange(initialValue);
         }
-
+        var placeholder = props.placeholder || NumericReact.defaultProps.placeholder;
         var options = Object.assign({}, NumericReact.defaultProps.options, props.options);
         this.setState({ value: initialValue, placeholder: placeholder, options: options });
     }
@@ -36,7 +33,16 @@ export default class NumericReact extends React.Component {
     }
 
     componentWillMount() {
-        this.init(this.props);
+        var initialValue = this.props.value;
+        if (this.props.placeholder === defaultPlaceholder)
+            initialValue = null;
+        var placeholder = this.props.placeholder || NumericReact.defaultProps.placeholder;
+        if (this.props.value != initialValue && this.props.onChange) {
+            this.props.onChange(initialValue);
+        }
+
+        var options = Object.assign({}, NumericReact.defaultProps.options, this.props.options);
+        this.setState({ value: initialValue, placeholder: placeholder, options: options });
     }
 
     componentWillReceiveProps(props) {
