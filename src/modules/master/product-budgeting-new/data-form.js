@@ -1,5 +1,7 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework';
 
+var CurrencyLoader = require('../../../loader/currency-loader');
+
 export class DataForm {
     @bindable title;
     @bindable readOnly = false;
@@ -11,6 +13,10 @@ export class DataForm {
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
+    }
+    activate() { }
+
+    attached() {
     }
 
     bind(context) {
@@ -28,11 +34,6 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     }
 
-    activate() { }
-
-    attached() {
-    }
-
     // bind() {
     //     if (this.data && this.data.uom)
     //         this.data.uom.toString = function () {
@@ -44,6 +45,17 @@ export class DataForm {
         var selectedUom = e.detail;
         if (selectedUom)
             this.data.uomId = selectedUom._id;
+    }
+
+    currencyChanged(e) {
+        var selectedCurrency = e.detail || {};
+        if (selectedCurrency) {
+          this.data.currency = selectedCurrency._id ? selectedCurrency._id : "";
+        }
+    }
+
+    get currencyLoader() {
+      return CurrencyLoader;
     }
 
 }

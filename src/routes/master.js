@@ -117,6 +117,19 @@ module.exports = [
         }
     },
     {
+        route: 'products/budgeting-new',
+        name: 'products/budgeting-new',
+        moduleId: './modules/master/product-budgeting-new/index',
+        nav: true,
+        title: '* New Barang *',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'products',
         name: 'products',
         moduleId: './modules/master/product/index',
