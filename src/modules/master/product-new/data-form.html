@@ -1,0 +1,57 @@
+<template>
+  <au-input-form 
+    title.bind="title" 
+    with.bind="context">  
+
+    <au-textbox
+      label="Kode"
+      value.bind="data.code"
+      error.bind="error.code"
+      read-only.bind="(readOnly || isEdit)"
+    ></au-textbox>
+
+    <au-textbox
+      label="Nama"
+      value.bind="data.name"
+      error.bind="error.name"
+      read-only.bind="readOnly"
+    ></au-textbox>
+
+    <au-autocomplete
+      label="Satuan"
+      value.bind="data.uom"
+      error.bind="error.uom"
+      read-only.bind="readOnly"
+    ></au-autocomplete>
+
+    <au-autocomplete
+      label="Mata Uang"
+      value.bind="data.currency.code"
+      error.bind="error.currency.code"
+      read-only.bind="readOnly"
+    ></au-autocomplete>
+
+    <au-numeric
+      label="Harga"
+      value.bind="data.price"
+      error.bind="error.price"
+      read-only.bind="readOnly"
+    ></au-numeric>
+
+    <au-multiline
+      label="Tags"
+      value.bind="data.tags"
+      error.bind="error.tags"
+      read-only.bind="readOnly"
+    ></au-multiline>
+
+    <au-multiline
+      label="Description"
+      value.bind="data.description"
+      error.bind="error.description"
+      read-only.bind="readOnly"
+    ></au-multiline>
+
+  </au-input-form>
+
+</template>
