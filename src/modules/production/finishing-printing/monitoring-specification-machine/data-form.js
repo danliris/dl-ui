@@ -1,5 +1,6 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework';
 
+
 export class DataForm {
     @bindable data = { "import": true };
     @bindable error = {};
@@ -10,6 +11,8 @@ export class DataForm {
         "readOnly": false,
 
     }
+
+    divisionFilter = 'FINISHING & PRINTING'
 
 
     constructor(bindingEngine, element) {
@@ -32,9 +35,14 @@ export class DataForm {
 
 
     machineChanged(e) {
+
+        //reset to empty collection
+        this.data.items = [];
+
         if (e.detail) {
+
             var selectedProcess = e.detail || {};
-            // this.data.items = e.detail.indicators;
+
             if (selectedProcess) {
 
                 var items = [];
@@ -44,7 +52,7 @@ export class DataForm {
                         dataType: indicator.dataType,
                         defaultValue: indicator.defaultValue,
                         value: "",
-                        satuan:"",
+                        uom: indicator.uom,
                     };
                     items.push(item);
                 }
@@ -52,10 +60,11 @@ export class DataForm {
 
                 this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
             }
+
         }
     }
 
-       productionOrderChanged(e) {
+    productionOrderChanged(e) {
         var selectedProcess = e.detail || {};
         this.data.productionOrder = e.detail;
         if (selectedProcess) {
