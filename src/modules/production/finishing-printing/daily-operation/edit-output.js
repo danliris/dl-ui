@@ -11,27 +11,7 @@ export class EditOutput {
 
     async activate(params) {
         var id = params.id;
-        var code = params.code;
-        var no = params.no;
-        var machineId =  params.machineId;
-        this.data = await this.service.getData(id, code, no, machineId);
-        var dateInput = new Date(this.data.dateInput);
-        var ddInput = ('0' + dateInput.getDate()).slice(-2);
-        var mmInput = ('0' + (dateInput.getMonth() + 1)).slice(-2);
-        var dateOutput = new Date(this.data.dateOutput);
-        var now = new Date();
-        var ddOutput = dateOutput.getFullYear() === 1900 ? ('0' + now.getDate()).slice(-2) : ('0' + dateOutput.getDate()).slice(-2);
-        var mmOutput = dateOutput.getFullYear() === 1900 ? ('0' + (now.getMonth() + 1)).slice(-2) : ('0' + (dateOutput.getMonth() + 1)).slice(-2);
-        this.data.dateInput = `${dateInput.getFullYear()}-${mmInput}-${ddInput}`;
-        this.data.hourInput = ('0' + (dateInput.getHours())).slice(-2);
-        this.data.minuteInput = ('0' + (dateInput.getMinutes())).slice(-2);
-        this.data.dateOutput = dateOutput.getFullYear() === 1900 ? `${now.getFullYear()}-${mmOutput}-${ddOutput}` : `${dateOutput.getFullYear()}-${mmOutput}-${ddOutput}`;
-        this.data.hourOutput = dateOutput.getFullYear() === 1900 ? ('0' + (now.getHours())).slice(-2) : ('0' + (dateOutput.getHours())).slice(-2);
-        this.data.minuteOutput = dateOutput.getFullYear() === 1900 ? ('0' + (now.getMinutes())).slice(-2) : ('0' + (dateOutput.getMinutes())).slice(-2);
-        var color = {
-            color : this.data.color
-        }
-        this.data.color = color;
+        this.data = await this.service.getData(id);
     }
 
     view() {
@@ -39,18 +19,12 @@ export class EditOutput {
     }
 
     save() {
-        var dateInput = `${this.data.dateInput} ${this.data.hourInput}:${this.data.minuteInput}:00`;
-        var dateOutput = this.data.dateOutput ? `${this.data.dateOutput} ${this.data.hourOutput}:${this.data.minuteOutput}:00` : '';
-        this.data.dateInput = dateInput;
-        this.data.dateOutput = dateOutput;
-        var color = this.data.color;
-        this.data.color = color.color;
+        this.data.isOutput = true;
         this.service.update(this.data)
             .then(result => {
                 this.view();
             })
             .catch(e => {
-                this.data.color = color;
                 this.error = e;
             })
     }
