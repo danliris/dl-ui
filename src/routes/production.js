@@ -100,12 +100,12 @@ module.exports = [
         }
 
     },
-    {
+        {
         route: 'production/finishing-printing/monitoring-specification-machine',
         name: 'monitoring-specification-machine',
         moduleId: './modules/production/finishing-printing/monitoring-specification-machine/index',
         nav: true,
-        title: 'Monitoring Specification Machine',
+        title: 'Monitoring Spesifikasi Mesin',
         auth: true,
         settings: {
             group: "production",
@@ -118,7 +118,7 @@ module.exports = [
         name: 'monitoring-specification-machine-report',
         moduleId: './modules/production/finishing-printing/reports/monitoring-specification-machine-report/index',
         nav: true,
-        title: 'Monitoring Specification Machine Report',
+        title: 'Laporan Monitoring Spesifikasi Mesin',
         auth: true,
         settings: {
             group: "production",

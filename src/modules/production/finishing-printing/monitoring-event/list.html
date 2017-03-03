@@ -20,24 +20,24 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Date Start</th>
-                <th>Time Start</th>
-                <th>Date End</th>
-                <th>Time End</th>
-                <th>Machine</th>
-                <th>Production Order Number</th>
-                <th>Color</th>
-                <th>Cart Number</th>
-                <th>Machine Event</th>
-                <th>Remark</th>
+                <th>Tanggal Mulai</th>
+                <th>Jam Mulai</th>
+                <th>Tanggal Selesai</th>
+                <th>Jam Selesai</th>
+                <th>Mesin</th>
+                <th>Nomor Order Produksi</th>
+                <th>Warna</th>
+                <th>Nomor Kereta</th>
+                <th>Event Mesin</th>
+                <th>Keterangan</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="monitoringEvent of data">
-                <td style="text-align:center">${monitoringEvent.dateStart | dateFormat:'D MMM YYYY'}</td>
+                <td style="text-align:center">${monitoringEvent.dateStart}</td>
                 <td style="text-align:center">${monitoringEvent.timeInMomentStart}</td>
-                <td style="text-align:center">${monitoringEvent.dateEnd | dateFormat:'D MMM YYYY'}</td>
+                <td style="text-align:center">${monitoringEvent.dateEnd}</td>
                 <td style="text-align:center">${monitoringEvent.timeInMomentEnd}</td>
                 <td>${monitoringEvent.machine.name}</td>
                 <td>${monitoringEvent.productionOrder.orderNo}</td>

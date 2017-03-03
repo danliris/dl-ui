@@ -26,10 +26,8 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
     handleItemAdd() {
         var newItem = {
             indicator: "",
-            dataType: "",
-            defaultValue: "",
             value: "",
-            satuan:"",
+            uom: "",
         };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });
@@ -60,22 +58,22 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
         var table = null;
 
 
-        if (!this.state.options.isMaster == true) 
+        if (!this.state.options.isMaster == true)
             addButton = <span></span>;
-            return (<table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th width="40%">Indikator</th>
-                        <th width="15%">Tipe Data</th>
-                        <th width="15%">Contoh Data</th>
-                        <th width="15%">Value</th>
-                        <th width="15%">Satuan</th>
+        return (<table className="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="40%">Indikator</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {items}
-                </tbody>
-            </table>);
+                    <th width="40%">Value</th>
+                    
+                    <th width="20%">Satuan</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {items}
+            </tbody>
+        </table>);
     }
 } 

@@ -13,7 +13,7 @@ export class List {
         "f2dec423-9b47-42e3-9d82-6103c8132015",//Total Nilai Pembelian
         "b8e30ee2-eb32-485c-933b-f9fd91093d1f",//Supplier Tepat Waktu
         "0bee3506-5950-485b-9cda-6132e44c5764",//Perbandingan Purchase Order
-        "2072be69-b79e-496e-b872-959fd881970c"//Top Ten Konstruksi
+        "2b455aa7-9d41-4c0c-883b-730454e428cd",//Top Ten Supplier per Total SPB
     ];
     constructor(router, service) {
         this.router = router;
