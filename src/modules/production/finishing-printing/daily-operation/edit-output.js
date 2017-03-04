@@ -12,10 +12,16 @@ export class EditOutput {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getData(id);
+
+        if (this.data.dateOutput == null)
+            delete this.data.dateOutput;
+        
+        if (this.data.timeOutput == null)
+            delete this.data.timeOutput;
     }
 
     view() {
-        this.router.navigateToRoute('view', { id: this.data._id, code : this.data.code, no : this.data.no, machineId : this.data.machineId });
+        this.router.navigateToRoute('view', { id: this.data._id });
     }
 
     save() {

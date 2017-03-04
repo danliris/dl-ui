@@ -1,7 +1,8 @@
 <template>
  <h1 class="page-header">Laporan Monitoring Daily Operational setiap Mesin</h1>
      <form class="form-horizontal">
-        <machine-auto-suggest           label="Mesin"	    value.bind="machine" error.bind="error" ></machine-auto-suggest>
+        <kanban-auto-suggest            label="Nomor Order/Kereta"        value.bind="kanban"    change.delegate="kanbanChanged($event)"></kanban-auto-suggest>
+        <machine-auto-suggest           label="Mesin"	                  value.bind="machine"   if.bind="kanbanId" filter.bind="filterMachine"></machine-auto-suggest>
         <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
         <div class="form-group">

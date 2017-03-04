@@ -13,6 +13,12 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getData(id);
+
+        if (this.data.dateOutput == null)
+            delete this.data.dateOutput;
+        
+        if (this.data.timeOutput == null)
+            delete this.data.timeOutput;
     }
 
     list() {

@@ -15,12 +15,15 @@ export class List {
     dateFrom = null;
     dateTo = null;
     machine = null;
+    kanban = null;
+    filterKanban = null;
+    kanbanId = null;
     
     activate() {
     }
 
     searching() {
-            this.service.getReport(this.dateFrom, this.dateTo, this.machine)
+            this.service.getReport(this.dateFrom, this.dateTo, this.machine, this.kanban)
                 .then(result => {
                     this.data = result;
                     for (var daily of this.data)
@@ -30,11 +33,31 @@ export class List {
                     }
                 })
     }
+    
+    kanbanChanged(e){
+        var selectedKanban = e.detail;
+        if(selectedKanban){
+            this.kanbanId = selectedKanban._id;
+            if(selectedKanban.instruction){
+                var steps = [];
+                for(var step of selectedKanban.instruction.steps){
+                    steps.push(step.process);
+                }
+                this.filterMachine = {
+                    "step.process" : { "$in" : steps }
+                };
+            }
+        }
+    }
 
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
         this.machine = null;
+        this.kanban = null;
+        this.filterKanban = null;
+        this.kanbanId = null;
+        this.data = [];
         this.error = '';
     }
 
@@ -42,6 +65,6 @@ export class List {
         //    var htmltable= document.getElementById('myTable');
         //    var html = htmltable.outerHTML;
         //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.dateFrom, this.dateTo, this.machine);
+        this.service.generateExcel(this.dateFrom, this.dateTo, this.machine, this.kanban);
     }
 }

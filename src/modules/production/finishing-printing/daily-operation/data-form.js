@@ -20,16 +20,17 @@ export class DataForm {
     bind()
     {
         this.timeInput = this.data.timeInput ? moment(this.data.timeInput) : this._adjustMoment();
-        this.timeOutput = this.data.timeOutput ? moment(this.data.timeOutput) : this._adjustMoment();
-        var tempTimeInput = moment(this.timeInput);
-        var tempTimeOutput = moment(this.timeOutput);
-        this.data.timeInput = momentToMillis(tempTimeInput);
-        this.data.timeOutput = momentToMillis(tempTimeOutput);
+        if(this.data.timeOutput)
+            this.timeOutput = moment(this.data.timeOutput);
+        // var tempTimeInput = moment(this.timeInput);
+        // var tempTimeOutput = moment(this.timeOutput);
+        // this.data.timeInput = momentToMillis(tempTimeInput);
+        // this.data.timeOutput = momentToMillis(tempTimeOutput);
 
-        // if (!this.data.dateInput)
-        //     this.data.dateInput = moment().format("YYYY-MM-DD");
-        // if (this.data.dateOutput)
-        //     this.data.dateOutput = moment(this.data.dateOutput).format("YYYY-MM-DD");
+        if (this.data.dateInput)
+            this.data.dateInput = moment(this.data.dateInput).format("YYYY-MM-DD");
+        if (this.data.dateOutput)
+            this.data.dateOutput = moment(this.data.dateOutput).format("YYYY-MM-DD");
     }
 
     get isFilterMachine(){
