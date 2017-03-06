@@ -25,7 +25,5 @@ export class Edit {
         }).catch(e => {
             this.error = e;
         })
-    }
-
-    
+    }  
 }
