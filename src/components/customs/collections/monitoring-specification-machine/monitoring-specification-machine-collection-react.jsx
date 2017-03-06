@@ -27,7 +27,7 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
         var newItem = {
             indicator: "",
             value: "",
-            satuan: "",
+            uom: "",
         };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });
@@ -64,10 +64,10 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
             <thead>
                 <tr>
                     <th width="40%">Indikator</th>
-                    <th width="15%">Petunjuk Data</th>
-                    <th width="30%">Value</th>
+
+                    <th width="40%">Value</th>
                     
-                    <th width="15%">Satuan</th>
+                    <th width="20%">Satuan</th>
 
                 </tr>
             </thead>

@@ -114,11 +114,24 @@ module.exports = [
         }
     },
     {
+        route: 'production/finishing-printing/monitoring-specification-machine2',
+        name: 'monitoring-specification-machine',
+        moduleId: './modules/production/finishing-printing/monitoring-specification-machine2/index',
+        nav: true,
+        title: 'Monitoring Spesifikasi Mesin2',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/finishing-printing/reports/monitoring-specification-machine-report',
         name: 'monitoring-specification-machine-report',
         moduleId: './modules/production/finishing-printing/reports/monitoring-specification-machine-report/index',
         nav: true,
-        title: 'Monitoring Specification Machine Report',
+        title: 'Laporan Monitoring Spesifikasi Mesin',
         auth: true,
         settings: {
             group: "production",
@@ -148,7 +161,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "*": 0  },
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     }]
