@@ -20,7 +20,7 @@
 
         <textbox label="Nomor Kereta" value.bind="data.cartNumber" placeholder="input nomor kereta" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
 
-        <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options" change.delegate="machineChanged($event)"
-            filter.bind="filterMachine || isFilterMachine" if.bind="data.machine"></monitoring-specification-machine-collection>
+        <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options" 
+            filter.bind="filterMachine || isFilterMachine" if.bind="data.machine" click.delegate="resetErrors"></monitoring-specification-machine-collection>
     </form>
 </template>
