@@ -48,19 +48,32 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: 'production/finishing-printing/daily-operation',
-    //     name: 'dailys',
-    //     moduleId: './modules/production/finishing-printing/daily-operation/index',
-    //     nav: true,
-    //     title: 'Daily Operation',
-    //     auth: true,
-    //     settings: {
-    //         group: "production",
-    //         permission: { "*": 0 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
+    {
+        route: 'production/finishing-printing/daily-operation',
+        name: 'dailys',
+        moduleId: './modules/production/finishing-printing/daily-operation/index',
+        nav: true,
+        title: 'Daily Operation',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/reports/daily-operation-report',
+        name: 'report-dailys',
+        moduleId: './modules/production/finishing-printing/reports/daily-operation-report/index',
+        nav: true,
+        title: 'Report Daily Operation',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'production/finishing-printing/monitoring-event',
         name: 'monitoring-event',
@@ -74,18 +87,6 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: 'production/finishing-printing/reports/daily-operation-report',
-    //     name: 'report-dailys',
-    //     moduleId: './modules/production/finishing-printing/reports/daily-operation-report/index',
-    //     nav: true,
-    //     title: 'Report Daily Operation',
-    //     auth: true,
-    //     settings: {
-    //         group: "production",
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
     {
         route: 'production/finishing-printing/reports/monitoring-event-report',
         name: 'report-monitoring-events',
@@ -106,19 +107,6 @@ module.exports = [
         moduleId: './modules/production/finishing-printing/monitoring-specification-machine/index',
         nav: true,
         title: 'Monitoring Spesifikasi Mesin',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: { "*": 0 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'production/finishing-printing/monitoring-specification-machine2',
-        name: 'monitoring-specification-machine',
-        moduleId: './modules/production/finishing-printing/monitoring-specification-machine2/index',
-        nav: true,
-        title: 'Monitoring Spesifikasi Mesin2',
         auth: true,
         settings: {
             group: "production",

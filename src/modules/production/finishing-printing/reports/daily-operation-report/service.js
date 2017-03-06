@@ -10,7 +10,7 @@ export class Service extends RestService {
         super(http, aggregator, config, "production");
     }
 
-    getReport(sdate, edate, machine) {
+    getReport(sdate, edate, machine, kanban) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -24,6 +24,10 @@ export class Service extends RestService {
         if (machine) {
             if (query === '') query = `machine=${machine._id}`;
             else query = `${query}&machine=${machine._id}`;
+        }
+        if (kanban) {
+            if (query === '') query = `kanban=${kanban._id}`;
+            else query = `${query}&kanban=${kanban._id}`;
         }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
@@ -31,7 +35,7 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate, machine) {
+    generateExcel(sdate, edate, machine, kanban) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -45,6 +49,10 @@ export class Service extends RestService {
         if (machine) {
             if (query === '') query = `machine=${machine._id}`;
             else query = `${query}&machine=${machine._id}`;
+        }
+        if (kanban) {
+            if (query === '') query = `kanban=${kanban._id}`;
+            else query = `${query}&kanban=${kanban._id}`;
         }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
