@@ -60,9 +60,18 @@ export class DataForm {
                 this.filterMachine = {
                     "step.process" : { "$in" : steps }
                 };
-                this.data.input = selectedKanban.cart.qty;
+                this.data.input = Number(selectedKanban.cart.qty);
             }
         }
+        else{
+            delete this.data.kanbanId;
+            this.data.input = 0;
+            this.filterMachine = {};
+        }
+    }
+    
+    get hasKanban(){
+        return this.data && this.data.kanbanId && this.data.kanbanId !== '';
     }
 
     machineChanged(e) {
