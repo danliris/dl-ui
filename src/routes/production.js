@@ -101,11 +101,11 @@ module.exports = [
 
     },
     {
-        route: 'production/finishing-printing/monitoring-specification-machine2',
-        name: 'monitoring-specification-machine2',
-        moduleId: './modules/production/finishing-printing/monitoring-specification-machine2/index',
+        route: 'production/finishing-printing/monitoring-specification-machine',
+        name: 'monitoring-specification-machine',
+        moduleId: './modules/production/finishing-printing/monitoring-specification-machine/index',
         nav: true,
-        title: 'Monitoring Spesifikasi Mesin2',
+        title: 'Monitoring Spesifikasi Mesin',
         auth: true,
         settings: {
             group: "production",
@@ -113,12 +113,12 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-        {
-        route: 'production/finishing-printing/monitoring-specification-machine',
+    {
+        route: 'production/finishing-printing/monitoring-specification-machine2',
         name: 'monitoring-specification-machine',
-        moduleId: './modules/production/finishing-printing/monitoring-specification-machine/index',
+        moduleId: './modules/production/finishing-printing/monitoring-specification-machine2/index',
         nav: true,
-        title: 'Monitoring Spesifikasi Mesin',
+        title: 'Monitoring Spesifikasi Mesin2',
         auth: true,
         settings: {
             group: "production",
@@ -161,7 +161,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "*": 0  },
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     }]
