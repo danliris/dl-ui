@@ -23,8 +23,6 @@ export class List {
         this.service = service;
         this.router = router;
 
-        this.info.productionOrder = {};
-
     }
 
     searching() {

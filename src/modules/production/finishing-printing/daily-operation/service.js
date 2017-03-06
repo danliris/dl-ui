@@ -15,8 +15,8 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getData(id, code, no, machineId) {
-    var endpoint = `${serviceUri}/${id}?code=${code}&no=${no}&machineId=${machineId}`;
+  getData(id) {
+    var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
   }
 
@@ -31,7 +31,7 @@ export class Service extends RestService {
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data._id}?code=${data.code}&no=${data.no}&machineId=${data.machineId}`;
+    var endpoint = `${serviceUri}/${data._id}`;
     return super.delete(endpoint);
   }
 
