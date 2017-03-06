@@ -3,6 +3,10 @@ import React from 'react';
 import PurchaseOrderAutoSuggestReactUnposted from '../../auto-suggests/react/purchase-order-auto-suggest-react-unposted.jsx';
 import PurchaseOrderItemReact from './purchase-order-item-react.jsx';
 
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
+const resource = 'master/products/byId';
+
 'use strict';
 
 export default class PurchaseOrderExternalItemReact extends React.Component {
@@ -34,10 +38,25 @@ export default class PurchaseOrderExternalItemReact extends React.Component {
             this.props.onItemRemove(this.state.value);
     }
 
-    handlePoChange(event, purchaseOrder) {
+    async handlePoChange(event, purchaseOrder) {
         var value = this.state.value;
         Object.assign(value, purchaseOrder);
-        this.handleValueChange(value);
+        var productList = value.items.map((item) => { return item.product._id });
+        productList = [].concat.apply([], productList);
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        await endpoint.find(resource, { productList: JSON.stringify(productList) })
+            .then((result) => {
+                debugger
+                for (var product of result.data) {
+                    var item = value.items.find((_item) => _item.product._id.toString() === product._id.toString())
+                    if (item) {
+                        item.product.price = product.price;
+                    }
+                }
+                this.handleValueChange(value);
+            });
     }
 
     handlePoItemChange(poItem) {
