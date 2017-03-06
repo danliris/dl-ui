@@ -55,6 +55,9 @@ export function configure(config) {
         './customs/auto-suggests/machine-type-auto-suggest',
         './customs/auto-suggests/account-auto-suggest',
         './customs/auto-suggests/machine-event-auto-suggest',
+        './customs/auto-suggests/comodity-auto-suggest',
+        './customs/auto-suggests/quality-auto-suggest',
+        './customs/auto-suggests/account-bank-auto-suggest',
         './customs/auto-suggests/kanban-auto-suggest',
 
         './customs/collections/account/role-item-collection',
