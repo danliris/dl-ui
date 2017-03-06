@@ -326,6 +326,18 @@ module.exports = [
         }
     },
     {
+        route: 'machine-types-new',
+        name: 'machine-types-new',
+        moduleId: './modules/master/machine-type-new/index',
+        nav: true,
+        title: '* New Jenis Mesin *',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+        }
+    },
+    {
         route: 'machine',
         name: 'machine',
         moduleId: './modules/master/machine/index',

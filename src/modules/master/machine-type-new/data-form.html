@@ -1,0 +1,32 @@
+<template>
+  <au-input-form 
+    title.bind="title"
+    with.bind="context"
+  >
+
+  <au-textbox 
+    label="Nama"
+    value.bind="data.name"
+    error.bind="error.name"
+    option.bind="Options"
+  ></au-textbox>
+
+  <au-multiline 
+    label="Deskripsi"
+    value.bind="data.description"
+    error.bind="error.description"
+    option.bind="Options"
+  ></au-multiline>
+
+  <au-collection 
+    title="Machine Type"
+    option.bind="Options"
+    item.bind="data.indicators"
+    columns.bind="machineIndicator"
+    add.bind="addIndicator"
+    remove.bind="removeIndicator"
+    item-template="modules/master/machine/template/machine-event-item"
+  ></au-collection>
+  </au-input-form>
+
+</template>
