@@ -17,7 +17,7 @@
                     read-only.bind="readOnly"
                     change.delegate="machineChanged($event)"
                     filter.bind="filterMachine || isFilterMachine"
-                    if.bind="data.kanbanId">
+                    if.bind="hasKanban">
                 </machine-auto-suggest>
 
                 <dropdown
@@ -96,11 +96,11 @@
                 </multiline>
             </div>
             <div  class="col-md-6" style="padding:0">
-                <textbox                    label="Material" value.bind="data.kanban.productionOrder.material.name" if.bind="data.kanbanId" read-only="true"></textbox>
-                <textbox                    label="Konstruksi" value.bind="data.kanban.productionOrder.materialConstruction.name" if.bind="data.kanbanId" read-only="true"></textbox>
-                <textbox                    label="Nomor Benang" value.bind="data.kanban.productionOrder.yarnMaterial.name" if.bind="data.kanbanId" read-only="true"></textbox>
-                <textbox                    label="Lebar Finish" value.bind="data.kanban.productionOrder.finishWidth" if.bind="data.kanbanId" read-only="true"></textbox>
-                <textbox                    label="Warna" value.bind="data.kanban.selectedProductionOrderDetail.colorRequest" if.bind="data.kanbanId" read-only="true"></textbox>
+                <textbox    label="Material"        value.bind="data.kanban.productionOrder.material.name"              if.bind="hasKanban" read-only="true"></textbox>
+                <textbox    label="Konstruksi"      value.bind="data.kanban.productionOrder.materialConstruction.name"  if.bind="hasKanban" read-only="true"></textbox>
+                <textbox    label="Nomor Benang"    value.bind="data.kanban.productionOrder.yarnMaterial.name"          if.bind="hasKanban" read-only="true"></textbox>
+                <textbox    label="Lebar Finish"    value.bind="data.kanban.productionOrder.finishWidth"                if.bind="hasKanban" read-only="true"></textbox>
+                <textbox    label="Warna"           value.bind="data.kanban.selectedProductionOrderDetail.colorRequest" if.bind="hasKanban" read-only="true"></textbox>
             </div>
         </div>
     </form>
