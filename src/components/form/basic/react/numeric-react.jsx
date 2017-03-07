@@ -34,8 +34,9 @@ export default class NumericReact extends React.Component {
 
     componentWillMount() {
         var initialValue = this.props.value;
-        if (this.props.placeholder === defaultPlaceholder)
-            initialValue = null;
+        if (!initialValue && this.props.placeholder === defaultPlaceholder)
+            initialValue = 0;
+
         var placeholder = this.props.placeholder || NumericReact.defaultProps.placeholder;
         if (this.props.value != initialValue && this.props.onChange) {
             this.props.onChange(initialValue);
@@ -122,7 +123,6 @@ NumericReact.propTypes = {
 };
 
 NumericReact.defaultProps = {
-    value: 0,
     placeholder: defaultPlaceholder,
     options: {
         readOnly: false,
