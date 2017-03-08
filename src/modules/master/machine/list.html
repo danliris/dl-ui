@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Machine</h1>
+    <h1 class="page-header">Mesin</h1>
     <br>
 
     <div class="row">
@@ -21,14 +21,15 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Nama</th>
                 <th>Unit</th> 
                 <th>Step</th> 
                 <th>Process</th> 
                 <th>Manufacture</th> 
-                <th>Year</th> 
-                <th>Condition</th> 
-                <th>Type</th> 
+                <th>Tahun</th> 
+                <th>Kondisi</th> 
+                <th>Jenis Mesin</th> 
+                <th>Kapasitas Bulanan</th> 
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,7 @@
                 <td>${item.year}</td>
                 <td>${item.condition}</td>
                 <td>${item.machineType.name}</td>
+                <td>${item.monthlyCapacity}</td>
             </tr>
         </tbody>
     </table>
