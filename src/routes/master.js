@@ -164,6 +164,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -176,6 +177,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
