@@ -37,31 +37,33 @@ export class DataForm {
     machineChanged(e) {
 
         //reset to empty collection
-        this.data.items = [];
+        // 
 
-        if (e.detail) {
 
-            var selectedProcess = e.detail || {};
 
-            if (selectedProcess) {
+        var selectedProcess = e.detail;
 
-                var items = [];
-                for (var indicator of selectedProcess.machineType.indicators) {
-                    var item = {
-                        indicator: indicator.indicator,
-                        dataType: indicator.dataType,
-                        defaultValue: indicator.defaultValue,
-                        value: "",
-                        uom: indicator.uom,
-                    };
-                    items.push(item);
-                }
-                this.data.items = items;
+        if (selectedProcess) {
 
-                this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
+            var items = [];
+            for (var indicator of selectedProcess.machineType.indicators) {
+                var item = {
+                    indicator: indicator.indicator,
+                    dataType: indicator.dataType,
+                    defaultValue: indicator.defaultValue,
+                    value: "",
+                    uom: indicator.uom,
+                };
+                items.push(item);
             }
+            this.data.items = items;
 
+            this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
+        } else {
+            this.data.items = [];
         }
+
+
     }
 
     productionOrderChanged(e) {
@@ -75,6 +77,8 @@ export class DataForm {
 
     resetErrors() {
         this.error = {};
+        // this.data.items = []
+
     }
 
 

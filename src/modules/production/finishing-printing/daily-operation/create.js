@@ -19,17 +19,11 @@ export class Create {
     }
 
     save() {
-        var dateInput = `${this.data.dateInput} ${this.data.hourInput}:${this.data.minuteInput}:00`;
-        this.data.dateInput = dateInput;
-        this.data.dateOutput = "1900-01-01 00:00:00";
-        var color = this.data.color;
-        this.data.color = color.color
         this.service.create(this.data)
             .then(result => {
                 this.list();
             })
             .catch(e => {
-                this.data.color = color;
                 this.error = e;
             })
     }
