@@ -1,4 +1,17 @@
+<!--<template>
+    <h1 class="page-header">Update Machine Type</h1>
+    <require from="./data-form"></require>
+    <block>    
+        <data-form data.bind="data" error.bind="error"></data-form>
+        <hr/>
+        <div class="pull-right">
+            <button class="btn btn-default" click.delegate="view()">Kembali</button>
+            <button class="btn btn-success" click.delegate="save()">Simpan</button>
+        </div>
+    </block>
+</template>-->
+
 <template>
   <require from="./data-form"></require>
-  <data-form title="UPDATE MACHINE TYPE" read-only="false"></data-form>
+  <data-form title="UPDATE MACHINE TYPE" read-only.bind="false" data.bind="data" error.bind="error"></data-form>
 </template>

@@ -20,10 +20,6 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    // resetData() {
-    //     // this.data.indicators 
-    // }
-
     bind(context) {
     this.context = context;
     this.data = this.context.data;
@@ -34,7 +30,6 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
     }
-
 
     activate() {
 

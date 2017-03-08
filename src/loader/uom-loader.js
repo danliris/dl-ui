@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/currencies';
+const resource = 'master/uoms';
 
 module.exports = function(keyword, filter) {
 

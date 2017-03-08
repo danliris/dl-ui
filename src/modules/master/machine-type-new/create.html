@@ -9,10 +9,9 @@
             <button class="btn btn-success" click.delegate="save()">Simpan</button>
         </div>
     </block>
-</template>
+</template>-->
 
--->
 <template>
   <require from="./data-form"></require>
-  <data-form title="ADD NEW MACHINE TYPE" read-only="true"></data-form>
+  <data-form title="ADD NEW MACHINE TYPE" error.bind="error" data.bind="data"></data-form>
 </template>

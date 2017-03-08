@@ -21,24 +21,20 @@
       label="Satuan"
       value.bind="data.uom"
       error.bind="error.uom"
+      loader.bind="uomLoader"
       read-only.bind="readOnly"
+      key="unit"
+      text="unit"
     ></au-autocomplete>
-
-    <!--<currency-auto-suggest 
-      label="Mata Uang"
-      value.bind="data.currency.code"
-      error.bind="currency.code"
-      read-only.bind="readOnly"
-      change.delegate="currencyChanged($event)"
-      filter.bind="filterCurrency">
-    </currency-auto-suggest>-->
 
     <au-autocomplete
       label="Mata Uang"
-      value.bind="data.currency.code"
-      error.bind="error.currency.code"
+      value.bind="data.currency"
+      error.bind="error.currency"
       loader.bind="currencyLoader"
       read-only.bind="readOnly"
+      key="symbol"
+      text="code"      
     ></au-autocomplete>
 
     <au-numeric

@@ -30,7 +30,7 @@ export class View {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    deleteCallbacn(event) {
+    deleteCallback(event) {
         this.service.delete(this.data)
             .then(result => {
                 this.list();

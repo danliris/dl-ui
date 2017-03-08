@@ -21,7 +21,7 @@ export class Edit {
 
 
   saveCallback(event) {
-    this.service.create(this.data)
+    this.service.update(this.data)
       .then(result => {
         this.router.navigateToRoute('view', { id: this.data._id });
       })
