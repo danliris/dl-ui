@@ -1,17 +1,4 @@
-<!--<template>
-    <h1 class="page-header">add new machine type</h1>
-    <require from="./data-form"></require>
-    <block>
-        <data-form data.bind="data" error.bind="error"></data-form>
-        <hr/>
-        <div class="btn-group pull-right">
-            <button class="btn btn-default" click.delegate="list()">Kembali</button>
-            <button class="btn btn-success" click.delegate="save()">Simpan</button>
-        </div>
-    </block>
-</template>-->
-
 <template>
   <require from="./data-form"></require>
-  <data-form title="ADD NEW MACHINE TYPE" error.bind="error" data.bind="data"></data-form>
+  <data-form title="ADD NEW MACHINE TYPE" error.bind="error" data.bind="data" read-only.bind="false"></data-form>
 </template>

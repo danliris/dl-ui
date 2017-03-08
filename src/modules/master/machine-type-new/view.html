@@ -1,28 +1,3 @@
-<!--<template>
-    <h1 class="page-header">Detail Jenis Mesin</h1> 
-    <require from="./data-form"></require>
-    <block>
-        
-        <fieldset>
-        <textbox label="Kode" value.bind="data.code" error.bind="error.code"  read-only="true"> </textbox>
-        <textbox label="Nama" value.bind="data.name" error.bind="error.name"  read-only="true"> </textbox>
-        </fieldset>
-        <hr />
-        <multiline label="Deskripsi" value.bind="data.description" error.bind="error.description" read-only="true" ></multiline>
-        <hr />
-        <machine-type-indicator-collection value.bind="data.indicators" error.bind="error.indicators" options.bind="Options"></machine-type-indicator-collection>
-
-        
-        <hr/>
-        <div class="btn-group pull-right">
-            <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
-            <a click.delegate="edit()" class='btn btn-primary btn-sm'>Ubah</a>
-            <a click.delegate="delete()" class='btn btn-danger btn-sm'>Hapus</a>
-        </div>
-    </block>
-</template>-->
-
-
 <template>
   <require from="./data-form"></require>
   <data-form title="DETAIL JENIS MESIN" read-only="true" data.bind="data" error.bind="error">
