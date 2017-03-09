@@ -1,4 +1,4 @@
-import {inject, bindable, computedFrom} from 'aurelia-framework';
+import { inject, bindable, computedFrom } from 'aurelia-framework';
 
 var BuyersLoader = require('../../../loader/buyers-loader');
 var ComodityLoader = require('../../../loader/comodity-loader');
@@ -11,13 +11,17 @@ var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
 
 export class DataForm {
     @bindable readOnly = false;
-    @bindable data = { "import": true };
-    @bindable error = {};
-    tagsFilter={tags:{"$regex":"Material"}};
-    @bindable Options = {
-        "readOnly": false,
+    @bindable data;
+    @bindable error;
 
-    }
+    @bindable title;
+
+    @bindable cancel;
+    @bindable delete;
+    @bindable save;
+    @bindable edit;
+
+    tagsFilter = { tags: { "$regex": "Material" } };
 
     incomeTaxOptions = ['Include PPn', 'Exclude PPn', 'Tanpa PPn'];
 
@@ -25,9 +29,9 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
         this.element = element;
 
-  
-
     }
+
+
 
     @computedFrom("data.buyer")
     get isExport() {
@@ -39,6 +43,10 @@ export class DataForm {
         }
         return this.agent;
     }
+
+    // dateFormat(e) {
+    //     return moment(this.data.deliverySchedule).format("MMMM Do YY");
+    // }
 
     buyersChanged(e) {
         console.log('buyers changed')

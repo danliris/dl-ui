@@ -8,22 +8,32 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        // this.data = {};
+        // this.error = {};
+    }
+
+    activate(params) {
+
+    }
+
+    bind() {
         this.data = {};
-        this.error = {};
     }
 
-
-    back() {
-        this.router.navigateToRoute('list');
+    get list() {
+        return (event) => this.router.navigateToRoute('list');
     }
 
-    save() {
-        this.service.create(this.data)
-            .then(result => {
-                this.back();
-            })
-            .catch(e => {
-                this.error = e;
-            })
+    get save() {
+        return (event) => {
+
+            this.service.create(this.data)
+                .then(result => {
+                    this.list();
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+        }
     }
 }
