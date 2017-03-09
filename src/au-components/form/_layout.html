@@ -4,7 +4,7 @@
     <label for="name" class.bind="_style.label" if.bind="hasLabel">${label}</label>
     <div class.one-way="_style.control">
       <slot></slot>
-      <span class="help-block" if.bind="error">${error}</span>
+      <span class="help-block" if.bind="hasError">${error}</span>
     </div>
   </div>
 </template>
