@@ -154,31 +154,5 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
 
-    },
-    {
-        route: 'machine-types',
-        name: 'machine-types',
-        moduleId: './modules/master/machine-type/index',
-        nav: true,
-        title: 'Jenis Mesin',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'machine',
-        name: 'machine',
-        moduleId: './modules/master/machine/index',
-        nav: true,
-        title: 'Mesin',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
     }
 ]
