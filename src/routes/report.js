@@ -21,7 +21,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission : {"C9": 1, "F1": 7, "F2": 7},
             iconClass: 'fa fa-dashboard'
         }
     },{
@@ -33,7 +32,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission : {"A2":7,"C9":1},
             iconClass: 'fa fa-dashboard'
         }
     }]
