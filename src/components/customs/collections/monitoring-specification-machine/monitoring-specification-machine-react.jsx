@@ -99,12 +99,6 @@ export default class MonitoringSpecificationMachineReact extends React.Component
                     </div>
                 </td>
                 <td>
-                    <div className={`form-group ${this.state.error.defaultValue ? 'has-error' : ''}`} style={style}>
-                        <TextboxReact value={this.state.value.defaultValue} options={readOnlyOptions} />
-                        <span className="help-block">{this.state.error.defaultValue} </span>
-                    </div>
-                </td>
-                <td>
                     <div className={`form-group ${this.state.error.value ? 'has-error' : ''}`} style={style}>
                         {valueBox}
                         <span className="help-block">{this.state.error.value} </span>

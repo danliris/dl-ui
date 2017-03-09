@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: 'sales/finishing-printing-sales-contract',
+        name: 'finishing-printing-sales-contract',
+        moduleId: './modules/sales/finishing-printing-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract - Finishing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: {"*": 0},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/production-order',
         name: 'production-order',
         moduleId: './modules/sales/production-order/index',
@@ -8,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"*": 0},
+            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"*":0},
+            permission: { "F1": 1, "F2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +47,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"*": 0},
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/weaving-sales-contract',
+        name: 'weaving-sales-contract',
+        moduleId: './modules/sales/weaving-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract - Weaving',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
