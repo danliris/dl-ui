@@ -19,10 +19,7 @@ export class Numeric {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) format;
 
   // input = null;
-<<<<<<< HEAD
   @bindable editorValue;
-=======
->>>>>>> 273ef1284e3ce96e54163e8a36c01a4d9e73e181
 
   @computedFrom("min", "max")
   get inputOptions() {
@@ -34,19 +31,11 @@ export class Numeric {
   }
 
   bind() {
-<<<<<<< HEAD
     // this.value = this.value || 0;
     this.value = this.placeholder ? "" :  this.value || 0;
     this.format = this.format || "0,000.00";
   }
 
-=======
-    this.value = this.value || 0;
-    this.editorValue = this.value || 0;
-    this.format = this.format || "0,000.00";
-
-  }
->>>>>>> 273ef1284e3ce96e54163e8a36c01a4d9e73e181
   attached() {
     if (this.input && this.input.element) {
       this.input.element.addEventListener("keydown", this.keydownCallback, false);
@@ -75,15 +64,4 @@ export class Numeric {
       e.preventDefault();
     }
   }
-<<<<<<< HEAD
-=======
-
-  stateChangeCallback(event) {
-    // console.log(this.input.element)
-    var context = event.detail;
-    context.editorValue = context.editorState === STATE.VIEW ? numeral(context.editorValue).format(this.format) : numeral(context.editorValue).value(this.format);
-    context.value = numeral(context.editorValue).value(this.format);
-
-  }
->>>>>>> 273ef1284e3ce96e54163e8a36c01a4d9e73e181
 } 
