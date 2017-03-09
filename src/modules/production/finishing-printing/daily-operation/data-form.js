@@ -11,6 +11,8 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     shiftOptions = ['Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
+    timePickerShowSecond = false;
+    timePickerFormat = "HH:mm";
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -22,9 +24,9 @@ export class DataForm {
         this.timeInput = this.data.timeInput ? moment(this.data.timeInput) : this._adjustMoment();
         if(this.data.timeOutput)
             this.timeOutput = moment(this.data.timeOutput);
-        // var tempTimeInput = moment(this.timeInput);
+        var tempTimeInput = moment(this.timeInput);
         // var tempTimeOutput = moment(this.timeOutput);
-        // this.data.timeInput = momentToMillis(tempTimeInput);
+        this.data.timeInput = momentToMillis(tempTimeInput);
         // this.data.timeOutput = momentToMillis(tempTimeOutput);
 
         if (this.data.dateInput)
@@ -51,6 +53,7 @@ export class DataForm {
     kanbanChanged(e){
         var selectedKanban = e.detail;
         if(selectedKanban){
+            this.data.machine = {};
             this.data.kanbanId = selectedKanban._id;
             if(selectedKanban.instruction){
                 var steps = [];
@@ -67,6 +70,7 @@ export class DataForm {
             delete this.data.kanbanId;
             this.data.input = 0;
             this.filterMachine = {};
+            this.data.machine = {};
         }
     }
     

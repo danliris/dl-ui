@@ -3,7 +3,7 @@
         <div class="row">
             <div  class="col-md-6" style="padding:0">
                 <kanban-auto-suggest
-                    label="Nomor Kereta"
+                    label="Nomor Order Produksi - Kereta"
                     value.bind="data.kanban"
                     error.bind="error.kanban"
                     read-only.bind="readOnly"
@@ -45,12 +45,21 @@
                     change.delegate=timeInputChanged($event)>
                 </timepicker>
 
-                <numeric
-                    label="Input"
-                    value.bind="data.input"
-                    error.bind="error.input"
-                    read-only.bind="readOnlyInput">
-                </numeric>
+                <div class="row">
+                    <div class="col-sm-4" style="padding-left:27%">    
+                        <textbox    label="Input"  read-only="true"></textbox>
+                    </div>
+                    <div class="col-sm-3">    
+                        <numeric
+                            value.bind="data.input"
+                            error.bind="error.input"
+                            read-only.bind="readOnlyInput">
+                        </numeric>
+                    </div>
+                    <div class="col-sm-2">    
+                        <textbox    value.bind="data.kanban.productionOrder.uom.unit"  if.bind="hasKanban"	    read-only="true"></textbox>
+                    </div>
+                </div>
 
                 <datepicker
                     label="Tanggal Output"
@@ -71,21 +80,39 @@
                     if.bind="output">>
                 </timepicker>
 
-                <numeric
-                    label="Good Out Put"
-                    value.bind="data.goodOutput"
-                    error.bind="error.goodOutput"
-                    read-only.bind="readOnlyOutput"
-                    if.bind="output">
-                </numeric>
+                <div class="row">
+                    <div class="col-sm-4" style="padding-left:25%">    
+                        <textbox    label="Good Output"  read-only="true"    if.bind="output"></textbox>
+                    </div>
+                    <div class="col-sm-3"> 
+                        <numeric
+                            value.bind="data.goodOutput"
+                            error.bind="error.goodOutput"
+                            read-only.bind="readOnlyOutput"
+                            if.bind="output">
+                        </numeric>
+                    </div>
+                    <div class="col-sm-2">    
+                        <textbox    value.bind="data.kanban.productionOrder.uom.unit"  if.bind="output"	    read-only="true"></textbox>
+                    </div>
+                </div>
 
-                <numeric
-                    label="Bad Out Put"
-                    value.bind="data.badOutput"
-                    error.bind="error.badOutput"
-                    read-only.bind="readOnlyOutput"
-                    if.bind="output">
-                </numeric>
+                <div class="row">
+                    <div class="col-sm-4" style="padding-left:25%">    
+                        <textbox    label="Bad OutPut"  read-only="true"    if.bind="output"></textbox>
+                    </div>
+                    <div class="col-sm-3"> 
+                        <numeric
+                            value.bind="data.badOutput"
+                            error.bind="error.badOutput"
+                            read-only.bind="readOnlyOutput"
+                            if.bind="output">
+                        </numeric>
+                    </div>
+                    <div class="col-sm-2">    
+                        <textbox    value.bind="data.kanban.productionOrder.uom.unit"  if.bind="output"	    read-only="true"></textbox>
+                    </div>
+                </div>
                 
                 <multiline
                     label="Keterangan Bad Output"

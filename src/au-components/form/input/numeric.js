@@ -31,8 +31,8 @@ export class Numeric {
   }
 
   bind() {
-    this.value = this.value || 0;
-    this.editorValue = this.value || 0;
+    // this.value = this.value || 0;
+    this.value = this.placeholder ? "" :  this.value || 0;
     this.format = this.format || "0,000.00";
   }
 

@@ -53,7 +53,7 @@ module.exports = [
         name: 'dailys',
         moduleId: './modules/production/finishing-printing/daily-operation/index',
         nav: true,
-        title: 'Daily Operation',
+        title: 'Monitoring Operasional Harian',
         auth: true,
         settings: {
             group: "production",
@@ -66,7 +66,7 @@ module.exports = [
         name: 'report-dailys',
         moduleId: './modules/production/finishing-printing/reports/daily-operation-report/index',
         nav: true,
-        title: 'Report Daily Operation',
+        title: 'Laporan Monitoring Operasional Harian',
         auth: true,
         settings: {
             group: "production",
