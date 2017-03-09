@@ -16,26 +16,20 @@ export class View {
     this.data.cart.uom = this.data.productionOrder.uom.unit;
   }
 
-  get list() {
-    return () => {
-      this.router.navigateToRoute('list');
-    };
+  cancelCallback(event) {
+    this.router.navigateToRoute('list');
   }
 
-  get edit() {
-    return () => {
-      this.router.navigateToRoute('edit', { id: this.data._id });
-    }
-  }
-
-  get delete() {
-    return () => {
-      this.service.delete(this.data)
+  editCallback(event) {
+    this.router.navigateToRoute('edit', { id: this.data._id });
+  }   
+   
+  deleteCallback(event) {
+    this.service.delete(this.data)
         .then(result => {
-          this.list();
+          this.cancelCallback();
         });
-    }
-  }
+  }  
 
   get isView(){
     return true;
