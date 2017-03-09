@@ -16,6 +16,10 @@ export class Create {
 
     }
 
+    bind() {
+      this.data = { indicators: [] };
+    }
+
     cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
@@ -32,7 +36,7 @@ export class Create {
 
         this.service.create(this.data)
             .then(result => {
-                this.list();
+                this.router.navigateToRoute('list');
             })
             .catch(e => {
                 this.error = e;

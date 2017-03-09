@@ -5,10 +5,10 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = { "import": true };
     @bindable error = {};
-    @bindable Options = {
-        "readOnly": false,
-        "isMaster": true
-    }
+    // @bindable Options = {
+    //     "readOnly": false,
+    //     "isMaster": true
+    // }
 
 
 
@@ -33,6 +33,19 @@ export class DataForm {
 
     activate() {
 
+    }
+
+    listIndicatorsColumns = [
+      { header: "Indikator", value: "indicator" },
+      { header: "Tipe Data", value: "dataType" },
+      { header: "Petunjuk Data", value: "defaultValue" },
+      { header: "Satuan", value: "uom" },
+    ]
+
+    get addListIndicators() {
+      return (event) => {
+        this.data.indicators.push({})
+      };
     }
 
     attached() {

@@ -33,7 +33,7 @@ export class View {
     deleteCallback(event) {
         this.service.delete(this.data)
             .then(result => {
-                this.list();
+                this.router.navigateToRoute('list');
             });
     }
 }

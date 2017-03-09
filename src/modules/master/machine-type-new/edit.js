@@ -23,7 +23,7 @@ export class Edit {
     saveCallback(event) {
 
         this.service.update(this.data).then(result => {
-            this.view();
+            this.router.navigateToRoute('view', { id: this.data._id });
         }).catch(e => {
             this.error = e;
         })

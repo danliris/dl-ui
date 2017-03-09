@@ -26,7 +26,10 @@
 
     <au-collection
       items.bind="data.indicators"
-      errors.bind="error.indicators"
+      columns.bind="listIndicatorsColumns"
+      add.bind="addListIndicators"
+      remove.bind="removeListIndicators"
+      title="Indicator"
       read-only.bind="readOnly"
     ></au-collection>
 
