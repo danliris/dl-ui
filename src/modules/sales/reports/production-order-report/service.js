@@ -14,12 +14,12 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
-            if (query === '') query = `dateFrom=${sdate}`;
-            else query = `${query}&dateFrom=${sdate}`;
+            if (query === '') query = `sdate=${sdate}`;
+            else query = `${query}&sdate=${sdate}`;
         }
         if (edate) {
-            if (query === '') query = `dateTo=${edate}`;
-            else query = `${query}&dateTo=${edate}`;
+            if (query === '') query = `edate=${edate}`;
+            else query = `${query}&edate=${edate}`;
         }
         if (scno && scno !== '') {
             if (query === '') query = `salesContractNo=${scno}`;
@@ -55,12 +55,12 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
-            if (query === '') query = `dateFrom=${sdate}`;
-            else query = `${query}&dateFrom=${sdate}`;
+            if (query === '') query = `sdate=${sdate}`;
+            else query = `${query}&sdate=${sdate}`;
         }
         if (edate) {
-            if (query === '') query = `dateTo=${edate}`;
-            else query = `${query}&dateTo=${edate}`;
+            if (query === '') query = `edate=${edate}`;
+            else query = `${query}&edate=${edate}`;
         }
         if (scno) {
             if (query === '') query = `salesContractNo=${scno}`;

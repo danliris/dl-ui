@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <require from="../_layout"></require>
   <require from="./custom-attributes/dynamic-attribute-custom-attribute"></require>
   <require from="./custom-attributes/select-on-focus-custom-attribute"></require>
@@ -13,6 +14,12 @@
     <!--<slot>-->
 
     <!--</slot>-->
+=======
+  <require from="../_layout"></require> 
+  <require from="./custom-attributes/input-options-custom-attribute"></require>
+  <au-layout options.bind="options" label.bind="label" error.bind="error">
+    <input ref="element" type.bind="type" value.bind="editorValue" placeholder.bind="placeholder" class="form-control" if.bind="!readOnly" focus.trigger="onFocus($event)" blur.trigger="onBlur($event)" input-options="options.bind: inputOptions" />
+>>>>>>> 273ef1284e3ce96e54163e8a36c01a4d9e73e181
     <p class="form-control-static" if.bind="readOnly">${value}</p>
   </au-layout>
 </template>

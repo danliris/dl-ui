@@ -1,24 +1,50 @@
 import { bindable, bindingMode, containerless, inject, computedFrom, customElement } from "aurelia-framework";
-import { _Control } from "./_control";
+var STATE = require("./_state");
 
-@containerless()
 @customElement("au-multiline")
-@inject(Element)
-export class Multiline extends _Control {
+export class Multiline {
   // control properties
   @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
+  @bindable options;
+
+  @bindable editorState = STATE.VIEW;
+  @bindable editorValue;
+
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) keydown;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) stateChanged;
+
+  _defaultOptions = {
+    selectOnFocus: true
+  } 
 
   // multiline properties
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) size;
-  constructor(element) {
-    super(element);
-  }
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) rows;
+
   bind() {
-    this.size = !this.size || this.size < 1 ? 3 : this.size;
+    this.placeholder = this.placeholder || "enter value";
+    this._options = Object.assign(this._defaultOptions, this._options);
+    this.rows = !this.rows || this.rows < 1 ? 3 : this.rows;
+  } 
+
+  onBlur(event) {
+    this.editorState = STATE.VIEW;
   }
-}
+
+  onFocus(event) {
+    this.editorState = STATE.EDIT;
+    this.control = event.target;
+  }
+
+  editorStateChanged(newValue) {
+    if (this.stateChanged)
+      this.stateChanged(this);
+
+    if (this.control && this.editorState === STATE.EDIT && this._options.selectOnFocus) {
+      this.control.select();
+    }
+  }
+} 

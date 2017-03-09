@@ -41,10 +41,11 @@ export class DataForm {
     }
 
     supplierChanged(e) {
-        var selectedSupplier = e.detail;
+        var selectedSupplier = e.detail || {};
         if (selectedSupplier) {
             this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
             this.data.items = [];
+            this.resetErrorItems();
         }
 
     }
@@ -53,12 +54,14 @@ export class DataForm {
         if (selectedDivision) {
             this.data.divisionId = selectedDivision._id ? selectedDivision._id : "";
             this.data.items = [];
+            this.resetErrorItems();
         }
     }
     currencyChanged(e) {
         var selectedCurrency = e.detail || {};
         if (selectedCurrency) {
             this.data.items = [];
+            this.resetErrorItems();
         }
     }
 
@@ -67,6 +70,7 @@ export class DataForm {
         if (selectedPayment) {
             this.data.paymentMethod = selectedPayment ? selectedPayment : "";
             this.data.items = [];
+            this.resetErrorItems();
         }
     }
 
@@ -75,6 +79,7 @@ export class DataForm {
         if (selectedCategory) {
             this.data.categoryId = selectedCategory._id ? selectedCategory._id : "";
             this.data.items = [];
+            this.resetErrorItems();
         }
     }
 
@@ -85,6 +90,7 @@ export class DataForm {
         if (selectedVat) {
             this.data.vatRate = selectedVat.rate ? selectedVat.rate : 0;
             this.data.items = [];
+            this.resetErrorItems();
         }
     }
 
@@ -100,6 +106,14 @@ export class DataForm {
         this.data.items = [];
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = null;
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
     }
 
 } 

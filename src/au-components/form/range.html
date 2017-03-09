@@ -1,7 +1,0 @@
-<template>
-  <require from="./_layout"></require>
-  <au-layout options.bind="options" label.bind="label" error.bind="error">
-    <input type="range" value.bind="value" class="form-control" if.bind="!readOnly" step.bind="step" min.bind="min" max.bind="max" />
-    <p class="form-control-static" if.bind="readOnly">${value}</p>
-  </au-layout>
-</template>

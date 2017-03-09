@@ -1,5 +1,6 @@
 <template>
   <require from="./_input"></require>
+<<<<<<< HEAD
   <require from="../../../lib/number-format-value-converter"></require>
   <require from="./custom-attributes/dynamic-attribute-custom-attribute"></require>
   <require from="./custom-attributes/select-on-focus-custom-attribute"></require>
@@ -15,4 +16,7 @@
 
     </template>
     <au-input>
+=======
+  <au-input view-model.ref="input" type="text" value.bind="value" options.bind="options" read-only.bind="readOnly" error.bind="error" label.bind="label" placeholder.bind="placeholder" input-options.one-way="inputOptions" statechange.delegate="stateChangeCallback($event)"><au-input> 
+>>>>>>> 273ef1284e3ce96e54163e8a36c01a4d9e73e181
 </template>

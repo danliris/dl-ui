@@ -1,5 +1,5 @@
 import React from 'react';
- 
+
 import PurchaseOrderExternalAutoSuggestReactPosted from '../../auto-suggests/react/purchase-order-external-auto-suggest-react-posted.jsx';
 import DeliveryOrderItemFulfillmentReact from './delivery-order-item-fulfillment-react.jsx';
 
@@ -77,11 +77,30 @@ export default class DeliveryOrderItemReact extends React.Component {
         value.fulfillments = doFulfillments.length > 0 ? doFulfillments : fulfillments;
 
         if (doFulfillments.length > 0) {
-            for (var fulfillment of doFulfillments) {
-                for (poItem of fulfillment.purchaseOrder.items) {
-                    if (poItem.product._id.toString() === fulfillment.product._id.toString()) {
-                        fulfillment.remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity + fulfillment.deliveredQuantity;
-                        break;
+            if (props.options.isEdit) {
+                for (var fulfillment of doFulfillments) {
+                    var poItem = fulfillment.purchaseOrder.items.find((_poItem) => _poItem.product._id.toString() === fulfillment.product._id.toString());
+                    var qty = 0;
+                    if (poItem) {
+                        qty = poItem.fulfillments
+                            .map((fulfillment) => fulfillment.deliveryOrderDeliveredQuantity)
+                            .reduce((prev, curr, index) => {
+                                if (index === (poItem.fulfillments.length - 1)) {
+                                    return prev + 0
+                                } else {
+                                    return prev + curr
+                                }
+                            }, 0);
+                    }
+                    fulfillment.remainingQuantity = poItem.dealQuantity - qty;
+                }
+            } else {
+                for (var fulfillment of doFulfillments) {
+                    for (poItem of fulfillment.purchaseOrder.items) {
+                        if (poItem.product._id.toString() === fulfillment.product._id.toString()) {
+                            fulfillment.remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
+                            break;
+                        }
                     }
                 }
             }

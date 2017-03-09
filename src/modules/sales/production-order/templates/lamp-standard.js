@@ -3,8 +3,12 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
 export class LampStandard {
+
+  @bindable lampStandard;
+
   activate(context) {
     this.data = context.data;
+    this.lampStandard = this.data.lampStandard;
     this.error = context.error;
     this.options = context.options;
   }
@@ -15,9 +19,15 @@ export class LampStandard {
     }
   }
 
-  setLampStandardId(event) {
-    var lampStandard = event.detail;
-    this.data.lampStandardId = lampStandard._id;
+  lampStandardChanged(newValue){
+    if (newValue){
+      this.data.lampStandard = newValue;
+      this.data.lampStandardId = newValue._id;
+    }
+    else{
+      this.data.lampStandard = {};
+      this.data.lampStandardId = {};
+    }
   }
 
   get loader() {
