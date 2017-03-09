@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"A2":1,"C9":1},
+            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"F1":1, "F2":1, "C9":1},
+            permission: { "F1": 1, "F2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +34,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"A2":1,"C9":1},
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/weaving-sales-contract',
+        name: 'weaving-sales-contract',
+        moduleId: './modules/sales/weaving-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract - Weaving',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
