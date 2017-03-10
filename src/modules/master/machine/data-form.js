@@ -11,15 +11,16 @@ export class DataForm {
 
   @bindable title;
 
-  @bindable cancel;
-  @bindable delete;
-  @bindable save;
-  @bindable edit;
-
   machineEventColumns = [
     { header: "No", value: "no" },
     { header: "Name", value: "name" },
   ]
+
+  bind(context) {
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
+  }
 
   get addMachineEvent() {
     return (event) => {
@@ -52,5 +53,4 @@ export class DataForm {
   get machineTypeLoader(){
     return MachineTypeLoader;
   }
-
 } 

@@ -61,7 +61,7 @@ export class _Layout {
     if (this.hasError)
       style.group += ` has-error`;
     if (this.hasLabel)
-      style.label = `col-sm-${this._label.length} text-${this._label.align} control-label`;
+      style.label = `col-sm-${this._label.length} text-${this._label.align} au-layout control-label`;
 
     style.control = `col-sm-${this._control.length}`;
     // console.log(`${this.label} : ${JSON.stringify(this._label)} : ${JSON.stringify(style)} : ${this.hasLabel}`)
