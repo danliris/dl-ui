@@ -17,6 +17,13 @@ export class DataForm {
   @bindable isEdit;
   @bindable isView;
 
+  formOptions = { 
+    cancelText : "Kembali",
+    saveText : "Simpan",
+    editText : "Ubah",
+    deleteText : "Hapus",
+  };
+
   constructor(bindingEngine, service, element) {
       this.bindingEngine = bindingEngine;
       this.service = service;
@@ -28,7 +35,6 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     this.data.carts = this.data.carts || [];
-    this.instruction = this.data.instruction || {};
 
     if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0){
         this.productionOrderDetails = this.data.productionOrder.details;
