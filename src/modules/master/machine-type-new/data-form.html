@@ -24,13 +24,23 @@
       read-only.bind="readOnly"
     ></au-multiline>
 
-    <au-collection
+    <!--<au-collection
       items.bind="data.indicators"
       columns.bind="listIndicatorsColumns"
       add.bind="addListIndicators"
       remove.bind="removeListIndicators"
       title="Indicator"
       read-only.bind="readOnly"
+    ></au-collection>-->
+
+    <au-collection 
+      items.bind="data.indicators"
+      columns.bind="listIndicatorsColumns"
+      add.bind="addListIndicators"
+      remove.bind="removeListIndicators" 
+      title="Indicator"
+      read-only.bind="readOnly"
+      item-template="modules/master/machine-type-new/template/list-item"
     ></au-collection>
 
   </au-input-form>
