@@ -16,30 +16,34 @@ export class Create {
 
   bind(){
     this.data = this.data || {};
+    this.error = {};
   }
 
-  get list() {
-    return (event) => this.router.navigateToRoute('list');
+  cancelCallback(event) {
+    this.router.navigateToRoute('list');
   }
 
-  get save() {
-    return (event) => {
-      var createPromise = [];
-      this.data.productionOrderId = this.data.productionOrder._id || {};
-      this.data.instructionId = this.data.instruction._id || {};
-      for (var cart of this.data.carts){
-        this.data.cart = cart;
-        createPromise.push(this.service.create(this.data))
-      }
+  saveCallback(event) {
+    var createPromise = [];
+    this.data.productionOrderId = this.data.productionOrder ? this.data.productionOrder._id : {};
+    this.data.instructionId = this.data.instruction ? this.data.instruction._id : {};
 
-      return Promise.all(createPromise)
-        .then(responses => {
-          this.list();
-        })
-        .catch(e => {
-          delete this.data.cart;
-          this.error = e;
-        })
+    for (var cart of this.data.carts){
+      this.data.cart = cart;
+      createPromise.push(this.service.create(this.data));
     }
-  }
+
+    if (createPromise.length <= 0){
+      createPromise.push(this.service.create(this.data));
+    }
+
+    Promise.all(createPromise)
+      .then(responses => {
+        this.cancelCallback();
+      })
+      .catch(e => {
+        delete this.data.cart;
+        this.error = e;
+      })
+  }    
 }

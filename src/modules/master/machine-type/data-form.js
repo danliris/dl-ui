@@ -8,9 +8,7 @@ export class DataForm {
         "readOnly": false,
         "isMaster": true
     }
-
-
-
+ 
     constructor() {
 
     }

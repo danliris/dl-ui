@@ -1,10 +1,8 @@
 <template>
   <au-input-form 
-    title.bind="title" 
-    cancel.bind="cancel" 
-    edit.bind="edit" 
-    save.bind="save" 
-    delete.bind="delete">
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions">
 
     <production-order-auto-suggest 
       label="Nomor Order" 
@@ -144,14 +142,13 @@
     </div>
 
     <au-autocomplete 
-      value.bind="data.instruction" 
+      value.bind="instruction" 
       error.bind="error.instruction"
       label="Instruksi" 
       loader.bind="instructionLoader"
       placeholder="search instruction" 
       key="code"
       text="name"
-      change.delegate="onInstructionChanged($event)"
       read-only.bind="readOnly"
       options.bind="controlOptions">
     </au-autocomplete>

@@ -2,12 +2,17 @@
   <form class="form-horizontal">
     <h3 if.bind="title">${title}</h3>
     <hr/>
-    <slot></slot> 
+    <slot>
+
+    </slot>
     <div class="btn-group pull-right">
-      <button class="btn btn-default" click.delegate="oncancel($event)" if.one-way="buttons.cancel">Cancel</button>
-      <button class="btn btn-primary" click.delegate="onedit($event)" if.one-way="buttons.edit">Edit</button>
-      <button class="btn btn-success" click.delegate="onsave($event)" if.one-way="buttons.save">Save</button>
-      <button class="btn btn-danger" click.delegate="ondelete($event)" if.one-way="buttons.delete">Delete</button>
+      <button class="btn btn-default" click.delegate="oncancel($event)" if.one-way="hasCancel">${__currentOptions.cancelText}</button>
+      <button class="btn btn-primary" click.delegate="onedit($event)" if.one-way="hasEdit">${__currentOptions.editText}</button>
+      <button class="btn btn-success" click.delegate="onsave($event)" if.one-way="hasSave">${__currentOptions.saveText}</button>
+      <button class="btn btn-danger" click.delegate="ondelete($event)" if.one-way="hasDelete">${__currentOptions.deleteText}</button>
+      <slot name="actions">
+
+      </slot>
     </div>
   </form>
 </template>

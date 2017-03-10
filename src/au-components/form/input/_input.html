@@ -1,8 +1,18 @@
 <template>
-  <require from="../_layout"></require> 
-  <require from="./custom-attributes/input-options-custom-attribute"></require>
+  <require from="../_layout"></require>
+  <require from="./custom-attributes/dynamic-attribute-custom-attribute"></require>
+  <require from="./custom-attributes/select-on-focus-custom-attribute"></require>
   <au-layout options.bind="options" label.bind="label" error.bind="error">
-    <input ref="element" type.bind="type" value.bind="editorValue" placeholder.bind="placeholder" class="form-control" if.bind="!readOnly" focus.trigger="onFocus($event)" blur.trigger="onBlur($event)" input-options="options.bind: inputOptions" />
+    <!--<template with-bind="$this">-->
+      <template replaceable part="input">
+        <input ref="element" type.bind="type" value.bind="value" placeholder.bind="placeholder" class="form-control" if.bind="!readOnly"
+          focus.trigger="onFocus($event)" blur.trigger="onBlur($event)" dynamic-attribute="options.bind: inputOptions" select-on-focus.one-way="select"
+        />
+      </template>
+    <!--</template>-->
+    <!--<slot>-->
+
+    <!--</slot>-->
     <p class="form-control-static" if.bind="readOnly">${value}</p>
   </au-layout>
 </template>
