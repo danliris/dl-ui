@@ -13,7 +13,7 @@ export class _Layout {
   }
 
   bind(context) {
-
+  
   }
 
   @computedFrom("error")
@@ -53,7 +53,7 @@ export class _Layout {
   @computedFrom("hasLabel", "hasError", "_label.length", "_label.align", "_control.length")
   get _style() {
     var style = {
-      group: "form-group",
+      group: "au-layout form-group",
       label: "",
       control: `col-sm-${this._control.length}`
     };

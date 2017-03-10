@@ -16,27 +16,29 @@
             <th if.bind="!readOnly && buttons.add"><button click.delegate="onadd($event)" class="btn btn-success pull-right">+</button></th>
           </tr>
         </thead>
-        <thead if.bind="headerTemplate && __hasColumns" as-element="compose" view="${headerTemplate}.html" view-model="${headerTemplate}" model.bind="context"></thead>
+        <thead if.bind="headerTemplate && __hasColumns" as-element="compose" view="${headerTemplate}.html" view-model="${headerTemplate}"
+          model.bind="context"></thead>
       </template>
       <!--/THEAD-->
 
-        <tbody>
+      <tbody>
 
-          <!--no-columns-->
-          <tr if.bind="!__hasColumns">
-            <td>
-              <div class="alert alert-error">cannot display data with empty columns.</div>
-            </td>
-          </tr>
-          <!--No data to display-->
-          <tr if.bind="__hasColumns && !__hasItems">
-            <td colspan="${columns.length + (!readOnly && buttons.remove ? 1 : 0)}">
-              <div class="alert alert-info"> No data.</div>
-            </td>
-          </tr>
+        <!--no-columns-->
+        <tr if.bind="!__hasColumns">
+          <td>
+            <div class="alert alert-error">cannot display data with empty columns.</div>
+          </td>
+        </tr>
+        <!--No data to display-->
+        <tr if.bind="__hasColumns && !__hasItems">
+          <td colspan="${columns.length + (!readOnly && buttons.remove ? 1 : 0)}">
+            <div class="alert alert-info"> No data.</div>
+          </td>
+        </tr>
 
-          <!--default-->
-          <tr if.bind="!itemTemplate && __hasColumns" repeat.for="item of __items">
+        <!--default-->
+        <tr if.bind="!itemTemplate && __hasColumns" repeat.for="item of __items">
+          <template with.bind="item">
             <template replaceable part="item">
               <td repeat.for="column of __columns">
                 <au-textbox value.bind="item.data[column.value]" error.bind="item.error[column.value]" read-only.bind="item.options.readOnly"
@@ -44,17 +46,18 @@
               </td>
               <td if.bind="!readOnly && buttons.remove"><button click.delegate="onremove(data[$index].data)">Remove</button></td>
             </template>
-          </tr>
+          </template>
+        </tr>
 
-          <!--with-template-->
-          <tr if.bind="itemTemplate" repeat.for="item of context.items" as-element="compose" view="${itemTemplate}.html" view-model="${itemTemplate}"
-            model.bind="context.items[$index]"></tr>
+        <!--with-template-->
+        <tr if.bind="itemTemplate" repeat.for="item of context.items" as-element="compose" view="${itemTemplate}.html" view-model="${itemTemplate}"
+          model.bind="context.items[$index]"></tr>
 
-        </tbody>
+      </tbody>
 
-        <tfoot if.bind="footerTemplate" as-element="compose" view="${footerTemplate}.html" view-model="${footerTemplate}" model.bind="context">
+      <tfoot if.bind="footerTemplate" as-element="compose" view="${footerTemplate}.html" view-model="${footerTemplate}" model.bind="context">
 
-        </tfoot>
+      </tfoot>
     </table>
   </div>
 </template>
