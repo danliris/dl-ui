@@ -10,10 +10,7 @@ export class Table {
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }
-<<<<<<< HEAD
-  tChanged(a, b) {
-    console.log(a);
-=======
+
   @computedFrom("context")
   get __context() {
     if (this.context && this.context.constructor === Array) {
@@ -44,7 +41,7 @@ export class Table {
   attached() {
     this.contextShow = this.contextShow ? this.contextShow : () => true;
     this.__init();
->>>>>>> refs/remotes/danliris/dev
+
   }
 
   bind() {

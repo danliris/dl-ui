@@ -32,11 +32,6 @@ export class Create {
         .catch(e => {
           this.error = e;
         })
-<<<<<<< HEAD
-    }
-  }
-}
-=======
   }  
 }
->>>>>>> refs/remotes/danliris/dev
+
