@@ -12,11 +12,8 @@ export class DataForm {
   @bindable title;
 
   @bindable productionOrderDetails = [];
+  @bindable instruction;
 
-  @bindable cancel;
-  @bindable delete;
-  @bindable save;
-  @bindable edit;
   @bindable isEdit;
   @bindable isView;
 
@@ -26,14 +23,22 @@ export class DataForm {
       this.element = element;
   }
 
-  bind() {
-    this.data = this.data || {};
+  bind(context) {
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
     this.data.carts = this.data.carts || [];
+    this.instruction = this.data.instruction || {};
 
     if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0){
         this.productionOrderDetails = this.data.productionOrder.details;
         this._mapProductionOrderDetail();
     }
+
+    this.cancelCallback = this.context.cancelCallback;
+    this.deleteCallback = this.context.deleteCallback;
+    this.editCallback = this.context.editCallback;
+    this.saveCallback = this.context.saveCallback; 
   }
 
   controlOptions = {
@@ -96,7 +101,19 @@ export class DataForm {
         cart.uom = '';
       }
       delete this.data.productionOrder;
+      delete this.data.productionOrderId;
       delete this.data.selectedProductionOrderDetail;
+    }
+  }
+
+  instructionChanged(newValue){
+    if (newValue){
+      this.data.instruction = newValue;
+      this.data.instructionId = newValue._id;
+    }
+    else{
+      delete this.data.instruction;
+      delete this.data.instructionId;
     }
   }
 
