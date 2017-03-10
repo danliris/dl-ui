@@ -1,0 +1,13 @@
+<template>
+    <h1 class="page-header">Rincian Sales Contract - Spinning</h1>
+    <require from="./data-form"></require>
+    <block>
+        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="back()">Kembali</button>
+            <button class="btn btn-success" click.delegate="edit()">Ubah</button>
+            <button class="btn btn-success" click.delegate="delete()">hapus</button>
+        </div>
+    </block>
+</template>
