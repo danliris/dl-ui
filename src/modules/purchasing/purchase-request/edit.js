@@ -15,15 +15,19 @@ export class Edit {
         this.data = await this.service.getById(id);
     }
 
-    view() {
-        this.router.navigateToRoute('view', { id: this.data._id });
+    get view() {
+        return () => {
+            this.router.navigateToRoute('view', { id: this.data._id });
+        }
     }
 
-    save() {
-        this.service.update(this.data).then(result => {
-            this.view();
-        }).catch(e => {
-            this.error = e;
-        })
+    get save() {
+        return () => {
+            this.service.update(this.data).then(result => {
+                this.view();
+            }).catch(e => {
+                this.error = e;
+            })
+        }
     }
 }
