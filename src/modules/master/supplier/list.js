@@ -53,12 +53,4 @@ export class List {
         break;
     }
   }
-
-  create() {
-    this.router.navigateToRoute('create');
-  }
-
-  upload() {
-    this.router.navigateToRoute('upload');
-  } 
 } 
