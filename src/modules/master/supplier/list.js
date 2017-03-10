@@ -1,41 +1,56 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    data = [];
-    info = { page: 1, keyword: '' };
+  context = ["detail"];
+  columns = [
+    { field: "code", title: "Kode" },
+    { field: "name", title: "Nama" },
+    { field: "address", title: "Alamat" },
+    { field: "NPWP", title: "NPWP" },
+    {
+      field: "import", title: "Import",
+      formatter: function (value, row, index) {
+        return value ? "YA" : "TIDAK";
+      }
+    }
+  ];
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
+  loader = (info) => {
+    var order = {};
+    if (info.sort)
+      order[info.sort] = info.order;
+
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
     }
 
-    async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        this.data = result.data;
-        this.info = result.info;
-    }
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+  }
 
-    loadPage() {
-        var keyword = this.info.keyword;
-        this.service.search(this.info)
-            .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-                this.info.keyword = keyword;
-            })
-    }
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
 
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.loadPage();
-    }
-
-    view(data) {
+  contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "detail":
         this.router.navigateToRoute('view', { id: data._id });
+        break;
     }
-}
+  }
+} 
