@@ -26,6 +26,39 @@ export class Collection {
   @bindable remove;
 
 
+  @computedFrom("columns")
+  get __columns() {
+    if (!this.__hasColumns)
+      return [];
+
+    return this.columns.map(column => {
+      var columnType = typeof column;
+      if (columnType !== "string" && columnType !== "object")
+        throw "only string or object type allowed as a column";
+
+      if (columnType === "string")
+        return { header: column, value: column };
+      else
+        return column;
+    });
+  }
+
+  @computedFrom("columns", "columns.length")
+  get __hasColumns() {
+    return this.columns.constructor === Array && this.columns.length > 0;
+    // return this.__columns.length > 0;
+  }
+
+  @computedFrom("context", "context.items", "context.items.length")
+  get __items() {
+    return this.context.items;
+  }
+
+  @computedFrom("__items", "__items.length")
+  get __hasItems() {
+    return this.__items.constructor === Array && this.__items.length > 0;
+  }
+
   @computedFrom("add", "remove")
   get buttons() {
     var buttons = {
@@ -55,7 +88,9 @@ export class Collection {
 
   buildContext() {
     this.context = this.context || {};
-    this.data = this.items.map((item, index) => {
+    this.context.columns = this.columns;
+    this.context.options = this.options;
+    this.context.items = this.items.map((item, index) => {
       var error = this.error ? this.error[0] : null;
       return {
         data: item,
@@ -66,10 +101,6 @@ export class Collection {
         context: this.context
       }
     });
-
-    this.context.columns = this.columns;
-    this.context.items = this.data;
-    this.context.options = this.options;
   }
 
   onadd(event) {
