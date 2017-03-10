@@ -3,6 +3,7 @@ export function configure(config) {
   config.globalResources(
     './form/autocomplete/autocomplete',
     './form/collection/collection',
+    './form/checkbox',
     './form/dropdown',
     './form/multiline',
     './form/_layout', 

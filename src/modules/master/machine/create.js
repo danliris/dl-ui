@@ -5,6 +5,9 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Create {
+  hasCancel = true;
+  hasSave = true;
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -16,22 +19,18 @@ export class Create {
 
   bind(){
     this.data = { machineEvents:[] };
+    this.error = {};
   }
-
-  get list() {
-    return (event) => this.router.navigateToRoute('list');
+  cancel(event) {
+    this.router.navigateToRoute('list');
   }
-
-  get save() {
-    return (event) => {
-
-      this.service.create(this.data)
+  save(event) {
+    this.service.create(this.data)
         .then(result => {
-          this.list();
+          this.cancel();
         })
         .catch(e => {
           this.error = e;
         })
-    }
-  }
+  }  
 }
