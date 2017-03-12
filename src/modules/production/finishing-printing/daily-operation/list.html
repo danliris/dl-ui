@@ -20,7 +20,7 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Step</th>
+                <th>Step / Proses</th>
                 <th>Mesin</th>
                 <th>Shift</th>
                 <th>No Order Produksi</th>
@@ -35,7 +35,7 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data">
-                <td>${item.machine.step.process}</td>
+                <td>${item.step.process}</td>
                 <td>${item.machine.name}</td>
                 <td>${item.shift}</td>
                 <td>${item.kanban.productionOrder.orderNo}</td>

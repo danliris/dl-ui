@@ -34,21 +34,21 @@ export class List {
                 })
     }
     
-    kanbanChanged(e){
-        var selectedKanban = e.detail;
-        if(selectedKanban){
-            this.kanbanId = selectedKanban._id;
-            if(selectedKanban.instruction){
-                var steps = [];
-                for(var step of selectedKanban.instruction.steps){
-                    steps.push(step.process);
-                }
-                this.filterMachine = {
-                    "step.process" : { "$in" : steps }
-                };
-            }
-        }
-    }
+    // kanbanChanged(e){
+    //     var selectedKanban = e.detail;
+    //     if(selectedKanban){
+    //         this.kanbanId = selectedKanban._id;
+    //         if(selectedKanban.instruction){
+    //             var steps = [];
+    //             for(var step of selectedKanban.instruction.steps){
+    //                 steps.push(step.process);
+    //             }
+    //             this.filterMachine = {
+    //                 "step.process" : { "$in" : steps }
+    //             };
+    //         }
+    //     }
+    // }
 
     reset() {
         this.dateFrom = null;

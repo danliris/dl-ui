@@ -43,7 +43,7 @@ export function configure(config) {
         //'./customs/auto-suggests/color-auto-suggest-by-production-order',
         './customs/auto-suggests/instruction-auto-suggest-by-filter',
         './customs/auto-suggests/production-order-auto-suggest',
-        './customs/auto-suggests/step-auto-suggest-by-filter',
+        './customs/auto-suggests/step-auto-suggest',
         './customs/auto-suggests/order-type-auto-suggest',
         './customs/auto-suggests/process-type-auto-suggest',
         './customs/auto-suggests/material-construction-auto-suggest',
