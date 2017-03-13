@@ -1,8 +1,8 @@
 module.exports = [
     {
-        route: 'buyers-new',
-        name: 'buyers-new',
-        moduleId: './modules/master/buyer-new/index',
+        route: 'buyers',
+        name: 'buyers',
+        moduleId: './modules/master/buyer/index',
         nav: true,
         title: 'Buyer',
         auth: true,
@@ -13,9 +13,9 @@ module.exports = [
         }
     },
     {
-        route: 'suppliers/budgeting-new',
-        name: 'suppliers/budgeting-new',
-        moduleId: './modules/master/supplier-budgeting-new/index',
+        route: 'suppliers/budgeting',
+        name: 'suppliers/budgeting',
+        moduleId: './modules/master/supplier-budgeting/index',
         nav: true,
         title: 'Supplier',
         auth: true,
@@ -26,22 +26,9 @@ module.exports = [
         }
     },
     {
-        route: 'suppliers/budgeting',
-        name: 'suppliers/budgeting',
-        moduleId: './modules/master/supplier-budgeting/index',
-        nav: true,
-        title: '*Supplier',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "C5": 1, "C9": 1, "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'suppliers-new',
-        name: 'suppliers-new',
-        moduleId: './modules/master/supplier-new/index',
+        route: 'suppliers',
+        name: 'suppliers',
+        moduleId: './modules/master/supplier/index',
         nav: true,
         title: 'Supplier',
         auth: true,
@@ -52,9 +39,9 @@ module.exports = [
         }
     },
     {
-        route: 'uoms-new',
-        name: 'uoms-new',
-        moduleId: './modules/master/uom-new/index',
+        route: 'uoms',
+        name: 'uoms',
+        moduleId: './modules/master/uom/index',
         nav: true,
         title: 'Satuan Baru',
         auth: true,
@@ -65,9 +52,9 @@ module.exports = [
         }
     },
     {
-        route: 'products/budgeting-new',
-        name: 'products/budgeting-new',
-        moduleId: './modules/master/product-budgeting-new/index',
+        route: 'products/budgeting',
+        name: 'products/budgeting',
+        moduleId: './modules/master/product-budgeting/index',
         nav: true,
         title: 'Barang',
         auth: true,
@@ -78,9 +65,9 @@ module.exports = [
         }
     },
     {
-        route: 'products-new',
-        name: 'products-new',
-        moduleId: './modules/master/product-new/index',
+        route: 'products',
+        name: 'products',
+        moduleId: './modules/master/product/index',
         nav: true,
         title: 'Barang',
         auth: true,
@@ -91,9 +78,9 @@ module.exports = [
         }
     },
     {
-        route: 'vats-new',
-        name: 'vats-new',
-        moduleId: './modules/master/vat-new/index',
+        route: 'vats',
+        name: 'vats',
+        moduleId: './modules/master/vat/index',
         nav: true,
         title: 'Pajak PPH',
         auth: true,
@@ -104,9 +91,9 @@ module.exports = [
         }
     },
     {
-        route: 'budgets-new',
-        name: 'budgets-new',
-        moduleId: './modules/master/budget-new/index',
+        route: 'budgets',
+        name: 'budgets',
+        moduleId: './modules/master/budget/index',
         nav: true,
         title: 'Budget',
         auth: true,
@@ -117,9 +104,9 @@ module.exports = [
         }
     },
     {
-        route: 'currencies-new',
-        name: 'currencies-new',
-        moduleId: './modules/master/currency-new/index',
+        route: 'currencies',
+        name: 'currencies',
+        moduleId: './modules/master/currency/index',
         nav: true,
         title: 'Mata Uang',
         auth: true,
@@ -130,9 +117,9 @@ module.exports = [
         }
     },
     {
-        route: 'divisions-new',
-        name: 'divisions-new',
-        moduleId: './modules/master/division-new/index',
+        route: 'divisions',
+        name: 'divisions',
+        moduleId: './modules/master/division/index',
         nav: true,
         title: 'Divisi',
         auth: true,
@@ -143,9 +130,9 @@ module.exports = [
         }
     },
     {
-        route: 'categories-new',
-        name: 'categories-new',
-        moduleId: './modules/master/category-new/index',
+        route: 'categories',
+        name: 'categories',
+        moduleId: './modules/master/category/index',
         nav: true,
         title: 'Kategori',
         auth: true,
@@ -156,9 +143,9 @@ module.exports = [
         }
     },
     {
-        route: 'units-new',
-        name: 'units-new',
-        moduleId: './modules/master/unit-new/index',
+        route: 'units',
+        name: 'units',
+        moduleId: './modules/master/unit/index',
         nav: true,
         title: 'Unit',
         auth: true,
@@ -173,19 +160,6 @@ module.exports = [
         route: 'machine-types',
         name: 'machine-types',
         moduleId: './modules/master/machine-type/index',
-        nav: true,
-        title: 'Jenis Mesin',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'machine-types-new',
-        name: 'machine-types-new',
-        moduleId: './modules/master/machine-type-new/index',
         nav: true,
         title: '*Jenis Mesin',
         auth: true,

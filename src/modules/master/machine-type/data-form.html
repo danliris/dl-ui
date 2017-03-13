@@ -1,14 +1,39 @@
 <template>
-    <form class="form-horizontal">
+  <au-input-form 
+    title.bind="title"
+    with.bind="context">
 
-        <fieldset>
-       
-        <textbox label="Nama" value.bind="data.name" placeholder="input nama jenis mesin" error.bind="error.name"  options.bind="Options"> </textbox>
-        </fieldset>
-        <hr />
-        <multiline label="Deskripsi" value.bind="data.description" error.bind="error.description" options.bind="Options" ></multiline>
-        <hr />
-        <machine-type-indicator-collection value.bind="data.indicators" error.bind="error.indicators" options.bind="Options" ></machine-type-indicator-collection>
+    <au-textbox
+      label="Kode"
+      value.bind="data.code"
+      error.bind="error.code"
+      read-only.bind="true"
+    ></au-textbox>
 
-    </form>
+    <au-textbox
+      label="Nama"
+      value.bind="data.name"
+      error.bind="error.name"
+      read-only.bind="readOnly"
+    ></au-textbox>
+
+    <au-multiline 
+      label="Deskripsi"
+      value.bind="data.description"
+      error.bind="error.description"
+      read-only.bind="readOnly"
+    ></au-multiline>
+
+    <au-collection 
+      items.bind="data.indicators"
+      columns.bind="listIndicatorsColumns"
+      add.bind="addListIndicators"
+      remove.bind="removeListIndicators" 
+      title="Indicator"
+      read-only.bind="readOnly"
+      item-template="modules/master/machine-type-new/template/list-item"
+    ></au-collection>
+
+  </au-input-form>
 </template>
+

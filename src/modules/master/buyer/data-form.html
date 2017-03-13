@@ -1,13 +1,73 @@
 <template>
-    <form class="form-horizontal">
-        <textbox    label="Code"    value.bind="data.code"      error.bind="error.code"     read-only.bind="(readOnly || isEdit)"></textbox>
-        <textbox    label="Nama"    value.bind="data.name"      error.bind="error.name"     read-only.bind="readOnly"></textbox>
-        <multiline  label="Alamat"  value.bind="data.address"   error.bind="error.address"  read-only.bind="readOnly"></multiline>
-        <textbox    label="Kota"    value.bind="data.city"      error.bind="error.city"     read-only.bind="readOnly"></textbox>
-        <dropdown   label="Negara"  value.bind="data.country"   error.bind="error.country"  read-only.bind="readOnly"   items.bind="countries"></dropdown>
-        <textbox    label="Kontak"  value.bind="data.contact"   error.bind="error.contact"  read-only.bind="readOnly"></textbox>
-        <numeric    label="Tempo"   value.bind="data.tempo"     error.bind="error.tempo"    read-only.bind="readOnly"></numeric>
-        <textbox    label="NPWP"    value.bind="data.npwp"      error.bind="error.npwp"     read-only.bind="readOnly"></textbox>
-        <dropdown   label="Jenis Buyer"  value.bind="data.type"   error.bind="error.type"   read-only.bind="readOnly"   items.bind="types"></dropdown>
-    </form>
+    <au-input-form 
+      title.bind="title"
+      with.bind="context"
+    >
+
+    <au-textbox 
+      label="Code"
+      value.bind="data.code"
+      error.bind="error.code"
+      read-only.bind="(readOnly || isEdit)"
+    ></au-textbox>
+
+    <au-textbox 
+      label="Nama"
+      value.bind="data.name"
+      error.bind="error.name"
+      read-only.bind="readOnly"
+    ></au-textbox>
+
+    <au-multiline 
+      label="Alamat"
+      value.bind="data.address"
+      error.bind="error.address"
+      read-only.bind="readOnly"
+    ></au-multiline>
+
+    <au-textbox 
+      label="Kota"
+      value.bind="data.city"
+      error.bind="error.city"
+      read-only.bind="readOnly"
+    ></au-textbox>
+
+    <au-dropdown
+      label="Negara"
+      value.bind="data.country"
+      error.bind="error.country"
+      read-only.bind="readOnly"
+      items.bind="countries"
+    ></au-dropdown>
+
+    <au-textbox 
+      label="Kontak"
+      value.bind="data.contact"
+      error.bind="error.contact"
+      read-only.bind="readOnly"
+    ></au-textbox>
+
+    <au-numeric
+      label="Tempo"
+      value.bind="data.tempo"
+      error.bind="error.tempo"
+      read-only.bind="readOnly"
+    ></au-numeric>
+
+    <au-textbox 
+      label="NPWP"
+      value.bind="data.npwp"
+      error.bind="error.npwp"
+      read-only.bind="readOnly"
+    ></au-textbox>
+
+    <au-dropdown
+      label="Jenis Buyer"
+      value.bind="data.type"
+      error.bind="error.type"
+      read-only.bind="readOnly"
+      items.bind="types"
+    ></au-dropdown>
+
+
 </template>

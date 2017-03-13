@@ -63,7 +63,7 @@ export class Table {
 
 
   attached() {
-    this.showContext = this.showContext ? this.showContext : () => true;
+    this.contextShow = this.contextShow ? this.contextShow : () => true;
     this.__init();
   }
 
