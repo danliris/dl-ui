@@ -1,14 +1,15 @@
-import {inject, bindable,computedFrom} from 'aurelia-framework';
+import { inject, bindable,computedFrom } from 'aurelia-framework';
 
 export class DataForm {
     @bindable title;
-    @bindable readOnly = false;
-    @bindable data = {};
-    @bindable error = {};
-
-    constructor() {
-
+    @bindable readOnly;
+    formOptions = {
+      cancelText: "Batal",
+      saveText: "Simpan",
+      deleteText: "Hapus",
+      editText: "Ubah",
     }
+
      @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
@@ -24,12 +25,4 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
-
-    activate() {
-         
-    }
-
-    attached() { 
-        
-    } 
 } 

@@ -1,7 +1,8 @@
 <template>
 <au-input-form 
   title.bind="title"
-  with.bind="context">
+  with.bind="context"
+  options.bind="formOptions">
   
   <au-textbox 
     label="Code"
@@ -47,18 +48,19 @@
   ></au-textbox>
   
   <au-textbox 
-    label="No. Serial"
+    label="No. Seri"
     value.bind="data.serialNumber"
     error.bind="error.serialNumber"
     read-only.bind="readOnly"
   ></au-textbox>
 
-  <checkbox       
+  <au-checkbox       
     label="Import"          
     value.bind="data.import"        
     error.bind="error.import"       
     read-only.bind="readOnly">
-  </checkbox>
-  
+  </au-checkbox>
+
+  <template replaceable part="actions"></template>
   </au-input-form>
 </template>

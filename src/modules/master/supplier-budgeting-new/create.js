@@ -5,14 +5,13 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class Create {
+    @bindable data;
+    @bindable error;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
         this.data = {};
-    }
-
-    activate(params) {
-
     }
 
     list() {

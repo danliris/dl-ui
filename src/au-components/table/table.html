@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-<template> 
-  <button click.delegate="tr()">tr</button>
-  <table ref="table" class="au-table table">
-    <thead>
-      <tr>
-        <th>HEAD</th>
-      </tr>
-    </thead> 
- 
-    <tbody replaceable part="tbody">
-      <tr repeat.for="item of items" role="au-row">
-        <template replaceable part="tr">
-          <td>hello</td>
-        </template>
-      </tr>
-    </tbody>
-
-    <tfoot>
-
-    </tfoot>
-  </table>
-=======
 <template>  
   <div ref="toolbar">
     <slot name="toolbar">
@@ -36,5 +13,4 @@
   <ul id="context-menu" class="dropdown-menu" show.bind="__hasContext & signal:'context:row-changed'">
     <li repeat.for="c of __context" data-item.bind="c" show.bind="__contextShow($index, c) & signal:'context:row-changed'"><a>${c}</a></li>
   </ul>  
->>>>>>> refs/remotes/danliris/dev
 </template>
