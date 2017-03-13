@@ -9,22 +9,19 @@ export class DataForm {
     @bindable error;
 
     @bindable title;
-    @bindable cancel;
-    @bindable delete;
-    @bindable save;
-    @bindable edit;
 
-    constructor(bindingEngine, element) {
-        this.bindingEngine = bindingEngine;
-        this.element = element;
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
     }
 
     itemsColumns = [
-    { header: "Barang", value: "product" },
-    { header: "Jumlah", value: "quantity" },
-    { header: "Satuan", value: "product.uom" },
-    { header: "Keterangan", value: "remark" }
-  ]
+        { header: "Barang", value: "product" },
+        { header: "Jumlah", value: "quantity" },
+        { header: "Satuan", value: "product.uom" },
+        { header: "Keterangan", value: "remark" }
+    ]
 
     unitChanged(e) {
         if (this.data.unit)
@@ -57,10 +54,5 @@ export class DataForm {
         return (event) => {
             this.data.items.push({})
         };
-    }
-
-    removeItem(item) {
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
     }
 }
