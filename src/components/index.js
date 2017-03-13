@@ -59,6 +59,7 @@ export function configure(config) {
         './customs/auto-suggests/quality-auto-suggest',
         './customs/auto-suggests/account-bank-auto-suggest',
         './customs/auto-suggests/kanban-auto-suggest',
+        './customs/auto-suggests/term-of-payment-auto-suggest',
 
         './customs/collections/account/role-item-collection',
         './customs/collections/role/role-permission-item-collection',
