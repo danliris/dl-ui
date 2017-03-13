@@ -152,7 +152,7 @@ export class DataForm {
           this.termOfPaymentChanged({});
           this.data.remark="";
           this.data.useIncomeTax=false;
-          this.termOfShipment="";
+          this.data.termOfShipment="";
       }
           
     }
