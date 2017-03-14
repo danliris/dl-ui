@@ -23,7 +23,7 @@
             <tr>
                 <th>Nama</th>
                 <th>Unit</th> 
-                <th>Step</th> 
+                <th>Step / Proses</th> 
                 <th>Process</th> 
                 <th>Manufacture</th> 
                 <th>Tahun</th> 
@@ -36,7 +36,7 @@
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.name}</td>
                 <td>${item.unit.name}</td>
-                <td>${item.step.process}</td>
+                <td><au-textbox repeat.for="step of item.steps" value=${step.step.process} read-only="true"></au-textbox></td>
                 <td>${item.process}</td>
                 <td>${item.manufacture}</td>
                 <td>${item.year}</td>

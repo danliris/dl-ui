@@ -6,7 +6,7 @@ import { Config } from "aurelia-api"
 const resource = 'master/comodities';
 
 const empty = {
-    code: ''
+    name: ''
 }
 
 'use strict';
@@ -20,7 +20,7 @@ export default class ComodityAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, ComodityAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code}`;
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -48,7 +48,7 @@ ComodityAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(comodity => {
                         comodity.toString = function () {
-                            return `${this.code}`;
+                            return `${this.name}`;
                         }
                         return comodity;
                     });

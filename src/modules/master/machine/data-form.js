@@ -16,6 +16,10 @@ export class DataForm {
     { header: "Name", value: "name" },
   ]
 
+  stepColumns = [
+    { header: "proses", value: "process" },
+  ]
+
   bind(context) {
     this.context = context;
     this.data = this.context.data;
@@ -27,6 +31,16 @@ export class DataForm {
       this.data.machineEvents.push({})
     };
   }
+  
+  get addStep() {
+    return (event) => {
+      this.data.steps.push({})
+    };
+  }
+
+  get removeStep() {
+    return (event) => console.log(event);
+  }
 
   unitSelected(e){
     console.log('selected')
@@ -36,9 +50,9 @@ export class DataForm {
     console.log('unit changed')
   }
 
-  stepChanged(e){
-    console.log('step changed')
-  }
+  // stepChanged(e){
+  //   console.log('step changed')
+  // }
 
   machineTypeChanged(e){
     console.log('machineType changed')
@@ -47,9 +61,9 @@ export class DataForm {
   get unitLoader(){
     return UnitLoader;
   }
-  get stepLoader(){
-    return StepLoader;
-  }
+  // get stepLoader(){
+  //   return StepLoader;
+  // }
   get machineTypeLoader(){
     return MachineTypeLoader;
   }
