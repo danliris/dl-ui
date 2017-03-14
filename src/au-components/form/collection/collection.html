@@ -51,7 +51,7 @@
 
         <!--with-template-->
         <tr if.bind="itemTemplate" repeat.for="item of context.items" as-element="compose" view="${itemTemplate}.html" view-model="${itemTemplate}"
-          model.bind="context.items[$index]"></tr>
+          model.bind="context.items[$index]" containerless></tr>
 
       </tbody>
 

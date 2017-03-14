@@ -1,12 +1,10 @@
 <template>
-  <require from="./input-form.css"></require>
-  <form class="au-input-form form-horizontal">
+  <form class="form-horizontal">
     <h3 if.bind="title">${title}</h3>
     <hr/>
     <slot>
 
     </slot>
-    <hr/>
     <div class="btn-group pull-right">
       <button class="btn btn-default" click.delegate="oncancel($event)" if.one-way="hasCancel">${__currentOptions.cancelText}</button>
       <button class="btn btn-primary" click.delegate="onedit($event)" if.one-way="hasEdit">${__currentOptions.editText}</button>
