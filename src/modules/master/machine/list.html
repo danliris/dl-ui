@@ -1,5 +1,5 @@
 <template>
-  <h1 class="page-header">Barang</h1>
+  <h1 class="page-header">Mesin</h1>
   <au-table 
   data.bind="loader" 
   columns.bind="columns" 
@@ -9,11 +9,9 @@
   context-click.delegate="contextCallback($event)">
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-success" click.delegate="create()">Buat</button>
-      <button class="btn btn-default" click.delegate="upload()">Unggah CSV</button>
     </div>
   </au-table>
 </template>
-
 
 
 

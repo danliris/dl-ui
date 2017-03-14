@@ -2,9 +2,13 @@ import {inject, bindable, computedFrom} from 'aurelia-framework';
 
 export class DataForm {
     @bindable title;
-    @bindable readOnly = false;
-    @bindable data = {};
-    @bindable error = {};
+    @bindable readOnly;
+    formOptions = {
+        cancelText: "Batal",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
 
     types=["Internal","Export", "Local"];
     countries =
@@ -28,11 +32,5 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
-
-    activate() {
-    }
-
-    attached() {
-    }
 
 }

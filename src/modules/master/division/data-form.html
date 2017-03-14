@@ -2,6 +2,7 @@
   <au-input-form 
     title.bind="title" 
     with.bind="context"
+    options.bind="formOptions"
   >
  
   <au-textbox 
@@ -11,6 +12,7 @@
       read-only.bind="readOnly">
     </au-textbox>
 
-
+  <template replaceable part="actions"></template>
+  
   </au-input-form>
 </template>

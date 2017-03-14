@@ -2,19 +2,17 @@ import {inject, bindable, computedFrom} from 'aurelia-framework';
 
 export class DataForm {
     @bindable title;
-    @bindable readOnly = false;
-    @bindable data = { "import": true };
-    @bindable error = {};
-    // @bindable Options = {
-    //     "readOnly": false,
-    //     "isMaster": true
-    // }
-
-
-
-    constructor() {
-
+    @bindable readOnly;
+    formOptions = {
+        cancelText: "Batal",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
     }
+
+
+
+   
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
@@ -31,9 +29,6 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     }
 
-    activate() {
-
-    }
 
     listIndicatorsColumns = [
       { header: "Indikator", value: "indicator" },
@@ -48,10 +43,6 @@ export class DataForm {
       return (event) => {
         this.data.indicators.push({})
       };
-    }
-
-    attached() {
-
     }
 
 

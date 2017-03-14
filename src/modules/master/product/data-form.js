@@ -2,11 +2,15 @@ import {inject, bindable, computedFrom} from 'aurelia-framework';
 
 export class DataForm {
     @bindable title;
-    @bindable readOnly = false;
-    @bindable data = {};
-    @bindable error = {};
+    @bindable readOnly;
+    formOptions = {
+        cancelText: "Batal",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
 
-    constructor() { }
+    
 
     @computedFrom("data._id")
     get isEdit() {
@@ -28,17 +32,6 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     }
 
-    activate() { }
-
-    attached() {
-    }
-
-    // bind() {
-    //     if (this.data && this.data.uom)
-    //         this.data.uom.toString = function () {
-    //             return this.unit;
-    //         };
-    // }
 
     uomChanged(e) {
         var selectedUom = e.detail;

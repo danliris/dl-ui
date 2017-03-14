@@ -6,13 +6,15 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["detail"];
     columns = [
-    { field: "code", title: "Kode" },
     { field: "name", title: "Nama" },
-    { field: "address", title: "Alamat" },
-    { field: "city", title: "Kota" },
-    { field: "country", title: "Negara" },
-    { field: "contact", title: "Kontak" },
-    { field: "tempo", title: "Tempo" },
+    { field: "unit.name", title: "Unit" },
+    { field: "step.process", title: "Step" },
+    { field: "process", title: "Proses" },
+    { field: "manufacture", title: "Manufaktur" },
+    { field: "year", title: "Tahun" },
+    { field: "condition", title: "Kondisi" },
+    { field: "machineType.name", title: "Jenis Mesin" },
+    { field: "monthlyCapacity", title: "Kapasitas Bulanan" },
   ];
 
   loader = (info) => {
@@ -39,8 +41,6 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.buyerId = "";
-        this.buyers = [];
     }
 
     contextCallback(event) {
@@ -53,12 +53,8 @@ export class List {
     }
   }
 
+
     create() {
         this.router.navigateToRoute('create');
     }
-
-    upload() {
-        this.router.navigateToRoute('upload');
-    } 
-
 }

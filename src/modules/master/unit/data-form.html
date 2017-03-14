@@ -2,6 +2,7 @@
 <au-input-form 
   title.bind="title"
   with.bind="context"
+  options.bind="formOptions"
 >
 
   <au-textbox 
@@ -24,6 +25,8 @@
     error.bind="error.name"
     read-only.bind="readOnly"
   ></au-multiline>
+
+  <template replaceable part="actions"></template>
 
 </au-input-form>
 </template>

@@ -5,9 +5,13 @@ var UomLoader = require('../../../loader/uom-loader');
 
 export class DataForm {
     @bindable title;
-    @bindable readOnly = false;
-    @bindable data = {};
-    @bindable error = {};
+    @bindable readOnly;
+    formOptions = {
+        cancelText: "Batal",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
 
     constructor() { }
 
@@ -15,10 +19,7 @@ export class DataForm {
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
-    activate() { }
-
-    attached() {
-    }
+    
 
     bind(context) {
     this.context = context;
@@ -34,13 +35,6 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
     }
-
-    // bind() {
-    //     if (this.data && this.data.uom)
-    //         this.data.uom.toString = function () {
-    //             return this.unit;
-    //         };
-    // }
 
     uomChanged(e) {
         var selectedUom = e.detail;

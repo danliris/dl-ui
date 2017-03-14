@@ -2,6 +2,7 @@
     <au-input-form 
       title.bind="title"
       with.bind="context"
+      options.bind="formOptions"
     >
 
     <au-textbox 
@@ -69,5 +70,6 @@
       items.bind="types"
     ></au-dropdown>
 
-
+    <template replaceable part="actions"></template>
+    
 </template>

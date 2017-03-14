@@ -43,7 +43,7 @@ module.exports = [
         name: 'uoms',
         moduleId: './modules/master/uom/index',
         nav: true,
-        title: 'Satuan Baru',
+        title: 'Satuan',
         auth: true,
         settings: {
             group: "master",
@@ -161,7 +161,7 @@ module.exports = [
         name: 'machine-types',
         moduleId: './modules/master/machine-type/index',
         nav: true,
-        title: '*Jenis Mesin',
+        title: 'Jenis Mesin',
         auth: true,
         settings: {
             group: "master",
@@ -169,8 +169,8 @@ module.exports = [
         }
     },
     {
-        route: 'machine',
-        name: 'machine',
+        route: 'machines',
+        name: 'machines',
         moduleId: './modules/master/machine/index',
         nav: true,
         title: 'Mesin',

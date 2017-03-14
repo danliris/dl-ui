@@ -1,7 +1,8 @@
 <template>
   <au-input-form 
     title.bind="title" 
-    with.bind="context">  
+    with.bind="context"
+    options.bind="formOptions"> 
 
     <au-textbox
       label="Kode"
@@ -51,6 +52,8 @@
       error.bind="error.description"
       read-only.bind="readOnly"
     ></au-multiline>
+
+    <template replaceable part="actions"></template>
 
   </au-input-form>
 
