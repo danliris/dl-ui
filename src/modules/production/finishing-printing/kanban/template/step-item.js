@@ -1,6 +1,10 @@
+import {bindable} from 'aurelia-framework'
 var StepLoader = require('../../../../../loader/step-loader');
 
 export class StepItem {
+
+  @bindable temp;
+
   activate(context) {
     console.log("step-Item")
     this.context = context;
@@ -21,12 +25,12 @@ export class StepItem {
     }
   };
 
-  onStepChanged($event){
-    console.log("changed");
-    Object.assign(this.context.data, this.temp);
-  }
-  onStepFocused($event){
-    console.log("focused");
+  tempChanged(newValue, oldValue){
+    console.log("temp : ");
+    console.log(this.temp);
+    console.log("newValue : ");
+    console.log(newValue);
+    Object.assign(this.context.data, newValue);
   }
 
   onItemClicked(step, event){

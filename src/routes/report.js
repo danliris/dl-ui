@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission : {"P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "C9": 1},
+            permission : {"P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "C9": 1, "PG": 7},
             iconClass: 'fa fa-dashboard'
         }
     },

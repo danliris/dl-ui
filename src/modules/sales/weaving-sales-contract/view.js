@@ -10,36 +10,36 @@ export class View {
     this.service = service;
   }
 
-    async activate(params) {
-        var id = params.id;
-        this.data = await this.service.getById(id);
+  async activate(params) {
+    var locale = 'id-ID';
+    var moment = require('moment');
+    moment.locale(locale);
 
-        this.data.accountBank.toString = function () {
-            return [this.accountName, this.bankName, this.accountNumber]
-                .filter((item, index) => {
-                    return item && item.toString().trim().length > 0;
-                }).join(" - ");
-        }
-    }
+    var id = params.id;
+    this.data = await this.service.getById(id);
+    this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');
 
-  get list() {
-    return () => {
-      this.router.navigateToRoute('list');
-    };
-  }
 
-  get edit() {
-    return () => {
-      this.router.navigateToRoute('edit', { id: this.data._id });
+    this.data.accountBank.toString = function () {
+      return [this.accountName, this.bankName, this.accountNumber]
+        .filter((item, index) => {
+          return item && item.toString().trim().length > 0;
+        }).join(" - ");
     }
   }
 
-  get delete() {
-    return () => {
-      this.service.delete(this.data)
-        .then(result => {
-          this.list();
-        });
-    }
+  cancelCallback(event) {
+    this.router.navigateToRoute('list');
+  }
+
+  editCallback(event) {
+    this.router.navigateToRoute('edit', { id: this.data._id });
+  }
+
+  deleteCallback(event) {
+    this.service.delete(this.data)
+      .then(result => {
+        this.cancelCallback();
+      });
   }
 }
