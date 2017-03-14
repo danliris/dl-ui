@@ -36,6 +36,10 @@ export class List {
         this.loadPage();
     }
 
+    back() {
+        this.router.navigateToRoute('list');
+    }
+
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
@@ -44,8 +48,8 @@ export class List {
         this.router.navigateToRoute('create');
     }
 
-    upload() {
-        this.router.navigateToRoute('upload');
+    exportPDF(data) {
+        this.service.getPdfById(data._id);
     }
 
 }

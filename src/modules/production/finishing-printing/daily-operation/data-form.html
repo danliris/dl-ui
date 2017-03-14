@@ -10,6 +10,26 @@
                     change.delegate="kanbanChanged($event)">
                 </kanban-auto-suggest>
 
+                <step-auto-suggest
+                    label="Step / Proses"
+                    value.bind="data.step"
+                    error.bind="error.step"
+                    read-only.bind="readOnly"
+                    change.delegate="stepChanged($event)"
+                    filter.bind="filterStep || isFilterStep"
+                    if.bind="hasKanban">
+                </step-auto-suggest>
+
+                <!--<dropdown 
+                    label="Step / Proses" 
+                    value.bind="data.step.process" 
+                    error.bind="error.step" 
+                    read-only.bind="readOnly" 
+                    items.bind="steps"
+                    if.bind="hasSteps && !readOnly"
+                    change.delegate="stepChanged($event)">
+                </dropdown>-->
+
                 <machine-auto-suggest
                     label="Mesin"
                     value.bind="data.machine"
@@ -17,7 +37,7 @@
                     read-only.bind="readOnly"
                     change.delegate="machineChanged($event)"
                     filter.bind="filterMachine || isFilterMachine"
-                    if.bind="hasKanban">
+                    if.bind="hasStep">
                 </machine-auto-suggest>
 
                 <dropdown

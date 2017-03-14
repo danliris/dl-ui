@@ -1,38 +1,58 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
-var moment = require('moment');
+import {inject, bindable, computedFrom} from 'aurelia-framework'
+var UnitLoader = require('../../../loader/unit-loader');
+var BudgetLoader = require('../../../loader/budget-loader');
+var CategoryLoader = require('../../../loader/category-loader');
 
-@inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
-    @bindable data = {};
-    @bindable error = {};
+    @bindable data;
+    @bindable error;
 
-    constructor(bindingEngine, element) {
-        this.bindingEngine = bindingEngine;
-        this.element = element;
+    @bindable title;
+
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
     }
+
+    itemsColumns = [
+        { header: "Barang", value: "product" },
+        { header: "Jumlah", value: "quantity" },
+        { header: "Satuan", value: "product.uom" },
+        { header: "Keterangan", value: "remark" }
+    ]
 
     unitChanged(e) {
-        var selectedUnit = e.detail || {};
-        if (selectedUnit)
-            this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
+        if (this.data.unit)
+            this.data.unitId = this.data.unit._id ? this.data.unit._id : {};
     }
 
-
     budgetChanged(e) {
-        var selectedbudget = e.detail || {};
-        if (selectedbudget)
-            this.data.budgetId = selectedbudget._id ? selectedbudget._id : "";
+        if (this.data.budget)
+            this.data.budgetId = this.data.budget._id ? this.data.budget._id : {};
     }
 
     categoryChanged(e) {
-        var selectedcategory = e.detail || {};
-        if (selectedcategory)
-            this.data.categoryId = selectedcategory._id ? selectedcategory._id : "";
+        if (this.data.category)
+            this.data.categoryId = this.data.category._id ? this.data.category._id : {};
     }
 
-    removeItem(item) {
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    get budgetLoader() {
+        return BudgetLoader;
+    }
+
+    get categoryLoader() {
+        return CategoryLoader;
+    }
+
+    get addItems() {
+        return (event) => {
+            this.data.items.push({})
+        };
     }
 }
