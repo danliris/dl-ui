@@ -4,21 +4,27 @@ import { Service } from './service';
 
 
 @inject(Router, Service)
-export class View {
+export class Edit {
+  hasCancel = true;
+  hasSave = true;
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
   }
 
-  async activate(params) {
-    var locale = 'id-ID';
-    var moment = require('moment');
-    moment.locale(locale);
+  bind() {
+    this.data = this.data || {};
+    this.error = {};
+  }
 
+  async activate(params) {
+    var locale='id-ID';
+    var moment= require('moment');
+    moment.locale(locale);
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');
-
+    this.data.deliverySchedule=moment(this.data.deliverySchedule).format('YYYY-MM-DD');
 
     this.data.accountBank.toString = function () {
       return [this.accountName, this.bankName, this.accountNumber]
@@ -28,18 +34,18 @@ export class View {
     }
   }
 
-  cancelCallback(event) {
-    this.router.navigateToRoute('list');
+  cancel(event) {
+    this.router.navigateToRoute('view', { id: this.data._id });
   }
 
-  editCallback(event) {
-    this.router.navigateToRoute('edit', { id: this.data._id });
-  }
-
-  deleteCallback(event) {
-    this.service.delete(this.data)
+  save(event) {
+    this.service.update(this.data)
       .then(result => {
-        this.cancelCallback();
-      });
+        this.cancel();
+      })
+      .catch(e => {
+        this.error = e;
+      })
   }
 }
+
