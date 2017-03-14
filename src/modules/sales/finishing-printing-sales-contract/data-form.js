@@ -150,6 +150,9 @@ export class DataForm {
           this.agentChanged({});
           this.data.termOfPayment={};
           this.termOfPaymentChanged({});
+          this.data.remark="";
+          this.data.useIncomeTax=false;
+          this.data.termOfShipment="";
       }
           
     }
