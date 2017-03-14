@@ -3,12 +3,10 @@
     title.bind="title" 
     with.bind="context">
 
-    <div slot="actions" class="btn-group">
-      <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
-      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
-      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-      <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
-    </div>
+    <button slot="actions" class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+    <button slot="actions" class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+    <button slot="actions" class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+    <button slot="actions" class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
 
     <au-textbox 
       label="Nama" 
@@ -29,7 +27,7 @@
       read-only.bind="(readOnly || isEdit)">
     </au-autocomplete>
 
-    <au-autocomplete 
+    <!--<au-autocomplete 
       value.bind="data.step" 
       error.bind="error.step"
       label="Step" 
@@ -39,7 +37,7 @@
       key="process"
       text="process"
       read-only.bind="(readOnly || isEdit)">
-    </au-autocomplete>
+    </au-autocomplete>-->
 
     <au-autocomplete 
       value.bind="data.machineType" 
@@ -94,6 +92,20 @@
       read-only.bind="readOnly" 
       item-template="modules/master/machine/template/machine-event-item">
     </au-collection>
+
+    <au-collection              
+        items.bind="data.steps" 
+        errors.bind="error.steps" 
+        read-only.bind="readOnly" 
+        columns.bind="stepColumns" 
+        title="Step / Proses" 
+        item-template="modules/master/machine/template/step" 
+        add.bind="addStep" 
+        remove.bind="removeStep">
+    </au-collection>
+    <div if.bind="error.steps.toString()">
+      <span style="color:red">-Step / Proses harus diisi dan tidak boleh sama.</span>
+    </div>
 
   </au-input-form>
 </template>

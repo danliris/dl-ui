@@ -46,6 +46,21 @@ export class DataForm {
     }
       return this.ekspor;
   }
+
+  @computedFrom("data.buyer")
+  get isFilterPayment(){
+    this.filterpayment = {
+        "isExport": false
+      };
+      if(this.data.buyer){
+        if(this.data.buyer.type.toLowerCase()=="ekspor"||this.data.buyer.type.toLowerCase()=="export"){
+              this.filterpayment = {
+                "isExport": true
+              };
+            }
+      }
+      return this.filterpayment;
+  }
   
     orderChanged(e){
         var selectedOrder=e.detail || {};
@@ -88,6 +103,14 @@ export class DataForm {
     }
   }
 
+  termOfPaymentChanged(e){
+    var selectedPayment=e.detail || {};
+    if (selectedPayment) {
+      this.data.termOfPaymentId = selectedPayment._id ? selectedPayment._id : "";
+    }
+    
+  }
+
   comodityChanged(e){
     var selectedComodity = e.detail || {};
     if (selectedComodity) {
@@ -112,15 +135,39 @@ export class DataForm {
     var selectedBuyer = e.detail;
     if (selectedBuyer) {
       this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
-      
+      if(selectedBuyer.type.toLowerCase()=="ekspor"||selectedBuyer.type.toLowerCase()=="export"){
+        this.filterpayment = {
+          "isExport": true
+        };
+      }
+      else{
+        this.filterpayment = {
+          "isExport": false
+        };
+      }
+      if (!this.readOnly) {
+          this.data.agent={};
+          this.agentChanged({});
+          this.data.termOfPayment={};
+          this.termOfPaymentChanged({});
+          this.data.remark="";
+          this.data.useIncomeTax=false;
+          this.data.termOfShipment="";
+      }
+          
     }
   }
 
   agentChanged(e) {
-    var selectedAgent = e.detail;
+    var selectedAgent = e.detail|| {};
     if (selectedAgent) {
       this.data.agentId = selectedAgent._id ? selectedAgent._id : "";
-      
+      if(!this.readOnly){
+        this.data.comission="";
+      }
+    }
+    else{
+      this.data.comission="";
     }
   }
 
