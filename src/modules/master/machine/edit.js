@@ -29,11 +29,11 @@ export class Edit {
     this.error = {};
   }
 
-  cancel(event) {
+  cancelCallback(event) {
     this.router.navigateToRoute('view', { id: this.data._id });
   }
 
-  save(event) {
+  saveCallback(event) {
     this.service.update(this.data)
         .then(result => {
           this.cancel();
