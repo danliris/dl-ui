@@ -70,6 +70,8 @@
         <au-textbox label="Mata Uang" value.bind="data.accountBank.currency.code" error.bind="error.accountBank.currency.code" read-only="true"
           if.bind="data.accountBank"></au-textbox>
 
+        <au-numeric label="Harga" value.bind="data.price" error.bind="error.price" read-only.bind="(readOnly)"></au-numeric>
+
         <au-textbox label="Ongkos Angkut" placeholder="input ongkos" value.bind="data.transportFee" error.bind="error.transportFee"
           read-only.bind="(readOnly || isEdit)"></au-textbox>
 
