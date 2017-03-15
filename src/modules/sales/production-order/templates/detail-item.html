@@ -1,4 +1,5 @@
 <template>
+<tr>
   <td>
     <au-textbox value.bind="data.colorTemplate" error.bind="error.colorTemplate" read-only.bind="options.readOnly" options.bind="controlOption"></au-textbox>
   </td>
@@ -7,7 +8,7 @@
   </td>
   <td>
     <au-autocomplete value.bind="data.colorType" error.bind="error.colorType" read-only.bind="options.readOnly" key="_id" text="name"
-      loader.bind="loader" options.bind="controlOption" change.delegate="setColorTypeId($event)"></au-autocomplete>
+      loader.bind="loader" options.bind="controlOption" ></au-autocomplete>
   </td>
   <td>
     <numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="options.readOnly" options.bind="controlOption"></numeric>
@@ -16,4 +17,5 @@
     <au-textbox value.one-way="data.uom.unit" error.bind="error.uom" read-only.bind="true" options.bind="controlOption"></au-textbox>
   </td>
   <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+</tr>
 </template>
