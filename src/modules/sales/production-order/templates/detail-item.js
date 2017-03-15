@@ -16,9 +16,15 @@ export class DetailItem {
     }
   }
 
-  setColorTypeId(event) {
-    var colorType = event.detail;
-    this.data.colorTypeId = colorType._id;
+  setColorTypeId(newValue) {
+    if (newValue){
+      this.data.colorType = newValue;
+      this.data.colorTypeId = newValue._id;
+    }
+    else{
+      this.data.colorType = {};
+      this.data.colorTypeId = {};
+    }
   }
 
   get loader() {
