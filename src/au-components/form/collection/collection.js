@@ -25,6 +25,10 @@ export class Collection {
   @bindable add;
   @bindable remove;
 
+  itemsChanged() {
+    console.log("collection:itemsChanged");
+    this.buildContext();
+  }
 
   @computedFrom("columns")
   get __columns() {
@@ -90,7 +94,9 @@ export class Collection {
     this.context = this.context || {};
     this.context.columns = this.columns;
     this.context.options = this.options;
-    this.context.items = this.items.map((item, index) => {
+    this.context.items = this.context.items || [];
+
+    var mapped = this.items.map((item, index) => {
       var error = this.error ? this.error[0] : null;
       return {
         data: item,
@@ -101,6 +107,8 @@ export class Collection {
         context: this.context
       }
     });
+    this.context.items.splice(0, this.context.items.length);
+    Array.prototype.push.apply(this.context.items, mapped);
   }
 
   onadd(event) {
