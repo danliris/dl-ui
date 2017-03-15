@@ -8,12 +8,8 @@ export class List {
     columns = [
     { field: "name", title: "Nama" },
     { field: "unit.name", title: "Unit" },
-    { field: "step.process", title: "Step" },
     { field: "process", title: "Proses" },
-    { field: "manufacture", title: "Manufaktur" },
-    { field: "year", title: "Tahun" },
     { field: "condition", title: "Kondisi" },
-    { field: "machineType.name", title: "Jenis Mesin" },
     { field: "monthlyCapacity", title: "Kapasitas Bulanan" },
   ];
 

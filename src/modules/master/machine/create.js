@@ -29,7 +29,7 @@ export class Create {
   saveCallback(event) {
     this.service.create(this.data)
         .then(result => {
-          this.cancel();
+          this.router.navigateToRoute('list');
         })
         .catch(e => {
           this.error = e;
