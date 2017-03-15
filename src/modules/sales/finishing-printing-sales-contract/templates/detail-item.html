@@ -1,4 +1,5 @@
 <template>
+<tr>
   <td>
     <au-textbox value.bind="data.color" error.bind="error.color" read-only.bind="options.readOnly" options.bind="controlOption"></au-textbox>
   </td>
@@ -12,4 +13,5 @@
     <checkbox   value.bind="data.useIncomeTax"    error.bind="error.useIncomeTax"     read-only.bind="readOnly" ></checkbox>
   </td>
   <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+</tr>
 </template>
