@@ -6,7 +6,7 @@
     >
 
     <au-textbox 
-      label="Code"
+      label="Kode"
       value.bind="data.code"
       error.bind="error.code"
       read-only.bind="(readOnly || isEdit)"
@@ -52,13 +52,14 @@
       label="Tempo"
       value.bind="data.tempo"
       error.bind="error.tempo"
+      format="0"
       read-only.bind="readOnly"
     ></au-numeric>
 
     <au-textbox 
       label="NPWP"
-      value.bind="data.npwp"
-      error.bind="error.npwp"
+      value.bind="data.NPWP"
+      error.bind="error.NPWP"
       read-only.bind="readOnly"
     ></au-textbox>
 

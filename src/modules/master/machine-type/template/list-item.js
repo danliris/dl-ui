@@ -1,4 +1,11 @@
+import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+
+
 export class listItem {
+
+  @bindable listItem;
   
 
   activate(context) {
@@ -8,14 +15,15 @@ export class listItem {
     console.log(this.data);
   }  
 
+  controlOptions = {
+    control: {
+      length: 12
+    }
+  };
+
   dropDownMenu = ["input teks", "input angka", "input pilihan", "input skala angka"];
 
-  
-  // people = [
-  //   { id: 1, name: "Alice Ecila", age: 27, email: "alice.ecila@live.com" },
-  //   { id: 2, name: "Beatrix Xirtaeb", age: 26, email: "beatrix.xirtaeb@facebook.com" },
-  //   { id: 3, name: "Clara Aralc", age: 29, email: "clara.aralc@google.com" },
-  //   { id: 4, name: "Donna Annod", age: 28, email: "donna.annod@twitter.com" }];
+
 
   listIndicatorsColumns = [
       { header: "Indikator", value: "indicator" },

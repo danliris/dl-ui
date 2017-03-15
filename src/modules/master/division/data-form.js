@@ -4,7 +4,7 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     formOptions = {
-        cancelText: "Batal",
+        cancelText: "Kembali",
         saveText: "Simpan",
         deleteText: "Hapus",
         editText: "Ubah",

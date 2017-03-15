@@ -7,7 +7,7 @@ var MachineTypeLoader = require('../../../loader/machine-type-loader');
 export class DataForm {
   @bindable readOnly;
     formOptions = {
-        cancelText: "Batal",
+        cancelText: "Kembali",
         saveText: "Simpan",
         deleteText: "Hapus",
         editText: "Ubah",
@@ -17,11 +17,11 @@ export class DataForm {
 
   machineEventColumns = [
     { header: "No", value: "no" },
-    { header: "Name", value: "name" },
+    { header: "Nama", value: "name" },
   ]
 
   stepColumns = [
-    { header: "proses", value: "process" },
+    { header: "Proses", value: "process" },
   ]
 
   bind(context) {

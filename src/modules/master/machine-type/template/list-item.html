@@ -10,7 +10,7 @@
       <td>
         <au-dropdown
           value.bind="data.dataType"
-          item.bind="dropDownMenu"
+          items.bind="dropDownMenu"
           read-only.bind="readOnly"
           key="data.dataType"
           text="data.dataType"
@@ -21,7 +21,7 @@
         <au-textbox 
           value.bind="data.defaultValue"
           error.bind="error.defaultValue"
-          read-only.bind="readOnly"
+          read-only.bind="data.dataType == 'input teks' || data.dataType == 'input angka'"
         ></au-textbox>
       </td>
       <td>
@@ -30,6 +30,11 @@
           error.bind="error.uom"
           read-only.bind="readOnly"
         ></au-textbox>
+      </td>
+      <td if.bind="!readOnly">
+        <button 
+          class="btn btn-danger pull-right" 
+          click.delegate="onremove(ListIndicators, $event)">-</button>
       </td>
   </tr>
 </template>
