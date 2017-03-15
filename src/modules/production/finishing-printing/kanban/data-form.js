@@ -74,7 +74,8 @@ export class DataForm {
 
   stepInfo = {
     columns : [
-      { header : "Proses", value : "process"},
+      { header : "No.", value : "index"},
+      { header : "Proses", value : "process"}
     ],
     onAdd: function () {
       this.data.instruction.steps = this.data.instruction.steps || [];

@@ -27,7 +27,7 @@
       read-only.bind="(readOnly || isEdit)">
     </au-autocomplete>
 
-    <au-autocomplete 
+    <!--<au-autocomplete 
       value.bind="data.step" 
       error.bind="error.step"
       label="Step" 
@@ -37,7 +37,7 @@
       key="process"
       text="process"
       read-only.bind="(readOnly || isEdit)">
-    </au-autocomplete>
+    </au-autocomplete>-->
 
     <au-autocomplete 
       value.bind="data.machineType" 
@@ -92,6 +92,20 @@
       read-only.bind="readOnly" 
       item-template="modules/master/machine/template/machine-event-item">
     </au-collection>
+
+    <au-collection              
+        items.bind="data.steps" 
+        errors.bind="error.steps" 
+        read-only.bind="readOnly" 
+        columns.bind="stepColumns" 
+        title="Step / Proses" 
+        item-template="modules/master/machine/template/step" 
+        add.bind="addStep" 
+        remove.bind="removeStep">
+    </au-collection>
+    <div if.bind="error.steps.toString()">
+      <span style="color:red">-Step / Proses harus diisi dan tidak boleh sama.</span>
+    </div>
 
   </au-input-form>
 </template>

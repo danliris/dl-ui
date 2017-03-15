@@ -6,7 +6,7 @@ import { Config } from "aurelia-api"
 const resource = 'master/qualities';
 
 const empty = {
-    code: ''
+    name: ''
 }
 
 'use strict';
@@ -20,7 +20,7 @@ export default class QualityAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, QualityAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.code}`;
+            return `${this.name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -48,7 +48,7 @@ QualityAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(quality => {
                         quality.toString = function () {
-                            return `${this.code}`;
+                            return `${this.name}`;
                         }
                         return quality;
                     });
