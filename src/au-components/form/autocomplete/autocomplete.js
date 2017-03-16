@@ -46,7 +46,7 @@ export class Autocomplete {
   }
 
   bind() {
-    this._ignoreInputChange = true;
+    this._ignoreInputChange = true; 
     this.editorValue = this._getSuggestionText(this.value);
     if (this.value)
       this._suggestions = [this.value];

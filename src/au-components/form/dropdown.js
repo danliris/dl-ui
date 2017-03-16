@@ -38,10 +38,11 @@ export class Dropdown {
 
   _matcher = (option, current) => {
     var result = false;
+    debugger;
     if (!option || !current)
       return result;
 
-    result = option[this._selector.key] === current[this._selector.key];
+    result = this._getSuggestionKey(option) === this._getSuggestionKey(current);//[this._selector.key] === current[this._selector.key];
     return result;
   }
 
