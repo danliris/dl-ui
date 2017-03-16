@@ -13,16 +13,20 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        // this.data.currency.toString = function() {
+        //   return this.currency;}
+        
     }
 
-    view() {
+    cancelCallback(event) {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    save() {
+    saveCallback(event) {
         this.service.update(this.data)
             .then(result => {
-                this.view();
+                this.router.navigateToRoute('view', { id: this.data._id });
             })
             .catch(e => {
                 this.error = e;
