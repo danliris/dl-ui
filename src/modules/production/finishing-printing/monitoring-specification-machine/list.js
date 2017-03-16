@@ -39,10 +39,6 @@ export class List {
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
-    
-    exportPDF(data) {
-        this.service.getPdfById(data._id);
-    }
 
     create() {
         this.router.navigateToRoute('create');

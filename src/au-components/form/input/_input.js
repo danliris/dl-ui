@@ -16,10 +16,10 @@ export class _Input {
   @bindable({ defaultBindingMode: bindingMode.twoWay }) inputOptions;
 
   @bindable editorState = STATE.VIEW;
-  @bindable editorValue;
   @bindable type;
   element;
-   
+  invoke = false;
+
   constructor(component) {
     this.component = component;
   }
@@ -30,7 +30,6 @@ export class _Input {
 
   bind() {
     this.placeholder = this.placeholder || "enter value";
-    this.editorValue = this.value;
     this._options = Object.assign(this._defaultOptions, this._options);
   }
 
@@ -42,15 +41,12 @@ export class _Input {
     this.editorState = STATE.EDIT;
   }
 
-  editorValueChanged(newValue) {
-    this.value = this.editorValue;
+  editorStateChanged(newValue, oldValue) {
+    dispatchCustomEvent("statechange", this.component, this);
   }
 
-  editorStateChanged(newValue) {
-    dispatchCustomEvent("statechange", this.component, this);
-
-    if (this.element && this.editorState === STATE.EDIT && this._options.selectOnFocus) {
-      this.element.select();
-    }
-  } 
+  @computedFrom("editorState", "_options.selectOnFocus")
+  get select() {
+    return this.editorState === STATE.EDIT && this._options.selectOnFocus
+  }
 }

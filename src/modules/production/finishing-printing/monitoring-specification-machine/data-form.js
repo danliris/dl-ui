@@ -12,6 +12,8 @@ export class DataForm {
 
     }
 
+    divisionFilter = 'FINISHING & PRINTING'
+
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -33,30 +35,38 @@ export class DataForm {
 
 
     machineChanged(e) {
-        if (e.detail) {
-            var selectedProcess = e.detail || {};
-            // this.data.items = e.detail.indicators;
-            if (selectedProcess) {
 
-                var items = [];
-                for (var indicator of selectedProcess.machineType.indicators) {
-                    var item = {
-                        indicator: indicator.indicator,
-                        dataType: indicator.dataType,
-                        defaultValue: indicator.defaultValue,
-                        value: "",
-                        uom:indicator.uom,
-                    };
-                    items.push(item);
-                }
-                this.data.items = items;
+        //reset to empty collection
+        // 
 
-                this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
+
+
+        var selectedProcess = e.detail;
+
+        if (selectedProcess) {
+
+            var items = [];
+            for (var indicator of selectedProcess.machineType.indicators) {
+                var item = {
+                    indicator: indicator.indicator,
+                    dataType: indicator.dataType,
+                    defaultValue: indicator.defaultValue,
+                    value: "",
+                    uom: indicator.uom,
+                };
+                items.push(item);
             }
+            this.data.items = items;
+
+            this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
+        } else {
+            this.data.items = [];
         }
+
+
     }
 
-       productionOrderChanged(e) {
+    productionOrderChanged(e) {
         var selectedProcess = e.detail || {};
         this.data.productionOrder = e.detail;
         if (selectedProcess) {
@@ -67,6 +77,8 @@ export class DataForm {
 
     resetErrors() {
         this.error = {};
+        // this.data.items = []
+
     }
 
 

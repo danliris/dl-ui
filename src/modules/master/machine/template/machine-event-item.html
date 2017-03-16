@@ -1,9 +1,11 @@
 <template>
-  <td style="text-align:center;" class="col-sm-2">
-    <au-textbox value.bind="machineEvent.no" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
-  </td>
-  <td>
-    <au-textbox value.bind="machineEvent.name" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
-  </td>
-  <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(machineEvent, $event)">-</button></td>
+  <tr>
+    <td style="text-align:center;" class="col-sm-2">
+      <au-textbox value.bind="machineEvent.no" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="machineEvent.name" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(machineEvent, $event)">-</button></td>
+  </tr>
 </template>

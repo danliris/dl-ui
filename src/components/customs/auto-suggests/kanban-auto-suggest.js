@@ -1,12 +1,12 @@
 import { customElement, inject, bindable, bindingMode, noView } from 'aurelia-framework';
 
-import StepAutoSuggestReactByFilter from './react/step-auto-suggest-react-by-filter.jsx';
+import KanbanAutoSuggestReact from './react/kanban-auto-suggest-react.jsx';
 import BaseAutoSuggest from '../../form/basic/base-auto-suggest';
 
 @noView()
 @inject(Element)
-@customElement('step-auto-suggest-by-filter')
-export default class StepAutoSuggestByFilter extends BaseAutoSuggest {
+@customElement('kanban-auto-suggest')
+export default class KanbanAutoSuggest extends BaseAutoSuggest {
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -17,6 +17,6 @@ export default class StepAutoSuggestByFilter extends BaseAutoSuggest {
 
     constructor(element) {
         super(element);
-        this.control = StepAutoSuggestReactByFilter;
+        this.control = KanbanAutoSuggestReact;
     }
-} 
+}

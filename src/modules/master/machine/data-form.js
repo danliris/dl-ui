@@ -11,20 +11,35 @@ export class DataForm {
 
   @bindable title;
 
-  @bindable cancel;
-  @bindable delete;
-  @bindable save;
-  @bindable edit;
-
   machineEventColumns = [
     { header: "No", value: "no" },
     { header: "Name", value: "name" },
   ]
 
+  stepColumns = [
+    { header: "proses", value: "process" },
+  ]
+
+  bind(context) {
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
+  }
+
   get addMachineEvent() {
     return (event) => {
       this.data.machineEvents.push({})
     };
+  }
+  
+  get addStep() {
+    return (event) => {
+      this.data.steps.push({})
+    };
+  }
+
+  get removeStep() {
+    return (event) => console.log(event);
   }
 
   unitSelected(e){
@@ -35,9 +50,9 @@ export class DataForm {
     console.log('unit changed')
   }
 
-  stepChanged(e){
-    console.log('step changed')
-  }
+  // stepChanged(e){
+  //   console.log('step changed')
+  // }
 
   machineTypeChanged(e){
     console.log('machineType changed')
@@ -46,11 +61,10 @@ export class DataForm {
   get unitLoader(){
     return UnitLoader;
   }
-  get stepLoader(){
-    return StepLoader;
-  }
+  // get stepLoader(){
+  //   return StepLoader;
+  // }
   get machineTypeLoader(){
     return MachineTypeLoader;
   }
-
 } 

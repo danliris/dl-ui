@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Finishing - Printing</br>Monitoring Daily Operational setiap Mesin</h1>
+    <h1 class="page-header">Finishing - Printing</br>Monitoring Operasional Harian Setiap Mesin</h1>
     <br>
     <div class="row">
             <div class="col-sm-8">
@@ -20,27 +20,32 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Step</th>
+                <th>Step / Proses</th>
                 <th>Mesin</th>
-                <th>Tanggal</th>
                 <th>Shift</th>
                 <th>No Order Produksi</th>
                 <th>No Kereta</th>
+                <th>Tanggal Input</th>
                 <th>Input</th>
-                <th>Output</th>
+                <th>Tanggal Output</th>
+                <th>Good Output</th>
+                <th>Bad Output</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="item of data">
-                <td>${item.step}</td>
-                <td>${item.machine}</td>
-                <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
+                <td>${item.step.process}</td>
+                <td>${item.machine.name}</td>
                 <td>${item.shift}</td>
-                <td>${item.orderNo}</td>
-                <td>${item.kanbanNo}</td>
+                <td>${item.kanban.productionOrder.orderNo}</td>
+                <td>${item.kanban.cart.cartNumber}</td>
+                <td style="text-align:center">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
                 <td>${item.input}</td>
-                <td>${item.output}</td>
+                <td style="text-align:center" if.bind="item.dateOutput">${item.dateOutput | dateFormat:'D MMM YYYY'}</td>
+                <td style="text-align:center" if.bind="!item.dateOutput">-</td>
+                <td>${item.goodOutput}</td>
+                <td>${item.badOutput}</td>
                 <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
             </tr>
         </tbody>

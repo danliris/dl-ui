@@ -1,13 +1,15 @@
 <template>
   <au-input-form 
     title.bind="title" 
-    cancel.bind="cancel" 
-    edit.bind="edit" 
-    save.bind="save" 
-    delete.bind="delete">
+    with.bind="context">
+
+    <button slot="actions" class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+    <button slot="actions" class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+    <button slot="actions" class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+    <button slot="actions" class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
 
     <au-textbox 
-      label="Machine Name" 
+      label="Nama" 
       value.bind="data.name" 
       error.bind="error.name" 
       read-only.bind="(readOnly || isEdit)">
@@ -25,7 +27,7 @@
       read-only.bind="(readOnly || isEdit)">
     </au-autocomplete>
 
-    <au-autocomplete 
+    <!--<au-autocomplete 
       value.bind="data.step" 
       error.bind="error.step"
       label="Step" 
@@ -35,12 +37,12 @@
       key="process"
       text="process"
       read-only.bind="(readOnly || isEdit)">
-    </au-autocomplete>
+    </au-autocomplete>-->
 
     <au-autocomplete 
       value.bind="data.machineType" 
       error.bind="error.machineType"
-      label="Machine Type" 
+      label="Jenis Mesin" 
       change.delegate="machineTypeChanged($event)" 
       loader.bind="machineTypeLoader"
       placeholder="search machine type" 
@@ -62,27 +64,48 @@
     </au-textbox>
 
     <au-numeric 
-      label="Year" 
+      label="Tahun" 
       value.bind="data.year" 
       format="0"
       read-only.bind="(readOnly || isEdit)">
     </au-numeric>
 
     <au-textbox 
-      label="Condition" 
+      label="Kondisi" 
       value.bind="data.condition" 
       read-only.bind="(readOnly || isEdit)">
     </au-textbox>
+
+    <au-numeric 
+      label="Kapasitas Bulanan" 
+      value.bind="data.monthlyCapacity" 
+      format="0"
+      read-only.bind="(readOnly)">
+    </au-numeric>
 
     <au-collection 
       items.bind="data.machineEvents" 
       columns.bind="machineEventColumns" 
       add.bind="addMachineEvent" 
       remove.bind="removeMachineEvent"
-      title="Machine Events" 
+      title="Event Mesin" 
       read-only.bind="readOnly" 
       item-template="modules/master/machine/template/machine-event-item">
     </au-collection>
+
+    <au-collection              
+        items.bind="data.steps" 
+        errors.bind="error.steps" 
+        read-only.bind="readOnly" 
+        columns.bind="stepColumns" 
+        title="Step / Proses" 
+        item-template="modules/master/machine/template/step" 
+        add.bind="addStep" 
+        remove.bind="removeStep">
+    </au-collection>
+    <div if.bind="error.steps.toString()">
+      <span style="color:red">-Step / Proses harus diisi dan tidak boleh sama.</span>
+    </div>
 
   </au-input-form>
 </template>

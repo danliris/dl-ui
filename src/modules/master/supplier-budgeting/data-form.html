@@ -1,12 +1,23 @@
-<template> 
-    <form class="form-horizontal">
-        <textbox        label="Code"            value.bind="data.code"          error.bind="error.code"         read-only.bind="(readOnly || isEdit)"></textbox>
-        <textbox        label="Nama"            value.bind="data.name"          error.bind="error.name"         read-only.bind="readOnly"></textbox>
-        <textbox        label="Kontak"          value.bind="data.contact"       error.bind="error.contact"      read-only.bind="readOnly"></textbox>
-        <multiline      label="Alamat"          value.bind="data.address"       error.bind="error.address"      read-only.bind="readOnly"></multiline>
-        <textbox        label="PIC"             value.bind="data.PIC"           error.bind="error.PIC"          read-only.bind="readOnly"></textbox>
-        <textbox        label="NPWP"            value.bind="data.NPWP"          error.bind="error.NPWP"         read-only.bind="readOnly"></textbox>
-        <textbox        label="No. Seri"        value.bind="data.serialNumber"  error.bind="error.serialNumber" read-only.bind="readOnly"></textbox>
-        <checkbox       label="Import"          value.bind="data.import"        error.bind="error.import"       read-only.bind="readOnly"></checkbox>
-    </form>
+<template>
+    <div class="row">
+        <div class="col-md-4">
+            <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+                <au-textbox label="Code" value.bind="data.code" error.bind="error.code" read-only.bind="(readOnly || isEdit)"></au-textbox>
+                <au-textbox label="Nama" value.bind="data.name" error.bind="error.name" read-only.bind="readOnly"></au-textbox>
+                <au-checkbox label="Import" value.bind="data.import" error.bind="error.import" read-only.bind="readOnly"></au-checkbox>
+                <fieldset>
+                    <legend>Legal</legend>
+                    <au-textbox label="NPWP" value.bind="data.NPWP" error.bind="error.NPWP" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="No. Seri" value.bind="data.serialNumber" error.bind="error.serialNumber" read-only.bind="readOnly"></au-textbox>
+                </fieldset>
+                <fieldset>
+                    <legend>Kontak</legend>
+                    <au-textbox label="Kontak" value.bind="data.contact" error.bind="error.contact" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="PIC" value.bind="data.PIC" error.bind="error.PIC" read-only.bind="readOnly"></au-textbox>
+                    <au-multiline label="Alamat" value.bind="data.address" error.bind="error.address" read-only.bind="readOnly"></au-multiline>
+                </fieldset>
+                <template replaceable part="actions"></template>
+            </au-input-form>
+        </div>
+    </div>
 </template>

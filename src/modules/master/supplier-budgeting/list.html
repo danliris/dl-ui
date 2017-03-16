@@ -1,53 +1,9 @@
 <template>
-    <h1 class="page-header">Supplier</h1>
-    <br>
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="input-group">
-                <input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
-                <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
-                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
-                    </span>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="pull-right">
-                <button class="btn btn-primary" click.delegate="upload()">Upload File CSV</button>
-                <button class="btn btn-primary" click.delegate="create()">Buat</button>
-            </div>
-        </div>
+  <h1 class="page-header">Supplier</h1>
+  <au-table data.bind="loader" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context" context-click.delegate="contextCallback($event)">
+    <div slot="toolbar" class="btn-group">
+      <button class="btn btn-success" click.delegate="create()">Buat</button>
+      <button class="btn btn-default" click.delegate="upload()">Unggah CSV</button>
     </div>
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Kode</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Kontak</th>
-                <th>PIC</th>
-                <th>NPWP</th>
-                <th>No. Seri</th>
-                <th>Import</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="item of data" click.delegate="view(item)">
-                <td>${item.code}</td>
-                <td>${item.name}</td>
-                <td>${item.address}</td>
-                <td>${item.contact}</td>
-                <td>${item.PIC}</td>
-                <td>${item.NPWP}</td>
-                <td>${item.serialNumber}</td>
-                <td>${item.import==true?'Ya':'Tidak'}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        Data Supplier tidak ada.
-    </div>
-    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
-
-    <hr/>
+  </au-table>
 </template>

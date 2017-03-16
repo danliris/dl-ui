@@ -24,29 +24,27 @@ export class Edit {
           this.data.selectedProductionOrderDetail.toString = function(){
               return `${this.colorRequest}`;  
           };
-      }   
+      }
+
+      this.error = {};   
   }
 
-  get view() {
-    return () => {
-      this.router.navigateToRoute('view', { id: this.data._id });
-    }
+  cancelCallback(event) {
+    this.router.navigateToRoute('view', { id: this.data._id });
   }
 
-  get save() {
-    return () => {
-      this.data.productionOrderId = this.data.productionOrder._id || {};
-      this.data.instructionId = this.data.instruction._id || {};
+  saveCallback(event) {
+    this.data.productionOrderId = this.data.productionOrder ? this.data.productionOrder._id : {};
+    this.data.instructionId = this.data.instruction ? this.data.instruction._id : {};
 
-      this.service.update(this.data)
-        .then(result => {
-          this.view();
-        })
-        .catch(e => {
-          this.error = e;
-        })
-    }
-  }
+    this.service.update(this.data)
+      .then(result => {
+        this.cancelCallback();
+      })
+      .catch(e => {
+        this.error = e;
+      })
+  } 
 
   get isEdit(){
     return true;
