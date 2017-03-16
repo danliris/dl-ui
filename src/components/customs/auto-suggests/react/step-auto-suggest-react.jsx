@@ -11,13 +11,13 @@ const empty = {
 
 'use strict';
 
-export default class StepAutoSuggestReactByFilter extends AutoSuggestReact {
+export default class StepAutoSuggestReact extends AutoSuggestReact {
     constructor(props) {
         super(props);
     }
 
     init(props) {
-        var options = Object.assign({}, StepAutoSuggestReactByFilter.defaultProps.options, props.options);
+        var options = Object.assign({}, StepAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
             return `${this.process}`;
@@ -26,7 +26,7 @@ export default class StepAutoSuggestReactByFilter extends AutoSuggestReact {
     }
 }
 
-StepAutoSuggestReactByFilter.propTypes = {
+StepAutoSuggestReact.propTypes = {
     options: React.PropTypes.shape({
         readOnly: React.PropTypes.bool,
         suggestions: React.PropTypes.oneOfType([
@@ -36,7 +36,7 @@ StepAutoSuggestReactByFilter.propTypes = {
     })
 };
 
-StepAutoSuggestReactByFilter.defaultProps = {
+StepAutoSuggestReact.defaultProps = {
     options: {
         readOnly: false,
         suggestions:

@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api"
+import { Config } from "aurelia-api";
+var colorLoader = require('../../../../loader/color-type-loader');
 
 export class DetailItem {
   activate(item) {
@@ -15,22 +16,18 @@ export class DetailItem {
     }
   }
 
-  setColorTypeId(event) {
-    var colorType = event.detail;
-    this.data.colorTypeId = colorType._id;
+  setColorTypeId(newValue) {
+    if (newValue){
+      this.data.colorType = newValue;
+      this.data.colorTypeId = newValue._id;
+    }
+    else{
+      this.data.colorType = {};
+      this.data.colorTypeId = {};
+    }
   }
 
   get loader() {
-    return (keyword, query) => {
-      const resource = 'master/color-types';
-      var config = Container.instance.get(Config);
-      var endpoint = config.getEndpoint("core");
-      return endpoint.find(resource)
-        .then(results => {
-          return results.data.map(color => {
-            return color;
-          })
-        });
-    };
+    return colorLoader;
   }
 }
