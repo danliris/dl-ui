@@ -32,7 +32,8 @@ export class Step {
     }
   }
 
-  get StepLoader() {
+
+  get stepLoader() {
     return StepLoader;
   }
 }
