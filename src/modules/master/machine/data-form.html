@@ -83,16 +83,6 @@
       read-only.bind="(readOnly)">
     </au-numeric>
 
-    <au-collection 
-      items.bind="data.machineEvents" 
-      columns.bind="machineEventColumns" 
-      add.bind="addMachineEvent" 
-      remove.bind="removeMachineEvent"
-      title="Event Mesin" 
-      read-only.bind="readOnly" 
-      item-template="modules/master/machine/template/machine-event-item">
-    </au-collection>
-
     <au-collection              
         items.bind="data.steps" 
         errors.bind="error.steps" 
@@ -106,6 +96,16 @@
     <div if.bind="error.steps.toString()">
       <span style="color:red">-Step / Proses harus diisi dan tidak boleh sama.</span>
     </div>
+
+    <au-collection 
+      items.bind="data.machineEvents" 
+      columns.bind="machineEventColumns" 
+      add.bind="addMachineEvent" 
+      remove.bind="removeMachineEvent"
+      title="Event Mesin" 
+      read-only.bind="readOnly" 
+      item-template="modules/master/machine/template/machine-event-item">
+    </au-collection>
 
   </au-input-form>
 </template>
