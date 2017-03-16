@@ -12,6 +12,7 @@ export class StepItem {
     this.error = context.error;
     this.options = context.options;
     this.temp = this.step;
+    this.isShowing = false;
   } 
   stepIndicatorColumns = [
     { header : "Indikator", value : "name"},
@@ -35,6 +36,7 @@ export class StepItem {
 
   onItemClicked(step, event){
       if (this.context.context.selectedStep){
+          this.context.context.selectedStep.tdNumber.removeAttribute("class");
           this.context.context.selectedStep.tdStep.removeAttribute("class");
           if (this.context.context.selectedStep.tdButton)
             this.context.context.selectedStep.tdButton.removeAttribute("class");
@@ -47,13 +49,21 @@ export class StepItem {
         }
       }
 
+      this.tdNumber.setAttribute("class", "active");
       this.tdStep.setAttribute("class", "active");
       if (this.tdButton) 
         this.tdButton.setAttribute("class", "active");
 
-      this.context.context.selectedStep = {data : step, index : index, tdStep : this.tdStep, tdButton : this.tdButton};
+      this.context.context.selectedStep = {data : step, index : index, tdNumber : this.tdNumber, tdStep : this.tdStep, tdButton : this.tdButton};
       console.log("item clicked");
       console.log(this.context);
+  }
+
+  toggle(){
+    if (!this.isShowing)
+      this.isShowing = true;
+    else
+      this.isShowing = !this.isShowing;
   }
 
   get stepLoader(){
