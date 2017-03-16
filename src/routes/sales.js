@@ -63,5 +63,18 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'sales/spinning-sales-contract',
+        name: 'spinning-sales-contract',
+        moduleId: './modules/sales/spinning-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract - Spinning',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];

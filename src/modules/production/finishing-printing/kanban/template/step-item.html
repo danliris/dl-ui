@@ -1,38 +1,33 @@
 <template>
-  <td colspan="2"> 
-    <table class="table table-hover">
-      <tr>
-        <td click.delegate="onItemClicked(step, $event)" ref="tdStep">
-          <au-autocomplete 
-            value.bind="temp" 
-            error.bind="error.step"
-            change.delegate="onStepChanged($event)" 
-            focus.delegate="onStepFocused($event)"
-            loader.bind="stepLoader"
-            placeholder="search step" 
-            key="process"
-            text="process"
-            read-only.bind="(readOnly || isEdit)"
-            options.bind="controlOptions">
-          </au-autocomplete>
-          </br>
-          <au-textbox value.bind="stepIndicatorInfo" read-only.bind="true" options.bind="controlOptions"></au-textbox>
-        </td>
-        <td  click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly">
-          <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <au-collection 
-            items.bind="step.stepIndicators" 
-            columns.bind="stepIndicatorColumns"
-            if.bind="isStepSelected"
-            read-only.bind="readOnly"
-            item-template="modules/production/finishing-printing/kanban/template/step-indicator-item">
-          </au-collection>
-        <td>
-      </tr>
-    </table>
-  </td>
+  <tr>
+    <td>${$index}</td>
+    <td click.delegate="onItemClicked(step, $event)" ref="tdStep">
+      <au-autocomplete 
+        value.bind="temp" 
+        error.bind="error.step"
+        loader.bind="stepLoader"
+        placeholder="search step" 
+        key="process"
+        text="process"
+        read-only.bind="(readOnly || isEdit)"
+        options.bind="controlOptions">
+      </au-autocomplete>
+      </br>
+      <au-textbox value.bind="stepIndicatorInfo" read-only.bind="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td  click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <au-collection 
+        items.bind="step.stepIndicators" 
+        columns.bind="stepIndicatorColumns"
+        if.bind="isStepSelected"
+        read-only.bind="readOnly"
+        item-template="modules/production/finishing-printing/kanban/template/step-indicator-item">
+      </au-collection>
+    <td>
+  </tr>
 </template>

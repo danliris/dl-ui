@@ -8,6 +8,7 @@ var AccountBankLoader = require('../../../loader/account-banks-loader');
 var MaterialLoader = require('../../../loader/material-loader');
 var ProductLoader = require('../../../loader/products-loader');
 var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
+var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 
 export class DataForm {
     @bindable readOnly = false;
@@ -16,10 +17,10 @@ export class DataForm {
 
     @bindable title;
 
-    @bindable cancel;
-    @bindable delete;
-    @bindable save;
-    @bindable edit;
+    @bindable isEdit;
+    @bindable isView;
+
+    termOfPaymentFilter = {};
 
     tagsFilter = { tags: { "$regex": "Material" } };
 
@@ -31,7 +32,36 @@ export class DataForm {
 
     }
 
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
 
+        this.cancelCallback = this.context.cancelCallback;
+        this.deleteCallback = this.context.deleteCallback;
+        this.editCallback = this.context.editCallback;
+        this.saveCallback = this.context.saveCallback;
+
+        // this.termOfPayment={};
+    }
+
+    //set termOfPaymentFilter
+    @computedFrom("data.buyer")
+    get istermOfPayment() {
+        this.termOfPayment = false;
+        this.termOfPaymentFilter = {};
+        if (this.data.buyer) {
+            this.termOfPayment = true;
+            if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
+                this.termOfPaymentFilter = { isExport: true };
+            } else {
+                this.termOfPaymentFilter = { isExport: false };
+            }
+        } else {
+            this.termOfPayments = {};
+        }
+        return this.termOfPayment;
+    }
 
     @computedFrom("data.buyer")
     get isExport() {
@@ -44,11 +74,19 @@ export class DataForm {
         return this.agent;
     }
 
-    // dateFormat(e) {
-    //     return moment(this.data.deliverySchedule).format("MMMM Do YY");
-    // }
+    @computedFrom("data.buyer")
+    get isTermOfShipment() {
+        this.termOfShipment = false;
+        if (this.data.buyer) {
+            if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
+                this.termOfShipment = true;
+            }
+        }
+        return this.termOfShipment;
+    }
 
     buyersChanged(e) {
+        // this.data.termOfPayment = {};
         console.log('buyers changed')
     }
 
@@ -79,6 +117,10 @@ export class DataForm {
 
     yarnMaterialChanged(e) {
         console.log('yarnMaterial Changed')
+    }
+
+    termOfPaymentChanged(e) {
+        console.log('term of payment Changed')
     }
 
 
@@ -115,13 +157,9 @@ export class DataForm {
         return YarnMaterialLoader;
     }
 
-
-    resetErrors() {
-        this.error = {};
-        // this.data.items = []
-
+    get termOfPaymentLoader() {
+        return TermOfPaymentLoader;
     }
-
 
     activate() {
 
