@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"*": 0},
+            permission: {"A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -60,7 +60,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -73,7 +72,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
