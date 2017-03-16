@@ -9,4 +9,10 @@ export class Datepicker{
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) options; 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
+ 
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) format;
+
+  bind() { 
+    this.format = this.format || "DD-MMM-YYYY";
+  }
 }

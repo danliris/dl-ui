@@ -16,11 +16,15 @@ export class Create {
 
     }
 
-    list() {
+    bind() {
+      this.data = { indicators: [] };
+    }
+
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    save() {
+    saveCallback(event) {
         for (var d of this.data.indicators) {
             if (d.dataType == "numeric") {
                 if (d.defaultValue == "" || !d.defaultValue || d.defaultValue == 0) {
@@ -32,7 +36,7 @@ export class Create {
 
         this.service.create(this.data)
             .then(result => {
-                this.list();
+                this.router.navigateToRoute('list');
             })
             .catch(e => {
                 this.error = e;
