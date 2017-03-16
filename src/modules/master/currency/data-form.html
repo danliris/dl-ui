@@ -1,31 +1,35 @@
 <template>
-<au-input-form
-  title.bind="title"
-  with.bind="context"
-  options.bind="formOptions">
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
 
-  <au-textbox   
-    label="Kode" 
-    value.bind="data.code"
-    error.bind="error.code"
-    read-only.bind="(readOnly || isEdit)" >
-  </au-textbox>
+        <au-textbox   
+          label="Kode" 
+          value.bind="data.code"
+          error.bind="error.code"
+          read-only.bind="(readOnly || isEdit)" >
+        </au-textbox>
 
-  <au-textbox   
-    label="Simbol" 
-    value.bind="data.symbol"
-    error.bind="error.symbol"
-    read-only.bind="readOnly" >
-  </au-textbox>
+        <au-textbox   
+          label="Simbol" 
+          value.bind="data.symbol"
+          error.bind="error.symbol"
+          read-only.bind="readOnly" >
+        </au-textbox>
 
-  <au-multiline
-    label="Keterangan"
-    value.bind="data.description"
-    error.bind="error.description"
-    read-only="readOnly">
-  </au-multiline>
+        <au-multiline
+          label="Keterangan"
+          value.bind="data.description"
+          error.bind="error.description"
+          read-only="readOnly">
+        </au-multiline>
 
-  <template replaceable part="actions"></template>
-  
-</au-input-form>
+        <template replaceable part="actions"></template>
+        
+      </au-input-form>
+    </div>
+  </div>
 </template>
