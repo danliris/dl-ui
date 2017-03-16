@@ -1,0 +1,14 @@
+<template>
+    <form class="form-horizontal">
+        <textbox label="Nama Instruksi" value.bind="data.name" error.bind="error.name" read-only.bind="readOnly"></textbox>
+        <table class="table table-hover">
+            <tr>
+                <td class="col-md-10">
+                    <au-collection items.bind="data.steps" columns.bind="stepInfo.columns" add.bind="stepInfo.onAdd" remove.bind="stepInfo.onRemove"
+                        title="Details Step" read-only.bind="readOnly" item-template="modules/master/instruksi/template/step-item">
+                    </au-collection>
+                </td>
+            </tr>
+        </table>
+    </form>
+</template>
