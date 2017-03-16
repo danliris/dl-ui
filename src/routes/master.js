@@ -179,5 +179,31 @@ module.exports = [
       permission: { "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
+  },
+  {
+    route: 'instruksi',
+    name: 'instruksi',
+    moduleId: './modules/master/instruksi/index',
+    nav: true,
+    title: 'Instruksi',
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'step',
+    name: 'step',
+    moduleId: './modules/master/step/index',
+    nav: true,
+    title: 'Step',
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
   }
 ] 
