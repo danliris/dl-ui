@@ -4,8 +4,38 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    data = [];
-    info = { page: 1, keyword: '' };
+    // data = [];
+    // info = { page: 1, keyword: '' };
+    context = ["detail"];
+    columns = [
+    { field: "code", title: "Kode Barang" },
+    { field: "name", title: "Nama Barang" },
+    { field: "uom.unit", title: "Satuan Default" },
+    { field: "currency.code", title: "Mata Uang" },
+    { field: "price", title: "Harga Barang" },
+    { field: "description", title: "Keterangan" },
+  ];
+
+  loader = (info) => {
+    var order = {};
+    if (info.sort)
+      order[info.sort] = info.order;
+
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    }
+
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
+  }
 
     constructor(router, service) {
         this.service = service;
@@ -14,47 +44,13 @@ export class List {
         this.accessories = [];
     }
 
-    async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        this.data = result.data;
-        this.info = result.info;
-        this.data.forEach((product) => {
-            product.price = parseFloat(product.price).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            })
-        })
-    }
-
-    loadPage() {
-        var keyword = this.info.keyword;
-        this.service.search(this.info)
-            .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-                this.info.keyword = keyword;
-                this.data.forEach((product) => {
-                    product.price = parseFloat(product.price).toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    })
-                })
-            })
-    }
-
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.loadPage();
-    }
-
-    view(data) {
+    contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "detail":
         this.router.navigateToRoute('view', { id: data._id });
+        break;
     }
-
-    upload() {
-        this.router.navigateToRoute('upload');
-    }
-
+  }
 }
