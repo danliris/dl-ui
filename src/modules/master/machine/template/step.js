@@ -32,18 +32,8 @@ export class Step {
     }
   }
 
-  get loader() {
-    // return (keyword, query) => {
-    //   const resource = 'master/steps';
-    //   var config = Container.instance.get(Config);
-    //   var endpoint = config.getEndpoint("core");
-    //   return endpoint.find(resource)
-    //     .then(results => {
-    //       return results.data.map(step => {
-    //         return step;
-    //       })
-    //     });
-    // };
+
+  get stepLoader() {
     return StepLoader;
   }
 }
