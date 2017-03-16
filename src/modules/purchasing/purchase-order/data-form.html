@@ -17,11 +17,11 @@
                 value.bind="data.purchaseRequest" 
                 error.bind="error.purchaseRequest"
                 label="No. PR"
-                change-delegate="purchaseRequestChanged"
+                change.delegate="purchaseRequestChanged($event)"
                 loader.bind="purchaseRequestPostedLoader"
                 placeholder="cari purchase request" 
                 key="no"
-                read-only.bind="prReadOnly || readOnly">
+                read-only.bind="prReadOnly">
             </au-autocomplete>
 
             <au-datepicker 

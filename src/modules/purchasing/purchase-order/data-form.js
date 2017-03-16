@@ -38,7 +38,7 @@ export class DataForm {
         return CategoryLoader;
     }
 
-    purchaseRequestChanged(event) {
+    purchaseRequestChanged(e) {
         if (this.data.purchaseRequest) {
             var _items = [];
             this.data.purchaseRequestId = this.data.purchaseRequest._id;
@@ -69,6 +69,15 @@ export class DataForm {
                 _items.push(_item);
             })
             this.data.items = _items;
+
+            this.data.items.forEach(item => {
+                item.product.toString = function () {
+                    return [this.code, this.name]
+                        .filter((item, index) => {
+                            return item && item.toString().trim().length > 0;
+                        }).join(" - ");
+                }
+            })
         }
         else {
             this.data.purchaseRequest = {};
