@@ -1,73 +1,81 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import {inject, bindable, computedFrom} from 'aurelia-framework'
 import {Service} from './service';
+var UnitLoader = require('../../../loader/unit-loader');
+var CategoryLoader = require('../../../loader/category-loader');
+var PurchaseRequestPostedLoader = require('../../../loader/purchase-request-posted-loader');
 var moment = require('moment');
 
-
-@inject(BindingEngine, Element,Service)
 export class DataForm {
     @bindable readOnly = false;
-    @bindable data = {};
-    @bindable error = {};
+    @bindable prReadOnly = false;
+    @bindable data;
+    @bindable error;
 
-    constructor(bindingEngine, element,service) {
-        this.bindingEngine = bindingEngine;
-        this.element = element;
-        this.service = service;
+    @bindable title;
+
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
     }
 
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
-    
-    attached() {
+    itemsColumns = [
+        { header: "Barang", value: "product" },
+        { header: "Jumlah", value: "defaultQuantity" },
+        { header: "Satuan", value: "defaultUom" },
+        { header: "Keterangan", value: "remark" }
+    ]
 
-        if (this.data.isSplit) {
-            this.splitPO();
-        }
-    }
-    bind() {
-
-    }
-    splitPO() {
-        
-        for (var item of this.data.items) {
-            item.isSplit = this.data.isSplit;
-        }
+    get purchaseRequestPostedLoader() {
+        return PurchaseRequestPostedLoader;
     }
 
-    addItem() {
-
+    get unitLoader() {
+        return UnitLoader;
     }
 
-    removeItem(item) {
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
+    get categoryLoader() {
+        return CategoryLoader;
     }
 
-    prChanged(e) {
-        var pr = e.detail || {};   
-        if (pr) {
-            this.data.purchaseRequestId = pr._id;
-            var selectedItem = pr.items || [];
+    purchaseRequestChanged(event) {
+        if (this.data.purchaseRequest) {
             var _items = [];
-            this.data.remark=pr.remark;
-            for (var item of selectedItem) {
+            this.data.purchaseRequestId = this.data.purchaseRequest._id;
+            this.data.purchaseRequest.date = moment(this.data.purchaseRequest.date).format("DD MMMM YYYY");
+            this.data.purchaseRequest.expectedDeliveryDate = moment(this.data.purchaseRequest.expectedDeliveryDate).format("DD MMMM YYYY");
+
+            this.data.purchaseRequest.unit.toString = function () {
+                return [this.division.name, this.name]
+                    .filter((item, index) => {
+                        return item && item.toString().trim().length > 0;
+                    }).join(" - ");
+            }
+
+            this.data.purchaseRequest.category.toString = function () {
+                return [this.code, this.name]
+                    .filter((item, index) => {
+                        return item && item.toString().trim().length > 0;
+                    }).join(" - ");
+            }
+
+            this.data.remark = this.data.purchaseRequest.remark;
+            this.data.purchaseRequest.items.map((item) => {
                 var _item = {};
                 _item.product = item.product;
                 _item.defaultUom = item.product.uom;
                 _item.defaultQuantity = item.quantity;
                 _item.remark = item.remark;
                 _items.push(_item);
-
-            }
+            })
             this.data.items = _items;
         }
-        else
-        {
-            this.data.remark="";
-            this.data.items=[];
+        else {
+            this.data.purchaseRequest = {};
+            this.data.purchaseRequestId = {};
+            this.data.remark = "";
+            this.data.items = [];
         }
-     }
+    }
 
 } 

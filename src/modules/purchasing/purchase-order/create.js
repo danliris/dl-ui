@@ -13,14 +13,14 @@ export class Create {
     }
 
 
-    back() {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    save() {
+    save(event) {
         this.service.create(this.data)
             .then(result => {
-                this.back();
+                this.cancel();
             })
             .catch(e => {
                 this.error = e;
