@@ -2,6 +2,8 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
+var StepLoader = require('../../../../loader/step-loader');
+
 export class Step {
 
   @bindable step;
@@ -30,17 +32,7 @@ export class Step {
     }
   }
 
-  get loader() {
-    return (keyword, query) => {
-      const resource = 'master/steps';
-      var config = Container.instance.get(Config);
-      var endpoint = config.getEndpoint("core");
-      return endpoint.find(resource)
-        .then(results => {
-          return results.data.map(step => {
-            return step;
-          })
-        });
-    };
+  get StepLoader() {
+    return StepLoader;
   }
 }
