@@ -38,7 +38,6 @@ export class Dropdown {
 
   _matcher = (option, current) => {
     var result = false;
-    debugger;
     if (!option || !current)
       return result;
 

@@ -69,6 +69,20 @@
             read-only.bind="(readOnly)">
           </au-numeric>
 
+          <au-collection              
+              items.bind="data.steps" 
+              errors.bind="error.steps" 
+              read-only.bind="readOnly" 
+              columns.bind="stepColumns" 
+              title="Step" 
+              item-template="modules/master/machine/template/step" 
+              add.bind="addStep" 
+              remove.bind="removeStep">
+          </au-collection>
+          <div if.bind="error.steps.toString()">
+            <span style="color:red">-Step / Proses harus diisi dan tidak boleh sama.</span>
+          </div>
+
           <au-collection 
             items.bind="data.machineEvents" 
             columns.bind="machineEventColumns" 
@@ -78,21 +92,6 @@
             read-only.bind="readOnly" 
             item-template="modules/master/machine/template/machine-event-item">
           </au-collection>
-
-          <au-collection              
-              items.bind="data.steps" 
-              errors.bind="error.steps" 
-              read-only.bind="readOnly" 
-              columns.bind="stepColumns" 
-              title="Step / Proses" 
-              item-template="modules/master/machine/template/step" 
-              add.bind="addStep" 
-              remove.bind="removeStep">
-          </au-collection>
-          <div if.bind="error.steps.toString()">
-            <span style="color:red">-Step / Proses harus diisi dan tidak boleh sama.</span>
-          </div>
-
         </au-input-form>
     </div>
   </div>
