@@ -20,6 +20,11 @@ export class DataForm {
     this.filterMaterial = {
       "tags" :"material"
     };
+    this.filterComodity = {
+      "type":{
+        "$regex":"Finishing Printing"
+      }
+    };
   }
 
   @computedFrom("data.dataId")
