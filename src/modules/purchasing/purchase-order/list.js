@@ -16,6 +16,7 @@ export class List {
 
     columns = [
         { field: "unit.division.name", title: "Divisi" },
+        { field: "unit.name", title: "Unit" },
         { field: "category.name", title: "Kategori" },
         { field: "purchaseRequest.no", title: "No. PR" },
         {
