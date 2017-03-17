@@ -5,6 +5,9 @@ export class PurchaseRequestItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
+    if (!this.data.productId) {
+      this.data.productId = {};
+    }
   }
 
   get productLoader() {
