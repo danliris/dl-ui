@@ -14,10 +14,9 @@
             <legend>Informasi PR</legend>
             
             <au-autocomplete 
-                value.bind="data.purchaseRequest" 
-                error.bind="error.purchaseRequest"
+                value.bind="purchaseRequest" 
+                error.bind="error.purchaseRequestId"
                 label="No. PR"
-                change.delegate="purchaseRequestChanged($event)"
                 loader.bind="purchaseRequestPostedLoader"
                 placeholder="cari purchase request" 
                 key="no"
@@ -36,17 +35,19 @@
                 read-only.bind="true">
             </au-datepicker>
 
-            <au-textbox 
-                value.bind="data.purchaseRequest.unit.name"
-                label="Unit"  
+            <au-autocomplete 
+                value.bind="data.purchaseRequest.unit" 
+                label="Unit" 
+                loader.bind="unitLoader"
                 read-only.bind="true">
-            </au-textbox>
+            </au-autocomplete>
 
-            <au-textbox 
-                value.bind="data.purchaseRequest.category.name"
+            <au-autocomplete 
+                value.bind="data.purchaseRequest.category"
                 label="Kategori" 
+                loader.bind="categoryLoader"
                 read-only.bind="true">
-            </au-textbox>
+            </au-autocomplete>
 
             <au-multiline 
                 label="Keterangan" 

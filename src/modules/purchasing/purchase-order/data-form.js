@@ -10,6 +10,7 @@ export class DataForm {
     @bindable prReadOnly = false;
     @bindable data;
     @bindable error;
+    @bindable purchaseRequest;
 
     @bindable title;
 
@@ -17,6 +18,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
     }
 
     itemsColumns = [
@@ -38,12 +40,11 @@ export class DataForm {
         return CategoryLoader;
     }
 
-    purchaseRequestChanged(e) {
+    purchaseRequestChanged(newValue) {
+        this.data.purchaseRequest=newValue;
         if (this.data.purchaseRequest) {
             var _items = [];
             this.data.purchaseRequestId = this.data.purchaseRequest._id;
-            this.data.purchaseRequest.date = moment(this.data.purchaseRequest.date).format("DD MMMM YYYY");
-            this.data.purchaseRequest.expectedDeliveryDate = moment(this.data.purchaseRequest.expectedDeliveryDate).format("DD MMMM YYYY");
 
             this.data.purchaseRequest.unit.toString = function () {
                 return [this.division.name, this.name]

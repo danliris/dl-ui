@@ -23,6 +23,21 @@ export class View {
         this.data.purchaseRequest.toString = function () {
             return `${this.no}`
         }
+        this.purchaseRequest=this.data.purchaseRequest;
+
+        this.data.purchaseRequest.unit.toString = function () {
+            return [this.division.name, this.name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
+        }
+
+        this.data.purchaseRequest.category.toString = function () {
+                return [this.code, this.name]
+                    .filter((item, index) => {
+                        return item && item.toString().trim().length > 0;
+                    }).join(" - ");
+            }
 
         this.data.items.forEach(item => {
             item.product.toString = function () {
@@ -41,7 +56,7 @@ export class View {
     edit(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
-    
+
     delete(event) {
         this.service.delete(this.data).then(result => {
             this.cancel();
