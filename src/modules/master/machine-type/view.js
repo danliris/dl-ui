@@ -22,18 +22,18 @@ export class View {
         this.data = await this.service.getById(id);
     }
 
-    list() {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+    deleteCallback(event) {
         this.service.delete(this.data)
             .then(result => {
-                this.list();
+                this.router.navigateToRoute('list');
             });
     }
 }
