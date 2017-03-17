@@ -19,49 +19,54 @@
         error.bind="error.name"
         read-only.bind="readOnly"
       ></au-textbox>
-      
-      
-      <au-textbox 
-        label="Kontak"
-        value.bind="data.contact"
-        error.bind="error.contact"
-        read-only.bind="readOnly"
-      ></au-textbox>
-
-      <au-multiline
-        label="Alamat"
-        value.bind="data.address"
-        error.bind="error.address"
-        read-only.bind="readOnly"
-      ></au-multiline>
-
-      <au-textbox 
-        label="PIC"
-        value.bind="data.PIC"
-        error.bind="error.PIC"
-        read-only.bind="readOnly"
-      ></au-textbox>
-
-      <au-textbox 
-        label="NPWP"
-        value.bind="data.NPWP"
-        error.bind="error.NPWP"
-        read-only.bind="readOnly"
-      ></au-textbox>
-      
-      <au-textbox 
-        label="No. Serial"
-        value.bind="data.serialNumber"
-        error.bind="error.serialNumber"
-        read-only.bind="readOnly"
-      ></au-textbox>
 
       <au-checkbox        
         label="Import"          
         value.bind="data.import"        
         error.bind="error.import"       
-        read-only.bind="readOnly">
-      </au-checkbox>
+        read-only.bind="readOnly"
+      ></au-checkbox>
+
+      <fieldset>
+        <legend>Legal</legend>
+          <au-textbox 
+          label="NPWP"
+          value.bind="data.NPWP"
+          error.bind="error.NPWP"
+          read-only.bind="readOnly"
+          ></au-textbox>
+          
+          <au-textbox 
+            label="No. Serial"
+            value.bind="data.serialNumber"
+            error.bind="error.serialNumber"
+            read-only.bind="readOnly"
+          ></au-textbox>
+      </fieldset>
+      
+      <fieldset>
+        <legend>Kontak</legend>
+            <au-textbox 
+              label="Kontak"
+              value.bind="data.contact"
+              error.bind="error.contact"
+              read-only.bind="readOnly"
+            ></au-textbox>
+
+            <au-textbox 
+              label="PIC"
+              value.bind="data.PIC"
+              error.bind="error.PIC"
+              read-only.bind="readOnly"
+            ></au-textbox>
+
+            <au-multiline
+              label="Alamat"
+              value.bind="data.address"
+              error.bind="error.address"
+              read-only.bind="readOnly"
+            ></au-multiline> 
+      </fieldset>
 
       <template replaceable part="actions"></template>
       
