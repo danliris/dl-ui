@@ -31,6 +31,7 @@ export class List {
     },
     { field: "no", title: "No. PR" },
     { field: "unit.division.name", title: "Divisi" },
+    { field: "unit.name", title: "Unit" },
     { field: "category.name", title: "Kategori" },
     // { field: "NPWP", title: "NPWP" },
     {
