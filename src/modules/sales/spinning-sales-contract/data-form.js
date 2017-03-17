@@ -86,6 +86,11 @@ export class DataForm {
 
     buyersChanged(e) {
         var selectedBuyer = e.detail;
+        this.data.agent = {};
+        this.agentChanged({});
+        this.data.termOfPayment = {};
+        this.termOfPaymentChanged({});
+        this.data.comission = "";
         if (selectedBuyer) {
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
             if (selectedBuyer.type.toLowerCase() == "ekspor" || selectedBuyer.type.toLowerCase() == "export") {
@@ -97,14 +102,6 @@ export class DataForm {
                 this.filterpayment = {
                     "isExport": false
                 };
-            }
-            if (!this.readOnly) {
-                this.data.agent = {};
-                this.agentChanged({});
-                this.data.termOfPayment = {};
-                this.termOfPaymentChanged({});
-                this.data.termOfShipment = "";
-                this.data.comission = "";
             }
 
         }
