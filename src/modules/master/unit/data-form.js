@@ -5,6 +5,12 @@ export class DataForm {
   @bindable readOnly = false;
   @bindable data = { "import": true };
   @bindable error = {};
+  formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
 
   constructor() {
 
