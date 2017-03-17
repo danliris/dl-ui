@@ -4,7 +4,7 @@
         <au-textbox 
           value.bind="data.indicator" 
           error.bind="error.indicator"
-          read-only.bind="readOnly"
+          read-only.bind="readOnly">
         </au-textbox>
       </td>
       <td>
@@ -21,7 +21,7 @@
         <au-textbox 
           value.bind="data.defaultValue"
           error.bind="error.defaultValue"
-          read-only.bind="data.dataType == 'input teks' || data.dataType == 'input angka'"
+          read-only.bind="data.dataType == 'input teks' || data.dataType == 'input angka' || readOnly"
         ></au-textbox>
       </td>
       <td>
