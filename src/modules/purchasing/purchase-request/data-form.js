@@ -5,8 +5,8 @@ var CategoryLoader = require('../../../loader/category-loader');
 
 export class DataForm {
     @bindable readOnly = false;
-    @bindable data;
-    @bindable error;
+    @bindable data = {};
+    @bindable error ={};
 
     @bindable title;
 
