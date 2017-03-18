@@ -19,7 +19,11 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    save() {
+    cancelCallback(event) {
+      this.list();
+    }
+
+    saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
                 this.list();

@@ -25,6 +25,12 @@ export class Collection {
   @bindable add;
   @bindable remove;
 
+  itemsChanged() {
+    this.buildContext();
+  }
+  errorsChanged() {
+    this.buildContext();
+  }
 
   @computedFrom("columns")
   get __columns() {
@@ -80,8 +86,13 @@ export class Collection {
     this.columns = this.columns || [];
     this.buildContext();
 
-    let subscription = this.bindingEngine.collectionObserver(this.items)
+    let itemSubscription = this.bindingEngine.collectionObserver(this.items)
       .subscribe(splices => {
+        this.buildContext();
+      });
+    let errorSubscription = this.bindingEngine.collectionObserver(this.errors)
+      .subscribe(splices => {
+        console.log("collections:errors modified")
         this.buildContext();
       });
   }
@@ -90,8 +101,10 @@ export class Collection {
     this.context = this.context || {};
     this.context.columns = this.columns;
     this.context.options = this.options;
-    this.context.items = this.items.map((item, index) => {
-      var error = this.error ? this.error[0] : null;
+    this.context.items = this.context.items || [];
+
+    var mapped = this.items.map((item, index) => {
+      var error = this.errors ? this.errors[index] : null;
       return {
         data: item,
         error: error,
@@ -101,6 +114,8 @@ export class Collection {
         context: this.context
       }
     });
+    this.context.items.splice(0, this.context.items.length);
+    Array.prototype.push.apply(this.context.items, mapped);
   }
 
   onadd(event) {

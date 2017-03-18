@@ -1,6 +1,10 @@
+import {bindable} from 'aurelia-framework'
 var StepLoader = require('../../../../../loader/step-loader');
 
 export class StepItem {
+
+  @bindable temp;
+
   activate(context) {
     console.log("step-Item")
     this.context = context;
@@ -8,11 +12,12 @@ export class StepItem {
     this.error = context.error;
     this.options = context.options;
     this.temp = this.step;
+    this.isShowing = false;
   } 
   stepIndicatorColumns = [
     { header : "Indikator", value : "name"},
     { header : "Nilai", value : "value"},
-    { header : "Satuan", value : "uom.unit"},
+    { header : "Satuan", value : "uom"},
   ];
 
   controlOptions = {
@@ -21,16 +26,17 @@ export class StepItem {
     }
   };
 
-  onStepChanged($event){
-    console.log("changed");
-    Object.assign(this.context.data, this.temp);
-  }
-  onStepFocused($event){
-    console.log("focused");
+  tempChanged(newValue, oldValue){
+    console.log("temp : ");
+    console.log(this.temp);
+    console.log("newValue : ");
+    console.log(newValue);
+    Object.assign(this.context.data, newValue);
   }
 
   onItemClicked(step, event){
       if (this.context.context.selectedStep){
+          this.context.context.selectedStep.tdNumber.removeAttribute("class");
           this.context.context.selectedStep.tdStep.removeAttribute("class");
           if (this.context.context.selectedStep.tdButton)
             this.context.context.selectedStep.tdButton.removeAttribute("class");
@@ -43,13 +49,21 @@ export class StepItem {
         }
       }
 
+      this.tdNumber.setAttribute("class", "active");
       this.tdStep.setAttribute("class", "active");
       if (this.tdButton) 
         this.tdButton.setAttribute("class", "active");
 
-      this.context.context.selectedStep = {data : step, index : index, tdStep : this.tdStep, tdButton : this.tdButton};
+      this.context.context.selectedStep = {data : step, index : index, tdNumber : this.tdNumber, tdStep : this.tdStep, tdButton : this.tdButton};
       console.log("item clicked");
       console.log(this.context);
+  }
+
+  toggle(){
+    if (!this.isShowing)
+      this.isShowing = true;
+    else
+      this.isShowing = !this.isShowing;
   }
 
   get stepLoader(){

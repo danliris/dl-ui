@@ -31,6 +31,7 @@ export class List {
     },
     { field: "no", title: "No. PR" },
     { field: "unit.division.name", title: "Divisi" },
+    { field: "unit.name", title: "Unit" },
     { field: "category.name", title: "Kategori" },
     // { field: "NPWP", title: "NPWP" },
     {
@@ -45,7 +46,7 @@ export class List {
     var order = {};
     if (info.sort)
       order[info.sort] = info.order;
-console.log(info)
+    // console.log(info)
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,

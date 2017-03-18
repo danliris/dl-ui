@@ -20,6 +20,11 @@ export class DataForm {
     this.filterMaterial = {
       "tags" :"material"
     };
+    this.filterComodity = {
+      "type":{
+        "$regex":"Finishing Printing"
+      }
+    };
   }
 
   @computedFrom("data.dataId")
@@ -150,6 +155,9 @@ export class DataForm {
           this.agentChanged({});
           this.data.termOfPayment={};
           this.termOfPaymentChanged({});
+          this.data.remark="";
+          this.data.useIncomeTax=false;
+          this.data.termOfShipment="";
       }
           
     }

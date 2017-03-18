@@ -20,7 +20,11 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    save() {
+    cancelCallback(event) {
+      this.list();
+    }
+
+    saveCallback(event) {
         var e = {};
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");

@@ -7,7 +7,10 @@ import {Service} from './service';
 export class List {
     data = [];
     listReport = [
-        "9401ddc4-47e3-49a3-9a8e-8ff59043cdb5"//Top Ten Event Monitoring
+        "bd66ecf6-0640-495c-b711-03e43ea405cb",//Top Ten Event Monitoring
+        "5f40a4b5-3c20-4332-9cc2-cb3b9dfd9266",//Kapasitas Mesin VS Total Input Produksi
+        "160f644b-259c-4750-8271-c0e14e4ef390"//Perbandingan Kualitas Order Produksi
+
     ];
     constructor(router, service) {
         this.router = router;

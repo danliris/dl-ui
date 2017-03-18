@@ -18,5 +18,8 @@ export class View {
     list() {
         this.router.navigateToRoute('list');
     } 
+
+    cancelCallback(event) {
+      this.list();    }
 }
 
