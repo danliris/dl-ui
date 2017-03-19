@@ -26,7 +26,9 @@ export class Collection {
   @bindable remove;
 
   itemsChanged() {
-    console.log("collection:itemsChanged");
+    this.buildContext();
+  }
+  errorsChanged() {
     this.buildContext();
   }
 
@@ -84,8 +86,13 @@ export class Collection {
     this.columns = this.columns || [];
     this.buildContext();
 
-    let subscription = this.bindingEngine.collectionObserver(this.items)
+    let itemSubscription = this.bindingEngine.collectionObserver(this.items)
       .subscribe(splices => {
+        this.buildContext();
+      });
+    let errorSubscription = this.bindingEngine.collectionObserver(this.errors)
+      .subscribe(splices => {
+        console.log("collections:errors modified")
         this.buildContext();
       });
   }
@@ -97,7 +104,7 @@ export class Collection {
     this.context.items = this.context.items || [];
 
     var mapped = this.items.map((item, index) => {
-      var error = this.error ? this.error[0] : null;
+      var error = this.errors ? this.errors[index] : null;
       return {
         data: item,
         error: error,

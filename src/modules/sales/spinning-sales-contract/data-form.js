@@ -7,6 +7,7 @@ var QualityLoader = require('../../../loader/quality-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var ProductLoader = require('../../../loader/products-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
+var AgentLoader = require('../../../loader/agent-loader')
 
 export class DataForm {
     @bindable readOnly = false;
@@ -22,7 +23,7 @@ export class DataForm {
 
     tagsFilter = { tags: { "$regex": "Material" } };
 
-    incomeTaxOptions = ['Include PPn', 'Exclude PPn', 'Tanpa PPn'];
+    incomeTaxOptions = ['Tanpa PPn', 'Exclude PPn', 'Include PPn'];
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -84,32 +85,68 @@ export class DataForm {
     }
 
     buyersChanged(e) {
-        // this.data.termOfPayment = {};
-        console.log('buyers changed')
+        var selectedBuyer = e.detail;
+        if (selectedBuyer) {
+            this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
+            if (selectedBuyer.type.toLowerCase() == "ekspor" || selectedBuyer.type.toLowerCase() == "export") {
+                this.filterpayment = {
+                    "isExport": true
+                };
+            }
+            else {
+                this.filterpayment = {
+                    "isExport": false
+                };
+            }
+            if (!this.readOnly) {
+                this.data.agent = {};
+                this.agentChanged({});
+                this.data.termOfPayment = {};
+                this.termOfPaymentChanged({});
+                this.data.termOfShipment = "";
+                this.data.comission = "";
+            }
+
+        }
+        console.log('buyer changed');
     }
 
     comodityChanged(e) {
-        console.log('comodity changed')
+        console.log('comodity changed');
     }
 
     uomChanged(e) {
-        console.log('uom changed')
+        console.log('uom changed');
     }
 
     qualityChanged(e) {
-        console.log('quality changed')
+        console.log('quality changed');
     }
 
     accountBankChanged(e) {
-        console.log('accountBank changed')
+        console.log('accountBank changed');
     }
 
     productChanged(e) {
-        console.log('product changed')
+        console.log('product changed');
     }
 
     termOfPaymentChanged(e) {
-        console.log('term of payment Changed')
+        console.log('term of payment Changed');
+    }
+
+    agentChanged(e) {
+        var selectedAgent = e.detail || {};
+        if (selectedAgent) {
+            this.data.agentId = selectedAgent._id ? selectedAgent._id : "";
+            if (!this.readOnly) {
+                this.data.comission = "";
+            }
+        }
+        else {
+            this.data.comission = "";
+        }
+        console.log('agent changed');
     }
 
 
@@ -140,6 +177,10 @@ export class DataForm {
 
     get termOfPaymentLoader() {
         return TermOfPaymentLoader;
+    }
+
+    get agentLoader() {
+        return AgentLoader;
     }
 
     activate() {

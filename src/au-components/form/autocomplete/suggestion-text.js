@@ -5,7 +5,10 @@ export class SuggestionTextValueConverter {
     else if (typeof suggestion === "string")
       return suggestion;
     else if (typeof suggestion === "object" && field) {
-      return suggestion[field];
+      if (typeof field === "function")
+        return field(suggestion);
+      else
+        return suggestion[field];
     }
     else
       return suggestion.toString();

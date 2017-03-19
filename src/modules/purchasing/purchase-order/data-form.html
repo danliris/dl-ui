@@ -1,20 +1,68 @@
 <template>
-    <form class="form-horizontal">
+      <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Pecah PO</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-success" click.delegate="context.split($event)" if.one-way="context.hasSplit">Pecah PO</button>
+        </div>
         <fieldset>
             <legend>Informasi PR</legend>
-            <purchase-request-auto-suggest-posted          label="No. PR"              value.bind="data.purchaseRequest"                       error.bind="error.purchaseRequest"                       read-only.bind="(isEdit)" change.delegate="prChanged($event)"></purchase-request-auto-suggest-posted>
-            <datepicker                             label="Tgl. PR"             value.bind="data.purchaseRequest.date"                  read-only.bind="(readOnly || data.isSplit)" ></datepicker>
-            <datepicker                             label="Tgl. Diminta Datang" value.bind="data.purchaseRequest.expectedDeliveryDate"  read-only.bind="(readOnly || data.isSplit)"></datepicker>
-            <unit-auto-suggest                      label="Unit"                value.bind="data.purchaseRequest.unit"                  read-only.bind="(readOnly || isEdit)" ></unit-auto-suggest>
-            <category-auto-suggest                  label="Kategori"            value.bind="data.purchaseRequest.category"              read-only.bind="(readOnly || isEdit)" ></category-auto-suggest>
-        </fieldset>
-        <hr />
-        <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>
+            
+            <au-autocomplete 
+                value.bind="purchaseRequest" 
+                error.bind="error.purchaseRequestId"
+                label="No. PR"
+                loader.bind="purchaseRequestPostedLoader"
+                placeholder="cari purchase request" 
+                key="no"
+                read-only.bind="prReadOnly">
+            </au-autocomplete>
 
-        <hr />
-        <div class="form-group ${error && error.items ? 'has-error' : ''}">
-            <span class="help-block">${error.items.toString()==="[object Object]" ? "" : error.items}</span>
-        </div>
-            <purchase-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" is-split.bind="data.isSplit"></purchase-order-item-collection>
-    </form>
+            <au-datepicker 
+                label="Tgl. PR" 
+                value.bind="data.purchaseRequest.date" 
+                read-only.bind="true">
+            </au-datepicker>
+
+            <au-datepicker 
+                label="Tgl. Diminta Datang" 
+                value.bind="data.purchaseRequest.expectedDeliveryDate"
+                read-only.bind="true">
+            </au-datepicker>
+
+            <au-autocomplete 
+                value.bind="data.purchaseRequest.unit" 
+                label="Unit" 
+                loader.bind="unitLoader"
+                read-only.bind="true">
+            </au-autocomplete>
+
+            <au-autocomplete 
+                value.bind="data.purchaseRequest.category"
+                label="Kategori" 
+                loader.bind="categoryLoader"
+                read-only.bind="true">
+            </au-autocomplete>
+
+            <au-multiline 
+                label="Keterangan" 
+                value.bind="data.purchaseRequest.remark" 
+                placeholder="tambah keterangan" 
+                read-only.bind="true">
+            </au-multiline>
+        </fieldset>
+
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="itemsColumns" 
+            read-only.bind="readOnly" 
+            item-template="modules/purchasing/purchase-order/template/purchase-order-item">
+        </au-collection>
+
+  </au-input-form>
 </template>
