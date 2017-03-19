@@ -18,6 +18,7 @@ export class DataForm {
   machineEventColumns = [
     { header: "No", value: "no" },
     { header: "Nama", value: "name" },
+    { header: "Kategori", value: "category" },
   ]
 
   stepColumns = [
