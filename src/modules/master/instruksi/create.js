@@ -5,31 +5,21 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class Create {
-    hasCancel = true;
-    hasSave = true;
-
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.data = {};
     }
 
-    activate(params) {
-
-    }
-
-    bind() {
-
-        this.data = this.data || {};
-        this.error = {};
-    }
-
-    cancel(event) {
+    back() {
         this.router.navigateToRoute('list');
     }
-    save(event) {
+
+    save() {
+        debugger
         this.service.create(this.data)
             .then(result => {
-                this.cancel();
+                this.back();
             })
             .catch(e => {
                 this.error = e;

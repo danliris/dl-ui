@@ -16,7 +16,7 @@ export class StepItem {
   } 
   stepIndicatorColumns = [
     { header : "Indikator", value : "name"},
-    { header : "Nilai", value : "value"},
+    { header : "Nilai", value : "value"}, 
     { header : "Satuan", value : "uom"},
   ];
 
