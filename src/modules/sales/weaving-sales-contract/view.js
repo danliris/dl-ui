@@ -14,7 +14,6 @@ export class View {
     var locale = 'id-ID';
     var moment = require('moment');
     moment.locale(locale);
-
     var id = params.id;
     this.data = await this.service.getById(id);
     this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');

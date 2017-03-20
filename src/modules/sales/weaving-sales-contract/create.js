@@ -18,6 +18,7 @@ export class Create {
     }
 
     bind() {
+
         this.data = this.data || {};
         this.error = {};
     }
