@@ -64,10 +64,10 @@ export class DataForm {
     }
     @computedFrom("data.buyer")
     get isExport() {
-        
+
         this.agent = false;
         if (this.data.buyer) {
-            debugger
+
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
                 this.agent = true;
             }
@@ -212,7 +212,10 @@ export class DataForm {
     }
 
     get agentLoader() {
+        console.log(BuyersLoader);
         return BuyersLoader;
+
+
     }
 
     activate() {

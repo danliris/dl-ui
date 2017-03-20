@@ -18,7 +18,6 @@ export class View {
     this.data = await this.service.getById(id);
     this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');
 
-
     this.data.accountBank.toString = function () {
       return [this.accountName, this.bankName, this.accountNumber]
         .filter((item, index) => {

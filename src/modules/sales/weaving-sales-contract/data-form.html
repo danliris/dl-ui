@@ -7,13 +7,15 @@
 
     <div class="row">
       <div class="col-md-6" style="padding:10">
-        <au-textbox label="Nomor Sales Kontrak" value.bind="data.salesContractNo" error.bind="error.salesContractNo" read-only="true" if.bind="data.salesContractNo" ></au-textbox>
+        <au-textbox label="Nomor Sales Kontrak" value.bind="data.salesContractNo" error.bind="error.salesContractNo" read-only="true"
+          if.bind="data.salesContractNo"></au-textbox>
 
         <au-autocomplete value.bind="data.buyer" error.bind="error.buyer" label="Buyer" change.delegate="buyersChanged($event)" loader.bind="buyersLoader"
           placeholder="cari buyer " key="code" text="name" read-only.bind="(readOnly || isEdit)">
         </au-autocomplete>
 
         <au-textbox label="Tipe Buyer" value.bind="data.buyer.type" error.bind="error.buyer.type" read-only="true" if.bind="data.buyer"></au-textbox>
+
 
         <au-textbox label="Nomor Disposisi" value.bind="data.dispositionNumber" error.bind="error.dispositionNumber" placeholder="input nomor disposisi"
           read-only.bind="(readOnly || isEdit)"></au-textbox>
@@ -104,7 +106,7 @@
         <au-multiline label="Remark" placeholder="input remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly || isEdit)"></au-multiline>
 
         <au-autocomplete label="Agent" placeholder="cari agent" value.bind="data.agent" error.bind="error.agent" read-only.bind="(readOnly || isEdit)"
-          if.bind="isExport" change.delegate="agentChanged($event)" loader.bind="agentLoader" key="code" text="name"></au-autocomplete>
+           change.delegate="agentChanged($event)" loader.bind="agentLoader" key="code" ></au-autocomplete>
 
         <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.comission" error.bind="error.comission" read-only.bind="(readOnly || isEdit)"
           if.bind="isComission"></au-textbox>
