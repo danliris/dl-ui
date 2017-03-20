@@ -20,7 +20,7 @@ export class DataForm {
             { header: "Satuan", value: "uom" },
         ],
         onAdd: function () {
-            this.data.stepIndicators.push({ name: "", qty: 0, alias: "", uom: "" });
+            this.data.stepIndicators.push({ name: "", qty: 0, uom: "" });
             console.log("add");
         }.bind(this),
         onRemove: function () {
