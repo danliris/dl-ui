@@ -28,8 +28,8 @@ export class Autocomplete {
   @bindable query // query object
   @bindable editorValue; // input field value;
 
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) key;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) text;
+  @bindable({ defaultBindingMode: bindingMode.oneWay }) key;
+  @bindable({ defaultBindingMode: bindingMode.oneWay }) text;
 
   _suggestions = [];
   _suggestionVisible = false;
@@ -46,7 +46,7 @@ export class Autocomplete {
   }
 
   bind() {
-    this._ignoreInputChange = true; 
+    this._ignoreInputChange = true;
     this.editorValue = this._getSuggestionText(this.value);
     if (this.value)
       this._suggestions = [this.value];
@@ -169,7 +169,10 @@ export class Autocomplete {
     else if (typeof suggestion === "string")
       return suggestion;
     else if (typeof suggestion === "object" && this.text) {
-      return suggestion[this.text];
+      if (typeof this.text === "function")
+        return this.text(suggestion);
+      else
+        return suggestion[this.text];
     }
     else
       return suggestion.toString();
