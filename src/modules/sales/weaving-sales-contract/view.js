@@ -24,6 +24,12 @@ export class View {
           return item && item.toString().trim().length > 0;
         }).join(" - ");
     }
+    this.data.agent.toString = function () {
+      return [this.code, this.name]
+        .filter((item, index) => {
+          return item && item.toString().trim().length > 0;
+        }).join("-");
+    }
   }
 
   cancelCallback(event) {

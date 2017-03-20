@@ -9,6 +9,7 @@ var MaterialLoader = require('../../../loader/material-loader');
 var ProductLoader = require('../../../loader/products-loader');
 var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
+var AgentLoader = require('../../../loader/agent-loader');
 
 export class DataForm {
     @bindable readOnly = false;
@@ -175,6 +176,7 @@ export class DataForm {
     }
 
 
+
     get buyersLoader() {
         return BuyersLoader;
     }
@@ -212,10 +214,8 @@ export class DataForm {
     }
 
     get agentLoader() {
-        console.log(BuyersLoader);
-        return BuyersLoader;
 
-
+        return AgentLoader;
     }
 
     activate() {

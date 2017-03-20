@@ -106,7 +106,7 @@
         <au-multiline label="Remark" placeholder="input remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly || isEdit)"></au-multiline>
 
         <au-autocomplete label="Agent" placeholder="cari agent" value.bind="data.agent" error.bind="error.agent" read-only.bind="(readOnly || isEdit)"
-           change.delegate="agentChanged($event)" loader.bind="agentLoader" key="code" ></au-autocomplete>
+          if.bind="isExport" change.delegate="agentChanged($event)" loader.bind="agentLoader" key="code"></au-autocomplete>
 
         <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.comission" error.bind="error.comission" read-only.bind="(readOnly || isEdit)"
           if.bind="isComission"></au-textbox>
