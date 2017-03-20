@@ -12,6 +12,7 @@ export class Service extends RestService {
     }
 
     search(info) {
+        debugger
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
