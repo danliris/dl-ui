@@ -5,12 +5,10 @@ export class DataForm {
     @bindable data = { "import": true };
     @bindable error = {};
     @bindable Options = {
-        "readOnly" : false,
-        "isMaster":true
+        "readOnly": false,
+        "isMaster": true
     }
-
-
-
+ 
     constructor() {
 
     }
@@ -18,6 +16,11 @@ export class DataForm {
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
+
+    // resetData() {
+    //     // this.data.indicators 
+    // }
+
     activate() {
 
     }

@@ -15,6 +15,7 @@ export class Textbox {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) postfix;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
 
     reactComponent = {};
     constructor(element) {
@@ -30,7 +31,7 @@ export class Textbox {
         this.options = { readOnly: (this.readOnly || '').toString().toLowerCase() === 'true', postFix: this.postfix || "" };
         this.reactComponent = ReactDOM.render(
             <FieldReact label={this.label} error={this.error}>
-                <TextboxReact value={this.value} onChange={this.handleValueChange} options={this.options} />
+                <TextboxReact value={this.value} placeholder={this.placeholder} onChange={this.handleValueChange} options={this.options} />
             </FieldReact>,
             this.element
         );

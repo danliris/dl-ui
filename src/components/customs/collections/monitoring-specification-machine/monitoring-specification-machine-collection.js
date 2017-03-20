@@ -31,9 +31,8 @@ export class MonitoringSpecificationMachineCollection {
 
         this.value.push({
             indicator: "",
-            dataType: "",
-            defaultValue: "",
             value: "",
+            uom:"",
         });
         this.bind();
     }

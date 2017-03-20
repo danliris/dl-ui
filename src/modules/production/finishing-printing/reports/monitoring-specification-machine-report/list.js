@@ -5,13 +5,19 @@ import {Router} from 'aurelia-router';
 @inject(Router, Service)
 export class List {
 
+
     info = {
-        machineId: '',
-        dateFrom: '',
-        dateTo: ''
+        machineId: "",
+        productionOrderNumber: '',
+        dateFrom: "",
+        dateTo: "",
 
     };
 
+    machine = {};
+    productionOrder = {};
+    dateFrom = '';
+    dateTo = '';
 
     constructor(router, service) {
         this.service = service;
@@ -20,10 +26,10 @@ export class List {
     }
 
     searching() {
-
+        this.info.machineId = this.machine._id || "error";
+        this.info.productionOrderNumber = this.productionOrder.orderNo;
         this.info.dateFrom = this.dateFrom;
         this.info.dateTo = this.dateTo;
-        this.info.machineId = this.machine._id;
 
         this.service.search(this.info)
             .then(result => {
@@ -45,10 +51,12 @@ export class List {
 
     reset() {
         this.info.machineId = '';
+        this.info.productionOrderNumber = '';
         this.info.dateFrom = '';
         this.info.dateTo = '';
 
         this.machine = {};
+        this.productionOrder = {};
         this.dateFrom = null;
         this.dateTo = null;
     }

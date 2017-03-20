@@ -1,0 +1,66 @@
+<template>
+    <form class="form-horizontal">
+        <div class="row">
+            <div  class="col-md-6" style="padding:0">
+                <textbox                      label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"     read-only="true"  if.bind="data.salesContractNo"></textbox>
+                <buyer-auto-suggest           label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
+                <textbox                      label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
+                <textbox                      label="Nomor Disposisi"  value.bind="data.dispositionNumber"       error.bind="error.dispositionNumber"                       read-only.bind="readOnly"  ></textbox>
+                <comodity-auto-suggest        label="Komoditas"         value.bind="data.comodity"             error.bind="error.comodity"                       read-only.bind="(readOnly)" change.delegate="comodityChanged($event)"></comodity-auto-suggest>
+                <multiline                    label="Keterangan Komoditas"         value.bind="data.comodityDescription"             error.bind="error.comodityDescription"                       read-only.bind="(readOnly)" rows.bind="8"></multiline>
+                <order-type-auto-suggest      label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
+                <process-type-auto-suggest    label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" if.bind="data.orderType" filter.bind="filterOrder || isFilterOrder"></process-type-auto-suggest >
+                <sales-material-auto-suggest  label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
+                <material-construction-auto-suggest                 label="Konstruksi Material"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
+                <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
+                <textbox                      label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
+                <div class="row">
+                  <div class="col-sm-4" style="padding-left:20%">
+                    <textbox label="Jumlah Order" read-only="true"></textbox>
+                  </div>
+                  <div class="col-sm-3">
+                    <numeric value.bind="data.orderQuantity" error.bind="error.orderQuantity" read-only.bind="(readOnly)"></numeric>
+                  </div>
+                  <div class="col-sm-2">
+                    <textbox label="Satuan" read-only="true"></textbox>
+                  </div>
+                  <div class="col-sm-2">
+                    <uom-auto-suggest value.bind="data.uom" error.bind="error.uom" read-only.bind="readOnly" change.delegate="uomChanged($event)"></uom-auto-suggest>
+                  </div>
+                </div>
+                <numeric                    label="Toleransi Jumlah (%)"  value.bind="data.shippingQuantityTolerance" error.bind="error.shippingQuantityTolerance" read-only.bind="readOnly" post-fix="%"></numeric>
+                <numeric                    label="Amount"  value.bind="data.amount" error.bind="error.amount" read-only.bind="readOnly" if.bind="buyerType"></numeric>
+                
+                
+            </div>
+            <div  class="col-md-6" style="padding:0">
+                <quality-auto-suggest       label="Kualitas"              value.bind="data.quality"          error.bind="error.quality"     read-only.bind="(readOnly)" change.delegate="qualityChanged($event)"></quality-auto-suggest>
+                <multiline                  label="Packing"               value.bind="data.packing"             error.bind="error.packing"                       read-only.bind="(readOnly)" rows.bind="8"></multiline>
+                <checkbox                   label="Kena Ppn?"             value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"     read-only.bind="readOnly"   change.delegate="useIncomeTaxChanged($event)" ></checkbox>
+                <term-of-payment-auto-suggest    label="Syarat Pembayaran"     value.bind="data.termOfPayment"             error.bind="error.termOfPayment"       read-only.bind="(readOnly)" change.delegate="termOfPaymentChanged($event)" filter.bind="filterpayment || isFilterPayment"></term-of-payment-auto-suggest>
+                <account-bank-auto-suggest  label="Pembayaran ke Rekening"      value.bind="data.accountBank"          error.bind="error.accountBank"     read-only.bind="(readOnly)" change.delegate="bankChanged($event)"></account-bank-auto-suggest>
+                <textbox                    label="Mata Uang"                   value.bind="data.accountBank.currency.code"       error.bind="error.accountBank"                       read-only="true"  ></textbox>
+                <textbox                    label="Term of Shipment"      value.bind="data.termOfShipment"       error.bind="error.termOfShipment"                       read-only.bind="readOnly"  if.bind="buyerType"></textbox>
+                <textbox                    label="Ongkos Angkut"      value.bind="data.transportFee"       error.bind="error.transportFee"                       read-only.bind="readOnly"  ></textbox>
+                <textbox                    label="Dikirim ke"      value.bind="data.deliveredTo"       error.bind="error.deliveredTo"                       read-only.bind="readOnly"  ></textbox>
+                <datepicker                 label="Jadwal Pengiriman"        value.bind="data.deliverySchedule"          error.bind="error.deliverySchedule"             read-only.bind="readOnly"></datepicker>
+                <multiline                  label="Kondisi"     value.bind="data.condition"    error.bind="error.condition"       read-only.bind="(readOnly)" rows.bind="8"></multiline>
+                <multiline                  label="Remark"              value.bind="data.remark"                error.bind="error.remark"                   read-only.bind="readOnly" rows.bind="8" if.bind="buyerType"></multiline>
+                <buyer-auto-suggest         label="Agen"        value.bind="data.agent"       error.bind="error.agent"                       read-only.bind="readOnly"  if.bind="buyerType" change.delegate="agentChanged($event)"></buyer-auto-suggest>
+                <textbox                    label="Komisi"      value.bind="data.comission"       error.bind="error.comission"                       read-only.bind="readOnly"  if.bind="buyerType"></textbox>
+            </div>
+        </div>
+        <hr />
+
+        <au-collection items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.accountBank && data.useIncomeTax" columns.bind="detailHeader" item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item" footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer" add.bind="addDetail"> </au-collection>
+
+        <au-collection items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.accountBank && !data.useIncomeTax" columns.bind="detailHeader" item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item-noTax" footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer" add.bind="addDetail"> </au-collection>
+    
+        <div if.bind="error.details.toString()">
+          <span style="color:red">Detail warna dan harga harus diisi</span>
+        </div>
+
+    </form>
+</template>
+
+      

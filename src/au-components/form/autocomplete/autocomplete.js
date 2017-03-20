@@ -1,5 +1,4 @@
 import { bindable, bindingMode, containerless, inject, computedFrom, customElement } from "aurelia-framework";
-import { _Control } from "../_control";
 import dispatchCustomEvent from "../../../lib/dispatch-custom-event";
 
 function startsWith(str, start) {
@@ -10,13 +9,12 @@ function startsWith(str, start) {
   return true;
 }
 
-@containerless()
 @customElement("au-autocomplete")
 @inject(Element)
-export class Autocomplete extends _Control {
+export class Autocomplete {
   // control properties
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
@@ -28,7 +26,7 @@ export class Autocomplete extends _Control {
   @bindable placeholder = ''; // placeholder for input control 
   @bindable filter // function to filter out suggestions
   @bindable query // query object
-  @bindable _input; // input field value;
+  @bindable editorValue; // input field value;
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) key;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) text;
@@ -39,33 +37,33 @@ export class Autocomplete extends _Control {
   _isLoading = false;
   _noSuggestions = false;
 
-  constructor(element) {
-    super(element);
+  constructor(component) {
+    this.component = component;
   }
 
-  valueChanged() {
+  valueChanged(newValue) {
     this.bind();
   }
 
   bind() {
     this._ignoreInputChange = true;
-    this._input = this._getSuggestionText(this.value);
+    this.editorValue = this._getSuggestionText(this.value);
     if (this.value)
       this._suggestions = [this.value];
   }
 
-  _inputChanged() {
+  editorValueChanged() {
     if (this._ignoreInputChange) {
       this._ignoreInputChange = false;
       return;
     }
-    if (this._input === "") {
+    if (this.editorValue === "") {
       this.value = null;
       this._noSuggestions = false;
       this._suggestions = [];
     }
     else {
-      this._loadSuggestions(this._input)
+      this._loadSuggestions(this.editorValue)
         .then(suggestions => {
           this._suggestions = suggestions || [];
           this._showSuggestions();
@@ -106,20 +104,66 @@ export class Autocomplete extends _Control {
     this.value = suggestion;
     this._suggestions = [suggestion];
     this._ignoreInputChange = true;
-    this._input = this._getSuggestionText(suggestion);
+    this._index = -1;
+    this.editorValue = this._getSuggestionText(suggestion);
     if (this.value) {
-      dispatchCustomEvent("change", this.element, this.value);
+      // dispatchCustomEvent("change", this.component, this.value);
       this._hideSuggestions();
     }
   }
 
-  _highlightSuggestion(suggestion) {
-    if (suggestion) {
+  _selected = null;
+  _index = -1;
+  keyPressed(evt) {
+    let key = evt.keyCode;
+    //logger.debug(`Key pressed ${key}`);
+    if (this._suggestionVisible) {
+      switch (key) {
+        case 13: // Enter
+          var selectedSuggestion = this._getSuggestionByIndex(this._index);
+          if (selectedSuggestion) this._selectSuggestion(selectedSuggestion)
+          break;
+        case 40: // Down
+          this._index++;
+          if (this._index >= this._suggestions.length) this._index = this._suggestions.length - 1;
+          var selectedSuggestion = this._getSuggestionByIndex(this._index);
+          this._highlightSuggestion(selectedSuggestion);
+          break;
+        case 38: // Up
+          this._index--;
+          if (this._index < 0) this._index = 0;
+          var selectedSuggestion = this._getSuggestionByIndex(this._index);
+          this._highlightSuggestion(selectedSuggestion);
+          break;
+        case 27: // Escape
+          this._hideSuggestions();
+          break;
+      }
+    } else {
+      if (key === 13)
+        if (this.immediateValue && this.immediateValue !== this.value) {
+          //enable enter for fast typing - before delayed value changes
+          this.fireSelectedEvent(this.immediateValue);
 
+        } else if (this.value) {
+          this.fireSelectedEvent(this.value, this.selectedValue);
+        }
+    }
+
+    return true;
+  }
+
+  _highlightSuggestion(suggestion) {
+    if (this.list && suggestion) {
+      let item = $(this.list.children[this._index]);
+      let suggestionList = $(this.list);
+      if (item && item.position()) {
+        suggestionList.scrollTop(suggestionList.scrollTop() + item.position().top);
+      }
     }
   }
 
-  _getSuggestionText(suggestion) { 
+  _getSuggestionText(suggestion) {
     if (!suggestion)
       return "";
     else if (typeof suggestion === "string")
@@ -141,5 +185,17 @@ export class Autocomplete extends _Control {
     }
     else
       return suggestion;
+  }
+
+  _getSuggestionByIndex(index) {
+    this._suggestions = this._suggestions || [];
+    if (this._suggestions.length === 0 || this._suggestions.length < index)
+      return null;
+    var suggestion = this._suggestions[index];
+    return suggestion;
+  }
+
+  changeCallback(event) {
+    event.preventDefault();
   }
 }

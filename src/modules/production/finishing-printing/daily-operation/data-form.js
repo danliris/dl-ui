@@ -1,5 +1,6 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
 var moment = require('moment');
+var momentToMillis = require('../../../../utils/moment-to-millis')
 
 @inject(BindingEngine, Element)
 export class DataForm {
@@ -10,139 +11,116 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     shiftOptions = ['Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
-    hourOptions = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"];
-    minuteOptions = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30",
-                      "31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60"];
+    timePickerShowSecond = false;
+    timePickerFormat = "HH:mm";
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
     }
 
-    get isSteps(){
-        this.data.steps = [];
-        return this.data.steps;
-    }
+    bind()
+    {
+        this.timeInput = this.data.timeInput ? moment(this.data.timeInput) : this._adjustMoment();
+        if(this.data.timeOutput)
+            this.timeOutput = moment(this.data.timeOutput);
+        var tempTimeInput = moment(this.timeInput);
+        // var tempTimeOutput = moment(this.timeOutput);
+        this.data.timeInput = momentToMillis(tempTimeInput);
+        // this.data.timeOutput = momentToMillis(tempTimeOutput);
 
-    get isColourType(){
-        this.data.ColorType = {
-            name : ""
-        };
-        return this.data.ColorType;
-    }
+        if (this.data.dateInput)
+            this.data.dateInput = moment(this.data.dateInput).format("YYYY-MM-DD");
+        if (this.data.dateOutput)
+            this.data.dateOutput = moment(this.data.dateOutput).format("YYYY-MM-DD");
 
-    get isInstruction(){
-        this.data.instruction = {
-            name : ""
-        };
-        return this.data.instruction;
-    }
-
-    get isFilterColor(){
-        this.filterColor = {
-            "productionOrder.orderNo" : this.data.productionOrder ? this.data.productionOrder.orderNo : ""
-        };
-        return this.filterColor;
+        if(this.data.kanban && this.data.kanban.istruction && this.data.kanban.istruction.steps && this.data.kanban.instruction.steps.lenght > 0){
+            this.steps = this.data.kanban.instruction.steps;
+        }
     }
 
     get isFilterMachine(){
-        this.filterMachine = {
-            stepId : this.data.stepId ? this.data.stepId : ""
-        };
+        this.filterMachine = {};
+        if(this.data.step)
+        {
+            this.filterMachine = {
+                "steps" : { "$elemMatch" : {
+                    "step.process" : this.data.step.process
+                } }
+            };
+        }
         return this.filterMachine;
     }
 
-    get isFilterInstruction(){
-        this.filterInstruction = {};
-        if(this.data.productionOrder){
-            if(this.data.productionOrder.orderType.name != 'Yarn Dyed' && this.data.productionOrder.orderType.name != 'Printing'){
-                this.filterInstruction ={
-                            "$and" : [{
-                                "colorType.code" : this.data.productionOrder.orderType.name == 'Yard Dyed' || this.data.productionOrder.orderType.name == 'Printing' ? '' : this.data.colorType ? this.data.colorType.code : ''
-                            },{
-                                construction : this.data.construction ? this.data.construction : this.data.productionOrder ? this.data.productionOrder.construction : ''
-                            },{
-                                "orderType.code" : this.data.productionOrder ? this.data.productionOrder.orderType.code : ''
-                            },{
-                                "material.code" : this.data.material ? this.data.material.code : ''
-                            }]
-                        };
-            }else{
-                this.filterInstruction ={
-                            "$and" : [{
-                                construction : this.data.construction ? this.data.construction : this.data.productionOrder ? this.data.productionOrder.construction : ''
-                            },{
-                                "orderType.code" : this.data.productionOrder ? this.data.productionOrder.orderType.code : ''
-                            },{
-                                "material.code" : this.data.material ? this.data.material.code : ''
-                            }]
-                        };
+    get isFilterStep(){
+        this.filterStep = {};
+        if(this.data.kanban)
+        {
+            var steps = [];
+            for(var step of this.data.kanban.instruction.steps){
+                steps.push(step.process);
             }
+            this.filterStep = {
+                "process" : { "$in" : steps }
+            };
         }
-        return this.filterInstruction;
-    }
-    
-    get isFilterStep() {
-        this.filterStep ={
-            process : {"$in" : this.data.instruction ? this.data.instruction.steps : ''}
-        };
         return this.filterStep;
     }
     
-    productionOrderChanged(e){
-        var selectedProductionOrder = e.detail;
-        if(selectedProductionOrder){
-            this.data.material = selectedProductionOrder.material ? selectedProductionOrder.material : {name:""};
-            this.data.materialId = selectedProductionOrder.materialId ? selectedProductionOrder.materialId : "";
-            this.data.construction = selectedProductionOrder.construction ? selectedProductionOrder.construction : "";
-            if(this.data.material){
-                this.filterColor = {
-                    "productionOrder.orderNo" : selectedProductionOrder.orderNo
+    kanbanChanged(e){
+        var selectedKanban = e.detail;
+        if(selectedKanban){
+            this.data.machine = {};
+            delete this.data.machineId;
+            this.data.step = {};
+            delete this.data.stepId;
+            this.data.kanbanId = selectedKanban._id;
+            if(selectedKanban.instruction){
+                var steps = [];
+                for(var step of selectedKanban.instruction.steps){
+                    steps.push(step.process);
+                }
+                this.filterStep = {
+                    "process" : { "$in" : steps }
                 };
+                this.data.input = Number(selectedKanban.cart.qty);
             }
         }
-    }
-
-    colorChanged(e){
-        var selectColor = e.detail;
-        if(selectColor){
-            this.data.colorType = selectColor.colorType ? selectColor.colorType : {};
-            this.data.colorTypeId = selectColor.colorTypeId ? selectColor.colorTypeId : {};
-            if(this.data.colorType){
-                this.filterInstruction ={
-                    "$and" : [{
-                        "colorType.code" : this.data.productionOrder.orderType.name == 'Yard Dyed' || this.data.productionOrder.orderType.name == 'Printing' ? '' : this.data.colorType ? this.data.colorType.code : ''
-                    },{
-                        construction : this.data.construction ? this.data.construction : this.data.productionOrder ? this.data.productionOrder.construction : ''
-                    },{
-                        "orderType.code" : this.data.productionOrder ? this.data.productionOrder.orderType.code : ''
-                    },{
-                        "material.code" : this.data.material ? this.data.material.code : ''
-                    }]
-                };
-            }else{
-                this.filterInstruction ={
-                    "$and" : [{
-                        construction : this.data.construction ? this.data.construction : this.data.productionOrder ? this.data.productionOrder.construction : ''
-                    },{
-                        "orderType.code" : this.data.productionOrder ? this.data.productionOrder.orderType.code : ''
-                    },{
-                        "material.code" : this.data.material ? this.data.material.code : ''
-                    }]
-                };
-            }
+        else{
+            delete this.data.kanbanId;
+            this.data.input = 0;
+            this.filterMachine = {};
+            this.data.machine = {};
+            delete this.data.machineId;
+            this.data.step = {};
+            delete this.data.stepId;
         }
     }
+    
+    get hasStep(){
+        return this.data && this.data.stepId && this.data.stepId !== '';
+    }
 
-    instructionChanged(e){
-        var selectInstruction = e.detail;
-        if(selectInstruction){
-            this.data.instructionId = selectInstruction._id ? selectInstruction._id : "";
-            if(selectInstruction.steps){
-                this.filterStep ={
-                    process : {"$in" : selectInstruction.steps ? selectInstruction.steps : ''}
-                };
-            }
+    get hasKanban() {
+        return this.data && this.data.kanbanId && this.data.kanbanId !== '';
+    }
+
+    stepChanged(e) {
+        var selectedStep = e.detail || {};
+        if (selectedStep){
+            this.data.machine = {};
+            delete this.data.machineId;
+            this.data.stepId = selectedStep._id ? selectedStep._id : "";
+            this.filterMachine = {
+                "steps" : { "$elemMatch" : {
+                    "step.process" : selectedStep.process
+                } }
+            };
+        }else{
+            delete this.data.stepId;
+            this.filterMachine = {};
+            this.data.machine = {};
+            delete this.data.machineId;
         }
     }
 
@@ -152,23 +130,36 @@ export class DataForm {
             this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
     }
 
-    stepChanged(e) {
-        var selectedStep = e.detail || {};
-        if (selectedStep){
-            this.data.stepId = selectedStep._id ? selectedStep._id : "";
-            if(this.data.stepId){
-                this.data.steps = [];
-                for(var a of selectedStep.itemMonitoring){
-                    var x = {
-                        key : a,
-                        value : ""
-                    };
-                    this.data.steps.push(x);
-                }
-                this.filterMachine = {
-                    "step.process" : selectedStep.process
-                };
-            }
+    timeInputChanged(e)
+    {
+        var tempTimeInput = e.detail;
+        if (tempTimeInput){
+            tempTimeInput = this._adjustMoment(tempTimeInput);
+            this.data.timeInput = momentToMillis(tempTimeInput);
         }
+        else{
+            delete this.data.timeInput;
+        }
+    }
+
+    timeOutputChanged(e)
+    {
+        var tempTimeOutput = e.detail;
+        if (tempTimeOutput){
+            tempTimeOutput = this._adjustMoment(tempTimeOutput);
+            this.data.timeOutput = momentToMillis(tempTimeOutput);
+        }
+        else{
+            delete this.data.timeOutput;
+        }
+    }
+
+    _adjustMoment(timeInMoment){
+        if (!timeInMoment)
+            timeInMoment = moment();
+        timeInMoment.set('year', 1970);
+        timeInMoment.set('month', 0);
+        timeInMoment.set('date', 1);   
+        return timeInMoment;     
     }
 }

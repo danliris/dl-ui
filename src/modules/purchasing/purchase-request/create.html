@@ -1,24 +1,4 @@
 <template>
-    <h1 class="page-header">Tambah Purchase Request</h1>
-    <block>
-        <form class="form-horizontal">
-        <fieldset>
-            <datepicker             label="Tgl. PR"           value.bind="data.date"              error.bind="error.date"                         read-only.bind="readOnly"></datepicker>
-            <datepicker             label="Tgl. Diminta Datang" value.bind="data.expectedDeliveryDate"  error.bind="error.expectedDeliveryDate"     read-only.bind="(readOnly)"></datepicker>
-            <budget-auto-suggest    label="Budget"              value.bind="data.budget"                error.bind="error.budget"                   read-only.bind="(readOnly)"   change.delegate="budgetChanged($event)"></budget-auto-suggest>
-            <unit-auto-suggest      label="Unit"                value.bind="data.unit"                  error.bind="error.unit"                     read-only.bind="(readOnly)"   change.delegate="unitChanged($event)"></unit-auto-suggest>
-            <category-auto-suggest  label="Kategori"            value.bind="data.category"              error.bind="error.category"                 read-only.bind="(readOnly)"   change.delegate="categoryChanged($event)"></category-auto-suggest>
-        </fieldset>
-        <hr />
-        <multiline  label="Keterangan"  value.bind="data.remark"    error.bind="error.remark"   read-only.bind="readOnly"></multiline>
-
-        <hr />
-        <purchase-request-item-collection     value.bind="data.items"     error.bind="error.items"    read-only.bind="readOnly" ></purchase-request-item-collection>
-    </form>
-        <hr/>
-        <div class="btn-group pull-right">
-            <button class="btn btn-default" click.delegate="back()">Kembali</button>
-            <button class="btn btn-success" click.delegate="save()">Simpan</button>
-        </div>
-    </block>
+    <require from="./data-form"></require>
+    <data-form title="Tambah Purchase Request"></data-form>
 </template>

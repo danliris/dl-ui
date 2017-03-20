@@ -61,5 +61,14 @@ export class DataForm {
             this.data.supplierId = undefined;
             this.data.items = [];
         }
+        this.resetErrorItems();
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
     }
 } 

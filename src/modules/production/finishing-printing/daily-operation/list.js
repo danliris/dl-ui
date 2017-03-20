@@ -42,7 +42,7 @@ export class List {
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id, code : data.code, no : data.kanbanNo, machineId : data.machineId });
+        this.router.navigateToRoute('view', { id: data._id });
     }
 
     create() {

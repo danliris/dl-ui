@@ -1,24 +1,28 @@
 import { bindable, bindingMode, containerless, inject, computedFrom, customElement } from "aurelia-framework";
-import { _Control } from "./_control";
 
-@containerless()
+// @containerless()
 @customElement("au-dropdown")
 @inject(Element)
-export class Dropdown extends _Control {
+export class Dropdown {
   // control properties
   @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) error;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
+  @bindable options;
 
   // dropdown properties
   @bindable({ defaultBindingMode: bindingMode.twoWay }) items;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) key;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) text;
 
+  bind() {
+    // console.log("dropdown.bind")
+    // console.log(this.options)
+  }
+  
   constructor(element) {
-    super(element);
+    this.component = element;
   }
 
   @computedFrom("key", "text")
@@ -63,5 +67,19 @@ export class Dropdown extends _Control {
     }
     else
       return suggestion;
+  }
+
+  // changeCallback(event) {
+  //   console.log(`changeCallback: ${JSON.stringify(this.value)}`);
+  //   console.log(event)
+  //   if (event.isTrusted)
+  //     event.stopPropagation();
+  // }
+
+  valueChanged(e) {
+    // console.log("valueChanged");
+    // var event = new Event("change");
+    // if (this.component)
+    //   this.component.dispatchEvent(event);
   }
 }

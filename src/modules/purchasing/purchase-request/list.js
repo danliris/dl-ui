@@ -1,81 +1,106 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    dataToBePosting = [];
-    info = { page: 1, keyword: '' };
+  dataToBePosted = [];
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
+  rowFormatter(data, index) {
+    if (data.isPosted)
+      return { classes: "success" }
+    else
+      return {}
+  }
+
+  context = ["detail", "print"]
+
+  columns = [
+    {
+      field: "isPosting", title: "Post", checkbox: true, sortable: false,
+      formatter: function (value, data, index) {
+        this.checkboxEnabled = !data.isPosted;
+        return ""
+      }
+    },
+    {
+      field: "date", title: "Tgl. PR", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      }
+    },
+    { field: "no", title: "No. PR" },
+    { field: "unit.division.name", title: "Divisi" },
+    { field: "unit.name", title: "Unit" },
+    { field: "category.name", title: "Kategori" },
+    // { field: "NPWP", title: "NPWP" },
+    {
+      field: "isPosted", title: "Posted",
+      formatter: function (value, row, index) {
+        return value ? "SUDAH" : "BELUM";
+      }
+    }
+  ];
+
+  loader = (info) => {
+    var order = {};
+    if (info.sort)
+      order[info.sort] = info.order;
+    // console.log(info)
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      size: info.limit,
+      keyword: info.search,
+      order: order
     }
 
-    async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        this.data = result.data;
-        this.info = result.info;
-    }
-
-    loadPage() {
-        var keyword = this.info.keyword;
-        this.service.search(this.info)
-            .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-                this.info.keyword = keyword;
-            })
-    }
-
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.loadPage();
-    }
-
-
-    tooglePostingTrue() {
-        this.isPosting = true;
-        this.isPrint = false;
-    }
-
-    tooglePostingFalse() {
-        this.isPosting = false;
-        this.isPrint = false;
-    }
-
-    pushDataToBePosting(item) {
-        if (item.isPosting) {
-            this.dataToBePosting.push(item);
+    return this.service.search(arg)
+      .then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
         }
-        else {
-            var index = this.dataToBePosting.indexOf(item);
-            this.dataToBePosting.splice(index, 1);
-        }
-    }
+      });
+  }
 
-    posting() {
-        if (this.dataToBePosting.length > 0) {
-            this.service.post(this.dataToBePosting).then(result => {
-                this.info.keyword = '';
-                this.loadPage();
-            }).catch(e => {
-                this.error = e;
-            })
-        }
-    }
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
 
-    view(data) {
+  contextClickCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "detail":
         this.router.navigateToRoute('view', { id: data._id });
-    }
-
-    create() {
-        this.router.navigateToRoute('create');
-    }
-
-    exportPDF(data) {
+        break;
+      case "print":
         this.service.getPdfById(data._id);
+        break;
     }
+  }
+
+  contextShowCallback(index, name, data) {
+    switch (name) {
+      case "print":
+        return data.isPosted;
+      default:
+        return true;
+    }
+  }
+
+  posting() {
+    if (this.dataToBePosted.length > 0) {
+      this.service.post(this.dataToBePosted).then(result => {
+        this.table.refresh();
+      }).catch(e => {
+        this.error = e;
+      })
+    }
+  }
+
+  create() {
+    this.router.navigateToRoute('create');
+  }
 }

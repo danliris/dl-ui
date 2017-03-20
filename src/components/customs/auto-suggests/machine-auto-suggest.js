@@ -14,6 +14,7 @@ export default class MachineAutoSuggest extends BaseAutoSuggest {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) options;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) filter;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
 
     constructor(element) {
         super(element);

@@ -1,7 +1,8 @@
 <template>
  <h1 class="page-header">Laporan Monitoring Daily Operational setiap Mesin</h1>
      <form class="form-horizontal">
-        <machine-auto-suggest           label="Mesin"	    value.bind="machine" error.bind="error" change.delegate="machineChanged($event)"></machine-auto-suggest>
+        <kanban-auto-suggest            label="Nomor Order/Kereta"        value.bind="kanban"    ></kanban-auto-suggest>
+        <machine-auto-suggest           label="Mesin"	                  value.bind="machine"   ></machine-auto-suggest>
         <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
         <div class="form-group">
@@ -11,7 +12,7 @@
                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div> 
-        <div class="btn-group pull-left" if.bind="data.length > 0">
+        <div class="btn-group pull-left">
             <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
         </div>
     </form>
@@ -27,7 +28,6 @@
                 <td rowspan="3">Lebar Kain (Inch)</td>
                 <td rowspan="3">No Kereta</td>
                 <td rowspan="3">Jenis Proses</td>
-                <td rowspan="3" repeat.for="item of machine.step.itemMonitoring" if.bind="machine">${item}</td>
                 <td colspan="3">Panjang In (m)</td>
                 <td colspan="4">Panjang Out (m)</td>
                 <td rowspan="3">Keterangan BS</td>
@@ -51,19 +51,19 @@
         <tbody>
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
-                <td class="text-right">${item.orderNo}</td>
-                <td class="text-right">${item.machine}</td>
-                <td style="text-right">${item.material}</td>
-                <td class="text-right">${item.color}</td>
-                <td class="text-right">${item.finishWidth}</td>
-                <td class="text-right">${item.kanbanNo}</td>
-                <td class="text-right">${item.processType}</td>
-                <td class="text-right" repeat.for="step of item.steps">${step.value}</td>
-                <td class="text-center">${item.dateInput}</td>
-                <td class="text-center">${item.hourInput}</td>
+                <td class="text-right">${item.kanban.productionOrder.orderNo}</td>
+                <td class="text-right">${item.machine.name}</td>
+                <td style="text-right">${item.kanban.productionOrder.material.name}</td>
+                <td class="text-right">${item.kanban.selectedProductionOrderDetail.colorRequest}</td>
+                <td class="text-right">${item.kanban.productionOrder.finishWidth}</td>
+                <td class="text-right">${item.kanban.cart.cartNumber}</td>
+                <td class="text-right">${item.kanban.productionOrder.processType.name}</td>
+                <td class="text-center">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
+                <td class="text-center">${item.timeInput}</td>
                 <td class="text-center">${item.input}</td>
-                <td class="text-center">${item.dateOutput}</td>
-                <td class="text-center">${item.hourOutput}</td>
+                <td class="text-center" if.bind="item.dateOutput">${item.dateOutput | dateFormat:'D MMM YYYY'}</td>
+                <td class="text-center" if.bind="!item.dateOutput">-</td>
+                <td class="text-center">${item.timeOutput}</td>
                 <td class="text-center">${item.goodOutput}</td>
                 <td class="text-center">${item.badOutput}</td>
                 <td class="text-right">${item.badOutputDescription}</td>

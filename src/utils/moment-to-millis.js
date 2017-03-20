@@ -1,5 +1,5 @@
 var moment = require("moment");
 
-module.exports = function(timeInMoment) {
-    return ((moment(timeInMoment).hour() * 3600) + (moment(timeInMoment).minute() * 60)) * 1000;
-}
+module.exports = function (timeInMoment) {
+  return Number(timeInMoment.format('x'));
+} 

@@ -23,20 +23,24 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Kode</th>
+                
                         <th>Tanggal</th>
                         <th>Jam</th>
                         <th>Mesin</th>
+                        <th>No Surat Produksi Order</th>
+                        <th>Nomor Kereta</th>
                         <th>Indikator</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <td>${item.code}</td>
-                        <td>${item.date}</td>
+                   
+                        <td>${item.date | dateFormat:'DD MMMM YYYY'}</td>
                         <td>${item.time | dateFormat:'HH:mm'}</td>
                         <td>${item.machine.name}</td>
+                        <td>${item.productionOrder.orderNo}</td>
+                        <td>${item.cartNumber}</td>
                         <td>
                             <ul>
                                 <li repeat.for="indicator of item.items">${indicator.indicator}</li>
