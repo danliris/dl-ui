@@ -1,11 +1,13 @@
-import { inject } from 'aurelia-framework';
-import { Service } from "./service";
-import { Router } from 'aurelia-router';
+import {inject} from 'aurelia-framework';
+import {Service} from "./service";
+import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-  context = ["detail"];
-  columns = [
+    // data = [];
+    // info = { page: 1, keyword: '' };
+    context = ["detail"];
+    columns = [
     { field: "code", title: "Kode" },
     { field: "name", title: "Nama" },
     { field: "address", title: "Alamat" },
@@ -39,12 +41,12 @@ export class List {
       });
   }
 
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
+    }
 
-  contextCallback(event) {
+    contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
@@ -53,4 +55,4 @@ export class List {
         break;
     }
   }
-} 
+}

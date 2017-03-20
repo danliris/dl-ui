@@ -19,15 +19,23 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    cancelCallback(event)
+    {
+      this.list();
+    }
+
+    editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+   
+    deleteCallback(event) {
         this.service.delete(this.data)
             .then(result => {
                 this.list();
             });
     }
+
+  
 }
 

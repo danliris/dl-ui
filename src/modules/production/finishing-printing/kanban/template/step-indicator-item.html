@@ -1,11 +1,13 @@
 <template>
-    <td>
-        <au-numeric value.bind="stepIndicator.name" read-only.bind="true" options.bind="controlOptions" format="0"></au-numeric>
-    </td>
-    <td>
-        <au-numeric value.bind="stepIndicator.value" read-only.bind="options.readOnly" options.bind="controlOptions" format="0"></au-numeric>
-    </td>
-    <td>
-        <au-textbox value.bind="stepIndicator.uom.unit" read-only.bind="true" options.bind="controlOptions"></au-textbox>
-    </td>
+    <tr>
+        <td>
+            <au-numeric value.bind="stepIndicator.name" read-only.bind="true" options.bind="controlOptions" format="0"></au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="stepIndicator.value" read-only.bind="options.readOnly" options.bind="controlOptions" format="0"></au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="stepIndicator.uom" read-only.bind="true" options.bind="controlOptions"></au-textbox>
+        </td>
+    </tr>
 </template>

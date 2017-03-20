@@ -1,4 +1,5 @@
 <template>
+<tr>
   <td>
     <au-textbox value.bind="data.color" error.bind="error.color" read-only.bind="options.readOnly" options.bind="controlOption"></au-textbox>
   </td>
@@ -9,4 +10,5 @@
     <au-textbox value.one-way="data.currency.code" error.bind="error.currency" read-only.bind="true" options.bind="controlOption"></au-textbox>
   </td>
   <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+</tr>
 </template>
