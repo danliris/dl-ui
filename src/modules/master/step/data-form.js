@@ -16,8 +16,7 @@ export class DataForm {
     stepIndicatorsInfo = {
         columns: [
             { header: "Indikator", value: "name" },
-            { header: "Nilai", value: "qty" },
-            { header: "Alias", value: "alias" },
+            { header: "Nilai", value: "qty" }, 
             { header: "Satuan", value: "uom" },
         ],
         onAdd: function () {
