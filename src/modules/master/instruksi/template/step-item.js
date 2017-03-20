@@ -1,8 +1,8 @@
 import { bindable } from 'aurelia-framework'
-var StepLoader = require('../../../../loader/step-loader'); 
+var StepLoader = require('../../../../loader/step-loader');
 
-export class StepItem { 
-  @bindable temp; 
+export class StepItem {
+  @bindable temp;
 
   activate(context) {
     console.log("step-Item")
@@ -12,10 +12,11 @@ export class StepItem {
     this.options = context.options;
     this.temp = this.step;
   }
- 
+
   stepIndicatorColumns = [
     { header: "Indikator", value: "name" },
     { header: "Nilai", value: "value" },
+    { header: "Alias", value: "alias" },
     { header: "Satuan", value: "uom" },
   ];
 
@@ -25,13 +26,13 @@ export class StepItem {
     }
   };
 
-  tempChanged(newValue, oldValue){
+  tempChanged(newValue, oldValue) {
     console.log("temp : ");
     console.log(this.temp);
     console.log("newValue : ");
     console.log(newValue);
     Object.assign(this.context.data, newValue);
-  } 
+  }
 
   onItemClicked(step, event) {
     if (this.context.context.selectedStep) {
@@ -72,9 +73,9 @@ export class StepItem {
       info = "please choose step"
     }
     return info;
-  } 
+  }
 
- get isStepSelected(){
+  get isStepSelected() {
     return this.context.context.selectedStep && this.context.context.selectedStep.data === this.step;
-  } 
+  }
 }

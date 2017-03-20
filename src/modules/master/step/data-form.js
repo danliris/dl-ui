@@ -17,10 +17,11 @@ export class DataForm {
         columns: [
             { header: "Indikator", value: "name" },
             { header: "Nilai", value: "qty" },
+            { header: "Alias", value: "alias" },
             { header: "Satuan", value: "uom" },
         ],
         onAdd: function () {
-            this.data.stepIndicators.push({ name: "", qty: 0, uom: "" });
+            this.data.stepIndicators.push({ name: "", qty: 0, alias: "", uom: "" });
             console.log("add");
         }.bind(this),
         onRemove: function () {
