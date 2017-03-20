@@ -30,7 +30,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            select:["salesContractNo","buyer.name","buyer.type","deliverySchedule"]
         }
 
         return this.service.search(arg)
