@@ -5,7 +5,7 @@ export class MachineEventItem {
     this.options = context.options;
   } 
 
-  categories = ["maintenance","accident"];
+  categories = ["routine","accident"];
 
   controlOptions = {
     control: {
