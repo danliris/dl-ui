@@ -41,7 +41,7 @@ export class Dropdown {
     if (!option || !current)
       return result;
 
-    result = option[this._selector.key] === current[this._selector.key];
+    result = this._getSuggestionKey(option) === this._getSuggestionKey(current);//[this._selector.key] === current[this._selector.key];
     return result;
   }
 
