@@ -5,7 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    dataToBePosted = [];
+
 
     context = ["detail", "print"]
 
@@ -30,16 +30,15 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order,
-            select : ["salesContractNo","buyer.name","buyer.type","deliverySchedule"]
+            order: order
         }
 
         return this.service.search(arg)
             .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
+                var data = {}
+                data.total = result.info.total;
+                data.data = result.data;
+                return data;
             });
 
 

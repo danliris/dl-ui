@@ -215,19 +215,7 @@ export class DataForm {
 
     get agentLoader() {
 
-        //         .then(results => {
-        //     return results.data.map(buyer => {
-        //         buyer.toString = function () {
-        //             return [this.code, this.name]
-        //                 .filter((item, index) => {
-        //                     return item && item.toString().trim().length > 0;
-        //                 }).join(" - ");
-        //         }
-        //         return buyer;
-        //     })
-        // });
-
-        return BuyersLoader.toString;
+        return AgentLoader;
     }
 
     activate() {
