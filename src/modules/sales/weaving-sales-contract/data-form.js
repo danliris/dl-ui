@@ -81,8 +81,10 @@ export class DataForm {
         this.incomeTax = false;
         if (this.data.buyer) {
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
+ 
                 this.incomeTax = true;
             } else {
+
                 this.incomeTax = true;
             }
         }
