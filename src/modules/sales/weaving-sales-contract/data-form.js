@@ -24,7 +24,7 @@ export class DataForm {
 
     termOfPaymentFilter = {};
 
-    tagsFilter = { tags: { "$regex": "Material" } };
+    tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
 
     incomeTaxOptions = [];
 
@@ -49,14 +49,14 @@ export class DataForm {
     //set termOfPaymentFilter
     @computedFrom("data.buyer")
     get istermOfPayment() {
-        this.termOfPayment = false;
+        this.termOfPayment = true;
         this.termOfPaymentFilter = {};
         if (this.data.buyer) {
-            this.termOfPayment = true;
+            // this.termOfPayment = true;
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.termOfPaymentFilter = { isExport: true };
+                this.termOfPaymentFilter = { "isExport": true };
             } else {
-                this.termOfPaymentFilter = { isExport: false };
+                this.termOfPaymentFilter = { "isExport": false };
             }
         } else {
             this.termOfPayments = {};
@@ -81,7 +81,7 @@ export class DataForm {
         this.incomeTax = false;
         if (this.data.buyer) {
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.incomeTaxOptions = ['Tanpa PPn'];
+                this.incomeTaxOptions = ['Tanpa PPn', 'Include PPn', 'Exclude PPn'];
                 this.incomeTax = true;
             } else {
                 this.incomeTaxOptions = ['Include PPn', 'Exclude PPn', 'Tanpa PPn'];
@@ -116,14 +116,17 @@ export class DataForm {
 
     buyersChanged(e) {
         var selectedBuyer = e.detail || {};
+
         if (selectedBuyer) {
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
-            this.data.termOfPayment = "";
-            this.data.agent = "";
-            this.data.comission = "";
+            if (!this.data.buyerId || this.data.buyerId == "") {
+                this.data.termOfPayment = {};
+                this.data.agent = "";
+                this.data.comission = "";
+            }
         }
         else {
-            this.data.termOfPayment = "";
+            this.data.termOfPayment = {};
             this.data.agent = "";
             this.data.comission = "";
         }
