@@ -26,7 +26,7 @@ export class DataForm {
 
     tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
 
-    incomeTaxOptions = [];
+    incomeTaxOptions = ['Tanpa PPn', 'Include PPn', 'Exclude PPn'];
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -49,10 +49,10 @@ export class DataForm {
     //set termOfPaymentFilter
     @computedFrom("data.buyer")
     get istermOfPayment() {
-        this.termOfPayment = true;
+        this.termOfPayment = false;
         this.termOfPaymentFilter = {};
         if (this.data.buyer) {
-            // this.termOfPayment = true;
+            this.termOfPayment = true;
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
                 this.termOfPaymentFilter = { "isExport": true };
             } else {
@@ -81,13 +81,14 @@ export class DataForm {
         this.incomeTax = false;
         if (this.data.buyer) {
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.incomeTaxOptions = ['Tanpa PPn', 'Include PPn', 'Exclude PPn'];
+ 
                 this.incomeTax = true;
             } else {
-                this.incomeTaxOptions = ['Include PPn', 'Exclude PPn', 'Tanpa PPn'];
+
                 this.incomeTax = true;
             }
         }
+        
         return this.incomeTax;
     }
 
@@ -118,7 +119,10 @@ export class DataForm {
         var selectedBuyer = e.detail || {};
 
         if (selectedBuyer) {
+            // this.incomeTaxOptions[0];
+            this.data.incomeTax=this.incomeTaxOptions[0];
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
+
             if (!this.data.buyerId || this.data.buyerId == "") {
                 this.data.termOfPayment = {};
                 this.data.agent = "";
