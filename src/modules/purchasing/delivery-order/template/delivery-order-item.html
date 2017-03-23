@@ -1,0 +1,30 @@
+<template>
+  <tr>
+    <td click.delegate="onItemClicked(item, $event)" ref="tdItem" width="90%">
+      <au-autocomplete 
+            value.bind="purchaseOrderExternal" 
+            error.bind="error.items.purchaseOrderExternal"
+            loader.bind="purchaseOrderExternalLoader"
+            placeholder="search purchase Order External" 
+            key="code"
+            query.bind = "filter"
+            read-only.bind="(readOnly || isEdit)"
+            options.bind="controlOptions">
+      </au-autocomplete>    
+    </td>
+    <td  click.delegate="onItemClicked(item, $event)" ref="tdButton" if.bind="!options.readOnly" width="10%">
+      <button class="btn btn-info pull-left" click.delegate="toggle()" if.bind="item.fulfillments.length > 0">i</button>
+      <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
+    </td>
+  </tr>
+  <tr if.bind="isShowing">
+    <td colspan="2">
+      <au-collection 
+            items.bind="item.fulfillments" 
+            columns.bind="fulfillmentColumns"
+            read-only.bind="readOnly"
+            item-template="modules/purchasing/delivery-order/template/delivery-order-fulfillment">
+      </au-collection>
+    </td>
+  </tr>
+</template>
