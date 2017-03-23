@@ -50,6 +50,7 @@ export class DataForm {
         this.termOfPayment = false;
         this.termOfPaymentFilter = {};
         if (this.data.buyer) {
+            this.data.incomeTax = this.incomeTaxOptions[0];
             this.termOfPayment = true;
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
                 this.termOfPaymentFilter = { isExport: true };
