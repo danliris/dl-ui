@@ -1,4 +1,4 @@
-<template>
+<!--<template>
     <form class="form-horizontal">
         <textbox                label="Nomor Surat Jalan"   value.bind="data.no"                error.bind="error.no"                 read-only.bind="readOnly"></textbox>
         <datepicker             label="Tgl. Surat Jalan"    value.bind="data.supplierDoDate"    error.bind="error.supplierDoDate"     read-only.bind="readOnly" format="DD MMMM YYYY"></datepicker> 
@@ -8,4 +8,71 @@
         <hr/>
         <delivery-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.one-way="filter" if.bind="data.supplierId" is-edit.bind="isEdit"></delivery-order-item-collection>
     </form> 
-</template>
+</template>-->
+
+<template>
+  <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
+        <au-textbox 
+            label="Nomor Surat Jalan" 
+            value.bind="data.no" 
+            error.bind="error.no" 
+            placeholder="masukkan nomor surat jalan" 
+            read-only.bind="readOnly">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Tgl. Surat Jalan" 
+            value.bind="data.supplierDoDate"
+            error.bind="error.supplierDoDate" 
+            read-only.bind="readOnly">
+        </au-datepicker>
+
+        <au-datepicker 
+            label="Tgl. Tiba" 
+            value.bind="data.date" 
+            error.bind="error.date"
+            read-only.bind="readOnly">
+        </au-datepicker>
+
+        <au-autocomplete 
+            value.bind="supplier"
+            label="Supplier" 
+            change.delegate="supplierChanged($event)" 
+            loader.bind="supplierLoader"
+            error.bind="error.supplier" 
+            placeholder="cari supplier" 
+            key="code"
+            read-only.bind="readOnly">
+        </au-autocomplete>
+
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.remark" 
+            placeholder="tambah keterangan" 
+            read-only.bind="readOnly">
+        </au-multiline>
+
+        <au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="item.columns" 
+            add.bind="item.onAdd" 
+            remove.bind="item.onRemove"
+            read-only.bind="readOnly" 
+            if.bind="data.supplier" 
+            options.one-way="filter"
+            item-template="modules/purchasing/delivery-order/template/delivery-order-item">
+        </au-collection>
+
+  </au-input-form>
+</template>      
