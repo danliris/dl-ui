@@ -68,14 +68,14 @@
 
         <au-multiline 
             label="Keterangan" 
-            value.bind="data.remark" 
-            error.bind="error.remark" 
+            value.bind="data.remark"
             placeholder="tambah keterangan" 
             read-only.bind="readOnly">
         </au-multiline>
 
         <au-collection 
             items.bind="data.items" 
+            errors.bind="error.items" 
             columns.bind="itemsColumns" 
             add.bind="addItems" 
             remove.bind="removeItems"
