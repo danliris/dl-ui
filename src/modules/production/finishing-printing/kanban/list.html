@@ -1,48 +1,20 @@
 <template>
     <h1 class="page-header">Kanban</h1>
-    <br>
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="input-group">
-                <input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
-                <span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
-                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
-                    </span>
-            </div>
+    <au-table 
+        view-model.ref="table" 
+        data.bind="loadData" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextClickCallback($event)"
+        context-show.call="contextShowCallback(index, context, data)" 
+        selectable.bind="true" 
+        selections.bind="dataToBeCompleted" 
+        row-formatter.bind="rowFormatter">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
+            <button class="btn btn-primary" disabled.bind="!dataToBeCompleted.length > 0" click.delegate="submitCompleteData()">Complete</button>
         </div>
-        <div class="col-sm-4">
-            <div class="pull-right">
-                <button class="btn btn-primary" click.delegate="create()">Buat</button>
-            </div>
-        </div>
-    </div>
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Order No</th>
-                <th>Color</th>
-                <th>Cart Number</th>
-                <th>Instruction</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="kanban of data">
-                <td>${kanban.productionOrder.orderNo}</td>
-                <td>${kanban.color}</td>
-                <td>${kanban.cart.cartNumber}</td>
-                <td>${kanban.instruction.name}</td>
-                <td style="text-align:center">
-                    <button class="btn btn-default" click.delegate="view(kanban)">Rincian</button>
-                    <button class="btn btn-primary" click.delegate="exportPDF(kanban)">Cetak Pdf</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        Data kanban tidak ada.
-    </div>
-    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
-    <hr/>
+    </au-table>
 </template>
