@@ -1,34 +1,20 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
-var SupplierLoader = require('../../../loader/supplier-loader');
+var moment = require('moment');
 
+@inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-    @bindable title;
-    @bindable supplier;
 
-    itemsColumns = [
-        { header: "Nomor PO Eksternal", value: "items" }
-    ]
+    constructor(bindingEngine, element) {
+        this.bindingEngine = bindingEngine;
+        this.element = element;
+    }
 
-    item = {
-        columns: [
-            { header: "Nomor PO Eksternal", value: "purchaseOrderExternal" }
-        ],
-        onAdd: function () {
-            this.data.items = this.data.items || [];
-            this.data.items.push({purchaseOrderExternal:{}, fulfillments:[]});
-        }.bind(this),
-        onRemove: function () {
-            console.log("removed");
-        }.bind(this)
-    };
-
-    bind(context) {
-        this.context = context;
-        this.data = this.context.data;
-        this.error = this.context.error;
+    @computedFrom("data._id")
+    get isEdit() {
+        return (this.data._id || '').toString() != '';
     }
 
     @computedFrom("data.supplier")
@@ -39,30 +25,18 @@ export class DataForm {
         return filter;
     }
 
-    supplierChanged(newValue) {
-        if (newValue) {
-            if (newValue._id) {
-                this.data.supplier = newValue;
-                this.data.supplierId = this.data.supplier._id ? this.data.supplier._id : {};
-                this.data.items = [];
-                this.resetErrorItems();
-            }
-        } else {
-            this.data.supplier = newValue;
-            this.data.supplierId = {};
+    attached() {
+        if (this.data.items) {
+            this.data.items.forEach(item => {
+                item.showDetails = false
+            })
         }
-
     }
 
-    get supplierLoader() {
-        return SupplierLoader;
+    addItem() {
+        this.data.items = this.data.items ? this.data.items : [];
+        this.data.items.push({ showDetails: false });
     }
-
-    // get addItems() {
-    //     return (event) => {
-    //         this.data.items.push({})
-    //     };
-    // }
 
     removeItem(item) {
         var itemIndex = this.data.items.indexOf(item);
@@ -74,6 +48,20 @@ export class DataForm {
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
+    }
+
+    supplierChanged(e) {
+        var selectedSupplier = e.detail;
+        if (selectedSupplier) {
+            this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
+            if (!this.readOnly)
+                this.data.items = [];
+        }
+        else {
+            this.data.supplierId = undefined;
+            this.data.items = [];
+        }
+        this.resetErrorItems();
     }
 
     resetErrorItems() {
