@@ -103,13 +103,16 @@
 
         <au-multiline label="Kondisi" placeholder="input kondisi" value.bind="data.condition" error.bind="error.condition" read-only.bind="(readOnly || isEdit)"></au-multiline>
 
-        <au-multiline label="Remark" placeholder="input remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly || isEdit)"></au-multiline>
+        <au-multiline label="Remark" placeholder="input remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly || isEdit)"
+          if.bind="isRemark"></au-multiline>
 
         <au-autocomplete label="Agent" placeholder="cari agent" value.bind="data.agent" error.bind="error.agent" read-only.bind="(readOnly || isEdit)"
           if.bind="isExport" change.delegate="agentChanged($event)" loader.bind="agentLoader" key="code"></au-autocomplete>
 
         <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.comission" error.bind="error.comission" read-only.bind="(readOnly || isEdit)"
           if.bind="isComission"></au-textbox>
+
+        <au-multiline label="Piece Length" placeholder="input Piece Length" value.bind="data.pieceLength" error.bind="error.pieceLength" read-only.bind="(readOnly || isEdit)"></au-multiline>
 
       </div>
     </div>
