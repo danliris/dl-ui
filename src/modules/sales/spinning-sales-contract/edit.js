@@ -24,7 +24,6 @@ export class Edit {
     moment.locale(locale);
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.data.deliverySchedule=moment(this.data.deliverySchedule).format('YYYY-MM-DD');
 
     this.data.accountBank.toString = function () {
       return [this.accountName, this.bankName, this.accountNumber]
