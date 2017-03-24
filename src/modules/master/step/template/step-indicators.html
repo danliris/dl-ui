@@ -1,0 +1,13 @@
+<template>
+    <tr>
+        <td>
+            <au-textbox value.bind="stepIndicators.name" read-only.bind="false" options.bind="controlOptions"></au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="stepIndicators.value" read-only.bind="false" options.bind="controlOptions" format="0"></au-numeric>
+        </td> 
+        <td>
+            <au-textbox value.bind="stepIndicators.uom" read-only.bind="false" options.bind="controlOptions"></au-textbox>
+        </td>
+    </tr>
+</template>
