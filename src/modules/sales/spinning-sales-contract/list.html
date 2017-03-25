@@ -26,6 +26,7 @@
                         <th style="text-align:center">Nomor Sales Contract</th>
                         <th style="text-align:center">Buyer</th>
                         <th style="text-align:center">Jenis Buyer</th>
+                        <th style="text-align:center">Tanggal Pengiriman</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                         <td>${item.salesContractNo}</td>
                         <td style="text-align:center">${item.buyer.name}</td>
                         <td style="text-align:center">${item.buyer.type}</td>
+                        <td style="text-align:center">${item.deliverySchedule | dateFormat: 'D MMM YYYY'}</td>
                         <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button>
                             <button class="btn btn-primary" click.delegate="exportPDF(item)">Cetak Pdf</button>
                         </td>

@@ -1,11 +1,10 @@
-export class MachineEventItem {
+export class StepIndicatorItem {
   activate(context) {
-    this.machineEvent = context.data;
+    this.context = context;
+    this.stepIndicator = context.data;
     this.error = context.error;
     this.options = context.options;
-  } 
-
-  categories = ["routine","accident"];
+  }
 
   controlOptions = {
     control: {

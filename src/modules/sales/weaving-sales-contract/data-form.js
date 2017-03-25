@@ -9,6 +9,7 @@ var MaterialLoader = require('../../../loader/material-loader');
 var ProductLoader = require('../../../loader/products-loader');
 var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
+var AgentLoader = require('../../../loader/agent-loader');
 
 export class DataForm {
     @bindable readOnly = false;
@@ -20,11 +21,12 @@ export class DataForm {
     @bindable isEdit;
     @bindable isView;
 
+
     termOfPaymentFilter = {};
 
-    tagsFilter = { tags: { "$regex": "Material" } };
+    tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
 
-    incomeTaxOptions = ['Include PPn', 'Exclude PPn', 'Tanpa PPn'];
+    incomeTaxOptions = ['Tanpa PPn', 'Include PPn', 'Exclude PPn'];
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -36,7 +38,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
@@ -53,25 +54,67 @@ export class DataForm {
         if (this.data.buyer) {
             this.termOfPayment = true;
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.termOfPaymentFilter = { isExport: true };
+                this.termOfPaymentFilter = { "isExport": true };
             } else {
-                this.termOfPaymentFilter = { isExport: false };
+                this.termOfPaymentFilter = { "isExport": false };
             }
         } else {
             this.termOfPayments = {};
         }
         return this.termOfPayment;
     }
-
     @computedFrom("data.buyer")
     get isExport() {
+
         this.agent = false;
         if (this.data.buyer) {
+
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
                 this.agent = true;
             }
         }
         return this.agent;
+    }
+
+    @computedFrom("data.buyer")
+    get isRemark() {
+
+        this.remark = false;
+        if (this.data.buyer) {
+
+            if (this.data.buyer.type.trim().toLowerCase() != "ekspor") {
+                this.remark = true;
+            } 
+        }
+        return this.remark;
+    }
+
+    @computedFrom("data.buyer")
+    get isIncomeTax() {
+        this.incomeTax = false;
+        if (this.data.buyer) {
+            if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
+
+                this.incomeTax = true;
+            } else {
+
+                this.incomeTax = true;
+            }
+        }
+
+        return this.incomeTax;
+    }
+
+
+    @computedFrom("data.buyer")
+    get isComission() {
+        this.comission = false;
+        if (this.data.buyer) {
+            if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
+                this.comission = true;
+            }
+        }
+        return this.comission;
     }
 
     @computedFrom("data.buyer")
@@ -86,8 +129,24 @@ export class DataForm {
     }
 
     buyersChanged(e) {
-        // this.data.termOfPayment = {};
-        console.log('buyers changed')
+        var selectedBuyer = e.detail || {};
+
+        if (selectedBuyer) {
+            // this.incomeTaxOptions[0];
+            this.data.incomeTax = this.incomeTaxOptions[0];
+            this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
+
+            if (!this.data.buyerId || this.data.buyerId == "") {
+                this.data.termOfPayment = {};
+                this.data.agent = "";
+                this.data.comission = "";
+            }
+        }
+        else {
+            this.data.termOfPayment = {};
+            this.data.agent = "";
+            this.data.comission = "";
+        }
     }
 
     comodityChanged(e) {
@@ -121,6 +180,19 @@ export class DataForm {
 
     termOfPaymentChanged(e) {
         console.log('term of payment Changed')
+    }
+
+    agentChanged(e) {
+        var selectedAgent = e.detail || {};
+        if (selectedAgent) {
+            this.data.agentId = selectedAgent._id ? selectedAgent._id : "";
+            if (!this.data.agent) {
+                this.data.comission = "";
+            }
+        }
+        else {
+            this.data.comission = "";
+        }
     }
 
 
@@ -159,6 +231,11 @@ export class DataForm {
 
     get termOfPaymentLoader() {
         return TermOfPaymentLoader;
+    }
+
+    get agentLoader() {
+
+        return AgentLoader;
     }
 
     activate() {
