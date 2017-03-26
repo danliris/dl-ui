@@ -1,5 +1,6 @@
 <template>
     <h1 class="page-header">Kanban</h1>
+    <au-layout error.bind="error.isComplete"></au-layout>
     <au-table 
         view-model.ref="table" 
         data.bind="loadData" 
