@@ -9,6 +9,9 @@ const empty = {
     accountName: '',
     bankName: '',
     accountNumber:'',
+    currency:{
+        code:''
+    },
     toString: function () {
         return '';
     }
@@ -25,7 +28,7 @@ export default class AccountBankAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, AccountBankAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.accountName, this.bankName, this.accountNumber]
+            return [this.accountName, this.bankName, this.accountNumber, this.currency.code]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -56,7 +59,7 @@ AccountBankAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(accountBank => {
                         accountBank.toString = function () {
-                            return [this.accountName, this.bankName, this.accountNumber]
+                            return [this.accountName, this.bankName, this.accountNumber, this.currency.code]
                                 .filter((item, index) => {
                                     return item && item.toString().trim().length > 0;
                                 }).join(" - ");
