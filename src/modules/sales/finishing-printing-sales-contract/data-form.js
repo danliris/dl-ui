@@ -37,7 +37,7 @@ export class DataForm {
       this.printing=false;
       if(this.data.orderType){
         if(this.data.orderType.name.toLowerCase()=="printing"){
-          this.printing=true
+          this.printing=true;
         }
       }
     
