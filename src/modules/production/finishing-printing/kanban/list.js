@@ -31,6 +31,7 @@ export class List {
             },
             { field: "productionOrder.orderNo", title: "Order No" },
             { field: "cart.cartNumber", title: "Nomor Kereta" },
+            { field: "stepIndexPerTotal", title: "Step Index", sortable: false },
             { field: "selectedProductionOrderDetail.colorRequest", title: "Warna" },
             { field: "instruction.name", title: "Instruksi" },
             {
@@ -73,6 +74,7 @@ export class List {
                         ? kanban.selectedProductionOrderDetail.colorRequest + " - " + kanban.selectedProductionOrderDetail.colorType.name 
                         : kanban.selectedProductionOrderDetail.colorRequest;
                         kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
+                        kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.instruction.steps.length}`;
                         kanban.isPending = function(){ // used for custom sort
                             return !this.isComplete && this.currentStepIndex >= this.instruction.steps.length; 
                         }
