@@ -33,12 +33,15 @@ export class DataForm {
   }
 
   @computedFrom("data.orderType")
-  get isFilterOrder(){
-      this.filterOrder = {
-        "orderType.code": this.data.orderType.code
-      };
+  get isPrinting(){
+      this.printing=false;
+      if(this.data.orderType){
+        if(this.data.orderType.name.toLowerCase()=="printing"){
+          this.printing=true;
+        }
+      }
     
-    return this.filterOrder;
+    return this.printing;
   }
   
   @computedFrom("data.buyer")
@@ -73,8 +76,8 @@ export class DataForm {
             this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
             var code= selectedOrder.code;
             if (!this.readOnly) {
-                this.data.processType={};
-                this.processChanged({});
+                this.data.designMotive={};
+                this.designMotiveChanged=({});
                 this.data.details.length=0;
             }
             if(code){
@@ -86,18 +89,19 @@ export class DataForm {
         }
       }
 
-  processChanged(e) {
-    var selectedProcess = e.detail || {};
-    if (selectedProcess) {
-      this.data.processTypeId = selectedProcess._id ? selectedProcess._id : "";
-    }
-
-  }
+  
 
   materialChanged(e) {
     var selectedMaterial = e.detail || {};
     if (selectedMaterial) {
       this.data.materialId = selectedMaterial._id ? selectedMaterial._id : "";
+    }
+  }
+
+  designMotiveChanged(e){
+    var selectedMotive = e.detail || {};
+    if (selectedMotive) {
+      this.data.designMotiveId = selectedMotive._id ? selectedMotive._id : "";
     }
   }
 
@@ -155,6 +159,8 @@ export class DataForm {
           this.agentChanged({});
           this.data.termOfPayment={};
           this.termOfPaymentChanged({});
+          this.data.designMotive={};
+          this.designMotiveChanged=({});
           this.data.remark="";
           this.data.useIncomeTax=false;
           this.data.termOfShipment="";

@@ -25,18 +25,19 @@ export class List {
             {
                 field: "toBeCompleted", title: "toBeCompleted Checkbox", checkbox: true, sortable: false,
                 formatter: function (value, data, index) {
-                    this.checkboxEnabled = !data.isComplete;
+                    this.checkboxEnabled = data.isPending();
                     return ""
                 }
             },
             { field: "productionOrder.orderNo", title: "Order No" },
-            { field: "color", title: "Warna" },
             { field: "cart.cartNumber", title: "Nomor Kereta" },
+            { field: "stepIndexPerTotal", title: "Step Index", sortable: false },
+            { field: "selectedProductionOrderDetail.colorRequest", title: "Warna" },
             { field: "instruction.name", title: "Instruksi" },
             {
                 field: "isComplete", title: "Complete",
                     formatter: function (value, data, index) {
-                        return value ? "SUDAH" : "BELUM";
+                        return value ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
                     }
             }
         ];
@@ -44,9 +45,13 @@ export class List {
 
     rowFormatter(data, index) {
         if (data.isComplete)
-            return { classes: "success" }
-        else
-            return {}
+            return { classes: "success" };
+        else{
+            if (data.isPending())
+                return { classes: "warning" };
+            else
+                return {};
+        }
     }
 
     loadData = (info) => {
@@ -63,19 +68,60 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-
-                for (var kanban of result.data)
+                for (var kanban of result.data) // modify display data
                 {
-                    kanban.color = kanban.selectedProductionOrderDetail.colorType 
+                    kanban.selectedProductionOrderDetail.colorRequest = kanban.selectedProductionOrderDetail.colorType 
                         ? kanban.selectedProductionOrderDetail.colorRequest + " - " + kanban.selectedProductionOrderDetail.colorType.name 
                         : kanban.selectedProductionOrderDetail.colorRequest;
+                        kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
+                        kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.instruction.steps.length}`;
+                        kanban.isPending = function(){ // used for custom sort
+                            return !this.isComplete && this.currentStepIndex >= this.instruction.steps.length; 
+                        }
                 }
-                
+
+                if (info.sort === "isComplete"){ //custom sort
+                    if (info.order === "desc")
+                        result.data.sort(this.desc());
+                    else
+                        result.data.sort(this.asc());
+                }
+
                 return {
                     total: result.info.total,
                     data: result.data
                 }
         });
+    }
+
+    asc(){
+        return function(kanban1, kanban2){
+            if (kanban1.isComplete && !kanban2.isComplete)
+                return -1;
+            if (!kanban1.isComplete && kanban2.isPending())
+                return -1;
+            if (!kanban1.isComplete && kanban2.isComplete)
+                return 1;
+            if (kanban1.isPending() && !kanban2.isComplete)
+                return 1;
+
+            return 0;
+        }
+    }
+
+    desc(){
+        return function(kanban1, kanban2){
+            if (kanban1.isComplete && !kanban2.isComplete)
+                return 1;
+            if (!kanban1.isComplete && kanban2.isPending())
+                return 1;
+            if (!kanban1.isComplete && kanban2.isComplete)
+                return -1;
+            if (kanban1.isPending() && !kanban2.isComplete)
+                return -1;
+
+            return 0;
+        }
     }
 
     contextClickCallback(event) {
@@ -105,6 +151,7 @@ export class List {
 
             Promise.all(updatePromise)
                 .then(responses => {
+                    this.error = {};
                     this.table.refresh();
                 })
                 .catch(e => {
@@ -113,7 +160,7 @@ export class List {
         }
     }
   
-     create() {
+    create() {
         this.router.navigateToRoute('create');
     }
 }
