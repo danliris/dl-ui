@@ -77,7 +77,7 @@ export class DataForm {
             var code= selectedOrder.code;
             if (!this.readOnly) {
                 this.data.designMotive={};
-                this.designMotiveChanged=({});
+                this.designMotiveChanged({});
                 this.data.details.length=0;
             }
             if(code){
@@ -160,7 +160,7 @@ export class DataForm {
           this.data.termOfPayment={};
           this.termOfPaymentChanged({});
           this.data.designMotive={};
-          this.designMotiveChanged=({});
+          this.designMotiveChanged({});
           this.data.remark="";
           this.data.useIncomeTax=false;
           this.data.termOfShipment="";
