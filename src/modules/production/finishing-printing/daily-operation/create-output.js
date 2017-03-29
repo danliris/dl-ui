@@ -2,27 +2,27 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-
 @inject(Router, Service)
-export class EditInput {
+export class CreateOutput {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.data = {};
     }
 
-    async activate(params) {
-        var id = params.id;
-        this.data = await this.service.getData(id);
+    activate(params) {
+
     }
 
-    view() {
-        this.router.navigateToRoute('view-input', { id: this.data._id });
+    list() {
+        this.router.navigateToRoute('list');
     }
 
     save() {
-        this.service.update(this.data)
+        this.data.type = "output";
+        this.service.create(this.data)
             .then(result => {
-                this.view();
+                this.list();
             })
             .catch(e => {
                 this.error = e;

@@ -2,8 +2,9 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
+
 @inject(Router, Service)
-export class EditOutput {
+export class ViewInput {
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -20,17 +21,22 @@ export class EditOutput {
             delete this.data.timeOutput;
     }
 
-    view() {
-        this.router.navigateToRoute('view-output', { id: this.data._id });
+    list() {
+        this.router.navigateToRoute('list');
     }
 
-    save() {
-        this.service.update(this.data)
+    edit() {
+        this.router.navigateToRoute('edit-input', { id: this.data._id });
+    }
+
+    // editOutput() {
+    //     this.router.navigateToRoute('output', { id: this.data._id });
+    // }
+
+    delete() {
+        this.service.delete(this.data)
             .then(result => {
-                this.view();
-            })
-            .catch(e => {
-                this.error = e;
-            })
+                this.list();
+            });
     }
 }
