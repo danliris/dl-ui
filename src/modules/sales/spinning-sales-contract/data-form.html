@@ -35,9 +35,8 @@
             <au-textbox label="Satuan" read-only="true"></au-textbox>
           </div>
           <div class="col-sm-4">
-            <au-autocomplete value.bind="data.uom" error.bind="error.uom" change.delegate="uomChanged($event)" loader.bind="uomLoader"
-              placeholder="cari satuan " key="code" text="unit" read-only.bind="(readOnly || isEdit)">
-            </au-autocomplete>
+            <au-textbox label="BALL" read-only="true">
+            </au-textbox>
           </div>
         </div>
 
@@ -81,7 +80,8 @@
 
         <au-multiline label="Kondisi" placeholder="input kondisi" value.bind="data.condition" error.bind="error.condition" read-only.bind="(readOnly || isEdit)"></au-multiline>
 
-        <au-multiline label="Remark" placeholder="input remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly || isEdit)" if.bind="!isExport"></au-multiline>
+        <au-multiline label="Remark" placeholder="input remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="(readOnly || isEdit)"
+          if.bind="!isExport"></au-multiline>
 
         <!--<au-textbox label="Agent" placeholder="input agent" value.bind="data.agent" error.bind="error.agent" read-only.bind="(readOnly || isEdit)"
           if.bind="isExport"></au-textbox>-->
