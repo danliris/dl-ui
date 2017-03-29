@@ -74,18 +74,10 @@ export class DataForm {
         var selectedOrder=e.detail || {};
         if(selectedOrder){
             this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
-            var code= selectedOrder.code;
             if (!this.readOnly) {
                 this.data.designMotive={};
                 this.designMotiveChanged({});
-                this.data.details.length=0;
             }
-            if(code){
-                this.filterOrder={
-                    "orderType.code": code
-                }; 
-            }
-            
         }
       }
 
