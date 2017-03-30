@@ -8,6 +8,7 @@ export class DataForm {
     @bindable readOnlyOutput = false;
     @bindable readOnly = false;
     @bindable output = false;
+    @bindable input = false;
     @bindable data = {};
     @bindable error = {};
     shiftOptions = ['Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
@@ -22,43 +23,45 @@ export class DataForm {
     bind()
     {
         this.timeInput = this.data.timeInput ? moment(this.data.timeInput) : this._adjustMoment();
-        if(this.data.timeOutput)
-            this.timeOutput = moment(this.data.timeOutput);
+        this.timeOutput = this.data.timeOutput ? moment(this.data.timeOutput) : this._adjustMoment();
         var tempTimeInput = moment(this.timeInput);
-        // var tempTimeOutput = moment(this.timeOutput);
+        var tempTimeOutput = moment(this.timeOutput);
         this.data.timeInput = momentToMillis(tempTimeInput);
-        // this.data.timeOutput = momentToMillis(tempTimeOutput);
+        this.data.timeOutput = momentToMillis(tempTimeOutput);
 
         if (this.data.dateInput)
             this.data.dateInput = moment(this.data.dateInput).format("YYYY-MM-DD");
         if (this.data.dateOutput)
             this.data.dateOutput = moment(this.data.dateOutput).format("YYYY-MM-DD");
 
-        if(this.data.kanban && this.data.kanban.istruction && this.data.kanban.istruction.steps && this.data.kanban.instruction.steps.lenght > 0){
-            this.steps = this.data.kanban.instruction.steps;
+        // if(this.data.kanban && this.data.kanban.istruction && this.data.kanban.istruction.steps && this.data.kanban.instruction.steps.lenght > 0){
+        //     this.steps = this.data.kanban.instruction.steps;
+        // }
+        this.filterMachine = {
+            "unit.division.name" : "FINISHING & PRINTING"
         }
     }
 
-    get isFilterMachine(){
-        this.filterMachine = {};
+    get isFilterKanban(){
+        this.filterKanban = {};
         if(this.data.step)
         {
-            this.filterMachine = {
-                "steps" : { "$elemMatch" : {
+            this.filterKanban = {
+                "instruction.steps" : { "$elemMatch" : {
                     "step.process" : this.data.step.process
                 } }
             };
         }
-        return this.filterMachine;
+        return this.filterKanban;
     }
 
     get isFilterStep(){
         this.filterStep = {};
-        if(this.data.kanban)
+        if(this.data.machine)
         {
             var steps = [];
-            for(var step of this.data.kanban.instruction.steps){
-                steps.push(step.process);
+            for(var step of this.data.machine.steps){
+                steps.push(step.step.process);
             }
             this.filterStep = {
                 "process" : { "$in" : steps }
@@ -68,37 +71,48 @@ export class DataForm {
     }
     
     kanbanChanged(e){
-        var selectedKanban = e.detail;
+        var selectedKanban = e.detail || {};
         if(selectedKanban){
-            this.data.machine = {};
-            delete this.data.machineId;
-            this.data.step = {};
-            delete this.data.stepId;
-            this.data.kanbanId = selectedKanban._id;
-            if(selectedKanban.instruction){
-                var steps = [];
-                for(var step of selectedKanban.instruction.steps){
-                    steps.push(step.process);
-                }
-                this.filterStep = {
-                    "process" : { "$in" : steps }
-                };
+            this.data.kanbanId = selectedKanban._id ? selectedKanban._id : "";
+            if(this.input)
                 this.data.input = Number(selectedKanban.cart.qty);
-            }
+            if(this.output)
+                this.data.goodOutput = Number(selectedKanban.cart.qty);
         }
-        else{
-            delete this.data.kanbanId;
-            this.data.input = 0;
-            this.filterMachine = {};
-            this.data.machine = {};
-            delete this.data.machineId;
-            this.data.step = {};
-            delete this.data.stepId;
-        }
+        // if(selectedKanban){
+        //     this.data.machine = {};
+        //     delete this.data.machineId;
+        //     this.data.step = {};
+        //     delete this.data.stepId;
+        //     this.data.kanbanId = selectedKanban._id;
+        //     if(selectedKanban.instruction){
+        //         var steps = [];
+        //         for(var step of selectedKanban.instruction.steps){
+        //             steps.push(step.process);
+        //         }
+        //         this.filterStep = {
+        //             "process" : { "$in" : steps }
+        //         };
+        //         this.data.input = Number(selectedKanban.cart.qty);
+        //     }
+        // }
+        // else{
+        //     delete this.data.kanbanId;
+        //     this.data.input = 0;
+        //     this.filterMachine = {};
+        //     this.data.machine = {};
+        //     delete this.data.machineId;
+        //     this.data.step = {};
+        //     delete this.data.stepId;
+        // }
     }
     
     get hasStep(){
         return this.data && this.data.stepId && this.data.stepId !== '';
+    }
+
+    get hasMachine() {
+        return this.data && this.data.machineId && this.data.machineId !== '';
     }
 
     get hasKanban() {
@@ -108,26 +122,50 @@ export class DataForm {
     stepChanged(e) {
         var selectedStep = e.detail || {};
         if (selectedStep){
-            this.data.machine = {};
-            delete this.data.machineId;
+            this.kanbanChanged({});
+            delete this.data.kanbanId;
             this.data.stepId = selectedStep._id ? selectedStep._id : "";
-            this.filterMachine = {
-                "steps" : { "$elemMatch" : {
-                    "step.process" : selectedStep.process
+            this.filterKanban = {
+                "instruction.steps" : { "$elemMatch" : {
+                    "step.process" : this.data.step.process
                 } }
             };
         }else{
             delete this.data.stepId;
-            this.filterMachine = {};
-            this.data.machine = {};
-            delete this.data.machineId;
+            this.filterKanban = {};
+            this.data.kanban = {};
+            delete this.data.kanbanId;
         }
     }
 
     machineChanged(e) {
         var selectedMachine = e.detail || {};
-        if (selectedMachine)
+        if (selectedMachine){
             this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
+            this.data.kanban = {};
+            delete this.data.kanbanId;
+            this.data.step = {};
+            delete this.data.stepId;
+            var steps = [];
+            if(selectedMachine.steps){
+                for(var step of selectedMachine.steps){
+                    steps.push(step.step.process);
+                }
+            }
+            this.filterStep = {
+                "process" : { "$in" : steps }
+            };
+        }
+        else{
+            delete this.data.machineId;
+            delete this.data.stepId;
+            this.filterStep = {};
+            this.data.step = {};
+            delete this.data.kanbanId;
+            this.data.kanban = {};
+            this.data.input = 0;
+            this.filterKanban = {};
+        }
     }
 
     timeInputChanged(e)

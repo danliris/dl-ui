@@ -26,16 +26,16 @@ export class View {
     }
   }
 
-  cancel(event) {
+  cancelCallback(event) {
     this.router.navigateToRoute('list');
   }
-  edit(event) {
+  editCallback(event) {
     this.router.navigateToRoute('edit', { id: this.data._id });
   }    
-  delete(event) {
+  deleteCallback(event) {
     this.service.delete(this.data)
         .then(result => {
-          this.cancel();
+          this.cancelCallback(event);
         });
   }  
 }

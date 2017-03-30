@@ -1,6 +1,7 @@
 
 export function configure(config) {
   config.globalResources(
+    // './dialog/index',
     './form/autocomplete/autocomplete',
     './form/collection/collection',
     './form/checkbox',

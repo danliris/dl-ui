@@ -30,6 +30,7 @@ export class Create {
 
     for (var cart of this.data.carts){
       this.data.cart = cart;
+      this.data.currentQty = cart.qty;
       createPromise.push(this.service.create(this.data));
     }
 
@@ -43,6 +44,7 @@ export class Create {
       })
       .catch(e => {
         delete this.data.cart;
+        delete this.data.currentQty;
         this.error = e;
       })
   }    

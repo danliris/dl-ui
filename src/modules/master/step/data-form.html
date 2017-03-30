@@ -1,0 +1,10 @@
+<template>
+    <form class="form-horizontal">
+        <textbox label="Proses" value.bind="data.process" error.bind="error.code" read-only.bind="(readOnly || isEdit)"></textbox>
+        <textbox label="Alias" value.bind="data.alias" error.bind="error.alias" read-only.bind="(readOnly || isEdit)"></textbox>
+        <au-layout error.bind="error.stepIndicators"></au-layout>
+        <au-collection items.bind="data.stepIndicators" columns.bind="stepIndicatorsInfo.columns" add.bind="stepIndicatorsInfo.onAdd"
+            remove.bind="stepIndicatorsInfo.onRemove" title="Indikator Step" read-only.bind="false" item-template="modules/master/step/template/step-indicators">
+        </au-collection>
+    </form>
+</template>

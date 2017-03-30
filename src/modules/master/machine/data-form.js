@@ -5,19 +5,24 @@ var StepLoader = require('../../..//loader/step-loader');
 var MachineTypeLoader = require('../../../loader/machine-type-loader');
 
 export class DataForm {
-  @bindable readOnly = false;
-  @bindable data;
-  @bindable error;
+  @bindable readOnly;
+    formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
 
   @bindable title;
 
   machineEventColumns = [
     { header: "No", value: "no" },
-    { header: "Name", value: "name" },
+    { header: "Nama", value: "name" },
+    { header: "Kategori", value: "category" },
   ]
 
   stepColumns = [
-    { header: "proses", value: "process" },
+    { header: "Proses", value: "process" },
   ]
 
   bind(context) {

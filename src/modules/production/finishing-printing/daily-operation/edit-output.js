@@ -21,11 +21,10 @@ export class EditOutput {
     }
 
     view() {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view-output', { id: this.data._id });
     }
 
     save() {
-        this.data.isOutput = true;
         this.service.update(this.data)
             .then(result => {
                 this.view();
