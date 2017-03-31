@@ -64,7 +64,7 @@ export class DataForm {
       { header : "Jumlah PCS", value : "pcs"},
     ],
     onAdd: function () {
-      this.data.carts.push({ cartNumber : "", qty : 0, uom : this.data.productionOrder ? this.data.productionOrder.uom.unit : '', pcs : 0});
+      this.data.carts.push({ cartNumber : "", qty : 0, uom : this.data.cart.uom ? this.data.cart.uom.unit : 'MTR', pcs : 0});
       console.log("add");
     }.bind(this),
     onRemove: function () {
@@ -100,7 +100,7 @@ export class DataForm {
       }
 
       for (var cart of this.data.carts){
-        cart.uom = this.data.productionOrder.uom.unit;
+        cart.uom = "MTR";
       }
     }
     else {

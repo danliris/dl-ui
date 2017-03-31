@@ -19,7 +19,7 @@ export class CreateInput {
     }
 
     save() {
-        this.data.type = "output";
+        this.data.type = "input";
         this.service.create(this.data)
             .then(result => {
                 this.list();
