@@ -1,60 +1,17 @@
 <template>
-    <div class="display-wrapper">
-        <h1 class="page-header">Surat Jalan</h1>
-        <br>
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="input-group">
-					<input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
-					<span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
-                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
-                    </span>
-				</div>
-            </div> 
-            <div class="col-sm-4">
-                <div class="pull-right">
-                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
-                </div>
-            </div>
+    <h1 class="page-header">Surat Jalan</h1>
+    <au-table 
+        view-model.ref="table" 
+        data.bind="loader" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextClickCallback($event)"
+        row-formatter.bind="rowFormatter">
+
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
         </div>
-        <div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="${isPrint ? '' : 'hide'}"></th>
-                        <th>Nomor Surat Jalan</th>
-                        <th>Tanggal Surat Jalan</th>
-                        <th>Nama Supplier</th>
-                        <th>List Nomor Eksternal PO</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--<tr repeat.for="item of data" click.delegate="view(item)">-->
-                    <tr repeat.for="item of data">
-                        <td class="${isPrint ? '' : 'hide'}">
-                            <input type="checkbox"
-                                checked.bind="item.isPrint"
-                                change.delegate="pushDataToBePrinting(item)" />
-                        </td>
-                        <td>${item.no}</td>
-                        <td style="text-align:left">${item.supplierDoDate | dateFormat:'D MMM YYYY'}</td>
-                        <td>${item.supplier.name}</td>
-                        <td style="text-align:center">
-                            <ul>
-                            <li repeat.for="po of item.items">${po.purchaseOrderExternal.no}</li> 
-                            </ul>
-                        </td>
-                        <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Data surat jalan tidak ditemukan.
-        </div>
-        <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
-        <hr/>
-    </div>
+  </au-table>
 </template>

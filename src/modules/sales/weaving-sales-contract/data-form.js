@@ -84,7 +84,7 @@ export class DataForm {
 
             if (this.data.buyer.type.trim().toLowerCase() != "ekspor") {
                 this.remark = true;
-            } 
+            }
         }
         return this.remark;
     }
@@ -136,16 +136,20 @@ export class DataForm {
             this.data.incomeTax = this.incomeTaxOptions[0];
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
 
-            if (!this.data.buyerId || this.data.buyerId == "") {
+            if (!this.data.buyerId || this.data.buyerId == "" || !this.data.buyer) {
                 this.data.termOfPayment = {};
                 this.data.agent = "";
                 this.data.comission = "";
+                this.data.termOfShipment = "";
+                this.data.remark = "";
             }
         }
         else {
             this.data.termOfPayment = {};
             this.data.agent = "";
             this.data.comission = "";
+            this.data.termOfShipment = "";
+            this.data.remark = "";
         }
     }
 

@@ -91,6 +91,8 @@ export class DataForm {
         this.data.termOfPayment = {};
         this.termOfPaymentChanged({});
         this.data.comission = "";
+        this.data.termOfShipment = "";
+        this.data.remark = "";
         this.data.incomeTax = this.incomeTaxOptions[0];
         if (selectedBuyer) {
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
