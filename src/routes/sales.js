@@ -76,5 +76,18 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'sales/spinning-sales-contract-report',
+        name: 'spinning-sales-contract-report',
+        moduleId: './modules/sales/reports/spinning-sales-contract-report/index',
+        nav: true,
+        title: 'Laporan Sales Contract Spinning',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
