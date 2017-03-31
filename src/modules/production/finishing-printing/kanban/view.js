@@ -13,7 +13,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.data.cart.uom = this.data.productionOrder.uom.unit;
+    this.data.cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
   }
 
   cancelCallback(event) {
