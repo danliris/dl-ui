@@ -77,18 +77,31 @@ export class DataForm {
     }
 
     @computedFrom("data.buyer")
+    get isRemark() {
+
+        this.remark = false;
+        if (this.data.buyer) {
+
+            if (this.data.buyer.type.trim().toLowerCase() != "ekspor") {
+                this.remark = true;
+            }
+        }
+        return this.remark;
+    }
+
+    @computedFrom("data.buyer")
     get isIncomeTax() {
         this.incomeTax = false;
         if (this.data.buyer) {
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
- 
+
                 this.incomeTax = true;
             } else {
 
                 this.incomeTax = true;
             }
         }
-        
+
         return this.incomeTax;
     }
 
@@ -120,19 +133,23 @@ export class DataForm {
 
         if (selectedBuyer) {
             // this.incomeTaxOptions[0];
-            this.data.incomeTax=this.incomeTaxOptions[0];
+            this.data.incomeTax = this.incomeTaxOptions[0];
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
 
-            if (!this.data.buyerId || this.data.buyerId == "") {
+            if (!this.data.buyerId || this.data.buyerId == "" || !this.data.buyer) {
                 this.data.termOfPayment = {};
                 this.data.agent = "";
                 this.data.comission = "";
+                this.data.termOfShipment = "";
+                this.data.remark = "";
             }
         }
         else {
             this.data.termOfPayment = {};
             this.data.agent = "";
             this.data.comission = "";
+            this.data.termOfShipment = "";
+            this.data.remark = "";
         }
     }
 

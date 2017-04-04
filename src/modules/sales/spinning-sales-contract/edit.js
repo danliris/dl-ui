@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -19,8 +20,8 @@ export class Edit {
   }
 
   async activate(params) {
-    var locale='id-ID';
-    var moment= require('moment');
+    var locale = 'id-ID';
+    var moment = require('moment');
     moment.locale(locale);
     var id = params.id;
     this.data = await this.service.getById(id);
@@ -38,6 +39,7 @@ export class Edit {
   }
 
   save(event) {
+    this.data.deliverySchedule = moment(this.data.deliverySchedule).format("YYYY-MM-DD");
     this.service.update(this.data)
       .then(result => {
         this.cancel();

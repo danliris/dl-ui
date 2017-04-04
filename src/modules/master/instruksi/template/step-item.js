@@ -10,12 +10,12 @@ export class StepItem {
     this.step = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.temp = this.step;
+    this.temp = this.step; 
   }
 
   stepIndicatorColumns = [
     { header: "Indikator", value: "name" },
-    { header: "Nilai", value: "value" }, 
+    { header: "Nilai", value: "value" },
     { header: "Satuan", value: "uom" },
   ];
 
@@ -54,7 +54,7 @@ export class StepItem {
     this.context.context.selectedStep = { data: step, index: index, tdStep: this.tdStep, tdButton: this.tdButton };
     console.log("item clicked");
     console.log(this.context);
-  }
+  } 
 
   get stepLoader() {
     return StepLoader;
@@ -69,7 +69,7 @@ export class StepItem {
       info = info.substring(0, info.length - 1);
     }
     else {
-      info = "please choose step"
+      info = ""
     }
     return info;
   }

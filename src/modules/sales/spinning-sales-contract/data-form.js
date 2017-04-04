@@ -50,7 +50,6 @@ export class DataForm {
         this.termOfPayment = false;
         this.termOfPaymentFilter = {};
         if (this.data.buyer) {
-            this.data.incomeTax = this.incomeTaxOptions[0];
             this.termOfPayment = true;
             if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
                 this.termOfPaymentFilter = { isExport: true };
@@ -92,6 +91,9 @@ export class DataForm {
         this.data.termOfPayment = {};
         this.termOfPaymentChanged({});
         this.data.comission = "";
+        this.data.termOfShipment = "";
+        this.data.remark = "";
+        this.data.incomeTax = this.incomeTaxOptions[0];
         if (selectedBuyer) {
             this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
             if (selectedBuyer.type.toLowerCase() == "ekspor" || selectedBuyer.type.toLowerCase() == "export") {
