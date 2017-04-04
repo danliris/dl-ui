@@ -1,0 +1,27 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+
+    <au-autocomplete value.bind="selectedKanban" label="Kanban" read-only.bind="readOnly || isEdit" error.bind="error.kanbanId"
+      loader.bind="kanbanLoader" key="_id" text="_id"></au-autocomplete>
+
+    <!--<au-textbox label="code" value.bind="data.code" error.bind="error.code" read-only.bind="readOnly || isEdit" if.bind="isEdit"></au-textbox>
+    <au-textbox label="name" value.bind="data.name" error.bind="error.name" read-only.bind="readOnly"></au-textbox>
+    <au-multiline label="description" value.bind="data.description" error.bind="error.description" read-only.bind="readOnly"></au-multiline>
+    <au-datepicker label="date" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly"></au-datepicker>
+    <au-multiline label="remark" value.bind="data.remark" error.bind="error.remark" read-only.bind="readOnly"></au-multiline>
+    <au-textbox label="status" value.bind="data.status" error.bind="error.status" read-only.bind="readOnly"></au-textbox>-->
+    <button click.delegate="addNewScoringCallback()">Add new score</button>
+    <h3>${data.scores.length}</h3>
+
+    <au-collection columns.bind="scoreColumns" items.bind="data.scores">
+      <template replace-part="item">
+        <td>
+          <au-textbox value.bind="data.pcsNo" error.bind="error.pcsNo"></au-textbox>
+        </td>
+        <td>
+          <au-numeric value.bind="data.length" error.bind="error.length"></au-numeric>
+        </td> 
+      </template>
+    </au-collection>
+  </au-input-form>
+</template>
