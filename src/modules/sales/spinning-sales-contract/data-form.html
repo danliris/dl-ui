@@ -5,7 +5,7 @@
     <button slot="actions" class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
     <button slot="actions" class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
 
-    <div class="row">
+    <div class="row" keypress.delegate="enterDelegate($event)">
       <div class="col-md-6" style="padding:10">
 
         <au-autocomplete value.bind="data.buyer" error.bind="error.buyer" label="Buyer" change.delegate="buyersChanged($event)" loader.bind="buyersLoader"
