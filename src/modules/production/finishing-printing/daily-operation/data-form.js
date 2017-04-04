@@ -74,37 +74,11 @@ export class DataForm {
         var selectedKanban = e.detail || {};
         if(selectedKanban){
             this.data.kanbanId = selectedKanban._id ? selectedKanban._id : "";
-            if(this.input)
+            if(this.input && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.input = Number(selectedKanban.cart.qty);
-            if(this.output)
+            if(this.output && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.goodOutput = Number(selectedKanban.cart.qty);
         }
-        // if(selectedKanban){
-        //     this.data.machine = {};
-        //     delete this.data.machineId;
-        //     this.data.step = {};
-        //     delete this.data.stepId;
-        //     this.data.kanbanId = selectedKanban._id;
-        //     if(selectedKanban.instruction){
-        //         var steps = [];
-        //         for(var step of selectedKanban.instruction.steps){
-        //             steps.push(step.process);
-        //         }
-        //         this.filterStep = {
-        //             "process" : { "$in" : steps }
-        //         };
-        //         this.data.input = Number(selectedKanban.cart.qty);
-        //     }
-        // }
-        // else{
-        //     delete this.data.kanbanId;
-        //     this.data.input = 0;
-        //     this.filterMachine = {};
-        //     this.data.machine = {};
-        //     delete this.data.machineId;
-        //     this.data.step = {};
-        //     delete this.data.stepId;
-        // }
     }
     
     get hasStep(){

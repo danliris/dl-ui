@@ -78,6 +78,13 @@
       if.bind="hasColor">
     </numeric>
 
+    <textbox
+      label="Satuan"
+      value.bind="data.productionOrder.uom.unit" 
+      read-only.bind="true"
+      if.bind="hasColor">
+    </textbox>
+
     <textbox 
       label="Grade" 
       value.bind="data.grade"
