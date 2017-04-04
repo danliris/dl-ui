@@ -12,16 +12,10 @@
     <au-textbox label="status" value.bind="data.status" error.bind="error.status" read-only.bind="readOnly"></au-textbox>-->
     <button click.delegate="addNewScoringCallback()">Add new score</button>
     <h3>${data.scores.length}</h3>
-
-    <au-collection columns.bind="scoreColumns" items.bind="data.scores">
-      <template replace-part="item">
-        <td>
-          <au-textbox value.bind="data.pcsNo" error.bind="error.pcsNo"></au-textbox>
-        </td>
-        <td>
-          <au-numeric value.bind="data.length" error.bind="error.length"></au-numeric>
-        </td> 
-      </template>
-    </au-collection>
   </au-input-form>
+
+  <h2 class="page-header">Fabric Scores</h2>
+  <au-table view-model.ref="fabricScoreTable" data.bind="fabricScoreLoader" columns.bind="fabricScoreColumns" sortable.bind="true" page-size="25" row-click.delegate="__fabricScoreRowClickCallback($event)">
+    <button slot="toolbar" class="btn btn-success" click.delegate="__fabricScoreCreateCallback()">Add new Score</button>
+  </au-table> 
 </template>

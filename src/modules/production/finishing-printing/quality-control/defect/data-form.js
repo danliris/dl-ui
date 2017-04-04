@@ -1,16 +1,19 @@
 import { bindable, inject, containerless, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
+import { Dialog } from '../../../../../au-components/dialog/dialog';
+import { FabricScoreEditor } from './dialogs/fabric-score-editor';
 
 @containerless()
-@inject(Service)
+@inject(Service, Dialog)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
 
     @bindable selectedKanban = {};
 
-    constructor(service) {
+    constructor(service, dialog) {
         this.service = service;
+        this.dialog = dialog;
     }
 
     async bind(context) {
@@ -29,19 +32,44 @@ export class DataForm {
         console.log(this.selectedKanban);
     }
 
-scoreColumns = ["pcsNo","length"];
-
-    addNewScoringCallback() {
-        this.data.scores.push(new FabricScore());
-    }
-
-    selectedKanbanChanged(newValue, oldValue) {
-        this.data.kanbanId = this.selectedKanban._id;
-    }
-
     @computedFrom("data.id")
     get isEdit() {
         return (this.data.id || '').toString() !== '';
+    }
+
+    fabricScoreColumns = ["pcsNo", "length"];
+    fabricScoreTable;
+    
+    __fabricScoreCreateCallback() {
+        this.__fabricScoreShowEditorDialog();
+    }
+
+    __fabricScoreShowEditorDialog(data) {
+        console.log(this)
+        this.dialog.show(FabricScoreEditor, data)
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.data.scores.push(new FabricScore());
+                    this.fabricScoreTable.refresh();
+                }
+            });
+    }
+    __fabricScoreRowClickCallback(event) {
+        var data = event.detail;
+        this.activeBacklog = data;
+    }
+
+    fabricScoreLoader = (info) => {
+        var count = this.data.scores.count
+        var data = this.data.scores;
+        return {
+            total: count,
+            data: data
+        };
+    };
+
+    selectedKanbanChanged(newValue, oldValue) {
+        this.data.kanbanId = this.selectedKanban._id;
     }
 
     get kanbanLoader() {
