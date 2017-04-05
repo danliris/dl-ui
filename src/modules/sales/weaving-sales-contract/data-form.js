@@ -56,12 +56,8 @@ export class DataForm {
     }
 
     enterEventDelegate(event) {
-        if (event.charCode === 13) {
-            event();
-            return false;
-        }
-        else
-            return true;
+        event();
+        return true;
     }
 
     //set termOfPaymentFilter
