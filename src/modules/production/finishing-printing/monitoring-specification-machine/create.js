@@ -23,6 +23,14 @@ export class Create {
 
     save() {
 
+        var hours = new Date(this.data.time).getHours();
+        var minutes = new Date(this.data.time).getMinutes();
+        var date = this.data.date.toString();
+
+        var dateTime = date + ":" + hours + ":" + "" + minutes;
+
+        this.data.time = dateTime;
+
         this.service.create(this.data)
             .then(result => {
                 this.list();
