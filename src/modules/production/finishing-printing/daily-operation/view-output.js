@@ -4,7 +4,7 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class View {
+export class ViewOutput {
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -25,13 +25,13 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    editInput() {
-        this.router.navigateToRoute('input', { id: this.data._id });
+    edit() {
+        this.router.navigateToRoute('edit-output', { id: this.data._id });
     }
 
-    editOutput() {
-        this.router.navigateToRoute('output', { id: this.data._id });
-    }
+    // editOutput() {
+    //     this.router.navigateToRoute('output', { id: this.data._id });
+    // }
 
     delete() {
         this.service.delete(this.data)

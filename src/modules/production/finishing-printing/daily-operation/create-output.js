@@ -2,15 +2,12 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-
-
 @inject(Router, Service)
-export class Create {
+export class CreateOutput {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = { "import": true };
-
+        this.data = {};
     }
 
     activate(params) {
@@ -22,15 +19,7 @@ export class Create {
     }
 
     save() {
-
-        var hours = new Date(this.data.time).getHours();
-        var minutes = new Date(this.data.time).getMinutes();
-        var date = this.data.date.toString();
-
-        var dateTime = date + ":" + hours + ":" + "" + minutes;
-
-        this.data.time = dateTime;
-
+        this.data.type = "output";
         this.service.create(this.data)
             .then(result => {
                 this.list();
@@ -39,5 +28,4 @@ export class Create {
                 this.error = e;
             })
     }
-
 }

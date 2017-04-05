@@ -42,8 +42,8 @@ export class RestService {
       });
   }
 
-  get(endpoint, header) {
-    var promise = this.endpoint.find(endpoint)
+  get(endpoint, header, info) {
+    var promise = this.endpoint.find(endpoint, info)
     this.publish(promise);
     return promise
       .then((result) => {

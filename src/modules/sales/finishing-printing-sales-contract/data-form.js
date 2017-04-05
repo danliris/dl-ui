@@ -20,11 +20,6 @@ export class DataForm {
     this.filterMaterial = {
       "tags" :"material"
     };
-    this.filterComodity = {
-      "type":{
-        "$regex":"Finishing Printing"
-      }
-    };
   }
 
   @computedFrom("data.dataId")
@@ -74,18 +69,10 @@ export class DataForm {
         var selectedOrder=e.detail || {};
         if(selectedOrder){
             this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
-            var code= selectedOrder.code;
             if (!this.readOnly) {
                 this.data.designMotive={};
-                this.designMotiveChanged=({});
-                this.data.details.length=0;
+                this.designMotiveChanged({});
             }
-            if(code){
-                this.filterOrder={
-                    "orderType.code": code
-                }; 
-            }
-            
         }
       }
 
@@ -160,7 +147,7 @@ export class DataForm {
           this.data.termOfPayment={};
           this.termOfPaymentChanged({});
           this.data.designMotive={};
-          this.designMotiveChanged=({});
+          this.designMotiveChanged({});
           this.data.remark="";
           this.data.useIncomeTax=false;
           this.data.termOfShipment="";

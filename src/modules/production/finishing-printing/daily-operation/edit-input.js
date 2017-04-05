@@ -16,7 +16,7 @@ export class EditInput {
     }
 
     view() {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view-input', { id: this.data._id });
     }
 
     save() {
