@@ -55,6 +55,15 @@ export class DataForm {
             return true;
     }
 
+    enterEventDelegate(event) {
+        if (event.charCode === 13) {
+            event();
+            return false;
+        }
+        else
+            return true;
+    }
+
     //set termOfPaymentFilter
     @computedFrom("data.buyer")
     get istermOfPayment() {
