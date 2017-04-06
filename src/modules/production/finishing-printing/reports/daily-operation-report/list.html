@@ -58,7 +58,8 @@
                 <td class="text-right">${item.kanban.productionOrder.finishWidth}</td>
                 <td class="text-right">${item.kanban.cart.cartNumber}</td>
                 <td class="text-right">${item.kanban.productionOrder.processType.name}</td>
-                <td class="text-center">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
+                <td class="text-center" if.bind="item.dateInput">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
+                <td class="text-center" if.bind="!item.dateInput">-</td>
                 <td class="text-center">${item.timeInput}</td>
                 <td class="text-center">${item.input}</td>
                 <td class="text-center" if.bind="item.dateOutput">${item.dateOutput | dateFormat:'D MMM YYYY'}</td>

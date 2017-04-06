@@ -34,5 +34,6 @@
                     options.bind="controlOptions">
                 </au-textbox>
         </td>
+        <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
     </tr>
 </template>

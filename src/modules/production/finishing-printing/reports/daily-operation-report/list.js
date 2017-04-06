@@ -28,7 +28,7 @@ export class List {
                     this.data = result;
                     for (var daily of this.data)
                     {
-                        daily.timeInput = moment(daily.timeInput).format('HH:mm');
+                        daily.timeInput = daily.dateInput ? moment(daily.timeInput).format('HH:mm') : '-';
                         daily.timeOutput = daily.timeOutput ? moment(daily.timeOutput).format('HH:mm') : '-';
                     }
                 })

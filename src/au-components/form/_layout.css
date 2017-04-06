@@ -1,6 +1,6 @@
 .au-layout.control-label
 {
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 .au-layout.control-label.text-left {
   text-align: left;

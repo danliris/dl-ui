@@ -1,30 +1,31 @@
 <template>
     <form class="form-horizontal">
         <fieldset>
+            <au-datetimepicker label="Tanggal Mulai" value.bind="localStartDate" error.bind="error.dateStart" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-datetimepicker>
+            <!--<datepicker label="Tanggal Mulai" value.bind="localStartDate" error.bind="error.dateStart" read-only.bind="(readOnly)"></datepicker>-->
 
-            <datepicker label="Tanggal Mulai" value.bind="data.dateStart" error.bind="error.dateStart" read-only.bind="(readOnly)"></datepicker>
-
-            <timepicker 
+            <!--<timepicker 
                 label="Jam Mulai" 
-                value.bind="data.timeInMomentStart" 
+                value.bind="localStartTime" 
                 error.bind="error.timeInMillisStart" 
                 disabled.bind="(readOnly)" 
                 showsecond.bind="timePickerShowSecond" 
                 format.bind="timePickerFormat" 
                 change.delegate=timeStartChanged($event)>
-            </timepicker>
+            </timepicker>-->
 
-            <datepicker label="Tanggal Selesai" value.bind="data.dateEnd" error.bind="error.dateEnd" read-only.bind="(readOnly)"></datepicker>
+            <au-datetimepicker label="Tanggal Selesai" value.bind="localEndDate" error.bind="error.dateEnd" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-datetimepicker>            
+            <!--<datepicker label="Tanggal Selesai" value.bind="localStartDate" error.bind="error.dateEnd" read-only.bind="(readOnly)"></datepicker>-->
 
-            <timepicker 
+            <!--<timepicker 
                 label="Jam Selesai" 
-                value.bind="data.timeInMomentEnd" 
+                value.bind="localEndTime" 
                 error.bind="error.timeInMillisEnd" 
                 disabled.bind="(readOnly)" 
                 showsecond.bind="timePickerShowSecond" 
                 format.bind="timePickerFormat" 
                 change.delegate=timeEndChanged($event)>
-            </timepicker>
+            </timepicker>-->
 
             <machine-auto-suggest-by-division 
                 label="Mesin" 
