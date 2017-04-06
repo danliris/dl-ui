@@ -19,7 +19,6 @@ export class List {
     activate() {
         this.service.search('')
             .then(data => {
-                debugger
                 for (var report of this.listReport) {
                     var _data = data.find((_data) => _data.id === report);
                     if (_data) {
