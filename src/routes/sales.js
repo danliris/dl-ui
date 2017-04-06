@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: {"*": 0},
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -95,6 +95,19 @@ module.exports = [
         moduleId: './modules/sales/reports/weaving-sales-contract-report/index',
         nav: true,
         title: 'Laporan Sales Contract - Weaving',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/reports/spinning-sales-contract-reports',
+        name: 'spinning-sales-contract-report',
+        moduleId: './modules/sales/reports/spinning-sales-contract-report/index',
+        nav: true,
+        title: 'Laporan Sales Contract - Spinning',
         auth: true,
         settings: {
             group: "sales",
