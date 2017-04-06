@@ -16,22 +16,21 @@ export class Create {
     this.data = {}
   }
 
-  // cancelCallback(event) {
-  //   this.__goToList();
-  // }
+  cancelCallback(event) {
+    this.__goToList();
+  }
 
-  // saveCallback(event) { 
-  //   this.service.post(this.data)
-  //     .then(result => {
-  //       this.__goToList();
-  //     })
-  //     .catch(parseLoopbackError)
-  //     .then(error => { 
-  //       this.error = error;
-  //     });
-  // }
+  saveCallback(event) {  
+    this.service.create(this.data)
+      .then(result => {
+        this.__goToList();
+      }) 
+      .catch(error => { 
+        this.error = error;
+      });
+  }
  
-  // __goToList() {
-  //   this.router.navigateToRoute('list');
-  // }
+  __goToList() {
+    this.router.navigateToRoute('list');
+  }
 }

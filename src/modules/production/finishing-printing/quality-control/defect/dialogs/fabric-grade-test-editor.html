@@ -1,11 +1,13 @@
 <template>
     <ai-dialog style="width:500px;">
-        <ai-dialog-header>${isEdit ? "edit backlog" : "add new backlog"}</ai-dialog-header>
+        <ai-dialog-header>${isEdit ? "Ubah Kain" : "Tambah Kain"}</ai-dialog-header>
 
         <ai-dialog-body>
-            <form class="form-horizontal"> 
+            <form class="form-horizontal">
                 <au-textbox label="Pcs. No" value.bind="pcsNo" error.bind="pcsNoError"></au-textbox>
-            </form> 
+                <au-numeric label="Panjang" value.bind="pcsLength" error.bind="pcsLengthError" read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+                <au-numeric label="Lebar" value.bind="pcsWidth" error.bind="pcsWidthError" read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+            </form>
         </ai-dialog-body>
 
         <ai-dialog-footer>

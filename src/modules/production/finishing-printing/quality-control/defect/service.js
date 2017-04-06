@@ -4,7 +4,7 @@ import { RestService } from '../../../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-printing/kanbans';
+const serviceUri = 'finishing-printing/quality-control/fabrics';
 const kanbanServiceUri = 'finishing-printing/kanbans';
 
 export class Service extends RestService {
@@ -48,9 +48,10 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getKanbanById(id) {
+    getKanbanById(id, select) {
         var endpoint = `${kanbanServiceUri}/${id}`;
-        var info = {select:["cart.cartNumber"]};
+        //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
+        var info = {select:select};
         return super.get(endpoint, null, info);
     }
 }
