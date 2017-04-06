@@ -13,6 +13,19 @@ module.exports = [
         }
     },
     {
+        route: 'sales/reports/finishing-printing-sales-contract-reports',
+        name: 'finishing-printing-sales-contract-report',
+        moduleId: './modules/sales/reports/finishing-printing-sales-contract-report/index',
+        nav: true,
+        title: 'Laporan Sales Contract - Finishing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: {"*": 0},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/production-order',
         name: 'production-order',
         moduleId: './modules/sales/production-order/index',
