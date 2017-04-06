@@ -1,6 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
+import moment from 'moment';
 
 var BuyersLoader = require('../../../../loader/buyers-loader');
 var ComodityLoader = require('../../../../loader/comodity-loader');
@@ -39,12 +40,13 @@ export class List {
     }
 
     searching() {
+
         if (this.data) {
             this.info.salesContractNo = this.data.salesContractNo ? this.data.salesContractNo._id : null;
             this.info.buyerId = this.data.buyer ? this.data.buyer._id : null;
             this.info.comodityId = this.data.comodity ? this.data.comodity._id : null;
-            this.info.dateFrom = this.data.dateFrom ? his.data.dateFrom : "";
-            this.info.dateTo = this.data.dateTo ? his.data.dateTo : "";
+            this.info.dateFrom = this.data.dateFrom ? moment(this.data.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.data.dateTo ? moment(this.data.dateTo).format("YYYY-MM-DD") : "";
         } else {
             this.info = {};
         }
@@ -91,17 +93,17 @@ export class List {
     }
 
     reset() {
-        this.info.salesContractNo = '';
-        this.info.buyerId = '';
-        this.info.comodityId = '';
-        this.info.dateFrom = '';
-        this.info.dateTo = '';
+        this.data.salesContractNo = '';
+        this.data.buyerId = '';
+        this.data.comodityId = '';
+        this.data.dateFrom = '';
+        this.data.dateTo = '';
 
-        this.info.salesContractNo = {};
-        this.buyer = {};
-        this.comodity = {};
-        this.dateFrom = null;
-        this.dateTo = null;
+        this.data.salesContractNo = {};
+        this.data.buyer = {};
+        this.data.comodity = {};
+        this.data.dateFrom = "";
+        this.data.dateTo = "";
     }
 
 
