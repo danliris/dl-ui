@@ -7,9 +7,9 @@ import {Service} from './service';
 export class List {
     data = [];
     listReport = [
-        "2072be69-b79e-496e-b872-959fd881970c",//Top Ten Konstruksi
-        "7a433e2e-25fe-4b2e-8252-c806a4c1167a",//Top Ten Buyer
-        "26d7b499-2350-4833-a4ff-ddaf01d3b4cd"//Total Order Produksi
+        "d14d8dd4-bce2-4330-9727-04db70ccd6b5",//Top Ten Konstruksi
+        "f9a6b9a5-ef85-44b1-9af2-b14a72e5c2a5",//Top Ten Buyer
+        "dd1c8a47-f78d-47a7-a31a-13612442ecaa"//Total Order Produksi
     ];
     constructor(router, service) {
         this.router = router;
@@ -19,7 +19,6 @@ export class List {
     activate() {
         this.service.search('')
             .then(data => {
-                debugger
                 for (var report of this.listReport) {
                     var _data = data.find((_data) => _data.id === report);
                     if (_data) {

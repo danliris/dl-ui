@@ -64,7 +64,7 @@ export class DataForm {
       { header : "Jumlah PCS", value : "pcs"},
     ],
     onAdd: function () {
-      this.data.carts.push({ cartNumber : "", qty : 0, uom : this.data.cart.uom ? this.data.cart.uom.unit : 'MTR', pcs : 0});
+      this.data.carts.push({ cartNumber : "", qty : 0, uom : this.data.cart ? this.data.cart.uom ? this.data.cart.uom.unit : 'MTR' : 'MTR', pcs : 0});
       console.log("add");
     }.bind(this),
     onRemove: function () {
