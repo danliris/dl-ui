@@ -152,6 +152,19 @@ module.exports = [
             permission: {"C9": 1, "F1": 1, "F2": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'production/finishing-printing/quality-control/defect',
+        name: 'report-dailys',
+        moduleId: './modules/production/finishing-printing/quality-control/defect/index',
+        nav: true,
+        title: 'Pencatatan Pemeriksaan Kain',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }]
 
 

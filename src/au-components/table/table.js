@@ -27,6 +27,7 @@ export class Table {
   @bindable locale;
   @bindable sortable;
   @bindable rowFormatter;
+  @bindable options;
 
   // internal variables 
   __contextRowData = null;
@@ -112,7 +113,7 @@ export class Table {
   }
 
   get __defaultOptions() {
-    var userOptions = {};
+    var userOptions = this.options || {};
 
     if (this.pageSize)
       userOptions.pageSize = this.pageSize;
