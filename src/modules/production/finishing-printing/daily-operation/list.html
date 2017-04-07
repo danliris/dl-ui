@@ -13,15 +13,16 @@
             </div>
             <div class="col-sm-4">
                 <div class="pull-right">
-                    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+                    <button class="btn btn-primary" click.delegate="createInput()">Buat Input</button>
+                    <button class="btn btn-primary" click.delegate="createOutput()">Buat Output</button>
                 </div>
             </div>
         </div> 
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Step / Proses</th>
                 <th>Mesin</th>
+                <th>Step / Proses</th>
                 <th>Shift</th>
                 <th>No Order Produksi</th>
                 <th>No Kereta</th>
@@ -35,12 +36,13 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data">
-                <td>${item.step.process}</td>
                 <td>${item.machine.name}</td>
+                <td>${item.step.process}</td>
                 <td>${item.shift}</td>
                 <td>${item.kanban.productionOrder.orderNo}</td>
                 <td>${item.kanban.cart.cartNumber}</td>
-                <td style="text-align:center">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
+                <td style="text-align:center" if.bind="item.dateInput">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
+                <td style="text-align:center" if.bind="!item.dateInput">-</td>
                 <td>${item.input}</td>
                 <td style="text-align:center" if.bind="item.dateOutput">${item.dateOutput | dateFormat:'D MMM YYYY'}</td>
                 <td style="text-align:center" if.bind="!item.dateOutput">-</td>

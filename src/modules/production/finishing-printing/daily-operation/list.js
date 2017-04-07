@@ -42,10 +42,17 @@ export class List {
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+        if(data.type === "input")
+            this.router.navigateToRoute('view-input', { id: data._id });
+        else
+            this.router.navigateToRoute('view-output', { id: data._id });
     }
 
-    create() {
-        this.router.navigateToRoute('create');
+    createInput() {
+        this.router.navigateToRoute('create-input');
+    }
+
+    createOutput() {
+        this.router.navigateToRoute('create-output');
     }
 }

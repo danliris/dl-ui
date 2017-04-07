@@ -1,5 +1,5 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
-import {Service} from './service';
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
+import { Service } from './service';
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis')
 
@@ -9,35 +9,51 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     divisionFilter = 'FINISHING & PRINTING'
-    machineCodeFilter = ''; 
+    machineCodeFilter = '';
     timePickerShowSecond = false;
     timePickerFormat = "HH:mm";
     @bindable productionOrderDetails = [];
 
+    @bindable localStartDate;
+    @bindable localEndDate;
+
+    auInputOptions = {
+        label: {
+            length: 4,
+            align: "right"
+        },
+        control: {
+            length: 8
+        }
+    };
     constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
         this.service = service;
         this.element = element;
     }
 
-    bind()
-    {
+    bind() {
+        this.localStartDate = new Date(Date.parse(this.data.dateStart));
+        this.localEndDate = new Date(Date.parse(this.data.dateEnd));
+
         this.data.timeInMomentStart = this.data.timeInMillisStart != undefined ? moment(this.data.timeInMillisStart) : this._adjustMoment();
         this.data.timeInMomentEnd = this.data.timeInMillisEnd != undefined && this.data.timeInMillisEnd != null ? moment(this.data.timeInMillisEnd) : this._adjustMoment();
 
-        if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0){
+        if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0) {
             this.productionOrderDetails = this.data.productionOrder.details;
             this._mapProductionOrderDetail();
         }
-
-        if (this.data.dateStart)
-            this.data.dateStart = moment(this.data.dateStart).format("YYYY-MM-DD");
-        if (this.data.dateEnd)
-            this.data.dateEnd = moment(this.data.dateEnd).format("YYYY-MM-DD");
     }
 
-    machineChanged(e) 
-    {
+    localStartDateChanged(newValue) {
+        this.data.dateStart = this.localStartDate;
+    }
+
+    localEndDateChanged(newValue) {
+        this.data.dateEnd = this.localEndDate;
+    }
+
+    machineChanged(e) {
         delete this.data.machineEvent;
 
         var selectedMachine = e.detail || {};
@@ -45,74 +61,70 @@ export class DataForm {
         this.machineCodeFilter = selectedMachine.code;
     }
 
-    timeStartChanged(e)
-    {
+    timeStartChanged(e) {
         var tempTimeStart = e.detail;
-        if (tempTimeStart){
+        if (tempTimeStart) {
             tempTimeStart = this._adjustMoment(tempTimeStart);
             this.data.timeInMillisStart = momentToMillis(tempTimeStart);
         }
-        else{
+        else {
             delete this.data.timeInMillisStart;
         }
     }
 
-    timeEndChanged(e)
-    {
+    timeEndChanged(e) {
         var tempTimeEnd = e.detail;
-        if (tempTimeEnd){
+        if (tempTimeEnd) {
             tempTimeEnd = this._adjustMoment(tempTimeEnd);
             this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
         }
-        else{
+        else {
             delete this.data.timeInMillisEnd;
         }
     }
 
-    async productionOrderChanged(e)
-    {
+    async productionOrderChanged(e) {
         this.productionOrderDetails = [];
 
         var productionOrder = e.detail;
-        if (productionOrder){
-            this.productionOrderDetails =  await this.service.getProductionOrderDetails(productionOrder.orderNo);
-            
+        if (productionOrder) {
+            this.productionOrderDetails = await this.service.getProductionOrderDetails(productionOrder.orderNo);
+
             this.data.productionOrderId = productionOrder._id;
-            if (this.hasProductionOrderDetails){
+            if (this.hasProductionOrderDetails) {
                 this._mapProductionOrderDetail();
                 this.data.selectedProductionOrderDetail = {};
                 this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
             }
         }
-        else{
+        else {
             delete this.data.selectedProductionOrderDetail;
         }
     }
 
-    get hasProductionOrderDetails(){
+    get hasProductionOrderDetails() {
         return this.productionOrderDetails.length > 0;
     }
-    
-    get hasMachine(){
+
+    get hasMachine() {
         return this.data && this.data.machineId && this.data.machineId !== '';
     }
 
-    _mapProductionOrderDetail()
-    {
+    _mapProductionOrderDetail() {
         this.productionOrderDetails.map(detail => {
-            detail.toString = function(){
-                return `${this.colorRequest}`;  
+            detail.toString = function () {
+                return `${this.colorRequest}`;
             }
             return detail;
         });
     }
 
-    _adjustMoment(timeInMoment){
-        if (timeInMoment){
+    _adjustMoment(timeInMoment) {
+        if (timeInMoment) {
             timeInMoment.set('year', 1970);
             timeInMoment.set('month', 0);
-            timeInMoment.set('date', 1);   
+            timeInMoment.set('date', 1);
         }
-        return timeInMoment;     
+        return timeInMoment;
     }
 }

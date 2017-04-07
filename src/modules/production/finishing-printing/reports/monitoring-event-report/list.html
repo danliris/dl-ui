@@ -50,7 +50,7 @@
             <th>Keterangan</th>
         </thead>
         <tbody>
-            <tr repeat.for="monitoringEvent of data">
+            <tr repeat.for="monitoringEvent of data" click.delegate="detail(monitoringEvent)">
                 <td class="text-center">${$index + 1}</td>
                 <td class="text-right">${monitoringEvent.machine.name}</td>
                 <td class="text-right">${monitoringEvent.productionOrder.orderNo}</td>

@@ -1,0 +1,89 @@
+<template>
+
+<h1 class="page-header">Laporan Sales Contract - Finishing & Printing</h1>
+<form class="form-horizontal">
+        <textbox                    label="Nomor Sales Contract"    value.bind="salesContractNo"	></textbox>
+        <buyer-auto-suggest	        label="Buyer"	                value.bind="buyer" 	            change.delegate="buyerChanged($event)"></buyer-auto-suggest>
+        <order-type-auto-suggest	label="Jenis Order"	            value.bind="orderType" 	        change.delegate="orderTypeChanged($event)"></order-type-auto-suggest>
+        <comodity-auto-suggest      label="Komoditas"               value.bind="comodity"      change.delegate="comodityChanged($event)" ></comodity-auto-suggest>
+        <datepicker                 label="Tanggal Awal"            value.bind="sdate"           ></datepicker>
+        <datepicker                 label="Tanggal Akhir"           value.bind="edate"             ></datepicker> 
+        
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+               <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
+               <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+        <div>
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" border="1" id="myTable">
+            <thead align="center">
+                <tr>
+                    <td rowspan="2">No</td>
+                    <td rowspan="2">Nomor Sales Kontrak</td>
+                    <td rowspan="2">Tanggal Sales Kontrak</td>
+                    <td rowspan="2">Buyer</td>
+                    <td rowspan="2">Jenis Buyer</td>
+                    <td rowspan="2">Nomor Disposisi</td>
+                    <td rowspan="2">Jenis Order</td>
+                    <td rowspan="2">Komoditas</td>
+                    <td rowspan="2">Kualitas</td>
+                    <td rowspan="2">Jumlah Order SC</td>
+                    <td rowspan="2">Jumlah sudah dibuatkan SPP</td>
+                    <td rowspan="2">Satuan</td>
+                    <td rowspan="2">Toleransi(%)</td>
+                    <td rowspan="2">Syarat Pembayaran</td>
+                    <td rowspan="2">Pembayaran ke Rekening</td>
+                    <td rowspan="2">Jadwal Pengiriman</td>
+                    <td rowspan="2">Agen</td>
+                    <td rowspan="2">Komisi</td>
+                    <td colspan="4">Detail Order</td>
+                    <td rowspan="2">Status</td>
+                </tr>
+                <tr>
+                    <td>Warna</td>
+                    <td>Harga</td>
+                    <td>Mata Uang</td>
+                    <td>PPN</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data">
+                    <td class="text-center">${$index + 1}</td>
+                    <td class="text-right">${item.salesContractNo}</td>
+                    <td class="text-center">${item._createdDate | dateFormat:'D MMM YYYY'}</td>
+                    <td class="text-right">${item.buyer}</td>
+                    <td class="text-right">${item.buyerType}</td>
+                    <td class="text-right">${item.dispositionNumber}</td>
+                    <td class="text-right">${item.orderType}</td>
+                    <td class="text-right">${item.comodity}</td>
+                    <td class="text-left">${item.quality}</td>
+                    <td class="text-left">${item.orderQuantity}</td>
+                    <td class="text-left">${item.productionOrderQuantity}</td>
+                    <td class="text-right">${item.uom}</td>
+                    <td class="text-right">${item.tolerance}</td>
+                    <td class="text-right">${item.termOfPayment}</td>
+                    <td class="text-right">${item.accountData}</td>
+                    <td class="text-right">${item.deliverySchedule| dateFormat:'D MMM YYYY'}</td>
+                    <td class="text-right">${item.agent}</td>
+                    <td class="text-right">${item.comission}</td>
+                    <td class="text-left">${item.color}</td>
+                    <td class="text-right">${item.price}</td>
+                    <td class="text-right">${item.currency}</td>
+                    <td class="text-right">${item.sctax}</td>
+                    <td class="text-right">${item.status}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        Tidak ada data ditemukan.
+    </div>
+    <hr/>
+</form>
+</template>
+
