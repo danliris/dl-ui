@@ -9,7 +9,7 @@ export class List {
     columns = [
         { field: "no", title: "Nomor Surat Jalan" },
         {
-            field: "date", title: "Tanggal Surat Jalan", formatter: function (value, data, index) {
+            field: "supplierDoDate", title: "Tanggal Surat Jalan", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -25,6 +25,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
+            select:["supplierDoDate", "no", "supplier.name","items.purchaseOrderExternal.no"],
             order: order
         }
 
