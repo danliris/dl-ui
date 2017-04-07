@@ -1,0 +1,99 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <style>
+            table > tbody > tr > td {
+                white-space: pre;
+            }
+        </style>
+
+        <h1 class="page-header">Laporan Sales Contract - Spinning </h1>
+        <form class="form-horizontal">
+
+            <au-autocomplete value.bind="data.salesContractNo" label="Nomor Sales Contract" change.delegate="spinningSalesContractLoaderChanged($event)"
+                loader.bind="spinningSalesContractLoaderLoader" placeholder="cari nomor sales kontrak " key="salesContractNo"
+                text="salesContractNo">
+            </au-autocomplete>
+
+            <au-autocomplete value.bind="data.buyer" label="Buyer" change.delegate="buyersChanged($event)" loader.bind="buyersLoader"
+                placeholder="cari buyer " key="code" text="name" read-only.bind="(readOnly || isEdit)">
+            </au-autocomplete>
+
+            <au-autocomplete value.bind="data.comodity" label="Komoditas" change.delegate="comodityChanged($event)" loader.bind="comodityLoader"
+                placeholder="cari comodity " key="code" text="name" read-only.bind="(readOnly || isEdit)">
+            </au-autocomplete>
+
+            <au-datepicker label="Tanggal Awal" value.bind="data.dateFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Akhir" value.bind="data.dateTo"></au-datepicker>
+
+            <div class="form-group">
+                <label for="contact" class="col-sm-6 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+            </div>
+            <div class="btn-group pull-left" if.bind="data.length > 0">
+                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+            </div>
+        </form>
+
+        <br>
+        </br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <!--thead before search-->
+                <!--thead after search-->
+                <thead align="center">
+                    <tr>
+                        <td rowspan="3">No</td>
+                        <td rowspan="3">Nomor Sales Kontrak</td>
+                        <td rowspan="3">Tanggal Sales Kontrak</td>
+                        <td rowspan="3">Buyer</td>
+                        <td rowspan="3">Jenis Buyer</td>
+                        <td rowspan="3">Nomor Disposisi</td>
+                        <td rowspan="3">Komoditas</td>
+                        <td rowspan="3">Jumlah Order</td>
+                        <td rowspan="3">Satuan</td>
+                        <td rowspan="3">Toleransi</td>
+                        <td rowspan="3">Kualitas</td>
+                        <td rowspan="3">Harga</td>
+                        <td rowspan="3">Mata Uang</td>
+                        <td rowspan="3">Syarat Pembayaran</td>
+                        <td rowspan="3">Pembayaran ke Rekening</td>
+                        <td rowspan="3">Jadwal Pengiriman</td>
+                        <td rowspan="3">Agen</td>
+                        <td rowspan="3">Komisi</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td class="text-center">${$index + 1}</td>
+                        <td>${item.salesContractNo}</td>
+                        <td>${item._createdDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.buyer.name}</td>
+                        <td>${item.buyer.type}</td>
+                        <td>${item.dispositionNumber}</td>
+                        <td>${item.comodity.name}</td>
+                        <td>${item.orderQuantity}</td>
+                        <td>${item.uom.unit}</td>
+                        <td>${item.shippingQuantityTolerance}</td>
+                        <td>${item.quality.name}</td>
+                        <td>${item.price}</td>
+                        <td>${item.accountBank.currency.code}</td>
+                        <td>${item.termOfPayment.termOfPayment}</td>
+                        <td>${item.accountBank.accountName + "-" + item.accountBank.bankName + "-" + item.accountBank.accountNumber + "-" + item.accountBank.currency.code}</td>
+                        <td>${item.deliverySchedule | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.agent.code + "-" + item.agent.name}</td>
+                        <td>${item.comission}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+        </form>
+    </au-input-form>
+</template>
