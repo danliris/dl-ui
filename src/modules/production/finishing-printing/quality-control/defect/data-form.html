@@ -1,0 +1,120 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6">
+            <au-datepicker label="Tanggal IM" value.bind="data.dateIm" error.bind="error.dateIm" read-only.bind="readOnly" options.bind="layoutOptions2"></au-datepicker>
+          </div>
+          <div class="col-md-6">
+            <au-dropdown label="Shift" value.bind="data.shiftIm" items.bind="shiftOptions" error.bind="error.shiftIm" read-only.bind="readOnly"
+              options.bind="layoutOptions2"></au-dropdown>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <au-textbox label="Operator IM" value.bind="data.operatorIm" error.bind="error.operatorIm" read-only.bind="readOnly" options.bind="layoutOptions2"></au-textbox>
+          </div>
+          <div class="col-md-6">
+            <au-textbox label="No. Mesin IM" value.bind="data.machineNoIm" error.bind="error.machineNoIm" read-only.bind="readOnly" options.bind="layoutOptions2"></au-textbox>
+          </div>
+        </div>
+
+        <au-autocomplete value.bind="selectedKanban" label="Kanban / Kereta" read-only.bind="readOnly || isEdit" error.bind="error.kanbanId"
+          loader.bind="kanbanLoader" key="_id" text.bind="kanbanTextFormatter">
+        </au-autocomplete>
+
+        <div class="row">
+          <div class="col-md-6">
+            <au-textbox label="No. Order" value.one-way="sppNo" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
+          </div>
+          <div class="col-md-6">
+            <au-textbox label="Konstruksi" value.one-way="construction" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
+          </div>
+        </div>
+        <au-textbox label="Jumlah Order" value.one-way="orderQuantity" read-only.bind="true"></au-textbox>
+        <au-textbox label="Packing Instruction" value.one-way="packingInstruction" read-only.bind="true"></au-textbox>
+        <au-dropdown label="Point System" value.bind="selectedPointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly"></au-dropdown>
+
+        <au-table with.bind="_this" view-model.ref="fabricGradeTestTable" data.bind="fabricGradeTestLoader" columns.bind="fabricGradeTestColumns"
+          context.bind="fabricGradeTestContextMenu" context-click.delegate="__fabricGradeTestContextMenuCallback($event)" sortable.bind="true"
+          page-size="25" row-click.delegate="__fabricGradeTestRowClickCallback($event)" options.bind="tableOptions">
+          <button slot="toolbar" class="btn btn-success" click.delegate="__fabricGradeTestCreateCallback()" if.bind="selectedKanban && !readOnly">Tambah Kain</button>
+        </au-table>
+      </div>
+      <div class="col-md-6" if.bind="selectedFabricGradeTest">
+        <au-textbox label="No Pcs" value.bind="selectedPcsNo" error.bind="selectedFabricGradeTestError.pcsNo" read-only.bind="readOnly"></au-textbox>
+        <div class="row">
+          <div class="col-md-6">
+            <au-numeric label="Panjang" value.bind="selectedPcsLength" error.bind="selectedFabricGradeTestError.initLength" read-only.bind="readOnly"
+              options.bind="layoutOptions2"></au-numeric>
+          </div>
+          <div class="col-md-6">
+            <au-numeric label="Lebar" value.bind="selectedPcsWidth" error.bind="selectedFabricGradeTestError.width" read-only.bind="readOnly"
+              options.bind="layoutOptions2"></au-numeric>
+          </div>
+        </div> 
+          <div style="max-height: 500px; margin-bottom:10px; overflow-y: scroll">
+            <au-collection columns.one-way="criteriaColumns" if.bind="selectedFabricGradeTest" items.bind="selectedFabricGradeTest.criteria & signal:'u'"
+              read-only.bind="readOnly">
+              <template replace-part="thead">
+                <thead>
+                  <tr>
+                    <th width="40%">Kriteria</th>
+                    <th>${criteriaColumns[1]}</th>
+                    <th>${criteriaColumns[2]}</th>
+                    <th>${criteriaColumns[3]}</th>
+                    <th>${criteriaColumns[4]}</th>
+                  </tr>
+                </thead>
+              </template>
+              <template replace-part="item">
+                <td>
+                  <au-textbox value.bind="data.name" error.bind="error.name" read-only="true"></au-textbox>
+                </td>
+                <td>
+                  <au-numeric value.bind="data.score.A" error.bind="error.score.A" read-only.bind="readOnly"></au-numeric>
+                </td>
+                <td>
+                  <au-numeric value.bind="data.score.B" error.bind="error.score.B" read-only.bind="readOnly"></au-numeric>
+                </td>
+                <td>
+                  <au-numeric value.bind="data.score.C" error.bind="error.score.C" read-only.bind="readOnly"></au-numeric>
+                </td>
+                <td>
+                  <au-numeric value.bind="data.score.D" error.bind="error.score.D" read-only.bind="readOnly"></au-numeric>
+                </td>
+              </template>
+            </au-collection>
+          </div> 
+
+        <div class="row">
+          <div class="col-md-6">
+            <au-numeric label="Aval" value.bind="selectedAvalLength" error.bind="error.avalLength" read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+          </div>
+          <div class="col-md-6">
+            <au-numeric label="Sample" value.bind="selectedSampleLength" error.bind="error.avalLength" read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <au-numeric label="Score" value.bind="selectedFabricGradeTest.finalScore" error.bind="error.finalScore" read-only.bind="true"
+              options.bind="layoutOptions2"></au-numeric>
+          </div>
+          <div class="col-md-6">
+            <au-textbox label="Grade" value.bind="selectedFabricGradeTest.grade" error.bind="error.grade" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
+        </div>
+      </div>
+    </div>
+    <!--<button click.delegate="console()">console.log()</button>-->
+  </au-input-form>
+
+</template>

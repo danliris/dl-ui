@@ -8,8 +8,8 @@ export class List {
         comodityId:'', 
         buyerId:'', 
         orderTypeId:'', 
-        dateFrom:'', 
-        dateTo:''
+        sdate:'', 
+        edate:''
     };
 
     constructor(router, service) {
@@ -18,8 +18,8 @@ export class List {
         this.router = router;
         this.today = new Date();
     }
-    dateFrom = null;
-    dateTo = null;
+    sdate = null;
+    edate = null;
     salesContractNo = '';
     comodity=null;
     orderType = null;
@@ -29,8 +29,8 @@ export class List {
     }
 
     reset() {
-        this.dateFrom = null;
-        this.dateTo = null;
+        this.sdate = null;
+        this.edate = null;
         this.salesContractNo = '';
         this.orderType = null;
         this.buyer = null;
@@ -44,8 +44,8 @@ export class List {
         this.info.buyerId = this.buyer ? this.buyer._id : "";
         this.info.orderTypeId= this.orderType ? this.orderType._id : "";
         this.info.salesContractNo = this.salesContractNo;
-        this.info.dateFrom = this.dateFrom;
-        this.info.dateTo = this.dateTo;
+        this.info.sdate = this.sdate;
+        this.info.edate = this.edate;
         this.service.search(this.info)
             .then(result => {
                 this.data = result.info;
@@ -68,6 +68,12 @@ export class List {
     }
 
     ExportToExcel() {
+        this.info.comodityId = this.comodity ? this.comodity._id : "" ;
+        this.info.buyerId = this.buyer ? this.buyer._id : "";
+        this.info.orderTypeId= this.orderType ? this.orderType._id : "";
+        this.info.salesContractNo = this.salesContractNo;
+        this.info.sdate = this.sdate;
+        this.info.edate = this.edate;
         this.service.generateExcel(this.info);
     }
 

@@ -40,13 +40,13 @@ export class Service extends RestService {
             if (query === '') query = `salesContractNo=${info.salesContractNo}`;
             else query = `${query}&salesContractNo=${info.salesContractNo}`;
         }
-        if (info.dateFrom) {
-            if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;
+        if (info.sdate) {
+            if (query === '') query = `sdate=${info.sdate}`;
+            else query = `${query}&sdate=${info.sdate}`;
         }
-        if (info.dateTo) {
-            if (query === '') query = `dateTo=${info.dateTo}`;
-            else query = `${query}&dateTo=${info.dateTo}`;
+        if (info.edate) {
+            if (query === '') query = `edate=${info.edate}`;
+            else query = `${query}&edate=${info.edate}`;
         }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
