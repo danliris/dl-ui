@@ -23,8 +23,8 @@ export class View {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
-        this.data.date = moment(this.data.date).format("DD MMMM YYYY");
-        this.data.expectedDeliveryDate = moment(this.data.expectedDeliveryDate).format("DD MMMM YYYY");
+        // this.data.date = moment(this.data.date).format("DD MMMM YYYY");
+        // this.data.expectedDeliveryDate = moment(this.data.expectedDeliveryDate).format("DD MMMM YYYY");
         if (!this.data.isPosted) {
             this.hasEdit = true;
             this.hasDelete = true;
