@@ -21,7 +21,7 @@ export async function configure(aurelia) {
     .feature('converters')
 
     .plugin("aurelia-api", config => {
-      var offset = new Date().getTimezoneOffset() / 60;
+      var offset = new Date().getTimezoneOffset() / 60 * -1;
       var defaultConfig = {
         headers: {
           'Accept': 'application/json',
@@ -44,7 +44,7 @@ export async function configure(aurelia) {
       baseConfig.configure(authConfig);
 
       if (baseConfig.client && baseConfig.client.client) {
-        var offset = new Date().getTimezoneOffset() / 60;
+        var offset = new Date().getTimezoneOffset() / 60 * -1;
         baseConfig.client.client.withDefaults({
           headers: {
             'x-timezone-offset': offset
