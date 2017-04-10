@@ -235,7 +235,12 @@ export class DataForm {
         }
     }
 
-    fabricGradeTestColumns = ["pcsNo", "initLength", "width", "grade"];
+    fabricGradeTestColumns = [
+        { field: "pcsNo", title: "No Pcs" },
+        { field: "initLength", title: "Panjang (Meter)" },
+        { field: "width", title: "Lebar (Meter)" },
+        { field: "grade", title: "Grade" }
+    ];
     fabricGradeTestContextMenu = ["Hapus"];
     fabricGradeTestTable;
 
