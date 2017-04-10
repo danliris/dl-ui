@@ -21,8 +21,14 @@ export async function configure(aurelia) {
     .feature('converters')
 
     .plugin("aurelia-api", config => {
-
-
+      var offset = new Date().getTimezoneOffset() / 60;
+      var defaultConfig = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'x-timezone-offset': offset
+        }
+      }
 
       var core = "https://dl-core-api-dev.mybluemix.net/v1/";
       var auth = "https://dl-auth-api-dev.mybluemix.net/v1/";
@@ -30,12 +36,21 @@ export async function configure(aurelia) {
       var purchasing = "https://dl-purchasing-webapi-dev.mybluemix.net/v1/";
 
       config.registerEndpoint('auth', auth);
-      config.registerEndpoint('core', core);
-      config.registerEndpoint('production', production);
-      config.registerEndpoint('purchasing', purchasing); 
+      config.registerEndpoint('core', core, defaultConfig);
+      config.registerEndpoint('production', production, defaultConfig);
+      config.registerEndpoint('purchasing', purchasing, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
+
+      if (baseConfig.client && baseConfig.client.client) {
+        var offset = new Date().getTimezoneOffset() / 60;
+        baseConfig.client.client.withDefaults({
+          headers: {
+            'x-timezone-offset': offset
+          }
+        })
+      }
     })
     .plugin('aurelia-dialog', config => {
       config.useDefaults();
