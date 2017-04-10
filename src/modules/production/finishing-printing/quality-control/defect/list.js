@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+var moment = require("moment");
 
 @inject(Router, Service)
 export class List {
@@ -22,7 +23,11 @@ export class List {
 
     setColumns() {
         this.columns = [
-            { field: "dateIm", title: "Tanggal" },
+            {
+                field: "dateIm", title: "Tanggal", formatter: (value, data) => {
+                    return moment(value).format("DD-MMM-YYYY");
+                }
+            },
             { field: "shiftIm", title: "Shift" },
             { field: "operatorIm", title: "Operator" },
             { field: "productionOrderNo", title: "No. Order" },
