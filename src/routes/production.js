@@ -165,6 +165,20 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
-    }]
+    },
+    {
+        route: 'finishing-printing/reports/fabric-quality-control-report',
+        name: 'fabric-quality-control-report',
+        moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report/index',
+        nav: true,
+        title: 'Laporan Pemeriksaan Kain',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
+    ]
 
 
