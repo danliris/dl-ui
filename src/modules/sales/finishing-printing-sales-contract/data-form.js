@@ -10,7 +10,7 @@ export class DataForm {
 
   lampHeader = [{ header: "Standar Lampu" }];
   
-  RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
+  pointSystemOptions = [10, 4];
   
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
@@ -37,6 +37,15 @@ export class DataForm {
       }
     
     return this.printing;
+  }
+
+  @computedFrom("data.pointSystem")
+  get point(){
+    this.pointSyst=false;
+    if(this.data.pointSystem===4){
+      this.pointSyst=true;
+    }
+    return this.pointSyst;
   }
   
   @computedFrom("data.buyer")
@@ -112,6 +121,15 @@ export class DataForm {
     if (selectedComodity) {
       this.data.comodityId = selectedComodity._id ? selectedComodity._id : "";
     }
+  }
+
+  pointChanged(e){
+    var selectedPoint= e.srcElement.value;
+    this.isPoint=false;
+    if(selectedPoint==4){
+      this.isPoint=true;
+    }
+    this.data.pointLimit=0;
   }
 
   uomChanged(e) {

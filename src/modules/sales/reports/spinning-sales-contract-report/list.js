@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 var BuyersLoader = require('../../../../loader/buyers-loader');
@@ -42,11 +42,11 @@ export class List {
     searching() {
 
         if (this.data) {
-            this.info.salesContractNo = this.data.salesContractNo ? this.data.salesContractNo._id : null;
-            this.info.buyerId = this.data.buyer ? this.data.buyer._id : null;
-            this.info.comodityId = this.data.comodity ? this.data.comodity._id : null;
-            this.info.dateFrom = this.data.dateFrom ? moment(this.data.dateFrom).format("YYYY-MM-DD") : "";
-            this.info.dateTo = this.data.dateTo ? moment(this.data.dateTo).format("YYYY-MM-DD") : "";
+            this.info.salesContractNo = this.filter.salesContractNo ? this.filter.salesContractNo._id : null;
+            this.info.buyerId = this.filter.buyer ? this.filter.buyer._id : null;
+            this.info.comodityId = this.filter.comodity ? this.filter.comodity._id : null;
+            this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
             this.info = {};
         }
@@ -65,6 +65,15 @@ export class List {
     }
 
     ExportToExcel() {
+        if (this.data) {
+            this.info.salesContractNo = this.filter.salesContractNo ? this.filter.salesContractNo._id : null;
+            this.info.buyerId = this.filter.buyer ? this.filter.buyer._id : null;
+            this.info.comodityId = this.filter.comodity ? this.filter.comodity._id : null;
+            this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
+        } else {
+            this.info = {};
+        }
         this.service.generateExcel(this.info);
     }
 
@@ -93,17 +102,8 @@ export class List {
     }
 
     reset() {
-        this.data.salesContractNo = '';
-        this.data.buyerId = '';
-        this.data.comodityId = '';
-        this.data.dateFrom = '';
-        this.data.dateTo = '';
-
-        this.data.salesContractNo = {};
-        this.data.buyer = {};
-        this.data.comodity = {};
-        this.data.dateFrom = "";
-        this.data.dateTo = "";
+        this.filter = {};
+        this.data = [];
     }
 
 

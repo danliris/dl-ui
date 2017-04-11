@@ -9,21 +9,21 @@
         <h1 class="page-header">Laporan Sales Contract - Spinning </h1>
         <form class="form-horizontal">
 
-            <au-autocomplete value.bind="data.salesContractNo" label="Nomor Sales Contract" change.delegate="spinningSalesContractLoaderChanged($event)"
+            <au-autocomplete value.bind="filter.salesContractNo" label="Nomor Sales Contract" change.delegate="spinningSalesContractLoaderChanged($event)"
                 loader.bind="spinningSalesContractLoaderLoader" placeholder="cari nomor sales kontrak " key="salesContractNo"
                 text="salesContractNo">
             </au-autocomplete>
 
-            <au-autocomplete value.bind="data.buyer" label="Buyer" change.delegate="buyersChanged($event)" loader.bind="buyersLoader"
+            <au-autocomplete value.bind="filter.buyer" label="Buyer" change.delegate="buyersChanged($event)" loader.bind="buyersLoader"
                 placeholder="cari buyer " key="code" text="name" read-only.bind="(readOnly || isEdit)">
             </au-autocomplete>
 
-            <au-autocomplete value.bind="data.comodity" label="Komoditas" change.delegate="comodityChanged($event)" loader.bind="comodityLoader"
+            <au-autocomplete value.bind="filter.comodity" label="Komoditas" change.delegate="comodityChanged($event)" loader.bind="comodityLoader"
                 placeholder="cari comodity " key="code" text="name" read-only.bind="(readOnly || isEdit)">
             </au-autocomplete>
 
-            <au-datepicker label="Tanggal Awal" value.bind="data.dateFrom"></au-datepicker>
-            <au-datepicker label="Tanggal Akhir" value.bind="data.dateTo"></au-datepicker>
+            <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
 
             <div class="form-group">
                 <label for="contact" class="col-sm-6 control-label"></label>
@@ -32,7 +32,8 @@
                     <button click.delegate="reset()" class='btn btn-success'>Reset</button>
                 </div>
             </div>
-            <div class="btn-group pull-left" if.bind="data.length > 0">
+
+            <div class="btn-group pull-left">
                 <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
             </div>
         </form>
@@ -55,7 +56,7 @@
                         <td rowspan="3">Komoditas</td>
                         <td rowspan="3">Jumlah Order</td>
                         <td rowspan="3">Satuan</td>
-                        <td rowspan="3">Toleransi</td>
+                        <td rowspan="3">Toleransi (%)</td>
                         <td rowspan="3">Kualitas</td>
                         <td rowspan="3">Harga</td>
                         <td rowspan="3">Mata Uang</td>
@@ -75,23 +76,24 @@
                         <td>${item.buyer.type}</td>
                         <td>${item.dispositionNumber}</td>
                         <td>${item.comodity.name}</td>
-                        <td>${item.orderQuantity}</td>
+                        <td>${item.orderQuantity.toLocaleString()}</td>
                         <td>${item.uom.unit}</td>
                         <td>${item.shippingQuantityTolerance}</td>
                         <td>${item.quality.name}</td>
-                        <td>${item.price}</td>
+                        <td>${item.price.toLocaleString()}</td>
                         <td>${item.accountBank.currency.code}</td>
                         <td>${item.termOfPayment.termOfPayment}</td>
-                        <td>${item.accountBank.accountName + "-" + item.accountBank.bankName + "-" + item.accountBank.accountNumber + "-" + item.accountBank.currency.code}</td>
+                        <td>${item.accountBank.accountName + "-" + item.accountBank.bankName + "-" + item.accountBank.accountNumber
+                            + "-" + item.accountBank.currency.code}</td>
                         <td>${item.deliverySchedule | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${item.agent.code + "-" + item.agent.name}</td>
+                        <td>${item.agent.name}</td>
                         <td>${item.comission}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Tidak ada data ditemukan.
+            Tidak ada data.
         </div>
         <hr/>
         </form>
