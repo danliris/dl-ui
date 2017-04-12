@@ -20,6 +20,7 @@ export class List {
     };
 
     shiftOptions = [
+        "",
         "Shift I: 06.00 - 14.00",
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"];
