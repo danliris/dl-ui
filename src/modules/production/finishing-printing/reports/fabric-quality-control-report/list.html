@@ -1,0 +1,105 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <style>
+            table > tbody > tr > td {
+                white-space: pre;
+            }
+        </style>
+
+        <h1 class="page-header">Laporan Pemeriksaan Kain</h1>
+        <form class="form-horizontal">
+
+            <au-autocomplete value.bind="filter.kanbanCode" label="Nomor Kanban" change.delegate="kanbanCodeChanged($event)" loader.bind="FabricQualityControlLoader"
+                placeholder="cari nomor kanban" key="kanbanCode" text="kanbanCode">
+            </au-autocomplete>
+
+            <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" change.delegate="productionOrderNoChanged($event)"
+                loader.bind="FabricQualityControlLoader" placeholder="cari nomor order" key="productionOrderNo" text="productionOrderNo">
+            </au-autocomplete>
+
+            <au-autocomplete value.bind="filter.productionOrderType" label="Jenis Order" change.delegate="productionOrderTypeChanged($event)"
+                loader.bind="FabricQualityControlLoader" placeholder="cari jenis order" key="productionOrderType" text="productionOrderType">
+            </au-autocomplete>
+
+            <au-dropdown label="Shift" value.bind="filter.shiftIm" items.bind="shiftOptions" read-only.bind="readOnly" change.delegate="shiftImChanged($event)"></au-dropdown>
+
+            <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
+
+            <div class="form-group">
+                <label for="contact" class="col-sm-6 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+            </div>
+
+            <div class="btn-group pull-left">
+                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+            </div>
+        </form>
+
+        <br>
+        </br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <thead align="center">
+                    <tr>
+                        <td rowspan="3">No</td>
+                        <td rowspan="3">Nomor Kanban</td>
+                        <td rowspan="3">Nomor Kereta</td>
+                        <td rowspan="3">Jenis Order</td>
+                        <td rowspan="3">Nomor Order</td>
+                        <td rowspan="3">Tanggal IM</td>
+                        <td rowspan="3">Shift</td>
+                        <td rowspan="3">Operator IM</td>
+                        <td rowspan="3">No. Mesin IM</td>
+                        <td rowspan="3">Konstruksi</td>
+                        <td rowspan="3">Buyer</td>
+                        <td rowspan="3">Warna</td>
+                        <td rowspan="3">Jumlah Order (meter)</td>
+                        <td rowspan="3">Packing Instruction</td>
+                        <td rowspan="3">Nomor PCS</td>
+                        <td rowspan="3">Panjang PCS (meter)</td>
+                        <td rowspan="3">Lebar PCS (meter)</td>
+                        <td rowspan="3">Nilai</td>
+                        <td rowspan="3">Grade</td>
+                        <td rowspan="3">Aval (meter)</td>
+                        <td rowspan="3">Sampel (meter)</td>
+                    </tr>
+                </thead>
+                <tbody repeat.for="item of data">
+                    <tr repeat.for="fabric of item.fabricGradeTests">
+                        <td class="text-center">${$index + 1}</td>
+                        <td>${item.kanbanCode}</td>
+                        <td>${item.cartNo}</td>
+                        <td>${item.productionOrderType}</td>
+                        <td>${item.productionOrderNo}</td>
+                        <td>${item.dateIm | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.shiftIm}</td>
+                        <td>${item.operatorIm}</td>
+                        <td>${item.machineNoIm}</td>
+                        <td>${item.construction}</td>
+                        <td>${item.buyer}</td>
+                        <td>${item.color}</td>
+                        <td>${item.orderQuantity}</td>
+                        <td>${item.packingInstruction}</td>
+                        <td>${fabric.pcsNo}</td>
+                        <td>${fabric.initLength}</td>
+                        <td>${fabric.width}</td>
+                        <td>${fabric.score}</td>
+                        <td>${fabric.grade}</td>
+                        <td>${fabric.avalLength}</td>
+                        <td>${fabric.sampleLength}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <hr/>
+        </form>
+    </au-input-form>
+</template>
