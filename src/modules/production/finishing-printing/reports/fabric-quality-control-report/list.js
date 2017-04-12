@@ -31,6 +31,7 @@ export class List {
     shiftIm = "";
     dateFrom = '';
     dateTo = '';
+    newData;
 
     constructor(router, service) {
         this.service = service;
@@ -59,7 +60,37 @@ export class List {
         }
         this.service.search(this.info)
             .then(result => {
-                this.data = result.data;
+                var tempData;
+                this.no = 0;
+                this.newData = [];
+                for (var i = 0; i < result.data.length; i++) {
+                    for (var j = 0; j < result.data[i].fabricGradeTests.length; j++) {
+                        tempData = {};
+                        this.no += 1;
+                        tempData.no = this.no;
+                        tempData.kanbanCode = result.data[i].kanbanCode;
+                        tempData.cartNo = result.data[i].cartNo;
+                        tempData.productionOrderType = result.data[i].productionOrderType;
+                        tempData.productionOrderNo = result.data[i].productionOrderNo;
+                        tempData.dateIm = result.data[i].dateIm;
+                        tempData.shiftIm = result.data[i].shiftIm;
+                        tempData.operatorIm = result.data[i].operatorIm;
+                        tempData.machineNoIm = result.data[i].machineNoIm;
+                        tempData.construction = result.data[i].construction;
+                        tempData.buyer = result.data[i].buyer;
+                        tempData.color = result.data[i].color;
+                        tempData.orderQuantity = result.data[i].orderQuantity;
+                        tempData.packingInstruction = result.data[i].packingInstruction;
+                        tempData.pcsNo = result.data[i].fabricGradeTests[j].pcsNo;
+                        tempData.initLength = result.data[i].fabricGradeTests[j].initLength;
+                        tempData.width = result.data[i].fabricGradeTests[j].width;
+                        tempData.finalScore = result.data[i].fabricGradeTests[j].finalScore.toFixed(2);
+                        tempData.grade = result.data[i].fabricGradeTests[j].grade;
+                        tempData.avalLength = result.data[i].fabricGradeTests[j].avalLength;
+                        tempData.sampleLength = result.data[i].fabricGradeTests[j].sampleLength;
+                        this.newData.push(tempData);
+                    }
+                }
             })
     }
 
