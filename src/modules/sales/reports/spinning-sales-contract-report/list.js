@@ -65,7 +65,7 @@ export class List {
     }
 
     ExportToExcel() {
-        if (this.data) {
+        if (this.filter) {
             this.info.salesContractNo = this.filter.salesContractNo ? this.filter.salesContractNo._id : null;
             this.info.buyerId = this.filter.buyer ? this.filter.buyer._id : null;
             this.info.comodityId = this.filter.comodity ? this.filter.comodity._id : null;
