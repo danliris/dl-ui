@@ -32,7 +32,7 @@ export class List {
             { field: "operatorIm", title: "Operator" },
             { field: "productionOrderNo", title: "No. Order" },
             { field: "productionOrderType", title: "Jenis Order" },
-            { field: "kanbanCode", title: "No. Kanban`" }
+            { field: "cartNo", title: "No. Kereta" }
         ];
     }
 
