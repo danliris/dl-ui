@@ -69,9 +69,9 @@
                         <td rowspan="3">Sampel (meter)</td>
                     </tr>
                 </thead>
-                <tbody repeat.for="item of data">
-                    <tr repeat.for="fabric of item.fabricGradeTests">
-                        <td class="text-center">${$index + 1}</td>
+                <tbody>
+                    <tr repeat.for="item of newData">
+                        <td class="text-center">${item.no}</td>
                         <td>${item.kanbanCode}</td>
                         <td>${item.cartNo}</td>
                         <td>${item.productionOrderType}</td>
@@ -85,13 +85,13 @@
                         <td>${item.color}</td>
                         <td>${item.orderQuantity}</td>
                         <td>${item.packingInstruction}</td>
-                        <td>${fabric.pcsNo}</td>
-                        <td>${fabric.initLength}</td>
-                        <td>${fabric.width}</td>
-                        <td>${fabric.score}</td>
-                        <td>${fabric.grade}</td>
-                        <td>${fabric.avalLength}</td>
-                        <td>${fabric.sampleLength}</td>
+                        <td>${item.pcsNo}</td>
+                        <td>${item.initLength}</td>
+                        <td>${item.width}</td>
+                        <td>${item.finalScore}</td>
+                        <td>${item.grade}</td>
+                        <td>${item.avalLength}</td>
+                        <td>${item.sampleLength}</td>
                     </tr>
                 </tbody>
             </table>
