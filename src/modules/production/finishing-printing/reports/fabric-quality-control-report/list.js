@@ -47,7 +47,6 @@ export class List {
     }
 
     searching() {
-        debugger
         if (this.filter) {
             this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.kanbanCode : "";
             this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
