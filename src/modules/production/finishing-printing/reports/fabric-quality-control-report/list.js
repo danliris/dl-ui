@@ -47,12 +47,12 @@ export class List {
     }
 
     searching() {
-
+        debugger
         if (this.filter) {
-            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode : null;
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo : null;
-            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType : null;
-            this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : null;
+            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.kanbanCode : "";
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
+            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.productionOrderType : "";
+            this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
