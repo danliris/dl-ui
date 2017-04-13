@@ -21,14 +21,14 @@
           </div>
         </div>
 
-        <au-autocomplete value.bind="selectedKanban" label="Kanban / Kereta" read-only.bind="readOnly || isEdit" error.bind="error.kanbanId"
-          loader.bind="kanbanLoader" key="_id" text.bind="kanbanTextFormatter">
+        <au-autocomplete value.bind="selectedKanban" label="Nomor Order / Kereta" read-only.bind="readOnly || isEdit" error.bind="error.kanbanId"
+          loader.bind="kanbanLoader" key="productionOrder.orderNo" text.bind="kanbanTextFormatter">
         </au-autocomplete>
 
         <div class="row">
-          <div class="col-md-6">
+          <!--<div class="col-md-6">
             <au-textbox label="No. Order" value.one-way="sppNo" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
-          </div>
+          </div>-->
           <div class="col-md-6">
             <au-textbox label="Konstruksi" value.one-way="construction" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
           </div>
