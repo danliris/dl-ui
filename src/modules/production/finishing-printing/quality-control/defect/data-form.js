@@ -22,6 +22,14 @@ export class DataForm {
             length: 6
         }
     }
+
+    formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah"
+    }
+
     @bindable title;
     @bindable readOnly;
     @bindable data;
@@ -236,7 +244,7 @@ export class DataForm {
     }
 
     fabricGradeTestColumns = [
-        { field: "pcsNo", title: "No Pcs" },
+        { field: "pcsNo", title: "Nomor Pcs" },
         { field: "initLength", title: "Panjang (Meter)" },
         { field: "width", title: "Lebar (Meter)" },
         { field: "grade", title: "Grade" }
