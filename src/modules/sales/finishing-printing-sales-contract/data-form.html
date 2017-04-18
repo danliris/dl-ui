@@ -48,6 +48,9 @@
                 <multiline                  label="Kondisi"     value.bind="data.condition"    error.bind="error.condition"       read-only.bind="(readOnly)" rows.bind="8"></multiline>
                 <buyer-auto-suggest         label="Agen"        value.bind="data.agent"       error.bind="error.agent"                       read-only.bind="readOnly"  if.bind="buyerType" change.delegate="agentChanged($event)"></buyer-auto-suggest>
                 <textbox                    label="Komisi"      value.bind="data.comission"       error.bind="error.comission"                       read-only.bind="readOnly"  if.bind="buyerType"></textbox>
+                <dropdown label="Point System" value.bind="data.pointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly" change.delegate="pointChanged($event)"></dropdown>
+                <numeric                    label="Batas Point"      value.bind="data.pointLimit"       error.bind="error.pointLimit"                       read-only.bind="readOnly"  if.bind="point || isPoint"></numeric>
+                
             </div>
         </div>
         <hr />

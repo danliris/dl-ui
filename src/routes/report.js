@@ -13,11 +13,11 @@ module.exports = [
         }
     },
     {
-        route: 'power-bi/production',
-        name: 'power-bi-production',
-        moduleId: './modules/power-bi/production/index',
+        route: 'power-bi/finishing-printing',
+        name: 'power-bi-finishing-printing',
+        moduleId: './modules/power-bi/finishing-printing/index',
         nav: true,
-        title: 'Power BI: Production Reports',
+        title: 'Power BI: Finishing Printing Reports',
         auth: true,
         settings: {
             group: "reports",

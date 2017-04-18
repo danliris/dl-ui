@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'finishing-printing/quality-control/fabrics';
 const kanbanServiceUri = 'finishing-printing/kanbans';
+const finishingPrintingSalesNoServiceUri = 'sales/finishing-printing-sales-contract-by-number'
 
 export class Service extends RestService {
 
@@ -51,7 +52,18 @@ export class Service extends RestService {
     getKanbanById(id, select) {
         var endpoint = `${kanbanServiceUri}/${id}`;
         //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
-        var info = {select:select};
+        var info = { select: select };
         return super.get(endpoint, null, info);
+    }
+
+    getSalesContractByNo(salesContractNo, select) {
+        var endpoint = `${finishingPrintingSalesNoServiceUri}/${salesContractNo}`;
+        var info = { select: select };
+        return super.get(endpoint, null, info);
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.getPdf(endpoint);
     }
 }
