@@ -36,6 +36,7 @@ export class DataForm {
     @bindable error;
 
     kanbanFields = ["code", "cart", "productionOrder"];
+    salesContractFields = ["pointSystem", "pointLimit"];
     pointSystemOptions = [4, 10]
     shiftOptions = [
         "Shift I: 06.00 - 14.00",
@@ -114,6 +115,13 @@ export class DataForm {
         return `${this.selectedKanban.productionOrder.packingInstruction}`
     }
 
+    @computedFrom("selectedSalesContractNo.pointLimit")
+    get pointLimit() {
+        if (!this.selectedSalesContractNo || this.selectedSalesContractNo.pointLimit === 0)
+            return "-";
+        return `${this.selectedSalesContractNo.pointLimit}`
+    }
+
     @computedFrom("data.pointSystem")
     get criteriaColumns() {
         if (this.data.pointSystem === 10)
@@ -121,6 +129,8 @@ export class DataForm {
         else
             return ["Point", "1", "2", "3", "4"];
     }
+
+    @computedFrom("selectedKanban.productionOrder.salesContractNo")
 
     @computedFrom("selectedPointSystem")
     get fabricGradeTestMultiplier() {
@@ -142,8 +152,15 @@ export class DataForm {
             else
                 return "A";
         }
-        else
+        else if (this.data.pointSystem === 4) {
+            if (finalScore <= this.selectedSalesContractNo.pointLimit) {
+                return "OK";
+            } else {
+                return "Not OK"
+            }
+        } else {
             return "-";
+        }
     }
 
 
@@ -205,12 +222,14 @@ export class DataForm {
         }
     }
     computeGrade(fabricGradeTest) {
+        console.log(fabricGradeTest);
+        console.log()
         if (!fabricGradeTest)
             return;
         var multiplier = this.fabricGradeTestMultiplier;
         var score = fabricGradeTest.criteria.reduce((p, c, i) => { return p + ((c.score.A * multiplier.A) + (c.score.B * multiplier.B) + (c.score.C * multiplier.C) + (c.score.D * multiplier.D)) }, 0);
         var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalLength - fabricGradeTest.sampleLength;
-        var finalScore = finalLength > 0 ? score / finalLength : 0;
+        var finalScore = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : score;
         var grade = this.scoreGrade(finalScore);
         fabricGradeTest.score = score;
         fabricGradeTest.finalLength = finalLength;
@@ -311,9 +330,23 @@ export class DataForm {
 
 
     @bindable selectedKanban;
-    selectedKanbanChanged(newValue, oldValue) {
-        if (this.selectedKanban && this.selectedKanban._id)
+    async selectedKanbanChanged(newValue, oldValue) {
+        if (this.selectedKanban && this.selectedKanban._id) {
             this.data.kanbanId = this.selectedKanban._id;
+            if (this.selectedKanban.productionOrder.salesContractNo) {
+                await this.service.getSalesContractByNo(this.selectedKanban.productionOrder.salesContractNo, this.salesContractFields)
+                    .then((result) => {
+                        // console.log(result);
+                        this.selectedSalesContractNo = result;
+                        // console.log(this.selectedSalesContractNo);
+                        if (result.pointSystem === 4) {
+                            this.selectedPointSystem = result.pointSystem;
+                        } else {
+                            this.selectedPointSystem = result.pointSystem;
+                        }
+                    })
+            }
+        }
         else
             this.data.kanbanId = null;
     }

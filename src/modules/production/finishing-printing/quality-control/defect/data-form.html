@@ -36,6 +36,7 @@
         <au-textbox label="Jumlah Order" value.one-way="orderQuantity" read-only.bind="true"></au-textbox>
         <au-textbox label="Packing Instruction" value.one-way="packingInstruction" read-only.bind="true"></au-textbox>
         <au-dropdown label="Point System" value.bind="selectedPointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly"></au-dropdown>
+        <au-textbox label="Point Limit" value.one-way="pointLimit" read-only.bind="true"></au-textbox>
 
         <au-table with.bind="_this" view-model.ref="fabricGradeTestTable" data.bind="fabricGradeTestLoader" columns.bind="fabricGradeTestColumns"
           context.bind="fabricGradeTestContextMenu" context-click.delegate="__fabricGradeTestContextMenuCallback($event)" sortable.bind="true"

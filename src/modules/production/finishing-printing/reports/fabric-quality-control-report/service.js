@@ -3,6 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
 const serviceUri = 'finishing-printing/reports/fabric-quality-control-report';
+const fabricServiceUri = 'finishing-printing/quality-control/fabrics'
 
 export class Service extends RestService {
 
@@ -67,9 +68,8 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.getPdf(endpoint);
+    searchFabricQC(info) {
+        var endpoint = `${fabricServiceUri}`;
+        return super.list(endpoint, info)
     }
-
 }
