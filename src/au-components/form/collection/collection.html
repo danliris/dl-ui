@@ -31,7 +31,7 @@
         </tr>
         <!--No data to display-->
         <tr if.bind="__hasColumns && !__hasItems">
-          <td colspan="${columns.length + (!readOnly && buttons.remove ? 1 : 0)}">
+          <td colspan="${columns.length + (!readOnly || buttons.remove ? 1 : 0)}">
             <div class="alert alert-info"> No data.</div>
           </td>
         </tr>

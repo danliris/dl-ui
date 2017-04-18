@@ -178,6 +178,19 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'production/finishing-printing/packing',
+        name: 'packing',
+        moduleId: './modules/production/finishing-printing/packing/index',
+        nav: true,
+        title: 'Daftar Packing',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
     ]
 
