@@ -79,9 +79,15 @@ export class SideNavBar {
   }
 
   selectMenu(menu, title) {
-    this.activeMenu = menu;
-    this.activeTitle = title;
-    this.activeSubMenu = [];
+    if (this.activeMenu != menu) {
+      this.activeMenu = menu;
+      this.activeTitle = title;
+      this.activeSubMenu = [];
+    } else {
+      this.activeMenu = [];
+      this.activeTitle = '';
+      this.activeSubMenu = [];
+    }
   }
 
   selectSubMenu(subMenu) {
