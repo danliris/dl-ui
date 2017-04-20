@@ -17,9 +17,9 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
     }
 
-    @computedFrom("data.id")
+    @computedFrom("data._id")
     get isEdit() {
-        return (this.data.id || '').toString() !== '';
+        return (this.data._id || '').toString() !== '';
     }
 
     async bind(context) {
@@ -43,23 +43,29 @@ export class DataForm {
     errorChanged() {
         console.log(this.error)
     }
+
     itemColumns = ["Lot", "Grade", "Weight", "Length", "Quantity", "Remark"];
-    packingUomOptions = ["ROLL", "PCS"]
-    @bindable selectedProductionOrder;
+    packingUomOptions = ["", "ROLL", "PCS", "POTONG"];
+    grades = ["", "A", "B", "C", "BS", "AVAL"];
+
+    @bindable selectedProductionOrder; 
     selectedProductionOrderChanged(newValue, oldValue) {
         if (this.selectedProductionOrder && this.selectedProductionOrder._id) {
             this.data.productionOrderId = this.selectedProductionOrder._id;
             var color = this.selectedProductionOrder.details && this.selectedProductionOrder.details.length > 0 ? this.selectedProductionOrder.details[0] : {};
+            console.log(color);//"selectedProductionOrderChanged")
             this.data.colorCode = color.code;
+            this.data.colorName = color.colorRequest;
         }
         else {
-            this.data.productionOrderId = null;
+            this.data.productionOrderId = null; 
             this.data.colorCode = null;
+            this.data.colorName = null;
         }
     }
 
     productionOrderTextFormatter = (productionOrder) => {
-        return `${productionOrder.orderNo} / ${productionOrder.orderNo}`
+        return `${productionOrder.orderNo}`
     }
 
     get productionOrderLoader() {
@@ -77,7 +83,7 @@ export class DataForm {
     };
 
     removeItemCallback(item, event) {
-        item.context.items.splice(item.context.items.indexOf(item.data), 1);
+        this.data.items.splice(item.context.items.indexOf(item.data), 1);
     }
 
     console() {
