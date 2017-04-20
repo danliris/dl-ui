@@ -1,0 +1,40 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+
+    <au-autocomplete value.bind="selectedProductionOrder" label="Nomor Order" read-only.bind="readOnly || isEdit" error.bind="error.productionOrderId"
+      loader.bind="productionOrderLoader" key="orderNo" text.bind="productionOrderTextFormatter">
+    </au-autocomplete>
+
+    <au-datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly"></au-datepicker>
+
+    <au-dropdown label="UOM" value.bind="data.packingUom" items.bind="packingUomOptions" error.bind="error.packingUom" read-only.bind="readOnly"></au-dropdown>
+
+    <au-collection columns.bind="itemColumns" items.bind="data.items" errors.one-way="error.items" add.bind="addItemCallback" read-only.bind="readOnly">
+      <template replace-part="item">
+        <td>
+          <au-textbox value.bind="data.lot" error.bind="error.lot" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td>
+          <au-textbox value.bind="data.grade" error.bind="error.grade" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td>
+          <au-numeric value.bind="data.weight" error.bind="error.weight" read-only.bind="readOnly"></au-numeric>
+        </td>
+        <td>
+          <au-numeric value.bind="data.length" error.bind="error.length" read-only.bind="readOnly"></au-numeric>
+        </td>
+        <td>
+          <au-numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="readOnly"></au-numeric>
+        </td>
+        <td>
+          <au-textbox value.bind="data.remark" error.bind="error.remark" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td>
+          <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="removeItemCallback(item,$event)">-</button>
+        </td>
+      </template>
+    </au-collection>
+    <button click.delegate="console()">console.log()</button>
+  </au-input-form>
+
+</template>
