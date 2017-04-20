@@ -191,6 +191,32 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'production/finishing-printing/inspection-lot-color',
+        name: 'inspection-lot-colors',
+        moduleId: './modules/production/finishing-printing/inspection-lot-color/index',
+        nav: true,
+        title: 'Pencatatan Pemeriksaan Lot Warna',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'finishing-printing/reports/inspection-lot-color-report',
+        name: 'inspection-lot-color-report',
+        moduleId: './modules/production/finishing-printing/reports/inspection-lot-color-report/index',
+        nav: true,
+        title: 'Laporan Pemeriksaan Lot Warna',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
     ]
 
