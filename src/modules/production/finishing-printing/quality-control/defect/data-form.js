@@ -66,6 +66,7 @@ export class DataForm {
 
 
         this.selectedPointSystem = this.data.pointSystem;
+        this.selectedPointLimit = this.data.pointLimit;
         this.selectedFabricGradeTest = this.data.fabricGradeTests.length > 0 ? this.data.fabricGradeTests[0] : null;
 
 
@@ -115,13 +116,6 @@ export class DataForm {
         return `${this.selectedKanban.productionOrder.packingInstruction}`
     }
 
-    @computedFrom("selectedSalesContractNo.pointLimit")
-    get pointLimit() {
-        if (!this.selectedSalesContractNo || this.selectedSalesContractNo.pointLimit === 0 || this.selectedSalesContractNo.pointLimit === "-")
-            return "-";
-        return `${this.selectedSalesContractNo.pointLimit}`
-    }
-
     @computedFrom("data.pointSystem")
     get criteriaColumns() {
         if (this.data.pointSystem === 10)
@@ -153,7 +147,7 @@ export class DataForm {
                 return "A";
         }
         else if (this.data.pointSystem === 4) {
-            if (finalScore <= this.selectedSalesContractNo.pointLimit) {
+            if (finalScore <= this.data.pointLimit) {
                 return "OK";
             } else {
                 return "Not OK"
@@ -170,6 +164,7 @@ export class DataForm {
     @bindable selectedFabricGradeTest;
     @bindable selectedFabricGradeTestError;
     @bindable selectedPointSystem;
+    @bindable selectedPointLimit;
     @bindable selectedAvalLength;
     @bindable selectedSampleLength;
     @bindable subs;
@@ -186,8 +181,14 @@ export class DataForm {
         this.computeGrade(this.selectedFabricGradeTest);
     }
     selectedPointSystemChanged() {
+        if (this.selectedPointSystem === 10) {
+            this.selectedPointLimit = 0;
+        }
         this.data.pointSystem = this.selectedPointSystem;
         this.data.fabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
+    }
+    selectedPointLimitChanged() {
+        this.data.pointLimit = this.selectedPointLimit;
     }
 
     selectedFabricGradeTestChanged() {
@@ -333,20 +334,16 @@ export class DataForm {
     async selectedKanbanChanged(newValue, oldValue) {
         if (this.selectedKanban && this.selectedKanban._id) {
             this.data.kanbanId = this.selectedKanban._id;
+            this.selectedPointSystem = 10;
             if (this.selectedKanban.productionOrder.salesContractNo) {
                 await this.service.getSalesContractByNo(this.selectedKanban.productionOrder.salesContractNo, this.salesContractFields)
                     .then((result) => {
-                        // console.log(result);
-                        this.selectedSalesContractNo = result;
-                        // console.log(this.selectedSalesContractNo);
                         if (result.pointSystem === 4 || result.pointSystem === 10) {
                             this.selectedPointSystem = result.pointSystem;
+                            this.selectedPointLimit = result.pointLimit;
                         } else {
-                            this.selectedSalesContractNo = {};
-                            this.selectedSalesContractNo.pointSystem = 10;
-                            this.selectedSalesContractNo.pointLimit = "-";
-                            this.selectedPointSystem = this.selectedSalesContractNo.pointSystem;
-                        } 
+                            this.selectedPointLimit = 0;
+                        }
                     })
             }
         }
