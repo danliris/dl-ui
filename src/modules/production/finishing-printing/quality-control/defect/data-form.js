@@ -117,7 +117,7 @@ export class DataForm {
 
     @computedFrom("selectedSalesContractNo.pointLimit")
     get pointLimit() {
-        if (!this.selectedSalesContractNo || this.selectedSalesContractNo.pointLimit === 0)
+        if (!this.selectedSalesContractNo || this.selectedSalesContractNo.pointLimit === 0 || this.selectedSalesContractNo.pointLimit === "-")
             return "-";
         return `${this.selectedSalesContractNo.pointLimit}`
     }
@@ -339,11 +339,14 @@ export class DataForm {
                         // console.log(result);
                         this.selectedSalesContractNo = result;
                         // console.log(this.selectedSalesContractNo);
-                        if (result.pointSystem === 4) {
+                        if (result.pointSystem === 4 || result.pointSystem === 10) {
                             this.selectedPointSystem = result.pointSystem;
                         } else {
-                            this.selectedPointSystem = result.pointSystem;
-                        }
+                            this.selectedSalesContractNo = {};
+                            this.selectedSalesContractNo.pointSystem = 10;
+                            this.selectedSalesContractNo.pointLimit = "-";
+                            this.selectedPointSystem = this.selectedSalesContractNo.pointSystem;
+                        } 
                     })
             }
         }
