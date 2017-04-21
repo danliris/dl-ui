@@ -311,7 +311,7 @@ export class DataForm {
     }
 
     kanbanTextFormatter = (kanban) => {
-        return `${kanban.code} / ${kanban.cart.cartNumber}`
+        return `${kanban.productionOrder.orderNo} / ${kanban.cart.cartNumber}`
     }
 
     get kanbanLoader() {
