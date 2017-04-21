@@ -19,6 +19,8 @@ export class List {
 
     };
 
+    fabricQCFields = ["productionOrderNo"];
+
     shiftOptions = [
         "",
         "Shift I: 06.00 - 14.00",
@@ -120,6 +122,7 @@ export class List {
     }
 
     productionOrderNoChanged(e) {
+        console.log(this.filter.productionOrderNo);
         console.log('production number changed')
     }
 
@@ -131,8 +134,14 @@ export class List {
         console.log('production type changed')
     }
 
-    get FabricQualityControlLoader() {
-        return FabricQualityControlLoader;
+    get fabricQCLoader() {
+        return (keyword) => {
+            var info = { keyword: keyword, select: this.fabricQCFields };
+            return this.service.searchFabricQC(info)
+                .then((result) => {
+                    return result.data;
+                });
+        }
     }
 
     reset() {

@@ -9,16 +9,16 @@
         <h1 class="page-header">Laporan Pemeriksaan Kain</h1>
         <form class="form-horizontal">
 
-            <au-autocomplete value.bind="filter.kanbanCode" label="Nomor Kanban" change.delegate="kanbanCodeChanged($event)" loader.bind="FabricQualityControlLoader"
-                placeholder="cari nomor kanban" key="kanbanCode" text="kanbanCode">
+            <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" change.delegate="productionOrderNoChanged($event)" loader.bind="fabricQCLoader"
+                placeholder="cari nomor order" key="productionOrderNo" text="productionOrderNo">
             </au-autocomplete>
 
-            <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" change.delegate="productionOrderNoChanged($event)"
-                loader.bind="FabricQualityControlLoader" placeholder="cari nomor order" key="productionOrderNo" text="productionOrderNo">
+            <au-autocomplete value.bind="filter.cartNo" label="Nomor Kereta" change.delegate="cartNoChanged($event)"
+                loader.bind="fabricQCLoader" placeholder="cari nomor kereta" key="cartNo" text="cartNo">
             </au-autocomplete>
 
             <au-autocomplete value.bind="filter.productionOrderType" label="Jenis Order" change.delegate="productionOrderTypeChanged($event)"
-                loader.bind="FabricQualityControlLoader" placeholder="cari jenis order" key="productionOrderType" text="productionOrderType">
+                loader.bind="fabricQCLoader" placeholder="cari jenis order" key="productionOrderType" text="productionOrderType">
             </au-autocomplete>
 
             <au-dropdown label="Shift" value.bind="filter.shiftIm" items.bind="shiftOptions" read-only.bind="readOnly" change.delegate="shiftImChanged($event)"></au-dropdown>

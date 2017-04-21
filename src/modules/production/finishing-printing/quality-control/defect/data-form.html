@@ -1,5 +1,5 @@
 <template>
-  <au-input-form title.bind="title" with.bind="context">
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
     <div class="row">
       <div class="col-md-6">
         <div class="row">
@@ -36,6 +36,9 @@
         <au-textbox label="Jumlah Order" value.one-way="orderQuantity" read-only.bind="true"></au-textbox>
         <au-textbox label="Packing Instruction" value.one-way="packingInstruction" read-only.bind="true"></au-textbox>
         <au-dropdown label="Point System" value.bind="selectedPointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly"></au-dropdown>
+        <!--<au-textbox label="Point Limit" value.bind="pointLimit" read-only.bind="true"></au-textbox>-->
+        <au-textbox label="Point Limit" value.bind="selectedPointLimit" if.bind="selectedPointSystem == 4" read-only.bind="readOnly || isEdit"
+          error.bind="error.pointLimit"></au-textbox>
 
         <au-table with.bind="_this" view-model.ref="fabricGradeTestTable" data.bind="fabricGradeTestLoader" columns.bind="fabricGradeTestColumns"
           context.bind="fabricGradeTestContextMenu" context-click.delegate="__fabricGradeTestContextMenuCallback($event)" sortable.bind="true"
@@ -44,7 +47,7 @@
         </au-table>
       </div>
       <div class="col-md-6" if.bind="selectedFabricGradeTest">
-        <au-textbox label="No Pcs" value.bind="selectedPcsNo" error.bind="selectedFabricGradeTestError.pcsNo" read-only.bind="readOnly"></au-textbox>
+        <au-textbox label="Nomor Pcs" value.bind="selectedPcsNo" error.bind="selectedFabricGradeTestError.pcsNo" read-only.bind="readOnly"></au-textbox>
         <div class="row">
           <div class="col-md-6">
             <au-numeric label="Panjang" value.bind="selectedPcsLength" error.bind="selectedFabricGradeTestError.initLength" read-only.bind="readOnly"
@@ -54,47 +57,49 @@
             <au-numeric label="Lebar" value.bind="selectedPcsWidth" error.bind="selectedFabricGradeTestError.width" read-only.bind="readOnly"
               options.bind="layoutOptions2"></au-numeric>
           </div>
-        </div> 
-          <div style="max-height: 500px; margin-bottom:10px; overflow-y: scroll">
-            <au-collection columns.one-way="criteriaColumns" if.bind="selectedFabricGradeTest" items.bind="selectedFabricGradeTest.criteria & signal:'u'"
-              read-only.bind="readOnly">
-              <template replace-part="thead">
-                <thead>
-                  <tr>
-                    <th width="40%">Kriteria</th>
-                    <th>${criteriaColumns[1]}</th>
-                    <th>${criteriaColumns[2]}</th>
-                    <th>${criteriaColumns[3]}</th>
-                    <th>${criteriaColumns[4]}</th>
-                  </tr>
-                </thead>
-              </template>
-              <template replace-part="item">
-                <td>
-                  <au-textbox value.bind="data.name" error.bind="error.name" read-only="true"></au-textbox>
-                </td>
-                <td>
-                  <au-numeric value.bind="data.score.A" error.bind="error.score.A" read-only.bind="readOnly"></au-numeric>
-                </td>
-                <td>
-                  <au-numeric value.bind="data.score.B" error.bind="error.score.B" read-only.bind="readOnly"></au-numeric>
-                </td>
-                <td>
-                  <au-numeric value.bind="data.score.C" error.bind="error.score.C" read-only.bind="readOnly"></au-numeric>
-                </td>
-                <td>
-                  <au-numeric value.bind="data.score.D" error.bind="error.score.D" read-only.bind="readOnly"></au-numeric>
-                </td>
-              </template>
-            </au-collection>
-          </div> 
+        </div>
+        <div style="max-height: 500px; margin-bottom:10px; overflow-y: scroll">
+          <au-collection columns.one-way="criteriaColumns" if.bind="selectedFabricGradeTest" items.bind="selectedFabricGradeTest.criteria & signal:'u'"
+            read-only.bind="readOnly">
+            <template replace-part="thead">
+              <thead>
+                <tr>
+                  <th width="40%">Kriteria</th>
+                  <th>${criteriaColumns[1]}</th>
+                  <th>${criteriaColumns[2]}</th>
+                  <th>${criteriaColumns[3]}</th>
+                  <th>${criteriaColumns[4]}</th>
+                </tr>
+              </thead>
+            </template>
+            <template replace-part="item">
+              <td>
+                <au-textbox value.bind="data.name" error.bind="error.name" read-only="true"></au-textbox>
+              </td>
+              <td>
+                <au-numeric value.bind="data.score.A" error.bind="error.score.A" read-only.bind="readOnly"></au-numeric>
+              </td>
+              <td>
+                <au-numeric value.bind="data.score.B" error.bind="error.score.B" read-only.bind="readOnly"></au-numeric>
+              </td>
+              <td>
+                <au-numeric value.bind="data.score.C" error.bind="error.score.C" read-only.bind="readOnly"></au-numeric>
+              </td>
+              <td>
+                <au-numeric value.bind="data.score.D" error.bind="error.score.D" read-only.bind="readOnly"></au-numeric>
+              </td>
+            </template>
+          </au-collection>
+        </div>
 
         <div class="row">
           <div class="col-md-6">
-            <au-numeric label="Aval" value.bind="selectedAvalLength" error.bind="error.avalLength" read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+            <au-numeric label="Aval (Meter)" value.bind="selectedAvalLength" error.bind="error.avalLength" read-only.bind="readOnly"
+              options.bind="layoutOptions2"></au-numeric>
           </div>
           <div class="col-md-6">
-            <au-numeric label="Sample" value.bind="selectedSampleLength" error.bind="error.avalLength" read-only.bind="readOnly" options.bind="layoutOptions2"></au-numeric>
+            <au-numeric label="Sample (Meter)" value.bind="selectedSampleLength" error.bind="error.avalLength" read-only.bind="readOnly"
+              options.bind="layoutOptions2"></au-numeric>
           </div>
         </div>
 
