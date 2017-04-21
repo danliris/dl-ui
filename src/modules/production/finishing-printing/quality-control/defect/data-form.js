@@ -52,12 +52,14 @@ export class DataForm {
     }
 
     async bind(context) {
+        console.log(context.data);
         this.context = context;
         this.context._this = this;
         // this.data = this.context.data;
         // this.error = this.context.error;
         this.data.fabricGradeTests = this.data.fabricGradeTests || [];
         this.data.pointSystem = this.data.pointSystem || 10;
+        this.data.pointLimit = this.data.pointLimit || 0;
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
@@ -185,6 +187,7 @@ export class DataForm {
             this.selectedPointLimit = 0;
         }
         this.data.pointSystem = this.selectedPointSystem;
+        // this.selectedPointSystem=this.data.pointSystem;
         this.data.fabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
     }
     selectedPointLimitChanged() {
@@ -230,11 +233,14 @@ export class DataForm {
         var multiplier = this.fabricGradeTestMultiplier;
         var score = fabricGradeTest.criteria.reduce((p, c, i) => { return p + ((c.score.A * multiplier.A) + (c.score.B * multiplier.B) + (c.score.C * multiplier.C) + (c.score.D * multiplier.D)) }, 0);
         var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalLength - fabricGradeTest.sampleLength;
-        var finalScore = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : score;
-        var grade = this.scoreGrade(finalScore);
+        var finalArea = fabricGradeTest.initLength * fabricGradeTest.width;
+        var finalScoreTS = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : 0;
+        var finalScoreFS = finalArea > 0 && this.data.pointSystem === 4 ? score * 100 / finalArea : 0;
+        var grade = this.data.pointLimit === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
         fabricGradeTest.score = score;
         fabricGradeTest.finalLength = finalLength;
-        fabricGradeTest.finalScore = finalScore;
+        fabricGradeTest.finalArea = this.data.pointSystem === 4 ? finalArea : 0;
+        fabricGradeTest.finalScore = this.data.pointLimit === 10 ? finalScoreTS : finalScoreFS;
         fabricGradeTest.grade = grade;
         console.log(fabricGradeTest)
     }
@@ -334,15 +340,15 @@ export class DataForm {
     async selectedKanbanChanged(newValue, oldValue) {
         if (this.selectedKanban && this.selectedKanban._id) {
             this.data.kanbanId = this.selectedKanban._id;
-            this.selectedPointSystem = 10;
             if (this.selectedKanban.productionOrder.salesContractNo) {
                 await this.service.getSalesContractByNo(this.selectedKanban.productionOrder.salesContractNo, this.salesContractFields)
                     .then((result) => {
                         if (result.pointSystem === 4 || result.pointSystem === 10) {
-                            this.selectedPointSystem = result.pointSystem;
-                            this.selectedPointLimit = result.pointLimit;
+                            this.selectedPointSystem = this.data.pointSystem || 10;
+                            this.selectedPointLimit = this.data.pointLimit || 0;
                         } else {
-                            this.selectedPointLimit = 0;
+                            this.selectedPointSystem = this.data.pointSystem || 10;
+                            this.selectedPointLimit = this.data.pointLimit || 0;                            
                         }
                     })
             }
