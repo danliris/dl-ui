@@ -45,7 +45,10 @@ export class DataForm {
     get orderQuantity() {
         if (!this.data.kanban)
             return "-";
-        return `${this.data.kanban.productionOrder.orderQuantity} ${this.data.kanban.productionOrder.uom.unit}`
+        else{
+            var quantity = this.data.kanban.productionOrder.uom.unit === 'MTR' ? this.data.kanban.productionOrder.orderQuantity : (this.data.kanban.productionOrder.orderQuantity * 0.9144);
+            return `${quantity} MTR`
+        }
     }
 
     itemsColumns = [
@@ -73,5 +76,9 @@ export class DataForm {
       return (event) => {
         this.data.items.push({})
       };
+    }
+
+    get removeItem(){
+        return (event) => console.log(event);
     }
 }
