@@ -9,6 +9,6 @@
     <td>
       <au-dropdown value.bind="item.status" error.bind="error.status" items.bind="statusOptions" read-only.bind="options.readOnly"></au-dropdown>
     </td>
-    <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(itemsEvent, $event)">-</button></td>
+    <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(item, $event)">-</button></td>
   </tr>
 </template>
