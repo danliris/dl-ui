@@ -156,6 +156,7 @@ export class DataForm {
                 this.data.comission = "";
                 this.data.termOfShipment = "";
                 this.data.remark = "";
+                this.data.shipmentDescription = "";
             }
         }
         else {
@@ -164,6 +165,7 @@ export class DataForm {
             this.data.comission = "";
             this.data.termOfShipment = "";
             this.data.remark = "";
+            this.data.shipmentDescription = "";
         }
     }
 
@@ -212,8 +214,6 @@ export class DataForm {
             this.data.comission = "";
         }
     }
-
-
 
     get buyersLoader() {
         return BuyersLoader;

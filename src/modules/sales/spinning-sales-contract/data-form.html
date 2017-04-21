@@ -77,6 +77,8 @@
         <au-textbox label="Dikirim ke" placeholder="input tujuan" value.bind="data.deliveredTo" error.bind="error.deliveredTo" read-only.bind="(readOnly || isEdit)"></au-textbox>
 
         <au-datepicker label="Jadwal Pengiriman" value.bind="data.deliverySchedule " error.bind="error.deliverySchedule" read-only.bind="(readOnly || isEdit)"></au-datepicker>
+        
+        <au-multiline label="Keterangan Shipment" placeholder="input keterangan shipment" value.bind="data.shipmentDescription" error.bind="error.shipmentDescription" read-only.bind="(readOnly || isEdit)" if.bind="isExport"></au-multiline>
 
         <au-multiline label="Kondisi" placeholder="input kondisi" value.bind="data.condition" error.bind="error.condition" read-only.bind="(readOnly || isEdit)"></au-multiline>
 
