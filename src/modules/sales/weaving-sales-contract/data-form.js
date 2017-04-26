@@ -55,10 +55,10 @@ export class DataForm {
             return true;
     }
 
-    enterEventDelegate(event) {
-        event();
-        return true;
-    }
+    // enterEventDelegate(event) {
+    //     event();
+    //     return true;
+    // }
 
     //set termOfPaymentFilter
     @computedFrom("data.buyer")

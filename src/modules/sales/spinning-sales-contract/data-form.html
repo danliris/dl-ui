@@ -5,20 +5,20 @@
     <button slot="actions" class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
     <button slot="actions" class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
 
-    <div class="row" keypress.delegate="enterDelegate($event)">
+    <div class="row">
       <div class="col-md-6" style="padding:10">
 
         <au-autocomplete value.bind="data.buyer" error.bind="error.buyer" label="Buyer" change.delegate="buyersChanged($event)" loader.bind="buyersLoader"
-          placeholder="cari buyer " key="code" text="name" read-only.bind="(readOnly || isEdit)">
+          placeholder="cari buyer " key="code" text="name" read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)">
         </au-autocomplete>
 
         <au-textbox label="Tipe Buyer" value.bind="data.buyer.type" error.bind="error.buyer.type" read-only="true" if.bind="data.buyer"></au-textbox>
 
         <au-textbox label="Nomor Disposisi" value.bind="data.dispositionNumber" error.bind="error.dispositionNumber" placeholder="input nomor disposisi"
-          read-only.bind="(readOnly || isEdit)"></au-textbox>
+          read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)"></au-textbox>
 
         <au-autocomplete value.bind="data.comodity" error.bind="error.comodity" label="Komoditas" change.delegate="comodityChanged($event)"
-          loader.bind="comodityLoader" placeholder="cari comodity " key="code" text="name" read-only.bind="(readOnly || isEdit)">
+          loader.bind="comodityLoader" placeholder="cari comodity " key="code" text="name" read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)">
         </au-autocomplete>
 
         <au-multiline label="Keterangan Komoditas" placeholder="input keterangan" value.bind="data.comodityDescription" error.bind="error.comodityDescription"
@@ -26,10 +26,10 @@
 
         <div class="row">
           <div class="col-sm-3" style="padding-left:12%">
-            <au-textbox label="Jumlah Order" read-only="true"></au-textbox>
+            <au-textbox label="Jumlah Order" read-only="true" keypress.delegate="enterDelegate($event)"></au-textbox>
           </div>
           <div class="col-sm-3">
-            <au-numeric value.bind="data.orderQuantity" error.bind="error.orderQuantity" read-only.bind="(readOnly)"></au-numeric>
+            <au-numeric value.bind="data.orderQuantity" error.bind="error.orderQuantity" read-only.bind="(readOnly)" keypress.delegate="enterDelegate($event)"></au-numeric>
           </div>
           <div class="col-sm-2">
             <au-textbox label="Satuan" read-only="true"></au-textbox>
@@ -41,10 +41,10 @@
         </div>
 
         <au-numeric label="Toleransi Jumlah (%)" value.bind="data.shippingQuantityTolerance" error.bind="error.shippingQuantityTolerance"
-          read-only.bind="readOnly" post-fix="%"></au-numeric>
+          read-only.bind="readOnly" post-fix="%" keypress.delegate="enterDelegate($event)"></au-numeric>
 
         <au-autocomplete value.bind="data.quality" error.bind="error.quality" label="Kualitas" change.delegate="qualityChanged($event)"
-          loader.bind="qualityLoader" placeholder="cari quality " key="code" text="name" read-only.bind="(readOnly || isEdit)">
+          loader.bind="qualityLoader" placeholder="cari quality " key="code" text="name" read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)"  >
         </au-autocomplete>
 
         <au-multiline label="Packing" placeholder="input packing" value.bind="data.packing" error.bind="error.packing" read-only.bind="(readOnly)"></au-multiline>
@@ -55,26 +55,26 @@
       <div class="col-md-6" style="padding:10">
 
         <au-textbox value.bind="data.termOfShipment" error.bind="error.termOfShipment" label="Term of Shipment" placeholder="input term Of shipment"
-          read-only.bind="(readOnly || isEdit)" if.bind="isTermOfShipment">
+          read-only.bind="(readOnly || isEdit)" if.bind="isTermOfShipment" keypress.delegate="enterDelegate($event)">
         </au-textbox>
 
         <au-autocomplete label="Syarat Pembayaran" placeholder="cari metode pembayaran" value.bind="data.termOfPayment" error.bind="error.termOfPayment"
           change.delegate="termOfPaymentChanged($event)" read-only.bind="(readOnly || isEdit)" key="code" text="termOfPayment"
-          loader.bind="termOfPaymentLoader" query.bind="termOfPaymentFilter" if.bind="istermOfPayment"></au-autocomplete>
+          loader.bind="termOfPaymentLoader" query.bind="termOfPaymentFilter" if.bind="istermOfPayment" keypress.delegate="enterDelegate($event)"></au-autocomplete>
 
         <au-autocomplete value.bind="data.accountBank" error.bind="error.accountBank" label="Pembayaran ke Rekening" change.delegate="accountBankChanged($event)"
-          loader.bind="accountBankLoader" placeholder="cari Pembayaran ke Rekening" key="code" read-only.bind="(readOnly || isEdit)">
+          loader.bind="accountBankLoader" placeholder="cari Pembayaran ke Rekening" key="code" read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)">
         </au-autocomplete>
 
         <au-textbox label="Mata Uang" value.bind="data.accountBank.currency.code" error.bind="error.accountBank.currency.code" read-only="true"
-          if.bind="data.accountBank"></au-textbox>
+          if.bind="data.accountBank" keypress.delegate="enterDelegate($event)"></au-textbox>
 
-        <au-numeric label="Harga" value.bind="data.price" error.bind="error.price" read-only.bind="(readOnly)"></au-numeric>
+        <au-numeric label="Harga" value.bind="data.price" error.bind="error.price" read-only.bind="(readOnly)" keypress.delegate="enterDelegate($event)"></au-numeric>
 
         <au-textbox label="Ongkos Angkut" placeholder="input ongkos" value.bind="data.transportFee" error.bind="error.transportFee"
-          read-only.bind="(readOnly || isEdit)"></au-textbox>
+          read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)"></au-textbox>
 
-        <au-textbox label="Dikirim ke" placeholder="input tujuan" value.bind="data.deliveredTo" error.bind="error.deliveredTo" read-only.bind="(readOnly || isEdit)"></au-textbox>
+        <au-textbox label="Dikirim ke" placeholder="input tujuan" value.bind="data.deliveredTo" error.bind="error.deliveredTo" read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)"></au-textbox>
 
         <au-datepicker label="Jadwal Pengiriman" value.bind="data.deliverySchedule " error.bind="error.deliverySchedule" read-only.bind="(readOnly || isEdit)"></au-datepicker>
         
@@ -89,10 +89,10 @@
           if.bind="isExport"></au-textbox>-->
 
         <au-autocomplete value.bind="data.agent" error.bind="error.agent" label="Agent" change.delegate="agentChanged($event)" loader.bind="agentLoader"
-          placeholder="cari Agent" key="code" text="name" read-only.bind="readOnly" if.bind="isExport"></au-autocomplete>
+          placeholder="cari Agent" key="code" text="name" read-only.bind="readOnly" if.bind="isExport" keypress.delegate="enterDelegate($event)"></au-autocomplete>
 
         <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.comission" error.bind="error.comission" read-only.bind="(readOnly || isEdit)"
-          if.bind="isExport"></au-textbox>
+          if.bind="isExport" keypress.delegate="enterDelegate($event)"></au-textbox>
 
       </div>
     </div>
