@@ -9,7 +9,7 @@
                 </button>
             </div>
             <ul class="sidebar-menu">
-                <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == key ? 'active' : ''">
+                <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == value ? 'active' : ''">
                     <a href="#" title.bind="key.toUpperCase()">
                         <i class="fa fa-list-alt" if.bind="key.toUpperCase() == 'MASTER'"></i>
                         <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
@@ -20,7 +20,7 @@
                         <!--<i class="fa fa-dashboard"></i>-->
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
                         <div class="pull-right" if.bind="value.length > 0 && !minimized">
-                            <i class="fa fa-angle-right"></i>
+                            <i class="fa ${activeMenu == value ? 'fa-angle-left' : 'fa-angle-right'}"></i>
                         </div>
                     </a>
                 </li>

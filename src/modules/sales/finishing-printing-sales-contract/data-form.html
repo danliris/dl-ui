@@ -12,7 +12,7 @@
                 <sales-material-auto-suggest  label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
                 <material-construction-auto-suggest                 label="Konstruksi Finish"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
                 <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
-                <textbox                      label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
+                <textbox                      label="Lebar Finish"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
                 <design-motive-auto-suggest     label="Motif"        value.bind="data.designMotive"       error.bind="error.designMotive"                       read-only.bind="readOnly"  if.bind="!buyerType && isPrinting" change.delegate="designMotiveChanged($event)"></design-motive-auto-suggest>
                 <div class="row">
                   <div class="col-sm-4" style="padding-left:20%">

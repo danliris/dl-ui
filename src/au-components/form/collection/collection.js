@@ -92,7 +92,6 @@ export class Collection {
       });
     let errorSubscription = this.bindingEngine.collectionObserver(this.errors)
       .subscribe(splices => {
-        console.log("collections:errors modified")
         this.buildContext();
       });
   }
@@ -103,7 +102,7 @@ export class Collection {
     this.context.options = this.options;
     this.context.items = this.context.items || [];
 
-    var mapped = this.items.map((item, index) => {
+    var mapped = (this.items || []).map((item, index) => {
       var error = this.errors ? this.errors[index] : null;
       return {
         data: item,

@@ -10,8 +10,6 @@ export class List {
         "9401ddc4-47e3-49a3-9a8e-8ff59043cdb5",//Top Ten Event Monitoring
         "fb6a964c-ba35-4333-82ee-dc17ee96f593",//Kapasitas Mesin VS Total Input Produksi
         "0887c632-d838-4772-8c6e-f29032abdc11",//Good Output VS Bad Output Produksi
-        "60ea4410-28e3-4a80-8126-1f8be29769f4",//Perbandingan Hasil QC
-        "f7d3428d-930c-4b7b-9f17-1d2071165f52",//Top Ten Defect
     ];
     constructor(router, service) {
         this.router = router;

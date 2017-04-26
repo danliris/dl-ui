@@ -3,7 +3,7 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
-export class Create {
+export class Edit {
   @bindable data;
   @bindable error;
 
@@ -12,25 +12,23 @@ export class Create {
     this.router = router;
   }
 
-  created(owner, self) {
-    this.data = {}
+  async activate(params) {
+    var id = params.id;
+    this.data = await this.service.getById(id);
   }
 
   cancelCallback(event) {
-    this.__goToList();
+    this.router.navigateToRoute('view', { id: this.data._id });
   }
 
   saveCallback(event) {
-    this.service.create(this.data)
-      .then(result => {
-        this.__goToList();
-      })
-      .catch(error => {
-        this.error = error;
-      });
-  }
 
-  __goToList() {
-    this.router.navigateToRoute('list');
+    this.service.update(this.data)
+      .then(result => {
+        this.cancelCallback();
+      })
+      .catch(e => {
+        this.error = e;
+      })
   }
 }

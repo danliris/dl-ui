@@ -1,12 +1,11 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../../../utils/rest-service';
+import { RestService } from '../../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-printing/quality-control/fabrics';
-const kanbanServiceUri = 'finishing-printing/kanbans';
-const finishingPrintingSalesNoServiceUri = 'sales/finishing-printing-sales-contract-by-number'
+const serviceUri = 'finishing-printing/quality-control/packings';
+const productionOrderServiceUri = 'sales/production-orders';
 
 export class Service extends RestService {
 
@@ -44,20 +43,14 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    searchKanban(info) {
-        var endpoint = `${kanbanServiceUri}`;
+    searchProductionOrder(info) {
+        var endpoint = `${productionOrderServiceUri}`;
         return super.list(endpoint, info);
     }
 
-    getKanbanById(id, select) {
-        var endpoint = `${kanbanServiceUri}/${id}`;
+    getProductionOrderById(id, select) {
+        var endpoint = `${productionOrderServiceUri}/${id}`;
         //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
-        var info = { select: select };
-        return super.get(endpoint, null, info);
-    }
-
-    getSalesContractByNo(salesContractNo, select) {
-        var endpoint = `${finishingPrintingSalesNoServiceUri}/${salesContractNo.replace("/", "").replace("/", "")}`;
         var info = { select: select };
         return super.get(endpoint, null, info);
     }

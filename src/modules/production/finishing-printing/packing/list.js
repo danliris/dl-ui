@@ -22,18 +22,18 @@ export class List {
     }
 
     setColumns() {
-        this.columns = [
+        this.columns = [            
+            { field: "code", title: "Kode" },
             {
-                field: "dateIm", title: "Tanggal", formatter: (value, data) => {
+                field: "date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "shiftIm", title: "Shift" },
-            { field: "operatorIm", title: "Operator" },
-            { field: "machineNoIm", title: "No. Mesin"},
-            { field: "productionOrderNo", title: "No. Order" },
-            { field: "productionOrderType", title: "Jenis Order" },
-            { field: "cartNo", title: "No. Kereta" }
+            { field: "buyer", title: "Buyer" },
+            { field: "productionOrderNo", title: "No. SPP"},
+            { field: "colorName", title: "Warna" },
+            { field: "construction", title: "Konstruksi" },
+            { field: "motif", title: "Motif" }
         ];
     }
 
@@ -57,37 +57,7 @@ export class List {
                     data: result.data
                 }
             });
-    }
-
-    asc() {
-        return function (kanban1, kanban2) {
-            if (kanban1.isComplete && !kanban2.isComplete)
-                return -1;
-            if (!kanban1.isComplete && kanban2.isPending())
-                return -1;
-            if (!kanban1.isComplete && kanban2.isComplete)
-                return 1;
-            if (kanban1.isPending() && !kanban2.isComplete)
-                return 1;
-
-            return 0;
-        }
-    }
-
-    desc() {
-        return function (kanban1, kanban2) {
-            if (kanban1.isComplete && !kanban2.isComplete)
-                return 1;
-            if (!kanban1.isComplete && kanban2.isPending())
-                return 1;
-            if (!kanban1.isComplete && kanban2.isComplete)
-                return -1;
-            if (kanban1.isPending() && !kanban2.isComplete)
-                return -1;
-
-            return 0;
-        }
-    }
+    } 
 
     contextClickCallback(event) {
         var arg = event.detail;

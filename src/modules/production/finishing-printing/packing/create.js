@@ -1,6 +1,6 @@
 import { bindable, inject } from "aurelia-framework";
 import { Service } from "./service";
-import { Router } from 'aurelia-router';
+import { Router } from 'aurelia-router'; 
 
 @inject(Router, Service)
 export class Create {
@@ -13,23 +13,23 @@ export class Create {
   }
 
   created(owner, self) {
-    this.data = {}
+    this.data = {items:[]}
   }
 
   cancelCallback(event) {
     this.__goToList();
   }
 
-  saveCallback(event) {
+  saveCallback(event) {  
     this.service.create(this.data)
       .then(result => {
         this.__goToList();
-      })
-      .catch(error => {
+      }) 
+      .catch(error => { 
         this.error = error;
       });
   }
-
+ 
   __goToList() {
     this.router.navigateToRoute('list');
   }

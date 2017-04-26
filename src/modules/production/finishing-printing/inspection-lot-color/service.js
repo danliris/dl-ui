@@ -1,12 +1,11 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../../../utils/rest-service';
+import { RestService } from '../../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-printing/quality-control/fabrics';
+const serviceUri = 'finishing-printing/inspection-lot-colors';
 const kanbanServiceUri = 'finishing-printing/kanbans';
-const finishingPrintingSalesNoServiceUri = 'sales/finishing-printing-sales-contract-by-number'
 
 export class Service extends RestService {
 
@@ -49,21 +48,14 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getKanbanById(id, select) {
+    getKanbanById(id) {
         var endpoint = `${kanbanServiceUri}/${id}`;
         //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
-        var info = { select: select };
-        return super.get(endpoint, null, info);
+        return super.get(endpoint);
     }
 
-    getSalesContractByNo(salesContractNo, select) {
-        var endpoint = `${finishingPrintingSalesNoServiceUri}/${salesContractNo.replace("/", "").replace("/", "")}`;
-        var info = { select: select };
-        return super.get(endpoint, null, info);
-    }
-
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.getPdf(endpoint);
-    }
+    // getPdfById(id) {
+    //     var endpoint = `${serviceUri}/${id}`;
+    //     return super.getPdf(endpoint);
+    // }
 }

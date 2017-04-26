@@ -18,22 +18,20 @@ export class List {
     }
 
     setContext() {
-        this.context = ["Rincian", "Cetak PDF"];
+        this.context = ["Rincian"];
     }
 
     setColumns() {
         this.columns = [
             {
-                field: "dateIm", title: "Tanggal", formatter: (value, data) => {
+                field: "date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "shiftIm", title: "Shift" },
-            { field: "operatorIm", title: "Operator" },
-            { field: "machineNoIm", title: "No. Mesin"},
-            { field: "productionOrderNo", title: "No. Order" },
-            { field: "productionOrderType", title: "Jenis Order" },
-            { field: "cartNo", title: "No. Kereta" }
+            { field: "kanban.productionOrder.orderNo", title: "No. Order" },
+            { field: "kanban.productionOrder.orderType.name", title: "Jenis Order" },
+            { field: "kanban.selectedProductionOrderDetail.colorRequest", title: "Warna" },
+            { field: "kanban.cart.cartNumber", title: "No. Kereta" }
         ];
     }
 
@@ -95,9 +93,6 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data._id });
-                break;
-            case "Cetak PDF":
-                this.service.getPdfById(data._id);
                 break;
         }
     }
