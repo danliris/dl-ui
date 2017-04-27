@@ -192,6 +192,7 @@ export class DataForm {
     }
     selectedPointLimitChanged() {
         this.data.pointLimit = this.selectedPointLimit;
+        this.computeGrade(this.selectedFabricGradeTest);
     }
 
     selectedFabricGradeTestChanged() {
@@ -265,6 +266,7 @@ export class DataForm {
     selectedPcsWidthChanged() {
         if (this.selectedFabricGradeTest) {
             this.selectedFabricGradeTest.width = this.selectedPcsWidth;
+            this.computeGrade(this.selectedFabricGradeTest);
             this.fabricGradeTestTable.refresh();
         }
     }
@@ -348,7 +350,7 @@ export class DataForm {
                             this.selectedPointLimit = this.data.pointLimit || 0;
                         } else {
                             this.selectedPointSystem = this.data.pointSystem || 10;
-                            this.selectedPointLimit = this.data.pointLimit || 0;                            
+                            this.selectedPointLimit = this.data.pointLimit || 0;
                         }
                     })
             }
