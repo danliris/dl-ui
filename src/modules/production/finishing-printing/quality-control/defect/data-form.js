@@ -236,11 +236,11 @@ export class DataForm {
         var finalArea = fabricGradeTest.initLength * fabricGradeTest.width;
         var finalScoreTS = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : 0;
         var finalScoreFS = finalArea > 0 && this.data.pointSystem === 4 ? score * 100 / finalArea : 0;
-        var grade = this.data.pointLimit === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
+        var grade = this.data.pointSystem === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
         fabricGradeTest.score = score;
         fabricGradeTest.finalLength = finalLength;
         fabricGradeTest.finalArea = this.data.pointSystem === 4 ? finalArea : 0;
-        fabricGradeTest.finalScore = this.data.pointLimit === 10 ? finalScoreTS : finalScoreFS;
+        fabricGradeTest.finalScore = this.data.pointSystem === 10 ? finalScoreTS : finalScoreFS;
         fabricGradeTest.grade = grade;
         console.log(fabricGradeTest)
     }
