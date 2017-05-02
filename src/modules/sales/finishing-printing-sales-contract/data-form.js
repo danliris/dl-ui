@@ -47,6 +47,8 @@ export class DataForm {
     }
     return this.pointSyst;
   }
+
+  
   
   @computedFrom("data.buyer")
   get buyerType(){
@@ -114,6 +116,13 @@ export class DataForm {
       this.data.termOfPaymentId = selectedPayment._id ? selectedPayment._id : "";
     }
     
+  }
+
+  referenceNumberChanged(e){
+    var selectedReference=e.detail|| {};
+    if (selectedReference) {
+      this.data.referenceNumber = selectedReference.orderNo? selectedReference.orderNo : "";
+    }
   }
 
   comodityChanged(e){
