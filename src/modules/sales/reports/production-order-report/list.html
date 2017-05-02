@@ -1,5 +1,9 @@
 <template>
-
+    <style>
+        table > tbody > tr > td {
+            white-space:pre;
+        }
+    </style>
 <h1 class="page-header">Laporan Monitoring Surat Perintah Produksi</h1>
 <form class="form-horizontal">
     <textbox                    label="Nomor Sales Contract"    value.bind="salesContractNo"	></textbox>
@@ -53,24 +57,24 @@
             <tbody>
                 <tr repeat.for="item of data">
                     <td class="text-center">${$index + 1}</td>
-                    <td class="text-right">${item.salesContractNo}</td>
-                    <td class="text-center">${item._createdDate}</td>
-                    <td class="text-right">${item.orderNo}</td>
-                    <td class="text-right">${item.orderType}</td>
-                    <td class="text-right">${item.processType}</td>
-                    <td class="text-right">${item.buyer}</td>
-                    <td class="text-right">${item.buyerType}</td>
-                    <td class="text-left">${item.orderQuantity}</td>
-                    <td class="text-right">${item.uom}</td>
-                    <td class="text-right">${item.colorTemplate}</td>
-                    <td class="text-right">${item.colorRequest}</td>
-                    <td class="text-right">${item.colorType}</td>
-                    <td class="text-left">${item.quantity}</td>
-                    <td class="text-right">${item.uomDetail}</td>
-                    <td class="text-right">${item.deliveryDate}</td>
-                    <td class="text-right">${item.firstname} ${item.lastname}</td>
-                    <td class="text-right">${item.status}</td>
-                    <td class="text-right">${item.detail}</td>
+                    <td class="text-left">${item.salesContractNo}</td>
+                    <td class="text-left">${item._createdDate}</td>
+                    <td class="text-left">${item.orderNo}</td>
+                    <td class="text-left">${item.orderType}</td>
+                    <td class="text-left">${item.processType}</td>
+                    <td class="text-left">${item.buyer}</td>
+                    <td class="text-left">${item.buyerType}</td>
+                    <td class="text-right">${item.orderQuantity}</td>
+                    <td class="text-left">${item.uom}</td>
+                    <td class="text-left">${item.colorTemplate}</td>
+                    <td class="text-left">${item.colorRequest}</td>
+                    <td class="text-left">${item.colorType}</td>
+                    <td class="text-right">${item.quantity}</td>
+                    <td class="text-left">${item.uomDetail}</td>
+                    <td class="text-left">${item.deliveryDate}</td>
+                    <td class="text-left">${item.firstname} ${item.lastname}</td>
+                    <td class="text-left">${item.status}</td>
+                    <td class="text-left">${item.detail}</td>
                 </tr>
             </tbody>
         </table>
