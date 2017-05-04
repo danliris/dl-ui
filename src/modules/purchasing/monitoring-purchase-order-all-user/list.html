@@ -8,19 +8,85 @@
 
 <h1 class="page-header">Monitoring Pembelian</h1>
 <form class="form-horizontal">
-    <unit-auto-suggest                      label="Unit yang mengajukan"    value.bind="unit"></unit-auto-suggest>
-    <category-auto-suggest                  label="Kategori"                value.bind="category"></category-auto-suggest>
-    <textbox                                label="Nomor External PO"       value.bind="PODLNo"></textbox>
-    <purchase-order-auto-suggest-by-user    label="Nomor PR"                value.bind="purchaseOrder"></purchase-order-auto-suggest-by-user>
-    <supplier-auto-suggest                  label="Supplier"                value.bind="supplier"></supplier-auto-suggest>
-    <datepicker                             label="Tanggal Awal"            value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-    <datepicker                             label="Tanggal Akhir"           value.bind="dateTo" min.bind="dateFrom"></datepicker>
-    <dropdown                               label="Status"                  value.bind="poState" items.bind="poStates"></dropdown>
     <div class="form-group">
-        <label for="contact" class="col-sm-6 control-label"></label>
-        <div class="col-sm-3">
-            <button click.delegate="search()" class='btn btn-success'>Cari</button>
-            <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <au-autocomplete 
+                value.bind="unit" 
+                label="Unit yang mengajukan" 
+                loader.bind="unitLoader"
+                placeholder="nama unit" 
+                key="code">
+            </au-autocomplete>
+
+            <au-autocomplete 
+                value.bind="category" 
+                label="Kategori" 
+                loader.bind="categoryLoader"
+                placeholder="nama kategori" 
+                key="code">
+            </au-autocomplete>
+            
+            <au-autocomplete 
+                value.bind="budget" 
+                label="Budget" 
+                loader.bind="budgetLoader"
+                placeholder="nama budget" 
+                key="code" >
+            </au-autocomplete>
+            
+            <au-textbox 
+                label="Nomor External PO" 
+                value.bind="PODLNo" >
+            </au-textbox>
+
+            <au-autocomplete 
+                value.bind="purchaseOrder" 
+                label="Nomor PR" 
+                loader.bind="purchaseOrderLoader"
+                placeholder="nomor pr" 
+                key="no" >
+            </au-autocomplete>
+
+            <au-autocomplete 
+                value.bind="supplier" 
+                label="Nama Supplier" 
+                loader.bind="supplierLoader"
+                placeholder="nama supplier" 
+                key="code" >
+            </au-autocomplete>
+
+            <au-autocomplete 
+                value.bind="staffName" 
+                label="Nama Staff Pembelian" 
+                loader.bind="accountLoader"
+                placeholder="nama staff pembelian" 
+                key="code" >
+            </au-autocomplete>
+
+            <au-datepicker 
+                label="Tanggal Awal" 
+                value.bind="dateFrom"
+                change.delegate="dateFromChanged($event)" >
+            </au-datepicker>
+
+            <au-datepicker 
+                label="Tanggal Akhir" 
+                value.bind="dateTo"
+                min.bind="dateMin">
+            </au-datepicker>
+
+            <au-dropdown
+                label="Status"
+                value.bind="poState"
+                items.bind="poStates" >
+            </au-dropdown> 
+
+            <label for="contact" class="col-sm-9 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
         </div>
     </div>
     <div>
@@ -32,6 +98,8 @@
                 <tr>
                     <td rowspan="3">NO</td>
                     <td colspan="2">PURCHASE REQUEST</td>
+                    <td rowspan="3">KATEGORI</td>
+                    <td rowspan="3">BUDGET</td>
                     <td rowspan="3">NAMA BARANG</td>
                     <td rowspan="3">KODE BARANG</td>
                     <td rowspan="3">JUMLAH</td>
@@ -51,6 +119,7 @@
                     <td colspan="4">CATATAN KOREKSI</td>
                     <td rowspan="3">KETERANGAN</td>
                     <td rowspan="3">STATUS</td>
+                    <td rowspan="3">STAFF PEMBELIAN</td>
                 </tr>
                 <tr>
                     <td rowspan="2">TANGGAL</td>
@@ -94,6 +163,8 @@
                     <td>${PO['No']}</td>
                     <td>${PO['Tanggal Purchase Request']}</td>
                     <td>${PO['No Purchase Request']}</td>
+                    <td>${PO['Kategori']}</td>
+                    <td>${PO['Budget']}</td>
                     <td>${PO['Nama Barang']}</td>
                     <td>${PO['Kode Barang']}</td>
                     <td align="right">${(PO['Jumlah Barang']).toLocaleString()}</td>
@@ -132,6 +203,7 @@
                     <td>${PO['Ket. Koreksi']}</td>
                     <td>${PO['Keterangan']}</td>
                     <td>${PO['Status']}</td>
+                    <td>${PO['Staff Pembelian']}</td>
                 </tr>
             </tbody>
         </table>

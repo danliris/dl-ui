@@ -26,17 +26,14 @@
         </au-autocomplete>
 
         <div class="row">
-          <!--<div class="col-md-6">
-            <au-textbox label="No. Order" value.one-way="sppNo" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
-          </div>-->
           <div class="col-md-6">
             <au-textbox label="Konstruksi" value.one-way="construction" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
           </div>
         </div>
+        <au-textbox label="Warna" value.one-way="colorRequest" read-only.bind="true"></au-textbox>
         <au-textbox label="Jumlah Order" value.one-way="orderQuantity" read-only.bind="true"></au-textbox>
         <au-textbox label="Packing Instruction" value.one-way="packingInstruction" read-only.bind="true"></au-textbox>
         <au-dropdown label="Point System" value.bind="selectedPointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly"></au-dropdown>
-        <!--<au-textbox label="Point Limit" value.bind="pointLimit" read-only.bind="true"></au-textbox>-->
         <au-textbox label="Point Limit" value.bind="selectedPointLimit" if.bind="selectedPointSystem == 4" read-only.bind="readOnly || isEdit"
           error.bind="error.pointLimit"></au-textbox>
 
@@ -107,6 +104,8 @@
           <div class="col-md-6">
             <au-numeric label="Score" value.bind="selectedFabricGradeTest.finalScore" error.bind="error.finalScore" read-only.bind="true"
               options.bind="layoutOptions2"></au-numeric>
+            <au-numeric label="Total Defect" value.bind="selectedFabricGradeTest.score" error.bind="error.finalScore" read-only.bind="true"
+              options.bind="layoutOptions2"></au-numeric>
           </div>
           <div class="col-md-6">
             <au-textbox label="Grade" value.bind="selectedFabricGradeTest.grade" error.bind="error.grade" read-only.bind="true" options.bind="layoutOptions2"></au-textbox>
@@ -119,7 +118,6 @@
         </div>
       </div>
     </div>
-    <!--<button click.delegate="console()">console.log()</button>-->
   </au-input-form>
 
 </template>

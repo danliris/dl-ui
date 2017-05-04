@@ -16,6 +16,8 @@
 
         <au-textbox label="Tipe Buyer" value.bind="data.buyer.type" error.bind="error.buyer.type" read-only="true" if.bind="data.buyer" keypress.delegate="enterDelegate($event)"></au-textbox>
 
+        <au-textbox label="Nomor Referensi" value.bind="data.referenceNumber" error.bind="error.referenceNumber" placeholder="input nomor referensi"
+          read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)"></au-textbox>
 
         <au-textbox label="Nomor Disposisi" value.bind="data.dispositionNumber" error.bind="error.dispositionNumber" placeholder="input nomor disposisi"
           read-only.bind="(readOnly || isEdit)" keypress.delegate="enterDelegate($event)"></au-textbox>
