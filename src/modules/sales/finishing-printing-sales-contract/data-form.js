@@ -178,6 +178,7 @@ export class DataForm {
           this.data.remark="";
           this.data.useIncomeTax=false;
           this.data.termOfShipment="";
+          this.data.shipmentDescription="";
       }
           
     }
