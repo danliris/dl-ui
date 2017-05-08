@@ -7,9 +7,10 @@ import {Service} from './service';
 export class List {
     data = [];
     listReport = [
-        "2072be69-b79e-496e-b872-959fd881970c",//Top Ten Konstruksi
-        "7a433e2e-25fe-4b2e-8252-c806a4c1167a",//Top Ten Buyer
-        "26d7b499-2350-4833-a4ff-ddaf01d3b4cd"//Total Order Produksi
+        "Top Ten Konstruksi",
+        "Top Ten Buyer",
+        "Total Order Produksi",
+        "Status Order Produksi"
     ];
     constructor(router, service) {
         this.router = router;
@@ -20,7 +21,7 @@ export class List {
         this.service.search('')
             .then(data => {
                 for (var report of this.listReport) {
-                    var _data = data.find((_data) => _data.id === report);
+                    var _data = data.find((_data) => _data.name === report);
                     if (_data) {
                         this.data.push(_data);
                     }
