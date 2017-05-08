@@ -10,6 +10,8 @@ export class List {
         "Top Ten Event Monitoring",
         "Kapasitas Mesin VS Total Output Produksi",
         "Good Output VS Bad Output Produksi",
+        "Perbandingan Hasil QC",
+        "Top Ten Defect",
     ];
     constructor(router, service) {
         this.router = router;
