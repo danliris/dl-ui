@@ -33,7 +33,7 @@ export class List {
 
     searching() {
         if (this.filter) {
-            this.info.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
+            this.info.duration = this.filter.duration ? this.filter.duration : "0-30 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         } else {
@@ -56,7 +56,7 @@ export class List {
     ExportToExcel() {
 
         if (this.filter) {
-            this.info.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
+            this.info.duration = this.filter.duration ? this.filter.duration : "0-30 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         } else {
