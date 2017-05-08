@@ -7,7 +7,7 @@
     <div class="panel-body">
       <slot name="body"></slot>
     </div>
-    <table class="table table-hover table-border">
+    <table class="table table-hover table-bordered">
       <!--THEAD-->
       <template replaceable part="thead">
         <thead if.bind="!headerTemplate && __hasColumns">
@@ -31,7 +31,7 @@
         </tr>
         <!--No data to display-->
         <tr if.bind="__hasColumns && !__hasItems">
-          <td colspan="${columns.length + (!readOnly && buttons.remove ? 1 : 0)}">
+          <td colspan="${columns.length + (!readOnly || buttons.remove ? 1 : 0)}">
             <div class="alert alert-info"> No data.</div>
           </td>
         </tr>

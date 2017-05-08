@@ -71,7 +71,7 @@
     "aurelia-api": "^3.1.0",
     "aurelia-authentication": "^3.1.0",
     "aurelia-bootstrapper-webpack": "^1.1.0",
-    "aurelia-dialog": "^1.0.0-beta.3.0.1",
+    "aurelia-dialog": "1.0.0-beta.3.0.1",
     "aurelia-event-aggregator": "^1.0.0",
     "aurelia-fetch-client": "^1.0.1",
     "aurelia-framework": "^1.0.7",
