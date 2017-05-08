@@ -1,0 +1,76 @@
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
+import moment from 'moment';
+@inject(Router, Service)
+export class List {
+
+
+    info = {
+        duration: "",
+        dateFrom: "",
+        dateTo: "",
+
+    };
+    duration='';
+    dateFrom = null;
+    dateTo = null;
+
+    durationItems=["8-14 hari", "15-30 hari", "> 30 hari"]
+
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
+
+    }
+
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
+
+    }
+
+    searching() {
+        if (this.filter) {
+            this.info.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
+            this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+        } else {
+            this.info = {};
+        }
+        this.service.search(this.info)
+            .then(result => {
+                this.data = result.info;
+            })
+    }
+
+
+    changePage(e) {
+
+        var page = e.detail;
+        this.info.page = page;
+        this.loadPage();
+    }
+
+    ExportToExcel() {
+
+        if (this.filter) {
+            this.info.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
+            this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+        } else {
+            this.info = {};
+        }
+        this.service.generateExcel(this.info);
+    }
+
+    
+    reset() {
+        this.filter = {};
+        this.data = [];
+    }
+
+
+
+}
