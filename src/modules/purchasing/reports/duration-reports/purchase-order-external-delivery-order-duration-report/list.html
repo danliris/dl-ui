@@ -56,6 +56,7 @@
                         <td >Tanggal Surat Jalan</td>
                         <td >Tanggal Datang Barang</td>
                         <td >No Surat Jalan</td>
+                        <td >Selisih Tanggal PO Eksternal - Surat Jalan (hari)</td>
                         <td >Nama Staff Pembelian</td>
                         
                     </tr>
@@ -83,6 +84,7 @@
                         <td>${item.doDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.arrivedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.doNo}</td>
+                        <td>${item.dateDiff}</td>
                         <td>${item.staff}</td>
                     </tr>
                 </tbody>

@@ -47,6 +47,7 @@
                         <td >Jumlah Barang</td>
                         <td >Satuan Barang</td>
                         <td >Tanggal Terima PO Internal</td>
+                        <td >Selisih Tanggal PR - PO Internal (hari)</td>
                         <td >Nama Staff Pembelian</td>
                         
                     </tr>
@@ -65,6 +66,7 @@
                         <td>${item.productQuantity}</td>
                         <td>${item.productUom}</td>
                         <td>${item.poDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.dateDiff}</td>
                         <td>${item.staff}</td>
                     </tr>
                 </tbody>

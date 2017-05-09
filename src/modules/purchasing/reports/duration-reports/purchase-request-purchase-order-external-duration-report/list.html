@@ -53,6 +53,7 @@
                         <td >Tanggal PO Eksternal</td>
                         <td >Tanggal Target Datang</td>
                         <td >No PO Eksternal</td>
+                        <td >Selisih Tanggal PR - PO Eksternal (hari)</td>
                         <td >Nama Staff Pembelian</td>
                         
                     </tr>
@@ -77,6 +78,7 @@
                         <td>${item.poEksDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.expectedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.poEksNo}</td>
+                        <td>${item.dateDiff}</td>
                         <td>${item.staff}</td>
                     </tr>
                 </tbody>
