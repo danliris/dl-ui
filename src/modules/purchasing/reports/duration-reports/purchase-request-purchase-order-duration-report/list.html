@@ -38,6 +38,8 @@
                         <td>No</td>
                         <td >Tanggal Purchase Request</td>
                         <td >No Purchase Request</td>
+                        <td >Divisi</td>
+                        <td >Unit</td>
                         <td >Budget</td>
                         <td >Kategori</td>
                         <td >Kode Barang</td>
@@ -45,6 +47,7 @@
                         <td >Jumlah Barang</td>
                         <td >Satuan Barang</td>
                         <td >Tanggal Terima PO Internal</td>
+                        <td >Selisih Tanggal PR - PO Internal (hari)</td>
                         <td >Nama Staff Pembelian</td>
                         
                     </tr>
@@ -52,15 +55,18 @@
                 <tbody>
                     <tr repeat.for="item of data">
                         <td class="text-center">${$index + 1}</td>
-                        <td>${item.prDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.prDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.prNo}</td>
+                        <td>${item.division}</td>
+                        <td>${item.unit}</td>
                         <td>${item.budget}</td>
                         <td>${item.category}</td>
                         <td>${item.productCode}</td>
                         <td>${item.productName}</td>
                         <td>${item.productQuantity}</td>
                         <td>${item.productUom}</td>
-                        <td>${item.poDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.poDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.dateDiff}</td>
                         <td>${item.staff}</td>
                     </tr>
                 </tbody>

@@ -38,6 +38,8 @@
                         <td>No</td>
                         <td >Tanggal Purchase Request</td>
                         <td >No Purchase Request</td>
+                        <td >Divisi</td>
+                        <td >Unit</td>
                         <td >Budget</td>
                         <td >Kategori</td>
                         <td >Kode Barang</td>
@@ -54,6 +56,7 @@
                         <td >Tanggal Surat Jalan</td>
                         <td >Tanggal Datang Barang</td>
                         <td >No Surat Jalan</td>
+                        <td >Selisih Tanggal PO Eksternal - Surat Jalan (hari)</td>
                         <td >Nama Staff Pembelian</td>
                         
                     </tr>
@@ -61,8 +64,10 @@
                 <tbody>
                     <tr repeat.for="item of data">
                         <td class="text-center">${$index + 1}</td>
-                        <td>${item.prDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.prDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.prNo}</td>
+                        <td>${item.division}</td>
+                        <td>${item.unit}</td>
                         <td>${item.budget}</td>
                         <td>${item.category}</td>
                         <td>${item.productCode}</td>
@@ -72,13 +77,14 @@
                         <td>${item.productPrice}</td>
                         <td>${item.supplierCode}</td>
                         <td>${item.supplierName}</td>
-                        <td>${item.poDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${item.poEksDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${item.expectedDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.poDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.poEksDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.expectedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.poEksNo}</td>
-                        <td>${item.doDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${item.arrivedDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.doDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.arrivedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.doNo}</td>
+                        <td>${item.dateDiff}</td>
                         <td>${item.staff}</td>
                     </tr>
                 </tbody>

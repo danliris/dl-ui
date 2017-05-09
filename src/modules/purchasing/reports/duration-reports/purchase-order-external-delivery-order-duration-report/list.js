@@ -42,6 +42,9 @@ export class List {
         this.service.search(this.info)
             .then(result => {
                 this.data = result.info;
+                for(var a of this.data){
+                    a.dateDiff=Math.round(a.dateDiff);
+                }
             })
     }
 
