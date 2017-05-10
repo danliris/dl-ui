@@ -35,7 +35,7 @@ export class List {
         if (this.filter) {
             this.info.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
-            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
             this.info = {};
         }
@@ -61,7 +61,7 @@ export class List {
         if (this.filter) {
             this.info.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
-            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
             this.info = {};
         }
