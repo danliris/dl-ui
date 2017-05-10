@@ -35,9 +35,9 @@ export class DataForm {
     @bindable data;
     @bindable error;
 
-    kanbanFields = ["code", "cart", "productionOrder"];
+    kanbanFields = ["code", "cart", "productionOrder", "selectedProductionOrderDetail"];
     salesContractFields = ["pointSystem", "pointLimit"];
-    pointSystemOptions = [4, 10]
+    pointSystemOptions = [4, 10];
     shiftOptions = [
         "Shift I: 06.00 - 14.00",
         "Shift II: 14.00 - 22.00",
@@ -118,6 +118,13 @@ export class DataForm {
         return `${this.selectedKanban.productionOrder.packingInstruction}`
     }
 
+    @computedFrom("selectedKanban.selectedProductionOrderDetail.colorRequest")
+    get colorRequest() {
+        if (!this.selectedKanban)
+            return "-";
+        return `${this.selectedKanban.selectedProductionOrderDetail.colorRequest}`
+    }
+
     @computedFrom("data.pointSystem")
     get criteriaColumns() {
         if (this.data.pointSystem === 10)
@@ -192,6 +199,7 @@ export class DataForm {
     }
     selectedPointLimitChanged() {
         this.data.pointLimit = this.selectedPointLimit;
+        this.computeGrade(this.selectedFabricGradeTest);
     }
 
     selectedFabricGradeTestChanged() {
@@ -236,11 +244,11 @@ export class DataForm {
         var finalArea = fabricGradeTest.initLength * fabricGradeTest.width;
         var finalScoreTS = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : 0;
         var finalScoreFS = finalArea > 0 && this.data.pointSystem === 4 ? score * 100 / finalArea : 0;
-        var grade = this.data.pointLimit === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
+        var grade = this.data.pointSystem === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
         fabricGradeTest.score = score;
         fabricGradeTest.finalLength = finalLength;
         fabricGradeTest.finalArea = this.data.pointSystem === 4 ? finalArea : 0;
-        fabricGradeTest.finalScore = this.data.pointLimit === 10 ? finalScoreTS : finalScoreFS;
+        fabricGradeTest.finalScore = this.data.pointSystem === 10 ? finalScoreTS.toFixed(2) : finalScoreFS.toFixed(2);
         fabricGradeTest.grade = grade;
         console.log(fabricGradeTest)
     }
@@ -265,6 +273,7 @@ export class DataForm {
     selectedPcsWidthChanged() {
         if (this.selectedFabricGradeTest) {
             this.selectedFabricGradeTest.width = this.selectedPcsWidth;
+            this.computeGrade(this.selectedFabricGradeTest);
             this.fabricGradeTestTable.refresh();
         }
     }
@@ -348,7 +357,7 @@ export class DataForm {
                             this.selectedPointLimit = this.data.pointLimit || 0;
                         } else {
                             this.selectedPointSystem = this.data.pointSystem || 10;
-                            this.selectedPointLimit = this.data.pointLimit || 0;                            
+                            this.selectedPointLimit = this.data.pointLimit || 0;
                         }
                     })
             }

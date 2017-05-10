@@ -1,6 +1,13 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+var moment = require('moment');
+var UnitLoader = require('../../../loader/unit-loader');
+var BudgetLoader = require('../../../loader/budget-loader');
+var CategoryLoader = require('../../../loader/category-loader');
+var SupplierLoader = require('../../../loader/supplier-loader');
+var AccountLoader = require('../../../loader/account-loader');
+var PurchaseOrderLoader = require('../../../loader/purchase-order-by-user-loader');
 
 @inject(Router, Service)
 export class List {
@@ -40,7 +47,7 @@ export class List {
             "name": "Complete",
             "value": 9
         }];
-    purchaseOrder = {};
+
 
     constructor(router, service) {
         this.service = service;
@@ -52,6 +59,7 @@ export class List {
             }
             return poState;
         })
+        this.data = [];
     }
     attached() {
     }
@@ -70,35 +78,64 @@ export class List {
         moment.locale(locale);
         if (!this.poState)
             this.poState = this.poStates[0];
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder.purchaseRequest ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "", this.staffName ? this.staffName.username : "")
             .then(data => {
                 this.data = data;
             })
     }
 
     reset() {
-        this.unit = "undefined";
-        this.category = "undefined";
+        this.unit = "";
+        this.category = "";
         this.PODLNo = "";
-        this.purchaseOrder = {};
-        this.supplier = "undefined";
+        this.purchaseOrder = "";
+        this.supplier = "";
         this.dateFrom = null;
         this.dateTo = null;
         this.poState = this.poStates[0];
+        this.budget = "";
+        this.staffName = "";
+        this.data = [];
     }
 
     exportToXls() {
         if (!this.poState)
             this.poState = this.poStates[0];
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder.purchaseRequest ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value);
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "", this.staffName ? this.staffName.username : "");
     }
 
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);
+        this.dateMin = moment(_startDate).format("YYYY-MM-DD");
 
-        if (_startDate > _endDate)
+        if (_startDate > _endDate || !this.dateTo) {
             this.dateTo = e.srcElement.value;
+        }
 
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    get budgetLoader() {
+        return BudgetLoader;
+    }
+
+    get categoryLoader() {
+        return CategoryLoader;
+    }
+
+    get purchaseOrderLoader() {
+        return PurchaseOrderLoader;
+    }
+
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    get accountLoader() {
+        return AccountLoader;
     }
 }
