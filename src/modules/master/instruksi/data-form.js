@@ -26,7 +26,6 @@ export class DataForm {
             { header: "Step", value: "step" },
         ],
         onAdd: function () {
-            debugger
             this.data.steps = this.data.steps || [];
             this.data.steps.push({ step: "", stepIndicators: [] });
         }.bind(this),
