@@ -48,7 +48,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            packing: 
+            // packing: 
         }
 
         return this.service.search(arg)
