@@ -1,0 +1,121 @@
+<template>
+    <au-input-form 
+      title="Laporan Stock In/Out">
+        <!--<style>
+            table > tbody > tr > td {
+                white-space: pre;
+            }
+        </style>-->
+
+        <div class="row">
+          <div class="col-md-6">
+              <form class="form-horizontal">
+
+                <au-autocomplete 
+                  value.bind="productionOrder" 
+                  label="Storage" 
+                  change.delegate="productionOrderChanged($event)"
+                  loader.bind="productionOrderLoader" 
+                  placeholder="Input Storage" 
+                  key="code" 
+                  text="storageName">
+                </au-autocomplete>
+
+                <au-dropdown
+                  label="Status"
+                  items.bind="statusOptions"
+                ></au-dropdown>
+                
+                <au-datepicker 
+                  label="Tanggal Awal" 
+                  value.bind="dateFrom"
+                ></au-datepicker>
+
+                <au-datepicker 
+                  label="Tanggal Akhir" 
+                  value.bind="dateTo"
+                ></au-datepicker>
+
+                <div class="btn-group pull-right">
+                    <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+
+                <!--<div class="btn-group pull-left">
+                    <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+                </div>-->
+            </form>
+          </div>
+        </div>
+
+        <br>
+        </br>
+
+        <au-table
+            view-model.ref="movementTable"
+          data.bind="loader"
+          columns.bind="columns"
+          sortable.bind="true"
+          page-size="25"
+          context.bind="context"
+          context-click.delegate="contextCallback($event)">
+          
+          <div slot="toolbar" class="btn-group">
+            <button class="btn btn-default" click.delegate="ExportToExcel()">Excel</button>
+          </div>
+        </au-table>
+
+
+        <!--<div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <thead align="center">
+                    <tr>
+                        <td>Storage</td>
+                        <td>Tanggal</td>
+                        <td>Nama Barang</td>
+                        <td>UOM</td>
+                        <td>Before</td>
+                        <td>Kuantiti</td>
+                        <td>After</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td class="text-center">${item.no}</td>
+                        <td>${item.orderNo}</td>
+                        <td>${item.construction}</td>
+                        <td>${item.colorRequest}</td>
+                        <td>${item.cartNumber}</td>
+                        <td>${item.orderTypeName}</td>
+                        <td>${item.date | dateFormat:'DD MMMM YYYY'}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>-->
+
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <hr/>
+        </form>
+    </au-input-form>
+</template>
+
+
+
+<!--<template>
+    <h1 class="page-header">Stock Report</h1> 
+    <au-table 
+        view-model.ref="table" 
+        data.bind="loadData" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextClickCallback($event)"
+        context-show.call="contextShowCallback(index, context, data)">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
+        </div>
+    </au-table>
+</template>-->
