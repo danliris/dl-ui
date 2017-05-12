@@ -9,12 +9,12 @@
         <h1 class="page-header">Laporan Pemeriksaan Kain</h1>
         <form class="form-horizontal">
 
-            <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" change.delegate="productionOrderNoChanged($event)" loader.bind="fabricQCLoader"
-                placeholder="cari nomor order" key="productionOrderNo" text="productionOrderNo">
+            <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" change.delegate="productionOrderNoChanged($event)"
+                loader.bind="fabricQCLoader" placeholder="cari nomor order" key="productionOrderNo" text="productionOrderNo">
             </au-autocomplete>
 
-            <au-autocomplete value.bind="filter.cartNo" label="Nomor Kereta" change.delegate="cartNoChanged($event)"
-                loader.bind="fabricQCLoader" placeholder="cari nomor kereta" key="cartNo" text="cartNo">
+            <au-autocomplete value.bind="filter.cartNo" label="Nomor Kereta" change.delegate="cartNoChanged($event)" loader.bind="fabricQCLoader"
+                placeholder="cari nomor kereta" key="cartNo" text="cartNo">
             </au-autocomplete>
 
             <au-autocomplete value.bind="filter.productionOrderType" label="Jenis Order" change.delegate="productionOrderTypeChanged($event)"
@@ -47,10 +47,9 @@
                 <thead align="center">
                     <tr>
                         <td rowspan="3">No</td>
-                        <td rowspan="3">Nomor Kanban</td>
-                        <td rowspan="3">Nomor Kereta</td>
-                        <td rowspan="3">Jenis Order</td>
                         <td rowspan="3">Nomor Order</td>
+                        <td rowspan="3">Jenis Order</td>
+                        <td rowspan="3">Nomor Kereta</td>
                         <td rowspan="3">Tanggal IM</td>
                         <td rowspan="3">Shift</td>
                         <td rowspan="3">Operator IM</td>
@@ -72,10 +71,9 @@
                 <tbody>
                     <tr repeat.for="item of newData">
                         <td class="text-center">${item.no}</td>
-                        <td>${item.kanbanCode}</td>
-                        <td>${item.cartNo}</td>
-                        <td>${item.productionOrderType}</td>
                         <td>${item.productionOrderNo}</td>
+                        <td>${item.productionOrderType}</td>
+                        <td>${item.cartNo}</td>
                         <td>${item.dateIm | dateFormat:'DD MMMM YYYY'}</td>
                         <td>${item.shiftIm}</td>
                         <td>${item.operatorIm}</td>
@@ -96,7 +94,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+        <div class="alert alert-info text-center" role="alert" if.bind="newData.length === 0">
             Tidak ada data.
         </div>
         <hr/>

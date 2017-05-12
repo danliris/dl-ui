@@ -45,7 +45,7 @@ export class List {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+        this.newData = [];
     }
 
     searching() {
@@ -63,7 +63,6 @@ export class List {
             .then(result => {
                 var tempData;
                 this.no = 0;
-                this.newData = [];
                 for (var i = 0; i < result.data.length; i++) {
                     for (var j = 0; j < result.data[i].fabricGradeTests.length; j++) {
                         tempData = {};
@@ -144,7 +143,7 @@ export class List {
 
     reset() {
         this.filter = {};
-        this.data = [];
+        this.newData = [];
     }
 
 
