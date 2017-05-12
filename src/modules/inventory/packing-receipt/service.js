@@ -3,18 +3,18 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'purchase-orders/by-user';
+const serviceUri = 'inventory/packing-receipts';
+const packingServiceUri = 'finishing-printing/quality-control/packings';
+const productionOrderServiceUri = 'sales/production-orders';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
-        debugger
+        super(http, aggregator, config, "production");
     }
 
     search(info) {
         var endpoint = `${serviceUri}`;
-        debugger
         return super.list(endpoint, info);
     }
 
@@ -28,10 +28,10 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
-    split(data) {
-        var endpoint = 'purchase-orders/split';
-        return super.post(endpoint, data);
-    }
+    // split(data) {
+    //     var endpoint = 'purchase-orders/split';
+    //     return super.post(endpoint, data);
+    // }
 
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
@@ -45,5 +45,17 @@ export class Service extends RestService {
     getPR(id) {
         var endpoint = `${serviceUriPr}/${id}`;
         return super.get(endpoint);
+    }
+
+    searchPacking(info) {
+        var endpoint = `${packingServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getProductionOrderByNo(orderNo, select) {
+        debugger
+        var endpoint = `${productionOrderServiceUri}/${orderNo.replace("/", "").replace("/", "")}`;
+        var info = { select: select };
+        return super.get(endpoint, null, info);
     }
 }
