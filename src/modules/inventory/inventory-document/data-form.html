@@ -11,7 +11,7 @@
         </div>
 
         <au-textbox 
-            label="Kode" 
+            label="No. Dokumen" 
             value.bind="data.code" 
             error.bind="error.code" 
             read-only.bind="true"
@@ -42,7 +42,7 @@
         </au-textbox>
 
         <au-dropdown
-            label="Tipe"
+            label="Status"
             value.bind="data.type"
             error.bind="error.type"
             read-only.bind="readOnly"
@@ -53,7 +53,7 @@
         <au-autocomplete 
             value.bind="selectedStorage" 
             error.bind="error.storageId"
-            label="Penyimpanan" 
+            label="Storage" 
             change.delegate="selectedStorageChanged($event)" 
             loader.bind="storageLoader"
             text.bind = "storageView"

@@ -4,7 +4,7 @@ module.exports = [
         name: 'accounts',
         moduleId: './modules/inventory/inventory-document/index',
         nav: true,
-        title: 'Dokumen Inventaris',
+        title: 'Dokumen Inventory',
         auth: true,
         settings: {
             group: "Inventory",

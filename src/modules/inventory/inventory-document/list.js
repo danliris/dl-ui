@@ -17,6 +17,7 @@ export class List {
   context = ["detail"]
 
   columns = [
+    { field: "code", title: "No. Dokumen" },
     {
       field: "date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
@@ -24,8 +25,7 @@ export class List {
     },
     { field: "referenceNo", title: "No. Referensi" },
     { field: "referenceType", title: "Jenis Referensi" },
-    { field: "type", title: "Tipe" },
-    { field: "storageName", title: "Penyimpanan" }
+    { field: "type", title: "Status" }
   ];
 
   loader = (info) => {
@@ -37,7 +37,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["date", "referenceNo", "referenceType","type", "storageName"],
+      select: ["date", "code", "referenceNo", "referenceType", "type"],
       order: order
     }
 

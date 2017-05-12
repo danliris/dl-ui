@@ -26,6 +26,11 @@ export class DataForm {
         }
     }
 
+    @computedFrom("data._id")
+    get isEdit() {
+        return (this.data._id || '').toString() != '';
+    }
+
     types = ["IN", "OUT", "RET-IN", "RET-OUT"];
 
     itemsColumns = [
