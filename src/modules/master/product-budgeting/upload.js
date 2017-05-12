@@ -54,7 +54,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Barang, Nama Barang, Satuan, Mata Uang, Harga, Keterangan");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Barang, Nama Barang, Satuan, Mata Uang, Harga, Tags, Keterangan");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");

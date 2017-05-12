@@ -47,7 +47,7 @@
                 <textbox                    label="Ongkos Angkut"      value.bind="data.transportFee"       error.bind="error.transportFee"                       read-only.bind="readOnly"  ></textbox>
                 <textbox                    label="Dikirim ke"      value.bind="data.deliveredTo"       error.bind="error.deliveredTo"                       read-only.bind="readOnly"  ></textbox>
                 <datepicker                 label="Jadwal Pengiriman"        value.bind="data.deliverySchedule"          error.bind="error.deliverySchedule"             read-only.bind="readOnly"></datepicker>
-                <multiline                  label="Keterangan Shipment"     value.bind="data.shipmentDescription"    error.bind="error.shipmentDescription"       read-only.bind="(readOnly)" rows.bind="8"></multiline>
+                <multiline                  label="Keterangan Shipment"     value.bind="data.shipmentDescription"    error.bind="error.shipmentDescription"       read-only.bind="(readOnly)" rows.bind="8" if.bind="buyerType"></multiline>
                 <multiline                  label="Kondisi"     value.bind="data.condition"    error.bind="error.condition"       read-only.bind="(readOnly)" rows.bind="8"></multiline>
                 <buyer-auto-suggest         label="Agen"        value.bind="data.agent"       error.bind="error.agent"                       read-only.bind="readOnly"  if.bind="buyerType" change.delegate="agentChanged($event)"></buyer-auto-suggest>
                 <textbox                    label="Komisi"      value.bind="data.comission"       error.bind="error.comission"                       read-only.bind="readOnly"  if.bind="buyerType"></textbox>
