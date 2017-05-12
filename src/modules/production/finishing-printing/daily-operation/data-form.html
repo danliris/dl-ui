@@ -2,138 +2,143 @@
     <form class="form-horizontal">
         <div class="row">
             <div  class="col-md-6" style="padding:0">
+                <fieldset>
+                    <machine-auto-suggest
+                        label="Mesin"
+                        value.bind="data.machine"
+                        error.bind="error.machine"
+                        read-only.bind="readOnly"
+                        filter.bind="filterMachine"
+                        change.delegate="machineChanged($event)">
+                    </machine-auto-suggest>
 
-                <machine-auto-suggest
-                    label="Mesin"
-                    value.bind="data.machine"
-                    error.bind="error.machine"
-                    read-only.bind="readOnly"
-                    filter.bind="filterMachine"
-                    change.delegate="machineChanged($event)">
-                </machine-auto-suggest>
+                    <step-auto-suggest
+                        label="Step / Proses"
+                        value.bind="data.step"
+                        error.bind="error.step"
+                        read-only.bind="readOnly"
+                        change.delegate="stepChanged($event)"
+                        filter.bind="filterStep || isFilterStep"
+                        if.bind="hasMachine">
+                    </step-auto-suggest>
 
-                <step-auto-suggest
-                    label="Step / Proses"
-                    value.bind="data.step"
-                    error.bind="error.step"
-                    read-only.bind="readOnly"
-                    change.delegate="stepChanged($event)"
-                    filter.bind="filterStep || isFilterStep"
-                    if.bind="hasMachine">
-                </step-auto-suggest>
+                    <kanban-auto-suggest
+                        label="Nomor Order Produksi - Kereta"
+                        value.bind="data.kanban"
+                        error.bind="error.kanban"
+                        read-only.bind="readOnly"
+                        filter.bind = "filterKanban || isFilterKanban"
+                        change.delegate="kanbanChanged($event)"
+                        if.bind="hasStep"
+                        >
+                    </kanban-auto-suggest>
 
-                <kanban-auto-suggest
-                    label="Nomor Order Produksi - Kereta"
-                    value.bind="data.kanban"
-                    error.bind="error.kanban"
-                    read-only.bind="readOnly"
-                    filter.bind = "filterKanban || isFilterKanban"
-                    change.delegate="kanbanChanged($event)"
-                    if.bind="hasStep"
-                    >
-                </kanban-auto-suggest>
+                    <dropdown
+                        label="Shift"
+                        value.bind="data.shift"
+                        error.bind="error.shift"
+                        read-only.bind="readOnly"
+                        items.bind="shiftOptions">
+                    </dropdown>
+                    
+                    <au-datetimepicker label="Tanggal Input" value.bind="localInputDate" error.bind="error.dateInput" options.bind="auInputOptions" read-only.bind="readOnlyInput" if.bind="input"></au-datetimepicker>
+            
+                    <!--<datepicker
+                        label="Tanggal Input"
+                        value.bind="data.dateInput"
+                        error.bind="error.dateInput"
+                        read-only.bind="readOnlyInput"
+                        if.bind="input">
+                    </datepicker>
 
-                <dropdown
-                    label="Shift"
-                    value.bind="data.shift"
-                    error.bind="error.shift"
-                    read-only.bind="readOnly"
-                    items.bind="shiftOptions">
-                </dropdown>
-                
-                <datepicker
-                    label="Tanggal Input"
-                    value.bind="data.dateInput"
-                    error.bind="error.dateInput"
-                    read-only.bind="readOnlyInput"
-                    if.bind="input">
-                </datepicker>
+                    <timepicker 
+                        label="Jam Input" 
+                        value.bind="timeInput" 
+                        error.bind="error.timeInput" 
+                        disabled.bind="readOnlyInput" 
+                        showsecond.bind="timePickerShowSecond" 
+                        format.bind="timePickerFormat" 
+                        change.delegate=timeInputChanged($event)
+                        if.bind="input">
+                    </timepicker>-->
 
-                <timepicker 
-                    label="Jam Input" 
-                    value.bind="timeInput" 
-                    error.bind="error.timeInput" 
-                    disabled.bind="readOnlyInput" 
-                    showsecond.bind="timePickerShowSecond" 
-                    format.bind="timePickerFormat" 
-                    change.delegate=timeInputChanged($event)
-                    if.bind="input">
-                </timepicker>
-
-                <div class="row" if.bind="input">
-                    <div class="col-sm-4" style="padding-left:27%">    
-                        <textbox    label="Input"  read-only="true"></textbox>
+                    <div class="row" if.bind="input">
+                        <div class="col-sm-4" style="padding-left:27%">    
+                            <textbox    label="Input"  read-only="true"></textbox>
+                        </div>
+                        <div class="col-sm-3">    
+                            <numeric
+                                value.bind="data.input"
+                                error.bind="error.input"
+                                read-only.bind="readOnlyInput">
+                            </numeric>
+                        </div>
+                        <div class="col-sm-2">    
+                            <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban" read-only="true"></textbox>
+                        </div>
                     </div>
-                    <div class="col-sm-3">    
-                        <numeric
-                            value.bind="data.input"
-                            error.bind="error.input"
-                            read-only.bind="readOnlyInput">
-                        </numeric>
-                    </div>
-                    <div class="col-sm-2">    
-                        <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban" read-only="true"></textbox>
-                    </div>
-                </div>
 
-                <datepicker
-                    label="Tanggal Output"
-                    value.bind="data.dateOutput" 
-                    error.bind="error.dateOutput"
-                    read-only.bind="readOnlyOutput"
-                    if.bind="output">
-                </datepicker>
+                    <au-datetimepicker label="Tanggal Output" value.bind="localOutputDate" error.bind="error.dateOutput" options.bind="auInputOptions" read-only.bind="readOnlyOutput" if.bind="output"></au-datetimepicker>
 
-                <timepicker 
-                    label="Jam Output" 
-                    value.bind="timeOutput" 
-                    error.bind="error.timeOutput" 
-                    disabled.bind="readOnlyOutput" 
-                    showsecond.bind="timePickerShowSecond" 
-                    format.bind="timePickerFormat" 
-                    change.delegate=timeOutputChanged($event)
-                    if.bind="output">>
-                </timepicker>
+                    <!--<datepicker
+                        label="Tanggal Output"
+                        value.bind="data.dateOutput" 
+                        error.bind="error.dateOutput"
+                        read-only.bind="readOnlyOutput"
+                        if.bind="output">
+                    </datepicker>
 
-                <div class="row" if.bind="output">
-                    <div class="col-sm-4" style="padding-left:25%">    
-                        <textbox    label="Good Output"  read-only="true"></textbox>
-                    </div>
-                    <div class="col-sm-3"> 
-                        <numeric
-                            value.bind="data.goodOutput"
-                            error.bind="error.goodOutput"
-                            read-only.bind="readOnlyOutput">
-                        </numeric>
-                    </div>
-                    <div class="col-sm-2">    
-                        <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></textbox>
-                    </div>
-                </div>
+                    <timepicker 
+                        label="Jam Output" 
+                        value.bind="timeOutput" 
+                        error.bind="error.timeOutput" 
+                        disabled.bind="readOnlyOutput" 
+                        showsecond.bind="timePickerShowSecond" 
+                        format.bind="timePickerFormat" 
+                        change.delegate=timeOutputChanged($event)
+                        if.bind="output">>
+                    </timepicker>-->
 
-                <div class="row" if.bind="output">
-                    <div class="col-sm-4" style="padding-left:25%">    
-                        <textbox    label="Bad OutPut"  read-only="true"></textbox>
+                    <div class="row" if.bind="output">
+                        <div class="col-sm-4" style="padding-left:25%">    
+                            <textbox    label="Good Output"  read-only="true"></textbox>
+                        </div>
+                        <div class="col-sm-3"> 
+                            <numeric
+                                value.bind="data.goodOutput"
+                                error.bind="error.goodOutput"
+                                read-only.bind="readOnlyOutput">
+                            </numeric>
+                        </div>
+                        <div class="col-sm-2">    
+                            <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></textbox>
+                        </div>
                     </div>
-                    <div class="col-sm-3"> 
-                        <numeric
-                            value.bind="data.badOutput"
-                            error.bind="error.badOutput"
-                            read-only.bind="readOnlyOutput">
-                        </numeric>
+
+                    <div class="row" if.bind="output">
+                        <div class="col-sm-4" style="padding-left:25%">    
+                            <textbox    label="Bad OutPut"  read-only="true"></textbox>
+                        </div>
+                        <div class="col-sm-3"> 
+                            <numeric
+                                value.bind="data.badOutput"
+                                error.bind="error.badOutput"
+                                read-only.bind="readOnlyOutput">
+                            </numeric>
+                        </div>
+                        <div class="col-sm-2">    
+                            <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></textbox>
+                        </div>
                     </div>
-                    <div class="col-sm-2">    
-                        <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></textbox>
-                    </div>
-                </div>
-                
-                <multiline
-                    label="Keterangan Bad Output"
-                    value.bind="data.badOutputDescription"
-                    error.bind="error.badOutputDescription"
-                    read-only.bind="readOnlyOutput"
-                    if.bind="output">
-                </multiline>
+                    
+                    <multiline
+                        label="Keterangan Bad Output"
+                        value.bind="data.badOutputDescription"
+                        error.bind="error.badOutputDescription"
+                        read-only.bind="readOnlyOutput"
+                        if.bind="output">
+                    </multiline>
+                </fieldset>
             </div>
             <div  class="col-md-6" style="padding:0">
                 <textbox    label="Material"        value.bind="data.kanban.productionOrder.material.name"              if.bind="hasKanban" read-only="true"></textbox>

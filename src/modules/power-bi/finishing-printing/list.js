@@ -12,7 +12,6 @@ export class List {
         "Good Output VS Bad Output",
         "Perbandingan Hasil QC",
         "Top Ten Defect",
-
     ];
     constructor(router, service) {
         this.router = router;

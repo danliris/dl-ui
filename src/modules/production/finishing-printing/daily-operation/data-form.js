@@ -11,6 +11,19 @@ export class DataForm {
     @bindable input = false;
     @bindable data = {};
     @bindable error = {};
+
+    @bindable localInputDate;
+    @bindable localOutputDate;
+
+    auInputOptions = {
+        label: {
+            length: 4,
+            align: "right"
+        },
+        control: {
+            length: 8
+        }
+    };
     shiftOptions = ['Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
     timePickerShowSecond = false;
     timePickerFormat = "HH:mm";
@@ -22,17 +35,19 @@ export class DataForm {
 
     bind()
     {
-        this.timeInput = this.data.timeInput ? moment(this.data.timeInput) : this._adjustMoment();
-        this.timeOutput = this.data.timeOutput ? moment(this.data.timeOutput) : this._adjustMoment();
-        var tempTimeInput = moment(this.timeInput);
-        var tempTimeOutput = moment(this.timeOutput);
-        this.data.timeInput = momentToMillis(tempTimeInput);
-        this.data.timeOutput = momentToMillis(tempTimeOutput);
+        this.localInputDate = new Date(Date.parse(this.data.dateInput));
+        this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
+        // this.timeInput = this.data.timeInput ? moment(this.data.timeInput) : this._adjustMoment();
+        // this.timeOutput = this.data.timeOutput ? moment(this.data.timeOutput) : this._adjustMoment();
+        // var tempTimeInput = moment(this.timeInput);
+        // var tempTimeOutput = moment(this.timeOutput);
+        // this.data.timeInput = momentToMillis(tempTimeInput);
+        // this.data.timeOutput = momentToMillis(tempTimeOutput);
 
-        if (this.data.dateInput)
-            this.data.dateInput = moment(this.data.dateInput).format("YYYY-MM-DD");
-        if (this.data.dateOutput)
-            this.data.dateOutput = moment(this.data.dateOutput).format("YYYY-MM-DD");
+        // if (this.data.dateInput)
+        //     this.data.dateInput = moment(this.data.dateInput).format("YYYY-MM-DD");
+        // if (this.data.dateOutput)
+        //     this.data.dateOutput = moment(this.data.dateOutput).format("YYYY-MM-DD");
 
         // if(this.data.kanban && this.data.kanban.istruction && this.data.kanban.istruction.steps && this.data.kanban.instruction.steps.lenght > 0){
         //     this.steps = this.data.kanban.instruction.steps;
@@ -40,6 +55,14 @@ export class DataForm {
         this.filterMachine = {
             "unit.division.name" : "FINISHING & PRINTING"
         }
+    }
+
+    localInputDateChanged(newValue) {
+        this.data.dateInput = this.localInputDate;
+    }
+
+    localOutputDateChanged(newValue) {
+        this.data.dateOutput = this.localOutputDate;
     }
 
     get isFilterKanban(){
@@ -142,36 +165,36 @@ export class DataForm {
         }
     }
 
-    timeInputChanged(e)
-    {
-        var tempTimeInput = e.detail;
-        if (tempTimeInput){
-            tempTimeInput = this._adjustMoment(tempTimeInput);
-            this.data.timeInput = momentToMillis(tempTimeInput);
-        }
-        else{
-            delete this.data.timeInput;
-        }
-    }
+    // timeInputChanged(e)
+    // {
+    //     var tempTimeInput = e.detail;
+    //     if (tempTimeInput){
+    //         tempTimeInput = this._adjustMoment(tempTimeInput);
+    //         this.data.timeInput = momentToMillis(tempTimeInput);
+    //     }
+    //     else{
+    //         delete this.data.timeInput;
+    //     }
+    // }
 
-    timeOutputChanged(e)
-    {
-        var tempTimeOutput = e.detail;
-        if (tempTimeOutput){
-            tempTimeOutput = this._adjustMoment(tempTimeOutput);
-            this.data.timeOutput = momentToMillis(tempTimeOutput);
-        }
-        else{
-            delete this.data.timeOutput;
-        }
-    }
+    // timeOutputChanged(e)
+    // {
+    //     var tempTimeOutput = e.detail;
+    //     if (tempTimeOutput){
+    //         tempTimeOutput = this._adjustMoment(tempTimeOutput);
+    //         this.data.timeOutput = momentToMillis(tempTimeOutput);
+    //     }
+    //     else{
+    //         delete this.data.timeOutput;
+    //     }
+    // }
 
-    _adjustMoment(timeInMoment){
-        if (!timeInMoment)
-            timeInMoment = moment();
-        timeInMoment.set('year', 1970);
-        timeInMoment.set('month', 0);
-        timeInMoment.set('date', 1);   
-        return timeInMoment;     
-    }
+    // _adjustMoment(timeInMoment){
+    //     if (!timeInMoment)
+    //         timeInMoment = moment();
+    //     timeInMoment.set('year', 1970);
+    //     timeInMoment.set('month', 0);
+    //     timeInMoment.set('date', 1);   
+    //     return timeInMoment;     
+    // }
 }

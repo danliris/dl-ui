@@ -3,8 +3,10 @@
         <div class="row">
             <div  class="col-md-6" style="padding:0">
                 <textbox                      label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"     read-only="true"  if.bind="data.salesContractNo"></textbox>
+                
                 <buyer-auto-suggest           label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
                 <textbox                      label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
+                <production-order-auto-suggest label="Nomor Referensi"               value.bind="data.reference"                 error.bind="error.reference"           read-only.bind="readOnly"   change.delegate="referenceNumberChanged($event)"></production-order-auto-suggest>
                 <textbox                      label="Nomor Disposisi"  value.bind="data.dispositionNumber"       error.bind="error.dispositionNumber"                       read-only.bind="readOnly"  ></textbox>
                 <comodity-auto-suggest        label="Komoditas"         value.bind="data.comodity"             error.bind="error.comodity"                       read-only.bind="(readOnly)" change.delegate="comodityChanged($event)" ></comodity-auto-suggest>
                 <multiline                    label="Keterangan Komoditas"         value.bind="data.comodityDescription"             error.bind="error.comodityDescription"                       read-only.bind="(readOnly)" rows.bind="8"></multiline>
@@ -12,7 +14,7 @@
                 <sales-material-auto-suggest  label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
                 <material-construction-auto-suggest                 label="Konstruksi Finish"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
                 <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
-                <textbox                      label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
+                <textbox                      label="Lebar Finish"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
                 <design-motive-auto-suggest     label="Motif"        value.bind="data.designMotive"       error.bind="error.designMotive"                       read-only.bind="readOnly"  if.bind="!buyerType && isPrinting" change.delegate="designMotiveChanged($event)"></design-motive-auto-suggest>
                 <div class="row">
                   <div class="col-sm-4" style="padding-left:20%">
@@ -45,9 +47,13 @@
                 <textbox                    label="Ongkos Angkut"      value.bind="data.transportFee"       error.bind="error.transportFee"                       read-only.bind="readOnly"  ></textbox>
                 <textbox                    label="Dikirim ke"      value.bind="data.deliveredTo"       error.bind="error.deliveredTo"                       read-only.bind="readOnly"  ></textbox>
                 <datepicker                 label="Jadwal Pengiriman"        value.bind="data.deliverySchedule"          error.bind="error.deliverySchedule"             read-only.bind="readOnly"></datepicker>
+                <multiline                  label="Keterangan Shipment"     value.bind="data.shipmentDescription"    error.bind="error.shipmentDescription"       read-only.bind="(readOnly)" rows.bind="8" if.bind="buyerType"></multiline>
                 <multiline                  label="Kondisi"     value.bind="data.condition"    error.bind="error.condition"       read-only.bind="(readOnly)" rows.bind="8"></multiline>
                 <buyer-auto-suggest         label="Agen"        value.bind="data.agent"       error.bind="error.agent"                       read-only.bind="readOnly"  if.bind="buyerType" change.delegate="agentChanged($event)"></buyer-auto-suggest>
                 <textbox                    label="Komisi"      value.bind="data.comission"       error.bind="error.comission"                       read-only.bind="readOnly"  if.bind="buyerType"></textbox>
+                <dropdown label="Point System" value.bind="data.pointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly" change.delegate="pointChanged($event)"></dropdown>
+                <numeric                    label="Batas Point"      value.bind="data.pointLimit"       error.bind="error.pointLimit"                       read-only.bind="readOnly"  if.bind="point || isPoint"></numeric>
+                
             </div>
         </div>
         <hr />
