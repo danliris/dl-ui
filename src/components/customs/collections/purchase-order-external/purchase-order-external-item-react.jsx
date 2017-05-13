@@ -48,7 +48,6 @@ export default class PurchaseOrderExternalItemReact extends React.Component {
 
         await endpoint.find(resource, { productList: JSON.stringify(productList) })
             .then((result) => {
-                debugger
                 for (var product of result.data) {
                     var item = value.items.find((_item) => _item.product._id.toString() === product._id.toString())
                     if (item) {

@@ -14,8 +14,10 @@
                         <i class="fa fa-list-alt" if.bind="key.toUpperCase() == 'MASTER'"></i>
                         <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
                         <i class="fa fa-industry" if.bind="key.toUpperCase() == 'PRODUCTION'"></i>
-                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'SALES'"></i>
-                        <i class="fa fa-table" if.bind="key.toUpperCase() == 'REPORTS'"></i>
+                        <i class="fa fa-adjust" if.bind="key.toUpperCase() == 'SALES'"></i>
+                        <i class="fa fa-bar-chart" if.bind="key.toUpperCase() == 'REPORTS'"></i>
+                        <i class="fa fa-suitcase" if.bind="key.toUpperCase() == 'INVENTORY'"></i>
+                        <i class="fa fa-user" if.bind="key.toUpperCase() == 'AUTH'"></i>
 
                         <!--<i class="fa fa-dashboard"></i>-->
                         <span if.bind="!minimized">${key.toUpperCase()}</span>

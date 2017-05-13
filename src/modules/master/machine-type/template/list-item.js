@@ -12,7 +12,6 @@ export class listItem {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
-    console.log(this.data);
   }  
 
   controlOptions = {
