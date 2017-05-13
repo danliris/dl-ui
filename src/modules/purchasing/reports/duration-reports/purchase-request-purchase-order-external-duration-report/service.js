@@ -32,6 +32,10 @@ export class Service extends RestService {
             if (query === '') query = `dateFrom=${info.dateFrom}`;
             else query = `${query}&dateFrom=${info.dateFrom}`;
         }
+        if (info.unitId) {
+            if (query === '') query = `unitId=${info.unitId}`;
+            else query = `${query}&unitId=${info.unitId}`;
+        }
         if (info.dateTo) {
             if (query === '') query = `dateTo=${info.dateTo}`;
             else query = `${query}&dateTo=${info.dateTo}`;
