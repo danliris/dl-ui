@@ -13,7 +13,7 @@
         class="form-control" if.bind="!readOnly" focus.trigger="onFocus($event)" blur.trigger="onBlur($event)" dynamic-attribute="options.bind: inputOptions"
         select-on-focus.one-way="select" />
 
-      <p class="form-control-static" if.bind="readOnly">${value}</p>
+      <p class="form-control-static text-right" if.bind="readOnly">${value}</p>
     </template>
     <au-input>
 </template>

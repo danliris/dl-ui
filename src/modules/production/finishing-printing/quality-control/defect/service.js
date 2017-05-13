@@ -57,7 +57,7 @@ export class Service extends RestService {
     }
 
     getSalesContractByNo(salesContractNo, select) {
-        var endpoint = `${finishingPrintingSalesNoServiceUri}/${salesContractNo}`;
+        var endpoint = `${finishingPrintingSalesNoServiceUri}/${salesContractNo.replace("/", "").replace("/", "")}`;
         var info = { select: select };
         return super.get(endpoint, null, info);
     }

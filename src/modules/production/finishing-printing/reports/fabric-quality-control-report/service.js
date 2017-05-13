@@ -24,14 +24,15 @@ export class Service extends RestService {
     _getEndPoint(info) {
         var endpoint = `${serviceUri}`;
         var query = '';
-        if (info.kanbanCode) {
-            if (query === '') query = `kanbanCode=${info.kanbanCode}`;
-            else query = `${query}&kanbanCode=${info.kanbanCode}`;
-        }
 
         if (info.productionOrderNo) {
             if (query === '') query = `productionOrderNo=${info.productionOrderNo}`;
             else query = `${query}&productionOrderNo=${info.productionOrderNo}`;
+        }
+
+        if (info.cartNo) {
+            if (query === '') query = `cartNo=${info.cartNo}`;
+            else query = `${query}&cartNo=${info.cartNo}`;
         }
 
         if (info.productionOrderType) {

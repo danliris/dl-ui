@@ -1,10 +1,11 @@
 <template>
   <au-input-form title.bind="title" with.bind="context">
 
+    <au-textbox label="Kode" value.bind="data.code" error.bind="error.code" if.bind="readOnly || isEdit"  read-only.bind="true"></au-textbox>
     <au-autocomplete value.bind="selectedProductionOrder" label="Nomor Order" read-only.bind="readOnly || isEdit" error.bind="error.productionOrderId"
       loader.bind="productionOrderLoader" key="orderNo" text.bind="productionOrderTextFormatter">
     </au-autocomplete>
-
+    <au-textbox label="Warna Diminta" value.bind="data.colorName" error.bind="error.colorCode" read-only.bind="true"></au-textbox>
     <au-datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly"></au-datepicker>
 
     <au-dropdown label="UOM" value.bind="data.packingUom" items.bind="packingUomOptions" error.bind="error.packingUom" read-only.bind="readOnly"></au-dropdown>
@@ -15,7 +16,7 @@
           <au-textbox value.bind="data.lot" error.bind="error.lot" read-only.bind="readOnly"></au-textbox>
         </td>
         <td>
-          <au-textbox value.bind="data.grade" error.bind="error.grade" read-only.bind="readOnly"></au-textbox>
+          <au-dropdown value.bind="data.grade" error.bind="error.grade" items.bind="grades" read-only.bind="readOnly"></au-dropdown>
         </td>
         <td>
           <au-numeric value.bind="data.weight" error.bind="error.weight" read-only.bind="readOnly"></au-numeric>
@@ -29,12 +30,12 @@
         <td>
           <au-textbox value.bind="data.remark" error.bind="error.remark" read-only.bind="readOnly"></au-textbox>
         </td>
-        <td>
+        <td if.bind="!options.readOnly">
           <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="removeItemCallback(item,$event)">-</button>
         </td>
       </template>
     </au-collection>
-    <button click.delegate="console()">console.log()</button>
+    <!--<button click.delegate="console()">console.log()</button>-->
   </au-input-form>
 
 </template>

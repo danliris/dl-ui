@@ -13,6 +13,12 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if(this.data.referenceNumber && this.data.referenceNumber!=""){
+            this.data.reference={orderNo:this.data.referenceNumber};
+        }
+        else{
+            this.data.reference={};
+        }
     }
 
     view(data) {

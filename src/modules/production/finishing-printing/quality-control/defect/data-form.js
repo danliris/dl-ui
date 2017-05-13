@@ -35,9 +35,9 @@ export class DataForm {
     @bindable data;
     @bindable error;
 
-    kanbanFields = ["code", "cart", "productionOrder"];
+    kanbanFields = ["code", "cart", "productionOrder", "selectedProductionOrderDetail"];
     salesContractFields = ["pointSystem", "pointLimit"];
-    pointSystemOptions = [4, 10]
+    pointSystemOptions = [4, 10];
     shiftOptions = [
         "Shift I: 06.00 - 14.00",
         "Shift II: 14.00 - 22.00",
@@ -52,12 +52,14 @@ export class DataForm {
     }
 
     async bind(context) {
+        console.log(context.data);
         this.context = context;
         this.context._this = this;
         // this.data = this.context.data;
         // this.error = this.context.error;
         this.data.fabricGradeTests = this.data.fabricGradeTests || [];
         this.data.pointSystem = this.data.pointSystem || 10;
+        this.data.pointLimit = this.data.pointLimit || 0;
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
@@ -66,6 +68,7 @@ export class DataForm {
 
 
         this.selectedPointSystem = this.data.pointSystem;
+        this.selectedPointLimit = this.data.pointLimit;
         this.selectedFabricGradeTest = this.data.fabricGradeTests.length > 0 ? this.data.fabricGradeTests[0] : null;
 
 
@@ -115,11 +118,11 @@ export class DataForm {
         return `${this.selectedKanban.productionOrder.packingInstruction}`
     }
 
-    @computedFrom("selectedSalesContractNo.pointLimit")
-    get pointLimit() {
-        if (!this.selectedSalesContractNo || this.selectedSalesContractNo.pointLimit === 0)
+    @computedFrom("selectedKanban.selectedProductionOrderDetail.colorRequest")
+    get colorRequest() {
+        if (!this.selectedKanban)
             return "-";
-        return `${this.selectedSalesContractNo.pointLimit}`
+        return `${this.selectedKanban.selectedProductionOrderDetail.colorRequest}`
     }
 
     @computedFrom("data.pointSystem")
@@ -153,7 +156,7 @@ export class DataForm {
                 return "A";
         }
         else if (this.data.pointSystem === 4) {
-            if (finalScore <= this.selectedSalesContractNo.pointLimit) {
+            if (finalScore <= this.data.pointLimit) {
                 return "OK";
             } else {
                 return "Not OK"
@@ -170,6 +173,7 @@ export class DataForm {
     @bindable selectedFabricGradeTest;
     @bindable selectedFabricGradeTestError;
     @bindable selectedPointSystem;
+    @bindable selectedPointLimit;
     @bindable selectedAvalLength;
     @bindable selectedSampleLength;
     @bindable subs;
@@ -186,8 +190,16 @@ export class DataForm {
         this.computeGrade(this.selectedFabricGradeTest);
     }
     selectedPointSystemChanged() {
+        if (this.selectedPointSystem === 10) {
+            this.selectedPointLimit = 0;
+        }
         this.data.pointSystem = this.selectedPointSystem;
+        // this.selectedPointSystem=this.data.pointSystem;
         this.data.fabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
+    }
+    selectedPointLimitChanged() {
+        this.data.pointLimit = this.selectedPointLimit;
+        this.computeGrade(this.selectedFabricGradeTest);
     }
 
     selectedFabricGradeTestChanged() {
@@ -229,11 +241,14 @@ export class DataForm {
         var multiplier = this.fabricGradeTestMultiplier;
         var score = fabricGradeTest.criteria.reduce((p, c, i) => { return p + ((c.score.A * multiplier.A) + (c.score.B * multiplier.B) + (c.score.C * multiplier.C) + (c.score.D * multiplier.D)) }, 0);
         var finalLength = fabricGradeTest.initLength - fabricGradeTest.avalLength - fabricGradeTest.sampleLength;
-        var finalScore = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : score;
-        var grade = this.scoreGrade(finalScore);
+        var finalArea = fabricGradeTest.initLength * fabricGradeTest.width;
+        var finalScoreTS = finalLength > 0 && this.data.pointSystem === 10 ? score / finalLength : 0;
+        var finalScoreFS = finalArea > 0 && this.data.pointSystem === 4 ? score * 100 / finalArea : 0;
+        var grade = this.data.pointSystem === 10 ? this.scoreGrade(finalScoreTS) : this.scoreGrade(finalScoreFS);
         fabricGradeTest.score = score;
         fabricGradeTest.finalLength = finalLength;
-        fabricGradeTest.finalScore = finalScore;
+        fabricGradeTest.finalArea = this.data.pointSystem === 4 ? finalArea : 0;
+        fabricGradeTest.finalScore = this.data.pointSystem === 10 ? finalScoreTS.toFixed(2) : finalScoreFS.toFixed(2);
         fabricGradeTest.grade = grade;
         console.log(fabricGradeTest)
     }
@@ -258,6 +273,7 @@ export class DataForm {
     selectedPcsWidthChanged() {
         if (this.selectedFabricGradeTest) {
             this.selectedFabricGradeTest.width = this.selectedPcsWidth;
+            this.computeGrade(this.selectedFabricGradeTest);
             this.fabricGradeTestTable.refresh();
         }
     }
@@ -336,13 +352,12 @@ export class DataForm {
             if (this.selectedKanban.productionOrder.salesContractNo) {
                 await this.service.getSalesContractByNo(this.selectedKanban.productionOrder.salesContractNo, this.salesContractFields)
                     .then((result) => {
-                        // console.log(result);
-                        this.selectedSalesContractNo = result;
-                        // console.log(this.selectedSalesContractNo);
-                        if (result.pointSystem === 4) {
-                            this.selectedPointSystem = result.pointSystem;
+                        if (result.pointSystem === 4 || result.pointSystem === 10) {
+                            this.selectedPointSystem = this.data.pointSystem || 10;
+                            this.selectedPointLimit = this.data.pointLimit || 0;
                         } else {
-                            this.selectedPointSystem = result.pointSystem;
+                            this.selectedPointSystem = this.data.pointSystem || 10;
+                            this.selectedPointLimit = this.data.pointLimit || 0;
                         }
                     })
             }

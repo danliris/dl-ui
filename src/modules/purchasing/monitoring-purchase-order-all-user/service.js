@@ -11,8 +11,8 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing");
     }
 
-    search(unitId, categoryId, PODLNo, PRNo, supplierId, dateFrom, dateTo, state) {
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&PODLNo=${PODLNo}&PRNo=${PRNo}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}`;
+    search(unitId, categoryId, PODLNo, PRNo, supplierId, dateFrom, dateTo, state,budgetId,staffName) {
+        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&PODLNo=${PODLNo}&PRNo=${PRNo}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}&budgetId=${budgetId}&staffName=${staffName}`;
         return super.get(endpoint);
     }
 
@@ -21,8 +21,8 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    generateExcel(unitId, categoryId, PODLNo, PRNo, supplierId, dateFrom, dateTo, state) {
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&PODLNo=${PODLNo}&PRNo=${PRNo}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}`;
+    generateExcel(unitId, categoryId, PODLNo, PRNo, supplierId, dateFrom, dateTo, state,budgetId,staffName) {
+        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&PODLNo=${PODLNo}&PRNo=${PRNo}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}&budgetId=${budgetId}&staffName=${staffName}`;
         return super.getXls(endpoint);
     }
 

@@ -13,7 +13,7 @@ export class Create {
   }
 
   created(owner, self) {
-    this.data = {}
+    this.data = {items:[]}
   }
 
   cancelCallback(event) {

@@ -45,13 +45,13 @@ export class List {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+        this.newData = [];
     }
 
     searching() {
         if (this.filter) {
-            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.kanbanCode : "";
             this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
+            this.info.cartNo = this.filter.cartNo ? this.filter.cartNo.cartNo : "";
             this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.productionOrderType : "";
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
@@ -62,8 +62,8 @@ export class List {
         this.service.search(this.info)
             .then(result => {
                 var tempData;
-                this.no = 0;
                 this.newData = [];
+                this.no = 0;
                 for (var i = 0; i < result.data.length; i++) {
                     for (var j = 0; j < result.data[i].fabricGradeTests.length; j++) {
                         tempData = {};
@@ -105,9 +105,9 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
-            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode : null;
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo : null;
-            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType : null;
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : null;
+            this.info.cartNo = this.filter.cartNo ? this.filter.cartNo.cartNo : null;
+            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.productionOrderType : null;
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -130,23 +130,21 @@ export class List {
         console.log('production type changed')
     }
 
+    cartNoChanged(e) {
+        console.log('cart number changed')
+    }
+
     shiftImChanged(e) {
         console.log('production type changed')
     }
 
     get fabricQCLoader() {
-        return (keyword) => {
-            var info = { keyword: keyword, select: this.fabricQCFields };
-            return this.service.searchFabricQC(info)
-                .then((result) => {
-                    return result.data;
-                });
-        }
+        return FabricQualityControlLoader;
     }
 
     reset() {
         this.filter = {};
-        this.data = [];
+        this.newData = [];
     }
 
 
