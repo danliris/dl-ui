@@ -13,7 +13,7 @@ export class List {
     { field: "uom.unit", title: "Satuan Default" },
     { field: "currency.code", title: "Mata Uang" },
     { field: "price", title: "Harga Barang" },
-    { field: "description", title: "Keterangan" },
+    { field: "tags", title: "Tags" },
   ];
 
   loader = (info) => {
