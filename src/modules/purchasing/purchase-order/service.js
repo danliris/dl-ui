@@ -9,12 +9,10 @@ export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "purchasing");
-        debugger
     }
 
     search(info) {
         var endpoint = `${serviceUri}`;
-        debugger
         return super.list(endpoint, info);
     }
 
