@@ -4,14 +4,14 @@
             <legend>Informasi Packing</legend>
 
             <au-autocomplete value.bind="selectedPacking" label="Kode Packing" read-only.bind="readOnly || isEdit" error.bind="error.kanbanId"
-                loader.bind="packingLoader" key="code" text.bind="packingTextFormatter">
+                loader.bind="packingLoader" key="code" text.bind="packingTextFormatter" change.delegate="packingChanged($event)">
             </au-autocomplete>
-            <au-textbox label="Nomor Order" value.one-way="colorRequest" read-only.bind="true"></au-textbox>
+            <au-textbox label="Nomor Order" value.one-way="orderNo" read-only.bind="true"></au-textbox>
             <au-textbox label="Warna Diminta" value.one-way="colorRequest" read-only.bind="true"></au-textbox>
-            <au-textbox label="Konstruksi" value.one-way="colorRequest" read-only.bind="true"></au-textbox>
-            <au-textbox label="UOM" value.one-way="colorRequest" read-only.bind="true"></au-textbox>
-            <au-textbox label="Sumber Penyimpanan " value.one-way="colorRequest" read-only.bind="true"></au-textbox>
-            <au-textbox label="Gudang Jadi" value.one-way="colorRequest" read-only.bind="true"></au-textbox>
+            <au-textbox label="Konstruksi" value.one-way="construction" read-only.bind="true"></au-textbox>
+            <au-textbox label="UOM" value.one-way="packingUom" read-only.bind="true"></au-textbox>
+            <!--<au-textbox label="Sumber Penyimpanan " value.one-way="originStorage" read-only.bind="true"></au-textbox>-->
+            <!--<au-textbox label="Tujuan Penyimpanan" value.one-way="destinationStorage" read-only.bind="true"></au-textbox>-->
 
         </fieldset>
 

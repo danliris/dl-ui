@@ -1,6 +1,7 @@
 import { bindable, inject, containerless, computedFrom, BindingEngine } from "aurelia-framework";
-import {Service} from './service';
+import { Service } from './service';
 import { BindingSignaler } from 'aurelia-templating-resources';
+
 var moment = require('moment');
 
 @containerless()
@@ -21,12 +22,19 @@ export class DataForm {
         editText: "Ubah"
     }
 
+    itemsColumns = [
+        { header: "Nama Barang", value: "product" },
+        { header: "Quantity Diterima", value: "defaultQuantity" },
+        { header: "Remark", value: "defaultUom" },
+        { header: "Catatan", value: "remark" }
+    ]
+
     @bindable title;
     @bindable readOnly;
     @bindable data;
     @bindable error;
 
-    productionOrderFields = ["salesContractNo"];
+    // productionOrderFields = ["salesContractNo"];
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
@@ -35,10 +43,10 @@ export class DataForm {
     }
 
     async bind(context) {
-        console.log(context.data);
+        // console.log(context.data);
         this.context = context;
         this.context._this = this;
-        // this.data = this.context.data;
+        this.data = this.context.data;
         // this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
@@ -54,45 +62,75 @@ export class DataForm {
         }
     }
 
-    itemsColumns = [
-        { header: "Nama Barang", value: "product" },
-        { header: "Quantity Diterima", value: "defaultQuantity" },
-        { header: "Remark", value: "defaultUom" },
-        { header: "Catatan", value: "remark" }
-    ]
-
     packingTextFormatter = (packing) => {
-        return `${packing.code}`
+        return `${packing.code}`;
     }
+
+    @computedFrom("data.id")
+    get isEdit() {
+        return (this.data.id || '').toString() !== '';
+    }
+
+    @computedFrom("selectedPacking.productionOrderNo")
+    get orderNo() {
+        if (!this.selectedPacking)
+            return "-";
+        return `${this.selectedPacking.productionOrderNo}`;
+    }
+
+    get colorRequest() {
+        if (!this.selectedPacking)
+            return "-";
+        return `${this.selectedPacking.colorName}`;
+    }
+
+    get construction() {
+        if (!this.selectedPacking)
+            return "-";
+        return `${this.selectedPacking.construction}`;
+    }
+
+    get packingUom() {
+        if (!this.selectedPacking)
+            return "-";
+        return `${this.selectedPacking.packingUom}`;
+    }
+
+    // @computedFrom("selectedPacking.productionOrderNo")
+    // get originStorage() {
+    //     if (!this.selectedPacking)
+    //         return "-";
+    //     return `Quality Control`;
+    // }
+
+    // @computedFrom("selectedPacking.productionOrderNo")
+    // get destinationStorage() {
+    //     if (!this.selectedPacking)
+    //         return "-";
+    //     return `Gudang Jadi`;
+    // }
 
     get packingLoader() {
         return (keyword) => {
-            var info = {keyword: keyword, };
-            return this.service.searchPacking(info) 
+            var info = { keyword: keyword, };
+            return this.service.searchPacking(info)
                 .then((result) => {
                     // console.log(result);
                     // debugger
                     return result.data;
-            })
+                })
         }
     }
 
     @bindable selectedPacking;
-    productionOrderFields = ["salesContractNo"];
     salesContractNo = "";
-    async selectedPackingChanged(newValue, oldValue) {
-        if (this.selectedPacking && this.selectedPacking._id) {
-            this.data.packingId = this.selectedPacking._id;
-            if (this.selectedPacking.productionOrderNo) {
-                await this.service.getProductionOrderByNo(this.selectedPacking.productionOrderNo, this.productionOrderFields)
-                    .then((result) => {
-                        debugger
-                        this.salesContractNo = "";
-                    })
-            }
+
+    packingChanged() {
+        if (this.selectedPacking) {
+            this.salesContractNo = this.selectedPacking.salesContractNo;
         }
-        else
-            this.data.kanbanId = null;
+        console.log(this.salesContractNo);
+        // console.log(this.selectedPacking);
     }
 
     setColumns() {
@@ -104,7 +142,7 @@ export class DataForm {
             },
             { field: "shiftIm", title: "Shift" },
             { field: "operatorIm", title: "Operator" },
-            { field: "machineNoIm", title: "No. Mesin"},
+            { field: "machineNoIm", title: "No. Mesin" },
             { field: "productionOrderNo", title: "No. Order" },
             { field: "productionOrderType", title: "Jenis Order" },
             { field: "cartNo", title: "No. Kereta" }
