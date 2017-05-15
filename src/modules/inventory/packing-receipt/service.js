@@ -51,11 +51,4 @@ export class Service extends RestService {
         var endpoint = `${packingServiceUri}`;
         return super.list(endpoint, info);
     }
-
-    getProductionOrderByNo(orderNo, select) {
-        debugger
-        var endpoint = `${productionOrderServiceUri}/${orderNo.replace("/", "").replace("/", "")}`;
-        var info = { select: select };
-        return super.get(endpoint, null, info);
-    }
 }
