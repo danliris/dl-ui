@@ -51,4 +51,9 @@ export class Service extends RestService {
         var endpoint = `${packingServiceUri}`;
         return super.list(endpoint, info);
     }
+
+    getPackingById(id) {
+        var endpoint = `${packingServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
 }

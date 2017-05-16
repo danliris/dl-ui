@@ -1,23 +1,20 @@
 <template>
     <tr>
         <td class="col-sm-3">
-            <au-autocomplete value.bind="data.product" change.delegate="productChanged($event)" loader.bind="productLoader" placeholder="cari barang"
-                key="code" read-only.bind="true" options.bind="controlOptions">
-            </au-autocomplete>
+            <au-textbox value.bind="data.product" read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
         </td>
         <td class="col-sm-2">
-            <au-numeric value.bind="data.defaultQuantity" error.bind="error.defaultQuantity" read-only.bind="options.readOnly" format="0"
-                options.bind="controlOptions">
+            <au-numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="options.readOnly" format="0" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td style="text-align:center;" class="col-sm-2">
-            <au-textbox value.bind="data.defaultUom.unit" read-only.bind="true" options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td class="col-sm-2">
             <au-textbox value.bind="data.remark" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+        <td class="col-sm-2">
+            <au-textbox value.bind="data.note" read-only.bind="options.readOnly" options.bind="controlOptions" error.bind="error.note">
+            </au-textbox>
+        </td>
     </tr>
 </template>
