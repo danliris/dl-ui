@@ -8,13 +8,6 @@ var moment = require('moment');
 @inject(Service, BindingSignaler, BindingEngine)
 export class DataForm {
 
-    // tableOptions = {
-    //     pagination: false,
-    //     search: false,
-    //     showColumns: false,
-    //     showToggle: false
-    // }
-
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -24,17 +17,17 @@ export class DataForm {
 
     itemsColumns = [
         { header: "Nama Barang", value: "product" },
-        { header: "Quantity Diterima", value: "defaultQuantity" },
-        { header: "Remark", value: "defaultUom" },
-        { header: "Catatan", value: "remark" }
+        { header: "Quantity Diterima", value: "quantity" },
+        { header: "Remark", value: "remark" },
+        { header: "Catatan", value: "note" }
     ]
 
     @bindable title;
     @bindable readOnly;
     @bindable data;
     @bindable error;
+    @bindable items;    
 
-    // productionOrderFields = ["salesContractNo"];
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
@@ -47,7 +40,26 @@ export class DataForm {
         this.context = context;
         this.context._this = this;
         this.data = this.context.data;
-        // this.error = this.context.error;
+        this.error = this.context.error;
+
+        if (this.data.packingId) {
+            this.selectedPacking = await this.service.getPackingById(this.data.packingId)
+        }
+
+        if (this.selectedPacking) {
+            // this.data = this.selectedPacking;
+            this.salesContractNo = this.selectedPacking.salesContractNo;
+            var _items = [];
+            this.selectedPacking.items.map((item) => {
+                var _item = {};
+                _item.product = `${this.salesContractNo}/${this.selectedPacking.colorName}/${this.selectedPacking.construction}/${item.lot}/${item.grade}/${item.length}/${this.selectedPacking.packingUom}`;
+                _item.quantity = item.quantity;
+                _item.remark = item.remark;
+                _item.notes = item.note;
+                _items.push(_item);
+            })
+            this.items = _items;
+        }
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
@@ -96,27 +108,11 @@ export class DataForm {
         return `${this.selectedPacking.packingUom}`;
     }
 
-    // @computedFrom("selectedPacking.productionOrderNo")
-    // get originStorage() {
-    //     if (!this.selectedPacking)
-    //         return "-";
-    //     return `Quality Control`;
-    // }
-
-    // @computedFrom("selectedPacking.productionOrderNo")
-    // get destinationStorage() {
-    //     if (!this.selectedPacking)
-    //         return "-";
-    //     return `Gudang Jadi`;
-    // }
-
     get packingLoader() {
         return (keyword) => {
-            var info = { keyword: keyword, };
+            var info = { keyword: keyword };
             return this.service.searchPacking(info)
                 .then((result) => {
-                    // console.log(result);
-                    // debugger
                     return result.data;
                 })
         }
@@ -127,86 +123,22 @@ export class DataForm {
 
     packingChanged() {
         if (this.selectedPacking) {
+            this.data.packingId = this.selectedPacking._id;
+            this.data.accepted = true;
+            this.data.date = moment().format("YYYY-MM-DD");
+            // this.data = this.selectedPacking;
             this.salesContractNo = this.selectedPacking.salesContractNo;
+            var _items = [];
+            this.selectedPacking.items.map((item) => {
+                var _item = {};
+                _item.product = `${this.salesContractNo}/${this.selectedPacking.colorName}/${this.selectedPacking.construction}/${item.lot}/${item.grade}/${item.length}/${this.selectedPacking.packingUom}`;
+                _item.quantity = item.quantity;
+                _item.remark = item.remark;
+                _item.notes = item.note;
+                _items.push(_item);
+            })
+            this.items = _items;
         }
-        console.log(this.salesContractNo);
-        // console.log(this.selectedPacking);
     }
-
-    setColumns() {
-        this.columns = [
-            {
-                field: "dateIm", title: "Tanggal", formatter: (value, data) => {
-                    return moment(value).format("DD-MMM-YYYY");
-                }
-            },
-            { field: "shiftIm", title: "Shift" },
-            { field: "operatorIm", title: "Operator" },
-            { field: "machineNoIm", title: "No. Mesin" },
-            { field: "productionOrderNo", title: "No. Order" },
-            { field: "productionOrderType", title: "Jenis Order" },
-            { field: "cartNo", title: "No. Kereta" }
-        ];
-    }
-
-    // get purchaseRequestPostedLoader() {
-    //     return PurchaseRequestPostedLoader;
-    // }
-
-    // get unitLoader() {
-    //     return UnitLoader;
-    // }
-
-    // get categoryLoader() {
-    //     return CategoryLoader;
-    // }
-
-    // purchaseRequestChanged(newValue) {
-    //     this.data.purchaseRequest=newValue;
-    //     if (this.data.purchaseRequest) {
-    //         var _items = [];
-    //         this.data.purchaseRequestId = this.data.purchaseRequest._id;
-
-    //         this.data.purchaseRequest.unit.toString = function () {
-    //             return [this.division.name, this.name]
-    //                 .filter((item, index) => {
-    //                     return item && item.toString().trim().length > 0;
-    //                 }).join(" - ");
-    //         }
-
-    //         this.data.purchaseRequest.category.toString = function () {
-    //             return [this.code, this.name]
-    //                 .filter((item, index) => {
-    //                     return item && item.toString().trim().length > 0;
-    //                 }).join(" - ");
-    //         }
-
-    //         this.data.remark = this.data.purchaseRequest.remark;
-    //         this.data.purchaseRequest.items.map((item) => {
-    //             var _item = {};
-    //             _item.product = item.product;
-    //             _item.defaultUom = item.product.uom;
-    //             _item.defaultQuantity = item.quantity;
-    //             _item.remark = item.remark;
-    //             _items.push(_item);
-    //         })
-    //         this.data.items = _items;
-
-    //         this.data.items.forEach(item => {
-    //             item.product.toString = function () {
-    //                 return [this.code, this.name]
-    //                     .filter((item, index) => {
-    //                         return item && item.toString().trim().length > 0;
-    //                     }).join(" - ");
-    //             }
-    //         })
-    //     }
-    //     else {
-    //         this.data.purchaseRequest = {};
-    //         this.data.purchaseRequestId = {};
-    //         this.data.remark = "";
-    //         this.data.items = [];
-    //     }
-    // }
 
 } 
