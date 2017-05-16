@@ -18,6 +18,13 @@ export class View {
     var id = params.id;
     this.data = await this.service.getById(id);
     this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');
+    
+    if(this.data.fromStock){
+      this.data.fromStock="Ya";
+    }
+    else{
+      this.data.fromStock="Tidak";
+    }
 
 
     this.data.accountBank.toString = function () {

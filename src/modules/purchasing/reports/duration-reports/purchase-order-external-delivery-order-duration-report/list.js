@@ -19,7 +19,7 @@ export class List {
     dateFrom = null;
     dateTo = null;
 
-    durationItems=["0-30 hari", "31-60 hari","61-90 hari", "> 90 hari"]
+    durationItems=["31-60 hari","61-90 hari", "> 90 hari"]
 
     constructor(router, service) {
         this.service = service;
@@ -41,7 +41,7 @@ export class List {
     searching() {
         if (this.filter) {
             this.info.unitId = this.filter.unit ? this.filter.unit._id : "";
-            this.info.duration = this.filter.duration ? this.filter.duration : "0-30 hari";
+            this.info.duration = this.filter.duration ? this.filter.duration : "31-60 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
@@ -68,7 +68,7 @@ export class List {
 
         if (this.filter) {
             this.info.unitId = this.filter.unit ? this.filter.unit._id : "";
-            this.info.duration = this.filter.duration ? this.filter.duration : "0-30 hari";
+            this.info.duration = this.filter.duration ? this.filter.duration : "31-60 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
