@@ -1,0 +1,93 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <style>
+            table > tbody > tr > td {
+                white-space: pre;
+            }
+        </style>
+
+        <h1 class="page-header">Laporan Durasi PR - PO Eksternal </h1>
+        <form class="form-horizontal">
+
+            <au-dropdown label="Durasi" value.bind="filter.duration" items.bind="durationItems"></au-dropdown>
+            <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
+
+            <div class="form-group">
+                <label for="contact" class="col-sm-6 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+            </div>
+
+            <div class="btn-group pull-left">
+                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+            </div>
+        </form>
+
+        <br>
+        </br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <!--thead before search-->
+                <!--thead after search-->
+                <thead align="center">
+                    <tr>
+                        <td>No</td>
+                        <td >Tanggal Purchase Request</td>
+                        <td >No Purchase Request</td>
+                        <td >Divisi</td>
+                        <td >Unit</td>
+                        <td >Budget</td>
+                        <td >Kategori</td>
+                        <td >Kode Barang</td>
+                        <td >Nama Barang</td>
+                        <td >Jumlah Barang</td>
+                        <td >Satuan Barang</td>
+                        <td >Harga Barang</td>
+                        <td >Kode Supplier</td>
+                        <td >Nama Supplier</td>
+                        <td >Tanggal Terima PO Internal</td>
+                        <td >Tanggal PO Eksternal</td>
+                        <td >Tanggal Target Datang</td>
+                        <td >No PO Eksternal</td>
+                        <td >Selisih Tanggal PR - PO Eksternal (hari)</td>
+                        <td >Nama Staff Pembelian</td>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td class="text-center">${$index + 1}</td>
+                        <td>${item.prDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.prNo}</td>
+                        <td>${item.division}</td>
+                        <td>${item.unit}</td>
+                        <td>${item.budget}</td>
+                        <td>${item.category}</td>
+                        <td>${item.productCode}</td>
+                        <td>${item.productName}</td>
+                        <td>${item.productQuantity}</td>
+                        <td>${item.productUom}</td>
+                        <td>${item.productPrice}</td>
+                        <td>${item.supplierCode}</td>
+                        <td>${item.supplierName}</td>
+                        <td>${item.poDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.poEksDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.expectedDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.poEksNo}</td>
+                        <td>${item.dateDiff}</td>
+                        <td>${item.staff}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data.
+        </div>
+        <hr/>
+        </form>
+    </au-input-form>
+</template>
