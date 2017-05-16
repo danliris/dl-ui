@@ -31,7 +31,7 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    types = ["IN", "OUT", "RET-IN", "RET-OUT"];
+    types = ["IN", "OUT", "ADJ"];
 
     itemsColumns = [
         { header: "Barang", value: "product" },

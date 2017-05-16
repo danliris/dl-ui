@@ -6,7 +6,7 @@ import {Service} from './service';
 @inject(Router, Service)
 export class View {
     hasCancel = true;
-    hasEdit = true;
+    hasEdit = false;
     hasDelete = false;
 
     constructor(router, service) {
