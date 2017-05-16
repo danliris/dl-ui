@@ -19,6 +19,7 @@ export class List {
     buyer = null;
     account = null;
     filterAccount = {};
+    info = { page: 1, keyword: '' };
 
     activate() {
         this.filterAccount = {
@@ -35,23 +36,27 @@ export class List {
     }
 
     reset() {
-        this.dateFrom = null;
-        this.dateTo = null;
-        this.salesContractNo = '';
-        this.orderNo = '';
-        this.orderType = null;
-        this.processType = null;
-        this.buyer = null;
-        this.account = null;
-        this.data = [];
-    }
+        if (this.info.filter) {
+            this.info.filter.dateFrom = null;
+            this.info.filter.dateTo = null;
+            this.info.filter.salesContractNo = '';
+            this.info.filter.orderNo = '';
+            this.info.filter.orderType = null;
+            this.info.filter.processType = null;
+            this.info.filter.buyer = null;
+            this.info.filter.account = null;
+            this.data = [];
+    }}
     
     
     searching() {
         var data = [];
-        this.service.getReport(this.dateFrom, this.dateTo, this.salesContractNo, this.orderNo, this.orderType, this.processType, this.buyer, this.account)
-            .then(data => {
-                this.data = data;
+        this.filter = this.info.filter;
+        this.service.getReport(this.info)
+            .then(result => {
+                this.data = result.data;
+                this.info = result.data;
+                this.info.filter=this.filter;
             })
     }
 
@@ -91,5 +96,11 @@ export class List {
         if(!selectedAccount){
             this.account = null;
         }
+    }
+
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.searching();
     }
 }

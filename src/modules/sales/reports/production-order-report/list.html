@@ -6,14 +6,14 @@
     </style>
 <h1 class="page-header">Laporan Monitoring Surat Perintah Produksi</h1>
 <form class="form-horizontal">
-    <textbox                    label="Nomor Sales Contract"    value.bind="salesContractNo"	></textbox>
-        <textbox                    label="Nomor Order Produksi"    value.bind="orderNo"            ></textbox>
-        <order-type-auto-suggest	label="Jenis Order"	            value.bind="orderType" 	        change.delegate="orderTypeChanged($event)"></order-type-auto-suggest>
-        <process-type-auto-suggest	label="Jenis Proses"	        value.bind="processType" 	    change.delegate="processTypeChanged($event)" filter.bind="filterOrder" if.bind="orderType" ></process-type-auto-suggest>
-        <buyer-auto-suggest	        label="Buyer"	                value.bind="buyer" 	            change.delegate="buyerChanged($event)"></buyer-auto-suggest>
-        <account-auto-suggest	    label="Staff Penjualan"	        value.bind="account" 	        change.delegate="accountChanged($event)"    filter.bind="filterAccount"></account-auto-suggest>
-        <datepicker                 label="Tanggal Awal"            value.bind="dateFrom"           ></datepicker>
-        <datepicker                 label="Tanggal Akhir"           value.bind="dateTo"             ></datepicker> 
+    <textbox                    label="Nomor Sales Contract"    value.bind="info.filter.salesContractNo"	></textbox>
+        <textbox                    label="Nomor Order Produksi"    value.bind="info.filter.orderNo"            ></textbox>
+        <order-type-auto-suggest	label="Jenis Order"	            value.bind="info.filter.orderType" 	        change.delegate="orderTypeChanged($event)"></order-type-auto-suggest>
+        <process-type-auto-suggest	label="Jenis Proses"	        value.bind="info.filter.processType" 	    change.delegate="processTypeChanged($event)" filter.bind="filterOrder" if.bind="orderType" ></process-type-auto-suggest>
+        <buyer-auto-suggest	        label="Buyer"	                value.bind="info.filter.buyer" 	            change.delegate="buyerChanged($event)"></buyer-auto-suggest>
+        <account-auto-suggest	    label="Staff Penjualan"	        value.bind="info.filter.account" 	        change.delegate="accountChanged($event)"    filter.bind="filterAccount"></account-auto-suggest>
+        <datepicker                 label="Tanggal Awal"            value.bind="info.filter.dateFrom"           ></datepicker>
+        <datepicker                 label="Tanggal Akhir"           value.bind="info.filter.dateTo"             ></datepicker> 
         
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -82,6 +82,7 @@
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
         Tidak ada data ditemukan.
     </div>
+    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
     <hr/>
 </form>
 </template>
