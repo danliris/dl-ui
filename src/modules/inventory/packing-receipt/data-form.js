@@ -17,7 +17,7 @@ export class DataForm {
 
     itemsColumns = [
         { header: "Nama Barang", value: "product" },
-        { header: "Quantity Diterima", value: "quantity" },
+        { header: "Kuantiti Diterima", value: "quantity" },
         { header: "Remark", value: "remark" },
         { header: "Catatan", value: "note" }
     ]
@@ -46,19 +46,8 @@ export class DataForm {
             this.selectedPacking = await this.service.getPackingById(this.data.packingId)
         }
 
-        if (this.selectedPacking) {
-            // this.data = this.selectedPacking;
-            this.salesContractNo = this.selectedPacking.salesContractNo;
-            var _items = [];
-            this.selectedPacking.items.map((item) => {
-                var _item = {};
-                _item.product = `${this.salesContractNo}/${this.selectedPacking.colorName}/${this.selectedPacking.construction}/${item.lot}/${item.grade}/${item.length}/${this.selectedPacking.packingUom}`;
-                _item.quantity = item.quantity;
-                _item.remark = item.remark;
-                _item.notes = item.note;
-                _items.push(_item);
-            })
-            this.items = _items;
+        if (this.data.items) {
+            this.items = this.data.items;
         }
 
         this.cancelCallback = this.context.cancelCallback;
@@ -138,6 +127,7 @@ export class DataForm {
                 _items.push(_item);
             })
             this.items = _items;
+            this.data.items = this.items;
         }
     }
 

@@ -1,8 +1,6 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
         <fieldset>
-            <legend>Informasi Packing</legend>
-
             <au-autocomplete value.bind="selectedPacking" label="Kode Packing" read-only.bind="readOnly || isEdit" error.bind="error.kanbanId"
                 loader.bind="packingLoader" key="code" text.bind="packingTextFormatter" change.delegate="packingChanged($event)">
             </au-autocomplete>
