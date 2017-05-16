@@ -25,6 +25,7 @@ export class List {
     },
     { field: "referenceNo", title: "No. Referensi" },
     { field: "referenceType", title: "Jenis Referensi" },
+    { field: "storageName", title: "Storage" },
     { field: "type", title: "Status" }
   ];
 
@@ -37,7 +38,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["date", "code", "referenceNo", "referenceType", "type"],
+      select: ["date", "code", "referenceNo", "referenceType", "type","storageName"],
       order: order
     }
 

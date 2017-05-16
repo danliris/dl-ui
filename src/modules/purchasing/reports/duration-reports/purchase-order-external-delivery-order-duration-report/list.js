@@ -2,16 +2,19 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+var UnitLoader = require('../../../../../loader/unit-loader');
 @inject(Router, Service)
 export class List {
 
 
     info = {
+        unitId:"",
         duration: "",
         dateFrom: "",
         dateTo: "",
 
     };
+    unit=null;
     duration='';
     dateFrom = null;
     dateTo = null;
@@ -31,8 +34,13 @@ export class List {
 
     }
 
+    get unitLoader() {
+        return UnitLoader;
+    }
+
     searching() {
         if (this.filter) {
+            this.info.unitId = this.filter.unit ? this.filter.unit._id : "";
             this.info.duration = this.filter.duration ? this.filter.duration : "0-30 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -59,6 +67,7 @@ export class List {
     ExportToExcel() {
 
         if (this.filter) {
+            this.info.unitId = this.filter.unit ? this.filter.unit._id : "";
             this.info.duration = this.filter.duration ? this.filter.duration : "0-30 hari";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
