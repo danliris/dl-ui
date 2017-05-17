@@ -39,24 +39,18 @@
 
         <br>
         </br>
-
+   
         <au-table
           view-model.ref="movementTable"
           data.bind="loader"
           columns.bind="columns"
           sortable.bind="true"
-          page-size="25"
+          page-size="10"
           options.bind="tableOptions">
           
           <div slot="toolbar" class="btn-group">
             <button class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
           </div>
         </au-table>
-
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-            Tidak ada data.
-        </div>
-        <hr/>
-        </form>
     </au-input-form>
 </template>

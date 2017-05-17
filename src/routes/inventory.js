@@ -26,8 +26,8 @@ module.exports = [
         }
     },
     {
-        route: 'inventory/reports/inventory-stock-report',
-        name: 'inventory/reports/inventory-stock-report',
+        route: 'inventory/reports/inventory-movement-report',
+        name: 'inventory/reports/inventory-movement-report',
         moduleId: './modules/inventory/reports/inventory-movement-report/index',
         nav: true,
         title: 'Inventory Movement Report',
