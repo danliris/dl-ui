@@ -13,7 +13,7 @@ export class List {
         this.router = router;
     }
 
-    statusOptions = ['IN','OUT','ADJ'];
+    statusOptions = ['','IN','OUT','ADJ'];
 
     tableOptions = {
         search: false,
@@ -22,7 +22,6 @@ export class List {
     }
 
     selectedStorage = {};
-   
 
     columns = [
       { field: "storageName", title: "Storage"},
@@ -40,24 +39,28 @@ export class List {
     ]
 
     bind() {
-        
+
+    }
+
+    fillValues() {
+        this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : undefined;
+        this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : undefined;
+        this.arg.storageId = this.selectedStorage._id ? this.selectedStorage._id : undefined;
+        this.arg.type = this.statusOpt;
     }
 
     loader = (info) => {
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-
         this.arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order,
-            dateFrom : moment(this.dateFrom).format("YYYY-MM-DD"),
-            dateTo : moment(this.dateTo).format("YYYY-MM-DD"),
-            storageId : this.selectedStorage._id ? this.selectedStorage._id : "",
-            type : this.statusOpt
+            order: order
         }
+
+        this.fillValues();
 
         return this.service.search(this.arg)
             .then(result => {
@@ -66,10 +69,6 @@ export class List {
                     data: result.data
                 }
             });
-    }
-
-    contextShowCallback(index, name, data) {
-        return true;
     }
 
     search() {
@@ -84,6 +83,7 @@ export class List {
     }
 
     ExportToExcel() {
+        this.fillValues();
         this.service.generateExcel(this.arg);
     }
 
