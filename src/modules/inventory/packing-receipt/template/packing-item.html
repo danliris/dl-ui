@@ -1,0 +1,21 @@
+<template>
+    <tr>
+        <td class="col-sm-3">
+            <au-textbox value.bind="data.product" read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric value.bind="newQuantity" error.bind="error.quantity" read-only.bind="options.readOnly" format="0" options.bind="controlOptions"
+                change.delegate="newQuantityChanged()">
+            </au-numeric>
+        </td>
+        <td style="text-align:center;" class="col-sm-2">
+            <au-textbox value.bind="data.remark" read-only.bind="true" options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-2">
+            <au-textbox value.bind="newNotes" read-only.bind="options.readOnly" options.bind="controlOptions" error.bind="error.notes">
+            </au-textbox>
+        </td>
+    </tr>
+</template>
