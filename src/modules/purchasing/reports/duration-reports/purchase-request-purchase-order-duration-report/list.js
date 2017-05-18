@@ -49,7 +49,7 @@ export class List {
             .then(result => {
                 this.data = result.info;
                 for(var a of this.data){
-                    a.dateDiff=Math.round(a.dateDiff);
+                    a.dateDiff=Math.ceil(a.dateDiff);
                 }
             })
     }
