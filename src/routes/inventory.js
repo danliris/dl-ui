@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "*": 1 },
+            //permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1 },
+            //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission : {"C9":1},
+            //permission : {"C9":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,7 +47,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission : {"C9":1},
+            //permission : {"C9":1},
             iconClass: 'fa fa-dashboard'
         }
     }]
