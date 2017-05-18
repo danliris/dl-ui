@@ -22,7 +22,11 @@ export class CreateInput {
         this.data.type = "input";
         this.service.create(this.data)
             .then(result => {
-                this.list();
+                this.data = {};
+                this.error={};
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create-input',{replace:true, trigger:true});
+                // this.list();
             })
             .catch(e => {
                 this.error = e;
