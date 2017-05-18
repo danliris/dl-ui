@@ -10,12 +10,12 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}/get/search`;
+        var endpoint = `${serviceUri}/get/movement`;
         return super.list(endpoint, info);
     }
 
     generateExcel(info) {
-        var endpoint = this._getEndPoint(info, '/generate/excel');
+        var endpoint = this._getEndPoint(info, '/get/movement');
         return super.getXls(endpoint);
     }
 

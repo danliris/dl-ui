@@ -10,12 +10,12 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/get/summary`;
         return super.list(endpoint, info);
     }
 
     generateExcel(info) {
-        var endpoint = this._getEndPoint(info, '/generate/excel');
+        var endpoint = this._getEndPoint(info, '/get/summary');
         return super.getXls(endpoint);
     }
 
@@ -31,14 +31,11 @@ export class Service extends RestService {
         else
             delete info.order;
 
-        if (info.page)
-            query = `${query}&page=${info.page}`;
+        if (info.productId)
+            query = `${query}&productId=${info.productId}`;
 
-        if (info.size)
-            query = `${query}&size=${info.size}`;
-
-        if (info.keyword)
-            query = `${query}&keyword=${info.keyword}`;
+        if (info.storageId)
+            query = `${query}&storageId=${info.storageId}`;
 
         if (query !== ''){
             query = query.substring(1);
