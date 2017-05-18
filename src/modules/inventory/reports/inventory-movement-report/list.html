@@ -1,56 +1,50 @@
 <template>
-    <au-input-form 
-      title="Laporan Stock In/Out">
-        <div class="row">
-          <div class="col-md-6">
-              <form class="form-horizontal">
+    <h1 class="page-header">Laporan Stock In/Out</h1>
+    <form class="form-horizontal">
+        <au-autocomplete 
+          value.bind="selectedStorage"
+          label="Storage" 
+          loader.bind="storageLoader" 
+          placeholder="Cari Storage"
+          text.bind="storageView">
+        </au-autocomplete>
 
-                <au-autocomplete 
-                  value.bind="selectedStorage"
-                  label="Storage" 
-                  loader.bind="storageLoader" 
-                  placeholder="Input Storage"
-                  text.bind="storageView">
-                </au-autocomplete>
+        <au-dropdown
+          label="Status"
+          items.bind="statusOptions"
+          value.bind="statusOpt"
+        ></au-dropdown>
+        
+        <au-datepicker 
+          label="Tanggal Awal" 
+          value.bind="dateFrom"
+        ></au-datepicker>
 
-                <au-dropdown
-                  label="Status"
-                  items.bind="statusOptions"
-                  value.bind="statusOpt"
-                ></au-dropdown>
-                
-                <au-datepicker 
-                  label="Tanggal Awal" 
-                  value.bind="dateFrom"
-                ></au-datepicker>
-
-                <au-datepicker 
-                  label="Tanggal Akhir" 
-                  value.bind="dateTo"
-                ></au-datepicker>
-
-                <div class="btn-group pull-right">
-                    <button click.delegate="search()" class='btn btn-success'>Cari</button>
-                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
-                </div>
-            </form>
-          </div>
+        <au-datepicker 
+          label="Tanggal Akhir" 
+          value.bind="dateTo"
+        ></au-datepicker>
+        
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+              <button click.delegate="search()" class='btn btn-success'>Cari</button> 
+              <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
         </div>
-
-        <br>
-        </br>
    
         <au-table
           view-model.ref="movementTable"
           data.bind="loader"
           columns.bind="columns"
           sortable.bind="true"
-          page-size="10"
+          page-size="25"
           options.bind="tableOptions">
           
           <div slot="toolbar" class="btn-group">
             <button class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
           </div>
         </au-table>
-    </au-input-form>
+        <hr/>
+    </form>
 </template>

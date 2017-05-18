@@ -1,6 +1,9 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 
+var StorageLoader = require('../../../../loader/storage-loader');
+var ProductLoader = require('../../../../loader/product-loader');
+
 @inject(Service)
 export class List {
     constructor(service, router){
@@ -14,6 +17,17 @@ export class List {
         { field: "uom", title: "UOM" },
     ];
 
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false
+    }
+
+    listDataFlag = false;
+
+    selectedStorage = "";
+    selectedProduct = "";
+
     loader = (info) => {
         var order = {};
         if (info.sort)
@@ -26,16 +40,53 @@ export class List {
             order: order
         }
 
-        return this.service.search(this.arg)
-            .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+        return this.listDataFlag ? (
+            this.fillValues(),
+            this.service.search(this.arg)
+                .then(result => {
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    }
+                })
+        ) : { total: 0, data: {} };
+    }
+
+    fillValues() {
+        this.arg.storageId = this.selectedStorage ? this.selectedStorage._id : undefined;
+        this.arg.productId = this.selectedProduct ? this.selectedProduct._id : undefined;
     }
 
     ExportToExcel() {
+        this.fillValues();
         this.service.generateExcel(this.arg);
+    }
+
+    get storageLoader() {
+        return StorageLoader;
+    }
+
+    storageView = (storage) => {
+        return `${storage.code} - ${storage.name}`;
+    }
+
+    get productLoader() {
+        return ProductLoader;
+    }
+
+    productView = (product) => {
+        return `${product.code} - ${product.name}`;
+    }
+
+    search() {
+        this.listDataFlag = true;
+        this.summaryTable.refresh();
+    }
+
+    reset() {
+        this.selectedStorage = "";
+        this.selectedProduct = "";
+        this.listDataFlag = false;
+        this.summaryTable.refresh();
     }
 }
