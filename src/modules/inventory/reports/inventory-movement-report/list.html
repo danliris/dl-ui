@@ -6,7 +6,9 @@
           label="Storage" 
           loader.bind="storageLoader" 
           placeholder="Cari Storage"
-          text.bind="storageView">
+          focusout.delegate="autocomplete_change($this.acStorage)"
+          text.bind="storageView"
+          ref="acStorage">
         </au-autocomplete>
 
         <au-dropdown

@@ -101,4 +101,9 @@ export class List {
     storageView = (storage) => {
         return `${storage.code} - ${storage.name}`;
     }
+
+    autocomplete_change(e) {
+        if(e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
+            e.au.controller.view.bindingContext.value = e.au.controller.view.bindingContext.value == undefined ? "" : undefined;
+    }
 }
