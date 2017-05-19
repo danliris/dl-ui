@@ -28,6 +28,7 @@ export class View {
     listDOColumns = [
         { value: "index", header: "No." },
         { value: "orderNo", header: "Nomor Order" },
+        { value: "color", header: "Warna yang Diminta" },
         { value: "machine", header: "Mesin" },
         { value: "step", header: "Step" },
         { value: "qty", header: "Input" }
