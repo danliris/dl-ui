@@ -20,9 +20,9 @@ export class Create {
   }
 
   cancelCallback(event) {
-    alert("Data berhasil dibuat");
-    this.router.navigateToRoute('create', { replace: true, trigger: true });
-    // this.router.navigateToRoute('list');
+    // alert("Data berhasil dibuat");
+    // this.router.navigateToRoute('create', { replace: true, trigger: true });
+    this.router.navigateToRoute('list');
   }
 
   saveCallback(event) {
@@ -42,7 +42,10 @@ export class Create {
 
     Promise.all(createPromise)
       .then(responses => {
-        this.cancelCallback();
+        this.data = {};
+        this.error = {};
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', { replace: true, trigger: true });
       })
       .catch(e => {
         delete this.data.cart;

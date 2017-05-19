@@ -18,9 +18,9 @@ export class Create {
     }
 
     list() {
-        alert("Data berhasil dibuat");
-        this.router.navigateToRoute('create', { replace: true, trigger: true });
-        // this.router.navigateToRoute('list');
+        // alert("Data berhasil dibuat");
+        // this.router.navigateToRoute('create', { replace: true, trigger: true });
+        this.router.navigateToRoute('list');
     }
 
     save() {
@@ -35,7 +35,10 @@ export class Create {
 
         this.service.create(this.data)
             .then(result => {
-                this.list();
+                this.data = {};
+                this.error = {};
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
