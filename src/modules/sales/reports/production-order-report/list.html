@@ -4,6 +4,7 @@
             white-space: pre;
         }
     </style>
+
     <h1 class="page-header">Laporan Monitoring Surat Perintah Produksi</h1>
     <form class="form-horizontal">
         <textbox label="Nomor Sales Contract" value.bind="salesContractNo"></textbox>
@@ -26,6 +27,7 @@
         <div>
             <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
         </div>
+
         <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="myTable">
                 <thead align="center">

@@ -51,11 +51,13 @@ export class List {
     }
 
     searching() {
+        var data = [];
         this.setFilter();
+        this.filter = this.info.filter;
         this.service.getReport(this.info)
             .then(result => {
                 this.data = result.data;
-                this.info = result.info;
+                this.info = result.data;
                 this.info.filter = this.filter;
             })
     }
@@ -137,6 +139,6 @@ export class List {
     }
 
     detail(data) {
-        this.router.navigateToRoute('view', { id: data.salesContractNo});
+        this.router.navigateToRoute('view', { id: data.salesContractNo });
     }
 }
