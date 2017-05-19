@@ -24,7 +24,10 @@ export class Create {
     save(event) {
         this.service.create(this.data)
             .then(result => {
-                this.cancel();
+                this.data = {};
+                this.error = {};
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;

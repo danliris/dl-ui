@@ -12,11 +12,13 @@ export class Create {
     }
 
     activate(params) {
-        this.data.threadWeight=1.89;
+        this.data.threadWeight = 1.89;
     }
 
     back() {
-        this.router.navigateToRoute('list');
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', { replace: true, trigger: true });
+        // this.router.navigateToRoute('list');
     }
 
     save() {
