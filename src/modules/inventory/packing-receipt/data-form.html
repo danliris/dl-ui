@@ -1,7 +1,7 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
         <fieldset>
-            <au-autocomplete value.bind="selectedPacking" label="Kode Packing" read-only.bind="readOnly || isEdit" error.bind="error.kanbanId"
+            <au-autocomplete value.bind="selectedPacking" label="Kode Packing" read-only.bind="readOnly || isEdit" error.bind="error.packingId"
                 loader.bind="packingLoader" key="code" text.bind="packingTextFormatter" change.delegate="packingChanged($event)">
             </au-autocomplete>
             <au-textbox label="Nomor Order" value.one-way="orderNo" read-only.bind="true"></au-textbox>
