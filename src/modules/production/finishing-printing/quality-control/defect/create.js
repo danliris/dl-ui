@@ -23,7 +23,10 @@ export class Create {
   saveCallback(event) {
     this.service.create(this.data)
       .then(result => {
-        this.__goToList();
+        this.data = {};
+        this.error = {};
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', { replace: true, trigger: true });
       })
       .catch(error => {
         this.error = error;
@@ -31,7 +34,6 @@ export class Create {
   }
 
   __goToList() {
-    alert("Data berhasil dibuat");
-    this.router.navigateToRoute('create', { replace: true, trigger: true });
+    this.router.navigateToRoute('list');
   }
 }
