@@ -26,11 +26,11 @@ module.exports = [
         }
     },
     {
-        route: 'inventory/reports/inventory-stock-report',
-        name: 'inventory/reports/inventory-stock-report',
+        route: 'inventory/reports/inventory-movement-report',
+        name: 'inventory/reports/inventory-movement-report',
         moduleId: './modules/inventory/reports/inventory-movement-report/index',
         nav: true,
-        title: 'Inventory Movement Report',
+        title: 'Laporan Stock In/Out',
         auth: true,
         settings: {
             group: "Inventory",
@@ -43,7 +43,7 @@ module.exports = [
         name: 'inventory/reports/inventory-summary-report',
         moduleId: './modules/inventory/reports/inventory-summary-report/index',
         nav: true,
-        title: 'Inventory Summary Report',
+        title: 'Kartu Stok',
         auth: true,
         settings: {
             group: "Inventory",
