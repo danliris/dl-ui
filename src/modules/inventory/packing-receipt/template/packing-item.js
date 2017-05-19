@@ -1,9 +1,11 @@
-import { bindable } from 'aurelia-framework'
+import { bindable } from 'aurelia-framework';
 
 export class PackingItem {
 
   @bindable newQuantity;
   @bindable newNotes;
+  // @bindable data;
+  // @bindable error = {};
 
   activate(context) {
     this.data = context.data;

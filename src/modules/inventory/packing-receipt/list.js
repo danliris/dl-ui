@@ -24,7 +24,8 @@ export class List {
         { field: "buyer", title: "Buyer" },
         { field: "productionOrderNo", title: "Nomor Production Order" },
         { field: "colorName", title: "Warna" },
-        { field: "construction", title: "Konstruksi" }
+        { field: "construction", title: "Konstruksi" },
+        { field: "_createdBy", title: "Diterima Oleh" }
     ];
 
     loader = (info) => {
