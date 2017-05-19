@@ -26,7 +26,7 @@ export class DataForm {
     @bindable readOnly;
     @bindable data;
     @bindable error;
-    @bindable items;    
+    @bindable items;
 
 
     constructor(service, bindingSignaler, bindingEngine) {
@@ -100,7 +100,7 @@ export class DataForm {
     get packingLoader() {
         return (keyword) => {
             var info = { keyword: keyword };
-            return this.service.searchPacking(info)
+            return this.service.searchUnacceptedPacking(info)
                 .then((result) => {
                     return result.data;
                 })
@@ -120,7 +120,7 @@ export class DataForm {
             var _items = [];
             this.selectedPacking.items.map((item) => {
                 var _item = {};
-                _item.product = `${this.salesContractNo}/${this.selectedPacking.colorName}/${this.selectedPacking.construction}/${item.lot}/${item.grade}`;
+                _item.product = `${this.salesContractNo} /${this.selectedPacking.colorName} / ${this.selectedPacking.construction} / ${item.lot} / ${item.grade} / ${item.length}`;
                 _item.quantity = item.quantity;
                 _item.remark = item.remark;
                 _item.notes = item.note;
