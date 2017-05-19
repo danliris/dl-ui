@@ -31,6 +31,7 @@ export class Create {
   }
 
   __goToList() {
-    this.router.navigateToRoute('list');
+    alert("Data berhasil dibuat");
+    this.router.navigateToRoute('create', { replace: true, trigger: true });
   }
 }

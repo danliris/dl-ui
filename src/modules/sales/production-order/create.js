@@ -14,7 +14,9 @@ export class Create {
 
 
     back() {
-        this.router.navigateToRoute('list');
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', { replace: true, trigger: true });
+        // this.router.navigateToRoute('list');
     }
 
     save() {

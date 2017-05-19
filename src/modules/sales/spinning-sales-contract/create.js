@@ -23,7 +23,9 @@ export class Create {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', { replace: true, trigger: true });
+        // this.router.navigateToRoute('list');
     }
     save(event) {
         this.data.deliverySchedule = moment(this.data.deliverySchedule).format("YYYY-MM-DD");
