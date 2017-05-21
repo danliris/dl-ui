@@ -6,7 +6,7 @@
                 
                 <buyer-auto-suggest           label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
                 <textbox                      label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
-                <production-order-auto-suggest label="Nomor Referensi"               value.bind="data.reference"                 error.bind="error.reference"           read-only.bind="readOnly"   change.delegate="referenceNumberChanged($event)"></production-order-auto-suggest>
+                <checkbox                 label="SC Stock"               value.bind="data.fromStock"                 error.bind="error.fromStock"           read-only.bind="readOnly"  ></checkbox>
                 <textbox                      label="Nomor Disposisi"  value.bind="data.dispositionNumber"       error.bind="error.dispositionNumber"                       read-only.bind="readOnly"  ></textbox>
                 <comodity-auto-suggest        label="Komoditas"         value.bind="data.comodity"             error.bind="error.comodity"                       read-only.bind="(readOnly)" change.delegate="comodityChanged($event)" ></comodity-auto-suggest>
                 <multiline                    label="Keterangan Komoditas"         value.bind="data.comodityDescription"             error.bind="error.comodityDescription"                       read-only.bind="(readOnly)" rows.bind="8"></multiline>

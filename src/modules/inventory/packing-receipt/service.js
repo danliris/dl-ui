@@ -4,6 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 
 
 const serviceUri = 'inventory/packing-receipts';
+const packingUnacceptedServiceUri = 'finishing-printing/quality-control/packings-unaccepted';
 const packingServiceUri = 'finishing-printing/quality-control/packings';
 const productionOrderServiceUri = 'sales/production-orders';
 
@@ -52,10 +53,18 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getProductionOrderByNo(orderNo, select) {
-        debugger
-        var endpoint = `${productionOrderServiceUri}/${orderNo.replace("/", "").replace("/", "")}`;
-        var info = { select: select };
-        return super.get(endpoint, null, info);
+    searchUnacceptedPacking(info) {
+        var endpoint = `${packingUnacceptedServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getPackingById(id) {
+        var endpoint = `${packingServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getPackingUnacceptedById(id) {
+        var endpoint = `${packingUnacceptedServiceUri}/${id}`;
+        return super.get(endpoint);
     }
 }

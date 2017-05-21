@@ -6,7 +6,7 @@ import {Service} from './service';
 export class Create {
     hasCancel = true;
     hasSave = true;
-    
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -29,7 +29,10 @@ export class Create {
         }
         this.service.create(this.data)
             .then(result => {
-                this.cancel();
+                this.data = {};
+                this.error = {};
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
