@@ -47,6 +47,7 @@ export class List {
         this.buyer = null;
         this.account = null;
         this.filter = {};
+        this.info = { page: 1, keyword: '' };
         this.data = [];
     }
 
