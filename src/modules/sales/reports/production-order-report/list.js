@@ -47,6 +47,7 @@ export class List {
         this.buyer = null;
         this.account = null;
         this.filter = {};
+        this.info = { page: 1, keyword: '' };
         this.data = [];
     }
 
@@ -57,7 +58,7 @@ export class List {
         this.service.getReport(this.info)
             .then(result => {
                 this.data = result.data;
-                this.info = result.data;
+                this.info = result.info;
                 this.info.filter = this.filter;
             })
     }
