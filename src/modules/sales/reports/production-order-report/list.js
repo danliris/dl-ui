@@ -57,7 +57,7 @@ export class List {
         this.service.getReport(this.info)
             .then(result => {
                 this.data = result.data;
-                this.info = result.data;
+                this.info = result.info;
                 this.info.filter = this.filter;
             })
     }
