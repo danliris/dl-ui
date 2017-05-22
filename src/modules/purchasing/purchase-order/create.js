@@ -1,6 +1,7 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
+import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
@@ -12,7 +13,14 @@ export class Create {
         this.service = service;
     }
 
+    determineActivationStrategy() {
+        return activationStrategy.replace; //replace the viewmodel with a new instance
+        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+        // or activationStrategy.noChange to explicitly use the default behavior
+    }
+
     bind() {
+        console.log("a");
         this.data = { items: [] };
         this.error = {};
     }
@@ -22,12 +30,12 @@ export class Create {
     }
 
     save(event) {
+
         this.service.create(this.data)
             .then(result => {
-                this.data = {};
-                this.error = {};
+
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', { replace: true, trigger: true });
+                this.router.navigateToRoute('create', { replace: true, trigger: true, force: true });
             })
             .catch(e => {
                 this.error = e;
