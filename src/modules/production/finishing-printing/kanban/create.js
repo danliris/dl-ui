@@ -14,12 +14,14 @@ export class Create {
 
   }
 
-  bind(){
+  bind() {
     this.data = this.data || {};
     this.error = {};
   }
 
   cancelCallback(event) {
+    // alert("Data berhasil dibuat");
+    // this.router.navigateToRoute('create', { replace: true, trigger: true });
     this.router.navigateToRoute('list');
   }
 
@@ -28,24 +30,27 @@ export class Create {
     this.data.productionOrderId = this.data.productionOrder ? this.data.productionOrder._id : {};
     this.data.instructionId = this.data.instruction ? this.data.instruction._id : {};
 
-    for (var cart of this.data.carts){
+    for (var cart of this.data.carts) {
       this.data.cart = cart;
       this.data.currentQty = cart.qty;
       createPromise.push(this.service.create(this.data));
     }
 
-    if (createPromise.length <= 0){
+    if (createPromise.length <= 0) {
       createPromise.push(this.service.create(this.data));
     }
 
     Promise.all(createPromise)
       .then(responses => {
-        this.cancelCallback();
+        this.data = {};
+        this.error = {};
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute('create', { replace: true, trigger: true });
       })
       .catch(e => {
         delete this.data.cart;
         delete this.data.currentQty;
         this.error = e;
       })
-  }    
+  }
 }

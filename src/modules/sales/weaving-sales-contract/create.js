@@ -24,13 +24,17 @@ export class Create {
     }
 
     cancel(event) {
+
         this.router.navigateToRoute('list');
     }
     save(event) {
         // this.data.deliverySchedule=moment(this.data.deliverySchedule).format("YYYY-MM-DD");
         this.service.create(this.data)
             .then(result => {
-                this.cancel();
+                this.data = {};
+                this.error = {};
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create', { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
