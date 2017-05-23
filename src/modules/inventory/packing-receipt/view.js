@@ -13,9 +13,11 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        this.packing = this.data.packing;
     }
 
-    cancelCallback(event) {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 }
