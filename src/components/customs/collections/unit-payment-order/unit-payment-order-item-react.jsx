@@ -44,10 +44,17 @@ export default class UnitPaymentOrderItemReact extends React.Component {
     }
 
     handleUnitReceiptNoteItemChange(unitReceiptNoteItem) {
+        var items = [];
+        for (var item of unitReceiptNoteItem.items) {
+            if (item.categoryId.toString() === this.options.filter.categoryId) {
+                items.push(item);
+            }
+        }
+        Object.assign(unitReceiptNoteItem.items, items);
         var unitPaymentOrderItem = {
             unitReceiptNoteId: unitReceiptNoteItem._id,
             unitReceiptNote: unitReceiptNoteItem
-        }; 
+        };
         // var unitReceiptNote = this.state.value;
         // var itemIndex = unitReceiptNote.items.indexOf(unitReceiptNoteItem);
         // var item = unitReceiptNote.items[itemIndex];
