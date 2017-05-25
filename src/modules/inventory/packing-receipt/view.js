@@ -5,6 +5,8 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class View {
+    hasCancel = true;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -14,7 +16,10 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        this.packing = this.data.packing;
+        this.packingReadOnly = true;
+        this.packing = this.data;
+        this.packing.code = this.data.packingCode;
+        this.data.packing = this.data;
     }
 
     cancel(event) {

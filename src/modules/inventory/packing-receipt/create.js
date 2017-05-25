@@ -34,11 +34,11 @@ export class Create {
         this.data.accepted = true;
         this.data.date = moment().format("YYYY-MM-DD");
         this.service.create(this.data)
-            .then(result => {
+            .then((result) => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', { replace: true, trigger: true });
             })
-            .catch(e => {
+            .catch((e) => {
                 this.error = e;
             })
     }
