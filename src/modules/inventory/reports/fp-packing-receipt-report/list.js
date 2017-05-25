@@ -1,109 +1,115 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-var moment = require("moment");
 
-var StorageLoader = require('../../../../loader/storage-loader');
+import moment from 'moment';
+var PackingReceiptLoader = require('../../../../loader/packing-receipt-loader');
 
 @inject(Router, Service)
+
 export class List {
+
+    info = {
+        packingCode: "",
+        buyer: "",
+        productionOrderNo: "",
+        _createdBy: "",
+        dateFrom: "",
+        dateTo: "",
+
+    };
+
+    packingCode = null;
+    buyer = null;
+    productionOrderNo = null;
+    _createdBy = null;
+    dateFrom = null;
+    dateTo = null;
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
+
     }
 
-    statusOptions = ['','IN','OUT','ADJ'];
-
-    tableOptions = {
-        search: false,
-        showToggle: false,
-        showColumns: false
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
+        this.newData = [];
     }
 
-    selectedStorage = "";
+    get packingReceiptLoader() {
+        return PackingReceiptLoader;
+    }
 
-    listDataFlag = false;
-
-    columns = [
-      { field: "storageName", title: "Storage"},
-      { field: "date", title: "Tanggal", 
-        formatter: (value, data) => {
-          return moment(value).format("DD-MMM-YYYY");
+    searching() {
+        if (this.filter) {
+            this.info.packingCode = this.filter.packingCode ? this.filter.packingCode.packingCode : "";
+            this.info.buyer = this.filter.buyer ? this.filter.buyer.buyer : "";
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
+            this.info._createdBy = this.filter._createdBy ? this.filter._createdBy._createdBy : "";
+            this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
+        } else {
+            this.info = {};
         }
-      },
-      { field: "productName", title: "Nama Barang"},
-      { field: "uom", title: "UOM"},
-      { field: "before", title: "Before"},
-      { field: "quantity", title: "Kuantiti"},
-      { field: "after", title: "After"},
-      { field: "type", title: "Status"}
-    ]
-
-    bind() {
-        
-    }
-
-    fillValues() {
-        this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : undefined;
-        this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : undefined;
-        this.arg.storageId = this.selectedStorage ? this.selectedStorage._id : undefined;
-        this.arg.type = this.statusOpt;
-    }
-
-    loader = (info) => {
-        var order = {};
-
-        if (info.sort)
-            order[info.sort] = info.order;
-
-        this.arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
-            keyword: info.search,
-            order: order
-        };
-
-        return this.listDataFlag ? (
-            this.fillValues(),
-            this.service.search(this.arg)
-                .then(result => {
-                    return {
-                        total: result.info.total,
-                        data: result.data
+        this.service.search(this.info)
+            .then((result) => {
+                var tempData;
+                this.data = result.data;
+                this.no = 0;
+                for (var result of this.data) {
+                    if (result.items) {
+                        for (var item of result.items) {
+                            tempData = {};
+                            this.no += 1;
+                            tempData.no = this.no;
+                            tempData.packingCode = result.packingCode;
+                            tempData.date = result.date;
+                            tempData.buyer = result.buyer;
+                            tempData.productionOrderNo = result.productionOrderNo;
+                            tempData.colorName = result.colorName;
+                            tempData.construction = result.construction;
+                            tempData._createdBy = result._createdBy;
+                            tempData.packingUom = result.packingUom;
+                            tempData.product = item.product;
+                            tempData.quantity = item.quantity;
+                            tempData.remark = item.remark;
+                            tempData.notes = item.notes;
+                            this.newData.push(tempData);
+                        }
                     }
+                }
             })
-        ) : { total: 0, data: {} };
     }
 
-    search() {
-        this.listDataFlag = true;
-        this.movementTable.refresh();
+
+    changePage(e) {
+
+        var page = e.detail;
+        this.info.page = page;
+        this.loadPage();
+    }
+
+    exportToExcel() {
+        debugger
+        if (this.filter) {
+            this.info.packingCode = this.filter.packingCode ? this.filter.packingCode.packingCode : "";
+            this.info.buyer = this.filter.buyer ? this.filter.buyer.buyer : "";
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
+            this.info._createdBy = this.filter._createdBy ? this.filter._createdBy._createdBy : "";
+            this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
+            this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
+        } else {
+            this.info = {};
+        }
+        this.service.generateExcel(this.info);
     }
 
     reset() {
-        this.selectedStorage = "";
-        this.statusOpt = this.statusOptions[0];
-        this.dateFrom = null;
-        this.dateTo = null;
-        this.listDataFlag = false;
-        this.movementTable.refresh();
+        this.filter = {};
+        this.data = [];
     }
 
-    ExportToExcel() {
-        this.fillValues();
-        this.service.generateExcel(this.arg);
-    }
-
-    get storageLoader() {
-        return StorageLoader;
-    }
-
-    storageView = (storage) => {
-        return `${storage.code} - ${storage.name}`;
-    }
-
-    autocomplete_change(e) {
-        if(e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
-            e.au.controller.view.bindingContext.value = e.au.controller.view.bindingContext.value == undefined ? "" : undefined;
-    }
 }

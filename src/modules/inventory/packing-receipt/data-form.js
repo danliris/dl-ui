@@ -1,8 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
-var PackingUnacceptedLoader = require('../../../loader/packing-unaccepted-loader');
 
-var moment = require('moment');
+var PackingUnacceptedLoader = require('../../../loader/packing-unaccepted-loader');
 
 export class DataForm {
     @bindable readOnly = false;

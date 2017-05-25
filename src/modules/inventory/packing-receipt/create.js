@@ -1,7 +1,9 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
+
+var moment = require('moment');
 
 @inject(Router, Service)
 export class Create {
@@ -29,6 +31,8 @@ export class Create {
     }
 
     save(event) {
+        this.data.accepted = true;
+        this.data.date = moment().format("YYYY-MM-DD");
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
