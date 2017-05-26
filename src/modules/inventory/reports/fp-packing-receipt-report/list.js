@@ -56,6 +56,7 @@ export class List {
         }
         this.service.search(this.info)
             .then((result) => {
+                this.newData = [];
                 var tempData;
                 this.data = result.data;
                 this.no = 0;
@@ -110,6 +111,7 @@ export class List {
     reset() {
         this.filter = {};
         this.data = [];
+        this.newData = [];
     }
 
 }
