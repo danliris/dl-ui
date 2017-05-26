@@ -1,19 +1,26 @@
 <template>
-    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+    <au-input-form title.bind="title" with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+        </div>
+
         <fieldset>
-            <au-autocomplete value.bind="selectedPacking" label="Kode Packing" read-only.bind="readOnly || isEdit" error.bind="error.packingId"
-                loader.bind="packingLoader" key="code" text.bind="packingTextFormatter" change.delegate="packingChanged($event)">
+            <au-autocomplete value.bind="packing" error.bind="error.packingId" label="Kode Packing" loader.bind="packingUnacceptedLoader"
+                placeholder="Cari Packing" read-only.bind="packingReadOnly" key="code" text="code">
             </au-autocomplete>
-            <au-textbox label="Nomor Order" value.one-way="orderNo" read-only.bind="true"></au-textbox>
-            <au-textbox label="Warna Diminta" value.one-way="colorRequest" read-only.bind="true"></au-textbox>
-            <au-textbox label="Konstruksi" value.one-way="construction" read-only.bind="true"></au-textbox>
-            <au-textbox label="UOM" value.one-way="packingUom" read-only.bind="true"></au-textbox>
+            <au-textbox label="Nomor Order" value.bind="data.packing.productionOrderNo" read-only.bind="true"></au-textbox>
+            <au-textbox label="Warna Diminta" value.bind="data.packing.colorName" read-only.bind="true"></au-textbox>
+            <au-textbox label="Konstruksi" value.bind="data.packing.construction" read-only.bind="true"></au-textbox>
+            <au-textbox label="UOM" value.bind="data.packing.packingUom" read-only.bind="true"></au-textbox>
             <!--<au-textbox label="Sumber Penyimpanan " value.one-way="originStorage" read-only.bind="true"></au-textbox>-->
             <!--<au-textbox label="Tujuan Penyimpanan" value.one-way="destinationStorage" read-only.bind="true"></au-textbox>-->
 
         </fieldset>
 
-        <au-collection items.bind="items" columns.bind="itemsColumns" read-only.bind="readOnly" item-template="modules/inventory/packing-receipt/template/packing-item">
+        <au-collection items.bind="data.items" columns.bind="itemsColumns" read-only.bind="packingReadOnly" item-template="modules/inventory/packing-receipt/template/packing-item"
+            error.bind="error.items">
         </au-collection>
 
         <!--<au-table view-model.ref="table" data.bind="loadData" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context"

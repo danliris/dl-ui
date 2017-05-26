@@ -50,4 +50,17 @@ module.exports = [
             permission : {"C9":1},
             iconClass: 'fa fa-dashboard'
         }
+    }, 
+    {
+        route: 'inventory/reports/fp-packing-receipt-report',
+        name: 'inventory/reports/fp-packing-receipt-report',
+        moduleId: './modules/inventory/reports/fp-packing-receipt-report/index',
+        nav: true,
+        title: 'Laporan Penerimaan Packing',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission : {"C9":1},
+            iconClass: 'fa fa-dashboard'
+        }
     }]
