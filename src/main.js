@@ -31,11 +31,11 @@ export async function configure(aurelia) {
       }
 
 
-      var core = "https://dl-core-api-uat.mybluemix.net/v1/";
-      var auth = "https://dl-auth-api-uat.mybluemix.net/v1/";
-      var production = "https://dl-production-webapi-uat.mybluemix.net/v1/";
-      var purchasing = "https://dl-purchasing-webapi-uat.mybluemix.net/v1/";
-      var inventory = "https://dl-inventory-webapi-uat.mybluemix.net/v1/";
+      var core = "https://dl-core-api.mybluemix.net/v1/";
+      var auth = "https://dl-auth-api.mybluemix.net/v1/";
+      var production = "https://dl-production-webapi.mybluemix.net/v1/";
+      var purchasing = "https://dl-purchasing-webapi.mybluemix.net/v1/";
+      var inventory = "https://dl-inventory-webapi.mybluemix.net/v1/";
 
 
       config.registerEndpoint('auth', auth);
