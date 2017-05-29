@@ -29,8 +29,6 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
-
-
       var core = "https://dl-core-api.mybluemix.net/v1/";
       var auth = "https://dl-auth-api.mybluemix.net/v1/";
       var production = "https://dl-production-webapi.mybluemix.net/v1/";
