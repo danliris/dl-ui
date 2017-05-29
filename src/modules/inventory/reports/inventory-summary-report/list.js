@@ -25,9 +25,6 @@ export class List {
 
     listDataFlag = false;
 
-    selectedStorage = "";
-    selectedProduct = "";
-
     loader = (info) => {
         var order = {};
         if (info.sort)
@@ -84,9 +81,14 @@ export class List {
     }
 
     reset() {
-        this.selectedStorage = "";
-        this.selectedProduct = "";
+        this.selectedStorage = undefined;
+        this.selectedProduct = undefined;
         this.listDataFlag = false;
         this.summaryTable.refresh();
+    }
+
+    autocomplete_change(e) {
+        if(e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
+            e.au.controller.view.bindingContext.value = e.au.controller.view.bindingContext.value == undefined ? "" : undefined;
     }
 }
