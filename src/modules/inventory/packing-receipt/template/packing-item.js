@@ -1,19 +1,10 @@
-import { bindable } from 'aurelia-framework'
+import { bindable } from 'aurelia-framework';
 
 export class PackingItem {
 
-  @bindable newQuantity;
-  @bindable newNotes;
-
   activate(context) {
     this.data = context.data;
-    // console.log(this.data);
-    this.newQuantity = this.data.quantity;
-    this.newNotes = this.data.notes;
-
-    // this.items = this.data;
     this.error = context.error;
-    console.log(this.error);
     this.options = context.options;
   }
 
@@ -23,13 +14,12 @@ export class PackingItem {
     }
   }
 
-  newQuantityChanged() {
-    this.data.quantity = this.newQuantity;
+  quantityChanged(e) {
     console.log(this.data);
+    // this.data.quantity = this.data.quantity ? this.data.quantity : 0;
   }
 
-  newNotesChanged() {
-    this.data.notes = this.newNotes;
+  notesChanged(e) {
     console.log(this.data);
   }
 
