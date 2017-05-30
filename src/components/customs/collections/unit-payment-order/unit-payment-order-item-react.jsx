@@ -31,7 +31,14 @@ export default class UnitPaymentOrderItemReact extends React.Component {
     }
 
     handleUnitReceiptNoteChange(event, unitReceiptNote) {
+        var items = [];
         if (unitReceiptNote != null) {
+            for (var item of unitReceiptNote.items) {
+                if (item.purchaseOrder.categoryId.toString() === this.state.options.filter.categoryId.toString()) {
+                    items.push(item);
+                }
+            }
+            unitReceiptNote.items=items;
             var unitPaymentOrderItem = {
                 unitReceiptNoteId: unitReceiptNote._id,
                 unitReceiptNote: unitReceiptNote
@@ -44,13 +51,6 @@ export default class UnitPaymentOrderItemReact extends React.Component {
     }
 
     handleUnitReceiptNoteItemChange(unitReceiptNoteItem) {
-        var items = [];
-        for (var item of unitReceiptNoteItem.items) {
-            if (item.categoryId.toString() === this.options.filter.categoryId) {
-                items.push(item);
-            }
-        }
-        Object.assign(unitReceiptNoteItem.items, items);
         var unitPaymentOrderItem = {
             unitReceiptNoteId: unitReceiptNoteItem._id,
             unitReceiptNote: unitReceiptNoteItem
