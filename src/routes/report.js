@@ -36,4 +36,16 @@ module.exports = [
             permission : {"A2":7,"C9":1},
             iconClass: 'fa fa-dashboard'
         }
+    },{
+        route: 'power-bi/inventory',
+        name: 'power-bi-inventory',
+        moduleId: './modules/power-bi/inventory/index',
+        nav: true,
+        title: 'Power BI: Inventory Reports',
+        auth: true,
+        settings: {
+            group: "reports",
+            permission : {"A2":7,"C9":1},
+            iconClass: 'fa fa-dashboard'
+        }
     }]
