@@ -12,11 +12,25 @@
 
             <au-autocomplete value.bind="filter.packingCode" label="Kode Packing" loader.bind="packingReceiptLoader" key="packingCode"
                 text="packingCode"></au-autocomplete>
-            <au-autocomplete value.bind="filter.buyer" label="Buyer" loader.bind="packingReceiptLoader" key="buyer" text="buyer"></au-autocomplete>
+
+            <au-autocomplete 
+              value.bind="filter.buyer" 
+              label="Buyer" 
+              loader.bind="buyerLoader" 
+              key="code" 
+              text="name"
+            ></au-autocomplete>
+
             <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" loader.bind="packingReceiptLoader" key="productionOrderNo"
                 text="productionOrderNo"></au-autocomplete>
-            <au-autocomplete value.bind="filter._createdBy" label="Diterima Oleh" loader.bind="packingReceiptLoader" key="_createdBy"
-                text="_createdBy"></au-autocomplete>
+            
+            <au-autocomplete 
+            value.bind="filter._createdBy" 
+            label="Diterima Oleh" 
+            loader.bind="accountLoader" 
+            key="_id"
+            text="username"></au-autocomplete>
+
             <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
             <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
 

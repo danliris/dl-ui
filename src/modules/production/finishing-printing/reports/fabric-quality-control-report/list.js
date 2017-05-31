@@ -4,6 +4,9 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 var FabricQualityControlLoader = require("../../../../../loader/fabric-loader")
+var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
+var KanbanLoader = require('../../../../../loader/kanban-loader');
+var OrderTypeLoader = require('../../../../../loader/order-type-loader');
 
 @inject(Router, Service)
 export class List {
@@ -67,9 +70,8 @@ export class List {
 
     searching() {
         if (this.filter) {
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
-            this.info.cartNo = this.filter.cartNo ? this.filter.cartNo.cartNo : "";
-            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.productionOrderType : "";
+            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.code : "";
+            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.name : "";
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -133,9 +135,8 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : null;
-            this.info.cartNo = this.filter.cartNo ? this.filter.cartNo.cartNo : null;
-            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.productionOrderType : null;
+            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.code : null;
+            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.name : null;
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -175,6 +176,30 @@ export class List {
         this.newData = [];
     }
 
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
+    }
 
+    get kanbanLoader() {
+        return KanbanLoader;
+    }
+
+    get filterKanban() {
+        var temp = {};
+        if (this.filter) {
+        if (this.filter.productionOrder) {
+            temp = {
+            "productionOrder.orderNo": this.filter.productionOrder.orderNo
+            };
+            return temp;
+        } else
+            return temp;
+        } else
+        return temp;
+    }
+
+    get orderTypeLoader() {
+        return OrderTypeLoader;
+    }
 
 }
