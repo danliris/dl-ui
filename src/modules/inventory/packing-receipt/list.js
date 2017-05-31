@@ -6,12 +6,6 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    rowFormatter(data, index) {
-        if (data.accepted)
-            return { classes: "success" }
-        else
-            return {}
-    }
     context = ["detail"]
 
     columns = [
@@ -24,7 +18,8 @@ export class List {
         { field: "buyer", title: "Buyer" },
         { field: "productionOrderNo", title: "Nomor Production Order" },
         { field: "colorName", title: "Warna" },
-        { field: "construction", title: "Konstruksi" }
+        { field: "construction", title: "Konstruksi" },
+        { field: "_createdBy", title: "Diterima Oleh" }
     ];
 
     loader = (info) => {
