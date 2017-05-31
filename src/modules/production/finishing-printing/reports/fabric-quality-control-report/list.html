@@ -1,8 +1,12 @@
 <template>
     <au-input-form title.bind="title" with.bind="context">
         <style>
-            table > tbody > tr > td {
-                white-space: pre;
+            table thead tr th {
+                vertical-align: top !important;
+            }
+
+            .panel-body {
+                display: none;
             }
         </style>
 
@@ -43,6 +47,12 @@
         </br>
 
         <div class="table-responsive">
+            <au-collection columns.one-way="listFQSDetailColumns" items.bind="newData" read-only.bind="true"
+                item-template="modules/production/finishing-printing/reports/fabric-quality-control-report/template/list-fqc">
+            </au-collection>
+        </div>
+
+        <!--<div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="myTable">
                 <thead align="center">
                     <tr>
@@ -93,10 +103,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="newData.length === 0">
-            Tidak ada data.
-        </div>
+        </div>-->
         <hr/>
         </form>
     </au-input-form>
