@@ -40,6 +40,7 @@
                     <tr>
                         <td>No</td>
                         <td >Tanggal Purchase Request</td>
+                        <td >Tanggal Buat Purchase Request</td>
                         <td >No Purchase Request</td>
                         <td >Divisi</td>
                         <td >Unit</td>
@@ -54,6 +55,7 @@
                         <td >Nama Supplier</td>
                         <td >Tanggal Terima PO Internal</td>
                         <td >Tanggal PO Eksternal</td>
+                        <td >Tanggal Buat PO Eksternal</td>
                         <td >Tanggal Target Datang</td>
                         <td >No PO Eksternal</td>
                         <td >Tanggal Surat Jalan</td>
@@ -68,6 +70,7 @@
                     <tr repeat.for="item of data">
                         <td class="text-center">${$index + 1}</td>
                         <td>${item.prDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.prCreatedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.prNo}</td>
                         <td>${item.division}</td>
                         <td>${item.unit}</td>
@@ -82,6 +85,7 @@
                         <td>${item.supplierName}</td>
                         <td>${item.poDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.poEksDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.poEksCreatedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.expectedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.poEksNo}</td>
                         <td>${item.doDate | dateFormat:'DD/MM/YYYY'}</td>

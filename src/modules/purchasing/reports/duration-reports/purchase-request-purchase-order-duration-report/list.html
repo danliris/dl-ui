@@ -38,6 +38,7 @@
                     <tr>
                         <td>No</td>
                         <td >Tanggal Purchase Request</td>
+                        <td >Tanggal Buat Purchase Request</td>
                         <td >No Purchase Request</td>
                         <td >Divisi</td>
                         <td >Unit</td>
@@ -57,6 +58,7 @@
                     <tr repeat.for="item of data">
                         <td class="text-center">${$index + 1}</td>
                         <td>${item.prDate | dateFormat:'DD/MM/YYYY'}</td>
+                        <td>${item.prCreatedDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.prNo}</td>
                         <td>${item.division}</td>
                         <td>${item.unit}</td>

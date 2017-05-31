@@ -45,6 +45,7 @@ export class List {
         } else {
             this.info = {};
         }
+        this.info.offset = new Date().getTimezoneOffset() / 60 * -1;
         this.service.search(this.info)
             .then(result => {
                 this.data = result.info;
@@ -72,6 +73,7 @@ export class List {
         } else {
             this.info = {};
         }
+        this.info.offset = new Date().getTimezoneOffset() / 60 * -1;
         this.service.generateExcel(this.info);
     }
 

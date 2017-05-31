@@ -11,7 +11,7 @@ export class List {
         duration: "",
         dateFrom: "",
         dateTo: "",
-
+        unitId: ""
     };
     duration='';
     dateFrom = null;
@@ -45,6 +45,7 @@ export class List {
         } else {
             this.info = {};
         }
+        this.info.offset = new Date().getTimezoneOffset() / 60 * -1;
         this.service.search(this.info)
             .then(result => {
                 this.data = result.info;
@@ -63,7 +64,6 @@ export class List {
     }
 
     ExportToExcel() {
-
         if (this.filter) {
             this.info.unitId = this.filter.unit ? this.filter.unit._id : "";
             this.info.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
@@ -72,6 +72,8 @@ export class List {
         } else {
             this.info = {};
         }
+        this.info.offset = new Date().getTimezoneOffset() / 60 * -1;
+       // this.info.offset = new Date().getTimezoneOffset() / 60 * -1;
         this.service.generateExcel(this.info);
     }
 
