@@ -47,6 +47,8 @@ export class DataForm {
     }
     return this.pointSyst;
   }
+
+  
   
   @computedFrom("data.buyer")
   get buyerType(){
@@ -116,6 +118,13 @@ export class DataForm {
     
   }
 
+  referenceNumberChanged(e){
+    var selectedReference=e.detail|| {};
+    if (selectedReference) {
+      this.data.referenceNumber = selectedReference.orderNo? selectedReference.orderNo : "";
+    }
+  }
+
   comodityChanged(e){
     var selectedComodity = e.detail || {};
     if (selectedComodity) {
@@ -169,6 +178,7 @@ export class DataForm {
           this.data.remark="";
           this.data.useIncomeTax=false;
           this.data.termOfShipment="";
+          this.data.shipmentDescription="";
       }
           
     }

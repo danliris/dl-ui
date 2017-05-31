@@ -9,10 +9,20 @@ export class Datepicker{
   @bindable({ defaultBindingMode: bindingMode.twoWay }) readOnly;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) options; 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) placeholder;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) min;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) max;
  
   @bindable({ defaultBindingMode: bindingMode.twoWay }) format;
 
   bind() { 
     this.format = this.format || "DD-MMM-YYYY";
+  }
+
+  @computedFrom("min", "max")
+  get inputOptions() {
+    return {
+      "min": this.min,
+      "max": this.max
+    }
   }
 }

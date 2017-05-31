@@ -232,4 +232,56 @@ module.exports = [
             permission: {"C9" : 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'purchase-request-purchase-order-duration-report',
+        name: 'purchase-request-purchase-order-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-request-purchase-order-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PR - PO Internal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-request-purchase-order-external-duration-report',
+        name: 'purchase-request-purchase-order-external-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-request-purchase-order-external-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PR - PO Eksternal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-order-purchase-order-external-duration-report',
+        name: 'purchase-order-purchase-order-external-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-order-purchase-order-external-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PO Internal - PO Eksternal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-order-external-delivery-order-duration-report',
+        name: 'purchase-order-external-delivery-order-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-order-external-delivery-order-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PO Eksternal - Surat Jalan',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }]
