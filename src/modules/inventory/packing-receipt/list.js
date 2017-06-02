@@ -6,12 +6,6 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    rowFormatter(data, index) {
-        if (data.accepted)
-            return { classes: "success" }
-        else
-            return {}
-    }
     context = ["detail"]
 
     columns = [
