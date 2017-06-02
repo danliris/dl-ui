@@ -22,6 +22,8 @@ export class Edit {
   }
 
   saveCallback(event) {
+    if(typeof this.data.dateIm === 'object')
+      this.data.dateIm.setHours(this.data.dateIm.getHours() - this.data.dateIm.getTimezoneOffset() / 60);
 
     this.service.update(this.data)
       .then(result => {
