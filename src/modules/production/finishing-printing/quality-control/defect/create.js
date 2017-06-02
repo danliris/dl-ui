@@ -28,6 +28,8 @@ export class Create {
   }
 
   saveCallback(event) {
+    this.data.dateIm.setHours(this.data.dateIm.getHours() - this.data.dateIm.getTimezoneOffset() / 60);
+
     this.service.create(this.data)
       .then(result => {
         alert("Data berhasil dibuat");
