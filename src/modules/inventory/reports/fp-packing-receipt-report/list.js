@@ -4,6 +4,7 @@ import { Router } from 'aurelia-router';
 
 import moment from 'moment';
 var PackingReceiptLoader = require('../../../../loader/packing-receipt-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
 var AccountLoader = require('../../../../loader/account-loader');
 
@@ -46,6 +47,10 @@ export class List {
     get packingReceiptLoader() {
         return PackingReceiptLoader;
     }
+    
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
+    }
 
     get buyerLoader() {
       return BuyerLoader;
@@ -59,7 +64,7 @@ export class List {
         if (this.filter) {
             this.info.packingCode = this.filter.packingCode ? this.filter.packingCode.packingCode : "";
             this.info.buyer = this.filter.buyer ? this.filter.buyer.name : "";
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.orderNo : "";
             this.info._createdBy = this.filter._createdBy ? this.filter._createdBy.username : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
