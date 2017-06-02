@@ -4,6 +4,11 @@ import { Router } from 'aurelia-router';
 
 import moment from 'moment';
 var PackingReceiptLoader = require('../../../../loader/packing-receipt-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-loader');
+var BuyerLoader = require('../../../../loader/buyers-loader');
+var AccountLoader = require('../../../../loader/account-loader');
+
+
 
 @inject(Router, Service)
 
@@ -42,13 +47,25 @@ export class List {
     get packingReceiptLoader() {
         return PackingReceiptLoader;
     }
+    
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
+    }
+
+    get buyerLoader() {
+      return BuyerLoader;
+    }
+
+    get accountLoader() {
+      return AccountLoader;
+    }
 
     searching() {
         if (this.filter) {
             this.info.packingCode = this.filter.packingCode ? this.filter.packingCode.packingCode : "";
-            this.info.buyer = this.filter.buyer ? this.filter.buyer.buyer : "";
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
-            this.info._createdBy = this.filter._createdBy ? this.filter._createdBy._createdBy : "";
+            this.info.buyer = this.filter.buyer ? this.filter.buyer.name : "";
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.orderNo : "";
+            this.info._createdBy = this.filter._createdBy ? this.filter._createdBy.username : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
@@ -94,12 +111,11 @@ export class List {
     }
 
     exportToExcel() {
-        debugger
         if (this.filter) {
             this.info.packingCode = this.filter.packingCode ? this.filter.packingCode.packingCode : "";
-            this.info.buyer = this.filter.buyer ? this.filter.buyer.buyer : "";
+            this.info.buyer = this.filter.buyer ? this.filter.buyer.name : "";
             this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.productionOrderNo : "";
-            this.info._createdBy = this.filter._createdBy ? this.filter._createdBy._createdBy : "";
+            this.info._createdBy = this.filter._createdBy ? this.filter._createdBy.username : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {

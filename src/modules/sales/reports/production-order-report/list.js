@@ -54,12 +54,10 @@ export class List {
     searching() {
         var data = [];
         this.setFilter();
-        this.filter = this.info.filter;
         this.service.getReport(this.info)
             .then(result => {
                 this.data = result.data;
                 this.info = result.info;
-                this.info.filter = this.filter;
             })
     }
 
