@@ -39,7 +39,7 @@ export class Create {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', { replace: true, trigger: true });
+                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
