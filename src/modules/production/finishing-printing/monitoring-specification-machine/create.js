@@ -42,7 +42,7 @@ export class Create {
                 this.data = {};
                 this.error = {};
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', { replace: true, trigger: true });
+                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
