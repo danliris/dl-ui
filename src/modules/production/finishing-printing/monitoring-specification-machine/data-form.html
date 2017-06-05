@@ -4,23 +4,30 @@
 
         <fieldset>
 
-            <datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" format.bind="datePickerFormat"></datepicker>
-            
-            <timepicker label="Jam" value.bind="data.time" error.bind="error.time" format.bind="timePickerFormat" showSecond.bind="showSecond">
-            </timepicker>
-            
+            <!--<datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" format.bind="datePickerFormat"></datepicker>
+
+            <au-datetimepicker label="Jam" value.bind="data.time | dateFormat:'HH:mm' " error.bind="error.time" format.bind="timePickerFormat"
+                showSecond.bind="showSecond">
+            </au-datetimepicker>-->
+            <au-datetimepicker label="Tanggal/Jam" value.bind="data.date " error.bind="error.date" options.bind="auInputOptions"
+                read-only.bind="(readOnly)"></au-datetimepicker>
+
+            <!--<au-timepicker label="Jam" value.bind="data.time" error.bind="error.time" format.bind="timePickerFormat" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-timepicker>-->
+
+
+            <machine-auto-suggest-by-division label="Mesin" value.bind="data.machine" error.bind="error.machine" read-only.bind="(readOnly)"
+                change.delegate="machineChanged($event)" click.delegate="resetErrors()" filter.bind="divisionFilter"></machine-auto-suggest-by-division>
+
+            <production-order-auto-suggest label="No Surat Produksi Order" value.bind="data.productionOrder" error.bind="error.productionOrder"
+                read-only.bind="(readOnly)" change.delegate="productionOrderChanged($event)">
+            </production-order-auto-suggest>
+
+            <textbox label="Nomor Kereta" value.bind="data.cartNumber" placeholder="input nomor kereta" error.bind="error.cartNumber"
+                read-only.bind="readOnly"></textbox>
+
+            <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options" filter.bind="filterMachine || isFilterMachine"
+                if.bind="data.machine" click.delegate="resetErrors"></monitoring-specification-machine-collection>
+
         </fieldset>
-
-        <machine-auto-suggest-by-division label="Mesin" value.bind="data.machine" error.bind="error.machine" read-only.bind="(readOnly)" change.delegate="machineChanged($event)"
-            click.delegate="resetErrors()" filter.bind="divisionFilter"></machine-auto-suggest-by-division>
-
-        <production-order-auto-suggest label="No Surat Produksi Order" value.bind="data.productionOrder" error.bind="error.productionOrder"
-            read-only.bind="(readOnly)" change.delegate="productionOrderChanged($event)">
-        </production-order-auto-suggest>
-
-        <textbox label="Nomor Kereta" value.bind="data.cartNumber" placeholder="input nomor kereta" error.bind="error.cartNumber" read-only.bind="readOnly"></textbox>
-
-        <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options" 
-            filter.bind="filterMachine || isFilterMachine" if.bind="data.machine" click.delegate="resetErrors"></monitoring-specification-machine-collection>
     </form>
 </template>

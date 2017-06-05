@@ -12,6 +12,16 @@ export class DataForm {
 
     }
 
+    auInputOptions = {
+        label: {
+            length: 4,
+            align: "right"
+        },
+        control: {
+            length: 5
+        }
+    };
+
     divisionFilter = 'FINISHING & PRINTING'
 
 
