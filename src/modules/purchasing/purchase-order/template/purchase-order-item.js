@@ -1,4 +1,4 @@
-var ProductLoader = require('../../../../loader/product-loader');
+var ProductLoader = require('../../../../loader/product-purchasing-loader');
 
 export class PurchaseOrderItem {
   activate(context) {
