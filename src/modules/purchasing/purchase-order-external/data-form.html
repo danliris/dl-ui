@@ -1,25 +1,149 @@
 <template>
-    <form class="form-horizontal">
-        <textbox                label="No. "                            value.bind="data.no"                    error.bind="error.no"                   read-only.bind="true" if.bind="readOnly || isEdit"></textbox>
-        <!--<textbox                label="No. Referensi PO"                value.bind="data.refNo"                 error.bind="error.refNo"                read-only.bind="readOnly"></textbox>-->
-        <supplier-auto-suggest  label="Supplier"                        value.bind="data.supplier"              error.bind="error.supplierId"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
-        <datepicker             label="Tgl. Order"                      value.bind="data.date"                  error.bind="error.date"                 read-only.bind="readOnly"></datepicker>
-        <datepicker             label="Tgl. Delivery"                   value.bind="data.expectedDeliveryDate"  error.bind="error.expectedDeliveryDate" read-only.bind="readOnly"></datepicker>
-        <dropdown               label="Ongkos Kirim Ditanggung oleh"    value.bind="data.freightCostBy"         error.bind="error.freightCostBy"        read-only.bind="readOnly"   items.bind="freightCostByOptions" ></dropdown>
-        <dropdown               label="Term Pembayaran"                 value.bind="data.paymentMethod"         error.bind="error.paymentMethod"        read-only.bind="readOnly"   items.bind="termPaymentOptions"  change.delegate="paymentMethodChanged($event)"></dropdown>
-        <currency-auto-suggest  label="Mata Uang"                       value.bind="data.currency"              error.bind="error.currency"             read-only.bind="readOnly"   change.delegate="currencyChanged($event)"></currency-auto-suggest>
-        <numeric                label="Rate"                            value.bind="data.currencyRate"          error.bind="error.currencyRate"         read-only.bind="true"></numeric>
-        <numeric                label="Tempo Pembayaran"                value.bind="data.paymentDueDays"        error.bind="error.paymentDueDays"       read-only.bind="true"       post-fix="hari" if.bind="data.paymentMethod=='CASH'"></numeric>
-        <numeric                label="Tempo Pembayaran"                value.bind="data.paymentDueDays"        error.bind="error.paymentDueDays"       read-only.bind="readOnly"   post-fix="hari" if.bind="data.paymentMethod!='CASH'"></numeric>
-        <vat-auto-suggest       label="Pph"                             value.bind="data.vat"                   error.bind="error.vat"                  read-only.bind="readOnly"   change.delegate="vatChanged($event)"></vat-auto-suggest>
-        <numeric                label="Rate Pph"                        value.bind="data.vatRate"               error.bind="error.vatRate"              read-only.bind="true"       post-fix="%"></numeric> 
-        <checkbox               label="Apakah kena Ppn?"                value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"         read-only.bind="readOnly"   change.delegate="useIncomeTaxChanged($event)"></checkbox> 
-        <multiline              label="Keterangan"                      value.bind="data.remark"                error.bind="error.remark"               read-only.bind="readOnly"></multiline>
-        <hr />
-        <div class="form-group ${error && error.items ? 'has-error' : ''}" >
-            <span class="help-block">${error.items.toString()==="[object Object]" ? "" : error.items}</span>
+    <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-primary" click.delegate="context.unpost($event)" if.one-way="context.hasUnpost">Unpost</button>
         </div>
-            <purchase-order-external-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" use-income-tax.bind = "data.useIncomeTax"></purchase-order-external-item-collection>
+
+        <au-textbox 
+            label="No" 
+            value.bind="data.no" 
+            error.bind="error.no" 
+            read-only.bind="true"
+            if.bind="(readOnly || isEdit)">
+        </au-textbox>
+
+        <au-autocomplete 
+            value.bind="data.supplier" 
+            error.bind="error.supplierId"
+            label="Supplier" 
+            change.delegate="supplierChanged($event)" 
+            loader.bind="supplierLoader"
+            placeholder="cari supplier" 
+            key="code" 
+            read-only.bind="readOnly">
+        </au-autocomplete>
+
+        <au-datepicker 
+            label="Tgl. Order" 
+            value.bind="data.date" 
+            error.bind="error.date" 
+            read-only.bind="readOnly">
+        </au-datepicker>
+
+        <au-datepicker 
+            label="Tgl. Delivery" 
+            value.bind="data.expectedDeliveryDate" 
+            error.bind="error.expectedDeliveryDate" 
+            read-only.bind="readOnly">
+        </au-datepicker>
         
-            </form>
+        <au-dropdown
+          label="Ongkos Kirim Ditanggung oleh"
+          value.bind="data.freightCostBy"
+          error.bind="error.freightCostBy"
+          read-only.bind="readOnly"
+          items.bind="freightCostByOptions"
+        ></au-dropdown>
+
+        <au-dropdown
+          label="Term Pembayaran"
+          value.bind="data.paymentMethod"
+          error.bind="error.paymentMethod"
+          read-only.bind="readOnly"
+          items.bind="termPaymentOptions"  
+          change.delegate="paymentMethodChanged($event)"
+        ></au-dropdown>
+
+        <au-autocomplete 
+            value.bind="data.currency" 
+            error.bind="error.currency"
+            label="Mata Uang" 
+            change.delegate="currencyChanged($event)" 
+            loader.bind="currencyLoader"
+            placeholder="cari currency" 
+            key="code" 
+            read-only.bind="readOnly">
+        </au-autocomplete>
+        
+        <au-numeric 
+            label="Rate" 
+            value.bind="data.currencyRate" 
+            error.bind="error.currencyRate" 
+            format="0"
+            read-only.bind="true">
+        </au-numeric>
+
+        <au-numeric 
+            label="Tempo Pembayaran" 
+            value.bind="data.paymentDueDays" 
+            error.bind="error.paymentDueDays" 
+            format="0"
+            read-only.bind="true"
+            post-fix="hari" 
+            if.bind="data.paymentMethod=='CASH'">
+        </au-numeric>
+
+        <au-numeric 
+            label="Tempo Pembayaran" 
+            value.bind="data.paymentDueDays" 
+            error.bind="error.paymentDueDays" 
+            format="0"
+            read-only.bind="readOnly"
+            post-fix="hari" 
+            if.bind="data.paymentMethod!='CASH'">
+        </au-numeric>
+        
+        <au-autocomplete 
+            value.bind="data.vat" 
+            error.bind="error.vat"
+            label="Pph" 
+            change.delegate="vatChanged($event)" 
+            loader.bind="vatLoader"
+            placeholder="cari pph" 
+            key="" 
+            read-only.bind="readOnly">
+        </au-autocomplete>
+
+        <au-numeric 
+            label="Rate Pph" 
+            value.bind="data.vatRate" 
+            error.bind="error.vatRate" 
+            format="0"
+            read-only.bind="true"
+            post-fix="%">
+        </au-numeric>
+
+        <au-checkbox 
+            label="Apakah kena Ppn?" 
+            value.bind="data.useIncomeTax" 
+            error.bind="error.useIncomeTax" 
+            read-only.bind="readOnly"
+            change.delegate="useIncomeTaxChanged($event)">
+        </au-checkbox>
+                
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.remark"
+            placeholder="tambah keterangan" 
+            read-only.bind="readOnly">
+        </au-multiline>
+
+        <au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="itemsColumns" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            read-only.bind="readOnly" 
+            use-income-tax.bind = "data.useIncomeTax"
+            item-template="modules/purchasing/purchase-request/template/purchase-request-item">
+        </au-collection>
+  </au-input-form>
 </template>
