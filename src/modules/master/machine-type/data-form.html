@@ -8,7 +8,7 @@
         <au-textbox label="Nama" value.bind="data.name" error.bind="error.name" read-only.bind="readOnly"></au-textbox>
 
         <au-multiline label="Deskripsi" value.bind="data.description" error.bind="error.description" read-only.bind="readOnly"></au-multiline>
-
+        <au-layout error.bind="error.indicatorsArr"></au-layout>
         <au-collection items.bind="data.indicators" columns.bind="listIndicatorsColumns" errors.bind="error.indicators" add.bind="addListIndicators"
           remove.bind="removeListIndicators" title="Indikator" read-only.bind="readOnly" item-template="modules/master/machine-type/template/list-item"></au-collection>
 
