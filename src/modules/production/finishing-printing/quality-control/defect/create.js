@@ -28,10 +28,12 @@ export class Create {
   }
 
   saveCallback(event) {
+    this.data.dateIm.setHours(this.data.dateIm.getHours() - this.data.dateIm.getTimezoneOffset() / 60);
+
     this.service.create(this.data)
       .then(result => {
         alert("Data berhasil dibuat");
-        this.router.navigateToRoute('create', { replace: true, trigger: true });
+        this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
       })
       .catch(error => {
         this.error = error;

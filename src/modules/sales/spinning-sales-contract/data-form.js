@@ -5,7 +5,7 @@ var ComodityLoader = require('../../../loader/comodity-loader');
 var UomLoader = require('../../../loader/uom-loader');
 var QualityLoader = require('../../../loader/quality-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
-var ProductLoader = require('../../../loader/products-loader');
+var ProductLoader = require('../../../loader/product-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader')
 
