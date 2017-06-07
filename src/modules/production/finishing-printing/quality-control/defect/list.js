@@ -28,6 +28,7 @@ export class List {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
+            { field: "code", title: "Nomor Pemeriksaan Kain" },
             { field: "shiftIm", title: "Shift" },
             { field: "operatorIm", title: "Operator" },
             { field: "machineNoIm", title: "No. Mesin"},

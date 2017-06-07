@@ -24,6 +24,7 @@ export class List {
 
     listFQSDetailColumns = [
         { value: "no", header: "No" },
+        { value: "code", header: "Nomor Pemeriksaan Kain" },
         { value: "productionOrderNo", header: "Nomor Order" },
         { value: "productionOrderType", header: "Jenis Order" },
         { value: "cartNo", header: "Nomor Kereta" },
@@ -89,6 +90,7 @@ export class List {
                     this.detailNo = 0;
 
                     tempData.no = this.no;
+                    tempData.code = result.data[i].code;
                     tempData.kanbanCode = result.data[i].kanbanCode;
                     tempData.cartNo = result.data[i].cartNo;
                     tempData.productionOrderType = result.data[i].productionOrderType;
