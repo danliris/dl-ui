@@ -1,16 +1,4 @@
-<template>  
-    <h1 class="page-header">Detail Purchase Order External</h1>
-    <require from="./data-form"></require>
-    <block>
-        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
-        <hr/>
-        <div class="btn-group pull-right">
-            <a click.delegate="list()" class='btn btn-default'  >Kembali</a>
-            <a click.delegate="edit()" class="btn btn-primary"  if.bind="!data.isPosted">Ubah</a>
-            <a click.delegate="delete()" class="btn btn-danger" if.bind="!data.isPosted">Hapus</a>
-            <a click.delegate="cancel()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !isArriving && !data.isClosed">Cancel PO</a>
-            <a click.delegate="unpost()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && !isArriving && !data.isClosed">Unpost</a>
-            <a click.delegate="close()" class="btn btn-primary" if.bind="data.isPosted && !isVoid && isArriving && !data.isClosed">Close PO</a>
-        </div>
-    </block>
+<template>
+  <require from="./data-form"></require>
+  <data-form title="Detail  Purchase Order External" read-only="true"></data-form> 
 </template>
