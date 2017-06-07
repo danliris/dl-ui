@@ -24,6 +24,10 @@ export class Service extends RestService {
     {
         var endpoint = `${serviceUri}`;
         var query = '';
+        info.offset = new Date().getTimezoneOffset() / 60 * -1;
+        if (query === '') query = `offset=${info.offset}`;
+        else query = `${query}&offset=${info.offset}`;
+        
         if (info.duration) {
             if (query === '') query = `duration=${info.duration}`;
             else query = `${query}&duration=${info.duration}`;
@@ -31,6 +35,10 @@ export class Service extends RestService {
         if (info.dateFrom) {
             if (query === '') query = `dateFrom=${info.dateFrom}`;
             else query = `${query}&dateFrom=${info.dateFrom}`;
+        }
+        if (info.unitId) {
+            if (query === '') query = `unitId=${info.unitId}`;
+            else query = `${query}&unitId=${info.unitId}`;
         }
         if (info.dateTo) {
             if (query === '') query = `dateTo=${info.dateTo}`;
