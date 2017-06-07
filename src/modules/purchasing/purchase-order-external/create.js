@@ -12,11 +12,9 @@ export class Create {
         this.router = router;
         this.service = service;
     }
+    activate(params) {
 
-    activate() {
-        // this.data.paymentDueDays = 0;
     }
-
     bind() {
         this.data = { items: [] };
         this.error = {};
@@ -26,17 +24,14 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    back() {
-        this.router.navigateToRoute('list');
-    }
-
     determineActivationStrategy() {
         return activationStrategy.replace; //replace the viewmodel with a new instance
         // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
         // or activationStrategy.noChange to explicitly use the default behavior
+        // return activationStrategy.invokeLifecycle;
     }
 
-    save() {
+    save(event) {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
