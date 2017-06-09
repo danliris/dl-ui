@@ -5,9 +5,12 @@
         </td>
         <td>
             <au-numeric value.bind="stepIndicators.value" read-only.bind="false" options.bind="controlOptions" format="0"></au-numeric>
-        </td> 
+        </td>
         <td>
             <au-textbox value.bind="stepIndicators.uom" read-only.bind="false" options.bind="controlOptions"></au-textbox>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(ListIndicators, $event)">-</button>
         </td>
     </tr>
 </template>
