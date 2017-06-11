@@ -6,9 +6,18 @@ var CategoryLoader = require('../../../loader/category-loader');
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
-    @bindable error ={};
+    @bindable error = {};
 
     @bindable title;
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 5
+        }
+    }
 
     bind(context) {
         this.context = context;
