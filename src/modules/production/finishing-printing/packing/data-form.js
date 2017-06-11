@@ -30,7 +30,7 @@ export class DataForm {
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
+        this.editCallback = this.data.accepted ? null : this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
         var productionOrderId = this.data.productionOrderId;
