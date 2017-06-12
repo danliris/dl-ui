@@ -4,11 +4,13 @@
       <au-textbox value.bind="item.pcsNo" error.bind="error.pcsNo" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
     </td>
     <td>
+      <au-textbox value.bind="item.grade" error.bind="error.grade" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
       <au-textbox value.bind="item.lot" error.bind="error.lot" read-only.bind="options.readOnly" options.bind="controlOptions"></au-textbox>
     </td>
     <td>
       <au-dropdown value.bind="item.status" error.bind="error.status" items.bind="statusOptions" read-only.bind="options.readOnly"></au-dropdown>
     </td>
-    <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(item, $event)">-</button></td>
   </tr>
 </template>

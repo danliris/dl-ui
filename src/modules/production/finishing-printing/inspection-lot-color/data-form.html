@@ -1,57 +1,27 @@
 <template>
-	<!--<div class="row">
+    <!--<div class="row">
 	    <div class="col-md-6">-->
-            <au-input-form 
-            title.bind="title"
-            with.bind="context"
-            options.bind="formOptions">
-                <au-autocomplete 
-                    value.bind="data.kanban" 
-                    error.bind="error.kanban"
-                    label="No Order Produksi - Kereta" 
-                    loader.bind="kanbanLoader"
-                    placeholder="search No Order Produksi - Kereta" 
-                    change.delegate="kanbanChanged($event)"
-                    key="code" 
-                    template="modules/production/finishing-printing/inspection-lot-color/template/kanban"
-                    read-only.bind="(readOnly || isEdit)">
-                </au-autocomplete>
-                <au-datepicker 
-                    label="Tgl. Pemeriksaan" 
-                    value.bind="data.date" 
-                    error.bind="error.date" 
-                    read-only.bind="readOnly">
-                </au-datepicker>
-                <au-textbox 
-                    label="No. Order Produksi" 
-                    value.one-way="orderNo" 
-                    read-only="true"
-                    if.bind="hasKanban">
-                </au-textbox>
-                <au-textbox 
-                    label="Konstruksi" 
-                    value.one-way="construction" 
-                    read-only="true"
-                    if.bind="hasKanban">
-                </au-textbox>
-                <au-textbox 
-                    label="Jumlah Order" 
-                    value.one-way="orderQuantity" 
-                    read-only="true"
-                    if.bind="hasKanban">
-                </au-textbox>
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-edit" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Edit</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+        </div>
 
-                <au-collection 
-                    items.bind="data.items"
-                    errors.bind="error.items" 
-                    columns.bind="itemsColumns"
-                    add.bind="addItems"
-                    remove.bind="removeItem"  
-                    title="Item"
-                    read-only.bind="readOnly" 
-                    item-template="modules/production/finishing-printing/inspection-lot-color/template/item">
-                </au-collection>
-            </au-input-form>
-	    <!--</div>
-	</div>-->
+        <fieldset>
+            <au-autocomplete value.bind="fabricQc" error.bind="error.fabricQualityControlId" label="Nomor Pemeriksaan Kain" loader.bind="fabricQcLoader"
+                placeholder="Cari Pemeriksaan Kain" read-only.bind="fabricQcReadOnly" key="code" text="code">
+            </au-autocomplete>
+            <au-textbox label="Nomor Order - Kereta" value.bind="orderNo" read-only.bind="true"></au-textbox>
+            <au-datepicker label="Tgl. Pemeriksaan" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly">
+            </au-datepicker>
+            <au-textbox label="Nomor Order" value.bind="data.fabricQc.color" read-only.bind="true"></au-textbox>
+            <au-textbox label="Konstruksi" value.bind="data.fabricQc.construction" read-only.bind="true"></au-textbox>
+            <au-textbox label="Jumlah Order" value.bind="data.fabricQc.orderQuantity" read-only.bind="true"></au-textbox>
+        </fieldset>
+
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsColumns" add.bind="addItems" remove.bind="removeItem"
+            title="Item" read-only.bind="readOnly" item-template="modules/production/finishing-printing/inspection-lot-color/template/item">
+        </au-collection>
+    </au-input-form>
 </template>

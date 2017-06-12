@@ -1,84 +1,74 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 
-var KanbanLoader = require('../../../../loader/kanban-loader');
+var FabricQualityControlLoader = require('../../../../loader/fabric-loader');
 var moment = require('moment');
 
 
 export class DataForm {
+    @bindable readOnly = false;
+    @bindable fabricQcReadOnly = false;
+    @bindable data;
+    @bindable error;
+    @bindable fabricQc;
+    @bindable textFormatter;
+
+    // @bindable hasFabricQc;
+
     @bindable title;
-    @bindable readOnly;
-    formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah",
-    }
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
-
-        console.log(this.data.kanban);
-    }
-
-    @computedFrom("data.kanban.productionOrder.material", "data.kanban.productionOrder.materialConstruction", "data.kanban.productionOrder.yarnMaterial", "data.kanban.productionOrder.materialWidth")
-    get construction() {
-        if (!this.data.kanban)
-            return "-";
-        return `${this.data.kanban.productionOrder.material.name} / ${this.data.kanban.productionOrder.materialConstruction.name} / ${this.data.kanban.productionOrder.yarnMaterial.name} / ${this.data.kanban.productionOrder.materialWidth}`
-    }
-
-    @computedFrom("data.kanban.productionOrder.orderNo")
-    get orderNo() {
-        if (!this.data.kanban)
-            return "-";
-        return `${this.data.kanban.productionOrder.orderNo}`
-    }
-
-    @computedFrom("data.kanban.productionOrder.orderQuantity", "data.kanban.productionOrder.uom.unit")
-    get orderQuantity() {
-        if (!this.data.kanban)
-            return "-";
-        else{
-            var quantity = this.data.kanban.productionOrder.uom.unit === 'MTR' ? this.data.kanban.productionOrder.orderQuantity : (this.data.kanban.productionOrder.orderQuantity * 0.9144);
-            return `${quantity} MTR`
-        }
     }
 
     itemsColumns = [
         { header: "No Pcs", value: "pcsNo" },
+        { header: "Grade Defect", value: "grade" },
         { header: "Lot", value: "lot" },
         { header: "Status", value: "status" }
     ]
 
-    get kanbanLoader() {
-        return KanbanLoader;
+    get fabricQcLoader() {
+        return FabricQualityControlLoader;
     }
 
-    kanbanChanged(e) {
-        if (this.data.kanban && this.data.kanban._id)
-            this.data.kanbanId = this.data.kanban._id;
-        else
-            this.data.kanbanId = null;
+    get orderNo() {
+        if (this.data.fabricQc) {
+            return `${this.data.fabricQc.productionOrderNo} - ${this.data.fabricQc.cartNo}`;
+        }
     }
 
-    get hasKanban(){
-        return this.data && this.data.kanbanId && this.data.kanbanId !== '';
+    get hasFabricQc() {
+        return this.data && this.data.fabricQualityControlId && this.data.fabricQualityControlId !== '';
     }
 
-    get addItems() {
-      return (event) => {
-        this.data.items.push({})
-      };
-    }
+    fabricQcChanged(newValue) {
+        this.data.fabricQc = newValue;
+        if (this.data.fabricQc) {
 
-    get removeItem(){
-        return (event) => console.log(event);
+            if (this.data.fabricQc.fabricGradeTests) {
+                this.data.fabricQc.items = this.data.fabricQc.fabricGradeTests;
+            }
+
+            var _items = [];
+            this.data.fabricQualityControlId = this.data.fabricQc._id;
+
+            this.data.fabricQc.items.map((item) => {
+                var _item = {};
+                _item.pcsNo = item.pcsNo;
+                _item.grade = item.grade;
+                _item.lot = item.lot;
+                _item.status = item.status;
+                _items.push(_item);
+            })
+            this.data.items = _items;
+        }
+        else {
+            this.data.packing = {};
+            this.data.packingId = {};
+            this.data.items = [];
+        }
     }
 }
