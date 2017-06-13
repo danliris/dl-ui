@@ -57,24 +57,6 @@ export default class DeliveryOrderItemReact extends React.Component {
         var fulfillments = [];
         for (var purchaseOrder of poCollection) {
             for (var poItem of purchaseOrder.items) {
-                var isQuantityCorrection = poItem.fulfillments
-                    .map((fulfillment) => {
-                        if (fulfillment.correction) {
-                            var havingCorrection = fulfillment.correction
-                                .map((correction) => correction.correctionRemark == "Koreksi Jumlah")
-                                .reduce((prev, curr, index) => {
-                                    return prev && curr
-                                }, true);
-                            return havingCorrection;
-                        }
-                        else {
-                            return false;
-                        }
-                    })
-                    .reduce((prev, curr, index) => {
-                        return prev && curr
-                    }, true);
-
                 var correctionQty = [];
                 poItem.fulfillments.map((fulfillment) => {
                     if (fulfillment.correction) {
@@ -85,6 +67,8 @@ export default class DeliveryOrderItemReact extends React.Component {
                         })
                     }
                 })
+                var isQuantityCorrection = correctionQty.length > 0 ;
+                
                 if ((poItem.dealQuantity - poItem.realizationQuantity) > 0) {
                     var deliveredQuantity = (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity);
                     var remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
