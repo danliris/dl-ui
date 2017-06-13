@@ -25,13 +25,21 @@ export class DataForm {
 
     itemsColumns = [
         { header: "No Pcs", value: "pcsNo" },
-        { header: "Grade Defect", value: "grade" },
+        { header: "Grade Kain", value: "grade" },
         { header: "Lot", value: "lot" },
         { header: "Status", value: "status" }
     ]
 
     get fabricQcLoader() {
         return FabricQualityControlLoader;
+    }
+
+    get orderQuantity() {
+        if (!this.data.fabricQc)
+            return "-";
+        else {
+            return `${this.data.fabricQc.orderQuantity} MTR`
+        }
     }
 
     get orderNo() {
@@ -54,6 +62,15 @@ export class DataForm {
 
             var _items = [];
             this.data.fabricQualityControlId = this.data.fabricQc._id;
+
+            this.data.fabricQualityControlCode = this.data.fabricQc.code;
+            this.data.productionOrderNo = this.data.fabricQc.productionOrderNo;
+            this.data.productionOrderType = this.data.fabricQc.productionOrderType;
+            this.data.cartNo = this.data.fabricQc.cartNo;
+            this.data.construction = this.data.fabricQc.construction;
+            this.data.orderQuantity = this.data.fabricQc.orderQuantity;
+            this.data.color = this.data.fabricQc.color;
+            this.data.uom = "MTR";
 
             this.data.fabricQc.items.map((item) => {
                 var _item = {};
