@@ -13,6 +13,7 @@ export class List {
 
 
     info = {
+        code: "",
         kanbanCode: "",
         productionOrderNo: "",
         productionOrderType: "",
@@ -40,14 +41,13 @@ export class List {
         { value: "", header: "" },
     ];
 
-    fabricQCFields = ["productionOrderNo"];
-
     shiftOptions = [
         "",
         "Shift I: 06.00 - 14.00",
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"];
 
+    code = "";
     kanbanCode = "";
     productionOrderNo = "";
     productionOrderType = "";
@@ -71,6 +71,7 @@ export class List {
 
     searching() {
         if (this.filter) {
+            this.info.code = this.filter.code ? this.filter.code.code : "";
             this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.code : "";
             this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.name : "";
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : "";
@@ -110,7 +111,7 @@ export class List {
                     for (var j = 0; j < result.data[i].fabricGradeTests.length; j++) {
                         this.detailNo += 1;
                         tempDetailData = {};
-                        
+
                         tempDetailData.no = this.detailNo;
                         tempDetailData.pcsNo = result.data[i].fabricGradeTests[j].pcsNo;
                         tempDetailData.initLength = result.data[i].fabricGradeTests[j].initLength;
@@ -137,6 +138,7 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
+            this.info.code = this.filter.code ? this.filter.code.code : null;
             this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.code : null;
             this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.name : null;
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : null;
@@ -148,12 +150,15 @@ export class List {
         this.service.generateExcel(this.info);
     }
 
+    fabricCodeChanged(e) {
+        console.log('fabricQC changed')
+    }
+
     kanbanCodeChanged(e) {
         console.log('kanban changed')
     }
 
     productionOrderNoChanged(e) {
-        console.log(this.filter.productionOrderNo);
         console.log('production number changed')
     }
 
@@ -189,15 +194,15 @@ export class List {
     get filterKanban() {
         var temp = {};
         if (this.filter) {
-        if (this.filter.productionOrder) {
-            temp = {
-            "productionOrder.orderNo": this.filter.productionOrder.orderNo
-            };
-            return temp;
+            if (this.filter.productionOrder) {
+                temp = {
+                    "productionOrder.orderNo": this.filter.productionOrder.orderNo
+                };
+                return temp;
+            } else
+                return temp;
         } else
             return temp;
-        } else
-        return temp;
     }
 
     get orderTypeLoader() {

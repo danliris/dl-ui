@@ -15,13 +15,6 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-
-    this.data.kanban.toString = function () {
-      return [this.productionOrder.orderNo, this.cart.cartNumber]
-          .filter((item, index) => {
-              return item && item.toString().trim().length > 0;
-          }).join(" - ");
-    }
   }
 
   cancelCallback(event) {
