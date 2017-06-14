@@ -1,6 +1,6 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 
-var FabricQualityControlLoader = require('../../../../loader/fabric-loader');
+var FabricQualityControlLoader = require('../../../../loader/fabric-unused-loader');
 var moment = require('moment');
 
 

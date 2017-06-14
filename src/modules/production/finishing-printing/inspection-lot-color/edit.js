@@ -18,6 +18,9 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    this.fabricQc = this.data;
+    this.fabricQc.code = this.data.fabricQualityControlCode;
+    this.data.fabricQc = this.data;
   }
 
   cancel(event) {

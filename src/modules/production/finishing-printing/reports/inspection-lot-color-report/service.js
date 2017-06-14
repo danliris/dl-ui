@@ -23,9 +23,9 @@ export class Service extends RestService {
     _getEndPoint(info) {
         var endpoint = `${serviceUri}`;
         var query = '';
-        if (info.kanban) {
-            if (query === '') query = `kanban=${info.kanban}`;
-            else query = `${query}&kanban=${info.kanban}`;
+        if (info.fabricQc) {
+            if (query === '') query = `fabricQc=${info.fabricQc}`;
+            else query = `${query}&fabricQc=${info.fabricQc}`;
         }
 
         if (info.productionOrder) {
