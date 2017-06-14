@@ -4,20 +4,41 @@
     <td click.delegate="onItemClicked(step, $event)" ref="tdStep">
       <au-autocomplete 
         value.bind="temp" 
-        error.bind="error.step"
+        error.bind="error.process"
         loader.bind="stepLoader"
         placeholder="search step" 
         key="process"
         text="process"
-        read-only.bind="(readOnly || isEdit)"
+        read-only.bind="(readOnly || isEdit || step.isNotDone)"
         options.bind="controlOptions">
       </au-autocomplete>
       </br>
       <au-textbox class="col-sm-11" value.bind="stepIndicatorInfo" read-only.bind="true" options.bind="controlOptions"></au-textbox>
       <button class="btn btn-info pull-right" click.delegate="toggle()">i</button>
     </td>
-    <td  click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly">
-      <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
+    <td click.delegate="onItemClicked(step, $event)" ref="tdMachine" width="20%">
+      <au-autocomplete 
+        value.bind="context.data.machine" 
+        error.bind="error.machine"
+        query.bind="query"
+        loader.bind="machineLoader"
+        placeholder="search machine" 
+        text="name"
+        read-only.bind="(readOnly || isEdit || step.isNotDone)"
+        options.bind="controlOptions"
+        view-model.ref="machineVM">
+      </au-autocomplete>
+    </td>
+    <td ref="tdDeadline">
+      <au-datetimepicker
+        value.bind="context.data.date"
+        error.bind="error.date"
+        read-only.bind="(readOnly || isEdit || step.isNotDone)"
+        options.bind="controlOptions">
+      </au-datetimepicker>
+    </td>
+    <td click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly && !options.disabledStepAdd">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(context.data)" if.bind="!step.isNotDone">-</button>
     </td>
   </tr>
   <tr if.bind="isShowing">
@@ -27,8 +48,10 @@
         items.bind="step.stepIndicators" 
         columns.bind="stepIndicatorColumns"
         read-only.bind="readOnly"
+        options.bind="options"
         item-template="modules/production/finishing-printing/kanban/template/step-indicator-item">
       </au-collection>
     </td>
+    <td colspan="3"></td>
   </tr>
 </template>
