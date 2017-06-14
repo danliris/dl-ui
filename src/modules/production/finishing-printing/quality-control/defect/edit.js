@@ -5,7 +5,7 @@ import { Router } from 'aurelia-router';
 @inject(Router, Service)
 export class Edit {
   hasCancel = true;
-  hasEdit = true;
+  hasSave = true;
 
   @bindable data;
   @bindable error;

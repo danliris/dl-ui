@@ -5,6 +5,9 @@ import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
+  hasCancel = true;
+  hasSave = true;
+
   @bindable data;
   @bindable error;
 
@@ -17,7 +20,7 @@ export class Create {
     this.data = { items: [] }
   }
 
-  cancelCallback(event) {
+  cancel(event) {
     this.__goToList();
   }
 
@@ -27,7 +30,7 @@ export class Create {
     // or activationStrategy.noChange to explicitly use the default behavior
   }
 
-  saveCallback(event) {
+  save(event) {
     this.service.create(this.data)
       .then(result => {
         alert("Data berhasil dibuat");

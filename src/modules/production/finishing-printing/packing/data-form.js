@@ -28,11 +28,6 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.data.accepted ? null : this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
-
         var productionOrderId = this.data.productionOrderId;
         // var productionOrderId = "58c8f8287b915900364dd2b0";
         if (productionOrderId) {
