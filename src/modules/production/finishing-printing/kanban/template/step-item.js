@@ -1,19 +1,27 @@
 import {bindable} from 'aurelia-framework'
 var StepLoader = require('../../../../../loader/step-loader');
+var MachineLoader = require('../../../../../loader/machine-loader');
 
 export class StepItem {
 
   @bindable temp;
 
   activate(context) {
-    console.log("step-Item")
+    // console.log("step-Item")
     this.context = context;
     this.step = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.temp = this.step;
+    this.temp = Object.getOwnPropertyNames(this.step).length > 0 ? this.step : null;
     this.isShowing = false;
-  } 
+    this.options.disabledStepAdd = (context.context.options.disabledStepAdd) ? true : false;
+    this.options.isNotDone = !this.step.isNotDone;
+  }
+  bind() {
+    this.tdDeadline.addEventListener("click", (event) => {
+      this.onItemClicked(this.step, undefined);
+    });
+  }
   stepIndicatorColumns = [
     { header : "Indikator", value : "name"},
     { header : "Nilai", value : "value"}, 
@@ -26,18 +34,26 @@ export class StepItem {
     }
   };
 
+  query = {};
+
   tempChanged(newValue, oldValue){
-    console.log("temp : ");
-    console.log(this.temp);
-    console.log("newValue : ");
-    console.log(newValue);
-    Object.assign(this.context.data, newValue);
+    if(!newValue) {
+      Object.assign(this.context.data, { process: "", stepIndicators: [] });
+    }
+    else {
+      Object.assign(this.context.data, newValue);
+    }
+
+    this.machineVM.editorValue = "";
+    this.machineVM.valueChanged();
   }
 
   onItemClicked(step, event){
       if (this.context.context.selectedStep){
           this.context.context.selectedStep.tdNumber.removeAttribute("class");
           this.context.context.selectedStep.tdStep.removeAttribute("class");
+          this.context.context.selectedStep.tdMachine.removeAttribute("class");
+          this.context.context.selectedStep.tdDeadline.removeAttribute("class");
           if (this.context.context.selectedStep.tdButton)
             this.context.context.selectedStep.tdButton.removeAttribute("class");
       }
@@ -51,12 +67,13 @@ export class StepItem {
 
       this.tdNumber.setAttribute("class", "active");
       this.tdStep.setAttribute("class", "active");
+      this.tdMachine.setAttribute("class", "active");
+      this.tdDeadline.setAttribute("class", "active");
       if (this.tdButton) 
         this.tdButton.setAttribute("class", "active");
-
-      this.context.context.selectedStep = {data : step, index : index, tdNumber : this.tdNumber, tdStep : this.tdStep, tdButton : this.tdButton};
-      console.log("item clicked");
-      console.log(this.context);
+      
+      this.context.context.selectedStep = {data : step, index : index, tdNumber : this.tdNumber, tdStep : this.tdStep, tdButton : this.tdButton, tdMachine: this.tdMachine, tdDeadline: this.tdDeadline};
+      this.query = { "steps.step.process": this.context.data.process ? this.context.data.process : "" };
   }
 
   toggle(){
@@ -70,11 +87,15 @@ export class StepItem {
     return StepLoader;
   }
 
+  get machineLoader(){
+    return MachineLoader;
+  }
+
   get stepIndicatorInfo(){
     var info = "";
     if (this.step.stepIndicators && this.step.stepIndicators.length > 0){
       for (var stepIndicator of this.step.stepIndicators){
-        info += stepIndicator.name + "=" + stepIndicator.value + ",";
+        info += stepIndicator.name + "=" + (stepIndicator.value ? stepIndicator.value : "0") + ",";
       }
       info = info.substring(0, info.length-1);
     }

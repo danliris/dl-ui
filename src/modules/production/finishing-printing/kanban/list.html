@@ -16,6 +16,7 @@
         <div slot="toolbar" class="btn-group">
             <button class="btn btn-success" click.delegate="create()">Buat</button>
             <button class="btn btn-primary" disabled.bind="!dataToBeCompleted.length > 0" click.delegate="submitCompleteData()">Complete</button>
+            <button class="btn btn-default" click.delegate="reprocess()">Pecah Kanban</button>
         </div>
     </au-table>
 </template>
