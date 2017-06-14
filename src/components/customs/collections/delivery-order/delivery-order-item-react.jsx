@@ -57,40 +57,25 @@ export default class DeliveryOrderItemReact extends React.Component {
         var fulfillments = [];
         for (var purchaseOrder of poCollection) {
             for (var poItem of purchaseOrder.items) {
-                var isQuantityCorrection = poItem.fulfillments
-                    .map((fulfillment) => {
-                        if (fulfillment.correction) {
-                            var havingCorrection = fulfillment.correction
-                                .map((correction) => correction.correctionRemark == "Koreksi Jumlah")
-                                .reduce((prev, curr, index) => {
-                                    return prev && curr
-                                }, true);
-                            return havingCorrection;
-                        }
-                        else {
-                            return false;
-                        }
-                    })
-                    .reduce((prev, curr, index) => {
-                        return prev && curr
-                    }, true);
-
                 var correctionQty = [];
                 poItem.fulfillments.map((fulfillment) => {
                     if (fulfillment.correction) {
                         fulfillment.correction.map((correction) => {
                             if (correction.correctionRemark == "Koreksi Jumlah") {
-                                correctionQty.push(correction.correctionQuantity)
+                                correctionQty.push(correction.correctionQuantity * -1)
                             }
                         })
                     }
                 })
+                
+                var isQuantityCorrection = correctionQty.length > 0 ;
+                
                 if ((poItem.dealQuantity - poItem.realizationQuantity) > 0) {
                     var deliveredQuantity = (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity);
                     var remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
                     if (isQuantityCorrection) {
-                        deliveredQuantity += correctionQty[correctionQty.length - 1];
-                        remainingQuantity += correctionQty[correctionQty.length - 1];
+                        deliveredQuantity += correctionQty.reduce( (prev, curr) => prev + curr );;
+                        remainingQuantity += correctionQty.reduce( (prev, curr) => prev + curr );;
                     }
                     var fulfillment = {
                         purchaseOrderId: purchaseOrder._id,
@@ -113,8 +98,8 @@ export default class DeliveryOrderItemReact extends React.Component {
                         product: poItem.product,
                         purchaseOrderQuantity: poItem.dealQuantity,
                         purchaseOrderUom: poItem.dealUom,
-                        remainingQuantity: poItem.dealQuantity - correctionQty[correctionQty.length - 1],
-                        deliveredQuantity: poItem.dealQuantity - correctionQty[correctionQty.length - 1],
+                        remainingQuantity: poItem.dealQuantity + correctionQty[correctionQty.length - 1],
+                        deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity) + correctionQty.reduce( (prev, curr) => prev + curr ),
                         remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                     };
                     fulfillments.push(fulfillment);

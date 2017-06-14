@@ -1,16 +1,35 @@
 <template>
+  <style>
+    au-datetimepicker input {
+      width: 225px !important;
+    }
+  </style>
   <au-input-form 
     title.bind="title"
     with.bind="context"
     options.bind="formOptions">
-
+    
     <production-order-auto-suggest 
       label="Nomor Order" 
       value.bind="data.productionOrder" 
       error.bind="error.productionOrder" 
       read-only.bind="(readOnly)" 
-      change.delegate=productionOrderChanged($event)>
+      change.delegate="productionOrderChanged($event)"
+      if.bind="!isReprocess">
     </production-order-auto-suggest>
+
+    <kanban-auto-suggest 
+      value.bind="kanban" 
+      error.bind="error.productionOrder"
+      label="Nomor Order - Nomor Kereta Lama"
+      loader.bind="kanbanLoader"
+      text.bind="kanbanView"
+      read-only.bind="readOnly"
+      options.bind="controlOptions"
+      change.delegate="kanbanChanged($event)"
+      if.bind="isReprocess"
+      filter.bind="query">
+    </kanban-auto-suggest>
 
     <textbox 
       label="Jenis Order" 
@@ -69,7 +88,7 @@
       items.bind="productionOrderDetails"
       if.bind="hasProductionOrderDetails && !readOnly">
     </dropdown>
-    <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly" if.bind="readOnly"></textbox>
+    <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly || isReprocess" if.bind="readOnly || isReprocess ? (data.selectedProductionOrderDetail.colorRequest ? true : false) : false"></textbox>
 
     <numeric 
       label="Jumlah" 
@@ -88,24 +107,74 @@
     <textbox 
       label="Grade" 
       value.bind="data.grade"
-      read-only.bind="readOnly"
-      error.bind="error.grade">
+      read-only.bind="readOnly || isReprocess"
+      error.bind="error.grade"
+      if.bind="isReprocess ? (data.grade ? true : false) : true">
     </textbox>
+    
+    <radiobutton
+      label="Reproses"
+      value.bind="data.reprocess"
+      if.bind="isReprocess && data.instruction"
+      read-only.bind="readOnly"
+      error.bind="error.reprocess"
+      selections.bind="reprocess"
+      change.delegate="reprocessChanged($event)">
+    </radiobutton>
 
     <au-layout error.bind="error.cart"></au-layout>
     <au-collection 
       items.bind="data.carts" 
       columns.bind="cartInfo.columns" 
-      add.bind="cartInfo.onAdd" 
+      add.bind="!isReprocess ? cartInfo.onAdd : null" 
       remove.bind="cartInfo.onRemove"
-      title="Kereta" 
+      title.bind="kereta" 
+      options.bind="options"
       read-only.bind="readOnly"
-      if.bind="!readOnly && !isEdit"
+      if.bind="!readOnly && !isEdit && !data.reprocessStatus"
       item-template="modules/production/finishing-printing/kanban/template/cart-item">
     </au-collection>
 
+    <div class="panel-heading" if.bind="isView || isEdit && oldKanbanStatus">
+      <h4>Kereta Lama</h4>
+    </div>
+
+    <au-textbox 
+      label="Nomor Kereta"
+      value.bind="data.oldKanban.cart.cartNumber" 
+      read-only="true"
+      if.bind="isView || isEdit && oldKanbanStatus" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Panjang"
+      value.bind="data.oldKanban.cart.qty" 
+      read-only="true"
+      if.bind="isView || isEdit && oldKanbanStatus" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
+
+    <au-textbox 
+      label="Satuan"
+      value.bind="data.oldKanban.cart.uom.unit" 
+      read-only="true"
+      if.bind="isView || isEdit && oldKanbanStatus" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Jumlah PCS"
+      value.bind="data.oldKanban.cart.pcs" 
+      read-only="true"
+      if.bind="isView || isEdit && oldKanbanStatus" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
+
     <div class="panel-heading" if.bind="isView || isEdit">
-      <h4>Kereta</h4>
+      <h4>${kereta}</h4>
     </div>
 
     <au-textbox 
@@ -149,33 +218,37 @@
     </div>
 
     <au-autocomplete 
-      value.bind="instruction" 
+      value.bind="data.instruction" 
       error.bind="error.instruction"
       label="Instruksi" 
       loader.bind="instructionLoader"
       placeholder="search instruction" 
       key="code"
       text="name"
-      read-only.bind="readOnly"
-      options.bind="controlOptions">
+      read-only.bind="readOnly || isReprocess || oldKanbanStatus"
+      options.bind="controlOptions"
+      if.bind="isReprocess ? (data.instruction ? true : false) : true">
     </au-autocomplete>
 
     <table 
       class="table table-hover" 
-      if.bind="hasInstruction">
+      if.bind="hasInstruction && !data.reprocessStatus && !options.reprocessStepsHide">
         <tr>
           <td class="col-md-10">
             <au-collection 
               items.bind="data.instruction.steps" 
               columns.bind="stepInfo.columns"
-              add.bind="stepInfo.onAdd" 
+              add.bind="!options.disabledStepAdd ? stepInfo.onAdd : null" 
               remove.bind="stepInfo.onRemove"
+              errors.bind="error.steps"
               title="Steps" 
               read-only.bind="readOnly"
-              item-template="modules/production/finishing-printing/kanban/template/step-item">
+              options.bind="options"
+              item-template="modules/production/finishing-printing/kanban/template/step-item"
+              view-model.ref="StepsCollection">
             </au-collection>
           </td>
-          <td style="vertical-align: middle" width="1%">
+          <td style="vertical-align: middle" width="1%" if.bind="!options.disabledStepAdd">
               <button class="btn btn-info pull-right" click.delegate="moveItemUp($event)" if.bind="!readOnly">
                 <i class="fa fa-caret-up" aria-hidden="true"></i>
               </button>
