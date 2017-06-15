@@ -30,7 +30,7 @@ export class Edit {
 
     this.service.update(this.data)
       .then(result => {
-        this.cancelCallback();
+        this.cancel();
       })
       .catch(e => {
         this.error = e;
