@@ -5,18 +5,22 @@ import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
+    hasCancel = true;
+    hasSave = true;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
+    }
+    activate(params) {
+
+    }
+    bind() {
+        this.data = { items: [] };
+        this.error = {};
     }
 
-    activate() {
-        this.data.paymentDueDays = 0;
-    }
-
-    back() {
-
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
@@ -24,9 +28,10 @@ export class Create {
         return activationStrategy.replace; //replace the viewmodel with a new instance
         // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
         // or activationStrategy.noChange to explicitly use the default behavior
+        // return activationStrategy.invokeLifecycle;
     }
 
-    save() {
+    save(event) {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

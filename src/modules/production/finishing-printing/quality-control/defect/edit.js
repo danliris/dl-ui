@@ -4,6 +4,9 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Edit {
+  hasCancel = true;
+  hasSave = true;
+
   @bindable data;
   @bindable error;
 
@@ -17,11 +20,11 @@ export class Edit {
     this.data = await this.service.getById(id);
   }
 
-  cancelCallback(event) {
+  cancel(event) {
     this.router.navigateToRoute('view', { id: this.data._id });
   }
 
-  saveCallback(event) {
+  save(event) {
     if(typeof this.data.dateIm === 'object')
       this.data.dateIm.setHours(this.data.dateIm.getHours() - this.data.dateIm.getTimezoneOffset() / 60);
 

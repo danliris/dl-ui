@@ -1,12 +1,12 @@
-export class StepIndicatorItem {
+export class PurchaseOrderItemHeader {
+
   activate(context) {
     this.context = context;
-    this.stepIndicator = context.data;
+    this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-
-    this.options.isNotDone = context.context.options.isNotDone;
-  } 
+    this.isUseIncomeTax = this.options.isUseIncomeTax || false;
+  }
 
   controlOptions = {
     control: {
