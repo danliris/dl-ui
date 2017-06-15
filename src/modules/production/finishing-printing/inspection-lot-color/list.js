@@ -28,6 +28,7 @@ export class List {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
+            { field: "fabricQualityControlCode", title: "Nomor Pemeriksaan Kain" },
             { field: "productionOrderNo", title: "No. Order" },
             { field: "productionOrderType", title: "Jenis Order" },
             { field: "color", title: "Warna" },
