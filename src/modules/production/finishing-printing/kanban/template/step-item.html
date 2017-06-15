@@ -31,8 +31,8 @@
     </td>
     <td ref="tdDeadline">
       <au-datetimepicker
-        value.bind="context.data.date"
-        error.bind="error.date"
+        value.bind="context.data.deadline"
+        error.bind="error.deadline"
         read-only.bind="(readOnly || isEdit || step.isNotDone)"
         options.bind="controlOptions">
       </au-datetimepicker>
