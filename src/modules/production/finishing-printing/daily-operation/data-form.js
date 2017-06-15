@@ -72,7 +72,8 @@ export class DataForm {
             this.filterKanban = {
                 "instruction.steps" : { "$elemMatch" : {
                     "step.process" : this.data.step.process
-                } }
+                } },
+                "isComplete": false
             };
         }
         return this.filterKanban;
@@ -125,7 +126,8 @@ export class DataForm {
             this.filterKanban = {
                 "instruction.steps" : { "$elemMatch" : {
                     "step.process" : this.data.step.process
-                } }
+                } },
+                "isComplete": false
             };
         }else{
             delete this.data.stepId;
