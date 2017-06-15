@@ -28,9 +28,9 @@ export class Service extends RestService {
             else query = `${query}&fabricQc=${info.fabricQc}`;
         }
 
-        if (info.productionOrder) {
-            if (query === '') query = `productionOrder=${info.productionOrder}`;
-            else query = `${query}&productionOrder=${info.productionOrder}`;
+        if (info.kanban) {
+            if (query === '') query = `kanban=${info.kanban}`;
+            else query = `${query}&kanban=${info.kanban}`;
         }
 
         if (info.dateFrom) {
