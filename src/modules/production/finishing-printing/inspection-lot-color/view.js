@@ -8,6 +8,7 @@ export class View {
   hasCancel = true;
   hasEdit = true;
   hasDelete = true;
+  fabricQcReadOnly = true;
 
   constructor(router, service) {
     this.router = router;

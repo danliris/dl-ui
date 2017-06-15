@@ -71,6 +71,8 @@ export class DataForm {
             this.data.orderQuantity = this.data.fabricQc.orderQuantity;
             this.data.color = this.data.fabricQc.color;
             this.data.uom = "MTR";
+            this.data.kanbanCode = this.data.fabricQc.kanbanCode;
+            this.data.kanbanId = this.data.fabricQc.kanbanId;
 
             this.data.fabricQc.items.map((item) => {
                 var _item = {};

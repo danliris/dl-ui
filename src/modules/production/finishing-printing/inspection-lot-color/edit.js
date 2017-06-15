@@ -7,6 +7,8 @@ export class Edit {
   hasCancel = true;
   hasSave = true;
 
+  fabricQcReadOnly = true;
+
   @bindable data;
   @bindable error;
 
