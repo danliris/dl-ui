@@ -30,7 +30,7 @@ export class Edit {
   }
 
   save(event) {
-
+    this.data.fabricQc = null;
     this.service.update(this.data)
       .then(result => {
         this.cancel();
