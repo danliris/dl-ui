@@ -11,15 +11,15 @@ export class List {
 
 
     info = {
+        fabricQc: "",
         kanban: "",
-        productionOrder: "",
         dateFrom: "",
         dateTo: "",
 
     };
 
+    fabricQc = "";
     kanban = "";
-    OrderNo = "";
     dateFrom = '';
     dateTo = '';
     data = [];
@@ -40,7 +40,7 @@ export class List {
     searching() {
         if (this.filter) {
             this.info.fabricQc = this.filter.fabricQc ? this.filter.fabricQc._id : "";
-            this.info.productionOrder = this.filter.productionOrder ? this.filter.productionOrder.productionOrder.orderNo : "";
+            this.info.kanban = this.filter.kanban ? this.filter.kanban.code : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
@@ -84,7 +84,7 @@ export class List {
     ExportToExcel() {
         if (this.filter) {
             this.info.fabricQc = this.filter.fabricQc ? this.filter.fabricQc._id : "";
-            this.info.productionOrder = this.filter.productionOrder ? this.filter.productionOrder.productionOrder.orderNo : "";
+            this.info.kanban = this.filter.kanban ? this.filter.kanban.code : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
