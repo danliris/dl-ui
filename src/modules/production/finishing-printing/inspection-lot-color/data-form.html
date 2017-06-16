@@ -10,11 +10,11 @@
         </div>
 
         <fieldset>
+            <au-datepicker label="Tgl. Pemeriksaan Lot Warna" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly">
+            </au-datepicker>
             <au-autocomplete value.bind="fabricQc" error.bind="error.fabricQualityControlId" label="Nomor Order - Nomor Kereta" loader.bind="fabricQcLoader"
                 placeholder="Cari Pemeriksaan Kain" read-only.bind="fabricQcReadOnly" key="productionOrderNo" text.bind="textFormatter">
             </au-autocomplete>
-            <au-datepicker label="Tgl. Pemeriksaan Lot Warna" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly">
-            </au-datepicker>
             <au-textbox label="Nomor Pemeriksaan Kain" value.bind="data.fabricQc.code" read-only.bind="true" if.bind="hasFabricQc"></au-textbox>
             <au-textbox label="Warna" value.bind="data.fabricQc.color" read-only.bind="true" if.bind="hasFabricQc"></au-textbox>
             <au-textbox label="Konstruksi" value.bind="data.fabricQc.construction" read-only.bind="true" if.bind="hasFabricQc"></au-textbox>
