@@ -28,11 +28,11 @@ export class List {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
+            { field: "productionOrderNo", title: "No. Order" },            
+            { field: "cartNo", title: "No. Kereta" },
             { field: "fabricQualityControlCode", title: "Nomor Pemeriksaan Kain" },
-            { field: "productionOrderNo", title: "No. Order" },
             { field: "productionOrderType", title: "Jenis Order" },
-            { field: "color", title: "Warna" },
-            { field: "cartNo", title: "No. Kereta" }
+            { field: "color", title: "Warna" }
         ];
     }
 
