@@ -135,7 +135,7 @@
       item-template="modules/production/finishing-printing/kanban/template/cart-item">
     </au-collection>
 
-    <div class="panel-heading" if.bind="isView || isEdit && oldKanbanStatus">
+    <div class="panel-heading" if.bind="(isView || isEdit) && oldKanbanStatus">
       <h4>Kereta Lama</h4>
     </div>
 
@@ -143,7 +143,7 @@
       label="Nomor Kereta"
       value.bind="data.oldKanban.cart.cartNumber" 
       read-only="true"
-      if.bind="isView || isEdit && oldKanbanStatus" 
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions">
     </au-textbox>
 
@@ -151,7 +151,7 @@
       label="Panjang"
       value.bind="data.oldKanban.cart.qty" 
       read-only="true"
-      if.bind="isView || isEdit && oldKanbanStatus" 
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions"
       format="0">
     </au-numeric>
@@ -160,7 +160,7 @@
       label="Satuan"
       value.bind="data.oldKanban.cart.uom.unit" 
       read-only="true"
-      if.bind="isView || isEdit && oldKanbanStatus" 
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions">
     </au-textbox>
 
@@ -168,7 +168,7 @@
       label="Jumlah PCS"
       value.bind="data.oldKanban.cart.pcs" 
       read-only="true"
-      if.bind="isView || isEdit && oldKanbanStatus" 
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
       options.bind="controlOptions"
       format="0">
     </au-numeric>
