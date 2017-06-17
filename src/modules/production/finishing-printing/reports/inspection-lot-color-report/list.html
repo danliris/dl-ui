@@ -9,16 +9,12 @@
         <h1 class="page-header">Laporan Pemeriksaan Lot Warna</h1>
         <form class="form-horizontal">
 
-            <au-autocomplete value.bind="filter.fabricQc" label="Nomor Pemeriksaan Kain" change.delegate="fabricQcChanged($event)"
-                loader.bind="fabricQcLoader" placeholder="cari nomor pemeriksaan kain" key="code" text="code">
-            </au-autocomplete>
-
-            <!--<au-autocomplete value.bind="filter.kanban" label="Nomor Kanban" change.delegate="kanbanCodeChanged($event)" loader.bind="kanbanLoader"
-                placeholder="cari nomor kanban" key="kanban" text="kanban" filter.bind="filterKanban">
-            </au-autocomplete>-->
-
             <au-autocomplete value.bind="filter.kanban" label="No Order Produksi - Kereta" loader.bind="kanbanLoader" placeholder="cari No Order Produksi - Kereta"
                 filter.bind="filterKanban" key="code" template="modules/production/finishing-printing/reports/inspection-lot-color-report/template/kanban">
+            </au-autocomplete>
+
+            <au-autocomplete value.bind="filter.fabricQc" label="Nomor Pemeriksaan Kain" change.delegate="fabricQcChanged($event)" loader.bind="fabricQcLoader"
+                placeholder="cari nomor pemeriksaan kain" key="code" text="code">
             </au-autocomplete>
 
             <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
@@ -45,11 +41,11 @@
                 <thead align="center">
                     <tr>
                         <td>No</td>
-                        <td>Nomor Pemeriksaan Kain</td>
                         <td>Nomor Order</td>
+                        <td>Nomor Kereta</td>
+                        <td>Nomor Pemeriksaan Kain</td>
                         <td>Konstruksi</td>
                         <td>Warna</td>
-                        <td>Nomor Kereta</td>
                         <td>Jenis Order</td>
                         <td>Tgl Pemeriksaan Lot Warna</td>
                         <td>Nomor PCS</td>
@@ -61,11 +57,11 @@
                 <tbody>
                     <tr repeat.for="item of data">
                         <td class="text-center">${item.no}</td>
-                        <td>${item.fabricQcCode}</td>
                         <td>${item.orderNo}</td>
+                        <td>${item.cartNumber}</td>
+                        <td>${item.fabricQcCode}</td>
                         <td>${item.construction}</td>
                         <td>${item.colorRequest}</td>
-                        <td>${item.cartNumber}</td>
                         <td>${item.orderTypeName}</td>
                         <td>${item.date | dateFormat:'DD MMMM YYYY'}</td>
                         <td>${item.pcsNo}</td>

@@ -30,6 +30,10 @@ export class DataForm {
         { header: "Status", value: "status" }
     ]
 
+    textFormatter = (fabricQc) => {
+        return `${fabricQc.productionOrderNo} - ${fabricQc.cartNo}`
+    }
+
     get fabricQcLoader() {
         return FabricQualityControlLoader;
     }
