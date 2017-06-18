@@ -13,23 +13,16 @@
         <h1 class="page-header">Laporan Pemeriksaan Kain</h1>
         <form class="form-horizontal">
 
-            <au-autocomplete 
-              value.bind="filter.kanbanCode" 
-              label="Nomor Order - Nomor Kereta" 
-              change.delegate="productionOrderNoChanged($event)"
-              loader.bind="kanbanLoader" 
-              placeholder="cari nomor order - nomor kereta" 
-              key="code">
+            <au-autocomplete value.bind="filter.code" label="Nomor Pemeriksaan Kain" change.delegate="fabricCodeChanged($event)"
+                loader.bind="fabricQCLoader" placeholder="cari nomor pemeriksaan kain" key="code" text="code">
             </au-autocomplete>
 
-            <au-autocomplete 
-              value.bind="filter.productionOrderType" 
-              label="Jenis Order" 
-              change.delegate="productionOrderTypeChanged($event)"
-              loader.bind="orderTypeLoader" 
-              placeholder="cari jenis order" 
-              key="code" 
-              text="name">
+            <au-autocomplete value.bind="filter.kanbanCode" label="Nomor Order - Nomor Kereta" change.delegate="productionOrderNoChanged($event)"
+                loader.bind="kanbanLoader" placeholder="cari nomor order - nomor kereta" key="code">
+            </au-autocomplete>
+
+            <au-autocomplete value.bind="filter.productionOrderType" label="Jenis Order" change.delegate="productionOrderTypeChanged($event)"
+                loader.bind="orderTypeLoader" placeholder="cari jenis order" key="code" text="name">
             </au-autocomplete>
 
             <au-dropdown label="Shift" value.bind="filter.shiftIm" items.bind="shiftOptions" read-only.bind="readOnly" change.delegate="shiftImChanged($event)"></au-dropdown>
@@ -54,8 +47,7 @@
         </br>
 
         <div class="table-responsive">
-            <au-collection columns.one-way="listFQSDetailColumns" items.bind="newData" read-only.bind="true"
-                item-template="modules/production/finishing-printing/reports/fabric-quality-control-report/template/list-fqc">
+            <au-collection columns.one-way="listFQSDetailColumns" items.bind="newData" read-only.bind="true" item-template="modules/production/finishing-printing/reports/fabric-quality-control-report/template/list-fqc">
             </au-collection>
         </div>
 

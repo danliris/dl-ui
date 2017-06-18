@@ -1,0 +1,35 @@
+<template>
+    <tr>
+        <td >
+            <div class="col-sm-11">
+                <au-autocomplete 
+                        value.bind="selectedPurchaseOrder" 
+                        change.delegate="selectedPurchaseOrderChanged($event)"
+                        loader.bind="purchaseOrderLoader"
+                        text.bind="purchaseOrderView"
+                        placeholder="cari nomor purchase request" 
+                        key="no"
+                        read-only.bind="options.readOnly"
+                        options.bind="controlOptions">
+                </au-autocomplete>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-danger pull-left" click.delegate="onremove(data, $event)" if.bind="!options.readOnly">-</button>            
+                <button class="btn btn-info pull-right" if.bind= "data.items" click.delegate="toggle()">i</button>
+            </div>
+        </td>
+    </tr>
+    <tr if.bind="isShowing">
+        <td>
+            <au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="itemsColumns"
+            options.bind="context.context.options"
+            read-only.bind="options.readOnly"
+            header-template="modules/purchasing/purchase-order-external/template/purchase-order-internal-item-header"
+            item-template="modules/purchasing/purchase-order-external/template/purchase-order-internal-item">
+        </au-collection>
+        </td>  
+    </tr>
+</template>

@@ -12,7 +12,7 @@ export class List {
         else
             return {}
     }
-    context = ["detail"]
+    context = ["Rincian"]
 
     columns = [
         { field: "unit.division.name", title: "Divisi" },
@@ -67,7 +67,7 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "detail":
+            case "Rincian":
                 this.router.navigateToRoute('view', { id: data._id });
                 break;
         }

@@ -6,6 +6,6 @@
         <input type="checkbox" checked.bind="value">
       </label>
     </div>
-    <p class="form-control-static" if.bind="readOnly">${value}</p>
+    <p class="form-control-static" if.bind="readOnly">${value? "Ya":"Tidak"}</p>
   </au-layout>
 </template>
