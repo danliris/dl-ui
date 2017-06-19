@@ -3,23 +3,23 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var ProductionOrderLoader = require("../../../../../loader/production-order-loader")
-var KanbanLoader = require("../../../../../loader/kanban-loader")
+var KanbanLoader = require("../../../../../loader/kanban-loader");
+var FabricQcLoader = require("../../../../../loader/fabric-loader");
 
 @inject(Router, Service)
 export class List {
 
 
     info = {
+        fabricQc: "",
         kanban: "",
-        productionOrder: "",
         dateFrom: "",
         dateTo: "",
 
     };
 
+    fabricQc = "";
     kanban = "";
-    OrderNo = "";
     dateFrom = '';
     dateTo = '';
     data = [];
@@ -39,8 +39,8 @@ export class List {
 
     searching() {
         if (this.filter) {
-            this.info.kanban = this.filter.kanban ? this.filter.kanban._id : "";
-            this.info.productionOrder = this.filter.productionOrder ? this.filter.productionOrder._id : "";
+            this.info.fabricQc = this.filter.fabricQc ? this.filter.fabricQc._id : "";
+            this.info.kanban = this.filter.kanban ? this.filter.kanban.code : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
@@ -56,13 +56,15 @@ export class List {
                         tempData = {};
                         this.no += 1;
                         tempData.no = this.no;
-                        tempData.orderNo = result[i].kanban.productionOrder.orderNo;
-                        tempData.construction = `${result[i].kanban.productionOrder.material.name} / ${result[i].kanban.productionOrder.materialConstruction.name} / ${result[i].kanban.productionOrder.yarnMaterial.name} / ${result[i].kanban.productionOrder.materialWidth}`;
-                        tempData.colorRequest = result[i].kanban.selectedProductionOrderDetail.colorRequest;
-                        tempData.cartNumber = result[i].kanban.cart.cartNumber;
-                        tempData.orderTypeName = result[i].kanban.productionOrder.orderType.name;
+                        tempData.fabricQcCode = result[i].fabricQualityControlCode;
+                        tempData.orderNo = result[i].productionOrderNo;
+                        tempData.construction = result[i].construction;
+                        tempData.colorRequest = result[i].color;
+                        tempData.cartNumber = result[i].cartNo;
+                        tempData.orderTypeName = result[i].productionOrderType;
                         tempData.date = result[i].date;
                         tempData.pcsNo = result[i].items[j].pcsNo;
+                        tempData.grade = result[i].items[j].grade;
                         tempData.lot = result[i].items[j].lot;
                         tempData.status = result[i].items[j].status;
                         this.data.push(tempData);
@@ -81,8 +83,8 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
-            this.info.kanban = this.filter.kanban ? this.filter.kanban._id : "";
-            this.info.productionOrder = this.filter.productionOrder ? this.filter.productionOrder._id : "";
+            this.info.fabricQc = this.filter.fabricQc ? this.filter.fabricQc._id : "";
+            this.info.kanban = this.filter.kanban ? this.filter.kanban.code : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
@@ -91,33 +93,33 @@ export class List {
         this.service.generateExcel(this.info);
     }
 
-    get kanbanLoader(){
+    get kanbanLoader() {
         return KanbanLoader;
     }
 
-    get productionOrderLoader(){
-        return ProductionOrderLoader;
+    get fabricQcLoader() {
+        return FabricQcLoader;
     }
 
     kanbanChanged(e) {
         console.log('kanban changed')
     }
 
-    productionOrderChanged(e) {
+    fabricQcChanged(e) {
         console.log('production number changed')
     }
 
-    get filterKanban(){
+    get filterKanban() {
         var temp = {};
-        if(this.filter){
-            if(this.filter.productionOrder){
+        if (this.filter) {
+            if (this.filter.productionOrder) {
                 temp = {
-                    "productionOrder.orderNo" : this.filter.productionOrder.orderNo
+                    "productionOrder.orderNo": this.filter.productionOrder.orderNo
                 };
                 return temp;
-            }else
+            } else
                 return temp;
-        }else
+        } else
             return temp;
     }
 

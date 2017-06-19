@@ -23,13 +23,6 @@ export class DataForm {
         }
     }
 
-    formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah"
-    }
-
     @bindable title;
     @bindable readOnly;
     @bindable data;
@@ -61,10 +54,10 @@ export class DataForm {
         this.data.pointSystem = this.data.pointSystem || 10;
         this.data.pointLimit = this.data.pointLimit || 0;
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+        // this.cancelCallback = this.context.cancelCallback;
+        // this.deleteCallback = this.context.deleteCallback;
+        // this.editCallback = this.context.editCallback;
+        // this.saveCallback = this.context.saveCallback;
 
 
         this.selectedPointSystem = this.data.pointSystem;

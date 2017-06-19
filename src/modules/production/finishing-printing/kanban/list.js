@@ -25,7 +25,8 @@ export class List {
             {
                 field: "toBeCompleted", title: "toBeCompleted Checkbox", checkbox: true, sortable: false,
                 formatter: function (value, data, index) {
-                    this.checkboxEnabled = data.isPending();
+                    // this.checkboxEnabled = data.isPending();
+                    this.checkboxEnabled = !data.isDone();
                     return ""
                 }
             },
@@ -39,7 +40,8 @@ export class List {
                     formatter: function (value, data, index) {
                         return value ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
                     }
-            }
+            },
+            { field: "oldKanban.cart.cartNumber", title: "Nomor Kereta Lama" }
         ];
     }
 
@@ -77,6 +79,9 @@ export class List {
                         kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.instruction.steps.length}`;
                         kanban.isPending = function(){ // used for custom sort
                             return !this.isComplete && this.currentStepIndex >= this.instruction.steps.length; 
+                        },
+                        kanban.isDone = function() {
+                            return this.isComplete;
                         }
                 }
 
@@ -162,5 +167,9 @@ export class List {
   
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    reprocess() {
+        this.router.navigateToRoute('reprocess');
     }
 }

@@ -44,7 +44,10 @@ export class Service extends RestService {
             query = `${query}&type=${info.type}`;
         
         if (info.storageId)
-            query = `${query}&storageId=${info.storageId}`;  
+            query = `${query}&storageId=${info.storageId}`;
+
+        if (info.productId)
+            query = `${query}&productId=${info.productId}`; 
 
         if (query !== ''){
             query = query.substring(1);
