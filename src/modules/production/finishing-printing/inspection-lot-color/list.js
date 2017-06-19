@@ -28,10 +28,11 @@ export class List {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "kanban.productionOrder.orderNo", title: "No. Order" },
-            { field: "kanban.productionOrder.orderType.name", title: "Jenis Order" },
-            { field: "kanban.selectedProductionOrderDetail.colorRequest", title: "Warna" },
-            { field: "kanban.cart.cartNumber", title: "No. Kereta" }
+            { field: "productionOrderNo", title: "No. Order" },            
+            { field: "cartNo", title: "No. Kereta" },
+            { field: "fabricQualityControlCode", title: "Nomor Pemeriksaan Kain" },
+            { field: "productionOrderType", title: "Jenis Order" },
+            { field: "color", title: "Warna" }
         ];
     }
 
@@ -55,36 +56,6 @@ export class List {
                     data: result.data
                 }
             });
-    }
-
-    asc() {
-        return function (kanban1, kanban2) {
-            if (kanban1.isComplete && !kanban2.isComplete)
-                return -1;
-            if (!kanban1.isComplete && kanban2.isPending())
-                return -1;
-            if (!kanban1.isComplete && kanban2.isComplete)
-                return 1;
-            if (kanban1.isPending() && !kanban2.isComplete)
-                return 1;
-
-            return 0;
-        }
-    }
-
-    desc() {
-        return function (kanban1, kanban2) {
-            if (kanban1.isComplete && !kanban2.isComplete)
-                return 1;
-            if (!kanban1.isComplete && kanban2.isPending())
-                return 1;
-            if (!kanban1.isComplete && kanban2.isComplete)
-                return -1;
-            if (kanban1.isPending() && !kanban2.isComplete)
-                return -1;
-
-            return 0;
-        }
     }
 
     contextClickCallback(event) {

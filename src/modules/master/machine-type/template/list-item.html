@@ -15,6 +15,7 @@
           key="data.dataType"
           text="data.dataType"
           error.bind="error.dataType"
+          change.delegate="handleDataTypeChange($event)"
         ></au-dropdown>
       </td>
       <td>
@@ -34,7 +35,7 @@
       <td if.bind="!readOnly">
         <button 
           class="btn btn-danger pull-right" 
-          click.delegate="onremove(ListIndicators, $event)">-</button>
+          click.delegate="onremove(data, $event)">-</button>
       </td>
   </tr>
 </template>
