@@ -1,4 +1,4 @@
-module.exports = [
+module.exports = [ 
     {
         route: 'pr',
         name: 'purchase-request',
@@ -213,6 +213,19 @@ module.exports = [
         moduleId: './modules/purchasing/unit-payment-price-correction-note/index',
         nav: true,
         title: 'Koreksi Harga Pembelian',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'unit-payment-note/price-correction/monitoring',
+        name: 'unit-payment-price-correction-note-monitoring',
+        moduleId: './modules/purchasing/koreksi-harga/index',
+        nav: true,
+        title: 'Monitoring Koreksi Harga',
         auth: true,
         settings: {
             group: "purchasing",
