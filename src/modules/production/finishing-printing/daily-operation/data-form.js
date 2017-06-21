@@ -1,6 +1,9 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
 var moment = require('moment');
-var momentToMillis = require('../../../../utils/moment-to-millis')
+var momentToMillis = require('../../../../utils/moment-to-millis');
+var MachineLoader = require('../../../../loader/machine-loader');
+var StepLoader = require('../../../../loader/step-loader');
+var KanbanLoader = require('../../../../loader/kanban-loader');
 
 @inject(BindingEngine, Element)
 export class DataForm {
@@ -11,6 +14,9 @@ export class DataForm {
     @bindable input = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable machine;
+    @bindable step;
+    @bindable kanban;
 
     @bindable localInputDate;
     @bindable localOutputDate;
@@ -37,21 +43,7 @@ export class DataForm {
     {
         this.localInputDate = new Date(Date.parse(this.data.dateInput));
         this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
-        // this.timeInput = this.data.timeInput ? moment(this.data.timeInput) : this._adjustMoment();
-        // this.timeOutput = this.data.timeOutput ? moment(this.data.timeOutput) : this._adjustMoment();
-        // var tempTimeInput = moment(this.timeInput);
-        // var tempTimeOutput = moment(this.timeOutput);
-        // this.data.timeInput = momentToMillis(tempTimeInput);
-        // this.data.timeOutput = momentToMillis(tempTimeOutput);
-
-        // if (this.data.dateInput)
-        //     this.data.dateInput = moment(this.data.dateInput).format("YYYY-MM-DD");
-        // if (this.data.dateOutput)
-        //     this.data.dateOutput = moment(this.data.dateOutput).format("YYYY-MM-DD");
-
-        // if(this.data.kanban && this.data.kanban.istruction && this.data.kanban.istruction.steps && this.data.kanban.instruction.steps.lenght > 0){
-        //     this.steps = this.data.kanban.instruction.steps;
-        // }
+        
         this.filterMachine = {
             "unit.division.name" : "FINISHING & PRINTING"
         }
@@ -71,7 +63,7 @@ export class DataForm {
         {
             this.filterKanban = {
                 "instruction.steps" : { "$elemMatch" : {
-                    "step.process" : this.data.step.process
+                    "process" : this.data.step.process
                 } },
                 "isComplete": false,
                 "$where": "this.instruction.steps.length != this.currentStepIndex"
@@ -95,110 +87,85 @@ export class DataForm {
         return this.filterStep;
     }
     
-    kanbanChanged(e){
-        var selectedKanban = e.detail || {};
+    get hasStep(){
+        return this.data && this.data.step;
+    }
+
+    get hasMachine() {
+        return this.data && this.data.machine;
+    }
+
+    get hasKanban() {
+        return this.data && this.data.kanban;
+    }
+
+    kanbanChanged(newValue, oldValue){
+        var selectedKanban = newValue;
+
         if(selectedKanban){
-            this.data.kanbanId = selectedKanban._id ? selectedKanban._id : "";
+            this.data.kanbanId = selectedKanban._id;
+            this.data.kanban = selectedKanban;
+
             if(this.input && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.input = Number(selectedKanban.cart.qty);
             if(this.output && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.goodOutput = Number(selectedKanban.cart.qty);
         }
-    }
-    
-    get hasStep(){
-        return this.data && this.data.stepId && this.data.stepId !== '';
-    }
-
-    get hasMachine() {
-        return this.data && this.data.machineId && this.data.machineId !== '';
-    }
-
-    get hasKanban() {
-        return this.data && this.data.kanbanId && this.data.kanbanId !== '';
-    }
-
-    stepChanged(e) {
-        var selectedStep = e.detail || {};
-        if (selectedStep){
-            this.kanbanChanged({});
+        else {
             delete this.data.kanbanId;
-            this.data.stepId = selectedStep._id ? selectedStep._id : "";
-            this.filterKanban = {
-                "instruction.steps" : { "$elemMatch" : {
-                    "step.process" : this.data.step.process
-                } },
-                "isComplete": false,
-                "$where": "this.instruction.steps.length != this.currentStepIndex"
-            };
-        }else{
-            delete this.data.stepId;
-            this.filterKanban = {};
-            this.data.kanban = {};
-            delete this.data.kanbanId;
+            this.data.kanban = undefined;
         }
     }
 
-    machineChanged(e) {
-        var selectedMachine = e.detail || {};
-        if (selectedMachine){
+    stepChanged(newValue, oldValue) {
+        var selectedStep = newValue;
+
+        if(selectedStep) {
+            this.data.stepId = selectedStep._id;
+            this.data.step = selectedStep;
+        }
+        else {
+            delete this.data.stepId;
+            this.data.step = undefined;
+        }
+        
+        this.kanbanAU.editorValue = "";
+    }
+
+    machineChanged(newValue, oldValue) {
+        var selectedMachine = newValue;
+
+        if(selectedMachine) {
+            this.data.machine = selectedMachine;
             this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
-            this.data.kanban = {};
-            delete this.data.kanbanId;
-            this.data.step = {};
-            delete this.data.stepId;
-            var steps = [];
-            if(selectedMachine.steps){
-                for(var step of selectedMachine.steps){
-                    steps.push(step.step.process);
-                }
-            }
-            this.filterStep = {
-                "process" : { "$in" : steps }
-            };
         }
-        else{
+        else {
+            this.data.machine = undefined;
             delete this.data.machineId;
-            delete this.data.stepId;
-            this.filterStep = {};
-            this.data.step = {};
-            delete this.data.kanbanId;
-            this.data.kanban = {};
-            this.data.input = 0;
-            this.filterKanban = {};
         }
+
+        this.stepAU.editorValue = "";
+
+        this.kanbanAU.editorValue = "";
     }
 
-    // timeInputChanged(e)
-    // {
-    //     var tempTimeInput = e.detail;
-    //     if (tempTimeInput){
-    //         tempTimeInput = this._adjustMoment(tempTimeInput);
-    //         this.data.timeInput = momentToMillis(tempTimeInput);
-    //     }
-    //     else{
-    //         delete this.data.timeInput;
-    //     }
-    // }
+    get machineLoader() {
+        return MachineLoader;
+    }
 
-    // timeOutputChanged(e)
-    // {
-    //     var tempTimeOutput = e.detail;
-    //     if (tempTimeOutput){
-    //         tempTimeOutput = this._adjustMoment(tempTimeOutput);
-    //         this.data.timeOutput = momentToMillis(tempTimeOutput);
-    //     }
-    //     else{
-    //         delete this.data.timeOutput;
-    //     }
-    // }
+    get stepLoader() {
+        return StepLoader;
+    }
 
-    // _adjustMoment(timeInMoment){
-    //     if (!timeInMoment)
-    //         timeInMoment = moment();
-    //     timeInMoment.set('year', 1970);
-    //     timeInMoment.set('month', 0);
-    //     timeInMoment.set('date', 1);   
-    //     return timeInMoment;     
-    // }
+    get kanbanLoader() {
+        return KanbanLoader;
+    }
+
+    kanbanView(kanban) {
+        if (kanban.productionOrder) {
+            return `${kanban.productionOrder.orderNo} - ${kanban.cart.cartNumber}`;
+        }
+        else
+            return '';
+    }
 }
