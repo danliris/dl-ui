@@ -1,60 +1,19 @@
 <template>
     <h1 class="page-header">Finishing - Printing</br>Monitoring Operasional Harian Setiap Mesin</h1>
     <br>
-    <div class="row">
-            <div class="col-sm-8">
-                <div class="input-group">
-					<input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
-					<span class="input-group-btn">
-                        <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
-                        <button class="btn btn-default" click.delegate="activate()"> Tampilkan Semua </button>    
-                    </span>
-				</div>
-            </div>
-            <div class="col-sm-4">
-                <div class="pull-right">
-                    <button class="btn btn-primary" click.delegate="createInput()">Buat Input</button>
-                    <button class="btn btn-primary" click.delegate="createOutput()">Buat Output</button>
-                </div>
-            </div>
-        </div> 
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Mesin</th>
-                <th>Step / Proses</th>
-                <th>Shift</th>
-                <th>No Order Produksi</th>
-                <th>No Kereta</th>
-                <th>Tanggal Input</th>
-                <th>Input</th>
-                <th>Tanggal Output</th>
-                <th>Good Output</th>
-                <th>Bad Output</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="item of data">
-                <td>${item.machine.name}</td>
-                <td>${item.step.process}</td>
-                <td>${item.shift}</td>
-                <td>${item.kanban.productionOrder.orderNo}</td>
-                <td>${item.kanban.cart.cartNumber}</td>
-                <td style="text-align:center" if.bind="item.dateInput">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
-                <td style="text-align:center" if.bind="!item.dateInput">-</td>
-                <td>${item.input}</td>
-                <td style="text-align:center" if.bind="item.dateOutput">${item.dateOutput | dateFormat:'D MMM YYYY'}</td>
-                <td style="text-align:center" if.bind="!item.dateOutput">-</td>
-                <td>${item.goodOutput}</td>
-                <td>${item.badOutput}</td>
-                <td><button class="btn btn-default" click.delegate="view(item)">Rincian</button></td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        Data monitoring daily operational setiap mesin tidak ada.
-    </div>
-    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
+    <au-table
+        view-model.ref="dailyOperationTable"
+        data.bind="loader"
+        context.bind="context"
+        context-click.delegate="contextClickCallback($event)"
+        columns.bind="columns"
+        sortable.bind="true"
+        page-size="10">
+          
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="createInput()">Buat Input</button>
+            <button class="btn btn-primary" click.delegate="createOutput()">Buat Output</button>
+        </div>
+    </au-table>
     <hr/>
 </template>
