@@ -5,6 +5,9 @@ import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
+  hasCancel = true;
+  hasSave = true;
+  
   @bindable data;
   @bindable error;
 
@@ -17,7 +20,7 @@ export class Create {
     this.data = {}
   }
 
-  cancelCallback(event) {
+  cancel(event) {
     this.__goToList();
   }
 
@@ -27,8 +30,9 @@ export class Create {
     // or activationStrategy.noChange to explicitly use the default behavior
   }
 
-  saveCallback(event) {
+  save(event) {
     this.data.dateIm.setHours(this.data.dateIm.getHours() - this.data.dateIm.getTimezoneOffset() / 60);
+    this.data.isUsed = false;
 
     this.service.create(this.data)
       .then(result => {

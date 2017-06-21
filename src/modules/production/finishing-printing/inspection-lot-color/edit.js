@@ -4,6 +4,11 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Edit {
+  hasCancel = true;
+  hasSave = true;
+
+  fabricQcReadOnly = true;
+
   @bindable data;
   @bindable error;
 
@@ -15,24 +20,20 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-
-    this.data.kanban.toString = function () {
-      return [this.productionOrder.orderNo, this.cart.cartNumber]
-          .filter((item, index) => {
-              return item && item.toString().trim().length > 0;
-          }).join(" - ");
-    }
+    this.fabricQc = this.data;
+    this.fabricQc.code = this.data.fabricQualityControlCode;
+    this.data.fabricQc = this.data;
   }
 
-  cancelCallback(event) {
+  cancel(event) {
     this.router.navigateToRoute('view', { id: this.data._id });
   }
 
-  saveCallback(event) {
-
+  save(event) {
+    this.data.fabricQc = null;
     this.service.update(this.data)
       .then(result => {
-        this.cancelCallback();
+        this.cancel();
       })
       .catch(e => {
         this.error = e;
