@@ -11,14 +11,7 @@
     <div class="form-group">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
-            <!--<au-autocomplete 
-                <!--value.bind="unit" 
-                label="Unit yang mengajukan" 
-                loader.bind="unitLoader"
-                placeholder="nama unit" 
-                key="code">
-            </au-autocomplete>-->
-
+ 
             <au-autocomplete 
                 value.bind="productName" 
                 label="Nama barang" 
@@ -75,7 +68,7 @@
                 <tr repeat.for="PO of data">
                     <td>${PO['No']}</td>
                     <td>${PO['Tanggal Terima PO Eksternal']}</td>
-                    <td>${PO['No Purchase Request']}</td>
+                    <td>${PO['No PO Eksternal']}</td>
                     <td>${PO['Nama Supplier']}</td>
                     <td>${PO['Tanggal Invoice']}</td>
                     <td>${PO['No Invoice']}</td>
