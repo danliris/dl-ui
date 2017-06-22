@@ -13,6 +13,9 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.unit = this.data.unit;
+        this.supplier = this.data.supplier;
+        this.deliveryOrder = this.data.deliveryOrder;
     }
 
     view() {
