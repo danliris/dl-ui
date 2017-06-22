@@ -208,6 +208,19 @@ module.exports = [
         }
     },
     {
+        route: 'report/bon-unit-blm-spb',
+        name: 'bon-unit-blm-spb',
+        moduleId: './modules/purchasing/reports/bon-unit-blm-spb/index',
+        nav: true,
+        title: 'Laporan Bon Terima Unit Belum Dibuat SPB',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'unit-payment-order',
         name: 'unit-payment-order',
         moduleId: './modules/purchasing/unit-payment-order/index',

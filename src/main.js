@@ -34,7 +34,6 @@ export async function configure(aurelia) {
       var core = "https://dl-core-api-dev.mybluemix.net/v1/";
       var auth = "https://dl-auth-api-dev.mybluemix.net/v1/";
       var production = "https://dl-production-webapi-dev.mybluemix.net/v1/";
-      //var purchasing = "http://127.0.0.1:9010/v1/";
       var purchasing = "https://dl-purchasing-webapi-dev.mybluemix.net/v1/"; 
       var inventory = "https://dl-inventory-webapi-dev.mybluemix.net/v1/";
 
