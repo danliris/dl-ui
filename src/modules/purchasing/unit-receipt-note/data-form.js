@@ -71,10 +71,13 @@ export class DataForm {
         if (selectedSupplier) {
             this.data.supplier = selectedSupplier;
             this.data.supplierId = selectedSupplier._id;
-            if (!this.readOnly) {
-                this.deliveryOrderAU.editorValue = "";
-            }
         }
+        else {
+            this.data.supplierId = undefined;
+        }
+        
+        this.deliveryOrderAU.editorValue = "";
+        this.data.deliveryOrderId = undefined;
     }
 
     unitChanged(newValue, oldValue) {
@@ -83,10 +86,13 @@ export class DataForm {
         if (selectedUnit) {
             this.data.unit = selectedUnit;
             this.data.unitId = selectedUnit._id;
-            if (!this.readOnly) {
-                this.deliveryOrderAU.editorValue = "";
-            }
         }
+        else {
+            this.data.unitId = null;
+        }
+
+        this.deliveryOrderAU.editorValue = "";
+        this.data.deliveryOrderId = undefined;
     }
 
     deliveryOrderChanged(newValue, oldValue) {
