@@ -23,6 +23,8 @@ export class Edit {
     }
 
     save() {
+        this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {

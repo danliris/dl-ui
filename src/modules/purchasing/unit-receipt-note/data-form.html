@@ -9,12 +9,13 @@
             options.bind="auInputOptions">
         </au-textbox>
 
-        <datepicker
+        <au-datepicker
             label="Tgl. Bon Unit"
             value.bind="data.date"
             error.bind="error.date"
-            read-only.bind="readOnly">
-        </datepicker>
+            read-only.bind="readOnly"
+            options.bind="auInputOptions">
+        </au-datepicker>
 
         <au-autocomplete 
             value.bind="unit"
