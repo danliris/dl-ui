@@ -349,4 +349,18 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
-    }]
+    },
+    {
+        route: 'po/monitoring/price',
+        name: 'purchase-order-monitoring-price',
+        moduleId: './modules/purchasing/monitoring-price/index',
+        nav: true,
+        title: 'Monitoring Price',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
+    ]
