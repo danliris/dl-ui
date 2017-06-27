@@ -1,16 +1,17 @@
-import {inject, bindable, computedFrom} from 'aurelia-framework';
+import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { Service } from './service';
 
+var MachineLoader = require('../../../../loader/machines-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 
 export class DataForm {
-    @bindable data = { "import": true };
-    @bindable error = {};
-    @bindable showSecond = false;
-    @bindable timePickerFormat = "HH:mm";
-    @bindable datePickerFormat = "DD MMMM YYYY";
-    @bindable Options = {
-        "readOnly": false,
 
-    }
+    @bindable readOnly = false;
+    @bindable data;
+    @bindable error;
+    @bindable machine;
+    @bindable productionOrder;
+    @bindable title;
 
     auInputOptions = {
         label: {
@@ -22,12 +23,12 @@ export class DataForm {
         }
     };
 
-    divisionFilter = 'FINISHING & PRINTING'
+    divisionFilter = { "unit.division.name": "FINISHING & PRINTING" };
 
-
-    constructor(bindingEngine, element) {
-        this.bindingEngine = bindingEngine;
-        this.element = element;
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
 
     }
 
@@ -43,20 +44,18 @@ export class DataForm {
         return this.filterMachineType;
     }
 
+    // itemsColumns = [
+    //     { header: "Indicator", value: "indicator" },
+    //     { header: "Value", value: "defaultValue" },
+    //     { header: "Satuan", value: "uom" },
+    // ]
 
-    machineChanged(e) {
+    machineChanged(newValue) {
 
-        //reset to empty collection
-        // 
-
-
-
-        var selectedProcess = e.detail;
-
-        if (selectedProcess) {
-
+        this.data.machine = newValue;
+        if (this.data.machine) {
             var items = [];
-            for (var indicator of selectedProcess.machineType.indicators) {
+            for (var indicator of this.data.machine.machineType.indicators) {
                 var item = {
                     indicator: indicator.indicator,
                     dataType: indicator.dataType,
@@ -68,21 +67,25 @@ export class DataForm {
             }
             this.data.items = items;
 
-            this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
+            this.data.machineId = this.data.machine._id ? this.data.machine._id : "";
         } else {
             this.data.items = [];
         }
-
-
     }
 
-    productionOrderChanged(e) {
-        var selectedProcess = e.detail || {};
-        this.data.productionOrder = e.detail;
-        if (selectedProcess) {
-            this.data.productionOrderId = selectedProcess._id ? selectedProcess._id : "";
-        }
+    get machineLoader() {
+        return MachineLoader;
+    }
 
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
+    }
+
+    productionOrderChanged(newValue) {
+        this.data.productionOrder = newValue;
+        if (this.data.productionOrder) {
+            this.data.productionOrderId = this.data.productionOrder._id ? this.data.productionOrder._id : "";
+        }
     }
 
     resetErrors() {
@@ -99,4 +102,5 @@ export class DataForm {
     attached() {
 
     }
+
 } 
