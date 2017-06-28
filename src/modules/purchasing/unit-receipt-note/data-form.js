@@ -1,4 +1,7 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
+var UnitLoader = require('../../../loader/unit-loader');
+var SupplierLoader = require('../../../loader/supplier-loader');
+var DeliveryOrderBySupplierLoader = require('../../../loader/delivery-order-by-supplier-loader');
 var moment = require('moment');
 
 @inject(BindingEngine, Element)
@@ -6,10 +9,35 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable unit;
+    @bindable supplier;
+    @bindable deliveryOrder;
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
+
+        this.auInputOptions = {
+            label: {
+                length: 4,
+                align: "right"
+            },
+            control: {
+                length: 5
+            }
+        };
+
+        this.deliveryOrderItem = {
+            columns: [
+                { header: "Barang" },
+                { header: "Jumlah" },
+                { header: "Satuan" },
+                { header: "Keterangan" }   
+            ],
+            onRemove: function() {
+                this.bind();
+            }
+        };
     }
 
     @computedFrom("data._id")
@@ -17,12 +45,12 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    @computedFrom("data.supplier")
+    @computedFrom("data.supplier", "data.unit")
     get filter() {
         var filter = {
             unitId: this.data.unitId,
-            supplierId: this.data.supplier._id
-        }
+            supplierId: this.data.supplierId
+        };
         return filter;
     }
 
@@ -31,35 +59,41 @@ export class DataForm {
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
+
+        if(!this.readOnly) {
+            this.deliveryOrderItem.columns.push({ header: "" });
+        }
     }
 
-    supplierChanged(e) {
-        var selectedSupplier = e.detail || {};
+    supplierChanged(newValue, oldValue) {
+        var selectedSupplier = newValue;
+
         if (selectedSupplier) {
-            this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
+            this.data.supplier = selectedSupplier;
+            this.data.supplierId = selectedSupplier._id;
             if (!this.readOnly) {
-                this.data.items = [];
-                this.data.deliveryOrder = {};
-                this.deliveryOrderChanged({});
+                this.deliveryOrderAU.editorValue = "";
             }
         }
     }
 
-    unitChanged(e) {
-        var selectedUnit = e.detail || {};
+    unitChanged(newValue, oldValue) {
+        var selectedUnit = newValue;
+
         if (selectedUnit) {
-            this.data.unitId = selectedUnit._id ? selectedUnit._id : "";
+            this.data.unit = selectedUnit;
+            this.data.unitId = selectedUnit._id;
             if (!this.readOnly) {
-                this.data.items = [];
-                this.data.deliveryOrder = {};
-                this.deliveryOrderChanged({});
+                this.deliveryOrderAU.editorValue = "";
             }
         }
     }
 
-    deliveryOrderChanged(e) {
-        var selectedDo = e.detail || {};
+    deliveryOrderChanged(newValue, oldValue) {
+        var selectedDo = newValue;
+        
         if (selectedDo) {
+            this.data.deliveryOrder = selectedDo;
             this.data.deliveryOrderId = selectedDo._id;
             var selectedItem = selectedDo.items || []
             var _items = [];
@@ -108,5 +142,25 @@ export class DataForm {
                 this.error.items = [];
             }
         }
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    get deliveryOrderBySupplierLoader() {
+        return DeliveryOrderBySupplierLoader;
+    }
+
+    unitView = (unit) => {
+        return `${unit.division.name} - ${unit.name}`;
+    }
+
+    supplierView = (supplier) => {
+        return `${supplier.code} - ${supplier.name}`;
     }
 } 
