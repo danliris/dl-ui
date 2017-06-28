@@ -41,7 +41,7 @@ export class List {
             { field: "productionOrderNo", title: "No. SPP" },
             { field: "colorName", title: "Warna" },
             { field: "construction", title: "Konstruksi" },
-            { field: "motif", title: "Motif" },
+            { field: "designNumber", title: "Nomor Design" },
             {
                 field: "accepted", title: "Diterima", formatter: function (value, row, index) {
                     return value ? "SUDAH" : "BELUM";
