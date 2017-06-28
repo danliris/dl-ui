@@ -1,6 +1,7 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
+import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class CreateOutput {
@@ -18,6 +19,10 @@ export class CreateOutput {
         this.router.navigateToRoute('list');
     }
 
+    determineActivationStrategy() {
+        return activationStrategy.replace;
+    }
+
     save() {
         this.data.type = "output";
         this.service.create(this.data)
@@ -25,7 +30,7 @@ export class CreateOutput {
                 this.data = {};
                 this.error={};
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create-output',{replace:true, trigger:true});
+                this.router.navigateToRoute('create-output', {}, {replace:true, trigger:true});
                 // this.list();
             })
             .catch(e => {
