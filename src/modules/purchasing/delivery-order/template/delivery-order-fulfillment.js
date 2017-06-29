@@ -9,32 +9,20 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
+    this.isEdit = this.context.context.options.isEdit || false;
 
-    if (this.data) {
+    if (this.isEdit) {
       var poItem = this.data.purchaseOrder.items.find(item => item.product._id.toString() === this.data.productId.toString())
-
-      var correctionQty = [];
-      poItem.fulfillments.map((fulfillment) => {
-        if (fulfillment.correction) {
-          fulfillment.correction.map((correction) => {
-            if (correction.correctionRemark == "Koreksi Jumlah") {
-              correctionQty.push(correction.correctionQuantity < 0 ? correction.correctionQuantity * -1 : correction.correctionQuantity)
-            }
-          })
-        }
-      })
-
-      var isQuantityCorrection = correctionQty.length > 0;
-      if ((poItem.dealQuantity - poItem.realizationQuantity) > 0) {
-        this.data.remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
-        if (isQuantityCorrection) {
-          this.data.remainingQuantity += correctionQty.reduce((prev, curr) => prev + curr);
-        }
-      } else if (isQuantityCorrection) {
-        this.data.remainingQuantity = poItem.dealQuantity + correctionQty[correctionQty.length - 1];
-      } else {
-        this.data.remainingQuantity = poItem.dealQuantity;
-      }
+      var qty = poItem.fulfillments
+        .map((fulfillment) => fulfillment.deliveryOrderDeliveredQuantity)
+        .reduce((prev, curr, index) => {
+          if (index === (poItem.fulfillments.length - 1)) {
+            return prev + 0
+          } else {
+            return prev + curr
+          }
+        }, 0);
+      this.data.remainingQuantity = poItem.dealQuantity - qty;
     }
 
     if (this.data) {
@@ -61,7 +49,7 @@ export class DeliveryOrderItem {
   }
 
   deliveredQuantityChanged(newValue, oldValue) {
-    if (!isNaN(newValue)) {
+    if (Number.isInteger(newValue)) {
       this.data.deliveredQuantity = newValue
       if (!this.options.readOnly) {
         if (this.data.remainingQuantity < this.data.deliveredQuantity) {
@@ -70,6 +58,15 @@ export class DeliveryOrderItem {
         else {
           this.isWarning = false;
         }
+      }
+    } else {
+      if (this.isWarning) {
+        this.isWarning = false;
+      }
+      if (newValue === null) {
+        this.deliveredQuantity = 0
+      } else {
+        this.deliveredQuantity = this.data.deliveredQuantity;
       }
     }
   }
