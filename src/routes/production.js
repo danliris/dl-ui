@@ -136,7 +136,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -184,11 +184,11 @@ module.exports = [
         name: 'packing',
         moduleId: './modules/production/finishing-printing/packing/index',
         nav: true,
-        title: 'Daftar Packing',
+        title: 'Penyerahan Produksi',
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -197,11 +197,11 @@ module.exports = [
         name: 'packing-report',
         moduleId: './modules/production/finishing-printing/reports/packing-report/index',
         nav: true,
-        title: 'Laporan Packing',
+        title: 'Laporan Penyerahan Produksi',
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -214,7 +214,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -227,7 +227,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C9": 1, "F1": 1, "F2": 1 },
+            permission: {"C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

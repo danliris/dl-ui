@@ -14,6 +14,15 @@ export class DataForm {
 
     @bindable title;
 
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 5
+        }
+    }
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -41,7 +50,7 @@ export class DataForm {
     }
 
     purchaseRequestChanged(newValue) {
-        this.data.purchaseRequest=newValue;
+        this.data.purchaseRequest = newValue;
         if (this.data.purchaseRequest) {
             var _items = [];
             this.data.purchaseRequestId = this.data.purchaseRequest._id;
