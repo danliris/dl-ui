@@ -34,7 +34,11 @@ export class DeliveryOrderItem {
   }
 
   async selectedPurchaseOrderExternalChanged(newValue) {
-    if (newValue._id) {
+    if (newValue === null) {
+      this.data.fulfillments = [];
+      this.error = {};
+      this.isShowing = false;
+    } else if (newValue._id) {
       this.data.purchaseOrderExternal = newValue;
       this.data.purchaseOrderExternalId = newValue._id;
       var doFulfillments = this.data.fulfillments || [];
@@ -92,41 +96,7 @@ export class DeliveryOrderItem {
           }
         }
       }
-
       this.data.fulfillments = doFulfillments.length > 0 ? doFulfillments : fulfillments;
-
-      if (doFulfillments.length > 0) {
-        if (props.options.isEdit) {
-          for (var fulfillment of doFulfillments) {
-            var poItem = fulfillment.purchaseOrder.items.find((_poItem) => _poItem.product._id.toString() === fulfillment.product._id.toString());
-            var qty = 0;
-            if (poItem) {
-              qty = poItem.fulfillments
-                .map((fulfillment) => fulfillment.deliveryOrderDeliveredQuantity)
-                .reduce((prev, curr, index) => {
-                  if (index === (poItem.fulfillments.length - 1)) {
-                    return prev + 0
-                  } else {
-                    return prev + curr
-                  }
-                }, 0);
-            }
-            fulfillment.remainingQuantity = poItem.dealQuantity - qty;
-          }
-        } else {
-          for (var fulfillment of doFulfillments) {
-            for (poItem of fulfillment.purchaseOrder.items) {
-              if (poItem.product._id.toString() === fulfillment.product._id.toString()) {
-                fulfillment.remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
-                break;
-              }
-            }
-          }
-        }
-        this.data.fulfillments = doFulfillments;
-      } else {
-        this.data.fulfillments = fulfillments;
-      }
       this.error = {};
       this.isShowing = true;
     }
