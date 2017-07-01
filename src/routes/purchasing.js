@@ -52,6 +52,19 @@ module.exports = [
         }
     },
     {
+        route: 'po-internal/monitoring',
+        name: 'purchase-order-internal-monitoring',
+        moduleId: './modules/purchasing/monitoring-purchase-order-internal/index',
+        nav: true,
+        title: 'Monitoring Purchase Order Internal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po-external',
         name: 'purchase-order-external',
         moduleId: './modules/purchasing/purchase-order-external/index',
@@ -195,6 +208,19 @@ module.exports = [
         }
     },
     {
+        route: 'report/bon-unit-blm-spb',
+        name: 'bon-unit-blm-spb',
+        moduleId: './modules/purchasing/reports/bon-unit-blm-spb/index',
+        nav: true,
+        title: 'Laporan Bon Terima Unit Belum Dibuat SPB',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'unit-payment-order',
         name: 'unit-payment-order',
         moduleId: './modules/purchasing/unit-payment-order/index',
@@ -239,6 +265,19 @@ module.exports = [
         moduleId: './modules/purchasing/unit-payment-quantity-correction-note/index',
         nav: true,
         title: 'Koreksi Jumlah Pembelian',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'correction-quantity',
+        name: 'unit-payment-quantity-koreksi',
+        moduleId: './modules/purchasing/monitoring-correction-quantity/index',
+        nav: true,
+        title: 'Monitoring Koreksi Jumlah Pembelian',
         auth: true,
         settings: {
             group: "purchasing",
@@ -310,4 +349,18 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
-    }]
+    },
+    {
+        route: 'po/monitoring/price',
+        name: 'purchase-order-monitoring-price',
+        moduleId: './modules/purchasing/monitoring-price/index',
+        nav: true,
+        title: 'Monitoring Price',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
+    ]
