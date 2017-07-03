@@ -22,6 +22,10 @@ export class DataForm {
         return (this.data._id || '').toString() !== '';
     }
 
+    get isSolid() {
+        return (this.data.orderType || "").toString().toLowerCase() === "solid";
+    }
+
     async bind(context) {
         this.context = context;
         this.context._this = this;
@@ -53,6 +57,8 @@ export class DataForm {
             this.data.colorName = color.colorRequest;
             this.data.colorType = color.colorType && color.colorType.name ? color.colorType.name : null;
             this.data.orderType = this.selectedProductionOrder.orderType.name;
+            this.data.designNumber = (this.data.orderType || "").toString().toLowerCase() === "printing" ? this.selectedProductionOrder.designNumber : null;
+            this.data.designCode = (this.data.orderType || "").toString().toLowerCase() === "printing" ? this.selectedProductionOrder.designCode : null;
         }
         else {
             this.data.productionOrderId = null;
@@ -60,6 +66,8 @@ export class DataForm {
             this.data.colorName = null;
             this.data.colorType = null;
             this.data.orderType = null;
+            this.data.designNumber = null;
+            this.data.designCode = null;
         }
     }
 
