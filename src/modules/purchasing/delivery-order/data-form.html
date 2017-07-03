@@ -1,11 +1,69 @@
 <template>
-    <form class="form-horizontal">
-        <textbox                label="Nomor Surat Jalan"   value.bind="data.no"                error.bind="error.no"                 read-only.bind="readOnly"></textbox>
-        <datepicker             label="Tgl. Surat Jalan"    value.bind="data.supplierDoDate"    error.bind="error.supplierDoDate"     read-only.bind="readOnly" format="DD MMMM YYYY"></datepicker> 
-        <datepicker             label="Tgl. Tiba"           value.bind="data.date"              error.bind="error.date"               read-only.bind="readOnly"></datepicker>
-        <supplier-auto-suggest  label="Supplier"            value.bind="data.supplier"          error.bind="error.supplier"           read-only.bind="readOnly"   change.delegate="supplierChanged($event)"></supplier-auto-suggest>
-        <multiline              label="Keterangan"          value.bind="data.remark"            error.bind="error.remark"             read-only.bind="readOnly"></multiline>
-        <hr/>
-        <delivery-order-item-collection value.bind="data.items" error.bind="error.items" read-only.bind="readOnly" filter.one-way="filter" if.bind="data.supplierId" is-edit.bind="isEdit"></delivery-order-item-collection>
-    </form> 
+
+    <au-input-form title.bind="title" with.bind="context">
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
+        <au-textbox 
+            label="Nomor Surat Jalan" 
+            value.bind="data.no" 
+            error.bind="error.no" 
+            placeholder="tambahkan nomor surat jalan" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Tgl. Surat Jalan" 
+            value.bind="data.supplierDoDate" 
+            error.bind="error.supplierDoDate" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker 
+            label="Tgl. Tiba" 
+            value.bind="data.date" 
+            error.bind="error.date" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-autocomplete 
+            value.bind="supplier" 
+            error.bind="error.supplier"
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            text.bind = "supplierView"
+            placeholder="cari supplier" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.remark"
+            placeholder="tambah keterangan" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="itemsColumns" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.one-way="filter"
+            read-only.bind="readOnly"
+            if.bind="data.supplierId"
+            item-template="modules/purchasing/delivery-order/template/delivery-order-item">
+        </au-collection>
+
+    </au-input-form>
 </template>

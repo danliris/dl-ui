@@ -30,6 +30,27 @@ export class DataForm {
             length: 8
         }
     };
+
+    auNumericInputOptions = {
+        label: {
+            length: 4,
+            align: "right"
+        },
+        control: {
+            length: 3
+        }
+    };
+
+    auDropdownInputOptions = {
+        label: {
+            length: 4,
+            align: "right"
+        },
+        control: {
+            length: 5
+        }
+    };
+
     shiftOptions = ['','Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
     timePickerShowSecond = false;
     timePickerFormat = "HH:mm";

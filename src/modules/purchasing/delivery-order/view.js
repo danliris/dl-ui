@@ -5,6 +5,10 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class View {
+    hasCancel = true;
+    hasEdit = false;
+    hasDelete = false;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -14,7 +18,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-
+        this.supplier = this.data.supplier;
         this.isReceived = this.data.items
             .map((item) => {
                 var _isReceived = item.fulfillments
@@ -27,26 +31,24 @@ export class View {
             .reduce((prev, curr, index) => {
                 return prev || curr
             }, false);
+
+        if (!this.isReceived) {
+            this.hasDelete = true;
+            this.hasEdit = true;
+        }
     }
 
-    list() {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    edit(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+    delete(event) {
         this.service.delete(this.data).then(result => {
-            this.list();
+            this.cancel();
         });
-    }
-
-    showDetail(item) {
-        if (item.showDetails)
-            item.showDetails = false;
-        else
-            item.showDetails = true;
     }
 }

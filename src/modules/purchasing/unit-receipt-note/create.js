@@ -20,7 +20,8 @@ export class Create {
     }
 
     save() {
-        this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
+        if(typeof this.data.date === 'object')
+            this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
 
         this.service.create(this.data)
             .then(result => {

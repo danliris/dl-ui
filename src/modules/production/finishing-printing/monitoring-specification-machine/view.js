@@ -1,74 +1,51 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {bindable, computedFrom} from 'aurelia-framework';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
 export class View {
-    @bindable data = { "import": true };
-    @bindable error = {};
-    @bindable showSecond = false;
-    @bindable Options = {
-        "readOnly": true,
-
-    }
-
-    constructor(router, service, bindingEngine, element) {
+    // @bindable Options = {
+    //     "readOnly": true,
+    // }
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.bindingEngine = bindingEngine;
-        this.element = element;
-    }
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
     }
 
-    get isFilterMachine() {
-        this.filterMachine = {
-            "machine.code": this.data.machine.code
-        };
-        return this.filterMachine;
+    bind() {
+        this.data = this.data || {};
+        this.items = this.data.items;
+        this.error = {};
     }
-    machineChanged(e) {
-        var selectedProcess = e.detail || {};
-        this.data.items = e.detail.MachineType.indicators;
-        if (selectedProcess) {
-            this.data.machineId = selectedProcess._id ? selectedProcess._id : "";
-        }
-
-    }
-
-
-       productionOrderChanged(e) {
-        var selectedProcess = e.detail || {};
-        this.data.productionOrder = e.detail;
-        if (selectedProcess) {
-            this.data.productionOrderId = selectedProcess._id ? selectedProcess._id : "";
-        }
-
-    }
-
 
     async activate(params) {
-
+        var locale = 'id-ID';
+        var moment = require('moment');
+        moment.locale(locale);
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.machine = this.data.machine;
+        this.Options = {
+            "readOnly": true,
+            "isMaster": false,
+        }
+        this.productionOrder = this.data.productionOrder;
+
     }
 
-    list() {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+    deleteCallback(event) {
         this.service.delete(this.data)
             .then(result => {
-                this.list();
+                this.cancelCallback();
             });
     }
 }
