@@ -30,6 +30,11 @@ export class DataForm {
         return PackingUnacceptedLoader;
     }
 
+    get isSolid() {
+        if (this.data.packing && this.data.packing.orderType)
+            return (this.data.packing.orderType || "").toString().toLowerCase() === "solid";
+    }
+
     packingChanged(newValue) {
         this.data.packing = newValue;
         if (this.data.packing) {
