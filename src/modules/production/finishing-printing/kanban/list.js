@@ -59,14 +59,13 @@ export class List {
     loadData = (info) => {
         var order = {};
         if (info.sort)
-            order[info.sort] = info.order;
+        order[info.sort] = info.order;
 
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order,
-            select: ["productionOrder.orderNo", "cart.cartNumber", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType.name", "currentStepIndex", "instruction", "oldKanban", "isComplete"]
+            order: order
         }
 
         return this.service.search(arg)
