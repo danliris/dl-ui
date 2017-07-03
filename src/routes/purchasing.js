@@ -225,11 +225,11 @@ module.exports = [
         name: 'unit-payment-quantity-koreksi',
         moduleId: './modules/purchasing/monitoring-correction-quantity/index',
         nav: true,
-        title: 'Monitoring Koreksi Jumlah Pembelian',
+        title: 'Monitoring Koreksi Jumlah',
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     },
