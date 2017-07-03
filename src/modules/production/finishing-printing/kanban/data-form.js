@@ -3,6 +3,7 @@ import {Service} from './service';
 
 var InstructionLoader = require('../../../../loader/instruction-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
@@ -18,6 +19,9 @@ export class DataForm {
     @bindable isEdit;
     @bindable isView;
     @bindable isReprocess;
+
+    @bindable productionOrder;
+    @bindable kanban;
 
     kereta = "Kereta";
     options = {};
@@ -128,8 +132,8 @@ export class DataForm {
         }.bind(this)
     };
 
-    kanbanChanged(kanban) {
-        kanban = kanban.detail;
+    kanbanChanged(newValue, oldValue) {
+        var kanban = newValue;
 
         if (kanban) {
             Object.assign(this.data, kanban);
@@ -179,12 +183,17 @@ export class DataForm {
         }
     }
 
-    async productionOrderChanged(e) {
+    async productionOrderChanged(newValue, oldValue) {
         this.productionOrderDetails = [];
 
-        var productionOrder = e.detail;
+        var productionOrder = newValue;
         if (productionOrder) {
-            this.productionOrderDetails = await this.service.getProductionOrderDetails(productionOrder.orderNo);
+            this.data.productionOrder = productionOrder;
+            this.productionOrderDetails = [];
+
+            for (var detail of productionOrder.details) {
+                this.productionOrderDetails.push(detail);
+            }
 
             if (!this.data.selectedProductionOrderDetail && this.hasProductionOrderDetails) {
                 this._mapProductionOrderDetail();
@@ -228,6 +237,10 @@ export class DataForm {
 
     get kanbanLoader() {
         return KanbanLoader;
+    }
+
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
     }
 
     kanbanView(kanban) {
@@ -275,6 +288,7 @@ export class DataForm {
 
     reprocessChanged(e) {
         if (e.detail) {
+            this.currentReprocess = undefined;
             this.data.reprocessStatus = false;
 
             if (e.detail == this.data.SEBAGIAN) {

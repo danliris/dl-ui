@@ -8,109 +8,121 @@
     title.bind="title"
     with.bind="context"
     options.bind="formOptions">
-    
-    <production-order-auto-suggest 
-      label="Nomor Order" 
-      value.bind="data.productionOrder" 
-      error.bind="error.productionOrder" 
-      read-only.bind="(readOnly)" 
-      change.delegate="productionOrderChanged($event)"
-      if.bind="!isReprocess">
-    </production-order-auto-suggest>
 
-    <kanban-auto-suggest 
-      value.bind="kanban" 
+    <au-autocomplete 
+      value.bind="productionOrder" 
       error.bind="error.productionOrder"
-      label="Nomor Order - Nomor Kereta Lama"
-      loader.bind="kanbanLoader"
-      text.bind="kanbanView"
+      label="Nomor Order" 
+      loader.bind="productionOrderLoader"
       read-only.bind="readOnly"
       options.bind="controlOptions"
-      change.delegate="kanbanChanged($event)"
-      if.bind="isReprocess"
-      filter.bind="query">
-    </kanban-auto-suggest>
+      if.bind="!isReprocess"
+      text="orderNo">
+    </au-autocomplete>
 
-    <textbox 
+    <au-autocomplete 
+      value.bind="kanban" 
+      error.bind="error.productionOrder"
+      label="Nomor Order - Nomor Kereta Lama" 
+      loader.bind="kanbanLoader"
+      read-only.bind="readOnly"
+      text.bind="kanbanView"
+      options.bind="controlOptions"
+      if.bind="isReprocess"
+      query.bind="query">
+    </au-autocomplete>
+
+    <au-textbox 
       label="Jenis Order" 
       value.bind="data.productionOrder.orderType.name"
       read-only.bind="true"
-      if.bind="hasProductionOrder">
-    </textbox>
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <textbox 
+    <au-textbox 
       label="Jenis Proses" 
       value.bind="data.productionOrder.processType.name"
       read-only.bind="true"
-      if.bind="hasProductionOrder">
-    </textbox>
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <textbox 
+    <au-textbox 
       label="Material" 
       value.bind="data.productionOrder.material.name"
       read-only.bind="true"
-      if.bind="hasProductionOrder">
-    </textbox>
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <textbox 
+    <au-textbox 
       label="Konstruksi" 
       value.bind="data.productionOrder.materialConstruction.name"
       read-only.bind="true"
-      if.bind="hasProductionOrder">
-    </textbox>
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <textbox 
+    <au-textbox 
       label="Nomor Benang" 
       value.bind="data.productionOrder.yarnMaterial.name"
       read-only.bind="true"
-      if.bind="hasProductionOrder">
-    </textbox>
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <textbox 
+    <au-textbox 
       label="Standard Handfeel" 
       value.bind="data.productionOrder.handlingStandard"
       read-only.bind="true"
-      if.bind="hasProductionOrder">
-    </textbox>
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <textbox 
+    <au-textbox 
       label="Lebar Finish" 
       value.bind="data.productionOrder.finishWidth"
       read-only.bind="true"
-      if.bind="hasProductionOrder">
-    </textbox>
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <dropdown 
+    <au-dropdown 
       label="Color" 
       value.bind="data.selectedProductionOrderDetail" 
       error.bind="error.selectedProductionOrderDetail" 
       read-only.bind="readOnly" 
       items.bind="productionOrderDetails"
-      if.bind="hasProductionOrderDetails && !readOnly">
-    </dropdown>
-    <textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly || isReprocess" if.bind="readOnly || isReprocess ? (data.selectedProductionOrderDetail.colorRequest ? true : false) : false"></textbox>
+      if.bind="hasProductionOrderDetails && !readOnly"
+      options.bind="controlOptions">
+    </au-dropdown>
+    <au-textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly || isReprocess" if.bind="readOnly || isReprocess ? (data.selectedProductionOrderDetail.colorRequest ? true : false) : false" options.bind="controlOptions"></au-textbox>
 
-    <numeric 
+    <au-numeric 
       label="Jumlah" 
       value.bind="data.selectedProductionOrderDetail.quantity" 
       read-only.bind="true"
-      if.bind="hasColor">
-    </numeric>
+      if.bind="hasColor"
+      options.bind="controlOptions">
+    </au-numeric>
 
-    <textbox
+    <au-textbox
       label="Satuan"
       value.bind="data.productionOrder.uom.unit" 
       read-only.bind="true"
-      if.bind="hasColor">
-    </textbox>
+      if.bind="hasColor"
+      options.bind="controlOptions">
+    </au-textbox>
 
-    <textbox 
+    <au-textbox 
       label="Grade" 
       value.bind="data.grade"
       read-only.bind="readOnly || isReprocess"
       error.bind="error.grade"
+      options.bind="controlOptions"
       if.bind="isReprocess ? (data.grade ? true : false) : true">
-    </textbox>
+    </au-textbox>
     
     <radiobutton
       label="Reproses"
