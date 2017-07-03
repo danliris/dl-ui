@@ -1,16 +1,26 @@
 <template>
   <au-input-form title.bind="title" with.bind="context">
 
-    <au-textbox label="Kode" value.bind="data.code" error.bind="error.code" if.bind="readOnly || isEdit"  read-only.bind="true"></au-textbox>
+    <div slot="actions" class="btn-group">
+      <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+      <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+    </div>
+
+    <au-textbox label="Kode" value.bind="data.code" error.bind="error.code" if.bind="readOnly || isEdit" read-only.bind="true"></au-textbox>
     <au-autocomplete value.bind="selectedProductionOrder" label="Nomor Order" read-only.bind="readOnly || isEdit" error.bind="error.productionOrderId"
       loader.bind="productionOrderLoader" key="orderNo" text.bind="productionOrderTextFormatter">
     </au-autocomplete>
+    <au-textbox label="Jenis Order" value.bind="data.orderType" error.bind="error.orderType" read-only.bind="true"></au-textbox>
+    <au-textbox label="Jenis Warna" value.bind="data.colorType" error.bind="error.colorType" read-only.bind="true" if.bind="isSolid"></au-textbox>
     <au-textbox label="Warna Diminta" value.bind="data.colorName" error.bind="error.colorCode" read-only.bind="true"></au-textbox>
     <au-datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly"></au-datepicker>
 
-    <au-dropdown label="UOM" value.bind="data.packingUom" items.bind="packingUomOptions" error.bind="error.packingUom" read-only.bind="readOnly"></au-dropdown>
+    <au-dropdown label="Satuan" value.bind="data.packingUom" items.bind="packingUomOptions" error.bind="error.packingUom" read-only.bind="readOnly"></au-dropdown>
 
-    <au-collection columns.bind="itemColumns" items.bind="data.items" errors.one-way="error.items" add.bind="addItemCallback" read-only.bind="readOnly">
+    <au-collection columns.bind="itemColumns" items.bind="data.items" errors.one-way="error.items" add.bind="addItemCallback"
+      read-only.bind="readOnly">
       <template replace-part="item">
         <td>
           <au-textbox value.bind="data.lot" error.bind="error.lot" read-only.bind="readOnly"></au-textbox>

@@ -19,6 +19,10 @@ export class View {
                 item.showDetails = false
             })
         }
+
+        this.unit = this.data.unit;
+        this.supplier = this.data.supplier;
+        this.deliveryOrder = this.data.deliveryOrder;
     }
 
     list() {

@@ -25,7 +25,7 @@ export class List {
     },
     { field: "referenceNo", title: "No. Referensi" },
     { field: "referenceType", title: "Jenis Referensi" },
-    { field: "storageName", title: "Storage" },
+    { field: "storageName", title: "Gudang" },
     { field: "type", title: "Status" }
   ];
 

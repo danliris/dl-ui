@@ -13,6 +13,9 @@ export class EditInput {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getData(id);
+        this.machine = this.data.machine;
+        this.step = this.data.step;
+        this.kanban = this.data.kanban;
     }
 
     view() {

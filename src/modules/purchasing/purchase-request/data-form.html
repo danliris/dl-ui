@@ -16,21 +16,24 @@
             value.bind="data.no" 
             error.bind="error.no" 
             read-only.bind="true"
-            if.bind="(readOnly || isEdit)">
+            if.bind="(readOnly || isEdit)"
+            options.bind="controlOptions">
         </au-textbox>
 
         <au-datepicker 
             label="Tgl. PR" 
             value.bind="data.date" 
             error.bind="error.date" 
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker 
             label="Tgl. Diminta Datang" 
             value.bind="data.expectedDeliveryDate" 
             error.bind="error.expectedDeliveryDate" 
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-datepicker>
 
         <au-autocomplete 
@@ -41,7 +44,8 @@
             loader.bind="budgetLoader"
             placeholder="cari budget" 
             key="code" 
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-autocomplete>
 
         <au-autocomplete 
@@ -52,7 +56,8 @@
             loader.bind="unitLoader"
             placeholder="cari unit" 
             key="code"
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-autocomplete>
 
         <au-autocomplete 
@@ -63,14 +68,16 @@
             loader.bind="categoryLoader"
             placeholder="cari kategori" 
             key="code"
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-autocomplete>
 
         <au-multiline 
             label="Keterangan" 
             value.bind="data.remark"
             placeholder="tambah keterangan" 
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-multiline>
 
         <au-collection 

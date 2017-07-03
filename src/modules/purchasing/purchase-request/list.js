@@ -14,7 +14,7 @@ export class List {
       return {}
   }
 
-  context = ["detail", "print"]
+  context = ["Rincian", "Cetak PDF"]
 
   columns = [
     {
@@ -73,10 +73,10 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "detail":
+      case "Rincian":
         this.router.navigateToRoute('view', { id: data._id });
         break;
-      case "print":
+      case "Cetak PDF":
         this.service.getPdfById(data._id);
         break;
     }
@@ -84,7 +84,7 @@ export class List {
 
   contextShowCallback(index, name, data) {
     switch (name) {
-      case "print":
+      case "Cetak PDF":
         return data.isPosted;
       default:
         return true;

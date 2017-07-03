@@ -3,149 +3,127 @@
         <div class="row">
             <div  class="col-md-6" style="padding:0">
                 <fieldset>
-                    <machine-auto-suggest
-                        label="Mesin"
-                        value.bind="data.machine"
+                    <au-autocomplete 
+                        value.bind="machine"
+                        label="Mesin" 
+                        loader.bind="machineLoader" 
+                        text="name"
+                        read-only.bind="readOnly"
                         error.bind="error.machine"
-                        read-only.bind="readOnly"
-                        filter.bind="filterMachine"
-                        change.delegate="machineChanged($event)">
-                    </machine-auto-suggest>
+                        options.bind="auInputOptions"
+                        query.bind="filterMachine">
+                    </au-autocomplete>
 
-                    <step-auto-suggest
-                        label="Step / Proses"
-                        value.bind="data.step"
+                    <au-autocomplete 
+                        value.bind="step"
                         error.bind="error.step"
+                        label="Step / Proses" 
                         read-only.bind="readOnly"
-                        change.delegate="stepChanged($event)"
-                        filter.bind="filterStep || isFilterStep"
-                        if.bind="hasMachine">
-                    </step-auto-suggest>
+                        loader.bind="stepLoader" 
+                        text="process"
+                        query.bind="isFilterStep"
+                        options.bind="auInputOptions"
+                        change.trigger="stepChanged(data.step)"
+                        show.bind="hasMachine"
+                        view-model.ref="stepAU">
+                    </au-autocomplete>
 
-                    <kanban-auto-suggest
-                        label="Nomor Order Produksi - Kereta"
-                        value.bind="data.kanban"
+                    <au-autocomplete 
+                        value.bind="kanban"
                         error.bind="error.kanban"
+                        label="Nomor Order Produksi - Kereta" 
                         read-only.bind="readOnly"
-                        filter.bind = "filterKanban || isFilterKanban"
-                        change.delegate="kanbanChanged($event)"
-                        if.bind="hasStep"
-                        >
-                    </kanban-auto-suggest>
+                        loader.bind="kanbanLoader" 
+                        text.bind="kanbanView"
+                        change.delegate="kanbanChanged(data.kanban)"
+                        query.bind="isFilterKanban"
+                        options.bind="auInputOptions"
+                        change.trigger="kanbanChanged(data.kanban)"
+                        show.bind="hasStep"
+                        view-model.ref="kanbanAU">
+                    </au-autocomplete>
 
-                    <dropdown
+                    <au-dropdown
                         label="Shift"
                         value.bind="data.shift"
                         error.bind="error.shift"
                         read-only.bind="readOnly"
-                        items.bind="shiftOptions">
-                    </dropdown>
+                        items.bind="shiftOptions"
+                        options.bind="auDropdownInputOptions">
+                    </au-dropdown>
                     
                     <au-datetimepicker label="Tanggal Input" value.bind="localInputDate" error.bind="error.dateInput" options.bind="auInputOptions" read-only.bind="readOnlyInput" if.bind="input"></au-datetimepicker>
-            
-                    <!--<datepicker
-                        label="Tanggal Input"
-                        value.bind="data.dateInput"
-                        error.bind="error.dateInput"
-                        read-only.bind="readOnlyInput"
-                        if.bind="input">
-                    </datepicker>
-
-                    <timepicker 
-                        label="Jam Input" 
-                        value.bind="timeInput" 
-                        error.bind="error.timeInput" 
-                        disabled.bind="readOnlyInput" 
-                        showsecond.bind="timePickerShowSecond" 
-                        format.bind="timePickerFormat" 
-                        change.delegate=timeInputChanged($event)
-                        if.bind="input">
-                    </timepicker>-->
 
                     <div class="row" if.bind="input">
-                        <div class="col-sm-4" style="padding-left:27%">    
-                            <textbox    label="Input"  read-only="true"></textbox>
+                        <div class="col-sm-4" style="padding-left:25%">    
+                            <au-textbox    label="Input"  read-only="true" options.bind="auNumericInputOptions"></au-textbox>
                         </div>
                         <div class="col-sm-3">    
-                            <numeric
+                            <au-numeric
                                 value.bind="data.input"
                                 error.bind="error.input"
-                                read-only.bind="readOnlyInput">
-                            </numeric>
+                                read-only.bind="readOnlyInput"
+                                format="0">
+                            </au-numeric>
                         </div>
                         <div class="col-sm-2">    
-                            <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban" read-only="true"></textbox>
+                            <au-textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban" read-only="true"></au-textbox>
                         </div>
                     </div>
 
                     <au-datetimepicker label="Tanggal Output" value.bind="localOutputDate" error.bind="error.dateOutput" options.bind="auInputOptions" read-only.bind="readOnlyOutput" if.bind="output"></au-datetimepicker>
 
-                    <!--<datepicker
-                        label="Tanggal Output"
-                        value.bind="data.dateOutput" 
-                        error.bind="error.dateOutput"
-                        read-only.bind="readOnlyOutput"
-                        if.bind="output">
-                    </datepicker>
-
-                    <timepicker 
-                        label="Jam Output" 
-                        value.bind="timeOutput" 
-                        error.bind="error.timeOutput" 
-                        disabled.bind="readOnlyOutput" 
-                        showsecond.bind="timePickerShowSecond" 
-                        format.bind="timePickerFormat" 
-                        change.delegate=timeOutputChanged($event)
-                        if.bind="output">>
-                    </timepicker>-->
-
                     <div class="row" if.bind="output">
                         <div class="col-sm-4" style="padding-left:25%">    
-                            <textbox    label="Good Output"  read-only="true"></textbox>
+                            <au-textbox    label="Good Output"  read-only="true" options.bind="auNumericInputOptions"></au-textbox>
                         </div>
                         <div class="col-sm-3"> 
-                            <numeric
+                            <au-numeric
                                 value.bind="data.goodOutput"
                                 error.bind="error.goodOutput"
-                                read-only.bind="readOnlyOutput">
-                            </numeric>
+                                read-only.bind="readOnlyOutput"
+                                format="0">
+                            </au-numeric>
                         </div>
                         <div class="col-sm-2">    
-                            <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></textbox>
+                            <au-textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
                         </div>
                     </div>
 
                     <div class="row" if.bind="output">
                         <div class="col-sm-4" style="padding-left:25%">    
-                            <textbox    label="Bad OutPut"  read-only="true"></textbox>
+                            <au-textbox    label="Bad Output"  read-only="true" options.bind="auNumericInputOptions"></au-textbox>
                         </div>
                         <div class="col-sm-3"> 
-                            <numeric
+                            <au-numeric
                                 value.bind="data.badOutput"
                                 error.bind="error.badOutput"
-                                read-only.bind="readOnlyOutput">
-                            </numeric>
+                                read-only.bind="readOnlyOutput"
+                                format="0">
+                            </au-numeric>
                         </div>
                         <div class="col-sm-2">    
-                            <textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></textbox>
+                            <au-textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
                         </div>
                     </div>
                     
-                    <multiline
+                    <au-multiline
                         label="Keterangan Bad Output"
                         value.bind="data.badOutputDescription"
                         error.bind="error.badOutputDescription"
                         read-only.bind="readOnlyOutput"
-                        if.bind="output">
-                    </multiline>
+                        if.bind="output"
+                        placeholder=" "
+                        options.bind="auInputOptions">
+                    </au-multiline>
                 </fieldset>
             </div>
             <div  class="col-md-6" style="padding:0">
-                <textbox    label="Material"        value.bind="data.kanban.productionOrder.material.name"              if.bind="hasKanban" read-only="true"></textbox>
-                <textbox    label="Konstruksi"      value.bind="data.kanban.productionOrder.materialConstruction.name"  if.bind="hasKanban" read-only="true"></textbox>
-                <textbox    label="Nomor Benang"    value.bind="data.kanban.productionOrder.yarnMaterial.name"          if.bind="hasKanban" read-only="true"></textbox>
-                <textbox    label="Lebar Finish"    value.bind="data.kanban.productionOrder.finishWidth"                if.bind="hasKanban" read-only="true"></textbox>
-                <textbox    label="Warna"           value.bind="data.kanban.selectedProductionOrderDetail.colorRequest" if.bind="hasKanban" read-only="true"></textbox>
+                <au-textbox    label="Material"        value.bind="data.kanban.productionOrder.material.name"              if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Konstruksi"      value.bind="data.kanban.productionOrder.materialConstruction.name"  if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Nomor Benang"    value.bind="data.kanban.productionOrder.yarnMaterial.name"          if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Lebar Finish"    value.bind="data.kanban.productionOrder.finishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Warna"           value.bind="data.kanban.selectedProductionOrderDetail.colorRequest" if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
             </div>
         </div>
     </form>

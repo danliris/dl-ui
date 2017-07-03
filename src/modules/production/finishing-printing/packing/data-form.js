@@ -22,23 +22,22 @@ export class DataForm {
         return (this.data._id || '').toString() !== '';
     }
 
+    get isSolid() {
+        return (this.data.orderType || "").toString().toLowerCase() === "solid";
+    }
+
     async bind(context) {
         this.context = context;
         this.context._this = this;
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
-
         var productionOrderId = this.data.productionOrderId;
         // var productionOrderId = "58c8f8287b915900364dd2b0";
         if (productionOrderId) {
             this.selectedProductionOrder = await this.service.getProductionOrderById(productionOrderId, this.productionOrderFields);
         }
-        console.log(this.selectedProductionOrder);
+        // console.log(this.selectedProductionOrder);
     }
     errorChanged() {
         console.log(this.error)
@@ -48,19 +47,27 @@ export class DataForm {
     packingUomOptions = ["", "ROLL", "PCS", "POTONG"];
     grades = ["", "A", "B", "C", "BS", "AVAL"];
 
-    @bindable selectedProductionOrder; 
+    @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
         if (this.selectedProductionOrder && this.selectedProductionOrder._id) {
             this.data.productionOrderId = this.selectedProductionOrder._id;
             var color = this.selectedProductionOrder.details && this.selectedProductionOrder.details.length > 0 ? this.selectedProductionOrder.details[0] : {};
-            console.log(color);//"selectedProductionOrderChanged")
+            console.log(this.selectedProductionOrder);//"selectedProductionOrderChanged")
             this.data.colorCode = color.code;
             this.data.colorName = color.colorRequest;
+            this.data.colorType = color.colorType && color.colorType.name ? color.colorType.name : null;
+            this.data.orderType = this.selectedProductionOrder.orderType.name;
+            this.data.designNumber = (this.data.orderType || "").toString().toLowerCase() === "printing" ? this.selectedProductionOrder.designNumber : null;
+            this.data.designCode = (this.data.orderType || "").toString().toLowerCase() === "printing" ? this.selectedProductionOrder.designCode : null;
         }
         else {
-            this.data.productionOrderId = null; 
+            this.data.productionOrderId = null;
             this.data.colorCode = null;
             this.data.colorName = null;
+            this.data.colorType = null;
+            this.data.orderType = null;
+            this.data.designNumber = null;
+            this.data.designCode = null;
         }
     }
 
