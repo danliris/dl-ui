@@ -19,7 +19,14 @@ export class DataForm {
             length: 5
         }
     }
-    itemsColumns = [{ header: "Nomor PO External", value: "purchaseOrderExternal" }]
+    itemsInfo = {
+        columns: [{ header: "Nomor PO External", value: "purchaseOrderExternal" }],
+        onAdd: function () {
+            this.context.ItemsCollection.bind();
+            this.data.items.push({ purchaseOrderExternal: { no: "" } });
+        }.bind(this)
+    };
+    // itemsColumns = [{ header: "Nomor PO External", value: "purchaseOrderExternal" }]
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -67,12 +74,6 @@ export class DataForm {
 
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`
-    }
-
-    get addItems() {
-        return (event) => {
-            this.data.items.push({ purchaseOrderExternal: {} })
-        };
     }
 
     resetErrorItems() {
