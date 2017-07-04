@@ -147,7 +147,7 @@ export class DataForm {
                 this.data.reprocessSteps.LanjutProses.push(this.data.instruction.steps[i]);
             }
 
-            this.data.reprocess = !this.data.reprocessStatus ? this.data.SEMUA : true;
+            this.data.reprocess = !this.data.reprocessStatus ? this.data.SEBAGIAN : true;
             this.data.reprocessSteps.Reproses = this.data.instruction.steps;
 
             this.data.oldKanban = kanban;
