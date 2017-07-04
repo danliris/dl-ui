@@ -1,33 +1,28 @@
 <template>
-    <form class="form-horizontal">
-
+    <au-input-form title.bind="title" with.bind="context">
+        <button slot="actions" class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+        <button slot="actions" class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+        <button slot="actions" class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+        <button slot="actions" class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
 
         <fieldset>
 
-            <!--<datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" format.bind="datePickerFormat"></datepicker>
+            <au-datetimepicker label="Tanggal/Jam" value.bind="data.date " error.bind="error.date" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-datetimepicker>
 
-            <au-datetimepicker label="Jam" value.bind="data.time | dateFormat:'HH:mm' " error.bind="error.time" format.bind="timePickerFormat"
-                showSecond.bind="showSecond">
-            </au-datetimepicker>-->
-            <au-datetimepicker label="Tanggal/Jam" value.bind="data.date " error.bind="error.date" options.bind="auInputOptions"
-                read-only.bind="(readOnly)"></au-datetimepicker>
+            <au-autocomplete value.bind="machine" error.bind="error.machine" label="machine" loader.bind="machineLoader" placeholder="Cari machine"
+                key="code" text="name" query.bind="divisionFilter" read-only.bind="(readOnly)" options.bind="auInputOptions">
+            </au-autocomplete>
 
-            <!--<au-timepicker label="Jam" value.bind="data.time" error.bind="error.time" format.bind="timePickerFormat" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-timepicker>-->
+            <au-autocomplete value.bind="productionOrder" error.bind="error.productionOrder" label="No Surat Produksi Order" loader.bind="productionOrderLoader"
+                placeholder="Cari No Surat Produksi Order" key="orderNo" text="orderNo" read-only.bind="(readOnly)" options.bind="auInputOptions">
+            </au-autocomplete>
 
-
-            <machine-auto-suggest-by-division label="Mesin" value.bind="data.machine" error.bind="error.machine" read-only.bind="(readOnly)"
-                change.delegate="machineChanged($event)" click.delegate="resetErrors()" filter.bind="divisionFilter"></machine-auto-suggest-by-division>
-
-            <production-order-auto-suggest label="No Surat Produksi Order" value.bind="data.productionOrder" error.bind="error.productionOrder"
-                read-only.bind="(readOnly)" change.delegate="productionOrderChanged($event)">
-            </production-order-auto-suggest>
-
-            <textbox label="Nomor Kereta" value.bind="data.cartNumber" placeholder="input nomor kereta" error.bind="error.cartNumber"
-                read-only.bind="readOnly"></textbox>
-
-            <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" options.bind="Options" filter.bind="filterMachine || isFilterMachine"
-                if.bind="data.machine" click.delegate="resetErrors"></monitoring-specification-machine-collection>
-
+            <au-textbox label="Nomor Kereta" value.bind="data.cartNumber" placeholder="input nomor kereta" error.bind="error.cartNumber"
+                read-only.bind="(readOnly)" options.bind="auInputOptions"></au-textbox>
         </fieldset>
-    </form>
+
+        <monitoring-specification-machine-collection value.bind="data.items" error.bind="error.items" if.bind="machine" options.bind="Options"
+            click.delegate="resetErrors"></monitoring-specification-machine-collection>
+
+    </au-input-form>
 </template>

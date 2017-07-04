@@ -1,0 +1,81 @@
+<template>
+ <h1 class="page-header">Monitoring Koreksi Jumlah</h1>
+     <form class="form-horizontal">
+         <!--
+        <kanban-auto-suggest            label="Nomor Order/Kereta"        value.bind="kanban"    ></kanban-auto-suggest>
+        <machine-auto-suggest           label="Mesin"	                  value.bind="machine"   ></machine-auto-suggest>
+-->
+        <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+               <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
+               <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div> 
+        
+        <!--<div class="btn-group pull-left">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
+        -->
+    </form>
+<br>
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead align="center">
+            <tr>
+                <td colspan="2">NOTA DEBET</td>
+                <td rowspan="2">NO NOTA INTERN (SPB)</td>
+                <td rowspan="2">NO PO EXTERNAL</td>
+                <td rowspan="2">NO PURCHASE REQUEST</td>
+                <td rowspan="2">KATEGORI</td>
+                <td rowspan="2">SUPPLIER</td>
+                <td colspan="2">BARANG</td>
+                <td colspan="4">KOREKSI</td>
+
+            </tr>
+            <tr>
+                <td>NOMOR</td>
+                <td>TANGGAL</td>
+                <td>KODE</td>
+                <td>NAMA</td>
+                <td>JUMLAH</td>
+                <td>SATUAN</td>
+                <td>HARGA SATUAN</td>
+                <td>HARGA TOTAL</td>
+                <!--<th>Kategori UOM</th>-->
+                
+            </tr>
+        
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data">
+                <td class="text-center">${item.no}</td>
+                <!--<td class="text-center">${item.date}</td>-->
+                <td class="text-center">${item.date | dateFormat:'D MMM YYYY'}</td>
+                <td class="text-center">${item.unitPaymentOrder.no}</td>
+                <td class="text-center">${item.items.purchaseOrder.purchaseOrderExternal.no}</td>
+                <td class="text-center">${item.items.purchaseOrder.purchaseRequest.no}</td>
+                <td class="text-center">${item.unitPaymentOrder.category.name}</td>
+                <!--<td class="text-center">${item.releaseOrderNoteNo}</td>
+                <td class="text-center">${item.returNoteNo}</td>-->
+                <!--<td class="text-center">${item.unitPaymentOrder.supplier.code}</td>-->
+                <td class="text-left">${item.unitPaymentOrder.supplier.name}</td>
+                <td class="text-left">${item.items.product.code}</td>
+                <td class="text-center">${item.items.product.name}</td>
+                <td class="text-right">${item.items.quantity}</td>
+                <td class="text-right">${item.items.uom.unit}</td>
+                <td class="text-right">${item.items.pricePerUnit}</td>
+                <td class="text-right">${item.items.priceTotal}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+    </form>
+    
+</template>
+
+
