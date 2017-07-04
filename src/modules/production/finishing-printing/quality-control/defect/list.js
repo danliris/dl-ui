@@ -63,6 +63,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
+            select: ["dateIm", "code", "shiftIm", "operatorIm", "machineNoIm", "productionOrderNo", "productionOrderType", "cartNo", "isUsed"]
             // packing: 
         }
 
