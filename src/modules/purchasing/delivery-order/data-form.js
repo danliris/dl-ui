@@ -65,7 +65,7 @@ export class DataForm {
             this.data.supplierId = undefined;
         }
         this.data.items = [];
-        this.resetErrorItems = [];
+        this.resetErrorItems();
     }
 
     get supplierLoader() {
