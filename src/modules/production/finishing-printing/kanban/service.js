@@ -33,6 +33,11 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
+  updateIsComplete(id) {
+    var endpoint = `${serviceUri}/complete/${id}`;
+    return super.put(endpoint);
+  }
+
   delete(data) {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.delete(endpoint, data);

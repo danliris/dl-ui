@@ -46,11 +46,12 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            select: ["date", "productionOrderNo", "cartNo", "fabricQualityControlCode", "productionOrderType", "color"]
         }
 
         return this.service.search(arg)
-            .then(result => {
+            .then((result) => {
                 return {
                     total: result.info.total,
                     data: result.data

@@ -13,6 +13,7 @@ export class List {
         "Perbandingan Hasil QC",
         "Top Ten Defect",
     ];
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
