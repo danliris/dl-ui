@@ -8,8 +8,9 @@
 		</td>
 		<td>
 			<au-numeric
-				value.bind="data.purchaseOrderQuantity"
+				value.bind="data.deliveredQuantity"
 				read-only.bind="readOnly"
+				error.bind="error.deliveredQuantity"
 				format="0">
 			</au-numeric>
 		</td>
