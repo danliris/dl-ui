@@ -65,7 +65,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            select: ["productionOrder.orderNo", "cart.cartNumber", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType.name", "selectedProductionOrderDetail.colorType", "isComplete", "oldKanban.cart.cartNumber", "currentStepIndex", "instruction.name", "instruction.steps.length"]
         }
 
         return this.service.search(arg)
@@ -150,14 +151,14 @@ export class List {
         if (this.dataToBeCompleted.length > 0) {
             var updatePromise = [];
             for (var data of this.dataToBeCompleted){
-                data.isComplete = true;
-                updatePromise.push(this.service.update(data));
+                updatePromise.push(this.service.updateIsComplete(data._id));
             }
 
             Promise.all(updatePromise)
                 .then(responses => {
                     this.error = {};
                     this.table.refresh();
+                    this.dataToBeCompleted = [];
                 })
                 .catch(e => {
                     this.error = e;
