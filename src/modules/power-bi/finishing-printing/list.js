@@ -8,8 +8,8 @@ export class List {
     data = [];
     listReport = [
         "Top Ten Event Monitoring",
-        "Kapasitas Mesin VS Total Output Produksi",
-        "Good Output VS Bad Output",
+        "Kapasitas Mesin vs Kuantiti Kanban vs Kuantiti Output Produksi",
+        "Good Output VS Bad Output Produksi",
         "Perbandingan Hasil QC",
         "Top Ten Defect",
     ];
