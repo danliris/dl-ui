@@ -5,6 +5,14 @@ var moment = require("moment");
 
 @inject(Router, Service)
 export class List {
+
+    rowFormatter(data, index) {
+        if (data.isUsed)
+            return { classes: "success" }
+        else
+            return {}
+    }
+
     dataToBeCompleted = [];
 
     constructor(router, service) {
@@ -28,11 +36,19 @@ export class List {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
+            { field: "code", title: "Nomor Pemeriksaan Kain" },
             { field: "shiftIm", title: "Shift" },
             { field: "operatorIm", title: "Operator" },
+            { field: "machineNoIm", title: "No. Mesin" },
             { field: "productionOrderNo", title: "No. Order" },
             { field: "productionOrderType", title: "Jenis Order" },
-            { field: "kanbanCode", title: "No. Kanban`" }
+            { field: "cartNo", title: "No. Kereta" },
+            {
+                field: "isUsed", title: "Masuk Lot Warna",
+                formatter: function (value, row, index) {
+                    return value ? "SUDAH" : "BELUM";
+                }
+            }
         ];
     }
 
@@ -46,7 +62,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            // packing: 
         }
 
         return this.service.search(arg)

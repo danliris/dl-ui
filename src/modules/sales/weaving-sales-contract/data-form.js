@@ -6,7 +6,7 @@ var UomLoader = require('../../../loader/uom-loader');
 var QualityLoader = require('../../../loader/quality-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var MaterialLoader = require('../../../loader/material-loader');
-var ProductLoader = require('../../../loader/products-loader');
+var ProductLoader = require('../../../loader/product-loader');
 var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader');
@@ -55,10 +55,10 @@ export class DataForm {
             return true;
     }
 
-    enterEventDelegate(event) {
-        event();
-        return true;
-    }
+    // enterEventDelegate(event) {
+    //     event();
+    //     return true;
+    // }
 
     //set termOfPaymentFilter
     @computedFrom("data.buyer")
@@ -156,6 +156,7 @@ export class DataForm {
                 this.data.comission = "";
                 this.data.termOfShipment = "";
                 this.data.remark = "";
+                this.data.shipmentDescription = "";
             }
         }
         else {
@@ -164,6 +165,7 @@ export class DataForm {
             this.data.comission = "";
             this.data.termOfShipment = "";
             this.data.remark = "";
+            this.data.shipmentDescription = "";
         }
     }
 
@@ -212,8 +214,6 @@ export class DataForm {
             this.data.comission = "";
         }
     }
-
-
 
     get buyersLoader() {
         return BuyersLoader;

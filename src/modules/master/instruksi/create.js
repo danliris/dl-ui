@@ -11,12 +11,15 @@ export class Create {
         this.data = {};
     }
 
+    activate(params) {
+
+    }
+
     back() {
         this.router.navigateToRoute('list');
     }
 
-    save() {
-        debugger
+    save(event) {
         this.service.create(this.data)
             .then(result => {
                 this.back();

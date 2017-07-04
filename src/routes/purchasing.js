@@ -1,4 +1,4 @@
-module.exports = [
+module.exports = [ 
     {
         route: 'pr',
         name: 'purchase-request',
@@ -130,6 +130,19 @@ module.exports = [
         }
     },
     {
+        route: 'po/reports/periode/supplier',
+        name: 'purchase-order-reports-periode-supplier',
+        moduleId: './modules/purchasing/reports/purchase-order-report/supplier-report/index',
+        nav: true,
+        title: 'Laporan Total Pembelian per Supplier',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'do',
         name: 'delivery-order',
         moduleId: './modules/purchasing/delivery-order/index',
@@ -193,13 +206,26 @@ module.exports = [
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },
+    },    
     {
         route: 'unit-payment-note/price-correction',
         name: 'unit-payment-price-correction-note',
         moduleId: './modules/purchasing/unit-payment-price-correction-note/index',
         nav: true,
         title: 'Koreksi Harga Pembelian',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'unit-payment-note/price-correction/monitoring',
+        name: 'unit-payment-price-correction-note-monitoring',
+        moduleId: './modules/purchasing/koreksi-harga/index',
+        nav: true,
+        title: 'Monitoring Koreksi Harga',
         auth: true,
         settings: {
             group: "purchasing",
@@ -230,6 +256,58 @@ module.exports = [
         settings: {
             group: "purchasing",
             permission: {"C9" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-request-purchase-order-duration-report',
+        name: 'purchase-request-purchase-order-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-request-purchase-order-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PR - PO Internal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-request-purchase-order-external-duration-report',
+        name: 'purchase-request-purchase-order-external-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-request-purchase-order-external-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PR - PO Eksternal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-order-purchase-order-external-duration-report',
+        name: 'purchase-order-purchase-order-external-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-order-purchase-order-external-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PO Internal - PO Eksternal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-order-external-delivery-order-duration-report',
+        name: 'purchase-order-external-delivery-order-duration-report',
+        moduleId: './modules/purchasing/reports/duration-reports/purchase-order-external-delivery-order-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PO Eksternal - Surat Jalan',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     }]

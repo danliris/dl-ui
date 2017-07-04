@@ -27,6 +27,8 @@ export class DataForm {
     unitPaymentOrderChanged(e) {
         var selectedPaymentOrder = e.detail;
         if (selectedPaymentOrder && !this.readOnly) {
+            this.data.useVat = selectedPaymentOrder.useVat;
+            this.data.useIncomeTax = selectedPaymentOrder.useIncomeTax;
             if (!this.readOnly)
                 this.data.items = [];
             this.data.unitPaymentOrderId = selectedPaymentOrder._id;

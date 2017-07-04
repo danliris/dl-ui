@@ -57,7 +57,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "*": 0 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -70,7 +70,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "*": 0 },
+            permission: {  "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -136,7 +136,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -149,7 +149,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: {"C9": 1, "F1": 1, "F2": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -162,9 +162,75 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'finishing-printing/reports/fabric-quality-control-report',
+        name: 'fabric-quality-control-report',
+        moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report/index',
+        nav: true,
+        title: 'Laporan Pemeriksaan Kain',
+        auth: true,
+        settings: {
+            group: "production",
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
-    }]
+    },
+    {
+        route: 'production/finishing-printing/packing',
+        name: 'packing',
+        moduleId: './modules/production/finishing-printing/packing/index',
+        nav: true,
+        title: 'Penyerahan Produksi',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/reports/packing-report',
+        name: 'packing-report',
+        moduleId: './modules/production/finishing-printing/reports/packing-report/index',
+        nav: true,
+        title: 'Laporan Penyerahan Produksi',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/inspection-lot-color',
+        name: 'inspection-lot-colors',
+        moduleId: './modules/production/finishing-printing/inspection-lot-color/index',
+        nav: true,
+        title: 'Pencatatan Pemeriksaan Lot Warna',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'finishing-printing/reports/inspection-lot-color-report',
+        name: 'inspection-lot-color-report',
+        moduleId: './modules/production/finishing-printing/reports/inspection-lot-color-report/index',
+        nav: true,
+        title: 'Laporan Pemeriksaan Lot Warna',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
+]
 
 
