@@ -1,13 +1,13 @@
-<template>  
-    <h1 class="page-header">Detail Surat Perintah Bayar</h1>
-    <require from="./data-form"></require>
-    <block>
-        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
-        <hr/>
-        <div class="btn-group pull-right">
-            <a click.delegate="list()" class='btn btn-default'  >Kembali</a>
-            <a click.delegate="edit()" class="btn btn-primary" if.bind="!isCorrection" >Ubah</a>
-            <a click.delegate="delete()" class="btn btn-danger" if.bind="!isCorrection" >Hapus</a>
-        </div>
-    </block>
+<template>
+  <require from="./data-form"></require>
+  <data-form 
+      title="Detail Surat Perintah Bayar" 
+      read-only="true" 
+      selected-division.bind="selectedDivision"
+      selected-supplier.bind="selectedSupplier"
+      selected-category.bind="selectedCategory"
+      selected-currency.bind="selectedCurrency"
+      selected-vat.bind="selectedVat"
+      >
+    </data-form> 
 </template>

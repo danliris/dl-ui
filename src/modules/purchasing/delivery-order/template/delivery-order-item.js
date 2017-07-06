@@ -33,7 +33,7 @@ export class DeliveryOrderItem {
     return PurchaseOrderExternalLoader;
   }
 
-  async selectedPurchaseOrderExternalChanged(newValue) {
+  selectedPurchaseOrderExternalChanged(newValue) {
     if (newValue === null) {
       this.data.fulfillments = [];
       this.error = {};
