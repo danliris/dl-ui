@@ -164,8 +164,7 @@
       value.bind="data.oldKanban.cart.qty" 
       read-only="true"
       if.bind="(isView || isEdit) && oldKanbanStatus" 
-      options.bind="controlOptions"
-      format="0">
+      options.bind="controlOptions">
     </au-numeric>
 
     <au-textbox 
@@ -202,8 +201,7 @@
       value.bind="data.cart.qty" 
       read-only.bind="readOnly"
       if.bind="isView || isEdit" 
-      options.bind="controlOptions"
-      format="0">
+      options.bind="controlOptions">
     </au-numeric>
 
     <au-textbox 

@@ -5,6 +5,10 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class View {
+    hasCancel = true;
+    hasEdit = false;
+    hasDelete = false;
+
     isCorrection = false;
     constructor(router, service) {
         this.router = router;
@@ -14,12 +18,23 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if (this.data.division) {
+            this.selectedDivision = this.data.division;
+        }
+        if (this.data.supplier) {
+            this.selectedSupplier = this.data.supplier;
+        }
+        if (this.data.category) {
+            this.selectedCategory = this.data.category;
+        }
+        if (this.data.currency) {
+            this.selectedCurrency = this.data.currency;
+        }
+        if (this.data.vat) {
+            this.selectedVat = this.data.vat;
+        }
 
         if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
-
             this.isCorrection = this.data.items
                 .map((item) => {
                     return item.unitReceiptNote.items
@@ -32,28 +47,24 @@ export class View {
                     return prev || curr
                 }, false);
 
-
+            if (!this.isCorrection) {
+                this.hasEdit = true;
+                this.hasDelete = true;
+            }
         }
     }
 
-    list() {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    edit(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+    delete(event) {
         this.service.delete(this.data).then(result => {
-            this.list();
+            this.cancel();
         });
-    }
-
-    showDetail(item) {
-        if (item.showDetails)
-            item.showDetails = false;
-        else
-            item.showDetails = true;
     }
 }

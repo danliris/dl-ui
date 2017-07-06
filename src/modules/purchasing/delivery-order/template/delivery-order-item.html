@@ -4,6 +4,7 @@
             <div class="col-sm-11">
                 <au-autocomplete 
                         value.bind="selectedPurchaseOrderExternal"
+                        error.bind="error.purchaseOrderExternal"
                         loader.bind="purchaseOrderExternalLoader"
                         text.bind="purchaseOrderExternalView"
                         placeholder="cari nomor purchase order external" 
