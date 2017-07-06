@@ -14,6 +14,7 @@ export class View {
     var id = params.id;
     this.data = await this.service.getById(id);
     this.data.cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
+    this.productionOrder = this.data.productionOrder;
   }
 
   cancelCallback(event) {

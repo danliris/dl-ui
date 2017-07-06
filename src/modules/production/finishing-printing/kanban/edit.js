@@ -32,6 +32,7 @@ export class Edit {
 
     this.data.countDoneStep = countDoneStep;
     this.data.currentIndex = currentIndex;
+    this.productionOrder = this.data.productionOrder;
   }
 
   bind(){

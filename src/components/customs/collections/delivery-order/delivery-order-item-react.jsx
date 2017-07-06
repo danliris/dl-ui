@@ -62,20 +62,20 @@ export default class DeliveryOrderItemReact extends React.Component {
                     if (fulfillment.correction) {
                         fulfillment.correction.map((correction) => {
                             if (correction.correctionRemark == "Koreksi Jumlah") {
-                                correctionQty.push(correction.correctionQuantity * -1)
+                                correctionQty.push(correction.correctionQuantity < 0 ? correction.correctionQuantity * -1 : correction.correctionQuantity)
                             }
                         })
                     }
                 })
-                
-                var isQuantityCorrection = correctionQty.length > 0 ;
-                
+
+                var isQuantityCorrection = correctionQty.length > 0;
+
                 if ((poItem.dealQuantity - poItem.realizationQuantity) > 0) {
                     var deliveredQuantity = (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity);
                     var remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
                     if (isQuantityCorrection) {
-                        deliveredQuantity += correctionQty.reduce( (prev, curr) => prev + curr );;
-                        remainingQuantity += correctionQty.reduce( (prev, curr) => prev + curr );;
+                        deliveredQuantity += correctionQty.reduce((prev, curr) => prev + curr);;
+                        remainingQuantity += correctionQty.reduce((prev, curr) => prev + curr);;
                     }
                     var fulfillment = {
                         purchaseOrderId: purchaseOrder._id,
@@ -99,7 +99,7 @@ export default class DeliveryOrderItemReact extends React.Component {
                         purchaseOrderQuantity: poItem.dealQuantity,
                         purchaseOrderUom: poItem.dealUom,
                         remainingQuantity: poItem.dealQuantity + correctionQty[correctionQty.length - 1],
-                        deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity) + correctionQty.reduce( (prev, curr) => prev + curr ),
+                        deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
                         remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                     };
                     fulfillments.push(fulfillment);
