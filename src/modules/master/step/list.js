@@ -5,7 +5,7 @@ import { Router } from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     data = [];
-    info = { page: 1, keyword: '' };
+    info = { page: 1, keyword: '', select: ["process", "stepIndicators.name"] };
 
     constructor(router, service) {
         this.service = service;
