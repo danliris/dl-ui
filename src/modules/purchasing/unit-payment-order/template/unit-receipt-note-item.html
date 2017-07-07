@@ -9,8 +9,8 @@
 		<td>
 			<au-numeric
 				value.bind="data.deliveredQuantity"
-				read-only.bind="readOnly"
-				error.bind="error.deliveredQuantity">
+				read-only.bind="true"
+				format="0">
 			</au-numeric>
 		</td>
 		<td>
@@ -20,13 +20,18 @@
 			</au-textbox>
 		</td>
 		<td>
-			<au-textbox
-				value.bind="data.remark"
-				read-only.bind="readOnly">
-			</au-textbox>
+			<au-numeric
+				value.bind="data.pricePerDealUnit"
+				read-only.bind="true"
+				format="0">
+			</au-numeric>
 		</td>
-		<td if.bind="!readOnly">
-			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
+		<td>
+			<au-numeric
+				value.bind="totalPrice"
+				read-only.bind="true"
+				format="0">
+			</au-numeric>
 		</td>
 	</tr>
 </template>

@@ -5,7 +5,7 @@ import { Router } from 'aurelia-router';
 @inject(Router, Service)
 export class List {
     data = [];
-    info = { page: 1, keyword: '' };
+    info = { page: 1, keyword: '', select: ["name", "steps.process"] };
 
     constructor(router, service) {
         this.service = service;
@@ -29,6 +29,7 @@ export class List {
 
     loadPage() {
         var keyword = this.info.keyword;
+
         this.service.search(this.info)
             .then(result => {
                 this.data = result.data;

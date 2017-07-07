@@ -13,9 +13,9 @@
         <div class="col-sm-6">
             <au-autocomplete 
                 value.bind="unit" 
-                label="Unit yang mengajukan" 
+                label="Unit/Bagian" 
                 loader.bind="unitLoader"
-                placeholder="nama unit" 
+                placeholder="nama unit/bagian" 
                 key="code">
             </au-autocomplete>
 
@@ -27,6 +27,18 @@
                 key="code">
             </au-autocomplete>
 
+            <au-datepicker 
+                label="Dari" 
+                value.bind="dateFrom"
+                change.delegate="dateFromChanged($event)" >
+            </au-datepicker>
+
+            <au-datepicker 
+                label="Hingga" 
+                value.bind="dateTo"
+                min.bind="dateFrom">
+            </au-datepicker>
+
             <label for="contact" class="col-sm-9 control-label"></label>
             <div class="col-sm-3">
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
@@ -34,6 +46,7 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
+
     </div>
     <div>
         <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
@@ -51,6 +64,7 @@
                     <td rowspan="3">Tgl. PR</td>
                     <td rowspan="3">Tgl. Dimint Datang</td>
                     <td rowspan="3">STATUS</td>
+                    <!--<td rowspan="3">STAFF</td>-->
                 </tr>
             </thead>
             <tbody>
@@ -63,6 +77,7 @@
                     <td>${PO['Tanggal Purchase Request']}</td>
                     <td>${PO['Tanggal Diminta Datang']}</td>
                     <td>${PO['Status']}</td>
+                    <!--<td>${PO['Staff']}</td>-->
                 </tr>
             </tbody>
         </table>
