@@ -9,8 +9,8 @@ export class List {
     { field: "code", title: "Kode Barang" },
     { field: "name", title: "Nama Barang" },
     { field: "uom.unit", title: "Satuan Default" },
-    { field: "currency.code", title: "Mata Uang" },
-    { field: "price", title: "Harga Barang" },
+    // { field: "currency.code", title: "Mata Uang" },
+    // { field: "price", title: "Harga Barang" },
     { field: "tags", title: "Tags" },
   ];
 
