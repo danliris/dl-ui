@@ -1,0 +1,61 @@
+<template>
+  	<div class="row">
+		<div class="col-md-6">
+      	<au-input-form
+        	title.bind="title"
+        	with.bind="context"
+        	options.bind="formOptions">
+
+        	<au-textbox   
+          		label="Nama"
+				placeholder="Nama"
+         		value.bind="data.name"
+          		error.bind="error.name"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+			<au-textbox   
+          		label="Website"
+				placeholder="Website"
+         		value.bind="data.website"
+          		error.bind="error.website"
+          		read-only.bind="readOnly" >
+        	</au-textbox>
+
+			<au-textbox   
+          		label="Industri" 
+				placeholder="Industri"
+         		value.bind="data.industry"
+          		error.bind="error.industry"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+			<au-textbox   
+          		label="Nomor Telepon"
+				placeholder="Nomor Telepon"
+         		value.bind="data.phoneNumber"
+          		error.bind="error.phoneNumber"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+			<au-textbox   
+          		label="Kota"
+				placeholder="Kota"
+         		value.bind="data.city"
+          		error.bind="error.city"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+        	<au-multiline
+          		label="Keterangan"
+				placeholder="Keterangan"
+          		value.bind="data.information"
+          		error.bind="error.information"
+          		read-only.bind="readOnly">
+        	</au-multiline>
+
+        <template replaceable part="actions"></template>
+      </au-input-form>
+    </div>
+  </div>
+</template>
