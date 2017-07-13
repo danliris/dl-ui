@@ -8,6 +8,5 @@ var reportRoutes = require("./report");
 var authRoutes = require("./auth");
 var salesRoutes = require("./sales");
 var inventoryRoutes = require("./inventory");
-var marketingRoutes = require("./marketing");
 
-export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, marketingRoutes, authRoutes, reportRoutes);
+export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, authRoutes, reportRoutes);
