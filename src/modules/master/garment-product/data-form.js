@@ -13,7 +13,7 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     }
-
+    
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';

@@ -12,9 +12,6 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.const = this.data.properties[0];
-        this.yarn = this.data.properties[1];
-        this.width = this.data.properties[2];
     }
 
     list() {
