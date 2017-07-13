@@ -1,0 +1,71 @@
+<template>
+  	<div class="row">
+		<div class="col-md-6">
+      	<au-input-form
+        	title.bind="title"
+        	with.bind="context"
+        	options.bind="formOptions">
+
+        	<au-textbox   
+          		label="Nama Depan"
+				placeholder="Nama depan"
+         		value.bind="data.firstName"
+          		error.bind="error.firstName"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+			<au-textbox   
+          		label="Nama Belakang"
+				placeholder="Nama belakang"
+         		value.bind="data.lastName"
+          		error.bind="error.lastName"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+			<au-textbox   
+          		label="Email"
+				placeholder="Email"
+         		value.bind="data.email"
+          		error.bind="error.email"
+          		read-only.bind="readOnly" >
+        	</au-textbox>
+
+			<au-textbox   
+          		label="Nomor Telepon" 
+				placeholder="Nomor telepon"
+         		value.bind="data.phoneNumber"
+          		error.bind="error.phoneNumber"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+			<au-autocomplete 
+				value.bind="data.company" 
+				error.bind="error.company"
+				label="Perusahaan" 
+				loader.one-time="companyLoader"
+				placeholder="Cari perusahaan" 
+				text="name"
+				read-only.bind="readOnly">
+			</au-autocomplete>
+
+			<au-textbox   
+          		label="Pekerjaan" 
+				placeholder="Pekerjaan"
+         		value.bind="data.jobTitle"
+          		error.bind="error.jobTitle"
+          		read-only.bind="readOnly">
+        	</au-textbox>
+
+        	<au-multiline
+          		label="Keterangan"
+				placeholder="Keterangan"
+          		value.bind="data.information"
+          		error.bind="error.information"
+          		read-only.bind="readOnly">
+        	</au-multiline>
+
+        <template replaceable part="actions"></template>
+      </au-input-form>
+    </div>
+  </div>
+</template>
