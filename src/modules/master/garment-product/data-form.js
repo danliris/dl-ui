@@ -3,14 +3,16 @@ import {inject, bindable, computedFrom} from 'aurelia-framework';
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable const;
+    @bindable yarn;
+    @bindable width;
+
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
         deleteText: "Hapus",
         editText: "Ubah",
     }
-
-    
 
     @computedFrom("data._id")
     get isEdit() {
