@@ -6,7 +6,7 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["Rincian"];
     columns = [
-		{ field: "firstName", title: "Nama" },
+		{ field: "name", title: "Nama" },
 		{ field: "email", title: "Email" },
 		{ field: "phoneNumber", title: "Nomor Telepon" },
 		{ field: "company.name", title: "Nama Perusahaan" },
@@ -33,6 +33,10 @@ export class List {
 
 		return this.service.search(arg)
 			.then(result => {
+				result.data.map((data)=> {
+					data.name = `${data.firstName} ${data.lastName}`;
+				});
+
 				return {
 					total: result.info.total,
 					data: result.data
