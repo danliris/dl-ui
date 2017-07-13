@@ -1,0 +1,22 @@
+<template>
+    <require from="./style.css"></require>
+    <div id="dragula">
+        <au-input-form title="Kanban Board">
+            <div slot="actions" class="btn-group">
+                <button class="btn btn-default" click.delegate="cancel()">Kembali</button>
+                <button class="btn btn-success">Simpan</button>
+            </div>
+
+            <div class="drag">
+                <dragula-and-drop drop-fn.call="itemDropped(item, target, source, sibling, itemVM, siblingVM)"></dragula-and-drop>
+
+                <div class="div" repeat.for="h of headerList">
+                    <h3 style="text-align: center;">${h.name} <i class="fa fa-plus" aria-hidden="true" click.delegate="create()"></i></h3>
+                    <ul style="min-height: 50px;" class="drag-source drop-target" data-list.bind="h.name">
+                        <li repeat.for="i of h.map" data-index.bind="$index" data-id.bind="i.id" click.delegate="detail()">${i.name}</li>
+                    </ul>
+                </div>
+            </div>
+        </au-input-form>
+    </div>
+</template>

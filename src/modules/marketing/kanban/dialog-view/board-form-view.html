@@ -1,0 +1,17 @@
+<template>
+    <ai-dialog style="width:500px;">
+        <ai-dialog-header>Buat Kanban</ai-dialog-header>
+
+        <ai-dialog-body>
+            <form class="form-horizontal">
+                <au-textbox value.bind="data.board" label="Nama Board" placeholder="Nama board" error.bind="error.board"></au-textbox>
+                <au-textbox value.bind="data.unit" label="Unit" placeholder="Unit" error.bind="error.unit"></au-textbox>
+            </form>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+            <button click.delegate="controller.cancel()">Cancel</button>
+            <button click.delegate="save()">Ok</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

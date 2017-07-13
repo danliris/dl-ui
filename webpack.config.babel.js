@@ -45,6 +45,7 @@ const coreBundles = {
         'aurelia-bootstrapper-webpack',
         'aurelia-binding',
         'aurelia-dependency-injection',
+        'aurelia-dragula',
         'aurelia-event-aggregator',
         'aurelia-framework',
         'aurelia-history',
