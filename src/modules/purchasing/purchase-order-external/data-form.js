@@ -79,7 +79,7 @@ export class DataForm {
 
     paymentMethodChanged(e) {
         var selectedPayment = e.srcElement.value;
-        if (selectedPayment._id) {
+        if (selectedPayment) {
             this.data.paymentMethod = selectedPayment;
             if (this.data.paymentMethod == "CASH") {
                 this.data.paymentDueDays = 0;

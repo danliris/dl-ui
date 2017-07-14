@@ -56,12 +56,13 @@
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
-            columns.bind="itemsColumns" 
-            add.bind="addItems" 
+            columns.bind="itemsInfo.columns" 
+            add.bind="itemsInfo.onAdd" 
             remove.bind="removeItems"
             options.one-way="filter"
             read-only.bind="readOnly"
             if.bind="data.supplierId"
+            view-model.ref="ItemsCollection"
             item-template="modules/purchasing/delivery-order/template/delivery-order-item">
         </au-collection>
 

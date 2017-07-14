@@ -1,0 +1,37 @@
+<template>
+	<tr>
+		<td>
+			<au-textbox
+				value.one-way="product"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-numeric
+				value.bind="data.deliveredQuantity"
+				read-only.bind="true"
+				format="0">
+			</au-numeric>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="data.deliveredUom.unit"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-numeric
+				value.bind="data.pricePerDealUnit"
+				read-only.bind="true"
+				format="0">
+			</au-numeric>
+		</td>
+		<td>
+			<au-numeric
+				value.bind="totalPrice"
+				read-only.bind="true"
+				format="0">
+			</au-numeric>
+		</td>
+	</tr>
+</template>
