@@ -10,11 +10,19 @@
 
     <au-textbox label="Kode" value.bind="data.code" error.bind="error.code" if.bind="readOnly || isEdit" read-only.bind="true"></au-textbox>
     <au-autocomplete value.bind="selectedProductionOrder" label="Nomor Order" read-only.bind="readOnly || isEdit" error.bind="error.productionOrderId"
-      loader.bind="productionOrderLoader" key="orderNo" text.bind="productionOrderTextFormatter">
+      loader.bind="productionOrderLoader" key="orderNo" text.bind="productionOrderTextFormatter" keypress.delegate="enterDelegate($event)">
     </au-autocomplete>
     <au-textbox label="Jenis Order" value.bind="data.orderType" error.bind="error.orderType" read-only.bind="true"></au-textbox>
     <au-textbox label="Jenis Warna" value.bind="data.colorType" error.bind="error.colorType" read-only.bind="true" if.bind="isSolid"></au-textbox>
     <au-textbox label="Warna Diminta" value.bind="data.colorName" error.bind="error.colorCode" read-only.bind="true"></au-textbox>
+    <au-autocomplete value.bind="selectedBuyer" label="Tujuan Pengiriman" read-only.bind="readOnly || isEdit" error.bind="error.buyerId"
+      loader.bind="buyersLoader" key="name" text="name" keypress.delegate="enterDelegate($event)">
+    </au-autocomplete>
+    <au-autocomplete value.bind="selectedMaterialConstructionFinish" label="Konstruksi Material(Finish)" read-only.bind="readOnly || isEdit"
+      error.bind="error.materialConstructionFinishId" loader.bind="materialConstructionFinishLoader" key="name" text="name" keypress.delegate="enterDelegate($event)">
+    </au-autocomplete>
+    <au-textbox label="Lebar Material(Finish)" value.bind="data.materialWidthFinish" error.bind="error.materialWidthFinish" read-only.bind="readOnly || isEdit"
+      keypress.delegate="enterDelegate($event)"></au-textbox>
     <au-datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly"></au-datepicker>
 
     <au-dropdown label="Satuan" value.bind="data.packingUom" items.bind="packingUomOptions" error.bind="error.packingUom" read-only.bind="readOnly"></au-dropdown>

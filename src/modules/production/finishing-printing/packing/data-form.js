@@ -2,6 +2,9 @@ import { bindable, inject, containerless, computedFrom, BindingEngine } from "au
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 
+var BuyersLoader = require("../../../../loader/buyers-loader");
+var MaterialConstructionLoader = require("../../../../loader/material-loader");
+
 @containerless()
 @inject(Service, BindingSignaler, BindingEngine)
 export class DataForm {
@@ -44,8 +47,8 @@ export class DataForm {
     }
 
     itemColumns = ["Lot", "Grade", "Weight", "Length", "Quantity", "Remark"];
-    packingUomOptions = ["", "ROLL", "PCS", "POTONG"];
-    grades = ["", "A", "B", "C", "BS", "AVAL"];
+    packingUomOptions = ["", "ROLL", "PCS", "POT", "SETS", "SLP", "BDL", "KRG", "LBR"];
+    grades = ["", "A", "B", "C", "AA", "BB", "CC", "BS", "AVAL"];
 
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
@@ -71,6 +74,37 @@ export class DataForm {
         }
     }
 
+    enterDelegate(event) {
+        if (event.charCode === 13) {
+            event.preventDefault();
+            return false;
+        }
+        else
+            return true;
+    }
+
+    @bindable selectedBuyer;
+    selectedBuyerChanged(newValue, oldValue) {
+        if (this.selectedBuyer && this.selectedBuyer._id) {
+            console.log(this.selectedBuyer); //Buyer Changed
+            this.data.buyerId = this.selectedBuyer._id;
+        }
+        else {
+            this.data.buyerId = null;
+        }
+    }
+
+    @bindable selectedMaterialConstructionFinish
+    selectedMaterialConstructionFinishChanged(newValue, oldValue) {
+        if (this.selectedMaterialConstructionFinish && this.selectedMaterialConstructionFinish._id) {
+            console.log(this.selectedMaterialConstructionFinish); //Material Changed
+            this.data.selectedMaterialConstructionFinishId = this.selectedMaterialConstructionFinish._id;
+        }
+        else {
+            this.data.selectedMaterialConstructionFinishId = null;
+        }
+    }
+
     productionOrderTextFormatter = (productionOrder) => {
         return `${productionOrder.orderNo}`
     }
@@ -84,6 +118,14 @@ export class DataForm {
                 });
         }
     }
+
+    get buyersLoader() {
+        return BuyersLoader;
+    }
+    get materialConstructionFinishLoader() {
+        return MaterialConstructionLoader;
+    }
+
     addItemCallback = (e) => {
         this.data.items = this.data.items || [];
         this.data.items.push({})
