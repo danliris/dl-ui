@@ -16,11 +16,16 @@ export class Create {
     activate(params) {
     }
 
-    uploadView() {
-        this.router.navigateToRoute('upload');
+    list() {
+        this.router.navigateToRoute('list');
     }
 
-    upload() {
+    cancelCallback(event) {
+      this.list();
+    }
+
+
+    saveCallback(event) {
         var e = {};
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
@@ -31,7 +36,7 @@ export class Create {
         } else {
             formData.append("fileUpload", fileList[0]);
  
-            var endpoint = 'master/upload-products';
+            var endpoint = 'master/upload-garment-products';
             var request = {
                 method: 'POST',
                 headers: {
@@ -46,14 +51,14 @@ export class Create {
                         this.service._downloadFile(getRequest);
                         this.service.publish(getRequest);
                         alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detil dari error tersebut.");
-                        this.uploadView();
+                        this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Barang, Nama Barang, Satuan, Mata Uang, Harga, Keterangan");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Barang, Nama Barang, Satuan, Mata Uang, Harga, Tags, Keterangan");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");
-                        this.uploadView();
+                        this.list();
 
                     }
                 })
