@@ -49,7 +49,7 @@ export class DeliveryOrderItem {
   }
 
   deliveredQuantityChanged(newValue, oldValue) {
-    if (Number.isInteger(newValue)) {
+    if (typeof newValue === "number") {
       this.data.deliveredQuantity = newValue
       if (!this.options.readOnly) {
         if (this.data.remainingQuantity < this.data.deliveredQuantity) {

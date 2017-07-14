@@ -16,7 +16,6 @@
                         <au-numeric 
                             value.bind="data.defaultQuantity" 
                             read-only.bind="true" 
-                            format = "0"
                             options.bind="controlOptions">
                         </au-numeric>
                     </td>
@@ -32,7 +31,6 @@
                             value.bind="data.dealQuantity" 
                             error.bind="error.dealQuantity"
                             read-only.bind="options.readOnly" 
-                            format = "0"
                             options.bind="controlOptions">
                         </au-numeric>
                     </td>
@@ -55,7 +53,6 @@
                             error.bind="error.conversion"
                             read-only.bind="options.readOnly" 
                             change.delegate="conversionChanged($event)"
-                            format = "0"
                             options.bind="controlOptions">
                         </au-numeric>
                     </td>
@@ -65,7 +62,6 @@
                             error.bind="error.priceBeforeTax"
                             read-only.bind="options.readOnly" 
                             change.delegate="priceBeforeTaxChanged($event)"
-                            format = "0"
                             options.bind="controlOptions">
                         </au-numeric>
                     </td>
