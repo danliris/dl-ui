@@ -6,6 +6,9 @@ var UomLoader = require('../../../loader/uom-loader');
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable const;
+    @bindable yarn;
+    @bindable width;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
