@@ -6,6 +6,8 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'finishing-printing/quality-control/packings';
 const productionOrderServiceUri = 'sales/production-orders';
+const buyerServiceUri = "master/buyer";
+const materialConstructionServiceUri = "master/material-construction";
 
 export class Service extends RestService {
 
@@ -51,6 +53,28 @@ export class Service extends RestService {
     getProductionOrderById(id, select) {
         var endpoint = `${productionOrderServiceUri}/${id}`;
         //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
+        var info = { select: select };
+        return super.get(endpoint, null, info);
+    }
+
+    searchBuyer(info) {
+        var endpoint = `${buyerServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getBuyerById(id, select) {
+        var endpoint = `${buyerServiceUri}/${id}`;
+        var info = { select: select };
+        return super.get(endpoint, null, info);
+    }
+
+    searchMaterialConstruction(info) {
+        var endpoint = `${materialConstructionServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getMaterialConstructionById(id, select) {
+        var endpoint = `${materialConstructionServiceUri}/${id}`;
         var info = { select: select };
         return super.get(endpoint, null, info);
     }
