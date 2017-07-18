@@ -27,7 +27,7 @@ export class DataForm {
         { header: "Barang", value: "product" },
         { header: "Kategori", value: "category" },
         { header: "Jumlah", value: "quantity" },
-        { header: "Satuan", value: "product.uom" },
+        { header: "Satuan", value: "uom" },
         { header: "Harga Budget", value: "budgetPrice" },
         { header: "Keterangan", value: "remark" }
     ]
