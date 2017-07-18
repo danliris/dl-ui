@@ -43,7 +43,7 @@ export class DataForm {
 
             this.data.packing.items.map((item) => {
                 var _item = {};
-                _item.product = `${this.data.packing.salesContractNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}`;
+                _item.product = `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
                 _item.quantity = item.quantity;
                 _item.remark = item.remark;
                 _item.notes = item.notes;
