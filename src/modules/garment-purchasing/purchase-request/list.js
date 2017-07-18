@@ -16,7 +16,7 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "buyer", title: "Buyer" },
+    { field: "buyer.name", title: "Buyer" },
     {
       field: "unit", title: "Unit", formatter: function (value, row, index) {
         return `${value.division.name} - ${value.name}`;
@@ -33,7 +33,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["no", "refNo", "roNo", "shipmentDate", "buyer", "unit.name", "unit.division.name","isPosted"],
+      select: ["no", "refNo", "roNo", "shipmentDate", "buyer", "unit.name", "unit.division.name", "isPosted"],
       order: order
     }
 

@@ -25,16 +25,18 @@ export class DataForm {
 
     itemsColumns = [
         { header: "Barang", value: "product" },
+        { header: "Kategori", value: "category" },
         { header: "Jumlah", value: "quantity" },
         { header: "Satuan", value: "product.uom" },
+        { header: "Harga Budget", value: "budgetPrice" },
         { header: "Keterangan", value: "remark" }
     ]
+
+    get buyer() {
+		return `${this.data.buyer.code} - ${this.data.buyer.name}`;
+	}
     
     get unit() {
 		return `${this.data.unit.code} - ${this.data.unit.name}`;
-	}
-
-    get category() {
-		return `${this.data.category.code} - ${this.data.category.name}`;
 	}
 }
