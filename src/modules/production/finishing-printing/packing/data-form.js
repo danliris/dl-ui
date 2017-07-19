@@ -75,11 +75,9 @@ export class DataForm {
                     this.selectedBuyer = await this.service.getBuyerById(this.selectedProductionOrder.buyer._id);
                 }
             }
-            // if (!this.data.materialConstructionFinishId && this.selectedProductionOrder && this.selectedProductionOrder.buyer && this.selectedProductionOrder.buyer._id) {
-            //     if (!this.selectedBuyer) {
-            //         this.selectedBuyer = await this.service.getBuyerById(this.selectedProductionOrder.buyer._id);
-            //     }
-            // }
+            if (!this.data.materialWidthFinish) {
+                this.data.materialWidthFinish = this.selectedProductionOrder.finishWidth;
+            }
         }
         else {
             this.data.productionOrderId = null;
@@ -161,5 +159,9 @@ export class DataForm {
 
     console() {
         console.log(this.data);
+    }
+
+    widthChanged(e) {
+        console.log(this.data.materialWidthFinish);
     }
 } 

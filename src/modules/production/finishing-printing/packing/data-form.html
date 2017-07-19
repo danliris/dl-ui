@@ -22,7 +22,7 @@
       error.bind="error.materialConstructionFinishId" loader.bind="materialConstructionFinishLoader" key="name" text="name" keypress.delegate="enterDelegate($event)">
     </au-autocomplete>
     <au-textbox label="Lebar Finish" value.bind="data.materialWidthFinish" error.bind="error.materialWidthFinish" read-only.bind="readOnly"
-      keypress.delegate="enterDelegate($event)"></au-textbox>
+      keypress.delegate="enterDelegate($event)" change.delegate="widthChanged($event)"></au-textbox>
     <au-datepicker label="Tanggal" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly"></au-datepicker>
 
     <au-dropdown label="Satuan" value.bind="data.packingUom" items.bind="packingUomOptions" error.bind="error.packingUom" read-only.bind="readOnly"></au-dropdown>
