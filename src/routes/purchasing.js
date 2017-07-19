@@ -229,7 +229,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "*": 0 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
