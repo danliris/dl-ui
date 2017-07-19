@@ -21,21 +21,45 @@ export class Service extends RestService {
             if (query === '') query = `dateTo=${edate}`;
             else query = `${query}&dateTo=${edate}`;
         }
-        if (machine) {
-            if (query === '') query = `machine=${machine._id}`;
-            else query = `${query}&machine=${machine._id}`;
-        }
-        if (kanban) {
-            if (query === '') query = `kanban=${kanban._id}`;
-            else query = `${query}&kanban=${kanban._id}`;
-        }
+        // if (machine) {
+        //     if (query === '') query = `machine=${machine._id}`;
+        //     else query = `${query}&machine=${machine._id}`;
+        // }
+        // if (kanban) {
+        //     if (query === '') query = `kanban=${kanban._id}`;
+        //     else query = `${query}&kanban=${kanban._id}`;
+        // }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
 
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate, machine, kanban) {
+    // generateExcel(sdate, edate, machine, kanban) {
+    //     var endpoint = `${serviceUri}`;
+    //     var query = '';
+    //     if (sdate) {
+    //         if (query === '') query = `dateFrom=${sdate}`;
+    //         else query = `${query}&dateFrom=${sdate}`;
+    //     }
+    //     if (edate) {
+    //         if (query === '') query = `dateTo=${edate}`;
+    //         else query = `${query}&dateTo=${edate}`;
+    //     }
+    //     if (machine) {
+    //         if (query === '') query = `machine=${machine._id}`;
+    //         else query = `${query}&machine=${machine._id}`;
+    //     }
+    //     if (kanban) {
+    //         if (query === '') query = `kanban=${kanban._id}`;
+    //         else query = `${query}&kanban=${kanban._id}`;
+    //     }
+    //     if (query !== '')
+    //         endpoint = `${serviceUri}?${query}`;
+
+    //     return super.getXls(endpoint);
+    // }
+    generateExcel(sdate, edate) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -45,15 +69,7 @@ export class Service extends RestService {
         if (edate) {
             if (query === '') query = `dateTo=${edate}`;
             else query = `${query}&dateTo=${edate}`;
-        }
-        if (machine) {
-            if (query === '') query = `machine=${machine._id}`;
-            else query = `${query}&machine=${machine._id}`;
-        }
-        if (kanban) {
-            if (query === '') query = `kanban=${kanban._id}`;
-            else query = `${query}&kanban=${kanban._id}`;
-        }
+        }       
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
 

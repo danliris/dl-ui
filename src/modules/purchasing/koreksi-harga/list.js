@@ -14,10 +14,10 @@ export class List {
     }
     dateFrom = null;
     dateTo = null;
-    machine = null;
-    kanban = null;
-    filterKanban = null;
-    kanbanId = null;
+    // machine = null;
+    // kanban = null;
+    // filterKanban = null;
+    // kanbanId = null;
     
     activate() {
     }
@@ -26,11 +26,26 @@ export class List {
             this.service.getReport(this.dateFrom, this.dateTo, this.machine, this.kanban)
                 .then(result => {
                     this.data = result;
-                    // for (var daily of this.data)
-                    //  {
-                    //      daily.date = daily.date ? moment(daily.timeInput).format('HH:mm') : '-';
-                    //     // daily.timeOutput = daily.timeOutput ? moment(daily.timeOutput).format('HH:mm') : '-';
-                    //  }
+
+                    for (var daily of this.data)
+                     {
+                         var a= daily.items.pricePerUnit.toFixed(4).toString().split('.');
+                         var a1=a[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                         var harga= a1 + '.' + a[1];
+
+                         var b= daily.items.priceTotal.toFixed(2).toString().split('.');
+                         var b1=b[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                         var total= b1 + '.' + b[1];
+                         
+                         var c= daily.items.quantity.toFixed(2).toString().split('.');
+                         var c1=b[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                         var quantity= c1 + '.' + c[1];
+
+                         daily.items.pricePerUnit=harga;
+                         daily.items.priceTotal=total;
+                         daily.items.quantity=quantity;
+                        // daily.timeOutput = daily.timeOutput ? moment(daily.timeOutput).format('HH:mm') : '-';
+                     }
                 })
     }
     
@@ -53,18 +68,19 @@ export class List {
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
-        this.machine = null;
-        this.kanban = null;
-        this.filterKanban = null;
-        this.kanbanId = null;
+        // this.machine = null;
+        // this.kanban = null;
+        // this.filterKanban = null;
+        // this.kanbanId = null;
         this.data = [];
         this.error = '';
     }
 
     ExportToExcel() {
-        //    var htmltable= document.getElementById('myTable');
-        //    var html = htmltable.outerHTML;
-        //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.dateFrom, this.dateTo, this.machine, this.kanban);
+        // var htmltable= document.getElementById('myTable');
+        // var html = htmltable.outerHTML;
+        // //  window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+        // window.open('data:application/vnd.ms-excel,'+ encodeURIComponent(html)); 
+        this.service.generateExcel(this.dateFrom, this.dateTo);
     }
 }
