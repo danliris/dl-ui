@@ -18,6 +18,7 @@
     <au-autocomplete value.bind="selectedBuyer" label="Tujuan Pengiriman" read-only.bind="readOnly" error.bind="error.buyerId"
       loader.bind="buyersLoader" key="name" text="name" keypress.delegate="enterDelegate($event)">
     </au-autocomplete>
+    <au-textbox label="Material" value.bind="data.material" read-only.bind="true"></au-textbox>    
     <au-autocomplete value.bind="selectedMaterialConstructionFinish" label="Konstruksi Finish" read-only.bind="readOnly"
       error.bind="error.materialConstructionFinishId" loader.bind="materialConstructionFinishLoader" key="name" text="name" keypress.delegate="enterDelegate($event)">
     </au-autocomplete>
