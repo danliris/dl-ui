@@ -13,14 +13,31 @@ export class List {
     dateFrom = null;
     dateTo = null;
     orderType = null;
+    account = null;
     filterAccount = {};
     filter = {};
     info = { page: 1, keyword: '' };
 
+    activate() {
+        this.data = [];
+        this.filterAccount = {
+            "roles": {
+                "$elemMatch": {
+                    "permissions": {
+                        "$elemMatch": {
+                            "unit.name": "PENJUALAN FINISHING & PRINTING"
+                        }
+                    }
+                }
+            }
+        };
+    }
+    
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
         this.orderType = null;
+        this.account = null;
         this.filter = {};
         this.info = { page: 1, keyword: '' };
         this.data = [];
@@ -55,6 +72,13 @@ export class List {
         }
     }
 
+    accountChanged(e) {
+        var selectedAccount = e.detail || null;
+        if (!selectedAccount) {
+            this.account = null;
+        }
+    }
+
     setFilter() {
         this.info.filter = {};
         if (this.dateFrom) {
@@ -65,6 +89,9 @@ export class List {
         }
         if (this.orderType) {
             Object.assign(this.filter, { orderTypeId: this.orderType._id });
+        }
+        if (this.account) {
+            Object.assign(this.filter, { accountId: this.account._id });
         }
         if (Object.getOwnPropertyNames(this.filter).length > 0) {
             this.info.filter = JSON.stringify(this.filter);
