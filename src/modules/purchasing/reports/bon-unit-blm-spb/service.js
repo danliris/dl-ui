@@ -11,8 +11,8 @@ export class Service extends RestService {
 
     
 
-    search(no, unitId, categoryId, supplierId, dateFrom, dateTo) {
-    var endpoint = `${serviceUri}?no=${no}&unitId=${unitId}&categoryId=${categoryId}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    search(dateFrom, dateTo) {
+    var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}`;
     return super.get(endpoint);
     
    }
@@ -23,8 +23,8 @@ export class Service extends RestService {
     }
 
     
-    generateExcel(no, unitId, categoryId, supplierId, dateFrom, dateTo) {
-    var endpoint = `${serviceUri}?no=${no}&unitId=${unitId}&categoryId=${categoryId}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    generateExcel(dateFrom, dateTo) {
+    var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}`;
     return super.getXls(endpoint);
     }
 

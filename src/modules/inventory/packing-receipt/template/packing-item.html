@@ -9,6 +9,26 @@
                 change.delegate="quantityChanged($event)">
             </au-numeric>
         </td>
+        <td class="col-sm-2">
+            <au-numeric value.bind="data.weight" error.bind="error.quantity" read-only.bind="true" format="0" options.bind="controlOptions"
+                change.delegate="quantityChanged($event)">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric value.bind="weightTotal" error.bind="error.length" read-only.bind="true" format="0" options.bind="controlOptions"
+                change.delegate="quantityChanged($event)">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric value.bind="data.length" error.bind="error.quantity" read-only.bind="true" format="0" options.bind="controlOptions"
+                change.delegate="quantityChanged($event)">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric value.bind="lengthTotal" error.bind="error.length" read-only.bind="true" format="0" options.bind="controlOptions"
+                change.delegate="quantityChanged($event)">
+            </au-numeric>
+        </td>
         <td style="text-align:center;" class="col-sm-2">
             <au-textbox value.bind="data.remark" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
