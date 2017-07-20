@@ -63,10 +63,11 @@ export class DataForm {
         if (this.selectedProductionOrder && this.selectedProductionOrder._id) {
             this.data.productionOrderId = this.selectedProductionOrder._id;
             var color = this.selectedProductionOrder.details && this.selectedProductionOrder.details.length > 0 ? this.selectedProductionOrder.details[0] : {};
-            var material = this.selectedProductionOrder.material && this.selectedProductionOrder.material.name ? this.selectedProductionOrder.material.name : "";
+            var material = this.selectedProductionOrder.material && this.selectedProductionOrder.material.name ? this.selectedProductionOrder.material : "";
             // console.log(this.selectedProductionOrder);//"selectedProductionOrderChanged")
             this.data.colorCode = color.code;
-            this.data.material = material;
+            this.data.materialId = material._id;
+            this.data.material = material.name;
             this.data.colorName = color.colorRequest;
             this.data.colorType = color.colorType && color.colorType.name ? color.colorType.name : null;
             this.data.orderType = this.selectedProductionOrder.orderType.name;
