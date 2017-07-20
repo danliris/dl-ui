@@ -9,7 +9,6 @@ export class List {
 
   columns = [
     { field: "no", title: "Nomor PR" },
-    { field: "items", title: "Nomor Referensi PR" },
     { field: "roNo", title: "Nomor RO" },
     {
       field: "shipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
@@ -33,7 +32,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["no", "items.refNo", "roNo", "shipmentDate", "buyer", "unit.name", "unit.division.name", "isPosted"],
+      select: ["no", "roNo", "shipmentDate", "buyer", "unit.name", "unit.division.name", "isPosted"],
       order: order
     }
 
@@ -42,16 +41,6 @@ export class List {
         var data = {}
         data.total = result.info.total;
         data.data = result.data;
-        data.data.forEach(s => {
-          s.items.toString = function () {
-            var str = "<ul>";
-            for (var item of s.items) {
-              str += `<li>${item.refNo}</li>`;
-            }
-            str += "</ul>";
-            return str;
-          }
-        });
         // return data;
         return {
           total: result.info.total,
