@@ -5,7 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  context = ["Rincian", "Cetak PDF"]
+  context = ["Rincian"]
 
   columns = [
     { field: "no", title: "Nomor PR" },
@@ -61,18 +61,6 @@ export class List {
       case "Rincian":
         this.router.navigateToRoute('view', { id: data._id });
         break;
-      case "Cetak PDF":
-        this.service.getPdfById(data._id);
-        break;
-    }
-  }
-
-  contextShowCallback(index, name, data) {
-    switch (name) {
-      case "Cetak PDF":
-        return data.isPosted;
-      default:
-        return true;
     }
   }
 
