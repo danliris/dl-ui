@@ -7,6 +7,7 @@
 
     <h1 class="page-header">Sales Monthly Report / Laporan Sales Per Bulan</h1>
     <form class="form-horizontal">
+        <account-auto-suggest label="Staff Penjualan" value.bind="account" change.delegate="accountChanged($event)" filter.bind="filterAccount"></account-auto-suggest>
         <order-type-auto-suggest label="Jenis Order" value.bind="orderType" change.delegate="orderTypeChanged($event)"></order-type-auto-suggest>
         <datepicker label="Tanggal Awal" value.bind="dateFrom"></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo"></datepicker>
@@ -47,19 +48,19 @@
                     <tr repeat.for="item of data">
                         <td class="text-center">${$index + 1}</td>
                         <td class="text-left">${item._id.sales}</td>
-                        <td class="text-left">${item.jan}</td>
-                        <td class="text-left">${item.feb}</td>
-                        <td class="text-left">${item.mar}</td>
-                        <td class="text-left">${item.apr}</td>
-                        <td class="text-left">${item.mei}</td>
-                        <td class="text-left">${item.jun}</td>
-                        <td class="text-left">${item.jul}</td>
-                        <td class="text-left">${item.agu}</td>
-                        <td class="text-left">${item.sep}</td>
-                        <td class="text-left">${item.okt}</td>
-                        <td class="text-left">${item.nov}</td>
-                        <td class="text-left">${item.des}</td>
-                        <td class="text-left">${item.totalOrder}</td>
+                        <td class="text-left">${item.jan.toFixed(2)}</td>
+                        <td class="text-left">${item.feb.toFixed(2)}</td>
+                        <td class="text-left">${item.mar.toFixed(2)}</td>
+                        <td class="text-left">${item.apr.toFixed(2)}</td>
+                        <td class="text-left">${item.mei.toFixed(2)}</td>
+                        <td class="text-left">${item.jun.toFixed(2)}</td>
+                        <td class="text-left">${item.jul.toFixed(2)}</td>
+                        <td class="text-left">${item.agu.toFixed(2)}</td>
+                        <td class="text-left">${item.sep.toFixed(2)}</td>
+                        <td class="text-left">${item.okt.toFixed(2)}</td>
+                        <td class="text-left">${item.nov.toFixed(2)}</td>
+                        <td class="text-left">${item.des.toFixed(2)}</td>
+                        <td class="text-left">${item.totalOrder.toFixed(2)}</td> 
                     </tr>
                 </tbody>
             </table>
