@@ -1,5 +1,12 @@
 <template>
     <tr>
+        <td  class="col-sm-2">
+            <au-textbox 
+                value.bind="data.refNo"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
         <td  class="col-sm-3">
             <au-textbox 
                 value.bind="product"
@@ -7,7 +14,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td  class="col-sm-2">
+        <td  class="col-sm-1">
             <au-textbox 
                 value.bind="category"
                 read-only.bind="true"
