@@ -1,19 +1,15 @@
 <template>
-  <au-input-form 
+      <au-input-form 
         title.bind="title" 
         with.bind="context">
 
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-success" click.delegate="context.split($event)" if.one-way="context.hasSplit">Pecah PO</button>
         </div>
         
-        <au-textbox 
-            label="Nomor PR" 
-            value.bind="data.no" 
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-textbox>
-
         <au-textbox 
             label="Nomor RO" 
             value.bind="data.roNo"
@@ -35,16 +31,16 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-textbox 
+            label="Nomor PR" 
+            value.bind="data.purchaseRequest.no" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
         <au-datepicker 
             label="Tgl. PR" 
             value.bind="data.date" 
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-datepicker>
-
-        <au-datepicker 
-            label="Tgl. Shipment" 
-            value.bind="data.shipmentDate" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-datepicker>
@@ -71,11 +67,12 @@
             options.bind="controlOptions">
         </au-multiline>
 
+
         <au-collection 
             items.bind="data.items" 
-            columns.bind="itemsColumns"
-            read-only.bind="true" 
-            item-template="modules/garment-purchasing/purchase-request/template/purchase-request-item">
+            columns.bind="itemsColumns" 
+            read-only.bind="readOnly" 
+            item-template="modules/garment-purchasing/purchase-order/template/purchase-order-item">
         </au-collection>
 
   </au-input-form>
