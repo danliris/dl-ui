@@ -14,11 +14,7 @@ export class List {
     }
     dateFrom = null;
     dateTo = null;
-    machine = null;
-    kanban = null;
-    filterKanban = null;
-    kanbanId = null;
-    
+
     activate() {
     }
 
@@ -26,11 +22,25 @@ export class List {
             this.service.getReport(this.dateFrom, this.dateTo, this.machine, this.kanban)
                 .then(result => {
                     this.data = result;
-                    // for (var daily of this.data)
-                    //  {
-                    //      daily.date = daily.date ? moment(daily.timeInput).format('HH:mm') : '-';
-                    //     // daily.timeOutput = daily.timeOutput ? moment(daily.timeOutput).format('HH:mm') : '-';
-                    //  }
+
+                    for (var corqty of this.data)
+                     {
+                        var x= corqty.items.pricePerUnit.toFixed(4).toString().split('.');
+                        var x1=x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        var HARGA= x1 + '.' + x[1];
+
+                        var y= corqty.items.priceTotal.toFixed(2).toString().split('.');
+                        var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        var TOTAL= y1 + '.' + y[1];
+
+                        var a= corqty.items.quantity.toFixed(2).toString().split('.');
+                        var a1=a[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        var Jumlah= a1 + '.' + a[1];
+
+                         corqty.items.pricePerUnit = HARGA;
+                         corqty.items.priceTotal = TOTAL;
+                         corqty.items.quantity = Jumlah;
+                     }
                 })
     }
     
@@ -53,10 +63,6 @@ export class List {
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
-        this.machine = null;
-        this.kanban = null;
-        this.filterKanban = null;
-        this.kanbanId = null;
         this.data = [];
         this.error = '';
     }
