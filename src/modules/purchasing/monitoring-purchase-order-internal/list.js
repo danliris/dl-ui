@@ -85,8 +85,8 @@ export class List {
         moment.locale(locale);
         if (!this.poState)
             this.poState = this.poStates[0];
-        // this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "")
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.dateFrom, this.dateTo)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "")
+        // this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
             })
