@@ -1,0 +1,32 @@
+<template>
+    <tr>
+        <td>
+            <au-checkbox value.bind="data.check">
+            </au-checkbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.no" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.roNo" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-datepicker value.bind="data.shipmentDate" read-only.bind="true">
+            </au-datepicker>
+        </td>
+        <td>
+            <au-textbox value.bind="data.buyer" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.artikel" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="unit" read-only.bind="true">
+            </au-textbox>
+        </td>
+    </tr>
+</template>

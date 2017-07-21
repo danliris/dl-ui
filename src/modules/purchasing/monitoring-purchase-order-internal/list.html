@@ -13,7 +13,7 @@
         <div class="col-sm-6">
             <au-autocomplete 
                 value.bind="unit" 
-                label="Unit/Bagian" 
+                label="Unit" 
                 loader.bind="unitLoader"
                 placeholder="nama unit" 
                 key="code">
@@ -54,30 +54,30 @@
         <table class="table table-bordered table-hover" border="1" id="poReport">
             <thead align="center">
                 <tr>
-                    <td rowspan="3">DIVISI</td>
-                    <td rowspan="3">UNIT</td>
-                    <td rowspan="3">KATEGORI</td>
+                    <td rowspan="3">No.</td>
+                    <td rowspan="3">TGL.PR</td>
                     <td rowspan="3">NO.PR</td>
+                    <td rowspan="3">KATEGORI</td>
                     <td rowspan="3">NAMA BARANG</td>
                     <td rowspan="3">JUMLAH</td>
                     <td rowspan="3">SATUAN</td>
-                    <td rowspan="3">TGL.PR</td>
                     <td rowspan="3">TGL.DIMINTA DATANG</td>
+                    <td rowspan="3">UNIT</td>
                     <td rowspan="3">STATUS</td>
                     <td rowspan="3">STAFF</td>
                 </tr>
             </thead>
             <tbody>
                 <tr repeat.for="PO of data">
-                    <td>${PO['Divisi']}</td>
-                    <td>${PO['Unit']}</td>
-                    <td>${PO['Kategori']}</td>
+                    <td>${PO['No']}</td>
+                    <td>${PO['Tanggal Purchase Request']}</td>
                     <td>${PO['No Purchase Request']}</td>
+                    <td>${PO['Kategori']}</td>
                     <td>${PO['Nama Barang']}</td>
                     <td align="right">${PO['Jumlah Barang']}</td>
                     <td>${PO['Satuan Barang']}</td>
-                    <td>${PO['Tanggal Purchase Request']}</td>
                     <td>${PO['Tanggal Diminta Datang']}</td>
+                    <td>${PO['Unit']}</td>
                     <td>${PO['Status']}</td>
                     <td>${PO['Staff']}</td>
                 </tr>

@@ -1,11 +1,11 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework'
-var UnitLoader = require('../../../loader/unit-loader');
-var BudgetLoader = require('../../../loader/budget-loader');
-var CategoryLoader = require('../../../loader/category-loader');
+import {Service} from './service';
+var moment = require('moment');
 
 export class DataForm {
     @bindable readOnly = false;
-    @bindable data = {};
+    @bindable data;
+    @bindable error;
     @bindable title;
 
     controlOptions = {
@@ -21,14 +21,15 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-    }
 
+    }
+    
     itemsColumns = [
         { header: "Nomor Referensi PR", value: "refNo" },
         { header: "Barang", value: "product" },
         { header: "Kategori", value: "category" },
-        { header: "Jumlah", value: "quantity" },
-        { header: "Satuan", value: "uom" },
+        { header: "Jumlah", value: "defaultQuantity" },
+        { header: "Satuan", value: "defaultUom" },
         { header: "Harga Budget", value: "budgetPrice" },
         { header: "Keterangan", value: "remark" }
     ]
@@ -40,4 +41,4 @@ export class DataForm {
     get unit() {
 		return `${this.data.unit.code} - ${this.data.unit.name}`;
 	}
-}
+} 

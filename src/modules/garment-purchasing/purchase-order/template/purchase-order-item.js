@@ -15,7 +15,7 @@ export class PurchaseRequestItem {
   }
 
   get uom() {
-    return `${this.data.product.uom.unit}`;
+    return `${this.data.defaultUom.unit}`;
   }
 
   controlOptions = {
