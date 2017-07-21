@@ -1,0 +1,21 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+        </div>
+
+        <au-autocomplete
+            value.bind="selectedBuyer"
+            error.bind="error.buyerId"
+            label="Nama Buyer"
+            loader.bind="buyerLoader"
+            placeholder="Cari Buyer"
+            read-only.bind="readOnly"
+            key="name"
+            text="name">
+        </au-autocomplete>
+
+    </au-input-form>
+</template>
