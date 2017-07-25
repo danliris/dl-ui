@@ -6,16 +6,20 @@
             <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
         </div>
 
-        <au-autocomplete
-            value.bind="selectedBuyer"
-            error.bind="error.buyerId"
-            label="Nama Buyer"
-            loader.bind="buyerLoader"
-            placeholder="Cari Buyer"
-            read-only.bind="readOnly"
-            key="name"
-            text="name">
-        </au-autocomplete>
+        <fieldset>
+            <au-autocomplete value.bind="selectedBuyer" error.bind="error.buyerId" label="Buyer" loader.bind="buyerLoader" placeholder="Cari Buyer"
+                read-only.bind="buyerReadOnly" key="name" text="name" options.bind="buyerControlOptions">
+            </au-autocomplete>
+            <au-textbox label="Tipe Buyer" value.bind="data.buyerType" read-only.bind="true"></au-textbox>
+            <au-textbox label="Kode Barang" value.bind="data.productIdentity" read-only.bind="buyerReadOnly" options.bind="deliveryCodeControlOptions"></au-textbox>
+            <au-textbox label="Kode Pengiriman" value.bind="data.deliveryCode" read-only.bind="buyerReadOnly" options.bind="deliveryCodeControlOptions"></au-textbox>
+            <au-datepicker label="Tanggal Pengiriman" value.bind="data.deliveryDate" error.bind="error.deliveryDate" read-only.bind="buyerReadOnly"
+                options.bind="buyerControlOptions"></au-datepicker>
+        </fieldset>
+
+        <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.bind="addItems" remove.bind="removeItems"
+            read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail">
+        </au-collection>
 
     </au-input-form>
 </template>

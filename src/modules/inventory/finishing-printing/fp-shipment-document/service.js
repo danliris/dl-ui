@@ -4,7 +4,8 @@ import { RestService } from '../../../../utils/rest-service';
 
 
 const serviceUri = "inventory/fp-shipment-document";
-const buyerServiceUri = "master/buyer"
+const buyerServiceUri = "master/buyer";
+const productionOrderServiceUri = "sales/production-order";
 
 export class Service extends RestService {
 
@@ -39,6 +40,11 @@ export class Service extends RestService {
 
     searchBuyer(info) {
         var endpoint = `${buyerServiceUri}`;
-        return super.get(endpoint, info);
+        return super.list(endpoint, info);
+    }
+
+    searchProductionOrder(info) {
+        var endpoint = `${productionOrderServiceUri}`;
+        return super.list(endpoint, info);
     }
 }
