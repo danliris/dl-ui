@@ -16,11 +16,11 @@ export class PackingItem {
     }
 
     get weightTotal() {
-        return (this.data.weight * this.data.quantity).toFixed(2);
+        return this.data.weight * this.data.quantity;
     }
 
     get lengthTotal() {
-        return (this.data.length * this.data.quantity).toFixed(2);
+        return this.data.length * this.data.quantity;
     }
 
     grades = ["", "A", "B", "C", "AA", "BB", "CC", "BS", "AVAL"];
