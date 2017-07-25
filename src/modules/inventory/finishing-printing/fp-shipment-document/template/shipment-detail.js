@@ -15,6 +15,8 @@ export class ShipmentDetail {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
+        console.log(this.options);
+        this.selectedProductionOrder = this.data.selectedProductionOrder;
     }
 
     controlOptions = {
@@ -29,8 +31,11 @@ export class ShipmentDetail {
 
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newVal, oldVal) {
-        if (this.selectedProductionOrder && this.selectedProductionOrder._id)
+        if (this.selectedProductionOrder && this.selectedProductionOrder._id) {
+            this.data.selectedProductionOrder = this.selectedProductionOrder;
             this.data.productionOrderId = this.selectedProductionOrder._id;
+        }
+
         // this.selectedProductionOrder = newVal;
     }
 
