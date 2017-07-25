@@ -33,11 +33,11 @@ export class PackingItem {
   }
 
   get weightTotal() {
-    return this.data.weight * this.data.quantity;
+    return (this.data.weight * this.data.quantity).toFixed(2);
   }
 
   get lengthTotal() {
-    return this.data.length * this.data.quantity;
+    return (this.data.length * this.data.quantity).toFixed(2);
   }
 
 }
