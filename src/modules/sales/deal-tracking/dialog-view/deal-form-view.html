@@ -1,0 +1,51 @@
+<template>
+    <ai-dialog style="width:500px;">
+        <ai-dialog-header>Deal</ai-dialog-header>
+
+        <ai-dialog-body>
+            <form class="form-horizontal">
+                <au-textbox value.bind="data.name" label="Nama" placeholder="Nama" error.bind="error.name"></au-textbox>
+                
+                <au-dropdown
+                    label="Stage"
+                    value.bind="data.stage"
+                    error.bind="error.stage"
+                    items.bind="stageData"
+                    read-only.bind="isEdit"
+                    text="name">
+                </au-dropdown>
+
+                <au-textbox value.bind="data.currency" label="Mata Uang" read-only="true"></au-textbox>
+
+                <au-numeric value.bind="data.amount" label="Jumlah" error.bind="error.amount"></au-numeric>
+                
+                <au-autocomplete 
+                    value.bind="data.company" 
+                    error.bind="error.company"
+                    label="Perusahaan" 
+                    loader.one-time="companyLoader"
+                    placeholder="Cari perusahaan" 
+                    text="name">
+                </au-autocomplete>
+
+                <au-autocomplete 
+                    value.bind="data.contact" 
+                    error.bind="error.contact"
+                    label="Kontak" 
+                    loader.one-time="contactLoader"
+                    placeholder="Cari kontak" 
+                    text.bind="contactView">
+                </au-autocomplete>
+
+                <au-datepicker value.bind="data.closeDate" label="Tanggal Tutup" placeholder="Tanggal tutup" error.bind="error.closeDate"></au-datepicker>
+
+                <au-multiline value.bind="data.description" label="Deskripsi" placeholder="Deskripsi" error.bind="error.description"></au-multiline>
+            </form>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+            <button click.delegate="controller.cancel()">Kembali</button>
+            <button click.delegate="save()">Simpan</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

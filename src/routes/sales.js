@@ -114,5 +114,18 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'sales/deal-tracking',
+        name: 'deal-tracking',
+        moduleId: './modules/sales/deal-tracking/index',
+        nav: true,
+        title: 'Deal Tracking',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
