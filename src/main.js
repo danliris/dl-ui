@@ -60,6 +60,7 @@ export async function configure(aurelia) {
       config.settings.centerHorizontalOnly = false;
       config.settings.startingZIndex = 5;
     })
+    .plugin('aurelia-dragula')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.
