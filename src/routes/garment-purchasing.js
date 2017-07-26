@@ -50,4 +50,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment/po-external',
+        name: 'purchase-order-external',
+        moduleId: './modules/garment-purchasing/purchase-order-external/index',
+        nav: true,
+        title: 'Purchase Order External',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
