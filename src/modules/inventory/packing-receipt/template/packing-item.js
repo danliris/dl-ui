@@ -23,6 +23,12 @@ export class PackingItem {
     }
   }
 
+  quantityControlOptions = {
+    control: {
+      length:1
+    }
+  }
+
   quantityChanged(e) {
     console.log(this.data);
     // this.data.quantity = this.data.quantity ? this.data.quantity : 0;
