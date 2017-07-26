@@ -15,8 +15,9 @@ export class ShipmentDetail {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
-        console.log(this.options);
+        this.context = context.context;
         this.selectedProductionOrder = this.data.selectedProductionOrder;
+        this.selectedBuyerId = this.context.options.selectedBuyerId;
     }
 
     controlOptions = {
@@ -25,15 +26,32 @@ export class ShipmentDetail {
         }
     }
 
-    productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber"];
+    productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
 
-    itemColumns = ["Daftar Produk"];
+    itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
 
     @bindable selectedProductionOrder;
-    selectedProductionOrderChanged(newVal, oldVal) {
+    async selectedProductionOrderChanged(newVal, oldVal) {
         if (this.selectedProductionOrder && this.selectedProductionOrder._id) {
             this.data.selectedProductionOrder = this.selectedProductionOrder;
             this.data.productionOrderId = this.selectedProductionOrder._id;
+            this.data.productionOrderNo = this.selectedProductionOrder.orderNo;
+            this.data.productionOrderType = this.selectedProductionOrder.orderType.name;
+            this.data.designCode = this.selectedProductionOrder.designCode;
+            this.data.designNumber = this.selectedProductionOrder.designNumber;
+            this.data.colorType = this.selectedProductionOrder.details[0].colorType;
+            // if (this.selectedBuyerId && this.selectedProductionOrder) {
+            //     this.products = await this.service
+            // }
+            console.log(this.data);
+        } else {
+            this.data.selectedProductionOrder = {};
+            this.data.productionOrderId = {};
+            this.data.productionOrderNo = "";
+            this.data.productionOrderType = "";
+            this.data.designCode = "";
+            this.data.designNumber = "";
+            this.data.colorType = "";
         }
 
         // this.selectedProductionOrder = newVal;
@@ -47,5 +65,9 @@ export class ShipmentDetail {
                     return result.data;
                 });
         }
+    }
+
+    async getProducts() {
+
     }
 }

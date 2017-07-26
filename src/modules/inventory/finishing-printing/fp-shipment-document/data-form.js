@@ -26,7 +26,7 @@ export class DataForm {
         }
     };
 
-    detailColumns =["Daftar Surat Perintah Produksi"]
+    detailColumns = ["Daftar Surat Perintah Produksi"]
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
@@ -38,9 +38,9 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
     }
 
+    detailOptions = {};
     @bindable selectedBuyer;
     selectedBuyerChanged(newValue, oldValue) {
         if (this.selectedBuyer && this.selectedBuyer._id) {
@@ -48,8 +48,16 @@ export class DataForm {
             this.data.buyerName = this.selectedBuyer.name;
             this.data.buyerAddress = this.selectedBuyer.address;
             this.data.buyerType = this.selectedBuyer.type;
+            this.detailOptions = {
+                selectedBuyerId: this.selectedBuyer._id
+            }
+        } else {
+            this.data.buyerId = {};
+            this.data.buyerName = "";
+            this.data.buyerAddress = "";
+            this.data.buyerType = "";
+            this.detailOptions = {};
         }
-        console.log(this.selectedBuyer);
     }
 
     get buyerLoader() {
@@ -64,7 +72,6 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            console.log(this.data);
             this.data.details.push({})
         }
     }
