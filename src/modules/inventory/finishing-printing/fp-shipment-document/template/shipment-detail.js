@@ -17,7 +17,7 @@ export class ShipmentDetail {
         this.options = context.options;
         this.context = context.context;
         this.selectedProductionOrder = this.data.selectedProductionOrder;
-        this.selectedBuyerId = this.context.options.selectedBuyerId;
+        this.selectedBuyerName = this.context.options.selectedBuyerName;
     }
 
     controlOptions = {
@@ -40,10 +40,19 @@ export class ShipmentDetail {
             this.data.designCode = this.selectedProductionOrder.designCode;
             this.data.designNumber = this.selectedProductionOrder.designNumber;
             this.data.colorType = this.selectedProductionOrder.details[0].colorType;
-            // if (this.selectedBuyerId && this.selectedProductionOrder) {
-            //     this.products = await this.service
-            // }
-            console.log(this.data);
+            if (this.selectedBuyerName && this.selectedProductionOrder) {
+                var filter = {
+                    "properties.buyerName": this.selectedBuyerName,
+                    "properties.productionOrderNo": this.selectedProductionOrder.orderNo
+                }
+
+                var info = { filter: JSON.stringify(filter) };
+                this.productResults = await this.service.searchProducts(info);
+                this.data.items = this.productResults.data.map((product) => {
+                    return product;
+                })
+            }
+            console.log(this.data.items);
         } else {
             this.data.selectedProductionOrder = {};
             this.data.productionOrderId = {};

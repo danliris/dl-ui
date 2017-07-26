@@ -49,7 +49,7 @@ export class DataForm {
             this.data.buyerAddress = this.selectedBuyer.address;
             this.data.buyerType = this.selectedBuyer.type;
             this.detailOptions = {
-                selectedBuyerId: this.selectedBuyer._id
+                selectedBuyerName: this.selectedBuyer.name
             }
         } else {
             this.data.buyerId = {};

@@ -1,0 +1,28 @@
+<template>
+    <tr>
+        <td>
+            <au-textbox value.bind="data.name" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.properties.designCode" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.uom.unit" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.quantity" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="lengthTotal" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.properties.weight" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="weightTotal" read-only.bind="true"></au-textbox>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>

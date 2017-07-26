@@ -4,6 +4,7 @@ import { RestService } from '../../../../utils/rest-service';
 
 
 const serviceUri = "inventory/fp-shipment-document";
+const inventoryServiceUri = "inventory/inventory-summary";
 const buyerServiceUri = "master/buyer";
 const productServiceUri = "master/product";
 const productionOrderServiceUri = "sales/production-order";
@@ -49,8 +50,13 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    searchProducts() {
+    searchProducts(info) {
         var endpoint = `${productServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    searchInventory(info) {
+        var endpoint = `${inventoryServiceUri}`;
         return super.list(endpoint, info);
     }
 
