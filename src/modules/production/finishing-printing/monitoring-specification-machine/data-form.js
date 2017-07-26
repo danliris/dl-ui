@@ -51,7 +51,7 @@ export class DataForm {
     // ]
 
     machineChanged(newValue) {
-
+        this.resetErrors();
         this.data.machine = newValue;
         if (this.data.machine) {
             var items = [];
@@ -89,7 +89,8 @@ export class DataForm {
     }
 
     resetErrors() {
-        this.error = {};
+
+        this.context.error = {};
         // this.data.items = []
 
     }

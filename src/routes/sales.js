@@ -116,6 +116,19 @@ module.exports = [
         }
     },
     {
+        route: 'sales/reports/sales-monthly-reports',
+        name: 'sales-monthly-report',
+        moduleId: './modules/sales/reports/sales-monthly-report/index',
+        nav: true,
+        title: 'Sales Monthly Report / Laporan Sales Per Bulan',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'sales/deal-tracking',
         name: 'deal-tracking',
         moduleId: './modules/sales/deal-tracking/index',

@@ -11,8 +11,11 @@
                 placeholder="Cari Packing" read-only.bind="packingReadOnly" key="code" text="code">
             </au-autocomplete>
             <au-textbox label="Nomor Order" value.bind="data.packing.productionOrderNo" read-only.bind="true"></au-textbox>
+            <au-textbox label="Jenis Order" value.bind="data.packing.orderType" read-only.bind="true"></au-textbox>
             <au-textbox label="Warna Diminta" value.bind="data.packing.colorName" read-only.bind="true"></au-textbox>
+            <au-textbox label="Jenis Warna" value.bind="data.packing.colorType" read-only.bind="true" if.bind="isSolid"></au-textbox>
             <au-textbox label="Konstruksi" value.bind="data.packing.construction" read-only.bind="true"></au-textbox>
+            <au-textbox label="Lebar Finish" value.bind="data.packing.materialWidthFinish" read-only.bind="true"></au-textbox>
             <au-textbox label="Satuan" value.bind="data.packing.packingUom" read-only.bind="true"></au-textbox>
             <!--<au-textbox label="Sumber Penyimpanan " value.one-way="originStorage" read-only.bind="true"></au-textbox>-->
             <!--<au-textbox label="Tujuan Penyimpanan" value.one-way="destinationStorage" read-only.bind="true"></au-textbox>-->
