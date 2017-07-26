@@ -17,7 +17,7 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.hasSplit = !this.data.isClosed;
-        this.hasDelete = this.data.items
+        this.hasDelete = !this.data.items
             .map((item) => item.isClosed)
             .reduce((prev, curr, index) => {
                 return prev || curr
