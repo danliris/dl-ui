@@ -1,0 +1,35 @@
+import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
+import { BindingSignaler } from 'aurelia-templating-resources';
+import { Service } from './../service';
+
+@inject(Service, BindingEngine, BindingSignaler)
+export class ShipmentDetail {
+
+    constructor(service, bindingSignaler, bindingEngine) {
+        this.service = service;
+        this.signaler = bindingSignaler;
+        this.bindingEngine = bindingEngine;
+    }
+
+    async activate(context) {
+        this.data = context.data;
+        this.error = context.error;
+        this.options = context.options;
+        this.context = context.context;
+
+        if (!this.data && !this.data.weight) {
+            this.data.weight = 0;
+        }
+        if (!this.data && !this.data.length) {
+            this.data.length = 0;
+        }
+    }
+
+    get weightTotal() {
+        return (this.data.weight * this.data.quantity).toFixed(2);
+    }
+
+    get lengthTotal() {
+        return (this.data.length * this.data.quantity).toFixed(2);
+    }
+}
