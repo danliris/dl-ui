@@ -36,7 +36,7 @@ export class View {
   delete(event) {
     this.service.delete(this.data)
       .then(result => {
-        this.cancelCallback();
+        this.cancel();
       });
   }
 }

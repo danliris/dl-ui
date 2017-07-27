@@ -37,7 +37,7 @@ export class List {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "buyer", title: "Buyer" },
+            { field: "buyerName", title: "Buyer" },
             { field: "productionOrderNo", title: "No. SPP" },
             { field: "colorName", title: "Warna" },
             { field: "construction", title: "Konstruksi" },

@@ -1,6 +1,8 @@
 <template>
     <h1 class="page-header">Total Pembelian per Supplier</h1>
     <form class="form-horizontal">
+        <unit-auto-suggest      label="Unit"                value.bind="unit"></unit-auto-suggest>
+        <category-auto-suggest  label="Kategori"            value.bind="category"></category-auto-suggest>
         <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
         <div class="form-group">
@@ -19,24 +21,27 @@
                 <tr>
                     <th class="text-center">Nomor</th>
                     <th class="text-center">Supplier</th>
-                    <th class="text-center">Rp</th>
+                    <th class="text-center">Unit</th>
+                    <th class="text-center">Kategori</th>
+                    <th class="text-center">Jumlah [Rp]</th>
                     <th class="text-center">%</th>
-                    <!--<th>Kategori UOM</th>-->
                 </tr>
             </thead>
             <tbody>
-                <tr repeat.for="item of data" click.delegate="view(item,dateFrom,dateTo)">
+                <tr repeat.for="item of data">
                     <td class="text-center"> ${$index + 1}</td>
-                    <td class="text-center"> <a> ${item._id.name}</a> </td>
+                    <td class="text-left"> ${item._id.supplier}</td>
+                    <td class="text-center"> ${item._id.unit}</td>
+                    <td class="text-center"> ${item._id.category}</td>
                     <td class="text-right"> ${amounts[$index]}</td>
                     <td class="text-right"> ${percentage[$index]}%</td>
                 </tr>
             </tbody>
             <tfoot if.bind="data.length > 0">
                 <tr>
-                    <td colspan="2" class="text-center">Total</td>
+                    <td colspan="4" class="text-center">Total Pembelian . . . . . . . . . :</td>
                     <td class="text-right">${pricetotals}</td>
-                    <td class="text-right">${percentagetotal}%</td>
+                    <td class="text-right">${percentagetotal}%</td>                    
                 </tr>
             </tfoot>
         </table>

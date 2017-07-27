@@ -22,6 +22,10 @@ export class DataForm {
     itemsColumns = [
         { header: "Nama Barang", value: "product" },
         { header: "Kuantiti Diterima", value: "quantity" },
+        { header: "Berat", value: "weight" },
+        { header: "Berat Total", value: "weightTotal" },
+        { header: "Panjang", value: "length" },
+        { header: "Panjang Total", value: "lengthTotal" },
         { header: "Remark", value: "remark" },
         { header: "Catatan", value: "notes" }
     ]
@@ -40,11 +44,14 @@ export class DataForm {
         if (this.data.packing) {
             var _items = [];
             this.data.packingId = this.data.packing._id;
+            // this.data.materialWidthFinish = this.data
 
             this.data.packing.items.map((item) => {
                 var _item = {};
-                _item.product = `${this.data.packing.salesContractNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}`;
+                _item.product = item.remark !== "" || item.remark !== null ? `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}/${item.remark}` : `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
                 _item.quantity = item.quantity;
+                _item.length = item.length;
+                _item.weight = item.weight;
                 _item.remark = item.remark;
                 _item.notes = item.notes;
                 _items.push(_item);
