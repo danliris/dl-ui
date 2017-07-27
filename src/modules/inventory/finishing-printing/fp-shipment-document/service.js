@@ -60,4 +60,19 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    getBuyerById(id) {
+        var endpoint = `${buyerServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getProductionOrderById(id) {
+        var endpoint = `${productionOrderServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.getPdf(endpoint);
+    }
+
 }

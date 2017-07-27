@@ -5,8 +5,9 @@
                 placeholder="Cari Production Order" read-only.bind="readOnly" key="orderNo" text="orderNo" options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-collection if.bind="data.productionOrderId" columns.bind="itemColumns" items.bind="data.items" errors.one-way="error.items" read-only.bind="readOnly" options.bind="itemOptions"
-                item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-item" remove.bind="removeItems">
+            <au-collection if.bind="data.productionOrderId" columns.bind="itemColumns" items.bind="data.items" errors.one-way="error.items"
+                read-only.bind="readOnly" options.bind="itemOptions" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-item"
+                remove.bind="removeItems">
             </au-collection>
         </td>
         <td if.bind="!options.readOnly">

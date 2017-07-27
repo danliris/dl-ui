@@ -76,5 +76,18 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "inventory/finishing-printing/reports/fp-shipment-document-report",
+        name: "inventory/finishing-printing/reports/fp-shipment-document-report",
+        moduleId: "modules/inventory/finishing-printing/reports/fp-shipment-document-report/index",
+        nav: true,
+        title: "Laporan Pengiriman Barang Gudang Jadi",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
 ]

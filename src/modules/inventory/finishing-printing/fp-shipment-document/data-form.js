@@ -34,10 +34,14 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
+        if (this.data._id && this.data.buyerId) {
+            this.selectedBuyer = await this.service.getBuyerById(this.data.buyerId);
+        }
     }
 
     detailOptions = {};
@@ -45,14 +49,16 @@ export class DataForm {
     selectedBuyerChanged(newValue, oldValue) {
         if (this.selectedBuyer && this.selectedBuyer._id) {
             this.data.buyerId = this.selectedBuyer._id;
+            this.data.buyerCode = this.selectedBuyer.code;
             this.data.buyerName = this.selectedBuyer.name;
             this.data.buyerAddress = this.selectedBuyer.address;
             this.data.buyerType = this.selectedBuyer.type;
             this.detailOptions = {
                 selectedBuyerName: this.selectedBuyer.name
-            }
+            };
         } else {
             this.data.buyerId = {};
+            this.data.buyerCode = "";
             this.data.buyerName = "";
             this.data.buyerAddress = "";
             this.data.buyerType = "";

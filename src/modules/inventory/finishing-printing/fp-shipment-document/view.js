@@ -15,11 +15,21 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.buyerReadOnly = true;
+        if (!this.data.isVoid) {
+            this.isVoid = true
+        }
+    }
 
-        this.packingReadOnly = true;
-        this.packing = this.data;
-        this.packing.code = this.data.packingCode;
-        this.data.packing = this.data;
+    update() {
+        this.data.isVoid = true;
+        this.service.update(this.data)
+            .then((result) => {
+                this.router.navigateToRoute('list');
+            })
+            .catch((e) => {
+                this.error = e;
+            })
     }
 
     cancel(event) {
