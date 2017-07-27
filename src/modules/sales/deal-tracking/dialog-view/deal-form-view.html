@@ -1,4 +1,5 @@
 <template>
+    <require from="../../../../lib/number-format-value-converter"></require>
     <ai-dialog style="width:500px;">
         <ai-dialog-header>Deal</ai-dialog-header>
 
@@ -16,8 +17,13 @@
                 </au-dropdown>
 
                 <au-textbox value.bind="data.currency" label="Mata Uang" read-only="true"></au-textbox>
-
-                <au-numeric value.bind="data.amount" label="Jumlah" error.bind="error.amount"></au-numeric>
+   
+                <div class="form-group">
+                    <label class="col-sm-3 text-right au-layout control-label">Jumlah</label>
+                    <div class="col-sm-9">
+                        <input ref="numeric" type="text" value.bind="data.amount | numberFormat: '0,000'" class="form-control text-right" onfocus="this.select()">
+                    </div>
+                </div>
                 
                 <au-autocomplete 
                     value.bind="data.company" 
