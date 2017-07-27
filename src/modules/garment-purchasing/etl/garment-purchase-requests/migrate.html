@@ -1,0 +1,21 @@
+<template>
+    <h1 class="page-header">Migrate Data</h1>
+    <div class="row">
+        <div class="form-group ${error.file ? 'has-error':''}">
+
+            <au-dropdown label="SQL Table" value.bind="data.tables" read-only.bind="readOnly" items.bind="tables" options.bind="auInputOptions"></au-dropdown>
+
+        </div>
+    </div>
+
+    <br>
+    <div class="row-sm-4">
+        <block>
+            <div class="btn-group pull-right">
+                <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+                <button class="btn btn-success" click.delegate="saveCallback()">Migrate</button>
+            </div>
+        </block>
+    </div>
+    </br>
+</template>
