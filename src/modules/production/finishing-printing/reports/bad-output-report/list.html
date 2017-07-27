@@ -5,6 +5,7 @@
         <kanban-auto-suggest            label="Nomor Order/Kereta"        value.bind="kanban"    ></kanban-auto-suggest>
         <machine-auto-suggest           label="Mesin"	                  value.bind="machine"   ></machine-auto-suggest>
         -->
+                
         <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
         <div class="form-group">
@@ -24,7 +25,9 @@
     <table class="table table-bordered table-hover" border="1" id="myTable">
         <thead align="center">
             <tr>
+                <!--
                 <td rowspan="3">No Order</td>
+                -->
                 <td rowspan="3">Mesin</td>
                 <td rowspan="3">Good Output</td>
                 <td rowspan="3">Bad Output</td>
@@ -35,7 +38,9 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data">
+                <!--
                 <td class="text-center">${item._id.orderNo}</td>
+                -->
                 <td class="text-center">${item._id.machine}</td>
                 <td class="text-right">${item.goodOutput}</td>
                 <td class="text-right">${item.badOutput}</td>
