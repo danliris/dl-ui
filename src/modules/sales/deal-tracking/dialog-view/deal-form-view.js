@@ -20,7 +20,7 @@ export class DealFormView {
     async activate(params) {
         this.type = params.type;
 
-        if(this.type == "Add") {
+        if (this.type == "Add") {
             this.stageData = params.stages;
         }
         else {
@@ -28,21 +28,27 @@ export class DealFormView {
 
             await this.service.getDealById(params.id)
                 .then((result) => {
-                    this.data = result;   
+                    this.data = result;
                 });
 
             this.data.stage = params.stageName;
         }
-        
+
         this.data.currency = params.currency;
+    }
+
+    attached() {
+        this.numeric.addEventListener("keydown", this.keydownCallback, false);
     }
 
     save() {
         this.error = {};
 
-        if(this.type == "Add") {
+        this.data.amount = this.data.amount || 0;
+
+        if (this.type == "Add") {
             this.data.stageId = this.data.stage._id;
-            
+
             this.service.createDeal(this.data)
                 .then((result) => {
                     this.controller.ok();
@@ -59,7 +65,7 @@ export class DealFormView {
                 .catch(e => {
                     this.error = e;
                 });
-        }       
+        }
     }
 
     get companyLoader() {
@@ -72,5 +78,21 @@ export class DealFormView {
 
     contactView = (contact) => {
         return `${contact.firstName} ${contact.lastName}`;
+    }
+
+    keydownCallback(e) {
+        var keyCode = e.keyCode;
+
+        if ([46, 8, 9, 27, 13, 110, 190].indexOf(keyCode) !== -1 ||
+            (keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (keyCode >= 35 && keyCode <= 39)) {
+            return;
+        }
+
+        if ((e.shiftKey || (keyCode < 48 || keyCode > 57)) && (keyCode < 96 || keyCode > 105)) {
+            e.preventDefault();
+        }
     }
 }

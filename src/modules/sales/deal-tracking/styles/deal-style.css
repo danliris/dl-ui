@@ -3,12 +3,12 @@
 	list-style: none;
 	position: relative;
 	margin-top: 20px;
-	
 }
 
 #dragula .divScroll {
 	height: 500px;
 	overflow: auto;
+	border: 1px solid #BBB;
 }
 
 #dragula .cbp_tmtimeline a {
@@ -218,4 +218,17 @@
     overflow: auto;
 	padding-top: 5px;
 	margin-bottom: 10px;
+}
+
+#dragula .circle-btn {
+	height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    background-color: #173250;
+    color: white;
+    border: 3px solid #BBB;
+}
+
+#dragula .circle-btn:hover {
+    background-color: #214566;
 }
