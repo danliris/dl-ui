@@ -78,6 +78,8 @@ export class List {
                             tempData._createdDate = result.data[i]._createdDate;
                             tempData.code = result.data[i].code;
                             tempData.shipmentNumber = result.data[i].shipmentNumber;
+                            tempData.deliveryCode = result.data[i].deliveryCode;
+                            tempData.productIdentity = result.data[i].productIdentity;
                             tempData.productionOrderNo = result.data[i].details[j].productionOrderNo;
                             tempData.buyer = result.data[i].buyerName;
                             tempData.productName = result.data[i].details[j].items[k].productName;
