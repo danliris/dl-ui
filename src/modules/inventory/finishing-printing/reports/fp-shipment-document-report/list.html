@@ -6,7 +6,7 @@
             }
         </style>
 
-        <h1 class="page-header">Laporan Penerimaan Packing Gudang Jadi</h1>
+        <h1 class="page-header">Laporan Pengiriman Gudang Gudang Jadi</h1>
         <form class="form-horizontal">
 
 
@@ -14,7 +14,7 @@
             <au-autocomplete value.bind="filter.deliveryCode" label="DO. No" loader.bind="shipmentLoader" key="deliveryCode" text="deliveryCode"></au-autocomplete>
             <au-autocomplete value.bind="filter.productIdentity" label="Kode Product" loader.bind="shipmentLoader" key="productIdentity" text="productIdentity"></au-autocomplete>
             <au-autocomplete value.bind="filter.buyerId" label="Buyer" loader.bind="buyerLoader" key="name" text="name"></au-autocomplete>
-            <au-autocomplete value.bind="filter.productionOrderId" label="Nomor Order" loader.bind="productionOrderLoader" key="orderNo" text="orderNo"></au-autocomplete>
+            <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" loader.bind="productionOrderLoader" key="orderNo" text="orderNo"></au-autocomplete>
 
             <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
             <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
@@ -46,6 +46,8 @@
                         <td>Tanggal</td>
                         <td>Kode</td>
                         <td>Kode Pengiriman</td>
+                        <td>Kode Delivery Order</td>
+                        <td>Kode Produk</td>
                         <td>Nomor Order</td>
                         <td>Buyer</td>
                         <td>Nama Barang</td>
@@ -61,6 +63,8 @@
                         <td>${item._createdDate | dateFormat:'DD/MM/YYYY'}</td>
                         <td>${item.code}</td>
                         <td>${item.shipmentNumber}</td>
+                        <td>${item.deliveryCode}</td>
+                        <td>${item.productIdentity}</td>
                         <td>${item.productionOrderNo}</td>
                         <td>${item.buyer}</td>
                         <td>${item.productName}</td>

@@ -39,8 +39,8 @@ export class Service extends RestService {
             query = (query === '') ? `buyerId=${info.buyerId}` : `${query}&buyerId=${info.buyerId}`;
         }
 
-        if (info.productionOrderId) {
-            query = (query === '') ? `productionOrderId=${info.productionOrderId}` : `${query}&productionOrderId=${info.productionOrderId}`;
+        if (info.productionOrderNo) {
+            query = (query === '') ? `productionOrderNo=${info.productionOrderNo}` : `${query}&productionOrderNo=${info.productionOrderNo}`;
         }
 
         if (info.dateFrom)

@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>
-            <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.productionOrderId" loader.bind="productionOrderLoader"
+            <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.productionOrderId" loader.one-time="productionOrderLoader"
                 placeholder="Cari Production Order" read-only.bind="readOnly" key="orderNo" text="orderNo" options.bind="controlOptions">
             </au-autocomplete>
 

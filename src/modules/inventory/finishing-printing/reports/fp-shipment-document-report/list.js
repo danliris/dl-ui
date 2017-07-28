@@ -55,7 +55,7 @@ export class List {
             this.info.deliveryCode = this.filter.deliveryCode ? this.filter.deliveryCode.deliveryCode : "";
             this.info.productIdentity = this.filter.productIdentity ? this.filter.productIdentity.productIdentity : "";
             this.info.buyerId = this.filter.buyerId ? this.filter.buyerId._id : null;
-            this.info.productionOrderId = this.filter.productionOrderId ? this.filter.productionOrderId._id : null;
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.orderNo : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
@@ -78,6 +78,8 @@ export class List {
                             tempData._createdDate = result.data[i]._createdDate;
                             tempData.code = result.data[i].code;
                             tempData.shipmentNumber = result.data[i].shipmentNumber;
+                            tempData.deliveryCode = result.data[i].deliveryCode;
+                            tempData.productIdentity = result.data[i].productIdentity;
                             tempData.productionOrderNo = result.data[i].details[j].productionOrderNo;
                             tempData.buyer = result.data[i].buyerName;
                             tempData.productName = result.data[i].details[j].items[k].productName;
@@ -108,7 +110,7 @@ export class List {
             this.info.deliveryCode = this.filter.deliveryCode ? this.filter.deliveryCode.deliveryCode : "";
             this.info.productIdentity = this.filter.productIdentity ? this.filter.productIdentity.productIdentity : "";
             this.info.buyerId = this.filter.buyerId ? this.filter.buyerId._id : null;
-            this.info.productionOrderId = this.filter.productionOrderId ? this.filter.productionOrderId._id : null;
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.orderNo : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {

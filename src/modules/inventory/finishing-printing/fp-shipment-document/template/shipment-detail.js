@@ -102,7 +102,6 @@ export class ShipmentDetail {
                         }
 
                     }
-                    console.log(this.shipmentProducts);
                     this.data.items = this.shipmentProducts
                 }
             }
@@ -126,5 +125,9 @@ export class ShipmentDetail {
                     return result.data;
                 });
         }
+    }
+
+    removeItems() {
+        this.bind();
     }
 }

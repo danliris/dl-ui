@@ -76,7 +76,7 @@ export class DataForm {
         }
     }
 
-    get addItems() {
+    get addDetails() {
         return (event) => {
             this.data.details.push({})
         }
