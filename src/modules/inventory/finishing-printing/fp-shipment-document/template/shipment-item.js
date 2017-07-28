@@ -25,10 +25,12 @@ export class ShipmentDetail {
         }
     }
 
+    @computedFrom("data.quantity", "data.weight")
     get weightTotal() {
         return (this.data.weight * this.data.quantity).toFixed(2);
     }
 
+    @computedFrom("data.quantity", "data.weight")
     get lengthTotal() {
         return (this.data.length * this.data.quantity).toFixed(2);
     }

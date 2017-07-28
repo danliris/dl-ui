@@ -14,14 +14,14 @@
                 options.bind="deliveryCodeControlOptions"></au-textbox>
             <au-textbox label="Kode Barang" value.bind="data.productIdentity" error.bind="error.productIdentity" read-only.bind="buyerReadOnly"
                 options.bind="deliveryCodeControlOptions"></au-textbox>
-            <au-autocomplete value.bind="selectedBuyer" error.bind="error.buyerId" label="Buyer" loader.bind="buyerLoader" placeholder="Cari Buyer"
+            <au-autocomplete value.bind="selectedBuyer" error.bind="error.buyerId" label="Buyer" loader.one-time="buyerLoader" placeholder="Cari Buyer"
                 read-only.bind="buyerReadOnly" key="name" text="name" options.bind="buyerControlOptions">
             </au-autocomplete>
             <au-textbox label="Tipe Buyer" value.bind="data.buyerType" read-only.bind="true"></au-textbox>
 
         </fieldset>
 
-        <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.bind="addDetails"
+        <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.one-time="addDetails"
             remove.bind="removeDetails" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
             options.bind="detailOptions">
         </au-collection>
