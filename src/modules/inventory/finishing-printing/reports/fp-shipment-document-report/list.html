@@ -6,15 +6,14 @@
             }
         </style>
 
-        <h1 class="page-header">Laporan Pengiriman Gudang Gudang Jadi</h1>
+        <h1 class="page-header">Laporan Pengiriman Barang Gudang Jadi</h1>
         <form class="form-horizontal">
 
 
             <au-autocomplete value.bind="filter.shipmentNumber" label="NO." loader.bind="shipmentLoader" key="shipmentNumber" text="shipmentNumber"></au-autocomplete>
             <au-autocomplete value.bind="filter.deliveryCode" label="DO. No" loader.bind="shipmentLoader" key="deliveryCode" text="deliveryCode"></au-autocomplete>
-            <au-autocomplete value.bind="filter.productIdentity" label="Kode Product" loader.bind="shipmentLoader" key="productIdentity" text="productIdentity"></au-autocomplete>
+            <au-autocomplete value.bind="filter.productIdentity" label="Kode Produk" loader.bind="shipmentLoader" key="productIdentity" text="productIdentity"></au-autocomplete>
             <au-autocomplete value.bind="filter.buyerId" label="Buyer" loader.bind="buyerLoader" key="name" text="name"></au-autocomplete>
-            <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" loader.bind="productionOrderLoader" key="orderNo" text="orderNo"></au-autocomplete>
 
             <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
             <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
@@ -45,8 +44,8 @@
                         <td>No</td>
                         <td>Tanggal</td>
                         <td>Kode</td>
-                        <td>Kode Pengiriman</td>
-                        <td>Kode Delivery Order</td>
+                        <td>NO.</td>
+                        <td>DO. No</td>
                         <td>Kode Produk</td>
                         <td>Nomor Order</td>
                         <td>Buyer</td>
@@ -76,7 +75,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        <div class="alert alert-info text-center" role="alert" if.bind="newData.length == 0">
             Tidak ada data.
         </div>
         <hr/>
