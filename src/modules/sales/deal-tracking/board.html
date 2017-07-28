@@ -24,7 +24,8 @@
                 <div class="col-sm-3" repeat.for="stage of stages">
                     <div class="kanban kanban__box ${type[$index % 4]}">
                         <div class="kanban__title">
-                            <h3>${stage.name} <i class="fa fa-pencil-square-o" aria-hidden="true" title="Ubah" click.delegate="editStage(stage)"></i></h3>
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Ubah" click.delegate="editStage(stage)"></i> <i if.bind="stage.map.length == 0" class="fa fa-trash-o" aria-hidden="true" title="Hapus" click.delegate="deleteStage(stage._id)"></i>
+                            <h3>${stage.name}</h3>
                         </div>
 
                         <ol class="kanban drag-source drop-target" data-code.bind="stage.code">
