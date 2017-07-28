@@ -33,7 +33,7 @@
     white-space: nowrap;
 }
 
-#dragula #kanban .kanban__title {
+#dragula #kanban h3 {
 	margin-top: 10px;
 	text-align: center;
 }
@@ -141,7 +141,6 @@
 	margin-bottom: 5px;
 }
 
-#dragula .fa-pencil-square-o, #dragula .fa-trash-o {
+#dragula .fa-pencil-square-o {
 	cursor: pointer;
-	font-size: 1.5em;
 }

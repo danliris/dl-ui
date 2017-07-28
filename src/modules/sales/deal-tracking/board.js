@@ -211,18 +211,6 @@ export class View {
             });
 	}
 
-	deleteStage(id) {
-		this.dialog.prompt("Apakah anda yakin mau menghapus stage ini?", "Hapus Stage")
-            .then(response => {
-                if (response == "ok") {
-					this.service.deleteStage({ _id: id})
-						.then(result => {
-							this.getStageData();
-						});
-                }
-            });
-	}
-
 	@computedFrom("stages.length")
 	get hasStages() {
 		return this.stages.length > 0;
