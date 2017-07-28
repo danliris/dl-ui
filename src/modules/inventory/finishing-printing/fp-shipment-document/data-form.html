@@ -21,8 +21,8 @@
 
         </fieldset>
 
-        <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.bind="addItems"
-            remove.bind="removeItems" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
+        <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.bind="addDetails"
+            remove.bind="removeDetails" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
             options.bind="detailOptions">
         </au-collection>
 
