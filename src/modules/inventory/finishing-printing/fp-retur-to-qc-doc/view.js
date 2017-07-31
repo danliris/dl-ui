@@ -18,7 +18,7 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         if (!this.data.isVoid) {
-            this.isVoid = true
+            this.isVoid = true;
         }
         for(var item of this.data.items){
             item.code=item.packingCode;
@@ -54,6 +54,6 @@ export class View {
             })
             .catch((e) => {
                 this.error = e;
-            })
+            });
     }
 }
