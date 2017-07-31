@@ -63,4 +63,17 @@ module.exports = [
             permission : {"C9":1},
             iconClass: 'fa fa-dashboard'
         }
+    }, 
+    {
+        route: 'inventory/fp-retur-to-qc-doc',
+        name: 'inventory/fp-retur-to-qc-doc',
+        moduleId: './modules/inventory/fp-retur-to-qc-doc/index',
+        nav: true,
+        title: 'Retur Barang ke QC',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission : { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }]
