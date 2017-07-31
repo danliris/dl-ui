@@ -65,15 +65,15 @@ module.exports = [
         }
     }, 
     {
-        route: 'inventory/fp-retur-to-qc-doc',
-        name: 'inventory/fp-retur-to-qc-doc',
-        moduleId: './modules/inventory/fp-retur-to-qc-doc/index',
+        route: 'inventory/finishing-printing/fp-retur-to-qc-doc',
+        name: 'inventory/finishing-printing/fp-retur-to-qc-doc',
+        moduleId: './modules/inventory/finishing-printing/fp-retur-to-qc-doc/index',
         nav: true,
         title: 'Retur Barang ke QC',
         auth: true,
         settings: {
             group: "Inventory",
-            permission : { "*": 1 },
+            permission : { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
         
