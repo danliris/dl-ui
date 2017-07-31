@@ -1,0 +1,76 @@
+
+                <template >
+                    <tr>
+                    <td>
+                        <au-textbox 
+                            value.bind="data.productName" 
+                            read-only.bind="true" 
+                            options.bind="controlOptions">
+                        </au-textbox> 
+                    </td>
+                    <td>
+                        <au-textbox 
+                            value.bind="data.designName"
+                            read-only.bind="true" 
+                            options.bind="controlOptions">
+                        </au-textbox>
+                    </td>
+                    <td>
+                        <au-textbox 
+                            value.bind="data.remark" 
+                            error.bind="error.remark"
+                            read-only.bind="options.readOnly" 
+                            placeholder="tambah keterangan" 
+                            options.bind="controlOptions">
+                        </au-textbox>
+                    </td>
+                    
+                    <td>
+                        <au-textbox 
+                            value.bind="data.colorWay" 
+                            read-only.bind="true" 
+                            options.bind="controlOptions">
+                        </au-textbox>
+                    </td>
+                    <td>
+                        <au-numeric 
+                            value.bind="data.quantityBefore" 
+                            read-only.bind="true" 
+                            options.bind="controlOptions">
+                        </au-numeric>
+                    </td>
+                    <td>
+                        <au-numeric 
+                            value.bind="data.returQuantity" 
+                            error.bind="error.returQuantity"
+                            read-only.bind="options.readOnly" 
+                            options.bind="controlOptions">
+                        </au-numeric>
+                    </td>
+                    <td>
+                        <au-textbox 
+                            value.bind="data.uom" 
+                            read-only.bind="true" 
+                            options.bind="controlOptions">
+                        </au-textbox>                    
+                    </td>
+                    
+                    <td>
+                        <au-numeric 
+                            value.bind="data.length" 
+                            error.bind="error.length"
+                            read-only.bind="options.readOnly" 
+                            options.bind="controlOptions">
+                        </au-numeric>
+                    </td>
+                    <td>
+                        <au-numeric 
+                            value.bind="data.weight" 
+                            error.bind="error.weight"
+                            read-only.bind="options.readOnly" 
+                            options.bind="controlOptions">
+                        </au-numeric>
+                    </td>
+                    
+                    </tr>
+                </template>
