@@ -1,4 +1,4 @@
-import {inject} from 'aurelia-framework';
+import {inject, computedFrom} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from "./service";
 import {Dialog} from '../../../components/dialog/dialog';
@@ -22,7 +22,6 @@ export class Deal {
         this.service = service;
         this.dialog = dialog;
 
-        this.activities = [];
         this.attachments = [];
 
         this.filter = {
@@ -30,6 +29,8 @@ export class Deal {
             task: true,
             move: true
         };
+
+        this.resetActivityFilter();
 
         this.error = {};
     }
@@ -62,18 +63,18 @@ export class Deal {
     }
 
     async getActivityData() {
-        this.activities = [];
-
         var arg = {
             _id: this.dealId,
-            boardId: this.boardId
+            boardId: this.boardId,
+            page: this.activityFilter.page,
+            size: this.activityFilter.size,
+            order: this.activityFilter.order
         };
 
         await this.service.searchActivity(arg)
             .then((result) => {
-                result.data.sort(function (a, b) {
-                    return new Date(b._createdDate) - new Date(a._createdDate);
-                });
+                this.activityFilter.page++;
+                this.activityFilter.total = result.info.total;
 
                 for (var data of result.data) {
                     switch (data.type) {
@@ -132,6 +133,10 @@ export class Deal {
             });
     }
 
+    loadMore() {
+        this.getActivityData();
+    }
+
     create() {
         var activityData;
         if (document.getElementById("notes-tab").checked) {
@@ -150,6 +155,7 @@ export class Deal {
 
                 this.service.upsertActivityAttachment(activityData)
                     .then((result) => {
+                        this.resetActivityFilter();
                         this.getActivityData();
                         this.resetField();
                     })
@@ -172,6 +178,7 @@ export class Deal {
 
             this.service.createActivity(activityData)
                 .then((result) => {
+                    this.resetActivityFilter();
                     this.getActivityData();
                     this.resetField();
                 })
@@ -192,6 +199,7 @@ export class Deal {
                         activity.dueDate = moment(response.output.dueDate).format("DD MMM YYYY HH:mm");
                     }
                     else {
+                        this.resetActivityFilter();
                         this.getActivityData();
                     }
                 }
@@ -204,6 +212,7 @@ export class Deal {
                 if (response == "ok") {
                     this.service.deleteActivity({ _id: id })
                         .then(result => {
+                            this.resetActivityFilter();
                             this.getActivityData();
                         });
                 }
@@ -283,6 +292,17 @@ export class Deal {
         this.error = {};
     }
 
+    resetActivityFilter() {
+        this.activities = [];
+
+        this.activityFilter = {
+            page: 1,
+            size: 15,
+            total: 0,
+            order: { "_createdDate": "desc" }
+        };    
+    }
+
     editCallback() {
         var params = {
             id: this.dealId,
@@ -309,6 +329,11 @@ export class Deal {
                         });
                 }
             });
+    }
+
+    @computedFrom("activities.length")
+    get isActivitiesEqualTotal() {
+        return this.activityFilter.total == this.activities.length;
     }
 
     cancelCallback() {
