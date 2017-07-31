@@ -29,6 +29,15 @@
         view-model.ref="machineVM">
       </au-autocomplete>
     </td>
+    <td ref="tdArea" width="20%">
+      <au-dropdown
+          value.bind="context.data.proccessArea"
+          items.bind="areaOptions"
+          error.bind="error.proccessArea"
+          options.bind="controlOptions"
+          read-only.bind="(readOnly || isEdit || step.isNotDone)">
+      </au-dropdown>
+    </td>
     <td ref="tdDeadline">
       <au-datetimepicker
         value.bind="context.data.deadline"
