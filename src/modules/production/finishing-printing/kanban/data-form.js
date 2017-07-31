@@ -112,6 +112,7 @@ export class DataForm {
             { header: "No.", value: "index" },
             { header: "Proses", value: "process" },
             { header: "Mesin", value: "machine" },
+            { header: "Area", value: "proccessArea" },
             { header: "Target Selesai", value: "deadline" }
         ],
         onAdd: function () {
