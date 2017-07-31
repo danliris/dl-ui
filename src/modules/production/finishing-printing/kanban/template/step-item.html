@@ -30,12 +30,12 @@
       </au-autocomplete>
     </td>
     <td ref="tdDeadline">
-      <au-datetimepicker
+      <au-datepicker
         value.bind="context.data.deadline"
         error.bind="error.deadline"
         read-only.bind="(readOnly || isEdit || step.isNotDone)"
         options.bind="controlOptions">
-      </au-datetimepicker>
+      </au-datepicker>
     </td>
     <td click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly && !options.disabledStepAdd">
       <button class="btn btn-danger pull-right" click.delegate="onremove(context.data)" if.bind="!step.isNotDone">-</button>
