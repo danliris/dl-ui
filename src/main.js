@@ -33,13 +33,14 @@ export async function configure(aurelia) {
       var auth = "https://dl-auth-api-dev.mybluemix.net/v1/";
       var production = "https://dl-production-webapi-dev.mybluemix.net/v1/";
       var purchasing = "https://dl-purchasing-webapi-dev.mybluemix.net/v1/";
+      var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.mybluemix.net/v1/";
       var inventory = "https://dl-inventory-webapi-dev.mybluemix.net/v1/";
-
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production, defaultConfig);
       config.registerEndpoint('purchasing', purchasing, defaultConfig);
+      config.registerEndpoint('garment-purchasing', garmentPurchasing, defaultConfig);
       config.registerEndpoint('inventory', inventory, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
@@ -60,6 +61,7 @@ export async function configure(aurelia) {
       config.settings.centerHorizontalOnly = false;
       config.settings.startingZIndex = 5;
     })
+    .plugin('aurelia-dragula')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.

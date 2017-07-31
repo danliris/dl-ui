@@ -12,7 +12,12 @@
       <template replaceable part="thead">
         <thead if.bind="!headerTemplate && __hasColumns">
           <tr>
-            <th repeat.for="column of __columns">${column.header}</th>
+            <th repeat.for="column of __columns">
+              <label if.bind="column.value != '__check'">${column.header}</label>
+              <label if.bind="column.value == '__check'">
+                <input type="checkbox" change.delegate="checkAllCallBack($event)"/>  
+              </label>
+            </th>
             <th if.bind="!readOnly && buttons.add"><button click.delegate="onadd($event)" class="btn btn-success pull-right">+</button></th>
           </tr>
         </thead>

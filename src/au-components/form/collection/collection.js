@@ -24,6 +24,7 @@ export class Collection {
 
   @bindable add;
   @bindable remove;
+  @bindable checkAll;
 
   itemsChanged() {
     this.buildContext();
@@ -142,5 +143,10 @@ export class Collection {
       }
       this.remove(event);
     }
+  }
+  
+  checkAllCallBack($event) {
+    dispatchCustomEvent("checkall", this.element, $event);
+    console.log($event);
   }
 }

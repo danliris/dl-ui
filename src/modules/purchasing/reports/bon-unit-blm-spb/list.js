@@ -18,16 +18,13 @@ export class List {
     }
 
      search() {
-        this.service.search(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
+        this.service.search(this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
             })
     }
     reset() {
-        this.no = "undefined";
-        this.unitId = "undefined";
-        this.supplierId = "undefined";
-        this.categoryId = "undefined";
+        
         this.dateFrom = null;
         this.dateTo = null;
     }
