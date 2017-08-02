@@ -1,4 +1,4 @@
-import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
@@ -92,14 +92,14 @@ export class DataForm {
 
     selectedVatChanged(newValue) {
         var _selectedVat = newValue;
-        if (_selectedVat._id) {
+        if (!_selectedVat) {
+            this.data.vatRate = 0;
+            this.data.useVat = false;
+            this.data.vat = {};
+        } else if (_selectedVat._id) {
             this.data.vatRate = _selectedVat.rate ? _selectedVat.rate : 0;
             this.data.useVat = true;
             this.data.vat = _selectedVat;
-        }
-        else {
-            this.data.vatRate = 0;
-            this.data.useVat = false;
         }
     }
 
