@@ -45,13 +45,17 @@ export class List {
     }
 
     rowFormatter(data, index) {
-        if (data.isComplete)
-            return { classes: "success" };
-        else {
-            if (data.isPending())
-                return { classes: "warning" };
-            else
-                return {};
+        if (data.isInactive()) {
+            return {classes: "danger"}
+        } else {
+            if (data.isComplete)
+                return { classes: "success" };
+            else {
+                if (data.isPending())
+                    return { classes: "warning" };
+                else
+                    return {};
+            }
         }
     }
 
