@@ -1,0 +1,57 @@
+<template>
+    <h1 class="page-header">Total Pembelian per Supplier</h1>
+    <form class="form-horizontal">
+        <unit-auto-suggest      label="Unit"                value.bind="unit"></unit-auto-suggest>
+        <category-auto-suggest  label="Kategori"            value.bind="category"></category-auto-suggest>
+        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+        <div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Export Ke Excel</a>
+        </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th class="text-center">Nomor</th>
+                    <th class="text-center">Supplier</th>
+                    <th class="text-center">Unit</th>
+                    <th class="text-center">Kategori</th>
+                    <th class="text-center">Jumlah [Rp]</th>
+                    <th class="text-center">%</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data">
+                    <td class="text-center"> ${$index + 1}</td>
+                    <td class="text-left"> ${item._id.supplier}</td>
+                    <td class="text-center"> ${item._id.unit}</td>
+                    <td class="text-center"> ${item._id.category}</td>
+                    <td class="text-right"> ${amounts[$index]}</td>
+                    <td class="text-right"> ${percentage[$index]}%</td>
+                </tr>
+            </tbody>
+            <tfoot if.bind="data.length > 0">
+                <tr>
+                    <td colspan="4" class="text-center">Total Pembelian . . . . . . . . . :</td>
+                    <td class="text-right">${pricetotals}</td>
+                    <td class="text-right">${percentagetotal}%</td>                    
+                </tr>
+            </tfoot>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak Ada Data Yang Ditemukan.
+        </div>
+        <span if.bind="data.length > 0">
+            * Persentase diatas merupakan hasil pembulatan.
+        </span>
+        <hr/>
+    </form>
+
+</template>

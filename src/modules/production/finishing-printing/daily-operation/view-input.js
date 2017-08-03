@@ -13,6 +13,9 @@ export class ViewInput {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getData(id);
+        this.machine = this.data.machine;
+        this.step = this.data.step;
+        this.kanban = this.data.kanban;
 
         if (this.data.dateOutput == null)
             delete this.data.dateOutput;

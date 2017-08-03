@@ -4,6 +4,7 @@ import { Router } from 'aurelia-router';
 var moment = require("moment");
 
 var StorageLoader = require('../../../../loader/storage-loader');
+var ProductLoader = require('../../../../loader/product-loader');
 
 @inject(Router, Service)
 export class List {
@@ -47,6 +48,7 @@ export class List {
         this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : undefined;
         this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : undefined;
         this.arg.storageId = this.selectedStorage ? this.selectedStorage._id : undefined;
+        this.arg.productId = this.selectedProduct ? this.selectedProduct._id : undefined;
         this.arg.type = this.statusOpt;
     }
 
@@ -82,6 +84,7 @@ export class List {
 
     reset() {
         this.selectedStorage = "";
+        this.selectedProduct = "";
         this.statusOpt = this.statusOptions[0];
         this.dateFrom = null;
         this.dateTo = null;
@@ -100,6 +103,14 @@ export class List {
 
     storageView = (storage) => {
         return `${storage.code} - ${storage.name}`;
+    }
+
+    get productLoader() {
+        return ProductLoader;
+    }
+
+    productView = (product) => {
+        return `${product.code} - ${product.name}`;
     }
 
     autocomplete_change(e) {

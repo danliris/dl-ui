@@ -1,0 +1,89 @@
+<template>
+
+    <style>
+        table > tbody > tr > td {
+            white-space:pre;
+        }
+    </style>
+
+<h1 class="page-header">Monitoring Harga Barang</h1>
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+ 
+            <au-autocomplete 
+                value.bind="productName" 
+                label="Nama barang" 
+                loader.bind="productLoaderName"
+                placeholder="nama barang" 
+                key="code">
+            </au-autocomplete>
+
+            <au-datepicker 
+                label="Tanggal Awal" 
+                value.bind="dateFrom"
+                change.delegate="dateFromChanged($event)" >
+            </au-datepicker>
+
+            <au-datepicker 
+                label="Tanggal Akhir" 
+                value.bind="dateTo"
+                min.bind="dateMin">
+            </au-datepicker>
+
+            <label for="contact" class="col-sm-9 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" border="1" id="poReport">
+            <thead align="center">
+                <tr>
+                    <td rowspan="3">NO</td>
+                    <td colspan="2">PO Ekstern</td>
+                    <td rowspan="3">SUPPLIER</td>
+                    <td colspan="2">INVOICE</td>
+                     
+                    <td rowspan="3">JUMLAH</td>
+                    <td rowspan="3">SATUAN</td>
+                    <td colspan="2">HARGA</td>
+                </tr>                         
+                <tr>
+                    <td rowspan="2">TANGGAL</td>
+                    <td rowspan="2">NOMOR</td>
+                    <td rowspan="2">TANGGAL</td>
+                    <td rowspan="2">NOMOR</td>
+                    <td rowspan="2">NILAI</td>
+                    <td rowspan="2">MATA UANG</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="PO of data">
+                    <td>${PO['No']}</td>
+                    <td>${PO['Tanggal Terima PO Eksternal']}</td>
+                    <td>${PO['No PO Eksternal']}</td>
+                    <td>${PO['Nama Supplier']}</td>
+                    <td>${PO['Tanggal Invoice']}</td>
+                    <td>${PO['No Invoice']}</td>
+                    <td align="right">${(PO['Jumlah Barang']).toLocaleString()}</td>
+                    <td>${PO['Satuan Barang']}</td>
+                    <td align="right">${(PO['Harga Barang']).toLocaleString()}</td>
+                    <td>${PO['Mata Uang']}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        Tidak ada data ditemukan.
+    </div>
+    <hr/>
+</form>
+</template>

@@ -25,7 +25,8 @@ export class List {
             {
                 field: "toBeCompleted", title: "toBeCompleted Checkbox", checkbox: true, sortable: false,
                 formatter: function (value, data, index) {
-                    this.checkboxEnabled = data.isPending();
+                    // this.checkboxEnabled = data.isPending();
+                    this.checkboxEnabled = !data.isDone();
                     return ""
                 }
             },
@@ -39,7 +40,8 @@ export class List {
                     formatter: function (value, data, index) {
                         return value ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
                     }
-            }
+            },
+            { field: "oldKanban.cart.cartNumber", title: "Nomor Kereta Lama" }
         ];
     }
 
@@ -63,7 +65,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            select: ["productionOrder.orderNo", "cart.cartNumber", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType.name", "selectedProductionOrderDetail.colorType", "isComplete", "oldKanban.cart.cartNumber", "currentStepIndex", "instruction.name", "instruction.steps.length"]
         }
 
         return this.service.search(arg)
@@ -77,6 +80,9 @@ export class List {
                         kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.instruction.steps.length}`;
                         kanban.isPending = function(){ // used for custom sort
                             return !this.isComplete && this.currentStepIndex >= this.instruction.steps.length; 
+                        },
+                        kanban.isDone = function() {
+                            return this.isComplete;
                         }
                 }
 
@@ -145,14 +151,14 @@ export class List {
         if (this.dataToBeCompleted.length > 0) {
             var updatePromise = [];
             for (var data of this.dataToBeCompleted){
-                data.isComplete = true;
-                updatePromise.push(this.service.update(data));
+                updatePromise.push(this.service.updateIsComplete(data._id));
             }
 
             Promise.all(updatePromise)
                 .then(responses => {
                     this.error = {};
                     this.table.refresh();
+                    this.dataToBeCompleted = [];
                 })
                 .catch(e => {
                     this.error = e;
@@ -162,5 +168,9 @@ export class List {
   
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    reprocess() {
+        this.router.navigateToRoute('reprocess');
     }
 }

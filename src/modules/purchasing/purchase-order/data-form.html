@@ -20,40 +20,46 @@
                 loader.bind="purchaseRequestPostedLoader"
                 placeholder="cari purchase request" 
                 key="no"
-                read-only.bind="prReadOnly">
+                read-only.bind="prReadOnly"
+                options.bind="controlOptions">
             </au-autocomplete>
 
             <au-datepicker 
                 label="Tgl. PR" 
                 value.bind="data.purchaseRequest.date" 
-                read-only.bind="true">
+                read-only.bind="true"
+                options.bind="controlOptions">
             </au-datepicker>
 
             <au-datepicker 
                 label="Tgl. Diminta Datang" 
                 value.bind="data.purchaseRequest.expectedDeliveryDate"
-                read-only.bind="true">
+                read-only.bind="true"
+                options.bind="controlOptions">
             </au-datepicker>
 
             <au-autocomplete 
                 value.bind="data.purchaseRequest.unit" 
                 label="Unit" 
                 loader.bind="unitLoader"
-                read-only.bind="true">
+                read-only.bind="true"
+                options.bind="controlOptions">
             </au-autocomplete>
 
             <au-autocomplete 
                 value.bind="data.purchaseRequest.category"
                 label="Kategori" 
                 loader.bind="categoryLoader"
-                read-only.bind="true">
+                read-only.bind="true"
+                options.bind="controlOptions">
             </au-autocomplete>
 
             <au-multiline 
                 label="Keterangan" 
                 value.bind="data.purchaseRequest.remark" 
                 placeholder="tambah keterangan" 
-                read-only.bind="true">
+                read-only.bind="true"
+                options.bind="controlOptions">
             </au-multiline>
         </fieldset>
 

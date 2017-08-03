@@ -1,0 +1,47 @@
+<template>
+    <h1 class="page-header">LAPORAN BON TERIMA UNIT YANG BELUM DIBUAT SPB</h1>
+    <form class="form-horizontal">
+        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>                
+            </div>
+        </div>
+        <div>
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <thead align="center">
+                    <tr>
+                        <th style="vertical-align:middle; text-align: center;" rowspan="2">NO</th>
+                        <th style="vertical-align:middle; text-align: center;" rowspan="2">UNIT</th>
+                        <th style="vertical-align:middle; text-align: center;" rowspan="2">SUPPLIER</th>
+                        <th style="vertical-align:middle; text-align: center;" rowspan="2">NOMOR BON TERIMA UNIT</th>
+                    </tr>
+                    <tr>
+                        <th style="vertical-align:middle; text-align: center;">TANGGAL BON TERIMA</th>
+                        <th style="vertical-align:middle; text-align: center;" rowspan="2">USER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="unitReceiptNote of data">
+                        <td align="center">${unitReceiptNote['No']}</td>
+                        <td align="center">${unitReceiptNote['Unit']}</td>
+                        <td align="center">${unitReceiptNote['Supplier']}</td>
+                        <td align="center">${unitReceiptNote['No Bon Terima Unit']}</td>
+                        <td align="center">${unitReceiptNote['Tanggal Bon Terima Unit']}</td>
+                        <td align="center">${unitReceiptNote['User']}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Data Tidak Ditemukan.
+        </div>
+        <hr/>
+    </form>
+</template>

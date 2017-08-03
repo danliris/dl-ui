@@ -8,11 +8,12 @@ export class List {
     data = [];
     listReport = [
         "Top Ten Event Monitoring",
-        "Kapasitas Mesin VS Total Output Produksi",
+        "Kapasitas Mesin vs Kuantiti Kanban vs Kuantiti Output Produksi",
         "Good Output VS Bad Output Produksi",
         "Perbandingan Hasil QC",
         "Top Ten Defect",
     ];
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -34,3 +35,4 @@ export class List {
         this.router.navigateToRoute('view', { id: data.id });
     }
 }
+

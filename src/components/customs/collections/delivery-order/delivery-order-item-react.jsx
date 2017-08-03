@@ -57,7 +57,26 @@ export default class DeliveryOrderItemReact extends React.Component {
         var fulfillments = [];
         for (var purchaseOrder of poCollection) {
             for (var poItem of purchaseOrder.items) {
+                var correctionQty = [];
+                poItem.fulfillments.map((fulfillment) => {
+                    if (fulfillment.correction) {
+                        fulfillment.correction.map((correction) => {
+                            if (correction.correctionRemark == "Koreksi Jumlah") {
+                                correctionQty.push(correction.correctionQuantity < 0 ? correction.correctionQuantity * -1 : correction.correctionQuantity)
+                            }
+                        })
+                    }
+                })
+
+                var isQuantityCorrection = correctionQty.length > 0;
+
                 if ((poItem.dealQuantity - poItem.realizationQuantity) > 0) {
+                    var deliveredQuantity = (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity);
+                    var remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
+                    if (isQuantityCorrection) {
+                        deliveredQuantity += correctionQty.reduce((prev, curr) => prev + curr);;
+                        remainingQuantity += correctionQty.reduce((prev, curr) => prev + curr);;
+                    }
                     var fulfillment = {
                         purchaseOrderId: purchaseOrder._id,
                         purchaseOrder: purchaseOrder,
@@ -65,8 +84,22 @@ export default class DeliveryOrderItemReact extends React.Component {
                         product: poItem.product,
                         purchaseOrderQuantity: poItem.dealQuantity,
                         purchaseOrderUom: poItem.dealUom,
-                        remainingQuantity: poItem.dealQuantity - poItem.realizationQuantity,
-                        deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity),
+                        remainingQuantity: remainingQuantity,
+                        deliveredQuantity: deliveredQuantity,
+                        remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
+                    };
+                    fulfillments.push(fulfillment);
+                }
+                else if (isQuantityCorrection) {
+                    var fulfillment = {
+                        purchaseOrderId: purchaseOrder._id,
+                        purchaseOrder: purchaseOrder,
+                        productId: poItem.product._id,
+                        product: poItem.product,
+                        purchaseOrderQuantity: poItem.dealQuantity,
+                        purchaseOrderUom: poItem.dealUom,
+                        remainingQuantity: poItem.dealQuantity + correctionQty[correctionQty.length - 1],
+                        deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
                         remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                     };
                     fulfillments.push(fulfillment);

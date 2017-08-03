@@ -1,0 +1,82 @@
+<template>
+  <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+        </div>
+        
+        <au-textbox 
+            label="Nomor PR" 
+            value.bind="data.no" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Nomor RO" 
+            value.bind="data.roNo"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Buyer" 
+            value.bind="buyer"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Artikel" 
+            value.bind="data.artikel"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Tgl. PR" 
+            value.bind="data.date" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker 
+            label="Tgl. Shipment" 
+            value.bind="data.shipmentDate" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker 
+            label="Tgl. Diminta Datang" 
+            value.bind="data.expectedDeliveryDate" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-textbox 
+            value.bind="unit" 
+            label="Unit" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.remark"
+            placeholder="tambah keterangan" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="itemsColumns"
+            read-only.bind="true" 
+            item-template="modules/garment-purchasing/purchase-request/template/purchase-request-item">
+        </au-collection>
+
+  </au-input-form>
+</template>

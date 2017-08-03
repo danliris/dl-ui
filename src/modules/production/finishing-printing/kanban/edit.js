@@ -17,6 +17,22 @@ export class Edit {
     var id = params.id;
     this.data = await this.service.getById(id);
     this.data.cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
+
+    var currentIndex = 0, countDoneStep = 0;
+    for(var step of this.data.instruction.steps) {
+      if(step.isNotDone) {
+        if(step.isNotDone == false) {
+          currentIndex++;
+        }
+        else {
+          countDoneStep++;
+        }
+      }
+    }
+
+    this.data.countDoneStep = countDoneStep;
+    this.data.currentIndex = currentIndex;
+    this.productionOrder = this.data.productionOrder;
   }
 
   bind(){

@@ -10,6 +10,15 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
 
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 5
+        }
+    }
+
     storageFields = ["code", "name"];
     constructor(service, bindingEngine) {
         this.service = service;

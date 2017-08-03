@@ -1,0 +1,30 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-danger" click.delegate="context.update($event)" if.one-way="context.isVoid">Void</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+        </div>
+
+        <fieldset>
+            <au-textbox label="NO." value.bind="data.shipmentNumber" error.bind="error.shipmentNumber" read-only.bind="buyerReadOnly"
+                options.bind="deliveryCodeControlOptions"></au-textbox>
+            <au-textbox label="Sesuai DO. No" value.bind="data.deliveryCode" error.bind="error.deliveryCode" read-only.bind="buyerReadOnly"
+                options.bind="deliveryCodeControlOptions"></au-textbox>
+            <au-textbox label="Kode Barang" value.bind="data.productIdentity" error.bind="error.productIdentity" read-only.bind="buyerReadOnly"
+                options.bind="deliveryCodeControlOptions"></au-textbox>
+            <au-autocomplete value.bind="selectedBuyer" error.bind="error.buyerId" label="Buyer" loader.one-time="buyerLoader" placeholder="Cari Buyer"
+                read-only.bind="buyerReadOnly" key="name" text="name" options.bind="buyerControlOptions">
+            </au-autocomplete>
+            <au-textbox label="Tipe Buyer" value.bind="data.buyerType" read-only.bind="true"></au-textbox>
+
+        </fieldset>
+
+        <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.one-time="addDetails"
+            remove.bind="removeDetails" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
+            options.bind="detailOptions">
+        </au-collection>
+
+    </au-input-form>
+</template>

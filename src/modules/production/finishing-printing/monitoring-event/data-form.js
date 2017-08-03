@@ -2,16 +2,18 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 import { Service } from './service';
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis')
+var MachineLoader = require('../../../../loader/machines-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
+    @bindable title;
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-    divisionFilter = 'FINISHING & PRINTING'
+    @bindable productionOrder = {};
+
     machineCodeFilter = '';
-    timePickerShowSecond = false;
-    timePickerFormat = "HH:mm";
     @bindable productionOrderDetails = [];
 
     @bindable localStartDate;
@@ -23,16 +25,23 @@ export class DataForm {
             align: "right"
         },
         control: {
-            length: 8
+            length: 5
         }
     };
+
+    divisionFilter = { "unit.division.name": "FINISHING & PRINTING" };
+
     constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
         this.service = service;
         this.element = element;
     }
 
-    bind() {
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
+
         this.localStartDate = new Date(Date.parse(this.data.dateStart));
         this.localEndDate = new Date(Date.parse(this.data.dateEnd));
 
@@ -53,12 +62,14 @@ export class DataForm {
         this.data.dateEnd = this.localEndDate;
     }
 
-    machineChanged(e) {
+    machineChanged(newValue) {
         delete this.data.machineEvent;
 
-        var selectedMachine = e.detail || {};
-        this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
-        this.machineCodeFilter = selectedMachine.code;
+        var selectedMachine = newValue;
+        // this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
+        this.data.machineId = this.data.machine._id;
+        // this.machineCodeFilter = selectedMachine.code;
+        this.machineCodeFilter = this.data.machine.code;
     }
 
     timeStartChanged(e) {
@@ -83,22 +94,21 @@ export class DataForm {
         }
     }
 
-    async productionOrderChanged(e) {
+    async productionOrderChanged(newValue) {
         this.productionOrderDetails = [];
-
-        var productionOrder = e.detail;
-        if (productionOrder) {
+        var productionOrder = newValue;
+        if (!productionOrder) {
+            delete this.data.selectedProductionOrderDetail;
+        }
+        else if (productionOrder._id) {
             this.productionOrderDetails = await this.service.getProductionOrderDetails(productionOrder.orderNo);
-
-            this.data.productionOrderId = productionOrder._id;
+            this.data.productionOrder = productionOrder;
+            this.data.productionOrderId = this.data.productionOrder._id;
             if (this.hasProductionOrderDetails) {
                 this._mapProductionOrderDetail();
                 this.data.selectedProductionOrderDetail = {};
                 this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
             }
-        }
-        else {
-            delete this.data.selectedProductionOrderDetail;
         }
     }
 
@@ -107,6 +117,7 @@ export class DataForm {
     }
 
     get hasMachine() {
+        // return this.data && this.data.machineId && this.data.machineId !== '';
         return this.data && this.data.machineId && this.data.machineId !== '';
     }
 
@@ -127,4 +138,13 @@ export class DataForm {
         }
         return timeInMoment;
     }
+
+    get machineLoader() {
+        return MachineLoader;
+    }
+
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
+    }
+
 }

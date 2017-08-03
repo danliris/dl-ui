@@ -1,15 +1,42 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
-var moment = require('moment');
+import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
+import { Service } from "./service";
+var SupplierLoader = require('../../../loader/supplier-loader');
 
+@containerless()
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable title;
+    @bindable supplier;
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 5
+        }
+    }
+    itemsInfo = {
+        columns: [{ header: "Nomor PO External", value: "purchaseOrderExternal" }],
+        onAdd: function () {
+            this.context.ItemsCollection.bind();
+            this.data.items.push({ purchaseOrderExternal: { no: "" } });
+        }.bind(this)
+    };
+    // itemsColumns = [{ header: "Nomor PO External", value: "purchaseOrderExternal" }]
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
+    }
+
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
     }
 
     @computedFrom("data._id")
@@ -20,48 +47,33 @@ export class DataForm {
     @computedFrom("data.supplier")
     get filter() {
         var filter = {
-            supplierId: this.data.supplier._id
+            supplierId: this.data.supplierId || {},
+            isEdit: this.isEdit
         }
         return filter;
     }
 
-    attached() {
-        if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
-        }
-    }
-
-    addItem() {
-        this.data.items = this.data.items ? this.data.items : [];
-        this.data.items.push({ showDetails: false });
-    }
-
-    removeItem(item) {
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
-    }
-
-    bind() {
-        if (this.data && this.data.supplier)
-            this.data.supplier.toString = function () {
-                return this.code + " - " + this.name;
-            };
-    }
-
-    supplierChanged(e) {
-        var selectedSupplier = e.detail;
+    supplierChanged(newValue, oldValue) {
+        var selectedSupplier = newValue;
         if (selectedSupplier) {
-            this.data.supplierId = selectedSupplier._id ? selectedSupplier._id : "";
-            if (!this.readOnly)
-                this.data.items = [];
-        }
-        else {
+            if (selectedSupplier._id) {
+                this.data.supplier = selectedSupplier;
+                this.data.supplierId = selectedSupplier._id;
+            }
+        } else {
+            this.data.supplier = {};
             this.data.supplierId = undefined;
-            this.data.items = [];
         }
+        this.data.items = [];
         this.resetErrorItems();
+    }
+
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    supplierView = (supplier) => {
+        return `${supplier.code} - ${supplier.name}`
     }
 
     resetErrorItems() {
