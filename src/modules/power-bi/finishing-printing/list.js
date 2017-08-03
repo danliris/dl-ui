@@ -35,3 +35,4 @@ export class List {
         this.router.navigateToRoute('view', { id: data.id });
     }
 }
+
