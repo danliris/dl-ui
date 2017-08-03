@@ -23,13 +23,11 @@ export class View {
         for(var item of this.data.items){
             item.code=item.packingCode;
         }
-
-        //this.selectedMaterial=this.data.materialConstructionName;
-        //this.data.construction.name=this.data.materialConstructionName;
-        // this.packingReadOnly = true;
-        // this.packing = this.data;
-        // this.packing.code = this.data.packingCode;
-        // this.data.packing = this.data;
+        this.filter={
+                material:this.data.materialName,
+                materialConstructionFinishName: this.data.materialConstructionName,
+                materialWidthFinish: this.data.materialWidthFinish
+            };
     }
 
     cancel(event) {

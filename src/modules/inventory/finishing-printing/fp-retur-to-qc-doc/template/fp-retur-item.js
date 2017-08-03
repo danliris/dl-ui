@@ -27,7 +27,6 @@ export class FPReturToQCItem {
     this.options = context.options;
     this.isShowing = false;
     this.filter = this.context.context.options ? this.context.context.options : {};
-    console.log(this.filter);
     if (this.data) {
       this.selectedPacking = this.data;
       if (this.data.details) {
@@ -44,7 +43,6 @@ export class FPReturToQCItem {
 
   async selectedPackingChanged(newValue) {
     var items=[];
-    console.log(newValue);
     if(newValue){
         if (newValue._id) {
           this.data.packing=newValue;
@@ -59,7 +57,6 @@ export class FPReturToQCItem {
 
           await endpoint.find(resource, { filter: JSON.stringify(newValue.productionOrderId)})
             .then((result) => {
-              console.log(result.info);
               for(var item of result.info){
                 if(item.inventory.length>0){
                   var data={

@@ -16,6 +16,13 @@ export class DataForm {
 
     destinationOptions = ['Pack I', 'Pack II'];
     
+    itemsInfo = {
+        columns: [{ header: "Kode Packing - Nomor Surat Perintah Produksi", value: "productionOrderNo"}],
+        onAdd: function () {
+            this.context.ItemsCollection.bind();
+            this.data.items.push({productionOrderNo: "", code: ""});
+        }.bind(this)
+    };
     itemsColumns = [{ header: "Kode Packing - Nomor Surat Perintah Produksi", value: "productionOrderNo"}];
     materialFields=["name","code"];
     packingFields=["code", "motif", "materialWidthFinish"];
@@ -33,10 +40,12 @@ export class DataForm {
 
         if (this.data.materialId) {
             this.selectedMaterial = await this.service.getProductById(this.data.materialId, this.materialFields);
+            this.data.material =this.selectedMaterial;
            // this.selectedMaterial = this.data.material;
         }
         if (this.data.materialConstructionId) {
             this.selectedConstruction = await this.service.getConstructionById(this.data.materialConstructionId, this.materialFields);
+            this.data.construction=this.selectedConstruction;
         }
     }
 
@@ -44,26 +53,46 @@ export class DataForm {
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
+
+    filter={};
     
-    @computedFrom("data.material" && "data.construction" && "data.materialWidthFinish")
-    get filter(){
-        var filter={
-            material:this.data.materialName,
-            materialConstructionFinishName: this.data.materialConstructionName,
-            materialWidthFinish: {$regex: this.data.materialWidthFinish, "$options": "i" }
-        };
-        return filter;
-    }
+    // @computedFrom("data.material" && "data.construction" && "data.materialWidthFinish")
+    // get getFilter(){
+    //     filter={
+    //             material:this.data.materialName,
+    //             materialConstructionFinishName: this.data.materialConstructionName,
+    //             materialWidthFinish: this.data.materialWidthFinish
+    //         };
+    //     //console.log(filter);
+    //     return filter;
+    // }
 
     tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
 
     selectedMaterialChanged(newValue) {
+        console.log(this.readOnly)
+        if(!this.readOnly){
+        this.data.items = [];
+        console.log(this.error);
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
+        }
         var _selectedMaterial = newValue;
-        if(_selectedMaterial){
-            if (_selectedMaterial._id) {
-                this.data.material = _selectedMaterial;
-                this.data.materialName=_selectedMaterial.name;
-                this.data.materialId = _selectedMaterial._id ? _selectedMaterial._id : "";
+        if (_selectedMaterial && _selectedMaterial._id) {
+            this.data.material = _selectedMaterial;
+            this.data.materialName=_selectedMaterial.name;
+            this.data.materialId = _selectedMaterial._id ? _selectedMaterial._id : "";
+        }
+        if(!this.readOnly){
+            if(this.data.material && this.data.construction){
+                this.filter={
+                    material:this.data.materialName,
+                    materialConstructionFinishName: this.data.materialConstructionName,
+                    materialWidthFinish: this.data.materialWidthFinish
+                };
             }
         }
     }
@@ -71,15 +100,39 @@ export class DataForm {
 
     selectedConstructionChanged(newValue) {
         var _selectedConstruction = newValue;
-        if(_selectedConstruction){
-            if (_selectedConstruction._id) {
-                this.data.construction = _selectedConstruction;
-                this.data.materialConstructionName=_selectedConstruction.name;
-                this.data.materialConstructionId = _selectedConstruction._id ? _selectedConstruction._id : "";
+        if (_selectedConstruction._id) {
+            this.data.construction = _selectedConstruction;
+            this.data.materialConstructionName=_selectedConstruction.name;
+            this.data.materialConstructionId = _selectedConstruction._id ? _selectedConstruction._id : "";
+        }
+        if(!this.readOnly){
+            if(this.data.material && this.data.construction ){
+                this.filter={
+                    material:this.data.materialName,
+                    materialConstructionFinishName: this.data.materialConstructionName,
+                    materialWidthFinish: this.data.materialWidthFinish
+                };
             }
         }
     }
 
+    materialWidthFinishChanged(e){
+        this.data.items = [];
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
+        if(!this.readOnly){
+            if(this.data.material && this.data.construction){
+                this.filter={
+                    material:this.data.materialName,
+                    materialConstructionFinishName: this.data.materialConstructionName,
+                    materialWidthFinish: this.data.materialWidthFinish
+                };
+            }
+        }
+    }
 
     get materialLoader() {
         return ProductLoader;
@@ -92,7 +145,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-             this.data.items.push({productionOrderNo: "", code: ""})
+             this.data.items.push({productionOrderNo: "", code: ""});
         };
     }
 
