@@ -1,10 +1,10 @@
 export class Index {
     configureRouter(config, router) {
         config.map([
-            { route: ['', 'list'], moduleId: './list', name: 'list', nav: false, title: 'List:  Dokumen Inventory' },
-            { route: 'create', moduleId: './create', name: 'create', nav: false, title: 'Create:  Dokumen Inventory' },
-            { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View:   Dokumen Inventory' },
-            { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit:  Dokumen Inventory' },
+            { route: ['', 'list'], moduleId: './list', name: 'list', nav: false, title: 'List:  Retur Barang ke QC' },
+            { route: 'create', moduleId: './create', name: 'create', nav: false, title: 'Create:  Retur Barang ke QC' },
+            { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View:   Retur Barang ke QC' },
+            { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit:  Retur Barang ke QC' },
         ]);
 
         this.router = router;
