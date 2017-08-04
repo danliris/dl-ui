@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "*": 0 },
+            permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "*": 0 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -50,7 +50,7 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }, 
+    },
     {
         route: 'inventory/reports/fp-packing-receipt-report',
         name: 'inventory/reports/fp-packing-receipt-report',
