@@ -57,6 +57,7 @@ export class List {
     fillValues() {
         this.arg.returNo = this.filter.retur ? this.filter.retur.returNo : "";
         this.arg.destination = this.filter.destination ? this.filter.destination : "";
+        this.arg.deliveryOrderNo = this.filter.deliveryOrderNo ? this.filter.deliveryOrderNo : "";
         this.arg.productionOrderNo = this.filter.productionOrder ? this.filter.productionOrder.orderNo : "";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -121,6 +122,8 @@ export class List {
     reset() {
         this.filter = {};
         this.data = [];
+        this.listDataFlag=false;
+        this.returTable.refresh();
     }
 
     ExportToExcel() {
