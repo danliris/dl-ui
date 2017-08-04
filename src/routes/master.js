@@ -205,7 +205,7 @@ module.exports = [
             group: "master",
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
-        
+
         }
     },
     {
@@ -259,5 +259,5 @@ module.exports = [
             permission: { "C9": 1, "A1": 1, "A2": 1 },
             iconClass: 'fa fa-dashboard'
         }
-  }
+    }
 ] 
