@@ -13,7 +13,8 @@ export class List {
         "Total Nilai Pembelian",
         "Supplier Tepat Waktu",
         "Perbandingan Purchase Order",
-        "Top Ten Supplier per Total SPB"
+        "Top Ten Supplier per Total SPB",
+        "Top Pembelian per Kategori"
     ];
     constructor(router, service) {
         this.router = router;
