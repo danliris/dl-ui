@@ -132,7 +132,7 @@ export class DataForm {
         return (keyword) => {
             var info = { keyword: keyword, select: this.productionOrderFields };
             return this.service.searchProductionOrder(info)
-                .then(result => {
+                .then((result) => {
                     return result.data;
                 });
         }

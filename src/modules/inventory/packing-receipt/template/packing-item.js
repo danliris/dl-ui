@@ -23,6 +23,12 @@ export class PackingItem {
     }
   }
 
+  quantityControlOptions = {
+    control: {
+      length:1
+    }
+  }
+
   quantityChanged(e) {
     console.log(this.data);
     // this.data.quantity = this.data.quantity ? this.data.quantity : 0;
@@ -33,11 +39,11 @@ export class PackingItem {
   }
 
   get weightTotal() {
-    return this.data.weight * this.data.quantity;
+    return (this.data.weight * this.data.quantity).toFixed(2);
   }
 
   get lengthTotal() {
-    return this.data.length * this.data.quantity;
+    return (this.data.length * this.data.quantity).toFixed(2);
   }
 
 }

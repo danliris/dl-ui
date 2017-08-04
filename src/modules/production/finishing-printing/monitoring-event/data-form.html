@@ -18,8 +18,8 @@
                     options.bind="auInputOptions">
                 </au-autocomplete>
 
-                <au-autocomplete value.bind="data.productionOrder" error.bind="error.productionOrder" label="Nomor Order Produksi" loader.bind="productionOrderLoader"
-                    change.delegate="productionOrderChanged($event)" placeholder="Cari Nomor Order Produksi" read-only.bind="(readOnly)"
+                <au-autocomplete value.bind="productionOrder" error.bind="error.productionOrder" label="Nomor Order Produksi" loader.bind="productionOrderLoader"
+                    placeholder="Cari Nomor Order Produksi" read-only.bind="(readOnly)"
                     key="orderNo" text="orderNo" options.bind="auInputOptions">
                 </au-autocomplete>
 
