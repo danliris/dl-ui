@@ -31,6 +31,10 @@ export class Service extends RestService {
             query = (query === '') ? `destination=${info.destination}` : `${query}&destination=${info.destination}`;
         }
 
+        if (info.deliveryOrderNo) {
+            query = (query === '') ? `deliveryOrderNo=${info.deliveryOrderNo}` : `${query}&deliveryOrderNo=${info.deliveryOrderNo}`;
+        }
+
         if (info.productionOrderNo) {
             query = (query === '') ? `productionOrderNo=${info.productionOrderNo}` : `${query}&productionOrderNo=${info.productionOrderNo}`;
         }
