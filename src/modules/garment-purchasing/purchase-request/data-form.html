@@ -6,6 +6,13 @@
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
         </div>
+        
+        <au-textbox 
+            label="Nomor PR" 
+            value.bind="data.no" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
 
         <au-textbox 
             label="Nomor RO" 
@@ -16,7 +23,7 @@
 
         <au-textbox 
             label="Buyer" 
-            value.bind="data.buyer"
+            value.bind="buyer"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -28,16 +35,16 @@
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox 
-            label="Nomor PR" 
-            value.bind="data.no" 
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-textbox>
-
         <au-datepicker 
             label="Tgl. PR" 
             value.bind="data.date" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker 
+            label="Tgl. Shipment" 
+            value.bind="data.shipmentDate" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-datepicker>
@@ -52,13 +59,6 @@
         <au-textbox 
             value.bind="unit" 
             label="Unit" 
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-textbox>
-
-        <au-textbox 
-            value.bind="category" 
-            label="Kategori" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>

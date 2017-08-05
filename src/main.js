@@ -35,7 +35,7 @@ export async function configure(aurelia) {
       var purchasing = "https://dl-purchasing-webapi-dev.mybluemix.net/v1/";
       var garmentPurchasing = "http://127.0.0.1:9060/v1/";
       var inventory = "https://dl-inventory-webapi-dev.mybluemix.net/v1/";
-    
+
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production, defaultConfig);
@@ -61,6 +61,7 @@ export async function configure(aurelia) {
       config.settings.centerHorizontalOnly = false;
       config.settings.startingZIndex = 5;
     })
+    .plugin('aurelia-dragula')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.

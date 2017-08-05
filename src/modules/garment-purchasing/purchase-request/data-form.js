@@ -1,7 +1,7 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework'
 var UnitLoader = require('../../../loader/unit-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
-var CategoryLoader = require('../../../loader/category-loader');
+var CategoryLoader = require('../../../loader/garment-category-loader');
 
 export class DataForm {
     @bindable readOnly = false;
@@ -24,17 +24,20 @@ export class DataForm {
     }
 
     itemsColumns = [
+        { header: "Nomor Referensi PR", value: "refNo" },
         { header: "Barang", value: "product" },
+        { header: "Kategori", value: "category" },
         { header: "Jumlah", value: "quantity" },
-        { header: "Satuan", value: "product.uom" },
+        { header: "Satuan", value: "uom" },
+        { header: "Harga Budget", value: "budgetPrice" },
         { header: "Keterangan", value: "remark" }
     ]
+
+    get buyer() {
+		return `${this.data.buyer.code} - ${this.data.buyer.name}`;
+	}
     
     get unit() {
 		return `${this.data.unit.code} - ${this.data.unit.name}`;
-	}
-
-    get category() {
-		return `${this.data.category.code} - ${this.data.category.name}`;
 	}
 }

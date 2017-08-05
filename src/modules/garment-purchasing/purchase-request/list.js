@@ -5,18 +5,17 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  context = ["Rincian", "Cetak PDF"]
+  context = ["Rincian"]
 
   columns = [
     { field: "no", title: "Nomor PR" },
-    { field: "refNo", title: "Nomor Referensi PR" },
     { field: "roNo", title: "Nomor RO" },
     {
       field: "shipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "buyer", title: "Buyer" },
+    { field: "buyer.name", title: "Buyer" },
     {
       field: "unit", title: "Unit", formatter: function (value, row, index) {
         return `${value.division.name} - ${value.name}`;
@@ -33,12 +32,16 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["no", "refNo", "roNo", "shipmentDate", "buyer", "unit.name", "unit.division.name","isPosted"],
+      select: ["no", "roNo", "shipmentDate", "buyer.name", "unit.name", "unit.division.name", "isPosted"],
       order: order
     }
 
     return this.service.search(arg)
       .then(result => {
+        var data = {}
+        data.total = result.info.total;
+        data.data = result.data;
+        // return data;
         return {
           total: result.info.total,
           data: result.data
@@ -58,18 +61,6 @@ export class List {
       case "Rincian":
         this.router.navigateToRoute('view', { id: data._id });
         break;
-      case "Cetak PDF":
-        this.service.getPdfById(data._id);
-        break;
-    }
-  }
-
-  contextShowCallback(index, name, data) {
-    switch (name) {
-      case "Cetak PDF":
-        return data.isPosted;
-      default:
-        return true;
     }
   }
 
