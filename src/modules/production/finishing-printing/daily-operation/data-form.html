@@ -104,7 +104,28 @@
                         </div>
                     </div>
                     
-                    <au-multiline
+                    <au-dropdown
+                        label="Tindakan untuk Bad Output"
+                        value.bind="data.action"
+                        error.bind="error.action"
+                        read-only.bind="readOnlyOutput"
+                        items.bind="actionOptions"
+                        if.bind="output"
+                        options.bind="auDropdownInputOptions">
+                    </au-dropdown>
+
+                    <au-collection 
+                        items.bind="data.badOutputReasons" 
+                        columns.bind="badOutputInfo.columns" 
+                        add.bind="badOutputInfo.onAdd" 
+                        remove.bind="badOutputInfo.onRemove"
+                        title="Details Keterangan Bad Output" 
+                        read-only.bind="readOnlyOutput" 
+                        if.bind="output"
+                        item-template="modules/production/finishing-printing/daily-operation/template/bad-output-item">
+                    </au-collection>
+                    
+                    <!--<au-multiline
                         label="Keterangan Bad Output"
                         value.bind="data.badOutputDescription"
                         error.bind="error.badOutputDescription"
@@ -112,7 +133,7 @@
                         if.bind="output"
                         placeholder=" "
                         options.bind="auInputOptions">
-                    </au-multiline>
+                    </au-multiline>-->
                 </fieldset>
             </div>
             <div  class="col-md-6" style="padding:0">

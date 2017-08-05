@@ -259,5 +259,18 @@ module.exports = [
       permission: { "C9": 1 },
       iconClass: 'fa fa-dashboard'
     }
+  },
+  {
+    route: 'bad-output-reasons',
+    name: 'bad-output-reasons',
+    moduleId: './modules/master/bad-output-reason/index',
+    nav: true,
+    title: 'Keterangan Bad Output',
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
   }
 ] 

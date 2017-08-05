@@ -1,0 +1,35 @@
+<template>
+    <tr>
+        <td>
+            <au-autocomplete 
+                value.bind="badOutputReason" 
+                error.bind="error.badOutputReason" 
+                loader.bind="badOutputReasonLoader" 
+                placeholder="search Keterangan Bad Output" 
+                key="code"
+                text="reason" 
+                read-only.bind="(readOnly || isEdit)"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td>
+            <au-numeric
+                value.bind="data.presentation"
+                error.bind="error.presentation"
+                read-only.bind="(readOnly || isEdit)"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.description"
+                error.bind="error.description"
+                read-only.bind="(readOnly || isEdit)"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
+        </td>
+     </tr>
+</template>

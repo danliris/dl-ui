@@ -52,8 +52,24 @@ export class DataForm {
     };
 
     shiftOptions = ['','Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
+    actionOptions = ['','Reproses', 'Digudangkan', 'Dibuang'];
     timePickerShowSecond = false;
     timePickerFormat = "HH:mm";
+
+    badOutputInfo = {
+        columns: [
+            { header: "Alasan", value: "badOutputReason" },
+            { header: "Presentase Alasan %", value: "Presentation" },
+            { header: "Keterangan", value: "description" }
+        ],
+        onAdd: function () {
+            this.data.badOutputReasons = this.data.badOutputReasons || [];
+            this.data.badOutputReasons.push({ badOutputReason: "", presentation : 0, description : "" });
+        }.bind(this),
+        onRemove: function () {
+            console.log("bad output reason removed");
+        }.bind(this)
+    };
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
