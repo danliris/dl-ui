@@ -259,5 +259,18 @@ module.exports = [
             permission: { "C9": 1, "A1": 1, "A2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'duration-estimations',
+        name: 'duration-estimations',
+        moduleId: './modules/master/fp-duration-estimation/index',
+        nav: true,
+        title: 'Estimasi Durasi Produksi',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1, "A1": 1, "A2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ] 

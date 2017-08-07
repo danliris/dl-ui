@@ -1,0 +1,24 @@
+<template>
+    <tr>
+        <td  class="col-sm-3">
+            <au-dropdown
+                value.bind="data.name"
+                error.bind="error.name"
+                read-only.bind="readOnly"
+                items.bind="listAreaName"  
+                options.bind="controlOptions">
+            </au-dropdown>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric 
+                value.bind="data.duration" 
+                error.bind="error.duration"
+                read-only.bind="options.readOnly" 
+                format="0"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+    </tr>
+</template>
+
