@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission : {"C9":1},
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,10 +47,10 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission : {"C9":1},
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }, 
+    },
     {
         route: 'inventory/reports/fp-packing-receipt-report',
         name: 'inventory/reports/fp-packing-receipt-report',
@@ -60,7 +60,61 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission : {"C9":1},
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }]
+    }, 
+    {
+        route: 'inventory/finishing-printing/fp-retur-to-qc-doc',
+        name: 'inventory/finishing-printing/fp-retur-to-qc-doc',
+        moduleId: './modules/inventory/finishing-printing/fp-retur-to-qc-doc/index',
+        nav: true,
+        title: 'Retur Barang ke QC',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission : { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+        
+    },
+    {
+        route: "inventory/finishing-printing/reports/fp-retur-to-qc-doc-report",
+        name: "inventory/finishing-printing/reports/fp-retur-to-qc-doc-report",
+        moduleId: "modules/inventory/finishing-printing/reports/fp-retur-to-qc-doc-report/index",
+        nav: true,
+        title: "Laporan Retur Barang ke QC",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "inventory/finishing-printing/fp-shipment-document",
+        name: "inventory/finishing-printing/fp-shipment-document",
+        moduleId: "modules/inventory/finishing-printing/fp-shipment-document/index",
+        nav: true,
+        title: "Pengiriman Barang Gudang Jadi",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "inventory/finishing-printing/reports/fp-shipment-document-report",
+        name: "inventory/finishing-printing/reports/fp-shipment-document-report",
+        moduleId: "modules/inventory/finishing-printing/reports/fp-shipment-document-report/index",
+        nav: true,
+        title: "Laporan Pengiriman Barang Gudang Jadi",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    }
+]
