@@ -3,6 +3,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
+    @bindable item;
     @bindable title;
 
     constructor(service, bindingSignaler, bindingEngine) {

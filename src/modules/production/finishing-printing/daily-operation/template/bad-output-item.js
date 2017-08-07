@@ -1,5 +1,5 @@
 import { bindable } from 'aurelia-framework'
-var MachineLoader = require('../../../../../loader/machine-loader');
+var BadOutputReasonLoader = require('../../../../../loader/bad-output-reason-loader');
 
 export class BadOutputItem {
     @bindable badOutputReason;
@@ -8,6 +8,8 @@ export class BadOutputItem {
         this.error = context.error;
         this.options = context.options;
         this.badOutputReason = this.data.badOutputReason;
+        this.filter = context.context.options;
+        //console.log(context);
     }
 
     controlOptions = {
@@ -15,8 +17,12 @@ export class BadOutputItem {
         length: 12
         }
     };
+
+    get badOutputReasonLoader() {
+        return BadOutputReasonLoader;
+    }
     
-    badOutputReasonChanged(newValue) {
+    badOutputReasonChanged(newValue, oldValue) {
         if(newValue){
             this.data.badOutputReason = newValue;
             this.data.badOutputReasonId = newValue._id;
@@ -25,4 +31,5 @@ export class BadOutputItem {
             delete this.data.badOutputReasonId;
         }
     }
+
 }

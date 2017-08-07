@@ -9,6 +9,7 @@
                 key="code"
                 text="reason" 
                 read-only.bind="(readOnly || isEdit)"
+                query.bind="filter"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
@@ -29,7 +30,7 @@
             </au-textbox>
         </td>
         <td if.bind="!options.readOnly">
-            <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
         </td>
      </tr>
 </template>

@@ -12,6 +12,11 @@ export class Edit {
         this.service = service;
     }
 
+    bind() {
+        this.data = { machines: [] };
+        this.error = {};
+    }
+
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);

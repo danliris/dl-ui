@@ -23,12 +23,18 @@ export class Create {
     }
 
     save(event) {
-        this.service.create(this.data)
-            .then(result => {
-                this.back();
-            })
-            .catch(e => {
-                this.error = e;
-            })
+        if(this.data.machines.length > 0){
+            this.item = "";
+            this.service.create(this.data)
+                .then(result => {
+                    this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                })
+                .catch(e => {
+                    this.error = e;
+                    
+                })
+        }else{
+            this.item = "machine is required";
+        }
     }
 }

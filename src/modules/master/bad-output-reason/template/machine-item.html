@@ -3,7 +3,7 @@
         <td>
             <au-autocomplete 
                 value.bind="machine" 
-                error.bind="error" 
+                error.bind="error.name" 
                 loader.bind="machineLoader" 
                 placeholder="search mesin" 
                 key="name"
@@ -14,7 +14,7 @@
             </au-autocomplete>
         </td>
         <td if.bind="!options.readOnly">
-            <button class="btn btn-danger pull-right" click.delegate="onremove(temp)">-</button>
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
         </td>
      </tr>
 </template>
