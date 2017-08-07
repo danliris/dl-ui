@@ -261,6 +261,19 @@ module.exports = [
         }
     },
     {
+        route: 'duration-estimations',
+        name: 'duration-estimations',
+        moduleId: './modules/master/fp-duration-estimation/index',
+        nav: true,
+        title: 'Estimasi Durasi Produksi',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1, "A1": 1, "A2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'bad-output-reasons',
         name: 'bad-output-reasons',
         moduleId: './modules/master/bad-output-reason/index',
@@ -268,9 +281,9 @@ module.exports = [
         title: 'Keterangan Bad Output',
         auth: true,
         settings: {
-        group: "master",
-        permission: { "C9": 1 },
-        iconClass: 'fa fa-dashboard'
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
         }
     }
 ] 

@@ -115,6 +115,7 @@
                     </au-dropdown>
 
                     
+                    <au-layout error.bind="error.badOutputReasons" if.bind="hasError"></au-layout>
                     <au-collection 
                         items.bind="data.badOutputReasons"
                         errors.bind="error.badOutputReasons" 
