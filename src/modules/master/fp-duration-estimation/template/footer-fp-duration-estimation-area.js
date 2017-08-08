@@ -9,7 +9,7 @@ export class DetailFooter {
 
   get duration() {
     var qty = this.context.items
-      .map((item) => item.data.duration);
+      .map((item) => parseInt(item.data.duration));
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
