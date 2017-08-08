@@ -41,6 +41,7 @@ export class List {
       { field: "destination", title: "Tujuan", sortable:false},
       { field: "deliveryOrderNo", title: "No. DO", sortable:false},
       { field: "returDesc", title: "Keterangan Retur", sortable:false},
+      { field: "finishedGoodCode", title: "Kode Barang", sortable:false},
       { field: "orderNo", title: "No. Order", sortable:false},
       { field: "productName", title: "Nama Barang", sortable:false},
       { field: "remark", title: "Keterangan", sortable:false},
@@ -57,6 +58,7 @@ export class List {
     fillValues() {
         this.arg.returNo = this.filter.retur ? this.filter.retur.returNo : "";
         this.arg.destination = this.filter.destination ? this.filter.destination : "";
+        this.arg.deliveryOrderNo = this.filter.deliveryOrderNo ? this.filter.deliveryOrderNo : "";
         this.arg.productionOrderNo = this.filter.productionOrder ? this.filter.productionOrder.orderNo : "";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -93,6 +95,7 @@ export class List {
                                 data.destination = retur.destination ? retur.destination : '';
                                 data.deliveryOrderNo = retur.deliveryOrderNo ? retur.deliveryOrderNo : '';
                                 data.returDesc = retur.remark ? retur.remark : '';
+                                data.finishedGoodCode =retur.finishedGoodCode ? retur.finishedGoodCode : '';
                                 data.orderNo = item.productionOrderNo ? item.productionOrderNo : '';
                                 data.productName = detail.productName ? detail.productName : '';
                                 data.remark =detail.remark ? detail.remark : '';
@@ -121,6 +124,8 @@ export class List {
     reset() {
         this.filter = {};
         this.data = [];
+        this.listDataFlag=false;
+        this.returTable.refresh();
     }
 
     ExportToExcel() {
