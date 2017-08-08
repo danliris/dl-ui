@@ -32,7 +32,7 @@ export class Numeric {
 
   bind() {
     // this.value = this.value || 0;
-    this.value = this.placeholder ? "" :  this.value || 0;
+    this.value = this.placeholder ? "" : this.value || 0;
     this.format = this.format || "0,000.00";
   }
 
@@ -55,6 +55,9 @@ export class Numeric {
       (keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
       // Allow: home, end, left, right
       (keyCode >= 35 && keyCode <= 39)) {
+      if (keyCode == 190 && this.value.split('.').length === 2) {
+        e.preventDefault();
+      }
       // let it happen, don't do anything 
       return;
     }
