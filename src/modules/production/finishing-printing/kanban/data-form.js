@@ -1,5 +1,5 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
-import {Service} from './service';
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
+import { Service } from './service';
 
 var InstructionLoader = require('../../../../loader/instruction-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
@@ -65,7 +65,7 @@ export class DataForm {
             this.kereta = "Kereta Baru";
         }
 
-        if(this.isReprocess) {
+        if (this.isReprocess) {
             var self = this;
             this.data.reprocessStatus = true;
 
@@ -103,7 +103,7 @@ export class DataForm {
             this.data.carts.push({ cartNumber: "", qty: 0, uom: this.data.cart ? this.data.cart.uom ? this.data.cart.uom.unit : 'MTR' : 'MTR', pcs: 0 });
         }.bind(this),
         onRemove: function () {
-            
+
         }.bind(this)
     };
 
@@ -128,7 +128,7 @@ export class DataForm {
         onRemove: function () {
             this.context.StepsCollection.bind();
 
-            if(this.isReprocess || this.oldKanbanStatus)
+            if (this.isReprocess || this.oldKanbanStatus)
                 this.data.currentIndex--;
         }.bind(this)
     };
@@ -161,7 +161,7 @@ export class DataForm {
             delete this.data.oldKanban.code;
             delete this.data.oldKanban._version;
             delete this.data.oldKanban._deleted;
-            
+
             delete this.data.cart;
             delete this.data._id;
             delete this.data._active;
@@ -306,16 +306,16 @@ export class DataForm {
     }
 
     changeInstruction(reprocess) {
-        if(reprocess != this.currentReprocess) {
+        if (reprocess != this.currentReprocess) {
             this.options.reprocessStepsHide = false;
             this.options.disabledStepAdd = false;
             this.data.instruction.steps = this.data.reprocessSteps.Reproses;
 
             if (reprocess === this.data.LANJUT_PROSES) {
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.options.disabledStepAdd = true;
                     this.data.instruction.steps = this.data.reprocessSteps.LanjutProses;
-                }, 1);   
+                }, 1);
             }
 
             this.currentReprocess = reprocess;
