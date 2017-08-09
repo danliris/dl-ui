@@ -15,6 +15,10 @@ export class CreateOutput {
 
     }
 
+    bind(){
+        this.data = {};
+    }
+
     list() {
         this.router.navigateToRoute('list');
     }
@@ -35,6 +39,7 @@ export class CreateOutput {
             })
             .catch(e => {
                 this.error = e;
+                
             })
     }
 }
