@@ -142,7 +142,7 @@ export class DataForm {
     }
 
     get hasError(){
-        return this.output && this.error.badOutputReasons && this.error.badOutputReasons.length === 0;
+        return this.output && this.error && this.error.badOutputReasons && this.error.badOutputReasons.length === 0;
     }
 
     get getFilterReason(){
