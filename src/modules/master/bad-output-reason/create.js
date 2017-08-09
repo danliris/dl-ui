@@ -11,7 +11,11 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
+    }
+
+    bind(){
+        this.data = { machines:[] };
+        this.error = {};
     }
 
     activate(params) {
@@ -27,11 +31,11 @@ export class Create {
             this.item = "";
             this.service.create(this.data)
                 .then(result => {
-                    this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                    //console.log(result);
+                    this.router.navigateToRoute('create', {}, {replace:true, trigger:true});
                 })
                 .catch(e => {
                     this.error = e;
-                    
                 })
         }else{
             this.item = "machine is required";

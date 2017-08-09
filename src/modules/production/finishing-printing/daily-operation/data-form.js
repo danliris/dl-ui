@@ -142,7 +142,11 @@ export class DataForm {
     }
 
     get hasError(){
-        return this.output && this.error && this.error.badOutputReasons && this.error.badOutputReasons.length === 0;
+        return this.output && this.error && this.error.badOutputReasons && typeof this.error.badOutputReasons === "string";
+    }
+
+    get hasBadOutput(){
+        return this.data && this.data.machineId && this.data.machineId !== "" && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
     get getFilterReason(){
