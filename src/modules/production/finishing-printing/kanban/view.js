@@ -13,6 +13,15 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+
+    if (this.data.isReprocess) {
+      this.data.output = "Kanban Reproses";
+    } else if (this.data.oldKanban._id && !this.data.isReprocess) {
+      this.data.output = "Kanban Lanjut Proses";
+    } else {
+      this.data.output = "Kanban Baru";
+    }
+
     this.data.cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
     this.productionOrder = this.data.productionOrder;
   }
@@ -23,16 +32,16 @@ export class View {
 
   editCallback(event) {
     this.router.navigateToRoute('edit', { id: this.data._id });
-  }   
-   
+  }
+
   deleteCallback(event) {
     this.service.delete(this.data)
-        .then(result => {
-          this.cancelCallback();
-        });
-  }  
+      .then(result => {
+        this.cancelCallback();
+      });
+  }
 
-  get isView(){
+  get isView() {
     return true;
   }
 }

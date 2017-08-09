@@ -35,6 +35,7 @@ export class CreateOutput {
             })
             .catch(e => {
                 this.error = e;
+                
             })
     }
 }

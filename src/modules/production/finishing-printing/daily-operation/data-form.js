@@ -52,16 +52,37 @@ export class DataForm {
     };
 
     shiftOptions = ['','Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
+    actionOptions = ['','Reproses', 'Digudangkan', 'Dibuang'];
     timePickerShowSecond = false;
     timePickerFormat = "HH:mm";
+
+    badOutputInfo = {
+        columns: [
+            { header: "Alasan", value: "badOutputReason" },
+            { header: "Presentase Alasan %", value: "Presentation" },
+            { header: "Keterangan", value: "description" }
+        ],
+        onAdd: function () {
+            // this.context.ItemsCollection.bind()
+            this.data.badOutputReasons = this.data.badOutputReasons || [];
+            this.data.badOutputReasons.push({ badOutputReason: "", presentation : 0, description : "" });
+        }.bind(this),
+        onRemove: function () {
+            console.log("bad output reason removed");
+        }.bind(this)
+    };
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
     }
 
-    bind()
+    bind(context)
     {
+        //console.log(context);
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
         this.localInputDate = new Date(Date.parse(this.data.dateInput));
         this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
         
@@ -120,6 +141,24 @@ export class DataForm {
         return this.data && this.data.kanban;
     }
 
+    get hasError(){
+        return this.output && this.error && this.error.badOutputReasons && this.error.badOutputReasons.length === 0;
+    }
+
+    get getFilterReason(){
+        this.filterReason = {};
+        if(this.data.machine){
+            this.filterReason = {
+                "machines" : {
+                    "$elemMatch" : {
+                        "code" : this.data.machine.code
+                    }
+                }
+            }
+        }
+        return this.filterReason;
+    }
+
     kanbanChanged(newValue, oldValue){
         var selectedKanban = newValue;
 
@@ -155,18 +194,25 @@ export class DataForm {
 
     machineChanged(newValue, oldValue) {
         var selectedMachine = newValue;
-
         if(selectedMachine) {
             this.data.machine = selectedMachine;
             this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
+            this.filterReason = {
+                "machines" : {
+                    "$elemMatch" : {
+                        "code" : this.data.machine.code
+                    }
+                }
+            }
         }
         else {
             this.data.machine = undefined;
             delete this.data.machineId;
+            this.filterReason = {};
         }
-
+        console.log(this.ItemsCollection);
+        console.log(this.stepAU);
         this.stepAU.editorValue = "";
-
         this.kanbanAU.editorValue = "";
     }
 
