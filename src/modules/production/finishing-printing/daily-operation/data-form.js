@@ -214,8 +214,16 @@ export class DataForm {
             delete this.data.machineId;
             this.filterReason = {};
         }
-        console.log(this.ItemsCollection);
-        console.log(this.stepAU);
+        if(this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0){
+            var count = this.data.badOutputReasons.length;
+            console.log(this.data.badOutputReasons);
+            for(var a = count; a >= 0; a--){
+                this.data.badOutputReasons.splice((a-1), 1);
+            }
+            console.log(this.data.badOutputReasons);
+        }
+        // console.log(this.ItemsCollection);
+        // console.log(this.stepAU);
         this.stepAU.editorValue = "";
         this.kanbanAU.editorValue = "";
     }
