@@ -111,11 +111,10 @@
                         read-only.bind="readOnlyOutput"
                         items.bind="actionOptions"
                         if.bind="output"
+                        show.bind="hasBadOutput"
                         options.bind="auDropdownInputOptions">
                     </au-dropdown>
 
-                    
-                    <au-layout error.bind="error.badOutputReasons" if.bind="hasError"></au-layout>
                     <au-collection 
                         items.bind="data.badOutputReasons"
                         errors.bind="error.badOutputReasons" 
@@ -127,9 +126,10 @@
                         view-model.ref="ItemsCollection"
                         options.one-way="filterReason || getFilterReason"
                         if.bind="output"
-                        show.bind="hasMachine"
+                        show.bind="hasBadOutput"
                         item-template="modules/production/finishing-printing/daily-operation/template/bad-output-item">
                     </au-collection>
+                    <au-layout error.bind="error.badOutputReasons" if.bind="hasError"></au-layout>
                     
                     <!--<au-multiline
                         label="Keterangan Bad Output"

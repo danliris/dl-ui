@@ -14,7 +14,6 @@ export class MachineItem {
     this.filterMachine = {
             "unit.division.name" : "FINISHING & PRINTING"
         }
-    console.log(context);
   }
 
   get machineLoader() {
