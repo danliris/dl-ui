@@ -142,7 +142,11 @@ export class DataForm {
     }
 
     get hasError(){
-        return this.output && this.error && this.error.badOutputReasons && this.error.badOutputReasons.length === 0;
+        return this.output && this.error && this.error.badOutputReasons && typeof this.error.badOutputReasons === "string";
+    }
+
+    get hasBadOutput(){
+        return this.data && this.data.machineId && this.data.machineId !== "" && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
     get getFilterReason(){
@@ -210,8 +214,16 @@ export class DataForm {
             delete this.data.machineId;
             this.filterReason = {};
         }
-        console.log(this.ItemsCollection);
-        console.log(this.stepAU);
+        if(this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0){
+            var count = this.data.badOutputReasons.length;
+            console.log(this.data.badOutputReasons);
+            for(var a = count; a >= 0; a--){
+                this.data.badOutputReasons.splice((a-1), 1);
+            }
+            console.log(this.data.badOutputReasons);
+        }
+        // console.log(this.ItemsCollection);
+        // console.log(this.stepAU);
         this.stepAU.editorValue = "";
         this.kanbanAU.editorValue = "";
     }
