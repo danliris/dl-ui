@@ -10,7 +10,8 @@ export class List {
         "Top Ten Konstruksi",
         "Top Ten Buyer",
         "Total Order Produksi",
-        "Status Order Produksi"
+        "Status Order Produksi",
+        "Sales Contract Aktif"
     ];
     constructor(router, service) {
         this.router = router;
