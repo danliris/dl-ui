@@ -59,13 +59,13 @@ export class DataForm {
     badOutputInfo = {
         columns: [
             { header: "Alasan", value: "badOutputReason" },
-            { header: "Presentase Alasan %", value: "Presentation" },
+            { header: "Persentase Alasan %", value: "precentage" },
             { header: "Keterangan", value: "description" }
         ],
         onAdd: function () {
             // this.context.ItemsCollection.bind()
             this.data.badOutputReasons = this.data.badOutputReasons || [];
-            this.data.badOutputReasons.push({ badOutputReason: "", presentation : 0, description : "" });
+            this.data.badOutputReasons.push({ badOutputReason: "", precentage : 0, description : "" });
         }.bind(this),
         onRemove: function () {
             console.log("bad output reason removed");

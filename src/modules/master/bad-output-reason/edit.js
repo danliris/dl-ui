@@ -15,6 +15,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.error = {};
+        this.item = "";
     }
 
     cancel() {
@@ -23,6 +25,7 @@ export class Edit {
 
     save() {
         if(this.data.machines.length > 0){
+            this.item = "";
             this.service.update(this.data)
                 .then(result => {
                     this.cancel();

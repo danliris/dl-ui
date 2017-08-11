@@ -3,6 +3,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
+    @bindable error = {};
     @bindable item;
     @bindable title;
 
@@ -16,6 +17,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.item = this.context.item;
     }
 
     controlOptions = {
