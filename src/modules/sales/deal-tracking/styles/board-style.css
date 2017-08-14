@@ -141,7 +141,7 @@
 	margin-bottom: 5px;
 }
 
-#dragula .fa-pencil-square-o, #dragula .fa-trash-o {
+#dragula .kanban__title .fa-pencil-square-o, #dragula .kanban__title .fa-trash-o {
 	cursor: pointer;
 	font-size: 1.5em;
 }
