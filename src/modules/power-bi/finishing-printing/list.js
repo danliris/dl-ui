@@ -11,6 +11,9 @@ export class List {
         "Kapasitas Mesin vs Kuantiti Kanban vs Kuantiti Output Produksi",
         "Perbandingan Hasil QC",
         "Top Ten Defect",
+        "Good Output vs Bad Output All",
+        "Good Output vs Bad Output Per Jenis Order",
+        "Kanban Aktif"
     ];
     
     constructor(router, service) {
