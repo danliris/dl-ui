@@ -156,7 +156,7 @@ module.exports = [
         }
     },
     {
-        route: 'do',
+        route: 'delivery-order',
         name: 'delivery-order',
         moduleId: './modules/purchasing/delivery-order/index',
         nav: true,

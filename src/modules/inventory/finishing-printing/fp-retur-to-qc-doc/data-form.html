@@ -1,0 +1,112 @@
+<template>
+    <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.update($event)"     if.one-way="context.isVoid">Void</button>
+        </div>
+
+        <fieldset>
+            <au-textbox 
+                label="Nomor Retur" 
+                value.bind="data.returNo" 
+                error.bind="error.returNo" 
+                read-only.bind="true"
+                if.bind="(readOnly || isEdit)"
+                options.bind="controlOptions">
+            </au-textbox>
+
+            <au-datepicker 
+                label="Tanggal Retur" 
+                value.bind="data.date" 
+                error.bind="error.date" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-datepicker>
+
+            <au-dropdown
+                label="Tujuan"
+                value.bind="data.destination"
+                error.bind="error.destination"
+                read-only.bind="readOnly"
+                items.bind="destinationOptions"
+                options.bind="controlOptions">
+            </au-dropdown>
+
+            <au-textbox 
+                label="Nomor DO" 
+                value.bind="data.deliveryOrderNo" 
+                error.bind="error.deliveryOrderNo" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+
+            <au-multiline 
+                label="Keterangan Retur" 
+                value.bind="data.remark"
+                placeholder="keterangan" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-multiline>
+
+            <au-textbox 
+                label="Kode Barang" 
+                value.bind="data.finishedGoodCode" 
+                error.bind="error.finishedGoodCode" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+            
+            <au-autocomplete 
+                value.bind="selectedMaterial" 
+                error.bind="error.materialId"
+                label="Material" 
+                loader.bind="materialLoader"
+                text.bind = "materialView"
+                query.bind="tagsFilter"
+                placeholder="cari material" 
+                key="code" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
+
+            <au-autocomplete 
+                value.bind="selectedConstruction" 
+                error.bind="error.materialConstructionId"
+                label="Konstruksi Finish" 
+                loader.bind="constructionLoader"
+                text.bind = "constructionView"
+                placeholder="cari konstruksi" 
+                key="code" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
+
+            <au-textbox 
+                label="Lebar Finish" 
+                value.bind="data.materialWidthFinish" 
+                error.bind="error.materialWidthFinish" 
+                read-only.bind="readOnly"
+                change.delegate="materialWidthFinishChanged($event)"
+                options.bind="controlOptions">
+            </au-textbox>
+        </fieldset>        
+
+        <au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="itemsInfo.columns"
+            add.bind="itemsInfo.onAdd"
+            if.bind="filter.material && filter.materialConstructionFinishName && data.materialWidthFinish"
+            remove.bind="removeItems"
+            view-model.ref="ItemsCollection"
+            options.one-way="filter || getFilter"
+            read-only.bind="readOnly"
+            
+            item-template="modules/inventory/finishing-printing/fp-retur-to-qc-doc/template/fp-retur-item">
+        </au-collection>
+  </au-input-form>
+</template>
