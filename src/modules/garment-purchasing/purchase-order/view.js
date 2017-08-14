@@ -20,7 +20,7 @@ export class View {
         this.hasDelete = !this.data.items
             .map((item) => item.isClosed)
             .reduce((prev, curr, index) => {
-                return prev || curr
+                return prev && curr
             }, true);
     }
 
