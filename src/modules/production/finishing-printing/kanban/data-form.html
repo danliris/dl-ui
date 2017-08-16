@@ -143,7 +143,7 @@
     <radiobutton
       label="Reproses"
       value.bind="data.reprocess"
-      if.bind="isReprocess && data.instruction"
+      if.bind="isReprocess && hasInstruction"
       read-only.bind="readOnly"
       error.bind="error.reprocess"
       selections.bind="reprocess"
@@ -247,18 +247,18 @@
       value.bind="data.instruction" 
       error.bind="error.instruction"
       label="Instruksi" 
-      loader.bind="instructionLoader"
+      loader.one-time="instructionLoader"
       placeholder="search instruction" 
       key="code"
       text="name"
       read-only.bind="readOnly || isReprocess || oldKanbanStatus"
       options.bind="controlOptions"
-      if.bind="isReprocess ? (data.instruction ? true : false) : true">
+      if.bind="isReprocess ? hasInstruction : true">
     </au-autocomplete>
 
     <table 
       class="table table-hover" 
-      if.bind="hasInstruction && !data.reprocessStatus && !options.reprocessStepsHide">
+      show.bind="hasInstruction && !data.reprocessStatus && !options.reprocessStepsHide">
         <tr>
           <td class="col-md-10">
             <au-collection 
