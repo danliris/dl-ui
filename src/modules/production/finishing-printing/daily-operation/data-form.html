@@ -104,7 +104,34 @@
                         </div>
                     </div>
                     
-                    <au-multiline
+                    <au-dropdown
+                        label="Tindakan untuk Bad Output"
+                        value.bind="data.action"
+                        error.bind="error.action"
+                        read-only.bind="readOnlyOutput"
+                        items.bind="actionOptions"
+                        if.bind="output"
+                        show.bind="hasBadOutput"
+                        options.bind="auDropdownInputOptions">
+                    </au-dropdown>
+
+                    <au-collection 
+                        items.bind="data.badOutputReasons"
+                        errors.bind="error.badOutputReasons" 
+                        columns.bind="badOutputInfo.columns" 
+                        add.bind="badOutputInfo.onAdd" 
+                        remove.bind="badOutputInfo.onRemove"
+                        title="Details Keterangan Bad Output"
+                        read-only.bind="readOnlyOutput"
+                        view-model.ref="ItemsCollection"
+                        options.one-way="filterReason || getFilterReason"
+                        if.bind="output"
+                        show.bind="hasBadOutput"
+                        item-template="modules/production/finishing-printing/daily-operation/template/bad-output-item">
+                    </au-collection>
+                    <au-layout error.bind="error.badOutputReasons" if.bind="hasError"></au-layout>
+                    
+                    <!--<au-multiline
                         label="Keterangan Bad Output"
                         value.bind="data.badOutputDescription"
                         error.bind="error.badOutputDescription"
@@ -112,7 +139,7 @@
                         if.bind="output"
                         placeholder=" "
                         options.bind="auInputOptions">
-                    </au-multiline>
+                    </au-multiline>-->
                 </fieldset>
             </div>
             <div  class="col-md-6" style="padding:0">

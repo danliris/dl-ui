@@ -67,7 +67,8 @@ export class ShipmentDetail {
                         },
                         "quantity": {
                             "$gt": 0
-                        }
+                        },
+                        "storageName": "Gudang Jadi Finishing Printing"
                     }
                     var infoInventory = { filter: JSON.stringify(filterInventory) };
                     this.inventoryResults = await this.service.searchInventory(infoInventory);

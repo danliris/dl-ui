@@ -126,6 +126,8 @@ export class Collection {
   onremove(item) {
     var itemIndex = this.items.indexOf(item);
     this.items.splice(itemIndex, 1);
+    if(this.errors && this.errors.length > 0)
+        this.errors.splice(itemIndex, 1);
 
     if (this.remove && typeof this.remove === "function") {
       let event;
