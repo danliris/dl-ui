@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -10,7 +10,12 @@ export class List {
         "Top Ten Konstruksi",
         "Top Ten Buyer",
         "Total Order Produksi",
-        "Status Order Produksi"
+        "Status Order Produksi",
+        "Sales Contract Aktif",
+        "Summary Sales Contract Berdasarkan Tanggal Dibuat",
+        "Summary Sales Contract Berdasarkan Tanggal Pengiriman",
+        "Sales Contract Per Tanggal Dibuat",
+        "Sales Contract Per Tanggal Delivery"
     ];
     constructor(router, service) {
         this.router = router;

@@ -5,7 +5,7 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
-  
+
   selectedProductionOrderDetail = {};
 
   constructor(router, service) {
@@ -19,9 +19,9 @@ export class Edit {
     this.data.cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
 
     var currentIndex = 0, countDoneStep = 0;
-    for(var step of this.data.instruction.steps) {
-      if(step.isNotDone) {
-        if(step.isNotDone == false) {
+    for (var step of this.data.instruction.steps) {
+      if (step.isNotDone) {
+        if (step.isNotDone == false) {
           currentIndex++;
         }
         else {
@@ -30,19 +30,27 @@ export class Edit {
       }
     }
 
+    if (this.data.isReprocess) {
+      this.data.output = "Kanban Reproses";
+    } else if (this.data.oldKanban._id && !this.data.isReprocess) {
+      this.data.output = "Kanban Lanjut Proses";
+    } else {
+      this.data.output = "Kanban Baru";
+    }
+
     this.data.countDoneStep = countDoneStep;
     this.data.currentIndex = currentIndex;
     this.productionOrder = this.data.productionOrder;
   }
 
-  bind(){
-      if (this.data.selectedProductionOrderDetail.colorRequest){
-          this.data.selectedProductionOrderDetail.toString = function(){
-              return `${this.colorRequest}`;  
-          };
-      }
+  bind() {
+    if (this.data.selectedProductionOrderDetail.colorRequest) {
+      this.data.selectedProductionOrderDetail.toString = function () {
+        return `${this.colorRequest}`;
+      };
+    }
 
-      this.error = {};   
+    this.error = {};
   }
 
   cancelCallback(event) {
@@ -60,9 +68,9 @@ export class Edit {
       .catch(e => {
         this.error = e;
       })
-  } 
+  }
 
-  get isEdit(){
+  get isEdit() {
     return true;
   }
 }

@@ -1,4 +1,4 @@
-<template>
+ <template>
 
     <style>
         table > tbody > tr > td {
@@ -89,7 +89,7 @@
             <thead align="center">
                 <tr>
                     <td rowspan="3">NO</td>
-                    <td colspan="2">PURCHASE REQUEST</td>
+                    <td colspan="3">PURCHASE REQUEST</td>
                     <td rowspan="3">KATEGORI</td>
                     <td rowspan="3">BUDGET</td>
                     <td rowspan="3">NAMA BARANG</td>
@@ -114,6 +114,7 @@
                 </tr>
                 <tr>
                     <td rowspan="2">TANGGAL</td>
+                    <td rowspan="2">TGL DIMINTA DATANG</td>
                     <td rowspan="2">NOMOR</td>
                     <td rowspan="2">SATUAN</td>
                     <td rowspan="2">TOTAL</td>
@@ -153,6 +154,7 @@
                 <tr repeat.for="PO of data">
                     <td>${PO['No']}</td>
                     <td>${PO['Tanggal Purchase Request']}</td>
+                    <td>${PO['Tanggal Diminta Datang PR']}</td>
                     <td>${PO['No Purchase Request']}</td>
                     <td>${PO['Kategori']}</td>
                     <td>${PO['Budget']}</td>

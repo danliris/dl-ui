@@ -18,7 +18,9 @@ export class DataForm {
     @bindable selectedCategory;
     @bindable options = { isUseIncomeTax: false };
 
-    termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
+    termPaymentImportOptions = ['T/T PAYMENT', 'CMT IMPORT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentLocalOptions = ['DAN LIRIS', 'CMT LOKAL', 'FREE FROM BUYER', 'SAMPLE'];
+
     freightCostByOptions = ['Penjual', 'Pembeli'];
     controlOptions = {
         label: {
@@ -70,7 +72,26 @@ export class DataForm {
 
     @computedFrom("data.supplierId")
     get supplierType() {
-        return (this.data.supplier.import || false) ? "Import" : "Lokal";
+        if (this.data.supplier) {
+            if (this.data.supplier.import)
+                return "Import"
+            else
+                return "Lokal"
+        }
+        else
+            return "Lokal"
+    }
+
+    @computedFrom("data.supplierId")
+    get supplierIsImport() {
+        if (this.data.supplier) {
+            if (this.data.supplier.import)
+                return true
+            else
+                return false
+        }
+        else
+            return false
     }
 
     selectedSupplierChanged(newValue) {
