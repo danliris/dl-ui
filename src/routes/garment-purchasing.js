@@ -89,4 +89,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment/invoice-note',
+        name: 'invoice-note',
+        moduleId: './modules/garment-purchasing/invoice-note/index',
+        nav: true,
+        title: 'Nota Invoice',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
