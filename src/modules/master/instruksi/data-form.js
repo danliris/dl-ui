@@ -24,6 +24,7 @@ export class DataForm {
         columns: [
             { header: "No.", value: "index" },
             { header: "Step", value: "step" },
+            { header: "Area", value: "processArea" }
         ],
         onAdd: function () {
             this.data.steps = this.data.steps || [];
