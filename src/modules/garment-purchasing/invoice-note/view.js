@@ -6,36 +6,20 @@ import {Service} from './service';
 @inject(Router, Service)
 export class View {
     hasCancel = true;
-    hasEdit = false;
-    hasDelete = false;
+    hasEdit = true;
+    hasDelete = true;
 
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
-    isReceived = false;
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.supplier = this.data.supplier;
-        this.isReceived = this.data.items
-            .map((item) => {
-                var _isReceived = item.fulfillments
-                    .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
-                    .reduce((prev, curr, index) => {
-                        return prev || curr
-                    }, false);
-                return _isReceived
-            })
-            .reduce((prev, curr, index) => {
-                return prev || curr
-            }, false);
-
-        if (!this.isReceived) {
-            this.hasDelete = true;
-            this.hasEdit = true;
-        }
+        this.currency = this.data.currency;
+        this.vat = this.data.vat;
     }
 
     cancel(event) {
