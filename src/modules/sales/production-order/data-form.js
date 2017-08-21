@@ -2,11 +2,16 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 var moment = require('moment');
 import { Service } from './service';
 
+
+var FinishingPrintingSalesContractLoader = require('../../../loader/finishing-printing-sales-contract-loader');
+var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
+
 @inject(BindingEngine, Element, Service)
 export class DataForm {
   @bindable readOnly = false;
   @bindable data = {};
   @bindable error = {};
+  @bindable salesContract;
 
   lampHeader = [{ header: "Standar Lampu" }];
   
@@ -16,6 +21,7 @@ export class DataForm {
     this.bindingEngine = bindingEngine;
     this.element = element;
     this.service = service;
+    
     this.filterAccount = {
             "roles" : {
                 "$elemMatch" : { 
@@ -32,6 +38,11 @@ export class DataForm {
       "tags" :"material"
     }
   }
+  
+
+  get fpSalesContractLoader() {
+        return FinishingPrintingSalesContractLoader;
+    }
 
   @computedFrom("data.dataId")
   get isEdit() {
@@ -87,6 +98,12 @@ export class DataForm {
             this.run=true;
         }
       return this.run;
+  }
+
+  salesContractChanged(e){
+      this.data.salesContractId=this.data.salesContract._id ? this.data.salesContract._id : "";
+      this.data.salesContractNo=this.data.salesContract.salesContractNo ? this.data.salesContract.salesContractNo: "";
+    
   }
   
     orderChanged(e){
@@ -271,11 +288,17 @@ export class DataForm {
   }
   // NEW CODE
 
-
-  bind() {
+scFields=["salesContractNo"];
+  async bind() {
     this.data = this.data || {};
     this.data.lampStandards = this.data.lampStandards || [];
     this.data.details = this.data.details || [];
+
+    if (this.data.salesContractNo) {
+            this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
+            this.data.salesContract =this.selectedSC;
+           // this.selectedMaterial = this.data.material;
+        }
   }
 
   get addLamp() {
