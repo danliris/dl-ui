@@ -32,7 +32,7 @@ export class View {
                 return prev || curr
             }, false);
 
-        if (!this.isReceived) {
+        if (!this.isReceived || !this.data.hasInvoice) {
             this.hasDelete = true;
             this.hasEdit = true;
         }
