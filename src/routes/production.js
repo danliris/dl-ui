@@ -70,7 +70,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: {  "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -136,7 +136,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/bad-output-kanban',
+        name: 'kanban',
+        moduleId: './modules/production/finishing-printing/bad-output-kanban/index',
+        nav: true,
+        title: 'Kanban Pengganti Bad Output',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -162,7 +175,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1  },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -231,7 +244,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-     {
+    {
         route: 'production/finishing-printing/reports/bad-output-report',
         name: 'badoutput',
         moduleId: './modules/production/finishing-printing/reports/bad-output-report/index',
