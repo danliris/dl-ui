@@ -4,6 +4,8 @@ var StepLoader = require('../../../../loader/step-loader');
 export class StepItem {
   @bindable temp;
 
+  areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing"];
+
   activate(context) {
     console.log("step-Item")
     this.context = context;
@@ -38,6 +40,8 @@ export class StepItem {
       this.context.context.selectedStep.tdStep.removeAttribute("class");
       if (this.context.context.selectedStep.tdButton)
         this.context.context.selectedStep.tdButton.removeAttribute("class");
+      if (this.context.context.selectedStep.tdprocessArea)
+        this.context.context.selectedStep.tdprocessArea.removeAttribute("class");
     }
 
     var index = this.context.context.items.indexOf(this.context);
@@ -48,10 +52,11 @@ export class StepItem {
     }
 
     this.tdStep.setAttribute("class", "active");
+    this.tdProcessArea.setAttribute("class", "active");
     if (this.tdButton)
       this.tdButton.setAttribute("class", "active");
 
-    this.context.context.selectedStep = { data: step, index: index, tdStep: this.tdStep, tdButton: this.tdButton };
+    this.context.context.selectedStep = { data: step, index: index, tdStep: this.tdStep, tdProcessArea: this.tdProcessArea, tdButton: this.tdButton };
     console.log("item clicked");
     console.log(this.context);
   } 

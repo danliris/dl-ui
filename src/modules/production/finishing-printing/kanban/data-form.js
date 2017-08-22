@@ -227,8 +227,9 @@ export class DataForm {
         return this.data.selectedProductionOrderDetail;
     }
 
+    @computedFrom("data.instruction")
     get hasInstruction() {
-        return this.data.instruction;
+        return this.data.instruction ? this.data.instruction.steps.length > 0 : false;
     }
 
     get instructionLoader() {
