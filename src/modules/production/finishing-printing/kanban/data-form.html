@@ -9,14 +9,6 @@
     with.bind="context"
     options.bind="formOptions">
 
-    <au-checkbox
-      label="Pengganti Bad Output"
-      value.bind="data.isBadOutput"
-      read-only.bind="readOnly"
-      options.bind="controlOptions"
-      if.bind="!isReprocess">
-    </au-checkbox>
-
     <au-autocomplete 
       value.bind="productionOrder" 
       error.bind="error.productionOrder"
