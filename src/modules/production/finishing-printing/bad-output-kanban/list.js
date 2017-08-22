@@ -63,8 +63,7 @@ export class List {
         var order = {};
         var filter = {
             isBadOutput: true
-        }
-        debugger
+        };
         if (info.sort)
             order[info.sort] = info.order;
 
