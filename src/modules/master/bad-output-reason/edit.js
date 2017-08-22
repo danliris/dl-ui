@@ -12,14 +12,11 @@ export class Edit {
         this.service = service;
     }
 
-    bind() {
-        this.data = { machines: [] };
-        this.error = {};
-    }
-
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.error = {};
+        this.item = "";
     }
 
     cancel() {
@@ -27,12 +24,17 @@ export class Edit {
     }
 
     save() {
-        this.service.update(this.data)
-            .then(result => {
-                this.cancel();
-            })
-            .catch(e => {
-                this.error = e;
-            })
+        if(this.data.machines.length > 0){
+            this.item = "";
+            this.service.update(this.data)
+                .then(result => {
+                    this.cancel();
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+        }else{
+            this.item = "machine is required";
+        }
     }
 }

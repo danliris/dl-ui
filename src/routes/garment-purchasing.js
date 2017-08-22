@@ -76,4 +76,56 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment/delivery-order',
+        name: 'delivery-order',
+        moduleId: './modules/garment-purchasing/delivery-order/index',
+        nav: true,
+        title: 'Surat Jalan',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/customs',
+        name: 'customs',
+        moduleId: './modules/garment-purchasing/customs/index',
+        nav: true,
+        title: 'Bea Cukai',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/monitoring-customs',
+        name: 'monitoring-customs',
+        moduleId: './modules/garment-purchasing/monitoring-customs/index',
+        nav: true,
+        title: 'Monitoring Bea Cukai',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/invoice-note',
+        name: 'invoice-note',
+        moduleId: './modules/garment-purchasing/invoice-note/index',
+        nav: true,
+        title: 'Nota Invoice',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]

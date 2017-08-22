@@ -9,9 +9,11 @@ export class List {
     listReport = [
         "Top Ten Event Monitoring",
         "Kapasitas Mesin vs Kuantiti Kanban vs Kuantiti Output Produksi",
-        "Good Output VS Bad Output",
         "Perbandingan Hasil QC",
         "Top Ten Defect",
+        "Good Output vs Bad Output All",
+        "Good Output vs Bad Output Per Jenis Order",
+        "Kanban Aktif"
     ];
     
     constructor(router, service) {

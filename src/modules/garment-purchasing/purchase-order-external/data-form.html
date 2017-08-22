@@ -72,9 +72,21 @@
             value.bind="data.paymentMethod"
             error.bind="error.paymentMethod"
             read-only.bind="readOnly"
-            items.bind="termPaymentOptions"  
+            items.bind="termPaymentImportOptions"  
             change.delegate="paymentMethodChanged($event)"
-            options.bind="controlOptions">
+            options.bind="controlOptions"
+            if.bind="supplierIsImport">
+        </au-dropdown>
+
+        <au-dropdown
+            label="Term Pembayaran"
+            value.bind="data.paymentMethod"
+            error.bind="error.paymentMethod"
+            read-only.bind="readOnly"
+            items.bind="termPaymentLocalOptions"  
+            change.delegate="paymentMethodChanged($event)"
+            options.bind="controlOptions"
+            if.bind="!supplierIsImport">
         </au-dropdown>
 
         <numeric 

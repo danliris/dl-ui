@@ -59,13 +59,13 @@ export class DataForm {
     badOutputInfo = {
         columns: [
             { header: "Alasan", value: "badOutputReason" },
-            { header: "Presentase Alasan %", value: "Presentation" },
+            { header: "Persentase Alasan %", value: "precentage" },
             { header: "Keterangan", value: "description" }
         ],
         onAdd: function () {
             // this.context.ItemsCollection.bind()
             this.data.badOutputReasons = this.data.badOutputReasons || [];
-            this.data.badOutputReasons.push({ badOutputReason: "", presentation : 0, description : "" });
+            this.data.badOutputReasons.push({ badOutputReason: "", precentage : 0, description : "" });
         }.bind(this),
         onRemove: function () {
             console.log("bad output reason removed");
@@ -142,7 +142,11 @@ export class DataForm {
     }
 
     get hasError(){
-        return this.output && this.error && this.error.badOutputReasons && this.error.badOutputReasons.length === 0;
+        return this.output && this.error && this.error.badOutputReasons && typeof this.error.badOutputReasons === "string";
+    }
+
+    get hasBadOutput(){
+        return this.data && this.data.machineId && this.data.machineId !== "" && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
     get getFilterReason(){
@@ -210,8 +214,16 @@ export class DataForm {
             delete this.data.machineId;
             this.filterReason = {};
         }
-        console.log(this.ItemsCollection);
-        console.log(this.stepAU);
+        if(this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0){
+            var count = this.data.badOutputReasons.length;
+            console.log(this.data.badOutputReasons);
+            for(var a = count; a >= 0; a--){
+                this.data.badOutputReasons.splice((a-1), 1);
+            }
+            console.log(this.data.badOutputReasons);
+        }
+        // console.log(this.ItemsCollection);
+        // console.log(this.stepAU);
         this.stepAU.editorValue = "";
         this.kanbanAU.editorValue = "";
     }
