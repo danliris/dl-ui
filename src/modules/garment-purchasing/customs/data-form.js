@@ -12,6 +12,7 @@ export class DataForm {
     @bindable data = {};
     @bindable title;
     @bindable amount;
+    @bindable item;
     typeCustoms = ["","BC 262", "BC 23","BC 40", "BC 27"]
 
     constructor(service, bindingSignaler, bindingEngine) {

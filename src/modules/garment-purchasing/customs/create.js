@@ -18,6 +18,7 @@ export class Create {
     bind() {
         this.data = { deliveryOrders: [] };
         this.error = {};
+        this.item = "";
     }
 
     cancel(event) {
@@ -41,31 +42,39 @@ export class Create {
         }
         var dataCustoms = Object.assign({}, this.data);
         var items = [];
-        if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.lenght > 0){
+        var isSelectedData = false;
+        if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.length > 0){
+            this.item = "";
             for(var a of dataCustoms.deliveryOrders){
-                if(a && a.selected)
+                if(a && a.selected){
                     items.push(a);
+                    isSelectedData = true;
+                }
             }
             dataCustoms.deliveryOrders = items;
         }
-        this.service.create(dataCustoms)
-            .then(result => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
-            })
-            .catch(e => {
-                this.error = e;
-                if(e.deliveryOrders.lenght > 0){
-                    var itemErrors = [];
-                    for(var a of this.data.deliveryOrders){
-                        var error = {};
-                        var item = e.deliveryOrders.find(dataItem => dataItem.dOrderNumber === a.no)
-                        if(item)
-                            error["no"] = item.no;
-                        itemErrors.push(error);
+        if(isSelectedData){
+            this.service.create(dataCustoms)
+                .then(result => {
+                    alert("Data berhasil dibuat");
+                    this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                })
+                .catch(e => {
+                    this.error = e;
+                    if(e.deliveryOrders.lenght > 0){
+                        var itemErrors = [];
+                        for(var a of this.data.deliveryOrders){
+                            var error = {};
+                            var item = e.deliveryOrders.find(dataItem => dataItem.dOrderNumber === a.no)
+                            if(item)
+                                error["no"] = item.no;
+                            itemErrors.push(error);
+                        }
+                        this.error.deliveryOrders = itemErrors;
                     }
-                    this.error.deliveryOrders = itemErrors;
-                }
-            })
+                })
+        }else{
+            this.item = "Surat Jalan Harus dipilih";
+        }
     }
 }
