@@ -30,6 +30,7 @@ export class Migrate {
     }
 
     tables = ["", "Budget & POrder", "Budget1 & POrder1"];
+    tables2 = ["latest", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     activate(params) {
     }
