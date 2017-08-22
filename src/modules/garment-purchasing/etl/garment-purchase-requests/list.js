@@ -17,8 +17,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-
-
+        { field: "migrated", title: "migrated" },
     ];
 
     loader = (info) => {
@@ -31,7 +30,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["no", "roNo", "date", "artikel"]
+            select: ["no", "roNo", "date", "artikel", "migrated"]
         }
 
         return this.service.search(arg)
