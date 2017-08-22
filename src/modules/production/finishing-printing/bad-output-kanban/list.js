@@ -62,7 +62,7 @@ export class List {
     loadData = (info) => {
         var order = {};
         var filter = {
-            isBadOutput: false
+            isBadOutput: true
         };
         if (info.sort)
             order[info.sort] = info.order;
@@ -70,8 +70,8 @@ export class List {
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            keyword: info.search,
             filter: JSON.stringify(filter),
+            keyword: info.search,
             order: order,
             select: ["productionOrder.orderNo", "cart.cartNumber", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType.name", "selectedProductionOrderDetail.colorType", "isComplete", "oldKanban.cart.cartNumber", "currentStepIndex", "instruction.name", "instruction.steps.length"]
         }

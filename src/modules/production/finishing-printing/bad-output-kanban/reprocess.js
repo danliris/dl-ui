@@ -61,6 +61,7 @@ export class Reprocess {
         event.event.toElement.disabled = true;
 
         var createPromise = [];
+        this.data.isBadOutput = true;
         this.data.productionOrderId = this.data.productionOrder ? this.data.productionOrder._id : {};
         this.data.instructionId = this.data.instruction ? this.data.instruction._id : {};
         this.data.currentStepIndex = 0;
