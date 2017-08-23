@@ -23,6 +23,7 @@
                 placeholder="Cari Supplier" 
                 read-only.bind="readOnly" 
                 key="_id" 
+                text="name"
                 options.bind="controlOptions">
             </au-autocomplete>
 
@@ -72,6 +73,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <require from="../../../lib/number-format-value-converter"></require>
                     <tr repeat.for="item of data">
                         <td class="text-center">${item._id.customsType}</td>
                         <td class="text-center">${item._id.no}</td>
@@ -83,7 +85,7 @@
                         <td class="text-center">${item._id.productName}</td>
                         <td class="text-right">${item.quantity}</td>
                         <td class="text-center">${item._id.uom}</td>
-                        <td class="text-right">${item.price}</td>
+                        <td class="text-right">${item.price | numberFormat:"0,000.00"}</td>
                         <td class="text-center">${item._id.currency}</td>
                     </tr>
                 </tbody>
