@@ -1,8 +1,14 @@
 <template>
+    <au-input-form title.bind="title" with.bind="context">
     <form class="form-horizontal">
         <div class="row">
             <div  class="col-md-6" style="padding:0">
-                <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only.bind="(readOnly || isEdit)" ></textbox>
+              <div class="col-sm-10" style="padding-left:18%">
+                <au-autocomplete value.bind="data.salesContract" label="Nomor Sales Contract"  error.bind="error.salesContractNo" read-only.bind="(readOnly)"
+                    loader.bind="fpSalesContractLoader" placeholder="cari nomor sales kontrak " key="salesContractNo" text="salesContractNo"  change.delegate="salesContractChanged($event)" if.bind="!readOnly">
+                </au-autocomplete>
+              </div>
+                <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only.bind="(readOnly || isEdit)" if.bind="readOnly"></textbox>
                 <textbox                    label="No. Order Produksi"  value.bind="data.orderNo"       error.bind="error.orderNo"                       read-only="true"  if.bind="data.orderNo"></textbox>
                 <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
                 <textbox                    label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
@@ -80,6 +86,7 @@
         <span style="color:red">-Detail Warna harus diisi dan Jumlah Total pada detail harus sama dengan jumlah order .</span>
       </div>
     </form>
+    </au-input-form>
 </template>
 
       

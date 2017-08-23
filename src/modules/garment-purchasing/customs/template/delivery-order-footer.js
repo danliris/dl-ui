@@ -20,7 +20,7 @@ export class DeliveryOrderFooter {
       var quantity = 0;
       for(var a of this.context.items){
           if(a.data.selected)
-            quantity += a.data.price;
+            quantity += Number(a.data.price);
       }
       return quantity;
     // var qty = this.context.items

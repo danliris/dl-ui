@@ -34,7 +34,7 @@ export class Create {
         
     console.log(this.error);
         this.data.accepted = true;
-        this.data.date = moment().format("YYYY-MM-DD");
+        //this.data.date = moment().format("YYYY-MM-DD");
         this.service.create(this.data)
             .then((result) => {
                 alert("Data berhasil dibuat");
