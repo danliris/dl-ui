@@ -78,6 +78,8 @@ export class DataForm {
             this.data.supplier = {};
             this.data.supplierId = undefined;
         }
+        this.data.shipmentType = "";
+        this.data.shipmentNo = "";
         this.data.items = [];
         this.resetErrorItems();
     }
@@ -95,6 +97,13 @@ export class DataForm {
             if (this.error.items) {
                 this.error.items = [];
             }
+        }
+    }
+
+    shipmentTypeChanged(e) {
+        var selectedPayment = e.srcElement.value;
+        if (selectedPayment) {
+            this.data.shipmentNo = "";
         }
     }
 } 

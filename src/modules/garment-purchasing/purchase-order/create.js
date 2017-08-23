@@ -5,7 +5,7 @@ import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
-    dataToBePosted = [];
+    dataToBeSaved = [];
     @bindable data = [];
 
     tableOptions = {
@@ -16,12 +16,17 @@ export class Create {
 
     itemsColumns = [
         { header: " ", value: "__check" },
-        { header: "Nomor PR", value: "no" },
         { header: "Nomor RO", value: "roNo" },
-        { header: "Tgl. Shipment", value: "shipmentDate" },
+        { header: "Nomor PR", value: "no" },
+        { header: "Nomor Ref. PO", value: "items.refNo" },
         { header: "Buyer", value: "buyer" },
+        { header: "Unit", value: "unit" },
         { header: "Artikel", value: "artikel" },
-        { header: "Unit", value: "unit" }
+        { header: "Tgl. Shipment", value: "shipmentDate" },
+        { header: "Kategori", value: "items.category" },
+        { header: "Nama Barang", value: "items.product" },
+        { header: "Jumlah", value: "items.quantity" },
+        { header: "Satuan", value: "items.uom" }
     ];
 
     constructor(router, service) {
@@ -40,16 +45,16 @@ export class Create {
     }
 
     save(event) {
-        this.dataToBePosted = this.data.filter(function (item) {
+        this.dataToBeSaved = this.data.filter(function (item) {
             return item.check
         });
-        if (this.dataToBePosted.length === 0) {
+        if (this.dataToBeSaved.length === 0) {
             alert(`Purchase Request belum dipilih`);
         }
         else {
-            this.service.create(this.dataToBePosted)
+            this.service.create(this.dataToBeSaved)
                 .then(result => {
-                    alert(`${this.dataToBePosted.length} data berhasil ditambahkan`);
+                    alert(`${this.dataToBeSaved.length} data berhasil ditambahkan`);
                     this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
                 })
                 .catch(e => {
