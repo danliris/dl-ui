@@ -294,7 +294,7 @@ scFields=["salesContractNo"];
     this.data.lampStandards = this.data.lampStandards || [];
     this.data.details = this.data.details || [];
 
-    if (this.data.salesContractNo) {
+    if (this.data.salesContractId) {
             this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
             this.data.salesContract =this.selectedSC;
            // this.selectedMaterial = this.data.material;
