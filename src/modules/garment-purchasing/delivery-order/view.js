@@ -18,7 +18,6 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        debugger
         this.supplier = this.data.supplier;
         this.isReceived = this.data.items
             .map((item) => {

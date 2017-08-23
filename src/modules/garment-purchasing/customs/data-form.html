@@ -1,0 +1,147 @@
+<template>
+  <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
+        <au-textbox 
+            label="Nomor Bea Cukai" 
+            value.bind="data.no"
+            error.bind="error.no"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown
+            label="Tipe Bea Cukai"
+            value.bind="data.customsType"
+            error.bind="error.customsType"
+            read-only.bind="readOnly"
+            items.bind="typeCustoms"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox 
+            label="Asal Bea Cukai" 
+            value.bind="data.customsOrigin"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker  
+            label="Tanggal Bea Cukai" 
+            value.bind="data.customsDate"
+            error.bind="error.customsDate" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-datepicker >
+
+        <au-datepicker 
+            label="Tanggal Pengesahan" 
+            value.bind="data.validateDate"
+            error.bind="error.validateDate" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-datepicker >
+
+        <au-autocomplete 
+            value.bind="data.supplier" 
+            error.bind="error.supplier" 
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            placeholder="Cari Supplier" 
+            read-only.bind="readOnly" 
+            change.delegate="supplierChange($event)" 
+            key="_id" 
+            text="name"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+            <!--text.bind="textFormatter"-->
+        <au-numeric  
+            label="Jumlah Kemasan" 
+            value.bind="data.amountOfPackaging"
+            error.bind="error.amountOfPackaging"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-textbox 
+            label="Kemasan" 
+            value.bind="data.packaging"
+            error.bind="error.packaging"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-numeric  
+            label="Bruto (Kg)" 
+            value.bind="data.bruto"
+            error.bind="error.bruto"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric  
+            label="Netto (Kg)" 
+            value.bind="data.netto"
+            error.bind="error.netto"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <!--<au-autocomplete 
+            value.bind="data.currency" 
+            error.bind="error.currency" 
+            label="Mata Uang" 
+            loader.bind="currencyLoader"
+            placeholder="Cari Mata uang" 
+            read-only.bind="readOnly" 
+            change.delegate="currencyChange($event)" 
+            key="_id" 
+            text="symbol"
+            if.bind="isSupplier"
+            options.bind="controlOptions">
+        </au-autocomplete>-->
+
+        <au-autocomplete
+            label="Mata Uang"
+            value.bind="data.currency"
+            error.bind="error.currency"
+            loader.bind="currencyLoader"
+            read-only.bind="readOnly"
+            change.delegate="currencyChange($event)"
+            key="symbol"
+            text="code"
+            if.bind="isSupplier"
+            options.bind="controlOptions"     
+          ></au-autocomplete>
+            <!--item-template="modules/garment-purchasing/customs/template/currency"-->
+
+        <!--<au-numeric  
+            label="Total Nominal" 
+            value.bind="dataAmount"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-numeric>-->
+        
+        <au-layout error.bind="item"></au-layout>
+        <au-collection 
+            title="Surat Jalan"
+            items.bind="data.deliveryOrders"
+            errors.bind="error.deliveryOrders" 
+            columns.bind="deliveryOrderColumns"
+            options.bind="amount"
+            read-only.bind="true" 
+            item-template="modules/garment-purchasing/customs/template/delivery-order"
+            footer-template="modules/garment-purchasing/customs/template/delivery-order-footer">
+        </au-collection>
+
+  </au-input-form>
+</template>
