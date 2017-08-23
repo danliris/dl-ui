@@ -111,7 +111,7 @@ export class List {
         { field: "machineEvent.name", title: "Event Mesin" },
         { field: "remark", title: "Keterangan" },
         {
-            field: "deliverySchedule", title: "Jadwal Pengiriman", formatter: function (value, data, index) {
+            field: "productionOrder.deliveryDate", title: "Jadwal Pengiriman", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         }
@@ -128,7 +128,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["dateStart", "dateEnd", "machine.name", "productionOrder.orderNo", "selectedProductionOrderDetail.colorRequest", "cartNumber", "machineEvent.name", "remark"]
+            select: ["dateStart", "dateEnd", "machine.name", "productionOrder.orderNo", "selectedProductionOrderDetail.colorRequest", "cartNumber", "machineEvent.name", "remark", "productionOrder.deliveryDate"]
         }
 
         return this.service.search(arg)
