@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -32,7 +32,8 @@ export class View {
                 return prev || curr
             }, false);
 
-        if (!this.isReceived || !this.data.hasInvoice) {
+        var hasInvoiceBeaCukai = this.data.hasInvoice ? true : this.data.customsId ? true : false;
+        if (!this.isReceived && !hasInvoiceBeaCukai) {
             this.hasDelete = true;
             this.hasEdit = true;
         }
