@@ -89,7 +89,7 @@
             <thead align="center">
                 <tr>
                     <td rowspan="3">NO</td>
-                    <td colspan="3">PURCHASE REQUEST</td>
+                    <td colspan="2">PURCHASE REQUEST</td>
                     <td rowspan="3">KATEGORI</td>
                     <td rowspan="3">BUDGET</td>
                     <td rowspan="3">NAMA BARANG</td>
@@ -99,8 +99,7 @@
                     <td colspan="2">HARGA</td>
                     <td colspan="2">SUPPLIER</td>
                     <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
-                    <td colspan="2">TANGGAL</td>
-                    <td rowspan="3">NOMOR PO EXTERN</td>
+                    <td colspan="4">PO EKSTERN</td>
                     <td colspan="3">SURAT JALAN</td>
                     <td colspan="4">BON PENERIMAAN</td>
                     <td rowspan="3">TEMPO PEMBAYARAN</td>
@@ -114,14 +113,15 @@
                 </tr>
                 <tr>
                     <td rowspan="2">TANGGAL</td>
-                    <td rowspan="2">TGL DIMINTA DATANG</td>
                     <td rowspan="2">NOMOR</td>
                     <td rowspan="2">SATUAN</td>
                     <td rowspan="2">TOTAL</td>
                     <td rowspan="2">KODE</td>
                     <td rowspan="2">NAMA</td>
-                    <td rowspan="2">TGL PO EXTERN</td>
+                    <td rowspan="2">TANGGAL</td>
+                    <td rowspan="2">TGL DIMINTA DATANG</td>
                     <td rowspan="2">TARGET DATANG</td>
+                    <td rowspan="2">NOMOR</td>                    
                     <td rowspan="2">TANGGAL</td>
                     <td rowspan="2">TANGGAL DATANG BARANG</td>
                     <td rowspan="2">NOMOR</td>
@@ -154,7 +154,6 @@
                 <tr repeat.for="PO of data">
                     <td>${PO['No']}</td>
                     <td>${PO['Tanggal Purchase Request']}</td>
-                    <td>${PO['Tanggal Diminta Datang PR']}</td>
                     <td>${PO['No Purchase Request']}</td>
                     <td>${PO['Kategori']}</td>
                     <td>${PO['Budget']}</td>
@@ -168,6 +167,7 @@
                     <td>${PO['Nama Supplier']}</td>
                     <td>${PO['Tanggal Terima PO Internal']}</td>
                     <td>${PO['Tanggal Terima PO Eksternal']}</td>
+                    <td>${PO['Tanggal Diminta Datang PR']}</td>
                     <td>${PO['Tanggal Target Datang']}</td>
                     <td>${PO['No PO Eksternal']}</td>
                     <td>${PO['Tanggal Surat Jalan']}</td>
