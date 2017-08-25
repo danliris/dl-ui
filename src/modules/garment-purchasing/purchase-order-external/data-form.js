@@ -159,11 +159,9 @@ export class DataForm {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         if (!selectedUseIncomeTax) {
             this.options.isUseIncomeTax = false;
-            for (var po of this.data.items) {
-                for (var poItem of po.items) {
-                    poItem.useIncomeTax = false;
-                    poItem.pricePerDealUnit = poItem.priceBeforeTax;
-                }
+            for (var poItem of this.data.items) {
+                poItem.useIncomeTax = false;
+                poItem.pricePerDealUnit = poItem.priceBeforeTax;
             }
         } else {
             this.options.isUseIncomeTax = true;
