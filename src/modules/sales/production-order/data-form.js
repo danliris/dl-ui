@@ -103,7 +103,14 @@ export class DataForm {
   salesContractChanged(e){
       this.data.salesContractId=this.data.salesContract._id ? this.data.salesContract._id : "";
       this.data.salesContractNo=this.data.salesContract.salesContractNo ? this.data.salesContract.salesContractNo: "";
-    
+      this.data.buyer=this.data.salesContract.buyer;
+      this.data.orderType=this.data.salesContract.orderType;
+      this.data.material=this.data.salesContract.material;
+      this.data.yarnMaterial=this.data.salesContract.yarnMaterial;
+      this.data.designMotive=this.data.salesContract.designMotive;
+      this.data.uom=this.data.salesContract.uom;
+      if(this.data.salesContract.remainingQuantity)
+        this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
   }
   
     orderChanged(e){
@@ -297,6 +304,10 @@ scFields=["salesContractNo"];
     if (this.data.salesContractId) {
             this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
             this.data.salesContract =this.selectedSC;
+            console.log(this.data.salesContract.remainingQuantity)
+            if(this.data.salesContract.remainingQuantity){
+              this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
+            }
            // this.selectedMaterial = this.data.material;
         }
   }
