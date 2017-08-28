@@ -4,6 +4,7 @@ export class PurchaseRequestItem {
   activate(context) {
     this.data = context.data;
     this.options = context.options;
+    this.error = context.error;
   }
 
   get category() {
