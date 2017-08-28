@@ -20,7 +20,6 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.isSplit = true;
         var items = this.data.items.filter(function (item) {
             return !item.isClosed
         });

@@ -135,7 +135,7 @@
     <radiobutton
       label="Reproses"
       value.bind="data.reprocess"
-      if.bind="isReprocess && hasInstruction"
+      if.bind="isReprocess && data.instruction"
       read-only.bind="readOnly"
       error.bind="error.reprocess"
       selections.bind="reprocess"
@@ -152,7 +152,7 @@
       options.bind="options"
       read-only.bind="readOnly"
       if.bind="!readOnly && !isEdit && !data.reprocessStatus"
-      item-template="modules/production/finishing-printing/kanban/template/cart-item">
+      item-template="modules/production/finishing-printing/bad-output-kanban/template/cart-item">
     </au-collection>
 
     <div class="panel-heading" if.bind="(isView || isEdit) && oldKanbanStatus">
@@ -239,18 +239,18 @@
       value.bind="data.instruction" 
       error.bind="error.instruction"
       label="Instruksi" 
-      loader.one-time="instructionLoader"
+      loader.bind="instructionLoader"
       placeholder="search instruction" 
       key="code"
       text="name"
       read-only.bind="readOnly || isReprocess || oldKanbanStatus"
       options.bind="controlOptions"
-      if.bind="isReprocess ? hasInstruction : true">
+      if.bind="isReprocess ? (data.instruction ? true : false) : true">
     </au-autocomplete>
 
     <table 
       class="table table-hover" 
-      show.bind="hasInstruction && !data.reprocessStatus && !options.reprocessStepsHide">
+      if.bind="hasInstruction && !data.reprocessStatus && !options.reprocessStepsHide">
         <tr>
           <td class="col-md-10">
             <au-collection 
@@ -262,7 +262,7 @@
               title="Steps" 
               read-only.bind="readOnly"
               options.bind="options"
-              item-template="modules/production/finishing-printing/kanban/template/step-item"
+              item-template="modules/production/finishing-printing/bad-output-kanban/template/step-item"
               view-model.ref="StepsCollection">
             </au-collection>
           </td>
