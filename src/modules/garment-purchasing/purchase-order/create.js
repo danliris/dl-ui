@@ -1,32 +1,43 @@
-import {inject, bindable, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, bindable, computedFrom, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class Create {
-    dataToBeSaved = [];
     @bindable data = [];
-
+    dataToBeSaved = [];
     tableOptions = {
+        pagination: false,
         search: false,
-        showToggle: false,
-        showColumns: true
-    }
-
-    itemsColumns = [
-        { header: " ", value: "__check" },
-        { header: "Nomor RO", value: "roNo" },
-        { header: "Nomor PR", value: "no" },
-        { header: "Nomor Ref. PO", value: "items.refNo" },
-        { header: "Buyer", value: "buyer" },
-        { header: "Unit", value: "unit" },
-        { header: "Artikel", value: "artikel" },
-        { header: "Tgl. Shipment", value: "shipmentDate" },
-        { header: "Kategori", value: "items.category" },
-        { header: "Nama Barang", value: "items.product" },
-        { header: "Jumlah", value: "items.quantity" },
-        { header: "Satuan", value: "items.uom" }
+        showColumns: false,
+        showToggle: false
+    };
+    purchaseRequestTable;
+    purchaseRequestColumns = [
+        {
+            field: "check", title: " ", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.check;
+                return ""
+            }
+        },
+        { title: "Nomor RO", field: "roNo" },
+        { title: "Nomor PR", field: "no" },
+        { title: "Nomor Ref. PO", field: "items.refNo" },
+        { title: "Buyer", field: "buyer" },
+        { title: "Unit", field: "unit" },
+        { title: "Artikel", field: "artikel" },
+        {
+            title: "Tgl. Shipment", field: "shipmentDate", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { title: "Kategori", field: "items.category" },
+        { title: "Nama Barang", field: "items.product" },
+        { title: "Jumlah", field: "items.quantity" },
+        { title: "Satuan", field: "items.uom" }
     ];
 
     constructor(router, service) {
@@ -45,9 +56,6 @@ export class Create {
     }
 
     save(event) {
-        this.dataToBeSaved = this.data.filter(function (item) {
-            return item.check
-        });
         if (this.dataToBeSaved.length === 0) {
             alert(`Purchase Request belum dipilih`);
         }
@@ -67,15 +75,15 @@ export class Create {
         this.service.searchByTags(this.keywords, this.shipmentDate)
             .then(result => {
                 this.data = result.data;
+                this.data
+                    .map((data) => {
+                        data.check = false;
+                    });
+                this.purchaseRequestTable.data = this.data;
+                this.purchaseRequestTable.refresh();
             })
             .catch(e => {
                 this.error = e;
             })
-    }
-
-    onClickAllDataSource($event) {
-        for (var item of this.data) {
-            item.check = $event.detail.target.checked;
-        }
     }
 }
