@@ -58,7 +58,7 @@ export class DeliveryOrderItem {
 
       var jobs = [];
       for (var poId of poCollection) {
-        jobs.push(this.service.getPurchaseOrderById(poId, ["items.fulfillments", "items.product", "_id", "items.dealQuantity", "items.realizationQuantity"]))
+        jobs.push(this.service.getPurchaseOrderById(poId, ["items.fulfillments","items.currency","items.pricePerDealUnit", "items.product", "_id", "items.dealQuantity", "items.realizationQuantity"]))
       }
 
       Promise.all(jobs)
@@ -97,6 +97,8 @@ export class DeliveryOrderItem {
                   product: poExternalItem.product,
                   purchaseOrderQuantity: poExternalItem.dealQuantity,
                   purchaseOrderUom: poExternalItem.dealUom,
+                  currency: poInternalItem.currency,
+                  pricePerDealUnit:poInternalItem.pricePerDealUnit,
                   remainsQuantity: remainingQuantity,
                   deliveredQuantity: deliveredQuantity,
                   remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
@@ -113,6 +115,8 @@ export class DeliveryOrderItem {
                   product: poExternalItem.product,
                   purchaseOrderQuantity: poExternalItem.dealQuantity,
                   purchaseOrderUom: poExternalItem.dealUom,
+                  currency: poInternalItem.currency,
+                  pricePerDealUnit:poInternalItem.pricePerDealUnit,
                   remainsQuantity: poExternalItem.dealQuantity + correctionQty[correctionQty.length - 1],
                   deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poInternalItem.dealQuantity - poInternalItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
                   remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''

@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -18,7 +18,6 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        debugger
         this.supplier = this.data.supplier;
         this.isReceived = this.data.items
             .map((item) => {
@@ -33,7 +32,8 @@ export class View {
                 return prev || curr
             }, false);
 
-        if (!this.isReceived) {
+        var hasInvoiceBeaCukai = this.data.hasInvoice ? true : this.data.customsId ? true : false;
+        if (!this.isReceived && !hasInvoiceBeaCukai) {
             this.hasDelete = true;
             this.hasEdit = true;
         }

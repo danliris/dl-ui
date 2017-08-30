@@ -17,6 +17,7 @@ export class DataForm {
     @bindable selectedVat;
     @bindable selectedCategory;
     @bindable options = { isUseIncomeTax: false };
+    keywords = ''
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT IMPORT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT LOKAL', 'FREE FROM BUYER', 'SAMPLE'];
@@ -116,11 +117,16 @@ export class DataForm {
 
     selectedCategoryChanged(newValue) {
         var _selectedCategory = newValue;
-        if (_selectedCategory._id) {
-            this.data.category = _selectedCategory;
-            this.data.categoryId = this.data.category._id ? this.data.category._id : {};
-            this.data.items = [];
+        if (_selectedCategory) {
+            if (_selectedCategory._id) {
+                this.data.category = _selectedCategory;
+                this.data.categoryId = this.data.category._id ? this.data.category._id : {};
+            }
+        } else {
+            this.data.category = {};
+            this.data.categoryId = {};
         }
+        this.data.items = [];
     }
 
     paymentMethodChanged(e) {
@@ -153,11 +159,9 @@ export class DataForm {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         if (!selectedUseIncomeTax) {
             this.options.isUseIncomeTax = false;
-            for (var po of this.data.items) {
-                for (var poItem of po.items) {
-                    poItem.useIncomeTax = false;
-                    poItem.pricePerDealUnit = poItem.priceBeforeTax;
-                }
+            for (var poItem of this.data.items) {
+                poItem.useIncomeTax = false;
+                poItem.pricePerDealUnit = poItem.priceBeforeTax;
             }
         } else {
             this.options.isUseIncomeTax = true;
@@ -223,10 +227,8 @@ export class DataForm {
             }
         })
         items = [].concat.apply([], items);
-        if (this.data.items.length < 0) {
-            this.data.items = [];
-        }
-        this.data.items = this.data.items.concat(items);
+
+        this.data.items = items
     }
 
 } 

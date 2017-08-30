@@ -70,16 +70,13 @@ export class Reprocess {
           this.data.currentQty = cart.qty;
 
           if(cart.reprocess == this.data.LANJUT_PROSES) {
-            this.data.isBadOutput = false;
             this.data.isReprocess = false;
             this.data.instruction.steps = this.data.reprocessSteps.LanjutProses;
           }
           else if(cart.reprocess == this.data.REPROSES) {
-            this.data.isBadOutput = false;
             this.data.isReprocess = true;
             this.data.instruction.steps = this.data.reprocessSteps.Reproses;
           } else {
-            this.data.isBadOutput = false;
             this.data.isReprocess = true;
           }
 
