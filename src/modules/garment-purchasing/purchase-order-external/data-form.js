@@ -21,6 +21,7 @@ export class DataForm {
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT IMPORT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT LOKAL', 'FREE FROM BUYER', 'SAMPLE'];
+    typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
 
     label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -134,7 +135,16 @@ export class DataForm {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
             this.data.paymentMethod = selectedPayment;
-            this.data.paymentDueDays = 0;
+        }
+    }
+    
+    paymentTypeChanged(e) {
+        var selectedPayment = e.srcElement.value;
+        if (selectedPayment) {
+            this.data.paymentType = selectedPayment;
+            if (this.data.paymentType == "CASH" || this.data.paymentType == "T/T BEFORE") {
+                this.data.paymentDueDays = 0;
+            }
         }
     }
 
