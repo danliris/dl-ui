@@ -46,21 +46,30 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
-    searchByTags(categoryId, keyword, shipmentDate) {
+    searchByTags(categoryId, keyword, shipmentDateFrom, shipmentDateTo) {
         var endpoint = 'purchase-orders/by-tags';
         var filter = {};
-        if (keyword && shipmentDate) {
-            filter = {categoryId:categoryId, shipmentDate: moment(shipmentDate).format("YYYY-MM-DD"), tag: keyword };
+        if (keyword && shipmentDateFrom && shipmentDateTo) {
+            filter = {
+                categoryId: categoryId,
+                shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
+                shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
+                tag: keyword
+            };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         }
         else if (keyword) {
-            filter = {categoryId:categoryId, tag: keyword };
+            filter = { categoryId: categoryId, tag: keyword };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
-        } else if (shipmentDate) {
-            filter = {categoryId:categoryId, shipmentDate: moment(shipmentDate).format("YYYY-MM-DD") };
+        } else if (shipmentDateFrom && shipmentDateTo) {
+            filter = {
+                categoryId: categoryId,
+                shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
+                shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
+            };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         } else {
-            filter = {categoryId:categoryId};
+            filter = { categoryId: categoryId };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         }
     }
