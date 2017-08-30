@@ -13,11 +13,17 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.canEdit=true;
         if(this.data.referenceNumber && this.data.referenceNumber!=""){
             this.data.reference={orderNo:this.data.referenceNumber};
         }
         else{
             this.data.reference={};
+        }
+        if(this.data.remainingQuantity){
+            if(this.data.remainingQuantity!=this.data.orderQuantity){
+                this.canEdit=false;
+            }
         }
     }
 
