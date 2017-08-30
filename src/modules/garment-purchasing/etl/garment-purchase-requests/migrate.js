@@ -47,7 +47,6 @@ export class Migrate {
 
         this.service.migrate(this.data)
             .then(result => {
-                debugger
                 if (result.length == 0) {
                     alert("tidak ada data");
                 } else {
