@@ -39,7 +39,12 @@ export class Create {
         { title: "Jumlah", field: "items.quantity" },
         { title: "Satuan", field: "items.uom" }
     ];
-
+    controlOptions = {
+        control: {
+            length: 12
+        }
+    };
+    label = "Periode Tgl. Shipment"
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -72,7 +77,7 @@ export class Create {
     }
 
     search() {
-        this.service.searchByTags(this.keywords, this.shipmentDate)
+        this.service.searchByTags(this.keywords, this.shipmentDateFrom, this.shipmentDateTo)
             .then(result => {
                 this.data = result.data;
                 this.data

@@ -3,11 +3,19 @@
         <h3>Tambah Purchase Order Internal Garment</h3>
         <hr/>
         <div class="form-group">
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <au-textbox value.bind="keywords" options.bind="controlOptions" placeholder=" #nama unit #nama buyer #kategori (harus berurutan)"></au-textbox>
             </div>
-            <div class="col-sm-5">
-                <au-datepicker label="Tgl. Shipment" value.bind="shipmentDate" options.bind="controlOptions"></au-datepicker>
+            <div class="col-sm-7">
+                 <div class="col-sm-3">
+                     <au-textbox   value.bind="label" read-only.bind="true" options.bind="controlOptions"> </au-textbox>
+                </div> 
+                <div class="col-sm-4">
+                    <au-datepicker value.bind="shipmentDateFrom" options.bind="controlOptions"></au-datepicker>
+                </div>
+                <div class="col-sm-4">
+                    <au-datepicker value.bind="shipmentDateTo" options.bind="controlOptions"></au-datepicker>
+                </div>
             </div>
             <div class="col-sm-2">
                 <button class="btn btn-success" click.delegate="search()">Cari</button>
