@@ -133,12 +133,7 @@ export class DataForm {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
             this.data.paymentMethod = selectedPayment;
-            if (this.data.paymentMethod == "CASH") {
-                this.data.paymentDueDays = 0;
-            }
-            else {
-                this.data.paymentDueDays = 30;
-            }
+            this.data.paymentDueDays = 0;
         }
     }
 
@@ -222,7 +217,8 @@ export class DataForm {
                     priceBeforeTax: Number(data.items.budgetPrice),
                     pricePerDealUnit: Number(data.items.budgetPrice),
                     conversion: 1,
-                    useIncomeTax: false
+                    useIncomeTax: false,
+                    remark: data.items.remark
                 }
             }
         })

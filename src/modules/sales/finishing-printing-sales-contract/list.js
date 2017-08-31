@@ -17,6 +17,16 @@ export class List {
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
+        for(var a of this.data){
+            if(a.remainingQuantity){
+                if(a.remainingQuantity!=a.orderQuantity){
+                    a.status="SUDAH ADA"
+                }
+                else{
+                    a.status="BELUM ADA"
+                }
+            }
+        }
     }
 
     loadPage() {
@@ -26,6 +36,16 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
+                for(var a of this.data){
+                    if(a.remainingQuantity){
+                        if(a.remainingQuantity!=a.orderQuantity){
+                            a.status="SUDAH ADA"
+                        }
+                        else{
+                            a.status="BELUM ADA"
+                        }
+                    }
+                }
             })
     }
 
