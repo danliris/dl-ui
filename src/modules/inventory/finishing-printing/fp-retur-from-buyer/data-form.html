@@ -1,0 +1,82 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-danger" click.delegate="context.update($event)" if.one-way="context.hasVoid">Void</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+        </div>
+
+        <fieldset>
+            <au-textbox 
+                label="No. Retur" 
+                value.bind="data.code" 
+                error.bind="error.code" 
+                read-only="true"
+                if.bind="readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+            <au-datepicker 
+                label="Tanggal Retur" 
+                value.bind="data.date" 
+                error.bind="error.date" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-datepicker>
+            <au-dropdown
+                label="Yang Menerima"
+                value.bind="data.destination"
+                error.bind="error.destination"
+                read-only.bind="readOnly"
+                items.bind="destinationItems"
+                options.bind="controlOptions">
+            </au-dropdown>
+            <au-autocomplete 
+                value.bind="buyer" 
+                error.bind="error.buyer" 
+                label="Buyer" 
+                loader.one-time="buyerLoader" 
+                placeholder="Cari Buyer"
+                read-only.bind="readOnly" 
+                key="code" 
+                text="name" 
+                options.bind="controlOptions">
+            </au-autocomplete>
+            <au-textbox 
+                label="No. SPK" 
+                value.bind="data.spk" 
+                error.bind="error.spk" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+            <au-textbox 
+                label="No. Surat Pengantar" 
+                value.bind="data.coverLetter" 
+                error.bind="error.coverLetter" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+            <au-textbox 
+                label="Kode Barang" 
+                value.bind="data.codeProduct" 
+                error.bind="error.codeProduct" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+        </fieldset>
+        
+        <au-layout error.bind="error.dataDetails" if.bind="error.dataDetails"></au-layout>
+        <au-collection 
+            title = "Detail"
+            columns.bind="detailColumns" 
+            items.bind="data.details" 
+            errors.one-way="error.details" 
+            add.one-time="addDetails" 
+            read-only.bind="readOnly"
+            options.one-way="filter || getFilter"
+            if.bind="hasBuyer" 
+            item-template="modules/inventory/finishing-printing/fp-retur-from-buyer/template/detail">
+        </au-collection>
+
+    </au-input-form>
+</template>
