@@ -10,6 +10,7 @@ export class List {
         "Durasi PR",
         "Durasi PO Internal - PO Eksternal",
         "Durasi PO Eksternal - Surat Jalan",
+        "Durasi Rencana Datang-Barang Tiba",
         "Durasi Bon Terima Unit - Surat Perintah Bayar",
         "Total Nilai Pembelian",
         "Supplier Tepat Waktu",

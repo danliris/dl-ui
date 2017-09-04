@@ -56,8 +56,8 @@ export class Service extends RestService {
             else query = `${query}&no=${info.no}`;
         }
         if (info.supplier) {
-            if (query === '') query = `supplier=${info.supplier._id}`;
-            else query = `${query}&supplier=${info.supplier._id}`;
+            if (query === '') query = `supplier=${info.supplier}`;
+            else query = `${query}&supplier=${info.supplier}`;
         }
         if (info.customsType && info.customsType !== "") {
             if (query === '') query = `customsType=${info.customsType}`;
