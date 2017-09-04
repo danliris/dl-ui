@@ -362,5 +362,18 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+ {
+        route: 'po/reports/ketepatan/staff',
+        name: 'purchase-order-reports-ketepatan-staff',
+        moduleId: './modules/purchasing/reports/purchase-order-report/staff-report/index',
+        nav: true,
+        title: 'Laporan Ketepatan kedatangan Barang per Staff',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
     ]

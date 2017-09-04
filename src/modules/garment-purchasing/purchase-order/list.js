@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 @inject(Router, Service)
@@ -23,6 +23,9 @@ export class List {
             }
         },
         { field: "buyer.name", title: "Buyer" },
+        { field: "product", title: "Nama Barang" },
+        { field: "quantity", title: "Jumlah" },
+        { field: "uom", title: "Satuan" },
 
         { field: "_createdBy", title: "Staff Pembelian" },
         {
@@ -41,11 +44,17 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
+            select: ["purchaseRequest.no", "purchaseRequest.roNo", "shipmentDate", "buyer.name","_createdBy", "isPosted", "items.defaultQuantity","items.defaultUom.unit","items.product.name"],
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
+                for (var _data of result.data) {
+                    _data.quantity = _data.items[0].defaultQuantity;
+                    _data.uom = _data.items[0].defaultUom.unit;
+                    _data.product = _data.items[0].product.name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data

@@ -16,12 +16,17 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.hasSplit = !this.data.isClosed;
+        var hasSource = (this.data.sourcePurchaseOrder ? true : false) ? true : this.data.isSplit
+        this.hasSplit = !this.data.items
+            .map((item) => item.isClosed)
+            .reduce((prev, curr, index) => {
+                return prev || curr
+            }, false);
         this.hasDelete = !this.data.items
             .map((item) => item.isClosed)
             .reduce((prev, curr, index) => {
-                return prev && curr
-            }, true);
+                return prev || curr
+            }, false) && !hasSource ;
     }
 
     cancel(event) {

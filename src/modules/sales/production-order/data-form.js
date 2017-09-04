@@ -39,6 +39,16 @@ export class DataForm {
     }
   }
   
+  @computedFrom("data.buyer")
+  get buyerType(){
+    this.ekspor=false;
+    if(this.data.buyer){
+      if(this.data.buyer.type.toLowerCase()=="ekspor"||this.data.buyer.type.toLowerCase()=="export"){
+          this.ekspor=true;
+        }
+    }
+      return this.ekspor;
+  }
 
   get fpSalesContractLoader() {
         return FinishingPrintingSalesContractLoader;
@@ -101,13 +111,32 @@ export class DataForm {
   }
 
   salesContractChanged(e){
+      if(this.data && this.data.details && this.data.details.length > 0){
+            var count = this.data.details.length;
+            console.log(this.data.details);
+            for(var a = count; a >= 0; a--){
+                this.data.details.splice((a-1), 1);
+            }
+            console.log(this.data.details);
+        }
       this.data.salesContractId=this.data.salesContract._id ? this.data.salesContract._id : "";
       this.data.salesContractNo=this.data.salesContract.salesContractNo ? this.data.salesContract.salesContractNo: "";
-    
+      this.data.buyer=this.data.salesContract.buyer;
+      this.data.orderType=this.data.salesContract.orderType;
+      this.data.material=this.data.salesContract.material;
+      this.data.yarnMaterial=this.data.salesContract.yarnMaterial;
+      this.data.designMotive=this.data.salesContract.designMotive;
+      this.data.uom=this.data.salesContract.uom;
+      this.data.finishWidth=this.data.salesContract.materialWidth;
+      if(this.data.salesContract.remainingQuantity){
+        this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
+      }
+      console.log(this.data.details);
   }
   
     orderChanged(e){
         var selectedOrder=e.detail || {};
+        console.log(selectedOrder);
         if(selectedOrder){
             this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
             var code= selectedOrder.code;
@@ -293,10 +322,13 @@ scFields=["salesContractNo"];
     this.data = this.data || {};
     this.data.lampStandards = this.data.lampStandards || [];
     this.data.details = this.data.details || [];
-
-    if (this.data.salesContractNo) {
+    this.data.beforeQuantity=this.data.orderQuantity;
+    if (this.data.salesContractId) {
             this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
             this.data.salesContract =this.selectedSC;
+            if(this.data.salesContract.remainingQuantity){
+              this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
+            }
            // this.selectedMaterial = this.data.material;
         }
   }
