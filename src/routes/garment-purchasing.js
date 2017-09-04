@@ -133,7 +133,7 @@ module.exports = [
         name: 'invoice-note-quantity-correction',
         moduleId: './modules/garment-purchasing/invoice-note-quantity-correction/index',
         nav: true,
-        title: 'Nota Invoice Koreksi Quantity',
+        title: 'Nota Invoice Koreksi Jumlah',
         auth: true,
         settings: {
             group: "g-purchasing",
