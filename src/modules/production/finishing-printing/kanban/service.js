@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'finishing-printing/kanbans';
 const productionOrderServiceUri = 'sales/production-orders';
+const durationEstimationUri = 'master/fp-duration-estimations';
 
 export class Service extends RestService {
 
@@ -62,6 +63,29 @@ export class Service extends RestService {
         }
 
         return productionOrderDetails;
+      });
+  }
+
+  getDurationEstimation(code, select) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("core");
+    var filter = {
+      "processType.code": code
+    };
+
+    var promise = endpoint.find(durationEstimationUri, { select: select, filter: JSON.stringify(filter) });
+    this.eventAggregator.publish('httpRequest', promise);
+    return promise
+      .catch(e => {
+        this.eventAggregator.publish('httpRequest', promise);
+        return e.json().then(result => {
+          if (result.error)
+            return Promise.resolve(result);
+        });
+      })
+      .then((result) => {
+        this.eventAggregator.publish('httpRequest', promise);
+        return Promise.resolve(result);
       });
   }
 

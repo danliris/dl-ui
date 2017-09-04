@@ -236,7 +236,7 @@
     </div>
 
     <au-autocomplete 
-      value.bind="data.instruction" 
+      value.bind="instruction" 
       error.bind="error.instruction"
       label="Instruksi" 
       loader.one-time="instructionLoader"
@@ -245,7 +245,7 @@
       text="name"
       read-only.bind="readOnly || isReprocess || oldKanbanStatus"
       options.bind="controlOptions"
-      if.bind="isReprocess ? hasInstruction : true">
+      if.bind="isReprocess ? hasInstruction : hasProductionOrder">
     </au-autocomplete>
 
     <table 
