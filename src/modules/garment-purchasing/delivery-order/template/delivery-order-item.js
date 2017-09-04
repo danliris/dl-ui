@@ -11,8 +11,10 @@ export class DeliveryOrderItem {
     { header: "Nomor PR", value: "purchaseRequestNo" },
     { header: "Barang", value: "product" },
     { header: "Dipesan", value: "purchaseOrderQuantity" },
-    { header: "Satuan", value: "purchaseOrderUom" },
     { header: "Diterima", value: "deliveredQuantity" },
+    { header: "Satuan", value: "purchaseOrderUom" },
+    { header: "Harga", value: "pricePerDealUnit" },
+    { header: "Mata Uang", value: "currency" },
     { header: "Catatan", value: "remark" }
   ]
 
