@@ -50,7 +50,7 @@
                 columns.bind="itemsColumns" 
                 remove.bind="removeItems"
                 options.bind="context.context.options"
-                read-only.bind="true"
+                read-only.bind="options.readOnly"
                 item-template="modules/garment-purchasing/invoice-note/template/invoice-note-fulfillment">
             </au-collection>
         </td>  

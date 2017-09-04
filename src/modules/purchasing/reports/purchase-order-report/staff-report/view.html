@@ -1,0 +1,65 @@
+<template>
+    <h1 class="page-header">Monitoring Ketepatan Kedatangan PO Eksternal</h1> 
+    <form class="form-horizontal">
+        <textbox label="Tanggal Awal" value.bind="dateFrom" if.bind="dateFrom" read-only="true"></textbox>
+        <textbox label="Tanggal Akhir" value.bind="dateTo" if.bind="dateTo" read-only="true"></textbox>
+        <textbox label="Nama Staff" value.bind="staff" read-only="true"></textbox>
+        <textbox label="Jumlah Po Eksternal" value.bind="nilaitotalp" read-only="true"></textbox>
+        <textbox label="Jumlah Terlambat" value.bind="nilaitotals" read-only="true"></textbox>
+         <textbox label="Persentase" value.bind="persen" read-only="true"></textbox>
+         
+<br>
+        <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">No</th>
+                <th class="text-center">Nama Staff</th>
+                <th class="text-center">Tgl PO Eks</th>
+                <th class="text-center">No PO Eksternal</th>
+                
+                <th class="text-center">Tgl Target Datang</th>
+                <th class="text-center">Tgl Barang Datang</th>
+                <th class="text-center">Selisih</th>
+                
+                <!--<th>Kategori UOM</th>-->
+            </tr>
+            
+        </thead>
+        <tfoot if.bind="data.length > 0">
+            <tr>
+                <td colspan="2" >Presentasi</td>
+                <td  >${persen}%</td>
+                <td  >${nilaitotalp}</td>
+                <td  colspan="2" >Total Selilih yang Terlambat</td>
+                <td  >${nilaitotals}</td>
+              
+            </tr>
+        </tfoot>
+        <tbody>
+            <tr repeat.for="item of data">
+                <td class="text-center">${$index + 1}</td>
+              <td > <a> ${item.user}</a> </td>
+              <td > ${item.tgpr}</td>
+                    <td > ${item._id.name}</td>
+                     <td > ${item.tgltarget}</td>
+                    <td > ${item.tgldatang}</td>
+                     <td > ${item.selisih}</td>
+
+              
+                
+            </tr>
+            
+        </tbody>
+    </table>
+        
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+     
+        <hr/>
+        <div class="btn-group pull-right">
+            <a click.delegate="list(dateFrom,dateTo)" class='btn btn-default btn-sm'>Kembali</a>
+        </div>
+    </form>
+        
+</template>

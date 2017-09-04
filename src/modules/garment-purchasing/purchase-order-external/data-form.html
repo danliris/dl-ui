@@ -46,7 +46,8 @@
             label="Tgl. Order" 
             value.bind="data.date" 
             error.bind="error.date" 
-            read-only.bind="readOnly"
+            read-only.bind="true"
+            if.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -64,6 +65,16 @@
             error.bind="error.freightCostBy"
             read-only.bind="readOnly"
             items.bind="freightCostByOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown
+            label="Tipe Pembayaran"
+            value.bind="data.paymentType"
+            error.bind="error.paymentType"
+            read-only.bind="readOnly"
+            items.bind="typePaymentOptions"  
+            change.delegate="paymentTypeChanged($event)"
             options.bind="controlOptions">
         </au-dropdown>
 
@@ -96,7 +107,7 @@
             format="0"
             read-only.bind="true"
             post-fix="hari" 
-            if.bind="data.paymentMethod=='CASH'">
+            if.bind="data.paymentType=='CASH' || data.paymentType=='T/T BEFORE'">
         </numeric>
 
         <numeric
@@ -106,7 +117,7 @@
             format="0"
             read-only.bind="readOnly"
             post-fix="hari" 
-            if.bind="data.paymentMethod!='CASH'">
+            if.bind="data.paymentType =='T/T AFTER'">
         </numeric>
 
         <au-autocomplete 
@@ -180,12 +191,20 @@
         </au-multiline>
 
         <hr/>
-        <div class="form-group" if.bind="!readOnly && data.categoryId">
-            <div class="col-sm-5">
-                <au-textbox value.bind="keywords" placeholder="#kata kunci"></au-textbox>
+         <div class="form-group" show.bind="!readOnly && data.categoryId"> 
+            <div class="col-sm-3">
+                <au-textbox value.bind="keywords" placeholder="#nama unit #nama buyer (harus berurutan)"></au-textbox>
             </div>
-            <div class="col-sm-5">
-                <au-datepicker label="Tgl. Shipment" value.bind="shipmentDate"></au-datepicker>
+            <div class="col-sm-7">
+                 <div class="col-sm-3">
+                     <au-textbox   value.bind="label" read-only.bind="true"> </au-textbox>
+                </div> 
+                <div class="col-sm-4">
+                    <au-datepicker value.bind="shipmentDateFrom"></au-datepicker>
+                </div>
+                <div class="col-sm-4">
+                    <au-datepicker value.bind="shipmentDateTo" ></au-datepicker>
+                </div>
             </div>
             <div class="col-sm-2">
                 <button class="btn btn-success" click.delegate="search()">Cari</button>

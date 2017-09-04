@@ -116,5 +116,18 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "inventory/finishing-printing/fp-retur-from-buyer",
+        name: "inventory/finishing-printing/fp-retur-from-buyer",
+        moduleId: "modules/inventory/finishing-printing/fp-retur-from-buyer/index",
+        nav: true,
+        title: "Retur Barang Dari Buyer",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
  ]
