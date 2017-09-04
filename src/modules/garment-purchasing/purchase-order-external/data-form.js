@@ -21,7 +21,9 @@ export class DataForm {
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT IMPORT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT LOKAL', 'FREE FROM BUYER', 'SAMPLE'];
+    typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
 
+    label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
     controlOptions = {
         label: {
@@ -133,7 +135,16 @@ export class DataForm {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
             this.data.paymentMethod = selectedPayment;
-            this.data.paymentDueDays = 0;
+        }
+    }
+    
+    paymentTypeChanged(e) {
+        var selectedPayment = e.srcElement.value;
+        if (selectedPayment) {
+            this.data.paymentType = selectedPayment;
+            if (this.data.paymentType == "CASH" || this.data.paymentType == "T/T BEFORE") {
+                this.data.paymentDueDays = 0;
+            }
         }
     }
 
@@ -196,7 +207,7 @@ export class DataForm {
     }
 
     async search() {
-        var result = await this.service.searchByTags(this.data.categoryId, this.keywords, this.shipmentDate);
+        var result = await this.service.searchByTags(this.data.categoryId, this.keywords, this.shipmentDateFrom, this.shipmentDateTo);
 
         var items = result.data.map((data) => {
             if (data.items.categoryId.toString() === this.data.categoryId.toString()) {
