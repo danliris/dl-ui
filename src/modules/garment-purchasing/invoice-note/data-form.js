@@ -132,4 +132,23 @@ export class DataForm {
             }
         }
     }
+
+    useVatChanged(e) {
+        var selectedUseVat = e.srcElement.checked || false;
+        this.data.vatNo = "";
+        this.data.vatDate = "";
+        this.context.vatVM.editorValue = "";
+        if (!this.data.useIncomeTax && !this.data.useVat) {
+            this.data.isPayTax = false
+        }
+    }
+
+    useIncomeTaxChanged(e) {
+        var selectedUseIncomeTax = e.srcElement.checked || false;
+        this.data.incomeTaxNo = "";
+        this.data.incomeTaxDate = "";
+        if (!this.data.useIncomeTax && !this.data.useVat) {
+            this.data.isPayTax = false
+        }
+    }
 } 

@@ -3,6 +3,8 @@ import {Router} from 'aurelia-router';
 import {Service} from './service';
 import {activationStrategy} from 'aurelia-router';
 
+var moment = require('moment');
+
 @inject(Router, Service)
 export class Create {
     hasCancel = true;
@@ -35,11 +37,15 @@ export class Create {
 
     save(event) {
         if (this.data.customsDate == "undefined") {
-            this.data.expectedDeliveryDate == "";
+            delete this.data.customsDate
         }
         if (this.data.validateDate == "undefined") {
-            this.data.expectedDeliveryDate == "";
+            delete this.data.validateDate == "";
         }
+        if(this.data.customsDate && this.data.customsDate !== "")
+            this.data.customsDate = moment(this.data.customsDate).format("YYYY-MM-DD");
+        if(this.data.validateDate && this.data.validateDate !== "")
+            this.data.validateDate = moment(this.data.validateDate).format("YYYY-MM-DD");
         var dataCustoms = Object.assign({}, this.data);
         var items = [];
         var isSelectedData = false;
