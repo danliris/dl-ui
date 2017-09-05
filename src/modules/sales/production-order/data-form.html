@@ -19,7 +19,7 @@
                 <material-construction-auto-suggest                 label="Konstruksi Material"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
                 <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only="true" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
                 <textbox                    label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
-                <numeric label="Sisa Jumlah Order SC" read-only="true" value.bind="data.remainingQuantity" if.bind="data.salesContract.remainingQuantity"></numeric>
+                <numeric label="Sisa Jumlah Order SC" read-only="true" value.bind="data.remainingQuantity" if.bind="rq"></numeric>
                 <div class="row">
                   <div class="col-sm-4" style="padding-left:20%">
                     <textbox label="Jumlah Order" read-only="true"></textbox>
