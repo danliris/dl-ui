@@ -4,8 +4,8 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-
 const serviceUri = 'invoice-notes/by-user';
+const deliveryOrderUri = 'delivery-orders/no-invoice';
 
 export class Service extends RestService {
 
@@ -46,5 +46,10 @@ export class Service extends RestService {
     getPdfIncomeTaxNote(id) {
         var endpoint = `invoice-notes/pdf/income-tax/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getDeliveryOrder(filter) {
+        var endpoint = `${deliveryOrderUri}`;
+        return super.list(endpoint, {filter: JSON.stringify(filter)});
     }
 }

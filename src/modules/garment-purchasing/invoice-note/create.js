@@ -1,7 +1,7 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
@@ -31,10 +31,15 @@ export class Create {
     }
 
     save(event) {
-        this.service.create(this.data)
+        var itemToBeSaved = this.data.items.filter(function (item) {
+            return item.check
+        });
+        var _data = Object.assign({}, this.data);
+        _data.items = itemToBeSaved;
+        this.service.create(_data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
