@@ -16,6 +16,7 @@ export class DataForm {
   lampHeader = [{ header: "Standar Lampu" }];
   
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
+  rq=false;
   
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
@@ -128,8 +129,11 @@ export class DataForm {
       this.data.designMotive=this.data.salesContract.designMotive;
       this.data.uom=this.data.salesContract.uom;
       this.data.finishWidth=this.data.salesContract.materialWidth;
-      if(this.data.salesContract.remainingQuantity){
+      this.data.beforeQuantity=0;
+      console.log(this.data.salesContract.remainingQuantity);
+      if(this.data.salesContract.remainingQuantity!=undefined){
         this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
+        this.rq=true;
       }
       console.log(this.data.details);
   }
@@ -326,8 +330,9 @@ scFields=["salesContractNo"];
     if (this.data.salesContractId) {
             this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
             this.data.salesContract =this.selectedSC;
-            if(this.data.salesContract.remainingQuantity){
+            if(this.data.salesContract.remainingQuantity!=undefined){
               this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
+              this.rq=true;
             }
            // this.selectedMaterial = this.data.material;
         }
