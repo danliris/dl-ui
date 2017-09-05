@@ -33,6 +33,17 @@ export class NewProduct {
         return totWeight;
     }
 
+    get getDesign(){
+        var design = '';
+        if(this.data && this.data.designCode && this.data.designName)
+            design += `${this.data.designCode} - ${this.data.designName}`;
+        else if(this.data && this.data.designCode && !this.data.designName)
+            design += `${this.data.designCode}`;
+        else if(this.data && !this.data.designCode && this.data.designName)
+            design += `${this.data.designName}`;
+        return design;
+    }
+
     constructionChanged(newValue, oldValue){
         var dataSelected = newValue;
         if(dataSelected){

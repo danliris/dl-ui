@@ -32,15 +32,18 @@ export class DataForm {
             if(selectedData && selectedData._id){
                 this.data.buyerId = selectedData._id;
                 this.data.buyer = selectedData;
-                this.data.details = [];
                 this.filter = {
-                    "buyer.code" : this.data.buyer.code
+                    "buyer" : this.data.buyerId
                 }
             }else{
                 delete this.data.buyerId;
                 this.data.buyer = {};
                 this.filter = {};
-                this.data.details = [];
+            }
+            if(this.data && this.data.details && this.data.details.length > 0){
+                for(var a = this.data.details.length; a >= 0; a--){
+                    this.data.details.splice((a-1), 1);
+                }
             }
         }
     }
@@ -63,9 +66,9 @@ export class DataForm {
     
     get getFilter(){
         this.filter = {};
-        if(this.data && this.data.buyerId && this.data.buyer && this.data.buyer.code){
+        if(this.data && this.data.buyerId){
             this.filter = {
-                "buyer.code" : this.data.buyer.code
+                "buyer" : this.data.buyerId
             }
         }
         return this.filter;

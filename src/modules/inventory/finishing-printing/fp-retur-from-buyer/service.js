@@ -33,8 +33,8 @@ export class Service extends RestService {
         return super.put(endpoint, data);
     }
 
-    getProductShipment(orderNo) {
-        var endpoint = `${productUri}?orderNo=${orderNo}`;
+    getProductShipment(orderNo, buyer) {
+        var endpoint = `${productUri}?orderNo=${orderNo}&buyer=${buyer}`;
         return super.get(endpoint);
     }
 
