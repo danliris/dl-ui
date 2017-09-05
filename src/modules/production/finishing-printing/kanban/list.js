@@ -62,7 +62,7 @@ export class List {
     loadData = (info) => {
         var order = {};
         var filter = {
-            isBadOutput: false
+            isBadOutput: { $ne: true }
         };
         if (info.sort)
             order[info.sort] = info.order;

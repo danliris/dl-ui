@@ -13,26 +13,23 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if(this.data.referenceNumber && this.data.referenceNumber!=""){
-            this.data.reference={orderNo:this.data.referenceNumber};
-        }
-        else{
-            this.data.reference={};
-        }
+        this.unit = this.data.unit;
+        this.supplier = this.data.supplier;
+        this.deliveryOrder = { "_id": this.data.deliveryOrderId, "no": this.data.deliveryOrderNo };
     }
 
-    view(data) {
+    view() {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
     save() {
-        this.data.remainingQuantity=this.data.orderQuantity+(this.data.orderQuantity*this.data.shippingQuantityTolerance/100);
+        if(typeof this.data.date === 'object')
+            this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
+
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
             this.error = e;
         })
     }
-
-    
 }
