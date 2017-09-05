@@ -26,6 +26,17 @@ export class NewProduct {
         return totWeight;
     }
 
+    get getDesign(){
+        var design = '';
+        if(this.data && this.data.designCode && this.data.designNumber)
+            design += `${this.data.designCode} - ${this.data.designNumber}`;
+        else if(this.data && this.data.designCode && !this.data.designNumber)
+            design += `${this.data.designCode}`;
+        else if(this.data && !this.data.designCode && this.data.designNumber)
+            design += `${this.data.designNumber}`;
+        return design;
+    }
+
     controlOptions = {
         control: {
         length: 12
