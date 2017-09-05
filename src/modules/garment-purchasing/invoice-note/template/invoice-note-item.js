@@ -18,7 +18,7 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.isShowing = true;
+    this.isShowing = false;
   }
 
   get total() {
