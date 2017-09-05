@@ -130,10 +130,13 @@ export class DataForm {
       this.data.uom=this.data.salesContract.uom;
       this.data.finishWidth=this.data.salesContract.materialWidth;
       this.data.beforeQuantity=0;
-      console.log(this.data.salesContract.remainingQuantity);
       if(this.data.salesContract.remainingQuantity!=undefined){
         this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
         this.rq=true;
+      }
+      else{
+        this.data.remainingQuantity=undefined;
+        this.rq=false;
       }
       console.log(this.data.details);
   }
