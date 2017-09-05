@@ -2,6 +2,11 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
+var PRLoader = require('../../../loader/garment-purchase-request-by-user-loader');
+var UnitLoader = require('../../../loader/unit-loader');
+var BuyerLoader = require('../../../loader/garment-buyers-loader');
+var CategoryLoader = require('../../../loader/garment-category-loader');
+
 @inject(Router, Service)
 export class List {
 
@@ -50,6 +55,19 @@ export class List {
 
     }
 
+    get prLoader(){
+        return PRLoader;
+    }
+
+    get unitLoader(){
+        return UnitLoader;
+    }
+    get categoryLoader(){
+        return CategoryLoader;
+    }
+    get buyerLoader(){
+        return BuyerLoader;
+    }
 
     search() {
         var dateFormat = "DD MMM YYYY";
@@ -60,7 +78,7 @@ export class List {
             this.prState = this.prStates[0];
 
 
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value)
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.purchaseRequest ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value)
             .then(data => {
                 this.data = data;
                 this.data = [];
@@ -77,17 +95,18 @@ export class List {
                         _data.prDate = moment(new Date(pr.date)).format(dateFormat);
                         _data.shipmentDate = moment(new Date(pr.shipmentDate)).format(dateFormat);
                         _data.roNo = pr.roNo;
-                        _data.buyer = pr.buyer;
+                        _data.buyer = pr.buyer.name;
                         _data.artikel = pr.artikel;
                         _data.prNo = pr.no;
-                        _data.refNo = pr.refNo;
+                        _data.refNo = item.refNo;
                         _data.productName = item.product.name;
                         _data.unit = `${pr.unit.division.name} - ${pr.unit.name}`;
-                        _data.category = pr.category.name;
+                        _data.category = item.category.name;
                         _data.productCode = item.product.code;
                         _data.productQty = item.quantity ? item.quantity : 0;
                         _data.productUom = item.product.uom.unit ? item.product.uom.unit : "-";
                         _data.expected = pr.expectedDeliveryDate;
+                        _data.description = item.remark;
                         _data.status = status;
                         this.data.push(_data);
                     }
@@ -98,7 +117,7 @@ export class List {
         this.purchaseRequest = {};
         this.category = null;
         this.unit = null;
-        this.budget = null;
+        this.buyer = null;
         this.dateFrom = null;
         this.dateTo = null;
         this.prState = this.prStates[0];
@@ -107,7 +126,7 @@ export class List {
     ExportToExcel() {
         if (!this.prState)
             this.prState = this.prStates[0];
-        debugger
+        //debugger
         this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 
