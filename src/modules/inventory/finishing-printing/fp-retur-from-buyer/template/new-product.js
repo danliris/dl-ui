@@ -35,12 +35,12 @@ export class NewProduct {
 
     get getDesign(){
         var design = '';
-        if(this.data && this.data.designCode && this.data.designName)
-            design += `${this.data.designCode} - ${this.data.designName}`;
-        else if(this.data && this.data.designCode && !this.data.designName)
+        if(this.data && this.data.designCode && this.data.designNumber)
+            design += `${this.data.designCode} - ${this.data.designNumber}`;
+        else if(this.data && this.data.designCode && !this.data.designNumber)
             design += `${this.data.designCode}`;
-        else if(this.data && !this.data.designCode && this.data.designName)
-            design += `${this.data.designName}`;
+        else if(this.data && !this.data.designCode && this.data.designNumber)
+            design += `${this.data.designNumber}`;
         return design;
     }
 
