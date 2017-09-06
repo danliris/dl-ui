@@ -30,7 +30,10 @@ export class Create {
     }
 
     save(event) {
-        this.data.date = moment(this.data.date).format("YYYY-MM-DD");
+        if(this.data.date == "undefined")
+            delete this.data.date;
+        if(this.data.date && this.data.date !== "" )
+            this.data.date = moment(this.data.date).format("YYYY-MM-DD");
         this.service.create(this.data)
             .then((result) => {
                 alert("Data berhasil dibuat");
