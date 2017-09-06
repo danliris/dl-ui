@@ -33,8 +33,8 @@ export class List {
         { field: "buyer", title: "Buyer", sortable:false},
         { field: "spk", title: "No. SPK", sortable:false},
         { field: "coverLetter", title: "No. Surat Pengantar", sortable:false},
+        { field: "codeProduct", title: "Kode Barang", sortable:false},
         { field: "orderNo", title: "No. Order", sortable:false},
-        { field: "productCode", title: "Kode Barang", sortable:false},
         { field: "productName", title: "Nama Barang", sortable:false},
         { field: "productDescription", title: "Keterangan Produk", sortable:false},
         { field: "remark", title: "Keterangan", sortable:false},
@@ -103,7 +103,10 @@ export class List {
         return this.listDataFlag ? (
             this.service.search(this.arg)
                 .then(result => {
-                    var index=0;
+                    var index=((Number(result.info.page) - 1) * Number(result.info.size));
+                    console.log(result.info.page);
+                    console.log(result.info.size);
+                    console.log(index);
                     var newData=[];
                     console.log(result);
                     for (var retur of result.data) {
@@ -117,6 +120,7 @@ export class List {
                         data.spk = retur.spk ? retur.spk : '';
                         data.coverLetter = retur.coverLetter ? retur.coverLetter : '';
                         data.orderNo = retur.orderNo ? retur.orderNo : '';
+                        data.codeProduct = retur.codeProduct ? retur.codeProduct : '';
                         data.productCode = retur.productCode ? retur.productCode : '';
                         data.productName = retur.productName ? retur.productName : '';
                         data.productDescription = retur.productDescription ? retur.productDescription : '';
