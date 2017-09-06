@@ -42,18 +42,25 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    searchByTags(keyword, shipmentDate) {
+    searchByTags(keyword, shipmentDateFrom, shipmentDateTo) {
         var endpoint = `${servicePRUri}`;
         var filter = {};
-        if (keyword && shipmentDate) {
-            filter = { shipmentDate: moment(shipmentDate).format("YYYY-MM-DD"), tag: keyword };
+        if (keyword && shipmentDateFrom && shipmentDateTo) {
+            filter = {
+                shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
+                shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
+                tag: keyword
+            };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         }
         else if (keyword) {
             filter = { tag: keyword };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
-        } else if (shipmentDate) {
-            filter = { shipmentDate: moment(shipmentDate).format("YYYY-MM-DD") };
+        } else if (shipmentDateFrom && shipmentDateTo) {
+            filter = {
+                shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
+                shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
+            };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         } else {
             return super.list(endpoint);
