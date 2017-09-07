@@ -129,11 +129,11 @@ module.exports = [
         }
     },
     {
-        route: '/garment/invoice-note-quantity-correction',
-        name: 'invoice-note-quantity-correction',
-        moduleId: './modules/garment-purchasing/invoice-note-quantity-correction/index',
+        route: '/garment/purchase-quantity-correction',
+        name: 'purchase-quantity-correction',
+        moduleId: './modules/garment-purchasing/purchase-quantity-correction/index',
         nav: true,
-        title: 'Nota Invoice Koreksi Jumlah',
+        title: 'Koreksi Jumlah Pembelian',
         auth: true,
         settings: {
             group: "g-purchasing",
