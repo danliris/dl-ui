@@ -127,8 +127,8 @@ export class List {
                         data.remark = retur.remark ? retur.remark : '';
                         data.returQuantity = retur.returQuantity ? retur.returQuantity : '';
                         data.uom = retur.uom ? retur.uom : '';
-                        data.length = retur.length ? (retur.length * retur.returQuantity) : '';
-                        data.weight = retur.weight ? (retur.weight * retur.returQuantity) : '';
+                        data.length = retur.length ? (retur.length * retur.returQuantity).toFixed(2) : '';
+                        data.weight = retur.weight ? (retur.weight * retur.returQuantity).toFixed(2) : '';
 
                         newData.push(data);
                     }
