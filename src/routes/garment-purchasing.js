@@ -140,5 +140,17 @@ module.exports = [
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },
+    }, {
+        route: '/garment/monitoring-purchase-order-internal',
+        name: 'monitoring-purchase-order-internal',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-order-internal/index',
+        nav: true,
+        title: 'Laporan Purchase Order Internal',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ]
