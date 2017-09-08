@@ -5,6 +5,9 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class View {
+    hasCancel = true;
+    hasEdit = true;
+    hasDelete = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -17,17 +20,17 @@ export class View {
         this.supplier = this.data.supplier;
     }
 
-    list() {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    edit(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+    delete(event) {
         this.service.delete(this.data).then(result => {
-            this.list();
+            this.cancel();
         });
     }
 

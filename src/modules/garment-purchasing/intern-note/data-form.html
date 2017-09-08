@@ -1,5 +1,12 @@
 <template>
-    <form class="form-horizontal">
+    <au-input-form title.bind="title" with.bind="context">
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
         <au-textbox
             label="No. Nota Intern"
             value.bind="data.no"
@@ -16,6 +23,17 @@
             read-only.bind="readOnly"
             options.bind="auInputOptions">
         </au-datepicker>
+
+        <au-autocomplete 
+            value.bind="currency" 
+            error.bind="error.currency"
+            label="Mata Uang" 
+            loader.one-time="currencyLoader"
+            text.bind = "currencyView"
+            placeholder="cari mata uang"
+            read-only.bind="readOnly"
+            options.bind="auInputOptions">
+        </au-autocomplete> 
        
         <au-autocomplete 
             value.bind="supplier"
@@ -25,6 +43,7 @@
             text.bind="supplierView"
             read-only.bind="readOnly"
             placeholder="cari supplier"
+            show.bind="data.currency"
             options.bind="auInputOptions">
         </au-autocomplete>
 
@@ -46,18 +65,7 @@
             items.bind="termPaymentLocalOptions"  
             options.bind="auInputOptions"
             if.bind="!supplierIsImport">
-        </au-dropdown>
-
-        <au-autocomplete 
-            value.bind="currency" 
-            error.bind="error.currency"
-            label="Mata Uang" 
-            loader.one-time="currencyLoader"
-            text.bind = "currencyView"
-            placeholder="cari mata uang"
-            read-only.bind="readOnly"
-            options.bind="auInputOptions">
-        </au-autocomplete>  
+        </au-dropdown> 
 
         <au-datepicker
             label="Tgl. Jatuh Tempo"
@@ -84,5 +92,5 @@
             read-only.bind="readOnly"
             item-template="modules/garment-purchasing/intern-note/template/intern-note-item">
         </au-collection>
-    </form>
+    </au-input-form>
 </template>

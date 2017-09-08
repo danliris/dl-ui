@@ -5,18 +5,24 @@ import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
+    hasCancel = true;
+    hasSave = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
         this.data = {};
     }
 
-    back() {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
     determineActivationStrategy() {
         return activationStrategy.replace;
+    }
+
+    bind() {
+        this.error = {};
     }
 
     save() {

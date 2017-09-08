@@ -13,11 +13,13 @@
 				read-only.bind="true">
 			</au-datepicker>
 		</td>
-		<au-numeric 
-			value.bind="totalAmount" 
-			read-only.bind="true" 
-			format="0">
-		</au-numeric>
+		<td>
+			<au-numeric 
+				value.bind="totalAmount" 
+				read-only.bind="true" 
+				format="0">
+			</au-numeric>
+		</td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
 		</td>

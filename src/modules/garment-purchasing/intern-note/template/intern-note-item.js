@@ -6,10 +6,10 @@ export class DeliveryOrderItem {
 	}
 
 	get totalAmount() {
-		var total = data.items
+		var total = this.data.items
 			.map(invoiceItem => {
 				var totalItem = invoiceItem.items
-					.map(item => item.deliveredQuantity)
+					.map(item => item.deliveredQuantity * item.pricePerDealUnit)
 					.reduce(function (prev, curr, index, arr) {
 						return prev + curr;
 					}, 0);
@@ -18,5 +18,6 @@ export class DeliveryOrderItem {
 			.reduce(function (prev, curr, index, arr) {
 				return prev + curr;
 			}, 0);
+			return total
 	}
 }

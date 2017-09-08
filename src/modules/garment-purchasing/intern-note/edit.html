@@ -1,12 +1,4 @@
 <template>
-    <h1 class="page-header">Ubah Nota Intern Garment</h1>
     <require from="./data-form"></require>
-    <block>
-        <data-form data.bind="data" currency.bind="currency" supplier.bind="supplier" error.bind="error"></data-form>
-        <hr/>
-        <div class="pull-right">
-            <button class="btn btn-default" click.delegate="view()">Kembali</button>
-            <button class="btn btn-success" click.delegate="save()">Simpan</button>
-        </div>
-    </block>
+    <data-form title="Ubah Nota Intern Garment"></data-form>
 </template>
