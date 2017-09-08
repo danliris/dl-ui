@@ -86,8 +86,8 @@
                         <td>${$index + 1}</td>
                         <td>${pr.unit}</td>
                         <td>${pr.category}</td>
-                        <td>${pr.prDate}</td>
-                        <td>${pr.shipmentDate}</td>
+                        <td>${pr.prDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${pr.shipmentDate | dateFormat:'DD MMMM YYYY'}</td>
                         <td>${pr.roNo}</td>
                         <td>${pr.buyer}</td>
                         <td>${pr.artikel}</td>
@@ -99,7 +99,7 @@
                         <td>${pr.productUom}</td>
                         <!--<td if.bind="pr.expected!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>-->
                         <!--<td if.bind="pr.expected==''|| pr.expected=='undefined'"> - </td>-->
-                        <td>${pr.description}</td>
+                        <td>${pr.remark}</td>
                         <td>${pr.status}</td>
                     </tr>
                 </tbody>
