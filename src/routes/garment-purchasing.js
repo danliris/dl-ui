@@ -142,6 +142,11 @@ module.exports = [
         }
     },
     {
+        route: '/garment/purchase-price-correction',
+        name: 'purchase-price-correction',
+        moduleId: './modules/garment-purchasing/purchase-price-correction/index',
+        nav: true,
+        title: 'Koreksi Harga Pembelian',
         route: '/garment/unit-receipt-note',
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/unit-receipt-note/index',
@@ -154,7 +159,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-     {
+    {
         route: '/garment/monitoring-unit-receipt-note',
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/monitoring-unit-receipt-note/index',
@@ -167,8 +172,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    
-     {
+    {
         route: '/garment/monitoring-purchase-order-internal',
         name: 'monitoring-purchase-order-internal',
         moduleId: './modules/garment-purchasing/monitoring-purchase-order-internal/index',
