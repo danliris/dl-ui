@@ -56,10 +56,16 @@ export class DataForm {
         return filter;
     }
 
-    bind() {
-        if (!this.readOnly) {
-            this.deliveryOrderItem.columns.push({ header: "" });
+    @computedFrom("data.supplier")
+    get supplierIsImport() {
+        if (this.data.supplier) {
+            if (this.data.supplier.import)
+                return true
+            else
+                return false
         }
+        else
+            return false
     }
 
     async supplierChanged(newValue, oldValue) {
@@ -68,8 +74,9 @@ export class DataForm {
         if (selectedSupplier) {
             this.data.supplier = selectedSupplier;
             this.data.supplierId = selectedSupplier._id;
-            var _items = await this.service.getInvoiceNote({ supplierId: this.data.supplierId });
-            this.data.items = _items||[];
+            var res = await this.service.getInvoiceNote({ supplierId: this.data.supplierId });
+            var _items = res.data || [];
+            this.data.items = _items;
         }
         else {
             this.data.supplier = {};
