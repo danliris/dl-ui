@@ -141,4 +141,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment/intern-note',
+        name: 'intern-note',
+        moduleId: './modules/garment-purchasing/intern-note/index',
+        nav: true,
+        title: 'Nota Intern',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]

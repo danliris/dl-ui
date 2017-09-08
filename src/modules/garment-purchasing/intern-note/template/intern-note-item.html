@@ -1,0 +1,25 @@
+<template>
+	<tr>
+		<td>
+			<au-textbox
+				value.one-way="data.no"
+				read-only="true"
+				error.bind="error.InvoiceNoteId">
+			</au-textbox>
+		</td>
+		<td>
+			<au-datepicker
+				value.bind="data.date"
+				read-only.bind="true">
+			</au-datepicker>
+		</td>
+		<au-numeric 
+			value.bind="totalAmount" 
+			read-only.bind="true" 
+			format="0">
+		</au-numeric>
+		<td if.bind="!readOnly">
+			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
+		</td>
+	</tr>
+</template>

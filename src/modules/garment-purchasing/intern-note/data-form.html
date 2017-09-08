@@ -1,0 +1,89 @@
+<template>
+    <form class="form-horizontal">
+        <au-textbox
+            label="No. Nota Intern"
+            value.bind="data.no"
+            error.bind="error.no"
+            read-only.bind="true"
+            if.bind="readOnly || isEdit"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-datepicker
+            label="Tgl. Nota Intern"
+            value.bind="data.date"
+            error.bind="error.date"
+            read-only.bind="readOnly"
+            options.bind="auInputOptions">
+        </au-datepicker>
+       
+        <au-autocomplete 
+            value.bind="supplier"
+            error.bind="error.supplierId"
+            label="Supplier" 
+            loader.one-time="supplierLoader" 
+            text.bind="supplierView"
+            read-only.bind="readOnly"
+            placeholder="cari supplier"
+            options.bind="auInputOptions">
+        </au-autocomplete>
+
+        <au-dropdown
+            label="Term Pembayaran"
+            value.bind="data.paymentMethod"
+            error.bind="error.paymentMethod"
+            read-only.bind="readOnly"
+            items.bind="termPaymentImportOptions"  
+            options.bind="auInputOptions"
+            if.bind="supplierIsImport">
+        </au-dropdown>
+
+        <au-dropdown
+            label="Term Pembayaran"
+            value.bind="data.paymentMethod"
+            error.bind="error.paymentMethod"
+            read-only.bind="readOnly"
+            items.bind="termPaymentLocalOptions"  
+            options.bind="auInputOptions"
+            if.bind="!supplierIsImport">
+        </au-dropdown>
+
+        <au-autocomplete 
+            value.bind="currency" 
+            error.bind="error.currency"
+            label="Mata Uang" 
+            loader.one-time="currencyLoader"
+            text.bind = "currencyView"
+            placeholder="cari mata uang"
+            read-only.bind="readOnly"
+            options.bind="auInputOptions">
+        </au-autocomplete>  
+
+        <au-datepicker
+            label="Tgl. Jatuh Tempo"
+            value.bind="data.dueDate"
+            error.bind="error.dueDate"
+            read-only.bind="readOnly"
+            options.bind="auInputOptions">
+        </au-datepicker>
+
+        <au-multiline 
+            label="Keterangan"
+            value.bind="data.remark"
+            error.bind="error.remark"
+            read-only.bind="readOnly"
+            placeholder="tambah keterangan"
+            options.bind="auInputOptions">
+        </au-multiline>
+
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="invoiceNoteItem.columns"
+            remove.bind="invoiceNoteItem.onRemove"
+            errors.bind="error.items"
+            read-only.bind="readOnly"
+            item-template="modules/garment-purchasing/intern-note-note/template/intern-note-item"
+            show.bind="data.items.length > 0">
+        </au-collection>
+    </form>
+</template>
