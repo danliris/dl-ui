@@ -182,6 +182,21 @@ export class DataForm {
             });
 
             this.data.currentIndex = this.data.currentStepIndex - 1;
+
+            this.instruction = this.data.instruction;
+
+            this.service.getDurationEstimation(this.data.productionOrder.processType.code, ["areas"])
+                .then((result) => {
+                    if (result.data.length > 0) {
+                        this.data.durationEstimation = result.data[0];
+                    }
+                    else {
+                        delete this.data.durationEstimation;
+                    }
+                });
+        }
+        else { 
+            delete this.data.durationEstimation;
         }
     }
 
@@ -204,6 +219,18 @@ export class DataForm {
             for (var cart of this.data.carts) {
                 cart.uom = "MTR";
             }
+
+            this.service.getDurationEstimation(this.data.productionOrder.processType.code, ["areas"])
+                .then((result) => {
+                    if (result.data.length > 0) {
+                        this.data.durationEstimation = result.data[0];
+                    }
+                    else {
+                        delete this.data.durationEstimation;
+                    }
+
+                    this.generateDeadline();
+                });
         }
         else {
             for (var cart of this.data.carts) {
@@ -212,9 +239,11 @@ export class DataForm {
             delete this.data.productionOrder;
             delete this.data.productionOrderId;
             delete this.data.selectedProductionOrderDetail;
+            delete this.data.durationEstimation;
         }
     }
 
+    @computedFrom("data.productionOrder")
     get hasProductionOrder() {
         return this.data.productionOrder;
     }
@@ -227,8 +256,9 @@ export class DataForm {
         return this.data.selectedProductionOrderDetail;
     }
 
+    @computedFrom("data.instruction")
     get hasInstruction() {
-        return this.data.instruction;
+        return this.data.instruction ? this.data.instruction.steps.length > 0 : false;
     }
 
     get instructionLoader() {
@@ -305,6 +335,12 @@ export class DataForm {
         }
     }
 
+    instructionChanged(newValue, oldValue) {
+        this.data.instruction = newValue;
+
+        this.generateDeadline();
+    }
+
     changeInstruction(reprocess) {
         if (reprocess != this.currentReprocess) {
             this.options.reprocessStepsHide = false;
@@ -319,6 +355,41 @@ export class DataForm {
             }
 
             this.currentReprocess = reprocess;
+        }
+    }
+
+    generateDeadline() {
+        if (this.hasInstruction && this.hasProductionOrder) {
+            if (this.data.durationEstimation) {
+                var deliveryDate = this.data.productionOrder.deliveryDate;
+
+                this.data.instruction.steps = this.data.instruction.steps.map((step) => {
+                    if (step.processArea && step.processArea != "") {
+                        var d = new Date(deliveryDate);
+                        var totalDay = 0;
+
+                        for (var i = this.data.durationEstimation.areas.length - 1; i >= 0; i--) {
+                            var area = this.data.durationEstimation.areas[i];
+                            totalDay += area.duration;
+
+                            if (area.name == step.processArea.toUpperCase().replace("AREA ", ""))
+                                break;
+                        }
+
+                        d.setDate(d.getDate() - totalDay + 1);
+
+                        step.deadline = new Date(d);
+                    }
+
+                    return step;
+                });
+            }
+            else {
+                this.data.instruction.steps = this.data.instruction.steps.map((step) => {
+                    step.deadline = null;
+                    return step;
+                });
+            }
         }
     }
 }
