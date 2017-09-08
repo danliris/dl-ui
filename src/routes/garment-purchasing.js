@@ -128,4 +128,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment/purchase-price-correction',
+        name: 'purchase-price-correction',
+        moduleId: './modules/garment-purchasing/purchase-price-correction/index',
+        nav: true,
+        title: 'Koreksi Harga Pembelian',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
