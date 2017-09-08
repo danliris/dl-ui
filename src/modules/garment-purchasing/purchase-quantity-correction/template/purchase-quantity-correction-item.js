@@ -3,7 +3,7 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './../service';
 
 @inject(Service, BindingEngine, BindingSignaler)
-export class InvoiceNoteItem {
+export class PurchaseQuantityCorrectionItem {
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
