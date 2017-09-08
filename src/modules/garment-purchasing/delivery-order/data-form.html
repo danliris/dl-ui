@@ -84,6 +84,14 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-checkbox 
+            label="Apakah dikenakan Bea Cukai?" 
+            value.bind="data.useCustoms" 
+            error.bind="error.useCustoms" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-checkbox>
+
         <au-multiline 
             label="Keterangan" 
             value.bind="data.remark"
