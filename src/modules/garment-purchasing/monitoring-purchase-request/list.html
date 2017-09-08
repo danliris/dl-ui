@@ -1,12 +1,50 @@
 <template>
     <h1 class="page-header">Monitoring Purchase Request</h1>
     <form class="form-horizontal">
-        <purchase-request-auto-suggest  label="Nomor PR"        value.bind="purchaseRequest" filter.bind="filter"></purchase-request-auto-suggest>
-        <unit-auto-suggest              label="Unit"            value.bind="unit"></unit-auto-suggest>
-        <category-auto-suggest          label="Kategori"        value.bind="category"></category-auto-suggest>
-        <datepicker                     label="Tanggal Awal"    value.bind="dateFrom"   change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker                     label="Tanggal Akhir"   value.bind="dateTo"     min.bind="dateFrom"></datepicker>
-        <dropdown                       label="Status"          value.bind="prState" items.bind="prStates"></dropdown>
+        <au-autocomplete 
+                value.bind="purchaseRequest" 
+                label="Nomor PR" 
+                loader.bind="prLoader"
+                placeholder="Cari Nomor PR" 
+                read-only.bind="readOnly" 
+                key="_id" 
+                text="no"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        <au-autocomplete 
+                value.bind="unit" 
+                label="Unit" 
+                loader.bind="unitLoader"
+                placeholder="Cari Unit" 
+                read-only.bind="readOnly" 
+                key="_id" 
+                text="name"
+                options.bind="controlOptions">
+            </au-autocomplete>
+            </au-autocomplete>
+        <au-autocomplete 
+                value.bind="category" 
+                label="Kategori" 
+                loader.bind="categoryLoader"
+                placeholder="Cari Kategori" 
+                read-only.bind="readOnly" 
+                key="_id" 
+                text="name"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        <au-autocomplete 
+                value.bind="buyer" 
+                label="Buyer" 
+                loader.bind="buyerLoader"
+                placeholder="Cari Buyer" 
+                read-only.bind="readOnly" 
+                key="_id" 
+                text="name"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        <au-datepicker                     label="Tanggal Awal"    value.bind="dateFrom"   change.delegate="dateFromChanged($event)"></au-datepicker>
+        <au-datepicker                     label="Tanggal Akhir"   value.bind="dateTo"     min.bind="dateFrom"></au-datepicker>
+        <au-dropdown                       label="Status"          value.bind="prState" items.bind="prStates"></au-dropdown>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -32,7 +70,8 @@
                         <td rowspan="2">Nomor PR</td>
                         <td rowspan="2">Nomor Referensi PR</td>
                         <td colspan="4">Barang yang diminta</td>
-                        <td rowspan="2">Tanggal diminta Datang</td>
+                        <!--<td rowspan="2">Tanggal diminta Datang</td>-->
+                        <td rowspan="2">Keterangan</td>
                         <td rowspan="2">Status</td>
                     </tr>
                     <tr>
@@ -47,8 +86,8 @@
                         <td>${$index + 1}</td>
                         <td>${pr.unit}</td>
                         <td>${pr.category}</td>
-                        <td>${pr.prDate}</td>
-                        <td>${pr.shipmentDate}</td>
+                        <td>${pr.prDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${pr.shipmentDate | dateFormat:'DD MMMM YYYY'}</td>
                         <td>${pr.roNo}</td>
                         <td>${pr.buyer}</td>
                         <td>${pr.artikel}</td>
@@ -58,8 +97,9 @@
                         <td>${pr.productName}</td>
                         <td>${pr.productQty}</td>
                         <td>${pr.productUom}</td>
-                        <td if.bind="pr.expected!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>
-                        <td if.bind="pr.expected==''|| pr.expected=='undefined'"> - </td>
+                        <!--<td if.bind="pr.expected!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>-->
+                        <!--<td if.bind="pr.expected==''|| pr.expected=='undefined'"> - </td>-->
+                        <td>${pr.remark}</td>
                         <td>${pr.status}</td>
                     </tr>
                 </tbody>

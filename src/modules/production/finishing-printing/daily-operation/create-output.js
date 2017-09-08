@@ -20,7 +20,11 @@ export class CreateOutput {
     }
 
     determineActivationStrategy() {
-        return activationStrategy.replace;
+        return activationStrategy.replace; 
+        //replace the viewmodel with a new instance
+        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+        // or activationStrategy.noChange to explicitly use the default behavior
+        // return activationStrategy.invokeLifecycle;
     }
 
     save() {

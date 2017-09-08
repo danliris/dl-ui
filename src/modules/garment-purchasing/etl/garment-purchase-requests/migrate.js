@@ -47,14 +47,18 @@ export class Migrate {
 
         this.service.migrate(this.data)
             .then(result => {
-                alert("migration berhasil");
+                if (result.length == 0) {
+                    alert("tidak ada data");
+                } else {
+                    alert("migration berhasil");
+                }
+
                 this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
 
             })
             .catch(e => {
                 this.error = e;
             })
-
     }
 }
 

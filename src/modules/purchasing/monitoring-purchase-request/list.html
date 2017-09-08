@@ -29,7 +29,8 @@
                         <td rowspan="2">Tanggal PR</td>
                         <td rowspan="2">Nomor PR</td>
                         <td colspan="4">Barang yang diminta</td>
-                        <td rowspan="2">Tanggal diminta Datang</td>
+                        <td rowspan="2">Tanggal diminta Datang PR</td>
+                        <td rowspan="2">Tanggal diminta Datang PO Eksternal</td>
                         <td rowspan="2">Status</td>
                     </tr>
                     <tr>
@@ -53,6 +54,7 @@
                         <td>${pr.productUom}</td>
                         <td if.bind="pr.expected!=''">${pr.expected | dateFormat:'D MMM YYYY'}</td>
                         <td if.bind="pr.expected==''|| pr.expected=='undefined'"> - </td>
+                        <td>${pr.poEks}</td>
                         <td>${pr.status}</td>
                     </tr>
                 </tbody>

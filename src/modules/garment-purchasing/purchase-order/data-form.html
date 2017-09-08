@@ -70,8 +70,10 @@
 
         <au-collection 
             items.bind="data.items" 
+            errors.bind="error.items" 
             columns.bind="itemsColumns" 
             read-only.bind="readOnly" 
+            options.bind="options"
             item-template="modules/garment-purchasing/purchase-order/template/purchase-order-item">
         </au-collection>
 

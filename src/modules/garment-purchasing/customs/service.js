@@ -47,6 +47,7 @@ export class Service extends RestService {
         var endpoint = `${deliveryOrderForCustoms}`;
         var filter = {
                     "supplier.code" : info.supplier ? info.supplier : "",
+                    "useCustoms":true,
                     "items" : {
                         "$elemMatch" : {
                             "fulfillments" :
