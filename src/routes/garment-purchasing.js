@@ -90,6 +90,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-delivery-order',
+        name: 'monitoring-delivery-order',
+        moduleId: './modules/garment-purchasing/monitoring-delivery-order/index',
+        nav: true,
+        title: 'Monitoring Surat Jalan',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/customs',
         name: 'customs',
         moduleId: './modules/garment-purchasing/customs/index',
@@ -129,6 +142,44 @@ module.exports = [
         }
     },
     {
+        route: '/garment/intern-note',
+        name: 'intern-note',
+        moduleId: './modules/garment-purchasing/intern-note/index',
+        nav: true,
+        title: 'Nota Intern', auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/purchase-quantity-correction',
+        name: 'purchase-quantity-correction',
+        moduleId: './modules/garment-purchasing/purchase-quantity-correction/index',
+        nav: true,
+        title: 'Koreksi Jumlah Pembelian',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/purchase-price-correction',
+        name: 'purchase-price-correction',
+        moduleId: './modules/garment-purchasing/purchase-price-correction/index',
+        nav: true,
+        title: 'Koreksi Harga Pembelian',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/unit-receipt-note',
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/unit-receipt-note/index',
@@ -141,4 +192,31 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment/monitoring-unit-receipt-note',
+        name: 'unit-receipt-note',
+        moduleId: './modules/garment-purchasing/monitoring-unit-receipt-note/index',
+        nav: true,
+        title: 'Laporan Bon Terima Unit',
+
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/monitoring-purchase-order-internal',
+        name: 'monitoring-purchase-order-internal',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-order-internal/index',
+        nav: true,
+        title: 'Laporan Purchase Order Internal',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ]

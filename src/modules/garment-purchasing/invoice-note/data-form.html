@@ -130,13 +130,22 @@
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
-            columns.bind="itemsInfo.columns" 
-            add.bind="itemsInfo.onAdd" 
-            remove.bind="removeItems"
-            options.one-way="filter"
+            columns.bind="itemsInfo.columns"
+            show.bind="data.items.length > 0  && !readOnly"
             read-only.bind="readOnly"
-            show.bind="filter.supplierId && filter.currencyCode"
-            view-model.ref="ItemsCollection"
+            options.bind="options"
+            checkall.delegate="onClickAllDataSource($event)"
+            item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="itemsInfo.columnsReadOnly"
+            show.bind="data.items.length > 0 && readOnly"
+            read-only.bind="readOnly"
+            options.bind="options"
+            checkall.delegate="onClickAllDataSource($event)"
             item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
         </au-collection>
 

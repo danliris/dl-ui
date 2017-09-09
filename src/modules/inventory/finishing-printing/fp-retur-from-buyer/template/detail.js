@@ -3,6 +3,7 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from '../service';
 var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 
+
 @inject(Service, BindingEngine, BindingSignaler)
 export class Detail {
     @bindable productionOrder;
@@ -11,7 +12,7 @@ export class Detail {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
-        this.filter = context.context.options;
+        this.filterBuyer = context.context.options;
         this.productionOrder =  this.data.selectedProductionOrder;
         if(this.data && this.data.productionOrderId && !this.data.isAdd){
             this.productionOrder = {_id : this.data.productionOrderId, orderNo : this.data.productionOrderNo}
@@ -60,7 +61,7 @@ export class Detail {
                 this.data.productionOrderId = dataSelected._id;
                 this.data.productionOrderNo = dataSelected.orderNo;
                 this.selectProductionOrder = dataSelected;
-                var items = await this.service.getProductShipment(this.data.productionOrderNo);
+                var items = await this.service.getProductShipment(this.data.productionOrderNo, (this.filterBuyer && this.filterBuyer.buyer ? this.filterBuyer.buyer : ''));
                 var products = [];
                 if(items.length > 0){
                     for(var a of items){
@@ -69,7 +70,7 @@ export class Detail {
                             productName : a._id.productName,
                             productId : a._id.productId,
                             designCode : a._id.designCode,
-                            designNumber : a._id.designName,
+                            designNumber : a._id.designNumber,
                             colorWay : a._id.colorWay,
                             remark : "",
                             returQuantity : 0,
@@ -128,6 +129,12 @@ export class Detail {
             }
         };
     }
+
+    // packingLoaderView = (packing) => {
+    //     if(packing.code!="" && packing.productionOrderNo!="")
+    //     return `${packing.code} - ${packing.productionOrderNo}`;
+    //     //return packing.productionOrderNo
+    // }
 
     controlOptions = {
         control: {

@@ -22,7 +22,7 @@ export class NewProduct {
         if(this.data && this.data.length && this.data.returQuantity){
             totLength = Number(this.data.length) * Number(this.data.returQuantity);
         }
-        return totLength;
+        return totLength.toFixed(2);
     }
 
     get getTotWeight(){
@@ -30,7 +30,18 @@ export class NewProduct {
         if(this.data && this.data.weight && this.data.returQuantity){
             totWeight = Number(this.data.weight) * Number(this.data.returQuantity);
         }
-        return totWeight;
+        return totWeight.toFixed(2);
+    }
+
+    get getDesign(){
+        var design = '';
+        if(this.data && this.data.designCode && this.data.designNumber)
+            design += `${this.data.designCode} - ${this.data.designNumber}`;
+        else if(this.data && this.data.designCode && !this.data.designNumber)
+            design += `${this.data.designCode}`;
+        else if(this.data && !this.data.designCode && this.data.designNumber)
+            design += `${this.data.designNumber}`;
+        return design;
     }
 
     constructionChanged(newValue, oldValue){

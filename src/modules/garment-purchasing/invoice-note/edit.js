@@ -23,6 +23,9 @@ export class Edit {
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
         this.vat = this.data.vat;
+        this.data.items.map((items) => {
+            items.check = true;
+        })
     }
 
     cancel(event) {
@@ -30,7 +33,12 @@ export class Edit {
     }
 
     save(event) {
-        this.service.update(this.data).then(result => {
+        var itemToBeSaved = this.data.items.filter(function (item) {
+            return item.check
+        });
+        var _data = Object.assign({}, this.data);
+        _data.items = itemToBeSaved;
+        this.service.update(_data).then(result => {
             this.cancel();
         }).catch(e => {
             this.error = e;

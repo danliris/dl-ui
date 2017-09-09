@@ -37,10 +37,10 @@ export class Create {
 
     save(event) {
         if (this.data.customsDate == "undefined") {
-            delete this.data.customsDate
+            delete this.data.customsDate;
         }
         if (this.data.validateDate == "undefined") {
-            delete this.data.validateDate == "";
+            delete this.data.validateDate;
         }
         if(this.data.customsDate && this.data.customsDate !== "")
             this.data.customsDate = moment(this.data.customsDate).format("YYYY-MM-DD");
