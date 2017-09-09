@@ -159,7 +159,7 @@ module.exports = [
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/monitoring-unit-receipt-note/index',
         nav: true,
-        title: 'Laporan Bon Terima Unit',
+        title: 'Monitoring Bon Terima Unit',
         auth: true,
         settings: {
             group: "g-purchasing",
