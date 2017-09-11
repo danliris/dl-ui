@@ -61,7 +61,7 @@ export class List {
         this.unit = "";
         this.dateFrom = "";
         this.dateTo = "";
-        this.supplier = {};
+        this.supplier = "";
        
     }
 }
