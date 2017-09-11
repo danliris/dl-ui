@@ -1,0 +1,286 @@
+<template>
+  <style>
+    au-datetimepicker input {
+      width: 225px !important;
+    }
+  </style>
+  <au-input-form 
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions">
+
+    <au-autocomplete 
+      value.bind="productionOrder" 
+      error.bind="error.productionOrder"
+      label="Nomor Order" 
+      loader.bind="productionOrderLoader"
+      read-only.bind="readOnly"
+      options.bind="controlOptions"
+      if.bind="!isReprocess"
+      text="orderNo">
+    </au-autocomplete>
+
+    <au-autocomplete 
+      value.bind="kanban" 
+      error.bind="error.productionOrder"
+      label="Nomor Order - Nomor Kereta Lama" 
+      loader.bind="kanbanLoader"
+      read-only.bind="readOnly"
+      text.bind="kanbanView"
+      options.bind="controlOptions"
+      if.bind="isReprocess"
+      query.bind="query">
+    </au-autocomplete>
+
+    <au-textbox 
+      label="Jenis Order" 
+      value.bind="data.productionOrder.orderType.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox 
+      label="Jenis Proses" 
+      value.bind="data.productionOrder.processType.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox 
+      label="Material" 
+      value.bind="data.productionOrder.material.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox 
+      label="Konstruksi" 
+      value.bind="data.productionOrder.materialConstruction.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox 
+      label="Nomor Benang" 
+      value.bind="data.productionOrder.yarnMaterial.name"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox 
+      label="Standard Handfeel" 
+      value.bind="data.productionOrder.handlingStandard"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox 
+      label="Lebar Finish" 
+      value.bind="data.productionOrder.finishWidth"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-dropdown 
+      label="Color" 
+      value.bind="data.selectedProductionOrderDetail" 
+      error.bind="error.selectedProductionOrderDetail" 
+      read-only.bind="readOnly" 
+      items.bind="productionOrderDetails"
+      if.bind="hasProductionOrderDetails && !readOnly"
+      options.bind="controlOptions">
+    </au-dropdown>
+    <au-textbox label="Color" value.bind="data.selectedProductionOrderDetail.colorRequest" read-only.bind="readOnly || isReprocess" if.bind="readOnly || isReprocess ? (data.selectedProductionOrderDetail.colorRequest ? true : false) : false" options.bind="controlOptions"></au-textbox>
+
+    <au-textbox 
+      label="Jumlah" 
+      value.bind="data.selectedProductionOrderDetail.quantity" 
+      read-only.bind="true"
+      if.bind="hasColor"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox
+      label="Satuan"
+      value.bind="data.productionOrder.uom.unit" 
+      read-only.bind="true"
+      if.bind="hasColor"
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-textbox 
+      label="Grade" 
+      value.bind="data.grade"
+      read-only.bind="readOnly || isReprocess"
+      error.bind="error.grade"
+      options.bind="controlOptions"
+      if.bind="isReprocess ? (data.grade ? true : false) : true">
+    </au-textbox>
+
+    <au-textbox 
+      label="Keterangan" 
+      value.bind="data.output"
+      read-only.bind="true"
+      if.bind="isView || isEdit"
+      options.bind="controlOptions">
+    </au-textbox> 
+    
+    <radiobutton
+      label="Reproses"
+      value.bind="data.reprocess"
+      if.bind="isReprocess && hasInstruction"
+      read-only.bind="readOnly"
+      error.bind="error.reprocess"
+      selections.bind="reprocess"
+      change.delegate="reprocessChanged($event)">
+    </radiobutton>
+
+    <au-layout error.bind="error.cart"></au-layout>
+    <au-collection 
+      items.bind="data.carts" 
+      columns.bind="cartInfo.columns" 
+      add.bind="!isReprocess ? cartInfo.onAdd : null" 
+      remove.bind="cartInfo.onRemove"
+      title.bind="kereta" 
+      options.bind="options"
+      read-only.bind="readOnly"
+      if.bind="!readOnly && !isEdit && !data.reprocessStatus"
+      item-template="modules/production/finishing-printing/bad-output-kanban/template/cart-item">
+    </au-collection>
+
+    <div class="panel-heading" if.bind="(isView || isEdit) && oldKanbanStatus">
+      <h4>Kereta Lama</h4>
+    </div>
+
+    <au-textbox 
+      label="Nomor Kereta"
+      value.bind="data.oldKanban.cart.cartNumber" 
+      read-only="true"
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Panjang"
+      value.bind="data.oldKanban.cart.qty" 
+      read-only="true"
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
+      options.bind="controlOptions">
+    </au-numeric>
+
+    <au-textbox 
+      label="Satuan"
+      value.bind="data.oldKanban.cart.uom.unit" 
+      read-only="true"
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Jumlah PCS"
+      value.bind="data.oldKanban.cart.pcs" 
+      read-only="true"
+      if.bind="(isView || isEdit) && oldKanbanStatus" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
+
+    <div class="panel-heading" if.bind="isView || isEdit">
+      <h4>${kereta}</h4>
+    </div>
+
+    <au-textbox 
+      label="Nomor Kereta"
+      value.bind="data.cart.cartNumber" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Panjang"
+      value.bind="data.cart.qty" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions">
+    </au-numeric>
+
+    <au-textbox 
+      label="Satuan"
+      value.bind="data.cart.uom" 
+      read-only.bind="true"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions">
+    </au-textbox>
+
+    <au-numeric 
+      label="Jumlah PCS"
+      value.bind="data.cart.pcs" 
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit" 
+      options.bind="controlOptions"
+      format="0">
+    </au-numeric>
+
+    </br>
+    
+    <div class="panel-heading" if.bind="isView || isEdit">
+      <h4>Instruksi</h4>
+    </div>
+
+    <au-autocomplete 
+      value.bind="instruction" 
+      error.bind="error.instruction"
+      label="Instruksi" 
+      loader.one-time="instructionLoader"
+      placeholder="search instruction" 
+      key="code"
+      text="name"
+      read-only.bind="readOnly || isReprocess || oldKanbanStatus"
+      options.bind="controlOptions"
+      if.bind="isReprocess ? hasInstruction : hasProductionOrder">
+    </au-autocomplete>
+
+    <table 
+      class="table table-hover" 
+      show.bind="hasInstruction && !data.reprocessStatus && !options.reprocessStepsHide">
+        <tr>
+          <td class="col-md-10">
+            <au-collection 
+              items.bind="data.instruction.steps" 
+              columns.bind="stepInfo.columns"
+              add.bind="!options.disabledStepAdd ? stepInfo.onAdd : null" 
+              remove.bind="stepInfo.onRemove"
+              errors.bind="error.steps"
+              title="Steps" 
+              read-only.bind="readOnly"
+              options.bind="options"
+              item-template="modules/production/finishing-printing/bad-output-kanban/template/step-item"
+              view-model.ref="StepsCollection">
+            </au-collection>
+          </td>
+          <td style="vertical-align: middle" width="1%" if.bind="!options.disabledStepAdd">
+              <button class="btn btn-info pull-right" click.delegate="moveItemUp($event)" if.bind="!readOnly">
+                <i class="fa fa-caret-up" aria-hidden="true"></i>
+              </button>
+              </br>
+              </br>
+              <button class="btn btn-info pull-right" click.delegate="moveItemDown($event)" if.bind="!readOnly">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </button>
+          </td>
+        </tr>
+    </table>
+
+    </br>
+    </br>
+    </br>
+  </au-input-form>
+</template>

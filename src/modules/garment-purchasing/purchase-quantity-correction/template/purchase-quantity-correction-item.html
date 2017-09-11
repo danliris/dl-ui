@@ -1,0 +1,28 @@
+<template>
+    <tr>
+        <td>
+            <au-textbox value.bind="data.purchaseOrderExternalNo" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.purchaseRequestNo" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.product.name" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="currentQuantity" read-only.bind="options.readOnly" error.bind="error.quantity"></au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.uom.unit" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.pricePerUnit.toFixed(2)" read-only.bind="true"></au-numeric>
+        </td>
+        <td>
+            <au-numeric value.bind="data.priceTotal.toFixed(2)" read-only.bind="true"></au-numeric>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>

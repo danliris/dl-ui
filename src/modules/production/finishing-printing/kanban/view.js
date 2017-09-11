@@ -24,6 +24,7 @@ export class View {
 
     this.data.cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
     this.productionOrder = this.data.productionOrder;
+    this.instruction = this.data.instruction;
   }
 
   cancelCallback(event) {

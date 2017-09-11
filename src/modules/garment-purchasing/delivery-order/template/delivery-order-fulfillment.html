@@ -25,13 +25,6 @@
             </au-numeric>
         </td>
         <td>
-            <au-textbox 
-                value.bind="data.purchaseOrderUom.unit" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
-            </au-textbox>
-        </td>
-        <td>
             <div class= "form-group has-warning" if.bind="isWarning">
                 <au-numeric 
                     value.bind="deliveredQuantity" 
@@ -49,6 +42,28 @@
                     options.bind="controlOptions">
                 </au-numeric>
             </div>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.purchaseOrderUom.unit" 
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="data.pricePerDealUnit" 
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.currency.code" 
+                read-only.bind="true" 
+                error.bind="error.currency" 
+                options.bind="controlOptions">
+            </au-textbox>
         </td>
         <td>
             <au-textbox 

@@ -60,6 +60,7 @@
             read-only.bind="readOnly"
             items.bind="shipmentTypes"
             if.bind = "isImport"
+            change.delegate="shipmentTypeChanged($event)"
             options.bind="controlOptions">
         </au-dropdown>
 
@@ -69,7 +70,7 @@
             error.bind="error.shipmentNo"
             placeholder="tambah nomor AWB"
             read-only.bind="readOnly"
-            if.bind="data.shipmentType=='By Sea'"
+            if.bind="isImport && data.shipmentType=='By Sea'"
             options.bind="controlOptions">
         </au-textbox>
 
@@ -79,9 +80,17 @@
             error.bind="error.shipmentNo"
             placeholder="tambah nomor BL"
             read-only.bind="readOnly"
-            if.bind="data.shipmentType=='By Air'"
+            if.bind="isImport && data.shipmentType=='By Air'"
             options.bind="controlOptions">
         </au-textbox>
+
+        <au-checkbox 
+            label="Apakah dikenakan Bea Cukai?" 
+            value.bind="data.useCustoms" 
+            error.bind="error.useCustoms" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-checkbox>
 
         <au-multiline 
             label="Keterangan" 

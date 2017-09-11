@@ -1,17 +1,25 @@
 <template>
+    <au-input-form title.bind="title" with.bind="context">
     <form class="form-horizontal">
         <div class="row">
             <div  class="col-md-6" style="padding:0">
-                <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only.bind="(readOnly || isEdit)" ></textbox>
+              <div class="col-sm-10" style="padding-left:18%">
+                <au-autocomplete value.bind="data.salesContract" label="Nomor Sales Contract"  error.bind="error.salesContractNo" read-only.bind="(readOnly)"
+                    loader.bind="fpSalesContractLoader" placeholder="cari nomor sales kontrak " key="salesContractNo" text="salesContractNo"  change.delegate="salesContractChanged($event)" if.bind="!readOnly">
+                </au-autocomplete>
+              </div>
+                <textbox                    label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"                       read-only.bind="(readOnly || isEdit)" if.bind="readOnly"></textbox>
                 <textbox                    label="No. Order Produksi"  value.bind="data.orderNo"       error.bind="error.orderNo"                       read-only="true"  if.bind="data.orderNo"></textbox>
-                <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
+                <buyer-auto-suggest         label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only="true"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
                 <textbox                    label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
-                <order-type-auto-suggest    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
+                <order-type-auto-suggest    label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only="true" change.delegate="orderChanged($event)"></order-type-auto-suggest>
                 <process-type-auto-suggest  label="Jenis Proses"        value.bind="data.processType"           error.bind="error.processType"            read-only.bind="(readOnly)"  change.delegate="processChanged($event)" if.bind="data.orderType" filter.bind="filterOrder || isFilterOrder"></process-type-auto-suggest >
-                <sales-material-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
+                <design-motive-auto-suggest     label="Motif"        value.bind="data.designMotive"       error.bind="error.designMotive"       read-only="true"  if.bind="!buyerType && isPrinting" change.delegate="designMotiveChanged($event)"></design-motive-auto-suggest>
+                <sales-material-auto-suggest          label="Material"       value.bind="data.material"    error.bind="error.material"     read-only="true"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
                 <material-construction-auto-suggest                 label="Konstruksi Material"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
-                <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
+                <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only="true" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
                 <textbox                    label="Lebar Material"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
+                <numeric label="Sisa Jumlah Order SC" read-only="true" value.bind="data.remainingQuantity" if.bind="rq"></numeric>
                 <div class="row">
                   <div class="col-sm-4" style="padding-left:20%">
                     <textbox label="Jumlah Order" read-only="true"></textbox>
@@ -23,12 +31,12 @@
                     <textbox label="Satuan" read-only="true"></textbox>
                   </div>
                   <div class="col-sm-2">
-                    <uom-auto-suggest value.bind="data.uom" error.bind="error.uom" read-only.bind="readOnly" change.delegate="uomChanged($event)"></uom-auto-suggest>
+                    <uom-auto-suggest value.bind="data.uom" error.bind="error.uom" read-only="true" change.delegate="uomChanged($event)"></uom-auto-suggest>
                   </div>
                 </div>
                 <numeric                    label="Toleransi Jumlah Kirim (%)" value.bind="data.shippingQuantityTolerance" error.bind="error.shippingQuantityTolerance" read-only.bind="readOnly" post-fix="%"></numeric>
                 <textbox                    label="Asal Material" value.bind="data.materialOrigin" error.bind="error.materialOrigin" read-only.bind="(readOnly)"></textbox>
-                <textbox                    label="Lebar Finish" value.bind="data.finishWidth" error.bind="error.finishWidth" read-only.bind="(readOnly)"></textbox>
+                <textbox                    label="Lebar Finish" value.bind="data.finishWidth" error.bind="error.finishWidth" read-only="true"></textbox>
                 <finish-type-auto-suggest label="Jenis Finish" value.bind="data.finishType" error.bind="error.finishType" read-only.bind="readOnly" change.delegate="finishTypeChanged($event)"></finish-type-auto-suggest>
                 <textbox                    label="Kode Desain" value.bind="data.designCode" error.bind="error.designCode" read-only.bind="(readOnly)" if.bind="isPrintingOnly"></textbox>
                 <textbox                    label="Nomor Desain" value.bind="data.designNumber" error.bind="error.designNumber" read-only.bind="(readOnly)" if.bind="isPrintingOnly"></textbox>
@@ -61,15 +69,49 @@
             </div>
         </div>
         <hr />
-        <au-collection              items.bind="data.lampStandards" errors.bind="error.lampStandards" read-only.bind="readOnly" columns.bind="lampHeader" item-template="modules/sales/production-order/templates/lamp-standard" add.bind="addLamp" remove.bind="removeLamp"></au-collection>
+        <au-collection              
+        items.bind="data.lampStandards" 
+        errors.bind="error.lampStandards" 
+        read-only.bind="readOnly" 
+        columns.bind="lampHeader" 
+        item-template="modules/sales/production-order/templates/lamp-standard" 
+        add.bind="addLamp" 
+        remove.bind="removeLamp"></au-collection>
         
-        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && isPrinting" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item-printing" footer-template="modules/sales/production-order/templates/detail-footer-printing" add.bind="addDetailPrintingYarnDyed">
+        <au-collection              
+        items.bind="data.details" 
+        errors.bind="error.details" 
+        read-only.bind="readOnly" 
+        if.bind="data.orderType && data.uom && isPrinting" 
+        columns.bind="detailHeader" 
+        item-template="modules/sales/production-order/templates/detail-item-printing" 
+        footer-template="modules/sales/production-order/templates/detail-footer-printing" 
+        add.bind="addDetailPrintingYarnDyed"
+        view-model.ref="ItemsCollection">
       </au-collection>
 
-        <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && !isPrinting && !isYarnDyed" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item" footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailnonPrinting">
+        <au-collection              
+        items.bind="data.details" 
+        errors.bind="error.details" 
+        read-only.bind="readOnly" 
+        if.bind="data.orderType && data.uom && !isPrinting && !isYarnDyed" 
+        columns.bind="detailHeader" 
+        item-template="modules/sales/production-order/templates/detail-item" 
+        footer-template="modules/sales/production-order/templates/detail-footer" 
+        add.bind="addDetailnonPrinting"
+        view-model.ref="ItemsCollection">
       </au-collection>
 
-      <au-collection              items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.orderType && data.uom && isYarnDyed" columns.bind="detailHeader" item-template="modules/sales/production-order/templates/detail-item-yarn-dyed" footer-template="modules/sales/production-order/templates/detail-footer-yarn-dyed" add.bind="addDetailPrintingYarnDyed">
+      <au-collection              
+      items.bind="data.details" 
+      errors.bind="error.details" 
+      read-only.bind="readOnly" 
+      if.bind="data.orderType && data.uom && isYarnDyed" 
+      columns.bind="detailHeader" 
+      item-template="modules/sales/production-order/templates/detail-item-yarn-dyed" 
+      footer-template="modules/sales/production-order/templates/detail-footer-yarn-dyed" 
+      add.bind="addDetailPrintingYarnDyed"
+      view-model.ref="ItemsCollection">
       </au-collection>
 
       <div if.bind="error.lampStandards.toString()">
@@ -80,6 +122,7 @@
         <span style="color:red">-Detail Warna harus diisi dan Jumlah Total pada detail harus sama dengan jumlah order .</span>
       </div>
     </form>
+    </au-input-form>
 </template>
 
       

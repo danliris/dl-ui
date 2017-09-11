@@ -9,14 +9,6 @@
     with.bind="context"
     options.bind="formOptions">
 
-    <au-checkbox
-      label="Pengganti Bad Output"
-      value.bind="data.isBadOutput"
-      read-only.bind="readOnly"
-      options.bind="controlOptions"
-      if.bind="!isReprocess">
-    </au-checkbox>
-
     <au-autocomplete 
       value.bind="productionOrder" 
       error.bind="error.productionOrder"
@@ -244,7 +236,7 @@
     </div>
 
     <au-autocomplete 
-      value.bind="data.instruction" 
+      value.bind="instruction" 
       error.bind="error.instruction"
       label="Instruksi" 
       loader.one-time="instructionLoader"
@@ -253,7 +245,7 @@
       text="name"
       read-only.bind="readOnly || isReprocess || oldKanbanStatus"
       options.bind="controlOptions"
-      if.bind="isReprocess ? hasInstruction : true">
+      if.bind="isReprocess ? hasInstruction : hasProductionOrder">
     </au-autocomplete>
 
     <table 

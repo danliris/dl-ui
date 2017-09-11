@@ -30,6 +30,7 @@ export class Migrate {
     }
 
     tables = ["", "Budget & POrder", "Budget1 & POrder1"];
+    tables2 = ["latest", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     activate(params) {
     }
@@ -46,14 +47,18 @@ export class Migrate {
 
         this.service.migrate(this.data)
             .then(result => {
-                alert("migration berhasil");
+                if (result.length == 0) {
+                    alert("tidak ada data");
+                } else {
+                    alert("migration berhasil");
+                }
+
                 this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
 
             })
             .catch(e => {
                 this.error = e;
             })
-
     }
 }
 

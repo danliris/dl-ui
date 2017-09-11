@@ -24,7 +24,8 @@
         <td>
             <au-numeric 
                 value.bind="data.deliveredQuantity" 
-                read-only.bind="true" 
+                error.bind="error.deliveredQuantity" 
+                read-only.bind="options.readOnly"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
