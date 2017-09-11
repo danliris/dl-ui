@@ -1,0 +1,93 @@
+<template>
+  
+        <h1 class="page-header">Monitoring Bon Terima Unit</h1>
+        <form class="form-horizontal">
+
+            <au-textbox 
+                label="Nomor PR" 
+                value.bind="no"
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+
+            <au-autocomplete 
+                value.bind="unit" 
+                label="Unit" 
+                loader.bind="unitLoader"
+                placeholder="Cari Unit"
+                read-only.bind="readOnly" 
+                text="name"
+                options.bind="controlOptions">
+            </au-autocomplete>
+            <au-autocomplete 
+                value.bind="supplier" 
+                label="Supplier" 
+                loader.bind="supplierLoader"
+                placeholder="Cari Supplier" 
+                read-only.bind="readOnly" 
+                key="name" 
+                text="name"
+                options.bind="controlOptions">
+            </au-autocomplete>
+
+            <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+
+            <div class="form-group">
+                <label for="contact" class="col-sm-6 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+            </div>
+
+            <div class="btn-group pull-left">
+                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+            </div>
+        </form>
+
+        <br>
+        </br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <thead align="center">
+                    <tr>
+                        <td>Nomor Bon Terima Unit</td>
+                        <td>Tanggal Bon Terima Unit</td>
+                        <td>Unit</td>
+                        <td>Supplier</td>
+                        <td>Surat Jalan</td>
+                        <td>Kode Barang</td>
+                        <td>Nama Barang</td>
+                        <td>Jumlah</td>
+                        <td>Satuan</td>
+                        <td>Keterangan</td>
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                 
+                    <tr repeat.for="item of data">
+                        <td class="text-left">${item.no}</td>
+                        <td class="text-left">${item._createdDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td class="text-left">${item.unit}</td>
+                         <td class="text-left">${item.supplier}</td>
+                        <td class="text-left">${item.deliveryOrderNo}</td>
+                        <td class="text-left">${item.code}</td>
+                        <td class="text-left">${item.name}</td>
+                        <td class="text-right">${item.deliveredQuantity}</td>
+                        <td class="text-left">${item.unitcode}</td>
+                        <td class="text-left">${item.remark}</td>
+                       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <hr/>
+        </form>
+    </au-input-form>
+</template>

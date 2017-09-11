@@ -1,0 +1,67 @@
+<template>
+    <au-input-form 
+        title.bind="title" 
+        with.bind="context"
+        options.bind="formOptions">
+
+        <au-dropdown
+            label="Jenis Koreksi"
+            value.bind="correctionType"
+            error.bind="error.correctionType"
+            items.bind="typeData"
+            options.bind="controlOptions"
+            read-only.bind="readOnly">
+        </au-dropdown>
+
+        <au-datepicker
+            label="Tanggal Koreksi"
+            value.bind="data.date"
+            error.bind="error.date"
+            options.bind="controlOptions"
+            read-only.bind="readOnly">
+        </au-datepicker>
+
+        <au-autocomplete 
+            value.bind="deliveryOrder" 
+            error.bind="error.deliveryOrder"
+            label="Nomor SJ"
+            loader.one-time="garmentDeliveryOrderLoader"
+            text="no"
+            placeholder="Cari SJ"
+            options.bind="controlOptions"
+            read-only.bind="readOnly">
+        </au-autocomplete>
+
+        <au-textbox
+            label="Supplier"
+            value.bind="data.deliveryOrder.supplier.name"
+            options.bind="controlOptions"
+            read-only="true"
+            show.bind="data.deliveryOrder.supplier">
+        </au-textbox>
+
+        <au-multiline
+            label="Keterangan"
+            value.bind="data.remark"
+            options.bind="controlOptions"
+            read-only.bind="readOnly"
+            placeholder=" ">
+        </au-multiline>
+        
+        <au-textbox
+            read-only="true"
+            error.bind="error.collection">
+        </au-textbox>
+
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="deliveryOrderItem.columns"
+            read-only.bind="readOnly" 
+            remove.bind="deliveryOrderItem.onRemove"
+            options.bind="collectionOptions"
+            errors.bind="error.items"
+            item-template="modules/garment-purchasing/purchase-price-correction/template/price-correction-item"
+            show.bind="hasDeliveryOrder">
+        </au-collection>
+    </au-input-form>
+</template>
