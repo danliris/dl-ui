@@ -3,9 +3,18 @@
         <h1 class="page-header">Monitoring Bon Terima Unit</h1>
         <form class="form-horizontal">
 
+            <au-autocomplete 
+                value.bind="no" 
+                label="No Bon Terima Unit" 
+                loader.bind="unitReceiptLoader"
+                placeholder="Cari No Bon Terima Unit"
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
+            </au-autocomplete>
+
             <au-textbox 
                 label="Nomor PR" 
-                value.bind="no"
+                value.bind="pr"
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-textbox>
@@ -58,6 +67,7 @@
                         <td>Unit</td>
                         <td>Supplier</td>
                         <td>Surat Jalan</td>
+                        <td>No PR</td>
                         <td>Kode Barang</td>
                         <td>Nama Barang</td>
                         <td>Jumlah</td>
@@ -70,14 +80,15 @@
                  
                     <tr repeat.for="item of data">
                         <td class="text-left">${item.no}</td>
-                        <td class="text-left">${item._createdDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td class="text-left">${item.date | dateFormat:'DD MMMM YYYY'}</td>
                         <td class="text-left">${item.unit}</td>
                          <td class="text-left">${item.supplier}</td>
-                        <td class="text-left">${item.deliveryOrderNo}</td>
-                        <td class="text-left">${item.code}</td>
-                        <td class="text-left">${item.name}</td>
-                        <td class="text-right">${item.deliveredQuantity}</td>
-                        <td class="text-left">${item.unitcode}</td>
+                        <td class="text-left">${item.deliveryorderNo}</td>
+                        <td class="text-left">${item.purchaseRequestNo}</td>
+                        <td class="text-left">${item.productCode}</td>
+                        <td class="text-left">${item.productName}</td>
+                        <td class="text-right">${item.quantity}</td>
+                        <td class="text-left">${item.unitCode}</td>
                         <td class="text-left">${item.remark}</td>
                        
                     </tr>
