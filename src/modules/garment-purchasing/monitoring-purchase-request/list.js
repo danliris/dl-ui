@@ -103,8 +103,8 @@ export class List {
         this.category = null;
         this.unit = null;
         this.buyer = null;
-        this.dateFrom = null;
-        this.dateTo = null;
+        this.dateFrom = "";
+        this.dateTo = "";
         this.prState = this.prStates[0];;
     }
 
