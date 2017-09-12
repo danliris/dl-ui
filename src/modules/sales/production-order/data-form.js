@@ -17,6 +17,8 @@ export class DataForm {
   
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
   rq=false;
+
+
   
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
@@ -127,7 +129,12 @@ export class DataForm {
       this.data.material=this.data.salesContract.material;
       this.data.yarnMaterial=this.data.salesContract.yarnMaterial;
       this.data.designMotive=this.data.salesContract.designMotive;
-      this.data.uom=this.data.salesContract.uom;
+      if(this.data.uom._id){
+        this.data.uom.unit=this.data.uom.unit;
+      }
+      else{
+        this.data.uom.unit="MTR";
+      }
       this.data.finishWidth=this.data.salesContract.materialWidth;
       this.data.beforeQuantity=0;
       if(this.data.salesContract.remainingQuantity!=undefined){
@@ -330,6 +337,9 @@ scFields=["salesContractNo"];
     this.data.lampStandards = this.data.lampStandards || [];
     this.data.details = this.data.details || [];
     this.data.beforeQuantity=this.data.orderQuantity;
+    if(this.data.uom._id){
+      this.data.uom.unit=this.data.uom.unit;
+    }
     if (this.data.salesContractId) {
             this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
             this.data.salesContract =this.selectedSC;
