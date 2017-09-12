@@ -57,6 +57,8 @@ export class DataForm {
 
     itemColumns = ["Lot", "Grade", "Kuantitas", "Berat Satuan", "Berat Total", "Panjang Satuan", "Panjang Total", "Remark"];
     packingUomOptions = ["", "ROLL", "PCS", "POT", "SETS", "SLP", "BDL", "KRG", "LBR"];
+    deliveryTypeOptions = ["", "ULANGAN", "BARU"];
+    finishedProductTypeOptions = ["", "WHITE", "DYEING", "BATIK", "TEKSTIL"];
 
     @bindable selectedProductionOrder;
     async selectedProductionOrderChanged(newValue, oldValue) {
