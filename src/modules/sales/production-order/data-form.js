@@ -129,10 +129,12 @@ export class DataForm {
       this.data.material=this.data.salesContract.material;
       this.data.yarnMaterial=this.data.salesContract.yarnMaterial;
       this.data.designMotive=this.data.salesContract.designMotive;
-      if(this.data.uom._id){
+      
+      if(this.data.uom){
         this.data.uom.unit=this.data.uom.unit;
       }
       else{
+        this.data.uom={};
         this.data.uom.unit="MTR";
       }
       this.data.finishWidth=this.data.salesContract.materialWidth;
@@ -337,8 +339,12 @@ scFields=["salesContractNo"];
     this.data.lampStandards = this.data.lampStandards || [];
     this.data.details = this.data.details || [];
     this.data.beforeQuantity=this.data.orderQuantity;
-    if(this.data.uom._id){
+    if(this.data.uom){
       this.data.uom.unit=this.data.uom.unit;
+    }
+    else{
+      this.data.uom={};
+      this.data.uom.unit="MTR";
     }
     if (this.data.salesContractId) {
             this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
