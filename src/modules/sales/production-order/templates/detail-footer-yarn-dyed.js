@@ -35,11 +35,11 @@ export class DetailFooter {
     var uom;
     if(this.context.items.length>0){
       if(this.context.items[0].data.uom.unit){
-          return this.context.items[0].data.uom.unit
+          return this.context.items[0].data.uom.unit;
       }
       else{
-        var uom="MTR";
-        return "MTR";
+        uom="MTR";
+        return uom;
       }
     }
     else{
