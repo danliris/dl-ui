@@ -6,7 +6,7 @@
         <au-input-form title="Rincian Deal" options.bind="formOptions">
             <div class="row">
                 <div class="col-sm-4">
-                    <au-textbox value.bind="deal.name" read-only="true" label="Nama Deal"></au-textbox>
+                    <au-textbox value.bind="deal.name" read-only="true" label="Judul Deal"></au-textbox>
                     <au-textbox value.bind="deal.amount | numberFormat: '0,000'" read-only="true" label="Jumlah"></au-textbox>
                     <au-textbox value.one-time="board.currency.code" read-only="true" label="Mata Uang"></au-textbox>
                     <au-textbox value.one-time="stageName" read-only="true" label="Stage"></au-textbox>

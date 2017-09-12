@@ -33,6 +33,7 @@ export class List {
         this.arg.unit = this.unit ? this.unit._id : undefined;
     }
 
+
     listDataFlag = false;
 
     columns = [
@@ -62,7 +63,7 @@ export class List {
         { field: "defaultQuantity", title: "Jumlah" },
         { field: "defaultUom.unit", title: "Satuan" },
         { field: "budgetPrice", title: "Harga Budget" },
-        // { field: "type", title: "Status" }
+        { field: "_createdBy", title: "Staff" }
     ]
 
     loader = (info) => {
@@ -90,13 +91,14 @@ export class List {
                         for (var item of data.items) {
                             Object.assign(item, {
                                 index: i++,
-                                no: data.no,
+                                no: data.refNo,
                                 date: data.date,
                                 shipmentDate: data.shipmentDate,
                                 roNo: data.roNo,
                                 buyer: data.buyer.name,
                                 artikel: data.artikel,
-                                unit: data.unit.name
+                                unit: data.unit.name,
+                                _createdBy: data._createdBy
                             })
                             datas.push(item)
                         }
