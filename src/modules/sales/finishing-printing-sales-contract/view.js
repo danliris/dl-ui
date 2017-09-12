@@ -13,7 +13,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
+        //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
         this.canEdit=true;
         if(this.data.referenceNumber && this.data.referenceNumber!=""){
             this.data.reference={orderNo:this.data.referenceNumber};
