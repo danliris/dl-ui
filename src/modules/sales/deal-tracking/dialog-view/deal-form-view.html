@@ -46,6 +46,13 @@
                 <au-datepicker value.bind="data.closeDate" label="Tanggal Tutup" placeholder="Tanggal tutup" error.bind="error.closeDate"></au-datepicker>
 
                 <au-multiline value.bind="data.description" label="Deskripsi" placeholder="Deskripsi" error.bind="error.description"></au-multiline>
+                
+                <au-dropdown
+                    label="Alasan"
+                    value.bind="data.reason"
+                    error.bind="error.reason"
+                    items.bind="reasons">
+                </au-dropdown>
             </form>
         </ai-dialog-body>
 
