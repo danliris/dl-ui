@@ -2,7 +2,6 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-
 @inject(Router, Service)
 export class View {
     constructor(router, service) {
@@ -13,31 +12,22 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-        this.canEdit=true;
-        if(this.data.referenceNumber && this.data.referenceNumber!=""){
-            this.data.reference={orderNo:this.data.referenceNumber};
-        }
-        else{
-            this.data.reference={};
-        }
-        console.log(this.data.remainingQuantity);
-        if(this.spp){
-            this.canEdit=false;
-            
-        }
-
     }
 
     list() {
         this.router.navigateToRoute('list');
     }
 
-    edit(data) {
+    cancelCallback(event)
+    {
+        this.list();
+    }
+
+    editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+    deleteCallback(event) {
         this.service.delete(this.data)
             .then(result => {
                 this.list();

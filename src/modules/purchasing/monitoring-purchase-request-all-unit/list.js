@@ -87,6 +87,7 @@ export class List {
                         _data.productUom = item.product.uom.unit ? item.product.uom.unit : "-";
                         _data.expected = pr.expectedDeliveryDate;
                         _data.status = status;
+                        _data.poEks = moment(new Date(pr.poEks.expectedDeliveryDate)).format(dateFormat);
                         this.data.push(_data);
                     }
                 }

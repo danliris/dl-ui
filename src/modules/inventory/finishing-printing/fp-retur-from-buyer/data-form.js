@@ -8,6 +8,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data;
     @bindable error;
+    @bindable title;
     @bindable buyer;
     destinationItems = ["", "Pack I", "Pack II"];
 

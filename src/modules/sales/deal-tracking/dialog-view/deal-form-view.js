@@ -1,16 +1,19 @@
 import {inject, useView} from 'aurelia-framework';
 import {DialogController} from 'aurelia-dialog';
 import {Service} from "../service";
+import {CoreService} from "../core-service";
 
 var CompanyLoader = require('../../../../loader/company-loader');
 var ContactLoader = require('../../../../loader/contact-loader');
+var DealTrackingReasonInfo = { select: ["reason"] };
 
-@inject(DialogController, Service)
+@inject(DialogController, Service, CoreService)
 @useView("./deal-form-view.html")
 export class DealFormView {
-    constructor(controller, service) {
+    constructor(controller, service, coreService) {
         this.controller = controller;
         this.service = service;
+        this.coreService = coreService;
         this.data = {};
         this.error = {};
 
@@ -35,6 +38,22 @@ export class DealFormView {
         }
 
         this.data.currency = params.currency;
+
+        await this.getDealTrackingReason();
+    }
+
+    async getDealTrackingReason() {
+        await this.coreService.searchDealTrackingReason(DealTrackingReasonInfo)
+            .then((results) => {
+                var reasons = [];
+                reasons.push("");
+
+                for(var data of results.data) {
+                    reasons.push(data.reason);
+                }
+            
+                this.reasons = reasons;
+            });
     }
 
     attached() {
