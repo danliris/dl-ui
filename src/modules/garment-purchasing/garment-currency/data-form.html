@@ -1,0 +1,28 @@
+<template>
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <au-numeric   
+          label="Mata Uang" 
+          value.bind="data.code"
+          error.bind="error.code"
+          read-only.bind="(readOnly || isEdit)" >
+        </au-numeric>
+
+        <au-textbox   
+          label="Kurs" 
+          value.bind="data.rate"
+          error.bind="error.rate"
+          read-only.bind="readOnly" >
+        </au-textbox>
+
+        <template replaceable part="actions"></template>
+        
+      </au-input-form>
+    </div>
+  </div>
+</template>
