@@ -154,8 +154,8 @@ export class DataForm {
                         uom: fulfillment.purchaseOrderUom,
                         pricePerUnit: fulfillment.pricePerUnit,
                         priceTotal: fulfillment.priceTotal,
-                        currency: fulfillment.product.currency,
-                        currencyRate: fulfillment.product.currency.rate
+                        currency: fulfillment.currency,
+                        currencyRate: fulfillment.currency.rate
                     };
 
                     this.data.items.push(obj);
