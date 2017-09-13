@@ -13,6 +13,16 @@ export class Create {
         this.data = {};
     }
 
+    auOption = {
+        label: {
+            length: 3,
+            align: "left"
+        },
+        control: {
+            length: 4
+        }
+    }
+
     activate(params) {
     }
 
@@ -21,7 +31,7 @@ export class Create {
     }
 
     cancelCallback(event) {
-      this.list();
+        this.list();
     }
 
     saveCallback(event) {
@@ -29,12 +39,14 @@ export class Create {
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
         var fileList = fileInput.files;
+
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;
         } else {
+            formData.append("date", this.data.date);
             formData.append("fileUpload", fileList[0]);
- 
+
             var endpoint = 'garment-currency';
             var request = {
                 method: 'POST',
@@ -42,7 +54,6 @@ export class Create {
                 },
                 body: formData
             };
-
             this.service.endpoint.client.fetch(endpoint, request)
                 .then(response => {
                     if (response.status == 200) {
