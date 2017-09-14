@@ -26,6 +26,10 @@ export class DeliveryOrderItem {
     }
   }
 
+  get priceTotal() {
+		return this.data.deliveredQuantity * this.data.pricePerDealUnit;
+	}
+
   get productLoader() {
     return ProductLoader;
   }

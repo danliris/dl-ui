@@ -54,6 +54,7 @@
             <table class="table table-bordered table-hover" border="1" id="myTable">
                 <thead align="center">
                     <tr>
+                        <td>No</td>
                         <td>Nomor Surat Jalan</td>
                         <td>Tanggal Surat Jalan</td>
                         <td>Tanggal Tiba</td>
@@ -77,24 +78,25 @@
                 <tbody>
                     <require from="../../../lib/number-format-value-converter"></require>
                     <tr repeat.for="item of data">
-                        <td class="text-center">${item.no}</td>
-                        <td class="text-center">${item.doDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td class="text-center">${item.arrivedDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td class="text-center">${item.supplier}</td>
-                        <td class="text-center">${item.supplierType}</td>
-                        <td class="text-center">${item.shipmentType}</td>
-                        <td class="text-center">${item.shipmentNo}</td>
-                        <td class="text-center">${item.customs}</td>
-                        <td class="text-center">${item.poEksNo}</td>
-                        <td class="text-center">${item.prNo}</td>
-                        <td class="text-right">${item.productCode}</td>
-                        <td class="text-right">${item.productName}</td>
-                        <td class="text-right">${item.qty}</td>
-                        <td class="text-right">${item.delivered}</td>
-                        <td class="text-right">${item.uom}</td>
-                        <td class="text-right">${item.price}</td>
-                        <td class="text-center">${item.currency}</td>
-                        <td class="text-center">${item.remark}</td>
+                        <td>${$index + 1}</td>
+                        <td >${item.no}</td>
+                        <td >${item.doDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td >${item.arrivedDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td >${item.supplier}</td>
+                        <td >${item.supplierType}</td>
+                        <td >${item.shipmentType}</td>
+                        <td >${item.shipmentNo}</td>
+                        <td >${item.customs}</td>
+                        <td >${item.poEksNo}</td>
+                        <td >${item.prNo}</td>
+                        <td >${item.productCode}</td>
+                        <td >${item.productName}</td>
+                        <td >${item.qty}</td>
+                        <td >${item.delivered}</td>
+                        <td >${item.uom}</td>
+                        <td >${item.price}</td>
+                        <td >${item.currency}</td>
+                        <td >${item.remark}</td>
                     </tr>
                 </tbody>
             </table>

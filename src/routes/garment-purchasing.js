@@ -142,6 +142,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-invoice-note',
+        name: 'monitoring-invoice-note',
+        moduleId: './modules/garment-purchasing/monitoring-invoice-note/index',
+        nav: true,
+        title: 'Monitoring Nota Invoice',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/intern-note',
         name: 'intern-note',
         moduleId: './modules/garment-purchasing/intern-note/index',
@@ -228,6 +241,19 @@ module.exports = [
         settings: {
             group: "g-purchasing",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/garment-currency',
+        name: 'garment-currency',
+        moduleId: './modules/garment-purchasing/garment-currency/index',
+        nav: true,
+        title: 'Kurs Mata Uang',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
