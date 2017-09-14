@@ -285,5 +285,18 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'deal-tracking-reasons',
+        name: 'deal-tracking-reasons',
+        moduleId: './modules/master/deal-tracking-reason/index',
+        nav: true,
+        title: 'Alasan Deal Tracking',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ] 

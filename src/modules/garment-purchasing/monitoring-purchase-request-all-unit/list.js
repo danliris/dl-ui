@@ -103,8 +103,8 @@ export class List {
         this.category = null;
         this.unit = null;
         this.buyer = null;
-        this.dateFrom = null;
-        this.dateTo = null;
+        this.dateFrom = "";
+        this.dateTo = "";
         this.prState = this.prStates[0];;
     }
 
@@ -112,7 +112,7 @@ export class List {
         if (!this.prState)
             this.prState = this.prStates[0];
             //debugger
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.buyer ? this.buyer._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
+        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.buyer ? this.buyer._id : "", this.purchaseRequest ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 
     dateFromChanged(e) {
