@@ -19,8 +19,8 @@ export class DataForm {
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
 
-    termPaymentImportOptions = ['T/T PAYMENT', 'CMT IMPORT', 'FREE FROM BUYER', 'SAMPLE'];
-    termPaymentLocalOptions = ['DAN LIRIS', 'CMT LOKAL', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
 
     label = "Periode Tgl. Shipment"

@@ -13,54 +13,32 @@ export class List {
 
 
     activate(params) {
-        if (params.sdate != null || params.edate != null) {
+        if (params.sdate != null || params.edate != null || params.divisi != null) {
             this.dateFrom = params.sdate;
             this.dateTo = params.edate;
-
-            var pricetotals = 0;
-            var percentage = [];
-            var percentagetotal = 0;
+             this.divisi = params.divisi;
+             var counts=0;
+        var counttotals=0;
             var persen = 0;
             var data = [];
-            var amounts = [];
             var uri = "";
-            if (this.dateFrom == undefined && this.dateTo == undefined)
-                uri = this.service.getDataUnitnoDate();
+     
+            if (this.dateFrom == undefined && this.dateTo == undefined && this.divisi == undefined )
+                uri = this.service.getDataStaffnoDate();
             else
-                uri = this.service.getDataUnit(this.dateFrom, this.dateTo);
+                uri = this.service.getDataCoba(this.dateFrom, this.dateTo, this.divisi);
 
             uri.then(data => {
                 this.data = data;
-                for (var price of data) {
-                    pricetotals += price.pricetotal;
-                }
-                this.pricetotals = pricetotals;
-
-                for (var item of data) {
-                    if (item.pricetotal != 0 && this.pricetotals != 0) {
-                        this.persen = ((item.pricetotal * 100) / this.pricetotals).toFixed(2);
-                    }
-                    else {
-                        this.persen = 0;
-                    }
-                    percentage.push(this.persen);
-                    var x = item.pricetotal.toFixed(2).toString().split('.');
-                    var x1 = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    var amount = x1 + '.' + x[1];
-                    amounts.push(amount);
-                }
-                for (var p of percentage) {
-                    percentagetotal += parseFloat(p);
-                }
-                this.percentage = percentage;
-                this.percentagetotal = Math.round(percentagetotal).toFixed(2);
-                this.amounts = amounts;
-                var y = this.pricetotals.toFixed(2).toString().split('.');
-                var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                this.pricetotals = y1 + '.' + y[1];
+for (var scount of data) {
+                counttotals += scount.count;
             }
+            this.counttotals = counttotals;          
+                this.divisi = "";
+                }
             )
-
+             
+  
         }
     }
 
@@ -69,10 +47,7 @@ export class List {
         var uri = "";
          var counts=0;
         var counttotals=0;
-        if (this.dateFrom == undefined && this.dateTo == undefined)
-            uri = this.service.getDataUnitnoDate();
-        else
-            uri = this.service.getDataUnit(this.dateFrom, this.dateTo);
+            uri = this.service.getDataStaff(this.dateFrom, this.dateTo, this.divisi);
 
         uri.then(data => {
             this.data = data;
@@ -82,10 +57,11 @@ export class List {
             }
             this.counttotals = counttotals;   
         })
+        
     }
 
     view(data, sdate, edate) {
-        this.router.navigateToRoute('view', { id: data._id.name, staff: data._id.name, sdate: this.dateFrom, edate: this.dateTo });
+        this.router.navigateToRoute('view', { id: data._id.name, staff: data._id.name, divisi: data.div, sdate: this.dateFrom, edate: this.dateTo });
     }
 
     reset() {
@@ -93,16 +69,7 @@ export class List {
         this.dateTo = undefined;
     }
 
-    ExportToExcel() {
-        if (this.dateFrom == undefined && this.dateTo == undefined)
-            this.service.generateExcelnoDate();
-        else
-            this.service.generateExcel(this.dateFrom, this.dateTo);
-        if (this.dateFrom == undefined && this.dateTo == undefined)
-            this.service.generateExcelnoDate2();
-        else
-            this.service.generateExcel2(this.dateFrom, this.dateTo);
-    }
+
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);

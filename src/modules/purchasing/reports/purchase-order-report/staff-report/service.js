@@ -11,44 +11,72 @@ export class Service extends RestService {
     super(http, aggregator, config, "purchasing");
   }
 
-  getDataUnitnoDate() {
+  getDataStaffnoDate() {
     var endpoint = `${serviceUri}`;
     return super.get(endpoint);
   }
 
-  getDataUnit(sdate, edate) {
-    var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
+  getDataStaff(sdate, edate,divisi) {
+
+ var endpoint = `${serviceUri}`;
+        var query = '';
+        if (sdate) {
+            if (query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if (edate) {
+            if (query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        
+        if (divisi) {
+            if (query == '') query = `divisi=${encodeURIComponent(divisi._id)}`;
+            else query = `${query}&divisi=${encodeURIComponent(divisi._id)}`;
+        }
+        
+        if (query != '')
+            endpoint = `${serviceUri}?${query}`;
+
+        return super.get(endpoint);
+    }
+
+    getDataCoba(sdate, edate,divisi) {
+ 
+ var endpoint = `${serviceUri}`;
+        var query = '';
+        if (sdate) {
+            if (query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if (edate) {
+            if (query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+        
+        if (divisi) {
+            if (query == '') query = `divisi=${encodeURIComponent(divisi)}`;
+            else query = `${query}&divisi=${encodeURIComponent(divisi)}`;
+        }
+        
+        if (query != '')
+            endpoint = `${serviceUri}?${query}`;
+
+        return super.get(endpoint);
+    }
+
+  getDetailStaff(sdate, edate,staff,divisi) {
+    var endpoint = `${serviceUriDetail}?dateFrom=${sdate}&dateTo=${edate}&staff=${staff}&divisi=${divisi}`;
+    return super.get(endpoint);
+  }
+
+  getDetailStaffnoDate(sdate, edate,staff,divisi) {
+    var endpoint = `${serviceUriDetail}?dateFrom=${sdate}&dateTo=${edate}&staff=${staff}&divisi=${divisi}`;
     return super.get(endpoint);
   }
 
 
-  getDetailUnit(sdate, edate,staff) {
-    var endpoint = `${serviceUriDetail}?dateFrom=${sdate}&dateTo=${edate}&staff=${staff}`;
-    return super.get(endpoint);
-  }
-
-  getDetailUnitnoDate(staff) {
-    var endpoint = `${serviceUriDetail}?staff=${staff}`;
-    return super.get(endpoint);
-  }
-
-  generateExcelnoDate() {
-    var endpoint = `${serviceUri}`;
-    return super.getXls(endpoint);
-  }
-
-  generateExcel(sdate, edate) {
-    var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-    return super.getXls(endpoint);
-  }
-
-  generateExcelnoDate2() {
-    var endpoint = `${serviceUriDetail}`;
-    return super.getXls(endpoint);
-  }
-
-  generateExcel2(sdate, edate, divisiId) {
-    var endpoint = `${serviceUriDetail}?divisiId=${divisiId}&dateFrom=${sdate}&dateTo=${edate}`;
+  generateExcel2(sdate, edate,staff,divisi) {
+    var endpoint = `${serviceUriDetail}?divisi=${divisi}&dateFrom=${sdate}&dateTo=${edate}&staff=${staff}`;
     return super.getXls(endpoint);
   }
 

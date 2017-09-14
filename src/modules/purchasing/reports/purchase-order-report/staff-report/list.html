@@ -1,9 +1,9 @@
 <template>
-    <h1 class="page-header">Total Purchase Order Eksternal Per Staff</h1>
+    <h1 class="page-header">Total Purchase Request Per Staff</h1>
     <form class="form-horizontal">
-
-        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
+<division-auto-suggest  label="Divisi"                  value.bind="divisi"  ></division-auto-suggest>
+        <datepicker label="Tanggal Target Datang Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker label="Tanggal Target Datang Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -11,15 +11,15 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
-        
         <br>
         <table class="table table-bordered table-hover" id="myTable">
             <thead>
                 <tr>
                     <th class="text-center">Nomor</th>
                     <th class="text-center">Nama Staff</th>
-                    <th class="text-center">Jumlah PO Eksternal</th>
-                    
+                    <th class="text-center">Jumlah PR</th>
+                 
+                  
         
                 </tr>
             </thead>
@@ -29,13 +29,15 @@
                     <td class="text-left">${$index + 1}</td>
                     <td class="text-left"> <a> ${item._id.name}</a> </td>
                     <td class="text-right"> ${item.count}</td>
+                  
+                  
                     
                  
                 </tr>
             </tbody>
             <tfoot if.bind="data.length > 0">
                 <tr>
-                    <td  colspan='2' class="text-left">Jumlah Total PO Ekternal</td>
+                    <td  colspan='2' class="text-left">Jumlah Total PR</td>
                     <td class="text-right">${counttotals}</td>
                 </tr>
             </tfoot>
