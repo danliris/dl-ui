@@ -28,6 +28,13 @@ export class DetailFooter {
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
 
+  get grandTotalPrice() {
+    var qty = this.context.items
+      .map((item) => parseInt(item.data.pricePerDealUnit * item.data.deliveredQuantity));
+    return qty
+      .reduce((prev, curr, index) => { return prev + curr }, 0);
+  }
+
   controlOptions = {
     control: {
       length: 12
