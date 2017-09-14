@@ -1,21 +1,54 @@
 <template>
-    <h1 class="page-header">Monitoring Ketepatan Kedatangan PO Eksternal</h1> 
+    <h1 class="page-header">Monitoring Tanggal Ketepatan Kedatangan </h1> 
+    
     <form class="form-horizontal">
-        <textbox label="Tanggal Awal" value.bind="dateFrom" if.bind="dateFrom" read-only="true"></textbox>
-        <textbox label="Tanggal Akhir" value.bind="dateTo" if.bind="dateTo" read-only="true"></textbox>
-        <textbox label="Nama Staff" value.bind="staff" read-only="true"></textbox>
-        <textbox label="Jumlah Po Eksternal" value.bind="nilaitotalp" read-only="true"></textbox>
-        <textbox label="Jumlah Terlambat" value.bind="nilaitotals" read-only="true"></textbox>
-         <textbox label="Persentase" value.bind="persen" read-only="true"></textbox>
-         
+     
+        <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+               <th class="text-center"> Divisi</th> 
+                <th class="text-center">Nama Staff</th> 
+                <th class="text-center">Tanggal Awal</th>
+                <th class="text-center">Tanggal Akhir</th>
+                <th class="text-center">PR</th>
+                 <th class="text-center">Tepat</th>
+                <th class="text-center"> Terlambat</th>
+                <th class="text-center">Presentase</th>
+                
+                <!--<th>Kategori UOM</th>-->
+            </tr>
+             <tbody if.bind="data.length > 0">
+            <tr >
+               
+  </td>
+    <td >${divname}</td>
+                    <td >${staff}</td>
+                    <td >${dateFrom}</td>
+                    <td >${dateTo} </td>
+                    <td >${nilaitotalp}</td>
+                    <td >${nilaitotalpp}</td>
+                    <td >${nilaitotals}</td>
+                    <td >${persen}%</td>
+              
+                
+            </tr>
+            
+        </tbody>
+        </thead> 
+        </table>
 <br>
+  <div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
         <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th class="text-center">No</th>
-                <th class="text-center">Nama Staff</th>
-                <th class="text-center">Tgl PO Eks</th>
-                <th class="text-center">No PO Eksternal</th>
+           
+                
+                <th class="text-center">No PR</th>
+                <th class="text-center">Unit</th>
+          
                 
                 <th class="text-center">Tgl Target Datang</th>
                 <th class="text-center">Tgl Barang Datang</th>
@@ -25,22 +58,15 @@
             </tr>
             
         </thead>
-        <tfoot if.bind="data.length > 0">
-            <tr>
-                <td colspan="2" >Presentasi</td>
-                <td  >${persen}%</td>
-                <td  >${nilaitotalp}</td>
-                <td  colspan="2" >Total Selilih yang Terlambat</td>
-                <td  >${nilaitotals}</td>
-              
-            </tr>
-        </tfoot>
+    
         <tbody>
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
-              <td > <a> ${item.user}</a> </td>
-              <td > ${item.tgpr}</td>
+       
+              
                     <td > ${item._id.name}</td>
+                    <td > ${item.unit}</td>
+               
                      <td > ${item.tgltarget}</td>
                     <td > ${item.tgldatang}</td>
                      <td > ${item.selisih}</td>
@@ -58,7 +84,7 @@
      
         <hr/>
         <div class="btn-group pull-right">
-            <a click.delegate="list(dateFrom,dateTo)" class='btn btn-default btn-sm'>Kembali</a>
+            <a click.delegate="list(dateFrom,dateTo,divisi)" class='btn btn-default btn-sm'>Kembali</a>
         </div>
     </form>
         
