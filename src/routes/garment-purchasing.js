@@ -193,6 +193,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-purchase-price-correction',
+        name: 'monitoring-purchase-price-correction',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-price-correction/index',
+        nav: true,
+        title: 'Monitoring Koreksi Harga Pembelian',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/unit-receipt-note',
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/unit-receipt-note/index',
