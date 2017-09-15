@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "*": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -63,7 +63,7 @@ module.exports = [
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }, 
+    },
     {
         route: 'inventory/finishing-printing/fp-retur-to-qc-doc',
         name: 'inventory/finishing-printing/fp-retur-to-qc-doc',
@@ -73,10 +73,10 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission : { "*": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
-        
+
     },
     {
         route: "inventory/finishing-printing/reports/fp-retur-to-qc-doc-report",
@@ -100,7 +100,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "*": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -126,7 +126,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "*": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -143,4 +143,4 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     }
- ]
+]
