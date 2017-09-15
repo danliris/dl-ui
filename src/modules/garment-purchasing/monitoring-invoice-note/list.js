@@ -30,6 +30,7 @@ export class List {
                 for(var _data of result){
                     _data.tax=_data.tax ? "Ya" : "Tidak";
                     _data.payTax=_data.payTax? "Ya":"Tidak";
+                    _data.vat=_data.vat ? "Ya" : "Tidak";
                     _data.totalPrice=_data.price*_data.qty;
                     _data.vatType=_data.vatName + " " + _data.vatRate;
                     
@@ -61,7 +62,7 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.supplier = null;
-        this.purchaseOrderExternal = null;
+        this.invoice = null;
         // this.newData = [];
     }
 }
