@@ -54,7 +54,7 @@ export class List {
                         _data.pricePerUnit = pr.pricePerUnit;
                         _data.priceTotal = pr.priceTotal;
                         _data.itemName = pr.itemName;
-                        _data.currrencyCode =pr.currrencyCode
+                        _data.currencyCode =pr.currencyCode;
 
                         var correction=pr.fulfillments.corrections ? pr.fulfillments.corrections :pr.fulfillments.correction;
 
@@ -78,7 +78,7 @@ export class List {
                         }
                          if(!correction.length)
                         {
-                            _data.correctionPriceTotal = pr.fulfillments.pricePerDealUnit;
+                            _data.correctionPriceTotal = pr.fulfillments.pricePerDealUnit *  pr.fulfillments.deliveredQuantity;
                         }else 
                         {
                             _data.correctionPriceTotal = correction[correction.length -1].correctionPriceTotal;
