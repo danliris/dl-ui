@@ -4,11 +4,11 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah",
-    }
+    cancelText: "Kembali",
+    saveText: "Simpan",
+    deleteText: "Hapus",
+    editText: "Ubah",
+  }
   @computedFrom("data._id")
   get isEdit() {
     return (this.data._id || '').toString() != '';
@@ -24,4 +24,5 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
+
 } 
