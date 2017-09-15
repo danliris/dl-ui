@@ -167,6 +167,18 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-intern-note',
+        name: 'monitoring-intern-note',
+        moduleId: './modules/garment-purchasing/monitoring-intern-note/index',
+        nav: true,
+        title: 'Monitoring Nota Intern', auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/purchase-quantity-correction',
         name: 'purchase-quantity-correction',
         moduleId: './modules/garment-purchasing/purchase-quantity-correction/index',
