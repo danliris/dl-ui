@@ -10,7 +10,7 @@
         <au-textbox label="Mata Uang" value.bind="data.code" error.bind="error.code" read-only.bind="(readOnly || isEdit)">
         </au-textbox>
 
-        <au-numeric label="Kurs" value.bind="data.rate" error.bind="error.rate" read-only.bind="readOnly">
+        <au-numeric label="Kurs" value.bind="data.rate" error.bind="error.rate" read-only.bind="readOnly" format="0,000.0000">
         </au-numeric>
 
         <template replaceable part="actions"></template>
