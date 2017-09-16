@@ -20,7 +20,7 @@ export class List {
     
     searching() {
         var info = {
-            no : this.invoice ? this.invoice.no : "",
+            no : this.internNote ? this.internNote.no : "",
             supplierId : this.supplier ? this.supplier._id : "",
             currencyId : this.currency ? this.currency._id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
@@ -40,7 +40,7 @@ export class List {
     
     ExportToExcel() {
         var info = {
-            no : this.invoice ? this.invoice.no : "",
+            no : this.internNote ? this.internNote.no : "",
             supplierId : this.supplier ? this.supplier._id : "",
             currencyId : this.currency ? this.currency._id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
@@ -65,7 +65,7 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.supplier = null;
-        this.invoice = null;
+        this.internNote = null;
         this.currency = null;
     }
 }
