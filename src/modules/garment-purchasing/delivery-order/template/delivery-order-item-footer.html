@@ -1,0 +1,12 @@
+<template>
+  <tr>
+    <td colspan="2" class="text-left"><b>Jumlah barang yang dipesan : ${totalOrder}</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="text-left"><b>Jumlah barang yang datang : ${totalDelivered}</b></td>
+  </tr>
+  <tr>
+    <require from="../../../../lib/number-format-value-converter"></require>
+    <td colspan="2" class="text-left"><b>Total Harga barang yang datang : ${currency} ${grandTotalPrice| numberFormat:"0,000"}</b></td>
+  </tr>
+</template>
