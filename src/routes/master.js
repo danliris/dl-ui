@@ -104,6 +104,19 @@ module.exports = [
         }
     },
     {
+        route: 'garment-suppliers/budgeting',
+        name: 'garment-suppliers/budgeting',
+        moduleId: './modules/master/garment-supplier-budgeting/index',
+        nav: true,
+        title: 'Supplier Garment',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'products/budgeting',
         name: 'products/budgeting',
         moduleId: './modules/master/product-budgeting/index',
