@@ -167,11 +167,36 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-intern-note',
+        name: 'monitoring-intern-note',
+        moduleId: './modules/garment-purchasing/monitoring-intern-note/index',
+        nav: true,
+        title: 'Monitoring Nota Intern', auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/purchase-quantity-correction',
         name: 'purchase-quantity-correction',
         moduleId: './modules/garment-purchasing/purchase-quantity-correction/index',
         nav: true,
         title: 'Koreksi Jumlah Pembelian',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+     {
+        route: '/garment/monitoring-purchase-quantity-correction',
+        name: 'purchase-quantity-correction',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-quantity-correction/index',
+        nav: true,
+        title: 'Monitoring Koreksi Jumlah Pembelian',
         auth: true,
         settings: {
             group: "g-purchasing",
@@ -244,4 +269,5 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     }
+
 ]
