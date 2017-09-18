@@ -142,11 +142,36 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-invoice-note',
+        name: 'monitoring-invoice-note',
+        moduleId: './modules/garment-purchasing/monitoring-invoice-note/index',
+        nav: true,
+        title: 'Monitoring Nota Invoice',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/intern-note',
         name: 'intern-note',
         moduleId: './modules/garment-purchasing/intern-note/index',
         nav: true,
         title: 'Nota Intern', auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/monitoring-intern-note',
+        name: 'monitoring-intern-note',
+        moduleId: './modules/garment-purchasing/monitoring-intern-note/index',
+        nav: true,
+        title: 'Monitoring Nota Intern', auth: true,
         settings: {
             group: "g-purchasing",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
@@ -166,12 +191,38 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+     {
+        route: '/garment/monitoring-purchase-quantity-correction',
+        name: 'purchase-quantity-correction',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-quantity-correction/index',
+        nav: true,
+        title: 'Monitoring Koreksi Jumlah Pembelian',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: '/garment/purchase-price-correction',
         name: 'purchase-price-correction',
         moduleId: './modules/garment-purchasing/purchase-price-correction/index',
         nav: true,
         title: 'Koreksi Harga Pembelian',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/monitoring-purchase-price-correction',
+        name: 'monitoring-purchase-price-correction',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-price-correction/index',
+        nav: true,
+        title: 'Monitoring Koreksi Harga Pembelian',
         auth: true,
         settings: {
             group: "g-purchasing",
@@ -218,4 +269,5 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     }
+
 ]
