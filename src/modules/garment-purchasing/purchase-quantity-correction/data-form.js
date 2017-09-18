@@ -6,6 +6,7 @@ var moment = require('moment');
 @inject(Service, BindingEngine, BindingSignaler)
 export class DataForm {
     @bindable readOnly = false;
+    @bindable isView = false;
     @bindable data;
     @bindable error;
 
