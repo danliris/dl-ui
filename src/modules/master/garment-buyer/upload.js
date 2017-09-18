@@ -35,7 +35,7 @@ export class Create {
         } else {
             formData.append("fileUpload", fileList[0]);
  
-            var endpoint = 'master/upload-buyers';
+            var endpoint = 'master/upload-garment-buyers';
             var request = {
                 method: 'POST',
                 headers: {

@@ -1,10 +1,12 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
 export class View {
+    isView = true
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
