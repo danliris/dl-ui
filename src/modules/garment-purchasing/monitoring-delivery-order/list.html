@@ -10,6 +10,17 @@
         <form class="form-horizontal">
 
             <au-autocomplete 
+                value.bind="deliveryOrder" 
+                label="Nomor Surat Jalan" 
+                loader.bind="deliveryOrderLoader"
+                placeholder="Cari Nomor Surat Jalan" 
+                read-only.bind="readOnly" 
+                key="_id" 
+                text="no"
+                options.bind="controlOptions">
+            </au-autocomplete>
+
+            <au-autocomplete 
                 value.bind="purchaseOrderExternal" 
                 label="Nomor PO Eksternal" 
                 loader.bind="poEksLoader"
