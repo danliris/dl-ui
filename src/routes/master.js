@@ -301,10 +301,10 @@ module.exports = [
     },
     {
         route: '/garment/garment-currency',
-        name: 'garment-currency',
+        name: 'kurs-currency',
         moduleId: './modules/garment-purchasing/garment-currency/index',
         nav: true,
-        title: 'Garment - Kurs Mata Uang',
+        title: 'Kurs Mata Uang',
         auth: true,
         settings: {
             group: "master",
