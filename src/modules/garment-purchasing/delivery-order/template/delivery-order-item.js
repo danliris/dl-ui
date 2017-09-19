@@ -34,9 +34,6 @@ export class DeliveryOrderItem {
     this.isShowing = false;
     if (this.data) {
       this.selectedPurchaseOrderExternal = { "_id": this.data.purchaseOrderExternalId, "no": this.data.purchaseOrderExternalNo };
-      if (this.data.fulfillments) {
-        this.isShowing = true;
-      }
     }
   }
 
