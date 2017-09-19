@@ -26,6 +26,10 @@ export class Service extends RestService {
             if (query === '') query = `no=${info.no}`;
             else query = `${query}&no=${info.no}`;
         }
+        if (info.poEksNo && info.poEksNo !== "") {
+            if (query === '') query = `poEksNo=${info.poEksNo}`;
+            else query = `${query}&poEksNo=${info.poEksNo}`;
+        }
         if (info.supplierId && info.supplierId !== "") {
             if (query === '') query = `supplierId=${info.supplierId}`;
             else query = `${query}&supplierId=${info.supplierId}`;
@@ -51,6 +55,10 @@ export class Service extends RestService {
         if (info.no && info.no !== "") {
             if (query === '') query = `no=${info.no}`;
             else query = `${query}&no=${info.no}`;
+        }
+        if (info.poEksNo && info.poEksNo !== "") {
+            if (query === '') query = `poEksNo=${info.poEksNo}`;
+            else query = `${query}&poEksNo=${info.poEksNo}`;
         }
         if (info.supplierId) {
             if (query === '') query = `supplierId=${info.supplierId}`;
