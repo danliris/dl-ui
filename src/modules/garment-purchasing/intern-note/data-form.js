@@ -14,8 +14,8 @@ export class DataForm {
     @bindable supplier;
 
     
-    termPaymentImportOptions = ['T/T PAYMENT', 'CMT IMPORT', 'FREE FROM BUYER', 'SAMPLE'];
-    termPaymentLocalOptions = ['DAN LIRIS', 'CMT LOKAL', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
 
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
