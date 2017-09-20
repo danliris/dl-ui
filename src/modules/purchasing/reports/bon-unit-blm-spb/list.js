@@ -17,30 +17,27 @@ export class List {
 
     }
 
-     search() {
-        this.service.search(this.dateFrom, this.dateTo)
+
+    search() {
+        this.service.search(this.unitId ? this.unitId._id : "",this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
             })
     }
     reset() {
-        
-        this.dateFrom = null;
+        this.unitId = "undefined";
+        this.dateFrom = null;  
         this.dateTo = null;
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.unitId, this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);
-
-
         if (_startDate > _endDate)
             this.dateTo = e.srcElement.value;
+
     }
-   
 }
-
-
