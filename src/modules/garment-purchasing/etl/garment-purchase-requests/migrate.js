@@ -30,7 +30,7 @@ export class Migrate {
     }
 
     tables = ["", "Budget & POrder", "Budget1 & POrder1"];
-    tables2 = ["latest", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    monthOpt = ["latest","january","february","march", "april", "may", "june", "july","august", "september", "october", "november", "december"];
 
     activate(params) {
     }
@@ -50,7 +50,9 @@ export class Migrate {
                 if (result.length == 0) {
                     alert("tidak ada data");
                 } else {
-                    alert("migration berhasil");
+                    var migratedFalse = result[0].MigratedFalse.length;
+                    var resultData = result[0].processed.length;
+                    alert(resultData + " data RO migration, migration berhasil: " + (resultData - migratedFalse) + " , migration gagal: " + migratedFalse);
                 }
 
                 this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
