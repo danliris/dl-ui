@@ -13,6 +13,9 @@ export class DeliveryOrderItem {
     { header: "Dipesan" },
     { header: "Diterima" },
     { header: "Satuan" },
+    { header: "Konversi" },
+    { header: "Jumlah Kecil" },
+    { header: "Satuan Kecil" },
     { header: "Harga" },
     { header: "Harga Total" },
     { header: "Mata Uang" },
@@ -101,6 +104,9 @@ export class DeliveryOrderItem {
                   pricePerDealUnit: poInternalItem.pricePerDealUnit,
                   remainsQuantity: remainingQuantity,
                   deliveredQuantity: deliveredQuantity,
+                  quantityConversion: deliveredQuantity,
+                  uomConversion: poExternalItem.dealUom,
+                  conversion: 1,
                   remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                 };
                 fulfillments.push(fulfillment);

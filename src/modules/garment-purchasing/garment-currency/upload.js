@@ -48,6 +48,7 @@ export class Create {
             e.date = "Tanggal lebih dari hari ini";
             this.error = e;
         }
+        
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;

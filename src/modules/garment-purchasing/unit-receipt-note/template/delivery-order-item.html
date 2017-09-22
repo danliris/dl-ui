@@ -19,6 +19,41 @@
 				read-only="true">
 			</au-textbox>
 		</td>
+		
+        <td>
+            <au-numeric 
+                value.bind="data.conversion"
+                error.bind="error.conversion"
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="data.quantityConversion"
+                error.bind="error.quantityConversion"
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-autocomplete 
+                value.bind="selectedUomConversion" 
+                error.bind="error.uomConversion"
+                loader.bind="uomLoader"
+                text.bind="uomView"
+                placeholder="cari satuan" 
+                key="unit"
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>                   
+        </td>
+		<td>
+			<au-textbox
+				value.one-way="buyer"
+				read-only="true">
+			</au-textbox>
+		</td>
 		<td>
 			<au-textbox
 				value.bind="data.remark"

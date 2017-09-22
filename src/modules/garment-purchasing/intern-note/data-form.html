@@ -57,24 +57,6 @@
             if.bind="supplierIsImport">
         </au-dropdown>
 
-        <au-dropdown
-            label="Term Pembayaran"
-            value.bind="data.paymentMethod"
-            error.bind="error.paymentMethod"
-            read-only.bind="readOnly"
-            items.bind="termPaymentLocalOptions"  
-            options.bind="auInputOptions"
-            if.bind="!supplierIsImport">
-        </au-dropdown> 
-
-        <au-datepicker
-            label="Tgl. Jatuh Tempo"
-            value.bind="data.dueDate"
-            error.bind="error.dueDate"
-            read-only.bind="readOnly"
-            options.bind="auInputOptions">
-        </au-datepicker>
-
         <au-multiline 
             label="Keterangan"
             value.bind="data.remark"
