@@ -79,7 +79,10 @@ export class DataForm {
                                 purchaseOrderQuantity: doFulfillment.purchaseOrderQuantity,
                                 purchaseOrderUom: doFulfillment.purchaseOrderUom,
                                 deliveredQuantity: doFulfillment.deliveredQuantity,
-                                pricePerDealUnit: doFulfillment.pricePerDealUnit
+                                pricePerDealUnit: doFulfillment.pricePerDealUnit,
+                                paymentMethod: doItem.paymentMethod,
+                                paymentType: doItem.paymentType,
+                                paymentDueDays: doItem.paymentDueDays,
                             }
                         });
                         fulfillment = [].concat.apply([], fulfillment);
