@@ -4,6 +4,7 @@ import { Service } from "./service";
 @inject(Service)
 export class DataForm {
     @bindable readOnly = false;
+    @bindable isView = false;
     @bindable data = {};
     @bindable title;
     @bindable deliveryOrder;

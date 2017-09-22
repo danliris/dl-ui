@@ -6,6 +6,14 @@
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
         </div>
 
+        <au-textbox 
+            value.bind="data.no" 
+            label="Nomor Koreksi"
+            read-only.bind="true"
+            if.bind="isView"
+            options.bind="controlOptions">
+        </au-textbox>
+
         <au-datepicker 
             label="Tgl. Koreksi Jumlah Pembelian" 
             value.bind="data.date" 
