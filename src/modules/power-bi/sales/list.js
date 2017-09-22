@@ -17,7 +17,7 @@ export class List {
         "Sales Contract Per Tanggal Dibuat",
         "Sales Contract Per Tanggal Delivery",
         "Deal Tracking",
-        "Monitoring SC - Input dan Output"
+        "Total Panjang Kain Per SC Yang Telah Diproses"
     ];
     constructor(router, service) {
         this.router = router;
