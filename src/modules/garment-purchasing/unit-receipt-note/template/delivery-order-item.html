@@ -39,12 +39,12 @@
         <td>
             <au-autocomplete 
                 value.bind="selectedUomConversion" 
-                error.bind="uomConversion"
+                error.bind="error.uomConversion"
                 loader.bind="uomLoader"
                 text.bind="uomView"
                 placeholder="cari satuan" 
                 key="unit"
-                read-only.bind="options.readOnly"
+                read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-autocomplete>                   
         </td>

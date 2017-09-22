@@ -81,7 +81,7 @@ export class DataForm {
             this.data.supplierId = undefined;
         }
 
-        this.deliveryOrderAU.editorValue = "";
+        // this.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = undefined;
     }
 
