@@ -11,8 +11,8 @@ export class Service extends RestService {
 
     
 
-    search(dateFrom, dateTo) {
-    var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    search(unitId, dateFrom, dateTo) {
+    var endpoint = `${serviceUri}?unitId=${unitId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
     return super.get(endpoint);
     
    }
@@ -23,9 +23,25 @@ export class Service extends RestService {
     }
 
     
-    generateExcel(dateFrom, dateTo) {
-    var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}`;
-    return super.getXls(endpoint);
+    generateExcel(unitId, sdate, edate) {
+     var endpoint = `${serviceUri}`;
+     var query = '';
+     if (unitId) {
+            if (query == '') query = `unitId=${encodeURIComponent(unitId._id)}`;
+            else query = `${query}&unitId=${encodeURIComponent(unitId._id)}`;
+        }
+
+     if (sdate) {
+            if (query == '') query = `dateFrom=${sdate}`;
+            else query = `${query}&dateFrom=${sdate}`;
+        }
+        if (edate) {
+            if (query == '') query = `dateTo=${edate}`;
+            else query = `${query}&dateTo=${edate}`;
+        }
+     if (query != '')
+            endpoint = `${serviceUri}?${query}`;
+        return super.getXls(endpoint);
     }
 
 }
