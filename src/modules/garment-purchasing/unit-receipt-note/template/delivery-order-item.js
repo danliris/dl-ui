@@ -7,6 +7,9 @@ export class DeliveryOrderItem {
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
 		this.selectedUomConversion = this.data.uomConversion;
+		if(!this.data.buyer){
+			this.data.buyer={name:""}
+		}
 	}
 
 	get product() {

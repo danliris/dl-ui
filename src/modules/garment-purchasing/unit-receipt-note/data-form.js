@@ -10,6 +10,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable title;
     @bindable unit;
     @bindable supplier;
     @bindable deliveryOrder;
@@ -59,12 +60,11 @@ export class DataForm {
         return filter;
     }
 
-    bind() {
-        if (this.data && this.data.supplier)
-            this.data.supplier.toString = function () {
-                return this.code + " - " + this.name;
-            };
-
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
+        
         if (!this.readOnly) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
@@ -142,7 +142,7 @@ export class DataForm {
                             _item.uomConversion = fulfillment.uomConversion;
                             _item.quantityConversion = fulfillment.quantityConversion;
                             _item.conversion = fulfillment.conversion;
-                            
+
                             // _item.uomConversion = fulfillment.purchaseOrderUom;
                             // _item.quantityConversion = fulfillment.purchaseOrderQuantity;
                             // _item.conversion = 1;
