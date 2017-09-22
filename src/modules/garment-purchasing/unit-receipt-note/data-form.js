@@ -139,13 +139,13 @@ export class DataForm {
                             _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
                             _item.currency = fulfillment.currency;
                             _item.pricePerDealUnit = fulfillment.pricePerDealUnit;
-                            // _item.uomConversion = fulfillment.uomConversion;
-                            // _item.quantityConversion = fulfillment.quantityConversion;
-                            // _item.conversion = fulfillment.conversion;
+                            _item.uomConversion = fulfillment.uomConversion;
+                            _item.quantityConversion = fulfillment.quantityConversion;
+                            _item.conversion = fulfillment.conversion;
                             
-                            _item.uomConversion = fulfillment.purchaseOrderUom;
-                            _item.quantityConversion = fulfillment.purchaseOrderQuantity;
-                            _item.conversion = 1;
+                            // _item.uomConversion = fulfillment.purchaseOrderUom;
+                            // _item.quantityConversion = fulfillment.purchaseOrderQuantity;
+                            // _item.conversion = 1;
 
                             var total = fulfillment.realizationQuantity
                                 .map(qty => qty.deliveredQuantity)
