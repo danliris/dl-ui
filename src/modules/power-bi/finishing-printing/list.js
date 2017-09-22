@@ -13,7 +13,8 @@ export class List {
         "Top Ten Defect",
         "Good Output vs Bad Output All",
         "Good Output vs Bad Output Per Jenis Order",
-        "Kanban Aktif"
+        "Kanban Aktif",
+        "Monitoring SPP - Input dan Output"
     ];
     
     constructor(router, service) {
