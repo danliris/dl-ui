@@ -13,7 +13,6 @@ export class DataForm {
     @bindable currency;
     @bindable supplier;
 
-    
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
 
