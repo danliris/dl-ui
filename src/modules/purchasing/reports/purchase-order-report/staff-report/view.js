@@ -48,13 +48,13 @@ export class View {
 
              for (var sel of data) {
                  divname=sel.divisi;
-                if (sel.selisih < 0)
+                if (sel.selisih > 0)
                     nilais=1;
                 else
                     nilais=0;
 
             nilaitotals += nilais;
-              if (sel.selisih2 < 0)
+              if (sel.selisih2 > 7)
                     nilais2=1;
                 else
                     nilais2=0;
@@ -66,7 +66,7 @@ export class View {
              this.divname = divname;
 
             for (var tep of data) {
-                if (tep.selisih >= 0)
+                if (tep.selisih <= 0)
                     nilaipp=1;
                 else
                     nilaipp=0;
