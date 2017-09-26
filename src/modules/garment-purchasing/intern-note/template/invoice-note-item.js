@@ -1,4 +1,4 @@
-export class DeliveryOrderItem {
+export class InvoiceNoteItem {
 	
 	activate(context) {
 		this.data = context.data;
