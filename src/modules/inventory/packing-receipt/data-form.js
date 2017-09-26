@@ -44,7 +44,6 @@ export class DataForm {
         if (this.data.packing) {
             var _items = [];
             this.data.packingId = this.data.packing._id;
-            // this.data.materialWidthFinish = this.data
 
             this.data.storageName = this.data.packing.orderType.toString().toLowerCase() === "printing" ? "Gudang Jadi Printing" : "Gudang Jadi Finishing";
 
