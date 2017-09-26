@@ -44,7 +44,8 @@ export class DataForm {
         if (this.data.packing) {
             var _items = [];
             this.data.packingId = this.data.packing._id;
-            // this.data.materialWidthFinish = this.data
+
+            this.data.storageName = this.data.packing.orderType.toString().toLowerCase() === "printing" ? "Gudang Jadi Printing" : "Gudang Jadi Finishing";
 
             this.data.packing.items.map((item) => {
                 var _item = {};
@@ -62,6 +63,7 @@ export class DataForm {
             this.data.packing = {};
             this.data.packingId = {};
             this.data.items = [];
+            this.data.storageName = "";
         }
     }
 
