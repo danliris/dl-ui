@@ -154,6 +154,32 @@ module.exports = [
         }
     },
     {
+        route: 'production/finishing-printing/kanban-visualization-area',
+        name: 'kanban-visualization-area',
+        moduleId: './modules/production/finishing-printing/kanban-visualization-area/index',
+        nav: true,
+        title: 'Kanban Visualization Area',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/kanban-visualization-machine',
+        name: 'kanban-visualization-machine',
+        moduleId: './modules/production/finishing-printing/kanban-visualization-machine/index',
+        nav: true,
+        title: 'Kanban Visualization Machine',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/finishing-printing/monitoring-kanban',
         name: 'monitoring-kanban',
         moduleId: './modules/production/finishing-printing/monitoring-kanban/index',
