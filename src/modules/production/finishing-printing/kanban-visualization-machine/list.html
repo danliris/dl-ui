@@ -1,0 +1,36 @@
+<template>
+    <require from="./styles/list-style.css"></require>
+    <require from="../../../../lib/number-format-value-converter"></require>
+
+    <div id="dragula">
+        <h1 class="page-header">Visualisasi Kanban Mesin</h1>
+        <!--<dragula-and-drop drop-fn.call="itemDropped(item, target, source, sibling, itemVM, siblingVM)"></dragula-and-drop>-->
+
+        <div class="row" id="kanban">
+            <div class="col-sm-4" repeat.for="stage of stages">
+                <div class="kanban kanban__box ${type[$index % 4]}">
+                    <div class="kanban__title">
+                        <h4>${stage.name}</h4>
+                    </div>
+
+                    <ol class="kanban drag-source drop-target">
+                        <li class="kanbanDd-item" repeat.for="i of stage.map">
+                            <h4 class="kanbanTitle">
+                                ${i.productionOrderNo} - ${i.cart}<br>
+                            </h4>
+                            <div class="kanbanText">
+                                Proses: ${i.process}<br/>
+                                Sales Contract: ${i.salesContractNo} - ${i.buyer} - ${i.orderQuantity}<br/>
+                                Tanggal Deadline: ${i.deadline}<br/>
+                                Tanggal Kirim: ${i.deliveryDate}
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="total">
+                        Total: ${stage.total | numberFormat: '0,000'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
