@@ -12,10 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable currency;
     @bindable supplier;
-
-    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-
+    
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
         this.element = element;
