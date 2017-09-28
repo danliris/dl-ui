@@ -72,7 +72,7 @@ export class View {
                     nilaipp=0;
 
             nilaitotalpp += nilaipp;
-              if (tep.selisih2 >= 0)
+              if (tep.selisih2 <= 7)
                     nilaipp2=1;
                 else
                     nilaipp2=0;

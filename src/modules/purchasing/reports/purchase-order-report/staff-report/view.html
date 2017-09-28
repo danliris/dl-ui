@@ -72,16 +72,21 @@
         <tbody>
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
-       <td class="text-center">${item.tgpr}</td>
+   
+       <td>${item.tgpr | dateFormat:'DD-MM-YYYY'}</td>
               
                     <td > ${item._id.name}</td>
                     <td > ${item.nmbarang}</td>
                     <td > ${item.nmsupp}</td>
-                    <td > ${item.tglpoint}</td>
-                    <td > ${item.tglpoeks}</td>
+                
+                    <td>${item.tglpoint | dateFormat:'DD-MM-YYYY'}</td>
+                     <td>${item.tglpoeks | dateFormat:'DD-MM-YYYY'}</td>
                      <td >${item.selisih2}</td>
-                     <td > ${item.tgltarget}</td>
-                    <td > ${item.tgldatang}</td>
+               
+                     
+<td>${item.tgltarget | dateFormat:'DD-MM-YYYY'}</td>
+<td>${item.tgldatang | dateFormat:'DD-MM-YYYY'}</td>
+             
                      <td > ${item.selisih}</td>
                      <td > ${item.unit}</td>
 
