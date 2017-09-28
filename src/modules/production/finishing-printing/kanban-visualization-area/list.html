@@ -16,13 +16,14 @@
                     <ol class="kanban drag-source drop-target">
                         <li class="kanbanDd-item" repeat.for="i of stage.map">
                             <h4 class="kanbanTitle">
-                                ${i.productionOrderNo} - ${i.cart}<br>
+                                ${i.productionOrderNo} - ${i.cart} - ${i.currentStepIndex}/${i.stepsLength}<br>
                             </h4>
                             <div class="kanbanText">
                                 Proses: ${i.process}<br/>
                                 Sales Contract: ${i.salesContractNo} - ${i.buyer} - ${i.orderQuantity}<br/>
                                 Tanggal Deadline: ${i.deadline}<br/>
-                                Tanggal Kirim: ${i.deliveryDate}
+                                Tanggal Kirim: ${i.deliveryDate}<br/>
+                                Kuantiti: ${i.input}
                             </div>
                         </li>
                     </ol>
