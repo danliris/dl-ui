@@ -27,7 +27,7 @@
         <au-autocomplete 
             value.bind="unit"
             label="Unit" 
-            loader.one-time="unitLoader" 
+            loader.bind="unitLoader" 
             text.bind="unitView"
             read-only.bind="readOnly"
             error.bind="error.unit"
@@ -38,7 +38,7 @@
        <au-autocomplete 
             value.bind="supplier"
             label="Supplier" 
-            loader.one-time="supplierLoader" 
+            loader.bind="supplierLoader" 
             text.bind="supplierView"
             read-only.bind="readOnly"
             error.bind="error.supplier"
@@ -49,9 +49,9 @@
         <au-autocomplete 
             value.bind="deliveryOrder"
             label="Surat Jalan" 
-            loader.one-time="deliveryOrderBySupplierLoader" 
+            loader.bind="deliveryOrderBySupplierLoader" 
             read-only.bind="readOnly"
-            error.bind="error.deliveryOrder"
+            error.bind="error.deliveryOrderId"
             options.bind="auInputOptions"
             query.bind="filter"
             show.bind="data.supplierId"
