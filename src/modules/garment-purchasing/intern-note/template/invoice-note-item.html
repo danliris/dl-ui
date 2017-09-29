@@ -19,6 +19,12 @@
 			</au-textbox>
 		</td>
 		<td>
+			<au-textbox
+				value.one-way="data.paymentType"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
 			<au-datepicker
 				value.bind="data.dueDays"
 				read-only.bind="true">
@@ -57,6 +63,12 @@
 				read-only.bind="true" 
 				format="0">
 			</au-numeric>
+		</td>
+        <td>
+			<au-textbox
+				value.one-way="data.status"
+				read-only="true">
+			</au-textbox>
 		</td>
 	</tr>
 </template>

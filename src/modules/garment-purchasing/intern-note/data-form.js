@@ -12,10 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable currency;
     @bindable supplier;
-
-    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-
+    
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -76,8 +73,8 @@ export class DataForm {
             this.data.items = _items;
         }
         else {
-            this.data.supplier = {};
-            this.data.supplierId = undefined;
+            this.data.supplier = null;
+            this.data.supplierId = null;
             this.data.items=[];
         }
         this.context.error.items=[];
@@ -94,14 +91,6 @@ export class DataForm {
         }
         this.data.items=[];
         this.context.error.items=[];
-    }
-
-    resetErrorItems() {
-        if (this.error) {
-            if (this.error.items) {
-                this.error.items = [];
-            }
-        }
     }
 
     get currencyLoader() {
