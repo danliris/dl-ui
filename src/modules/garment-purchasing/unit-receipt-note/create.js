@@ -13,6 +13,10 @@ export class Create {
         this.data = {};
     }
 
+    bind() {
+        this.error = {};
+    }
+
     cancel(event) {
         this.router.navigateToRoute('list');
     }
