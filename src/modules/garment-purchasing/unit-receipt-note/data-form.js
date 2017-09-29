@@ -64,7 +64,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        
+
         if (!this.readOnly) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
@@ -78,11 +78,17 @@ export class DataForm {
             this.data.supplierId = selectedSupplier._id;
         }
         else {
-            this.data.supplierId = undefined;
+            this.data.supplier = null;
+            this.data.supplierId = null;
         }
 
-        // this.deliveryOrderAU.editorValue = "";
-        this.data.deliveryOrderId = undefined;
+        if (this.context.error) {
+            if (this.context.error.deliveryOrderId) {
+                this.context.error.deliveryOrderId = null;
+            }
+        }
+        this.context.deliveryOrderAU.editorValue = "";
+        this.data.deliveryOrderId = null;
     }
 
     unitChanged(newValue, oldValue) {
@@ -93,6 +99,7 @@ export class DataForm {
             this.data.unitId = selectedUnit._id;
         }
         else {
+            this.data.unit = null;
             this.data.unitId = null;
         }
     }
