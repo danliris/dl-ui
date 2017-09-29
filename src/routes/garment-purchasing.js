@@ -90,6 +90,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-purchase',
+        name: 'monitoring-purchase',
+        moduleId: './modules/garment-purchasing/monitoring-purchase/index',
+        nav: true,
+        title: 'Monitoring Purchase',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/delivery-order',
         name: 'delivery-order',
         moduleId: './modules/garment-purchasing/delivery-order/index',
