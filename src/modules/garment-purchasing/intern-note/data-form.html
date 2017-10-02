@@ -28,7 +28,7 @@
             value.bind="currency" 
             error.bind="error.currency"
             label="Mata Uang" 
-            loader.one-time="currencyLoader"
+            loader.bind="currencyLoader"
             text.bind = "currencyView"
             placeholder="cari mata uang"
             read-only.bind="readOnly"
@@ -39,41 +39,13 @@
             value.bind="supplier"
             error.bind="error.supplierId"
             label="Supplier" 
-            loader.one-time="supplierLoader" 
+            loader.bind="supplierLoader" 
             text.bind="supplierView"
             read-only.bind="readOnly"
             placeholder="cari supplier"
             show.bind="data.currency"
             options.bind="auInputOptions">
         </au-autocomplete>
-
-        <au-dropdown
-            label="Term Pembayaran"
-            value.bind="data.paymentMethod"
-            error.bind="error.paymentMethod"
-            read-only.bind="readOnly"
-            items.bind="termPaymentImportOptions"  
-            options.bind="auInputOptions"
-            if.bind="supplierIsImport">
-        </au-dropdown>
-
-        <au-dropdown
-            label="Term Pembayaran"
-            value.bind="data.paymentMethod"
-            error.bind="error.paymentMethod"
-            read-only.bind="readOnly"
-            items.bind="termPaymentLocalOptions"  
-            options.bind="auInputOptions"
-            if.bind="!supplierIsImport">
-        </au-dropdown> 
-
-        <au-datepicker
-            label="Tgl. Jatuh Tempo"
-            value.bind="data.dueDate"
-            error.bind="error.dueDate"
-            read-only.bind="readOnly"
-            options.bind="auInputOptions">
-        </au-datepicker>
 
         <au-multiline 
             label="Keterangan"

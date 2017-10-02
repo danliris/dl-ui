@@ -40,10 +40,19 @@ export class Create {
         var fileInput = document.getElementById("fileCsv");
         var fileList = fileInput.files;
 
+        if (!this.data.date) {
+            e.date = "Tanggal harus di isi";
+            this.error = e;
+        }
+        if(this.data.date > new Date()){
+            e.date = "Tanggal lebih dari hari ini";
+            this.error = e;
+        }
+        
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;
-        } else {
+        } else if (Object.getOwnPropertyNames(e) == 0) {
             formData.append("date", this.data.date);
             formData.append("fileUpload", fileList[0]);
 

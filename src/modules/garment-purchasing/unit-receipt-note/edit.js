@@ -1,13 +1,18 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
+    hasCancel = true;
+    hasSave = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
+    }
+
+    bind() {
+        this.error = {};
     }
 
     async activate(params) {
@@ -18,16 +23,16 @@ export class Edit {
         this.deliveryOrder = { "_id": this.data.deliveryOrderId, "no": this.data.deliveryOrderNo };
     }
 
-    view() {
+    cancel(event) {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
     save() {
-        if(typeof this.data.date === 'object')
+        if (typeof this.data.date === 'object')
             this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
 
         this.service.update(this.data).then(result => {
-            this.view();
+            this.cancel();
         }).catch(e => {
             this.error = e;
         })
