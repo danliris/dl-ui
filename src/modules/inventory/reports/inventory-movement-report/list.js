@@ -27,6 +27,8 @@ export class List {
 
     columns = [
       { field: "storageName", title: "Storage"},
+      { field: "referenceNo", title: "Nomor Referensi"},
+      { field: "referenceType", title: "Jenis Referensi"},
       { field: "date", title: "Tanggal", 
         formatter: (value, data) => {
           return moment(value).format("DD-MMM-YYYY");
