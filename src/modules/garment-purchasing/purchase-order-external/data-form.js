@@ -3,7 +3,6 @@ import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 var VatLoader = require('../../../loader/vat-loader');
-var CategoryLoader = require('../../../loader/garment-category-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -15,13 +14,14 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedCurrency;
     @bindable selectedVat;
-    @bindable selectedCategory;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
+    categoryOptions = ['FABRIC', 'ACCESSORIES']
+    qualityStandardTypeOptions = ['JIS', 'AATC','ISO']
 
     label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -61,6 +61,23 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.isItem = false;
+
+        if (this.data.category) {
+            if (this.data.category === "FABRIC") {
+                this.isFabric = true;
+            }
+            else {
+                this.isFabric = false;
+            }
+        }
+        else {
+            this.isFabric = true;
+        }
+
+        if (this.data.items.length > 0) {
+            this.isItem = true;
+        }
 
         this.options.readOnly = this.readOnly;
         if (this.data.useIncomeTax) {
@@ -117,18 +134,27 @@ export class DataForm {
         }
     }
 
-    selectedCategoryChanged(newValue) {
-        var _selectedCategory = newValue;
-        if (_selectedCategory) {
-            if (_selectedCategory._id) {
-                this.data.category = _selectedCategory;
-                this.data.categoryId = this.data.category._id ? this.data.category._id : {};
+    categoryChanged(e) {
+        var selectedCategory = e.srcElement.value;
+        if (selectedCategory) {
+            this.data.category = selectedCategory;
+
+            this.data.qualityStandard.shrinkage = '';
+            this.data.qualityStandard.wetRubbing = '';
+            this.data.qualityStandard.dryRubbing = '';
+            this.data.qualityStandard.washing = '';
+            this.data.qualityStandard.darkPrespiration = '';
+            this.data.qualityStandard.lightMedPrespiration = '';
+            this.data.qualityStandard.pieceLength = '';
+            this.data.qualityStandard.qualityStandardType = 'JIS';
+
+            if (this.data.category === "FABRIC") {
+                this.isFabric = true;
             }
-        } else {
-            this.data.category = {};
-            this.data.categoryId = {};
+            else {
+                this.isFabric = false;
+            }
         }
-        this.data.items = [];
     }
 
     paymentMethodChanged(e) {
@@ -137,7 +163,7 @@ export class DataForm {
             this.data.paymentMethod = selectedPayment;
         }
     }
-    
+
     paymentTypeChanged(e) {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
@@ -186,10 +212,6 @@ export class DataForm {
         return VatLoader;
     }
 
-    get categoryLoader() {
-        return CategoryLoader;
-    }
-
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`
     }
@@ -202,40 +224,36 @@ export class DataForm {
         return `${vat.name} - ${vat.rate}`
     }
 
-    categoryView = (category) => {
-        return `${category.code} - ${category.name}`
-    }
-
     async search() {
-        var result = await this.service.searchByTags(this.data.categoryId, this.keywords, this.shipmentDateFrom, this.shipmentDateTo);
+        var result = await this.service.searchByTags(this.keywords, this.shipmentDateFrom, this.shipmentDateTo);
 
         var items = result.data.map((data) => {
-            if (data.items.categoryId.toString() === this.data.categoryId.toString()) {
-                return {
-                    poNo: data.no,
-                    poId: data._id,
-                    prNo: data.purchaseRequest.no,
-                    prId: data.purchaseRequest._id,
-                    prRefNo: data.items.refNo,
-                    roNo: data.roNo,
-                    productId: data.items.productId,
-                    product: data.items.product,
-                    defaultQuantity: Number(data.items.defaultQuantity),
-                    defaultUom: data.items.defaultUom,
-                    dealQuantity: Number(data.items.defaultQuantity),
-                    dealUom: data.items.defaultUom,
-                    budgetPrice: Number(data.items.budgetPrice),
-                    priceBeforeTax: Number(data.items.budgetPrice),
-                    pricePerDealUnit: Number(data.items.budgetPrice),
-                    conversion: 1,
-                    useIncomeTax: false,
-                    remark: data.items.remark
-                }
+            return {
+                poNo: data.no,
+                poId: data._id,
+                prNo: data.purchaseRequest.no,
+                prId: data.purchaseRequest._id,
+                prRefNo: data.items.refNo,
+                roNo: data.roNo,
+                productId: data.items.productId,
+                product: data.items.product,
+                categoryId: data.items.category._id,
+                category: data.items.category,
+                defaultQuantity: Number(data.items.defaultQuantity),
+                defaultUom: data.items.defaultUom,
+                dealQuantity: Number(data.items.defaultQuantity),
+                dealUom: data.items.defaultUom,
+                budgetPrice: Number(data.items.budgetPrice),
+                priceBeforeTax: Number(data.items.budgetPrice),
+                pricePerDealUnit: Number(data.items.budgetPrice),
+                conversion: 1,
+                useIncomeTax: false,
+                remark: data.items.remark
             }
         })
         items = [].concat.apply([], items);
-
-        this.data.items = items
+        this.data.items = items;
+        this.isItem = true;
     }
 
 } 
