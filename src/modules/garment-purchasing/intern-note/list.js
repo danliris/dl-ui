@@ -1,50 +1,60 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-import moment from 'moment';
+var moment = require("moment");
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian", "Cetak Nota Pajak Pph", "Cetak Nota Pajak Ppn"];
     columns = [
-        { field: "no", title: "Nomor Invoice" },
+        { field: "no", title: "No. Surat Perintah Bayar" },
         {
-            field: "date", title: "Tanggal Invoice", formatter: function (value, data, index) {
+            field: "date", title: "Tanggal Surat Perintah Bayar",
+            formatter: (value, data) => {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
-        { field: "items", title: "List Nomor Surat Jalan", sortable: false }
+        { field: "supplier.name", title: "Supplier" },
+        { field: "invoiceNoteNo", title: "List No. Invoice" }
     ];
+
+    context = ["Rincian", "Cetak PDF"];
+
+    today = new Date();
+
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
+    }
+
+    async activate() {
+
+    }
 
     loader = (info) => {
         var order = {};
+
         if (info.sort)
             order[info.sort] = info.order;
+
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "items.deliveryOrderNo", "useVat", "useIncomeTax", "isPayTax"],
+            select: ["date", "no", "supplier.name", "items.no"],
             order: order
-        }
+        };
 
         return this.service.search(arg)
             .then(result => {
-                var data = {}
-                data.total = result.info.total;
-                data.data = result.data;
-                data.data.forEach(s => {
-                    s.items.toString = function () {
-                        var str = "<ul>";
-                        for (var item of s.items) {
-                            str += `<li>${item.deliveryOrderNo}</li>`;
-                        }
-                        str += "</ul>";
-                        return str;
-                    }
-                });
-                // return data;
+                for (var _data of result.data) {
+                    var invoiceNo = _data.items.map(function (item) {
+                        return `<li>${item.no}</li>`;
+                    });
+                    invoiceNo = invoiceNo.filter(function (elem, index, self) {
+                        return index == self.indexOf(elem);
+                    })
+                    _data.invoiceNoteNo = `<ul>${invoiceNo.join()}</ul>`;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -52,9 +62,12 @@ export class List {
             });
     }
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
+    back() {
+        this.router.navigateToRoute('list');
+    }
+
+    create() {
+        this.router.navigateToRoute('create');
     }
 
     contextClickCallback(event) {
@@ -64,27 +77,9 @@ export class List {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data._id });
                 break;
-            case "Cetak Nota Pajak Pph":
-                this.service.getPdfVatNote(data._id);
-                break;
-            case "Cetak Nota Pajak Ppn":
-                this.service.getPdfIncomeTaxNote(data._id);
+            case "Cetak PDF":
+                this.service.getPdfById(data._id);
                 break;
         }
-    }
-
-    contextShowCallback(index, name, data) {
-        switch (name) {
-            case "Cetak Nota Pajak Pph":
-                return data.useVat && data.isPayTax;
-            case "Cetak Nota Pajak Ppn":
-                return data.useIncomeTax && data.isPayTax;
-            default:
-                return true;
-        }
-    }
-
-    create() {
-        this.router.navigateToRoute('create');
     }
 }
