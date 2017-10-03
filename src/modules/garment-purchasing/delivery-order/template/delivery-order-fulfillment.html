@@ -8,6 +8,13 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox 
+                value.bind="data.purchaseRequestRefNo" 
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
             <au-autocomplete 
                 value.bind="data.product" 
                 loader.bind="productLoader" 
