@@ -225,7 +225,7 @@ export class DataForm {
     }
 
     async search() {
-        var result = await this.service.searchByTags(this.keywords, this.shipmentDateFrom, this.shipmentDateTo);
+        var result = await this.service.searchByTags(this.keywords, this.context.shipmentDateFrom, this.context.shipmentDateTo);
 
         var items = result.data.map((data) => {
             return {
