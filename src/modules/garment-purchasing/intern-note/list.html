@@ -1,20 +1,17 @@
 <template>
-    <div class="display-wrapper">
-        <h1 class="page-header">Nota Intern Garment</h1>
-        <br>
-        <au-table
-            data.bind="loader"
-            context.bind="context"
-            context-click.delegate="contextClickCallback($event)"
-            columns.bind="columns"
-            sortable.bind="true"
-            page-size="25">
-            
-            <div slot="toolbar" class="btn-group">
-                <button class="btn btn-primary" click.delegate="create()">Buat</button>
-            </div>
-        </au-table>
+    <h1 class="page-header">Invoice Garment</h1>
+    <au-table 
+        view-model.ref="table" 
+        data.bind="loader" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextClickCallback($event)"
+        context-show.call="contextShowCallback(index, context, data)" >
 
-		<hr/>
-    </div>
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
+        </div>
+  </au-table>
 </template>
