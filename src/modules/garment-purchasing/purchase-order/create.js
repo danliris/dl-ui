@@ -34,10 +34,10 @@ export class Create {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { title: "Kategori", field: "items.category" },
         { title: "Nama Barang", field: "items.product" },
         { title: "Jumlah", field: "items.quantity" },
-        { title: "Satuan", field: "items.uom" }
+        { title: "Satuan", field: "items.uom" },
+        { title: "Keterangan", field: "items.remark" }
     ];
     controlOptions = {
         control: {

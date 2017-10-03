@@ -46,7 +46,8 @@ export class ShipmentDetail {
             this.data.colorType = this.selectedProductionOrder.details[0].colorType;
 
             //get products by buyer and production order number where stock balance is greater than 0
-            if (!this.data.items && this.selectedBuyerName && this.selectedProductionOrder) {
+            // if (!this.data.items && this.selectedBuyerName && this.selectedProductionOrder) {
+            if (this.selectedBuyerName && this.selectedProductionOrder) {            
                 var filter = {
                     "properties.buyerName": this.selectedBuyerName,
                     "properties.productionOrderNo": this.selectedProductionOrder.orderNo
@@ -67,8 +68,7 @@ export class ShipmentDetail {
                         },
                         "quantity": {
                             "$gt": 0
-                        },
-                        "storageName": "Gudang Jadi Finishing Printing"
+                        }
                     }
                     var infoInventory = { filter: JSON.stringify(filterInventory) };
                     this.inventoryResults = await this.service.searchInventory(infoInventory);

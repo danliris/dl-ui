@@ -8,6 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,6 +22,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -33,6 +35,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -45,6 +48,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -146,6 +150,32 @@ module.exports = [
         moduleId: './modules/production/finishing-printing/bad-output-kanban/index',
         nav: true,
         title: 'Kanban Pengganti Bad Output',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/kanban-visualization-area',
+        name: 'kanban-visualization-area',
+        moduleId: './modules/production/finishing-printing/kanban-visualization-area/index',
+        nav: true,
+        title: 'Kanban Visualization Area',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/kanban-visualization-machine',
+        name: 'kanban-visualization-machine',
+        moduleId: './modules/production/finishing-printing/kanban-visualization-machine/index',
+        nav: true,
+        title: 'Kanban Visualization Machine',
         auth: true,
         settings: {
             group: "production",

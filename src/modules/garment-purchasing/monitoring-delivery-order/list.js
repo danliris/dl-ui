@@ -5,6 +5,7 @@ import moment from 'moment';
 
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var POEksLoader = require('../../../loader/garment-purchase-order-external-loader');
+var DOLoader = require('../../../loader/garment-delivery-order-loader');
 
 @inject(Router, Service)
 export class List {
@@ -19,7 +20,8 @@ export class List {
     
     searching() {
         var info = {
-            no : this.purchaseOrderExternal ? this.purchaseOrderExternal.no : "",
+            no: this.deliveryOrder ? this.deliveryOrder.no : "",
+            poEksNo : this.purchaseOrderExternal ? this.purchaseOrderExternal.no : "",
             supplierId : this.supplier ? this.supplier._id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
@@ -38,7 +40,8 @@ export class List {
     
     ExportToExcel() {
         var info = {
-            no : this.purchaseOrderExternal ? this.purchaseOrderExternal.no : "",
+            no: this.deliveryOrder ? this.deliveryOrder.no : "",
+            poEksNo : this.purchaseOrderExternal ? this.purchaseOrderExternal.no : "",
             supplierId : this.supplier ? this.supplier._id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
@@ -54,11 +57,16 @@ export class List {
         return POEksLoader;
     }
 
+    get deliveryOrderLoader(){
+        return DOLoader;
+    }
+
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
         this.supplier = null;
         this.purchaseOrderExternal = null;
+        this.deliveryOrder = null;
         // this.newData = [];
     }
 }

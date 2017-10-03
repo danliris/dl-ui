@@ -1,5 +1,12 @@
 <template>
-    <form class="form-horizontal">
+    <au-input-form title.bind="title" with.bind="context">
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
         <au-textbox
             label="No. Bon Unit"
             value.bind="data.no"
@@ -20,7 +27,7 @@
         <au-autocomplete 
             value.bind="unit"
             label="Unit" 
-            loader.one-time="unitLoader" 
+            loader.bind="unitLoader" 
             text.bind="unitView"
             read-only.bind="readOnly"
             error.bind="error.unit"
@@ -31,7 +38,7 @@
        <au-autocomplete 
             value.bind="supplier"
             label="Supplier" 
-            loader.one-time="supplierLoader" 
+            loader.bind="supplierLoader" 
             text.bind="supplierView"
             read-only.bind="readOnly"
             error.bind="error.supplier"
@@ -42,9 +49,9 @@
         <au-autocomplete 
             value.bind="deliveryOrder"
             label="Surat Jalan" 
-            loader.one-time="deliveryOrderBySupplierLoader" 
+            loader.bind="deliveryOrderBySupplierLoader" 
             read-only.bind="readOnly"
-            error.bind="error.deliveryOrder"
+            error.bind="error.deliveryOrderId"
             options.bind="auInputOptions"
             query.bind="filter"
             show.bind="data.supplierId"
@@ -71,5 +78,5 @@
             item-template="modules/garment-purchasing/unit-receipt-note/template/delivery-order-item"
             show.bind="deliveryOrder">
         </au-collection>
-    </form>
+    </au-input-form>
 </template>

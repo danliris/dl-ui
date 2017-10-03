@@ -27,7 +27,6 @@ export class DataForm {
     itemsColumns = [
         { header: "Nomor Referensi PR", value: "refNo" },
         { header: "Barang", value: "product" },
-        { header: "Kategori", value: "category" },
         { header: "Jumlah", value: "defaultQuantity" },
         { header: "Satuan", value: "defaultUom" },
         { header: "Harga Budget", value: "budgetPrice" },

@@ -8,14 +8,18 @@ export class DeliveryOrderItem {
   @bindable selectedPurchaseOrderExternal;
 
   itemsColumns = [
-    { header: "Nomor PR", value: "purchaseRequestNo" },
-    { header: "Barang", value: "product" },
-    { header: "Dipesan", value: "purchaseOrderQuantity" },
-    { header: "Diterima", value: "deliveredQuantity" },
-    { header: "Satuan", value: "purchaseOrderUom" },
-    { header: "Harga", value: "pricePerDealUnit" },
-    { header: "Mata Uang", value: "currency" },
-    { header: "Catatan", value: "remark" }
+    { header: "Nomor PR" },
+    { header: "Barang" },
+    { header: "Dipesan" },
+    { header: "Diterima" },
+    { header: "Satuan" },
+    { header: "Konversi" },
+    { header: "Jumlah Kecil" },
+    { header: "Satuan Kecil" },
+    { header: "Harga" },
+    { header: "Harga Total" },
+    { header: "Mata Uang" },
+    { header: "Catatan" }
   ]
 
   constructor(service, bindingEngine) {
@@ -33,9 +37,6 @@ export class DeliveryOrderItem {
     this.isShowing = false;
     if (this.data) {
       this.selectedPurchaseOrderExternal = { "_id": this.data.purchaseOrderExternalId, "no": this.data.purchaseOrderExternalNo };
-      if (this.data.fulfillments) {
-        this.isShowing = true;
-      }
     }
   }
 
@@ -60,7 +61,7 @@ export class DeliveryOrderItem {
 
       var jobs = [];
       for (var poId of poCollection) {
-        jobs.push(this.service.getPurchaseOrderById(poId, ["items.fulfillments","items.currency","items.pricePerDealUnit", "items.product", "_id", "items.dealQuantity", "items.realizationQuantity"]))
+        jobs.push(this.service.getPurchaseOrderById(poId, ["items.fulfillments", "items.currency", "items.pricePerDealUnit", "items.product", "_id", "items.dealQuantity", "items.realizationQuantity"]))
       }
 
       Promise.all(jobs)
@@ -100,9 +101,12 @@ export class DeliveryOrderItem {
                   purchaseOrderQuantity: poExternalItem.dealQuantity,
                   purchaseOrderUom: poExternalItem.dealUom,
                   currency: poInternalItem.currency,
-                  pricePerDealUnit:poInternalItem.pricePerDealUnit,
+                  pricePerDealUnit: poInternalItem.pricePerDealUnit,
                   remainsQuantity: remainingQuantity,
                   deliveredQuantity: deliveredQuantity,
+                  quantityConversion: deliveredQuantity,
+                  uomConversion: poExternalItem.dealUom,
+                  conversion: 1,
                   remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                 };
                 fulfillments.push(fulfillment);
@@ -118,7 +122,7 @@ export class DeliveryOrderItem {
                   purchaseOrderQuantity: poExternalItem.dealQuantity,
                   purchaseOrderUom: poExternalItem.dealUom,
                   currency: poInternalItem.currency,
-                  pricePerDealUnit:poInternalItem.pricePerDealUnit,
+                  pricePerDealUnit: poInternalItem.pricePerDealUnit,
                   remainsQuantity: poExternalItem.dealQuantity + correctionQty[correctionQty.length - 1],
                   deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poInternalItem.dealQuantity - poInternalItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
                   remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''

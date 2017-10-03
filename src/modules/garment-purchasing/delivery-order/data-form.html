@@ -1,5 +1,4 @@
 <template>
-
     <au-input-form title.bind="title" with.bind="context">
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
@@ -110,7 +109,8 @@
             read-only.bind="readOnly"
             if.bind="data.supplierId"
             view-model.ref="ItemsCollection"
-            item-template="modules/garment-purchasing/delivery-order/template/delivery-order-item">
+            item-template="modules/garment-purchasing/delivery-order/template/delivery-order-item"
+            footer-template="modules/garment-purchasing/delivery-order/template/delivery-order-item-footer">
         </au-collection>
 
     </au-input-form>

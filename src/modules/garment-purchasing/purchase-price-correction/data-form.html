@@ -4,6 +4,14 @@
         with.bind="context"
         options.bind="formOptions">
 
+        <au-textbox 
+            value.bind="data.no" 
+            label="Nomor Koreksi"
+            read-only.bind="true"
+            if.bind="isView"
+            options.bind="controlOptions">
+        </au-textbox>
+
         <au-dropdown
             label="Jenis Koreksi"
             value.bind="correctionType"
@@ -18,7 +26,8 @@
             value.bind="data.date"
             error.bind="error.date"
             options.bind="controlOptions"
-            read-only.bind="readOnly">
+            read-only.bind="readOnly"
+            if.bind="isView">
         </au-datepicker>
 
         <au-autocomplete 

@@ -1,9 +1,12 @@
-import {bindable} from 'aurelia-framework'
+import { bindable } from 'aurelia-framework'
 var ProductLoader = require('../../../../loader/product-loader');
+var UomLoader = require('../../../../loader/uom-loader');
 
 export class DeliveryOrderItem {
   isWarning = false;
   @bindable deliveredQuantity;
+  @bindable selectedUomConversion;
+
   activate(context) {
     this.context = context;
     this.data = context.data;
@@ -11,6 +14,7 @@ export class DeliveryOrderItem {
     this.options = context.options;
     this.isEdit = this.context.context.options.isEdit || false;
 
+    this.selectedUomConversion = this.data.uomConversion;
     if (this.data) {
       this.deliveredQuantity = this.data.deliveredQuantity;
     } else {
@@ -24,6 +28,10 @@ export class DeliveryOrderItem {
         this.isWarning = false;
       }
     }
+  }
+
+  get priceTotal() {
+    return this.data.deliveredQuantity * this.data.pricePerDealUnit;
   }
 
   get productLoader() {
@@ -53,6 +61,26 @@ export class DeliveryOrderItem {
         this.deliveredQuantity = 0
       } else {
         this.deliveredQuantity = this.data.deliveredQuantity;
+      }
+    }
+  }
+
+  get uomLoader() {
+    return UomLoader;
+  }
+
+  uomView = (uom) => {
+    return uom.unit
+  }
+
+  selectedUomConversionChanged(newValue) {
+    if (newValue) {
+      if (newValue._id) {
+        this.data.uomConversion = newValue;
+        if (newValue.unit)
+          if (this.data.uomConversion.unit == this.data.purchaseOrderUom.unit) {
+            this.data.conversion = 1;
+          }
       }
     }
   }
