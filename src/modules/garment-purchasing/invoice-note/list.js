@@ -7,9 +7,9 @@ import moment from 'moment';
 export class List {
     context = ["Rincian", "Cetak Nota Pajak Pph", "Cetak Nota Pajak Ppn"];
     columns = [
-        { field: "no", title: "Nomor Nota Invoice" },
+        { field: "no", title: "Nomor Invoice" },
         {
-            field: "date", title: "Tanggal Nota Invoice", formatter: function (value, data, index) {
+            field: "date", title: "Tanggal Invoice", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

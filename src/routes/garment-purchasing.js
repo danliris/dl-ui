@@ -159,7 +159,7 @@ module.exports = [
         name: 'invoice-note',
         moduleId: './modules/garment-purchasing/invoice-note/index',
         nav: true,
-        title: 'Nota Invoice',
+        title: 'Invoice',
         auth: true,
         settings: {
             group: "g-purchasing",
@@ -172,7 +172,7 @@ module.exports = [
         name: 'monitoring-invoice-note',
         moduleId: './modules/garment-purchasing/monitoring-invoice-note/index',
         nav: true,
-        title: 'Monitoring Nota Invoice',
+        title: 'Monitoring Invoice',
         auth: true,
         settings: {
             group: "g-purchasing",
