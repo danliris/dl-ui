@@ -11,6 +11,7 @@ var OrderTypeLoader = require('../../../../../loader/order-type-loader');
 @inject(Router, Service)
 export class List {
 
+    selectedFields = ["code", "kanbanCode", "cartNo", "productionOrderType", "productionOrderNo", "dateIm", "shiftIm", "operatorIm", "machineNoIm", "construction", "buyer", "color", "orderQuantity", "packingInstruction", "fabricGradeTests.pcsNo", "fabricGradeTests.initLength", "fabricGradeTests.width", "fabricGradeTests.finalScore", "fabricGradeTests.grade", "fabricGradeTests.avalLength", "fabricGradeTests.sampleLength"];
 
     info = {
         code: "",
@@ -19,8 +20,7 @@ export class List {
         productionOrderType: "",
         shiftIm: "",
         dateFrom: "",
-        dateTo: "",
-
+        dateTo: ""        
     };
 
     listFQSDetailColumns = [
@@ -77,11 +77,13 @@ export class List {
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
+            this.info.select = this.selectedFields;
         } else {
             this.info = {};
         }
         this.service.search(this.info)
             .then(result => {
+                console.log(result)
                 var tempData, tempDetailData;
                 this.newData = [];
                 this.no = 0;
@@ -144,6 +146,7 @@ export class List {
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
+            this.info.select = this.selectedFields;
         } else {
             this.info = {};
         }
