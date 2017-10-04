@@ -20,7 +20,7 @@
             label="Tgl. Nota Intern"
             value.bind="data.date"
             error.bind="error.date"
-            read-only.bind="readOnly"
+            read-only.bind="true"
             if.bind="(readOnly || isEdit)"
             options.bind="auInputOptions">
         </au-datepicker>
