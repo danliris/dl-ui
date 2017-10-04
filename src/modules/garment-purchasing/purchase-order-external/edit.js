@@ -30,9 +30,6 @@ export class Edit {
         if (this.data.vat) {
             this.selectedVat = this.data.vat;
         }
-        if (this.data.category) {
-            this.selectedCategory = this.data.category;
-        }
     }
 
     cancel(event) {

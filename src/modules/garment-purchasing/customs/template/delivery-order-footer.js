@@ -16,11 +16,11 @@ export class DeliveryOrderFooter {
       this.colspan = 4;
   }
 
-  get itemSum() {
+  get itemQuantity() {
       var quantity = 0;
       for(var a of this.context.items){
           if(a.data.selected)
-            quantity += Number(a.data.price);
+            quantity += Number(a.data.quantity);
       }
       return quantity;
     // var qty = this.context.items
@@ -28,4 +28,13 @@ export class DeliveryOrderFooter {
     // return qty
     //   .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
+
+  get itemSum() {
+    var quantity = 0;
+    for(var a of this.context.items){
+        if(a.data.selected)
+          quantity += Number(a.data.price);
+    }
+    return quantity;
+}
 }
