@@ -13,8 +13,10 @@ export class List {
     dateFrom = null;
     dateTo = null;
     orderNo = '';
+	 proses = '';
     orderType = null;
     processType = null;
+	   reprosesOption = ['','Ya', 'Tidak'];
 
     activate() {
     }
@@ -32,6 +34,7 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.orderNo = '';
+		this.proses = '';
         this.orderType = null;
         this.processType = null;
         this.data = [];
@@ -40,11 +43,17 @@ export class List {
     
     searching() {
         //var data = [];
-        this.service.getReport(this.dateFrom, this.dateTo, this.orderNo, this.orderType, this.processType)
+        this.service.getReport(this.dateFrom, this.dateTo, this.orderNo, this.orderType, this.processType,this.proses)
             .then(kanban => {
                 //this.data = data;
                 var dataTemp = [];
+                var hasil="";
                 for(var a of kanban){
+					  if(a.isReprocess==true){
+                        hasil="Ya"; 
+                    }else{
+                        hasil="Tidak";
+                    }
                     var temp = {
                         "_createdDate" : a._createdDate,
                         "orderNo" : a.orderNo,
@@ -61,6 +70,7 @@ export class List {
                         "length" : a.length,
                         "pcs" : a.pcs,
                         "uom" : a.uom,
+						  "isReprocess" :hasil,
                         "isComplete" : a.isComplete ? "Complete" : a.currentStepIndex === a.steps.length ? "Pending" : "Incomplete" ,
                         "currentStepIndex" : `${a.currentStepIndex} / ${a.steps.length}`,
                         "step" : a.currentStepIndex === 0 ? " - " : a.steps[a.currentStepIndex - 1].process
@@ -72,7 +82,7 @@ export class List {
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.dateFrom, this.dateTo, this.orderNo, this.orderType, this.processType,);
+        this.service.generateExcel(this.dateFrom, this.dateTo, this.orderNo, this.orderType, this.processType,this.proses);
     }
 
     // orderTypeChanged(e){
