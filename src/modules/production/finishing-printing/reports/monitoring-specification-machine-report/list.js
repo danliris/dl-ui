@@ -61,6 +61,4 @@ export class List {
         this.dateTo = null;
     }
 
-
-
 }
