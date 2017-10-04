@@ -10,7 +10,7 @@ export class Service extends RestService {
         super(http, aggregator, config, "production");
     }
 
-    getReport(sdate, edate, orderNo, orderType, processType) {
+    getReport(sdate, edate, orderNo, orderType, processType, proses) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -33,13 +33,17 @@ export class Service extends RestService {
             if (query === '') query = `processTypeId=${processType._id}`;
             else query = `${query}&processTypeId=${processType._id}`;
         }
+		 if (proses && proses !== '') {
+            if (query === '') query = `proses=${proses}`;
+            else query = `${query}&proses=${proses}`;
+        }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
 
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate, orderNo, orderType, processType) {
+    generateExcel(sdate, edate, orderNo, orderType, processType,proses) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -61,6 +65,10 @@ export class Service extends RestService {
         if (processType) {
             if (query === '') query = `processTypeId=${processType._id}`;
             else query = `${query}&processTypeId=${processType._id}`;
+        }
+        	 if (proses && proses !== '') {
+            if (query === '') query = `proses=${proses}`;
+            else query = `${query}&proses=${proses}`;
         }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
