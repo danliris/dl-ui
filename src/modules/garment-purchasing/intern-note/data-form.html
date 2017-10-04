@@ -21,6 +21,7 @@
             value.bind="data.date"
             error.bind="error.date"
             read-only.bind="readOnly"
+            if.bind="(readOnly || isEdit)"
             options.bind="auInputOptions">
         </au-datepicker>
 
