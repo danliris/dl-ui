@@ -21,7 +21,7 @@ export class DataForm {
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
-    qualityStandardTypeOptions = ['JIS', 'AATC','ISO']
+    qualityStandardTypeOptions = ['JIS', 'AATC', 'ISO']
 
     label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -225,7 +225,7 @@ export class DataForm {
     }
 
     async search() {
-        var result = await this.service.searchByTags(this.keywords, this.context.shipmentDateFrom, this.context.shipmentDateTo);
+        var result = await this.service.searchByTags(this.keywords, this.data.category, this.context.shipmentDateFrom, this.context.shipmentDateTo);
 
         var items = result.data.map((data) => {
             return {
