@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
@@ -17,7 +17,7 @@ export class Edit {
         this.currency = this.data.currency;
         this.supplier = this.data.supplier;
     }
-    
+
     bind() {
         this.error = {};
     }
@@ -27,9 +27,28 @@ export class Edit {
     }
 
     save() {
-        if(typeof this.data.date === 'object')
+        if (typeof this.data.date === 'object') {
             this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
+        }
+        var listStatus = this.data.items.map((invoiceNote) => {
+            var invoiceNoteItems = invoiceNote.items.map((invoiceNoteItem) => {
+                var doItems = invoiceNoteItem.items.map((doItem) => {
+                    return doItem.hasUnitReceiptNote
+                })
+                return doItems;
+            })
+            invoiceNoteItems = [].concat.apply([], invoiceNoteItems);
+            return invoiceNoteItems;
+        })
 
+        listStatus = [].concat.apply([], listStatus);
+        return listStatus;
+
+        this.data.hasUnitReceiptNote = listStatus.map((item) => item)
+            .reduce((prev, curr, index) => {
+                return prev && curr
+            }, true);
+            
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {
