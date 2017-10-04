@@ -29,7 +29,7 @@
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
 		</td>
 	</tr>
-    <tr if.bind="isShowing">
+    <tr show.bind="isShowing">
         <td colspan="5">
             <au-collection 
                 items.bind="items" 

@@ -32,6 +32,7 @@ export class DataForm {
 
         this.deliveryOrderItem = {
             columns: [
+                { header: "No. Referensi PR" },
                 { header: "Barang" },
                 { header: "Jumlah" },
                 { header: "Satuan" },
@@ -143,6 +144,7 @@ export class DataForm {
                             _item.purchaseOrderId = fulfillment.purchaseOrderId;
                             _item.purchaseRequestNo = fulfillment.purchaseRequestNo;
                             _item.purchaseRequestId = fulfillment.purchaseRequestId;
+                            _item.purchaseRequestRefNo = fulfillment.purchaseRequestRefNo;
                             _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
                             _item.currency = fulfillment.currency;
                             _item.pricePerDealUnit = fulfillment.pricePerDealUnit;
