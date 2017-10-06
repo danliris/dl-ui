@@ -38,7 +38,6 @@ export class Create {
         })
 
         listStatus = [].concat.apply([], listStatus);
-        listStatus;
 
         this.data.hasUnitReceiptNote = listStatus.map((item) => item)
             .reduce((prev, curr, index) => {
