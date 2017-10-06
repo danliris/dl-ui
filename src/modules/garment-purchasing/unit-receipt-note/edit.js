@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
@@ -9,6 +9,10 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+    }
+
+    bind() {
+        this.error = {};
     }
 
     async activate(params) {
@@ -24,7 +28,7 @@ export class Edit {
     }
 
     save() {
-        if(typeof this.data.date === 'object')
+        if (typeof this.data.date === 'object')
             this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
 
         this.service.update(this.data).then(result => {

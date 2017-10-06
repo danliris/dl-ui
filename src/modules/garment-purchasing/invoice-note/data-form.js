@@ -102,9 +102,14 @@ export class DataForm {
                 this.data.items = dataItems;
 
             }
+            else {
+                this.data.supplier = {};
+                this.data.supplierId = null;
+                this.data.items = [];
+            }
         } else {
             this.data.supplier = {};
-            this.data.supplierId = undefined;
+            this.data.supplierId = null;
             this.data.items = [];
         }
         this.resetErrorItems();
@@ -116,9 +121,12 @@ export class DataForm {
             if (selectedCurrency._id) {
                 this.data.currency = selectedCurrency;
             }
+            else {
+                this.data.currency = null;
+            }
         }
         else {
-            this.data.currency = {};
+            this.data.currency = null;
         }
         this.resetErrorItems();
     }
@@ -129,9 +137,12 @@ export class DataForm {
             if (selectedVat._id) {
                 this.data.vat = selectedVat;
             }
+            else {
+                this.data.vat = null;
+            }
         }
         else {
-            this.data.vat = {};
+            this.data.vat = null;
         }
         this.resetErrorItems();
     }
@@ -176,6 +187,9 @@ export class DataForm {
         if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
         }
+        if (this.context.error.useVat) {
+            this.context.error.useVat = "";
+        }
     }
 
     useIncomeTaxChanged(e) {
@@ -184,6 +198,9 @@ export class DataForm {
         this.data.incomeTaxDate = "";
         if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
+        }
+        if (this.context.error.useIncomeTax) {
+            this.context.error.useIncomeTax = "";
         }
     }
 
