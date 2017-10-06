@@ -42,13 +42,12 @@ export class Edit {
         })
 
         listStatus = [].concat.apply([], listStatus);
-        return listStatus;
 
         this.data.hasUnitReceiptNote = listStatus.map((item) => item)
             .reduce((prev, curr, index) => {
                 return prev && curr
             }, true);
-            
+
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {
