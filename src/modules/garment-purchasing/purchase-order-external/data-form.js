@@ -43,7 +43,10 @@ export class DataForm {
             "Satuan Diminta",
             "Jumlah Beli",
             "Satuan Beli",
-            "Konversi",
+            "Konversi Beli",
+            "Jumlah Pakai",
+            "Satuan Pakai",
+            "Konversi Pakai",
             "Harga Satuan",
             "Include Ppn?",
             "Keterangan"],
@@ -154,6 +157,7 @@ export class DataForm {
             else {
                 this.isFabric = false;
             }
+            this.data.items = [];
         }
     }
 
@@ -243,9 +247,12 @@ export class DataForm {
                 defaultUom: data.items.defaultUom,
                 dealQuantity: Number(data.items.defaultQuantity),
                 dealUom: data.items.defaultUom,
+                dealConversion: 1,
                 budgetPrice: Number(data.items.budgetPrice),
                 priceBeforeTax: Number(data.items.budgetPrice),
                 pricePerDealUnit: Number(data.items.budgetPrice),
+                uomConversion: data.items.category.uom || data.items.defaultUom,
+                quantityConversion: Number(data.items.defaultQuantity),
                 conversion: 1,
                 useIncomeTax: false,
                 remark: data.items.remark
