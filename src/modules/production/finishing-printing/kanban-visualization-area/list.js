@@ -21,7 +21,7 @@ export class List {
 		this.stages = [
 			{ name: "Blank", area: "Blank", map: this.map["Blank"], total: 0 },
 			{ name: "Pre Treatment", area: "Area Pre Treatment", map: this.map["Area Pre Treatment"], total: 0 },
-			{ name: "Dyeing", area: "Area Dyeing", map:this.map["Area Dyeing"], total: 0 },
+			{ name: "Dyeing", area: "Area Dyeing", map: this.map["Area Dyeing"], total: 0 },
 			{ name: "Printing", area: "Area Printing", map: this.map["Area Printing"], total: 0 },
 			{ name: "Finishing", area: "Area Finishing", map: this.map["Area Finishing"], total: 0 }
 		];
@@ -30,7 +30,7 @@ export class List {
 		this.totalData = 0;
 		this.count = 0;
 		this.page = 1;
-		this.size = 200;
+		this.size = 500;
 	}
 
 	async activate() {
@@ -43,7 +43,8 @@ export class List {
 			page: this.page,
 			size: this.size,
             filter: JSON.stringify({ isComplete: false }),
-            select: ["code", "currentStepIndex", "cart.cartNumber", "instruction.steps.process", "instruction.steps._id", "instruction.steps.deadline", "instruction.steps.processArea", "productionOrder.orderNo", "productionOrder.salesContractNo", "productionOrder.deliveryDate", "productionOrder.buyer.name", "productionOrder.orderQuantity"]
+            select: ["code", "currentStepIndex", "cart.cartNumber", "instruction.steps.process", "instruction.steps._id", "instruction.steps.deadline", "instruction.steps.processArea", "productionOrder.orderNo", "productionOrder.salesContractNo", "productionOrder.deliveryDate", "productionOrder.buyer.name", "productionOrder.orderQuantity"],
+			order: { "productionOrder.deliveryDate": "asc" }
         };
 
 		await this.service.search(arg)
@@ -52,30 +53,32 @@ export class List {
 				this.count += result.info.count;
 
 				for (var data of result.data) {
-					var index = (data.currentStepIndex === data.instruction.steps.length) ? data.currentStepIndex - 1 : data.currentStepIndex;
-					var step = data.instruction.steps[index];
-					var area = (!step.processArea || step.processArea === "") ? "Blank" : step.processArea;
+					if (data && data.process) {
+						var area = (!data.processArea || data.processArea === "") ? "Blank" : data.processArea;
 
-					var obj = {
-						code: data.code,
-						process: step.process,
-						salesContractNo: (data.productionOrder && data.productionOrder.salesContractNo) ? data.productionOrder.salesContractNo : "-",
-						productionOrderNo: (data.productionOrder && data.productionOrder.orderNo) ? data.productionOrder.orderNo : "-",
-						buyer: (data.productionOrder && data.productionOrder.buyer && data.productionOrder.buyer.name) ? data.productionOrder.buyer.name : "-",
-						cart: data.cart ? data.cart.cartNumber : "-",
-						orderQuantity: data.productionOrder ? data.productionOrder.orderQuantity : "-",
-						deadline: step.deadline ? moment(step.deadline).format("DD MMM YYYY") : "-",
-						deliveryDate: (data.productionOrder && data.productionOrder.deliveryDate) ? moment(data.productionOrder.deliveryDate).format("DD MMM YYYY") : "-",
-						input: data.inputQuantity
-					};
+						var obj = {
+							code: data.code,
+							process: data.process ? data.process : "-",
+							salesContractNo: (data.productionOrder && data.productionOrder.salesContractNo) ? data.productionOrder.salesContractNo : "-",
+							productionOrderNo: (data.productionOrder && data.productionOrder.orderNo) ? data.productionOrder.orderNo : "-",
+							buyer: (data.productionOrder && data.productionOrder.buyer && data.productionOrder.buyer.name) ? data.productionOrder.buyer.name : "-",
+							cart: data.cart ? data.cart.cartNumber : "-",
+							orderQuantity: data.productionOrder ? data.productionOrder.orderQuantity : "-",
+							deadline: data.deadline ? moment(data.deadline).format("DD MMM YYYY") : "-",
+							deliveryDate: (data.productionOrder && data.productionOrder.deliveryDate) ? moment(data.productionOrder.deliveryDate).format("DD MMM YYYY") : "-",
+							input: data.inputQuantity,
+							stepsLength: data.stepsLength,
+							currentStepIndex: data.currentStepIndex
+						};
 
-					var stage = this.stages.find(o => o.area == area);
+						var stage = this.stages.find(o => o.area == area);
 
-					stage.total += data.inputQuantity;
-					this.map[area].push(obj);
+						stage.total += data.inputQuantity;
+						this.map[area].push(obj);
+					}
 				}
 
-				if(this.totalData != this.count) {
+				if (this.totalData != this.count) {
 					this.page++;
 					this.getData();
 				}
@@ -97,8 +100,8 @@ export class List {
 			.then((result) => {
 				this.qualityControl = result.data;
 
-				for(var data of result.data) {
-					for(var test of data.fabricGradeTests) {
+				for (var data of result.data) {
+					for (var test of data.fabricGradeTests) {
 						this.totalQC += test.finalLength;
 					}
 				}
