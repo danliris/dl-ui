@@ -106,9 +106,9 @@ export class DeliveryOrderItem {
                   pricePerDealUnit: poInternalItem.pricePerDealUnit,
                   remainsQuantity: remainingQuantity,
                   deliveredQuantity: deliveredQuantity,
-                  quantityConversion: deliveredQuantity,
-                  uomConversion: poExternalItem.dealUom,
-                  conversion: 1,
+                  quantityConversion: deliveredQuantity * (poExternalItem.conversion || 1),
+                  uomConversion: poExternalItem.uomConversion || poExternalItem.dealUom,
+                  conversion: poExternalItem.conversion,
                   remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                 };
                 fulfillments.push(fulfillment);
@@ -128,9 +128,9 @@ export class DeliveryOrderItem {
                   pricePerDealUnit: poInternalItem.pricePerDealUnit,
                   remainsQuantity: poExternalItem.dealQuantity + correctionQty[correctionQty.length - 1],
                   deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poInternalItem.dealQuantity - poInternalItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
-                  quantityConversion: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poInternalItem.dealQuantity - poInternalItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
-                  uomConversion: poExternalItem.dealUom,
-                  conversion: 1,
+                  quantityConversion: (doFulfillments[fulfillments.length] || {}).quantityConversion ? doFulfillments[fulfillments.length].quantityConversion : (poExternalItem.quantityConversion - (poInternalItem.realizationQuantity * poExternalItem.conversion || 1)) + (correctionQty.reduce((prev, curr) => prev + curr) * poExternalItem.conversion || 1),
+                  uomConversion: poExternalItem.uomConversion || poExternalItem.dealUom,
+                  conversion: poExternalItem.conversion,
                   remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
                 };
                 fulfillments.push(fulfillment);

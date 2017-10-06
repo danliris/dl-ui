@@ -90,7 +90,7 @@ export class List {
 				this.count += result.info.count;
 
 				for (var data of result.data) {
-					if (data.process) {
+					if (data && data.process) {
 						var machine = data.dailyOperationMachine;
 
 						var obj = {

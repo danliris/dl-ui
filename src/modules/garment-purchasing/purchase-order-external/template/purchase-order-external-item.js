@@ -25,16 +25,20 @@ export class PurchaseOrderItem {
       this.data.dealUom = newValue;
       if (newValue.unit)
         if (this.data.dealUom.unit == this.data.defaultUom.unit) {
-          this.data.conversion = 1;
+          this.data.dealConversion = 1;
         }
     }
   }
 
-  conversionChanged(e) {
+  dealConversionChanged(e) {
     if (this.data.dealUom.unit)
       if (this.data.dealUom.unit == this.data.defaultUom.unit) {
-        this.data.conversion = 1;
+        this.data.dealConversion = 1;
       }
+  }
+
+  get quantityConversion() {
+      return this.data.defaultQuantity * this.data.conversion
   }
 
   priceBeforeTaxChanged(e) {

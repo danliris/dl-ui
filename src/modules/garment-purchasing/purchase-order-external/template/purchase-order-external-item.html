@@ -49,10 +49,32 @@
         </td>
         <td>
             <au-numeric 
+                value.bind="data.dealConversion"
+                error.bind="error.dealConversion"
+                read-only.bind="options.readOnly"
+                change.delegate="dealConversionChanged($event)"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="quantityConversion"
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.uomConversion.unit"
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>                    
+        </td>
+        <td>
+            <au-numeric 
                 value.bind="data.conversion"
                 error.bind="error.conversion"
                 read-only.bind="options.readOnly"
-                change.delegate="conversionChanged($event)"
                 options.bind="controlOptions">
             </au-numeric>
         </td>

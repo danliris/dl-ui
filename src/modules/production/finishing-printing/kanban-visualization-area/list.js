@@ -53,7 +53,7 @@ export class List {
 				this.count += result.info.count;
 
 				for (var data of result.data) {
-					if (data.process) {
+					if (data && data.process) {
 						var area = (!data.processArea || data.processArea === "") ? "Blank" : data.processArea;
 
 						var obj = {
