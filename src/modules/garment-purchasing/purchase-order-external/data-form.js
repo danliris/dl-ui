@@ -21,7 +21,7 @@ export class DataForm {
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
-    qualityStandardTypeOptions = ['JIS', 'AATC', 'ISO']
+    qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
 
     label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
