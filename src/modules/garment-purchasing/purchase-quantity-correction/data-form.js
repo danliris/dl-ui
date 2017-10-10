@@ -28,6 +28,8 @@ export class DataForm {
         "items.fulfillments.purchaseOrderNo",
         "items.fulfillments.purchaseRequestId",
         "items.fulfillments.purchaseRequestNo",
+        "items.fulfillments.purchaseRequestRefNo",
+        "items.fulfillments.roNo",
         "items.fulfillments.productId",
         "items.fulfillments.product.code",
         "items.fulfillments.product.name",
@@ -58,6 +60,8 @@ export class DataForm {
     itemsColumns = [
         { header: "Nomor PO External", value: "purchaseOrderExternalNo" },
         { header: "Nomor PR", value: "purchaseRequestNo" },
+        { header: "Nomor Ref PR", value: "purchaseRequestRefNo" },
+        { header: "Nomor RO", value: "roNo" },
         { header: "Nama Barang", value: "product.name" },
         { header: "Jumlah", value: "quantity" },
         { header: "Satuan", value: "uom.unit" },
@@ -105,6 +109,8 @@ export class DataForm {
                             _item.purchaseOrderInternalNo = deliveryOrderFulfillment.purchaseOrderNo;
                             _item.purchaseRequestId = deliveryOrderFulfillment.purchaseRequestId;
                             _item.purchaseRequestNo = deliveryOrderFulfillment.purchaseRequestNo;
+                            _item.purchaseRequestRefNo = deliveryOrderFulfillment.purchaseRequestRefNo;
+                            _item.roNo = deliveryOrderFulfillment.roNo;
                             _item.productId = deliveryOrderFulfillment.productId;
                             _item.product = deliveryOrderFulfillment.product;
                             _item.quantity = deliveryOrderFulfillment.corrections[lastIndex].correctionQuantity;
@@ -123,6 +129,8 @@ export class DataForm {
                             _item.purchaseOrderInternalNo = deliveryOrderFulfillment.purchaseOrderNo;
                             _item.purchaseRequestId = deliveryOrderFulfillment.purchaseRequestId;
                             _item.purchaseRequestNo = deliveryOrderFulfillment.purchaseRequestNo;
+                            _item.purchaseRequestRefNo = deliveryOrderFulfillment.purchaseRequestRefNo;
+                            _item.roNo = deliveryOrderFulfillment.roNo;
                             _item.productId = deliveryOrderFulfillment.productId;
                             _item.product = deliveryOrderFulfillment.product;
                             _item.quantity = deliveryOrderFulfillment.deliveredQuantity;
