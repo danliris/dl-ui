@@ -258,6 +258,9 @@ export class DataForm {
         })
         items = [].concat.apply([], items);
         this.data.items = items;
+        if (this.error.items) {
+            this.error.items = [];
+        }
         this.isItem = true;
     }
 
