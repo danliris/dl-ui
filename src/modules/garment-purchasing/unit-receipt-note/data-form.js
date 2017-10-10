@@ -33,6 +33,7 @@ export class DataForm {
         this.deliveryOrderItem = {
             columns: [
                 { header: "No. Referensi PR" },
+                { header: "No. RO" },
                 { header: "Barang" },
                 { header: "Jumlah" },
                 { header: "Satuan" },
@@ -124,7 +125,7 @@ export class DataForm {
 
             var jobs = [];
             for (var prId of listPurchaseRequestId) {
-                jobs.push(this.service.getPurchaseRequestById(prId, ["buyer", "no"]))
+                jobs.push(this.service.getPurchaseRequestById(prId, ["buyer", "no","_id"]))
             }
 
             Promise.all(jobs)
@@ -133,7 +134,7 @@ export class DataForm {
                     for (var item of selectedItem) {
                         for (var fulfillment of item.fulfillments) {
                             var _item = {};
-                            var pr = purchaseRequests.find((purchaseRequest) => purchaseRequest.no === fulfillment.purchaseRequestNo);
+                            var pr = purchaseRequests.find((purchaseRequest) => purchaseRequest._id.toString() === fulfillment.purchaseRequestId.toString());
                             if (pr) {
                                 _item.buyer = pr.buyer;
                                 _item.buyerId = pr.buyer._id;
@@ -143,6 +144,7 @@ export class DataForm {
                             _item.purchaseOrderNo = fulfillment.purchaseOrderNo;
                             _item.purchaseOrderId = fulfillment.purchaseOrderId;
                             _item.purchaseRequestNo = fulfillment.purchaseRequestNo;
+                            _item.roNo = fulfillment.roNo;
                             _item.purchaseRequestId = fulfillment.purchaseRequestId;
                             _item.purchaseRequestRefNo = fulfillment.purchaseRequestRefNo;
                             _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
