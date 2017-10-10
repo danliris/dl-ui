@@ -52,6 +52,12 @@
                     label="Tanggal Akhir" 
                     value.bind="dateTo">
                 </au-datepicker>
+                
+                <au-dropdown
+                    label="Status"
+                    value.bind="poState"
+                    items.bind="poStates" >
+                </au-dropdown>
 
                 <div class="form-group">
                     <label for="contact" class="col-sm-6 control-label"></label>

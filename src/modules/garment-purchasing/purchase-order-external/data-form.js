@@ -21,7 +21,7 @@ export class DataForm {
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
-    qualityStandardTypeOptions = ['JIS', 'AATC', 'ISO']
+    qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
 
     label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -43,10 +43,9 @@ export class DataForm {
             "Satuan Diminta",
             "Jumlah Beli",
             "Satuan Beli",
-            "Konversi Beli",
-            "Jumlah Pakai",
-            "Satuan Pakai",
-            "Konversi Pakai",
+            "Jumlah Kecil",
+            "Satuan Kecil",
+            "Konversi",
             "Harga Satuan",
             "Include Ppn?",
             "Keterangan"],
@@ -247,7 +246,6 @@ export class DataForm {
                 defaultUom: data.items.defaultUom,
                 dealQuantity: Number(data.items.defaultQuantity),
                 dealUom: data.items.defaultUom,
-                dealConversion: 1,
                 budgetPrice: Number(data.items.budgetPrice),
                 priceBeforeTax: Number(data.items.budgetPrice),
                 pricePerDealUnit: Number(data.items.budgetPrice),
@@ -260,6 +258,9 @@ export class DataForm {
         })
         items = [].concat.apply([], items);
         this.data.items = items;
+        if (this.error.items) {
+            this.error.items = [];
+        }
         this.isItem = true;
     }
 
