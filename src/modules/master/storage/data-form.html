@@ -9,6 +9,15 @@
                 <au-textbox label="Nama Storage" value.bind="data.name" error.bind="error.name" read-only.bind="(readOnly)">
                 </au-textbox>
 
+                <au-autocomplete 
+                    value.bind="data.unit"
+                    label="Unit" 
+                    loader.one-time="unitLoader" 
+                    text.bind="unitView"
+                    read-only.bind="readOnly"
+                    error.bind="error.unit">
+                </au-autocomplete>
+
                 <au-multiline label="Deskripsi" value.bind="data.description" error.bind="error.description" read-only.bind="(readOnly)">
                 </au-multiline>
 
