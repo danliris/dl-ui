@@ -27,12 +27,13 @@ export class PurchaseOrderItem {
   }
 
   get quantityConversion() {
-    return this.data.defaultQuantity * this.data.conversion;
+    return this.data.dealQuantity * this.data.conversion;
   }
 
   conversionChanged(e) {
-    this.data.quantityConversion = this.data.defaultQuantity * this.data.conversion;
+    this.data.quantityConversion = this.data.dealQuantity * this.data.conversion;
   }
+  
   priceBeforeTaxChanged(e) {
     this.updatePrice();
   }
