@@ -18,7 +18,17 @@
                 read-only.bind="buyerReadOnly" key="name" text="name" options.bind="buyerControlOptions">
             </au-autocomplete>
             <au-textbox label="Tipe Buyer" value.bind="data.buyerType" read-only.bind="true"></au-textbox>
-
+            <au-autocomplete 
+                value.bind="selectedStorage" 
+                error.bind="error.storage"
+                label="Gudang" 
+                loader.one-time="storageLoader"
+                text.bind = "storageView"
+                placeholder="Cari penyimpanan" 
+                key="_id" 
+                read-only.bind="buyerReadOnly"
+                options.bind="buyerControlOptions">
+            </au-autocomplete>
         </fieldset>
 
         <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.one-time="addDetails"
