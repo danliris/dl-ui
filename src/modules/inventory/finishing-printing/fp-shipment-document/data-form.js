@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './service';
+var StorageLoader = require('../../../../loader/storage-loader');
 
 @inject(Service, BindingEngine, BindingSignaler)
 export class DataForm {
@@ -54,7 +55,7 @@ export class DataForm {
             this.data.buyerAddress = this.selectedBuyer.address;
             this.data.buyerType = this.selectedBuyer.type;
             this.detailOptions = {
-                selectedBuyerName: this.selectedBuyer.name
+                selectedBuyerName: this.selectedBuyer.name,
             };
         } else {
             this.data.buyerId = {};
@@ -63,6 +64,18 @@ export class DataForm {
             this.data.buyerAddress = "";
             this.data.buyerType = "";
             this.detailOptions = {};
+        }
+    }
+
+    @bindable selectedStorage;
+    selectedStorageChanged(newValue) {
+        if(newValue) {
+            this.detailOptions.selectedStorageCode = newValue.code;
+            this.data.storage = newValue;
+        }
+        else {
+            this.data.storage = undefined;
+            this.detailOptions.selectedStorageCode = "";
         }
     }
 
@@ -82,4 +95,11 @@ export class DataForm {
         }
     }
 
+    storageView = (storage) => {
+        return `${storage.code} - ${storage.name}`
+    }
+
+    get storageLoader() {
+        return StorageLoader;
+    }
 } 

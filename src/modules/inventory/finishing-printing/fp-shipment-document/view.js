@@ -15,6 +15,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.selectedStorage = this.data.storage;
         this.buyerReadOnly = true;
         if (!this.data.isVoid) {
             this.isVoid = true
