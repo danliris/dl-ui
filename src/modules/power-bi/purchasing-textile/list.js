@@ -17,7 +17,7 @@ export class List {
         "Perbandingan Purchase Order",
         "Top Ten Supplier per Total SPB",
         "Top Ten Supplier per Kategori",
-        "PR belum dibuat PO eksternal"
+        "PR belum dibuat PO internal"
     ];
     constructor(router, service) {
         this.router = router;
