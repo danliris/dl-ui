@@ -104,7 +104,8 @@
     "react-autosuggest": "7.0.2",
     "react-bootstrap": "0.30.7",
     "react-dom": "15.4.1",
-    "react-dynamic-number": "1.4.5"
+    "react-dynamic-number": "1.4.5",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "@easy-webpack/config-aurelia": "^2.2.2",
