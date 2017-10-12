@@ -8,6 +8,7 @@ import '../styles/styles.theme.css';
 import '../styles/dashboard.css';
 import 'bootstrap';
 import authConfig from "../auth-config";
+import 'whatwg-fetch';
 
 // comment out if you don't want a Promise polyfill (remove also from webpack.common.js)
 import * as Bluebird from 'bluebird';
