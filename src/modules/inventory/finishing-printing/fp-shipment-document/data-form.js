@@ -39,10 +39,14 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+        this.detailOptions = {};
+        this.detailOptions.selectedBuyerName = "";
+        this.detailOptions.selectedBuyerID = "";
+        this.detailOptions.selectedStorageCode = "";
         if (this.data._id && this.data.buyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.buyerId);
         }
+        
     }
 
     detailOptions = {};
@@ -54,16 +58,16 @@ export class DataForm {
             this.data.buyerName = this.selectedBuyer.name;
             this.data.buyerAddress = this.selectedBuyer.address;
             this.data.buyerType = this.selectedBuyer.type;
-            this.detailOptions = {
-                selectedBuyerName: this.selectedBuyer.name,
-            };
+            this.detailOptions.selectedBuyerName = this.selectedBuyer.name;
+            this.detailOptions.selectedBuyerID = this.selectedBuyer._id;
         } else {
             this.data.buyerId = {};
             this.data.buyerCode = "";
             this.data.buyerName = "";
             this.data.buyerAddress = "";
             this.data.buyerType = "";
-            this.detailOptions = {};
+            this.detailOptions.selectedBuyerName = "";
+            this.detailOptions.selectedBuyerID = "";
         }
     }
 
@@ -101,5 +105,10 @@ export class DataForm {
 
     get storageLoader() {
         return StorageLoader;
+    }
+
+    @computedFrom("selectedBuyer", "selectedStorage")
+    get detailVisibility() {
+        return this.selectedBuyer && this.selectedStorage;
     }
 } 
