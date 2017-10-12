@@ -31,9 +31,11 @@
             </au-autocomplete>
         </fieldset>
 
+        <au-textbox error.bind="error.detail" read-only.bind="true"></au-textbox>
         <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.one-time="addDetails"
             remove.bind="removeDetails" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
-            options.bind="detailOptions">
+            options.bind="detailOptions"
+            show.bind="detailVisibility || buyerReadOnly">
         </au-collection>
 
     </au-input-form>
