@@ -11,7 +11,7 @@ export class List {
     columns = [
         { field: "code", title: "Kode Pengiriman" },
         {
-            field: "_createdDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
+            field: "deliveryDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
