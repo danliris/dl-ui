@@ -1,10 +1,12 @@
-import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework';
+import { Service } from "./service";
 var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
 var DeliveryOrderBySupplierLoader = require('../../../loader/delivery-order-by-supplier-loader');
+var StorageLoader = require('../../../loader/storage-loader');
 var moment = require('moment');
 
-@inject(BindingEngine, Element)
+@inject(BindingEngine, Element,Service)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -12,10 +14,12 @@ export class DataForm {
     @bindable unit;
     @bindable supplier;
     @bindable deliveryOrder;
+    @bindable storage;
 
-    constructor(bindingEngine, element) {
+    constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
-        this.element = element;
+        this.element = element; 
+        this.service = service;
 
         this.auInputOptions = {
             label: {
@@ -39,11 +43,23 @@ export class DataForm {
             }
         };
     }
+    @computedFrom("data.deliveryOrder" , "data.unit")
+    get storageFilter(){
+         var storageFilter={};
+        if(this.data.unit){
+            storageFilter={
+                "unit.code": this.data.unit.code,
+                "unit.division.code" : this.data.unit.division.code
+            };
+        }
+        return storageFilter;
+    }
 
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
+
 
     @computedFrom("data.supplier", "data.unit")
     get filter() {
@@ -54,11 +70,22 @@ export class DataForm {
         return filter;
     }
 
-    bind() {
+    storageFields=["name","code"];
+
+    async bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
+
         if (this.data && this.data.supplier)
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
+        
+        if (this.data.isInventory) {
+            this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
+            this.data.storage =this.storage;
+        }
 
         if(!this.readOnly) {
             this.deliveryOrderItem.columns.push({ header: "" });
@@ -78,6 +105,7 @@ export class DataForm {
         
         this.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = undefined;
+        this.storage=null;
     }
 
     unitChanged(newValue, oldValue) {
@@ -93,6 +121,8 @@ export class DataForm {
 
         this.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = undefined;
+        this.data.storageId=undefined;
+        this.storage=null;
     }
 
     deliveryOrderChanged(newValue, oldValue) {
@@ -140,6 +170,20 @@ export class DataForm {
             this.data.items = [];
         }
         this.resetErrorItems();
+        this.storage=null;
+    }
+
+    storageChanged(newValue, oldValue) {
+        var selectedStorage = newValue;
+
+        if (selectedStorage) {
+            this.data.storage = selectedStorage;
+            this.data.storageId = selectedStorage._id;
+        }
+        else {
+            this.data.storageId = null;
+        }
+
     }
 
     resetErrorItems() {
@@ -158,6 +202,10 @@ export class DataForm {
         return SupplierLoader;
     }
 
+    get storageLoader() {
+        return StorageLoader;
+    }
+
     get deliveryOrderBySupplierLoader() {
         return DeliveryOrderBySupplierLoader;
     }
@@ -168,5 +216,9 @@ export class DataForm {
 
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`;
+    }
+
+    storageView = (storage) => {
+        return `${storage.code} - ${storage.name}`;
     }
 } 
