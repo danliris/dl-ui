@@ -22,6 +22,13 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox 
+                value.bind="data.purchaseRequestRefNo" 
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
 			<au-textbox
 				value.one-way="product"
 				read-only="true"
