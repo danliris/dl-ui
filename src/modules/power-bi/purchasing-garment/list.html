@@ -7,7 +7,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of data" click.delegate="view(item)"> 
+            <tr repeat.for="item of data" click.trigger="view(item)"> 
                 <td>${item.name}</td> 
             </tr>
         </tbody>
