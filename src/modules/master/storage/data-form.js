@@ -1,4 +1,5 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
+var UnitLoader = require('../../../loader/unit-loader');
 
 export class DataForm {
   @bindable title;
@@ -25,4 +26,18 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
+  unitChanged(e) {
+        var selectedUnit = e.detail;
+        if (selectedUnit)
+            this.data.unitId = selectedUnit._id;
+            
+    }
+
+  get unitLoader() {
+        return UnitLoader;
+    }
+  
+  unitView = (unit) => {
+        return `${unit.division.name} - ${unit.name}`;
+    }
 } 

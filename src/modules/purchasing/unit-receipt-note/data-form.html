@@ -50,6 +50,26 @@
             view-model.ref="deliveryOrderAU">
         </au-autocomplete>
 
+        <au-checkbox
+            label="Simpan ke Gudang" 
+            value.bind="data.isInventory" 
+            error.bind="error.isInventory" 
+            read-only.bind="readOnly"
+            options.bind="auInputOptions">
+        </au-checkbox>
+
+        <au-autocomplete 
+            value.bind="storage"
+            label="Nama Gudang" 
+            loader.one-time="storageLoader" 
+            read-only.bind="readOnly"
+            error.bind="error.storage"
+            query.bind="storageFilter"
+            show.bind="data.isInventory && data.deliveryOrderId"
+            text="name"
+            options.bind="auInputOptions">
+        </au-autocomplete>
+
         <au-multiline 
             label="Keterangan"
             value.bind="data.remark"
