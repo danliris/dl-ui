@@ -25,6 +25,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
+      select:["code","name","uom.unit","currency.code","price","tags"],
       order: order
     }
 
