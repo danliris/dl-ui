@@ -5,6 +5,7 @@ export class StepIndicatorItem {
     this.stepIndicators = context.data;
     this.error = context.error;
     this.options = context.options;
+    this.readOnly = this.options.readOnly || false;
   } 
 
   controlOptions = {
