@@ -5,8 +5,9 @@ export class DeliveryOrderItem {
 
   itemsColumns = [
     { header: "Nomor PO Eksternal" },
-    { header: "Nomor PR" },
     { header: "Nomor RO" },
+    { header: "Nomor PR" },
+    { header: "Nomor Ref PR" },
     { header: "Kode - Nama Barang" },
     { header: "Jumlah" },
     { header: "Satuan" },
