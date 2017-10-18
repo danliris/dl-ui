@@ -40,7 +40,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "items.no"],
+            select: ["date", "no", "supplier.name", "hasUnitReceiptNote", "items.no"],
             order: order
         };
 
@@ -80,6 +80,15 @@ export class List {
             case "Cetak PDF":
                 this.service.getPdfById(data._id);
                 break;
+        }
+    }
+
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF":
+                return data.hasUnitReceiptNote;
+            default:
+                return true;
         }
     }
 }

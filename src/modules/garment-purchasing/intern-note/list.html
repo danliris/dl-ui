@@ -6,6 +6,7 @@
             data.bind="loader"
             context.bind="context"
             context-click.delegate="contextClickCallback($event)"
+            context-show.call="contextShowCallback(index, context, data)" 
             columns.bind="columns"
             sortable.bind="true"
             page-size="25">

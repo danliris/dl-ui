@@ -12,7 +12,50 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        this.poStates = this.poStates.map(poState => {
+            poState.toString = function () {
+                return this.name;
+            }
+            return poState;
+        })
     }
+
+    poStates = [
+        {
+            "name": "",
+            "value": -1
+        }, {
+            "name": "Dibatalkan",
+            "value": 0
+        }, {
+            "name": "PO Internal belum diorder",
+            "value": 1
+        }, {
+            "name": "Sudah dibuat PO Eksternal",
+            "value": 2
+        }, {
+            "name": "Sudah diorder ke Supplier",
+            "value": 3
+        }, {
+            "name": "Barang sudah datang parsial",
+            "value": 4
+        }, {
+            "name": "Barang sudah datang",
+            "value": 5
+        }, {
+            "name": "Barang sudah diterima Unit parsial",
+            "value": 6
+        }, {
+            "name": "Barang sudah diterima Unit",
+            "value": 7
+        }, {
+            "name": "Sebagian sudah dibuat SPB",
+            "value": 8
+        }, {
+            "name": "Complete",
+            "value": 9
+        }
+    ];
 
     tableOptions = {
         search: false,
@@ -27,6 +70,7 @@ export class List {
         this.arg.supplierId = this.supplier ? this.supplier._id : null;
         this.arg.categoryId = this.category ? this.category._id : null;
         this.arg.unitId = this.unit ? this.unit._id : null;
+        this.arg.state = this.poState ? this.poState.value : null;
     }
 
 
@@ -39,6 +83,7 @@ export class List {
         { field: "unit", title: "Unit" },
         { field: "division", title: "Divisi" },
         { field: "refNo", title: "No. Ref. Purchase Request" },
+        { field: "artikel", title: "Artikel" },
         { field: "category", title: "Kategori" },
         { field: "productName", title: "Nama Barang" },
         { field: "productCode", title: "Kode Barang" },
@@ -159,6 +204,7 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.listDataFlag = false;
+        this.poState = this.poStates[0];
         this.table.refresh();
     }
 

@@ -10,6 +10,17 @@
             <au-autocomplete value.bind="packing" error.bind="error.packingId" label="Kode Packing" loader.bind="packingUnacceptedLoader"
                 placeholder="Cari Packing" read-only.bind="packingReadOnly" key="code" text="code">
             </au-autocomplete>
+            <au-autocomplete 
+                value.bind="data.storage" 
+                error.bind="error.storage"
+                label="Gudang" 
+                loader.one-time="storageLoader"
+                text.bind = "storageView"
+                placeholder="Cari penyimpanan" 
+                key="_id" 
+                read-only.bind="packingReadOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
             <au-textbox label="Nomor Order" value.bind="data.packing.productionOrderNo" read-only.bind="true"></au-textbox>
             <au-textbox label="Jenis Order" value.bind="data.packing.orderType" read-only.bind="true"></au-textbox>
             <au-textbox label="Warna Diminta" value.bind="data.packing.colorName" read-only.bind="true"></au-textbox>
