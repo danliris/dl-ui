@@ -8,6 +8,9 @@ export class List {
     columns = [
     { field: "code", title: "Kode" },
     { field: "name", title: "Nama" },
+    { field: "unit", title: "Unit", formatter: function (value, data, index) {
+        return data.unit.division.name + " - " + data.unit.name;
+      } },
     { field: "description", title: "Deskripsi" },
   ];
 
@@ -25,6 +28,16 @@ export class List {
 
     return this.service.search(arg)
       .then(result => {
+        for(var a of result.data){
+          if(!a.unit){
+            a.unit={
+              name:"",
+              division:{
+                name:""
+              }
+            };
+          }
+        }
         return {
           total: result.info.total,
           data: result.data
