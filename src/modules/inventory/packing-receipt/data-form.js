@@ -49,7 +49,7 @@ export class DataForm {
 
             this.data.packing.items.map((item) => {
                 var _item = {};
-                _item.product = item.remark !== "" ? `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}/${item.remark}` : `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
+                _item.product = item.remark !== "" && item.remark !== null ? `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}/${item.remark}` : `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
                 _item.quantity = item.quantity;
                 _item.length = item.length;
                 _item.weight = item.weight;
