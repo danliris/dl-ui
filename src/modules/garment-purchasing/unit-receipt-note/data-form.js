@@ -2,6 +2,7 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 import { Service } from "./service";
 var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
+var StorageLoader = require('../../../loader/storage-loader');
 var DeliveryOrderBySupplierLoader = require('../../../loader/garment-delivery-order-by-supplier-loader');
 var moment = require('moment');
 
@@ -14,6 +15,7 @@ export class DataForm {
     @bindable unit;
     @bindable supplier;
     @bindable deliveryOrder;
+    @bindable storage;
 
     constructor(service, bindingEngine, element) {
         this.service = service;
@@ -61,14 +63,30 @@ export class DataForm {
         };
         return filter;
     }
-
-    bind(context) {
+    @computedFrom("data.unit")
+    get filterUnit()
+    {
+        var storageFilter={}
+        if(this.data.unit)
+        var storageFilter ={
+             "unit.name" :this.data.unit.name,
+              "unit.division.name" : this.data.unit.division.name
+        }
+        return storageFilter;
+    }
+    storageFields=["name","code"];
+   async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
 
         if (!this.readOnly) {
             this.deliveryOrderItem.columns.push({ header: "" });
+        }
+        if (this.data.useStorage) {
+              this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
+              this.data.storage =this.storage;
+             
         }
     }
 
@@ -91,6 +109,7 @@ export class DataForm {
         }
         this.context.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = null;
+        this.storage=null;
     }
 
     unitChanged(newValue, oldValue) {
@@ -104,6 +123,7 @@ export class DataForm {
             this.data.unit = null;
             this.data.unitId = null;
         }
+        this.data.storage =null;
     }
 
     async deliveryOrderChanged(newValue, oldValue) {
@@ -139,6 +159,7 @@ export class DataForm {
                                 _item.buyer = pr.buyer;
                                 _item.buyerId = pr.buyer._id;
                             }
+                     
                             _item.product = fulfillment.product;
                             _item.deliveredUom = fulfillment.purchaseOrderUom;
                             _item.purchaseOrderNo = fulfillment.purchaseOrderNo;
@@ -178,10 +199,36 @@ export class DataForm {
         }
         else {
             this.data.items = [];
+        } 
+       
+        this.resetErrorItems();
+    }
+    storageChanged(newValue) {
+      var selectedStorage = newValue;
+        if (selectedStorage) {
+            if (selectedStorage._id) {
+                this.data.storage = selectedStorage;
+                this.data.storageId = selectedStorage._id;
+            }
+            else {
+                this.data.storage = null;
+            }
+        }
+        else {
+            this.data.storage = null;
         }
         this.resetErrorItems();
     }
+   
 
+    useStorageChanged(e) {
+        var selectedUseStorage = e.srcElement.checked || false;
+       console.log(this.data.useStorage);
+       this.data.unitId;
+        if (this.context.error.useStorage) {
+            this.context.error.useStorage = "";
+        }
+    }
     resetErrorItems() {
         if (this.error) {
             if (this.error.items) {
@@ -201,7 +248,14 @@ export class DataForm {
     get deliveryOrderBySupplierLoader() {
         return DeliveryOrderBySupplierLoader;
     }
+    
+    get storageLoader() {
+        return StorageLoader;
+    }
 
+    storageView = (storage) => {
+         return `${storage.code} - ${storage.name}`;
+    }
     unitView = (unit) => {
         return `${unit.division.name} - ${unit.name}`;
     }
