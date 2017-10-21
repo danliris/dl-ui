@@ -8,6 +8,8 @@
         </div>
 
         <fieldset>
+            <au-datepicker label="Tanggal Pengiriman" value.bind="data.deliveryDate" error.bind="error.deliveryDate" read-only.bind="buyerReadOnly"
+                options.bind="deliveryCodeControlOptions"></au-datepicker>
             <au-textbox label="NO." value.bind="data.shipmentNumber" error.bind="error.shipmentNumber" read-only.bind="buyerReadOnly"
                 options.bind="deliveryCodeControlOptions"></au-textbox>
             <au-textbox label="Sesuai DO. No" value.bind="data.deliveryCode" error.bind="error.deliveryCode" read-only.bind="buyerReadOnly"
@@ -18,12 +20,24 @@
                 read-only.bind="buyerReadOnly" key="name" text="name" options.bind="buyerControlOptions">
             </au-autocomplete>
             <au-textbox label="Tipe Buyer" value.bind="data.buyerType" read-only.bind="true"></au-textbox>
-
+            <au-autocomplete 
+                value.bind="selectedStorage" 
+                error.bind="error.storage"
+                label="Gudang" 
+                loader.one-time="storageLoader"
+                text.bind = "storageView"
+                placeholder="Cari penyimpanan" 
+                key="_id" 
+                read-only.bind="buyerReadOnly"
+                options.bind="buyerControlOptions">
+            </au-autocomplete>
         </fieldset>
 
+        <au-textbox error.bind="error.detail" read-only.bind="true"></au-textbox>
         <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.one-time="addDetails"
             remove.bind="removeDetails" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
-            options.bind="detailOptions">
+            options.bind="detailOptions"
+            show.bind="detailVisibility || buyerReadOnly">
         </au-collection>
 
     </au-input-form>

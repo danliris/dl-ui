@@ -18,6 +18,10 @@ export class ShipmentDetail {
         this.context = context.context;
         this.selectedProductionOrder = this.data.selectedProductionOrder;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
+        this.selectedBuyerID = this.context.options.selectedBuyerID;
+        this.selectedStorageCode = this.context.options.selectedStorageCode;
+
+        this.SPPQuery = { "$where": "this.buyerId'" == this.selectedBuyerID + "'"};
 
         if (this.data.productionOrderId) {
             this.selectedProductionOrder = await this.service.getProductionOrderById(this.data.productionOrderId)
@@ -68,7 +72,8 @@ export class ShipmentDetail {
                         },
                         "quantity": {
                             "$gt": 0
-                        }
+                        },
+                        "storageCode": this.selectedStorageCode
                     }
                     var infoInventory = { filter: JSON.stringify(filterInventory) };
                     this.inventoryResults = await this.service.searchInventory(infoInventory);

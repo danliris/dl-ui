@@ -7,6 +7,8 @@ export class InternNoteItem {
 	itemsColumns = [
 		{ header: "Nomor Surat Jalan" },
 		{ header: "Nomor PO Eksternal" },
+		{ header: "Nomor Ref PR" },
+		{ header: "Nomor RO" },
 		{ header: "Term Pembayaran" },
 		{ header: "Tipe Pembayaran" },
 		{ header: "Tanggal Jatuh Tempo" },
@@ -63,6 +65,8 @@ export class InternNoteItem {
 							return {
 								deliveryOrderNo: invoiceItem.deliveryOrderNo,
 								purchaseOrderExternalNo: item.purchaseOrderExternalNo,
+								purchaseRequestRefNo: item.purchaseRequestRefNo,
+								roNo: item.roNo,
 								paymentMethod: item.paymentMethod,
 								paymentType: item.paymentType,
 								dueDays: dueDays,

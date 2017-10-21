@@ -24,11 +24,11 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    determineActivationStrategy() {
-        return activationStrategy.replace; //replace the viewmodel with a new instance
-        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-        // or activationStrategy.noChange to explicitly use the default behavior
-    }
+    // determineActivationStrategy() {
+    //     return activationStrategy.replace; //replace the viewmodel with a new instance
+    //     // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+    //     // or activationStrategy.noChange to explicitly use the default behavior
+    // }
 
     save(event) {
         var itemToBeSaved = this.data.items.filter(function (item) {
@@ -39,7 +39,13 @@ export class Create {
         this.service.create(_data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.data.no = "";
+                this.data.items = this.data.items.filter(function (item) {
+                    return !item.check
+                });
+                // this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                // var supplier = Object.assign({}, this.data.supplier);
+                // this.data = Object.assign({}, { supplier: supplier, supplierId: supplier._id, items: [] });
             })
             .catch(e => {
                 this.error = e;

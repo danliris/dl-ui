@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
+var StorageLoader = require('../../../loader/storage-loader');
 
 var PackingUnacceptedLoader = require('../../../loader/packing-unaccepted-loader');
 
@@ -9,7 +10,6 @@ export class DataForm {
     @bindable data;
     @bindable error;
     @bindable packing;
-
     @bindable title;
 
     bind(context) {
@@ -45,11 +45,11 @@ export class DataForm {
             var _items = [];
             this.data.packingId = this.data.packing._id;
 
-            this.data.storageName = this.data.packing.orderType.toString().toLowerCase() === "printing" ? "Gudang Jadi Printing" : "Gudang Jadi Finishing";
+            // this.data.storageName = this.data.packing.orderType.toString().toLowerCase() === "printing" ? "Gudang Jadi Printing" : "Gudang Jadi Finishing";
 
             this.data.packing.items.map((item) => {
                 var _item = {};
-                _item.product = item.remark !== "" || item.remark !== null ? `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}/${item.remark}` : `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
+                _item.product = item.remark !== "" ? `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}/${item.remark}` : `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
                 _item.quantity = item.quantity;
                 _item.length = item.length;
                 _item.weight = item.weight;
@@ -66,5 +66,12 @@ export class DataForm {
             this.data.storageName = "";
         }
     }
+    
+    storageView = (storage) => {
+        return `${storage.code} - ${storage.name}`
+    }
 
+    get storageLoader() {
+        return StorageLoader;
+    }
 } 
