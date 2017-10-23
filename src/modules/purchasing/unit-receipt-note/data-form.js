@@ -106,6 +106,7 @@ export class DataForm {
         this.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = undefined;
         this.storage=null;
+        this.data.isInventory=false;
     }
 
     unitChanged(newValue, oldValue) {
