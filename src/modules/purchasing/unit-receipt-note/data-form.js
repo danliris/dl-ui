@@ -106,6 +106,7 @@ export class DataForm {
         this.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = undefined;
         this.storage=null;
+        this.data.isInventory=false;
     }
 
     unitChanged(newValue, oldValue) {
@@ -123,6 +124,7 @@ export class DataForm {
         this.data.deliveryOrderId = undefined;
         this.data.storageId=undefined;
         this.storage=null;
+        this.data.isInventory=false;
     }
 
     deliveryOrderChanged(newValue, oldValue) {
@@ -171,6 +173,7 @@ export class DataForm {
         }
         this.resetErrorItems();
         this.storage=null;
+        this.data.isInventory=false;
     }
 
     storageChanged(newValue, oldValue) {
