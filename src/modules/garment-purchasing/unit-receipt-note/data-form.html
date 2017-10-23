@@ -72,12 +72,12 @@
                 label="Storage" 
                 value.bind="storage" 
                 loader.bind="storageLoader"
-                error.bind="error.storageId" 
+                error.bind="error.storage" 
                 read-only.bind="readOnly"
-                show.bind="data.useStorage"
                 query.bind="filterUnit"
                 placeholder="cari nama storage" 
-                 text.bind="storageView"
+                text.bind="storageView"
+                show.bind="data.useStorage && data.deliveryOrderId"
                 options.bind="auInputOptions">
             </au-autocomplete>
         <au-multiline 

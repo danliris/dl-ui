@@ -57,7 +57,7 @@ export class DataForm {
     }
 
     @computedFrom("data.supplier")
-    get filter() {
+    get filter() {      
         var filter = {
             supplierId: this.data.supplierId
         };
@@ -70,7 +70,7 @@ export class DataForm {
         if(this.data.unit)
         var storageFilter ={
              "unit.name" :this.data.unit.name,
-              "unit.division.name" : this.data.unit.division.name
+            "unit.division.name" : this.data.unit.division.name
         }
         return storageFilter;
     }
@@ -85,8 +85,6 @@ export class DataForm {
         }
         if (this.data.useStorage) {
               this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
-              this.data.storage =this.storage;
-             
         }
     }
 
@@ -110,6 +108,8 @@ export class DataForm {
         this.context.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = null;
         this.storage=null;
+        this.data.useStorage=false;
+        this.data.storageId = null;
     }
 
     unitChanged(newValue, oldValue) {
@@ -123,13 +123,15 @@ export class DataForm {
             this.data.unit = null;
             this.data.unitId = null;
         }
-        this.data.storage =null;
+        this.storage =null;
+        this.data.storageId = null;
+        this.data.useStorage = false;
     }
 
     async deliveryOrderChanged(newValue, oldValue) {
         var selectedDo = newValue;
-
-        if (selectedDo) {
+            
+        if (selectedDo) {      
             this.data.deliveryOrder = selectedDo;
             this.data.deliveryOrderId = selectedDo._id;
             var selectedItem = selectedDo.items || []
@@ -200,34 +202,40 @@ export class DataForm {
         else {
             this.data.items = [];
         } 
-       
+      
         this.resetErrorItems();
+        this.data.storageId = null;
+        this.storage = null;
+        this.data.useStorage=false;
     }
     storageChanged(newValue) {
       var selectedStorage = newValue;
         if (selectedStorage) {
             if (selectedStorage._id) {
-                this.data.storage = selectedStorage;
+                this.storage = selectedStorage;
                 this.data.storageId = selectedStorage._id;
             }
             else {
-                this.data.storage = null;
+                this.storage = null;
+                this.data.storageId =null;
             }
         }
         else {
-            this.data.storage = null;
+            this.storage = null;
+            this.data.storageId =undefined;
         }
         this.resetErrorItems();
     }
    
 
     useStorageChanged(e) {
-        var selectedUseStorage = e.srcElement.checked || false;
-       console.log(this.data.useStorage);
+        var selectedUseStorage = e.srcElement.checked || false;      
        this.data.unitId;
         if (this.context.error.useStorage) {
             this.context.error.useStorage = "";
         }
+        this.storage = null;
+        this.data.storageId=null; 
     }
     resetErrorItems() {
         if (this.error) {
