@@ -21,7 +21,7 @@ export class ShipmentDetail {
         this.selectedBuyerID = this.context.options.selectedBuyerID;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
 
-        this.SPPQuery = { "$where": "this.buyerId'" == this.selectedBuyerID + "'"};
+        this.SPPQuery = { "$where": "this.buyerId'" == this.selectedBuyerID + "'" };
 
         if (this.data.productionOrderId) {
             this.selectedProductionOrder = await this.service.getProductionOrderById(this.data.productionOrderId)
@@ -51,7 +51,7 @@ export class ShipmentDetail {
 
             //get products by buyer and production order number where stock balance is greater than 0
             // if (!this.data.items && this.selectedBuyerName && this.selectedProductionOrder) {
-            if (this.selectedBuyerName && this.selectedProductionOrder) {            
+            if (this.selectedBuyerName && this.selectedProductionOrder) {
                 var filter = {
                     "properties.buyerName": this.selectedBuyerName,
                     "properties.productionOrderNo": this.selectedProductionOrder.orderNo
@@ -83,28 +83,23 @@ export class ShipmentDetail {
 
                     this.shipmentProducts = [];
                     if (this.inventoryDatas.length > 0 && this.products.length > 0) {
-                        for (var i = 0; i < this.inventoryDatas.length; i++) {
-                            for (var j = 0; j < this.products.length; j++) {
-                                if (this.inventoryDatas[i].productCode === this.products[j].code) {
-                                    var productObj = {
-                                        productId: this.products[j]._id ? this.products[j]._id : null,
-                                        productCode: this.products[j].code ? this.products[j].code : "",
-                                        productName: this.products[j].name ? this.products[j].name : "",
-                                        designCode: this.products[j].properties && this.products[j].properties.designCode ? this.products[j].properties.designCode : "",
-                                        designNumber: this.products[j].properties && this.products[j].properties.designNumber ? this.products[j].properties.designNumber : "",
-                                        colorType: this.products[j].properties && this.products[j].properties.colorName ? this.products[j].properties.colorName : "",
-                                        uomId: this.products[j].uom && this.products[j].uom._id ? this.products[j].uom._id : null,
-                                        uomUnit: this.products[j].uom && this.products[j].uom.unit ? this.products[j].uom.unit : "",
-                                        quantity: this.inventoryDatas[i].quantity ? this.inventoryDatas[i].quantity : 0,
-                                        length: this.products[j].properties && this.products[j].properties.length ? this.products[j].properties.length : "",
-                                        weight: this.products[j].properties && this.products[j].properties.weight ? this.products[j].properties.weight : ""
-                                    };
-                                    this.shipmentProducts.push(productObj);
-                                    productObj = {};
-                                    break;
-                                }
-
-                            }
+                        for (var inventoryData of this.inventoryDatas) {
+                            var productResult = this.products.find((product) => inventoryData.productId.toString() === product._id.toString());
+                            var productObj = {
+                                productId: productResult._id ? productResult._id : null,
+                                productCode: productResult.code ? productResult.code : "",
+                                productName: productResult.name ? productResult.name : "",
+                                designCode: productResult.properties && productResult.properties.designCode ? productResult.properties.designCode : "",
+                                designNumber: productResult.properties && productResult.properties.designNumber ? productResult.properties.designNumber : "",
+                                colorType: productResult.properties && productResult.properties.colorName ? productResult.properties.colorName : "",
+                                uomId: productResult.uom && productResult.uom._id ? productResult.uom._id : null,
+                                uomUnit: productResult.uom && productResult.uom.unit ? productResult.uom.unit : "",
+                                quantity: inventoryData.quantity ? inventoryData.quantity : 0,
+                                length: productResult.properties && productResult.properties.length ? productResult.properties.length : "",
+                                weight: productResult.properties && productResult.properties.weight ? productResult.properties.weight : ""
+                            };
+                            this.shipmentProducts.push(productObj);
+                            productObj = {};
                         }
 
                     }
