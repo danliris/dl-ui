@@ -43,7 +43,7 @@
         <au-textbox label="Packing Instruction" value.one-way="packingInstruction" read-only.bind="true"></au-textbox>
         <au-dropdown label="Point System" value.bind="selectedPointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly"></au-dropdown>
         <au-textbox label="Point Limit" value.bind="selectedPointLimit" if.bind="selectedPointSystem == 4" read-only.bind="readOnly || isEdit"
-          error.bind="error.pointLimit"></au-textbox>
+          error.bind="error.pointLimit" change.delegate="colChanged($event)"></au-textbox>
 
         <au-table with.bind="_this" view-model.ref="fabricGradeTestTable" data.bind="fabricGradeTestLoader" columns.bind="fabricGradeTestColumns"
           context.bind="fabricGradeTestContextMenu" context-click.delegate="__fabricGradeTestContextMenuCallback($event)" sortable.bind="true"
