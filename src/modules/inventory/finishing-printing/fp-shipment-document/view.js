@@ -6,6 +6,7 @@ import { Service } from './service';
 @inject(Router, Service)
 export class View {
     hasCancel = true;
+    buyerReadOnly = true;
 
     constructor(router, service) {
         this.router = router;
@@ -16,7 +17,6 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.selectedStorage = this.data.storage;
-        this.buyerReadOnly = true;
         if (!this.data.isVoid) {
             this.isVoid = true
         }
