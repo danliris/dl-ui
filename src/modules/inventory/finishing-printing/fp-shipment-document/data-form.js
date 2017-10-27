@@ -46,7 +46,7 @@ export class DataForm {
         if (this.data._id && this.data.buyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.buyerId);
         }
-        
+
     }
 
     detailOptions = {};
@@ -60,6 +60,9 @@ export class DataForm {
             this.data.buyerType = this.selectedBuyer.type;
             this.detailOptions.selectedBuyerName = this.selectedBuyer.name;
             this.detailOptions.selectedBuyerID = this.selectedBuyer._id;
+            if (!this.context.buyerReadOnly) {
+                this.data.details = [];
+            }
         } else {
             this.data.buyerId = {};
             this.data.buyerCode = "";
@@ -73,9 +76,12 @@ export class DataForm {
 
     @bindable selectedStorage;
     selectedStorageChanged(newValue) {
-        if(newValue) {
+        if (newValue) {
             this.detailOptions.selectedStorageCode = newValue.code;
             this.data.storage = newValue;
+            if (!this.context.buyerReadOnly) {
+                this.data.details = [];
+            }
         }
         else {
             this.data.storage = undefined;
@@ -95,6 +101,7 @@ export class DataForm {
 
     get addDetails() {
         return (event) => {
+            this.context.DetailsCollection.bind()
             this.data.details.push({})
         }
     }
