@@ -37,7 +37,7 @@
         <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.one-time="addDetails"
             remove.bind="removeDetails" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
             options.bind="detailOptions"
-            show.bind="detailVisibility || buyerReadOnly">
+            show.bind="detailVisibility || buyerReadOnly"
             view-model.ref="DetailsCollection">
         </au-collection>
 
