@@ -1,20 +1,20 @@
 <template>
     <style>
-        body>.container-fluid {
+        body > .container-fluid {
             position: absolute;
             top: 50px;
             width: 100%;
             bottom: 0px;
         }
-
-        body>.container-fluid>.row {
+        
+        body > .container-fluid > .row {
             position: absolute;
             top: 0px;
             width: 100%;
             bottom: 0px;
         }
-
-        body>.container-fluid>.row>div.wrapper {
+        
+        body > .container-fluid > .row > div.wrapper {
             position: absolute;
             top: 0px;
             bottom: 0px;
@@ -22,27 +22,26 @@
             left: 0px;
             padding: 15px;
         }
-
-        body>.container-fluid>.row>div.wrapper>router-view,
-        body>.container-fluid>.row>div.wrapper>router-view>div {
+        
+        body > .container-fluid > .row > div.wrapper > router-view,
+        body > .container-fluid > .row > div.wrapper > router-view > div {
             position: absolute;
-            top: 0px;
+            top: 0px; 
             bottom: 50px;
             left: 0px;
-            right: 0px;
-            padding: inherit;
+            right: 0px; 
+            padding: inherit; 
         }
-
-        body>.container-fluid>.row>div.wrapper>router-view>div>router-view {
+        
+        body > .container-fluid > .row > div.wrapper > router-view > div > router-view {
             position: absolute;
-            top: 0px;
+            top: 0px; 
             bottom: 0px;
             left: 0px;
             right: 0px;
             padding: inherit;
         }
-
-        #powerbi-container>iframe {
+        #powerbi-container > iframe {
             border: 0px;
         }
     </style>
@@ -54,6 +53,6 @@
     <div class="btn-group pull-right">
         <a click.delegate="list()" class='btn btn-default btn-sm'>Back</a>
         <a click.delegate="fullscreen()" class='btn btn-primary btn-sm'>Fullscreen</a>
-
+        
     </div>
 </template>
