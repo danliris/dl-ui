@@ -71,19 +71,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission: { "A2": 1, "C9": 1, "PGA": 1, "PA": 1, "PM": 1, "PE": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'power-bi/dealtracking',
-        name: 'power-bi-dealtracking',
-        moduleId: './modules/power-bi/dealtracking/index',
-        nav: true,
-        title: 'Power BI: Deal Tracking',
-        auth: true,
-        settings: {
-            group: "reports",
             permission: { "A2": 1, "C9": 1, "PGA":1, "PA":1, "PM":1, "PE":1 },
             iconClass: 'fa fa-dashboard'
         }
