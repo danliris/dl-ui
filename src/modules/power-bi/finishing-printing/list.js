@@ -14,8 +14,10 @@ export class List {
         "Good Output vs Bad Output All",
         "Good Output vs Bad Output Per Jenis Order",
         "Kanban Aktif",
-        "Monitoring Lead Time Real Time",
-        "Monitoring Lead Time Historical"
+        "Total Panjang Kain Per SPP Yang Telah Diproses",
+        "Monitoring Bad Output Produksi"
+        //"Monitoring Lead Time Real Time",
+        //"Monitoring Lead Time Historical"
     ];
 
     constructor(router, service) {
