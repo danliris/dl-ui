@@ -7,6 +7,8 @@ export class InternNoteItem {
 	itemsColumns = [
 		{ header: "Nomor Surat Jalan" },
 		{ header: "Nomor PO Eksternal" },
+		{ header: "Nomor Ref PR" },
+		{ header: "Nomor RO" },
 		{ header: "Term Pembayaran" },
 		{ header: "Tipe Pembayaran" },
 		{ header: "Tanggal Jatuh Tempo" },
@@ -24,6 +26,7 @@ export class InternNoteItem {
 
 	async activate(context) {
 		this.data = context.data;
+		this.items = [];
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
 		this.isShowing = false;
@@ -39,6 +42,16 @@ export class InternNoteItem {
 
 		Promise.all(getDeliveryOrder)
 			.then((deliveryOrders) => {
+				for (var invoiceItem of this.data.items) {
+					for (var item of invoiceItem.items) {
+						var _do = deliveryOrders.find((deliveryOrder) => deliveryOrder.no === invoiceItem.deliveryOrderNo);
+						var _doItem = _do.items.find((_item) => _item.purchaseOrderExternalNo === item.purchaseOrderExternalNo);
+						var _doFulfillment = _doItem.fulfillments.find((_fulfillment) => _fulfillment.product._id === item.product._id && _fulfillment.purchaseOrderNo === item.purchaseOrderNo)
+						item.hasUnitReceiptNote = _doFulfillment ? (_doFulfillment.realizationQuantity.length > 0 ? true : false) : false
+
+					}
+				}
+
 				this.items = this.data.items.map((invoiceItem) => {
 					var listInvItem = invoiceItem.items
 						.map(item => {
@@ -46,12 +59,14 @@ export class InternNoteItem {
 							var _doItem = _do.items.find((_item) => _item.purchaseOrderExternalNo === item.purchaseOrderExternalNo);
 							var _doFulfillment = _doItem.fulfillments.find((_fulfillment) => _fulfillment.product._id === item.product._id && _fulfillment.purchaseOrderNo === item.purchaseOrderNo)
 
-							var isCreateURN = _doFulfillment ? (_doFulfillment.realizationQuantity.length > 0 ? "Sudah" : "Belum") : "Belum"
+							var isCreateURN = _doFulfillment ? (_doFulfillment.realizationQuantity.length > 0 ? true : false) : false
 							var dueDays = new Date(invoiceItem.deliveryOrderSupplierDoDate);
 							dueDays.setDate(dueDays.getDate() + item.paymentDueDays);
 							return {
 								deliveryOrderNo: invoiceItem.deliveryOrderNo,
 								purchaseOrderExternalNo: item.purchaseOrderExternalNo,
+								purchaseRequestRefNo: item.purchaseRequestRefNo,
+								roNo: item.roNo,
 								paymentMethod: item.paymentMethod,
 								paymentType: item.paymentType,
 								dueDays: dueDays,
@@ -59,7 +74,7 @@ export class InternNoteItem {
 								deliveredQuantity: item.deliveredQuantity,
 								purchaseOrderUom: item.purchaseOrderUom,
 								pricePerDealUnit: item.pricePerDealUnit,
-								status : isCreateURN
+								hasUnitReceiptNote: isCreateURN
 							}
 						})
 					return listInvItem;

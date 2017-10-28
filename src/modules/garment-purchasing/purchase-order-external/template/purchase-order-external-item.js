@@ -23,20 +23,17 @@ export class PurchaseOrderItem {
   selectedDealUomChanged(newValue) {
     if (newValue._id) {
       this.data.dealUom = newValue;
-      if (newValue.unit)
-        if (this.data.dealUom.unit == this.data.defaultUom.unit) {
-          this.data.conversion = 1;
-        }
     }
   }
 
-  conversionChanged(e) {
-    if (this.data.dealUom.unit)
-      if (this.data.dealUom.unit == this.data.defaultUom.unit) {
-        this.data.conversion = 1;
-      }
+  get quantityConversion() {
+    return this.data.dealQuantity * this.data.conversion;
   }
 
+  conversionChanged(e) {
+    this.data.quantityConversion = this.data.dealQuantity * this.data.conversion;
+  }
+  
   priceBeforeTaxChanged(e) {
     this.updatePrice();
   }

@@ -59,7 +59,27 @@
             placeholder="cari surat jalan"
             view-model.ref="deliveryOrderAU">
         </au-autocomplete>
-
+        <au-checkbox 
+                label="Simpan ke gudang?" 
+                value.bind="data.useStorage" 
+                error.bind="error.useStorage" 
+                change.delegate="useStorageChanged($event)"
+                read-only.bind="readOnly"
+                options.bind="auInputOptions">
+            </au-checkbox>
+    
+            <au-autocomplete 
+                label="Storage" 
+                value.bind="storage" 
+                loader.bind="storageLoader"
+                error.bind="error.storage" 
+                read-only.bind="readOnly"
+                query.bind="filterUnit"
+                placeholder="cari nama storage" 
+                text.bind="storageView"
+                show.bind="data.useStorage && data.deliveryOrderId"
+                options.bind="auInputOptions">
+            </au-autocomplete>
         <au-multiline 
             label="Keterangan"
             value.bind="data.remark"

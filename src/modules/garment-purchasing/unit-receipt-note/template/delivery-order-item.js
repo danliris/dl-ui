@@ -1,14 +1,12 @@
 import { bindable } from 'aurelia-framework'
-var UomLoader = require('../../../../loader/uom-loader');
 export class DeliveryOrderItem {
 	@bindable selectedUomConversion;
 	activate(context) {
 		this.data = context.data;
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
-		this.selectedUomConversion = this.data.uomConversion;
-		if(!this.data.buyer){
-			this.data.buyer={name:""}
+		if (!this.data.buyer) {
+			this.data.buyer = { name: "" }
 		}
 	}
 
@@ -20,23 +18,11 @@ export class DeliveryOrderItem {
 		return this.data.buyer.name;
 	}
 
-	get uomLoader() {
-		return UomLoader;
+	get quantityConversion() {
+		return this.data.deliveredQuantity * this.data.conversion;
 	}
 
-	uomView = (uom) => {
-		return uom.unit
-	}
-
-	selectedUomConversionChanged(newValue) {
-		if (newValue) {
-			if (newValue._id) {
-				this.data.uomConversion = newValue;
-				if (newValue.unit)
-					if (this.data.uomConversion.unit == this.data.purchaseOrderUom.unit) {
-						this.data.conversion = 1;
-					}
-			}
-		}
+	conversionChanged(e) {
+		this.data.quantityConversion = this.data.deliveredQuantity * this.data.conversion;
 	}
 }

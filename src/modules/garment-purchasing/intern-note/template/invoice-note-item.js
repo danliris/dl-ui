@@ -10,6 +10,10 @@ export class InvoiceNoteItem {
 		return this.data.deliveredQuantity * this.data.pricePerDealUnit;
 	}
 
+	get status() {
+		return this.data.hasUnitReceiptNote ? "Sudah" : "Belum";
+	}
+
 	get product() {
 		return `${this.data.product.code} - ${this.data.product.name}`;
 	}

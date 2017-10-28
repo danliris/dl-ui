@@ -20,6 +20,7 @@ export class List {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
+        select:['unit'],
         order: order
       }
 

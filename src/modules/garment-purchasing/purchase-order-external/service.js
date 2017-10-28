@@ -46,11 +46,12 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
-    searchByTags(keyword, shipmentDateFrom, shipmentDateTo) {
+    searchByTags(keyword, category, shipmentDateFrom, shipmentDateTo) {
         var endpoint = 'purchase-orders/by-tags';
         var filter = {};
         if (keyword && shipmentDateFrom && shipmentDateTo) {
             filter = {
+                category: category,
                 shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
                 shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
                 tag: keyword
@@ -58,16 +59,20 @@ export class Service extends RestService {
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         }
         else if (keyword) {
-            filter = { tag: keyword };
+            filter = {
+                category: category,
+                tag: keyword
+            };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         } else if (shipmentDateFrom && shipmentDateTo) {
             filter = {
+                category: category,
                 shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
                 shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
             };
             return super.list(endpoint, { filter: JSON.stringify(filter) });
         } else {
-            filter = {};
+            filter = { category: category };
             return super.list(endpoint);
         }
     }
