@@ -23,7 +23,8 @@ export class PackingItem {
         return (this.data.length * this.data.quantity).toFixed(2);
     }
 
-    grades = ["", "A", "B", "C", "AA", "BB", "CC", "BS", "AVAL"];
+    // grades = ["", "A", "B", "C", "AA", "BB", "CC", "BS", "AVAL"];
+    grades = ["", "A", "B", "C"];
 
     controlOptions = {
         control: {
