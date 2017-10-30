@@ -8,7 +8,8 @@ export class List {
     data = [];
     listReport = [
       
-        "Deal Tracking"
+        "Deal Tracking",
+      "Deal Tracking Historical"
     ];
     constructor(router, service) {
         this.router = router;
