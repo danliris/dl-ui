@@ -12,14 +12,18 @@ export class List {
     }
 
     columns = [
-        { field: "_id.description", title: "description" },
+        { field: "_id.description", title: "Description" },
         {
-            field: "latestDate", title: "latest successful", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+            field: "latestDate", title: "Latest Successful", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY h:mm:ss a");
             }
         }
 
     ];
+
+    options = {
+        pagination: false
+    };
 
     loader = (info) => {
         var order = {};
