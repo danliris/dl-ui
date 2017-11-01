@@ -1,0 +1,95 @@
+<template>
+
+    <style>
+        table > tbody > tr > td {
+            white-space: pre;
+        }
+    </style>
+
+    <h1 class="page-header">Monitoring Surat Perintah Bayar</h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <au-autocomplete value.bind="unit" label="Unit" loader.bind="unitLoader" placeholder="nama unit" key="code">
+                </au-autocomplete>
+
+
+                <au-autocomplete value.bind="purchaseOrder" label="Nomor PR" loader.bind="purchaseOrderLoader" placeholder="nomor pr" key="no">
+                </au-autocomplete>
+
+                <au-autocomplete value.bind="noSpb" label="Nomor SPB" loader.bind="noteLoader" placeholder="nomor spb" key="no">
+                </au-autocomplete>
+
+                
+
+                <au-autocomplete value.bind="supplier" label="Nama Supplier" loader.bind="supplierLoader" placeholder="nama supplier" key="code">
+                </au-autocomplete>
+
+                <au-autocomplete value.bind="staffName" label="Nama Staff Pembelian" loader.bind="accountLoader" placeholder="nama staff pembelian"
+                    key="code">
+                </au-autocomplete>
+
+                <au-datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
+                </au-datepicker>
+
+                <au-datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom">
+                </au-datepicker>
+
+
+                <label for="contact" class="col-sm-9 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center">
+                    <tr>
+                        <td >Tgl SPB</td>
+                        <td >No SPB</td>
+                        <td >Nama Barang</td>
+                        <td >Jumlah</td>
+                        <td >Harga Sat</td>
+                        <td >Total Harga</td>
+                        <td >Tgl Invoice</td>
+                        <td >No Invoice</td>
+                        <td >Jatuh Tempo</td>
+                        <td >Supplier</td>
+                        <td >Unit</td>
+                        <td >Divisi</td>
+                            <td >No PR</td>
+                       
+                    </tr>
+                  
+                </thead>
+                <tbody>
+                    <tr repeat.for="PO of data">
+                        <td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.no}</td>
+                        <td>${PO.items.unitReceiptNote.items.product.name}</td>
+                        <td>${PO.items.unitReceiptNote.items.deliveredQuantity}</td>
+                        <td>${PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
+                        <td>${PO.items.unitReceiptNote.items.deliveredQuantity*PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
+                        <td>${PO.invoceDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.invoceNo}</td>
+                        <td>${PO.dueDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.supplier.name}</td>
+                        <td>${PO.namaUnit}</td>
+                        <td>${PO.division.name}</td>
+                         <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <hr/>
+    </form>
+</template>
