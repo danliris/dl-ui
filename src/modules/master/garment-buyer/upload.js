@@ -53,7 +53,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Buyer, Nama, Alamat, Negara, Kontak, Tempo");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Buyer, Nama, Alamat, Kota, Negara, NPWP, Jenis Buyer, Kontak, Tempo");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");

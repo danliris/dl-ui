@@ -233,6 +233,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },    
+     {
+        route: 'po/monitoring/spb',
+        name: 'surat-perintah-bayar-monitoring',
+        moduleId: './modules/purchasing/monitoring-surat-perintah-bayar/index',
+        nav: true,
+        title: 'Monitoring Surat Perintah Bayar',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'unit-payment-note/price-correction',
         name: 'unit-payment-price-correction-note',
