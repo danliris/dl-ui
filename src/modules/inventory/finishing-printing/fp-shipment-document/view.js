@@ -20,6 +20,14 @@ export class View {
         if (!this.data.isVoid) {
             this.isVoid = true
         }
+
+        for (var detail of this.data.details) {
+            for (var item of detail.items) {
+                var properties = Object.getOwnPropertyNames(item);
+                var identityFields = properties.find((property) => property.toString().toLowerCase() === "productname");
+                this.isNewStructure = identityFields ? false : true;
+            }
+        }
     }
 
     update() {

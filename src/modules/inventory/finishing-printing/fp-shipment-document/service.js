@@ -1,13 +1,13 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 
 
 const serviceUri = "inventory/fp-shipment-document";
 const inventoryServiceUri = "inventory/inventory-summary";
-const buyerServiceUri = "master/buyer";
 const productServiceUri = "master/product";
-const productionOrderServiceUri = "sales/production-order";
 
 export class Service extends RestService {
 
@@ -40,16 +40,6 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    searchBuyer(info) {
-        var endpoint = `${buyerServiceUri}`;
-        return super.list(endpoint, info);
-    }
-
-    searchProductionOrder(info) {
-        var endpoint = `${productionOrderServiceUri}`;
-        return super.list(endpoint, info);
-    }
-
     searchProducts(info) {
         var endpoint = `${productServiceUri}`;
         return super.list(endpoint, info);
@@ -60,19 +50,42 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    getBuyerById(id) {
-        var endpoint = `${buyerServiceUri}/${id}`;
-        return super.get(endpoint);
-    }
-
-    getProductionOrderById(id) {
-        var endpoint = `${productionOrderServiceUri}/${id}`;
-        return super.get(endpoint);
-    }
-
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    searchPackingReceipts(info) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("production");
+        var _serviceUri = `inventory/packing-receipts`;
+
+        return _endpoint.find(_serviceUri, info)
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    getBuyerById(id, select) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/buyers/${id}`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    getProductionOrderById(id, select) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("production");
+        var _serviceUri = `sales/production-orders/${id}`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
     }
 
 }
