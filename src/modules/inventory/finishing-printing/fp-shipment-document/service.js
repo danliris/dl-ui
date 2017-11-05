@@ -66,6 +66,17 @@ export class Service extends RestService {
             });
     }
 
+    searchInventorySummaries(info) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("inventory");
+        var _serviceUri = `inventory/inventory-summary`;
+
+        return _endpoint.find(_serviceUri, info)
+            .then(result => {
+                return result.data;
+            });
+    }
+
     searchProducts(info) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");

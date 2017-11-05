@@ -34,23 +34,26 @@ export class NewShipmentItem {
 
             //find products and inventory
             if (this.data.packingReceiptItems.length > 0) {
-                this.productNames = this.data.packingReceiptItems.map((packingReceiptItem) => {
-                    return packingReceiptItem.product;
-                })
 
-                var filter = {
+                var productNames = this.data.packingReceiptItems.map((packingReceiptItem) => packingReceiptItem.product)
+                var productFilter = {
                     "name": {
                         "$in": productNames
                     }
                 }
+                var productInfo = { filter: JSON.stringify(productFilter) };
+                var products = await this.service.searchProducts(productInfo);
+                this.packingReceiptOptions.products = products;
 
-                var info = { filter: JSON.stringify(filter) };
-                var products = await this.findProducts(info);
-                this.packingReceiptOptions.products = this.products;
-
-                var productIds = products.length > 0 ? products.map((product) => product._id) : null;
-
-                // var inventories = await this.
+                var productIds = products.length > 0 ? products.map((product) => product._id) : [];
+                var inventorySummariesFilter = {
+                    "productId": {
+                        "$in": productIds
+                    }
+                }
+                var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter) };
+                var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
+                this.packingReceiptOptions.inventorySummaries = inventorySummaries;
             }
         }
     }

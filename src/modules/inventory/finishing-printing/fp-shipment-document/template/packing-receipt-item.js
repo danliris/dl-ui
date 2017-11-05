@@ -17,7 +17,7 @@ export class ShipmentItem {
         this.options = context.options;
         this.context = context.context;
 
-        console.log(this.data);
+        console.log(context);
 
         if (!this.data && !this.data.weight) {
             this.data.weight = 0;
