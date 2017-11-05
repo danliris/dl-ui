@@ -2,11 +2,11 @@
     <tr>
         <td>
             <au-textbox
-                value.bind="selectedPackingReceipt"
+                value.bind="data.packingReceiptCode"
                 error.bind="error.packingReceiptId"
-                read-only.bind="readOnly"
-                text="code"
-                options.bind="controlOptions">
+                read-only.bind="true"
+                options.bind="controlOptions"
+                change.delegate="packingReceiptCodeChanged($event)">
             </au-textbox>
 
             <au-collection 
@@ -14,9 +14,9 @@
                 items.bind="data.packingReceiptItems"
                 errors.one-way="error.packingReceiptItems"
                 read-only.bind="readOnly"
-                options.bind="packingReceiptItemsOptions"
-                item-template.bind="itemTemplate"
-                remove.bind="removePakingReceiptItems">
+                remove.bind="removeItems"
+                options.bind="packingReceiptOptions"
+                item-template="modules/inventory/finishing-printing/fp-shipment-document/template/packing-receipt-item">
             </au-collection>
         </td>
         <td if.bind="!options.readOnly">

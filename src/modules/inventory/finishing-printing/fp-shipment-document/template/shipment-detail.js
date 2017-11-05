@@ -17,6 +17,7 @@ export class ShipmentDetail {
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
+        this.newShipmentItemsOptions = {};
         this.selectedProductionOrder = this.data.selectedProductionOrder;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerID = this.context.options.selectedBuyerID;
@@ -39,85 +40,44 @@ export class ShipmentDetail {
     productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
 
     itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
+    newItemColumns = ["Daftar Packing Receipt"];
 
     @bindable selectedProductionOrder;
     async selectedProductionOrderChanged(newVal, oldVal) {
-        // if (this.selectedProductionOrder && this.selectedProductionOrder._id) {
-        //     this.data.selectedProductionOrder = this.selectedProductionOrder;
-        //     this.data.productionOrderId = this.selectedProductionOrder._id;
-        //     this.data.productionOrderNo = this.selectedProductionOrder.orderNo;
-        //     this.data.productionOrderType = this.selectedProductionOrder.orderType.name;
-        //     this.data.designCode = this.selectedProductionOrder.designCode;
-        //     this.data.designNumber = this.selectedProductionOrder.designNumber;
-        //     this.data.colorType = this.selectedProductionOrder.details[0].colorType;
+        if (this.selectedProductionOrder && this.selectedProductionOrder._id) {
+            this.data.selectedProductionOrder = this.selectedProductionOrder;
+            this.data.productionOrderId = this.selectedProductionOrder._id;
+            this.data.productionOrderNo = this.selectedProductionOrder.orderNo;
+            this.data.productionOrderType = this.selectedProductionOrder.orderType.name;
+            this.data.designCode = this.selectedProductionOrder.designCode;
+            this.data.designNumber = this.selectedProductionOrder.designNumber;
+            this.data.colorType = this.selectedProductionOrder.details[0].colorType;
 
-        //     //get products by buyer and production order number where stock balance is greater than 0
-        //     // if (!this.data.items && this.selectedBuyerName && this.selectedProductionOrder) {
-        //     if (this.selectedBuyerName && this.selectedProductionOrder) {
-        //         var filter = {
-        //             "properties.buyerName": this.selectedBuyerName,
-        //             "properties.productionOrderNo": this.selectedProductionOrder.orderNo
-        //         }
+            //get packing receipts by buyer and production order number where stock balance is greater than 0
+            if (this.selectedBuyerName && this.selectedProductionOrder) {
+                var filter = {
+                    "buyer": this.selectedBuyerName,
+                    "productionOrderNo": this.selectedProductionOrder.orderNo
+                }
 
-        //         var info = { filter: JSON.stringify(filter) };
-        //         this.productResults = await this.service.searchProducts(info);
-        //         this.products = this.productResults && this.productResults.data.length > 0 ? this.productResults.data.map((product) => {
-        //             return product;
-        //         }) : [];
-        //         this.productCodes = this.products.length > 0 ? this.products.map((product) => {
-        //             return product.code;
-        //         }) : [];
-        //         if (this.productCodes.length > 0) {
-        //             var filterInventory = {
-        //                 "productCode": {
-        //                     "$in": this.productCodes
-        //                 },
-        //                 "quantity": {
-        //                     "$gt": 0
-        //                 },
-        //                 "storageCode": this.selectedStorageCode
-        //             }
-        //             var infoInventory = { filter: JSON.stringify(filterInventory) };
-        //             this.inventoryResults = await this.service.searchInventory(infoInventory);
-        //             this.inventoryDatas = this.inventoryResults && this.inventoryResults.data.length > 0 ? this.inventoryResults.data.map((result) => {
-        //                 return result;
-        //             }) : [];
+                var info = { filter: JSON.stringify(filter) };
+                this.packingReceipts = await this.service.searchPackingReceipts(info);
 
-        //             this.shipmentProducts = [];
-        //             if (this.inventoryDatas.length > 0 && this.products.length > 0) {
-        //                 for (var inventoryData of this.inventoryDatas) {
-        //                     var productResult = this.products.find((product) => inventoryData.productId.toString() === product._id.toString());
-        //                     var productObj = {
-        //                         productId: productResult._id ? productResult._id : null,
-        //                         productCode: productResult.code ? productResult.code : "",
-        //                         productName: productResult.name ? productResult.name : "",
-        //                         designCode: productResult.properties && productResult.properties.designCode ? productResult.properties.designCode : "",
-        //                         designNumber: productResult.properties && productResult.properties.designNumber ? productResult.properties.designNumber : "",
-        //                         colorType: productResult.properties && productResult.properties.colorName ? productResult.properties.colorName : "",
-        //                         uomId: productResult.uom && productResult.uom._id ? productResult.uom._id : null,
-        //                         uomUnit: productResult.uom && productResult.uom.unit ? productResult.uom.unit : "",
-        //                         quantity: inventoryData.quantity ? inventoryData.quantity : 0,
-        //                         length: productResult.properties && productResult.properties.length ? productResult.properties.length : "",
-        //                         weight: productResult.properties && productResult.properties.weight ? productResult.properties.weight : ""
-        //                     };
-        //                     this.shipmentProducts.push(productObj);
-        //                     productObj = {};
-        //                 }
-
-        //             }
-        //             this.data.items = this.shipmentProducts
-        //         }
-        //     }
-        // } else {
-        //     this.data.selectedProductionOrder = {};
-        //     this.data.productionOrderId = {};
-        //     this.data.productionOrderNo = "";
-        //     this.data.productionOrderType = "";
-        //     this.data.designCode = "";
-        //     this.data.designNumber = "";
-        //     this.data.colorType = "";
-        //     this.data.items = [];
-        // }
+                if (this.packingReceipts.length > 0) {
+                    this.data.items = this.packingReceipts
+                }
+            }
+        } else {
+            this.data.selectedProductionOrder = {};
+            this.data.productionOrderId = {};
+            this.data.productionOrderNo = "";
+            this.data.productionOrderType = "";
+            this.data.designCode = "";
+            this.data.designNumber = "";
+            this.data.colorType = "";
+            this.data.items = [];
+            this.newShipmentItemsOptions.packingReceipts = "";
+        }
     }
 
     get productionOrderLoader() {

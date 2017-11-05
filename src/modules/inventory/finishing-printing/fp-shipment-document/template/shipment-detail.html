@@ -9,9 +9,10 @@
 
             <au-collection
                 if.bind="data.productionOrderId && isNewStructure"
-                columns.bind="itemColumns"
+                columns.bind="newItemColumns"
                 items.bind="data.items"
                 errors.one-way="error.items"
+                options.bind="newShipmentItemsOptions"
                 read-only.bind="readOnly"
                 options.bind="itemOptions"
                 item-template="modules/inventory/finishing-printing/fp-shipment-document/template/new-shipment-item"

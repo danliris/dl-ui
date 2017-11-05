@@ -49,7 +49,6 @@ export class DataForm {
         if (this.data._id && this.data.buyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.buyerId);
         }
-        console.log(this.context);
     }
 
     detailOptions = {};
