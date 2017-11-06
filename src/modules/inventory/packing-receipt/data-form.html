@@ -28,17 +28,12 @@
             <au-textbox label="Konstruksi" value.bind="data.packing.construction" read-only.bind="true"></au-textbox>
             <au-textbox label="Lebar Finish" value.bind="data.packing.materialWidthFinish" read-only.bind="true"></au-textbox>
             <au-textbox label="Satuan" value.bind="data.packing.packingUom" read-only.bind="true"></au-textbox>
-            <!--<au-textbox label="Sumber Penyimpanan " value.one-way="originStorage" read-only.bind="true"></au-textbox>-->
-            <!--<au-textbox label="Tujuan Penyimpanan" value.one-way="destinationStorage" read-only.bind="true"></au-textbox>-->
 
         </fieldset>
 
         <au-collection items.bind="data.items" columns.bind="itemsColumns" read-only.bind="packingReadOnly" item-template="modules/inventory/packing-receipt/template/packing-item"
             errors.bind="error.items">
         </au-collection>
-
-        <!--<au-table view-model.ref="table" data.bind="loadData" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context"
-            context-click.delegate="contextClickCallback($event)" context-show.call="contextShowCallback(index, context, data)">-->
 
     </au-input-form>
 </template>

@@ -17,9 +17,6 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.selectedStorage = this.data.storage;
-        if (!this.data.isVoid) {
-            this.isVoid = true
-        }
 
         for (var detail of this.data.details) {
             for (var item of detail.items) {
@@ -27,6 +24,10 @@ export class View {
                 var identityFields = properties.find((property) => property.toString().toLowerCase() === "productname");
                 this.isNewStructure = identityFields ? false : true;
             }
+        }
+
+        if (!this.data.isVoid && this.isNewStructure) {
+            this.isVoid = true
         }
     }
 

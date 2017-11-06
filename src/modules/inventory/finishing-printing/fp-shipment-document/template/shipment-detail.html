@@ -8,7 +8,7 @@
             </au-autocomplete>
 
             <au-collection
-                if.bind="data.productionOrderId && isNewStructure"
+                if.bind="data.productionOrderId && isNewStructure && data.items"
                 columns.bind="newItemColumns"
                 items.bind="data.items"
                 errors.one-way="error.items"

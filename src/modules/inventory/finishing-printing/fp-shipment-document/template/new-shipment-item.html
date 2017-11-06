@@ -5,8 +5,7 @@
                 value.bind="data.packingReceiptCode"
                 error.bind="error.packingReceiptId"
                 read-only.bind="true"
-                options.bind="controlOptions"
-                change.delegate="packingReceiptCodeChanged($event)">
+                options.bind="controlOptions">
             </au-textbox>
 
             <au-collection 
@@ -15,7 +14,6 @@
                 errors.one-way="error.packingReceiptItems"
                 read-only.bind="readOnly"
                 remove.bind="removeItems"
-                options.bind="packingReceiptOptions"
                 item-template="modules/inventory/finishing-printing/fp-shipment-document/template/packing-receipt-item">
             </au-collection>
         </td>
