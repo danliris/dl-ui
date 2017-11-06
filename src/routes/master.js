@@ -389,6 +389,19 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'spinning-production-lot',
+        name: 'spinning-production-lot',
+        moduleId: './modules/master/spinning-production-lot/index',
+        nav: true,
+        title: 'Nomor Lot Produksi',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ] 
