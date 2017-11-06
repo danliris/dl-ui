@@ -22,11 +22,13 @@
             <tr>
                 <td rowspan="3">No</td>
                 <td rowspan="3">No. Order</td>
+                <td rowspan="3">No Kereta</td>
+                <td rowspan="3">Reproses</td>
                 <td rowspan="3">Mesin</td>
+                <td rowspan="3">Step Proses</td>
                 <td rowspan="3">Material</td>
                 <td rowspan="3">Warna</td>
                 <td rowspan="3">Lebar Kain (Inch)</td>
-                <td rowspan="3">No Kereta</td>
                 <td rowspan="3">Jenis Proses</td>
                 <td colspan="3">Panjang In (m)</td>
                 <td colspan="4">Panjang Out (m)</td>
@@ -52,11 +54,13 @@
             <tr repeat.for="item of data">
                 <td class="text-center">${$index + 1}</td>
                 <td class="text-right">${item.kanban.productionOrder.orderNo}</td>
+                <td class="text-right">${item.kanban.cart.cartNumber}</td>
+                <td class="text-right">${item.kanban.isReprocess}</td>
                 <td class="text-right">${item.machine.name}</td>
+                <td class="text-right">${item.step.process}</td>
                 <td style="text-right">${item.kanban.productionOrder.material.name}</td>
                 <td class="text-right">${item.kanban.selectedProductionOrderDetail.colorRequest}</td>
                 <td class="text-right">${item.kanban.productionOrder.finishWidth}</td>
-                <td class="text-right">${item.kanban.cart.cartNumber}</td>
                 <td class="text-right">${item.kanban.productionOrder.processType.name}</td>
                 <td class="text-center" if.bind="item.dateInput">${item.dateInput | dateFormat:'D MMM YYYY'}</td>
                 <td class="text-center" if.bind="!item.dateInput">-</td>
