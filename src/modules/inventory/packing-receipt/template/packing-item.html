@@ -9,6 +9,10 @@
             </au-numeric>
         </td>
         <td class="col-sm-1">
+            <au-numeric value.bind="data.availableQuantity" error.bind="error.availableQuantity" read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
             <au-numeric value.bind="data.weight" error.bind="error.quantity" read-only.bind="true" change.delegate="quantityChanged($event)">
             </au-numeric>
         </td>

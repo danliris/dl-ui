@@ -15,6 +15,10 @@ export class Create {
         this.service = service;
     }
 
+    activate() {
+        this.isNewStructure = true;
+    }
+
     bind() {
         this.data = { items: [] };
         this.error = {};
