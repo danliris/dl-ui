@@ -36,6 +36,7 @@ export class View {
                     }
                 } else {
                     this.isVoid = false;
+                    break;
                 }
             }
         }
