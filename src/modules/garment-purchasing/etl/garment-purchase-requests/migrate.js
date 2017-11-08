@@ -57,6 +57,7 @@ export class Migrate {
                     alert("tidak ada data");
                 } else {
                     this.count += this.size;
+                    this.migratedFalse += result.MigratedFalse.length;
 
                     if (this.count < this.totalData) {
                         this.page++;
@@ -64,7 +65,7 @@ export class Migrate {
                     }
                     else
                     {
-                        alert(this.totalData + " data RO migration, migration berhasil: " + (this.totalData - result.MigratedFalse.length) + " , migration gagal: " + result.MigratedFalse.length);
+                        alert(this.totalData + " data RO migration, migration berhasil: " + (this.totalData - this.migratedFalse) + " , migration gagal: " + this.migratedFalse);
                         
                         // alert(resultData + " data RO migration, migration berhasil: " + (this.totalData - migratedFalse) + " , migration gagal: " + migratedFalse);
                         this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
