@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './../service';
+var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 
 @inject(Service, BindingEngine, BindingSignaler)
 export class ShipmentDetail {
@@ -20,6 +21,7 @@ export class ShipmentDetail {
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerID = this.context.options.selectedBuyerID;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
+        this.isNewStructure = this.context.options.isNewStructure;
 
         this.SPPQuery = { "$where": "this.buyerId'" == this.selectedBuyerID + "'" };
 
@@ -37,6 +39,7 @@ export class ShipmentDetail {
     productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
 
     itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
+    newItemColumns = ["Daftar Packing Receipt"];
 
     @bindable selectedProductionOrder;
     async selectedProductionOrderChanged(newVal, oldVal) {
@@ -49,61 +52,73 @@ export class ShipmentDetail {
             this.data.designNumber = this.selectedProductionOrder.designNumber;
             this.data.colorType = this.selectedProductionOrder.details[0].colorType;
 
-            //get products by buyer and production order number where stock balance is greater than 0
-            // if (!this.data.items && this.selectedBuyerName && this.selectedProductionOrder) {
+            //get packing receipts by buyer and production order number where stock balance is greater than 0
             if (this.selectedBuyerName && this.selectedProductionOrder) {
+
                 var filter = {
-                    "properties.buyerName": this.selectedBuyerName,
-                    "properties.productionOrderNo": this.selectedProductionOrder.orderNo
+                    "buyer": this.selectedBuyerName,
+                    "productionOrderNo": this.selectedProductionOrder.orderNo
                 }
-
                 var info = { filter: JSON.stringify(filter) };
-                this.productResults = await this.service.searchProducts(info);
-                this.products = this.productResults && this.productResults.data.length > 0 ? this.productResults.data.map((product) => {
-                    return product;
-                }) : [];
-                this.productCodes = this.products.length > 0 ? this.products.map((product) => {
-                    return product.code;
-                }) : [];
-                if (this.productCodes.length > 0) {
-                    var filterInventory = {
-                        "productCode": {
-                            "$in": this.productCodes
-                        },
-                        "quantity": {
-                            "$gt": 0
-                        },
-                        "storageCode": this.selectedStorageCode
-                    }
-                    var infoInventory = { filter: JSON.stringify(filterInventory) };
-                    this.inventoryResults = await this.service.searchInventory(infoInventory);
-                    this.inventoryDatas = this.inventoryResults && this.inventoryResults.data.length > 0 ? this.inventoryResults.data.map((result) => {
-                        return result;
-                    }) : [];
+                var packingReceipts = await this.service.searchPackingReceipts(info);
 
-                    this.shipmentProducts = [];
-                    if (this.inventoryDatas.length > 0 && this.products.length > 0) {
-                        for (var inventoryData of this.inventoryDatas) {
-                            var productResult = this.products.find((product) => inventoryData.productId.toString() === product._id.toString());
-                            var productObj = {
-                                productId: productResult._id ? productResult._id : null,
-                                productCode: productResult.code ? productResult.code : "",
-                                productName: productResult.name ? productResult.name : "",
-                                designCode: productResult.properties && productResult.properties.designCode ? productResult.properties.designCode : "",
-                                designNumber: productResult.properties && productResult.properties.designNumber ? productResult.properties.designNumber : "",
-                                colorType: productResult.properties && productResult.properties.colorName ? productResult.properties.colorName : "",
-                                uomId: productResult.uom && productResult.uom._id ? productResult.uom._id : null,
-                                uomUnit: productResult.uom && productResult.uom.unit ? productResult.uom.unit : "",
-                                quantity: inventoryData.quantity ? inventoryData.quantity : 0,
-                                length: productResult.properties && productResult.properties.length ? productResult.properties.length : "",
-                                weight: productResult.properties && productResult.properties.weight ? productResult.properties.weight : ""
-                            };
-                            this.shipmentProducts.push(productObj);
-                            productObj = {};
+                if (packingReceipts.length > 0) {
+
+                    var items = [];
+                    for (var packingReceipt of packingReceipts) {
+                        var _item = {};
+                        _item.packingReceiptId = packingReceipt._id;
+                        _item.packingReceiptCode = packingReceipt.code;
+                        _item.storageId = packingReceipt.storageId;
+                        _item.storageCode = packingReceipt.storage.code;
+                        _item.storageName = packingReceipt.storage.name;
+                        _item.referenceNo = packingReceipt.referenceNo;
+                        _item.referenceType = packingReceipt.referenceType;
+                        _item.packingReceiptItems = [];
+
+                        //find products
+                        var productNames = packingReceipt.items.map((packingReceiptItem) => packingReceiptItem.product)
+                        var productFilter = {
+                            "name": {
+                                "$in": productNames
+                            }
                         }
+                        var productInfo = { filter: JSON.stringify(productFilter) };
+                        var products = await this.service.searchProducts(productInfo);
 
+                        //find summaries
+                        var inventorySummariesFilter = {
+                            "productName": {
+                                "$in": productNames
+                            }
+                        }
+                        var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter) };
+                        var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
+
+                        for (var packingReceiptItem of packingReceipt.items) {
+                            var _packingReceiptItem = {};
+                            var product = products.find((product) => packingReceiptItem.product.toString().toLowerCase() === product.name.toString().toLowerCase());
+                            var summary = inventorySummaries.find((inventorySummary) => inventorySummary.productName.toString().toLowerCase() === product.name.toString().toLowerCase());
+
+                            if (product && summary && summary.quantity > 0) {
+                                _packingReceiptItem.productId = product._id;
+                                _packingReceiptItem.productCode = product.code;
+                                _packingReceiptItem.productName = product.name;
+                                _packingReceiptItem.designCode = product.properties.designCode;
+                                _packingReceiptItem.designNumber = product.properties.designNumber;
+                                _packingReceiptItem.colorType = packingReceipt.colorName;
+                                _packingReceiptItem.uomId = summary.uomId;
+                                _packingReceiptItem.uomUnit = summary.uom;
+                                _packingReceiptItem.quantity = summary.quantity;
+                                _packingReceiptItem.length = product.properties.length;
+                                _packingReceiptItem.weight = product.properties.weight;
+
+                                _item.packingReceiptItems.push(_packingReceiptItem);
+                            }
+                        }
+                        items.push(_item);
                     }
-                    this.data.items = this.shipmentProducts
+                    this.data.items = items;
                 }
             }
         } else {
@@ -119,13 +134,7 @@ export class ShipmentDetail {
     }
 
     get productionOrderLoader() {
-        return (keyword) => {
-            var info = { keyword: keyword, select: this.productionOrderFields };
-            return this.service.searchProductionOrder(info)
-                .then((result) => {
-                    return result.data;
-                });
-        }
+        return ProductionOrderLoader;
     }
 
     removeItems() {
