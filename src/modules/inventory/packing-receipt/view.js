@@ -22,13 +22,20 @@ export class View {
         this.data.packing = this.data;
 
         if (this.data.items.length > 0) {
+            var delivered;
             for (var item of this.data.items) {
                 var properties = Object.getOwnPropertyNames(item);
-                var delivered = properties.find((property) => property.toString().toLowerCase() === "product");
+                delivered = properties.find((property) => property.toString().toLowerCase() === "isdelivered");
+
                 if (delivered) {
-                    this.isVoid = false;
+                    if (item.isDelivered) {
+                        this.isVoid = false;
+                        break;
+                    } else {
+                        this.isVoid = true;
+                    }
                 } else {
-                    this.isVoid = true;
+                    this.isVoid = false;
                 }
             }
         }
