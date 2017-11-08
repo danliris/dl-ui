@@ -22,11 +22,22 @@ export class View {
         this.data.packing = this.data;
 
         if (this.data.items.length > 0) {
-            var delivered = this.data.items.find((item) => item.isDelivered.toString().toLowerCase() === "true");
-            if (delivered) {
-                this.isVoid = false;
-            } else {
-                this.isVoid = true;
+            var delivered;
+            for (var item of this.data.items) {
+                var properties = Object.getOwnPropertyNames(item);
+                delivered = properties.find((property) => property.toString().toLowerCase() === "isdelivered");
+
+                if (delivered) {
+                    if (item.isDelivered) {
+                        this.isVoid = false;
+                        break;
+                    } else {
+                        this.isVoid = true;
+                    }
+                } else {
+                    this.isVoid = false;
+                    break;
+                }
             }
         }
     }
