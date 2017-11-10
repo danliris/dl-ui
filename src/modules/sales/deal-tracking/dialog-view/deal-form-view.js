@@ -5,6 +5,7 @@ import {CoreService} from "../core-service";
 
 var CompanyLoader = require('../../../../loader/company-loader');
 var ContactLoader = require('../../../../loader/contact-loader');
+var ProductLoader = require('../../../../loader/product-loader');
 var DealTrackingReasonInfo = { select: ["reason"] };
 
 @inject(DialogController, Service, CoreService)
@@ -58,6 +59,7 @@ export class DealFormView {
 
     attached() {
         this.numeric.addEventListener("keydown", this.keydownCallback, false);
+        this.qtyNumeric.addEventListener("keydown", this.keydownCallback, false);
     }
 
     save() {
@@ -93,6 +95,10 @@ export class DealFormView {
 
     get contactLoader() {
         return ContactLoader;
+    }
+
+    get productLoader() {
+        return ProductLoader;
     }
 
     contactView = (contact) => {
