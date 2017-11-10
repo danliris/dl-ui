@@ -26,21 +26,24 @@
                 </au-autocomplete>
                 
                 <div class="form-group ${error.quantity ? 'has-error' : ''}">
-                    <label class="col-sm-3 text-right au-layout control-label">Kuantitas</label>
+                    <label class="col-sm-3 text-right au-layout control-label">Jumlah</label>
                     <div class="col-sm-9">
                         <input ref="qtyNumeric" type="text" value.bind="data.quantity | numberFormat: '0,000'" class="form-control text-right" onfocus="this.select()">
                         <span class="help-block" if.bind="error.quantity">${error.quantity}</span>
                     </div>
                 </div>
+
+                <au-textbox value.bind="data.product.uom.unit" label="Satuan" read-only="true" if.bind="data.product"></au-textbox>
                 
                 <div class="form-group ${error.amount ? 'has-error' : ''}">
-                    <label class="col-sm-3 text-right au-layout control-label">Jumlah Harga</label>
+                    <label class="col-sm-3 text-right au-layout control-label">Total Harga</label>
                     <div class="col-sm-9">
                         <input ref="numeric" type="text" value.bind="data.amount | numberFormat: '0,000'" class="form-control text-right" onfocus="this.select()">
                         <span class="help-block" if.bind="error.amount">${error.amount}</span>
                     </div>
                 </div>
 
+                
                 <au-textbox value.bind="data.currency" label="Mata Uang" read-only="true"></au-textbox>
                 
                 <au-autocomplete 
