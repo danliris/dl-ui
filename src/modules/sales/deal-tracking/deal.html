@@ -7,9 +7,12 @@
             <div class="row">
                 <div class="col-sm-4">
                     <au-textbox value.bind="deal.name" read-only="true" label="Judul Deal"></au-textbox>
-                    <au-textbox value.bind="deal.amount | numberFormat: '0,000'" read-only="true" label="Jumlah"></au-textbox>
-                    <au-textbox value.one-time="board.currency.code" read-only="true" label="Mata Uang"></au-textbox>
                     <au-textbox value.one-time="stageName" read-only="true" label="Stage"></au-textbox>
+                    <au-textbox value.bind="deal.product.name" read-only="true" label="Barang"></au-textbox>
+                    <au-textbox value.bind="deal.quantity | numberFormat: '0,000'" read-only="true" label="Kuantitas"></au-textbox>  
+                    <au-textbox value.bind="deal.product.uom.unit" read-only="true" label="Satuan"></au-textbox>                  
+                    <au-textbox value.bind="deal.amount | numberFormat: '0,000'" read-only="true" label="Jumlah Harga"></au-textbox>
+                    <au-textbox value.one-time="board.currency.code" read-only="true" label="Mata Uang"></au-textbox>
                     <au-textbox value.bind="deal.company.name" read-only="true" label="Perusahaan"></au-textbox>
                     <au-textbox value.bind="deal.fullName" read-only="true" label="Kontak"></au-textbox>
                     <au-datepicker value.bind="deal.closeDate" read-only="true" label="Tanggal Tutup"></au-datepicker>  

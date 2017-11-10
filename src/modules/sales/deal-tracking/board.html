@@ -30,16 +30,15 @@
 
                         <ol class="kanban drag-source drop-target" data-code.bind="stage.code">
                             <li class="kanbanDd-item" repeat.for="i of stage.map" data-index.bind="$index" data-id.bind="i._id" click.delegate="detail(i._id, stage.name)">
-                                <h4 class="kanbanTitle">
+                                <div class="kanbanTitle">
                                     ${i.name}<br>
-                                </h4>
-                                <div class="kanbanText">
-                                    ${board.currency.symbol} ${i.amount | numberFormat: '0,000'}<br>
-                                    PIC: ${i.contact.firstName} ${i.contact.lastName}<br><br>
-                                    Tanggal Tutup:<br>
-                                    ${i.closeDate}
                                 </div>
-                                <div class="kanbanActions"></div>
+                                <div class="kanbanText">
+                                    ${i.product.name} - ${i.quantity} - ${i.product.uom.unit}<br>
+                                    ${board.currency.symbol} ${i.amount | numberFormat: '0,000'}<br>
+                                    PIC: ${i.contact.firstName} ${i.contact.lastName}<br>
+                                    Tanggal Tutup: ${i.closeDate}
+                                </div>
                             </li>
                         </ol>
                         <div class="total">
