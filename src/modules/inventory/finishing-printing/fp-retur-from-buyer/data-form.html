@@ -63,6 +63,17 @@
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-textbox>
+            <au-autocomplete 
+                value.bind="selectedStorage" 
+                error.bind="error.storage"
+                label="Gudang" 
+                loader.one-time="storageLoader"
+                text.bind = "storageView"
+                placeholder="Cari penyimpanan" 
+                key="_id" 
+                read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
         </fieldset>
         
         <au-layout error.bind="error.dataDetails" if.bind="error.dataDetails"></au-layout>

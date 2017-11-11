@@ -20,6 +20,7 @@ export class View {
         this.packing = this.data;
         this.packing.code = this.data.packingCode;
         this.data.packing = this.data;
+        console.log(this.data)
 
         if (this.data.items.length > 0) {
             var delivered;
@@ -28,7 +29,7 @@ export class View {
                 delivered = properties.find((property) => property.toString().toLowerCase() === "isdelivered");
 
                 if (delivered) {
-                    if (item.isDelivered) {
+                    if (item.isDelivered || this.data.isVoid) {
                         this.isVoid = false;
                         break;
                     } else {
@@ -43,6 +44,7 @@ export class View {
     }
 
     update() {
+        delete this.data.packing;
         this.data.isVoid = true;
         this.service.update(this.data)
             .then((result) => {

@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './service';
 var BuyerLoader = require('../../../../loader/buyers-loader');
+var StorageLoader = require('../../../../loader/storage-loader');
 
 @inject(Service, BindingEngine, BindingSignaler)
 export class DataForm {
@@ -10,6 +11,7 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable buyer;
+    @bindable selectedStorage;
     destinationItems = ["", "Pack I", "Pack II"];
 
     controlOptions = {
@@ -59,6 +61,26 @@ export class DataForm {
             // this.data.details = this.context.data.details;
             console.log(this.context.data);
         }
+        if (this.data && this.data._id && this.data.storageId) {
+            this.selectedStorage = await this.service.getStorageById(this.data.storageId);
+        }
+    }
+
+    selectedStorageChanged(newValue) {
+        if (newValue) {
+            this.data.storageId = newValue._id;
+        }
+        else {
+            this.data.storageId = null;
+        }
+    }
+
+    storageView = (storage) => {
+        return `${storage.code} - ${storage.name}`
+    }
+
+    get storageLoader() {
+        return StorageLoader;
     }
 
     get buyerLoader(){
