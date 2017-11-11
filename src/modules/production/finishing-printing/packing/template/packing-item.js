@@ -24,7 +24,7 @@ export class PackingItem {
     }
 
     // grades = ["", "A", "B", "C", "AA", "BB", "CC", "BS", "AVAL"];
-    grades = ["", "A", "B", "C"];
+    grades = ["", "A", "B", "C", "BS", "AVAL"];
 
     controlOptions = {
         control: {

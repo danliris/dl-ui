@@ -50,39 +50,45 @@
         <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="poReport">
                 <thead align="center">
-                    <tr>
+                     <tr>
                         <td >Tgl SPB</td>
                         <td >No SPB</td>
-                        <td >Nama Barang</td>
-                        <td >Jumlah</td>
-                        <td >Harga Sat</td>
-                        <td >Total Harga</td>
-                        <td >Tgl Invoice</td>
-                        <td >No Invoice</td>
-                        <td >Jatuh Tempo</td>
+                        <td >Nama Brg</td>
+                        <td >Jml</td>
+                        <td >Hrg Sat</td>
+                        <td >Tot Hrg</td>
+                        <td >Tgl PR</td>
+                        <td >No PR</td>
+                        <td >Tgl BON</td>
+                        <td >No BON</td>
+                        <td >Tgl INV</td>
+                        <td >No INV</td>
+                        <td >JT</td>
                         <td >Supplier</td>
                         <td >Unit</td>
-                        <td >Divisi</td>
-                            <td >No PR</td>
+                        <td >Div</td>
                        
                     </tr>
                   
                 </thead>
                 <tbody>
-                    <tr repeat.for="PO of data">
+                  <tr repeat.for="PO of data">
                         <td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.no}</td>
                         <td>${PO.items.unitReceiptNote.items.product.name}</td>
                         <td>${PO.items.unitReceiptNote.items.deliveredQuantity}</td>
                         <td>${PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
                         <td>${PO.items.unitReceiptNote.items.deliveredQuantity*PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
+                        <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.date  | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no}</td>
+                        <td>${PO.items.unitReceiptNote.date | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.items.unitReceiptNote.no}</td>
                         <td>${PO.invoceDate | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.invoceNo}</td>
                         <td>${PO.dueDate | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.supplier.name}</td>
                         <td>${PO.namaUnit}</td>
                         <td>${PO.division.name}</td>
-                         <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no}</td>
                     </tr>
                 </tbody>
             </table>

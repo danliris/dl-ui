@@ -23,6 +23,7 @@ export class Deal {
         this.dialog = dialog;
 
         this.attachments = [];
+        this.notes = "";
 
         this.filter = {
             notes: true,
