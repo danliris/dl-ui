@@ -36,7 +36,7 @@ export class DataForm {
             { header: "Tanggal Mulai", value: "startDate" },
             { header: "Tanggal Selesai", value: "endDate" },
             { header: "Bulan", value: "monthName" },
-            { header: "Effisiensi", value: "efficiency" },
+            { header: "Effisiensi %", value: "efficiency" },
             { header: "Total Operator", value: "operator" }
         ] ;
         if (this.data && this.data._id && this.data.unitId) {
