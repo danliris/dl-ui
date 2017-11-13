@@ -24,6 +24,19 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/garment-master-plan/style',
+        name: 'style',
+        moduleId: './modules/garment-master-plan/style/index',
+        nav: true,
+        title: 'Master Style',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]
