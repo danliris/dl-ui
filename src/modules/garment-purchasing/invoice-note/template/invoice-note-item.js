@@ -27,7 +27,7 @@ export class DeliveryOrderItem {
     if (this.data.items) {
       if (this.data.items.length > 0) {
         var qty = this.data.items
-          .map((item) => parseInt(item.pricePerDealUnit * item.deliveredQuantity));
+          .map((item) => Number.isInteger(item.pricePerDealUnit * item.deliveredQuantity)?item.pricePerDealUnit * item.deliveredQuantity : Number((item.pricePerDealUnit * item.deliveredQuantity).toFixed(2)))
         return qty
           .reduce((prev, curr, index) => { return prev + curr }, 0);
       } else {
