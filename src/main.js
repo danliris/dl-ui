@@ -43,6 +43,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('purchasing', purchasing, defaultConfig);
       config.registerEndpoint('garment-purchasing', garmentPurchasing, defaultConfig);
       config.registerEndpoint('inventory', inventory, defaultConfig);
+      config.registerEndpoint('garment-master-plan', garmentMasterPlan, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
