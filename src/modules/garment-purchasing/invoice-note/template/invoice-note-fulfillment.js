@@ -1,4 +1,4 @@
-import {bindable} from 'aurelia-framework'
+import { bindable } from 'aurelia-framework'
 
 export class DeliveryOrderItem {
   activate(context) {
@@ -9,11 +9,11 @@ export class DeliveryOrderItem {
   }
 
   get product() {
-		return `${this.data.product.code} - ${this.data.product.name}`;
+    return `${this.data.product.code} - ${this.data.product.name}`;
   }
-  
-get totalPrice(){
-    return this.data.pricePerDealUnit * this.data.deliveredQuantity
+
+  get totalPrice() {
+    return Number.isInteger(this.data.pricePerDealUnit * this.data.deliveredQuantity) ? this.data.pricePerDealUnit * this.data.deliveredQuantity : Number((this.data.pricePerDealUnit * this.data.deliveredQuantity).toFixed(2))
   }
   controlOptions = {
     control: {
