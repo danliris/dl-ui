@@ -7,6 +7,7 @@ const serviceUri = 'inventory/packing-receipts';
 const packingUnacceptedServiceUri = 'finishing-printing/quality-control/packings-unaccepted';
 const packingServiceUri = 'finishing-printing/quality-control/packings';
 const productionOrderServiceUri = 'sales/production-orders';
+const packingReceiptUnvoidServiceUri = 'inventory/packing-receipts-unvoid';
 
 export class Service extends RestService {
 
@@ -66,5 +67,10 @@ export class Service extends RestService {
     getPackingUnacceptedById(id) {
         var endpoint = `${packingUnacceptedServiceUri}/${id}`;
         return super.get(endpoint);
+    }
+
+    searchUnvoid(info) {
+        var endpoint = `${packingReceiptUnvoidServiceUri}`;
+        return super.list(endpoint, info);
     }
 }
