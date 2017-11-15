@@ -59,7 +59,6 @@ export class ShipmentDetail {
             if (this.selectedBuyerName && this.selectedProductionOrder) {
 
                 var filter = {
-                    "buyer": this.selectedBuyerName,
                     "productionOrderNo": this.selectedProductionOrder.orderNo
                 }
 
