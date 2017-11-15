@@ -5,7 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'weekly-plans';
+const serviceUri = 'standard-hours';
 
 export class Service extends RestService {
 
@@ -28,25 +28,8 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
-    update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
-        return super.put(endpoint, data);
-    }
-
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
     }
-
-    // getUnitById(id) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("core");
-    //     var _serviceUri = `master/unit/${id}`;
-
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-        
-    // }
 }
