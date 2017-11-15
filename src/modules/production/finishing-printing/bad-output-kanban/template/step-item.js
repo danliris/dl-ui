@@ -34,7 +34,7 @@ export class StepItem {
     }
   };
 
-  areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing"];
+  areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Inspecting", "Area Finishing"];
 
   query = {};
 

@@ -61,8 +61,20 @@ export class List {
             })
     }
 
-    ExportToExcel() {
-        this.setFilter();
+    // ExportToExcel() {
+    //     this.setFilter();
+    //     this.service.generateExcel(this.info);
+    // }
+
+     ExportToExcel() {
+        this.info.salesContractNo = this.salesContractNo ? this.salesContractNo : "" ;
+         this.info.orderTypeId = this.orderType ? this.orderType._id : "";
+         this.info.processTypeId = this.processType ? this.processType._id : "";
+         this.info.buyerId = this.buyer ? this.buyer._id : "";
+         this.info.accountId = this.account ? this.account._id : "";
+         this.info.orderNo= this.orderNo ? this.orderNo : "";        
+        this.info.sdate = this.dateFrom;
+        this.info.edate = this.dateTo;
         this.service.generateExcel(this.info);
     }
 
