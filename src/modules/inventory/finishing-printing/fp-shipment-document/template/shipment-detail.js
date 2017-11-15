@@ -59,7 +59,8 @@ export class ShipmentDetail {
             if (this.selectedBuyerName && this.selectedProductionOrder) {
 
                 var filter = {
-                    "productionOrderNo": this.selectedProductionOrder.orderNo
+                    "productionOrderNo": this.selectedProductionOrder.orderNo,
+                    "isVoid": false
                 }
 
                 var info = { filter: JSON.stringify(filter), select: this.packingReceiptFields };
