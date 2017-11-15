@@ -39,7 +39,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["reason", "machines"]
+            select: ["reason", "machines.name"]
         }
 
         return this.service.search(arg)

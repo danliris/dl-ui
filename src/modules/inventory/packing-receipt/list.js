@@ -33,7 +33,7 @@ export class List {
             order: order
         }
 
-        return this.service.search(arg)
+        return this.service.searchUnvoid(arg)
             .then(result => {
                 return {
                     total: result.info.total,
