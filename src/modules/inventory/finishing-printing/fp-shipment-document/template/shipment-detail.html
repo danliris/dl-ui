@@ -7,6 +7,8 @@
                 placeholder="Cari Production Order" read-only.bind="readOnly" key="orderNo" text="orderNo" options.bind="controlOptions">
             </au-autocomplete>
 
+            <au-textbox error.bind="error.item" read-only.bind="true"></au-textbox>
+
             <au-collection
                 if.bind="data.productionOrderId && isNewStructure && data.items"
                 columns.bind="newItemColumns"

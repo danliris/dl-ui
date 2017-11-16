@@ -9,7 +9,9 @@ export class List {
     context = ["detail"]
 
     columns = [
+        { field: "code", title: "Kode Penerimaan Packing" },
         { field: "packingCode", title: "Kode Packing" },
+        { field: "storage.name", title: "Nama Gudang" },
         {
             field: "date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");

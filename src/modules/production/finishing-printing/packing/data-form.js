@@ -75,14 +75,11 @@ export class DataForm {
             this.data.orderType = this.selectedProductionOrder.orderType.name;
             this.data.designNumber = (this.data.orderType || "").toString().toLowerCase() === "printing" ? this.selectedProductionOrder.designNumber : null;
             this.data.designCode = (this.data.orderType || "").toString().toLowerCase() === "printing" ? this.selectedProductionOrder.designCode : null;
-            if (!this.data.buyerId && this.selectedProductionOrder && this.selectedProductionOrder.buyer && this.selectedProductionOrder.buyer._id) {
-                if (!this.selectedBuyer) {
-                    this.selectedBuyer = await this.service.getBuyerById(this.selectedProductionOrder.buyer._id);
-                }
-            }
-            if (!this.data.materialWidthFinish) {
+            if (!this.context.hasEdit) {
+                this.selectedBuyer = await this.service.getBuyerById(this.selectedProductionOrder.buyer._id);
                 this.data.materialWidthFinish = this.selectedProductionOrder.finishWidth;
             }
+
         }
         else {
             this.data.productionOrderId = null;
