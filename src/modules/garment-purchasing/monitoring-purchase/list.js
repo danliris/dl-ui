@@ -111,6 +111,7 @@ export class List {
         { field: "supplierDoDate", title: "Tanggal Surat Jalan" },
         { field: "deliveryOrderDate", title: "Tanggal Datang Barang" },
         { field: "deliveryOrderDeliveredQuantity", title: "Jumlah Barang Datang" },
+        { field: "remainQuantity", title: "Jumlah Barang Sisa" },
         { field: "defaultUom", title: "Satuan" },
         { field: "customsNo", title: "No. Bea Cukai" },
         { field: "customsDate", title: "Tanggal Bea Cukai" },
