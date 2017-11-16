@@ -27,6 +27,15 @@ export class DataForm {
         }
     }
 
+    controlOptions2 = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 2
+        }
+    }
+
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -39,21 +48,45 @@ export class DataForm {
     get hourCutting(){
         var hours = 0;
         if(this.data && this.data.shCutting && this.data.shCutting > 0)
-            hours = this.data.shCutting / 60;
+            hours = (this.data.shCutting / 60).toFixed(2);
         return hours;
     }
 
     get hourSewing(){
         var hours = 0;
         if(this.data && this.data.shSewing && this.data.shSewing > 0)
-            hours = this.data.shSewing / 60;
+            hours = (this.data.shSewing / 60).toFixed(2);
         return hours;
     }
 
     get hourFinishing(){
         var hours = 0;
         if(this.data && this.data.shFinishing && this.data.shFinishing > 0)
-            hours = this.data.shFinishing / 60;
+            hours = (this.data.shFinishing / 60).toFixed(2);
+        return hours;
+    }
+
+    get getTotalSHMinute(){
+        var hours = 0;
+        if(this.data && this.data.shFinishing && this.data.shFinishing > 0)
+            hours += this.data.shFinishing;
+        if(this.data && this.data.shSewing && this.data.shSewing > 0)
+            hours += this.data.shSewing;
+        if(this.data && this.data.shCutting && this.data.shCutting > 0)
+            hours += this.data.shCutting;
+        return hours;
+    }
+
+    get getTotalSHHour(){
+        var hours = 0;
+        if(this.data && this.data.shFinishing && this.data.shFinishing > 0)
+            hours += this.data.shFinishing;
+        if(this.data && this.data.shSewing && this.data.shSewing > 0)
+            hours += this.data.shSewing;
+        if(this.data && this.data.shCutting && this.data.shCutting > 0)
+            hours += this.data.shCutting;
+        if(hours > 0)
+            hours = (hours / 60).toFixed(2);
         return hours;
     }
 
