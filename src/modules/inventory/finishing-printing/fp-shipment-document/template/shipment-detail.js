@@ -59,8 +59,11 @@ export class ShipmentDetail {
             if (this.selectedBuyerName && this.selectedProductionOrder) {
 
                 var filter = {
-                    "productionOrderNo": this.selectedProductionOrder.orderNo,
-                    "isVoid": false
+                    "$and": [
+                        { "productionOrderNo": this.selectedProductionOrder.orderNo },
+                        { "isVoid": false },
+                        { "storage.code": this.selectedStorageCode }
+                    ]
                 }
 
                 var info = { filter: JSON.stringify(filter), select: this.packingReceiptFields };
@@ -94,9 +97,14 @@ export class ShipmentDetail {
 
                         //find summaries
                         var inventorySummariesFilter = {
-                            "productName": {
-                                "$in": productNames
-                            }
+                            "$and": [
+                                {
+                                    "productName": {
+                                        "$in": productNames
+                                    },
+                                },
+                                { "storageCode": this.selectedStorageCode }
+                            ]
                         }
                         var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter) };
                         var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
@@ -125,6 +133,8 @@ export class ShipmentDetail {
                         items.push(_item);
                     }
                     this.data.items = items;
+                } else {
+                    this.data.items = [];
                 }
             }
         } else {
