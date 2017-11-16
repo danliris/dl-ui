@@ -1,14 +1,27 @@
 module.exports = [
     {
-        route: 'power-bi/purchasing',
-        name: 'power-bi-purchasing',
-        moduleId: './modules/power-bi/purchasing/index',
+        route: 'power-bi/purchasing/textile',
+        name: 'power-bi-purchasing-textile',
+        moduleId: './modules/power-bi/purchasing-textile/index',
         nav: true,
-        title: 'Power BI: Purchasing Reports',
+        title: 'Power BI: Textile Purchasing Reports',
         auth: true,
         settings: {
             group: "reports",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "C9": 1, "PG": 7 },
+            permission : {"P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "C9": 1, "PG": 7},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'power-bi/purchasing/garment',
+        name: 'power-bi-purchasing-garment',
+        moduleId: './modules/power-bi/purchasing-garment/index',
+        nav: true,
+        title: 'Power BI: Garment Purchasing Reports',
+        auth: true,
+        settings: {
+            group: "reports",
+            //permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "C9": 1, "PG": 7 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -58,7 +71,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission: { "A2": 1, "C9": 1, "PGA": 1, "PA": 1, "PM": 1, "PE": 1 },
+            permission: { "A2": 1, "C9": 1, "PGA":1, "PA":1, "PM":1, "PE":1 },
             iconClass: 'fa fa-dashboard'
         }
     }]

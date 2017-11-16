@@ -1,7 +1,7 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
@@ -26,6 +26,24 @@ export class Create {
     }
 
     save() {
+        var listStatus = this.data.items.map((invoiceNote) => {
+            var invoiceNoteItems = invoiceNote.items.map((invoiceNoteItem) => {
+                var doItems = invoiceNoteItem.items.map((doItem) => {
+                    return doItem.hasUnitReceiptNote
+                })
+                return doItems;
+            })
+            invoiceNoteItems = [].concat.apply([], invoiceNoteItems);
+            return invoiceNoteItems;
+        })
+
+        listStatus = [].concat.apply([], listStatus);
+
+        this.data.hasUnitReceiptNote = listStatus.map((item) => item)
+            .reduce((prev, curr, index) => {
+                return prev && curr
+            }, true);
+
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

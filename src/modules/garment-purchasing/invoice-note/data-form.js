@@ -74,6 +74,8 @@ export class DataForm {
                                 purchaseOrderNo: doFulfillment.purchaseOrderNo,
                                 purchaseRequestId: doFulfillment.purchaseRequestId,
                                 purchaseRequestNo: doFulfillment.purchaseRequestNo,
+                                purchaseRequestRefNo:doFulfillment.purchaseRequestRefNo,
+                                roNo: doFulfillment.roNo,
                                 productId: doFulfillment.productId,
                                 product: doFulfillment.product,
                                 purchaseOrderQuantity: doFulfillment.purchaseOrderQuantity,

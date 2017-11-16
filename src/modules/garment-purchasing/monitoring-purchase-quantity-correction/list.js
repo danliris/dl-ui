@@ -47,6 +47,8 @@ export class List {
                         _data.deliveryorderNo = pr.deliveryorderNo;
                         _data.supplier = pr.supplier;
                         _data.noPR = pr.noPR;
+                        _data.noRefPR = pr.noRefPR;
+                        _data.noRO = pr.noRO;
                         _data.itemCode = pr.itemCode;
                         _data.supplier = pr.supplier;
                         _data.itemName = pr.itemName;

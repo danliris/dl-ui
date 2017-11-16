@@ -21,7 +21,7 @@ export class DataForm {
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['CASH', 'T/T AFTER', 'T/T BEFORE'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
-    qualityStandardTypeOptions = ['JIS', 'AATC','ISO']
+    qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
 
     label = "Periode Tgl. Shipment"
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -43,6 +43,8 @@ export class DataForm {
             "Satuan Diminta",
             "Jumlah Beli",
             "Satuan Beli",
+            "Jumlah Kecil",
+            "Satuan Kecil",
             "Konversi",
             "Harga Satuan",
             "Include Ppn?",
@@ -154,6 +156,7 @@ export class DataForm {
             else {
                 this.isFabric = false;
             }
+            this.data.items = [];
         }
     }
 
@@ -225,7 +228,7 @@ export class DataForm {
     }
 
     async search() {
-        var result = await this.service.searchByTags(this.keywords, this.context.shipmentDateFrom, this.context.shipmentDateTo);
+        var result = await this.service.searchByTags(this.keywords, this.data.category, this.context.shipmentDateFrom, this.context.shipmentDateTo);
 
         var items = result.data.map((data) => {
             return {
@@ -246,6 +249,8 @@ export class DataForm {
                 budgetPrice: Number(data.items.budgetPrice),
                 priceBeforeTax: Number(data.items.budgetPrice),
                 pricePerDealUnit: Number(data.items.budgetPrice),
+                uomConversion: data.items.category.uom || data.items.defaultUom,
+                quantityConversion: Number(data.items.defaultQuantity),
                 conversion: 1,
                 useIncomeTax: false,
                 remark: data.items.remark
@@ -253,6 +258,9 @@ export class DataForm {
         })
         items = [].concat.apply([], items);
         this.data.items = items;
+        if (this.error.items) {
+            this.error.items = [];
+        }
         this.isItem = true;
     }
 
