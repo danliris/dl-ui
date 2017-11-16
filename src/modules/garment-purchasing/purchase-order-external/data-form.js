@@ -85,6 +85,15 @@ export class DataForm {
         if (this.data.useIncomeTax) {
             this.options.isUseIncomeTax = true;
         }
+        if (this.data.paymentMethod === "CMT") {
+            this.options.checkOverBudget = false;
+        }
+        else if (this.data.paymentMethod === "FREE FROM BUYER") {
+            this.options.checkOverBudget = false;
+        }
+        else {
+            this.options.checkOverBudget = true;
+        }
     }
 
     @computedFrom("data._id")
@@ -165,6 +174,15 @@ export class DataForm {
         if (selectedPayment) {
             this.data.paymentMethod = selectedPayment;
         }
+        if (this.data.paymentMethod === "CMT") {
+            this.options.checkOverBudget = false;
+        }
+        else if (this.data.paymentMethod === "FREE FROM BUYER") {
+            this.options.checkOverBudget = false;
+        }
+        else {
+            this.options.checkOverBudget = true;
+        }
     }
 
     paymentTypeChanged(e) {
@@ -230,38 +248,77 @@ export class DataForm {
     async search() {
         var result = await this.service.searchByTags(this.keywords, this.data.category, this.context.shipmentDateFrom, this.context.shipmentDateTo);
 
-        var items = result.data.map((data) => {
-            return {
-                poNo: data.no,
-                poId: data._id,
-                prNo: data.purchaseRequest.no,
-                prId: data.purchaseRequest._id,
-                prRefNo: data.items.refNo,
-                roNo: data.roNo,
-                productId: data.items.productId,
-                product: data.items.product,
-                categoryId: data.items.category._id,
-                category: data.items.category,
-                defaultQuantity: Number(data.items.defaultQuantity),
-                defaultUom: data.items.defaultUom,
-                dealQuantity: Number(data.items.defaultQuantity),
-                dealUom: data.items.defaultUom,
-                budgetPrice: Number(data.items.budgetPrice),
-                priceBeforeTax: Number(data.items.budgetPrice),
-                pricePerDealUnit: Number(data.items.budgetPrice),
-                uomConversion: data.items.category.uom || data.items.defaultUom,
-                quantityConversion: Number(data.items.defaultQuantity),
-                conversion: 1,
-                useIncomeTax: false,
-                remark: data.items.remark
-            }
+        var items = [];
+        var getUsedBudget = [];
+        var getPRById = [];
+        var listPR = result.data.map((item) => {
+            return item.purchaseRequest._id.toString()
+        });
+        var listPrIds = listPR.filter(function (elem, index, self) {
+            return index == self.indexOf(elem);
         })
-        items = [].concat.apply([], items);
-        this.data.items = items;
+
+        listPrIds.map((id) => {
+            getPRById.push(this.service.getPRById(id, ["no", "items.refNo", "items.quantity", "items.budgetPrice", "items.product.code"]))
+        });
+
+        result.data.map((data) => {
+            getUsedBudget.push(this.service.getListUsedBudget(data.purchaseRequest.no, data.items.refNo, data.items.product.code))
+        })
+        Promise.all(getPRById)
+            .then((listPR) => {
+                Promise.all(getUsedBudget)
+                    .then((listUsedBudget) => {
+                        listUsedBudget = [].concat.apply([], listUsedBudget);
+                        result.data.map((data) => {
+                            var pr = listPR.find((pr) => pr.no.toString() == data.purchaseRequest.no.toString());
+                            var prItem = pr.items.find((item) => item.product.code.toString() === data.items.product.code.toString() && item.refNo === data.items.refNo)
+
+                            var budgetUsed = 0;
+                            if (listUsedBudget.length > 0) {
+                                var prevAmount = listUsedBudget.find((budget) => budget.prNo == data.purchaseRequest.no && budget.prRefNo == data.items.refNo && budget.product == data.items.product.code);
+                                if (prevAmount) {
+                                    budgetUsed = budgetUsed + prevAmount.totalAmount;
+                                }
+                            }
+
+                            items.push({
+                                poNo: data.no,
+                                poId: data._id,
+                                prNo: data.purchaseRequest.no,
+                                prId: data.purchaseRequest._id,
+                                prRefNo: data.items.refNo,
+                                roNo: data.roNo,
+                                productId: data.items.productId,
+                                product: data.items.product,
+                                categoryId: data.items.category._id,
+                                category: data.items.category,
+                                defaultQuantity: Number(data.items.defaultQuantity),
+                                defaultUom: data.items.defaultUom,
+                                dealQuantity: Number(data.items.defaultQuantity),
+                                dealUom: data.items.defaultUom,
+                                budgetPrice: Number(data.items.budgetPrice),
+                                priceBeforeTax: Number(data.items.budgetPrice),
+                                pricePerDealUnit: Number(data.items.budgetPrice),
+                                budgetUsed: budgetUsed,
+                                isOverBudget: false,
+                                totalBudget: prItem.quantity * prItem.budgetPrice,
+                                uomConversion: data.items.category.uom || data.items.defaultUom,
+                                quantityConversion: Number(data.items.defaultQuantity),
+                                conversion: 1,
+                                useIncomeTax: false,
+                                remark: data.items.remark
+                            });
+                        })
+                        items = [].concat.apply([], items);
+                        this.data.items = items;
+                        this.isItem = true;
+                    })
+            })
+
         if (this.error.items) {
             this.error.items = [];
         }
-        this.isItem = true;
     }
 
 } 
