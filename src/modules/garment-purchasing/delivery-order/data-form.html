@@ -12,7 +12,7 @@
             value.bind="data.no" 
             error.bind="error.no" 
             placeholder="tambahkan nomor surat jalan" 
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isCorrection"
             options.bind="controlOptions">
         </au-textbox>
 

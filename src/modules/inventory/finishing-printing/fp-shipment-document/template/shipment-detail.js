@@ -36,7 +36,10 @@ export class ShipmentDetail {
         }
     }
 
-    productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
+    // productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
+    packingReceiptFields = ["_id", "code", "storageId", "storage.code", "storage.name", "referenceNo", "referenceType", "items.product"];
+    productFields = ["_id", "code", "name", "properties.designCode", "properties.designNumber", "properties.length", "properties.weight"];
+    summaryFields = ["_id", "uomId", "uom", "quantity"];
 
     itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
     newItemColumns = ["Daftar Packing Receipt"];
@@ -56,11 +59,14 @@ export class ShipmentDetail {
             if (this.selectedBuyerName && this.selectedProductionOrder) {
 
                 var filter = {
-                    "buyer": this.selectedBuyerName,
-                    "productionOrderNo": this.selectedProductionOrder.orderNo
+                    "productionOrderNo": this.selectedProductionOrder.orderNo,
+                    "isVoid": false
                 }
-                var info = { filter: JSON.stringify(filter) };
+
+                var info = { filter: JSON.stringify(filter), select: this.packingReceiptFields };
                 var packingReceipts = await this.service.searchPackingReceipts(info);
+
+                console.log(packingReceipts)
 
                 if (packingReceipts.length > 0) {
 
@@ -83,7 +89,7 @@ export class ShipmentDetail {
                                 "$in": productNames
                             }
                         }
-                        var productInfo = { filter: JSON.stringify(productFilter) };
+                        var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields };
                         var products = await this.service.searchProducts(productInfo);
 
                         //find summaries

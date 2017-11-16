@@ -1,25 +1,19 @@
-import { inject } from 'aurelia-framework';
-import { Service } from "./service";
-import { Router } from 'aurelia-router';
+import {inject} from 'aurelia-framework';
+import {Service} from "./service";
+import {Router} from 'aurelia-router';
 import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-
-    context = ["detail"]
-
+    context = ["detail"];
     columns = [
-        { field: "packingCode", title: "Kode Packing" },
-        {
-            field: "date", title: "Tanggal", formatter: function (value, data, index) {
+        { field: "style.name", title: "Nama Style" },
+        { 
+            field: "date", title: "Tanggal Update", 
+            formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
-        },
-        { field: "buyer", title: "Buyer" },
-        { field: "productionOrderNo", title: "Nomor Production Order" },
-        { field: "colorName", title: "Warna" },
-        { field: "construction", title: "Konstruksi" },
-        { field: "_createdBy", title: "Diterima Oleh" }
+        }
     ];
 
     loader = (info) => {
@@ -30,11 +24,16 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
+            select:["style.name", "date"],
             order: order
         }
 
-        return this.service.searchUnvoid(arg)
+        return this.service.search(arg)
             .then(result => {
+                var data = {}
+                data.total = result.info.total;
+                data.data = result.data;
+                // return data;
                 return {
                     total: result.info.total,
                     data: result.data

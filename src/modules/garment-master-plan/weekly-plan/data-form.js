@@ -44,7 +44,7 @@ export class DataForm {
                 item["monthName"] = this.getMonthName(item.month);
                 //console.log(item.monthName);
             }
-            this.selectedUnit = await this.service.getUnitById(this.data.unitId);
+            this.selectedUnit = this.data.unit;
         }
     }
 
