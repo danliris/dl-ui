@@ -15,7 +15,8 @@ export class List {
         "Good Output vs Bad Output Per Jenis Order",
         "Kanban Aktif",
         "Total Panjang Kain Per SPP Yang Telah Diproses",
-        "Monitoring Bad Output Produksi"
+        "Monitoring Bad Output Produksi",
+        "Monitoring Penjualan Per Sales"
         //"Monitoring Lead Time Real Time",
         //"Monitoring Lead Time Historical"
     ];
