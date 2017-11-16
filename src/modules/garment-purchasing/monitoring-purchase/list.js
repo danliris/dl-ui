@@ -151,6 +151,17 @@ export class List {
         { field: "status", title: "Status" }
     ]
 
+    rowFormatter(data, index) {
+        if (data.statusValue === 4 || data.statusValue === 6 || data.statusValue === 8) {
+            return { classes: "warning" }
+        } else if (data.statusValue > 4) {
+            return { classes: "success" };
+        }
+        else {
+            return {};
+        }
+    }
+
     loader = (info) => {
         var order = {};
 
