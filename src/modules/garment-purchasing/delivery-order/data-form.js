@@ -9,7 +9,6 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable supplier;
-    isCorrection = false;
 
     shipmentTypes = ['By Air', 'By Sea']
     controlOptions = {
@@ -38,31 +37,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
-        if (this.data.items) {
-            var isCorrection = this.data.items
-                .map((item) => {
-                    return item.fulfillments
-                        .map((fulfillment) => {
-                            if (fulfillment.corrections) {
-                                if (fulfillment.corrections.length > 0) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                        })
-                        .reduce((prev, curr, index) => {
-                            return prev || curr
-                        }, false);
-                })
-                .reduce((prev, curr, index) => {
-                    return prev || curr
-                }, false);
-            this.isCorrection = isCorrection;
-        }
     }
 
     @computedFrom("data._id")
