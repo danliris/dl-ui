@@ -11,7 +11,7 @@ export class ShipmentItem {
         this.bindingEngine = bindingEngine;
     }
 
-    async activate(context) {
+    activate(context) {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
@@ -33,5 +33,9 @@ export class ShipmentItem {
     @computedFrom("data.quantity", "data.weight")
     get lengthTotal() {
         return (this.data.length * this.data.quantity).toFixed(2);
+    }
+
+    removeItems() {
+        this.bind();
     }
 }
