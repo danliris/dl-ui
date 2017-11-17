@@ -64,12 +64,15 @@
                         <td>Nomor Bukti Penerimaan Barang</td>
                         <td>Tgl Bukti Penerimaan Barang</td>
                         <td>Pemasok / Pengirim</td>
+                        <td>Nomor Surat Jalan</td>
+                        <td>Tgl Surat Jalan</td>
                         <td>Kode Barang</td>
                         <td>Nama Barang</td>
                         <td>Jumlah</td>
                         <td>Satuan</td>
                         <td>Nilai Barang</td>
                         <td>Mata Uang</td>
+                        <td>User Input</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,12 +84,15 @@
                         <td class="text-center"></td>
                         <td class="text-center"></td>
                         <td class="text-center">${item._id.supplier}</td>
+                        <td class="text-center">${item._id.deliveryOrderNo}</td>
+                        <td class="text-center">${item._id.deliveryOrderDate | dateFormat:'DD MMMM YYYY'}</td>
                         <td class="text-center">${item._id.productCode}</td>
                         <td class="text-center">${item._id.productName}</td>
                         <td class="text-right">${item.quantity}</td>
                         <td class="text-center">${item._id.uom}</td>
                         <td class="text-right">${item.price | numberFormat:"0,000.00"}</td>
                         <td class="text-center">${item._id.currency}</td>
+                        <td class="text-center">${item._id._createdBy}</td>
                     </tr>
                 </tbody>
             </table>
