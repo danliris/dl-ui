@@ -28,6 +28,10 @@
             <au-textbox value.bind="data.artikel" read-only.bind="true">
             </au-textbox>
         </td>
+        <td >
+            <au-textbox  value.bind="data.items.remark" read-only.bind="true" >
+            </au-textbox>
+        </td>
         <td>
             <au-datepicker value.bind="data.shipmentDate" read-only.bind="true">
             </au-datepicker>
@@ -42,10 +46,6 @@
         </td>
         <td>
             <au-textbox value.bind="data.items.uom" read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td >
-            <au-textbox  value.bind="data.items.remark" read-only.bind="true" >
             </au-textbox>
         </td>
     </tr>
