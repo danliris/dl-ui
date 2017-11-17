@@ -15,7 +15,8 @@ export class List {
         "Good Output vs Bad Output Per Jenis Order",
         "Kanban Aktif",
         "Monitoring Lead Time Real Time",
-        "Monitoring Lead Time Historical"
+        "Monitoring Lead Time Historical",
+        "Monitoring Penjualan Per Sales"
     ];
 
     constructor(router, service) {

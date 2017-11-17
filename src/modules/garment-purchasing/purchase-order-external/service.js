@@ -77,6 +77,34 @@ export class Service extends RestService {
         }
     }
 
+    getListUsedBudget(purchaseRequestNo, purchaseRequestRefNo, productCode, purchaseOrderExternalNo) {
+        var endpoint = 'purchase-orders/externals/get-budget';
+        var filter = {};
+        if (purchaseOrderExternalNo) {
+            filter = {
+                purchaseRequestNo: purchaseRequestNo,
+                purchaseRequestRefNo: purchaseRequestRefNo,
+                productCode: productCode,
+                purchaseOrderExternalNo: purchaseOrderExternalNo
+            };
+            return super.list(endpoint, { filter: JSON.stringify(filter) });
+        }
+        else {
+            filter = {
+                purchaseRequestNo: purchaseRequestNo,
+                purchaseRequestRefNo: purchaseRequestRefNo,
+                productCode: productCode
+            };
+            return super.list(endpoint, { filter: JSON.stringify(filter) });
+        }
+    }
+
+    getPRById(id, select) {
+        var endpoint = `purchase-requests/${id}`;
+        var info = { select: select };
+        return super.get(endpoint, null, info);
+    }
+
     cancel(id) {
         var endpoint = `purchase-orders/externals/cancel/${id}`;
         return super.put(endpoint);

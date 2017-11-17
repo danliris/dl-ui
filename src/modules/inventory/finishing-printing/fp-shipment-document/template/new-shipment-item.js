@@ -14,12 +14,15 @@ export class NewShipmentItem {
         this.bindingEngine = bindingEngine;
     }
 
-    async activate(context) {
+    activate(context) {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
     }
 
+    removeItems() {
+        this.bind();
+    }
 
 }
