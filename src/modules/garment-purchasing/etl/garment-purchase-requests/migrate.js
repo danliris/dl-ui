@@ -11,11 +11,11 @@ export class Migrate {
         this.router = router;
         this.service = service;
         this.data = {};
-
         this.totalData = 0;
         this.count = 0;
         this.page = 1;
         this.size = 100;
+
     }
 
     auInputOptions = {
@@ -38,7 +38,6 @@ export class Migrate {
     monthOpt = ["latest", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 
     activate(params) {
-
     }
 
     list() {
@@ -54,27 +53,23 @@ export class Migrate {
         this.data.pageSize = this.size;
         this.service.migrate(this.data)
             .then(result => {
-                if (result.length == 0) {
+                if (result.processed.length == 0) {
                     alert("tidak ada data");
                 } else {
                     this.count += this.size;
                     this.migratedFalse += result.MigratedFalse.length;
-
                     if (this.count < this.totalData) {
                         this.page++;
                         this.ETL();
                     }
-                    else
-                    {
-                        alert(this.totalData + " data RO migration, migration berhasil: " + (this.totalData - this.migratedFalse) + " , migration gagal: " + this.migratedFalse);
-                        
-                        // alert(resultData + " data RO migration, migration berhasil: " + (this.totalData - migratedFalse) + " , migration gagal: " + migratedFalse);
+                    else {
+                        alert(this.totalData + " data migration , migration berhasil : " + (this.totalData - this.migratedFalse) + " , migration gagal: " + this.migratedFalse);
                         this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
                     }
                     // if (page == totalPageNumber) {
 
                     //     // migratedFalse += result[0].MigratedFalse.length;
-                       
+
                     // }
                     // var migratedFalse = result[0].MigratedFalse.length;
                     // var resultData = result[0].processed.length;
