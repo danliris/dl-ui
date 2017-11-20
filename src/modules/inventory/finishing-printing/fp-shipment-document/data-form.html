@@ -48,5 +48,29 @@
             view-model.ref="DetailsCollection">
         </au-collection>
 
+        <fieldset>
+            <au-numeric
+                label="Total Quantity Pengiriman"
+                value.bind="data.totalQuantityShipment"
+                read-only.bind="true"
+                show.bind="detailVisibility"
+                options.bind="deliveryCodeControlOptions">
+            </au-numeric>
+            <au-numeric
+                label="Total Panjang Pengiriman"
+                value.bind="data.totalLengthShipment"
+                read-only.bind="true"
+                show.bind="detailVisibility"
+                options.bind="deliveryCodeControlOptions">
+            </au-numeric>
+            <au-numeric
+                label="Total Lebar Pengiriman"
+                value.bind="data.totalWeightShipment"
+                read-only.bind="true"
+                show.bind="detailVisibility"
+                options.bind="deliveryCodeControlOptions">
+            </au-numeric>
+        </fieldset>
+
     </au-input-form>
 </template>
