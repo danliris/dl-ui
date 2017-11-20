@@ -14,7 +14,7 @@ export class Migrate {
         this.totalData = 0;
         this.count = 0;
         this.page = 1;
-        this.size = 100;
+        this.size = 10;
 
     }
 
