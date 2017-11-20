@@ -6,7 +6,7 @@ import { Service } from './../service';
 export class NewShipmentItem {
 
     packingReceiptOptions = {};
-    packingReceiptItemsColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Total", "Berat Satuan", "Berat Total"]
+    packingReceiptItemsColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Satuan", "Panjang Total", "Berat Satuan", "Berat Total"]
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
