@@ -15,7 +15,7 @@ export class Migrate {
         this.totalData = 0;
         this.count = 0;
         this.page = 1;
-        this.size = 500;
+        this.size = 100;
     }
 
     auInputOptions = {
@@ -38,6 +38,7 @@ export class Migrate {
     monthOpt = ["latest", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 
     activate(params) {
+
     }
 
     list() {
