@@ -37,11 +37,11 @@ export class ShipmentDetail {
     }
 
     // productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
-    packingReceiptFields = ["_id", "code", "storageId", "storage.code", "storage.name", "referenceNo", "referenceType", "items.product"];
+    packingReceiptFields = ["_id", "code", "storageId", "storage.code", "storage.name", "referenceNo", "referenceType", "items.product", "items.availableQuantity"];
     productFields = ["_id", "code", "name", "properties.designCode", "properties.designNumber", "properties.length", "properties.weight"];
     summaryFields = ["_id", "uomId", "uom", "quantity"];
 
-    itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
+    itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
     newItemColumns = ["Daftar Packing Receipt"];
 
     @bindable selectedProductionOrder;
@@ -68,8 +68,6 @@ export class ShipmentDetail {
 
                 var info = { filter: JSON.stringify(filter), select: this.packingReceiptFields };
                 var packingReceipts = await this.service.searchPackingReceipts(info);
-
-                console.log(packingReceipts)
 
                 if (packingReceipts.length > 0) {
 
@@ -123,14 +121,18 @@ export class ShipmentDetail {
                                 _packingReceiptItem.colorType = packingReceipt.colorName;
                                 _packingReceiptItem.uomId = summary.uomId;
                                 _packingReceiptItem.uomUnit = summary.uom;
-                                _packingReceiptItem.quantity = summary.quantity;
+                                _packingReceiptItem.quantity = packingReceiptItem.availableQuantity;
                                 _packingReceiptItem.length = product.properties.length;
                                 _packingReceiptItem.weight = product.properties.weight;
 
                                 _item.packingReceiptItems.push(_packingReceiptItem);
                             }
                         }
-                        items.push(_item);
+
+                        if (_item.packingReceiptItems.length > 0) {
+                            items.push(_item);
+                        }
+
                     }
                     this.data.items = items;
                 } else {

@@ -34,12 +34,11 @@
         </au-autocomplete>
         
         <au-collection 
-            items.bind="dataDetail"
+            items.bind="data.items"
             errors.bind="error.items" 
             columns.bind="itemColumns"
             options.bind="controlOptions"
             read-only.bind="readOnly"
-            if.bind="isYear" 
             item-template="modules/garment-master-plan/weekly-plan/template/item">
         </au-collection>
 

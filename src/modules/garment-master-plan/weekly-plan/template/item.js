@@ -1,6 +1,6 @@
 import {bindable} from 'aurelia-framework'
 
-export class DeliveryOrder {
+export class Item {
   activate(context) {
     this.data = context.data;
     this.error = context.error;
