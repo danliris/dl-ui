@@ -10,6 +10,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
     @bindable data = {};
+    @bindable error = {};
     @bindable title;
     @bindable selectedUnit;
 
@@ -62,7 +63,9 @@ export class DataForm {
     // yearColumns = [] 
 
     get isYear(){
-        return this.data && this.data.year;
+        var current_year = (new Date()).getFullYear() + 10;
+        var last_year = (new Date()).getFullYear() - 10;
+        return this.data && this.data.year && this.data.year >= last_year && this.data.year <= current_year;
     }
 
     getMonthName(month){
@@ -149,7 +152,9 @@ export class DataForm {
     yearSelected = 0;
     get dataDetail(){
         this.data.items = this.data.items || [];
-        if(this.data && this.data.year && this.data.year > 0){
+        var current_year = (new Date()).getFullYear() + 10;
+        var last_year = (new Date()).getFullYear() - 10;
+        if(this.data && this.data.year && this.data.year > 0 && this.data.year >= last_year && this.data.year <= current_year){
             if(this.yearSelected !== this.data.year){
                 this.yearSelected = this.data.year;
                 if(this.data && this.data.items && this.data.items.length > 0){
@@ -187,6 +192,12 @@ export class DataForm {
             }
         }else{
             this.yearSelected = 0;
+            if (this.data && this.data.year && this.data.year < last_year) {
+                this.error.year = "Year is out of range year";
+            }
+            if (this.data && this.data.year && this.data.year > current_year){
+                this.error.year = "Year is out of range year";
+            }
             if(this.data && this.data.items && this.data.items.length > 0){
                 var count = this.data.items.length;
                 for(var a = count; a >= 0; a--){

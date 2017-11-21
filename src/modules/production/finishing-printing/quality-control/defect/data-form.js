@@ -70,7 +70,6 @@ export class DataForm {
         if (kanbanId) {
             this.selectedKanban = await this.service.getKanbanById(kanbanId, this.kanbanFields);
         }
-        console.log(this.selectedKanban);
     }
     errorChanged() {
         if (this.error && this.error.fabricGradeTests) {
@@ -227,8 +226,6 @@ export class DataForm {
         }
     }
     computeGrade(fabricGradeTest) {
-        console.log(fabricGradeTest);
-        console.log()
         if (!fabricGradeTest)
             return;
         var multiplier = this.fabricGradeTestMultiplier;
@@ -243,7 +240,6 @@ export class DataForm {
         fabricGradeTest.finalArea = this.data.pointSystem === 4 ? finalArea : 0;
         fabricGradeTest.finalScore = this.data.pointSystem === 10 ? finalScoreTS.toFixed(2) : finalScoreFS.toFixed(2);
         fabricGradeTest.grade = grade;
-        console.log(fabricGradeTest)
     }
     colChanged(newValue, oldValue) {
         if (!this.selectedFabricGradeTest)
@@ -371,9 +367,6 @@ export class DataForm {
                     return result.data;
                 });
         }
-    }
-    console() {
-        console.log(this.data);
     }
 }
 

@@ -8,6 +8,8 @@
                 options.bind="controlOptions">
             </au-textbox>
 
+            <au-textbox error.bind="error.packingReceiptItem" read-only.bind="true"></au-textbox>
+
             <au-collection 
                 columns.bind="packingReceiptItemsColumns"
                 items.bind="data.packingReceiptItems"

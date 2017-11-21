@@ -29,6 +29,7 @@ export class Create {
         { title: "Buyer", field: "buyer" },
         { title: "Unit", field: "unit" },
         { title: "Artikel", field: "artikel" },
+        { title: "K e t e r a n g a n", field: "items.remark" },
         {
             title: "Tgl. Shipment", field: "shipmentDate", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
@@ -36,8 +37,7 @@ export class Create {
         },
         { title: "Nama Barang", field: "items.product" },
         { title: "Jumlah", field: "items.quantity" },
-        { title: "Satuan", field: "items.uom" },
-        { title: "Keterangan", field: "items.remark" }
+        { title: "Satuan", field: "items.uom" }
     ];
     controlOptions = {
         control: {
