@@ -15,7 +15,7 @@
             label="Tahun" 
             value.bind="data.year"
             error.bind="error.year"
-            read-only.bind="readOnly"
+            read-only.bind="isEdit"
             options.bind="controlOptions"
             format="0"
             step.bind="dataDetail">
@@ -29,12 +29,12 @@
             text.bind = "unitView"
             placeholder="Cari unit konveksi" 
             key="_id" 
-            read-only.bind="readOnly"
+            read-only.bind="isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
         
         <au-collection 
-            items.bind="data.items"
+            items.bind="dataDetail"
             errors.bind="error.items" 
             columns.bind="itemColumns"
             options.bind="controlOptions"

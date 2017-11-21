@@ -16,7 +16,7 @@ export class Create {
 
     }
     bind() {
-        this.data = { items: [] };
+        this.data = {};
         this.error = {};
     }
 
@@ -38,7 +38,6 @@ export class Create {
             })
             .catch(e => {
                 this.error = e;
-                console.log(this.error);
             })
     }
 }
