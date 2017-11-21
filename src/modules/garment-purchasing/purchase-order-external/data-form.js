@@ -94,6 +94,7 @@ export class DataForm {
         else {
             this.options.checkOverBudget = true;
         }
+        this.options.resetOverBudget = false;
     }
 
     @computedFrom("data._id")
@@ -176,15 +177,28 @@ export class DataForm {
         }
         if (this.data.paymentMethod === "CMT") {
             this.options.checkOverBudget = false;
+            this.resetIsOverBudget();
         }
         else if (this.data.paymentMethod === "FREE FROM BUYER") {
             this.options.checkOverBudget = false;
+            this.resetIsOverBudget();
         }
         else {
+            this.options.resetOverBudget = false;
             this.options.checkOverBudget = true;
         }
     }
 
+    resetIsOverBudget() {
+        if (this.data.items) {
+            this.data.items.map(items => {
+                items.isOverBudget = false;
+                items.overBudgetRemark = "";
+            })
+            this.options.resetOverBudget = true;
+            this.context.DetailsCollection.bind();
+        }
+    }
     paymentTypeChanged(e) {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {

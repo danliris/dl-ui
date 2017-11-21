@@ -37,18 +37,18 @@ export class Edit {
             getUsedBudget.push(this.service.getListUsedBudget(item.prNo, item.prRefNo, item.product.code, this.data.no))
         }
 
-        Promise.all(getPRById)
+        return Promise.all(getPRById)
             .then((listPR) => {
-                Promise.all(getUsedBudget)
+                return Promise.all(getUsedBudget)
                     .then((listUsedBudget) => {
                         listUsedBudget = [].concat.apply([], listUsedBudget);
                         for (var item of this.data.items) {
-                            var pr = listPR.find((pr) => pr.no.toString() == data.prNo.toString());
-                            var prItem = pr.items.find((prItem) => prItem.product.code.toString() === item.product.code.toString() && item.refNo === prItem.refNo)
+                            var pr = listPR.find((pr) => pr.no.toString() == item.prNo.toString());
+                            var prItem = pr.items.find((prItem) => prItem.product.code.toString() === item.product.code.toString() && item.refNo === prItem.prRefNo)
 
                             var budgetUsed = 0;
                             if (listUsedBudget.length > 0) {
-                                var prevAmount = listUsedBudget.find((budget) => budget.prNo == item.prNo && budget.prRefNo == item.refNo && budget.product == item.product.code);
+                                var prevAmount = listUsedBudget.find((budget) => budget.prNo == item.prNo && budget.refNo == item.refNo && budget.product == item.product.code);
                                 if (prevAmount) {
                                     budgetUsed = budgetUsed + prevAmount.totalAmount;
                                 }
@@ -66,6 +66,7 @@ export class Edit {
                         if (this.data.vat) {
                             this.selectedVat = this.data.vat;
                         }
+                        return this.data;
                     })
             })
     }
