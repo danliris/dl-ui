@@ -15,7 +15,6 @@ export class View {
         this.router = router;
         this.service = service;
     }
-
     async activate(params) {
         var isVoid = false;
         var isArriving = false;
@@ -23,45 +22,87 @@ export class View {
         this.poExId = id;
         this.data = await this.service.getById(id);
 
-        var poIds =  this.data.items.map(function (item) {
+        var getUsedBudget = [];
+        var getPRById = [];
+        var listPR = this.data.items.map((item) => {
+            return item.prId.toString()
+        });
+        var listPrIds = listPR.filter(function (elem, index, self) {
+            return index == self.indexOf(elem);
+        })
+        listPrIds.map((id) => {
+            getPRById.push(this.service.getPRById(id, ["no", "items.refNo", "items.quantity", "items.budgetPrice", "items.product.code"]))
+        });
+
+        for (var item of this.data.items) {
+            getUsedBudget.push(this.service.getListUsedBudget(item.prNo, item.prRefNo, item.product.code, this.data.no))
+        }
+
+        var poIds = this.data.items.map(function (item) {
             return item.poId;
         });
         poIds = poIds.filter(function (elem, index, self) {
             return index == self.indexOf(elem);
         })
 
-        var listStatusPo = [];
-        for(var poId of poIds){
-            listStatusPo.push(await this.service.getPoId(poId,["status.value"]))
+        var getStatusPo = [];
+        for (var poId of poIds) {
+            getStatusPo.push(this.service.getPoId(poId, ["status.value"]))
         }
+        return Promise.all(getStatusPo)
+            .then((listStatusPo) => {
+                return Promise.all(getPRById)
+                    .then((listPR) => {
+                        return Promise.all(getUsedBudget)
+                            .then((listUsedBudget) => {
+                                listUsedBudget = [].concat.apply([], listUsedBudget);
+                                for (var item of this.data.items) {
+                                    var pr = listPR.find((pr) => pr.no.toString() == item.prNo.toString());
+                                    var prItem = pr.items.find((prItem) => prItem.product.code.toString() === item.product.code.toString() && prItem.refNo === item.prRefNo)
 
-        if (this.data.status.value === 0) {
-            isVoid = true;
-        }
-        if (listStatusPo.find(po => { return po.status.value > 3 }) != undefined) {
-            isArriving = true;
-        }
-        if (!this.data.isPosted) {
-            this.hasDelete = true;
-            this.hasEdit = true;
-        }
-        if (this.data.isPosted && !isVoid && !isArriving && !this.data.isClosed) {
-            this.hasUnpost = true;
-            this.hasCancelPo = true;
-        }
-        if (this.data.isPosted && !isVoid && isArriving && !this.data.isClosed) {
-            this.hasClosePo = true;
-        }
+                                    var budgetUsed = 0;
+                                    if (listUsedBudget.length > 0) {
+                                        var prevAmount = listUsedBudget.find((budget) => budget.prNo == item.prNo && budget.refNo == item.refNo && budget.product == item.product.code);
+                                        if (prevAmount) {
+                                            budgetUsed = budgetUsed + prevAmount.totalAmount;
+                                        }
+                                    }
+                                    item.budgetUsed = budgetUsed;
+                                    item.totalBudget = prItem.quantity * prItem.budgetPrice;
+                                }
 
-        if (this.data.supplier) {
-            this.selectedSupplier = this.data.supplier;
-        }
-        if (this.data.currency) {
-            this.selectedCurrency = this.data.currency;
-        }
-        if (this.data.vat) {
-            this.selectedVat = this.data.vat;
-        }
+                                if (this.data.status.value === 0) {
+                                    isVoid = true;
+                                }
+                                if (listStatusPo.find(po => { return po.status.value > 3 }) != undefined) {
+                                    isArriving = true;
+                                }
+                                if (!this.data.isPosted) {
+                                    this.hasDelete = true;
+                                    this.hasEdit = true;
+                                }
+                                if (this.data.isPosted && !isVoid && !isArriving && !this.data.isClosed) {
+                                    this.hasUnpost = true;
+                                    this.hasCancelPo = true;
+                                }
+                                if (this.data.isPosted && !isVoid && isArriving && !this.data.isClosed) {
+                                    this.hasClosePo = true;
+                                }
+
+                                if (this.data.supplier) {
+                                    this.selectedSupplier = this.data.supplier;
+                                }
+                                if (this.data.currency) {
+                                    this.selectedCurrency = this.data.currency;
+                                }
+                                if (this.data.vat) {
+                                    this.selectedVat = this.data.vat;
+                                }
+
+                                return this.data;
+                            })
+                    })
+            })
     }
 
     cancel(event) {
