@@ -28,24 +28,29 @@ export class PurchaseOrderItem {
     if (this.context.context.options.resetOverBudget == true) {
       this.price = this.data.budgetPrice;
       this.context.context.options.resetOverBudget = false;
-      if (this.error.overBudgetRemark) {
-        this.error.overBudgetRemark = "";
+      if (this.error) {
+        if (this.error.overBudgetRemark) {
+          this.error.overBudgetRemark = "";
+        }
       }
     }
   }
 
 
   checkIsOverBudget() {
-    var totalDealPrice = (this.data.dealQuantity * this.price) + this.data.budgetUsed;
-    if (totalDealPrice > this.data.totalBudget) {
-      this.data.isOverBudget = true;
-    } else {
-      this.data.isOverBudget = false;
-      this.data.overBudgetRemark = "";
+    if (this.context.context.options.checkOverBudget) {
+      var totalDealPrice = (this.data.dealQuantity * this.price) + this.data.budgetUsed;
+      if (totalDealPrice > this.data.totalBudget) {
+        this.data.isOverBudget = true;
+      } else {
+        this.data.isOverBudget = false;
+        this.data.overBudgetRemark = "";
+      }
     }
   }
 
   updatePrice() {
+    this.data.priceBeforeTax = this.price;
     if (this.data.useIncomeTax) {
       this.data.pricePerDealUnit = (100 * this.price) / 110;
     } else {
