@@ -79,20 +79,19 @@
                 format="0,000.0000">
             </au-numeric>
         </td>
-        <td align="center">
+        <td show.bind="context.context.options.checkOverBudget" align="center">
             <au-checkbox 
                 value.bind="data.isOverBudget" 
                 error.bind="error.isOverBudget" 
-                read-only.bind="options.readOnly || !isOverBudget || !context.context.options.checkOverBudget"
-                change.delegate="isOverBudgetChanged($event)"
+                read-only.bind="true"
                 options.bind="controlOptions">
             </au-checkbox>
         </td>
-        <td>
+        <td show.bind="context.context.options.checkOverBudget">
             <au-textbox 
                 value.bind="data.overBudgetRemark" 
                 error.bind="error.overBudgetRemark"
-                read-only.bind="options.readOnly || !isOverBudget || !context.context.options.checkOverBudget"
+                read-only.bind="options.readOnly || !data.isOverBudget || !context.context.options.checkOverBudget"
                 placeholder="tambah keterangan over budget"
                 options.bind="controlOptions">
             </au-textbox>

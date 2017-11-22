@@ -57,23 +57,16 @@ export class Migrate {
                     alert("tidak ada data");
                 } else {
                     this.count += this.size;
-                    this.migratedFalse += result.MigratedFalse.length;
+                    this.migratedFalse += result.MigratedFalse;
                     if (this.count < this.totalData) {
                         this.page++;
                         this.ETL();
                     }
                     else {
-                        alert(this.totalData + " data migration , migration berhasil : " + (this.totalData - this.migratedFalse) + " , migration gagal: " + this.migratedFalse);
+                        alert(this.totalData + " data Ro migration , migration berhasil : " + (this.totalData - this.migratedFalse) + " , migration gagal: " + this.migratedFalse);
                         this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
                     }
-                    // if (page == totalPageNumber) {
 
-                    //     // migratedFalse += result[0].MigratedFalse.length;
-
-                    // }
-                    // var migratedFalse = result[0].MigratedFalse.length;
-                    // var resultData = result[0].processed.length;
-                    // alert(resultData + " data RO migration, migration berhasil: " + (resultData - migratedFalse) + " , migration gagal: " + migratedFalse);
                 }
 
             })
