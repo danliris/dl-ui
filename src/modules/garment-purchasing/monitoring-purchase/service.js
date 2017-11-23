@@ -38,8 +38,15 @@ export class Service extends RestService {
 
         if (info.categoryId)
             query = `${query}&categoryId=${info.categoryId}`;
+
         if (info.purchaseOrderExternalNo)
             query = `${query}&purchaseOrderExternalNo=${info.purchaseOrderExternalNo}`;
+
+        if (info.artikel)
+            query = `${query}&artikel=${info.artikel}`;
+            
+        if (info.prRefNo)
+            query = `${query}&prRefNo=${info.prRefNo}`;
             
         if (query !== '') {
             query = query.substring(1);

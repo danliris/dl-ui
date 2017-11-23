@@ -21,15 +21,54 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        if (this.data.supplier) {
-            this.selectedSupplier = this.data.supplier;
+        var getUsedBudget = [];
+        var getPRById = [];
+        var listPR = this.data.items.map((item) => {
+            return item.prId.toString()
+        });
+        var listPrIds = listPR.filter(function (elem, index, self) {
+            return index == self.indexOf(elem);
+        })
+        listPrIds.map((id) => {
+            getPRById.push(this.service.getPRById(id, ["no", "items.refNo", "items.quantity", "items.budgetPrice", "items.product.code"]))
+        });
+
+        for (var item of this.data.items) {
+            getUsedBudget.push(this.service.getListUsedBudget(item.prNo, item.prRefNo, item.product.code, this.data.no))
         }
-        if (this.data.currency) {
-            this.selectedCurrency = this.data.currency;
-        }
-        if (this.data.vat) {
-            this.selectedVat = this.data.vat;
-        }
+
+        return Promise.all(getPRById)
+            .then((listPR) => {
+                return Promise.all(getUsedBudget)
+                    .then((listUsedBudget) => {
+                        listUsedBudget = [].concat.apply([], listUsedBudget);
+                        for (var item of this.data.items) {
+                            var pr = listPR.find((pr) => pr.no.toString() == item.prNo.toString());
+                            var prItem = pr.items.find((prItem) => prItem.product.code.toString() === item.product.code.toString() && item.refNo === prItem.prRefNo)
+
+                            var budgetUsed = 0;
+                            if (listUsedBudget.length > 0) {
+                                var prevAmount = listUsedBudget.find((budget) => budget.prNo == item.prNo && budget.refNo == item.refNo && budget.product == item.product.code);
+                                if (prevAmount) {
+                                    budgetUsed = budgetUsed + prevAmount.totalAmount;
+                                }
+                            }
+                            item.budgetUsed = budgetUsed;
+                            item.totalBudget = prItem.quantity * prItem.budgetPrice;
+                        }
+
+                        if (this.data.supplier) {
+                            this.selectedSupplier = this.data.supplier;
+                        }
+                        if (this.data.currency) {
+                            this.selectedCurrency = this.data.currency;
+                        }
+                        if (this.data.vat) {
+                            this.selectedVat = this.data.vat;
+                        }
+                        return this.data;
+                    })
+            })
     }
 
     cancel(event) {

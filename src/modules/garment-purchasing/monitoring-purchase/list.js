@@ -71,6 +71,8 @@ export class List {
         this.arg.categoryId = this.category ? this.category._id : null;
         this.arg.unitId = this.unit ? this.unit._id : null;
         this.arg.state = this.poState ? this.poState.value : null;
+        this.arg.artikel = this.artikel ? this.artikel : null;
+        this.arg.prRefNo = this.prRefNo ? this.prRefNo : null;
     }
 
 
@@ -109,6 +111,7 @@ export class List {
         { field: "supplierDoDate", title: "Tanggal Surat Jalan" },
         { field: "deliveryOrderDate", title: "Tanggal Datang Barang" },
         { field: "deliveryOrderDeliveredQuantity", title: "Jumlah Barang Datang" },
+        { field: "remainQuantity", title: "Jumlah Barang Sisa" },
         { field: "defaultUom", title: "Satuan" },
         { field: "customsNo", title: "No. Bea Cukai" },
         { field: "customsDate", title: "Tanggal Bea Cukai" },
@@ -148,6 +151,17 @@ export class List {
         { field: "remark", title: "Keterangan" },
         { field: "status", title: "Status" }
     ]
+
+    rowFormatter(data, index) {
+        if (data.statusValue === 4 || data.statusValue === 6 || data.statusValue === 8) {
+            return { classes: "warning" }
+        } else if (data.statusValue > 4) {
+            return { classes: "success" };
+        }
+        else {
+            return {};
+        }
+    }
 
     loader = (info) => {
         var order = {};
@@ -201,6 +215,8 @@ export class List {
         this.unit = "";
         this.category = "";
         this.supplier = "";
+        this.artikel = "";
+        this.prRefNo = "";
         this.dateFrom = null;
         this.dateTo = null;
         this.listDataFlag = false;

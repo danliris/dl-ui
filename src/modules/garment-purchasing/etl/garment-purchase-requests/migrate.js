@@ -1,7 +1,7 @@
 import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import {activationStrategy} from 'aurelia-router';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Migrate {
@@ -11,6 +11,11 @@ export class Migrate {
         this.router = router;
         this.service = service;
         this.data = {};
+        this.totalData = 0;
+        this.count = 0;
+        this.page = 1;
+        this.size = 10;
+
     }
 
     auInputOptions = {
@@ -30,7 +35,7 @@ export class Migrate {
     }
 
     tables = ["", "Budget & POrder", "Budget1 & POrder1"];
-    monthOpt = ["latest","january","february","march", "april", "may", "june", "july","august", "september", "october", "november", "december"];
+    monthOpt = ["latest", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 
     activate(params) {
     }
@@ -43,24 +48,39 @@ export class Migrate {
         this.list();
     }
 
-    saveCallback(event) {
-
+    ETL() {
+        this.data.i = this.page;
+        this.data.pageSize = this.size;
         this.service.migrate(this.data)
             .then(result => {
-                if (result.length == 0) {
+                if (result.processed.length == 0) {
                     alert("tidak ada data");
                 } else {
-                    var migratedFalse = result[0].MigratedFalse.length;
-                    var resultData = result[0].processed.length;
-                    alert(resultData + " data RO migration, migration berhasil: " + (resultData - migratedFalse) + " , migration gagal: " + migratedFalse);
-                }
+                    this.count += this.size;
+                    this.migratedFalse += result.MigratedFalse;
+                    if (this.count < this.totalData) {
+                        this.page++;
+                        this.ETL();
+                    }
+                    else {
+                        alert(this.totalData + " data Ro migration , migration berhasil : " + (this.totalData - this.migratedFalse) + " , migration gagal: " + this.migratedFalse);
+                        this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
+                    }
 
-                this.router.navigateToRoute('migrate', {}, { replace: true, trigger: true });
+                }
 
             })
             .catch(e => {
                 this.error = e;
             })
+    }
+
+    saveCallback(event) {
+        this.service.getData(this.data).then((data) => {
+            this.totalData = data;
+            this.migratedFalse = 0;
+            this.ETL();
+        });
     }
 }
 

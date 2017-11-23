@@ -7,6 +7,7 @@ var ProductionOrderLoader = require('../../../../../loader/production-order-load
 @inject(Service, BindingEngine, BindingSignaler)
 export class Detail {
     @bindable productionOrder;
+    selectedProductionOrder;
     async activate(context) {
         this.context = context;
         this.data = context.data;
@@ -60,7 +61,6 @@ export class Detail {
                 this.data.selectedProductionOrder = dataSelected;
                 this.data.productionOrderId = dataSelected._id;
                 this.data.productionOrderNo = dataSelected.orderNo;
-                this.selectProductionOrder = dataSelected;
                 var items = await this.service.getProductShipment(this.data.productionOrderNo, (this.filterBuyer && this.filterBuyer.buyer ? this.filterBuyer.buyer : ''));
                 var products = [];
                 if(items.length > 0){
@@ -115,12 +115,12 @@ export class Detail {
 
     get addNewProducts(){
         return (event) => {
-            console.log(this.data.items);
             if(this.data && this.data.items && this.data.items.length > 0){
+                console.log(this.productionOrder);
                 this.data.newProducts.push({
-                        designCode :this.selectProductionOrder && this.selectProductionOrder.designCode ? this.selectProductionOrder.designCode : "", 
-                        designNumber : this.selectProductionOrder && this.selectProductionOrder.designNumber ? this.selectProductionOrder.designNumber : "",
-                        colorWay : this.selectProductionOrder && this.selectProductionOrder.details ? this.selectProductionOrder.details[0].colorTemplate : "",
+                        designCode :this.productionOrder && this.productionOrder.designCode ? this.productionOrder.designCode : "", 
+                        designNumber : this.productionOrder && this.productionOrder.designNumber ? this.productionOrder.designNumber : "",
+                        colorWay : this.productionOrder && this.productionOrder.details ? this.productionOrder.details[0].colorTemplate : "",
                         construction : {},
                         uom : {}
                     });

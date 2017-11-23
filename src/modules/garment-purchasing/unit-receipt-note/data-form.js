@@ -43,6 +43,7 @@ export class DataForm {
                 { header: "Jumlah Kecil" },
                 { header: "Satuan Kecil" },
                 { header: "Buyer" },
+                { header: "Artikel" },
                 { header: "Keterangan" }
             ],
             onRemove: function () {
@@ -57,25 +58,24 @@ export class DataForm {
     }
 
     @computedFrom("data.supplier")
-    get filter() {      
+    get filter() {
         var filter = {
             supplierId: this.data.supplierId
         };
         return filter;
     }
     @computedFrom("data.unit")
-    get filterUnit()
-    {
-        var storageFilter={}
-        if(this.data.unit)
-        var storageFilter ={
-             "unit.name" :this.data.unit.name,
-            "unit.division.name" : this.data.unit.division.name
-        }
+    get filterUnit() {
+        var storageFilter = {}
+        if (this.data.unit)
+            var storageFilter = {
+                "unit.name": this.data.unit.name,
+                "unit.division.name": this.data.unit.division.name
+            }
         return storageFilter;
     }
-    storageFields=["name","code"];
-   async bind(context) {
+    storageFields = ["name", "code"];
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -84,7 +84,7 @@ export class DataForm {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
         if (this.data.useStorage) {
-              this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
+            this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
         }
     }
 
@@ -107,8 +107,8 @@ export class DataForm {
         }
         this.context.deliveryOrderAU.editorValue = "";
         this.data.deliveryOrderId = null;
-        this.storage=null;
-        this.data.useStorage=false;
+        this.storage = null;
+        this.data.useStorage = false;
         this.data.storageId = null;
     }
 
@@ -123,15 +123,15 @@ export class DataForm {
             this.data.unit = null;
             this.data.unitId = null;
         }
-        this.storage =null;
+        this.storage = null;
         this.data.storageId = null;
         this.data.useStorage = false;
     }
 
     async deliveryOrderChanged(newValue, oldValue) {
         var selectedDo = newValue;
-            
-        if (selectedDo) {      
+
+        if (selectedDo) {
             this.data.deliveryOrder = selectedDo;
             this.data.deliveryOrderId = selectedDo._id;
             var selectedItem = selectedDo.items || []
@@ -147,7 +147,7 @@ export class DataForm {
 
             var jobs = [];
             for (var prId of listPurchaseRequestId) {
-                jobs.push(this.service.getPurchaseRequestById(prId, ["buyer", "no","_id"]))
+                jobs.push(this.service.getPurchaseRequestById(prId, ["artikel", "buyer", "no", "_id"]))
             }
 
             Promise.all(jobs)
@@ -158,10 +158,11 @@ export class DataForm {
                             var _item = {};
                             var pr = purchaseRequests.find((purchaseRequest) => purchaseRequest._id.toString() === fulfillment.purchaseRequestId.toString());
                             if (pr) {
+                                _item.artikel = pr.artikel;
                                 _item.buyer = pr.buyer;
                                 _item.buyerId = pr.buyer._id;
                             }
-                     
+
                             _item.product = fulfillment.product;
                             _item.deliveredUom = fulfillment.purchaseOrderUom;
                             _item.purchaseOrderNo = fulfillment.purchaseOrderNo;
@@ -201,15 +202,15 @@ export class DataForm {
         }
         else {
             this.data.items = [];
-        } 
-      
+        }
+
         this.resetErrorItems();
         this.data.storageId = null;
         this.storage = null;
-        this.data.useStorage=false;
+        this.data.useStorage = false;
     }
     storageChanged(newValue) {
-      var selectedStorage = newValue;
+        var selectedStorage = newValue;
         if (selectedStorage) {
             if (selectedStorage._id) {
                 this.storage = selectedStorage;
@@ -217,25 +218,25 @@ export class DataForm {
             }
             else {
                 this.storage = null;
-                this.data.storageId =null;
+                this.data.storageId = null;
             }
         }
         else {
             this.storage = null;
-            this.data.storageId =undefined;
+            this.data.storageId = undefined;
         }
         this.resetErrorItems();
     }
-   
+
 
     useStorageChanged(e) {
-        var selectedUseStorage = e.srcElement.checked || false;      
-       this.data.unitId;
+        var selectedUseStorage = e.srcElement.checked || false;
+        this.data.unitId;
         if (this.context.error.useStorage) {
             this.context.error.useStorage = "";
         }
         this.storage = null;
-        this.data.storageId=null; 
+        this.data.storageId = null;
     }
     resetErrorItems() {
         if (this.error) {
@@ -256,13 +257,13 @@ export class DataForm {
     get deliveryOrderBySupplierLoader() {
         return DeliveryOrderBySupplierLoader;
     }
-    
+
     get storageLoader() {
         return StorageLoader;
     }
 
     storageView = (storage) => {
-         return `${storage.code} - ${storage.name}`;
+        return `${storage.unit.name} - ${storage.name}`;
     }
     unitView = (unit) => {
         return `${unit.division.name} - ${unit.name}`;

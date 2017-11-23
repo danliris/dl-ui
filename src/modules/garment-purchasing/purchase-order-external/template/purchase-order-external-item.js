@@ -1,23 +1,57 @@
-import { bindable } from 'aurelia-framework'
+import { bindable, computedFrom } from 'aurelia-framework'
+import { factories } from 'powerbi-client';
 var UomLoader = require('../../../../loader/uom-loader');
 
 export class PurchaseOrderItem {
-  @bindable selectedDealUom
+  @bindable selectedDealUom;
+  @bindable price;
   activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
     this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
+    this.checkOverBudget = this.context.context.options.checkOverBudget;
     this.selectedDealUom = this.data.dealUom;
+    this.price = this.data.pricePerDealUnit;
+
+    if (!this.data.budgetUsed) {
+      this.data.budgetUsed = 0;
+    }
+    if (!this.data.totalBudget) {
+      this.data.totalBudget = 0;
+    }
+    this.checkIsOverBudget();
+  }
+
+  bind() {
+    if (this.context.context.options.resetOverBudget == true) {
+      this.price = this.data.budgetPrice;
+      this.context.context.options.resetOverBudget = false;
+      if (this.error.overBudgetRemark) {
+        this.error.overBudgetRemark = "";
+      }
+    }
+  }
+
+
+  checkIsOverBudget() {
+    var totalDealPrice = (this.data.dealQuantity * this.price) + this.data.budgetUsed;
+    if (totalDealPrice > this.data.totalBudget) {
+      this.data.isOverBudget = true;
+    } else {
+      this.data.isOverBudget = false;
+      this.data.overBudgetRemark = "";
+    }
   }
 
   updatePrice() {
     if (this.data.useIncomeTax) {
-      this.data.pricePerDealUnit = (100 * this.data.priceBeforeTax) / 110;
+      this.data.pricePerDealUnit = (100 * this.price) / 110;
     } else {
-      this.data.pricePerDealUnit = this.data.priceBeforeTax;
+      this.data.pricePerDealUnit = this.price;
     }
+    this.checkIsOverBudget();
   }
 
   selectedDealUomChanged(newValue) {
@@ -33,8 +67,8 @@ export class PurchaseOrderItem {
   conversionChanged(e) {
     this.data.quantityConversion = this.data.dealQuantity * this.data.conversion;
   }
-  
-  priceBeforeTaxChanged(e) {
+
+  priceChanged(e) {
     this.updatePrice();
   }
 

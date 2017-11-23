@@ -22,6 +22,7 @@ export class DataForm {
     itemsColumns = [
         { header: "Nama Barang", value: "product" },
         { header: "Kuantiti Diterima", value: "quantity" },
+        { header: "Kuantiti Saat Ini", value: "availableQuantity" },
         { header: "Berat", value: "weight" },
         { header: "Berat Total", value: "weightTotal" },
         { header: "Panjang", value: "length" },
@@ -51,6 +52,7 @@ export class DataForm {
                 var _item = {};
                 _item.product = item.remark !== "" && item.remark !== null ? `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}/${item.remark}` : `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
                 _item.quantity = item.quantity;
+                _item.availableQuantity = item.availableQuantity ? item.availableQuantity : item.quantity;
                 _item.length = item.length;
                 _item.weight = item.weight;
                 _item.remark = item.remark;
@@ -68,7 +70,7 @@ export class DataForm {
     }
     
     storageView = (storage) => {
-        return `${storage.code} - ${storage.name}`
+        return `${storage.unit.name} - ${storage.name}`
     }
 
     get storageLoader() {

@@ -33,6 +33,18 @@ export class Service extends RestService {
         return super.put(endpoint, data);
     }
 
+    getStorageById(id) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/storages/${id}`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+        
+    }
+
     getProductShipment(orderNo, buyer) {
         var endpoint = `${productUri}?orderNo=${orderNo}&buyer=${buyer}`;
         return super.get(endpoint);

@@ -34,12 +34,19 @@
         </fieldset>
 
         <au-textbox error.bind="error.detail" read-only.bind="true"></au-textbox>
-        <au-collection columns.bind="detailColumns" items.bind="data.details" errors.one-way="error.details" add.one-time="addDetails"
-            remove.bind="removeDetails" read-only.bind="buyerReadOnly" item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
+
+        <au-collection
+            columns.bind="detailColumns"
+            items.bind="data.details"
+            errors.one-way="error.details"
+            add.one-time="addDetails"
+            remove.bind="removeDetails"
+            read-only.bind="buyerReadOnly"
+            item-template="modules/inventory/finishing-printing/fp-shipment-document/template/shipment-detail"
+            footer-template="modules/inventory/finishing-printing/fp-shipment-document/template/footer-shipment"
             options.bind="detailOptions"
             show.bind="detailVisibility || buyerReadOnly"
             view-model.ref="DetailsCollection">
         </au-collection>
-
     </au-input-form>
 </template>

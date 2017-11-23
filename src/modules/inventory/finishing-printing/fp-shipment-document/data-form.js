@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from './service';
 var StorageLoader = require('../../../../loader/storage-loader');
+var BuyerLoader = require('../../../../loader/buyers-loader');
 
 @inject(Service, BindingEngine, BindingSignaler)
 export class DataForm {
@@ -10,6 +11,7 @@ export class DataForm {
     @bindable data;
     @bindable error;
     @bindable packing;
+    @bindable isNewStructure = true;
 
     @bindable title;
 
@@ -43,10 +45,10 @@ export class DataForm {
         this.detailOptions.selectedBuyerName = "";
         this.detailOptions.selectedBuyerID = "";
         this.detailOptions.selectedStorageCode = "";
+        this.detailOptions.isNewStructure = this.context.isNewStructure;
         if (this.data._id && this.data.buyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.buyerId);
         }
-
     }
 
     detailOptions = {};
@@ -74,6 +76,11 @@ export class DataForm {
         }
     }
 
+    // isNewStructureChanged(newValue, oldValue) {
+    //     console.log(newValue);
+    //     this.detailOptions.isNewStructure = newValue;
+    // }
+
     @bindable selectedStorage;
     selectedStorageChanged(newValue) {
         if (newValue) {
@@ -89,16 +96,6 @@ export class DataForm {
         }
     }
 
-    get buyerLoader() {
-        return (keyword) => {
-            var info = { keyword: keyword, select: this.buyerFields };
-            return this.service.searchBuyer(info)
-                .then((result) => {
-                    return result.data;
-                });
-        }
-    }
-
     get addDetails() {
         return (event) => {
             this.context.DetailsCollection.bind()
@@ -107,11 +104,15 @@ export class DataForm {
     }
 
     storageView = (storage) => {
-        return `${storage.code} - ${storage.name}`
+        return `${storage.unit.name} - ${storage.name}`
     }
 
     get storageLoader() {
         return StorageLoader;
+    }
+
+    get buyerLoader() {
+        return BuyerLoader;
     }
 
     @computedFrom("selectedBuyer", "selectedStorage")

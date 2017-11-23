@@ -22,10 +22,61 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    // generateExcel(info) {
+    //     var endpoint = `${serviceUri}`;        
+    //     if (typeof info.filter === "string")
+    //      var endpoint = `${serviceUri}?${info.filter}`;
+    //     return super.getXls(endpoint);
+    // }
+
     generateExcel(info) {
-        var endpoint = `${serviceUri}`;
-        if (typeof info.filter === "string")
-            endpoint = `${serviceUri}?${info.filter}`;
+        var endpoint = this._getEndPoint(info);
         return super.getXls(endpoint);
+    }
+    
+
+
+      _getEndPoint(info)
+    {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+       
+
+        if (info.salesContractNo) {
+            if (query === '') query = `salesContractNo=${info.salesContractNo}`;
+            else query = `${query}&salesContractNo=${info.salesContractNo}`;
+        }
+        if (info.orderNo) {
+            if (query === '') query = `orderNo=${info.orderNo}`;
+            else query = `${query}&orderNo=${info.orderNo}`;
+        }
+        if (info.orderTypeId) {
+            if (query === '') query = `orderTypeId=${info.orderTypeId}`;
+            else query = `${query}&orderTypeId=${info.orderTypeId}`;
+        }
+        if (info.processTypeId) {
+            if (query === '') query = `processTypeId=${info.processTypeId}`;
+            else query = `${query}&processTypeId=${info.processTypeId}`;
+        }
+        if (info.buyerId) {
+            if (query === '') query = `buyerId=${info.buyerId}`;
+            else query = `${query}&buyerId=${info.buyerId}`;   
+    }
+        if (info.accountId) {
+            if (query === '') query = `accountId=${info.accountId}`;
+            else query = `${query}&accountId=${info.accountId}`;
+        }
+        if (info.sdate) {
+            if (query === '') query = `sdate=${info.sdate}`;
+            else query = `${query}&sdate=${info.sdate}`;
+        }
+        if (info.edate) {
+            if (query === '') query = `edate=${info.edate}`;
+            else query = `${query}&edate=${info.edate}`;
+        }
+        if (query !== '')
+            endpoint = `${serviceUri}?${query}`;
+        
+        return endpoint;
     }
 }
