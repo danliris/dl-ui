@@ -44,7 +44,7 @@ export class Edit {
                         listUsedBudget = [].concat.apply([], listUsedBudget);
                         for (var item of this.data.items) {
                             var pr = listPR.find((pr) => pr.no.toString() == item.prNo.toString());
-                            var prItem = pr.items.find((prItem) => prItem.product.code.toString() === item.product.code.toString() && item.refNo === prItem.prRefNo)
+                            var prItem = pr.items.find((prItem) => prItem.product.code.toString() === item.product.code.toString() && prItem.refNo === item.prRefNo)
 
                             var budgetUsed = 0;
                             if (listUsedBudget.length > 0) {
