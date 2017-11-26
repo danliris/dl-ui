@@ -45,7 +45,11 @@ export class DataForm {
     itemsColumns = [
         { header: "Barang", value: "product" },
         { header: "Jumlah", value: "quantity" },
-        { header: "Satuan", value: "product.uom" },
+        { header: "Satuan", value: "uom" },
+        { header: "Jumlah 2", value: "secondQuantity" },
+        { header: "Satuan 2", value: "secondUom" },
+        { header: "Jumlah 3", value: "thirdQuantity" },
+        { header: "Satuan 3", value: "thirdUom" },
         { header: "Keterangan", value: "remark" }
     ]
 

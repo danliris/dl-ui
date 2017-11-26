@@ -1,4 +1,4 @@
-import {inject, bindable, containerless, BindingEngine} from 'aurelia-framework'
+import { inject, bindable, containerless, BindingEngine } from 'aurelia-framework'
 import { Service } from "../service";
 var ProductLoader = require('../../../../loader/product-loader');
 var UomLoader = require('../../../../loader/uom-loader');
@@ -44,6 +44,26 @@ export class InventoryDocumentItem {
         this.selectedUom = this.data.selectedUom;
       }
     }
+    if (!this.data.secondUomId) {
+      this.data.secondUomId = "";
+    } else {
+      if (!this.data.selectedSecondUom) {
+        this.selectedSecondUom = await this.service.getUomById(this.data.secondUomId);
+        this.data.selectedSecondUom = this.selectedSecondUom;
+      } else {
+        this.selectedSecondUom = this.data.selectedSecondUom;
+      }
+    }
+    if (!this.data.thirdUomId) {
+      this.data.thirdUomId = "";
+    } else {
+      if (!this.data.selectedThirdUom) {
+        this.selectedThirdUom = await this.service.getUomById(this.data.thirdUomId);
+        this.data.selectedThirdUom = this.selectedThirdUom;
+      } else {
+        this.selectedThirdUom = this.data.selectedThirdUom;
+      }
+    }
   }
 
   @bindable selectedProduct;
@@ -78,6 +98,30 @@ export class InventoryDocumentItem {
     else {
       this.data.uomId = "";
       this.data.uom = "";
+    }
+  }
+
+  @bindable  selectedSecondUom;
+  selectedSecondUomChanged(newValue, oldValue) {
+    if (this.selectedSecondUom && this.selectedSecondUom._id) {
+      this.data.secondUomId = this.selectedSecondUom._id;
+      this.data.secondUom = this.selectedSecondUom.unit;
+    }
+    else {
+      this.data.secondUomId = "";
+      this.data.secondUom = "";
+    }
+  }
+
+  @bindable  selectedThirdUom;
+  selectedSecondUomChanged(newValue, oldValue) {
+    if (this.selectedThirdUom && this.selectedThirdUom._id) {
+      this.data.thirdUomId = this.selectedThirdUom._id;
+      this.data.thirdUom = this.selectedThirdUom.unit;
+    }
+    else {
+      this.data.thirdUomId = "";
+      this.data.thirdUom = "";
     }
   }
 
