@@ -36,6 +36,15 @@
                 </au-autocomplete>
         </td>
         <td class="col-sm-2">
+            <au-numeric 
+                value.bind="data.secondQuantity" 
+                error.bind="error.secondQuantity"
+                read-only.bind="options.readOnly" 
+                format = "0"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
             <au-autocomplete 
                 value.bind="selectedSecondUom" 
                 error.bind="error.secondUomId"
@@ -47,6 +56,15 @@
                 text.bind="uomView"
                 options.bind="controlOptions">
             </au-autocomplete>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric 
+                value.bind="data.thirdQuantity" 
+                error.bind="error.thirdQuantity"
+                read-only.bind="options.readOnly" 
+                format = "0"
+                options.bind="controlOptions">
+            </au-numeric>
         </td>
         <td class="col-sm-2">
             <au-autocomplete 
