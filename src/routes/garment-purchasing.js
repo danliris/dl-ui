@@ -13,6 +13,19 @@ module.exports = [
         }
     },
     {
+        route: 'garment-generating-data',
+        name: 'garment-generating-data',
+        moduleId: './modules/garment-purchasing/garment-generating-data/index',
+        nav: true,
+        title: 'Garment Generating Data',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/pr',
         name: 'purchase-request',
         moduleId: './modules/garment-purchasing/purchase-request/index',
