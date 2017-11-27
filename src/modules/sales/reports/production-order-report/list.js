@@ -13,6 +13,7 @@ export class List {
     filterAccount = {};
     filter = {};
     listDataFlag = false;
+    context = ["Rincian"]
 
     constructor(router, service) {
         this.service = service;
@@ -49,6 +50,8 @@ export class List {
 
     columns = [
         { field: "no", title: "No.", sortable: false },
+        { field: "status", title: "Status" },
+        { field: "detail", title: "Detail", sortable: false },
         { field: "salesContractNo", title: "No. Sales Contract" },
         { field: "orderQuantity", title: "Jumlah di Sales Contract (meter)" },
         { field: "orderNo", title: "No. Surat Perintah Produksi" },
@@ -61,9 +64,7 @@ export class List {
         { field: "buyerType", title: "Tipe Buyer" },
         { field: "staffName", title: "Nama Sales" },
         { field: "_createdDate", title: "Tanggal Terima Order" },
-        { field: "deliveryDate", title: "Tanggal Permintaan Pengiriman" },
-        { field: "status", title: "Status" },
-        { field: "detail", title: "Detail", sortable: false }
+        { field: "deliveryDate", title: "Tanggal Permintaan Pengiriman" }
     ]
 
     loader = (info) => {
@@ -123,9 +124,22 @@ export class List {
             this.filterOrder = {};
         }
     }
+    
+    contextClickCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+            case "Rincian":
+            this.router.navigateToRoute('view', { id: data.salesContractNo });
+                break;
+        }
 
-    detail(data) {
-        this.router.navigateToRoute('view', { id: data.salesContractNo });
+    }
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            default:
+                return true;
+        }
     }
 
     get processTypeLoader() {
