@@ -1,29 +1,22 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
+
+
+var OrderTypeLoader = require('../../../../loader/process-type-loader');
+var ProcessTypeLoader = require('../../../../loader/order-type-loader');
+var BuyerLoader = require('../../../../loader/buyers-loader');
+var AccountLoader = require('../../../../loader/account-loader');
 
 @inject(Router, Service)
 export class List {
-    constructor(router, service) {
-
-        this.service = service;
-        this.router = router;
-        this.today = new Date();
-    }
-    dateFrom = null;
-    dateTo = null;
-    salesContractNo = '';
-    orderNo = '';
-    orderType = null;
-    processType = null;
-    buyer = null;
-    account = null;
     filterAccount = {};
     filter = {};
-    info = { page: 1, keyword: '' };
+    listDataFlag = false;
 
-    activate() {
-        this.data = [];
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
         this.filterAccount = {
             "roles": {
                 "$elemMatch": {
@@ -34,12 +27,73 @@ export class List {
                     }
                 }
             }
+        }
+    }
+
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false
+    }
+
+    Values() {
+        this.arg.sdate = this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null;
+        this.arg.edate = this.edate ? moment(this.edate).format("YYYY-MM-DD") : null;
+        this.arg.salesContractNo = this.salesContractNo ? this.salesContractNo : null;
+        this.arg.orderNo = this.orderNo ? this.orderNo : null;
+        this.arg.orderTypeId = this.orderType ? this.orderType._id : null;
+        this.arg.processTypeId = this.processType ? this.processType._id : null;
+        this.arg.buyerId = this.buyer ? this.buyer._id : null;
+        this.arg.accountId = this.account ? this.account._id : null;
+    }
+
+    columns = [
+        { field: "no", title: "No.", sortable: false },
+        { field: "salesContractNo", title: "No. Sales Contract" },
+        { field: "orderQuantity", title: "Jumlah di Sales Contract (meter)" },
+        { field: "orderNo", title: "No. Surat Perintah Produksi" },
+        { field: "orderType", title: "Jenis Order" },
+        { field: "processType", title: "Jenis Proses" },
+        { field: "construction", title: "Konstruksi" },
+        { field: "designMotive", title: "Warna/Motif" },
+        { field: "quantity", title: "Jumlah di Surat Perintah Produksi (meter)" },
+        { field: "buyer", title: "Buyer" },
+        { field: "buyerType", title: "Tipe Buyer" },
+        { field: "staffName", title: "Nama Sales" },
+        { field: "_createdDate", title: "Tanggal Terima Order" },
+        { field: "deliveryDate", title: "Tanggal Permintaan Pengiriman" },
+        { field: "status", title: "Status" },
+        { field: "detail", title: "Detail", sortable: false }
+    ]
+
+    loader = (info) => {
+        var order = {};
+
+        if (info.sort)
+            order[info.sort] = info.order;
+
+        this.arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order
         };
+
+        return this.listDataFlag ? (
+            this.Values(),
+            this.service.getReport(this.arg)
+                .then(result => {
+                    return {
+                        total: result.info.total,
+                        data: result.data,
+                    }
+                })
+        ) : { total: 0, data: {} };
     }
 
     reset() {
-        this.dateFrom = null;
-        this.dateTo = null;
+        this.sdate = null;
+        this.edate = null;
         this.salesContractNo = '';
         this.orderNo = '';
         this.orderType = null;
@@ -47,109 +101,46 @@ export class List {
         this.buyer = null;
         this.account = null;
         this.filter = {};
-        this.info = { page: 1, keyword: '' };
-        this.data = [];
+        this.table.refresh();
     }
 
-    searching() {
-        var data = [];
-        this.setFilter();
-        this.service.getReport(this.info)
-            .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-            })
+    search() {
+        this.listDataFlag = true;
+        this.table.refresh();
     }
 
-    // ExportToExcel() {
-    //     this.setFilter();
-    //     this.service.generateExcel(this.info);
-    // }
-
-     ExportToExcel() {
-        this.info.salesContractNo = this.salesContractNo ? this.salesContractNo : "" ;
-         this.info.orderTypeId = this.orderType ? this.orderType._id : "";
-         this.info.processTypeId = this.processType ? this.processType._id : "";
-         this.info.buyerId = this.buyer ? this.buyer._id : "";
-         this.info.accountId = this.account ? this.account._id : "";
-         this.info.orderNo= this.orderNo ? this.orderNo : "";        
-        this.info.sdate = this.dateFrom;
-        this.info.edate = this.dateTo;
-        this.service.generateExcel(this.info);
+    ExportToExcel() {
+        this.Values();
+        this.service.generateExcel(this.arg);
     }
 
-    buyerChanged(e) {
-        var selectedBuyer = e.detail || null;
-        if (!selectedBuyer) {
-            this.buyer = null;
-        }
-    }
-
-    orderTypeChanged(e) {
-        var selectedOrderType = e.detail || null;
-        if (selectedOrderType) {
+    orderTypeChanged(newValue) {
+        if (newValue) {
             this.filterOrder = {
-                "orderType.code": selectedOrderType.code
+                "orderType.code": newValue.code
             }
         } else {
-            this.orderType = null;
-            this.processType = null;
             this.filterOrder = {};
-        }
-    }
-
-    processTypeChanged(e) {
-        var selectedProcessType = e.detail || null;
-        if (!selectedProcessType) {
-            this.processType = null;
-        }
-    }
-
-    accountChanged(e) {
-        var selectedAccount = e.detail || null;
-        if (!selectedAccount) {
-            this.account = null;
-        }
-    }
-
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.searching();
-    }
-
-    setFilter() {
-        this.info.filter = {};
-        if (this.dateFrom) {
-            Object.assign(this.filter, { sdate: this.dateFrom });
-        }
-        if (this.dateTo) {
-            Object.assign(this.filter, { edate: this.dateTo });
-        }
-        if (this.salesContractNo) {
-            Object.assign(this.filter, { salesContractNo: this.salesContractNo });
-        }
-        if (this.orderNo) {
-            Object.assign(this.filter, { orderNo: this.orderNo });
-        }
-        if (this.orderType) {
-            Object.assign(this.filter, { orderTypeId: this.orderType._id });
-        }
-        if (this.processType) {
-            Object.assign(this.filter, { processTypeId: this.processType._id });
-        }
-        if (this.buyer) {
-            Object.assign(this.filter, { buyerId: this.buyer._id });
-        }
-        if (this.account) {
-            Object.assign(this.filter, { accountId: this.account._id });
-        }
-        if (Object.getOwnPropertyNames(this.filter).length > 0) {
-            this.info.filter = JSON.stringify(this.filter);
         }
     }
 
     detail(data) {
         this.router.navigateToRoute('view', { id: data.salesContractNo });
+    }
+
+    get processTypeLoader() {
+        return ProcessTypeLoader;
+    }
+
+    get orderTypeLoader() {
+        return OrderTypeLoader;
+    }
+
+    get buyerLoader() {
+        return BuyerLoader;
+    }
+
+    get accountLoader() {
+        return AccountLoader;
     }
 }
