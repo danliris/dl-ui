@@ -89,6 +89,15 @@ export class List {
         }
     }
 
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF":
+                return data.isPosted;
+            default:
+                return true;
+        }
+    }
+
     posting() {
         if (this.dataToBePosted.length > 0) {
             this.service.post(this.dataToBePosted).then(result => {
