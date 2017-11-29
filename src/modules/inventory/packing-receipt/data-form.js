@@ -70,7 +70,7 @@ export class DataForm {
     }
     
     storageView = (storage) => {
-        return `${storage.code} - ${storage.name}`
+        return `${storage.unit.name} - ${storage.name}`
     }
 
     get storageLoader() {

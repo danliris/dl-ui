@@ -15,7 +15,7 @@
             label="Tahun" 
             value.bind="data.year"
             error.bind="error.year"
-            read-only.bind="readOnly"
+            read-only.bind="isEdit"
             options.bind="controlOptions"
             format="0"
             step.bind="dataDetail">
@@ -29,7 +29,7 @@
             text.bind = "unitView"
             placeholder="Cari unit konveksi" 
             key="_id" 
-            read-only.bind="readOnly"
+            read-only.bind="isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
         
@@ -39,7 +39,6 @@
             columns.bind="itemColumns"
             options.bind="controlOptions"
             read-only.bind="readOnly"
-            if.bind="isYear" 
             item-template="modules/garment-master-plan/weekly-plan/template/item">
         </au-collection>
 

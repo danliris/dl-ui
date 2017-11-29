@@ -1,7 +1,7 @@
 <template >
     <tr>
         <td>
-            <au-textbox value.bind="prNo" read-only.bind="true">
+            <au-textbox value.bind="prNo" read-only.bind="true" error.bind="error.no">
             </au-textbox>
         </td>
         <td>
@@ -72,15 +72,31 @@
         </td>
         <td>
             <au-numeric 
-                value.bind="data.priceBeforeTax" 
+                value.bind="price" 
                 error.bind="error.priceBeforeTax"
                 read-only.bind="options.readOnly" 
-                change.delegate="priceBeforeTaxChanged($event)"
                 options.bind="controlOptions"
                 format="0,000.0000">
             </au-numeric>
         </td>
-        <td if.bind="context.context.options.isUseIncomeTax" align="center">
+        <td show.bind="context.context.options.checkOverBudget" align="center">
+            <au-checkbox 
+                value.bind="data.isOverBudget" 
+                error.bind="error.isOverBudget" 
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-checkbox>
+        </td>
+        <td show.bind="context.context.options.checkOverBudget">
+            <au-textbox 
+                value.bind="data.overBudgetRemark" 
+                error.bind="error.overBudgetRemark"
+                read-only.bind="options.readOnly || !data.isOverBudget || !context.context.options.checkOverBudget"
+                placeholder="tambah keterangan over budget"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td show.bind="context.context.options.isUseIncomeTax" align="center">
             <au-checkbox 
                 value.bind="data.useIncomeTax" 
                 error.bind="error.useIncomeTax" 

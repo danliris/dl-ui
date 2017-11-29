@@ -263,7 +263,7 @@ export class DataForm {
     }
 
     storageView = (storage) => {
-        return `${storage.code} - ${storage.name}`;
+        return `${storage.unit.name} - ${storage.name}`;
     }
     unitView = (unit) => {
         return `${unit.division.name} - ${unit.name}`;

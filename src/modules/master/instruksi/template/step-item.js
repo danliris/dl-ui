@@ -4,7 +4,7 @@ var StepLoader = require('../../../../loader/step-loader');
 export class StepItem {
   @bindable temp;
 
-  areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing"];
+  areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Inspecting", "Area Finishing"];
 
   activate(context) {
     console.log("step-Item")

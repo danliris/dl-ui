@@ -36,9 +36,12 @@ export class ShipmentDetail {
         }
     }
 
-    productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
+    // productionOrderFields = ["_id", "orderNo", "orderType.name", "designCode", "designNumber", "details.colorType"];
+    packingReceiptFields = ["_id", "code", "storageId", "storage.code", "storage.name", "referenceNo", "referenceType", "items.product", "items.availableQuantity"];
+    productFields = ["_id", "code", "name", "properties.designCode", "properties.designNumber", "properties.length", "properties.weight"];
+    summaryFields = ["_id", "uomId", "uom", "quantity"];
 
-    itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
+    itemColumns = ["Macam Barang", "Design", "Satuan", "Kuantiti Satuan", "Panjang Satuan", "Panjang Total", "Berat Satuan", "Berat Total"];
     newItemColumns = ["Daftar Packing Receipt"];
 
     @bindable selectedProductionOrder;
@@ -56,10 +59,14 @@ export class ShipmentDetail {
             if (this.selectedBuyerName && this.selectedProductionOrder) {
 
                 var filter = {
-                    "buyer": this.selectedBuyerName,
-                    "productionOrderNo": this.selectedProductionOrder.orderNo
+                    "$and": [
+                        { "productionOrderNo": this.selectedProductionOrder.orderNo },
+                        { "isVoid": false },
+                        { "storage.code": this.selectedStorageCode }
+                    ]
                 }
-                var info = { filter: JSON.stringify(filter) };
+
+                var info = { filter: JSON.stringify(filter), select: this.packingReceiptFields };
                 var packingReceipts = await this.service.searchPackingReceipts(info);
 
                 if (packingReceipts.length > 0) {
@@ -83,14 +90,19 @@ export class ShipmentDetail {
                                 "$in": productNames
                             }
                         }
-                        var productInfo = { filter: JSON.stringify(productFilter) };
+                        var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields };
                         var products = await this.service.searchProducts(productInfo);
 
                         //find summaries
                         var inventorySummariesFilter = {
-                            "productName": {
-                                "$in": productNames
-                            }
+                            "$and": [
+                                {
+                                    "productName": {
+                                        "$in": productNames
+                                    },
+                                },
+                                { "storageCode": this.selectedStorageCode }
+                            ]
                         }
                         var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter) };
                         var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
@@ -109,16 +121,22 @@ export class ShipmentDetail {
                                 _packingReceiptItem.colorType = packingReceipt.colorName;
                                 _packingReceiptItem.uomId = summary.uomId;
                                 _packingReceiptItem.uomUnit = summary.uom;
-                                _packingReceiptItem.quantity = summary.quantity;
+                                _packingReceiptItem.quantity = packingReceiptItem.availableQuantity;
                                 _packingReceiptItem.length = product.properties.length;
                                 _packingReceiptItem.weight = product.properties.weight;
 
                                 _item.packingReceiptItems.push(_packingReceiptItem);
                             }
                         }
-                        items.push(_item);
+
+                        if (_item.packingReceiptItems.length > 0) {
+                            items.push(_item);
+                        }
+
                     }
                     this.data.items = items;
+                } else {
+                    this.data.items = [];
                 }
             }
         } else {

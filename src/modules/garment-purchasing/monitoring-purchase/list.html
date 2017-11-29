@@ -33,6 +33,18 @@
                     label="Nomor PO Eksternal"
                     placeholder="masukkan nomor PO Eksternal"  >
                 </au-textbox>
+                        
+                <au-textbox  
+                    value.bind="prRefNo"
+                    label="Nomor Ref. PR"
+                    placeholder="masukkan nomor referensi PR"  >
+                </au-textbox>
+                        
+                <au-textbox  
+                    value.bind="artikel"
+                    label="Artikel"
+                    placeholder="masukkan artikel"  >
+                </au-textbox>
 
                 <au-autocomplete 
                     value.bind="supplier" 
@@ -76,7 +88,8 @@
                 columns.bind="columns" 
                 sortable.bind="true" 
                 page-size="25" 
-                options.bind="tableOptions">
+                options.bind="tableOptions" 
+                row-formatter.bind="rowFormatter">
                 <div slot="toolbar" class="btn-group">
                     <button class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
                 </div>

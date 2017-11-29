@@ -38,15 +38,15 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getUnitById(id) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/unit/${id}`;
+    // getUnitById(id) {
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("core");
+    //     var _serviceUri = `master/unit/${id}`;
 
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
+    //     return _endpoint.find(_serviceUri)
+    //         .then(result => {
+    //             return result.data;
+    //         });
         
-    }
+    // }
 }

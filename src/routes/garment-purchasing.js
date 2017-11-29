@@ -13,6 +13,19 @@ module.exports = [
         }
     },
     {
+        route: 'garment-generating-data',
+        name: 'garment-generating-data',
+        moduleId: './modules/garment-purchasing/garment-generating-data/index',
+        nav: true,
+        title: 'Garment Generating Data',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/pr',
         name: 'purchase-request',
         moduleId: './modules/garment-purchasing/purchase-request/index',
@@ -129,6 +142,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-delivery-order-all',
+        name: 'monitoring-delivery-order-all',
+        moduleId: './modules/garment-purchasing/monitoring-delivery-order-all/index',
+        nav: true,
+        title: 'Monitoring Surat Jalan All User',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/customs',
         name: 'customs',
         moduleId: './modules/garment-purchasing/customs/index',
@@ -150,7 +176,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -215,7 +241,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -228,7 +254,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
