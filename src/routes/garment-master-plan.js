@@ -37,6 +37,19 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/garment-master-plan/booking-order',
+        name: 'booking-order',
+        moduleId: './modules/garment-master-plan/booking-order/index',
+        nav: true,
+        title: 'Booking Order',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]
