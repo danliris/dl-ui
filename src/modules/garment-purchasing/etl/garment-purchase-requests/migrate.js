@@ -3,6 +3,8 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
 
+var BuyerLoader = require('../../../../loader/garment-buyers-loader');
+
 @inject(Router, Service)
 export class Migrate {
     @bindable error = {};
@@ -15,7 +17,6 @@ export class Migrate {
         this.count = 0;
         this.page = 1;
         this.size = 10;
-
     }
 
     auInputOptions = {
@@ -42,6 +43,10 @@ export class Migrate {
 
     list() {
         this.router.navigateToRoute('list');
+    }
+
+    get buyerLoader(){
+        return BuyerLoader;
     }
 
     cancelCallback(event) {
@@ -76,7 +81,8 @@ export class Migrate {
     }
 
     saveCallback(event) {
-        this.service.getData(this.data).then((data) => {
+        debugger
+        this.service.getDataSql(this.data).then((data) => {
             this.totalData = data;
             this.migratedFalse = 0;
             this.ETL();
