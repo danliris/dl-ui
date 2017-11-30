@@ -7,13 +7,13 @@ module.exports = function(keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("auth");
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), select: ["_id","username","isLocked","profile.firstname","profile.lastname","roles"] })
         .then(results => {
-            return results.data.map(purchaseOrder => {
-                purchaseOrder.toString = function () {
+            return results.data.map(account => {
+                account.toString = function () {
                     return `${this.profile.firstname} ${this.profile.lastname} `;
                 }
-                return purchaseOrder;
+                return account;
             });
         });
 }
