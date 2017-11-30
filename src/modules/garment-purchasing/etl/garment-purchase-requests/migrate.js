@@ -81,7 +81,6 @@ export class Migrate {
     }
 
     saveCallback(event) {
-        debugger
         this.service.getDataSql(this.data).then((data) => {
             this.totalData = data;
             this.migratedFalse = 0;
