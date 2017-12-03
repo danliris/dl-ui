@@ -31,6 +31,7 @@ export class View {
         { value: "color", header: "Warna yang Diminta" },
         { value: "machine", header: "Mesin" },
         { value: "step", header: "Step" },
+        { value: "area", header: "Area" },
         { value: "qty", header: "Input" }
     ];
 

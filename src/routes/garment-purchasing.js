@@ -13,6 +13,19 @@ module.exports = [
         }
     },
     {
+        route: 'garment-generating-data',
+        name: 'garment-generating-data',
+        moduleId: './modules/garment-purchasing/garment-generating-data/index',
+        nav: true,
+        title: 'Garment Generating Data',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9" : 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/pr',
         name: 'purchase-request',
         moduleId: './modules/garment-purchasing/purchase-request/index',
@@ -95,6 +108,19 @@ module.exports = [
         moduleId: './modules/garment-purchasing/monitoring-purchase/index',
         nav: true,
         title: 'Monitoring Purchase',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/monitoring-purchase-all-user',
+        name: 'monitoring-purchase-all-user',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-all-user/index',
+        nav: true,
+        title: 'Monitoring Purchase All User',
         auth: true,
         settings: {
             group: "g-purchasing",
