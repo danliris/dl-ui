@@ -39,6 +39,14 @@ export class List {
       { field: "before", title: "Before"},
       { field: "quantity", title: "Kuantiti"},
       { field: "after", title: "After"},
+      { field: "secondUom", title: "UOM 2"},
+      { field: "secondBefore", title: "Before 2"},
+      { field: "secondQuantity", title: "Kuantiti 2"},
+      { field: "secondAfter", title: "After 2"},
+      { field: "thirdUom", title: "UOM 3"},
+      { field: "thirdBefore", title: "Before 3"},
+      { field: "thirdQuantity", title: "Kuantiti 3"},
+      { field: "thirdAfter", title: "After 3"},
       { field: "type", title: "Status"}
     ]
 

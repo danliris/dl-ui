@@ -36,6 +36,50 @@
                 </au-autocomplete>
         </td>
         <td class="col-sm-2">
+            <au-numeric 
+                value.bind="data.secondQuantity" 
+                error.bind="error.secondQuantity"
+                read-only.bind="options.readOnly" 
+                format = "0"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
+            <au-autocomplete 
+                value.bind="selectedSecondUom" 
+                error.bind="error.secondUomId"
+                change.delegate="selectedSecondUomChanged($event)"
+                loader.bind="uomLoader"
+                placeholder="cari satuan" 
+                key="_id"
+                read-only.bind="options.readOnly"
+                text.bind="uomView"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric 
+                value.bind="data.thirdQuantity" 
+                error.bind="error.thirdQuantity"
+                read-only.bind="options.readOnly" 
+                format = "0"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
+            <au-autocomplete 
+                value.bind="selectedThirdUom" 
+                error.bind="error.thirdUomId"
+                change.delegate="selectedThirdUomChanged($event)"
+                loader.bind="uomLoader"
+                placeholder="cari satuan" 
+                key="_id"
+                read-only.bind="options.readOnly"
+                text.bind="uomView"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td class="col-sm-2">
                 <au-textbox 
                     value.bind="data.remark" 
                     error.bind="error.remark"
