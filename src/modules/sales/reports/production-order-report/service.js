@@ -13,7 +13,6 @@ export class Service extends RestService {
 
     getReport(info) {
         var endpoint = `${serviceUri}`;
-        var query = '';
         return super.list(endpoint, info);
     }
 
@@ -22,25 +21,14 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    // generateExcel(info) {
-    //     var endpoint = `${serviceUri}`;        
-    //     if (typeof info.filter === "string")
-    //      var endpoint = `${serviceUri}?${info.filter}`;
-    //     return super.getXls(endpoint);
-    // }
-
     generateExcel(info) {
         var endpoint = this._getEndPoint(info);
         return super.getXls(endpoint);
     }
-    
 
-
-      _getEndPoint(info)
-    {
+    _getEndPoint(info) {
         var endpoint = `${serviceUri}`;
         var query = '';
-       
 
         if (info.salesContractNo) {
             if (query === '') query = `salesContractNo=${info.salesContractNo}`;
@@ -60,8 +48,8 @@ export class Service extends RestService {
         }
         if (info.buyerId) {
             if (query === '') query = `buyerId=${info.buyerId}`;
-            else query = `${query}&buyerId=${info.buyerId}`;   
-    }
+            else query = `${query}&buyerId=${info.buyerId}`;
+        }
         if (info.accountId) {
             if (query === '') query = `accountId=${info.accountId}`;
             else query = `${query}&accountId=${info.accountId}`;
@@ -76,7 +64,7 @@ export class Service extends RestService {
         }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
-        
+
         return endpoint;
     }
 }

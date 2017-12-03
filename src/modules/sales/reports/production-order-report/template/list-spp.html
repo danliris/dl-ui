@@ -18,7 +18,7 @@
         </td>
 
     </tr>
-    <tr if.bind="isShowing">
+    <tr show.bind="isShowing">
         <td></td>
         <td colspan="3">
             <au-collection columns.one-way="detailSPPColumns" items.bind="data.details" read-only.bind="readOnly">
