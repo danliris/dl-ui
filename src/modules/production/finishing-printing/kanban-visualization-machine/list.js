@@ -168,7 +168,7 @@ export class List {
 					}
 				}
 
-				this.kanbanMachine =  "width: " + (this.machineLength * 500) + "px";
+				this.kanbanMachine =  "width: " + (this.machineLength * 500) + "px; height: 600px;";
 				
 				if (this.totalData != this.count) {
 					this.page++;
