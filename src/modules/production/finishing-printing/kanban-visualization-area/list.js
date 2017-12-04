@@ -11,7 +11,7 @@ export class List {
 		this.service = service;
 
 		this.type = ["type-1", "type-2", "type-3", "type-4"];
-		this.area = ["Blank", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing"]
+		this.area = ["Blank", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area Inspecting"]
 		this.map = [];
 
 		for (var area of this.area) {
@@ -23,7 +23,8 @@ export class List {
 			{ name: "Pre Treatment", area: "Area Pre Treatment", map: this.map["Area Pre Treatment"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 },
 			{ name: "Dyeing", area: "Area Dyeing", map: this.map["Area Dyeing"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 },
 			{ name: "Printing", area: "Area Printing", map: this.map["Area Printing"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 },
-			{ name: "Finishing", area: "Area Finishing", map: this.map["Area Finishing"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 }
+			{ name: "Finishing", area: "Area Finishing", map: this.map["Area Finishing"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 },
+			{ name: "Inspecting", area: "Area Inspecting", map: this.map["Area Inspecting"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 }
 		];
 
 		this.index = 0;
@@ -56,7 +57,7 @@ export class List {
 					if (data && data.process) {
 						var area = (!data.processArea || data.processArea === "") ? "Blank" : data.processArea;
 						var stage = this.stages.find(o => o.area == area);
-
+						
 						if(data.type === "Input") {
 							var obj = {
 								code: data.code,
