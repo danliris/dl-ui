@@ -69,7 +69,7 @@ module.exports = [
         name: 'master-plan-comodity',
         moduleId: './modules/garment-master-plan/master-plan-comodity/index',
         nav: true,
-        title: 'Komoditas',
+        title: 'Komoditi',
         auth: true,
         settings: {
             group: "g-master-plan",
