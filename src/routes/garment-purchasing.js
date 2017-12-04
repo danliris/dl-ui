@@ -90,6 +90,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/po-external/over-budget',
+        name: 'purchase-order-external-over-budget',
+        moduleId: './modules/garment-purchasing/purchase-order-external-over-budget/index',
+        nav: true,
+        title: 'Purchase Order External Over Budget',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1 },
+            conClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/monitoring-purchase',
         name: 'monitoring-purchase',
         moduleId: './modules/garment-purchasing/monitoring-purchase/index',
