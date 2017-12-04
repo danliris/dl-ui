@@ -25,17 +25,13 @@
                                         <br>
                                     </h4>
                                     <div class="kanbanText">
-                                        Proses: ${i.process}
-                                        <br/> Sales Contract: ${i.salesContractNo} - ${i.buyer} - ${i.orderQuantity}
+                                        Sales Contract: ${i.salesContractNo} - ${i.buyer} - ${i.orderQuantity}
                                         <br/> Tanggal Deadline: ${i.deadline}
                                         <br/> Tanggal Kirim: ${i.deliveryDate}
                                         <br/> Kuantiti: ${i.input | numberFormat: '0,000'}
                                     </div>
                                 </li>
                             </ol>
-                            <div class="total">
-                                Total: ${stage.inputTotal | numberFormat: '0,000'}
-                            </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="kanban__title">
@@ -56,11 +52,15 @@
                                     </div>
                                 </li>
                             </ol>
-
-                            <div class="total">
-                                Good Output Total: ${stage.goodOutputTotal | numberFormat: '0,000'}
-                                <br> Bad Output Total: ${stage.badOutputTotal | numberFormat: '0,000'}
-                            </div>
+                        </div>
+                    </div>
+                    <div class="total col-sm-12">
+                        <div class="col-sm-6">
+                            Total: ${stage.inputTotal | numberFormat: '0,000'}
+                        </div>
+                        <div class="col-sm-6">
+                            Good Output Total: ${stage.goodOutputTotal | numberFormat: '0,000'}
+                            <br> Bad Output Total: ${stage.badOutputTotal | numberFormat: '0,000'}
                         </div>
                     </div>
                 </div>
