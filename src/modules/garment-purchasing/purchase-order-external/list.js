@@ -38,6 +38,18 @@ export class List {
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
+        },
+        {
+            field: "isOverBudget", title: "Over Budget?",
+            formatter: function (value, row, index) {
+                return value ? "YA" : "TIDAK";
+            }
+        },
+        {
+            field: "isApproved", title: "Status Approve",
+            formatter: function (value, row, index) {
+                return value ? "SUDAH" : "BELUM";
+            }
         }
     ];
 
@@ -49,7 +61,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "items.prNo", "isPosted"],
+            select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
 
