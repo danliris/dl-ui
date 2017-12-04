@@ -35,7 +35,7 @@ export class List {
 
 	async activate() {
 		await this.getData();
-		this.getQC();
+		// this.getQC();
 	}
 
 	async getData() {
@@ -107,26 +107,26 @@ export class List {
 			});
 	}
 
-	getQC() {
-		this.totalQC = 0;
-		this.qualityControl = [];
+	// getQC() {
+	// 	this.totalQC = 0;
+	// 	this.qualityControl = [];
 
-		var arg = {
-			page: 1,
-			size: Number.MAX_SAFE_INTEGER,
-            filter: JSON.stringify({ isUsed: false }),
-            select: ["code", "productionOrderNo", "cartNo", "buyer", "fabricGradeTests.finalLength"]
-        };
+	// 	var arg = {
+	// 		page: 1,
+	// 		size: Number.MAX_SAFE_INTEGER,
+    //         filter: JSON.stringify({ isUsed: false }),
+    //         select: ["code", "productionOrderNo", "cartNo", "buyer", "fabricGradeTests.finalLength"]
+    //     };
 
-		this.service.searchQC(arg)
-			.then((result) => {
-				this.qualityControl = result.data;
+	// 	this.service.searchQC(arg)
+	// 		.then((result) => {
+	// 			this.qualityControl = result.data;
 
-				for (var data of result.data) {
-					for (var test of data.fabricGradeTests) {
-						this.totalQC += test.finalLength;
-					}
-				}
-			});
-	}
+	// 			for (var data of result.data) {
+	// 				for (var test of data.fabricGradeTests) {
+	// 					this.totalQC += test.finalLength;
+	// 				}
+	// 			}
+	// 		});
+	// }
 }
