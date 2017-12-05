@@ -15,6 +15,10 @@ export class List {
         { field: "productName", title: "Nama Barang" },
         { field: "quantity", title: "Kuantiti" },
         { field: "uom", title: "UOM" },
+        { field: "secondQuantity", title: "Kuantiti 2" },
+        { field: "secondUom", title: "UOM 2" },
+        { field: "thirdQuantity", title: "Kuantiti 3" },
+        { field: "thirdUom", title: "UOM 3" }
     ];
 
     tableOptions = {

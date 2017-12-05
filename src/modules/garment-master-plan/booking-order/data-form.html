@@ -1,0 +1,99 @@
+<template>
+    <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
+        <au-datepicker 
+            label="Tanggal Booking" 
+            value.bind="data.bookingDate" 
+            error.bind="error.bookingDate" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-autocomplete 
+            value.bind="selectedBuyer" 
+            error.bind="error.buyer"
+            label="Buyer" 
+            loader.bind="buyerLoader"
+            text.bind = "buyerView"
+            placeholder="cari buyer" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="selectedStyle" 
+            error.bind="error.style"
+            label="Kode Artikel / Style" 
+            loader.bind="styleLoader"
+            text.bind = "styleView"
+            placeholder="cari style" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox 
+            label="Artikel/Style" 
+            value.bind="data.styleName" 
+            error.bind="error.style" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+        
+
+        <au-textbox 
+            label="Standar Hour" 
+            value.bind="data.shSewing" 
+            error.bind="error.standardHour" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <numeric 
+            label="Jumlah Order" 
+            value.bind="data.orderQuantity" 
+            error.bind="error.orderQuantity" 
+            format="0"
+            read-only.bind="readOnly">
+        </numeric>
+
+        <au-datepicker 
+            label="Tanggal Pengiriman" 
+            value.bind="data.deliveryDate" 
+            error.bind="error.deliveryDate" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-datepicker>
+        
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.remark"
+            placeholder="tambah keterangan" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <label for="Jadwal Pengerjaan">Jadwal Pengerjaan : </label>
+        <au-collection 
+            items.bind="data.details" 
+            errors.bind="error.details" 
+            columns.bind="detailColumns" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.bind="options"
+            read-only.bind="readOnly"
+            item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
+            footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
+        </au-collection>
+  </au-input-form>
+</template>

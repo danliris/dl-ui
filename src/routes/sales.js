@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1},
+            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,10 +21,10 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1},
+            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },    
+    },
     {
         route: 'sales/weaving-sales-contract',
         name: 'weaving-sales-contract',
@@ -50,7 +50,8 @@ module.exports = [
             permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }, {
+    },
+    {
         route: 'sales/reports/weaving-sales-contract-reports',
         name: 'weaving-sales-contract-report',
         moduleId: './modules/sales/reports/weaving-sales-contract-report/index',
@@ -76,7 +77,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-  {
+    {
         route: 'sales/production-order',
         name: 'production-order',
         moduleId: './modules/sales/production-order/index',
@@ -137,7 +138,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1, "PGA":1, "PA":1, "PM":1, "PE":1 },
+            permission: { "A2": 1, "C9": 1, "PGA": 1, "PA": 1, "PM": 1, "PE": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/order-status-report',
+        name: 'order-status-report',
+        moduleId: './modules/sales/reports/order-status-report/index',
+        nav: true,
+        title: 'Laporan Status Order',
+        auth: true,
+        settings: {
+            group: "sales",
+            permission: { "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

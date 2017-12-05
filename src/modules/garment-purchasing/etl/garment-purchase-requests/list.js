@@ -9,14 +9,15 @@ export class List {
 
     columns = [
 
-        { field: "no", title: "no" },
-        { field: "roNo", title: "nomor Ro" },
-        { field: "artikel", title: "artikel" },
+        { field: "no", title: "No" },
+        { field: "roNo", title: "Nomor Ro" },
+        { field: "artikel", title: "Artikel" },
         {
             field: "date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        {field: "buyer.name", title: "Buyer" },
         { field: "migrated", title: "migrated" },
     ];
 
@@ -30,7 +31,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["no", "roNo", "date", "artikel", "migrated"]
+            select: ["no", "roNo", "date", "artikel","buyer.name", "migrated"]
         }
 
         return this.service.search(arg)

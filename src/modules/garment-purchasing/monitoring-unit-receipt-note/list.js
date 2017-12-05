@@ -30,12 +30,13 @@ export class List {
             
             no : this.no ? this.no : "",
             pr : this.pr ? this.pr : "",
+            purchaseRequestRefNo : this.purchaseRequestRefNo ? this.purchaseRequestRefNo : "",
             supplier : this.supplier ? this.supplier.code : "",
             unit : this.unit ? this.unit.code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        this.service.search(info.no,info.pr,info.unit,info.supplier,info.dateFrom,info.dateTo)
+        this.service.search(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.dateFrom,info.dateTo)
             .then(result => {
                this.data=result;
             });
@@ -45,12 +46,13 @@ export class List {
         var info = {
             no : this.no ? this.no : "",
             pr : this.pr ? this.pr : "",
+            purchaseRequestRefNo : this.purchaseRequestRefNo ? this.purchaseRequestRefNo : "",
             supplier : this.supplier ? this.supplier.code : "",
             unit : this.unit ? this.unit.code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        this.service.generateXls(info.no,info.pr,info.unit,info.supplier,info.dateFrom,info.dateTo)
+        this.service.generateXls(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.dateFrom,info.dateTo)
     }
   
 
@@ -58,6 +60,7 @@ export class List {
        
         this.no = "";
         this.pr="";
+        this.purchaseRequestRefNo="";
         this.unit = "";
         this.dateFrom = "";
         this.dateTo = "";
