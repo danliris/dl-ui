@@ -20,7 +20,7 @@ export class InventoryDocumentItem {
   }
 
   async bind(context) {
-    this.data = context.data;
+     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
 
@@ -47,7 +47,7 @@ export class InventoryDocumentItem {
     if (!this.data.secondUomId) {
       this.data.secondUomId = "";
     } else {
-      if (!this.data.selectedSecondUom) {
+      if (!this.data.selectedSecondUom && this.data.secondUom) {
         this.selectedSecondUom = await this.service.getUomById(this.data.secondUomId);
         this.data.selectedSecondUom = this.selectedSecondUom;
       } else {
@@ -57,7 +57,7 @@ export class InventoryDocumentItem {
     if (!this.data.thirdUomId) {
       this.data.thirdUomId = "";
     } else {
-      if (!this.data.selectedThirdUom) {
+      if (!this.data.selectedThirdUom && this.data.thirdUom) {
         this.selectedThirdUom = await this.service.getUomById(this.data.thirdUomId);
         this.data.selectedThirdUom = this.selectedThirdUom;
       } else {
@@ -98,10 +98,11 @@ export class InventoryDocumentItem {
     else {
       this.data.uomId = "";
       this.data.uom = "";
+      this.data.quantity = 0;
     }
   }
 
-  @bindable  selectedSecondUom;
+  @bindable selectedSecondUom;
   selectedSecondUomChanged(newValue, oldValue) {
     if (this.selectedSecondUom && this.selectedSecondUom._id) {
       this.data.secondUomId = this.selectedSecondUom._id;
@@ -110,11 +111,12 @@ export class InventoryDocumentItem {
     else {
       this.data.secondUomId = "";
       this.data.secondUom = "";
+      this.data.secondQuantity = 0;
     }
   }
 
-  @bindable  selectedThirdUom;
-  selectedSecondUomChanged(newValue, oldValue) {
+  @bindable selectedThirdUom;
+  selectedThirdUomChanged(newValue, oldValue) {
     if (this.selectedThirdUom && this.selectedThirdUom._id) {
       this.data.thirdUomId = this.selectedThirdUom._id;
       this.data.thirdUom = this.selectedThirdUom.unit;
@@ -122,6 +124,7 @@ export class InventoryDocumentItem {
     else {
       this.data.thirdUomId = "";
       this.data.thirdUom = "";
+      this.data.thirdQuantity = 0;
     }
   }
 

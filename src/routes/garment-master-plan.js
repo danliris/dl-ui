@@ -63,6 +63,19 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/garment-master-plan/master-plan-comodity',
+        name: 'master-plan-comodity',
+        moduleId: './modules/garment-master-plan/master-plan-comodity/index',
+        nav: true,
+        title: 'Komoditi',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]

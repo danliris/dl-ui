@@ -285,12 +285,9 @@ export class DataForm {
                     .then((listUsedBudget) => {
                         listUsedBudget = [].concat.apply([], listUsedBudget);
                         result.data.map((data) => {
-                            var pr = listPR.find((pr) => pr._id.toString() == data.purchaseRequest._id.toString());
-                            var prItem = {};
+                            var pr = listPR.find((pr) => pr.no.toString() == data.purchaseRequest.no.toString());
+                            var prItem = pr.items.find((item) => item.product.code.toString() === data.items.product.code.toString() && item.refNo === data.items.refNo)
 
-                            if (pr) {
-                                pr.items.find((item) => item.product.code.toString() === data.items.product.code.toString() && item.refNo === data.items.refNo)
-                            }
                             var budgetUsed = 0;
                             if (listUsedBudget.length > 0) {
                                 var prevAmount = listUsedBudget.find((budget) => budget.prNo == data.purchaseRequest.no && budget.prRefNo == data.items.refNo && budget.product == data.items.product.code);
