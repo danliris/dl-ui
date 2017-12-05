@@ -98,10 +98,11 @@ export class InventoryDocumentItem {
     else {
       this.data.uomId = "";
       this.data.uom = "";
+      this.data.quantity = 0;
     }
   }
 
-  @bindable  selectedSecondUom;
+  @bindable selectedSecondUom;
   selectedSecondUomChanged(newValue, oldValue) {
     if (this.selectedSecondUom && this.selectedSecondUom._id) {
       this.data.secondUomId = this.selectedSecondUom._id;
@@ -110,11 +111,12 @@ export class InventoryDocumentItem {
     else {
       this.data.secondUomId = "";
       this.data.secondUom = "";
+      this.data.secondQuantity = 0;
     }
   }
 
-  @bindable  selectedThirdUom;
-  selectedSecondUomChanged(newValue, oldValue) {
+  @bindable selectedThirdUom;
+  selectedThirdUomChanged(newValue, oldValue) {
     if (this.selectedThirdUom && this.selectedThirdUom._id) {
       this.data.thirdUomId = this.selectedThirdUom._id;
       this.data.thirdUom = this.selectedThirdUom.unit;
@@ -122,6 +124,7 @@ export class InventoryDocumentItem {
     else {
       this.data.thirdUomId = "";
       this.data.thirdUom = "";
+      this.data.thirdQuantity = 0;
     }
   }
 
