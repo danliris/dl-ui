@@ -5,23 +5,23 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    dataToBePosted = [];
+    dataToBeApproved = [];
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.isPosted)
+        if (data.isApproved)
             return { classes: "success" }
         else
             return {}
     }
 
-    context = ["Rincian", "Cetak PDF"]
+    context = ["Rincian"]
 
     columns = [
         {
-            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            field: "isApprove", title: "Approve", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
-                this.checkboxEnabled = !data.isPosted;
+                this.checkboxEnabled = data.isOverBudget && !data.isApproved;
                 return ""
             }
         },
@@ -33,18 +33,6 @@ export class List {
         },
         { field: "supplier.name", title: "Nama Supplier" },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
-        {
-            field: "isPosted", title: "Status Post",
-            formatter: function (value, row, index) {
-                return value ? "SUDAH" : "BELUM";
-            }
-        },
-        {
-            field: "isOverBudget", title: "Over Budget?",
-            formatter: function (value, row, index) {
-                return value ? "YA" : "TIDAK";
-            }
-        },
         {
             field: "isApproved", title: "Status Approve",
             formatter: function (value, row, index) {
@@ -58,6 +46,7 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
+            filter: JSON.stringify({ "isOverBudget": true, "isApproved": false }),
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
@@ -95,32 +84,23 @@ export class List {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data._id });
                 break;
-            case "Cetak PDF":
-                this.service.getPdfById(data._id);
-                break;
         }
     }
 
     contextShowCallback(index, name, data) {
         switch (name) {
-            case "Cetak PDF":
-                return data.isPosted;
             default:
                 return true;
         }
     }
 
-    posting() {
-        if (this.dataToBePosted.length > 0) {
-            this.service.post(this.dataToBePosted).then(result => {
+    approve() {
+        if (this.dataToBeApproved.length > 0) {
+            this.service.approve(this.dataToBeApproved).then(result => {
                 this.table.refresh();
             }).catch(e => {
                 this.error = e;
             })
         }
-    }
-
-    create() {
-        this.router.navigateToRoute('create');
     }
 }
