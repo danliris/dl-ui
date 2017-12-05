@@ -20,7 +20,7 @@ export class InventoryDocumentItem {
   }
 
   async bind(context) {
-    this.data = context.data;
+     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
 
@@ -47,7 +47,7 @@ export class InventoryDocumentItem {
     if (!this.data.secondUomId) {
       this.data.secondUomId = "";
     } else {
-      if (!this.data.selectedSecondUom) {
+      if (!this.data.selectedSecondUom && this.data.secondUom) {
         this.selectedSecondUom = await this.service.getUomById(this.data.secondUomId);
         this.data.selectedSecondUom = this.selectedSecondUom;
       } else {
@@ -57,7 +57,7 @@ export class InventoryDocumentItem {
     if (!this.data.thirdUomId) {
       this.data.thirdUomId = "";
     } else {
-      if (!this.data.selectedThirdUom) {
+      if (!this.data.selectedThirdUom && this.data.thirdUom) {
         this.selectedThirdUom = await this.service.getUomById(this.data.thirdUomId);
         this.data.selectedThirdUom = this.selectedThirdUom;
       } else {
