@@ -185,17 +185,17 @@ export class DataForm {
 
             this.instruction = this.data.instruction;
 
-            this.service.getDurationEstimation(this.data.productionOrder.processType.code, ["areas"])
-                .then((result) => {
-                    if (result.data.length > 0) {
-                        this.data.durationEstimation = result.data[0];
-                    }
-                    else {
-                        delete this.data.durationEstimation;
-                    }
+            // this.service.getDurationEstimation(this.data.productionOrder.processType.code, ["areas"])
+            //     .then((result) => {
+            //         if (result.data.length > 0) {
+            //             this.data.durationEstimation = result.data[0];
+            //         }
+            //         else {
+            //             delete this.data.durationEstimation;
+            //         }
 
-                    this.generateDeadlineReprocess();
-                });
+            //         this.generateDeadlineReprocess();
+            //     });
         }
         else { 
             delete this.data.durationEstimation;
