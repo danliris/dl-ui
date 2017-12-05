@@ -33,6 +33,7 @@ export class Service extends RestService {
     }
 
     searchDeliveryOrder(info) {
+        info.filter = JSON.stringify({ hasInvoice: true });
         var endpoint = `${deliveryOrderServiceUri}`;
         return super.list(endpoint, info);
     }
