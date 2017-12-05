@@ -94,7 +94,7 @@ export class List {
         { field: "defaultUom", title: "Satuan Barang" },
         { field: "budgetPrice", title: "Harga Budget" },
         { field: "pricePerItem", title: "Harga Satuan Beli" },
-        { field: "pricePerItem", title: "Harga Total" },
+        { field: "priceTotal", title: "Harga Total" },
         { field: "supplierCode", title: "Kode Supplier" },
         { field: "supplierName", title: "Nama Supplier" },
         { field: "poIntCreatedDate", title: "Tanggal Terima PO Internal" },
