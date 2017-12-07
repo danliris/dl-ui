@@ -1,0 +1,51 @@
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../../utils/rest-service';
+
+const serviceUri = 'sales/reports/order-status-report';
+
+export class Service extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "production");
+    }
+
+    search(info) {
+        var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    detail(info) {
+        var endpoint = `${serviceUri}/${info.year}/${info.month}/${info.orderType}`;
+        return super.get(endpoint);
+    }
+
+    generateExcel(info) {
+        var endpoint = this._getEndPoint(info);
+        return super.getXls(endpoint);
+    }
+
+    _getEndPoint(info) {
+        var endpoint = `${serviceUri}`;
+        var query = '';
+
+        if (info.orderType || info.orderType === "") {
+            if (query === '')
+                query = `orderType=${info.orderType}`;
+            else
+                query = `${query}&orderType=${info.processType}`;
+        }
+
+        if (info.year) {
+            if (query === '')
+                query = `year=${info.year}`;
+            else
+                query = `${query}&year=${info.year}`;
+        }
+
+        if (query !== '')
+            endpoint = `${serviceUri}?${query}`;
+
+        return endpoint;
+    }
+}
