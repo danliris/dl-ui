@@ -1,0 +1,53 @@
+<template>
+    <style>
+        #orderStatus .fixed-table-body {
+            height: 300px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+    </style>
+    <au-input-form title.bind="title" options.bind="formOptions">
+        <div id="orderStatus">
+            <au-textbox value.bind="year" label="Tahun" read-only="true"></au-textbox>
+            <au-textbox value.bind="month" label="Bulan" read-only="true"></au-textbox>
+            <au-textbox value.bind="orderType" label="Jenis Order" read-only="true"></au-textbox>
+
+            <h4 style="margin-bottom: 0px;">Belum Produksi</h4>
+            <au-table
+                data.bind="data.preProductionData"
+                columns.bind="preProductionColumns"
+                options.bind="tableOptions">
+            </au-table>
+
+            <br><br>
+
+            <h4 style="margin-bottom: 0px;">Sudah Produksi</h4>
+            <au-table
+                data.bind="data.onProductionData"
+                columns.bind="onProductionColumns"
+                options.bind="tableOptions">
+            </au-table>
+
+            <br><br>
+            
+            <h4 style="margin-bottom: 0px;">Sudah Dikirim Ke Gudang</h4>
+            <au-table
+                data.bind="data.storageData"
+                columns.bind="storageAndShipmentColumns"
+                options.bind="tableOptions">
+            </au-table>
+            
+            <br><br>
+            
+            <h4 style="margin-bottom: 0px;">Sudah Dikirim Ke Buyer</h4>
+            <au-table
+                data.bind="data.shipmentData"
+                columns.bind="storageAndShipmentColumns"
+                options.bind="tableOptions"
+                css.bind="overFlow">
+            </au-table>
+            
+            <br>
+        </div>
+    </au-input-form>
+</template>
