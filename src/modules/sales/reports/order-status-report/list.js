@@ -9,7 +9,7 @@ var SpinningSalesContractLoader = require('../../../../loader/spinning-sales-con
 
 @inject(Router, Service)
 export class List {
-
+    
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -19,11 +19,14 @@ export class List {
             this.yearList.push(i.toString());
         }
 
+        this.title = "Laporan Status Order Berdasarkan Delivery";
+        this.contextTable = ["Detail"];
     }
 
     info = {};
 
     data = [];
+   
 
     yearList = [];
     orderTypeList = ["", "WHITE", "DYEING", "PRINTING", "YARN DYED"];
@@ -33,7 +36,8 @@ export class List {
     tableOptions = {
         search: false,
         showToggle: false,
-        showColumns: false
+        showColumns: false,
+        pagination: false
     }
 
     bind(context) {
@@ -42,12 +46,17 @@ export class List {
     }
 
     columns = [
-        { field: "name", title: "Bulan" },
-        { field: "preProductionQuantity.toFixed(2)", title: "Belum Produksi\n(m)" },
-        { field: "onProductionQuantity.toFixed(2)", title: "Sudah Produksi\n(m)" },
-        { field: "orderQuantity.toFixed(2)", title: "Sudah Produksi\n(m)" },
-        { field: "storageQuantity.toFixed(2)", title: "Sudah Dikirim Ke Gudang\n(m)" },
-        { field: "shipmentQuantity.toFixed(2)", title: "Sudah Dikirim Ke Buyer\n(m)" }
+        [
+            { title: "Status Order", colspan: "6" },
+        ],
+        [
+            { field: "name", title: "Bulan" },
+            { field: "preProductionQuantity", title: "Belum Produksi\n(m)" },
+            { field: "onProductionQuantity", title: "Sudah Produksi\n(m)" },
+            { field: "orderQuantity", title: "Target Kirim Ke Buyer\n(m)" },
+            { field: "storageQuantity", title: "Sudah Dikirim Ke Gudang\n(m)" },
+            { field: "shipmentQuantity", title: "Sudah Dikirim Ke Buyer\n(m)" }
+        ]
     ];
 
     loader = (info) => {
@@ -58,6 +67,9 @@ export class List {
             this.fillValues(),
             this.service.search(this.info)
                 .then((result) => {
+                    this.selectedYear = this.year;
+                    this.selectedOrderType = this.orderType;
+                    
                     return {
                         data: result.data
                     }
@@ -87,4 +99,14 @@ export class List {
         this.orderStatusTable.refresh();
     }
 
+    contextCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+            case "Detail":
+                if(data.name != "Total")
+                    window.open(`${window.location.origin}/#/sales/order-status-report/view/${this.selectedYear}/${data.name}/${this.selectedOrderType}`);
+                break;
+        }
+    }
 }

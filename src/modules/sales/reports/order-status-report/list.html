@@ -6,7 +6,7 @@
             }
         </style>
 
-        <h1 class="page-header">Laporan Status Order Berdasarkan Delivery</h1>
+        <!-- <h1 class="page-header">Laporan Status Order Berdasarkan Delivery</h1> -->
         <form class="form-horizontal">
 
             <au-dropdown label="Jenis Order" value.bind="orderType" items.bind="orderTypeList"></au-dropdown>
@@ -23,7 +23,7 @@
             <!-- <div class="btn-group pull-left">
                 <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
             </div> -->
-        </form>
+        <!-- </form> -->
 
         <br>
         </br>
@@ -41,10 +41,12 @@
             data.bind="loader"
             columns.bind="columns"
             options.bind="tableOptions"
-            view-model.ref="orderStatusTable">
+            view-model.ref="orderStatusTable"
+            context.bind="contextTable" 
+            context-click.delegate="contextCallback($event)">
         </au-table>
 
-        <div class="table-responsive">
+        <!-- <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="myTable">
                 <thead align="center">
                     <tr>
@@ -75,6 +77,6 @@
             Tidak ada data.
         </div>
 
-        </form>
+        </form> -->
     </au-input-form>
 </template>
