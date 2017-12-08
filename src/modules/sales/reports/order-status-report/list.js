@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import numeral from 'numeral';
 
 var BuyersLoader = require('../../../../loader/buyers-loader');
 var ComodityLoader = require('../../../../loader/comodity-loader');
@@ -9,7 +10,7 @@ var SpinningSalesContractLoader = require('../../../../loader/spinning-sales-con
 
 @inject(Router, Service)
 export class List {
-    
+
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -26,7 +27,7 @@ export class List {
     info = {};
 
     data = [];
-   
+
 
     yearList = [];
     orderTypeList = ["", "WHITE", "DYEING", "PRINTING", "YARN DYED"];
@@ -67,9 +68,17 @@ export class List {
             this.fillValues(),
             this.service.search(this.info)
                 .then((result) => {
+                    for (let data of result.data) {
+                        data.onProductionQuantity = numeral(data.onProductionQuantity).format('0,000.00');
+                        data.orderQuantity = numeral(data.orderQuantity).format('0,000.00');
+                        data.preProductionQuantity = numeral(data.preProductionQuantity).format('0,000.00');
+                        data.shipmentQuantity = numeral(data.shipmentQuantity).format('0,000.00');
+                        data.storageQuantity = numeral(data.storageQuantity).format('0,000.00');                        
+                    }
+
                     this.selectedYear = this.year;
                     this.selectedOrderType = this.orderType;
-                    
+
                     return {
                         data: result.data
                     }
@@ -104,7 +113,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Detail":
-                if(data.name != "Total")
+                if (data.name != "Total")
                     window.open(`${window.location.origin}/#/sales/order-status-report/view/${this.selectedYear}/${data.name}/${this.selectedOrderType}`);
                 break;
         }
