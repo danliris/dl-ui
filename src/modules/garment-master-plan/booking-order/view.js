@@ -8,6 +8,7 @@ export class View {
   hasCancel = true;
   hasEdit = true;
   hasDelete = true;
+  hascancelConfirm = true;
 
   constructor(router, service) {
     this.router = router;
@@ -20,6 +21,11 @@ export class View {
       if(this.data.isConfirmed){
         this.hasEdit = false;
         this.hasDelete = false;
+        this.hascancelConfirm = false;
+      }
+      else if(this.data.isCanceled){
+        this.hasEdit = false;
+        this.hascancelConfirm = false;
       }
   }
 
@@ -30,6 +36,13 @@ export class View {
   edit(event) {
     this.router.navigateToRoute('edit', { id: this.data._id });
   }   
+
+  cancelBooking() {
+        this.service.cancelBooking(this.data)
+        .then(result => {
+          this.cancel();
+        });
+    }
    
   delete(event) {
     this.service.delete(this.data)
