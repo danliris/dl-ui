@@ -10,13 +10,6 @@ var SpinningSalesContractLoader = require('../../../../loader/spinning-sales-con
 @inject(Router, Service)
 export class List {
 
-    info = {};
-
-    data = [];
-
-    yearList = [];
-    orderTypeList = ["", "WHITE", "DYEING", "PRINTING", "YARN DYED"];
-
     constructor(router, service) {
         this.service = service;
         this.router = router;
@@ -28,44 +21,70 @@ export class List {
 
     }
 
+    info = {};
+
+    data = [];
+
+    yearList = [];
+    orderTypeList = ["", "WHITE", "DYEING", "PRINTING", "YARN DYED"];
+
+    listDataFlag = false;
+
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false
+    }
+
     bind(context) {
         this.context = context;
         this.data = context.data;
     }
 
-    // itemColumns = [
-    //     { field: "monthName", title: "Bulan" },
+    columns = [
+        { field: "name", title: "Bulan" },
+        { field: "preProductionQuantity.toFixed(2)", title: "Belum Produksi\n(m)" },
+        { field: "onProductionQuantity.toFixed(2)", title: "Sudah Produksi\n(m)" },
+        { field: "orderQuantity.toFixed(2)", title: "Sudah Produksi\n(m)" },
+        { field: "storageQuantity.toFixed(2)", title: "Sudah Dikirim Ke Gudang\n(m)" },
+        { field: "shipmentQuantity.toFixed(2)", title: "Sudah Dikirim Ke Buyer\n(m)" }
+    ];
 
-    //     { field: "preProductionQuantity", title: "Belum Produksi\n(m)" },
-    //     { field: "onProductionQuantity", title: "Sudah Produksi\n(m)" },
-    //     { field: "storageQuantity", title: "Sudah Dikirim Ke Gudang\n(m)" },
-    //     { field: "shipmentQuantity", title: "Sudah Dikirim Ke Buyer\n(m)" }
-    // ];
+    loader = (info) => {
 
-    searching() {
+        this.info = {};
 
+        return this.listDataFlag ? (
+            this.fillValues(),
+            this.service.search(this.info)
+                .then((result) => {
+                    return {
+                        data: result.data
+                    }
+                })
+        ) : { total: 0, data: {} };
+    }
+
+    fillValues() {
         this.info.orderType = this.orderType ? this.orderType : "";
         this.info.year = this.year ? this.year : moment().format('YYYY');
+    }
 
-        return this.service.search(this.info)
-            .then((result) => {
-                this.data = result.data;
-            })
+    searching() {
+        this.listDataFlag = true;
+        this.orderStatusTable.refresh();
     }
 
     exportToExcel() {
-
-        this.info.orderType = this.orderType ? this.orderType : "";
-        this.info.year = this.year ? this.year : moment().format('YYYY');
-
+        this.fillValues();
         this.service.generateExcel(this.info);
     }
 
     reset() {
-        this.orderType = "";
+        this.listDataFlag = false;
+        this.info = {};
         this.year = moment().format("YYYY");
-        this.data = [];
-        this.info = {}
+        this.orderStatusTable.refresh();
     }
 
 }

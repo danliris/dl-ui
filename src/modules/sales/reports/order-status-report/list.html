@@ -37,6 +37,13 @@
             <button class='btn btn-primary' click.delegate="exportToExcel()">Excel</button>
         </div>
 
+        <au-table
+            data.bind="loader"
+            columns.bind="columns"
+            options.bind="tableOptions"
+            view-model.ref="orderStatusTable">
+        </au-table>
+
         <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="myTable">
                 <thead align="center">
