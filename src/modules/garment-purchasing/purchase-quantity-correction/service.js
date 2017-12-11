@@ -5,6 +5,7 @@ import { RestService } from '../../../utils/rest-service';
 
 const deliveryOrderServiceUri = 'delivery-orders/by-user';
 const serviceUri = 'purchase-quantity-correction/by-user';
+const purchaseOrderExternalServiceUri = 'purchase-orders/externals/by-user';
 
 export class Service extends RestService {
 
@@ -46,5 +47,20 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getPdfReturnNotePph(id) {
+        var endpoint = `purchase-quantity-corrections/return-note/pph/${id}`;
+        return super.getPdf(endpoint);
+    }
+
+    getPdfReturnNotePpn(id) {
+        var endpoint = `purchase-quantity-corrections/return-note/ppn/${id}`;
+        return super.getPdf(endpoint);
+    }
+
+    getPOExternalById(id) {
+        var endpoint = `${purchaseOrderExternalServiceUri}/${id}`;
+        return super.get(endpoint);
     }
 }
