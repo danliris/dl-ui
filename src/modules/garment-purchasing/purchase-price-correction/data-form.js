@@ -1,4 +1,4 @@
-import {inject, bindable, computedFrom} from 'aurelia-framework'
+import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 
 @inject(Service)
@@ -9,6 +9,8 @@ export class DataForm {
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
+    @bindable isUseVat = false;
+    @bindable isUseIncomeTax = false;
 
     deliveryOrderFields = [
         "_id",
@@ -56,10 +58,10 @@ export class DataForm {
         "items.fulfillments.currency.symbol",
         "items.fulfillments.corrections"
     ];
-    
+
     constructor(service) {
         this.service = service;
-        
+
         this.formOptions = {
             cancelText: "Kembali"
         };
@@ -152,8 +154,8 @@ export class DataForm {
                         purchaseOrderInternalNo: fulfillment.purchaseOrderNo,
                         purchaseRequestId: fulfillment.purchaseRequestId,
                         purchaseRequestNo: fulfillment.purchaseRequestNo,
-                        purchaseRequestRefNo : fulfillment.purchaseRequestRefNo,
-                        roNo : fulfillment.roNo,
+                        purchaseRequestRefNo: fulfillment.purchaseRequestRefNo,
+                        roNo: fulfillment.roNo,
                         productId: fulfillment.productId,
                         product: fulfillment.product,
                         quantity: fulfillment.quantity,
@@ -164,12 +166,30 @@ export class DataForm {
                         currency: fulfillment.currency,
                         currencyRate: fulfillment.currency.rate
                     };
-
                     this.data.items.push(obj);
                 }
             }
-
             this.itemsTemp = JSON.parse(JSON.stringify(this.data.items)); /* Clone Array */
+        }
+
+        if (this.data.deliveryOrder) {
+            var getListPOext = this.data.deliveryOrder.items.map(item => {
+                return this.service.getPOExternalById(item.purchaseOrderExternalId, ["no", "useIncomeTax", "useVat"]);
+            })
+
+            Promise.all(getListPOext)
+                .then((purchaseOrderExternals) => {
+                    this.isUseIncomeTax = purchaseOrderExternals
+                        .map((item) => item.useIncomeTax)
+                        .reduce((prev, curr, index) => {
+                            return prev || curr
+                        }, false);
+                    this.isUseVat = purchaseOrderExternals
+                        .map((item) => item.useVat)
+                        .reduce((prev, curr, index) => {
+                            return prev || curr
+                        }, false);
+                })
         }
     }
 
