@@ -193,9 +193,11 @@ export class DataForm {
                     else {
                         delete this.data.durationEstimation;
                     }
+
+                    this.generateDeadlineReprocess();
                 });
         }
-        else { 
+        else {
             delete this.data.durationEstimation;
         }
     }
@@ -338,7 +340,8 @@ export class DataForm {
     instructionChanged(newValue, oldValue) {
         this.data.instruction = newValue;
 
-        this.generateDeadline();
+        if (!this.isReprocess)
+            this.generateDeadline();
     }
 
     changeInstruction(reprocess) {
@@ -390,6 +393,33 @@ export class DataForm {
                     return step;
                 });
             }
+        }
+    }
+
+    generateDeadlineReprocess() {
+        if (this.data.durationEstimation) {
+            var deliveryDate = this.data.productionOrder.deliveryDate;
+
+            this.data.instruction.steps = this.data.instruction.steps.map((step) => {
+                if (step.processArea && step.processArea != "" && !step.deadline) {
+                    var d = new Date(deliveryDate);
+                    var totalDay = 0;
+
+                    for (var i = this.data.durationEstimation.areas.length - 1; i >= 0; i--) {
+                        var area = this.data.durationEstimation.areas[i];
+                        totalDay += area.duration;
+
+                        if (area.name == step.processArea.toUpperCase().replace("AREA ", ""))
+                            break;
+                    }
+
+                    d.setDate(d.getDate() - totalDay + 1);
+
+                    step.deadline = new Date(d);
+                }
+
+                return step;
+            });
         }
     }
 }

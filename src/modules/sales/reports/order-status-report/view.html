@@ -1,0 +1,121 @@
+<template>
+    <style>
+        #orderStatus .fixed-table-body {
+            height: 300px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+
+        #orderStatus #onTab:checked~#on,
+        #orderStatus #preTab:checked~#pre,
+        #orderStatus #storageTab:checked~#storage,
+        #orderStatus #shipmentTab:checked~#shipment,
+        #orderStatus #sspNotInKanbanTab:checked~#sspNotInKanban {
+            display: block;
+        }
+
+        #orderStatus section {
+            display: none;
+            padding: 20px 0 0;
+            border-top: 1px solid #ddd;
+        }
+
+        #orderStatus input[type=radio] {
+            display: none;
+        }
+
+        #orderStatus .tab-label {
+            display: inline-block;
+            margin: 0 0 -1px;
+            padding: 15px 25px;
+            font-weight: 600;
+            text-align: center;
+            color: #bbb;
+            border: 1px solid transparent;
+        }
+
+        #orderStatus .tab-label:before {
+            font-family: fontawesome;
+            font-weight: normal;
+            margin-right: 10px;
+        }
+
+        #orderStatus .tab-label:hover {
+            color: #888;
+            cursor: pointer;
+        }
+
+        #orderStatus input[type=radio]:checked+.tab-label {
+            color: #555;
+            border: 1px solid #ddd;
+            border-top: 2px solid #173250;
+        }
+    </style>
+
+    <require from="../../../../lib/number-format-value-converter"></require>
+    
+    <au-input-form title.bind="title" options.bind="formOptions">
+        <div id="orderStatus">
+            <au-textbox value.bind="year" label="Tahun" read-only="true"></au-textbox>
+            <au-textbox value.bind="month" label="Bulan" read-only="true"></au-textbox>
+            <au-textbox value.bind="orderType" label="Jenis Order" read-only="true"></au-textbox>
+
+            <input id="preTab" type="radio" name="tabs" checked>
+            <label for="preTab" class="tab-label">
+                <i class="fa fa-clock-o" aria-hidden="true"></i> Belum Produksi</label>
+
+            <input id="onTab" type="radio" name="tabs">
+            <label for="onTab" class="tab-label">
+                <i class="fa fa-check" aria-hidden="true"></i> Sudah Produksi</label>
+
+            <input id="storageTab" type="radio" name="tabs">
+            <label for="storageTab" class="tab-label">
+                <i class="fa fa-building-o" aria-hidden="true"></i> Sudah Dikirim Ke Gudang</label>
+
+            <input id="shipmentTab" type="radio" name="tabs">
+            <label for="shipmentTab" class="tab-label">
+                <i class="fa fa-truck" aria-hidden="true"></i> Sudah Dikirim Ke Buyer</label>
+
+
+            <input id="sspNotInKanbanTab" type="radio" name="tabs">
+            <label for="sspNotInKanbanTab" class="tab-label">
+                <i class="fa fa-minus-square" aria-hidden="true"></i> SPP Belum Turun Kanban</label>
+
+            <section id="pre">
+                <h4 style="margin-bottom: 0px;">Belum Produksi</h4>
+                <au-table data.bind="data.preProductionData" columns.bind="preProductionColumns" options.bind="tableOptions">
+                </au-table>
+                <au-textbox value.bind="preTotal | numberFormat: '0,000'" label="Total Belum Produksi (m)" read-only="true"></au-textbox>
+            </section>
+
+            <section id="on">
+                <h4 style="margin-bottom: 0px;">Sudah Produksi</h4>
+                <au-table data.bind="data.onProductionData" columns.bind="onProductionColumns" options.bind="tableOptions">
+                </au-table>
+                <au-textbox value.bind="onTotal | numberFormat: '0,000.00'" label="Total Sudah Produksi (m)" read-only="true"></au-textbox>
+            </section>
+
+            <section id="storage">
+                <h4 style="margin-bottom: 0px;">Sudah Dikirim Ke Gudang</h4>
+                <au-table data.bind="data.storageData" columns.bind="storageAndShipmentColumns" options.bind="tableOptions">
+                </au-table>
+                <au-textbox value.bind="storageTotal | numberFormat: '0,000.00'" label="Total Sudah Dikirim Ke Gudang (m)" read-only="true"></au-textbox>
+            </section>
+
+            <section id="shipment">
+                <h4 style="margin-bottom: 0px;">Sudah Dikirim Ke Buyer</h4>
+                <au-table data.bind="data.shipmentData" columns.bind="storageAndShipmentColumns" options.bind="tableOptions" css.bind="overFlow">
+                </au-table>
+                <au-textbox value.bind="shipmentTotal | numberFormat: '0,000.00'" label="Total Sudah Dikirim Ke Buyer (m)" read-only="true"></au-textbox>
+            </section>
+
+            <section id="sspNotInKanban">
+                <h4 style="margin-bottom: 0px;">SPP Belum Turun Kanban</h4>
+                <au-table data.bind="data.productionOrdersNotInKanban" columns.bind="sppNotInKanbanColumns" options.bind="tableOptions" css.bind="overFlow">
+                </au-table>
+                <au-textbox value.bind="sppNotInKanbanTotal | numberFormat: '0,000.00'" label="Total SPP Belum Turun Kanban (m)" read-only="true"></au-textbox>
+            </section>
+            <br>
+        </div>
+    </au-input-form>
+</template>
