@@ -289,7 +289,7 @@ export class DataForm {
                             var prItem = {};
 
                             if (pr) {
-                                pr.items.find((item) => item.product.code.toString() === data.items.product.code.toString() && item.refNo === data.items.refNo)
+                                prItem = pr.items.find((item) => item.product.code.toString() === data.items.product.code.toString() && item.refNo === data.items.refNo)
                             }
                             var budgetUsed = 0;
                             if (listUsedBudget.length > 0) {
