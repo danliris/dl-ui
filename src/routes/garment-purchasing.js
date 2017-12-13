@@ -120,7 +120,7 @@ module.exports = [
         name: 'monitoring-purchase-order-external-over-budget',
         moduleId: './modules/garment-purchasing/monitoring-purchase-order-external-over-budget/index',
         nav: true,
-        title: 'Monitorting Purchase Order External Over Budget',
+        title: 'Monitoring Purchase Order External Over Budget',
         auth: true,
         settings: {
             group: "g-purchasing",
