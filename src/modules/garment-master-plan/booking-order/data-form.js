@@ -1,7 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
-var StyleLoader = require('../../../loader/garment-master-plan-style-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -21,10 +20,9 @@ export class DataForm {
             length: 5
         }
     }
-    detailColumns = [{ header: "Unit" },{ header: "Tahun" },{header: "Week"}, {header: "Jumlah"}];
+    detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
 
     buyerFields=["name", "code"];
-    fields=["year"];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -39,18 +37,6 @@ export class DataForm {
         if (this.data.garmentBuyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
             this.data.garmentBuyerId =this.selectedBuyer._id;
-        }
-        if (this.data.styleId) {
-            this.selectedStyle = await this.service.getStyleById(this.data.styleId, this.buyerFields);
-            this.data.styleId =this.selectedStyle._id;
-        }
-        if(this.data.details){
-            for(var detail of this.data.details){
-                if (detail.weeklyPlanId) {
-                    detail.weeklyPlan = await this.service.getWeekById(detail.weeklyPlanId, this.fields);
-                    //this.data.styleId =this.selectedStyle._id;
-                }
-            }
         }
     }
 
@@ -68,44 +54,18 @@ export class DataForm {
         }
     }
 
-    async selectedStyleChanged(newValue) {
-        var _selectedStyle = newValue;
-        if (_selectedStyle) {
-            this.data.style = _selectedStyle;
-            this.data.styleId = _selectedStyle._id ? _selectedStyle._id : "";
-            this.data.styleName = _selectedStyle.name;
-            this.data.standardHour = await this.service.getStandardHourByStyle(_selectedStyle.code);
-            if(this.data.standardHour){
-                this.data.shSewing=this.data.standardHour[0].firstSHSewing;
-                this.data.standardHourId=this.data.standardHour[0].shId;
-            }
-        }
-        else{
-            this.data.standardHour=null;
-            this.data.shSewing="";
-            this.data.styleName ="";
-            this.data.standardHourId=null;
-        }
-    }
-
     get buyerLoader() {
         return BuyerLoader;
     }
 
-    get styleLoader() {
-        return StyleLoader;
-    }
-
-
     get addItems() {
         return (event) => {
             var newDetail=   {
-                unit: this.data.unit,
-                year: 0,
-                week: this.data.week,
-                quantity: 0
+                masterPlanComodity: this.data.masterPlanComodity,
+                quantity: 0,
+                remark: ''
             };
-            this.data.details.push(newDetail);
+            this.data.items.push(newDetail);
         };
     }
 
@@ -113,7 +73,4 @@ export class DataForm {
         return `${buyer.code} - ${buyer.name}`
     }
 
-    styleView = (style) => {
-        return style.code
-    }
 } 

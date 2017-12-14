@@ -5,7 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian", "Cetak PDF"];
+    context = ["Rincian", "Cetak PDF", "Cetak PDF Return Note PPn", "Cetak PDF Return Note PPh"];
     columns = [
         { field: "no", title: "Nomor Koreksi Jumlah Pembelian" },
         {
@@ -25,7 +25,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "deliveryOrder.supplier.name", "deliveryOrder.no"],
+            select: ["no", "correctionType", "date", "deliveryOrder.supplier.name", "deliveryOrder.no", "returNoteNo", "useIncomeTax", "useVat"],
             order: order
         }
 
@@ -50,12 +50,21 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
-                break;
-            case "Cetak PDF":
-                this.service.getPdfById(data._id);
-                break;
+            case "Rincian": this.router.navigateToRoute('view', { id: data._id }); break;
+            case "Cetak PDF": this.service.getPdfById(data._id); break;
+            case "Cetak PDF Return Note PPn": this.service.getPdfReturnNotePpn(data._id); break;
+            case "Cetak PDF Return Note PPh": this.service.getPdfReturnNotePph(data._id); break;
+        }
+    }
+
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF Return Note PPn":
+                return data.useIncomeTax;
+            case "Cetak PDF Return Note PPh":
+                return data.useVat;
+            default:
+                return true;
         }
     }
 

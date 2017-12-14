@@ -44,8 +44,8 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    posting(data) {
-        var endpoint = 'booking-orders-post';
+    cancelBooking(data) {
+        var endpoint = 'booking-orders-cancel';
         return super.post(endpoint, data);
     }
 

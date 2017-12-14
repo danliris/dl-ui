@@ -340,7 +340,7 @@ export class DataForm {
     instructionChanged(newValue, oldValue) {
         this.data.instruction = newValue;
 
-        if (!this.isReprocess)
+        if(!this.isReprocess)
             this.generateDeadline();
     }
 

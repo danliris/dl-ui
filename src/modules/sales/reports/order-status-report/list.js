@@ -73,7 +73,7 @@ export class List {
                         data.orderQuantity = numeral(data.orderQuantity).format('0,000.00');
                         data.preProductionQuantity = numeral(data.preProductionQuantity).format('0,000.00');
                         data.shipmentQuantity = numeral(data.shipmentQuantity).format('0,000.00');
-                        data.storageQuantity = numeral(data.storageQuantity).format('0,000.00');
+                        data.storageQuantity = numeral(data.storageQuantity).format('0,000.00');                        
                     }
 
                     this.selectedYear = this.year;

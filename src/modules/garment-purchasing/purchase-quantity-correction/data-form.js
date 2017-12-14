@@ -9,6 +9,8 @@ export class DataForm {
     @bindable isView = false;
     @bindable data;
     @bindable error;
+    @bindable isUseVat = false;
+    @bindable isUseIncomeTax = false;
 
     deliveryOrderFields = [
         "_id",
@@ -151,6 +153,26 @@ export class DataForm {
             this.data.deliveryOrder = {};
             this.data.items = [];
             this.data.remarks = "";
+        }
+
+        if (this.data.deliveryOrder) {
+            var getListPOext = this.data.deliveryOrder.items.map(item => {
+                return this.service.getPOExternalById(item.purchaseOrderExternalId, ["no", "useIncomeTax", "useVat"]);
+            })
+
+            Promise.all(getListPOext)
+                .then((purchaseOrderExternals) => {
+                    this.isUseIncomeTax = purchaseOrderExternals
+                        .map((item) => item.useIncomeTax)
+                        .reduce((prev, curr, index) => {
+                            return prev || curr
+                        }, false);
+                    this.isUseVat = purchaseOrderExternals
+                        .map((item) => item.useVat)
+                        .reduce((prev, curr, index) => {
+                            return prev || curr
+                        }, false);
+                })
         }
     }
 
