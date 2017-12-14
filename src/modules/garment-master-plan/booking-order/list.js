@@ -9,7 +9,7 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.isConfirmed)
+        if (data.isMasterPlan)
             return { classes: "success" }
         if (data.isCanceled)
             return { classes: "danger" }
@@ -20,6 +20,7 @@ export class List {
     context = ["detail"]
 
     columns = [
+        { field: "code", title: "Kode Booking" },
         { field: "bookingDate", title: "Tanggal Booking", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
@@ -32,9 +33,9 @@ export class List {
             }
         },
         {
-                field: "isConfirmed", title: "Status",
+                field: "isMasterPlan", title: "Status",
                 formatter: function (value, data, index) {
-                    return data.isCanceled ? "DIBATALKAN" : value ? "SUDAH KONFIRMASI" : "TUNGGU KONFIRMASI";
+                    return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : "Booking";
                 }
             },
     ];

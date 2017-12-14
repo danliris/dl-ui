@@ -1,13 +1,22 @@
 <template>
 <tr>
   
-  <td width="45%">
+  <td width="5%" text-align="center" if.bind="data.code">
+    <au-checkbox
+    value.bind="data.isConfirmed" 
+    error.bind="error.isConfirmed" 
+    read-only.bind="options.readOnly" 
+    options.bind="controlOption">
+    </au-checkbox>
+  </td>
+
+  <td width="40%">
     <au-autocomplete 
     value.bind="data.masterPlanComodity" 
     error.bind="error.masterPlanComodity" 
+    text.bind = "comoView"
     read-only.bind="options.readOnly" 
     key="_id" 
-    text="name"
     loader.bind="loader" 
     options.bind="controlOption" >
     </au-autocomplete>

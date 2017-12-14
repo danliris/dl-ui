@@ -20,7 +20,8 @@ export class DataForm {
             length: 5
         }
     }
-    detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
+    detailColumns = [{ header: "Confirm" },{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
+    detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
 
     buyerFields=["name", "code"];
 
@@ -61,6 +62,7 @@ export class DataForm {
     get addItems() {
         return (event) => {
             var newDetail=   {
+                code:this.data.code,
                 masterPlanComodity: this.data.masterPlanComodity,
                 quantity: 0,
                 remark: ''
