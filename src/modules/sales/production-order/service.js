@@ -5,7 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 const serviceUri = 'sales/production-orders';
-const scUri= 'sales/finishing-printing-sales-contracts';
+const scUri = 'sales/finishing-printing-sales-contracts';
 
 export class Service extends RestService {
 
@@ -36,7 +36,7 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
-  }
+    }
 
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
@@ -44,7 +44,7 @@ export class Service extends RestService {
     }
 
     getSCbyId(no) {
-       var config = Container.instance.get(Config);
+        var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("production");
         var _serviceUri = `sales/finishing-printing-sales-contract-by-number/${no}`;
 
@@ -52,5 +52,10 @@ export class Service extends RestService {
             .then(result => {
                 return result.data;
             });
+    }
+
+    close(data) {
+        var endpoint = 'sales/production-order-close';
+        return super.post(endpoint, data);
     }
 }
