@@ -6,7 +6,7 @@ var ProductLoader = require('../../../../loader/product-loader');
 
 @inject(Service)
 export class List {
-    constructor(service, router){
+    constructor(service, router) {
         this.service = service;
     }
 
@@ -15,10 +15,6 @@ export class List {
         { field: "productName", title: "Nama Barang" },
         { field: "quantity", title: "Kuantiti" },
         { field: "uom", title: "UOM" },
-        { field: "secondQuantity", title: "Kuantiti 2" },
-        { field: "secondUom", title: "UOM 2" },
-        { field: "thirdQuantity", title: "Kuantiti 3" },
-        { field: "thirdUom", title: "UOM 3" }
     ];
 
     tableOptions = {
@@ -92,7 +88,7 @@ export class List {
     }
 
     autocomplete_change(e) {
-        if(e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
+        if (e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
             e.au.controller.view.bindingContext.value = e.au.controller.view.bindingContext.value == undefined ? "" : undefined;
     }
 }

@@ -10,30 +10,51 @@ export class List {
     context = ["detail", "print"]
 
     columns = [
-    { field: "salesContractNo", title: "Nomor Sales Contract" },
-    
-    { field: "orderNo", title: "Nomor Order Produksi" },
-    { field: "buyer.type", title: "Jenis Buyer" },
-    { field: "buyer.name", title: "Buyer" },
-    { field: "processType.name", title: "Jenis Proses" },
-    {
-      field: "deliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
-      }
+        {
+            field: "toBeClosed", title: "Closed Checkbox", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.isClosed;
+                return "";
+            }
+        },
+        { field: "salesContractNo", title: "Nomor Sales Contract" },
+
+        { field: "orderNo", title: "Nomor Order Produksi" },
+        { field: "buyer.type", title: "Jenis Buyer" },
+        { field: "buyer.name", title: "Buyer" },
+        { field: "processType.name", title: "Jenis Proses" },
+        {
+            field: "deliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        {
+            field: "isClosed", title: "Status",
+            formatter: function (value, data, index) {
+                return data.isClosed ? "Closed" : "Open";
+            }
+        }
+    ];
+
+    rowFormatter(data, index) {
+        if (data.isClosed)
+            return { classes: "danger" };
+        else
+            return {}
     }
-  ];
+
+
 
     loader = (info) => {
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-        console.log(info)
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order,
-            select:["orderNo","salesContractNo","buyer","deliveryDate","processType"]
+            select: ["orderNo", "salesContractNo", "buyer", "deliveryDate", "processType", "isClosed"]
         }
 
         return this.service.search(arg)
@@ -78,6 +99,16 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    close() {
+        if (this.dataToBeClosed.length > 0) {
+            this.service.close(this.dataToBeClosed).then(result => {
+                this.table.refresh();
+            }).catch(e => {
+                this.error = e;
+            })
+        }
     }
 }
 

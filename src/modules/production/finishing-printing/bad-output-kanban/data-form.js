@@ -197,7 +197,7 @@ export class DataForm {
                     this.generateDeadlineReprocess();
                 });
         }
-        else { 
+        else {
             delete this.data.durationEstimation;
         }
     }
