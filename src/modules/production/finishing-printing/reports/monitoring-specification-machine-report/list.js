@@ -26,7 +26,7 @@ export class List {
     }
 
     searching() {
-        this.info.machineId = this.machine._id || "error";
+        this.info.machineId = this.machine._id || "";
         this.info.productionOrderNumber = this.productionOrder.orderNo;
         this.info.dateFrom = this.dateFrom;
         this.info.dateTo = this.dateTo;

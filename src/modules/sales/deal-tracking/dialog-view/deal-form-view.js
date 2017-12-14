@@ -59,8 +59,8 @@ export class DealFormView {
     }
 
     attached() {
-        this.numeric.addEventListener("keydown", this.keydownCallback, false);
-        this.qtyNumeric.addEventListener("keydown", this.keydownCallback, false);
+        // this.numeric.addEventListener("keydown", this.keydownCallback, false);
+        // this.qtyNumeric.addEventListener("keydown", this.keydownCallback, false);
     }
 
     save() {
