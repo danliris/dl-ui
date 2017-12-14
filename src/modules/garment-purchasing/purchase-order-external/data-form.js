@@ -16,6 +16,7 @@ export class DataForm {
     @bindable selectedVat;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
+    kurs = {};
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
@@ -134,14 +135,26 @@ export class DataForm {
         }
     }
 
-    selectedCurrencyChanged(newValue) {
+    async selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
-        if (_selectedCurrency._id) {
-            var currencyRate = parseInt(_selectedCurrency.rate ? _selectedCurrency.rate : 1, 10);
-            this.data.currency = _selectedCurrency;
-            this.data.currencyRate = currencyRate;
+        if (_selectedCurrency) {
+            if (_selectedCurrency._id) {
+                var currencyRate = parseInt(_selectedCurrency.rate ? _selectedCurrency.rate : 1, 10);
+                this.data.currency = _selectedCurrency;
+                this.data.currencyRate = currencyRate;
+                this.kurs = await this.service.getKurs(this.data.currency.code, this.data.date);
+                if (Object.getOwnPropertyNames(this.kurs).length <= 0) {
+                    alert(`Kurs untuk mata uang ${this.data.currency.code} belum ditambahkan.`);
+                    this.selectedCurrency = null;
+                }
+            }
+            else {
+                this.data.currency = null;
+                this.data.currencyRate = 0;
+            }
         }
         else {
+            this.data.currency = null;
             this.data.currencyRate = 0;
         }
     }
@@ -317,9 +330,9 @@ export class DataForm {
                                 budgetPrice: Number(data.items.budgetPrice),
                                 priceBeforeTax: Number(data.items.budgetPrice),
                                 pricePerDealUnit: Number(data.items.budgetPrice),
-                                budgetUsed: budgetUsed,
+                                budgetUsed: budgetUsed * this.kurs.rate,
                                 isOverBudget: false,
-                                totalBudget: prItem.quantity * prItem.budgetPrice,
+                                totalBudget: prItem.quantity * prItem.budgetPrice * this.kurs.rate,
                                 uomConversion: data.items.category.uom || data.items.defaultUom,
                                 quantityConversion: Number(data.items.defaultQuantity),
                                 conversion: 1,

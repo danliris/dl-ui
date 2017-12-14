@@ -1,6 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 import moment from 'moment';
 
 const serviceUri = 'purchase-orders/externals/by-user';
@@ -125,5 +127,16 @@ export class Service extends RestService {
         //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
         var info = { select: select };
         return super.get(endpoint, null, info);
+    }
+
+    getKurs(code, date) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/kurs-budgets/by-code`;
+
+        return _endpoint.find(_serviceUri,{code:code,date:date})
+            .then(result => {
+                return result.data;
+            });
     }
 }
