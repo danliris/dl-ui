@@ -6,6 +6,7 @@ var UnitLoader = require('../../../loader/unit-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
+var AccountLoader = require('../../../loader/account-loader');
 var PurchaseOrderLoader = require('../../../loader/purchase-order-by-user-loader');
 
 @inject(Router, Service)
@@ -85,7 +86,7 @@ export class List {
         moment.locale(locale);
         if (!this.poState)
             this.poState = this.poStates[0];
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "")
+        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "", this.staffName ? this.staffName.username : "")
         // this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
@@ -141,5 +142,8 @@ export class List {
     get supplierLoader() {
         return SupplierLoader;
     }
-
+    
+    get accountLoader() {
+        return AccountLoader;
+    }
 }

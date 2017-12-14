@@ -38,7 +38,14 @@ export class List {
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
-        }
+        },
+        {
+            field: "isOverBudget", title: "Over Budget?",
+            formatter: function (value, row, index) {
+                return value ? "YA" : "TIDAK";
+            }
+        },
+        { field: "approveStatus", title: "Status Approve" }
     ];
 
     loader = (info) => {
@@ -49,7 +56,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "items.prNo", "isPosted"],
+            select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
 
@@ -63,6 +70,15 @@ export class List {
                         return index == self.indexOf(elem);
                     })
                     _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
+                    if (_data.isOverBudget) {
+                        if (_data.isApproved) {
+                            _data.approveStatus = "SUDAH";
+                        } else {
+                            _data.approveStatus = "BELUM";
+                        }
+                    } else {
+                        _data.approveStatus = "-";
+                    }
                 }
                 return {
                     total: result.info.total,
