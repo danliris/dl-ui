@@ -14,8 +14,9 @@ export class View {
 
     async activate(params) {
         var id = params.id;
-
         this.data = await this.service.getById(id);
+        this.isUseVat = this.data.useVat;
+        this.isUseIncomeTax = this.data.useIncomeTax;
         if (this.data.items) {
             this.data.items.forEach(item => {
                 item.showDetails = false

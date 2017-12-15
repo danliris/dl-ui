@@ -52,6 +52,9 @@ export class List {
         { field: "price", title: "Harga  Beli", sortable: false },
         { field: "totalBudgetPrice", title: "Total Harga Budget", sortable: false },
         { field: "totalPrice", title: "Total Harga Beli", sortable: false },
+        { field: "overBudgetValue", title: "Nilai Over Budget", sortable: false },
+        { field: "overBudgetValuePercentage", title: "Nilai Over Budget (%)", sortable: false },
+        { field: "status", title: "Status", sortable: false },
         { field: "overBudgetRemark", title: "Keterangan Over Budget", sortable: false }
     ]
 

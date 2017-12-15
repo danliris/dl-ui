@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+var moment = require("moment");
 
 
 var OrderTypeLoader = require('../../../../loader/process-type-loader');
