@@ -12,6 +12,7 @@ export class PurchaseOrderItem {
     this.options = context.options;
     this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
     this.checkOverBudget = this.context.context.options.checkOverBudget;
+    this.kurs = this.context.context.options.kurs;
     this.selectedDealUom = this.data.dealUom;
     this.price = this.data.pricePerDealUnit;
 
@@ -39,7 +40,7 @@ export class PurchaseOrderItem {
 
   checkIsOverBudget() {
     if (this.context.context.options.checkOverBudget) {
-      var totalDealPrice = (this.data.dealQuantity * this.price) + this.data.budgetUsed;
+      var totalDealPrice = (this.data.dealQuantity * this.price * this.kurs.rate) + this.data.budgetUsed;
       if (totalDealPrice > this.data.totalBudget) {
         this.data.isOverBudget = true;
       } else {

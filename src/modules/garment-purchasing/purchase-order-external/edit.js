@@ -20,7 +20,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-
+        this.kurs = await this.service.getKurs(this.data.currency.code, this.data.date);
+        
         var getUsedBudget = [];
         var getPRById = [];
         var listPR = this.data.items.map((item) => {
