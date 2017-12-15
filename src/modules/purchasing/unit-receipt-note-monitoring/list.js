@@ -19,22 +19,24 @@ export class List {
 
 
     search() {
-        this.service.search(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
+        this.service.search(this.no ? this.no : "", this.purchaseOrder ? this.purchaseOrder.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo)
             .then(data => {
                 this.data = data;
             })
     }
     reset() {
         this.no = "undefined";
+        this.purchaseOrder = "undefined";
         this.unitId = "undefined";
         this.supplierId = "undefined";
         this.categoryId = "undefined";
         this.dateFrom = null;
         this.dateTo = null;
+        this.data = [];
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.no ? this.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.no ? this.no : "", this.purchaseOrder ? this.purchaseOrder.no : "", this.unitId ? this.unitId._id : "", this.categoryId ? this.categoryId._id : "", this.supplierId ? this.supplierId._id : "", this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
