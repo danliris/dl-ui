@@ -49,6 +49,11 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
+    confirmBooking(data) {
+        var endpoint = 'booking-orders-confirm';
+        return super.post(endpoint, data);
+    }
+
     getBuyerById(id, select) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
