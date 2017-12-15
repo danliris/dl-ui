@@ -27,12 +27,14 @@ export class EditOutput {
         this.router.navigateToRoute('view-output', { id: this.data._id });
     }
 
-    save() {
+    save(event) {
+        event.toElement.disabled = true;
         this.service.update(this.data)
             .then(result => {
                 this.view();
             })
             .catch(e => {
+                event.toElement.disabled = false;
                 this.error = e;
             })
     }
