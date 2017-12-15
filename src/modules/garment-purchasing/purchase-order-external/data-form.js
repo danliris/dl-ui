@@ -16,7 +16,7 @@ export class DataForm {
     @bindable selectedVat;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
-    kurs = {};
+    @bindable kurs = {};
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
@@ -96,6 +96,12 @@ export class DataForm {
             this.options.checkOverBudget = true;
         }
         this.options.resetOverBudget = false;
+
+        if (Object.getOwnPropertyNames(this.kurs).length > 0) {
+            this.options.kurs = this.kurs;
+        } else {
+            this.options.kurs = { rate: 1 };
+        }
     }
 
     @computedFrom("data._id")
@@ -147,6 +153,7 @@ export class DataForm {
                     alert(`Kurs untuk mata uang ${this.data.currency.code} belum ditambahkan.`);
                     this.selectedCurrency = null;
                 }
+                this.options.kurs = this.kurs;
             }
             else {
                 this.data.currency = null;
@@ -330,9 +337,9 @@ export class DataForm {
                                 budgetPrice: Number(data.items.budgetPrice),
                                 priceBeforeTax: Number(data.items.budgetPrice),
                                 pricePerDealUnit: Number(data.items.budgetPrice),
-                                budgetUsed: budgetUsed * this.kurs.rate,
+                                budgetUsed: budgetUsed,
                                 isOverBudget: false,
-                                totalBudget: prItem.quantity * prItem.budgetPrice * this.kurs.rate,
+                                totalBudget: prItem.quantity * prItem.budgetPrice,
                                 uomConversion: data.items.category.uom || data.items.defaultUom,
                                 quantityConversion: Number(data.items.defaultQuantity),
                                 conversion: 1,
