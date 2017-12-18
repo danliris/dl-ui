@@ -12,7 +12,6 @@ export class DetailItem {
     this.error = item.error;
     this.options = item.options;
 
-    
   }
 
   controlOption = {
@@ -24,4 +23,8 @@ export class DetailItem {
   get loader() {
     return comodityLoader;
   }
+
+  comoView = (comodity) => {
+        return `${comodity.code} - ${comodity.name}`
+    }
 }

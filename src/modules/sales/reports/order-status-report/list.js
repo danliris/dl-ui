@@ -15,8 +15,8 @@ export class List {
         this.service = service;
         this.router = router;
 
-        var yearNow = moment().format('YYYY')
-        for (var i = parseInt(yearNow); i > 2011; i--) {
+        this.year = moment().format('YYYY');
+        for (var i = parseInt(this.year) + 1; i > 2010; i--) {
             this.yearList.push(i.toString());
         }
 
