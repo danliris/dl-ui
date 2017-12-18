@@ -2,6 +2,7 @@
     <h1 class="page-header">Monitoring Bon Terima Unit</h1>
     <form class="form-horizontal">
         <unit-receipt-note-auto-suggest label="No. Bon Unit" value.bind="no"></unit-receipt-note-auto-suggest>
+        <purchase-request-auto-suggest-by-user  label="Nomor PR"        value.bind="purchaseOrder"  filter.bind="filter"></purchase-request-auto-suggest-by-user>
         <unit-auto-suggest label="Unit" value.bind="unitId"></unit-auto-suggest>
         <category-auto-suggest label="Kategori" value.bind="categoryId"></category-auto-suggest>
         <supplier-auto-suggest label="Supplier" value.bind="supplierId"></supplier-auto-suggest>
