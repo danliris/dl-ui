@@ -21,6 +21,7 @@ export class View {
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
+        this.kurs = await this.service.getKurs(this.data.currency.code, this.data.date);
 
         var getUsedBudget = [];
         var getPRById = [];

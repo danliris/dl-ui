@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 var moment = require("moment");
 
 @inject(Router, Service)
@@ -9,7 +9,8 @@ export class List {
         this.service = service;
         this.router = router;
 
-        this.context = ["Rincian", "Cetak PDF"];
+        this.context = ["Rincian", "Cetak PDF", "Cetak PDF Return Note PPn", "Cetak PDF Return Note PPh"];
+
         this.columns = [
             { field: "no", title: "Nomor Koreksi Harga" },
             { field: "correctionType", title: "Jenis Koreksi" },
@@ -34,6 +35,19 @@ export class List {
         switch (arg.name) {
             case "Rincian": this.router.navigateToRoute('view', { id: data._id }); break;
             case "Cetak PDF": this.service.getPdfById(data._id); break;
+            case "Cetak PDF Return Note PPn": this.service.getPdfReturnNotePpn(data._id); break;
+            case "Cetak PDF Return Note PPh": this.service.getPdfReturnNotePph(data._id); break;
+        }
+    }
+
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF Return Note PPn":
+                return data.useIncomeTax;
+            case "Cetak PDF Return Note PPh":
+                return data.useVat;
+            default:
+                return true;
         }
     }
 
@@ -47,7 +61,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["no", "correctionType", "date", "deliveryOrder.supplier.name", "deliveryOrder.no"]
+            select: ["no", "correctionType", "date", "deliveryOrder.supplier.name", "deliveryOrder.no", "returNoteNo", "useIncomeTax", "useVat"]
         }
 
         return this.service.search(arg)

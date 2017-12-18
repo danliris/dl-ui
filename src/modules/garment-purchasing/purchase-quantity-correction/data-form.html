@@ -43,6 +43,24 @@
             options.bind="controlOptions">
         </au-textbox>
         
+        <au-checkbox 
+            label="Dikenakan koreksi Ppn?" 
+            value.bind="data.useIncomeTax" 
+            error.bind="error.useIncomeTax" 
+            read-only.bind="readOnly"
+            show.bind="isUseIncomeTax"
+            options.bind="controlOptions">
+        </au-checkbox>
+
+        <au-checkbox 
+            label="Dikenakan koreksi Pph?" 
+            value.bind="data.useVat" 
+            error.bind="error.useVat" 
+            read-only.bind="readOnly"
+            show.bind="isUseVat"
+            options.bind="controlOptions">
+        </au-checkbox>
+        
         <au-multiline
             label="Keterangan"
             value.bind="data.remark"

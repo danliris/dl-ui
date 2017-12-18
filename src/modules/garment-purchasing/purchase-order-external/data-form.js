@@ -16,6 +16,7 @@ export class DataForm {
     @bindable selectedVat;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
+    @bindable kurs = {};
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
@@ -95,6 +96,12 @@ export class DataForm {
             this.options.checkOverBudget = true;
         }
         this.options.resetOverBudget = false;
+
+        if (Object.getOwnPropertyNames(this.kurs).length > 0) {
+            this.options.kurs = this.kurs;
+        } else {
+            this.options.kurs = { rate: 1 };
+        }
     }
 
     @computedFrom("data._id")
@@ -134,14 +141,27 @@ export class DataForm {
         }
     }
 
-    selectedCurrencyChanged(newValue) {
+    async selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
-        if (_selectedCurrency._id) {
-            var currencyRate = parseInt(_selectedCurrency.rate ? _selectedCurrency.rate : 1, 10);
-            this.data.currency = _selectedCurrency;
-            this.data.currencyRate = currencyRate;
+        if (_selectedCurrency) {
+            if (_selectedCurrency._id) {
+                var currencyRate = parseInt(_selectedCurrency.rate ? _selectedCurrency.rate : 1, 10);
+                this.data.currency = _selectedCurrency;
+                this.data.currencyRate = currencyRate;
+                this.kurs = await this.service.getKurs(this.data.currency.code, this.data.date);
+                if (Object.getOwnPropertyNames(this.kurs).length <= 0) {
+                    alert(`Kurs untuk mata uang ${this.data.currency.code} belum ditambahkan.`);
+                    this.selectedCurrency = null;
+                }
+                this.options.kurs = this.kurs;
+            }
+            else {
+                this.data.currency = null;
+                this.data.currencyRate = 0;
+            }
         }
         else {
+            this.data.currency = null;
             this.data.currencyRate = 0;
         }
     }
@@ -289,7 +309,7 @@ export class DataForm {
                             var prItem = {};
 
                             if (pr) {
-                                pr.items.find((item) => item.product.code.toString() === data.items.product.code.toString() && item.refNo === data.items.refNo)
+                                prItem = pr.items.find((item) => item.product.code.toString() === data.items.product.code.toString() && item.refNo === data.items.refNo)
                             }
                             var budgetUsed = 0;
                             if (listUsedBudget.length > 0) {

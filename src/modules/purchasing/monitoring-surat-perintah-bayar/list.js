@@ -75,14 +75,61 @@ export class List {
     search() {
          var dateFormat = "DD MMM YYYY";
          var locale = 'id-ID';
+      var nilais='';
          var moment = require('moment');
          moment.locale(locale);
         // if (!this.poState)
         //     this.poState = this.poStates[0];
         this.service.getDataSpb(this.unit ? this.unit._id : "", this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.noSpb ? this.noSpb : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.staffName ? this.staffName.username : "")
             .then(data => {
-                this.data = data;
-            })
+                 //this.data = data;
+                 var hasil=0;
+                 var hasil2=0;
+            var dataTemp = [];
+                      for (var a of data) {
+                  if(a.useIncomeTax==true){
+                        hasil=(a.items.unitReceiptNote.items.deliveredQuantity*a.items.unitReceiptNote.items.pricePerDealUnit)/10; 
+                    }else{
+                        hasil=0;
+                    }
+
+                    if(a.useVat==true){
+                        hasil2=((a.items.unitReceiptNote.items.deliveredQuantity*a.items.unitReceiptNote.items.pricePerDealUnit)*a.vat.rate)/100; 
+                    }else{
+                        hasil2=0;
+                    }
+
+var index=1;
+               var temp = {
+                        "no": a.no,
+            "date": a.date,
+            "_createdBy": a._createdBy,
+            "product": a.items.unitReceiptNote.items.product.name,
+            "banyak": a.items.unitReceiptNote.items.deliveredQuantity,
+            "harga": a.items.unitReceiptNote.items.pricePerDealUnit,
+            "invoceDate": a.invoceDate,
+            "invoceNo": a.invoceNo,
+            "dueDate": a.dueDate,
+            "supplier": a.supplier.name,
+            "divisi": a.division.name,
+            "useIncomeTax":hasil,
+            "useVat":hasil2,
+            "tot": (a.items.unitReceiptNote.items.deliveredQuantity*a.items.unitReceiptNote.items.pricePerDealUnit)+hasil,
+            "namaUnit": a.namaUnit,
+            "nopr": a.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no,
+            "datepr": a.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.date,
+            "nonote":a.items.unitReceiptNote.no,
+            "staff":a.staff,
+            "datenote":a.items.unitReceiptNote.date,
+                      
+                    }
+                     dataTemp.push(temp);
+                      }
+
+            this.data = dataTemp;
+     })
+          
+             
     }
 
 
@@ -94,6 +141,7 @@ export class List {
         this.dateTo = undefined;
         this.staffName = "";
         this.noSpb = "";
+        this.data = [];
       
     }
 
