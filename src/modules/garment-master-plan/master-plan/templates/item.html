@@ -1,0 +1,87 @@
+<template>
+<tr>
+    <td width="5%">
+        <numeric 
+            value.bind="data.shCutting" 
+            error.bind="error.shCutting" 
+            read-only.bind="options.readOnly" 
+            options.bind="controlOption">
+        </numeric>
+    </td>
+    <td width="5%">
+        <numeric 
+            value.bind="data.shSewing" 
+            error.bind="error.shSewing" 
+            read-only.bind="options.readOnly" 
+            options.bind="controlOption">
+        </numeric>
+    </td>
+    <td width="5%">
+        <numeric 
+            value.bind="data.shFinishing" 
+            error.bind="error.shFinishing" 
+            read-only.bind="options.readOnly" 
+            options.bind="controlOption">
+        </numeric>
+    </td>
+    <td width="10%">
+        <numeric 
+            value.bind="totalSH"  
+            read-only.bind="true" 
+            options.bind="controlOption">
+        </numeric>
+    </td>
+    <td width="15%">
+        <au-autocomplete 
+            value.bind="selectedUnit" 
+            error.bind="error.unit" 
+            read-only.bind="options.readOnly" 
+            key="_id" 
+            text="name"
+            loader.bind="unitLoader" 
+            options.bind="controlOption" >
+        </au-autocomplete>
+    </td>
+    <td width="10%">
+        <au-autocomplete 
+            value.bind="selectedWeeklyPlan" 
+            error.bind="error.weeklyPlanYear" 
+            read-only.bind="options.readOnly" 
+            text="year"
+            loader.bind="weeklyloader" 
+            options.bind="controlOption"
+            query.bind="filterUnit"
+            show.bind="data.unit" >
+        </au-autocomplete>
+    </td>
+    <td width="30%">
+        <au-autocomplete 
+            value.bind="selectedWeek" 
+            error.bind="error.week" 
+            read-only.bind="options.readOnly"
+            text.bind = "weekView"
+            loader.bind="weekloader" 
+            options.bind="controlOption"
+            query.bind="filterYear" 
+            show.bind="data.unit && data.weeklyPlanYear">
+        </au-autocomplete>
+    </td>
+    <td width="10%">
+        <numeric 
+            value.bind="data.quantity" 
+            error.bind="error.quantity" 
+            read-only.bind="options.readOnly" 
+            options.bind="controlOption">
+        </numeric>
+    </td>
+    <td width="10%">
+        <au-textbox 
+            value.bind="data.remark"
+            error.bind="error.remark"
+            read-only.bind="options.readOnly" 
+            options.bind="controlOptions">
+        </au-textbox>
+    </td>
+    <td if.bind="!options.readOnly" ><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+</tr>
+</template>
