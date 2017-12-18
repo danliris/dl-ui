@@ -3,6 +3,8 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = 'finishing-printing/daily-operations';
+const productionOrderServiceUri = 'sales/production-orders';
+const kanbanServiceUri = 'finishing-printing/kanbans';
 
 export class Service extends RestService {
 
@@ -40,4 +42,13 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  productionOrder(info) {
+    var endpoint = `${productionOrderServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  kanban(info) {
+    var endpoint = `${kanbanServiceUri}`;
+    return super.list(endpoint, info);
+  }
 }

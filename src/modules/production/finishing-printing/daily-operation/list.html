@@ -1,19 +1,69 @@
 <template>
+    <style>
+        #daily-operation .col-sm-12 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        #daily-operation .padding-left {
+            padding-left: 0 !important;
+        }
+    </style>
     <h1 class="page-header">Finishing - Printing</br>Monitoring Operasional Harian Setiap Mesin</h1>
     <br>
-    <au-table
-        view-model.ref="dailyOperationTable"
-        data.bind="loader"
-        context.bind="context"
-        context-click.delegate="contextClickCallback($event)"
-        columns.bind="columns"
-        sortable.bind="true"
-        page-size="25">
-          
-        <div slot="toolbar" class="btn-group">
-            <button class="btn btn-success" click.delegate="createInput()">Buat Input</button>
-            <button class="btn btn-primary" click.delegate="createOutput()">Buat Output</button>
-        </div>
-    </au-table>
+    <div id="daily-operation">
+        <au-table
+            view-model.ref="dailyOperationTable"
+            data.bind="loader"
+            context.bind="context"
+            context-click.delegate="contextClickCallback($event)"
+            columns.bind="columns"
+            sortable.bind="true"
+            options.bind="tableOptions"
+            page-size="25">
+            
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-success" click.delegate="createInput()">Buat Input</button>
+                <button class="btn btn-primary" click.delegate="createOutput()">Buat Output</button>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <au-dropdown
+                            value.bind="selectedSearch"
+                            items.bind="searchList">
+                        </au-dropdown>
+                    </div>
+                    <div class="col-sm-6 padding-left" show.bind="sppVisibility">
+                            <au-autocomplete 
+                                value.bind="productionOrder"
+                                loader.one-time="productionOrderLoader" 
+                                text="orderNo">
+                            </au-autocomplete>
+                        </div>
+                        <div class="col-sm-6 padding-left" show.bind="cartVisiblity">
+                            <au-autocomplete 
+                                value.bind="kanban"
+                                loader.one-time="kanbanLoader" 
+                                text.bind="cartNumber">
+                            </au-autocomplete>
+                        </div>
+                        <div class="col-sm-6 padding-left" show.bind="processVisibility">
+                            <au-autocomplete 
+                                value.bind="step"
+                                loader.one-time="stepLoader" 
+                                text="process">
+                            </au-autocomplete>
+                        </div>
+                        <div class="col-sm-6 padding-left" show.bind="machineVisibility">
+                            <au-autocomplete 
+                                value.bind="machine"
+                                loader.one-time="machineLoader" 
+                                text="name">
+                            </au-autocomplete>
+                        </div>
+                </div>
+            </div>
+        </au-table>
+    </div>
     <hr/>
 </template>
