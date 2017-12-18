@@ -41,7 +41,11 @@ export class Service extends RestService {
 
         if (info.prNo)
             query = `${query}&prNo=${info.prNo}`;
-            
+
+        if (info.isApproved) {
+            query = `${query}&isApproved=${info.isApproved}`;
+        }
+
         if (query !== '') {
             query = query.substring(1);
             endpoint = `${endpoint}?${query}`;

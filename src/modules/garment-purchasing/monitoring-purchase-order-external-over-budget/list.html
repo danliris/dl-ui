@@ -43,6 +43,12 @@
                     text="name">
                 </au-autocomplete>
 
+                <au-dropdown
+                    label="Status Approve"
+                    value.bind="isApproved"
+                    items.bind="statusApprove">
+                </au-dropdown>
+
                 <au-datepicker 
                     label="Tanggal Awal" 
                     value.bind="dateFrom">
