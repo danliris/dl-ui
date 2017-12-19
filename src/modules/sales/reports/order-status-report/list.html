@@ -7,7 +7,6 @@
             }
         </style>
 
-        <!-- <h1 class="page-header">Laporan Status Order Berdasarkan Delivery</h1> -->
         <form class="form-horizontal">
 
             <au-dropdown label="Jenis Order" value.bind="orderType" items.bind="orderTypeList"></au-dropdown>
@@ -21,63 +20,21 @@
                 </div>
             </div>
 
-            <!-- <div class="btn-group pull-left">
-                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
-            </div> -->
-        <!-- </form> -->
+            <br>
+            </br>
 
-        <br>
-        </br>
+            <div class="btn-group">
+                <button class='btn btn-primary' click.delegate="exportToExcel()">Excel</button>
+            </div>
 
-        <!-- <au-collection
-            items.bind="itemColumns"
-            read-only.bind="true">
-        </au-collection> -->
+            <au-table
+                data.bind="loader"
+                columns.bind="columns"
+                options.bind="tableOptions"
+                view-model.ref="orderStatusTable"
+                context.bind="contextTable"
+                context-click.delegate="contextCallback($event)">
+            </au-table>
 
-        <div class="btn-group">
-            <button class='btn btn-primary' click.delegate="exportToExcel()">Excel</button>
-        </div>
-
-        <au-table
-            data.bind="loader"
-            columns.bind="columns"
-            options.bind="tableOptions"
-            view-model.ref="orderStatusTable"
-            context.bind="contextTable" 
-            context-click.delegate="contextCallback($event)">
-        </au-table>
-
-        <!-- <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="myTable">
-                <thead align="center">
-                    <tr>
-                        <td colspan="6">Status Order</td>
-                    </tr>
-                    <tr>
-                        <td>Bulan</td>
-                        <td>Belum Produksi</td>
-                        <td>Sudah Produksi</td>
-                        <td>Total</td>
-                        <td>Sudah Dikirim Ke Gudang</td>
-                        <td>Sudah Dikirim Ke Buyer</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr repeat.for="datum of data">
-                        <td align="left">${datum.name}</td>
-                        <td align="right">${datum.preProductionQuantity.toFixed(2)}</td>
-                        <td align="right">${datum.onProductionQuantity.toFixed(2)}</td>
-                        <td align="right">${datum.orderQuantity.toFixed(2)}</td>
-                        <td align="right">${datum.storageQuantity.toFixed(2)}</td>
-                        <td align="right">${datum.shipmentQuantity.toFixed(2)}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Tidak ada data.
-        </div>
-
-        </form> -->
     </au-input-form>
 </template>
