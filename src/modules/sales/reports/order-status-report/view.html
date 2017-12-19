@@ -141,16 +141,17 @@
                 options.bind="tableOptions">
             </au-table>
 
+            <br>
+            </br>
 
-
-            <au-textbox value.bind="orderTotal | numberFormat: '0,000.00'" label="Total Panjang SPP (m):" read-only="true"></au-textbox>
-            <au-textbox value.bind="preTotal | numberFormat: '0,000.00'" label="Total SPP Belum Produksi (m):" read-only="true"></au-textbox>
-            <au-textbox value.bind="onTotal | numberFormat: '0,000.00'" label="Total SPP Sedang Produksi (m):" read-only="true"></au-textbox>
-            <au-textbox value.bind="afterTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Produksi (m):" read-only="true"></au-textbox>
-            <au-textbox value.bind="storageTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Ke Gudang (m):" read-only="true"></au-textbox>
-            <au-textbox value.bind="shipmentTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Kirim Ke Buyer (m):" read-only="true"></au-textbox>
-            <au-textbox value.bind="notInKanbanTotal | numberFormat: '0,000.00'" label="Total SPP Belum Turun Kanban (m):" read-only="true"></au-textbox>
-            <au-textbox value.bind="diffOrderShipmentTotal | numberFormat: '0,000.00'" label="Total SPP Belum Kirim Ke Buyer (m):" read-only="true"></au-textbox>
+            <au-numeric value.bind="orderTotal | numberFormat: '0,000.00'" label="Total Panjang SPP (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <au-numeric value.bind="preTotal | numberFormat: '0,000.00'" label="Total SPP Belum Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <au-numeric value.bind="onTotal | numberFormat: '0,000.00'" label="Total SPP Sedang Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <au-numeric value.bind="afterTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <au-numeric value.bind="storageTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Ke Gudang (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <au-numeric value.bind="shipmentTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Kirim Ke Buyer (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <au-numeric value.bind="notInKanbanTotal | numberFormat: '0,000.00'" label="Total SPP Belum Turun Kanban (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <au-numeric value.bind="diffOrderShipmentTotal | numberFormat: '0,000.00'" label="Total SPP Belum Kirim Ke Buyer (m):" read-only="true" options.bind="textOptions"></au-numeric>
 
     </au-input-form>
 </template>

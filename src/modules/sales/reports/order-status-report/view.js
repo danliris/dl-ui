@@ -16,6 +16,17 @@ export class View {
         cancelText: "Kembali"
     }
 
+    textOptions = {
+        label: {
+            length: 3,
+            align: "left"
+        },
+        control: {
+            length: 3,
+            align: "right"
+        }
+    }
+
     tableOptions = {
         search: false,
         showToggle: false,
