@@ -13,6 +13,7 @@ export class List {
         "Top Ten Defect",
         "Good Output vs Bad Output All",
         "Good Output vs Bad Output Per Jenis Order",
+        "Produksi vs Reproses",
         "Kanban Aktif",
         "Monitoring Lead Time Real Time",
         "Monitoring Lead Time Historical",
