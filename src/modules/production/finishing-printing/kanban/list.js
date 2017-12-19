@@ -80,6 +80,7 @@ export class List {
             .then(result => {
                 // modify display data
                 for (var kanban of result.data) {
+                    console.log(result.data);
                     kanban.selectedProductionOrderDetail.colorRequest = kanban.selectedProductionOrderDetail.colorType ? kanban.selectedProductionOrderDetail.colorRequest + " - " + kanban.selectedProductionOrderDetail.colorType.name : kanban.selectedProductionOrderDetail.colorRequest;
                     kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
                     kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.instruction.steps.length}`;
