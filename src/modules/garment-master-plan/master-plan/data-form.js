@@ -21,7 +21,7 @@ export class DataForm {
             length: 5
         }
     }
-    detailColumns = [{ header: "Komoditi" },{ header: "Jumlah" },{header: "Keterangan"}];
+    detailColumns = [{ header: "Komoditi" },{ header: "Jumlah" },{header: "Keterangan"},{header: "Confirm"},{}];
 
     constructor(service, bindingEngine) {
         this.service = service;
