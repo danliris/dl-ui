@@ -16,6 +16,17 @@ export class View {
         cancelText: "Kembali"
     }
 
+    textOptions = {
+        label: {
+            length: 3,
+            align: "left"
+        },
+        control: {
+            length: 3,
+            align: "right"
+        }
+    }
+
     tableOptions = {
         search: false,
         showToggle: false,
@@ -26,11 +37,12 @@ export class View {
     columns = [
         { field: "no", title: "No." },
         { field: "orderNo", title: "No. SPP" },
-        { field: "orderQuantity", title: "Panjang SPP (m)" },
-        { field: "orderType.name", title: "Jenis Order" },
-        { field: "processType.name", title: "Jenis Process" },
-        { field: "buyer.name", title: "Buyer" },
-        { field: "account.username", title: "Sales" },
+        { field: "orderType", title: "Jenis Order" },
+        { field: "processType", title: "Jenis Process" },
+        { field: "designCode", title: "Motif" },
+        { field: "colorRequest", title: "Warna" },
+        { field: "buyerName", title: "Buyer" },
+        { field: "accountName", title: "Sales" },
         {
             field: "_createdDate", title: "Tgl Terima Order", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
@@ -41,6 +53,14 @@ export class View {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "orderQuantity", title: "Panjang SPP (m)" },
+        { field: "preProductionQuantity", title: "Belum Produksi (m)" },
+        { field: "onProductionQuantity", title: "Sedang Produksi (m)" },
+        { field: "afterProductionQuantity", title: "Sudah Produksi (m)" },
+        { field: "storageQuantity", title: "Kirim Ke Gudang (m)" },
+        { field: "shipmentQuantity", title: "Kirim Ke Buyer (m)" },
+        { field: "notInKanbanQuantity", title: "Sisa Belum Turun Kanban (m)" },
+        { field: "diffOrderShipmentQuantity", title: "Sisa Belum Kirim Ke Buyer (m)" },
     ]
 
     async activate(params) {
@@ -48,11 +68,6 @@ export class View {
         this.month = params.month;
         this.orderType = params.orderType ? params.orderType : "-";
 
-        this.preProductionColumns = [this.columns.concat([{ field: "processArea", title: "Area" }, { field: "quantity", title: "Panjang Belum Diproduksi (m)" }])];
-        this.onProductionColumns = [this.columns.concat([{ field: "processArea", title: "Area" }, { field: "quantity", title: "Panjang Sudah Diproduksi (m)" }])];
-        this.storageAndShipmentColumns = [this.columns.concat([{ field: "quantity", title: "Panjang Sudah Dikirim (m)" }])];
-        this.sppNotInKanbanColumns = [this.columns.concat([{ field: "orderQuantity", title: "Panjang (m)" }])];
-        
         let info = {
             year: this.year,
             month: this.month,
@@ -60,43 +75,74 @@ export class View {
         };
 
         this.data = await this.service.detail(info);
-        
-        let preTotal = 0, onTotal = 0, storageTotal = 0, shipmentTotal = 0, sppNotInKanbanTotal = 0;
 
-        for(let pre of this.data.preProductionData) {
-            preTotal += Number(pre.quantity);
-            pre.quantity = numeral(pre.quantity).format('0,000.00');
+        let orderTotal = 0, preTotal = 0, onTotal = 0, afterTotal = 0, storageTotal = 0, shipmentTotal = 0, notInKanbanTotal = 0, diffOrderShipmentTotal = 0;
+
+        for(let datum of this.data) {
+
+            orderTotal += Number(datum.orderQuantity);
+            datum.orderQuantity = numeral(datum.orderQuantity).format('0,000.00');
+            
+            preTotal += Number(datum.preProductionQuantity);
+            datum.preProductionQuantity = numeral(datum.preProductionQuantity).format('0,000.00');
+
+            onTotal += Number(datum.onProductionQuantity);
+            datum.onProductionQuantity = numeral(datum.onProductionQuantity).format('0,000.00');
+
+            afterTotal += Number(datum.afterProductionQuantity);
+            datum.afterProductionQuantity = numeral(datum.afterProductionQuantity).format('0,000.00');
+
+            storageTotal += Number(datum.storageQuantity);
+            datum.storageQuantity = numeral(datum.storageQuantity).format('0,000.00');
+
+            shipmentTotal += Number(datum.shipmentQuantity);
+            datum.shipmentQuantity = numeral(datum.shipmentQuantity).format('0,000.00');
+
+            notInKanbanTotal += Number(datum.notInKanbanQuantity);
+            datum.notInKanbanQuantity = numeral(datum.notInKanbanQuantity).format('0,000.00');
+
+            diffOrderShipmentTotal += Number(datum.diffOrderShipmentQuantity);
+            datum.diffOrderShipmentQuantity = numeral(datum.diffOrderShipmentQuantity).format('0,000.00');
         }
 
+        // this.preTotal = preTotal.toFixed(2);
+
+        // for(let on of this.data.onProductionData) {
+        //     onTotal += Number(on.quantity);
+        //     on.quantity = numeral(on.quantity).format('0,000.00');
+        // }
+
+        // this.onTotal = onTotal.toFixed(2);
+
+        // for(let storage of this.data.storageData) {
+        //     storageTotal += Number(storage.quantity);
+        //     storage.quantity = numeral(storage.quantity).format('0,000.00');
+        // }
+
+        // this.storageTotal = storageTotal.toFixed(2);
+
+        // for(let shipment of this.data.shipmentData) {
+        //     shipmentTotal += Number(shipment.quantity);
+        //     shipment.quantity = numeral(shipment.quantity).format('0,000.00');
+        // }
+
+        // this.shipmentTotal = shipmentTotal.toFixed(2);
+
+        // for(let spp of this.data.productionOrdersNotInKanban) {
+        //     sppNotInKanbanTotal += Number(spp.orderQuantity);
+        //     spp.orderQuantity = numeral(spp.orderQuantity).format('0,000.00');
+        // }
+
+        // this.sppNotInKanbanTotal = sppNotInKanbanTotal.toFixed(2);
+
+        this.orderTotal = orderTotal.toFixed(2);
         this.preTotal = preTotal.toFixed(2);
-
-        for(let on of this.data.onProductionData) {
-            onTotal += Number(on.quantity);
-            on.quantity = numeral(on.quantity).format('0,000.00');
-        }
-
         this.onTotal = onTotal.toFixed(2);
-
-        for(let storage of this.data.storageData) {
-            storageTotal += Number(storage.quantity);
-            storage.quantity = numeral(storage.quantity).format('0,000.00');
-        }
-
+        this.afterTotal = afterTotal.toFixed(2);
         this.storageTotal = storageTotal.toFixed(2);
-
-        for(let shipment of this.data.shipmentData) {
-            shipmentTotal += Number(shipment.quantity);
-            shipment.quantity = numeral(shipment.quantity).format('0,000.00');
-        }
-
         this.shipmentTotal = shipmentTotal.toFixed(2);
-
-        for(let spp of this.data.productionOrdersNotInKanban) {
-            sppNotInKanbanTotal += Number(spp.orderQuantity);
-            spp.orderQuantity = numeral(spp.orderQuantity).format('0,000.00');
-        }
-
-        this.sppNotInKanbanTotal = sppNotInKanbanTotal.toFixed(2);
+        this.notInKanbanTotal = notInKanbanTotal.toFixed(2);
+        this.diffOrderShipmentTotal = diffOrderShipmentTotal.toFixed(2);
     }
 
     list() {
