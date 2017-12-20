@@ -33,22 +33,30 @@ export class View {
             if(this.data.remark !== bookingData.remark)
                 this.booking["remark"] = bookingData.remark;
             var details = [];
+            console.log(this.data.details);
             for(var detail of this.data.details){
+                console.log(detail);
                 var bookingDetail = bookingData.items.find(item => item.code === detail.code);
-                if(bookingData){
-                    if(bookingData.masterPlanComodityId !== detail.masterPlanComodityId){
-                        detail["bookingMasterPlanComodity"] = bookingData.masterPlanComodity;
-                        detail["bookingMasterPlanComodityId"] = bookingData.masterPlanComodityId;
+                console.log(bookingDetail);
+                if(bookingDetail){
+                    if(bookingDetail.masterPlanComodityId !== detail.masterPlanComodityId){
+                        detail["bookingMasterPlanComodity"] = bookingDetail.masterPlanComodity;
+                        detail["bookingMasterPlanComodityId"] = bookingDetail.masterPlanComodityId;
                     }
-                    if(bookingData.quantity !== detail.quantity)
-                        detail["bookingQuantity"] = bookingData.quantity;
-                    if(bookingData.remark !== detail.remark)
-                        detail["bookingRemark"] = bookingData.remark;
+                    if(bookingDetail.quantity !== detail.quantity){
+                        console.log(bookingDetail.quantity);
+                        detail["bookingQuantity"] = bookingDetail.quantity;
+                    }
+                    if(bookingDetail.remark !== detail.remark)
+                        detail["bookingRemark"] = bookingDetail.remark;
+                    if(bookingDetail.isConfirmed !== detail.isConfirmed)
+                        detail["bookingIsConfirmed"] = bookingDetail.isConfirmed;
                 }else{
                     detail["deletedData"] = "MD telah menghapus detail ini"
                 }
                 details.push(detail);
             }
+            console.log(details);
             for(var item of bookingData.items){
                 var detail = this.data.details.find(detail => detail.code === item.code);
                 if(!detail){
