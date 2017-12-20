@@ -85,6 +85,8 @@ export class List {
         { field: "unit", title: "Unit" },
         { field: "division", title: "Divisi" },
         { field: "refNo", title: "No. Ref. Purchase Request" },
+        { field: "roNo", title: "No. RO" },
+        { field: "shipmentDate", title: "Shipment Garment" },
         { field: "artikel", title: "Artikel" },
         { field: "category", title: "Kategori" },
         { field: "productName", title: "Nama Barang" },
