@@ -78,7 +78,7 @@ module.exports = [
         }
     },
     {
-        route: 'po-external/kasei',
+        route: 'po-external/all',
         name: 'purchase-order-external-kasei',
         moduleId: './modules/purchasing/purchase-order-external-kasei/index',
         nav: true,
