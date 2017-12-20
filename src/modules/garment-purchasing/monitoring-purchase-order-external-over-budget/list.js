@@ -12,6 +12,12 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        this.statusApprove = this.statusApprove.map(status => {
+            status.toString = function () {
+                return this.name;
+            }
+            return status;
+        })
     }
 
     tableOptions = {
@@ -27,10 +33,21 @@ export class List {
         this.arg.categoryId = this.category ? this.category._id : null;
         this.arg.unitId = this.unit ? this.unit._id : null;
         this.arg.prNo = this.prNo ? this.prNo : null;
+        this.arg.isApproved = this.isApproved ? this.isApproved.value : null;
     }
 
 
     listDataFlag = false;
+    statusApprove = [{
+        "name": "",
+        "value": -1
+    }, {
+        "name": "BELUM",
+        "value": 0
+    }, {
+        "name": "SUDAH",
+        "value": 1
+    }];
 
     columns = [
         { field: "no", title: "No.", sortable: false },
@@ -54,7 +71,7 @@ export class List {
         { field: "totalPrice", title: "Total Harga Beli", sortable: false },
         { field: "overBudgetValue", title: "Nilai Over Budget", sortable: false },
         { field: "overBudgetValuePercentage", title: "Nilai Over Budget (%)", sortable: false },
-        { field: "status", title: "Status", sortable: false },
+        { field: "status", title: "Status Approve", sortable: false },
         { field: "overBudgetRemark", title: "Keterangan Over Budget", sortable: false }
     ]
 
@@ -112,6 +129,7 @@ export class List {
         this.prNo = "";
         this.dateFrom = null;
         this.dateTo = null;
+        this.isApproved = this.statusApprove[0];
         this.listDataFlag = false;
         this.table.refresh();
     }

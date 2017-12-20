@@ -1,0 +1,80 @@
+<template>
+    <tr>
+        <td width="30%">
+            <au-textbox 
+                value.bind="comodity"
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+            <div class="has-error" if.bind="data.bookingMasterPlanComodity">
+                <au-textbox 
+                    value.bind="bookingComodity"
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-textbox>    
+            </div>
+            <div class="has-error" if.bind="data.deletedData">
+                <au-textbox 
+                    value.bind="data.deletedData"
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-textbox>    
+            </div>
+            <div class="has-error" if.bind="data.newData">
+                <au-textbox 
+                    value.bind="data.newData"
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-textbox>    
+            </div>
+        </td>
+        <td width="25%">
+            <numeric 
+                value.bind="data.quantity" 
+                read-only.bind="true" 
+                options.bind="controlOption">
+            </numeric>
+            <div class="has-error" if.bind="data.bookingQuantity">
+                <numeric 
+                    value.bind="data.bookingQuantity" 
+                    read-only.bind="true" 
+                    options.bind="controlOption">
+                </numeric>   
+            </div>
+        </td>
+        <td width="45%">
+            <au-textbox 
+                value.bind="data.remark"
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+            <div class="has-error" if.bind="data.bookingRemark">
+                <au-textbox 
+                    value.bind="data.bookingRemark"
+                    read-only.bind="true" 
+                    options.bind="controlOptions">
+                </au-textbox>  
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-danger pull-left" click.delegate="onremove(data, $event)" if.bind="data.deletedData">-</button>            
+                <!--<button class="btn btn-info pull-right" if.bind= "data.fulfillments" click.delegate="toggle()">i</button>-->
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <au-layout error.bind="error.quantity" if.bind="error.quantity"></au-layout>
+        <td colspan="3">
+            <au-collection 
+                items.bind="data.detailItems" 
+                errors.bind="error.detailItems"
+                columns.bind="itemsColumns"
+                add.bind="addItems"  
+                remove.bind="removeItems"
+                options.bind="context.context.options"
+                read-only.bind="options.readOnly"
+                item-template="modules/garment-master-plan/master-plan/templates/item"
+                footer-template="modules/garment-master-plan/master-plan/templates/item-footer">
+            </au-collection>
+        </td>  
+    </tr>
+</template>
