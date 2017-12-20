@@ -84,8 +84,8 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
 
-        this.info.dateFrom = this.dateFrom.toString() ;
-        this.info.dateTo = this.dateTo.toString() ;
+        this.info.dateFrom = this.dateFrom.toString();
+        this.info.dateTo = this.dateTo.toString();
         this.info.area = this.area ? this.area : null;
         this.info.order = order;
 
@@ -115,14 +115,38 @@ export class List {
     }
 
     exportToExcel() {
-        this.searchData();
-        this.service.generateExcel(this.info);
+        var e = {};
+
+        if (!this.dateFrom) {
+            e.dateFrom = "tanggal awal harus di isi";
+            this.error = e;
+        }
+
+        if (!this.dateTo) {
+            e.dateTo = "tanggal akhir harus di isi";
+            this.error = e;
+        }
+
+        if (Object.getOwnPropertyNames(e) == 0) {
+
+            this.searchStatus = true;
+        }
+
+        this.info.dateFrom = this.dateFrom.toString();
+        this.info.dateTo = this.dateTo.toString();
+        this.info.area = this.area ? this.area : null;
+
+
+        if (this.searchStatus == true) {
+            this.service.generateExcel(this.info);
+        }
+
     }
 
     reset() {
-        this.month = this.monthList[new Date().getMonth()];
-        // this.dateFrom = "";
-        // this.dateTo = "";
+        this.area = this.areaList[0];
+        this.dateFrom = undefined;
+        this.dateTo = undefined;
         this.searchStatus = false;
     }
 
