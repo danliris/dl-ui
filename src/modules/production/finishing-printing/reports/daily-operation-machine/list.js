@@ -50,9 +50,6 @@ export class List {
     }
 
     columns = [
-        // { field: "_id.date", title: "Tanggal" },
-        // { field: "_id.month", title: "Bulan" },
-        // { field: "_id.day", title: "Tanggal" },
         {
             field: "_id.date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(new Date(value)).format("DD MMM YYYY");
@@ -135,7 +132,6 @@ export class List {
         this.info.dateFrom = this.dateFrom.toString();
         this.info.dateTo = this.dateTo.toString();
         this.info.area = this.area ? this.area : null;
-
 
         if (this.searchStatus == true) {
             this.service.generateExcel(this.info);
