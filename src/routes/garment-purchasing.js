@@ -107,7 +107,7 @@ module.exports = [
         name: 'purchase-order-external-kasie',
         moduleId: './modules/garment-purchasing/purchase-order-external-kasie/index',
         nav: true,
-        title: 'Purchase Order External',
+        title: 'Purchase Order External All',
         auth: true,
         settings: {
             group: "g-purchasing",
