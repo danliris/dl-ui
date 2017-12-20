@@ -78,6 +78,19 @@ module.exports = [
         }
     },
     {
+        route: 'po-external/kasei',
+        name: 'purchase-order-external-kasei',
+        moduleId: './modules/purchasing/purchase-order-external-kasei/index',
+        nav: true,
+        title: 'Purchase Order External All',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po/monitoring/all',
         name: 'purchase-order-monitoring',
         moduleId: './modules/purchasing/monitoring-purchase-order-all-user/index',
