@@ -61,6 +61,20 @@ export class DeliveryOrderItem {
       return comodity;
   }
 
+  get isConfirmed(){
+      var detail = "Belum Confirm";
+      if(this.data.isConfirmed)
+        detail = "Sudah Confirm";
+      return detail;
+  }
+
+  get bookingIsConfirmed(){
+      var detail = "Belum Confirm";
+      if(this.data.bookingIsConfirmed)
+        detail = "Sudah Confirm";
+      return detail;
+  }
+
   controlOptions = {
     control: {
       length: 12

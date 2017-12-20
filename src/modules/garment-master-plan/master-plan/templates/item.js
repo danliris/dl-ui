@@ -38,7 +38,6 @@ export class Item {
         unit:this.data.unit.code
       }
     }
-    console.log(yearFilter);
     return yearFilter;
   }
 
@@ -58,8 +57,14 @@ export class Item {
       if(_selectedData){
         this.data.unitId = _selectedData._id;
         this.data.unit = _selectedData;
+      }else{
+        delete this.data.unitId;
+        delete this.data.unit;
+        delete this.data.weeklyPlanId;
+        delete this.data.weeklyPlanYear;
+        this.selectedWeeklyPlan = {};
+        this.selectedWeek = {};
       }
-      console.log(this.data.unit);
   }
 
   selectedWeeklyPlanChanged(newValue){
@@ -67,14 +72,20 @@ export class Item {
       if(_selectedData){
         this.data.weeklyPlanYear = _selectedData.year;
         this.data.weeklyPlanId = _selectedData._id;
+      }else{
+        delete this.data.weeklyPlanId;
+        delete this.data.weeklyPlanYear;
+        this.selectedWeek = {};
       }
-      console.log(this.data.weeklyPlanYear);
   }
 
   selectedWeekChanged(newValue){
       var _selectedData = newValue;
       if(_selectedData){
         this.data.week = _selectedData.items;
+      }else{
+        delete this.data.week;
+        this.selectedWeek = {};
       }
   }
 
@@ -88,14 +99,26 @@ export class Item {
     return weekLoader;
   }
 
+  get isFilterUnit(){
+    return this.data && this.data.unitId;
+  }
+
+  get isFilterWeek(){
+    return this.data && this.data.unitId && this.data.weeklyPlanYear;
+  }
+
   get totalSH(){
       var total = (this.data.shCutting || 0) + (this.data.shSewing || 0) + (this.data.shFinishing || 0);
       return total;
   }
 
   weekView = (week) => {
-      var endDate=moment(week.items.endDate).format("DD MMM YYYY");
-      var startDate=moment(week.items.startDate).format("DD MMM YYYY");
-        return `W${week.items.weekNumber} - ${startDate} s/d ${endDate}`;
+    var returnData = ""
+      if(week && week.items){
+          var endDate=moment(week.items.endDate).format("DD MMM YYYY");
+          var startDate=moment(week.items.startDate).format("DD MMM YYYY");
+          returnData = `W${week.items.weekNumber} - ${startDate} s/d ${endDate}`;
+      }
+      return returnData;
     }
 }
