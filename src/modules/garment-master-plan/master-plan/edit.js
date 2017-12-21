@@ -34,15 +34,17 @@ export class Edit {
             var details = [];
             for(var detail of this.data.details){
                 var bookingDetail = bookingData.items.find(item => item.code === detail.code);
-                if(bookingData){
-                    if(bookingData.masterPlanComodityId !== detail.masterPlanComodityId){
-                        detail["bookingMasterPlanComodity"] = bookingData.masterPlanComodity;
-                        detail["bookingMasterPlanComodityId"] = bookingData.masterPlanComodityId;
+                if(bookingDetail){
+                    if(bookingDetail.masterPlanComodityId !== detail.masterPlanComodityId){
+                        detail["bookingMasterPlanComodity"] = bookingDetail.masterPlanComodity;
+                        detail["bookingMasterPlanComodityId"] = bookingDetail.masterPlanComodityId;
                     }
-                    if(bookingData.quantity !== detail.quantity)
-                        detail["bookingQuantity"] = bookingData.quantity;
-                    if(bookingData.remark !== detail.remark)
-                        detail["bookingRemark"] = bookingData.remark;
+                    if(bookingDetail.quantity !== detail.quantity)
+                        detail["bookingQuantity"] = bookingDetail.quantity;
+                    if(bookingDetail.remark !== detail.remark)
+                        detail["bookingRemark"] = bookingDetail.remark;
+                    if(bookingDetail.isConfirmed !== detail.isConfirmed)
+                        detail["bookingIsConfirmed"] = bookingDetail.isConfirmed;
                 }else{
                     detail["deletedData"] = "MD telah menghapus detail ini"
                 }

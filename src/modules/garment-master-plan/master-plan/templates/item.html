@@ -51,7 +51,7 @@
             loader.bind="weeklyloader" 
             options.bind="controlOption"
             query.bind="filterUnit"
-            show.bind="data.unit" >
+            if.bind="isFilterUnit" >
         </au-autocomplete>
     </td>
     <td width="30%">
@@ -63,14 +63,15 @@
             loader.bind="weekloader" 
             options.bind="controlOption"
             query.bind="filterYear" 
-            show.bind="data.unit && data.weeklyPlanYear">
+            if.bind="isFilterWeek">
         </au-autocomplete>
     </td>
     <td width="10%">
         <numeric 
             value.bind="data.quantity" 
             error.bind="error.quantity" 
-            read-only.bind="options.readOnly" 
+            read-only.bind="options.readOnly"
+            format="0"
             options.bind="controlOption">
         </numeric>
     </td>

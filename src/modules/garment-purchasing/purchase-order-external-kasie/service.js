@@ -5,7 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 import moment from 'moment';
 
-const serviceUri = 'purchase-orders/externals/by-user';
+const serviceUri = 'purchase-orders-externals';
 
 export class Service extends RestService {
 
