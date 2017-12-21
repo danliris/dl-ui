@@ -62,6 +62,7 @@ export class List {
                         tempData.weight = result.data[i].items[j].weight;
                         tempData.length = result.data[i].items[j].length;
                         tempData.quantity = result.data[i].items[j].quantity;
+                        tempData.total = (result.data[i].items[j].length)*(result.data[i].items[j].quantity);
                         tempData.remark = result.data[i].items[j].remark;
                         this.newData.push(tempData);
                     }
