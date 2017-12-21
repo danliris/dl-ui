@@ -8,6 +8,7 @@ var OrderTypeLoader = require('../../../../loader/process-type-loader');
 var ProcessTypeLoader = require('../../../../loader/order-type-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
 var AccountLoader = require('../../../../loader/account-loader');
+var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 
 @inject(Router, Service)
 export class List {
@@ -42,25 +43,44 @@ export class List {
         this.arg.sdate = this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null;
         this.arg.edate = this.edate ? moment(this.edate).format("YYYY-MM-DD") : null;
         this.arg.salesContractNo = this.salesContractNo ? this.salesContractNo : null;
-        this.arg.orderNo = this.orderNo ? this.orderNo : null;
+        this.arg.orderNo = this.productionOrder ? this.productionOrder.orderNo : null;
         this.arg.orderTypeId = this.orderType ? this.orderType._id : null;
         this.arg.processTypeId = this.processType ? this.processType._id : null;
         this.arg.buyerId = this.buyer ? this.buyer._id : null;
         this.arg.accountId = this.account ? this.account._id : null;
     }
 
+    // columns = [
+    //     { field: "no", title: "No.", sortable: false },
+    //     { field: "status", title: "Status" },
+    //     { field: "detail", title: "Detail", sortable: false },
+    //     { field: "salesContractNo", title: "No. Sales Contract" },
+    //     { field: "orderQuantity", title: "Jumlah di Sales Contract (meter)" },
+    //     { field: "orderNo", title: "No. Surat Perintah Produksi" },
+    //     { field: "orderType", title: "Jenis Order" },
+    //     { field: "processType", title: "Jenis Proses" },
+    //     { field: "construction", title: "Konstruksi" },
+    //     { field: "designMotive", title: "Warna/Motif" },
+    //     { field: "quantity", title: "Jumlah di Surat Perintah Produksi (meter)" },
+    //     { field: "buyer", title: "Buyer" },
+    //     { field: "buyerType", title: "Tipe Buyer" },
+    //     { field: "staffName", title: "Nama Sales" },
+    //     { field: "_createdDate", title: "Tanggal Terima Order" },
+    //     { field: "deliveryDate", title: "Tanggal Permintaan Pengiriman" }
+    // ]
+
     columns = [
         { field: "no", title: "No.", sortable: false },
         { field: "status", title: "Status" },
         { field: "detail", title: "Detail", sortable: false },
-        { field: "salesContractNo", title: "No. Sales Contract" },
-        { field: "orderQuantity", title: "Jumlah di Sales Contract (meter)" },
-        { field: "orderNo", title: "No. Surat Perintah Produksi" },
+        { field: "orderNo", title: "No. SPP" },
+        { field: "orderQuantity", title: "Panjang SPP (M)" },
         { field: "orderType", title: "Jenis Order" },
         { field: "processType", title: "Jenis Proses" },
         { field: "construction", title: "Konstruksi" },
         { field: "designMotive", title: "Warna/Motif" },
-        { field: "quantity", title: "Jumlah di Surat Perintah Produksi (meter)" },
+        { field: "colorTemplate", title: "Hasil Matching" },   
+        { field: "colorRequest", title: "CW" },
         { field: "buyer", title: "Buyer" },
         { field: "buyerType", title: "Tipe Buyer" },
         { field: "staffName", title: "Nama Sales" },
@@ -97,7 +117,7 @@ export class List {
         this.sdate = null;
         this.edate = null;
         this.salesContractNo = '';
-        this.orderNo = '';
+        this.productionOrder = undefined;
         this.orderType = null;
         this.processType = null;
         this.buyer = null;
@@ -131,7 +151,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-            this.router.navigateToRoute('view', { id: data.salesContractNo });
+            this.router.navigateToRoute('view', { id: data.orderNo });
                 break;
         }
 
@@ -157,5 +177,9 @@ export class List {
 
     get accountLoader() {
         return AccountLoader;
+    }
+
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
     }
 }
