@@ -8,6 +8,7 @@ import '../styles/styles.theme.css';
 import '../styles/dashboard.css';
 import 'bootstrap';
 import authConfig from "../auth-config";
+import 'whatwg-fetch';
 
 // comment out if you don't want a Promise polyfill (remove also from webpack.common.js)
 import * as Bluebird from 'bluebird';
@@ -29,13 +30,13 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
-      var core = "https://dl-core-api-uat.mybluemix.net/v1/";
-      var auth = "https://dl-auth-api-uat.mybluemix.net/v1/";
-      var production = "https://dl-production-webapi-uat.mybluemix.net/v1/";
-      var purchasing = "https://dl-purchasing-webapi-uat.mybluemix.net/v1/";
-      var garmentPurchasing = "https://dl-purchasing-garment-webapi-uat.mybluemix.net/v1/";
-      var inventory = "https://dl-inventory-webapi-uat.mybluemix.net/v1/";
-      var garmentMasterPlan = "https://dl-garment-master-plan-webapi-uat.mybluemix.net/v1/";
+      var core = "https://dl-core-api.mybluemix.net/v1/";
+      var auth = "https://dl-auth-api.mybluemix.net/v1/";
+      var production = "https://dl-production-webapi.mybluemix.net/v1/";
+      var purchasing = "https://dl-purchasing-webapi.mybluemix.net/v1/";
+      var garmentPurchasing = "https://dl-purchasing-garment-webapi.mybluemix.net/v1/";
+      var inventory = "https://dl-inventory-webapi.mybluemix.net/v1/";
+      var garmentMasterPlan = "https://dl-garment-master-plan-webapi.mybluemix.net/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
