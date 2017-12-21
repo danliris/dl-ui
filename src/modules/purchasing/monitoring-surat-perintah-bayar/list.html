@@ -51,12 +51,16 @@
             <table class="table table-bordered table-hover" border="1" id="poReport">
                 <thead align="center">
                      <tr>
+                         <td >No</td>
                         <td >Tgl SPB</td>
                         <td >No SPB</td>
                         <td >Nama Brg</td>
                         <td >Jml</td>
                         <td >Hrg Sat</td>
-                        <td >Tot Hrg</td>
+                        <td >Jumlah Hrg</td>
+                        <td >Ppn</td>
+                        <td >Total</td>
+                        <td >Pph</td>
                         <td >Tgl PR</td>
                         <td >No PR</td>
                         <td >Tgl BON</td>
@@ -67,18 +71,23 @@
                         <td >Supplier</td>
                         <td >Unit</td>
                         <td >Div</td>
+                        <td >ADM</td>
+                        <td >Staff</td>
                        
                     </tr>
                   
                 </thead>
                 <tbody>
                   <tr repeat.for="PO of data">
-                        <td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
+                        <!--<td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.no}</td>
                         <td>${PO.items.unitReceiptNote.items.product.name}</td>
                         <td>${PO.items.unitReceiptNote.items.deliveredQuantity}</td>
                         <td>${PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
                         <td>${PO.items.unitReceiptNote.items.deliveredQuantity*PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
+                        <td>${nilais}</td>
+                        <td>${PO.useVat}</td>
+                        <td>Total Bayar</td>
                         <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.date  | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no}</td>
                         <td>${PO.items.unitReceiptNote.date | dateFormat:'DD-MM-YYYY'}</td>
@@ -89,6 +98,30 @@
                         <td>${PO.supplier.name}</td>
                         <td>${PO.namaUnit}</td>
                         <td>${PO.division.name}</td>
+                        <td>${PO._createdBy}</td>
+                        <td>${PO.staff}</td>-->
+                        <td>${$index + 1}</td>
+                        <td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.no}</td>
+                        <td>${PO.product}</td>
+                        <td>${PO.banyak}</td>
+                        <td>${PO.harga}</td>
+                        <td>${PO.banyak*PO.harga}</td>
+                        <td>${PO.useIncomeTax}</td>
+                           <td>${PO.tot}</td>
+                        <td>${PO.useVat}</td>
+                        <td>${PO.datepr  | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.nopr}</td>
+                        <td>${PO.datenote | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.nonote}</td>
+                        <td>${PO.invoceDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.invoceNo}</td>
+                        <td>${PO.dueDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.supplier}</td>
+                        <td>${PO.namaUnit}</td>
+                        <td>${PO.divisi}</td>
+                        <td>${PO._createdBy}</td>
+                        <td>${PO.staff}</td>
                     </tr>
                 </tbody>
             </table>

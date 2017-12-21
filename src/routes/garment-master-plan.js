@@ -25,19 +25,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: '/garment-master-plan/style',
-        name: 'style',
-        moduleId: './modules/garment-master-plan/style/index',
-        nav: true,
-        title: 'Master Style',
-        auth: true,
-        settings: {
-            group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: '/garment-master-plan/style',
+    //     name: 'style',
+    //     moduleId: './modules/garment-master-plan/style/index',
+    //     nav: true,
+    //     title: 'Master Style',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-master-plan",
+    //         permission: { "C5": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: '/garment-master-plan/booking-order',
         name: 'booking-order',
@@ -52,11 +52,37 @@ module.exports = [
         }
     },
     {
-        route: '/garment-master-plan/standard-hour',
-        name: 'standard-hour',
-        moduleId: './modules/garment-master-plan/standard-hour/index',
+        route: '/garment-master-plan/master-plan',
+        name: 'master-plan',
+        moduleId: './modules/garment-master-plan/master-plan/index',
         nav: true,
-        title: 'Standard Hour',
+        title: 'Master-Plan',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    // {
+    //     route: '/garment-master-plan/standard-hour',
+    //     name: 'standard-hour',
+    //     moduleId: './modules/garment-master-plan/standard-hour/index',
+    //     nav: true,
+    //     title: 'Standard Hour',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-master-plan",
+    //         permission: { "C5": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    {
+        route: '/garment-master-plan/master-plan-comodity',
+        name: 'master-plan-comodity',
+        moduleId: './modules/garment-master-plan/master-plan-comodity/index',
+        nav: true,
+        title: 'Komoditi',
         auth: true,
         settings: {
             group: "g-master-plan",

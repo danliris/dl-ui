@@ -1,0 +1,88 @@
+<template>
+    <tr>
+        <td width="30%">
+            <au-textbox 
+                value.bind="comodity"
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+            <au-layout error.bind="bookingComodity" if.bind="data.bookingMasterPlanComodity"></au-layout>
+            <au-layout error.bind="data.deletedData" if.bind="data.deletedData"></au-layout>
+            <au-layout error.bind="data.newData" if.bind="data.newData"></au-layout>
+            <!--<div class="has-error" if.bind="data.bookingMasterPlanComodity">
+                <au-textbox 
+                    label.bind="bookingComodity"
+                    read-only.bind="true" >
+                </au-textbox>    
+            </div>
+            <div class="has-error" if.bind="data.deletedData">
+                <au-textbox 
+                    label.bind="data.deletedData"
+                    read-only.bind="true" >
+                </au-textbox>    
+            </div>
+            <div class="has-error" if.bind="data.newData">
+                <au-textbox 
+                    label.bind="data.newData"
+                    read-only.bind="true" >
+                </au-textbox>    
+            </div>-->
+        </td>
+        <td width="15%">
+            <numeric 
+                value.bind="data.quantity" 
+                read-only.bind="true" 
+                options.bind="controlOption">
+            </numeric>
+            <au-layout error.bind="data.bookingQuantity" if.bind="data.bookingQuantity"></au-layout>
+            <!--<div class="has-error" if.bind="data.bookingQuantity">
+                <au-textbox 
+                    label.bind="data.bookingQuantity" 
+                    read-only.bind="true" >
+                </au-textbox>   
+            </div>-->
+        </td>
+        <td width="40%">
+            <au-textbox 
+                value.bind="data.remark"
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+            <au-layout error.bind="data.bookingRemark" if.bind="data.bookingRemark"></au-layout>
+            <!--<div class="has-error" if.bind="data.bookingRemark">
+                <au-textbox 
+                    label.bind="data.bookingRemark"
+                    read-only.bind="true" >
+                </au-textbox>  
+            </div>-->
+        </td>
+        <td width="10%">
+            <au-textbox 
+                value.bind="isConfirmed"
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+            <au-layout error.bind="bookingIsConfirmed" if.bind="data.bookingIsConfirmed"></au-layout>
+        </td>
+        <td  width="5%"  if.bind="!options.readOnly && data.deletedData" >
+            <button class="btn btn-danger pull-left" click.delegate="onremove(data, $event)">-</button>            
+            <!--<button class="btn btn-info pull-right" if.bind= "data.fulfillments" click.delegate="toggle()">i</button>-->
+        </td>
+    </tr>
+    <tr>
+        <au-layout error.bind="error.quantity" if.bind="error.quantity"></au-layout>
+        <td colspan="5">
+            <au-collection
+                items.bind="data.detailItems" 
+                errors.bind="error.detailItems"
+                columns.bind="itemsColumns"
+                add.bind="addItems"  
+                remove.bind="removeItems"
+                options.bind="context.context.options"
+                read-only.bind="options.readOnly"
+                item-template="modules/garment-master-plan/master-plan/templates/item"
+                footer-template="modules/garment-master-plan/master-plan/templates/item-footer">
+            </au-collection>
+        </td>  
+    </tr>
+</template>

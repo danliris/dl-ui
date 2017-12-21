@@ -7,9 +7,7 @@ export class View {
     hasCancel = true;
     hasEdit = false;
     hasDelete = false;
-    hasCancelPo = false;
     hasUnpost = false;
-    hasClosePo = false;
 
     constructor(router, service) {
         this.router = router;
@@ -21,6 +19,7 @@ export class View {
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
+        this.kurs = await this.service.getKurs(this.data.currency.code, this.data.date);
 
         var getUsedBudget = [];
         var getPRById = [];
@@ -83,10 +82,6 @@ export class View {
                                 }
                                 if (this.data.isPosted && !isVoid && !isArriving && !this.data.isClosed) {
                                     this.hasUnpost = true;
-                                    this.hasCancelPo = true;
-                                }
-                                if (this.data.isPosted && !isVoid && isArriving && !this.data.isClosed) {
-                                    this.hasClosePo = true;
                                 }
 
                                 if (this.data.supplier) {
