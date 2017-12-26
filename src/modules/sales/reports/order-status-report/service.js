@@ -20,6 +20,11 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    generateDetailXls(info) {
+        var endpoint = `${serviceUri}/${info.year}/${info.month}/${info.orderType}`;
+        return super.getXls(endpoint);
+    }
+
     generateExcel(info) {
         var endpoint = this._getEndPoint(info);
         return super.getXls(endpoint);

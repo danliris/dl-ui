@@ -35,12 +35,12 @@ export class View {
         { value: "qty", header: "Input" }
     ];
 
-    salesContractNo = "";
+    orderNo = "";
     dailyOperations = [];
     productionOrders = [];
     async activate(params) {
-        this.salesContractNo = params.id;
-        this.data = await this.service.getDetailReport(this.salesContractNo);
+        this.orderNo = params.id;
+        this.data = await this.service.getDetailReport(this.orderNo);
         this.productionOrders = this.data.productionOrders;
         this.dailyOperations = this.data.dailyOperations;
         this.qualityControls = this.data.qualityControls;

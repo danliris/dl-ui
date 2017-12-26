@@ -1,4 +1,9 @@
 <template>
+    <style>
+        .weight {
+            font-weight: bold;
+        }
+    </style>
     <au-input-form title.bind="title" with.bind="context">
         <style>
             table>tbody>tr>td {
@@ -32,7 +37,8 @@
                 options.bind="tableOptions"
                 view-model.ref="orderStatusTable"
                 context.bind="contextTable"
-                context-click.delegate="contextCallback($event)">
+                context-click.delegate="contextCallback($event)"
+                row-formatter.bind="rowFormatter">
             </au-table>
 
     </au-input-form>
