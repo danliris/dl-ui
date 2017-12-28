@@ -7,7 +7,7 @@
             <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-primary"  click.delegate="context.confirmBooking($event)"     if.one-way="context.hasConfirm">Confirm Booking</button>
+            <button class="btn btn-success"  click.delegate="context.confirmBooking($event)"     if.one-way="context.hasConfirm">Confirm Booking</button>
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
             <button class="btn btn-danger"  click.delegate="context.cancelBooking($event)"     if.one-way="context.hascancelConfirm">Cancel Booking</button>
         </div>
@@ -25,7 +25,7 @@
             label="Tanggal Booking" 
             value.bind="data.bookingDate" 
             error.bind="error.bookingDate" 
-            read-only.bind="readOnly"
+            read-only="true"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -50,7 +50,7 @@
             text.bind = "buyerView"
             placeholder="cari buyer" 
             key="code" 
-            read-only.bind="readOnly"
+            read-only="true"
             options.bind="controlOptions"
             if.bind = "!data.code">
         </au-autocomplete>
@@ -60,14 +60,14 @@
             value.bind="data.orderQuantity" 
             error.bind="error.orderQuantity" 
             format="0"
-            read-only.bind="readOnly">
+            read-only="true">
         </numeric>
 
         <au-datepicker 
             label="Tanggal Pengiriman" 
             value.bind="data.deliveryDate" 
             error.bind="error.deliveryDate" 
-            read-only.bind="readOnly"
+            read-only="true"
             options.bind="controlOptions">
         </au-datepicker>
         
@@ -75,7 +75,7 @@
             label="Keterangan" 
             value.bind="data.remark"
             placeholder="tambah keterangan" 
-            read-only.bind="readOnly"
+            read-only="true"
             options.bind="controlOptions">
         </au-multiline>
 
@@ -86,13 +86,12 @@
             add.bind="addItems" 
             remove.bind="removeItems"
             options.bind="options"
-            read-only="true"
-            if.bind="data.code"
+            read-only.bind="readOnly"
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
         </au-collection>
-
-        <!--<au-collection 
+<!--
+        <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
             columns.bind="detailColumns" 
@@ -100,7 +99,7 @@
             remove.bind="removeItems"
             options.bind="options"
             if.bind="data.code"
-            read-only="true"
+            read-only.bind="readOnly"
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer-confirm" >
         </au-collection>-->
