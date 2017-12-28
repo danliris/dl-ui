@@ -9,9 +9,10 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.month = this.monthList[new Date().getMonth()];
-        this.year = this.yearList[0];
+        // this.month = this.monthList[new Date().getMonth()];
+        // this.year = this.yearList[0];
         this.area = this.areaList[0];
+        // this.info;
     }
 
     auInputOptions = {
@@ -28,9 +29,9 @@ export class List {
 
     data = [];
 
-    monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    yearList = [new Date().getFullYear(), new Date().getFullYear() - 1, new Date().getFullYear() - 2];
+    // yearList = [new Date().getFullYear(), new Date().getFullYear() - 1, new Date().getFullYear() - 2];
 
     areaList = ["Area Pre Treatment", "Area Printing", "Area Dyeing", "Area Finishing", "Area Inspecting"];
 
@@ -49,9 +50,11 @@ export class List {
     }
 
     columns = [
-        { field: "_id.year", title: "Tahun" },
-        { field: "_id.month", title: "Bulan" },
-        { field: "_id.day", title: "Tanggal" },
+        {
+            field: "_id.date", title: "Tanggal", formatter: function (value, data, index) {
+                return moment(new Date(value)).format("DD MMM YYYY");
+            }
+        },
         { field: "_id.processArea", title: "Area" },
         { field: "_id.machineName", title: "Nama Mesin" },
         { field: "totalGoodOutput", title: "Good Output" },
@@ -78,8 +81,8 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
 
-        this.info.month = this.month ? this.month : null;
-        this.info.year = this.year ? this.year : null;
+        this.info.dateFrom = this.dateFrom.toString();
+        this.info.dateTo = this.dateTo.toString();
         this.info.area = this.area ? this.area : null;
         this.info.order = order;
 
@@ -87,19 +90,59 @@ export class List {
     }
 
     searchData() {
-        this.searchStatus = true;
-        this.table.refresh();
+
+        var e = {};
+
+        if (!this.dateFrom) {
+            e.dateFrom = "tanggal awal harus di isi";
+            this.error = e;
+        }
+
+        if (!this.dateTo) {
+            e.dateTo = "tanggal akhir harus di isi";
+            this.error = e;
+        }
+
+        if (Object.getOwnPropertyNames(e) == 0) {
+
+            this.searchStatus = true;
+            this.table.refresh();
+        }
+
     }
 
-    // exportToExcel() {
-    //     // this.fillValues();
-    //     this.service.generateExcel(this.info);
-    // }
+    exportToExcel() {
+        var e = {};
+
+        if (!this.dateFrom) {
+            e.dateFrom = "tanggal awal harus di isi";
+            this.error = e;
+        }
+
+        if (!this.dateTo) {
+            e.dateTo = "tanggal akhir harus di isi";
+            this.error = e;
+        }
+
+        if (Object.getOwnPropertyNames(e) == 0) {
+
+            this.searchStatus = true;
+        }
+
+        this.info.dateFrom = this.dateFrom.toString();
+        this.info.dateTo = this.dateTo.toString();
+        this.info.area = this.area ? this.area : null;
+
+        if (this.searchStatus == true) {
+            this.service.generateExcel(this.info);
+        }
+
+    }
 
     reset() {
-        this.month = this.monthList[new Date().getMonth()];
-        this.year = this.yearList[0];
         this.area = this.areaList[0];
+        this.dateFrom = undefined;
+        this.dateTo = undefined;
         this.searchStatus = false;
     }
 

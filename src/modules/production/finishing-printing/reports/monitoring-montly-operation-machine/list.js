@@ -43,10 +43,10 @@ export class List {
     listDataFlag = false;
 
     columns = [
-        { field: "name", title: "name" },
-        { field: "capacity", title: "capacity" },
-        { field: "monthlyCapacity", title: "input" },
-        { field: "date", title: "period" },
+        { field: "name", title: "Nama Mesin" },
+        { field: "capacity", title: "Kapasitas" },
+        { field: "monthlyCapacity", title: "Input" },
+        { field: "date", title: "Periode" },
     ]
 
     loader = (info) => {
