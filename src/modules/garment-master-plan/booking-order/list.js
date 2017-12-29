@@ -9,8 +9,10 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.isConfirmed)
+        if (data.isMasterPlan)
             return { classes: "success" }
+        if (data.isCanceled)
+            return { classes: "danger" }
         else
             return {}
     }
@@ -18,33 +20,24 @@ export class List {
     context = ["detail"]
 
     columns = [
-        {
-            field: "isPosting", title: "Confirm", checkbox: true, sortable: false,
-            formatter: function (value, data, index) {
-                console.log(data.isConfirmed)
-                this.checkboxEnabled = !data.isConfirmed;
-                return ""
-            }
-        },
+        { field: "code", title: "Kode Booking" },
         { field: "bookingDate", title: "Tanggal Booking", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
          },
          { field: "garmentBuyerName", title: "Buyer" },
-         { field: "style.code", title: "Kode Artikel/Style" },
-         { field: "standardHour.shSewing", title: "Standar Hour" },
          { field: "orderQuantity", title: "Jumlah Order" },
         {
             field: "deliveryDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-       {
-            field: "isConfirmed", title: "Status Konfirmasi",  sortable: false,
-            formatter: function (value, data, index) {
-                return data.isConfirmed ? "SUDAH" : "BELUM"
-            }
-        },
+        {
+                field: "isMasterPlan", title: "Status",
+                formatter: function (value, data, index) {
+                    return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : "Booking";
+                }
+            },
     ];
 
     loader = (info) => {
@@ -88,15 +81,15 @@ export class List {
         }
     }
 
-    posting() {
-        if (this.dataToBePosted.length > 0) {
-            this.service.posting(this.dataToBePosted).then(result => {
-                this.table.refresh();
-            }).catch(e => {
-                this.error = e;
-            })
-        }
-    }
+    // posting() {
+    //     if (this.dataToBePosted.length > 0) {
+    //         this.service.posting(this.dataToBePosted).then(result => {
+    //             this.table.refresh();
+    //         }).catch(e => {
+    //             this.error = e;
+    //         })
+    //     }
+    // }
 
     create() {
         this.router.navigateToRoute('create');

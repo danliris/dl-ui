@@ -27,7 +27,8 @@ export class CreateInput {
         // return activationStrategy.invokeLifecycle;
     }
 
-    save() {
+    save(event) {
+        event.toElement.disabled = true;
         this.data.type = "input";
         this.service.create(this.data)
             .then(result => {
@@ -38,6 +39,7 @@ export class CreateInput {
                 // this.list();
             })
             .catch(e => {
+                event.toElement.disabled = false;
                 this.error = e;
             })
     }

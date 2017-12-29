@@ -249,6 +249,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/finishing-printing/reports/qcgudang-report',
+        name: 'packing-report',
+        moduleId: './modules/production/finishing-printing/reports/qcgudang-report/index',
+        nav: true,
+        title: 'Laporan Penyerahan QC ke Gudang',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/finishing-printing/inspection-lot-color',
         name: 'inspection-lot-colors',
         moduleId: './modules/production/finishing-printing/inspection-lot-color/index',
@@ -293,6 +306,19 @@ module.exports = [
         moduleId: './modules/production/finishing-printing/reports/monitoring-montly-operation-machine/index',
         nav: true,
         title: 'Monitoring montly operation machine',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/reports/daily-operation-machine',
+        name: 'daily-operation-machine',
+        moduleId: './modules/production/finishing-printing/reports/daily-operation-machine/index',
+        nav: true,
+        title: 'Laporan Output Mesin per Hari',
         auth: true,
         settings: {
             group: "production",

@@ -6,6 +6,8 @@ var moment = require("moment");
 
 var BuyerLoader = require('../../../../loader/garment-buyers-loader');
 
+var BuyerLoader = require('../../../../loader/garment-buyers-loader');
+
 @inject(Router, Service)
 export class Migrate {
     @bindable error = {};

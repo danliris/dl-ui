@@ -1,4 +1,4 @@
-import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var StorageLoader = require('../../../loader/storage-loader');
 

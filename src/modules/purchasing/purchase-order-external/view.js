@@ -7,9 +7,7 @@ export class View {
     hasCancel = true;
     hasEdit = false;
     hasDelete = false;
-    hasCancelPo = false;
     hasUnpost = false;
-    hasClosePo = false;
 
     constructor(router, service) {
         this.router = router;
@@ -34,10 +32,6 @@ export class View {
         }
         if (this.data.isPosted && !isVoid && !isArriving && !this.data.isClosed) {
             this.hasUnpost = true;
-            this.hasCancelPo = true;
-        }
-        if (this.data.isPosted && !isVoid && isArriving && !this.data.isClosed) {
-            this.hasClosePo = true;
         }
     }
 

@@ -13,7 +13,7 @@ export class List {
         this.router = router;
     }
 
-    statusOptions = ['','IN','OUT','ADJ'];
+    statusOptions = ['', 'IN', 'OUT', 'ADJ'];
 
     tableOptions = {
         search: false,
@@ -26,24 +26,25 @@ export class List {
     listDataFlag = false;
 
     columns = [
-      { field: "storageName", title: "Storage"},
-      { field: "referenceNo", title: "Nomor Referensi"},
-      { field: "referenceType", title: "Jenis Referensi"},
-      { field: "date", title: "Tanggal", 
-        formatter: (value, data) => {
-          return moment(value).format("DD-MMM-YYYY");
-        }
-      },
-      { field: "productName", title: "Nama Barang"},
-      { field: "uom", title: "UOM"},
-      { field: "before", title: "Before"},
-      { field: "quantity", title: "Kuantiti"},
-      { field: "after", title: "After"},
-      { field: "type", title: "Status"}
+        { field: "storageName", title: "Storage" },
+        { field: "referenceNo", title: "Nomor Referensi" },
+        { field: "referenceType", title: "Jenis Referensi" },
+        {
+            field: "date", title: "Tanggal",
+            formatter: (value, data) => {
+                return moment(value).format("DD-MMM-YYYY");
+            }
+        },
+        { field: "productName", title: "Nama Barang" },
+        { field: "uom", title: "UOM" },
+        { field: "before", title: "Before" },
+        { field: "quantity", title: "Kuantiti" },
+        { field: "after", title: "After" },
+        { field: "type", title: "Status" }
     ]
 
     bind() {
-        
+
     }
 
     fillValues() {
@@ -75,7 +76,7 @@ export class List {
                         total: result.info.total,
                         data: result.data
                     }
-            })
+                })
         ) : { total: 0, data: {} };
     }
 
@@ -116,7 +117,7 @@ export class List {
     }
 
     autocomplete_change(e) {
-        if(e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
+        if (e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
             e.au.controller.view.bindingContext.value = e.au.controller.view.bindingContext.value == undefined ? "" : undefined;
     }
 }

@@ -10,23 +10,32 @@
         <div class="form-group">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <au-textbox 
+                <!-- <au-textbox 
                     label="Nomor Sales Contract" 
                     value.bind="salesContractNo"
                     placeholder="masukkan nomor Sales Contract">
-                </au-textbox>
+                </au-textbox> -->
 
-                <au-textbox 
+                <!-- <au-textbox 
                     label="Nomor Order Produksi" 
                     value.bind="orderNo"
-                    placeholder="masukkan nomor Order Produksi">
-                </au-textbox>
+                    placeholder="Pilih Nomor SPP">
+                </au-textbox> -->
+
+                <au-autocomplete 
+                    value.bind="productionOrder" 
+                    label="Nomor Order Produksi" 
+                    placeholder="Pilih Nomor SPP" 
+                    loader.one-time="productionOrderLoader" 
+                    key="orderNo" 
+                    text="orderNo">
+                </au-autocomplete>
 
                 <au-autocomplete 
                     value.bind="orderType" 
                     label="Jenis Order" 
-                    placeholder="cari jenis order" 
-                    loader.bind="orderTypeLoader" 
+                    placeholder="Pilih Jenis Order" 
+                    loader.one-time="orderTypeLoader" 
                     key="code" 
                     text="name">
                 </au-autocomplete>
@@ -36,8 +45,8 @@
                     label="Jenis Proses" 
                     filter.bind="filterOrder"
                     show.bind="orderType"
-                    placeholder="cari jenis proses"
-                    loader.bind="processTypeLoader" 
+                    placeholder="Pilih Jenis Proses"
+                    loader.one-time="processTypeLoader" 
                     key="code" 
                     text="name">
                 </au-autocomplete>
@@ -45,8 +54,8 @@
                 <au-autocomplete 
                     value.bind="buyer"
                     label="Buyer" 
-                    placeholder="cari buyer" 
-                    loader.bind="buyerLoader" 
+                    placeholder="Pilih Buyer" 
+                    loader.one-time="buyerLoader" 
                     key="code" 
                     text="name">
                 </au-autocomplete>
@@ -54,9 +63,9 @@
                 <au-autocomplete 
                     value.bind="account" 
                     label="Staff Penjualan" 
-                    placeholder="cari staff" 
+                    placeholder="Pilih Staff" 
                     filter.bind="filterAccount"
-                    loader.bind="accountLoader" 
+                    loader.one-time="accountLoader" 
                     key="_id"
                     text="username">
                 </au-autocomplete>
@@ -73,7 +82,7 @@
 
                 <div class="form-group">
                     <label for="contact" class="col-sm-6 control-label"></label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-12 text-center">
                         <button click.delegate="search()" class='btn btn-success'>Cari</button>
                         <button click.delegate="reset()" class='btn btn-success'>Reset</button>
                     </div>

@@ -8,9 +8,7 @@
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
-            <button class="btn btn-primary" click.delegate="context.cancelPO($event)"   if.one-way="context.hasCancelPo">Cancel PO</button>
             <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
-            <button class="btn btn-primary" click.delegate="context.closePO($event)"    if.one-way="context.hasClosePo">Close PO</button>
         </div>
 
         <div class="row">
@@ -266,7 +264,7 @@
     </div>
 
         <hr/>
-         <div class="form-group" show.bind="!readOnly"> 
+         <div class="form-group" show.bind="!readOnly && data.currency"> 
             <div class="col-sm-3">
                 <au-textbox value.bind="keywords" placeholder="#nama unit #nama buyer (harus berurutan)"></au-textbox>
             </div>

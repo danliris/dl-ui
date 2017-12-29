@@ -27,7 +27,8 @@ export class CreateOutput {
         // return activationStrategy.invokeLifecycle;
     }
 
-    save() {
+    save(event) {
+        event.toElement.disabled = true;
         this.data.type = "output";
         this.service.create(this.data)
             .then(result => {
@@ -38,8 +39,8 @@ export class CreateOutput {
                 // this.list();
             })
             .catch(e => {
+                event.toElement.disabled = false;
                 this.error = e;
-                
             })
     }
 }
