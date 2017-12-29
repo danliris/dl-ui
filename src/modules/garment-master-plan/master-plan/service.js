@@ -48,4 +48,37 @@ export class Service extends RestService {
                 return result.data;
             });
     }
+
+    getWeeklyPlan(filter){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("garment-master-plan");
+        var _serviceUri = `weekly-plans`;
+
+        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter) })
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    getWorkingHour(){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("garment-master-plan");
+        var _serviceUri = `working-hours-standards`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    getPreview(month, year){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("garment-master-plan");
+        var _serviceUri = `master-plan-previews`;
+
+        return _endpoint.find(_serviceUri, { month: month, year: year })
+            .then(result => {
+                return result.data;
+            });
+    }
 }
