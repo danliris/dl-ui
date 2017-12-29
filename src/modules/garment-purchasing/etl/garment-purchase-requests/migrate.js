@@ -2,10 +2,15 @@ import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
+var moment = require("moment");
+
+var BuyerLoader = require('../../../../loader/garment-buyers-loader');
 
 @inject(Router, Service)
 export class Migrate {
     @bindable error = {};
+
+    yearList = [];
 
     constructor(router, service) {
         this.router = router;
@@ -16,6 +21,10 @@ export class Migrate {
         this.page = 1;
         this.size = 10;
 
+        this.year = moment().format('YYYY');
+        for (var i = parseInt(this.year) + 1; i > 2010; i--) {
+            this.yearList.push(i.toString());
+        }
     }
 
     auInputOptions = {
@@ -42,6 +51,10 @@ export class Migrate {
 
     list() {
         this.router.navigateToRoute('list');
+    }
+
+    get buyerLoader(){
+        return BuyerLoader;
     }
 
     cancelCallback(event) {
@@ -76,7 +89,7 @@ export class Migrate {
     }
 
     saveCallback(event) {
-        this.service.getData(this.data).then((data) => {
+        this.service.getDataSql(this.data).then((data) => {
             this.totalData = data;
             this.migratedFalse = 0;
             this.ETL();
