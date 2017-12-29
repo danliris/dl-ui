@@ -45,7 +45,7 @@ export class List {
     }
 
     rowFormatter(data, index) {
-        if (data.isInactive()) {
+        if (data.isInactive) {
             return { classes: "danger" }
         } else {
             if (data.isComplete)
