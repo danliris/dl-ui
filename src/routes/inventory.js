@@ -131,11 +131,11 @@ module.exports = [
         }
     },
     {
-        route: "inventory/finishing-printing/reports/fp-retur-from-buyer",
-        name: "inventory/finishing-printing/reports/fp-retur-from-buyer",
-        moduleId: "modules/inventory/finishing-printing/reports/fp-retur-from-buyer/index",
+        route: "inventory/reports/fp-shiptment-delivery-buyer-report",
+        name: "inventory/reports/fp-shiptment-delivery-buyer-report",
+        moduleId: "modules/inventory/reports/fp-shiptment-delivery-buyer-report/index",
         nav: true,
-        title: "Laporan Retur Barang Dari Buyer",
+        title: "Laporan Pengiriman Buyer",
         auth: true,
         settings: {
             group: "Inventory",

@@ -292,7 +292,7 @@ module.exports = [
         name: 'monitoring-montly-operation-machine',
         moduleId: './modules/production/finishing-printing/reports/monitoring-montly-operation-machine/index',
         nav: true,
-        title: 'Monitoring montly operation machine',
+        title: 'Monitoring monthly operation machine',
         auth: true,
         settings: {
             group: "production",
