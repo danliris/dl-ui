@@ -6,7 +6,7 @@ import { Service } from './service';
 @inject(Router, Service)
 export class List {
     data = [];
-    listReport = [
+    listReport  =  [
         "Top Ten Event Monitoring",
         "Kapasitas Mesin vs Kuantiti Kanban vs Kuantiti Output Produksi",
         "Perbandingan Hasil QC",
@@ -15,11 +15,9 @@ export class List {
         "Good Output vs Bad Output Per Jenis Order",
         "Produksi vs Reproses",
         "Kanban Aktif",
-        "Total Panjang Kain Per SPP Yang Telah Diproses",
-        "Monitoring Bad Output Produksi",
+        "Monitoring Lead Time Real Time",
+        "Monitoring Lead Time Historical",
         "Monitoring Penjualan Per Sales"
-        //"Monitoring Lead Time Real Time",
-        //"Monitoring Lead Time Historical"
     ];
 
     constructor(router, service) {
