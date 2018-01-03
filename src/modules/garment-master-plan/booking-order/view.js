@@ -10,7 +10,7 @@ export class View {
   hasEdit = true;
   hasDelete = true;
   hascancelConfirm = true;
-  hasConfirm = true;
+  //hasConfirm = true;
 
   constructor(router, service) {
     this.router = router;
@@ -29,17 +29,17 @@ export class View {
                 }
             }
         }
-      if(this.data.isCanceled){
-        this.hasEdit = false;
-        this.hascancelConfirm = false;
+      if(conf){
         this.hasDelete = false;
-        this.hasConfirm = false;
+        //this.hasConfirm = false;
       }
       else if(this.data.isMasterPlan){
         this.hasDelete = false;
         //this.hasConfirm = false;
       }
-      else if(conf){
+      else if(this.data.isCanceled){
+        this.hasEdit = false;
+        this.hascancelConfirm = false;
         this.hasDelete = false;
         //this.hasConfirm = false;
       }
@@ -59,10 +59,6 @@ export class View {
           this.cancel();
         });
     }
-
-  confirmBooking(event) {
-    this.router.navigateToRoute('confirm', { id: this.data._id });
-  }  
 
   // confirmBooking() {
   //     var today=new Date();

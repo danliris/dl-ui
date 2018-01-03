@@ -3,7 +3,6 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
 var moment = require('moment');
-var MachineLoader = require("../../../../../loader/machines-loader");
 
 @inject(Router, Service)
 export class List {
@@ -29,7 +28,6 @@ export class List {
     info = {};
 
     data = [];
-    summaryResult = [];
 
     // monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -45,8 +43,6 @@ export class List {
         showColumns: false,
         pagination: false
     }
-
-    query = {}
 
     bind(context) {
         this.context = context;
@@ -66,36 +62,18 @@ export class List {
 
     ];
 
-    totalColumns = [
-        { field: "machineName", title: "Nama Mesin" },
-        { field: "goodOutputTotal", title: "Total Good Output (m)" },
-        { field: "badOutputTotal", title: "Total Bad Output (m)" }
-    ]
-
     loader = (info) => {
 
         return this.searchStatus ? (
             this.dataInfo(info),
             this.service.search(this.info)
                 .then((result) => {
-                    // console.log(result);
-                    this.summaryResult = result.summary;
-                    this.sumTable.refresh();
-                    // this.data = result.info;
                     return {
                         data: result.info
                     }
                 })
         ) : { total: 0, data: {} };
     }
-
-    summary = () => {
-        return { total: 0, data: this.summaryResult.length > 0 ? this.summaryResult : {} }
-    }
-
-    // summary = (info) => {
-    //     return this.searchStatus ? {} : { total: 0, data: {} };
-    // }
 
     dataInfo(info) {
 
@@ -107,7 +85,6 @@ export class List {
         this.info.dateTo = this.dateTo.toString();
         this.info.area = this.area ? this.area : null;
         this.info.order = order;
-        this.info.machineId = this.selectedMachine && this.selectedMachine._id ? this.selectedMachine._id : "";
 
         this.searchStatus = true;
     }
@@ -130,7 +107,6 @@ export class List {
 
             this.searchStatus = true;
             this.table.refresh();
-            this.sumTable.refresh();
         }
 
     }
@@ -163,18 +139,11 @@ export class List {
 
     }
 
-    get machineLoader() {
-        return MachineLoader;
-    }
-
     reset() {
         this.area = this.areaList[0];
-        this.selectedMachine = {};
         this.dateFrom = undefined;
         this.dateTo = undefined;
         this.searchStatus = false;
-        this.summaryResult = [];
-        // console.log(this);
     }
 
 }
