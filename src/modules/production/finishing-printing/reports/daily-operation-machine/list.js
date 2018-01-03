@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import numeral from 'numeral';
 
 var moment = require('moment');
 var MachineLoader = require("../../../../../loader/machines-loader");
@@ -56,20 +57,46 @@ export class List {
     columns = [
         {
             field: "_id.date", title: "Tanggal", formatter: function (value, data, index) {
-                return moment(new Date(value)).format("DD MMM YYYY");
+                return value ? moment(new Date(value)).format("DD MMM YYYY") : "";
             }
         },
         { field: "_id.processArea", title: "Area" },
         { field: "_id.machineName", title: "Nama Mesin" },
-        { field: "totalGoodOutput", title: "Good Output" },
-        { field: "totalBadOutput", title: "Bad Output" },
+        {
+            field: "totalGoodOutput", title: "Good Output", align: "right", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+            }
+        },
+        {
+            field: "totalBadOutput", title: "Bad Output", align: "right", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+            }
+        },
+        {
+            field: "totalBadGood", title: "Total", align: "right", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+            }
+        },
 
     ];
 
     totalColumns = [
         { field: "machineName", title: "Nama Mesin" },
-        { field: "goodOutputTotal", title: "Total Good Output (m)" },
-        { field: "badOutputTotal", title: "Total Bad Output (m)" }
+        {
+            field: "goodOutputTotal", title: "Total Good Output (m)", align: "right", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+            }
+        },
+        {
+            field: "badOutputTotal", title: "Total Bad Output (m)", align: "right", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+            }
+        },
+        {
+            field: "totalGoodBad", title: "Total (m)", align: "right", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+            }
+        }
     ]
 
     loader = (info) => {
@@ -96,6 +123,22 @@ export class List {
     // summary = (info) => {
     //     return this.searchStatus ? {} : { total: 0, data: {} };
     // }
+
+    rowFormatter(data, index) {
+        // console.log(data);
+        if (data._id && data._id.machineName.toLowerCase() === "total")
+            return { classes: "weight" };
+        else
+            return {};
+    }
+
+    sumRowFormatter(data, index) {
+        console.log(data);
+        if (data.machineName.toLowerCase() === "total")
+            return { classes: "weight" };
+        else
+            return {};
+    }
 
     dataInfo(info) {
 
