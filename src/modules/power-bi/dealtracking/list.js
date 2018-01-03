@@ -7,9 +7,8 @@ import { Service } from './service';
 export class List {
     data = [];
     listReport = [
-      
-        "Deal Tracking",
-      "Deal Tracking Historical"
+
+        "Deal Tracking"
     ];
     constructor(router, service) {
         this.router = router;

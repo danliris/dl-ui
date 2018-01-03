@@ -133,7 +133,7 @@ export class List {
     }
 
     sumRowFormatter(data, index) {
-        console.log(data);
+        // console.log(data);
         if (data.machineName.toLowerCase() === "total")
             return { classes: "weight" };
         else
