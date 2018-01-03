@@ -79,6 +79,8 @@
             options.bind="controlOptions">
         </au-multiline>
 
+        <label for="Detail Confirm" if.bind="data.code">Detail Confirm : </label>
+        <au-layout error.bind="error.detail" if.bind="error.detail"></au-layout>
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
@@ -91,7 +93,8 @@
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
         </au-collection>
-
+        
+        <au-layout error.bind="error.totalQuantity" if.bind="error.totalQuantity"></au-layout>
         <!--<au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
