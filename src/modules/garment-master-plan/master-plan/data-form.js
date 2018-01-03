@@ -1,7 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var BookingLoader = require('../../../loader/garment-booking-order-loader');
-var moment = require('moment');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -13,7 +12,6 @@ export class DataForm {
     @bindable title;
     @bindable selectedBookingOrder;
     @bindable booking = {};
-    @bindable preview={};
 
     controlOptions = {
         label: {
@@ -23,34 +21,11 @@ export class DataForm {
             length: 5
         }
     }
-    
-    months = ["Januari","Februari","Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-    years = [];
-    bookingItemColumns = [{ header: "Komoditi" },{ header: "Jumlah" },{header: "Keterangan"},{header: "Tanggal Pengiriman"}];
-    detailColumns = [
-        { header: "Confirm" },
-        { header: "Komoditi" },
-        { header: "SH Cutting" },
-        { header: "SH Sewing" },
-        { header: "SH Finishing" },
-        { header: "Total SH" },
-        { header: "Unit" },
-        { header: "Tahun" },
-        { header: "Week" },
-        { header: "Jumlah Order" },
-        { header: "Keterangan" },
-        { header: "Tanggal Pengiriman" }
-    ]
-    previewColumns = [{header : "Konveksi"}]
+    detailColumns = [{ header: "Komoditi" },{ header: "Jumlah" },{header: "Keterangan"},{header: "Confirm"},{}];
 
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-        var year = (new Date()).getFullYear();
-        this.years.push(year);
-        for(var a = 1; a < 5; a++){
-            this.years.push(year + a);
-        }
     }
 
     async bind(context) {
@@ -75,7 +50,7 @@ export class DataForm {
             this.data.deliveryDate = _selectedData.deliveryDate;
             this.data.quantity = _selectedData.orderQuantity;
             this.data.remark = _selectedData.remark;
-            this.data.bookingItems = _selectedData.items;
+            this.data.details = _selectedData.items;
         }else{
             delete this.data.bookingOrderNo;
             delete this.data.bookingOrderId;
@@ -86,7 +61,7 @@ export class DataForm {
             delete this.data.remark;
             delete this.data.bookingDate;
             delete this.data.deliveryDate;
-            this.data.bookingItems = [];
+            this.data.details = [];
         }
     }
 
@@ -96,78 +71,5 @@ export class DataForm {
 
     bookingView = (booking) => {
         return `${booking.code} - ${booking.garmentBuyerName}`
-    }
-    
-    get addDetails() {
-      return (event) => {
-          var newDetail=   {
-              isConfirmed: false,
-              shCutting: 0,
-              shSewing: 0,
-              shFinishing: 0,
-              quantity: 0,
-              remark:"",
-          };
-          this.data.details.push(newDetail);
-      };
-    }
-    
-    previewChange(event) {
-        var month = getMonth(this.preview.month);
-        var thisDate = new Date(`${this.preview.year}/${month - 1}/1`);
-        var nextDate = thisDate.setMonth(thisDate.getMonth() + 6);
-        var nextYear = nextDate.getFullYear();
-        var workingHour = this.service.getWorkingHour();
-        var weeklyPlan = this.service.getWeeklyPlan({"year" : {"$in" :[this.preview.year, nextYear]}});
-        var preview = this.service.getPreview(month, this.preview.year);
-        Promise.all([workingHour, weeklyPlan, preview])
-            .then(result => {
-                var _workingHour = result[0];
-                var _weeklyPlan = result[1];
-                var _preview = result[2];
-            });
-    }  
-
-    getMonth(month){
-        var monthName = 0;
-        switch(month){
-            case "Januari":
-                monthName = 1;
-                break;
-            case "Februari":
-                monthName = 2;
-                break;
-            case "Maret":
-                monthName = 3;
-                break;
-            case "April":
-                monthName = 4;
-                break;
-            case "Mei":
-                monthName = 5;
-                break;
-            case "Juni":
-                monthName = 6;
-                break;
-            case "Juli":
-                monthName = 7;
-                break;
-            case "Agustus":
-                monthName = 8;
-                break;
-            case "September":
-                monthName = 9;
-                break;
-            case "Oktober":
-                monthName = 10;
-                break;
-            case "November":
-                monthName = 11;
-                break;
-            case "Desember":
-                monthName = 12;
-                break;
-        }
-        return monthName;
     }
 } 

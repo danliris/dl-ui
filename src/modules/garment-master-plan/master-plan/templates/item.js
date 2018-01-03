@@ -5,13 +5,11 @@ import moment from 'moment';
 var UnitLoader = require('../../../../loader/unit-loader');
 var weeklyLoader = require('../../../../loader/garment-master-plan-weekly-plan-loader');
 var weekLoader = require('../../../../loader/garment-master-plan-weekly-plan-by-year-loader');
-var MasterPlanComodityLoader = require('../../../../loader/garment-master-plan-comodity-loader');
 
 export class Item {
     @bindable selectedUnit;
     @bindable selectedWeeklyPlan;
     @bindable selectedWeek;
-    @bindable selectedComodity;
   
   activate(item) {
     this.data = item.data;
@@ -23,8 +21,6 @@ export class Item {
       this.selectedWeeklyPlan = {year:this.data.weeklyPlanYear};
     if(this.data.week)
       this.selectedWeek = {items:this.data.week};
-    if(this.data.masterPlanComodityId)
-      this.selectedComodity = this.data.masterPlanComodity;
   }
 
   controlOption = {
@@ -93,15 +89,6 @@ export class Item {
       }
   }
 
-  selectedComodityChanged(newValue){
-      var _selectedData = newValue;
-      if(_selectedData){
-        this.data.masterPlanComodityId = _selectedData._id;
-      }else{
-        delete this.data.masterPlanComodityId;
-      }
-  }
-
   get unitLoader() {
     return UnitLoader;
   }
@@ -110,9 +97,6 @@ export class Item {
   }
   get weekloader() {
     return weekLoader;
-  }
-  get masterPlanComodityLoader() {
-    return MasterPlanComodityLoader;
   }
 
   get isFilterUnit(){

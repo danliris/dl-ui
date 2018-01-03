@@ -20,8 +20,8 @@ export class DataForm {
             length: 5
         }
     }
-    detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Tanggal Pengiriman"}, {header: "Keterangan"}];
-   // detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
+    detailColumns = [{ header: "Confirm" },{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
+    detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
 
     buyerFields=["name", "code"];
 
@@ -54,7 +54,6 @@ export class DataForm {
             
         }
     }
-
 
     get buyerLoader() {
         return BuyerLoader;

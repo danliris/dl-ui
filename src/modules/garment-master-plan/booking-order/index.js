@@ -5,7 +5,6 @@ export class Index {
             { route: 'create', moduleId: './create', name: 'create', nav: false, title: 'Create: Booking' },
             { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View: Booking' },
             { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit: Booking' },
-            { route: 'confirm/:id', moduleId: './confirm', name: 'confirm', nav: false, title: 'Confirm: Booking' },
         ]);
 
         this.router = router;

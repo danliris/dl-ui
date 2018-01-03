@@ -3,20 +3,20 @@ import { Service } from "../service";
 
 @containerless()
 @inject(Service, BindingEngine)
-export class Detail {
+export class DeliveryOrderItem {
   @bindable selectedPurchaseOrderExternal;
 
-  // itemsColumns = [
-  //   { header: "SH Cutting" },
-  //   { header: "SH Sewing" },
-  //   { header: "SH Finishing" },
-  //   { header: "Total SH" },
-  //   { header: "Unit" },
-  //   { header: "Tahun" },
-  //   { header: "Week" },
-  //   { header: "Jumlah Order" },
-  //   { header: "Keterangan" }
-  // ]
+  itemsColumns = [
+    { header: "SH Cutting" },
+    { header: "SH Sewing" },
+    { header: "SH Finishing" },
+    { header: "Total SH" },
+    { header: "Unit" },
+    { header: "Tahun" },
+    { header: "Week" },
+    { header: "Jumlah Order" },
+    { header: "Keterangan" }
+  ]
 
   constructor(service, bindingEngine) {
     this.service = service;
@@ -31,18 +31,18 @@ export class Detail {
   }
 
 
-  // get addItems() {
-  //     return (event) => {
-  //         var newDetail=   {
-  //             shCutting: 0,
-  //             shSewing: 0,
-  //             shFinishing: 0,
-  //             quantity: 0,
-  //             remark:"",
-  //         };
-  //         this.data.detailItems.push(newDetail);
-  //     };
-  // }
+  get addItems() {
+      return (event) => {
+          var newDetail=   {
+              shCutting: 0,
+              shSewing: 0,
+              shFinishing: 0,
+              quantity: 0,
+              remark:"",
+          };
+          this.data.detailItems.push(newDetail);
+      };
+  }
 
 //   toggle() {
 //     if (!this.isShowing)
@@ -61,19 +61,19 @@ export class Detail {
       return comodity;
   }
 
-  // get isConfirmed(){
-  //     var detail = "Belum Confirm";
-  //     if(this.data.isConfirmed)
-  //       detail = "Sudah Confirm";
-  //     return detail;
-  // }
+  get isConfirmed(){
+      var detail = "Belum Confirm";
+      if(this.data.isConfirmed)
+        detail = "Sudah Confirm";
+      return detail;
+  }
 
-  // get bookingIsConfirmed(){
-  //     var detail = "Belum Confirm";
-  //     if(this.data.bookingIsConfirmed)
-  //       detail = "Sudah Confirm";
-  //     return detail;
-  // }
+  get bookingIsConfirmed(){
+      var detail = "Belum Confirm";
+      if(this.data.bookingIsConfirmed)
+        detail = "Sudah Confirm";
+      return detail;
+  }
 
   controlOptions = {
     control: {

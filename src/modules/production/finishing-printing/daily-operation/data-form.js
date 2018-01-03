@@ -59,8 +59,7 @@ export class DataForm {
     badOutputInfo = {
         columns: [
             { header: "Alasan", value: "badOutputReason" },
-            { header: "Jumlah Panjang (m)", value: "precentage" },
-            { header: "Action", value: "action" },
+            { header: "Persentase Alasan %", value: "precentage" },
             { header: "Keterangan", value: "description" }
         ],
         onAdd: function () {
@@ -158,8 +157,7 @@ export class DataForm {
                     "$elemMatch" : {
                         "code" : this.data.machine.code
                     }
-                },
-                "action": this.data.action ? this.data.action : ""
+                }
             }
         }
         return this.filterReason;

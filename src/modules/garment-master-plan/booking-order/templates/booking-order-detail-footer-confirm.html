@@ -1,6 +1,6 @@
 <template>
 <tr>
-  <td colspan="7" class="text-right" >
+  <td colspan="2" class="text-right" style="padding-right:10%">
     Total
   </td>
   <!--<td class="text-left">
@@ -8,7 +8,7 @@
     ${itemSum | numberFormat:"0,000"}
   </td>-->
 
-  <td colspan="3">
+  <td width="15%" colspan="3">
     <numeric 
     value.bind="itemSum" 
     error.bind="item.error" 
