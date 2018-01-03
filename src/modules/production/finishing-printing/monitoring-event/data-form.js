@@ -11,6 +11,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable productionOrder = {};
 
     machineCodeFilter = '';
     @bindable productionOrderDetails = [];
@@ -95,20 +96,19 @@ export class DataForm {
 
     async productionOrderChanged(newValue) {
         this.productionOrderDetails = [];
-
         var productionOrder = newValue;
-        if (productionOrder) {
+        if (!productionOrder) {
+            delete this.data.selectedProductionOrderDetail;
+        }
+        else if (productionOrder._id) {
             this.productionOrderDetails = await this.service.getProductionOrderDetails(productionOrder.orderNo);
-
+            this.data.productionOrder = productionOrder;
             this.data.productionOrderId = this.data.productionOrder._id;
             if (this.hasProductionOrderDetails) {
                 this._mapProductionOrderDetail();
                 this.data.selectedProductionOrderDetail = {};
                 this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
             }
-        }
-        else {
-            delete this.data.selectedProductionOrderDetail;
         }
     }
 
