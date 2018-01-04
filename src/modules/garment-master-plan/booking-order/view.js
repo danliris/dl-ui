@@ -22,12 +22,9 @@ export class View {
       this.data = await this.service.getById(id);
       var conf=false;
       if(this.data.items){
-            for(var a of this.data.items){
-                if(a.isConfirmed){
-                    conf=true;
-                    break;
-                }
-            }
+         if(this.data.items.length>0){
+           conf=true;
+         }
         }
       if(this.data.isCanceled){
         this.hasEdit = false;
@@ -35,10 +32,10 @@ export class View {
         this.hasDelete = false;
         this.hasConfirm = false;
       }
-      else if(this.data.isMasterPlan){
-        this.hasDelete = false;
-        //this.hasConfirm = false;
-      }
+      // else if(this.data.isMasterPlan){
+      //   this.hasDelete = false;
+      //   //this.hasConfirm = false;
+      // }
       else if(conf){
         this.hasDelete = false;
         //this.hasConfirm = false;
