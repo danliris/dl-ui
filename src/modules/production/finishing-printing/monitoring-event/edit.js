@@ -16,18 +16,17 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-
         if (this.data.dateEnd == null)
             delete this.data.dateEnd;
-        
+
         if (this.data.timeInMillisEnd == null)
             delete this.data.timeInMillisEnd;
-        
-        if (this.data.selectedProductionOrderDetail.colorRequest){
-            this.data.selectedProductionOrderDetail.toString = function(){
-                return `${this.colorRequest}`;  
+
+        if (this.data.selectedProductionOrderDetail.colorRequest) {
+            this.data.selectedProductionOrderDetail.toString = function () {
+                return `${this.colorRequest}`;
             };
-        }   
+        }
     }
 
     view() {

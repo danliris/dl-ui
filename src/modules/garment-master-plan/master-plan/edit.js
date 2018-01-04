@@ -32,7 +32,7 @@ export class Edit {
             if(this.data.remark !== bookingData.remark)
                 this.booking["remark"] = bookingData.remark;
             var details = [];
-            for(var detail of this.data.details){
+            for(var detail of this.data.bookingItems){
                 var bookingDetail = bookingData.items.find(item => item.code === detail.code);
                 if(bookingDetail){
                     if(bookingDetail.masterPlanComodityId !== detail.masterPlanComodityId){
@@ -43,15 +43,15 @@ export class Edit {
                         detail["bookingQuantity"] = bookingDetail.quantity;
                     if(bookingDetail.remark !== detail.remark)
                         detail["bookingRemark"] = bookingDetail.remark;
-                    if(bookingDetail.isConfirmed !== detail.isConfirmed)
-                        detail["bookingIsConfirmed"] = bookingDetail.isConfirmed;
+                    if(bookingDetail.deliveryDate && detail.deliveryDate && bookingDetail.deliveryDate !== detail.deliveryDate)
+                        detail["bookingDeliveryDate"] = `${(new Date(bookingDetail.deliveryDate)).getDay()} - ${((new Date(bookingDetail.deliveryDate)).getMonth() + 1)} - ${(new Date(bookingDetail.deliveryDate)).getFullYear()}`;
                 }else{
                     detail["deletedData"] = "MD telah menghapus detail ini"
                 }
                 details.push(detail);
             }
             for(var item of bookingData.items){
-                var detail = this.data.details.find(detail => detail.code === item.code);
+                var detail = this.data.bookingItems.find(detail => detail.code === item.code);
                 if(!detail){
                     var newDetail= {
                         code:item.code,
@@ -59,14 +59,13 @@ export class Edit {
                         masterPlanComodity:item.masterPlanComodity,
                         quantity:item.quantity,
                         remark:item.remark,
-                        detailItems:[],
-                        isConfirmed:item.isConfirmed,
+                        deliveryDate:item.deliveryDate,
                         newData:"MD telah menambah detail ini"
                     }
                     details.push(newDetail);
                 }
             }
-            this.data.details = details;
+            this.data.bookingItems = details;
 
         }
     }

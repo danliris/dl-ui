@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission : {"P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "C9": 1, "PG": 7},
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "C9": 1, "PG": 7 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,10 +34,10 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission : {"C9": 1, "F1": 7, "F2": 7},
+            permission: { "C9": 1, "F1": 7, "F2": 7 },
             iconClass: 'fa fa-dashboard'
         }
-    },{
+    }, {
         route: 'power-bi/sales',
         name: 'power-bi-sales',
         moduleId: './modules/power-bi/sales/index',
@@ -46,10 +46,10 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission : {"A2":7,"C9":1, "F1": 7, "F2": 7},
+            permission: { "A2": 7, "C9": 1, "F1": 7, "F2": 7 },
             iconClass: 'fa fa-dashboard'
         }
-    },{
+    }, {
         route: 'power-bi/inventory',
         name: 'power-bi-inventory',
         moduleId: './modules/power-bi/inventory/index',
@@ -58,7 +58,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "reports",
-            permission : {"A2":7,"C9":1},
+            permission: { "A2": 7, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
