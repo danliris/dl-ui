@@ -17,7 +17,7 @@ export class View {
 
         if (this.data.dateEnd == null)
             delete this.data.dateEnd;
-        
+
         if (this.data.timeInMillisEnd == null)
             delete this.data.timeInMillisEnd;
     }
@@ -32,7 +32,7 @@ export class View {
 
     delete() {
         this.service.delete(this.data).then(result => {
-                this.back();
+            this.back();
         });
     }
 }

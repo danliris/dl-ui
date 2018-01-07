@@ -7,7 +7,7 @@
             <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <!--<button class="btn btn-success"  click.delegate="context.confirmBooking($event)"     if.one-way="context.hasConfirm">Confirm Booking</button>-->
+            <button class="btn btn-primary"  click.delegate="context.confirmBooking($event)"     if.one-way="context.hasConfirm">Confirm Booking</button>
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
             <button class="btn btn-danger"  click.delegate="context.cancelBooking($event)"     if.one-way="context.hascancelConfirm">Cancel Booking</button>
         </div>
@@ -79,19 +79,8 @@
             options.bind="controlOptions">
         </au-multiline>
 
-        <au-collection 
-            items.bind="data.items" 
-            errors.bind="error.items" 
-            columns.bind="detailColumnsNew" 
-            add.bind="addItems" 
-            remove.bind="removeItems"
-            options.bind="options"
-            read-only.bind="readOnly"
-            if.bind="!data.code"
-            item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
-            footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
-        </au-collection>
-
+        <label for="Detail Confirm" if.bind="data.code">Detail Confirm : </label>
+        <au-layout error.bind="error.detail" if.bind="error.detail"></au-layout>
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
@@ -99,10 +88,24 @@
             add.bind="addItems" 
             remove.bind="removeItems"
             options.bind="options"
+            read-only="true"
             if.bind="data.code"
-            read-only.bind="readOnly"
+            item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
+            footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
+        </au-collection>
+        
+        <au-layout error.bind="error.totalQuantity" if.bind="error.totalQuantity"></au-layout>
+        <!--<au-collection 
+            items.bind="data.items" 
+            errors.bind="error.items" 
+            columns.bind="detailColumns" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.bind="options"
+            if.bind="data.code"
+            read-only="true"
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer-confirm" >
-        </au-collection>
+        </au-collection>-->
   </au-input-form>
 </template>

@@ -37,7 +37,7 @@ export class View {
     columns = [
         { field: "no", title: "No." },
         { field: "orderNo", title: "No. SPP" },
-        { field: "orderType", title: "Jenis Order" },
+        { field: "constructionComposite", title: "Konstruksi" },
         { field: "processType", title: "Jenis Process" },
         { field: "designCode", title: "Motif" },
         { field: "colorRequest", title: "Warna" },
@@ -54,12 +54,12 @@ export class View {
             }
         },
         { field: "orderQuantity", title: "Panjang SPP (m)" },
+        { field: "notInKanbanQuantity", title: "Sisa Belum Turun Kanban (m)" },
         { field: "preProductionQuantity", title: "Belum Produksi (m)" },
         { field: "onProductionQuantity", title: "Sedang Produksi (m)" },
         { field: "afterProductionQuantity", title: "Sudah Produksi (m)" },
         { field: "storageQuantity", title: "Kirim Ke Gudang (m)" },
         { field: "shipmentQuantity", title: "Kirim Ke Buyer (m)" },
-        { field: "notInKanbanQuantity", title: "Sisa Belum Turun Kanban (m)" },
         { field: "diffOrderShipmentQuantity", title: "Sisa Belum Kirim Ke Buyer (m)" },
     ]
 
@@ -68,13 +68,13 @@ export class View {
         this.month = params.month;
         this.orderType = params.orderType ? params.orderType : "-";
 
-        let info = {
+        this.info = {
             year: this.year,
             month: this.month,
             orderType: this.orderType
         };
 
-        this.data = await this.service.detail(info);
+        this.data = await this.service.detail(this.info);
 
         let orderTotal = 0, preTotal = 0, onTotal = 0, afterTotal = 0, storageTotal = 0, shipmentTotal = 0, notInKanbanTotal = 0, diffOrderShipmentTotal = 0;
 
@@ -147,6 +147,10 @@ export class View {
 
     list() {
         this.router.navigateToRoute('list');
+    }
+
+    exportToExcel() {
+        this.service.generateDetailXls(this.info);
     }
 
     cancelCallback(event) {

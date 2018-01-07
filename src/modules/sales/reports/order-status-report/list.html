@@ -1,11 +1,14 @@
 <template>
-    <au-input-form title.bind="title" with.bind="context">
+    <style>
+        .weight {
+            font-weight: bold;
+        }
 
-        <style>
-            table>tbody>tr>td {
-                white-space: pre;
-            }
-        </style>
+        table>tbody>tr>td {
+            white-space: pre;
+        }
+    </style>
+    <au-input-form title.bind="title" with.bind="context">
 
         <form class="form-horizontal">
 
@@ -19,7 +22,7 @@
                     <button click.delegate="reset()" class='btn btn-success'>Reset</button>
                 </div>
             </div>
-
+          
             <br>
             </br>
 
@@ -33,7 +36,8 @@
                 options.bind="tableOptions"
                 view-model.ref="orderStatusTable"
                 context.bind="contextTable"
-                context-click.delegate="contextCallback($event)">
+                context-click.delegate="contextCallback($event)"
+                row-formatter.bind="rowFormatter">
             </au-table>
 
     </au-input-form>

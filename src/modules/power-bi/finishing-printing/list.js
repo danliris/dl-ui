@@ -6,7 +6,7 @@ import { Service } from './service';
 @inject(Router, Service)
 export class List {
     data = [];
-    listReport = [
+    listReport  =  [
         "Top Ten Event Monitoring",
         "Kapasitas Mesin vs Kuantiti Kanban vs Kuantiti Output Produksi",
         "Perbandingan Hasil QC",
@@ -41,3 +41,4 @@ export class List {
         this.router.navigateToRoute('view', { id: data.id });
     }
 }
+

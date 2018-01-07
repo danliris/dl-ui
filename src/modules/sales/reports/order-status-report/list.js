@@ -53,15 +53,23 @@ export class List {
         [
             { field: "name", title: "Bulan" },
             { field: "orderQuantity", title: "Target Kirim Ke Buyer\n(m)", align: "right" },
+            { field: "diffOrderKanbanQuantity", title: "Sisa Belum Turun Kanban\n(m)", align: "right" },
             { field: "preProductionQuantity", title: "Belum Produksi\n(m)", align: "right" },
             { field: "onProductionQuantity", title: "Sedang Produksi\n(m)", align: "right" },
             { field: "afterProductionQuantity", title: "Sudah Produksi\n(m)", align: "right" },
             { field: "storageQuantity", title: "Sudah Dikirim Ke Gudang\n(m)", align: "right" },
             { field: "shipmentQuantity", title: "Sudah Dikirim Ke Buyer\n(m)", align: "right" },
-            { field: "diffOrderKanbanQuantity", title: "Sisa Belum Turun Kanban\n(m)", align: "right" },
             { field: "diffOrderShipmentQuantity", title: "Sisa Belum Kirim Ke Buyer\n(m)", align: "right" }
         ]
     ];
+
+    rowFormatter(data, index) {
+        if (index === 12) {
+            return { classes: "weight" }
+        } else {
+            return {};
+        }
+    }
 
     loader = (info) => {
 

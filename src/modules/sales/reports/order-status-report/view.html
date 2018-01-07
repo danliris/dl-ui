@@ -120,6 +120,15 @@
 </template> -->
 
 <template>
+    <style>
+        #orderStatus label {
+            font-weight: bold;
+        }
+
+        #orderStatus p {
+            font-weight: bold;
+        }
+    </style>
     <require from="../../../../lib/number-format-value-converter"></require>
     <au-input-form title.bind="title" with.bind="context">
 
@@ -135,6 +144,13 @@
             <au-textbox value.bind="month" label="Bulan" read-only="true"></au-textbox>
             <au-textbox value.bind="orderType" label="Jenis Order" read-only="true"></au-textbox>
 
+            <br>
+            </br>
+
+            <div class="btn-group">
+                <button class='btn btn-primary' click.delegate="exportToExcel()">Excel</button>
+            </div>
+
             <au-table
                 data.bind="data"
                 columns.bind="columns"
@@ -144,14 +160,20 @@
             <br>
             </br>
 
-            <au-numeric value.bind="orderTotal | numberFormat: '0,000.00'" label="Total Panjang SPP (m):" read-only="true" options.bind="textOptions"></au-numeric>
-            <au-numeric value.bind="preTotal | numberFormat: '0,000.00'" label="Total SPP Belum Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
-            <au-numeric value.bind="onTotal | numberFormat: '0,000.00'" label="Total SPP Sedang Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
-            <au-numeric value.bind="afterTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
-            <au-numeric value.bind="storageTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Ke Gudang (m):" read-only="true" options.bind="textOptions"></au-numeric>
-            <au-numeric value.bind="shipmentTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Kirim Ke Buyer (m):" read-only="true" options.bind="textOptions"></au-numeric>
-            <au-numeric value.bind="notInKanbanTotal | numberFormat: '0,000.00'" label="Total SPP Belum Turun Kanban (m):" read-only="true" options.bind="textOptions"></au-numeric>
-            <au-numeric value.bind="diffOrderShipmentTotal | numberFormat: '0,000.00'" label="Total SPP Belum Kirim Ke Buyer (m):" read-only="true" options.bind="textOptions"></au-numeric>
+            <div id="orderStatus">
+                <au-numeric value.bind="orderTotal | numberFormat: '0,000.00'" label="Total Panjang SPP (m):" read-only="true" options.bind="textOptions"></au-numeric>
+                <au-numeric value.bind="notInKanbanTotal | numberFormat: '0,000.00'" label="Total SPP Belum Turun Kanban (m):" read-only="true"
+                    options.bind="textOptions"></au-numeric>
+                <au-numeric value.bind="preTotal | numberFormat: '0,000.00'" label="Total SPP Belum Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
+                <au-numeric value.bind="onTotal | numberFormat: '0,000.00'" label="Total SPP Sedang Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
+                <au-numeric value.bind="afterTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Produksi (m):" read-only="true" options.bind="textOptions"></au-numeric>
+                <au-numeric value.bind="storageTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Ke Gudang (m):" read-only="true"
+                    options.bind="textOptions"></au-numeric>
+                <au-numeric value.bind="shipmentTotal | numberFormat: '0,000.00'" label="Total SPP Sudah Kirim Ke Buyer (m):" read-only="true"
+                    options.bind="textOptions"></au-numeric>
+                <au-numeric value.bind="diffOrderShipmentTotal | numberFormat: '0,000.00'" label="Total SPP Belum Kirim Ke Buyer (m):" read-only="true"
+                    options.bind="textOptions"></au-numeric>
+            </div>
 
     </au-input-form>
 </template>

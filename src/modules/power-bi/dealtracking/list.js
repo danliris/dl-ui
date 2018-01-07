@@ -7,7 +7,7 @@ import { Service } from './service';
 export class List {
     data = [];
     listReport = [
-      
+
         "Deal Tracking"
     ];
     constructor(router, service) {

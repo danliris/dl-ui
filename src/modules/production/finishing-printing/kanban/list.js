@@ -35,9 +35,9 @@ export class List {
             { field: "selectedProductionOrderDetail.colorRequest", title: "Warna" },
             { field: "instruction.name", title: "Instruksi" },
             {
-                field: "isComplete", title: "Status",
+                field: "completeStatus", title: "Status",
                 formatter: function (value, data, index) {
-                    return data.isInactive() ? "INACTIVE" : value ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
+                    return data.isInactive ? "INACTIVE" : data.isComplete ? "COMPLETE" : data.isPending() ? "PENDING" : "INCOMPLETE";
                 }
             },
             { field: "oldKanban.cart.cartNumber", title: "Nomor Kereta Lama" }
@@ -45,7 +45,7 @@ export class List {
     }
 
     rowFormatter(data, index) {
-        if (data.isInactive()) {
+        if (data.isInactive) {
             return { classes: "danger" }
         } else {
             if (data.isComplete)
@@ -73,7 +73,7 @@ export class List {
             keyword: info.search,
             filter: JSON.stringify(filter),
             order: order,
-            select: ["productionOrder.orderNo", "cart.cartNumber", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType.name", "selectedProductionOrderDetail.colorType", "isComplete", "oldKanban.cart.cartNumber", "currentStepIndex", "instruction.name", "instruction.steps.length"]
+            select: ["productionOrder.orderNo", "cart.cartNumber", "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorType.name", "selectedProductionOrderDetail.colorType", "isComplete", "isInactive", "oldKanban.cart.cartNumber", "currentStepIndex", "instruction.name", "instruction.steps.length"]
         }
 
         return this.service.search(arg)
@@ -86,16 +86,13 @@ export class List {
                     kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.instruction.steps.length}`;
                     kanban.isPending = function () {
                         return !this.isComplete && this.currentStepIndex >= this.instruction.steps.length; // used for custom sort
-                    },
-                        kanban.isInactive = function () {
-                            return this.isComplete && this.currentStepIndex < this.instruction.steps.length; // used for custom sort
-                        },
-                        kanban.isDone = function () {
-                            return this.isComplete;
-                        },
-                        kanban.isIncomplete = function () {
-                            return !this.isComplete && this.currentStepIndex < this.instruction.steps.length;
-                        }
+                    };
+                    kanban.isDone = function () {
+                        return this.isComplete;
+                    };
+                    kanban.isIncomplete = function () {
+                        return !this.isComplete && this.currentStepIndex < this.instruction.steps.length;
+                    }
                 }
 
                 if (info.sort === "isComplete") { //custom sort
