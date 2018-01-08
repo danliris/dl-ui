@@ -32,7 +32,7 @@
             </au-textbox>
         </td>
         <td>
-            <div class= "form-group has-warning" if.bind="isWarning">
+            <div class= "form-group has-warning" show.bind="isWarning">
                 <au-numeric 
                     value.bind="deliveredQuantity" 
                     error.bind="error.deliveredQuantity" 
@@ -41,7 +41,7 @@
                 </au-numeric>
                 <span class="help-block">Jumlah diterima lebih besar dari jumlah dipesan</span>
             </div> 
-            <div  if.bind="!isWarning">
+            <div  show.bind="!isWarning">
                 <au-numeric 
                     value.bind="deliveredQuantity" 
                     error.bind="error.deliveredQuantity" 
