@@ -44,9 +44,19 @@ export class Confirm {
                     var diff=a.getTime() - b.getTime();
                     var timeDiff = Math.abs(a.getTime() - b.getTime());
                     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                    if(diffDays>=0 && diffDays<=45){
-                        warning.push('Comodity '+item.masterPlanComodity.name+' kurang '+ diffDays +' hari dari Tanggal Pengiriman\n');
-                        
+                    if(diff>=0){
+                        if(diffDays>=0 && diffDays<=45){
+                            if(item.masterPlanComodity)
+                                warning.push('Comodity '+item.masterPlanComodity.name+' kurang '+ diffDays +' hari dari Tanggal Pengiriman\n');
+                        }
+                    }
+                    else{
+                        warning=[];
+                        break;
+                    }
+                    if(new Date(item.deliveryDate)< new Date(this.data.bookingDate)){
+                        warning=[];
+                        break;
                     }
                 }
                 
@@ -59,10 +69,7 @@ export class Confirm {
                                 }).catch(e => {
                                     this.error = e;
                                 });
-                        } else {
-                            this.cancel();
-                        }
-                    
+                        } 
                 }
                 else{
                     this.service.update(this.data).then(result => {
@@ -71,6 +78,13 @@ export class Confirm {
                         this.error = e;
                     })
                 }
+            }
+            else{
+                this.service.update(this.data).then(result => {
+                    this.cancel();
+                }).catch(e => {
+                    this.error = e;
+                })
             }
         }
         else{
