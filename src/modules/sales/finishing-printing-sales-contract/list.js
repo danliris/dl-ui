@@ -10,15 +10,15 @@ export class List {
     context = ["detail", "print"]
 
     columns = [
-    { field: "salesContractNo", title: "Nomor Sales Contract" },
-    { field: "buyer.type", title: "Jenis Buyer" },
-    { field: "buyer.name", title: "Buyer" },
-    {
-      field: "deliverySchedule", title: "Tanggal Delivery", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
-      }
-    }
-  ];
+        { field: "documentNumber", title: "Nomor Sales Contract" },
+        { field: "buyer.type", title: "Jenis Buyer" },
+        { field: "buyer.name", title: "Buyer" },
+        {
+            field: "deliverySchedule", title: "Tanggal Delivery", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        }
+    ];
 
     loader = (info) => {
         var order = {};
@@ -30,7 +30,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select:["salesContractNo","buyer","deliverySchedule"]
+            select: ["salesContractNo", "buyer", "deliverySchedule", "documentNumber"]
         }
 
         return this.service.search(arg)

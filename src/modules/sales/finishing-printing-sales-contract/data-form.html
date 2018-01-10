@@ -1,72 +1,414 @@
 <template>
-    <form class="form-horizontal">
+
+  <form class="form-horizontal" with.bind="context">
+
+    <div class="row">
+
+      <div class="col-md-6" style="padding:0">
+
+        <au-textbox
+          label="No. Sales Contract"
+          value.bind="data.documentNumber"
+          read-only="true"
+          if.bind="data.documentNumber"
+          options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete
+          label="Buyer"
+          value.bind="selectedBuyer"
+          error.bind="error.buyer"
+          read-only.bind="readOnly"
+          loader.bind="buyerLoader"
+          options.bind="controlOptions"
+          key="name"
+          text.bind="buyerView"
+          placeholder="pilih buyer">
+        </au-autocomplete>
+
+        <au-textbox
+          label="Tipe Buyer"
+          value.bind="data.buyer.type"
+          error.bind="error.buyer"
+          read-only="true"
+          options.bind="controlOptions">
+        </au-textbox>
+
+        <checkbox
+          label="SC Stock"
+          value.bind="data.fromStock"
+          error.bind="error.fromStock"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+        </checkbox>
+
+        <au-textbox
+          label="Nomor Disposisi"
+          value.bind="data.dispositionNumber"
+          error.bind="error.dispositionNumber"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          placeholder="input nomor disposisi">
+        </au-textbox>
+
+        <au-autocomplete
+          label="Komoditas"
+          value.bind="selectedComodity"
+          error.bind="error.comodity"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          loader.bind="comodityLoader"
+          key="name"
+          text="name"
+          placeholder="pilih komoditas">
+        </au-autocomplete>
+
+        <au-multiline
+          label="Keterangan Komoditas"
+          value.bind="data.comodityDescription"
+          error.bind="error.comodityDescription"
+          read-only.bind="(readOnly)"
+          rows.bind="8"
+          options.bind="controlOptions"
+          placeholder="input keterangan komoditas">
+        </au-multiline>
+
+        <au-autocomplete
+          label="Jenis Order"
+          value.bind="selectedOrderType"
+          error.bind="error.orderType"
+          read-only.bind="readOnly"
+          key="name"
+          text="name"
+          loader.bind="orderTypeLoader"
+          options.bind="controlOptions"
+          placeholder="pilih jenis order">
+        </au-autocomplete>
+
+        <au-autocomplete
+          label="Material"
+          value.bind="selectedMaterial"
+          error.bind="error.material"
+          read-only.bind="readOnly"
+          query.bind="filterMaterial"
+          loader.bind="materialLoader"
+          key="name"
+          text="name"
+          options.bind="controlOptions"
+          placeholder="pilih material">
+        </au-autocomplete>
+
+        <au-autocomplete
+          label="Konstruksi Finish"
+          value.bind="selectedMaterialConstruction"
+          error.bind="error.materialConstruction"
+          read-only.bind="readOnly"
+          loader.bind="materialConstructionLoader"
+          key="name"
+          text="name"
+          options.bind="controlOptions"
+          placeholder="pilih konstruksi finish">
+        </au-autocomplete>
+
+        <au-autocomplete
+          label="Nomor Benang Material"
+          value.bind="selectedYarnMaterial"
+          error.bind="error.yarnMaterial"
+          read-only.bind="readOnly"
+          loader.bind="yarnMaterialLoader"
+          key="name"
+          text="name"
+          options.bind="controlOptions"
+          placeholder="pilih nomor benang material">
+        </au-autocomplete>
+
+        <au-textbox
+          label="Lebar Finish"
+          value.bind="data.materialWidth"
+          error.bind="error.materialWidth"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          placeholder="input lebar finish">
+        </au-textbox>
+
+        <au-autocomplete
+          label="Motif"
+          value.bind="selectedDesignMotive"
+          error.bind="error.designMotive"
+          read-only.bind="readOnly"
+          if.bind="!isExport && isPrinting"
+          loader.bind="designMotiveLoader"
+          key="name"
+          text="name"
+          options.bind="controlOptions"
+          placeholder="pilih motif">
+        </au-autocomplete>
+
         <div class="row">
-            <div  class="col-md-6" style="padding:0">
-                <textbox                      label="No. Sales Contract"  value.bind="data.salesContractNo"       error.bind="error.salesContractNo"     read-only="true"  if.bind="data.salesContractNo"></textbox>
-                
-                <buyer-auto-suggest           label="Buyer"               value.bind="data.buyer"                 error.bind="error.buyer"           read-only.bind="readOnly"   change.delegate="buyerChanged($event)"></buyer-auto-suggest>
-                <textbox                      label="Tipe Buyer"          value.bind="data.buyer.type"       error.bind="error.buyer"                       read-only="true"  ></textbox>
-                <checkbox                 label="SC Stock"               value.bind="data.fromStock"                 error.bind="error.fromStock"           read-only.bind="readOnly"  ></checkbox>
-                <textbox                      label="Nomor Disposisi"  value.bind="data.dispositionNumber"       error.bind="error.dispositionNumber"                       read-only.bind="readOnly"  ></textbox>
-                <comodity-auto-suggest        label="Komoditas"         value.bind="data.comodity"             error.bind="error.comodity"                       read-only.bind="(readOnly)" change.delegate="comodityChanged($event)" ></comodity-auto-suggest>
-                <multiline                    label="Keterangan Komoditas"         value.bind="data.comodityDescription"             error.bind="error.comodityDescription"                       read-only.bind="(readOnly)" rows.bind="8"></multiline>
-                <order-type-auto-suggest      label="Jenis Order"         value.bind="data.orderType"             error.bind="error.orderType"                       read-only.bind="(readOnly)" change.delegate="orderChanged($event)"></order-type-auto-suggest>
-                <sales-material-auto-suggest  label="Material"       value.bind="data.material"    error.bind="error.material"     read-only.bind="readOnly"	change.delegate="materialChanged($event)" filter.bind="filterMaterial"></sales-material-auto-suggest>
-                <material-construction-auto-suggest                 label="Konstruksi Finish"          value.bind="data.materialConstruction"          error.bind="error.materialConstruction"     read-only.bind="(readOnly)" change.delegate="constructionChanged($event)"></material-construction-auto-suggest>
-                <yarn-material-auto-suggest                         label="Nomor Benang Material"          value.bind="data.yarnMaterial"          error.bind="error.yarnMaterial"     read-only.bind="(readOnly)" change.delegate="yarnChanged($event)"></yarn-material-auto-suggest>
-                <textbox                      label="Lebar Finish"        value.bind="data.materialWidth"           error.bind="error.materialWidth"                       read-only.bind="(readOnly)"></textbox>
-                <design-motive-auto-suggest     label="Motif"        value.bind="data.designMotive"       error.bind="error.designMotive"                       read-only.bind="readOnly"  if.bind="!buyerType && isPrinting" change.delegate="designMotiveChanged($event)"></design-motive-auto-suggest>
-                <div class="row">
-                  <div class="col-sm-4" style="padding-left:20%">
-                    <textbox label="Jumlah Order" read-only="true"></textbox>
-                  </div>
-                  <div class="col-sm-3">
-                    <numeric value.bind="data.orderQuantity" error.bind="error.orderQuantity" read-only.bind="(readOnly)"></numeric>
-                  </div>
-                  <div class="col-sm-2">
-                    <textbox label="Satuan" read-only="true"></textbox>
-                  </div>
-                  <div class="col-sm-2">
-                    <uom-auto-suggest value.bind="data.uom" error.bind="error.uom" read-only.bind="readOnly" change.delegate="uomChanged($event)"></uom-auto-suggest>
-                  </div>
-                </div>
-                <numeric                    label="Toleransi Jumlah (%)"  value.bind="data.shippingQuantityTolerance" error.bind="error.shippingQuantityTolerance" read-only.bind="readOnly" post-fix="%"></numeric>
-                <numeric                    label="Amount"  value.bind="data.amount" error.bind="error.amount" read-only.bind="readOnly" if.bind="buyerType"></numeric>
-                
-                
-            </div>
-            <div  class="col-md-6" style="padding:0">
-                <quality-auto-suggest       label="Kualitas"              value.bind="data.quality"          error.bind="error.quality"     read-only.bind="(readOnly)" change.delegate="qualityChanged($event)"></quality-auto-suggest>
-                <multiline                  label="Piece Length"               value.bind="data.pieceLength"             error.bind="error.pieceLength"                       read-only.bind="(readOnly)" rows.bind="8"></multiline>
-                <multiline                  label="Packing"               value.bind="data.packing"             error.bind="error.packing"                       read-only.bind="(readOnly)"></multiline>
-                <checkbox                   label="Kena Ppn?"             value.bind="data.useIncomeTax"          error.bind="error.useIncomeTax"     read-only.bind="readOnly"   change.delegate="useIncomeTaxChanged($event)" ></checkbox>
-                <term-of-payment-auto-suggest    label="Syarat Pembayaran"     value.bind="data.termOfPayment"             error.bind="error.termOfPayment"       read-only.bind="(readOnly)" change.delegate="termOfPaymentChanged($event)" filter.bind="filterpayment || isFilterPayment"></term-of-payment-auto-suggest>
-                <account-bank-auto-suggest  label="Pembayaran ke Rekening"      value.bind="data.accountBank"          error.bind="error.accountBank"     read-only.bind="(readOnly)" change.delegate="bankChanged($event)"></account-bank-auto-suggest>
-                <textbox                    label="Mata Uang"                   value.bind="data.accountBank.currency.code"       error.bind="error.accountBank"                       read-only="true"  ></textbox>
-                <textbox                    label="Term of Shipment"      value.bind="data.termOfShipment"       error.bind="error.termOfShipment"                       read-only.bind="readOnly"  if.bind="buyerType"></textbox>
-                <textbox                    label="Ongkos Angkut"      value.bind="data.transportFee"       error.bind="error.transportFee"                       read-only.bind="readOnly"  ></textbox>
-                <textbox                    label="Dikirim ke"      value.bind="data.deliveredTo"       error.bind="error.deliveredTo"                       read-only.bind="readOnly"  ></textbox>
-                <datepicker                 label="Jadwal Pengiriman"        value.bind="data.deliverySchedule"          error.bind="error.deliverySchedule"             read-only.bind="readOnly"></datepicker>
-                <multiline                  label="Keterangan Shipment"     value.bind="data.shipmentDescription"    error.bind="error.shipmentDescription"       read-only.bind="(readOnly)" rows.bind="8" if.bind="buyerType"></multiline>
-                <multiline                  label="Kondisi"     value.bind="data.condition"    error.bind="error.condition"       read-only.bind="(readOnly)" rows.bind="8"></multiline>
-                <buyer-auto-suggest         label="Agen"        value.bind="data.agent"       error.bind="error.agent"                       read-only.bind="readOnly"  if.bind="buyerType" change.delegate="agentChanged($event)"></buyer-auto-suggest>
-                <textbox                    label="Komisi"      value.bind="data.comission"       error.bind="error.comission"                       read-only.bind="readOnly"  if.bind="buyerType"></textbox>
-                <dropdown label="Point System" value.bind="data.pointSystem" items.bind="pointSystemOptions" read-only.bind="readOnly" change.delegate="pointChanged($event)"></dropdown>
-                <numeric                    label="Batas Point"      value.bind="data.pointLimit"       error.bind="error.pointLimit"                       read-only.bind="readOnly"  if.bind="point || isPoint"></numeric>
-                
-            </div>
+
+          <div class="col-sm-4" style="padding-left:20%">
+
+            <textbox label="Jumlah Order" read-only="true"></textbox>
+
+          </div>
+
+          <div class="col-sm-3">
+
+            <au-numeric
+              value.bind="data.orderQuantity"
+              error.bind="error.orderQuantity"
+              read-only.bind="readOnly">
+            </au-numeric>
+
+          </div>
+
+          <div class="col-sm-1">
+
+            <textbox label="Satuan" read-only="true"></textbox>
+
+          </div>
+
+          <div class="col-sm-3">
+
+            <au-autocomplete
+              value.bind="selectedUom"
+              error.bind="error.uom"
+              read-only.bind="readOnly"
+              loader.bind="uomLoader"
+              text="unit"
+              key="unit"
+              placeholder="pilih satuan">
+            </au-autocomplete>
+
+          </div>
+
         </div>
-        <hr />
+        
+        <au-numeric
+          label="Toleransi Jumlah (%)"
+          value.bind="data.shippingQuantityTolerance"
+          error.bind="error.shippingQuantityTolerance"
+          read-only.bind="readOnly"
+          post-fix="%"
+          options.bind="controlOptions">
+        </au-numeric>
 
-        <au-collection items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.accountBank && data.useIncomeTax" columns.bind="detailHeader" item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item" footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer" add.bind="addDetail"> </au-collection>
+        <au-numeric
+          label="Amount"
+          value.bind="data.amount"
+          error.bind="error.amount"
+          read-only.bind="readOnly"
+          if.bind="isExport"
+          options.bind="controlOptions">
+        </au-numeric>
 
-        <au-collection items.bind="data.details" errors.bind="error.details" read-only.bind="readOnly" if.bind="data.accountBank && !data.useIncomeTax" columns.bind="detailHeader" item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item-noTax" footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer" add.bind="addDetail"> </au-collection>
+      </div>
+
+      <div class="col-md-6" style="padding:0">
+
+        <au-autocomplete
+          label="Kualitas"
+          value.bind="selectedQuality"
+          error.bind="error.quality"
+          read-only.bind="readOnly"
+          loader.bind="qualityLoader"
+          text="name"
+          key="name"
+          options.bind="controlOptions"
+          placeholder="pilih kualitas">
+        </au-autocomplete>
+
+        <au-multiline
+          label="Piece Length"
+          value.bind="data.pieceLength"
+          error.bind="error.pieceLength"
+          read-only.bind="readOnly"
+          rows.bind="8"
+          options.bind="controlOptions"
+          placeholder="input piece length">
+        </au-multiline>
+
+        <au-multiline
+          label="Packing"
+          value.bind="data.packing"
+          error.bind="error.packing"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          placeholder="input packing">
+        </au-multiline>
+
+        <checkbox
+          label="Kena Ppn?"
+          value.bind="data.useIncomeTax"
+          error.bind="error.useIncomeTax"
+          change.delegate="useIncomeTaxChanged($event)"
+          read-only.bind="readOnly">
+        </checkbox>
+
+        <au-autocomplete
+          label="Syarat Pembayaran"
+          value.bind="selectedTermOfPayment"
+          error.bind="error.termOfPayment"
+          read-only.bind="readOnly"
+          query.bind="filterpayment"
+          loader.bind="termOfPaymentLoader"
+          text="termOfPayment"
+          key="termOfPayment"
+          options.bind="controlOptions"
+          placeholder="pilih syarat pembayaran">
+        </au-autocomplete>
+
+        <au-autocomplete
+          label="Pembayaran ke Rekening"
+          value.bind="selectedAccountBank"
+          error.bind="error.accountBank"
+          read-only.bind="readOnly"
+          loader.bind="accountBankLoader"
+          text.bind="bankView"
+          key="bankName"
+          options.bind="controlOptions"
+          placeholder="pilih rekening">
+        </au-autocomplete>
+
+        <au-textbox
+          label="Mata Uang"
+          value.bind="data.accountBank.currency.code"
+          error.bind="error.accountBank"
+          read-only="true"
+          options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+          label="Term of Shipment"
+          value.bind="data.termOfShipment"
+          error.bind="error.termOfShipment"
+          read-only.bind="readOnly"
+          if.bind="isExport"
+          options.bind="controlOptions"
+          placeholder="input term of shipment">
+        </au-textbox>
+
+        <au-textbox
+          label="Ongkos Angkut"
+          value.bind="data.transportFee"
+          error.bind="error.transportFee"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          placeholder="input ongkos angkut">
+        </au-textbox>
+
+        <au-textbox
+          label="Dikirim ke"
+          value.bind="data.deliveredTo"
+          error.bind="error.deliveredTo"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          placeholder="input tujuan pengiriman">
+        </au-textbox>
+
+        <au-datepicker
+          label="Jadwal Pengiriman"
+          value.bind="data.deliverySchedule"
+          error.bind="error.deliverySchedule"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-multiline
+          label="Keterangan Shipment"
+          value.bind="data.shipmentDescription"
+          error.bind="error.shipmentDescription"
+          read-only.bind="readOnly"
+          rows.bind="8"
+          if.bind="isExport"
+          options.bind="controlOptions"
+          placeholder="input keterangan shipment">
+        </au-multiline>
+
+        <au-multiline
+          label="Kondisi"
+          value.bind="data.condition"
+          error.bind="error.condition"
+          read-only.bind="readOnly"
+          rows.bind="8"
+          options.bind="controlOptions"
+          placeholder="input kondisi">
+        </au-multiline>
+
+        <au-autocomplete
+          label="Agen"
+          value.bind="selectedAgent"
+          error.bind="error.agent"
+          read-only.bind="readOnly"
+          if.bind="isExport"
+          loader.bind="buyerLoader"
+          text.bind="buyerView"
+          key="name"
+          options.bind="controlOptions"
+          placeholder="pilih agen">
+        </au-autocomplete>
+
+        <au-textbox
+          label="Komisi"
+          value.bind="data.comission"
+          error.bind="error.comission"
+          read-only.bind="readOnly"
+          if.bind="isExport"
+          options.bind="controlOptions"
+          placeholder="input komisi">
+        </au-textbox>
+
+        <au-dropdown
+          label="Point System"
+          value.bind="data.pointSystem"
+          items.bind="pointSystemOptions"
+          read-only.bind="readOnly"
+          change.delegate="pointChanged($event)"
+          options.bind="controlOptions">
+        </au-dropdown>
+        
+        <au-numeric
+          label="Batas Point"
+          value.bind="data.pointLimit"
+          error.bind="error.pointLimit"
+          read-only.bind="readOnly"
+          if.bind="isFourPointSystem"
+          options.bind="controlOptions">
+        </numeric>
+        
+      </div>
+
+    </div>
+
+    <au-textbox error.bind="error.details" read-only.bind="true"></au-textbox>
+
+    <au-collection
+      items.bind="data.details"
+      errors.bind="error.details"
+      read-only.bind="readOnly"
+      show.bind="isExistAccountBank && data.useIncomeTax"
+      columns.bind="detailHeader"
+      item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item"
+      footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer"
+      add.bind="addDetail">
+    </au-collection>
+
+    <au-collection
+      items.bind="data.details"
+      errors.bind="error.details"
+      read-only.bind="readOnly"
+      show.bind="isExistAccountBank && !data.useIncomeTax"
+      columns.bind="detailHeader"
+      item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item-noTax"
+      footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer"
+      add.bind="addDetail">
+    </au-collection>
+
+    <!-- <div if.bind="error.details.toString()">
+      <span style="color:red">Detail warna dan harga harus diisi</span>
+    </div> -->
+
     
-        <div if.bind="error.details.toString()">
-          <span style="color:red">Detail warna dan harga harus diisi</span>
-        </div>
 
-    </form>
+  </form>
 </template>
-
-      
