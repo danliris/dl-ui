@@ -9,11 +9,11 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.status === "Booking MD Dihapus")
+        if (data.status === "Booking Dihapus")
             return { classes: "danger" };
-        else if(data.status === "Booking MD Dibatalkan")
+        else if(data.status === "Booking Dibatalkan")
             return { classes: "warning" };
-        else if(data.status === "Booking MD Ada Perubahan")
+        else if(data.status === "Booking Ada Perubahan")
             return { classes: "info" };
         else
             return {};

@@ -41,6 +41,8 @@ export class Confirm {
                     }
                     var a = new Date(item.deliveryDate);
                     var b = today;
+                    a.setHours(0,0,0,0);
+                    b.setHours(0,0,0,0);
                     var diff=a.getTime() - b.getTime();
                     var timeDiff = Math.abs(a.getTime() - b.getTime());
                     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));

@@ -86,4 +86,15 @@ export class Service extends RestService {
                 return result.data;
             });
     }
+
+    getMasterPlanByBookingOrderNo(no) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("garment-master-plan");
+        var _serviceUri = `master-plans-by-booking-order/${no}`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
 }

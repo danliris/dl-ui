@@ -64,11 +64,12 @@ export class Item {
       }else{
         delete this.data.unitId;
         delete this.data.unit;
+      }
         delete this.data.weeklyPlanId;
         delete this.data.weeklyPlanYear;
         this.selectedWeeklyPlan = {};
         this.selectedWeek = {};
-      }
+      
   }
 
   selectedWeeklyPlanChanged(newValue){
@@ -76,11 +77,11 @@ export class Item {
       if(_selectedData){
         this.data.weeklyPlanYear = _selectedData.year;
         this.data.weeklyPlanId = _selectedData._id;
-      }else{
-        delete this.data.weeklyPlanId;
-        delete this.data.weeklyPlanYear;
-        this.selectedWeek = {};
       }
+        //delete this.data.weeklyPlanId;
+        //delete this.data.weeklyPlanYear;
+        this.selectedWeek = {};
+      
   }
 
   selectedWeekChanged(newValue){
