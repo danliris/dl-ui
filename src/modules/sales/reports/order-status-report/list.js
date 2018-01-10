@@ -48,7 +48,7 @@ export class List {
 
     columns = [
         [
-            { title: "Status Order", colspan: "9" },
+            { title: "Status Order", colspan: "10" },
         ],
         [
             { field: "name", title: "Bulan" },
