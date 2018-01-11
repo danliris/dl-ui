@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
+            //permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
+            //permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,7 +47,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
+            //permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -60,7 +60,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
+            //permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -86,7 +86,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
+            //permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
