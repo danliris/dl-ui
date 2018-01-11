@@ -33,9 +33,7 @@ export class List {
                     _data.vat=_data.vat ? "Ya" : "Tidak";
                     _data.totalPrice=_data.price*_data.qty;
                     _data.vatType=_data.vatName + " " + _data.vatRate;
-                    
                     this.data.push(_data);
-
                  }
             });
     }
