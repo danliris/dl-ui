@@ -130,7 +130,8 @@
             read-only.bind="readOnly"
             items.bind="months"
             if.bind="data.bookingOrderId"
-            options.bind="controlOptions">
+            options.bind="controlOptions"
+            >
         </au-dropdown>
         <au-dropdown
             label="Tahun"
@@ -147,7 +148,7 @@
             options.bind="options"
             read-only.bind="true"
             if.bind="data.bookingOrderId"
-            item-template="modules/garment-master-plan/master-plan/templates/item">
+            item-template="modules/garment-master-plan/master-plan/templates/preview">
         </au-collection>-->
   </au-input-form>
 </template>

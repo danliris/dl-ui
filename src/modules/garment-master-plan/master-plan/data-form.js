@@ -116,7 +116,7 @@ export class DataForm {
         var month = getMonth(this.preview.month);
         var thisDate = new Date(`${this.preview.year}/${month - 1}/1`);
         var nextDate = thisDate.setMonth(thisDate.getMonth() + 6);
-        var nextYear = nextDate.getFullYear();
+        var nextYear = new Date(nextDate).getFullYear();
         var workingHour = this.service.getWorkingHour();
         var weeklyPlan = this.service.getWeeklyPlan({"year" : {"$in" :[this.preview.year, nextYear]}});
         var preview = this.service.getPreview(month, this.preview.year);

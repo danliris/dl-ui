@@ -57,6 +57,7 @@ export class View {
         { field: "notInKanbanQuantity", title: "Sisa Belum Turun Kanban (m)" },
         { field: "preProductionQuantity", title: "Belum Produksi (m)" },
         { field: "onProductionQuantity", title: "Sedang Produksi (m)" },
+        { field: "inspectingQuantity", title: "Sedang Inspecting (m)" },
         { field: "afterProductionQuantity", title: "Sudah Produksi (m)" },
         { field: "storageQuantity", title: "Kirim Ke Gudang (m)" },
         { field: "shipmentQuantity", title: "Kirim Ke Buyer (m)" },
@@ -76,7 +77,7 @@ export class View {
 
         this.data = await this.service.detail(this.info);
 
-        let orderTotal = 0, preTotal = 0, onTotal = 0, afterTotal = 0, storageTotal = 0, shipmentTotal = 0, notInKanbanTotal = 0, diffOrderShipmentTotal = 0;
+        let orderTotal = 0, preTotal = 0, onTotal = 0, inspectingTotal = 0, afterTotal = 0, storageTotal = 0, shipmentTotal = 0, notInKanbanTotal = 0, diffOrderShipmentTotal = 0;
 
         for(let datum of this.data) {
 
@@ -88,6 +89,9 @@ export class View {
 
             onTotal += Number(datum.onProductionQuantity);
             datum.onProductionQuantity = numeral(datum.onProductionQuantity).format('0,000.00');
+
+            inspectingTotal += Number(datum.inspectingQuantity);
+            datum.inspectingQuantity = numeral(datum.inspectingQuantity).format('0,000.00');
 
             afterTotal += Number(datum.afterProductionQuantity);
             datum.afterProductionQuantity = numeral(datum.afterProductionQuantity).format('0,000.00');
@@ -138,6 +142,7 @@ export class View {
         this.orderTotal = orderTotal.toFixed(2);
         this.preTotal = preTotal.toFixed(2);
         this.onTotal = onTotal.toFixed(2);
+        this.inspectingTotal = inspectingTotal.toFixed(2);
         this.afterTotal = afterTotal.toFixed(2);
         this.storageTotal = storageTotal.toFixed(2);
         this.shipmentTotal = shipmentTotal.toFixed(2);
