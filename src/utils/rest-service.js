@@ -7,9 +7,9 @@ import { Config } from "aurelia-api";
 export class RestService {
 
   constructor(HttpClient, EventAggregator, config, api) {
-    this.endpoint = config.getEndpoint(api); 
+    this.endpoint = config.getEndpoint(api);
     // this._config =config; 
-    
+
     // console.log(this.endpoint.defaults);
     // console.log(this.endpoint.client.defaults);
     // const timezoneOffsetHeader = "x-timezone-offset";
@@ -26,8 +26,10 @@ export class RestService {
     if (result.error) {
       return Promise.reject(result.error);
     }
-    else {
+    else if (result.data) {
       return Promise.resolve(result.data)
+    } else {
+      return Promise.reject(result);
     }
   }
 

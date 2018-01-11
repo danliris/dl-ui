@@ -1,10 +1,12 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
+    isCreate = true;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -24,14 +26,18 @@ export class Create {
     }
 
     save() {
-        this.data.remainingQuantity=this.data.orderQuantity+(this.data.orderQuantity*this.data.shippingQuantityTolerance/100);
+        this.data.remainingQuantity = this.data.orderQuantity + (this.data.orderQuantity * this.data.shippingQuantityTolerance / 100);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                this.error = e;
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else {
+                    this.error = e;
+                }
             })
     }
 }
