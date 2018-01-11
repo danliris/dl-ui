@@ -10,7 +10,7 @@ export class List {
     context = ["detail", "print"]
 
     columns = [
-        { field: "documentNumber", title: "Nomor Sales Contract" },
+        { field: "salesContractNo", title: "Nomor Sales Contract" },
         { field: "buyer.type", title: "Jenis Buyer" },
         { field: "buyer.name", title: "Buyer" },
         {
@@ -30,7 +30,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["salesContractNo", "buyer", "deliverySchedule", "documentNumber"]
+            select: ["salesContractNo", "buyer", "deliverySchedule"]
         }
 
         return this.service.search(arg)

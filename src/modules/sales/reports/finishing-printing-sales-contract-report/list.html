@@ -2,7 +2,7 @@
 
     <h1 class="page-header">Laporan Sales Contract - Finishing & Printing</h1>
     <form class="form-horizontal">
-        <textbox label="Nomor Sales Contract" value.bind="documentNumber"></textbox>
+        <textbox label="Nomor Sales Contract" value.bind="salesContractNo"></textbox>
         <buyer-auto-suggest label="Buyer" value.bind="buyer" change.delegate="buyerChanged($event)"></buyer-auto-suggest>
         <order-type-auto-suggest label="Jenis Order" value.bind="orderType" change.delegate="orderTypeChanged($event)"></order-type-auto-suggest>
         <comodity-auto-suggest label="Komoditas" value.bind="comodity" change.delegate="comodityChanged($event)"></comodity-auto-suggest>
@@ -54,7 +54,7 @@
                 <tbody>
                     <tr repeat.for="item of data">
                         <td class="text-center">${$index + 1}</td>
-                        <td class="text-right">${item.documentNumber}</td>
+                        <td class="text-right">${item.salesContractNo}</td>
                         <td class="text-center">${item._createdDate | dateFormat:'D MMM YYYY'}</td>
                         <td class="text-right">${item.buyer}</td>
                         <td class="text-right">${item.buyerType}</td>

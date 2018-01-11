@@ -21,7 +21,6 @@ export class List {
     sdate = null;
     edate = null;
     salesContractNo = '';
-    documentNumber = '';
     comodity=null;
     orderType = null;
     buyer = null;
@@ -33,7 +32,6 @@ export class List {
         this.sdate = null;
         this.edate = null;
         this.salesContractNo = '';
-        this.documentNumber = '';
         this.orderType = null;
         this.buyer = null;
         this.comodity = null;
@@ -46,7 +44,6 @@ export class List {
         this.info.buyerId = this.buyer ? this.buyer._id : "";
         this.info.orderTypeId= this.orderType ? this.orderType._id : "";
         this.info.salesContractNo = this.salesContractNo;
-        this.info.documentNumber = this.documentNumber;
         this.info.sdate = this.sdate;
         this.info.edate = this.edate;
         this.service.search(this.info)
@@ -75,7 +72,6 @@ export class List {
         this.info.buyerId = this.buyer ? this.buyer._id : "";
         this.info.orderTypeId= this.orderType ? this.orderType._id : "";
         this.info.salesContractNo = this.salesContractNo;
-        this.info.documentNumber = this.documentNumber;
         this.info.sdate = this.sdate;
         this.info.edate = this.edate;
         this.service.generateExcel(this.info);
