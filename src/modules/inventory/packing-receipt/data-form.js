@@ -16,6 +16,10 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
+    }
+
+    attached() {
         this.items = [];
 
         var total = {
@@ -31,8 +35,8 @@ export class DataForm {
 
         for (var item of this.data.items) {
 
-            item.weightTotal=(item.weight * item.quantity).toFixed(2);
-            item.lengthTotal=(item.length * item.quantity).toFixed(2);
+            item.weightTotal = (item.weight * item.quantity).toFixed(2);
+            item.lengthTotal = (item.length * item.quantity).toFixed(2);
             parseInt(item.weightTotal)
             parseInt(item.lengthTotal)
             this.items.push(item);
@@ -45,10 +49,6 @@ export class DataForm {
         }
 
         this.items.push(total);
-    }
-
-    attached() {
-
     }
 
     itemsColumns = [

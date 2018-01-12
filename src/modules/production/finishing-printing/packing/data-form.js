@@ -35,7 +35,7 @@ export class DataForm {
         this.context._this = this;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.items = [];
+
         var productionOrderId = this.data.productionOrderId;
         // var productionOrderId = "58c8f8287b915900364dd2b0";
         if (productionOrderId) {
@@ -51,20 +51,21 @@ export class DataForm {
         if (materialConstructionId) {
             this.selectedMaterialConstructionFinish = await this.service.getMaterialConstructionById(materialConstructionId, this.materialConstructionFields);
         }
+    }
 
-   
-
+    attached() {
+        this.items = [];
         var total = {
             grade: "Total Jumlah",
             quantity: 0,
             weightTotal: 0,
-            lengthTotal:0,
+            lengthTotal: 0,
         };
 
         for (var item of this.data.items) {
 
-            item.weightTotal=(item.weight * item.quantity);
-            item.lengthTotal=(item.length * item.quantity);
+            item.weightTotal = (item.weight * item.quantity);
+            item.lengthTotal = (item.length * item.quantity);
             parseInt(item.weightTotal)
             parseInt(item.lengthTotal)
             this.items.push(item);
@@ -76,9 +77,8 @@ export class DataForm {
         }
 
         this.items.push(total);
-
-
     }
+
     errorChanged() {
         console.log(this.error)
     }
