@@ -28,6 +28,10 @@ export class Service extends RestService {
             if (query === '') query = `area=${info.area}`;
             else query = `${query}&area=${info.area}`;
         }
+        if (info.machineId) {
+            if (query === '') query = `machineId=${info.machineId}`;
+            else query = `${query}&machineId=${info.machineId}`;
+        }
         if (info.dateFrom) {
             if (query === '') query = `dateFrom=${info.dateFrom}`;
             else query = `${query}&dateFrom=${info.dateFrom}`;
