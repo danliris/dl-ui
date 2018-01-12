@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -13,11 +13,11 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if(this.data.referenceNumber && this.data.referenceNumber!=""){
-            this.data.reference={orderNo:this.data.referenceNumber};
+        if (this.data.referenceNumber && this.data.referenceNumber != "") {
+            this.data.reference = { orderNo: this.data.referenceNumber };
         }
-        else{
-            this.data.reference={};
+        else {
+            this.data.reference = {};
         }
     }
 
@@ -26,7 +26,7 @@ export class Edit {
     }
 
     save() {
-        this.data.remainingQuantity=this.data.orderQuantity+(this.data.orderQuantity*this.data.shippingQuantityTolerance/100);
+        this.data.remainingQuantity = this.data.orderQuantity + (this.data.orderQuantity * this.data.shippingQuantityTolerance / 100);
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
@@ -34,5 +34,5 @@ export class Edit {
         })
     }
 
-    
+
 }
