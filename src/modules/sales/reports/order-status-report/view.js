@@ -57,7 +57,7 @@ export class View {
         { field: "notInKanbanQuantity", title: "Sisa Belum Turun Kanban (m)" },
         { field: "preProductionQuantity", title: "Belum Produksi (m)" },
         { field: "onProductionQuantity", title: "Sedang Produksi (m)" },
-        { field: "inspectingQuantity", title: "Sedang Inspecting (m)" },
+        { field: "inspectingQuantity", title: "Sedang QC (m)" },
         { field: "afterProductionQuantity", title: "Sudah Produksi (m)" },
         { field: "storageQuantity", title: "Kirim Ke Gudang (m)" },
         { field: "shipmentQuantity", title: "Kirim Ke Buyer (m)" },
