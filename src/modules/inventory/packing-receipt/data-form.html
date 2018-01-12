@@ -3,7 +3,7 @@
 
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
-            <button class="btn btn-danger" click.delegate="context.update($event)" if.one-way="context.isVoid">Void</button>
+            <button class="btn btn-danger" click.delegate="context.update()" if.one-way="context.isVoid">Void</button>
             <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
         </div>
 
@@ -32,9 +32,12 @@
 
         </fieldset>
 
-        <au-collection items.bind="data.items" columns.bind="itemsColumns" read-only.bind="packingReadOnly" item-template="modules/inventory/packing-receipt/template/packing-item"
+        <!-- <au-collection items.bind="data.items" columns.bind="itemsColumns" read-only.bind="packingReadOnly" item-template="modules/inventory/packing-receipt/template/packing-item"
             errors.bind="error.items">
-        </au-collection>
+        </au-collection> -->
+        <au-collection items.bind="items" columns.bind="itemsColumns" read-only.bind="packingReadOnly"
+        errors.bind="error.items">
+    </au-collection>
 
     </au-input-form>
 </template>
