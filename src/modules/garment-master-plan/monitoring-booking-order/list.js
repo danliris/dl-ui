@@ -24,7 +24,7 @@ export class List {
     }
      
     confirmStateOption = ["","Belum DiKonfirmasi","Sudah Dikonfirmasi"];
-    bookingOrderStateOption = ["","Booking","Sudah dibuat Master Plan","Booking Dibatalkan"];
+    bookingOrderStateOption = ["","Booking","Sudah Dibuat Master Plan","Booking Dibatalkan"];
  searching() {
      
     var info = {
@@ -43,9 +43,23 @@ export class List {
                this.data=result;
                this.data = [];
                var counter = 1;
-              for (var pr of result) {
+               var remain=0;
+               var temp=result;
+               this.temp=[];
+               var bookingNo="";
+               var temps={};
+               
+            for (var prs of result) {
+                temps.bookingCode=prs.bookingCode;
+                temps.orderQty=prs.orderQty;
+                this.temp.push(temps);
+              
+            }
+           
+               for (var pr of result) {
             
                   var _data = {};
+               
                      _data.code=  pr.bookingCode;
                       _data.bookingDate =pr.bookingDate;
                       _data.buyer = pr.buyer;
@@ -73,7 +87,16 @@ export class List {
                       {
                         _data.bookingOrderState="Booking";
                       }
-                      _data.remaining=pr.totalOrderQty-pr.orderQty;
+                    for(var item of  temp)
+                    {
+                        if(pr.bookingCode == item.bookingCode)
+                        {
+                            remain = remain + item.orderQty;
+                            _data.remaining= remain ? pr.totalOrderQty-remain :pr.totalOrderQty;
+                        }
+                      
+                    }
+                    remain=0;
                       this.data.push(_data);
                     
                  counter ++;
@@ -125,9 +148,9 @@ export class List {
         if(selectedBookingOrder=="Booking"){ 
             this.bookingOrderState="Booking";
         }
-       else if(selectedBookingOrder=="Sudah dibuat Master Plan")
+       else if(selectedBookingOrder=="Sudah Dibuat Master Plan")
        {  
-            this.bookingOrderState="Sudah dibuat Master Plan";
+            this.bookingOrderState="Sudah Dibuat Master Plan";
        }else  if(selectedBookingOrder=="Booking Dibatalkan")
        {
             this.bookingOrderState="Booking Dibatalkan";
