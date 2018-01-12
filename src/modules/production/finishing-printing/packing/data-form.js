@@ -12,6 +12,7 @@ export class DataForm {
     @bindable readOnly;
     @bindable data;
     @bindable error;
+    @bindable items;
 
 
     constructor(service, bindingSignaler, bindingEngine) {
@@ -51,11 +52,49 @@ export class DataForm {
             this.selectedMaterialConstructionFinish = await this.service.getMaterialConstructionById(materialConstructionId, this.materialConstructionFields);
         }
     }
+
+    attached() {
+        this.items = [];
+        var total = {
+            grade: "Total Jumlah",
+            quantity: 0,
+            weightTotal: 0,
+            lengthTotal: 0,
+        };
+
+        for (var item of this.data.items) {
+
+            item.weightTotal = (item.weight * item.quantity);
+            item.lengthTotal = (item.length * item.quantity);
+            parseInt(item.weightTotal)
+            parseInt(item.lengthTotal)
+            this.items.push(item);
+
+            total.quantity += item.quantity;
+            total.weightTotal += parseInt(item.weightTotal);
+            total.lengthTotal += parseInt(item.lengthTotal);
+
+        }
+
+        this.items.push(total);
+    }
+
     errorChanged() {
         console.log(this.error)
     }
 
-    itemColumns = ["Lot", "Grade", "Kuantitas", "Berat Satuan", "Berat Total", "Panjang Satuan", "Panjang Total", "Remark"];
+    itemColumns = [
+        { header: "Lot", value: "lot" },
+        { header: "Grade", value: "grade" },
+        { header: "Kuantitas", value: "quantity" },
+        { header: "Berat Satuan", value: "weight" },
+        { header: "Berat Total", value: "weightTotal" },
+        { header: "Panjang Satuan", value: "length" },
+        { header: "Panjang Total", value: "lengthTotal" },
+        { header: "Remark", value: "remark" },
+    ]
+
+    // itemColumns = ["Lot", "Grade", "Kuantitas", "Berat Satuan", "Berat Total", "Panjang Satuan", "Panjang Total", "Remark"];
     packingUomOptions = ["", "ROLL", "PCS", "POT", "SETS", "SLP", "BDL", "KRG", "LBR"];
     deliveryTypeOptions = ["", "ULANGAN", "BARU"];
     finishedProductTypeOptions = ["", "WHITE", "DYEING", "BATIK", "TEKSTIL"];
