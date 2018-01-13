@@ -23,7 +23,7 @@ export class List {
         return ComodityLoader;
     }
      
-    confirmStateOption = ["","Belum DiKonfirmasi","Sudah Dikonfirmasi"];
+    confirmStateOption = ["","Belum Dikonfirmasi","Sudah Dikonfirmasi"];
     bookingOrderStateOption = ["","Booking","Sudah Dibuat Master Plan","Booking Dibatalkan"];
  searching() {
      
@@ -82,7 +82,7 @@ export class List {
                         _data.bookingOrderState="Booking Dibatalkan";
                       }else if(pr.isMasterPlan ==true)
                       {
-                        _data.bookingOrderState="Sudah Dibuat MasterPlan";   
+                        _data.bookingOrderState="Sudah Dibuat Master Plan";   
                       }else if(pr.isMasterPlan == false && pr.isCanceled==false)
                       {
                         _data.bookingOrderState="Booking";
@@ -163,12 +163,12 @@ export class List {
       confirmStateChanged(e){
         var selectedConfirm= e.srcElement.value;
         this.confirmState="";
-        if(selectedConfirm="Belum DiKonfirmasi"){
+        if(selectedConfirm="Belum Dikonfirmasi"){
       
-          this.confirmState="notConfirmed";
-        }else  if(selectedConfirm="Sudah DiKonfirmasi")
+          this.confirmState="Belum Dikonfirmasi";
+        }else  if(selectedConfirm="Sudah Dikonfirmasi")
         {
-            this.confirmState="isConfirmed";
+            this.confirmState="Sudah Dikonfirmasi";
         }else
         {
             this.confirmState="";
