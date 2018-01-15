@@ -23,6 +23,13 @@ export class DataForm {
         }
     }
 
+    total = {
+        initLength: 0,
+        width: 0,
+        aval: 0,
+        sample: 0,
+    }
+
     @bindable title;
     @bindable readOnly;
     @bindable data;
@@ -71,6 +78,44 @@ export class DataForm {
             this.selectedKanban = await this.service.getKanbanById(kanbanId, this.kanbanFields);
         }
     }
+
+    testo = (info) => {
+        var count = this.data.fabricGradeTests.count
+        var data = this.data.fabricGradeTests;
+        var result = [];
+
+        data.reduce(function (res, value) {
+            let grade = value.grade;
+            if (!res[grade]) {
+                res[grade] = {
+                    grade: grade,
+                    initLength: 0,
+                    width: 0,
+                    aval:0,
+                    sample:0,
+                };
+                result.push(res[grade])
+            }
+            res[grade].initLength += value.initLength;
+            res[grade].width += value.width;
+            res[grade].aval+=value.avalLength;
+            res[grade].sample+=value.sampleLength;
+            return res;
+        }, {});
+        return {
+            // total: count,
+            data: result
+        };
+    }
+
+    testoColumns = [
+        { field: "grade", title: "Grade" },
+        { field: "initLength", title: "Total Panjang (Meter)" },
+        { field: "width", title: "Total Lebar (Meter)" },
+        { field: "aval", title: "Total Aval (Meter)" },
+        { field: "sample", title: "Total Sample (Meter)" },
+    ]
+
     errorChanged() {
         if (this.error && this.error.fabricGradeTests) {
             var index = this.data.fabricGradeTests.indexOf(this.selectedFabricGradeTest);
