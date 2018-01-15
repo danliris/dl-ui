@@ -165,10 +165,13 @@ export class DataForm {
                 }
                 var startDateOfYear = new Date(`${this.data.year}-01-01`);
                 var endDateOfYear = new Date(`${this.data.year}-12-31`);
+                var isSameYear = (moment().year(this.data.year).day("Monday").week(1).toDate()).getFullYear() === this.data.year ? true : false;
                 var totalWeek = Math.ceil((((endDateOfYear - startDateOfYear) / 86400000) + 1)/7);
+                if(!isSameYear)
+                    totalWeek -= 1;
                 for (var i = 1; i <= totalWeek; i++){
-                    var startDate = moment().year(this.data.year).day("Monday").week(i).toDate();
-                    var endDate = moment().year(this.data.year).day("Friday").week(i).toDate();
+                    var startDate = moment().year(this.data.year).day("Monday").week(isSameYear ? i : (i+1)).toDate();
+                    var endDate = moment().year(this.data.year).day("Friday").week(isSameYear ? i : (i+1)).toDate();
                     this.data.items.push({
                         weekNumber: i,
                         startDate: startDate,

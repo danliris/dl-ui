@@ -60,7 +60,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -73,7 +73,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission : { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
@@ -87,7 +87,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -113,7 +113,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -131,15 +131,15 @@ module.exports = [
         }
     },
     {
-        route: "inventory/finishing-printing/reports/fp-retur-from-buyer",
-        name: "inventory/finishing-printing/reports/fp-retur-from-buyer",
-        moduleId: "modules/inventory/finishing-printing/reports/fp-retur-from-buyer/index",
+        route: "inventory/reports/fp-shiptment-delivery-buyer-report",
+        name: "inventory/reports/fp-shiptment-delivery-buyer-report",
+        moduleId: "modules/inventory/reports/fp-shiptment-delivery-buyer-report/index",
         nav: true,
-        title: "Laporan Retur Barang Dari Buyer",
+        title: "Laporan Pengiriman Buyer",
         auth: true,
         settings: {
             group: "Inventory",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 1 },
             iconClass: "fa fa-dashboard"
         }
     }

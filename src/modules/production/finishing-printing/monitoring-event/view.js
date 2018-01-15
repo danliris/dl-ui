@@ -14,7 +14,6 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.productionOrder = this.data.productionOrder;
 
         if (this.data.dateEnd == null)
             delete this.data.dateEnd;

@@ -56,6 +56,7 @@ export class List {
             { field: "diffOrderKanbanQuantity", title: "Sisa Belum Turun Kanban\n(m)", align: "right" },
             { field: "preProductionQuantity", title: "Belum Produksi\n(m)", align: "right" },
             { field: "onProductionQuantity", title: "Sedang Produksi\n(m)", align: "right" },
+            { field: "inspectingQuantity", title: "Sedang Inspeksi\n(m)", align: "right" },
             { field: "afterProductionQuantity", title: "Sudah Produksi\n(m)", align: "right" },
             { field: "storageQuantity", title: "Sudah Dikirim Ke Gudang\n(m)", align: "right" },
             { field: "shipmentQuantity", title: "Sudah Dikirim Ke Buyer\n(m)", align: "right" },
@@ -81,6 +82,7 @@ export class List {
                 .then((result) => {
                     for (let data of result.data) {
                         data.onProductionQuantity = numeral(data.onProductionQuantity).format('0,000.00');
+                        data.inspectingQuantity = numeral(data.inspectingQuantity).format('0,000.00');
                         data.orderQuantity = numeral(data.orderQuantity).format('0,000.00');
                         data.preProductionQuantity = numeral(data.preProductionQuantity).format('0,000.00');
                         data.afterProductionQuantity = numeral(data.afterProductionQuantity).format('0,000.00');

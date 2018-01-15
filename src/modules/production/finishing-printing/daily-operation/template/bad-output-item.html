@@ -9,17 +9,25 @@
                 key="code"
                 text="reason" 
                 read-only.bind="(readOnly || isEdit)"
-                query.bind="filter"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
         <td>
             <au-numeric
-                value.bind="data.precentage"
-                error.bind="error.precentage"
+                value.bind="data.length"
                 read-only.bind="(readOnly || isEdit)"
-                options.bind="controlOptions">
+                options.bind="controlOptions"
+                error.bind="error.length">
             </au-numeric>
+        </td>
+        <td>
+            <au-dropdown
+                value.bind="data.action"
+                error.bind="error.action"
+                read-only.bind="(readOnly || isEdit)"
+                options.bind="controlOptions"
+                items.bind="actionList">
+            </au-dropdown>
         </td>
         <td>
             <au-textbox 
