@@ -26,10 +26,11 @@ export class RestService {
     if (result.error) {
       return Promise.reject(result.error);
     }
-    else if (result.data) {
-      return Promise.resolve(result.data)
-    } else {
+    else if (result.statusCode === 500) {
       return Promise.reject(result);
+    }
+    else {
+      return Promise.resolve(result.data)
     }
   }
 
