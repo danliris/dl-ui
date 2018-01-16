@@ -34,7 +34,7 @@ export class View {
   }
 
   delete(event) {
-    debugger
+
     this.service.delete(this.data)
       .then(result => {
         this.cancel();
