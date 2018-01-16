@@ -167,22 +167,19 @@ export class List {
     }
 
     exportToExcel() {
-
         this.searchStatus = true;
-
         this.info.year = this.year;
         this.info.month = this.monthList.indexOf(this.month) + 1;
-
         this.service.generateExcel(this.info);
-
 
     }
 
     reset() {
-        // this.area = this.areaList[0];
+        this.data.length=0;
         this.month = this.monthList[new Date().getMonth()];
         this.year = this.yearList[0];
         this.searchStatus = false;
+        this.table.refresh();
     }
 
 }
