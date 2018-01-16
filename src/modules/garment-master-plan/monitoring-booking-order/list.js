@@ -65,6 +65,7 @@ export class List {
                       _data.buyer = pr.buyer;
                       _data.totalOrderQty = pr.totalOrderQty;
                       _data.deliveryDateConfirm=  pr.deliveryDateConfirm ? moment(pr.deliveryDateConfirm).format("DD MMMM YYYY") : "";
+                      _data.confirmDate=  pr.confirmDate ? moment(pr.confirmDate).format("DD MMMM YYYY") : "";
                       _data.comodity =pr.comodity;
                       _data.orderQty = pr.orderQty;
                       _data.deliveryDateBooking = pr.deliveryDateBooking ? moment(pr.deliveryDateBooking).format("DD MMMM YYYY") : "";
