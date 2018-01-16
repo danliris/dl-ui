@@ -20,6 +20,17 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    kanbanDetail(info) {
+        debugger
+        var endpoint = `${serviceUri}/${info.orderNo}`;
+        return super.get(endpoint);
+    }
+
+    generateKanbanXls(info) {
+        var endpoint = `${serviceUri}/${info.orderNo}`;
+        return super.getXls(endpoint);
+    }
+
     generateDetailXls(info) {
         var endpoint = `${serviceUri}/${info.year}/${info.month}/${info.orderType}`;
         return super.getXls(endpoint);
