@@ -60,9 +60,15 @@ export class List {
     columns = [
 
         { field: "no", title: "No" },
-        { field: "year", title: "Tahun" },
-        { field: "month", title: "Bulan" },
-        { field: "day", title: "Tanggal" },
+        // { field: "year", title: "Tahun" },
+        // { field: "month", title: "Bulan" },
+        {
+            field: "date", title: "Tanggal",
+            formatter: (value, data) => {
+                    return value != "Total Jumlah" ?moment(value).format("DD-MMM-YYYY") : value;         
+            }
+        },
+        // { field: "date", title: "Tanggal" },
         { field: "printingQty", title: "Printing (M)" },
         { field: "whiteQty", title: "Solid - White (M)" },
         { field: "dyeingQty", title: "Solid - Dyeing (M)" },
@@ -116,6 +122,7 @@ export class List {
             .then((result) => {
 
                 for (var i of result.info) {
+                    i.date=new Date(i.year +"-"+i.month+"-"+i.day);
                     this.data.push(i)
                 }
                 this.getTotal(this.data);
@@ -142,9 +149,9 @@ export class List {
 
         var grandTotal = {
             no: "",
-            year: "",
-            month: "",
-            day: "Total Jumlah",
+            // year: "",
+            // month: "",
+            date: "Total Jumlah",
             dyeingQty: max.maxDyeing,
             whiteQty: max.maxWhite,
             printingQty: max.maxPrinting,
@@ -168,9 +175,9 @@ export class List {
     }
 
     reset() {
-        this.area = this.areaList[0];
-        this.dateFrom = undefined;
-        this.dateTo = undefined;
+        // this.area = this.areaList[0];
+        this.month = this.monthList[new Date().getMonth()];
+        this.year = this.yearList[0];
         this.searchStatus = false;
     }
 
