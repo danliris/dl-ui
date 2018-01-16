@@ -49,7 +49,7 @@ export class List {
         showToggle: false,
         showColumns: false,
         pagination: false,
-        sortable:false,
+        sortable: false,
     }
 
     bind(context) {
@@ -65,7 +65,7 @@ export class List {
         {
             field: "date", title: "Tanggal",
             formatter: (value, data) => {
-                    return value != "Total Jumlah" ?moment(value).format("DD-MMM-YYYY") : value;         
+                return value != "Total Jumlah" ? moment(value).format("DD-MMM-YYYY") : value;
             }
         },
         // { field: "date", title: "Tanggal" },
@@ -121,11 +121,15 @@ export class List {
         this.service.search(this.info)
             .then((result) => {
 
-                for (var i of result.info) {
-                    i.date=new Date(i.year +"-"+i.month+"-"+i.day);
-                    this.data.push(i)
+                if (result.info.length != 0) {
+                    for (var i of result.info) {
+                        i.date = new Date(i.year + "-" + i.month + "-" + i.day);
+                        this.data.push(i)
+                    }
+                    this.getTotal(this.data);
+                } else {
+                    this.table.refresh()
                 }
-                this.getTotal(this.data);
                 return this.data;
                 // this.table.__table("append", [{}]);
                 // this.table.refresh();
