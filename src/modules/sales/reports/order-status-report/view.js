@@ -136,10 +136,9 @@ export class View {
     contextCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        console.log(data);
         switch (arg.name) {
             case "Detail":
-                window.open(`${window.location.origin}/#/sales/order-status-report/view-kanban/${data.orderNo}`);
+                window.open(`${window.location.origin}/#/sales/order-status-report/view-kanban/${encodeURIComponent(data.orderNo)}`);
                 break;
         }
     }

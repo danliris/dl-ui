@@ -21,7 +21,6 @@ export class Service extends RestService {
     }
 
     kanbanDetail(info) {
-        debugger
         var endpoint = `${serviceUri}/${info.orderNo}`;
         return super.get(endpoint);
     }

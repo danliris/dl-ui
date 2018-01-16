@@ -14,11 +14,11 @@ export class View {
 
     textOptions = {
         label: {
-            length: 3,
+            length: 1,
             align: "left"
         },
         control: {
-            length: 3,
+            length: 1,
             align: "right"
         }
     }
@@ -40,10 +40,10 @@ export class View {
     ]
 
     async activate(params) {
-        this.orderNo = params.orderNo ? params.orderNo : "-";
+        this.orderNo = params.orderNo ? decodeURIComponent(params.orderNo) : "-";
 
         this.info = {
-            orderNo: this.orderNo
+            orderNo: params.orderNo
         };
 
         this.data = await this.service.kanbanDetail(this.info);
