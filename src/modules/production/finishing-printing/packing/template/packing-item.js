@@ -15,12 +15,14 @@ export class PackingItem {
         }
     }
 
+
+
     get weightTotal() {
-        return (this.data.weight * this.data.quantity).toFixed(2);
+        return this.data.weightTotalAmount ? this.data.weightTotalAmount.toFixed(2) : (this.data.weight * this.data.quantity).toFixed(2);
     }
 
     get lengthTotal() {
-        return (this.data.length * this.data.quantity).toFixed(2);
+        return this.data.lengthTotalAmount ? this.data.lengthTotalAmount.toFixed(2) : (this.data.length * this.data.quantity).toFixed(2);
     }
 
     // grades = ["", "A", "B", "C", "AA", "BB", "CC", "BS", "AVAL"];
