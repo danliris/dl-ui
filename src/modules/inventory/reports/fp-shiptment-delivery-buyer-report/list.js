@@ -3,6 +3,7 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
 import moment from 'moment';
+import numeral from 'numeral';
 var PackingReceiptLoader = require('../../../../loader/packing-receipt-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
@@ -149,6 +150,11 @@ export class List {
             max.maxWhite += i.whiteQty;
             max.maxDyeing += i.dyeingQty;
             max.maxTotal += i.total;
+
+            i.printingQty = numeral(i.printingQty).format('0,000.00');
+            i.whiteQty = numeral(i.whiteQty).format('0,000.00');
+            i.dyeingQty = numeral(i.dyeingQty).format('0,000.00');
+            i.total = numeral(i.total).format('0,000.00');
         }
 
         var grandTotal = {
@@ -156,10 +162,10 @@ export class List {
             // year: "",
             // month: "",
             date: "Total Jumlah",
-            dyeingQty: max.maxDyeing,
-            whiteQty: max.maxWhite,
-            printingQty: max.maxPrinting,
-            total: max.maxTotal,
+            dyeingQty: numeral(max.maxDyeing).format('0,000.00'),
+            whiteQty: numeral(max.maxWhite).format('0,000.00'),
+            printingQty: numeral(max.maxPrinting).format('0,000.00'),
+            total: numeral(max.maxTotal).format('0,000.00')
         }
         this.data.push(grandTotal);
         // this.table.__table("append", [{ no: "", year: "", month: "", day: "Total Jumlah", printingQty: max.maxPrinting, whiteQty: max.maxWhite, dyeingQty: max.maxDyeing, total: max.maxTotal }]);
