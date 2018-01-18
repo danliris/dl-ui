@@ -10,6 +10,7 @@ export class View {
         this.router = router;
         this.service = service;
         this.title = "Detail Status Order";
+        this.contextTable = ["Detail"];
     }
 
     formOptions = {
@@ -57,7 +58,7 @@ export class View {
         { field: "notInKanbanQuantity", title: "Sisa Belum Turun Kanban (m)" },
         { field: "preProductionQuantity", title: "Belum Produksi (m)" },
         { field: "onProductionQuantity", title: "Sedang Produksi (m)" },
-        { field: "inspectingQuantity", title: "Sedang Inspecting (m)" },
+        { field: "inspectingQuantity", title: "Sedang QC (m)" },
         { field: "afterProductionQuantity", title: "Sudah Produksi (m)" },
         { field: "storageQuantity", title: "Kirim Ke Gudang (m)" },
         { field: "shipmentQuantity", title: "Kirim Ke Buyer (m)" },
@@ -79,11 +80,11 @@ export class View {
 
         let orderTotal = 0, preTotal = 0, onTotal = 0, inspectingTotal = 0, afterTotal = 0, storageTotal = 0, shipmentTotal = 0, notInKanbanTotal = 0, diffOrderShipmentTotal = 0;
 
-        for(let datum of this.data) {
+        for (let datum of this.data) {
 
             orderTotal += Number(datum.orderQuantity);
             datum.orderQuantity = numeral(datum.orderQuantity).format('0,000.00');
-            
+
             preTotal += Number(datum.preProductionQuantity);
             datum.preProductionQuantity = numeral(datum.preProductionQuantity).format('0,000.00');
 
@@ -109,36 +110,6 @@ export class View {
             datum.diffOrderShipmentQuantity = numeral(datum.diffOrderShipmentQuantity).format('0,000.00');
         }
 
-        // this.preTotal = preTotal.toFixed(2);
-
-        // for(let on of this.data.onProductionData) {
-        //     onTotal += Number(on.quantity);
-        //     on.quantity = numeral(on.quantity).format('0,000.00');
-        // }
-
-        // this.onTotal = onTotal.toFixed(2);
-
-        // for(let storage of this.data.storageData) {
-        //     storageTotal += Number(storage.quantity);
-        //     storage.quantity = numeral(storage.quantity).format('0,000.00');
-        // }
-
-        // this.storageTotal = storageTotal.toFixed(2);
-
-        // for(let shipment of this.data.shipmentData) {
-        //     shipmentTotal += Number(shipment.quantity);
-        //     shipment.quantity = numeral(shipment.quantity).format('0,000.00');
-        // }
-
-        // this.shipmentTotal = shipmentTotal.toFixed(2);
-
-        // for(let spp of this.data.productionOrdersNotInKanban) {
-        //     sppNotInKanbanTotal += Number(spp.orderQuantity);
-        //     spp.orderQuantity = numeral(spp.orderQuantity).format('0,000.00');
-        // }
-
-        // this.sppNotInKanbanTotal = sppNotInKanbanTotal.toFixed(2);
-
         this.orderTotal = orderTotal.toFixed(2);
         this.preTotal = preTotal.toFixed(2);
         this.onTotal = onTotal.toFixed(2);
@@ -160,5 +131,15 @@ export class View {
 
     cancelCallback(event) {
         this.list();
+    }
+
+    contextCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+            case "Detail":
+                window.open(`${window.location.origin}/#/sales/order-status-report/view-kanban/${encodeURIComponent(data.orderNo)}`);
+                break;
+        }
     }
 }

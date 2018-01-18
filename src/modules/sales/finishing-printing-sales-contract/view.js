@@ -21,7 +21,7 @@ export class View {
         else{
             this.data.reference={};
         }
-        console.log(this.data.remainingQuantity);
+        // console.log(this.data.remainingQuantity);
         if(this.spp){
             this.canEdit=false;
             

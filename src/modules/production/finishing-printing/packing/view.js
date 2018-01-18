@@ -34,9 +34,34 @@ export class View {
   }
 
   delete(event) {
+
     this.service.delete(this.data)
       .then(result => {
         this.cancel();
       });
   }
+
+  attached() {
+    
+            var total = {
+                grade: "Total Jumlah",
+                quantity: 0,
+                weightTotalAmount: 0,
+                weight: 0,
+                lengthTotalAmount: 0,
+                length: 0,
+            };
+    
+            for (var item of this.data.items) {
+    
+                total.quantity += item.quantity;
+                total.availableQuantity += item.availableQuantity;
+                total.weight += item.weight;
+                total.length += item.length;
+                total.weightTotalAmount += item.weight * item.quantity;
+                total.lengthTotalAmount += item.length * item.quantity;
+            }
+      
+            this.data.items.push(total);
+        }
 }

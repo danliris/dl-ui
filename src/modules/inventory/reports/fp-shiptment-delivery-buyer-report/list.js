@@ -3,6 +3,7 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
 import moment from 'moment';
+import numeral from 'numeral';
 var PackingReceiptLoader = require('../../../../loader/packing-receipt-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
@@ -49,7 +50,7 @@ export class List {
         showToggle: false,
         showColumns: false,
         pagination: false,
-        sortable:false,
+        sortable: false,
     }
 
     bind(context) {
@@ -60,9 +61,15 @@ export class List {
     columns = [
 
         { field: "no", title: "No" },
-        { field: "year", title: "Tahun" },
-        { field: "month", title: "Bulan" },
-        { field: "day", title: "Tanggal" },
+        // { field: "year", title: "Tahun" },
+        // { field: "month", title: "Bulan" },
+        {
+            field: "date", title: "Tanggal",
+            formatter: (value, data) => {
+                return value != "Total Jumlah" ? moment(value).format("DD-MMM-YYYY") : value;
+            }
+        },
+        // { field: "date", title: "Tanggal" },
         { field: "printingQty", title: "Printing (M)" },
         { field: "whiteQty", title: "Solid - White (M)" },
         { field: "dyeingQty", title: "Solid - Dyeing (M)" },
@@ -115,10 +122,15 @@ export class List {
         this.service.search(this.info)
             .then((result) => {
 
-                for (var i of result.info) {
-                    this.data.push(i)
+                if (result.info.length != 0) {
+                    for (var i of result.info) {
+                        i.date = new Date(i.year + "-" + i.month + "-" + i.day);
+                        this.data.push(i)
+                    }
+                    this.getTotal(this.data);
+                } else {
+                    this.table.refresh()
                 }
-                this.getTotal(this.data);
                 return this.data;
                 // this.table.__table("append", [{}]);
                 // this.table.refresh();
@@ -138,17 +150,22 @@ export class List {
             max.maxWhite += i.whiteQty;
             max.maxDyeing += i.dyeingQty;
             max.maxTotal += i.total;
+
+            i.printingQty = numeral(i.printingQty).format('0,000.00');
+            i.whiteQty = numeral(i.whiteQty).format('0,000.00');
+            i.dyeingQty = numeral(i.dyeingQty).format('0,000.00');
+            i.total = numeral(i.total).format('0,000.00');
         }
 
         var grandTotal = {
             no: "",
-            year: "",
-            month: "",
-            day: "Total Jumlah",
-            dyeingQty: max.maxDyeing,
-            whiteQty: max.maxWhite,
-            printingQty: max.maxPrinting,
-            total: max.maxTotal,
+            // year: "",
+            // month: "",
+            date: "Total Jumlah",
+            dyeingQty: numeral(max.maxDyeing).format('0,000.00'),
+            whiteQty: numeral(max.maxWhite).format('0,000.00'),
+            printingQty: numeral(max.maxPrinting).format('0,000.00'),
+            total: numeral(max.maxTotal).format('0,000.00')
         }
         this.data.push(grandTotal);
         // this.table.__table("append", [{ no: "", year: "", month: "", day: "Total Jumlah", printingQty: max.maxPrinting, whiteQty: max.maxWhite, dyeingQty: max.maxDyeing, total: max.maxTotal }]);
@@ -156,22 +173,19 @@ export class List {
     }
 
     exportToExcel() {
-
         this.searchStatus = true;
-
         this.info.year = this.year;
         this.info.month = this.monthList.indexOf(this.month) + 1;
-
         this.service.generateExcel(this.info);
-
 
     }
 
     reset() {
-        this.area = this.areaList[0];
-        this.dateFrom = undefined;
-        this.dateTo = undefined;
+        this.data.length=0;
+        this.month = this.monthList[new Date().getMonth()];
+        this.year = this.yearList[0];
         this.searchStatus = false;
+        this.table.refresh();
     }
 
 }

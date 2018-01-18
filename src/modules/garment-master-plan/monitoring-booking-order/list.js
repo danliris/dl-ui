@@ -23,8 +23,8 @@ export class List {
         return ComodityLoader;
     }
      
-    confirmStateOption = ["","Belum DiKonfirmasi","Sudah Dikonfirmasi"];
-    bookingOrderStateOption = ["","Booking","Sudah dibuat Master Plan","Booking Dibatalkan"];
+    confirmStateOption = ["","Belum Dikonfirmasi","Sudah Dikonfirmasi"];
+    bookingOrderStateOption = ["","Booking","Sudah Dibuat Master Plan","Booking Dibatalkan"];
  searching() {
      
     var info = {
@@ -43,14 +43,29 @@ export class List {
                this.data=result;
                this.data = [];
                var counter = 1;
-              for (var pr of result) {
+               var remain=0;
+               var temp=result;
+               this.temp=[];
+               var bookingNo="";
+               var temps={};
+               
+            for (var prs of result) {
+                temps.bookingCode=prs.bookingCode;
+                temps.orderQty=prs.orderQty;
+                this.temp.push(temps);
+              
+            }
+           
+               for (var pr of result) {
             
                   var _data = {};
+               
                      _data.code=  pr.bookingCode;
                       _data.bookingDate =pr.bookingDate;
                       _data.buyer = pr.buyer;
                       _data.totalOrderQty = pr.totalOrderQty;
                       _data.deliveryDateConfirm=  pr.deliveryDateConfirm ? moment(pr.deliveryDateConfirm).format("DD MMMM YYYY") : "";
+                      _data.confirmDate=  pr.confirmDate ? moment(pr.confirmDate).format("DD MMMM YYYY") : "";
                       _data.comodity =pr.comodity;
                       _data.orderQty = pr.orderQty;
                       _data.deliveryDateBooking = pr.deliveryDateBooking ? moment(pr.deliveryDateBooking).format("DD MMMM YYYY") : "";
@@ -68,12 +83,21 @@ export class List {
                         _data.bookingOrderState="Booking Dibatalkan";
                       }else if(pr.isMasterPlan ==true)
                       {
-                        _data.bookingOrderState="Sudah Dibuat MasterPlan";   
+                        _data.bookingOrderState="Sudah Dibuat Master Plan";   
                       }else if(pr.isMasterPlan == false && pr.isCanceled==false)
                       {
                         _data.bookingOrderState="Booking";
                       }
-                      _data.remaining=pr.totalOrderQty-pr.orderQty;
+                    for(var item of  temp)
+                    {
+                        if(pr.bookingCode == item.bookingCode)
+                        {
+                            remain = remain + item.orderQty;
+                            _data.remaining= remain ? pr.totalOrderQty-remain :pr.totalOrderQty;
+                        }
+                      
+                    }
+                    remain=0;
                       this.data.push(_data);
                     
                  counter ++;
@@ -125,9 +149,9 @@ export class List {
         if(selectedBookingOrder=="Booking"){ 
             this.bookingOrderState="Booking";
         }
-       else if(selectedBookingOrder=="Sudah dibuat Master Plan")
+       else if(selectedBookingOrder=="Sudah Dibuat Master Plan")
        {  
-            this.bookingOrderState="Sudah dibuat Master Plan";
+            this.bookingOrderState="Sudah Dibuat Master Plan";
        }else  if(selectedBookingOrder=="Booking Dibatalkan")
        {
             this.bookingOrderState="Booking Dibatalkan";
@@ -140,12 +164,12 @@ export class List {
       confirmStateChanged(e){
         var selectedConfirm= e.srcElement.value;
         this.confirmState="";
-        if(selectedConfirm="Belum DiKonfirmasi"){
+        if(selectedConfirm="Belum Dikonfirmasi"){
       
-          this.confirmState="notConfirmed";
-        }else  if(selectedConfirm="Sudah DiKonfirmasi")
+          this.confirmState="Belum Dikonfirmasi";
+        }else  if(selectedConfirm="Sudah Dikonfirmasi")
         {
-            this.confirmState="isConfirmed";
+            this.confirmState="Sudah Dikonfirmasi";
         }else
         {
             this.confirmState="";

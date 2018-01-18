@@ -48,7 +48,7 @@ export class List {
 
     columns = [
         [
-            { title: "Status Order", colspan: "9" },
+            { title: "Status Order", colspan: "10" },
         ],
         [
             { field: "name", title: "Bulan" },
@@ -56,7 +56,7 @@ export class List {
             { field: "diffOrderKanbanQuantity", title: "Sisa Belum Turun Kanban\n(m)", align: "right" },
             { field: "preProductionQuantity", title: "Belum Produksi\n(m)", align: "right" },
             { field: "onProductionQuantity", title: "Sedang Produksi\n(m)", align: "right" },
-            { field: "inspectingQuantity", title: "Sedang Inspeksi\n(m)", align: "right" },
+            { field: "inspectingQuantity", title: "Sedang QC\n(m)", align: "right" },
             { field: "afterProductionQuantity", title: "Sudah Produksi\n(m)", align: "right" },
             { field: "storageQuantity", title: "Sudah Dikirim Ke Gudang\n(m)", align: "right" },
             { field: "shipmentQuantity", title: "Sudah Dikirim Ke Buyer\n(m)", align: "right" },

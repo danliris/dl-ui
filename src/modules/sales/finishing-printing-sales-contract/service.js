@@ -34,21 +34,21 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
-  }
+    }
 
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
     }
 
-    getSPPbySC(no,select){
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("production");
-        var _serviceUri = `/sales/production-order-by-sales-contract-numbers/${no}`;
+    // getSPPbySC(no, select) {
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("production");
+    //     var _serviceUri = `/sales/production-order-by-sales-contract-numbers/${no}`;
 
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
-    }
+    //     return _endpoint.find(_serviceUri)
+    //         .then(result => {
+    //             return result.data;
+    //         });
+    // }
 }
