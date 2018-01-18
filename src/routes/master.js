@@ -402,6 +402,20 @@ module.exports = [
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'yarn-material',
+        name: 'yarn-material',
+        moduleId: './modules/master/yarn-material/index',
+        nav: true,
+        title: 'Nomor Benang Material',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
+
 
 ] 
