@@ -1,7 +1,7 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
-
+import {activationStrategy} from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
@@ -11,8 +11,15 @@ export class Create {
         this.data = {};
     }
 
+    activate(params) {
+    }
+
     list() {
         this.router.navigateToRoute('list');
+    }
+
+    determineActivationStrategy() {
+        return activationStrategy.replace; //replace the viewmodel with a new instance
     }
 
     cancelCallback(event) {
@@ -22,7 +29,8 @@ export class Create {
     saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
-                this.list();
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
