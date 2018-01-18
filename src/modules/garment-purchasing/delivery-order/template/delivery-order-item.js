@@ -161,6 +161,10 @@ export class DeliveryOrderItem {
     return purchaseOrderExternal.no
   }
 
+  removeItems = function () {
+    this.bind();
+  }
+
   controlOptions = {
     control: {
       length: 12
