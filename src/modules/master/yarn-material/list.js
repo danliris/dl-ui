@@ -6,7 +6,6 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["Rincian"];
     columns = [
-		{ field: "code", title: "Kode" },
 		{ field: "name", title: "Nomor Benang Material" },
     ];
 
@@ -25,7 +24,7 @@ export class List {
 			size: info.limit,
 			keyword: info.search,
 			order: order,
-			select: ['code', 'name']
+			select: ['name']
 		}
 
 		return this.service.search(arg)
