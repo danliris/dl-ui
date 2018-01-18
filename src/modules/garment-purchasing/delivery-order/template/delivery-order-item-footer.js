@@ -9,7 +9,11 @@ export class DetailFooter {
   get currency() {
     if (this.context.items.length > 0) {
       if (this.context.items[0].data.fulfillments instanceof Array) {
-        return this.context.items[0].data.fulfillments[0].currency.code
+        if (this.context.items[0].data.fulfillments.length > 0) {
+          return this.context.items[0].data.fulfillments[0].currency.code
+        } else {
+          return ""
+        }
       } else {
         return ""
       }
