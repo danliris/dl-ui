@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
   context = ["Rincian"];
   columns = [
-    { field: "code", title: "Kode" },
+    // { field: "code", title: "Kode" },
     { field: "name", title: "Konstruksi Material" },    
 ];
 
@@ -20,7 +20,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["code", "name"],
+      select: ["name"],
       order: order
     }
 
