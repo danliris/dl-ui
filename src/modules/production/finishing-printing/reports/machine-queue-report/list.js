@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import numeral from 'numeral';
+import moment from 'moment';
 
 var MachineLoader = require('../../../../../loader/machine-loader');
 
@@ -41,11 +42,17 @@ export class List {
 
     machines = [];
     data = [];
+    yearList = [];
 
     constructor(router, service, serviceCore) {
         this.router = router;
         this.service = service;
         this.serviceCore = serviceCore;
+
+        this.year = moment().format('YYYY');
+        for (var i = parseInt(this.year) + 1; i > 2010; i--) {
+            this.yearList.push(i.toString());
+        }
     }
 
     search() {
@@ -53,7 +60,8 @@ export class List {
 
         let info = {
             orderType: this.orderType,
-            machine: this.machine ? this.machine.name : undefined
+            machine: this.machine ? this.machine.name : undefined,
+            year: this.year
         };
 
         this.service.search(info)
@@ -98,7 +106,8 @@ export class List {
     excel() {
         let info = {
             orderType: this.orderType,
-            machine: this.machine ? this.machine.name : undefined
+            machine: this.machine ? this.machine.name : undefined,
+            year: this.year
         };
 
         this.service.generateExcel(info);
@@ -107,6 +116,7 @@ export class List {
     reset() {
         this.data.length = 0;
         this.orderType = "";
+        this.year = moment().format("YYYY");
         this.machine = undefined;
         this.machineQueueTable.refresh();
     }
