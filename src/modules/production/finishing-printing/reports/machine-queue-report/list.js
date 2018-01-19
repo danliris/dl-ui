@@ -12,7 +12,7 @@ export class List {
     orderTypeList = ["", "WHITE", "DYEING", "PRINTING", "YARN DYED"];
 
     columns = [
-        [{ title: "Belum Produksi", colspan: 4 }, { title: "Permintaan Delivery", colspan: 12 }],
+        [{ title: "Belum Produksi", colspan: 4 }, { title: "Deadline Kanban", colspan: 12 }],
         [
             { field: "no", title: "No.", formatter: function (value, data, index) { return value === "" ? value : index + 1; } },
             { field: "orderType", title: "Jenis Order" },
