@@ -433,4 +433,18 @@ module.exports = [
         }
     },
 
+    {
+        route: 'comodity',
+        name: 'comodity',
+        moduleId: './modules/master/comodity/index',
+        nav: true,
+        title: 'Komoditas',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
 ] 
