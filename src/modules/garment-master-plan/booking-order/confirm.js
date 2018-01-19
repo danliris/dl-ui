@@ -60,6 +60,10 @@ export class Confirm {
                         warning=[];
                         break;
                     }
+                    else if(new Date(item.deliveryDate)> new Date(this.data.deliveryDate)){
+                        warning=[];
+                        break;
+                    }
                 }
                 
                 if(warning.length>0){
