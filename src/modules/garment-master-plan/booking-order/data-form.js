@@ -20,7 +20,7 @@ export class DataForm {
             length: 5
         }
     }
-    detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Tanggal Pengiriman"}, {header: "Keterangan"}];
+    detailColumns = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Tanggal Pengiriman"},{header: "Tanggal Confirm"}, {header: "Keterangan"}];
    // detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
 
     buyerFields=["name", "code"];

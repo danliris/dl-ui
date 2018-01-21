@@ -8,7 +8,7 @@ export class List {
   context = ["Rincian"];
   columns = [
     // { field: "code", title: "Kode" },
-    { field: "name", title: "Konstruksi Material" },    
+    { field: "name", title: "Komoditas" },    
 ];
 
   loader = (info) => {

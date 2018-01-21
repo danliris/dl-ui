@@ -6,8 +6,14 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["Rincian"];
     columns = [
-		{ field: "name", title: "Nomor Benang Material" },
-    ];
+		{ field: "termOfPayment", title: "Term of Payment" },
+		{
+			field: "isExport", title: "Export",
+			formatter: function (value, row, index) {
+			  return value ? "Ya" : "Tidak";
+			}
+		}
+	];
 
 	constructor(router, service) {
         this.service = service;
@@ -24,7 +30,7 @@ export class List {
 			size: info.limit,
 			keyword: info.search,
 			order: order,
-			select: ['name']
+			select: ['termOfPayment', 'isExport']
 		}
 
 		return this.service.search(arg)

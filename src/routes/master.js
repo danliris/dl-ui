@@ -433,4 +433,34 @@ module.exports = [
         }
     },
 
+    {
+
+        route: 'term-of-payment',
+        name: 'term-of-payment',
+        moduleId: './modules/master/term-of-payment/index',
+        nav: true,
+        title: 'Term of Payment',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'comodity',
+        name: 'comodity',
+        moduleId: './modules/master/comodity/index',
+        nav: true,
+        title: 'Komoditas',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
 ] 
+

@@ -7,21 +7,20 @@
 				options.bind="formOptions">
 
 				<au-textbox   
-					label="Nomor Benang Material"
-					placeholder="Nomor Benang Material"
-					value.bind="data.name"
-					error.bind="error.name"
+					label="Term of Payment"
+					placeholder="Term of Payment"
+					value.bind="data.termOfPayment"
+					error.bind="error.termOfPayment"
 					read-only.bind="readOnly">
 				</au-textbox>
 
-				<au-multiline
-					label="Keterangan"
-					placeholder="Keterangan"
-					value.bind="data.remark"
-					error.bind="error.remark"
+				<au-checkbox        
+					label="Export"          
+					value.bind="data.isExport"        
+					error.bind="error.isExport"       
 					read-only.bind="readOnly">
-				</au-multiline>
-
+				</au-checkbox>
+		
 				<template replaceable part="actions"></template>
 
 			</au-input-form>

@@ -34,11 +34,13 @@ export class List {
             }
         },
         {
-                field: "isMasterPlan", title: "Status",
-                formatter: function (value, data, index) {
-                    return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : "Booking";
-                }
-            },
+            field: "isMasterPlan", title: "Status",
+            formatter: function (value, data, index) {
+                return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : "Booking";
+            }
+        },
+        {
+            field: "confirmStatus", title: "Status Jumlah Confirm" }
     ];
 
     loader = (info) => {
@@ -58,7 +60,27 @@ export class List {
                 var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
-                // return data;
+                for(var a of result.data){
+                    a.confirmStatus='';
+                    var total=0;
+                    if(a.items && a.items.length>0){
+                        for(var b of a.items){
+                            total+=b.quantity;
+                        }
+                        if(total>a.orderQuantity){
+                            a.confirmStatus='Melebihi Jumlah Order';
+                        }
+                        else if(total<a.orderQuantity){
+                            a.confirmStatus='Kurang dari Jumlah Order';
+                        }
+                        else if(total===a.orderQuantity){
+                            a.confirmStatus='Sama dengan Jumlah Order';
+                        }
+                    }
+                    else{
+                        a.confirmStatus='Belum Confirm';
+                    }
+                }
                 return {
                     total: result.info.total,
                     data: result.data

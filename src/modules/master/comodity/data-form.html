@@ -18,21 +18,13 @@
           ></au-textbox> -->
             
           <au-textbox 
-            label="Konstruksi Material"
+            label="Komoditas"
             value.bind="data.name"
             error.bind="error.name"
             read-only.bind="readOnly"
             options.bind="controlOptions"
           ></au-textbox>
-         
-        <au-multiline 
-            label="Keterangan" 
-            value.bind="data.remark"
-            placeholder="Tambah keterangan" 
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-multiline>
-            
+                    
           <template replaceable part="actions"></template>
           </au-input-form>
         </div>
