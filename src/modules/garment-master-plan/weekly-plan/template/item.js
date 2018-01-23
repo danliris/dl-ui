@@ -13,5 +13,9 @@ export class Item {
       length: 12
     }
   };
-  
+ 
+  get dataChange() {
+    this.data.ahTotal = this.data.operator * this.data.AH;
+    this.data.availableAH = this.data.ahTotal - this.data.usedAH;
+  }
 }
