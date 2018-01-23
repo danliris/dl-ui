@@ -41,8 +41,7 @@
                 value.bind="data.operator"
                 error.bind="error.operator" 
                 read-only.bind="options.readOnly" 
-                options.bind="controlOptions"
-                step.bind="dataChange">
+                options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
@@ -50,20 +49,19 @@
                 value.bind="data.AH"
                 error.bind="error.AH" 
                 read-only.bind="options.readOnly" 
-                options.bind="controlOptions"
-                step.bind="dataChange">
+                options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.ahTotal"
+                value.bind="dataAhTotal"
                 read-only="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.availableAH"
+                value.bind="dataAvailableAH"
                 read-only="true"
                 options.bind="controlOptions">
             </au-numeric>

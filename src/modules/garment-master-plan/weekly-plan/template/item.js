@@ -14,8 +14,13 @@ export class Item {
     }
   };
  
-  get dataChange() {
-    this.data.ahTotal = this.data.operator * this.data.AH;
+  get dataAhTotal() {
+    this.data.ahTotal = this.data.operator * this.data.AH
+    return this.data.ahTotal;
+  }
+
+  get dataAvailableAH() {
     this.data.availableAH = this.data.ahTotal - this.data.usedAH;
+    return this.data.availableAH;
   }
 }
