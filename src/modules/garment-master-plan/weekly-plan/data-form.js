@@ -52,7 +52,7 @@ export class DataForm {
             { header: "Total Operator", value: "operator" },
             { header: "AH per Operator", value: "AH" },
             { header: "Total AH", value: "ahTotal" },
-            { header: "Available AH", value: "availableAH" },
+            { header: "Remaining AH", value: "remainingAH" },
             { header: "Used AH", value: "usedAH" },
         ];
         if (this.data && this.data._id && this.data.unitId) {
@@ -202,7 +202,7 @@ export class DataForm {
                         operator: 0,
                         AH: 0,
                         ahTotal: 0,
-                        availableAH: 0,
+                        remainingAH: 0,
                         usedAH: 0,
                     })
                 }

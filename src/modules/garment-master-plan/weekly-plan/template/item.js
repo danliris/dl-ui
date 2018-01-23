@@ -19,8 +19,8 @@ export class Item {
     return this.data.ahTotal;
   }
 
-  get dataAvailableAH() {
-    this.data.availableAH = this.data.ahTotal - this.data.usedAH;
-    return this.data.availableAH;
+  get dataRemainingAH() {
+    this.data.remainingAH = this.data.ahTotal - this.data.usedAH;
+    return this.data.remainingAH;
   }
 }
