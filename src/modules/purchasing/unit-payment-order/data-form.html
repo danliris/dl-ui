@@ -103,13 +103,20 @@
                     options.bind="controlOptions">
                 </au-datepicker>
           
-                <au-datepicker 
+                <au-textbox 
+                    label="No. PIB" 
+                    value.bind="data.pibNo" 
+                    error.bind="error.pibNono" 
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-textbox>
+                <!--<au-datepicker 
                     label="Tanggal Jatuh Tempo" 
                     value.bind="data.dueDate" 
                     error.bind="error.dueDate" 
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
-                </au-datepicker>
+                </au-datepicker>-->
                         
                 <au-multiline 
                     label="Keterangan" 
