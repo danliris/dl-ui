@@ -39,8 +39,9 @@ export class View {
     dailyOperations = [];
     productionOrders = [];
     async activate(params) {
-        this.orderNo = params.id;
-        this.data = await this.service.getDetailReport(this.orderNo);
+        this.orderNo = params.id ? decodeURIComponent(params.id) : "-";
+        // this.orderNo = params.id;
+        this.data = await this.service.getDetailReport(params.id);
         this.productionOrders = this.data.productionOrders;
         this.dailyOperations = this.data.dailyOperations;
         this.qualityControls = this.data.qualityControls;
