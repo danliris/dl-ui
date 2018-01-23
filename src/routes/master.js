@@ -462,5 +462,33 @@ module.exports = [
         }
     },
 
+    {
+        route: 'order-type',
+        name: 'order-type',
+        moduleId: './modules/master/order-type/index',
+        nav: true,
+        title: 'Jenis Order',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'process-type',
+        name: 'process-type',
+        moduleId: './modules/master/process-type/index',
+        nav: true,
+        title: 'Jenis Proses',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
 ] 
 

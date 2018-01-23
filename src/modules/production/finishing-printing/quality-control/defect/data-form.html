@@ -51,7 +51,8 @@
           <button slot="toolbar" class="btn btn-success" click.delegate="__fabricGradeTestCreateCallback()" if.bind="selectedKanban && !readOnly">Tambah Kain</button>
         </au-table>
 
-        <au-table data.bind="testo" columns.bind="testoColumns" view-model.ref="totalTable" options.bind="tableOptions" show.bind="fabricGradeTestLoader">
+        <au-table with.bind="_this" data.bind="testo" columns.bind="testoColumns" view-model.ref="totalTable" options.bind="tableOptions"
+          show.bind="fabricGradeTestLoader">
         </au-table>
       </div>
       <div class="col-md-6" if.bind="selectedFabricGradeTest">
