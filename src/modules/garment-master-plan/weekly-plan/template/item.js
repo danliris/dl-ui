@@ -15,7 +15,7 @@ export class Item {
   };
  
   get dataAhTotal() {
-    this.data.ahTotal = this.data.operator * this.data.AH
+    this.data.ahTotal = this.data.operator * this.data.AH;
     return this.data.ahTotal;
   }
 
