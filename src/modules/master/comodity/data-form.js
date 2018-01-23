@@ -19,7 +19,7 @@ export class DataForm {
         editText: "Ubah",
     }
     
-    detailColumns = [{header: "Konstruksi Material"}];
+    detailColumns = [{header: "Komoditas"}];
    
 
     constructor(service, bindingEngine) {

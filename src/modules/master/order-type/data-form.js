@@ -19,8 +19,8 @@ export class DataForm {
         editText: "Ubah",
     }
     
-    detailColumns = [{header: "Konstruksi Material"}];
-   
+    detailColumns = [{header: "Jenis Order"},{header: "Keterangan"}];
+    
 
     constructor(service, bindingEngine) {
         this.service = service;
