@@ -18,6 +18,7 @@ export class DataForm {
     keywords = ''
     @bindable kurs = {};
 
+
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['FREE', 'CASH', 'T/T AFTER', 'T/T BEFORE'];
@@ -142,6 +143,7 @@ export class DataForm {
     }
 
     async selectedCurrencyChanged(newValue) {
+        this.data.items=[];
         var _selectedCurrency = newValue;
         if (_selectedCurrency) {
             if (_selectedCurrency._id) {

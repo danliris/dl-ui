@@ -15,16 +15,16 @@ export class DetailFooter {
   }
 
   get currency() {
-    var currency=[];
-    if(this.context.items.length>0){
+    var currency = [];
+    if (this.context.items.length > 0) {
       currency = this.context.items
-      .map((item) => item.data.currency.code);
-        return currency
-      .reduce((prev, curr, index) => { return curr });
-      }
-      else{
-        return currency;
-      }
-    
+        .map((item) => item.data.currency.code);
+      return currency
+        .reduce((prev, curr, index) => { return curr });
+    }
+    else {
+      return currency;
+    }
+
   }
 }

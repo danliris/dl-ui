@@ -1,7 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 var StorageLoader = require('../../../loader/storage-loader');
-
 var PackingUnacceptedLoader = require('../../../loader/packing-unaccepted-loader');
 
 export class DataForm {
@@ -59,6 +58,7 @@ export class DataForm {
                 _item.notes = item.notes;
                 _items.push(_item);
             })
+
             this.data.items = _items;
         }
         else {
@@ -68,7 +68,7 @@ export class DataForm {
             this.data.storageName = "";
         }
     }
-    
+
     storageView = (storage) => {
         return `${storage.unit.name} - ${storage.name}`
     }

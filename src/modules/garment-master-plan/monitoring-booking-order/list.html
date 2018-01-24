@@ -73,6 +73,7 @@
                         <td>Komoditi</td>
                         <td>Jumlah Confirm</td>
                         <td>Tanggal Pengiriman(confirm)</td>
+                        <td>Tanggal Confirm</td>
                         <td>Keterangan</td>
                         <td>Status Confirm</td>
                         <td>Status Booking Order</td>    
@@ -86,10 +87,11 @@
                         <td class="text-left">${item.bookingDate | dateFormat:'DD MMMM YYYY'}</td>
                         <td class="text-left">${item.buyer}</td>
                          <td class="text-right">${item.totalOrderQty}</td>
-                        <td class="text-left">${item.deliveryDateConfirm}</td>
+                        <td class="text-left">${item.deliveryDateBooking}</td>
                         <td class="text-left">${item.comodity}</td>
                         <td class="text-right">${item.orderQty}</td>
-                        <td class="text-left">${item.deliveryDateBooking}</td>
+                        <td class="text-left">${item.deliveryDateConfirm}</td>
+                        <td class="text-left">${item.confirmDate}</td>
                         <td class="text-left">${item.remark}</td>
                         <td class="text-left">${item.confirmState}</td>
                         <td class="text-left">${item.bookingOrderState}</td>

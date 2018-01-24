@@ -4,7 +4,7 @@ import { Service } from './service';
 import moment from 'moment';
 
 @inject(Router, Service)
-export class List {
+export class Detail {
     constructor(router, service) {
 
         this.service = service;

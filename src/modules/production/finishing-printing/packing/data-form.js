@@ -12,6 +12,7 @@ export class DataForm {
     @bindable readOnly;
     @bindable data;
     @bindable error;
+    // @bindable items;
 
 
     constructor(service, bindingSignaler, bindingEngine) {
@@ -51,9 +52,12 @@ export class DataForm {
             this.selectedMaterialConstructionFinish = await this.service.getMaterialConstructionById(materialConstructionId, this.materialConstructionFields);
         }
     }
+
+
     errorChanged() {
         console.log(this.error)
     }
+
 
     itemColumns = ["Lot", "Grade", "Kuantitas", "Berat Satuan", "Berat Total", "Panjang Satuan", "Panjang Total", "Remark"];
     packingUomOptions = ["", "ROLL", "PCS", "POT", "SETS", "SLP", "BDL", "KRG", "LBR"];

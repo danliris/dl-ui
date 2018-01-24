@@ -23,6 +23,13 @@ export class DataForm {
         }
     }
 
+    total = {
+        initLength: 0,
+        width: 0,
+        aval: 0,
+        sample: 0,
+    }
+
     @bindable title;
     @bindable readOnly;
     @bindable data;
@@ -71,6 +78,55 @@ export class DataForm {
             this.selectedKanban = await this.service.getKanbanById(kanbanId, this.kanbanFields);
         }
     }
+
+    testo = (info) => {
+        var count = this.data.fabricGradeTests.count
+        var data = this.data.fabricGradeTests;
+        var result = [];
+
+        var grandTotal = {};
+        grandTotal.grade = "Grand Total";
+        grandTotal.initLength = 0;
+        grandTotal.aval = 0;
+        grandTotal.sample = 0;
+        data.reduce(function (res, value) {
+            let grade = value.grade;
+            if (!res[grade]) {
+                res[grade] = {
+                    grade: grade,
+                    initLength: 0,
+                    width: 0,
+                    aval: 0,
+                    sample: 0,
+                };
+                result.push(res[grade])
+            }
+            res[grade].initLength += value.initLength;
+            res[grade].width += value.width;
+            res[grade].aval += value.avalLength;
+            res[grade].sample += value.sampleLength;
+
+            grandTotal.initLength += value.initLength;
+            grandTotal.aval += value.avalLength;
+            grandTotal.sample += value.sampleLength;
+            return res;
+        }, {});
+
+        result.push(grandTotal);
+
+        return {
+            // total: count,
+            data: result
+        };
+    }
+
+    testoColumns = [
+        { field: "grade", title: "Grade" },
+        { field: "initLength", title: "Total Panjang (Meter)" },
+        { field: "aval", title: "Total Aval (Meter)" },
+        { field: "sample", title: "Total Sample (Meter)" },
+    ]
+
     errorChanged() {
         if (this.error && this.error.fabricGradeTests) {
             var index = this.data.fabricGradeTests.indexOf(this.selectedFabricGradeTest);
@@ -174,12 +230,14 @@ export class DataForm {
             return;
         this.selectedFabricGradeTest.avalLength = this.selectedAvalLength;
         this.computeGrade(this.selectedFabricGradeTest);
+        this.totalTable.refresh();
     }
     selectedSampleLengthChanged() {
         if (!this.selectedFabricGradeTest)
             return;
         this.selectedFabricGradeTest.sampleLength = this.selectedSampleLength;
         this.computeGrade(this.selectedFabricGradeTest);
+        this.totalTable.refresh();
     }
     selectedPointSystemChanged() {
         if (this.selectedPointSystem === 10) {
@@ -240,6 +298,7 @@ export class DataForm {
         fabricGradeTest.finalArea = this.data.pointSystem === 4 ? finalArea : 0;
         fabricGradeTest.finalScore = this.data.pointSystem === 10 ? finalScoreTS.toFixed(2) : finalScoreFS.toFixed(2);
         fabricGradeTest.grade = grade;
+        this.totalTable.refresh();
     }
     colChanged(newValue, oldValue) {
         if (!this.selectedFabricGradeTest)
@@ -250,6 +309,7 @@ export class DataForm {
         if (this.selectedFabricGradeTest) {
             this.selectedFabricGradeTest.pcsNo = this.selectedPcsNo;
             this.fabricGradeTestTable.refresh();
+            this.totalTable.refresh();
         }
     }
     selectedPcsLengthChanged() {
@@ -257,6 +317,7 @@ export class DataForm {
             this.selectedFabricGradeTest.initLength = this.selectedPcsLength;
             this.computeGrade(this.selectedFabricGradeTest);
             this.fabricGradeTestTable.refresh();
+            this.totalTable.refresh();
         }
     }
     selectedPcsWidthChanged() {
@@ -264,6 +325,7 @@ export class DataForm {
             this.selectedFabricGradeTest.width = this.selectedPcsWidth;
             this.computeGrade(this.selectedFabricGradeTest);
             this.fabricGradeTestTable.refresh();
+            this.totalTable.refresh();
         }
     }
 
@@ -275,6 +337,7 @@ export class DataForm {
     ];
     fabricGradeTestContextMenu = ["Hapus"];
     fabricGradeTestTable;
+    totalTable;
 
     __fabricGradeTestContextMenuCallback(event) {
         var arg = event.detail;
@@ -284,6 +347,7 @@ export class DataForm {
                 this.data.fabricGradeTests.splice(this.data.fabricGradeTests.indexOf(data), 1);
                 this.selectedFabricGradeTest = this.data.fabricGradeTests[0];
                 this.fabricGradeTestTable.refresh();
+                this.totalTable.refresh();
                 break;
         }
     }
@@ -314,6 +378,7 @@ export class DataForm {
 
                         this.data.fabricGradeTests.forEach(fabricGradeTest => this.computeGrade(fabricGradeTest));
                         this.fabricGradeTestTable.refresh();
+                        this.totalTable.refresh();
                     }
                 });
     }

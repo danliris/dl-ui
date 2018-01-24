@@ -402,6 +402,93 @@ module.exports = [
             permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+
+    {
+        route: 'yarn-material',
+        name: 'yarn-material',
+        moduleId: './modules/master/yarn-material/index',
+        nav: true,
+        title: 'Nomor Benang Material',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+
+    {
+        route: 'material-construction',
+        name: 'material-construction',
+        moduleId: './modules/master/material-construction/index',
+        nav: true,
+        title: 'Konstruksi Material',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+
+        route: 'term-of-payment',
+        name: 'term-of-payment',
+        moduleId: './modules/master/term-of-payment/index',
+        nav: true,
+        title: 'Term of Payment',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'comodity',
+        name: 'comodity',
+        moduleId: './modules/master/comodity/index',
+        nav: true,
+        title: 'Komoditas',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'order-type',
+        name: 'order-type',
+        moduleId: './modules/master/order-type/index',
+        nav: true,
+        title: 'Jenis Order',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: 'process-type',
+        name: 'process-type',
+        moduleId: './modules/master/process-type/index',
+        nav: true,
+        title: 'Jenis Proses',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 
 ] 
+
