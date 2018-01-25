@@ -8,7 +8,7 @@
             <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
         </div>
             
-        <au-autocomplete 
+        <!-- <au-autocomplete 
             value.bind="selectedStyle" 
             error.bind="error.style"
             label="Style" 
@@ -16,6 +16,30 @@
             text.bind = "styleView"
             placeholder="Cari Style" 
             key="_id" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete> -->
+
+        <au-autocomplete 
+            value.bind="selectedBuyer" 
+            error.bind="error.buyer"
+            label="Buyer" 
+            loader.one-time="buyerLoader"
+            text.bind = "buyerView"
+            placeholder="Pilih Buyer" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="selectedComodity" 
+            error.bind="error.comodity"                                                                                                                                                                                                                                                                                                               
+            label="Comodity" 
+            loader.one-time="comodityLoader"
+            text.bind = "comodityView"
+            placeholder="Pilih Comodity" 
+            key="code" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-autocomplete>
@@ -29,7 +53,7 @@
         </au-datepicker> 
 
         <au-numeric  
-            label="SH Cutting (Menit)" 
+            label="Standard Minute Value Cutting" 
             value.bind="data.shCutting"
             error.bind="error.shCutting"
             read-only.bind="readOnly"
@@ -37,16 +61,16 @@
             format="0">
         </au-numeric>
 
-        <au-numeric  
+        <!-- <au-numeric  
             label="(Jam)" 
             value.bind="hourCutting"
             read-only.bind="true"
             options.bind="controlOptions2"
             format="0.0">
-        </au-numeric>
+        </au-numeric> -->
 
         <au-numeric  
-            label="SH Sewing (Menit)" 
+            label="Standard Minute Value Sewing" 
             value.bind="data.shSewing"
             error.bind="error.shSewing"
             read-only.bind="readOnly"
@@ -54,16 +78,16 @@
             format="0">
         </au-numeric>
         
-        <au-numeric  
+        <!-- <au-numeric  
             label="(Jam)" 
             value.bind="hourSewing"
             read-only.bind="true"
             options.bind="controlOptions2"
             format="0.0">
-        </au-numeric>
+        </au-numeric> -->
         
         <au-numeric  
-            label="SH Finishing (Menit)" 
+            label="Standard Minute Value Finishing" 
             value.bind="data.shFinishing"
             error.bind="error.shFinishing"
             read-only.bind="readOnly"
@@ -71,29 +95,29 @@
             format="0">
         </au-numeric>
         
-        <au-numeric  
+        <!-- <au-numeric  
             label="(Jam)" 
             value.bind="hourFinishing"
             read-only.bind="true"
             options.bind="controlOptions2"
             format="0.0">
-        </au-numeric>
+        </au-numeric> -->
         
-        <au-numeric  
+        <!-- <au-numeric  
             label="Total SH" 
             value.bind="getTotalSHMinute"
             read-only.bind="true"
             options.bind="controlOptions2"
             format="0">
-        </au-numeric>
+        </au-numeric> -->
         
-        <au-numeric  
+        <!-- <au-numeric  
             label="(Jam)" 
             value.bind="getTotalSHHour"
             read-only.bind="true"
             options.bind="controlOptions2"
             format="0">
-        </au-numeric>
+        </au-numeric> -->
 
     <!--<template replaceable part="actions"></template>-->
     </au-input-form>

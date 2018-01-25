@@ -2,7 +2,9 @@ import { bindable, inject, containerless, computedFrom, BindingEngine } from "au
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 var moment = require('moment');
-var StyleLoader = require('../../../loader/style-loader');
+// var StyleLoader = require('../../../loader/style-loader');
+var ComodityLoader = require('../../../loader/garment-master-plan-comodity-loader');
+var BuyerLoader = require('../../../loader/garment-buyers-loader')
 
 @containerless()
 @inject(Service, BindingSignaler, BindingEngine)
@@ -10,7 +12,11 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable title;
-    @bindable selectedStyle;
+    @bindable selectedBuyer;
+    @bindable selectedComodity;
+
+    buyerFields=["name", "code"];
+    comodityFields=["name", "code"];
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
@@ -40,9 +46,21 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        if (this.data && this.data._id && this.data.styleId) {
-            this.selectedStyle = this.data.style;
+        // if (this.data && this.data._id && this.data.styleId) {
+        //     this.selectedStyle = this.data.style;
+        // }
+
+        if (this.data.garmentBuyerId) {
+            this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
+            this.data.garmentBuyerId =this.selectedBuyer._id;
         }
+
+        if (this.data.masterplanComodityId) {
+            this.selectedComodity = await this.service.getComodityById(this.data.masterplanComodityId, this.comodityFields);
+            this.data.masterplanComodityId =this.selectedComodity._id;
+        }
+
+        
     }
 
     get hourCutting(){
@@ -90,20 +108,54 @@ export class DataForm {
         return hours;
     }
 
-    selectedStyleChanged(newValue) {
-        if (newValue) {
-            this.data.styleId = newValue._id;
-        }
-        else {
-            this.data.styleId = null;
+    // selectedStyleChanged(newValue) {
+    //     if (newValue) {
+    //         this.data.styleId = newValue._id;
+    //     }
+    //     else {
+    //         this.data.styleId = null;
+    //     }
+    // }
+
+    selectedBuyerChanged(newValue) {
+        var _selectedBuyer = newValue;
+        if (_selectedBuyer) {
+            this.data.buyer = _selectedBuyer;
+            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";
+            
         }
     }
 
-    styleView = (style) => {
-        return `${style.code} - ${style.name}`
+    selectedComodityChanged(newValue) {
+        var _selectedComodity = newValue;
+        if (_selectedComodity) {
+            this.data.comodity = _selectedComodity;
+            this.data.masterplanComodityId = _selectedComodity._id ? _selectedComodity._id : "";
+            
+        }
     }
 
-    get styleLoader() {
-        return StyleLoader;
+    // styleView = (style) => {
+    //     return `${style.code} - ${style.name}`
+    // }
+
+    buyerView = (buyer) => {
+        return `${buyer.code} - ${buyer.name}`
+    }
+
+    comodityView = (comodity) => {
+        return `${comodity.code} - ${comodity.name}`
+    }
+    
+    // get styleLoader() {
+    //     return StyleLoader;
+    // }
+
+    get comodityLoader() {
+        return ComodityLoader;
+    }
+
+    get buyerLoader() {
+        return BuyerLoader;
     }
 }
