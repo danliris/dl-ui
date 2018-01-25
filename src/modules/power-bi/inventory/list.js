@@ -8,7 +8,8 @@ export class List {
     data = [];
     listReport = [
         "Ketersediaan Barang",
-        "Perbandingan Stok In Out"
+        "Perbandingan Stok In Out",
+        "Pengiriman Gudang Jadi"
     ];
     constructor(router, service) {
         this.router = router;
