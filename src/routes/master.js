@@ -466,7 +466,7 @@ module.exports = [
         name: 'design-motives',
         moduleId: './modules/master/design-motives/index',
         nav: true,
-        title: 'Desain motif',
+        title: 'Desain Motif',
         auth: true,
         settings: {
             group: "master",
