@@ -102,6 +102,20 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: '/garment-master-plan/garment-section',
+        name: 'garment-section',
+        moduleId: './modules/garment-master-plan/garment-section/index',
+        nav: true,
+        title: 'Master Seksi',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
 
 ]
