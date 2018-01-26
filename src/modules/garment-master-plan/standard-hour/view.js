@@ -6,7 +6,7 @@ import { Service } from './service';
 @inject(Router, Service)
 export class View {
   hasCancel = true;
-  hasDelete = true;
+  // hasDelete = true;
 
   constructor(router, service) {
     this.router = router;

@@ -60,6 +60,9 @@ export class DataForm {
             this.data.masterplanComodityId =this.selectedComodity._id;
         }
 
+        if (!this.data.date) {
+            this.data.date = new Date();
+        }
         
     }
 
