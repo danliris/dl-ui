@@ -33,6 +33,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
         // var yearNow = (new Date()).getFullYear();
         // for(var a = 10; a>0;a--){
         //     yearColumns.push((yearNow - a));
@@ -41,20 +42,26 @@ export class DataForm {
         // for(var a = 1; a<=10;a++){
         //     yearColumns.push((yearNow + a));
         // }
-        this.itemColumns =  [
+
+        this.itemColumns = [
             { header: "Minggu ke-", value: "weekNumber" },
             { header: "Tanggal Mulai", value: "startDate" },
             { header: "Tanggal Selesai", value: "endDate" },
             { header: "Bulan", value: "monthName" },
             { header: "Effisiensi %", value: "efficiency" },
-            { header: "Total Operator", value: "operator" }
-        ] ;
+            { header: "Total Operator", value: "operator" },
+            { header: "AH per Operator", value: "AH" },
+            { header: "Total AH", value: "ahTotal" },
+            { header: "Remaining AH", value: "remainingAH" },
+            { header: "Used AH", value: "usedAH" },
+        ];
         if (this.data && this.data._id && this.data.unitId) {
-            for(var item of this.data.items){
+            for (var item of this.data.items) {
                 item["monthName"] = this.getMonthName(item.month);
             }
             this.selectedUnit = this.data.unit;
             this.yearSelected = this.data.year;
+
             // yearColumns = [];
             // yearColumns.push(this.data.year);
         }
@@ -62,15 +69,15 @@ export class DataForm {
 
     // yearColumns = [] 
 
-    get isYear(){
+    get isYear() {
         var current_year = (new Date()).getFullYear() + 10;
         var last_year = (new Date()).getFullYear() - 10;
         return this.data && this.data.year && this.data.year >= last_year && this.data.year <= current_year;
     }
 
-    getMonthName(month){
+    getMonthName(month) {
         var monthName = '';
-        switch(month){
+        switch (month) {
             case 0:
                 monthName = "Januari";
                 break;
@@ -111,70 +118,80 @@ export class DataForm {
         return monthName;
     }
 
-//    yearChanged(e){
-//         var selectedYear=e.srcElement.value;
-//         if(selectedYear){
-//             var startDateOfYear = new Date(`${this.data.year}-01-01`);
-//             var endDateOfYear = new Date(`${this.data.year}-12-31`);
-//             var totalWeek = Math.ceil((((endDateOfYear - startDateOfYear) / 86400000) + 1)/7);
-//             for (var i = 1; i <= totalWeek; i++){
-//                 var startDate = moment().year(this.data.year).day("Monday").week(i).toDate();
-//                 var endDate = moment().year(this.data.year).day("Friday").week(i).toDate();
-//                 this.data.items.push({
-//                     weekNumber: i,
-//                     startDate: startDate,
-//                     endDate: endDate,
-//                     month: startDate.getMonth(),
-//                     monthName: this.getMonthName(startDate.getMonth()),
-//                     efficiency : 0,
-//                     operator : 0
-//                 })
-//             }
-//         }
-//     }
+    //    yearChanged(e){
+    //         var selectedYear=e.srcElement.value;
+    //         if(selectedYear){
+    //             var startDateOfYear = new Date(`${this.data.year}-01-01`);
+    //             var endDateOfYear = new Date(`${this.data.year}-12-31`);
+    //             var totalWeek = Math.ceil((((endDateOfYear - startDateOfYear) / 86400000) + 1)/7);
+    //             for (var i = 1; i <= totalWeek; i++){
+    //                 var startDate = moment().year(this.data.year).day("Monday").week(i).toDate();
+    //                 var endDate = moment().year(this.data.year).day("Friday").week(i).toDate();
+    //                 this.data.items.push({
+    //                     weekNumber: i,
+    //                     startDate: startDate,
+    //                     endDate: endDate,
+    //                     month: startDate.getMonth(),
+    //                     monthName: this.getMonthName(startDate.getMonth()),
+    //                     efficiency : 0,
+    //                     operator : 0
+    //                 })
+    //             }
+    //         }
+    //     }
 
-//     get dataDetail(){
-//         this.data.items = this.data.items || [];
-//         if(this.data && this.data.year){
-//             var efficiency = this.data.items[0].efficiency;
-//             var operator = this.data.items[0].operator;
-//             // console.log(this.data.items[efficiency])
-//             for (var i = 1; i < this.data.items.length; i++){
-//                 if(this.data.items[i].efficiency == 0 && efficiency != 0)
-//                     this.data.items[i].efficiency = efficiency;
-//                 if(this.data.items[i].operator == 0 && operator != 0)
-//                     this.data.items[i].operator = operator;
-//             }
-//         }
-//         return this.data.items;
-//     }
+    //     get dataDetail(){
+    //         this.data.items = this.data.items || [];
+    //         if(this.data && this.data.year){
+    //             var efficiency = this.data.items[0].efficiency;
+    //             var operator = this.data.items[0].operator;
+    //             // console.log(this.data.items[efficiency])
+    //             for (var i = 1; i < this.data.items.length; i++){
+    //                 if(this.data.items[i].efficiency == 0 && efficiency != 0)
+    //                     this.data.items[i].efficiency = efficiency;
+    //                 if(this.data.items[i].operator == 0 && operator != 0)
+    //                     this.data.items[i].operator = operator;
+    //             }
+    //         }
+    //         return this.data.items;
+    //     }
 
     yearSelected = 0;
-    get dataDetail(){
+    get dataDetail() {
         this.data.items = this.data.items || [];
-        var current_year = (new Date()).getFullYear() + 10;
-        var last_year = (new Date()).getFullYear() - 10;
-        if(this.data && this.data.year && this.data.year > 0 && this.data.year >= last_year && this.data.year <= current_year){
-            if(this.yearSelected !== this.data.year){
+
+        // batas maksimal tahun
+        var max_year = (new Date()).getFullYear() + 10;
+        // batas minimal tahun
+        var min_year = (new Date()).getFullYear() - 10;
+
+        if (this.data && this.data.year && this.data.year > 0 && this.data.year >= min_year && this.data.year <= max_year) {
+
+            // hapus error jikan ada error out of range year sebellum di submit
+            if (this.error)
+                this.error.year = null;
+
+            if (this.yearSelected !== this.data.year) {
                 this.yearSelected = this.data.year;
-                if(this.data && this.data.items && this.data.items.length > 0){
+                if (this.data && this.data.items && this.data.items.length > 0) {
                     var count = this.data.items.length;
-                    for(var a = count; a >= 0; a--){
-                        this.data.items.splice((a-1), 1);
+                    for (var a = count; a >= 0; a--) {
+                        this.data.items.splice((a - 1), 1);
                     }
                 }
-                
+
                 var startDateOfYear = new Date(`${this.data.year}-01-01`);
                 var endDateOfYear = new Date(`${this.data.year}-12-31`);
                 var isSameYear = (moment().year(this.data.year).day("Monday").week(1).toDate()).getFullYear() === this.data.year ? true : false;
-                var totalWeek = Math.ceil((((endDateOfYear - startDateOfYear) / 86400000) + 1)/7);
+                var totalWeek = Math.ceil((((endDateOfYear - startDateOfYear) / 86400000) + 1) / 7);
                 // if(!isSameYear)
                 //     totalWeek -= 1;
-                for (var i = 1; i <= totalWeek; i++){
+                for (var i = 1; i <= totalWeek; i++) {
                     //var startDate = moment().year(this.data.year).day("Monday").week(isSameYear ? i : (i+1)).toDate();
-                   /// var endDate = moment().year(this.data.year).day("Friday").week(isSameYear ? i : (i+1)).toDate();
-                   var startDate =i==1?new Date(`${this.data.year}-01-01`):moment().year(this.data.year).day("Monday").week((i)).toDate();
-                   var endDate =i==totalWeek? new Date(`${this.data.year}-12-31`): moment().year(this.data.year).day("Friday").week((i)).toDate();
+                    /// var endDate = moment().year(this.data.year).day("Friday").week(isSameYear ? i : (i+1)).toDate();
+
+                    var startDate = i == 1 ? new Date(`${this.data.year}-01-01`) : moment().year(this.data.year).day("Monday").week((i)).toDate();
+                    var endDate = i == totalWeek ? new Date(`${this.data.year}-12-31`) : moment().year(this.data.year).day("Friday").week((i)).toDate();
                     this.data.items.push({
                         weekNumber: i,
                         startDate: startDate,
@@ -182,32 +199,39 @@ export class DataForm {
                         month: startDate.getMonth(),
                         monthName: this.getMonthName(startDate.getMonth()),
                         efficiency : 0,
-                        operator : 0
+                        operator: 0,
+                        AH: 0,
+                        ahTotal: 0,
+                        remainingAH: 0,
+                        usedAH: 0,
                     })
                 }
-            }else{
+            } else {
                 var efficiency = this.data.items[0].efficiency;
                 var operator = this.data.items[0].operator;
-                // console.log(this.data.items[efficiency])
-                for (var i = 1; i < this.data.items.length; i++){
+                var AH = this.data.items[0].AH;
+
+                for (var i = 1; i < this.data.items.length; i++) {
                     if(this.data.items[i].efficiency == 0 && efficiency != 0)
                         this.data.items[i].efficiency = efficiency;
-                    if(this.data.items[i].operator == 0 && operator != 0)
+                    if (this.data.items[i].operator == 0 && operator != 0)
                         this.data.items[i].operator = operator;
+                    if (this.data.items[i].AH == 0 && AH != 0)
+                        this.data.items[i].AH = AH;
                 }
             }
-        }else{
+        } else {
             this.yearSelected = 0;
-            if (this.data && this.data.year && this.data.year < last_year) {
+            if (this.data && this.data.year && this.data.year < min_year) {
                 this.error.year = "Year is out of range year";
             }
-            if (this.data && this.data.year && this.data.year > current_year){
+            if (this.data && this.data.year && this.data.year > max_year) {
                 this.error.year = "Year is out of range year";
             }
-            if(this.data && this.data.items && this.data.items.length > 0){
+            if (this.data && this.data.items && this.data.items.length > 0) {
                 var count = this.data.items.length;
-                for(var a = count; a >= 0; a--){
-                    this.data.items.splice((a-1), 1);
+                for (var a = count; a >= 0; a--) {
+                    this.data.items.splice((a - 1), 1);
                 }
             }
         }

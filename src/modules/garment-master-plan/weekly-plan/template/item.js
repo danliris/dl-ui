@@ -13,5 +13,22 @@ export class Item {
       length: 12
     }
   };
-  
+ 
+  get dataAhTotal() {
+    this.data.ahTotal = this.data.operator * this.data.AH;
+    return this.data.ahTotal;
+  }
+
+  set dataAhTotal(value) {
+    this.data.ahTotal = value;
+  }
+
+  get dataRemainingAH() {
+    this.data.remainingAH = this.data.ahTotal - this.data.usedAH;
+    return this.data.remainingAH;
+  }
+
+  set dataRemainingAH(value) {
+    this.data.remainingAH = value;
+  }
 }

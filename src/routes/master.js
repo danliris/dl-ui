@@ -461,7 +461,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-
+    {
+        route: 'design-motives',
+        name: 'design-motives',
+        moduleId: './modules/master/design-motives/index',
+        nav: true,
+        title: 'Desain Motif',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'order-type',
         name: 'order-type',
