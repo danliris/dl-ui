@@ -124,8 +124,9 @@ export class DataForm {
         var _selectedBuyer = newValue;
         if (_selectedBuyer) {
             this.data.buyer = _selectedBuyer;
-            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";
-            
+            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";   
+        }else{
+            delete this.data.garmentBuyerId;
         }
     }
 
@@ -134,7 +135,8 @@ export class DataForm {
         if (_selectedComodity) {
             this.data.comodity = _selectedComodity;
             this.data.masterplanComodityId = _selectedComodity._id ? _selectedComodity._id : "";
-            
+        }else{
+            delete this.data.masterplanComodityId;
         }
     }
 
