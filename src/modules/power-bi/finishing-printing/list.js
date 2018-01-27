@@ -10,6 +10,7 @@ export class List {
         "Top Ten Event Monitoring",
         "Kapasitas Mesin vs Kuantiti Kanban vs Kuantiti Output Produksi",
         "Perbandingan Hasil QC",
+        "Progres Lot Warna",
         "Top Ten Defect",
         "Good Output vs Bad Output All",
         "Good Output vs Bad Output Per Jenis Order",
