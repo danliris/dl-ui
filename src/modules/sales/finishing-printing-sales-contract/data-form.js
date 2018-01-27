@@ -281,7 +281,7 @@ export class DataForm {
         currency: this.data.accountBank.currency,
         color: '',
         price: 0,
-        UseIncomeTax: false
+        useIncomeTax: false
       };
       this.data.details.push(newDetail);
     };
