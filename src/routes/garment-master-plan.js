@@ -64,19 +64,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: '/garment-master-plan/standard-hour',
-    //     name: 'standard-hour',
-    //     moduleId: './modules/garment-master-plan/standard-hour/index',
-    //     nav: true,
-    //     title: 'Standard Hour',
-    //     auth: true,
-    //     settings: {
-    //         group: "g-master-plan",
-    //         permission: { "C5": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
+    {
+        route: '/garment-master-plan/standard-minute-value',
+        name: 'standard-hour',
+        moduleId: './modules/garment-master-plan/standard-hour/index',
+        nav: true,
+        title: 'Standard Minute Value',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: '/garment-master-plan/master-plan-comodity',
         name: 'master-plan-comodity',
