@@ -390,7 +390,8 @@
       columns.bind="detailHeader"
       item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item"
       footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer"
-      add.bind="addDetail">
+      add.bind="addDetailTax"
+      view-model.ref="FPCollectionTax">
     </au-collection>
 
     <au-collection
@@ -401,7 +402,8 @@
       columns.bind="detailHeader"
       item-template="modules/sales/finishing-printing-sales-contract/templates/detail-item-noTax"
       footer-template="modules/sales/finishing-printing-sales-contract/templates/detail-footer"
-      add.bind="addDetail">
+      add.bind="addDetail"
+      view-model.ref="FPCollection">
     </au-collection>
 
     <!-- <div if.bind="error.details.toString()">
