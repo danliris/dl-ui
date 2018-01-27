@@ -211,6 +211,7 @@ export class List {
     }
 
     reset() {
+        this.error = undefined;
         this.area = this.areaList[0];
         this.selectedMachine = {};
         this.dateFrom = undefined;
