@@ -5,7 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'standard-hours';
+const serviceUri = 'garment-sections';
 
 export class Service extends RestService {
 
@@ -28,30 +28,13 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
+    update(data) {
+        var endpoint = `${serviceUri}/${data._id}`;
+        return super.put(endpoint, data);
+    }
+
     delete(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
-    }
-
-    getBuyerById(id, select) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/garment-buyers/${id}`;
-
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
-    }
-
-    getComodityById(id, select) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-master-plan");
-        var _serviceUri = `master-plan-comodities/${id}`;
-
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
     }
 }
