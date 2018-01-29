@@ -65,7 +65,18 @@ export class Service extends RestService {
             });
     }
 
-    getStyleById(id, select) {
+    getSectionById(id, select) {
+      var config = Container.instance.get(Config);
+      var _endpoint = config.getEndpoint("garment-master-plan");
+      var _serviceUri = `garment-sections/${id}`;
+
+      return _endpoint.find(_serviceUri)
+          .then(result => {
+              return result.data;
+          });
+  }
+
+  getStyleById(id, select) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("garment-master-plan");
         var _serviceUri = `styles/${id}`;

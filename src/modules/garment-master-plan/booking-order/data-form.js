@@ -1,6 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
+var SectionLoader = require('../../../loader/garment-sections-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -10,7 +11,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable selectedBuyer;
-    @bindable selectedStyle;
+    @bindable selectedSection;
 
     controlOptions = {
         label: {
@@ -24,6 +25,7 @@ export class DataForm {
    // detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
 
     buyerFields=["name", "code"];
+    sectionFields=["name", "code"];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -38,6 +40,8 @@ export class DataForm {
         if (this.data.garmentBuyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
             this.data.garmentBuyerId =this.selectedBuyer._id;
+            this.selectedSection = await this.service.getSectionById(this.data.garmentSectionId, this.sectionFields);
+            this.data.garmentSectionId =this.selectedSection._id;
         }
     }
 
@@ -55,9 +59,21 @@ export class DataForm {
         }
     }
 
+    selectedSectionChanged(newValue) {
+        var _selectedSection = newValue;
+        if (_selectedSection) {
+            this.data.section = _selectedSection;
+            this.data.garmentSectionId = _selectedSection._id ? _selectedSection._id : "";
+            
+        }
+    }
 
     get buyerLoader() {
         return BuyerLoader;
+    }
+
+    get sectionLoader() {
+        return SectionLoader;
     }
 
     get addItems() {
@@ -75,5 +91,9 @@ export class DataForm {
     buyerView = (buyer) => {
         return `${buyer.code} - ${buyer.name}`
     }
+
+    sectionView = (section) => {
+      return `${section.code} - ${section.name}`
+  }
 
 } 
