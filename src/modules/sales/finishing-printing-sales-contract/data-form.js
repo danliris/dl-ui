@@ -281,8 +281,22 @@ export class DataForm {
         currency: this.data.accountBank.currency,
         color: '',
         price: 0,
-        useIncomeTax: false
+        UseIncomeTax: false
       };
+      this.context.FPCollection.bind();
+      this.data.details.push(newDetail);
+    };
+  }
+
+  get addDetailTax() {
+    return (event) => {
+      var newDetail = {
+        currency: this.data.accountBank.currency,
+        color: '',
+        price: 0,
+        UseIncomeTax: false
+      };
+      this.context.FPCollectionTax.bind();
       this.data.details.push(newDetail);
     };
   }
