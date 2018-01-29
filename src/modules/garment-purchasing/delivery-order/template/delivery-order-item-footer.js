@@ -68,8 +68,8 @@ export class DetailFooter {
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
             var qty = item.data.fulfillments
-              .map((fulfillment) => parseInt(fulfillment.deliveredQuantity * fulfillment.pricePerDealUnit));
-            return qty
+              .map((fulfillment) =>((fulfillment.deliveredQuantity) * (fulfillment.pricePerDealUnit)));
+              return qty
               .reduce((prev, curr, index) => { return prev + curr }, 0);
           }
           else {
@@ -77,7 +77,8 @@ export class DetailFooter {
           }
         });
       return total
-        .reduce((prev, curr, index) => { return prev + curr }, 0);
+        .reduce((prev, curr, index) => { 
+          return prev + curr }, 0);
     }
     else {
       return 0
