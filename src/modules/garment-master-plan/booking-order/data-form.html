@@ -22,6 +22,18 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-autocomplete 
+            value.bind="selectedSection" 
+            error.bind="error.section"
+            label="Seksi" 
+            loader.bind="sectionLoader"
+            text.bind = "sectionView"
+            placeholder="cari seksi" 
+            key="code" 
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+        
         <au-datepicker 
             label="Tanggal Booking" 
             value.bind="data.bookingDate" 
