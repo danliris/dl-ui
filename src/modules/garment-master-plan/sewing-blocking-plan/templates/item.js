@@ -7,22 +7,51 @@ var weeklyLoader = require('../../../../loader/garment-master-plan-weekly-plan-l
 var weekLoader = require('../../../../loader/garment-master-plan-weekly-plan-by-year-loader');
 var MasterPlanComodityLoader = require('../../../../loader/garment-master-plan-comodity-loader');
 
+const resource = 'weekly-plans-by-year';
+const shResource='standard-hours-by-buyer-comodity'
 export class Item {
     @bindable selectedUnit;
     @bindable selectedWeeklyPlan;
     @bindable selectedWeek;
     @bindable selectedComodity;
   
-  activate(item) {
+  async activate(item) {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
+    this.buyerCode = item.context.options.buyerCode || "";
     if(this.data.unit)
       this.selectedUnit = this.data.unit;
     if(this.data.weeklyPlanYear)
       this.selectedWeeklyPlan = {year:this.data.weeklyPlanYear};
-    if(this.data.week)
-      this.selectedWeek = {items:this.data.week};
+    if(this.data.week){
+      //this.selectedWeek = {items:this.data.week};
+      var config = Container.instance.get(Config);
+      var endpoint = config.getEndpoint("garment-master-plan");
+      var filter={
+        year:this.data.weeklyPlanYear,
+        unit:this.data.unit.code,
+        weekNumber:this.data.week.weekNumber
+      }
+      await endpoint.find(resource, { filter: JSON.stringify(filter)})
+        .then((result) => {
+          this.selectedWeek =result.data[0];
+          this.data.week=this.selectedWeek.items;
+          if(this.data.week){
+            if(!this.data.efficiency){
+              this.data.efficiency= this.data.week.efficiency;
+            }
+            if(!this.data.ehBooking){
+              this.data.ehBooking= Math.round(((this.data.week.remainingAH*this.data.quantity)/60)/1000*100/this.data.efficiency);
+              this.data.sisaAH=this.data.week.remainingAH-this.data.ehBooking;
+            }
+            else{
+              this.data.sisaAH=this.data.week.remainingAH;
+            }
+            this.data.planWorkingHours=Math.round(this.data.ehBooking/this.data.week.operator);
+          }
+        });
+    }
     if(this.data.masterPlanComodityId)
       this.selectedComodity = this.data.masterPlanComodity;
   }
@@ -44,6 +73,7 @@ export class Item {
     }
     return yearFilter;
   }
+  
 
   @computedFrom("data.unit")
   get filterUnit(){
@@ -64,12 +94,13 @@ export class Item {
       }else{
         delete this.data.unitId;
         delete this.data.unit;
+        this.selectedWeeklyPlan = {};
+        this.selectedWeek = {};
       }
         delete this.data.weeklyPlanId;
         delete this.data.weeklyPlanYear;
         this.selectedWeeklyPlan = {};
         this.selectedWeek = {};
-      
   }
 
   selectedWeeklyPlanChanged(newValue){
@@ -78,28 +109,75 @@ export class Item {
         this.data.weeklyPlanYear = _selectedData.year;
         this.data.weeklyPlanId = _selectedData._id;
       }
+      else{
+        delete this.data.weeklyPlanId;
+        delete this.data.weeklyPlanYear;
+        this.selectedWeek = {};
+      }
+      var yearFilter={};
+      if(this.data.weeklyPlanYear && this.data.unit && this.data.unit.code){
+        yearFilter={
+          year:this.data.weeklyPlanYear,
+          unit:this.data.unit.code
+        }
+      }
         //delete this.data.weeklyPlanId;
         //delete this.data.weeklyPlanYear;
         this.selectedWeek = {};
-      
   }
 
   selectedWeekChanged(newValue){
       var _selectedData = newValue;
       if(_selectedData){
         this.data.week = _selectedData.items;
+        //this.selectedWeek=_selectedData.items;
+        if(this.data.week){
+          if(!this.data.efficiency){
+            this.data.efficiency= this.data.week.efficiency;
+          }
+          this.data.ehBooking= Math.round(((this.data.week.remainingAH*this.data.quantity)/60)/1000*100/this.data.efficiency);
+          this.data.sisaAH=this.data.week.remainingAH-this.data.ehBooking;
+          this.data.planWorkingHours=Math.round(this.data.ehBooking/this.data.week.operator);
+        }
       }else{
         delete this.data.week;
         this.selectedWeek = {};
       }
   }
 
-  selectedComodityChanged(newValue){
+  quantityChanged(e) {
+        if(this.data.quantity && this.data.week){
+          this.data.ehBooking= Math.round(((this.data.week.remainingAH*this.data.quantity)/60)/1000*100/this.data.efficiency);
+          this.data.sisaAH=this.data.week.remainingAH-this.data.ehBooking;
+          this.data.planWorkingHours=Math.round(this.data.ehBooking/this.data.week.operator);
+        }
+  }
+
+  efficiencyChanged(e){
+    if(this.data.quantity && this.data.week){
+          this.data.ehBooking= ((this.data.week.remainingAH*this.data.quantity)/60)/1000*100/this.data.efficiency;
+          this.data.sisaAH=this.data.week.remainingAH-this.data.ehBooking;
+          this.data.planWorkingHours=Math.round(this.data.ehBooking/this.data.week.operator);
+        }
+  }
+
+  async selectedComodityChanged(newValue){
       var _selectedData = newValue;
       if(_selectedData){
         this.data.masterPlanComodityId = _selectedData._id;
-      }else{
-        delete this.data.masterPlanComodityId;
+        this.data.masterPlanComodity=_selectedData;
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("garment-master-plan");
+        var filter={
+          buyerCode:this.buyerCode,
+          comodityCode:_selectedData.code
+        };
+        await endpoint.find(shResource, { filter: JSON.stringify(filter)})
+          .then((result) => {
+            if(result.data){
+              this.data.shSewing =result.data[0].firstSHSewing;
+            }
+          });
       }
   }
 

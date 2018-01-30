@@ -5,7 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'master-plans';
+const serviceUri = 'sewing-blocking-plans';
 
 export class Service extends RestService {
 
@@ -60,6 +60,17 @@ export class Service extends RestService {
             });
     }
 
+    getWeek(filter){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("garment-master-plan");
+        var _serviceUri = `weekly-plans-by-year`;
+
+        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter) })
+            .then(result => {
+                return result.data;
+            });
+    }
+
     getWorkingHour(){
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("garment-master-plan");
@@ -74,7 +85,7 @@ export class Service extends RestService {
     getPreview(month, year){
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("garment-master-plan");
-        var _serviceUri = `master-plan-previews`;
+        var _serviceUri = `sewing-blocking-plan-previews`;
 
         return _endpoint.find(_serviceUri, { month: month, year: year })
             .then(result => {
