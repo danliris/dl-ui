@@ -90,7 +90,7 @@ export class Service extends RestService {
     getMasterPlanByBookingOrderNo(no) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("garment-master-plan");
-        var _serviceUri = `master-plans-by-booking-order/${no}`;
+        var _serviceUri = `sewing-blocking-plans-by-booking-order/${no}`;
 
         return _endpoint.find(_serviceUri)
             .then(result => {
