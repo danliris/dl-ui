@@ -9,7 +9,6 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable title;
-    @bindable selectedBuyer;
     @bindable selectedStyle;
 
 

@@ -78,6 +78,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-master-plan/standard-minute-value',
+        name: 'standard-hour',
+        moduleId: './modules/garment-master-plan/standard-hour/index',
+        nav: true,
+        title: 'Standard Minute Value',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-master-plan/master-plan-comodity',
         name: 'master-plan-comodity',
         moduleId: './modules/garment-master-plan/master-plan-comodity/index',
@@ -102,6 +115,20 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: '/garment-master-plan/garment-section',
+        name: 'garment-section',
+        moduleId: './modules/garment-master-plan/garment-section/index',
+        nav: true,
+        title: 'Master Seksi',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
 
 ]

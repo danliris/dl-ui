@@ -36,7 +36,7 @@ export class List {
 
     // yearList = [new Date().getFullYear(), new Date().getFullYear() - 1, new Date().getFullYear() - 2];
 
-    areaList = ["Area Pre Treatment", "Area Printing", "Area Dyeing", "Area Finishing", "Area QC"];
+    areaList = ["All Area", "Area Pre Treatment", "Area Printing", "Area Dyeing", "Area Finishing", "Area QC"];
 
     searchStatus = false;
 
@@ -211,6 +211,7 @@ export class List {
     }
 
     reset() {
+        this.error = undefined;
         this.area = this.areaList[0];
         this.selectedMachine = {};
         this.dateFrom = undefined;
