@@ -71,7 +71,6 @@ export class DetailFooter {
       var total = this.context.items
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
-            debugger
             var qty = item.data.fulfillments
               .map((fulfillment) => parseFloat(((fulfillment.deliveredQuantity) * (fulfillment.pricePerDealUnit)).toFixed(2)));
             return qty
