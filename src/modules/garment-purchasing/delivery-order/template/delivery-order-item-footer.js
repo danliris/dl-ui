@@ -71,9 +71,10 @@ export class DetailFooter {
       var total = this.context.items
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
+            debugger
             var qty = item.data.fulfillments
-              .map((fulfillment) =>((fulfillment.deliveredQuantity) * (fulfillment.pricePerDealUnit)));
-              return qty
+              .map((fulfillment) => parseFloat(((fulfillment.deliveredQuantity) * (fulfillment.pricePerDealUnit)).toFixed(2)));
+            return qty
               .reduce((prev, curr, index) => { return prev + curr }, 0);
           }
           else {
@@ -81,8 +82,9 @@ export class DetailFooter {
           }
         });
       return total
-        .reduce((prev, curr, index) => { 
-          return prev + curr }, 0);
+        .reduce((prev, curr, index) => {
+          return prev + parseFloat(curr.toFixed(2))
+        }, 0);
     }
     else {
       return 0
