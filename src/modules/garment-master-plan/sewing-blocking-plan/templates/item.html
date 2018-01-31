@@ -23,6 +23,7 @@
             value.bind="data.shSewing" 
             error.bind="error.shSewing" 
             read-only="true" 
+            change.delegate="SMVChanged($event)"
             options.bind="controlOption">
         </numeric>
     </td>
@@ -67,6 +68,7 @@
             error.bind="error.week" 
             read-only="true"
             options.bind="controlOption"
+            change.delegate="AHChanged($event)"
             if.bind="selectedWeek">
         </au-numeric>
     </td>
