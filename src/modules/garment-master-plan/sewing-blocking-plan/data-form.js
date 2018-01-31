@@ -26,9 +26,15 @@ export class DataForm {
         }
     }
 
+    filterBookingOrder = {
+        "isMasterPlan":false,
+        "isCanceled":false
+    };
+
     months = ["Januari","Februari","Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     years = [];
     bookingItemColumns = [{ header: "Komoditi" },{ header: "Jumlah" },{header: "Keterangan"},{header: "Tanggal Pengiriman"}];
+    
     detailColumns = [
         { header: "Confirm" },
         { header: "Komoditi" },
@@ -63,8 +69,10 @@ export class DataForm {
         this.error = this.context.error;
         this.booking = this.context.booking;
         this.options.buyerCode = this.data.garmentBuyerCode;
-        if(this.data._id)
+        if(this.data._id){
             this.bookingCode = `${this.data.bookingOrderNo} - ${this.data.garmentBuyerName}`;
+            this.options._id=this.data._id;
+        }
         // if(this.data.details && this.data.details.length>0){
         //     for(var item of this.data.details){
         //         if(this.data.masterPlanComodityId)
@@ -128,14 +136,14 @@ export class DataForm {
         var nextYear = new Date(nextDate).getFullYear();
         var workingHour = this.service.getWorkingHour();
         var weeklyPlan = this.service.getWeeklyPlan({"year" : {"$in" :[this.preview.year, nextYear]}});
-        var preview = this.service.getPreview(month, this.preview.year);
+        var preview = this.service.getPreview(2018);
         await Promise.all([workingHour, weeklyPlan, preview])
             .then(result => {
                 var _workingHour = result[0];
                 var _weeklyPlan = result[1];
                 var _preview = result[2];
                 var datas=[];
-                console.log(result);
+                console.log(_preview);
                 return this.previewData=result;
             });
     }
