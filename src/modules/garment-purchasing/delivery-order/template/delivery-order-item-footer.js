@@ -28,16 +28,16 @@ export class DetailFooter {
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
             var qty = item.data.fulfillments
-              .map((fulfillment) => parseInt(fulfillment.purchaseOrderQuantity));
+              .map((fulfillment) => parseFloat(fulfillment.purchaseOrderQuantity.toFixed(2)));
             return qty
-              .reduce((prev, curr, index) => { return prev + curr }, 0);
+              .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
           }
           else {
             return 0
           }
         });
       return total
-        .reduce((prev, curr, index) => { return prev + curr }, 0);
+        .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
     }
     else {
       return 0
@@ -50,16 +50,16 @@ export class DetailFooter {
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
             var qty = item.data.fulfillments
-              .map((fulfillment) => parseInt(fulfillment.deliveredQuantity));
+              .map((fulfillment) => parseFloat(fulfillment.deliveredQuantity.toFixed(2)));
             return qty
-              .reduce((prev, curr, index) => { return prev + curr }, 0);
+              .reduce((prev, curr, index) => { return prev + parseFloat(curr.toFixed(2)) }, 0);
           }
           else {
             return 0
           }
         });
       return total
-        .reduce((prev, curr, index) => { return prev + curr }, 0);
+        .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
     }
     else {
       return 0
@@ -74,7 +74,7 @@ export class DetailFooter {
             var qty = item.data.fulfillments
               .map((fulfillment) => parseFloat(((fulfillment.deliveredQuantity) * (fulfillment.pricePerDealUnit)).toFixed(2)));
             return qty
-              .reduce((prev, curr, index) => { return prev + curr }, 0);
+              .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
           }
           else {
             return 0
