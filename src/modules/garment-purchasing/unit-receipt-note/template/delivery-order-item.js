@@ -19,10 +19,10 @@ export class DeliveryOrderItem {
 	}
 
 	get quantityConversion() {
-		return this.data.deliveredQuantity * this.data.conversion;
+		return parseFloat((this.data.deliveredQuantity * this.data.conversion).toFixed(2));
 	}
 
 	conversionChanged(e) {
-		this.data.quantityConversion = this.data.deliveredQuantity * this.data.conversion;
+		this.data.quantityConversion = parseFloat((this.data.deliveredQuantity * this.data.conversion).toFixed(2));
 	}
 }

@@ -17,12 +17,12 @@ export class PriceCorrectionItem {
         if(!this.pricePerUnitReadOnly) {
             if(this.correction) {
                 if(!this.pricePerUnitFirst)
-                    this.data.priceTotal = this.data.quantity * this.data.pricePerUnit;
+                    this.data.priceTotal = parseFloat((this.data.quantity * this.data.pricePerUnit).toFixed(2));
                 else
                     this.pricePerUnitFirst = false;
             }
             else
-                this.data.priceTotal = this.data.quantity * this.data.pricePerUnit;
+                this.data.priceTotal = parseFloat((this.data.quantity * this.data.pricePerUnit).toFixed(2));
         }
         
         return this.data.priceTotal;
