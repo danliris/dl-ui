@@ -67,11 +67,11 @@ export class PurchaseOrderItem {
   }
 
   get quantityConversion() {
-    return this.data.dealQuantity * this.data.conversion;
+    return parseFloat((this.data.dealQuantity * this.data.conversion).toFixed(2));
   }
 
   conversionChanged(e) {
-    this.data.quantityConversion = this.data.dealQuantity * this.data.conversion;
+    this.data.quantityConversion = parseFloat((this.data.dealQuantity * this.data.conversion).toFixed(2));
   }
 
   priceChanged(e) {

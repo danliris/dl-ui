@@ -33,7 +33,7 @@ export class DeliveryOrderItem {
   }
 
   get priceTotal() {
-    return parseFloat(this.data.deliveredQuantity * this.data.pricePerDealUnit).toFixed(2);
+    return parseFloat((this.data.deliveredQuantity * this.data.pricePerDealUnit).toFixed(2));
   }
 
   get productLoader() {
