@@ -7,14 +7,14 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-datepicker 
                 value.bind="data.startDate" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker>        
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-datepicker 
                 value.bind="data.endDate" 
                 read-only.bind="true"
@@ -46,8 +46,8 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.AH"
-                error.bind="error.AH" 
+                value.bind="data.workingHours"
+                error.bind="error.workingHours" 
                 read-only.bind="options.readOnly" 
                 options.bind="controlOptions">
             </au-numeric>
@@ -61,14 +61,21 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="dataRemainingAH"
+                value.bind="dataEhTotal"
                 read-only="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td class="col-sm-1">
             <au-numeric 
-                value.bind="data.usedAH"
+                value.bind="data.usedEH"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric 
+                value.bind="dataRemainingEH"
                 read-only="true"
                 options.bind="controlOptions">
             </au-numeric>

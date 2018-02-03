@@ -50,10 +50,11 @@ export class DataForm {
             { header: "Bulan", value: "monthName" },
             { header: "Effisiensi %", value: "efficiency" },
             { header: "Total Operator", value: "operator" },
-            { header: "AH per Operator", value: "AH" },
+            { header: "Working Hours", value: "workingHours" },
             { header: "Total AH", value: "ahTotal" },
-            { header: "Remaining AH", value: "remainingAH" },
-            { header: "Used AH", value: "usedAH" },
+            { header: "Total EH", value: "ehTotal" },
+            { header: "Used EH", value: "usedEH" },
+            { header: "Remaining EH", value: "remainingEH" },
         ];
         if (this.data && this.data._id && this.data.unitId) {
             for (var item of this.data.items) {
@@ -200,24 +201,25 @@ export class DataForm {
                         monthName: this.getMonthName(startDate.getMonth()),
                         efficiency : 0,
                         operator: 0,
-                        AH: 0,
+                        workingHours: 0,
                         ahTotal: 0,
-                        remainingAH: 0,
-                        usedAH: 0,
+                        ehTotal: 0,
+                        usedEH: 0,
+                        remainingEH: 0,
                     })
                 }
             } else {
                 var efficiency = this.data.items[0].efficiency;
                 var operator = this.data.items[0].operator;
-                var AH = this.data.items[0].AH;
+                var workingHours = this.data.items[0].workingHours;
 
                 for (var i = 1; i < this.data.items.length; i++) {
                     if(this.data.items[i].efficiency == 0 && efficiency != 0)
                         this.data.items[i].efficiency = efficiency;
                     if (this.data.items[i].operator == 0 && operator != 0)
                         this.data.items[i].operator = operator;
-                    if (this.data.items[i].AH == 0 && AH != 0)
-                        this.data.items[i].AH = AH;
+                    if (this.data.items[i].workingHours == 0 && workingHours != 0)
+                        this.data.items[i].workingHours = workingHours;
                 }
             }
         } else {
