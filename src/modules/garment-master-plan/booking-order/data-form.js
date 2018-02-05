@@ -43,6 +43,10 @@ export class DataForm {
             this.selectedSection = await this.service.getSectionById(this.data.garmentSectionId, this.sectionFields);
             this.data.garmentSectionId =this.selectedSection._id;
         }
+
+        if (!this.data.bookingDate) {
+            this.data.bookingDate = new Date();
+        }
     }
 
     @computedFrom("data._id")
