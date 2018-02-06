@@ -17,6 +17,7 @@
             loader.bind="bookingLoader"
             text.bind = "bookingView"
             placeholder="cari booking order" 
+            query.bind="filterBookingOrder"
             key="code" 
             read-only.bind="isView"
             if.bind="!isView"
@@ -106,7 +107,7 @@
             options.bind="options"
             read-only.bind="true"
             if.bind="data.bookingOrderId"
-            item-template="modules/garment-master-plan/master-plan/templates/detail">
+            item-template="modules/garment-master-plan/sewing-blocking-plan/templates/detail">
         </au-collection>
 
         <label for="Jadwal Pengerjaan" if.bind="data.bookingOrderId">Jadwal Pengerjaan :</label>
@@ -119,8 +120,8 @@
             options.bind="options"
             read-only.bind="readOnly"
             if.bind="data.bookingOrderId"
-            item-template="modules/garment-master-plan/master-plan/templates/item"
-            footer-template="modules/garment-master-plan/master-plan/templates/item-footer">
+            item-template="modules/garment-master-plan/sewing-blocking-plan/templates/item"
+            footer-template="modules/garment-master-plan/sewing-blocking-plan/templates/item-footer">
         </au-collection>
 
         <!--<label for="Preview 6 bulan" if.bind="data.bookingOrderId">Preview 6 bulan</label>
@@ -143,12 +144,13 @@
         </au-dropdown>
         <button class="btn btn-default" click.delegate="previewChange($event)" if.bind="data.bookingOrderId">Preview</button>
         <au-collection 
-            items.bind="getPreview" 
+            items.bind="previewData" 
             columns.bind="previewColumns" 
             options.bind="options"
             read-only.bind="true"
             if.bind="data.bookingOrderId"
-            item-template="modules/garment-master-plan/master-plan/templates/preview">
+            item-template="modules/garment-master-plan/sewing-blocking-plan/templates/preview">
         </au-collection>-->
+        
   </au-input-form>
 </template>
