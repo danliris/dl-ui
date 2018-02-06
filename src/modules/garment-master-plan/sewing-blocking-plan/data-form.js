@@ -14,6 +14,8 @@ export class DataForm {
     @bindable selectedBookingOrder;
     @bindable booking = {};
     @bindable preview={};
+    @bindable previewData;
+    @bindable options = { buyerCode: "" };
 
     controlOptions = {
         label: {
@@ -23,23 +25,31 @@ export class DataForm {
             length: 5
         }
     }
-    
+
+    filterBookingOrder = {
+        "isMasterPlan":false,
+        "isCanceled":false
+    };
+
     months = ["Januari","Februari","Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     years = [];
     bookingItemColumns = [{ header: "Komoditi" },{ header: "Jumlah" },{header: "Keterangan"},{header: "Tanggal Pengiriman"}];
+    
     detailColumns = [
         { header: "Confirm" },
         { header: "Komoditi" },
-        { header: "SH Cutting" },
-        { header: "SH Sewing" },
-        { header: "SH Finishing" },
-        { header: "Total SH" },
+        { header: "SMV Sewing" },
         { header: "Unit" },
         { header: "Tahun" },
         { header: "Week" },
+        { header: "Remaining AH" },
         { header: "Jumlah Order" },
         { header: "Keterangan" },
-        { header: "Tanggal Pengiriman" }
+        { header: "Tanggal Pengiriman" },
+        { header: "Efisiensi (%)" },
+        { header: "EH Booking" },
+        { header: "Sisa AH" },
+        { header: "Plan Working Hours" }
     ]
     previewColumns = [{header : "Konveksi"}]
 
@@ -58,9 +68,17 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.booking = this.context.booking;
-        console.log(this.data);
-        if(this.data._id)
+        this.options.buyerCode = this.data.garmentBuyerCode;
+        if(this.data._id){
             this.bookingCode = `${this.data.bookingOrderNo} - ${this.data.garmentBuyerName}`;
+            this.options._id=this.data._id;
+        }
+        // if(this.data.details && this.data.details.length>0){
+        //     for(var item of this.data.details){
+        //         if(this.data.masterPlanComodityId)
+        //            this.selectedComodity = this.data.masterPlanComodity;
+        //     }
+        // }
     }
 
     selectedBookingOrderChanged(newValue) {
@@ -76,6 +94,7 @@ export class DataForm {
             this.data.quantity = _selectedData.orderQuantity;
             this.data.remark = _selectedData.remark;
             this.data.bookingItems = _selectedData.items;
+            this.options.buyerCode = this.data.garmentBuyerCode;
         }else{
             delete this.data.bookingOrderNo;
             delete this.data.bookingOrderId;
@@ -97,36 +116,37 @@ export class DataForm {
     bookingView = (booking) => {
         return `${booking.code} - ${booking.garmentBuyerName}`
     }
-    
+
     get addDetails() {
       return (event) => {
           var newDetail=   {
               isConfirmed: false,
-              shCutting: 0,
               shSewing: 0,
-              shFinishing: 0,
               quantity: 0,
-              remark:"",
+              remark:""
           };
           this.data.details.push(newDetail);
       };
     }
-    
-    previewChange(event) {
-        var month = getMonth(this.preview.month);
+
+    async previewChange(event) {
+        var month = this.getMonth(this.preview.month);
         var thisDate = new Date(`${this.preview.year}/${month - 1}/1`);
         var nextDate = thisDate.setMonth(thisDate.getMonth() + 6);
         var nextYear = new Date(nextDate).getFullYear();
         var workingHour = this.service.getWorkingHour();
         var weeklyPlan = this.service.getWeeklyPlan({"year" : {"$in" :[this.preview.year, nextYear]}});
-        var preview = this.service.getPreview(month, this.preview.year);
-        Promise.all([workingHour, weeklyPlan, preview])
+        var preview = this.service.getPreview(2018);
+        await Promise.all([workingHour, weeklyPlan, preview])
             .then(result => {
                 var _workingHour = result[0];
                 var _weeklyPlan = result[1];
                 var _preview = result[2];
+                var datas=[];
+                console.log(_preview);
+                return this.previewData=result;
             });
-    }  
+    }
 
     getMonth(month){
         var monthName = 0;
@@ -170,4 +190,4 @@ export class DataForm {
         }
         return monthName;
     }
-} 
+}

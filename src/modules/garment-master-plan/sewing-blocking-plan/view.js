@@ -44,9 +44,7 @@ export class View {
                 var bookItems=[];
                 var index=0;
                 for(var detail of this.data.bookingItems){
-                    console.log(detail);
                     var bookingDetail = bookingData.items.find(item => item.code === detail.code);
-                    console.log(bookingDetail);
                     if(bookingDetail){
                         if(bookingDetail.masterPlanComodityId !== detail.masterPlanComodityId){
                             detail["bookingMasterPlanComodity"] = bookingDetail.masterPlanComodity;
