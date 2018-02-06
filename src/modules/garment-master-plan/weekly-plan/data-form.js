@@ -208,19 +208,19 @@ export class DataForm {
                         remainingEH: 0,
                     })
                 }
-            } else {
-                var efficiency = this.data.items[0].efficiency;
-                var operator = this.data.items[0].operator;
-                var workingHours = this.data.items[0].workingHours;
+            // } else {
+            //     var efficiency = this.data.items[0].efficiency;
+            //     var operator = this.data.items[0].operator;
+            //     var workingHours = this.data.items[0].workingHours;
 
-                for (var i = 1; i < this.data.items.length; i++) {
-                    if(this.data.items[i].efficiency == 0 && efficiency != 0)
-                        this.data.items[i].efficiency = efficiency;
-                    if (this.data.items[i].operator == 0 && operator != 0)
-                        this.data.items[i].operator = operator;
-                    if (this.data.items[i].workingHours == 0 && workingHours != 0)
-                        this.data.items[i].workingHours = workingHours;
-                }
+            //     for (var i = 1; i < this.data.items.length; i++) {
+            //         if(this.data.items[i].efficiency == 0 && efficiency != 0)
+            //             this.data.items[i].efficiency = efficiency;
+            //         if (this.data.items[i].operator == 0 && operator != 0)
+            //             this.data.items[i].operator = operator;
+            //         if (this.data.items[i].workingHours == 0 && workingHours != 0)
+            //             this.data.items[i].workingHours = workingHours;
+            //     }
             }
         } else {
             this.yearSelected = 0;
@@ -255,5 +255,17 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    onitemchange(event) {
+        var tdPath = 4; // td index in $event.path
+        var trPath = 5; // tr index in $event.path
+        var column = event.path[tdPath].cellIndex; // index start from 0
+        var columnName = this.itemColumns[column].value;
+        var row = event.path[trPath].rowIndex; // start from 1
+
+        for (var i = row; i < this.data.items.length; i++) {
+            this.data.items[i][columnName] = event.target.value;
+        }
     }
 }
