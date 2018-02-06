@@ -93,7 +93,7 @@ export class Confirm {
                                 });
                         }
                 }
-                else if(warning.length>0 && warning_confirm.length>0){
+                else if(warning_confirm.length>0){
                         if (confirm(warning_confirm.toString() +'Tetap Confirm?')) {
                             this.service.update(this.data)
                                 .then(result => {
