@@ -6,6 +6,9 @@ export class Item {
     this.error = context.error;
     this.options = context.options; 
     this.context = context;
+
+    // 180207 - week yang sudah dipakai (dibooking, usedEH > 0) tidak boleh diubah
+    this.options.readOnly = this.data.usedEH > 0;
   }
 
   controlOptions = {
@@ -24,7 +27,7 @@ export class Item {
   }
 
   get dataEhTotal() {
-    this.data.ehTotal = this.data.ahTotal * this.data.efficiency / 100;
+    this.data.ehTotal = Math.round(this.data.ahTotal * this.data.efficiency / 100);
     return this.data.ehTotal;
   }
 
