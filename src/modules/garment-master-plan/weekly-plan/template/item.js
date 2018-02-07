@@ -24,7 +24,7 @@ export class Item {
   }
 
   get dataEhTotal() {
-    this.data.ehTotal = this.data.ahTotal * this.data.efficiency / 100;
+    this.data.ehTotal = Math.round(this.data.ahTotal * this.data.efficiency / 100);
     return this.data.ehTotal;
   }
 

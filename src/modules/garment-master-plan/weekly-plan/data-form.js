@@ -48,7 +48,7 @@ export class DataForm {
             { header: "Tanggal Mulai", value: "startDate" },
             { header: "Tanggal Selesai", value: "endDate" },
             { header: "Bulan", value: "monthName" },
-            { header: "Effisiensi %", value: "efficiency" },
+            { header: "Efisiensi %", value: "efficiency" },
             { header: "Total Operator", value: "operator" },
             { header: "Working Hours", value: "workingHours" },
             { header: "Total AH", value: "ahTotal" },
