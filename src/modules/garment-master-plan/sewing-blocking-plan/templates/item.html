@@ -1,23 +1,5 @@
 <template>
 <tr>
-    <td width="5%" text-align="center">
-        <au-checkbox
-            value.bind="data.isConfirmed" 
-            read-only.bind="options.readOnly" 
-            options.bind="controlOption">
-        </au-checkbox>
-    </td>
-    <td width="10%">
-        <au-autocomplete 
-            value.bind="selectedComodity" 
-            error.bind="error.masterPlanComodity" 
-            read-only.bind="options.readOnly" 
-            key="_id" 
-            text="name"
-            loader.bind="masterPlanComodityLoader" 
-            options.bind="controlOption" >
-        </au-autocomplete>
-    </td>
     <td width="5%">
         <numeric 
             value.bind="data.shSewing" 
@@ -27,7 +9,7 @@
             options.bind="controlOption">
         </numeric>
     </td>
-    <td width="10%">
+    <td width="15%">
         <au-autocomplete 
             value.bind="selectedUnit" 
             error.bind="error.unit" 
@@ -50,7 +32,7 @@
             if.bind="selectedUnit" >
         </au-autocomplete>
     </td>
-    <td width="15%">
+    <td width="30%">
         <au-autocomplete 
             value.bind="selectedWeek" 
             error.bind="error.week" 

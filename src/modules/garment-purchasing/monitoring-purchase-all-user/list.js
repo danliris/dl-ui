@@ -68,7 +68,7 @@ export class List {
         this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         this.arg.purchaseOrderExternalNo = this.purchaseOrderExternalNo ? this.purchaseOrderExternalNo : null;
-        this.arg.user = this.user ? this.user : null;
+        this.arg.user = this.user && this.user.username ? this.user.username : null;
         this.arg.supplierId = this.supplier ? this.supplier._id : null;
         this.arg.categoryId = this.category ? this.category._id : null;
         this.arg.unitId = this.unit ? this.unit._id : null;

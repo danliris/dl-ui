@@ -14,20 +14,11 @@
         </td>
         <td>
             <au-numeric
-                value.bind="data.length"
+                value.bind="data.precentage"
+                error.bind="error.precentage"
                 read-only.bind="(readOnly || isEdit)"
-                options.bind="controlOptions"
-                error.bind="error.length">
+                options.bind="controlOptions">
             </au-numeric>
-        </td>
-        <td>
-            <au-dropdown
-                value.bind="data.action"
-                error.bind="error.action"
-                read-only.bind="(readOnly || isEdit)"
-                options.bind="controlOptions"
-                items.bind="actionList">
-            </au-dropdown>
         </td>
         <td>
             <au-textbox 
