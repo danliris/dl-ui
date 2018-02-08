@@ -39,6 +39,7 @@
             columns.bind="itemColumns"
             options.bind="controlOptions"
             read-only.bind="readOnly"
+            change.delegate="onitemchange($event)"
             item-template="modules/garment-master-plan/weekly-plan/template/item">
         </au-collection>
 
