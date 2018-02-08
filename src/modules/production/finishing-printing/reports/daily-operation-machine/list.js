@@ -36,7 +36,7 @@ export class List {
 
     // yearList = [new Date().getFullYear(), new Date().getFullYear() - 1, new Date().getFullYear() - 2];
 
-    areaList = ["Area Pre Treatment", "Area Printing", "Area Dyeing", "Area Finishing", "Area Inspecting"];
+    areaList = ["All Area", "Area Pre Treatment", "Area Printing", "Area Dyeing", "Area Finishing", "Area QC"];
 
     searchStatus = false;
 
@@ -146,8 +146,8 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
 
-        this.info.dateFrom = this.dateFrom.toString();
-        this.info.dateTo = this.dateTo.toString();
+        this.info.dateFrom = moment(this.dateFrom).format("YYYY-MM-DD");
+        this.info.dateTo = moment(this.dateTo).format("YYYY-MM-DD");
         this.info.area = this.area ? this.area : null;
         this.info.order = order;
         this.info.machineId = this.selectedMachine && this.selectedMachine._id ? this.selectedMachine._id : "";
@@ -196,8 +196,8 @@ export class List {
             this.searchStatus = true;
         }
 
-        this.info.dateFrom = this.dateFrom.toString();
-        this.info.dateTo = this.dateTo.toString();
+        this.info.dateFrom = moment(this.dateFrom).format("YYYY-MM-DD");
+        this.info.dateTo = moment(this.dateTo).format("YYYY-MM-DD");
         this.info.area = this.area ? this.area : null;
 
         if (this.searchStatus == true) {
@@ -211,6 +211,7 @@ export class List {
     }
 
     reset() {
+        this.error = undefined;
         this.area = this.areaList[0];
         this.selectedMachine = {};
         this.dateFrom = undefined;

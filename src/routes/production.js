@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -22,7 +22,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -35,7 +35,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -48,7 +48,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: { "C9": 1 },
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -218,7 +218,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -231,7 +231,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -270,7 +270,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -283,7 +283,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: {"C9": 1, "F1": 1, "F2": 1 },
+            permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -305,7 +305,7 @@ module.exports = [
         name: 'monitoring-montly-operation-machine',
         moduleId: './modules/production/finishing-printing/reports/monitoring-montly-operation-machine/index',
         nav: true,
-        title: 'Monitoring montly operation machine',
+        title: 'Monitoring monthly operation machine',
         auth: true,
         settings: {
             group: "production",

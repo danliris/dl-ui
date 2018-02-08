@@ -46,6 +46,8 @@ export class View {
     update() {
         delete this.data.packing;
         this.data.isVoid = true;
+        // remove total jumlah object
+        this.data.items = this.data.items.slice(0, -1);
         this.service.update(this.data)
             .then((result) => {
                 this.router.navigateToRoute('list');
@@ -57,5 +59,32 @@ export class View {
 
     cancel(event) {
         this.router.navigateToRoute('list');
+    }
+
+
+    attached() {
+
+        var total = {
+            product: "Total Jumlah",
+            quantity: 0,
+            availableQuantity: 0,
+            weightTotalAmount: 0,
+            weight: 0,
+            lengthTotalAmount: 0,
+            length: 0,
+
+        };
+
+        for (var item of this.data.items) {
+
+            total.quantity += item.quantity;
+            total.availableQuantity += item.availableQuantity;
+            total.weight += item.weight;
+            total.length += item.length;
+            total.weightTotalAmount += item.weight * item.quantity;
+            total.lengthTotalAmount += item.length * item.quantity;
+        }
+
+        this.data.items.push(total);
     }
 }

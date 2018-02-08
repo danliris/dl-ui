@@ -10,7 +10,7 @@
     </au-checkbox>
   </td>
 
-  <td width="40%">
+  <td width="20%">
     <au-autocomplete 
     value.bind="data.masterPlanComodity" 
     error.bind="error.masterPlanComodity" 
@@ -22,7 +22,7 @@
     </au-autocomplete>
   </td>
   
-  <td width="20%">
+  <td width="15%">
     <au-numeric 
     value.bind="data.quantity" 
     error.bind="error.quantity" 
@@ -31,7 +31,25 @@
     </au-numeric>
   </td>
 
-  <td width="25%">
+  <td width="20%">
+    <au-datepicker 
+        value.bind="data.deliveryDate" 
+        error.bind="error.deliveryDate" 
+        read-only.bind="options.readOnly" 
+        options.bind="controlOptions">
+    </au-datepicker>
+  </td>
+
+   <td width="20%">
+    <au-datepicker 
+        value.bind="data.confirmDate" 
+        error.bind="error.confirmDate" 
+        read-only="true" 
+        options.bind="controlOptions">
+    </au-datepicker>
+  </td>
+
+  <td width="20%">
     <au-multiline 
     value.bind="data.remark" 
     error.bind="error.remark" 

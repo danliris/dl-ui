@@ -1,7 +1,7 @@
-<template >
+<!-- <template >
     <tr>
         <td>
-            <au-textbox value.bind="prNo" read-only.bind="true" error.bind="error.no">
+            <au-textbox value.bind="data.prNo" read-only.bind="true" error.bind="error.no">
             </au-textbox>
         </td>
         <td>
@@ -106,14 +106,14 @@
             </au-checkbox>
         </td>
         <td>
-            <au-textbox 
+            <au-multiline 
                 value.bind="data.remark" 
                 error.bind="error.remark"
                 read-only.bind="options.readOnly"
                 placeholder="tambah keterangan"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-multiline>
         </td>
         <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
     </tr>
-</template>
+</template> -->

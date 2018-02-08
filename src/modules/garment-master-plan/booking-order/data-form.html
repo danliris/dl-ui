@@ -10,6 +10,7 @@
             <!--<button class="btn btn-success"  click.delegate="context.confirmBooking($event)"     if.one-way="context.hasConfirm">Confirm Booking</button>-->
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
             <button class="btn btn-danger"  click.delegate="context.cancelBooking($event)"     if.one-way="context.hascancelConfirm">Cancel Booking</button>
+            <button class="btn btn-info"  click.delegate="context.masterPlan($event)"     if.one-way="context.hasMasterPlan">Detail Blocking Plan Sewing</button>
         </div>
 
         <au-textbox
@@ -21,13 +22,25 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-autocomplete 
+            value.bind="selectedSection" 
+            error.bind="error.section"
+            label="Seksi" 
+            loader.bind="sectionLoader"
+            text.bind = "sectionView"
+            placeholder="cari seksi" 
+            key="code" 
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+        
         <au-datepicker 
             label="Tanggal Booking" 
             value.bind="data.bookingDate" 
             error.bind="error.bookingDate" 
-            read-only.bind="readOnly"
+            read-only.bind="true"
             options.bind="controlOptions">
-        </au-datepicker>
+        </au-datepicker> 
 
         <au-autocomplete 
             value.bind="selectedBuyer" 
@@ -79,6 +92,8 @@
             options.bind="controlOptions">
         </au-multiline>
 
+        <label for="Detail Confirm" if.bind="data.code">Detail Confirm : </label>
+        <au-layout error.bind="error.detail" if.bind="error.detail"></au-layout>
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
@@ -91,8 +106,9 @@
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
         </au-collection>
-
-        <au-collection 
+        
+        <au-layout error.bind="error.totalQuantity" if.bind="error.totalQuantity"></au-layout>
+        <!--<au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
             columns.bind="detailColumns" 

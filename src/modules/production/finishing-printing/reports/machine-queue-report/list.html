@@ -2,6 +2,7 @@
     <h1 class="page-header">Laporan Order Belum Diproduksi Mesin</h1>
     <form class="form-horizontal" id="machineQueue">
         <au-dropdown label="Jenis Order" value.bind="orderType" items.bind="orderTypeList"></au-dropdown>
+        <au-dropdown label="Tahun" value.bind="year" items.bind="yearList"></au-dropdown>
         <au-autocomplete
             value.bind="machine"
             error.bind="error.machine"

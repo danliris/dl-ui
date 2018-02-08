@@ -15,8 +15,7 @@ export class List {
         "Summary Sales Contract Berdasarkan Tanggal Dibuat",
         "Summary Sales Contract Berdasarkan Tanggal Pengiriman",
         "Sales Contract Per Tanggal Dibuat",
-        "Sales Contract Per Tanggal Delivery",
-        "Total Panjang Kain Per SC Yang Telah Diproses"
+        "Sales Contract Per Tanggal Delivery"
     ];
     constructor(router, service) {
         this.router = router;

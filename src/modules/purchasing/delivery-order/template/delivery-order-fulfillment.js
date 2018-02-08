@@ -1,4 +1,4 @@
-import {bindable} from 'aurelia-framework'
+import { bindable } from 'aurelia-framework'
 var ProductLoader = require('../../../../loader/product-loader');
 
 export class DeliveryOrderItem {
@@ -22,7 +22,35 @@ export class DeliveryOrderItem {
             return prev + curr
           }
         }, 0);
-      this.data.remainingQuantity = poItem.dealQuantity - qty;
+
+      var correctionQty = poItem.fulfillments
+        .map(itemFulfillmentsPO => {
+          if (itemFulfillmentsPO.correction) {
+            var cQty = itemFulfillmentsPO.correction
+              .map(c => {
+                if (c.correctionRemark) {
+                  if (c.correctionRemark === "Koreksi Jumlah") {
+                    return c.correctionQuantity;
+                  } else {
+                    return 0;
+                  }
+                } else {
+                  return 0;
+                }
+              })
+              .reduce((prev, curr, index) => {
+                return prev + curr;
+              }, 0);
+            return cQty;
+          } else {
+            return 0;
+          }
+        })
+        .reduce((prev, curr, index) => {
+          return prev + curr;
+        }, 0);
+
+      this.data.remainingQuantity = poItem.dealQuantity - qty - correctionQty;
     }
 
     if (this.data) {
@@ -48,7 +76,7 @@ export class DeliveryOrderItem {
     return `${product.code} - ${product.name}`
   }
 
-  deliveredQuantityChanged(newValue, oldValue) {
+  deliveredQuantityChanged(newValue) {
     if (typeof newValue === "number") {
       this.data.deliveredQuantity = newValue
       if (!this.options.readOnly) {

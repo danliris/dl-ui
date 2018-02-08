@@ -1,34 +1,34 @@
 <template>
     <tr>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-numeric 
                 value.bind="data.weekNumber" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-datepicker 
                 value.bind="data.startDate" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker>        
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-datepicker 
                 value.bind="data.endDate" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker> 
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-textbox 
                 value.bind="data.monthName"
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-numeric 
                 value.bind="data.efficiency"
                 error.bind="error.efficiency" 
@@ -36,11 +36,47 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td class="col-sm-2">
+        <td class="col-sm-1">
             <au-numeric 
                 value.bind="data.operator"
                 error.bind="error.operator" 
                 read-only.bind="options.readOnly" 
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric 
+                value.bind="data.workingHours"
+                error.bind="error.workingHours" 
+                read-only.bind="options.readOnly" 
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric 
+                value.bind="dataAhTotal"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric 
+                value.bind="dataEhTotal"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric 
+                value.bind="data.usedEH"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-1">
+            <au-numeric 
+                value.bind="dataRemainingEH"
+                read-only="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>

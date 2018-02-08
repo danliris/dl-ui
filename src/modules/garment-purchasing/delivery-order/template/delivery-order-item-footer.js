@@ -9,7 +9,11 @@ export class DetailFooter {
   get currency() {
     if (this.context.items.length > 0) {
       if (this.context.items[0].data.fulfillments instanceof Array) {
-        return this.context.items[0].data.fulfillments[0].currency.code
+        if (this.context.items[0].data.fulfillments.length > 0) {
+          return this.context.items[0].data.fulfillments[0].currency.code
+        } else {
+          return ""
+        }
       } else {
         return ""
       }
@@ -24,16 +28,16 @@ export class DetailFooter {
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
             var qty = item.data.fulfillments
-              .map((fulfillment) => parseInt(fulfillment.purchaseOrderQuantity));
+              .map((fulfillment) => parseFloat(fulfillment.purchaseOrderQuantity.toFixed(2)));
             return qty
-              .reduce((prev, curr, index) => { return prev + curr }, 0);
+              .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
           }
           else {
             return 0
           }
         });
       return total
-        .reduce((prev, curr, index) => { return prev + curr }, 0);
+        .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
     }
     else {
       return 0
@@ -46,16 +50,16 @@ export class DetailFooter {
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
             var qty = item.data.fulfillments
-              .map((fulfillment) => parseInt(fulfillment.deliveredQuantity));
+              .map((fulfillment) => parseFloat(fulfillment.deliveredQuantity.toFixed(2)));
             return qty
-              .reduce((prev, curr, index) => { return prev + curr }, 0);
+              .reduce((prev, curr, index) => { return prev + parseFloat(curr.toFixed(2)) }, 0);
           }
           else {
             return 0
           }
         });
       return total
-        .reduce((prev, curr, index) => { return prev + curr }, 0);
+        .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
     }
     else {
       return 0
@@ -68,16 +72,18 @@ export class DetailFooter {
         .map((item) => {
           if (item.data.fulfillments instanceof Array) {
             var qty = item.data.fulfillments
-              .map((fulfillment) => parseInt(fulfillment.deliveredQuantity * fulfillment.pricePerDealUnit));
+              .map((fulfillment) => parseFloat(((fulfillment.deliveredQuantity) * (fulfillment.pricePerDealUnit)).toFixed(2)));
             return qty
-              .reduce((prev, curr, index) => { return prev + curr }, 0);
+              .reduce((prev, curr, index) => { return prev +  parseFloat(curr.toFixed(2)) }, 0);
           }
           else {
             return 0
           }
         });
       return total
-        .reduce((prev, curr, index) => { return prev + curr }, 0);
+        .reduce((prev, curr, index) => {
+          return prev + parseFloat(curr.toFixed(2))
+        }, 0);
     }
     else {
       return 0

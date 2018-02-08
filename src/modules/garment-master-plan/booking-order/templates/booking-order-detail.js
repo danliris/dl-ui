@@ -11,7 +11,9 @@ export class DetailItem {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
-
+    if(this.data){
+      this.data.confirmDate=this.data._createdDate? this.data._createdDate : new Date();
+    }
   }
 
   controlOption = {

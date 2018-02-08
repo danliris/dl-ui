@@ -9,10 +9,11 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.isMasterPlan)
-            return { classes: "success" }
         if (data.isCanceled)
             return { classes: "danger" }
+        else if (data.isMasterPlan)
+            return { classes: "success" }
+        
         else
             return {}
     }
@@ -33,11 +34,13 @@ export class List {
             }
         },
         {
-                field: "isMasterPlan", title: "Status",
-                formatter: function (value, data, index) {
-                    return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : "Booking";
-                }
-            },
+            field: "isMasterPlan", title: "Status",
+            formatter: function (value, data, index) {
+                return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : "Booking";
+            }
+        },
+        {
+            field: "confirmStatus", title: "Status Jumlah Confirm" }
     ];
 
     loader = (info) => {
@@ -57,7 +60,27 @@ export class List {
                 var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
-                // return data;
+                for(var a of result.data){
+                    a.confirmStatus='';
+                    var total=0;
+                    if(a.items && a.items.length>0){
+                        for(var b of a.items){
+                            total+=b.quantity;
+                        }
+                        if(total>a.orderQuantity){
+                            a.confirmStatus='+' + (total-a.orderQuantity);
+                        }
+                        else if(total<a.orderQuantity){
+                            a.confirmStatus=(total-a.orderQuantity);
+                        }
+                        else if(total===a.orderQuantity){
+                            a.confirmStatus='0';
+                        }
+                    }
+                    else{
+                        a.confirmStatus='Belum Confirm';
+                    }
+                }
                 return {
                     total: result.info.total,
                     data: result.data

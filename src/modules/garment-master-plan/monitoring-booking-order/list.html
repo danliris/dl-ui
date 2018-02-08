@@ -1,0 +1,109 @@
+
+<template>
+  
+        <h1 class="page-header">Monitoring Booking Order</h1>
+        <form class="form-horizontal">
+            <au-autocomplete 
+                value.bind="code" 
+                label="Kode Booking" 
+                loader.bind="bookingOrderLoader"
+                text.bind = "bookingOrderView"
+                placeholder="Cari No Booking Order"
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
+            </au-autocomplete>
+            <au-autocomplete 
+                value.bind="buyer" 
+                label="Buyer" 
+                loader.bind="buyerLoader"
+                text.bind = "buyerView"
+                placeholder="Cari Buyer"
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
+            </au-autocomplete>
+             <au-autocomplete 
+                value.bind="comodity" 
+                label="Komoditi" 
+                loader.bind="comodityLoader"
+                text.bind = "comodityView"
+                placeholder="Cari Komoditi"
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
+            </au-autocomplete>
+            <au-dropdown label="Status Confirm" 
+                value.bind="confirmState"
+                items.bind="confirmStateOption" 
+                read-only.bind="readOnly" 
+                change.delegate="confirmStateChanged($event)">
+            </au-dropdown>
+            <au-dropdown label="Status Booking Order" 
+                value.bind="bookingOrderState"
+                items.bind="bookingOrderStateOption" 
+                read-only.bind="readOnly" 
+                change.delegate="bookingOrderStateChanged($event)">
+            </au-dropdown>
+             
+            <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+            <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+
+            <div class="form-group">
+                <label for="contact" class="col-sm-6 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+            </div>
+             <div class="btn-group pull-left">
+                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+            </div>
+        </form>
+
+           <br>
+        </br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <thead align="center">
+                    <tr>
+                        <td>Kode Booking</td>
+                        <td>Tanggal Booking</td>
+                        <td>Buyer</td>
+                        <td>Jumlah Order</td>
+                        <td>Tanggal Pengiriman(booking)</td>
+                        <td>Komoditi</td>
+                        <td>Jumlah Confirm</td>
+                        <td>Tanggal Pengiriman(confirm)</td>
+                        <td>Tanggal Confirm</td>
+                        <td>Keterangan</td>
+                        <td>Status Confirm</td>
+                        <td>Status Booking Order</td>    
+                        <td>Sisa Order (Belum Confirm)</td>                     
+                    </tr>
+                </thead>
+                <tbody>
+                 
+                    <tr repeat.for="item of data">
+                        <td class="text-left">${item.code}</td>
+                        <td class="text-left">${item.bookingDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td class="text-left">${item.buyer}</td>
+                         <td class="text-right">${item.totalOrderQty}</td>
+                        <td class="text-left">${item.deliveryDateBooking}</td>
+                        <td class="text-left">${item.comodity}</td>
+                        <td class="text-right">${item.orderQty}</td>
+                        <td class="text-left">${item.deliveryDateConfirm}</td>
+                        <td class="text-left">${item.confirmDate}</td>
+                        <td class="text-left">${item.remark}</td>
+                        <td class="text-left">${item.confirmState}</td>
+                        <td class="text-left">${item.bookingOrderState}</td>
+                        <td class="text-right">${item.remaining}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <hr/>
+        </form>
+    </au-input-form> 
+</template>

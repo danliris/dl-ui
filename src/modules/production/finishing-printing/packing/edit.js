@@ -25,7 +25,6 @@ export class Edit {
   }
 
   save(event) {
-
     this.service.update(this.data)
       .then(result => {
         this.cancel();

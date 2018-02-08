@@ -151,7 +151,8 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-            this.router.navigateToRoute('view', { id: data.orderNo });
+            window.open(`${window.location.origin}/#/sales/reports/production-order-reports/view/${encodeURIComponent(data.orderNo)}`);
+            // this.router.navigateToRoute('view', { id: data.orderNo });
                 break;
         }
 

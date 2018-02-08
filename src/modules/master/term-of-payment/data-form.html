@@ -1,0 +1,29 @@
+<template>
+	<div class="row">
+		<div class="col-md-6">
+			<au-input-form
+				title.bind="title"
+				with.bind="context"
+				options.bind="formOptions">
+
+				<au-textbox   
+					label="Term of Payment"
+					placeholder="Term of Payment"
+					value.bind="data.termOfPayment"
+					error.bind="error.termOfPayment"
+					read-only.bind="readOnly">
+				</au-textbox>
+
+				<au-checkbox        
+					label="Export"          
+					value.bind="data.isExport"        
+					error.bind="error.isExport"       
+					read-only.bind="readOnly">
+				</au-checkbox>
+		
+				<template replaceable part="actions"></template>
+
+			</au-input-form>
+		</div>
+	</div>
+</template>

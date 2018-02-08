@@ -16,18 +16,18 @@
         </td>
         <td class="col-sm-2">
             <au-datepicker 
-                value.bind="data.date" 
-                read-only.bind="true"
-                options.bind="controlOptions">
-            </au-datepicker>        
-        </td>
-        <td class="col-sm-2">
-            <au-datepicker 
                 value.bind="data.supplierDoDate" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-datepicker> 
         </td>
+        <td class="col-sm-2">
+            <au-datepicker 
+                value.bind="data.date" 
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-datepicker>        
+        </td> 
         <td class="col-sm-2">
             <au-numeric 
                 value.bind="data.quantity" 
