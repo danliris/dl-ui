@@ -4,9 +4,10 @@ import { Service } from './service';
 
 
 @inject(Router, Service)
-export class Edit {
-    hasCancel = true;
-    hasSave = true;
+export class View {
+  hasCancel = true;
+  hasEdit = true;
+  hasDelete = true;
 
     constructor(router, service) {
         this.router = router;
@@ -32,15 +33,20 @@ export class Edit {
             if(this.data.remark !== bookingData.remark)
                 this.booking["remark"] = bookingData.remark;
             var details = [];
+            console.log(this.data.details);
             for(var detail of this.data.details){
+                console.log(detail);
                 var bookingDetail = bookingData.items.find(item => item.code === detail.code);
+                console.log(bookingDetail);
                 if(bookingDetail){
                     if(bookingDetail.masterPlanComodityId !== detail.masterPlanComodityId){
                         detail["bookingMasterPlanComodity"] = bookingDetail.masterPlanComodity;
                         detail["bookingMasterPlanComodityId"] = bookingDetail.masterPlanComodityId;
                     }
-                    if(bookingDetail.quantity !== detail.quantity)
+                    if(bookingDetail.quantity !== detail.quantity){
+                        console.log(bookingDetail.quantity);
                         detail["bookingQuantity"] = bookingDetail.quantity;
+                    }
                     if(bookingDetail.remark !== detail.remark)
                         detail["bookingRemark"] = bookingDetail.remark;
                     if(bookingDetail.isConfirmed !== detail.isConfirmed)
@@ -50,6 +56,7 @@ export class Edit {
                 }
                 details.push(detail);
             }
+            console.log(details);
             for(var item of bookingData.items){
                 var detail = this.data.details.find(detail => detail.code === item.code);
                 if(!detail){
@@ -72,14 +79,17 @@ export class Edit {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('list');
     }
 
-    save(event) {
-        this.service.update(this.data).then(result => {
+    edit(event) {
+        this.router.navigateToRoute('edit', { id: this.data._id });
+    }   
+    
+    delete(event) {
+        this.service.delete(this.data)
+            .then(result => {
             this.cancel();
-        }).catch(e => {
-            this.error = e;
-        })
-    }
+            });
+    }  
 }

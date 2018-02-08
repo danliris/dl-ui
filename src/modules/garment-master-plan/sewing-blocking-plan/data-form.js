@@ -1,7 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var BookingLoader = require('../../../loader/garment-booking-order-loader');
-var moment = require('moment');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -56,11 +55,6 @@ export class DataForm {
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-        var year = (new Date()).getFullYear();
-        this.years.push(year);
-        for(var a = 1; a < 5; a++){
-            this.years.push(year + a);
-        }
     }
 
     async bind(context) {
@@ -105,7 +99,7 @@ export class DataForm {
             delete this.data.remark;
             delete this.data.bookingDate;
             delete this.data.deliveryDate;
-            this.data.bookingItems = [];
+            this.data.details = [];
         }
     }
 
