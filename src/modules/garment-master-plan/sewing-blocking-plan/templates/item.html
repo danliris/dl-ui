@@ -1,0 +1,140 @@
+<template>
+<tr>
+    <td width="5%" text-align="center">
+        <au-checkbox
+            value.bind="data.isConfirmed" 
+            read-only.bind="options.readOnly" 
+            options.bind="controlOption">
+        </au-checkbox>
+    </td>
+    <td width="10%">
+        <au-autocomplete 
+            value.bind="selectedComodity" 
+            error.bind="error.masterPlanComodity" 
+            read-only.bind="options.readOnly" 
+            key="_id" 
+            text="name"
+            loader.bind="masterPlanComodityLoader" 
+            options.bind="controlOption" >
+        </au-autocomplete>
+    </td>
+    <td width="5%">
+        <numeric 
+            value.bind="data.shSewing" 
+            error.bind="error.shSewing" 
+            read-only="true" 
+            change.delegate="SMVChanged($event)"
+            options.bind="controlOption">
+        </numeric>
+    </td>
+    <td width="10%">
+        <au-autocomplete 
+            value.bind="selectedUnit" 
+            error.bind="error.unit" 
+            read-only.bind="options.readOnly" 
+            key="_id" 
+            text="name"
+            loader.bind="unitLoader" 
+            options.bind="controlOption" >
+        </au-autocomplete>
+    </td>
+    <td width="10%">
+        <au-autocomplete 
+            value.bind="selectedWeeklyPlan" 
+            error.bind="error.weeklyPlanYear" 
+            read-only.bind="options.readOnly" 
+            text="year"
+            loader.bind="weeklyloader" 
+            options.bind="controlOption"
+            query.bind="filterUnit"
+            if.bind="selectedUnit" >
+        </au-autocomplete>
+    </td>
+    <td width="15%">
+        <au-autocomplete 
+            value.bind="selectedWeek" 
+            error.bind="error.week" 
+            read-only.bind="options.readOnly"
+            text.bind = "weekView"
+            loader.bind="weekloader" 
+            options.bind="controlOption"
+            query.bind="filterYear" 
+            if.bind="selectedWeeklyPlan">
+        </au-autocomplete>
+    </td>
+    <td width="10%">
+        <au-numeric 
+            value.bind="selectedWeek.items.remainingAH" 
+            error.bind="error.week" 
+            read-only="true"
+            options.bind="controlOption"
+            change.delegate="AHChanged($event)"
+            if.bind="selectedWeek">
+        </au-numeric>
+    </td>
+    <td width="10%">
+        <numeric 
+            value.bind="data.quantity" 
+            error.bind="error.quantity" 
+            read-only.bind="options.readOnly"
+            format="0"
+            change.delegate="quantityChanged($event)"
+            options.bind="controlOption">
+        </numeric>
+    </td>
+    <td width="10%">
+        <au-textbox 
+            value.bind="data.remark"
+            error.bind="error.remark"
+            read-only.bind="options.readOnly" 
+            options.bind="controlOptions">
+        </au-textbox>
+    </td>
+    <td width="10%">
+        <au-datepicker 
+            value.bind="data.deliveryDate"
+            error.bind="error.deliveryDate"
+            read-only.bind="options.readOnly" 
+            options.bind="controlOptions">
+        </au-datepicker>
+    </td>
+    <td width="10%">
+        <au-numeric 
+            value.bind="data.efficiency" 
+            error.bind="error.week" 
+            change.delegate="efficiencyChanged($event)"
+            read-only.bind="options.readOnly"
+            options.bind="controlOption"
+            if.bind="selectedWeek">
+        </au-numeric>
+    </td>
+    <td width="10%">
+        <au-numeric 
+            value.bind="data.ehBooking" 
+            error.bind="error.ehBooking" 
+            read-only="true"
+            options.bind="controlOption"
+            if.bind="selectedWeek">
+        </au-numeric>
+    </td>
+    <td width="10%">
+        <au-numeric 
+            value.bind="data.sisaAH" 
+            error.bind="error.sisaAH" 
+            read-only="true"
+            options.bind="controlOption"
+            if.bind="selectedWeek">
+        </au-numeric>
+    </td>
+    <td width="10%">
+        <au-numeric 
+            value.bind="data.planWorkingHours" 
+            error.bind="error.planWorkingHours" 
+            read-only="true"
+            options.bind="controlOption"
+            if.bind="selectedWeek">
+        </au-numeric>
+    </td>
+    <td if.bind="!options.readOnly" ><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+</tr>
+</template>

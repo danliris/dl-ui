@@ -42,15 +42,15 @@ export class DataForm {
         this.hasView = this.context.hasView ? this.context.hasView : false;
         this.deliveryOrderColumns = this.hasView ? [
             { header: "No Surat Jalan", value: "no" },
-            { header: "Tanggal Surat Jalan", value: "date" },
-            { header: "Tanggal Datang Barang", value: "supplierDate" },
+            { header: "Tanggal Surat Jalan", value: "supplierDate" },
+            { header: "Tanggal Datang Barang", value: "date" },
             { header: "Total Jumlah", value: "quantity" },
             { header: "Total Harga", value: "price" }
         ] : [
             { header: "", value: "selected" },
             { header: "No Surat Jalan", value: "no" },
-            { header: "Tanggal Surat Jalan", value: "date" },
-            { header: "Tanggal Datang Barang", value: "supplierDate" },
+            { header: "Tanggal Surat Jalan", value: "supplierDate" },
+            { header: "Tanggal Datang Barang", value: "date" },
             { header: "Total Jumlah", value: "quantity" },
             { header: "Total Harga", value: "price" }
         ]

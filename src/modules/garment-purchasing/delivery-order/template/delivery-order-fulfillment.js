@@ -29,11 +29,11 @@ export class DeliveryOrderItem {
   }
 
   get quantityConversion() {
-    return this.data.deliveredQuantity * this.data.conversion
+    return (this.data.deliveredQuantity * this.data.conversion).toFixed(2)
   }
 
   get priceTotal() {
-    return this.data.deliveredQuantity * this.data.pricePerDealUnit;
+    return parseFloat((this.data.deliveredQuantity * this.data.pricePerDealUnit).toFixed(2));
   }
 
   get productLoader() {

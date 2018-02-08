@@ -33,6 +33,7 @@ export class Confirm {
         if(this.data.items){
             if(this.data.items.length>0){
                 var warning=[];
+                var warning_confirm=[];
                 for(var item of this.data.items){
                     var today=new Date();
                     item._createdDate=item._createdDate? new Date(item._createdDate): '';
@@ -46,6 +47,7 @@ export class Confirm {
                     var diff=a.getTime() - b.getTime();
                     var timeDiff = Math.abs(a.getTime() - b.getTime());
                     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                    var total = item.quantity - this.data.orderQuantity;
                     if(diff>=0){
                         if(diffDays>=0 && diffDays<=45){
                             if(item.masterPlanComodity)
@@ -64,10 +66,13 @@ export class Confirm {
                         warning=[];
                         break;
                     }
+                    
+                    if(total > 0)
+                        warning_confirm.push('Total jumlah confirm lebih dari jumlah booking order\n');
                 }
                 
-                if(warning.length>0){
-                        if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString() +' Tetap Confirm?')) {
+                if(warning.length>0 && warning_confirm.length<=0){
+                        if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString() +'Tetap Confirm?')) {
                             this.service.update(this.data)
                                 .then(result => {
                                     alert("Data Confirmed");
@@ -76,6 +81,28 @@ export class Confirm {
                                     this.error = e;
                                 });
                         } 
+                }
+                else if(warning.length>0 && warning_confirm.length>0){
+                        if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString() + warning_confirm.toString() +'Tetap Confirm?')) {
+                            this.service.update(this.data)
+                                .then(result => {
+                                    alert("Data Confirmed");
+                                    this.cancel();
+                                }).catch(e => {
+                                    this.error = e;
+                                });
+                        }
+                }
+                else if(warning_confirm.length>0){
+                        if (confirm(warning_confirm.toString() +'Tetap Confirm?')) {
+                            this.service.update(this.data)
+                                .then(result => {
+                                    alert("Data Confirmed");
+                                    this.cancel();
+                                }).catch(e => {
+                                    this.error = e;
+                                });
+                        }
                 }
                 else{
                     this.service.update(this.data).then(result => {
