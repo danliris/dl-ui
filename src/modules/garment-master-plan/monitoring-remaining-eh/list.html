@@ -1,0 +1,52 @@
+<template>
+  <form class="form-horizontal">
+    <h3>Monitoring Remaining EH</h3>
+    <hr/>
+
+    <au-autocomplete 
+      value.bind="year" 
+      label="Year" 
+      loader.one-time="yearLoader"
+      text = "year"
+      placeholder="Tahun" 
+      options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-autocomplete 
+      value.bind="unit" 
+      label="Unit" 
+      loader.one-time="unitLoader"
+      text.bind = "unitView"
+      placeholder="Unit" 
+      options.bind="controlOptions">
+    </au-autocomplete>
+
+    <div class="text-center">
+      <button class="btn btn-success" click.delegate="searching()">Cari</button>
+      <button class="btn btn-danger" click.delegate="reset()">Reset</button>
+    </div>
+
+  </form>
+
+  <br>
+
+  <div class="table-responsive" if.bind="data.length > 0">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead>
+        <tr>
+          <th class="text-center">UNIT</th>
+          <th class="text-center" repeat.for="plan of data">${plan.unit.code}</th>
+          <th class="text-center">Head Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr repeat.for="week of data[0].items">
+          <td>W${week.weekNumber}</td>
+          <td repeat.for="plan of data">${plan.items[week.weekNumber-1].remainingEH}</td>
+          <td>25252525</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</template>
