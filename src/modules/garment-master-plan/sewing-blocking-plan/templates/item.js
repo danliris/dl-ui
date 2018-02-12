@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 import moment from 'moment';
-var UnitLoader = require('../../../../loader/unit-loader');
+var UnitLoader = require('../../../../loader/weekly-plan-unit-loader');
 var weeklyLoader = require('../../../../loader/garment-master-plan-weekly-plan-loader');
 var weekLoader = require('../../../../loader/garment-master-plan-weekly-plan-by-year-loader');
 var MasterPlanComodityLoader = require('../../../../loader/garment-master-plan-comodity-loader');
