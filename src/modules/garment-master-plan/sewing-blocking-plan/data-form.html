@@ -117,12 +117,21 @@
             errors.bind="error.details" 
             columns.bind="detailColumns" 
             add.bind="addDetails"  
+            remove.bind="removeDetails"
             options.bind="options"
             read-only.bind="readOnly"
             if.bind="data.bookingOrderId"
+            change.delegate="detailsChanged($event)"
             item-template="modules/garment-master-plan/sewing-blocking-plan/templates/item"
             footer-template="modules/garment-master-plan/sewing-blocking-plan/templates/item-footer">
         </au-collection>
+        
+        <label for="Jadwal Pengerjaan" if.bind="!isView">Preview EH :</label>
+        <au-table 
+        view-model.ref="previewTable"
+        columns.bind="columnPreview"
+        data.bind="previewData"
+        if.bind="!isView"></au-table>
 
         <!--<label for="Preview 6 bulan" if.bind="data.bookingOrderId">Preview 6 bulan</label>
         <au-dropdown
