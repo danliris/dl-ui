@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'weekly-plans-year';
+const resource = 'weekly-plan-years';
 
 module.exports = function (keyword, filter) {
 
