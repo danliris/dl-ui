@@ -82,14 +82,14 @@ export class Service extends RestService {
             });
     }
 
-    getPreview(month, year){
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-master-plan");
-        var _serviceUri = `sewing-blocking-plan-previews`;
+    // getPreview(year){
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("garment-master-plan");
+    //     var _serviceUri = `sewing-blocking-plan-previews`;
 
-        return _endpoint.find(_serviceUri, { month: month, year: year })
-            .then(result => {
-                return result.data;
-            });
-    }
+    //     return _endpoint.find(_serviceUri, {  year: year })
+    //         .then(result => {
+    //             return result.data;
+    //         });
+    // }
 }
