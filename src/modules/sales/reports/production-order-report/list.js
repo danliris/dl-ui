@@ -4,8 +4,8 @@ import { Router } from 'aurelia-router';
 var moment = require("moment");
 
 
-var OrderTypeLoader = require('../../../../loader/process-type-loader');
-var ProcessTypeLoader = require('../../../../loader/order-type-loader');
+var OrderTypeLoader = require('../../../../loader/order-type-loader');
+var ProcessTypeLoader = require('../../../../loader/process-type-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
 var AccountLoader = require('../../../../loader/account-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
@@ -78,7 +78,8 @@ export class List {
         { field: "orderType", title: "Jenis Order" },
         { field: "processType", title: "Jenis Proses" },
         { field: "construction", title: "Konstruksi" },
-        { field: "designMotive", title: "Warna/Motif" },
+        { field: "designCode", title: "Motif" },
+        // { field: "designCode", title: "Motif" },
         { field: "colorTemplate", title: "Hasil Matching" },   
         { field: "colorRequest", title: "CW" },
         { field: "buyer", title: "Buyer" },
