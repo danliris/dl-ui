@@ -6,7 +6,7 @@
     <au-autocomplete 
       value.bind="year" 
       label="Year" 
-      loader.one-time="yearLoader"
+      loader.bind="yearLoader"
       text = "year"
       placeholder="Tahun" 
       options.bind="controlOptions">
@@ -15,9 +15,10 @@
     <au-autocomplete 
       value.bind="unit" 
       label="Unit" 
-      loader.one-time="unitLoader"
+      loader.bind="unitLoader"
       text.bind = "unitView"
       placeholder="Unit" 
+      query.bind="filterUnit"
       options.bind="controlOptions">
     </au-autocomplete>
 
