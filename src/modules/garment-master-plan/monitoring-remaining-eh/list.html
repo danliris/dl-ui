@@ -6,7 +6,7 @@
     <au-autocomplete 
       value.bind="year" 
       label="Year" 
-      loader.one-time="yearLoader"
+      loader.bind="yearLoader"
       text = "year"
       placeholder="Tahun" 
       options.bind="controlOptions">
@@ -15,9 +15,10 @@
     <au-autocomplete 
       value.bind="unit" 
       label="Unit" 
-      loader.one-time="unitLoader"
+      loader.bind="unitLoader"
       text.bind = "unitView"
       placeholder="Unit" 
+      query.bind="filterUnit"
       options.bind="controlOptions">
     </au-autocomplete>
 
@@ -28,14 +29,13 @@
 
   </form>
 
+  <div class="btn-group pull-left">
+    <button class="btn btn-primary" click.delegate="ExportToExcel()">Export to Excel</button>
+  </div>
+  <br>
   <br>
 
   <div class="table-responsive" if.bind="data.length > 0">
-    <div class="btn-group pull-left">
-      <button class="btn btn-primary" click.delegate="ExportToExcel()">Export to Excel</button>
-    </div>
-    <br>
-    <br>
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead>
         <tr>
