@@ -29,14 +29,13 @@
 
   </form>
 
+  <div class="btn-group pull-left">
+    <button class="btn btn-primary" click.delegate="ExportToExcel()">Export to Excel</button>
+  </div>
+  <br>
   <br>
 
   <div class="table-responsive" if.bind="data.length > 0">
-    <div class="btn-group pull-left">
-      <button class="btn btn-primary" click.delegate="ExportToExcel()">Export to Excel</button>
-    </div>
-    <br>
-    <br>
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead>
         <tr>
