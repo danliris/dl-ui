@@ -43,18 +43,20 @@
                     <tr>
                         <td rowspan="3">No</td>
                         <td rowspan="3">Nomor Packing</td>
+                        <td rowspan="3">Jenis Penyerahan</td>
                         <td rowspan="3">Nomor Order</td>
+                        <td rowspan="3">Jenis Order</td>
                         <td rowspan="3">Buyer</td>
                         <td rowspan="3">Konstruksi</td>
-                        <td rowspan="3">Design/Motif</td>
+                        <td rowspan="3">Motif</td>
                         <td rowspan="3">Warna yang diminta</td>
                         <td rowspan="3">Tanggal</td>
                         <td rowspan="3">Lot</td>
                         <td rowspan="3">Grade</td>
-                        <td rowspan="3">Berat</td>
-                        <td rowspan="3">Panjang</td>
+                        <td rowspan="3">Berat(kg)</td>
+                        <td rowspan="3">Panjang(m)</td>
                         <td rowspan="3">Quantity</td>
-                         <td rowspan="3">Total</td>
+                         <td rowspan="3">Total(m)</td>
                         <td rowspan="3">Keterangan</td>
                     </tr>
                 </thead>
@@ -62,10 +64,12 @@
                     <tr repeat.for="item of newData">
                         <td class="text-center">${$index+1}</td>
                         <td>${item.code}</td>
+                        <td>${item.deliveryType}</td>
                         <td>${item.productionOrderNo}</td>
-                        <td>${item.buyer}</td>
+                        <td>${item.orderType}</td>
+                        <td>${item.buyerName}</td>
                         <td>${item.construction}</td>
-                        <td>${item.motif}</td>
+                        <td>${item.designCode}</td>
                         <td>${item.colorName}</td>
                         <td>${item.date | dateFormat:'DD MMMM YYYY'}</td>
                         <td>${item.lot}</td>
@@ -73,7 +77,7 @@
                         <td>${item.weight}</td>
                         <td>${item.length}</td>
                         <td>${item.quantity}</td>
-                         <td>${item.total}</td>
+                         <td>${item.total.toFixed(2)}</td>
                         <td>${item.remark}</td>
                     </tr>
                 </tbody>

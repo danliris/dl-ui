@@ -54,7 +54,7 @@ export class Service extends RestService {
         var _endpoint = config.getEndpoint("garment-master-plan");
         var _serviceUri = `weekly-plans`;
 
-        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter) })
+        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter), order: JSON.stringify({"unit.code":1}) })
             .then(result => {
                 return result.data;
             });

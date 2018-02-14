@@ -21,7 +21,7 @@ export class Item {
     this.options = item.options;
     this.buyerCode = item.context.options.buyerCode || "";
     this.context = item.context;
-
+    this.data.oldVal={};
     this.items = [];
     for (var a = 0; a < this.context.items.length; a++) {
       this.items.push(this.context.items[a].data);
@@ -47,8 +47,7 @@ export class Item {
         unit: this.data.unit.code,
         weekNumber: this.data.week.weekNumber
       }
-
-      if (this.data._createdDate) {
+      if (this.data._updatedDate) {
         await endpoint.find(resource, { filter: JSON.stringify(filter) })
           .then((result) => {
             this.selectedWeek = result.data[0];
@@ -86,6 +85,7 @@ export class Item {
               this.data.planWorkingHours = Math.round(this.data.ehBooking / this.data.week.operator);
             }
           });
+          this.data._updatedDate=null;
       }
 
 
@@ -124,7 +124,14 @@ export class Item {
     return filter;
   }
 
-  selectedUnitChanged(newValue) {
+  selectedUnitChanged(newValue,oldValue) {
+    console.log(oldValue);
+    if(oldValue){
+      this.data.oldVal.unitCode=oldValue.code;
+      // this.data.oldVal.weekNumber=this.data.weekNumber;
+      // this.data.oldVal.year=this.data.weeklyPlanYear;
+      // this.data.oldVal.remainingEH=this.data.remainingEH;
+    }
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.unitId = _selectedData._id;
@@ -139,9 +146,23 @@ export class Item {
     delete this.data.weeklyPlanYear;
     this.selectedWeeklyPlan = {};
     this.selectedWeek = {};
+    this.data.ehBooking = 0;
+    this.data.sisaEH = 0;
+    this.data.efficiency = 0;
+    this.data.quantity = 0;
+    this.data.planWorkingHours = 0;
+    this.data.remainingEH=0;
   }
 
-  selectedWeeklyPlanChanged(newValue) {
+  selectedWeeklyPlanChanged(newValue,oldValue) {
+    console.log(oldValue);
+    if(oldValue){
+      this.data.oldVal.year=oldValue.year;
+      this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.unit.code;
+      // this.data.oldVal.weekNumber=this.data.weekNumber;
+      // this.data.oldVal.unitCode=this.data.unit.code;
+      // this.data.oldVal.remainingEH=this.data.remainingEH;
+    }
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.weeklyPlanYear = _selectedData.year;
@@ -151,6 +172,7 @@ export class Item {
       delete this.data.weeklyPlanId;
       delete this.data.weeklyPlanYear;
       this.selectedWeek = {};
+      this.data.remainingEH=0;
     }
     var yearFilter = {};
     if (this.data.weeklyPlanYear && this.data.unit && this.data.unit.code) {
@@ -164,10 +186,25 @@ export class Item {
     this.selectedWeek = {};
     this.data.ehBooking = 0;
     this.data.sisaEH = 0;
+    this.data.efficiency = 0;
+    this.data.quantity = 0;
     this.data.planWorkingHours = 0;
+    this.data.remainingEH=0;
   }
 
-  selectedWeekChanged(newValue) {
+  selectedWeekChanged(newValue,oldValue) {
+    console.log(this.data.oldVal);
+    if(oldValue){
+      if(oldValue.items){
+        this.data.oldVal.weekNumber=oldValue.items.weekNumber;
+        this.data.oldVal.year=this.data.oldVal.year? this.data.oldVal.year:this.data.weeklyPlanYear;
+        this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.unit.code;
+        // this.data.oldVal.unitCode=this.data.unit.code;
+        // this.data.oldVal.year=this.data.weeklyPlanYear;
+        this.data.oldVal.remainingEH=this.data.remainingEH;
+      }
+    }
+    console.log(this.data.oldVal);
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.week = _selectedData.items;
@@ -217,6 +254,7 @@ export class Item {
       this.data.ehBooking = 0;
       this.data.sisaEH = 0;
       this.data.planWorkingHours = 0;
+      this.data.remainingEH=0;
     }
   }
 

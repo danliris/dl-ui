@@ -287,19 +287,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'production/finishing-printing/reports/bad-output-report',
-        name: 'badoutput',
-        moduleId: './modules/production/finishing-printing/reports/bad-output-report/index',
-        nav: true,
-        title: 'Monitoring Good / Bad Output per Mesin',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'production/finishing-printing/reports/bad-output-report',
+    //     name: 'badoutput',
+    //     moduleId: './modules/production/finishing-printing/reports/bad-output-report/index',
+    //     nav: true,
+    //     title: 'Monitoring Good / Bad Output per Mesin',
+    //     auth: true,
+    //     settings: {
+    //         group: "production",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'production/finishing-printing/reports/monitoring-montly-operation-machine',
         name: 'monitoring-montly-operation-machine',
@@ -336,6 +336,19 @@ module.exports = [
         settings: {
             group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/yarn-output-production',
+        name: 'yarn-output-production',
+        moduleId: './modules/production/spinning/yarn-output-production/index',
+        nav: true,
+        title: 'Output Produksi Spinning',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

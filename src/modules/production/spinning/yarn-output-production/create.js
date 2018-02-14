@@ -1,27 +1,22 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import {activationStrategy} from 'aurelia-router';
-
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
+    isCreate = true;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
         this.data = {};
+        this.error = {};
     }
 
-    activate(params) {
 
-    }
-
-    list() {
+    back() {
         this.router.navigateToRoute('list');
-    }
-
-    cancelCallback(event) {
-        this.list();
     }
 
     determineActivationStrategy() {
@@ -30,14 +25,19 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    saveCallback(event) {
+    save() {
+        this.data.remainingQuantity = this.data.orderQuantity + (this.data.orderQuantity * this.data.shippingQuantityTolerance / 100);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                this.error = e;
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else {
+                    this.error = e;
+                }
             })
     }
 }

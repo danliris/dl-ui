@@ -80,6 +80,9 @@ export class DataForm {
             //     garmentBuyerName:this.data.garmentBuyerName
             // };
             this.selectedBookingOrder = await this.service.getBookingById(this.data.bookingOrderId);
+            for (var e of this.data.details){
+                e.first=true;
+            }
         }
         if (!this.isView) {
             var year = (new Date()).getFullYear();
@@ -96,6 +99,7 @@ export class DataForm {
                 this.columnPreview.push({ field: i, title: "W" + i });
             }
             // console.log(this.previewWeeklyPlan);
+            
             let prev = [];
             for (var a of this.previewWeeklyPlan) {
                 if (a.year === year) {
@@ -129,7 +133,7 @@ export class DataForm {
 
                 this.previewData.push(obj);
             }
-
+            
         }
     }
 
@@ -138,7 +142,9 @@ export class DataForm {
         this.previewDataTable = [];
         //this.previewDataTable =this.previewData;
         //this.previewDataTable = JSON.parse(JSON.stringify(this.previewData));
-        //console.log(a );
+        //console.log(this.options);
+        console.log(this.data.details);
+        
         if (this.data.details) {
             var remEH=[];
             for (let detail of this.data.details) {
@@ -148,8 +154,18 @@ export class DataForm {
                     remEH[cat]=uniq.remainingEH;
                     
                 }
+                console.log(detail);
+                if(detail.oldVal){
+                    console.log(detail.oldVal);
+                    if(detail.oldVal.year && detail.oldVal.unitCode){
+                        let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
+                        if (item) {
+                            item[detail.oldVal.weekNumber] = detail.oldVal.remainingEH;
+                        }
+                    }
+                }
             }
-            console.log(remEH);
+            //console.log(remEH);
             
             for (let detail of this.data.details) {
                 if(detail.weeklyPlanYear && detail.unit && detail.week){
@@ -158,6 +174,7 @@ export class DataForm {
                     //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
                     // //console.log(category );
                      detail.remainingEH= remEH[cat];
+                     detail.sisaEH=detail.remainingEH-detail.ehBooking;
                      remEH[cat]-=detail.ehBooking;
                      console.log(remEH[cat]);
                     let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
@@ -176,6 +193,75 @@ export class DataForm {
         this.context.previewTable.refresh();
 
         //this.previewDataTable;
+    }
+
+    get removeDetails() {
+        return (event) => //console.log(event.detail);
+        {
+            this.previewDataTable = []
+
+            if (event.detail) {
+                for (let detail of this.data.details) {
+                    let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
+                    let category = event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString();
+                    let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
+                    if (item) {
+                        item[event.detail.week.weekNumber] = event.detail.week.remainingEH;
+                        //console.log(event.detail.week.remainingEH);
+                    }
+                }
+                    var remEH=[];
+                    for (let detail of this.data.details) {
+                        if(detail.weeklyPlanYear && detail.unit && detail.week){
+                            let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
+                            let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                            let uniq = this.data.details.find(o => (o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString())  == cat);
+                            if(cat===remCat){
+                                if(uniq.remainingEH<event.detail.remainingEH){
+                                    remEH[cat]=event.detail.remainingEH;
+                                }
+                                else{
+                                    remEH[cat]=uniq.remainingEH;
+                                }
+                            }
+                            else{
+                                remEH[cat]=uniq.remainingEH;
+                            }
+                        }
+                    }
+                    console.log(remEH);
+                    for (let detail of this.data.details) {
+                        if(detail.weeklyPlanYear && detail.unit && detail.week){
+                            let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                            let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
+                            //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                            // //console.log(category );
+                            // detail.remainingEH= remEH[cat];
+                            // remEH[cat]-=detail.week.usedEH;
+                            if(cat==remCat){
+                                detail.remainingEH=remEH[cat];
+                                detail.sisaEH=detail.remainingEH-detail.ehBooking;
+                                remEH[cat]-=detail.ehBooking;
+                                //console.log(remEH[cat]);
+                            }
+                            
+                        }
+                    }
+                if(!this.data.detail){
+                    let category = event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString();
+                    let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
+                    if (item) {
+                        item[event.detail.week.weekNumber] = event.detail.remainingEH;
+                    }
+                }
+            }
+
+            
+
+            console.log(this.previewData);
+            this.context.previewTable.refresh();
+        };
+
     }
 
     selectedBookingOrderChanged(newValue) {
@@ -226,68 +312,6 @@ export class DataForm {
             this.data.details.push(newDetail);
         };
     }
-
-    get removeDetails() {
-        return (event) => //console.log(event.detail);
-        {
-            this.previewDataTable = []
-
-            if (event.detail) {
-                for (let detail of this.data.details) {
-                    let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
-                    let category = event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString();
-                    let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
-                    if (item) {
-                        item[event.detail.week.weekNumber] = event.detail.week.remainingEH;
-                        console.log(event.detail.week.remainingEH);
-                    }
-                }
-                    var remEH=[];
-                    for (let detail of this.data.details) {
-                        if(detail.weeklyPlanYear && detail.unit && detail.week){
-                            let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
-                            let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                            let uniq = this.data.details.find(o => (o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString())  == cat);
-                            if(cat===remCat){
-                                if(uniq.remainingEH<event.detail.remainingEH){
-                                    remEH[cat]=event.detail.remainingEH;
-                                }
-                                else{
-                                    remEH[cat]=uniq.remainingEH;
-                                }
-                            }
-                            else{
-                                remEH[cat]=uniq.remainingEH;
-                            }
-                        }
-                    }
-                    console.log(remEH);
-                    for (let detail of this.data.details) {
-                        if(detail.weeklyPlanYear && detail.unit && detail.week){
-                            let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                            let remCat=event.detail.weeklyPlanYear.toString() + event.detail.unit.code.toString() + event.detail.week.weekNumber.toString();
-                            //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                            // //console.log(category );
-                            // detail.remainingEH= remEH[cat];
-                            // remEH[cat]-=detail.week.usedEH;
-                            if(cat==remCat){
-                                detail.remainingEH=remEH[cat];
-                                remEH[cat]-=detail.ehBooking;
-                                console.log(remEH[cat]);
-                            }
-                            
-                        }
-                    }
-            }
-
-            
-
-        console.log(this.previewData);
-            this.context.previewTable.refresh();
-        };
-
-    }
-
     // async previewChange(event) {
     //     var month = this.getMonth(this.preview.month);
     //     var thisDate = new Date(`${this.preview.year}/${month - 1}/1`);
