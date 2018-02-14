@@ -29,7 +29,6 @@ export class View {
     }
 
     tableOptions = {
-        search: false,
         showToggle: false,
         showColumns: false,
         pagination: false
@@ -54,6 +53,13 @@ export class View {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "kanbanPosition", title: "Posisi Kanban Terakhir" },
+        {
+            field: "deliveryDateCorrection", title: "Perubahan Tanggal Delivery", formatter: function (value, data, index) {
+                return value ? moment(value).format("DD MMM YYYY") : "-";
+            }
+        },
+        { field: "reason", title: "Alasan Perubahan Tanggal Delivery" },
         { field: "orderQuantity", title: "Panjang SPP (m)" },
         { field: "notInKanbanQuantity", title: "Sisa Belum Turun Kanban (m)" },
         { field: "preProductionQuantity", title: "Belum Produksi (m)" },
@@ -127,6 +133,10 @@ export class View {
 
     exportToExcel() {
         this.service.generateDetailXls(this.info);
+    }
+
+    edit() {
+        this.router.navigateToRoute('edit', { year: this.year, month: this.month, orderType: this.orderType });
     }
 
     cancelCallback(event) {

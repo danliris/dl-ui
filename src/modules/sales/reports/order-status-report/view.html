@@ -18,7 +18,6 @@
         </style>
 
         <form class="form-horizontal">
-
             <au-textbox value.bind="year" label="Tahun" read-only="true"></au-textbox>
             <au-textbox value.bind="month" label="Bulan" read-only="true"></au-textbox>
             <au-textbox value.bind="orderType" label="Jenis Order" read-only="true"></au-textbox>
@@ -26,16 +25,16 @@
             <br>
             </br>
 
-            <div class="btn-group">
-                <button class='btn btn-primary' click.delegate="exportToExcel()">Excel</button>
-            </div>
-
             <au-table
                 data.bind="data"
                 columns.bind="columns"
                 options.bind="tableOptions"
                 context.bind="contextTable"
                 context-click.delegate="contextCallback($event)">
+                <div slot="toolbar" class="btn-group">
+                    <button class='btn btn-primary' click.delegate="exportToExcel()">Excel</button>
+                    <button class='btn btn-default' click.delegate="edit()">Ubah</button>                
+                </div>
             </au-table>
 
             <br>

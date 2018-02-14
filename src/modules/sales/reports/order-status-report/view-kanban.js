@@ -37,6 +37,20 @@ export class View {
         { field: "processArea", title: "Area" },
         { field: "quantity", title: "Kuantiti (m)" },
         { field: "status", title: "Status" }
+    ];
+
+    columnsHistory = [
+        {
+            field: "_createdDate", title: "Tanggal Buat", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        {
+            field: "deliveryDateCorrection", title: "Tanggal Hasil Revisi", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "reason", title: "Alasan" }
     ]
 
     async activate(params) {
@@ -46,7 +60,9 @@ export class View {
             orderNo: params.orderNo
         };
 
-        this.data = await this.service.kanbanDetail(this.info);
+        this.result = await this.service.kanbanDetail(this.info);
+        this.data = this.result.data;
+        this.histories = this.result.histories;
 
         let total = 0;
 
