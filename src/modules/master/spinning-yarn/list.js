@@ -1,29 +1,17 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-var moment = require('moment');
 
 @inject(Router, Service)
 export class List {
-  // data = [];
-  // info = { page: 1, keyword: '' };
+
   context = ["detail"];
 
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
-
   columns = [
-    { field: "Unit.name", title: "Spinning" },
-    {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
-      }
-    },
-    { field: "Machine.name", title: "Mesin" },
-    { field: "Yarn.Name", title: "Benang" },
-    { field: "Lot", title: "Lot" }
+    { field: "Code", title: "Kode" },
+    { field: "Name", title: "Nama Benang" },
+    { field: "Ne", title: "Nomor NE" },
+    { field: "Remark", title: "Remark" },
   ];
 
   loader = (info) => {
@@ -47,6 +35,12 @@ export class List {
       });
   }
 
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+
+  }
+
   contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
@@ -60,4 +54,5 @@ export class List {
   create() {
     this.router.navigateToRoute('create');
   }
+
 }
