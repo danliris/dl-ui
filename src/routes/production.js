@@ -340,19 +340,6 @@ module.exports = [
         }
     },
     {
-        route: 'production/spinning/yarn-output-production',
-        name: 'yarn-output-production',
-        moduleId: './modules/production/spinning/yarn-output-production/index',
-        nav: true,
-        title: 'Output Produksi Spinning',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: { "*": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'production/finishing-printing/reports/order-status-report',
         name: 'order-status-report-production',
         moduleId: './modules/production/finishing-printing/reports/order-status-report/index',

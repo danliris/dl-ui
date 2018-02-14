@@ -22,14 +22,14 @@ export class List {
 
     setColumns() {
         this.columns = [
-            { field: "Spinning.Name", title: "Spinning" },
+            { field: "Spinning.name", title: "Spinning" },
             {
                 field: "Date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
             { field: "Shift", title: "Shift" },
-            { field: "Machine.Name", title: "Mesin" },
+            { field: "Machine.name", title: "Mesin" },
             { field: "Yarn.Name", title: "Benang" },
             { field: "LotYarn.Lot", title: "Lot" }
         ];

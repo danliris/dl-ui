@@ -24,7 +24,7 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
     }
 
-    async bind(context) {
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -40,17 +40,36 @@ export class DataForm {
         }
     }
 
+    controlOptions = {
+        control: {
+          length: 2
+        }
+      }
+
+    itemColumns = ["Berat Benang per Cone", "Good Output", "Bad Output", "Jumlah Drum"];
     spinningFilter = { "division.name": { "$regex": "SPINNING", "$options": "i" } };
     @bindable machineFilter = { "unit.name": { "$exists": true } };
     shiftItems = ["", "Shift I: 06.00 - 14.00", "Shift II: 14.00 - 22.00", "Shift I: 22.00 - 06.00"];
 
     @bindable selectedYarn;
-    selectedYarnChanged(newVal, oldVal) {
+    async selectedYarnChanged(newVal, oldVal) {
         if (this.selectedYarn && this.selectedYarn.Id) {
             this.data.Yarn = this.selectedYarn;
+
+            if (this.selectedSpinning && this.selectedMachine && this.selectedYarn && this.selectedSpinning._id && this.selectedMachine._id && this.selectedYarn.Id) {
+                var info = {
+                    spinning: this.selectedSpinning.name,
+                    machine: this.selectedMachine.name,
+                    yarn: this.selectedYarn.Name
+                };
+                this.selectedLotYarn = await this.service.getLotYarn(info);
+            }
         }
         else {
             this.data.Yarn = null;
+            this.data.LotYarn = null;
+
+            this.selectedLotYarn = null;
         }
     }
 
@@ -58,18 +77,30 @@ export class DataForm {
         return YarnsLoader;
     }
 
+    @bindable selectedLotYarn;
+    selectedLotYarnChanged(newVal, oldVal) {
+        if (this.selectedLotYarn && this.selectedLotYarn.Id) {
+            console.log(this.selectedLotYarn);
+            this.data.LotYarn = this.selectedLotYarn;
+        } else {
+            this.data.LotYarn = null;
+        }
+    }
+
     @bindable selectedSpinning;
     selectedSpinningChanged(newVal, oldVal) {
         if (this.selectedSpinning && this.selectedSpinning._id) {
             this.data.Spinning = this.selectedSpinning;
             this.machineFilter = { "unit.name": { "$regex": this.selectedSpinning.name, "$options": "i" } };
-            if (this.context.isCreate) {
-                this.selectedMachine = null;
-            }
         }
         else {
             this.machineFilter = { "unit.name": { "$exists": true } };
             this.data.Spinning = null;
+            this.data.Machine = null;
+            this.data.LotYarn = null;
+
+            this.selectedMachine = null;
+            this.selectedLotYarn = null
         }
     }
 
@@ -78,16 +109,53 @@ export class DataForm {
     }
 
     @bindable selectedMachine;
-    selectedMachineChanged(newVal, oldVal) {
+    async selectedMachineChanged(newVal, oldVal) {
         if (this.selectedMachine && this.selectedMachine._id) {
             this.data.Machine = this.selectedMachine;
+
+            if (this.selectedSpinning && this.selectedMachine && this.selectedYarn && this.selectedSpinning._id && this.selectedMachine._id && this.selectedYarn.Id) {
+                var info = {
+                    spinning: this.selectedSpinning.name,
+                    machine: this.selectedMachine.name,
+                    yarn: this.selectedYarn.Name
+                };
+                this.selectedLotYarn = await this.service.getLotYarn(info)
+            }
         }
         else {
             this.data.Machine = null;
+            this.data.LotYarn = null;
+
+            this.selectedLotYarn = null;
         }
     }
 
     get machineLoader() {
         return MachineLoader;
+    }
+
+    YarnOutputItemsInfo = {
+        columns: [
+            { header: "Berat Benang per Cone", value: "YarnWeightPerCone" },
+            { header: "Good Output", value: "GoodOutput" },
+            { header: "Bad Output", value: "BadOutput" },
+            { header: "Total Drum", value: "DrumTotal" }
+        ],
+        onAdd: function () {
+            this.data.YarnOutputItems.push({});
+        }.bind(this)
+    };
+
+    get addItem() {
+        return (event) => {
+            var newItem = {
+                YarnWeightPerCone: 0,
+                GoodOutput: 0,
+                BadOutput: 0,
+                DrumTotal: 0
+            };
+            this.context.YarnOutputCollection.bind();
+            this.data.YarnOutputItems.push(newItem);
+        };
     }
 } 
