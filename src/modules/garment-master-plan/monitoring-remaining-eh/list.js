@@ -37,7 +37,13 @@ export class List {
 
   @computedFrom("year")
   get filterUnit() {
-    return { "year": this.year ? this.year.year : "" }
+    if (this.year) {
+      this.unit = "";
+      return { "year": this.year.year }
+    }
+    else {
+      return { "year": "" }
+    }
   }
 
   searching() {
