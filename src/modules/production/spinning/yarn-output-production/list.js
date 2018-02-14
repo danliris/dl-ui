@@ -22,16 +22,16 @@ export class List {
 
     setColumns() {
         this.columns = [
-            { field: "Spinning", title: "Spinning" },
+            { field: "Spinning.Name", title: "Spinning" },
             {
                 field: "Date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
             { field: "Shift", title: "Shift" },
-            { field: "MachineName", title: "Mesin" },
-            { field: "Yarn", title: "Benang" },
-            { field: "Lot", title: "Lot" }
+            { field: "Machine.Name", title: "Mesin" },
+            { field: "Yarn.Name", title: "Benang" },
+            { field: "LotYarn.Lot", title: "Lot" }
         ];
     }
 

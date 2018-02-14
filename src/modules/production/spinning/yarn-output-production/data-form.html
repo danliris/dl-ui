@@ -1,12 +1,17 @@
 <template>
   <au-input-form title.bind="title" with.bind="context">
 
-    <au-textbox
+    <au-autocomplete
+      placeholder="pilih unit spinning"
       label="Spinning"
-      value.bind="data.Spinning"
+      value.bind="selectedSpinning"
       error.bind="error.SpinningId"
-      read-only.bind="readOnly">
-    </au-textbox>
+      read-only.bind="readOnly"
+      loader.bind="spinningLoader"
+      query.bind="spinningFilter"
+      key="name"
+      text="name">
+    </au-autocomplete>
 
     <au-datepicker
       label="Tanggal"
@@ -23,25 +28,34 @@
       read-only.bind="readOnly">
     </au-dropdown>
 
-    <au-textbox
+    <au-autocomplete
+      placeholder="pilih mesin"
       label="Mesin"
-      value.bind="data.Machine"
+      value.bind="selectedMachine"
       error.bind="error.MachineId"
-      read-only.bind="readOnly">
-    </au-textbox>
+      read-only.bind="readOnly"
+      loader.bind="machineLoader"
+      key="name"
+      text="name"
+      query.bind="machineFilter">
+    </au-autocomplete>
 
-    <au-textbox 
+    <au-autocomplete
+      placeholder="pilih benang"
       label="Benang"
-      value.bind="data.Yarn"
+      value.bind="selectedYarn"
       error.bind="error.YarnId"
-      read-only.bind="readOnly">
-    </au-textbox>
+      read-only.bind="readOnly"
+      loader.bind="yarnsLoader"
+      key="Name"
+      text="Name">
+    </au-autocomplete>
 
     <au-textbox
       label="Lot"
       value.bind="data.LotYarnName"
       error.bind="error.LotYarnId"
-      read-only.bind="readOnly">
+      read-only.bind="true">
     </au-textbox>
     
     <au-numeric
@@ -71,6 +85,15 @@
       error.bind="error.DrumTotal"
       read-only.bind="readOnly">
     </au-numeric>
+
+    <au-collection
+      columns.bind="itemColumns"
+      items.bind="data.items"
+      errors.one-way="error.items"
+      add.bind="addItemCallback"
+      read-only.bind="readOnly"
+      item-template="modules/production/finishing-printing/packing/template/packing-item">
+    </au-collection>
     
   </au-input-form>
 
