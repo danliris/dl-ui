@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-
+import numeral from 'numeral';
 
 @inject(Router, Service)
 export class View {
@@ -61,6 +61,8 @@ export class View {
                 total.weightTotalAmount += item.weight * item.quantity;
                 total.lengthTotalAmount += item.length * item.quantity;
             }
+
+            total.length = numeral(total.length).format('0,000.00');
       
             this.data.items.push(total);
         }
