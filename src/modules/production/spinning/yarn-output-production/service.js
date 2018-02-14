@@ -3,6 +3,8 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = "yarn-output-productions";
+const createServiceUri = "yarn-output-production/create";
+const lotYarnServiceUri = "LotYarn"
 
 export class Service extends RestService {
 
@@ -16,7 +18,7 @@ export class Service extends RestService {
     }
 
     create(data) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${createServiceUri}`;
         return super.post(endpoint, data);
     }
 
@@ -33,5 +35,14 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
+    }
+
+    getLotYarn(info) {
+        var spinning = info.spinning ? info.spinning : " ";
+        var machine = info.machine ? info.machine : " ";
+        var yarn = info.yarn ? info.yarn : " ";
+        var endpoint = `${lotYarnServiceUri}/${spinning}/${machine}/${yarn}`;
+        
+        return super.get(endpoint);
     }
 }

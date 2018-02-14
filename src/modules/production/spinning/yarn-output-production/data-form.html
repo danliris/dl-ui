@@ -37,7 +37,8 @@
       loader.bind="machineLoader"
       key="name"
       text="name"
-      query.bind="machineFilter">
+      query.bind="machineFilter"
+      show.bind="data.Spinning">
     </au-autocomplete>
 
     <au-autocomplete
@@ -48,51 +49,72 @@
       read-only.bind="readOnly"
       loader.bind="yarnsLoader"
       key="Name"
-      text="Name">
+      text="Name"
+      show.bind="data.Spinning">
     </au-autocomplete>
 
-    <au-textbox
-      label="Lot"
-      value.bind="data.LotYarnName"
+    <au-autocomplete
+      placeholder="pilih lot benang"
+      label="Lot Benang"
+      value.bind="selectedLotYarn"
       error.bind="error.LotYarnId"
-      read-only.bind="true">
-    </au-textbox>
-    
+      read-only.bind="true"
+      key="Lot"
+      text="Lot"
+      show.bind="data.Spinning">
+    </au-autocomplete>
+
     <au-numeric
       value.bind="data.YarnWeightPerCone"
       label="Berat Benang per Cone"
       read-only.bind="readOnly"
-      error.bind="error.YarnWeightPerCone">
+      error.bind="error.YarnWeightPerCone"
+      if.bind="isView || isEdit"
+      options.bind="controlOptions">
     </au-numeric>
 
     <au-numeric
       label="Good Output"
       value.bind="data.GoodOutput"
       error.bind="error.GoodOutput"
-      read-only.bind="readOnly">
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit"
+      options.bind="controlOptions">
     </au-numeric>
 
     <au-numeric
       label="Bad Output"
       value.bind="data.BadOutput"
       error.bind="error.BadOutput"
-      read-only.bind="readOnly">
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit"
+      options.bind="controlOptions">
     </au-numeric>
 
     <au-numeric
       label="Jumlah Drum"
       value.bind="data.DrumTotal"
       error.bind="error.DrumTotal"
-      read-only.bind="readOnly">
+      read-only.bind="readOnly"
+      if.bind="isView || isEdit"
+      options.bind="controlOptions">
     </au-numeric>
 
+    <au-textbox
+      if.bind="data.YarnOutputItems.length == 0"
+      error.bind="error.YarnOutputItems"
+      read-only.bind="true">
+    </au-textbox>
+
     <au-collection
-      columns.bind="itemColumns"
-      items.bind="data.items"
-      errors.one-way="error.items"
-      add.bind="addItemCallback"
+      columns.bind="YarnOutputItemsInfo.columns"
+      items.bind="data.YarnOutputItems"
+      errors.bind="error.YarnOutputItems"
+      add.bind="YarnOutputItemsInfo.onAdd"
+      remove.bind="YarnOutputItemsInfo.onRemove"
       read-only.bind="readOnly"
-      item-template="modules/production/finishing-printing/packing/template/packing-item">
+      item-template="modules/production/spinning/yarn-output-production/template/yarn-output-item"
+      if.bind="isCreate">
     </au-collection>
     
   </au-input-form>

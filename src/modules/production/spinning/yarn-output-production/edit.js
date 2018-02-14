@@ -5,6 +5,7 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Edit {
+    isEdit = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
