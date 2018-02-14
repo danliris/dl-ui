@@ -25,6 +25,9 @@ export class List {
   get yearLoader() {
     return YearLoader;
   }
+  yearView = (year) => {
+    return `${year.year}`
+  }
   get unitLoader() {
     return UnitLoader;
   }
