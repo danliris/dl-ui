@@ -11,7 +11,7 @@ export class List {
 		this.service = service;
 
 		this.type = ["type-1", "type-2", "type-3", "type-4"];
-		this.area = ["Blank", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area Inspecting"]
+		this.area = ["Blank", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"]
 		this.map = [];
 
 		for (var area of this.area) {
@@ -24,7 +24,7 @@ export class List {
 			{ name: "Dyeing", area: "Area Dyeing", map: this.map["Area Dyeing"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 },
 			{ name: "Printing", area: "Area Printing", map: this.map["Area Printing"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 },
 			{ name: "Finishing", area: "Area Finishing", map: this.map["Area Finishing"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 },
-			{ name: "Inspecting", area: "Area Inspecting", map: this.map["Area Inspecting"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 }
+			{ name: "QC", area: "Area QC", map: this.map["Area QC"], inputTotal: 0, goodOutputTotal: 0, badOutputTotal: 0 }
 		];
 
 		this.index = 0;

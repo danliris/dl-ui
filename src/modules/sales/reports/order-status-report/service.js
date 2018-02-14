@@ -3,6 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = 'sales/reports/order-status-report';
+const historyServiceUri = 'sales/order-status-histories';
 
 export class Service extends RestService {
 
@@ -63,4 +64,11 @@ export class Service extends RestService {
 
         return endpoint;
     }
+
+    /* Order Status History */
+    createHistory(data) {
+        let endpoint = `${historyServiceUri}`;
+        return super.post(endpoint, data);
+    }
+
 }
