@@ -25,6 +25,9 @@ export class List {
   get yearLoader() {
     return YearLoader;
   }
+  yearView = (year) => {
+    return `${year.year}`
+  }
   get unitLoader() {
     return UnitLoader;
   }
@@ -34,7 +37,13 @@ export class List {
 
   @computedFrom("year")
   get filterUnit() {
-    return { "year": this.year ? this.year.year : "" }
+    if (this.year) {
+      this.unit = "";
+      return { "year": this.year.year }
+    }
+    else {
+      return { "year": "" }
+    }
   }
 
   searching() {

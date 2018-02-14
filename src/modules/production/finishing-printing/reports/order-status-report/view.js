@@ -148,7 +148,7 @@ export class View {
         var data = arg.data;
         switch (arg.name) {
             case "Detail":
-                window.open(`${window.location.origin}/#/sales/order-status-report/view-kanban/${encodeURIComponent(data.orderNo)}`);
+                window.open(`${window.location.origin}/#/production/finishing-printing/reports/order-status-report/view-kanban/${encodeURIComponent(data.orderNo)}`);
                 break;
         }
     }
