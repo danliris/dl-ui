@@ -36,6 +36,7 @@ export async function configure(aurelia) {
       var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.mybluemix.net/v1/";
       var inventory = "https://dl-inventory-webapi-dev.mybluemix.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi-dev.mybluemix.net/v1/";
+      var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
@@ -44,6 +45,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('garment-purchasing', garmentPurchasing, defaultConfig);
       config.registerEndpoint('inventory', inventory, defaultConfig);
       config.registerEndpoint('garment-master-plan', garmentMasterPlan, defaultConfig);
+      config.registerEndpoint('spinning', spinning, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

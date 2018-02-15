@@ -68,13 +68,13 @@ export class List {
                             total+=b.quantity;
                         }
                         if(total>a.orderQuantity){
-                            a.confirmStatus='Melebihi Jumlah Order';
+                            a.confirmStatus='+' + (total-a.orderQuantity);
                         }
                         else if(total<a.orderQuantity){
-                            a.confirmStatus='Kurang dari Jumlah Order';
+                            a.confirmStatus=(total-a.orderQuantity);
                         }
                         else if(total===a.orderQuantity){
-                            a.confirmStatus='Sama dengan Jumlah Order';
+                            a.confirmStatus='0';
                         }
                     }
                     else{
