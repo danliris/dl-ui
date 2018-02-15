@@ -5,7 +5,7 @@ var moment = require("moment");
 
 @inject(Router, Service)
 export class Edit {
-
+    isEdit = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -17,18 +17,8 @@ export class Edit {
 
     async activate(params) {
         var id = params.id;
-        var InputModel = {};
-        var InputTemp = [];
         this.data = await this.service.getById(id);
-        InputModel.Counter = this.data.Counter;
-        InputModel.Hank = this.data.Hank;
-        InputTemp.push(InputModel);
-        this.unit=this.data.UnitName;
-        this.machine=this.data.MachineName;
-        this.yarn=this.data.YarnName;
-        this.lot = this.data.Lot;
-        this.data.Date=moment(new Date(this.data.Date)).format("DD MMM YYYY"); 
-        this.data.Input = InputTemp;
+
     }
 
     cancelCallback(event) {

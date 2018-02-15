@@ -8,8 +8,11 @@ var UnitLoader = require('../../../../loader/unit-loader');
 var moment = require('moment');
 
 export class DataForm {
-    @bindable readOnly = false;
-    @bindable data={};
+    @bindable isCreate = false;
+    @bindable isEdit = false;
+    @bindable isView = false;
+    @bindable readOnly;
+    @bindable data = {};
     @bindable error;
     @bindable title;
     @bindable unit;
@@ -43,6 +46,24 @@ export class DataForm {
         this.error = this.context.error;
         this.data.Input = this.data.Input || [];
 
+        if (this.data.Unit && this.data.Unit._id) {
+            this.unit = this.data.Unit;
+        }
+        if (this.data.Yarn && this.data.Yarn.Id) {
+            this.yarn = this.data.Yarn;
+        }
+        if (this.data.Machine && this.data.Machine._id) {
+            this.machine = this.data.Machine;
+        }
+
+        if(this.data.Counter && this.data.Hank){
+            var inputData={
+                Counter:this.data.Counter,
+                Hank:this.data.Hank
+            };
+            this.data.Input.push(inputData)
+        }
+
     }
 
     inputInfo = {
@@ -58,14 +79,16 @@ export class DataForm {
     };
 
     unitChanged(newValue, oldValue) {
-        var selectedUnit = newValue;
-        if (selectedUnit) {
-            this.unit = selectedUnit;
-            this.data.UnitId = selectedUnit._id;
-            this.data.UnitName = selectedUnit.name;
+
+        if (this.unit && this.unit._id) {
+            // this.data.UnitId = this.unit._id;
+            // this.data.UnitName = this.unit.name;
+            this.data.Unit = this.unit
         }
         else {
             this.unit = null;
+            this.data.unitName = "";
+            this.data.UnitId = "";
         }
     }
 
