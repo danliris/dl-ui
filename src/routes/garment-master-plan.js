@@ -117,6 +117,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-master-plan/monitoring-master-plan',
+        name: 'monitoring-master-plan',
+        moduleId: './modules/garment-master-plan/monitoring-master-plan/index',
+        nav: true,
+        title: 'Report Master Plan',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-master-plan/garment-section',
         name: 'garment-section',
         moduleId: './modules/garment-master-plan/garment-section/index',
