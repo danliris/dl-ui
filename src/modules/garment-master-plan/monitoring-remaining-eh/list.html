@@ -1,0 +1,57 @@
+<template>
+  <form class="form-horizontal">
+    <h3>Monitoring Remaining EH</h3>
+    <hr/>
+
+    <au-autocomplete 
+      value.bind="year" 
+      label="Year" 
+      loader.bind="yearLoader"
+      text.bind = "yearView"
+      placeholder="Tahun" 
+      options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-autocomplete 
+      value.bind="unit" 
+      label="Unit" 
+      loader.bind="unitLoader"
+      text.bind = "unitView"
+      placeholder="Unit" 
+      query.bind="filterUnit"
+      options.bind="controlOptions">
+    </au-autocomplete>
+
+    <div class="text-center">
+      <button class="btn btn-primary" click.delegate="searching()">Cari</button>
+      <button class="btn btn-success" click.delegate="reset()">Reset</button>
+    </div>
+
+  </form>
+
+  <div class="btn-group pull-left">
+    <button class="btn btn-primary" click.delegate="ExportToExcel()">Export to Excel</button>
+  </div>
+  <br>
+  <br>
+
+  <div class="table-responsive" if.bind="data.length > 0">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead>
+        <tr>
+          <th class="text-center">UNIT</th>
+          <th class="text-center" repeat.for="plan of data">${plan.unit.code}</th>
+          <th class="text-center">Head Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr repeat.for="week of weeks">
+          <td>${week.week}</td>
+          <td repeat.for="unit of week.units" class="${unit.classBackground}">${unit.remainingEH}</td>
+          <td>${week.headCount}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</template>

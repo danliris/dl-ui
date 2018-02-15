@@ -12,6 +12,7 @@ export class View {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.isView=true;
     }
 
     bind() {

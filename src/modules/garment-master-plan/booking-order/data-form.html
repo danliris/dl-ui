@@ -38,9 +38,9 @@
             label="Tanggal Booking" 
             value.bind="data.bookingDate" 
             error.bind="error.bookingDate" 
-            read-only.bind="readOnly"
+            read-only.bind="true"
             options.bind="controlOptions">
-        </au-datepicker>
+        </au-datepicker> 
 
         <au-autocomplete 
             value.bind="selectedBuyer" 

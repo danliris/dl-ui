@@ -15,8 +15,9 @@ export class List {
         "Total Nilai Pembelian Garment",
         "Supplier Tepat Waktu Garment",
         "Perbandingan Purchase Order Garment",
-        "Top Ten Supplier per Total SPB Garment",
+        "Top Ten Supplier per Total NI Garment",
         "Top Ten Supplier per Kategori Garment",
+        "PR belum dibuat PO internal Garment",
     ];
     constructor(router, service) {
         this.router = router;

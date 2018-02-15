@@ -68,7 +68,7 @@ export class List {
         this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         this.arg.purchaseOrderExternalNo = this.purchaseOrderExternalNo ? this.purchaseOrderExternalNo : null;
-        this.arg.user = this.user ? this.user : null;
+        this.arg.user = this.user && this.user.username ? this.user.username : null;
         this.arg.supplierId = this.supplier ? this.supplier._id : null;
         this.arg.categoryId = this.category ? this.category._id : null;
         this.arg.unitId = this.unit ? this.unit._id : null;
@@ -94,11 +94,14 @@ export class List {
         { field: "productName", title: "Nama Barang" },
         { field: "productCode", title: "Kode Barang" },
         { field: "productDesc", title: "Keterangan Barang" },
-        { field: "defaultQuantity", title: "Jumlah Barang" },
-        { field: "defaultUom", title: "Satuan Barang" },
+        { field: "dealQuantity", title: "Jumlah Barang"},
+        { field: "dealUom", title: "Satuan Barang" },
         { field: "budgetPrice", title: "Harga Budget" },
         { field: "pricePerItem", title: "Harga Satuan Beli" },
-        { field: "pricePerItem", title: "Harga Total" },
+        { field: "priceTotal", title: "Harga Total" },
+        { field: "currency", title: "Mata Uang" },
+        { field: "currencyRate", title: "Kurs"},
+        { field: "priceTtl", title: "Harga Total Rp"},
         { field: "supplierCode", title: "Kode Supplier" },
         { field: "supplierName", title: "Nama Supplier" },
         { field: "poIntCreatedDate", title: "Tanggal Terima PO Internal" },
@@ -116,7 +119,7 @@ export class List {
         { field: "deliveryOrderDate", title: "Tanggal Datang Barang" },
         { field: "deliveryOrderDeliveredQuantity", title: "Jumlah Barang Datang" },
         { field: "remainQuantity", title: "Jumlah Barang Sisa" },
-        { field: "defaultUom", title: "Satuan" },
+        { field: "dealUom", title: "Satuan" },
         { field: "customsNo", title: "No. Bea Cukai" },
         { field: "customsDate", title: "Tanggal Bea Cukai" },
         { field: "unitReceiptNoteNo", title: "No. Bon Terima Unit" },

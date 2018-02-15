@@ -8,43 +8,62 @@
 
           <au-autocomplete
             label="Spinning"
-            value.bind="unit"
-            error.bind="error.unitId"
+            value.bind="selectedUnit"
+            error.bind="error.UnitId"
             loader.one-time="unitLoader"
-            placeholder="Cari unit spinning" 
+            placeholder="cari unit spinning" 
             text="name"
+            key="name"
             read-only.bind="readOnly"
-            query.bind="spinningFilter"
-          ></au-autocomplete>
+            query.bind="spinningFilter">
+          </au-autocomplete>
 
           <au-autocomplete
             label="Mesin"
-            value.bind="data.machine"
+            value.bind="selectedMachine"
             error.bind="error.machineId"
             read-only.bind="readOnly"
-            show.bind="data.unitId"
+            show.bind="data.Unit"
             loader.one-time="machineLoader"
-            placeholder="Cari mesin" 
+            placeholder="cari mesin" 
             text="name"
-            query.bind="filter"
-          ></au-autocomplete>
+            key="name"
+            query.bind="machineFilter">
+          </au-autocomplete>
 
           <au-autocomplete
             label="Benang"
-            value.bind="data.spinningYarn"
-            error.bind="error.spinningYarnId"
+            value.bind="selectedYarn"
+            error.bind="error.YarnId"
             read-only.bind="readOnly"
             loader.one-time="yarnLoader"
-            placeholder="Cari benang" 
-            text="name"
-          ></au-autocomplete>
+            placeholder="cari benang"
+            key="Name"
+            text="Name">
+          </au-autocomplete>
+
+          <au-datepicker
+            label="Tanggal"
+            value.bind="data.Date"
+            error.bind="error.Date"
+            read-only.bind="readOnly">
+          </au-datepicker>
 
           <au-textbox
             label="Lot"
-            value.bind="data.lot"
-            error.bind="error.lot"
+            value.bind="data.Lot"
+            error.bind="error.Lot"
             read-only.bind="readOnly"
-          ></au-textbox>
+            placeholder="input lot">
+          </au-textbox>
+
+          <au-multiline
+            label="Remark"
+            value.bind="data.Remark"
+            read-only.bind="readOnly"
+            rows.bind="8"
+            placeholder="input remark">
+          </au-multiline>
 
           <template replaceable part="actions"></template>
 
