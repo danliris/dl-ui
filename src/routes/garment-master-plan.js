@@ -130,5 +130,19 @@ module.exports = [
       }
   },
 
+    {
+        route: '/garment-master-plan/monitoring-order-diterima-dan-booking',
+        name: 'monitoring-order-diterima-dan-booking',
+        moduleId: './modules/garment-master-plan/monitoring-order-diterima-dan-booking/index',
+        nav: true,
+        title: 'Monitoring Order Diterima dan Booking',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
 
 ]
