@@ -6,7 +6,7 @@ const resource = 'yarns';
 module.exports = function(keyword, filter) {
 
   var config = Container.instance.get(Config);
-  var endpoint = config.getEndpoint("spinning-production");
+  var endpoint = config.getEndpoint("spinning");
 
   return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {

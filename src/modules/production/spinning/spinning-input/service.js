@@ -8,7 +8,7 @@ const serviceUri = 'SpinningInputProduction';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "spinning-production");
+        super(http, aggregator, config, "spinning");
     }
 
     search(info) {
