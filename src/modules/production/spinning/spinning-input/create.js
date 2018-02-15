@@ -24,13 +24,13 @@ export class Create {
     }
 
     saveCallback(event) {
-        debugger
         this.service.create(this.data)
             .then(result => {
                 alert(`create data success`);
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
+                debugger
                 this.error = e;
             })
     }

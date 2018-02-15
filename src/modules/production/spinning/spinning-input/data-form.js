@@ -81,38 +81,29 @@ export class DataForm {
     unitChanged(newValue, oldValue) {
 
         if (this.unit && this.unit._id) {
-            // this.data.UnitId = this.unit._id;
-            // this.data.UnitName = this.unit.name;
             this.data.Unit = this.unit
         }
         else {
             this.unit = null;
-            this.data.unitName = "";
-            this.data.UnitId = "";
+
         }
     }
 
     machineChanged(newValue, oldValue) {
-        var selectedUnit = newValue;
-        if (selectedUnit) {
-            this.machine = selectedUnit;
-            this.data.MachineId = selectedUnit._id;
-            this.data.MachineName = selectedUnit.name;
+        if (this.machine && this.machine._id) {
+            this.data.Machine = this.machine
         }
         else {
-            this.data.MachineId = "";
+            this.machine=null;
         }
     }
 
     yarnChanged(newValue, oldValue) {
-        var selectedUnit = newValue;
-        if (selectedUnit) {
-            this.yarn = selectedUnit;
-            this.data.YarnId = selectedUnit.Id;
-            this.data.YarnName = selectedUnit.Name;
+        if (this.yarn && this.yarn.Id) {
+            this.data.Yarn = this.yarn
         }
         else {
-            this.data.YarnId = "";
+            this.yarn=null;
         }
     }
 
