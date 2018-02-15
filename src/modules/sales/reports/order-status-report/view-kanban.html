@@ -43,5 +43,12 @@
                 <au-numeric value.bind="total | numberFormat: '0,000.00'" label="Total (m):" read-only="true" options.bind="textOptions"></au-numeric>
             </div>
 
+            <div style="width: 50%;">
+                <au-table
+                    data.bind="histories"
+                    columns.bind="columnsHistory"
+                    options.bind="tableOptions">
+                </au-table>
+            </div>
     </au-input-form>
 </template>

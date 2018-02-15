@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-framework';
+import { inject, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
@@ -25,11 +25,25 @@ export class List {
   get yearLoader() {
     return YearLoader;
   }
+  yearView = (year) => {
+    return `${year.year}`
+  }
   get unitLoader() {
     return UnitLoader;
   }
   unitView = (unit) => {
     return `${unit.code} - ${unit.name}`
+  }
+
+  @computedFrom("year")
+  get filterUnit() {
+    if (this.year) {
+      this.unit = "";
+      return { "year": this.year.year }
+    }
+    else {
+      return { "year": "" }
+    }
   }
 
   searching() {
