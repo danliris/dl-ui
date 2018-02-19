@@ -21,9 +21,11 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
+
     deleteCallback(event) {
         this.service.delete(this.data).then(result => {
-            this.cancel();
+            alert(`delete data success`);
+            this.cancelCallback();
         });
     }
 

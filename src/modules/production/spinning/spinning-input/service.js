@@ -4,6 +4,7 @@ import { RestService } from '../../../../utils/rest-service';
 var moment = require('moment');
 
 const serviceUri = 'SpinningInputProduction';
+const lotYarnServiceUri = "LotYarn"
 
 export class Service extends RestService {
 
@@ -34,6 +35,15 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
+    }
+
+        getLotYarn(info) {
+        var spinning = info.spinning ? info.spinning : " ";
+        var machine = info.machine ? info.machine : " ";
+        var yarn = info.yarn ? info.yarn : " ";
+        var endpoint = `${lotYarnServiceUri}/${spinning}/${machine}/${yarn}`;
+        
+        return super.get(endpoint);
     }
 
 }
