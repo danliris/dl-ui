@@ -29,6 +29,7 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
+
       var core = "https://dl-core-api.mybluemix.net/v1/";
       var auth = "https://dl-auth-api.mybluemix.net/v1/";
       var production = "https://dl-production-webapi.mybluemix.net/v1/";
@@ -37,6 +38,7 @@ export async function configure(aurelia) {
       var inventory = "https://dl-inventory-webapi.mybluemix.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi.mybluemix.net/v1/";
 
+
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production, defaultConfig);
@@ -44,6 +46,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('garment-purchasing', garmentPurchasing, defaultConfig);
       config.registerEndpoint('inventory', inventory, defaultConfig);
       config.registerEndpoint('garment-master-plan', garmentMasterPlan, defaultConfig);
+      config.registerEndpoint('spinning', spinning, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

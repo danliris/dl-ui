@@ -33,7 +33,7 @@
             error.bind="error.unit" 
             read-only.bind="options.readOnly" 
             key="_id" 
-            text="name"
+            text="code"
             loader.bind="unitLoader" 
             options.bind="controlOption" >
         </au-autocomplete>
@@ -64,11 +64,11 @@
     </td>
     <td width="10%">
         <au-numeric 
-            value.bind="selectedWeek.items.remainingAH" 
+            value.bind="data.remainingEH" 
             error.bind="error.week" 
             read-only="true"
             options.bind="controlOption"
-            change.delegate="AHChanged($event)"
+            change.delegate="EHChanged($event)"
             if.bind="selectedWeek">
         </au-numeric>
     </td>
@@ -103,7 +103,7 @@
             value.bind="data.efficiency" 
             error.bind="error.week" 
             change.delegate="efficiencyChanged($event)"
-            read-only.bind="options.readOnly"
+            read-only="true" 
             options.bind="controlOption"
             if.bind="selectedWeek">
         </au-numeric>
@@ -119,14 +119,14 @@
     </td>
     <td width="10%">
         <au-numeric 
-            value.bind="data.sisaAH" 
-            error.bind="error.sisaAH" 
+            value.bind="data.sisaEH" 
+            error.bind="error.sisaEH" 
             read-only="true"
             options.bind="controlOption"
             if.bind="selectedWeek">
         </au-numeric>
     </td>
-    <td width="10%">
+    <!--<td width="10%">
         <au-numeric 
             value.bind="data.planWorkingHours" 
             error.bind="error.planWorkingHours" 
@@ -134,7 +134,7 @@
             options.bind="controlOption"
             if.bind="selectedWeek">
         </au-numeric>
-    </td>
+    </td>-->
     <td if.bind="!options.readOnly" ><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
 </tr>
 </template>

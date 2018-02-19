@@ -54,7 +54,7 @@ export class Service extends RestService {
         var _endpoint = config.getEndpoint("garment-master-plan");
         var _serviceUri = `weekly-plans`;
 
-        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter) })
+        return _endpoint.find(_serviceUri, { filter: JSON.stringify(filter), order: JSON.stringify({"unit.code":1}) })
             .then(result => {
                 return result.data;
             });
@@ -82,14 +82,14 @@ export class Service extends RestService {
             });
     }
 
-    getPreview(month, year){
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-master-plan");
-        var _serviceUri = `sewing-blocking-plan-previews`;
+    // getPreview(year){
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("garment-master-plan");
+    //     var _serviceUri = `sewing-blocking-plan-previews`;
 
-        return _endpoint.find(_serviceUri, { month: month, year: year })
-            .then(result => {
-                return result.data;
-            });
-    }
+    //     return _endpoint.find(_serviceUri, {  year: year })
+    //         .then(result => {
+    //             return result.data;
+    //         });
+    // }
 }
