@@ -45,6 +45,9 @@ export class DataForm {
         if (this.selectedUnit && this.selectedUnit._id) {
             this.data.Unit = this.selectedUnit;
             this.machineFilter = { "unit.name": { "$regex": this.selectedUnit.name, "$options": "i" } };
+            if(oldVal){
+                this.selectedMachine=null;
+            }
         }
         else {
             this.machineFilter = { "unit.name": { "$exists": true } };
