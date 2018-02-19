@@ -30,7 +30,7 @@ export class Create {
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                debugger
+
                 this.error = e;
             })
     }

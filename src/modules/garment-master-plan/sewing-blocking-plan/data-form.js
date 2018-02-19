@@ -182,7 +182,7 @@ export class DataForm {
                     if (item) {
                         // console.log(item[item.unitCode]);
                         // console.log(detail.ehBooking);
-                        // debugger;
+    
                         item[detail.week.weekNumber] = detail.sisaEH;
                         //console.log(item[detail.week.weekNumber]);
                     }
