@@ -66,6 +66,36 @@ export class DataForm {
         this.previewDataTable = [];
     }
 
+    selectedBookingOrderChanged(newValue) {
+        var _selectedData = newValue;
+        if (_selectedData) {
+            this.data.bookingOrderNo = _selectedData.code;
+            this.data.bookingOrderId = _selectedData._id;
+            this.data.garmentBuyerId = _selectedData.garmentBuyerId;
+            this.data.garmentBuyerName = _selectedData.garmentBuyerName;
+            this.data.garmentBuyerCode = _selectedData.garmentBuyerCode;
+            if (!this.data._id) {
+                this.data.bookingDate = _selectedData.bookingDate;
+                this.data.deliveryDate = _selectedData.deliveryDate;
+                this.data.quantity = _selectedData.orderQuantity;
+                this.data.remark = _selectedData.remark;
+                this.data.bookingItems = _selectedData.items;
+                this.options.buyerCode = this.data.garmentBuyerCode;
+            }
+        } else {
+            delete this.data.bookingOrderNo;
+            delete this.data.bookingOrderId;
+            delete this.data.garmentBuyerId;
+            delete this.data.garmentBuyerName;
+            delete this.data.garmentBuyerCode;
+            delete this.data.quantity;
+            delete this.data.remark;
+            delete this.data.bookingDate;
+            delete this.data.deliveryDate;
+            this.data.bookingItems = [];
+        }
+    }
+
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -80,9 +110,7 @@ export class DataForm {
             //     garmentBuyerName:this.data.garmentBuyerName
             // };
             this.selectedBookingOrder = await this.service.getBookingById(this.data.bookingOrderId);
-            for (var e of this.data.details){
-                e.first=true;
-            }
+            
         }
         if (!this.isView) {
             var year = (new Date()).getFullYear();
@@ -136,6 +164,8 @@ export class DataForm {
             
         }
     }
+
+
 
     detailsChanged(e) {
         let group = {};
@@ -283,33 +313,7 @@ export class DataForm {
 
     }
 
-    selectedBookingOrderChanged(newValue) {
-        var _selectedData = newValue;
-        if (_selectedData) {
-            this.data.bookingOrderNo = _selectedData.code;
-            this.data.bookingOrderId = _selectedData._id;
-            this.data.garmentBuyerId = _selectedData.garmentBuyerId;
-            this.data.garmentBuyerName = _selectedData.garmentBuyerName;
-            this.data.garmentBuyerCode = _selectedData.garmentBuyerCode;
-            this.data.bookingDate = _selectedData.bookingDate;
-            this.data.deliveryDate = _selectedData.deliveryDate;
-            this.data.quantity = _selectedData.orderQuantity;
-            this.data.remark = _selectedData.remark;
-            this.data.bookingItems = _selectedData.items;
-            this.options.buyerCode = this.data.garmentBuyerCode;
-        } else {
-            delete this.data.bookingOrderNo;
-            delete this.data.bookingOrderId;
-            delete this.data.garmentBuyerId;
-            delete this.data.garmentBuyerName;
-            delete this.data.garmentBuyerCode;
-            delete this.data.quantity;
-            delete this.data.remark;
-            delete this.data.bookingDate;
-            delete this.data.deliveryDate;
-            this.data.bookingItems = [];
-        }
-    }
+    
 
     get bookingLoader() {
         return BookingLoader;

@@ -19,7 +19,7 @@
             placeholder="cari booking order" 
             query.bind="filterBookingOrder"
             key="code" 
-            read-only.bind="isView"
+            read-only.bind="isView || isEdit"
             if.bind="!isView"
             options.bind="controlOptions">
         </au-autocomplete>
