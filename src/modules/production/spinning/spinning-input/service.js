@@ -37,12 +37,12 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-        getLotYarn(info) {
+    getLotYarn(info) {
         var spinning = info.spinning ? info.spinning : " ";
         var machine = info.machine ? info.machine : " ";
         var yarn = info.yarn ? info.yarn : " ";
         var endpoint = `${lotYarnServiceUri}/${spinning}/${machine}/${yarn}`;
-        
+
         return super.get(endpoint);
     }
 
