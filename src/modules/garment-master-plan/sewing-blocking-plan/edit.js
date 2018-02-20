@@ -11,6 +11,7 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.isEdit=true;
     }
 
     bind() {
