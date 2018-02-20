@@ -49,11 +49,13 @@ export class List {
                         this.no += 1;
                         tempData.no = this.no;
                         tempData.code = result.data[i].code;
+                        tempData.deliveryType = result.data[i].deliveryType;
                         tempData.construction = result.data[i].construction;
-                        tempData.buyer = result.data[i].buyer;
+                        tempData.buyerName = result.data[i].buyerName;
                         tempData.productionOrderNo = result.data[i].productionOrderNo;
+                        tempData.orderType = result.data[i].orderType;
                         tempData.construction = result.data[i].construction;
-                        tempData.motif = result.data[i].motif;
+                        tempData.designCode = result.data[i].designCode;
                         tempData.colorName = result.data[i].colorName;
                         tempData.date = result.data[i].date;
 

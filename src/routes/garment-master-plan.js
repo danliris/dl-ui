@@ -116,9 +116,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    
-    
-    
+    {
+      route: '/garment-master-plan/monitoring-remaining-eh',
+      name: 'monitoring-remaining-eh',
+      moduleId: './modules/garment-master-plan/monitoring-remaining-eh/index',
+      nav: true,
+      title: 'Monitoring Remaining EH',
+      auth: true,
+      settings: {
+          group: "g-master-plan",
+          permission: { "C5": 1, "C9": 1 },
+          iconClass: 'fa fa-dashboard'
+      }
+  },
 
 
 ]

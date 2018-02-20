@@ -5,18 +5,26 @@ var moment = require('moment');
 
 @inject(Router, Service)
 export class List {
-    // data = [];
-    // info = { page: 1, keyword: '' };
-    context = ["detail"];
-    columns = [
-    { field: "unit.name", title: "Spinning" },
-    { field: "_createdDate", title: "Tanggal", formatter: function (value, data, index) {
+  // data = [];
+  // info = { page: 1, keyword: '' };
+  context = ["detail"];
+
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
+
+  columns = [
+    { field: "Unit.name", title: "Spinning" },
+    {
+      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
-      } },
-    { field: "machine.name", title: "Mesin" },
-    { field: "spinningYarn.name", title: "Benang" },
-    { field: "lot", title: "Lot" }
-      ];
+      }
+    },
+    { field: "Machine.name", title: "Mesin" },
+    { field: "Yarn.Name", title: "Benang" },
+    { field: "Lot", title: "Lot" }
+  ];
 
   loader = (info) => {
     var order = {};
@@ -27,12 +35,11 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["unit","_createdDate","machine","spinningYarn","lot"],
       order: order
     }
 
     return this.service.search(arg)
-      .then(result => {
+      .then((result) => {
         return {
           total: result.info.total,
           data: result.data
@@ -40,22 +47,17 @@ export class List {
       });
   }
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
-    }
-
-    contextCallback(event) {
+  contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }
 
   create() {
-        this.router.navigateToRoute('create');
-    }
+    this.router.navigateToRoute('create');
+  }
 }

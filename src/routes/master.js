@@ -403,7 +403,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-
+    {
+        route: 'spinning-yarn',
+        name: 'spinning-yarn',
+        moduleId: './modules/master/spinning-yarn/index',
+        nav: true,
+        title: 'Benang Spinning',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'yarn-material',
         name: 'yarn-material',
