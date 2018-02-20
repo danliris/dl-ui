@@ -143,20 +143,44 @@ export class DataForm {
         //this.previewDataTable =this.previewData;
         //this.previewDataTable = JSON.parse(JSON.stringify(this.previewData));
         //console.log(this.options);
-        console.log(this.data.details);
         
         if (this.data.details) {
             var remEH=[];
             for (let detail of this.data.details) {
                 if(detail.weeklyPlanYear && detail.unit && detail.week){
                     let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                    let uniq = this.data.details.find(o => (o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString())  == cat);
-                    remEH[cat]=uniq.remainingEH;
+                    let uniq = this.data.details.find(o => {
+                        if(o.weeklyPlanYear && o.unit && o.week){
+                            if( o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString()  == cat)
+                            return o;
+                        }
+                    });
+                    
+                    if(remEH[cat]){
+                        if(remEH[cat]<uniq.remainingEH){
+                            remEH[cat]=uniq.remainingEH;
+                        }
+                    }
+                    else{
+                        remEH[cat]=uniq.remainingEH;
+                    }
                     
                 }
-                console.log(detail);
                 if(detail.oldVal){
-                    console.log(detail.oldVal);
+                    if(detail.oldVal.year && detail.oldVal.unitCode){
+                        let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
+                        if(remEH[cat]){
+                            if(remEH[cat]<detail.oldVal.remainingEH){
+                                remEH[cat]=detail.oldVal.remainingEH;
+                            }
+                        }
+                        else{
+                            remEH[cat]=detail.oldVal.remainingEH;
+                        }
+                        
+                    }
+                }
+                if(detail.oldVal){
                     if(detail.oldVal.year && detail.oldVal.unitCode){
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                         if (item) {
@@ -176,7 +200,6 @@ export class DataForm {
                      detail.remainingEH= remEH[cat];
                      detail.sisaEH=detail.remainingEH-detail.ehBooking;
                      remEH[cat]-=detail.ehBooking;
-                     console.log(remEH[cat]);
                     let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                     //console.log(category);
                     if (item) {
@@ -229,7 +252,6 @@ export class DataForm {
                             }
                         }
                     }
-                    console.log(remEH);
                     for (let detail of this.data.details) {
                         if(detail.weeklyPlanYear && detail.unit && detail.week){
                             let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
@@ -256,9 +278,6 @@ export class DataForm {
                 }
             }
 
-            
-
-            console.log(this.previewData);
             this.context.previewTable.refresh();
         };
 
@@ -333,46 +352,46 @@ export class DataForm {
 
 
 
-    getMonth(month) {
-        var monthName = 0;
-        switch (month) {
-            case "Januari":
-                monthName = 1;
-                break;
-            case "Februari":
-                monthName = 2;
-                break;
-            case "Maret":
-                monthName = 3;
-                break;
-            case "April":
-                monthName = 4;
-                break;
-            case "Mei":
-                monthName = 5;
-                break;
-            case "Juni":
-                monthName = 6;
-                break;
-            case "Juli":
-                monthName = 7;
-                break;
-            case "Agustus":
-                monthName = 8;
-                break;
-            case "September":
-                monthName = 9;
-                break;
-            case "Oktober":
-                monthName = 10;
-                break;
-            case "November":
-                monthName = 11;
-                break;
-            case "Desember":
-                monthName = 12;
-                break;
-        }
-        return monthName;
-    }
+    // getMonth(month) {
+    //     var monthName = 0;
+    //     switch (month) {
+    //         case "Januari":
+    //             monthName = 1;
+    //             break;
+    //         case "Februari":
+    //             monthName = 2;
+    //             break;
+    //         case "Maret":
+    //             monthName = 3;
+    //             break;
+    //         case "April":
+    //             monthName = 4;
+    //             break;
+    //         case "Mei":
+    //             monthName = 5;
+    //             break;
+    //         case "Juni":
+    //             monthName = 6;
+    //             break;
+    //         case "Juli":
+    //             monthName = 7;
+    //             break;
+    //         case "Agustus":
+    //             monthName = 8;
+    //             break;
+    //         case "September":
+    //             monthName = 9;
+    //             break;
+    //         case "Oktober":
+    //             monthName = 10;
+    //             break;
+    //         case "November":
+    //             monthName = 11;
+    //             break;
+    //         case "Desember":
+    //             monthName = 12;
+    //             break;
+    //     }
+    //     return monthName;
+    // }
 }
