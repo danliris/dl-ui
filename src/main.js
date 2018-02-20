@@ -37,6 +37,7 @@ export async function configure(aurelia) {
       var garmentPurchasing = "https://dl-purchasing-garment-webapi.mybluemix.net/v1/";
       var inventory = "https://dl-inventory-webapi.mybluemix.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi.mybluemix.net/v1/";
+      var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
 
 
       config.registerEndpoint('auth', auth);
