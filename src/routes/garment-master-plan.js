@@ -1,10 +1,10 @@
 module.exports = [
     {
-        route: '/garment-master-plan/weekly-plan',
-        name: 'weekly-plan',
-        moduleId: './modules/garment-master-plan/weekly-plan/index',
+        route: '/garment-master-plan/standard-minute-value',
+        name: 'standard-hour',
+        moduleId: './modules/garment-master-plan/standard-hour/index',
         nav: true,
-        title: 'Master Minggu',
+        title: 'Standard Minute Value',
         auth: true,
         settings: {
             group: "g-master-plan",
@@ -13,11 +13,11 @@ module.exports = [
         }
     },
     {
-        route: '/garment-master-plan/working-hours-standard',
-        name: 'working-hours-standard',
-        moduleId: './modules/garment-master-plan/working-hours-standard/index',
+        route: '/garment-master-plan/garment-section',
+        name: 'garment-section',
+        moduleId: './modules/garment-master-plan/garment-section/index',
         nav: true,
-        title: 'Standar Jam Kerja',
+        title: 'Master Seksi',
         auth: true,
         settings: {
             group: "g-master-plan",
@@ -25,6 +25,32 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-master-plan/master-plan-comodity',
+        name: 'master-plan-comodity',
+        moduleId: './modules/garment-master-plan/master-plan-comodity/index',
+        nav: true,
+        title: 'Komoditi',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    // {
+    //     route: '/garment-master-plan/working-hours-standard',
+    //     name: 'working-hours-standard',
+    //     moduleId: './modules/garment-master-plan/working-hours-standard/index',
+    //     nav: true,
+    //     title: 'Standar Jam Kerja',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-master-plan",
+    //         permission: { "C5": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     // {
     //     route: '/garment-master-plan/style',
     //     name: 'style',
@@ -52,45 +78,6 @@ module.exports = [
         }
     },
     {
-        route: '/garment-master-plan/sewing-blocking-plan',
-        name: 'sewing-blocking-plan',
-        moduleId: './modules/garment-master-plan/sewing-blocking-plan/index',
-        nav: true,
-        title: 'Blocking Plan Sewing',
-        auth: true,
-        settings: {
-            group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/garment-master-plan/standard-minute-value',
-        name: 'standard-hour',
-        moduleId: './modules/garment-master-plan/standard-hour/index',
-        nav: true,
-        title: 'Standard Minute Value',
-        auth: true,
-        settings: {
-            group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/garment-master-plan/master-plan-comodity',
-        name: 'master-plan-comodity',
-        moduleId: './modules/garment-master-plan/master-plan-comodity/index',
-        nav: true,
-        title: 'Komoditi',
-        auth: true,
-        settings: {
-            group: "g-master-plan",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: '/garment-master-plan/monitoring-booking-order',
         name: 'monitoring-booking-order',
         moduleId: './modules/garment-master-plan/monitoring-booking-order/index',
@@ -104,11 +91,24 @@ module.exports = [
         }
     },
     {
-        route: '/garment-master-plan/garment-section',
-        name: 'garment-section',
-        moduleId: './modules/garment-master-plan/garment-section/index',
+        route: '/garment-master-plan/weekly-plan',
+        name: 'weekly-plan',
+        moduleId: './modules/garment-master-plan/weekly-plan/index',
         nav: true,
-        title: 'Master Seksi',
+        title: 'Master Minggu',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-master-plan/sewing-blocking-plan',
+        name: 'sewing-blocking-plan',
+        moduleId: './modules/garment-master-plan/sewing-blocking-plan/index',
+        nav: true,
+        title: 'Blocking Plan Sewing',
         auth: true,
         settings: {
             group: "g-master-plan",

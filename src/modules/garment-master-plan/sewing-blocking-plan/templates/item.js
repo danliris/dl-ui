@@ -52,7 +52,8 @@ export class Item {
           .then((result) => {
             this.selectedWeek = result.data[0];
             this.data.week = this.selectedWeek.items;
-            this.data.remainingEH = this.data.week.remainingEH;// + this.data.ehBooking;
+            this.data.remainingEH = this.data.week.remainingEH;
+            // + this.data.ehBooking;
             //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
             // var uniq= this.items.find(x=>x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
             // if (uniq) {
@@ -67,9 +68,8 @@ export class Item {
                       break;
                   }
                 }
-              
-              
             }
+            
             if (this.data.week) {
               if (!this.data.efficiency) {
                 this.data.efficiency = this.data.week.efficiency;
@@ -125,9 +125,9 @@ export class Item {
   }
 
   selectedUnitChanged(newValue,oldValue) {
-    console.log(oldValue);
     if(oldValue){
       this.data.oldVal.unitCode=oldValue.code;
+      this.data.oldVal.year=this.data.weeklyPlanYear;
       // this.data.oldVal.weekNumber=this.data.weekNumber;
       // this.data.oldVal.year=this.data.weeklyPlanYear;
       // this.data.oldVal.remainingEH=this.data.remainingEH;
@@ -142,8 +142,7 @@ export class Item {
       this.selectedWeeklyPlan = {};
       this.selectedWeek = {};
     }
-    delete this.data.weeklyPlanId;
-    delete this.data.weeklyPlanYear;
+    // delete this.data.weeklyPlanId;
     this.selectedWeeklyPlan = {};
     this.selectedWeek = {};
     this.data.ehBooking = 0;
@@ -155,9 +154,9 @@ export class Item {
   }
 
   selectedWeeklyPlanChanged(newValue,oldValue) {
-    console.log(oldValue);
+    if(newValue!=null)
     if(oldValue){
-      this.data.oldVal.year=oldValue.year;
+      this.data.oldVal.year=this.data.oldVal.year? this.data.oldVal.year : oldValue.year;
       this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.unit.code;
       // this.data.oldVal.weekNumber=this.data.weekNumber;
       // this.data.oldVal.unitCode=this.data.unit.code;
@@ -193,7 +192,7 @@ export class Item {
   }
 
   selectedWeekChanged(newValue,oldValue) {
-    console.log(this.data.oldVal);
+    if(newValue!=null)
     if(oldValue){
       if(oldValue.items){
         this.data.oldVal.weekNumber=oldValue.items.weekNumber;
@@ -204,15 +203,11 @@ export class Item {
         this.data.oldVal.remainingEH=this.data.remainingEH;
       }
     }
-    console.log(this.data.oldVal);
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.week = _selectedData.items;
       //this.selectedWeek=_selectedData.items;
       if (this.data.week) {
-        //   if(!this.data.efficiency){
-
-        //   }
         if (this.items.length > 1) {
           if (this.data.weeklyPlanYear && this.data.unit && this.data.week) {
             var unVal = [];
@@ -243,6 +238,9 @@ export class Item {
         else {
           this.data.remainingEH = this.data.week.remainingEH;
         }
+        if(!this.data.remainingEH || this.data.remainingEH===0)
+          this.data.remainingEH = this.data.week.remainingEH;
+        console.log(this.data.remainingEH);console.log(this.data.week.remainingEH);
         this.data.efficiency = this.data.week.efficiency;
         this.data.ehBooking = Math.round((this.data.shSewing * this.data.quantity) / 60);
         this.data.sisaEH = this.data.remainingEH - this.data.ehBooking;
@@ -342,10 +340,6 @@ export class Item {
     return this.data && this.data.unitId && this.data.weeklyPlanYear;
   }
 
-  get totalSH() {
-    var total = (this.data.shCutting || 0) + (this.data.shSewing || 0) + (this.data.shFinishing || 0);
-    return total;
-  }
 
   weekView = (week) => {
     var returnData = ""
@@ -355,5 +349,9 @@ export class Item {
       returnData = `W${week.items.weekNumber} - ${startDate} s/d ${endDate}`;
     }
     return returnData;
+  }
+
+  yearView = (week) => {
+    return week.year;
   }
 }
