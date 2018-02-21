@@ -66,6 +66,36 @@ export class DataForm {
         this.previewDataTable = [];
     }
 
+    selectedBookingOrderChanged(newValue) {
+        var _selectedData = newValue;
+        if (_selectedData) {
+            this.data.bookingOrderNo = _selectedData.code;
+            this.data.bookingOrderId = _selectedData._id;
+            this.data.garmentBuyerId = _selectedData.garmentBuyerId;
+            this.data.garmentBuyerName = _selectedData.garmentBuyerName;
+            this.data.garmentBuyerCode = _selectedData.garmentBuyerCode;
+            if (!this.data._id) {
+                this.data.bookingDate = _selectedData.bookingDate;
+                this.data.deliveryDate = _selectedData.deliveryDate;
+                this.data.quantity = _selectedData.orderQuantity;
+                this.data.remark = _selectedData.remark;
+                this.data.bookingItems = _selectedData.items;
+                this.options.buyerCode = this.data.garmentBuyerCode;
+            }
+        } else {
+            delete this.data.bookingOrderNo;
+            delete this.data.bookingOrderId;
+            delete this.data.garmentBuyerId;
+            delete this.data.garmentBuyerName;
+            delete this.data.garmentBuyerCode;
+            delete this.data.quantity;
+            delete this.data.remark;
+            delete this.data.bookingDate;
+            delete this.data.deliveryDate;
+            this.data.bookingItems = [];
+        }
+    }
+
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -80,9 +110,7 @@ export class DataForm {
             //     garmentBuyerName:this.data.garmentBuyerName
             // };
             this.selectedBookingOrder = await this.service.getBookingById(this.data.bookingOrderId);
-            for (var e of this.data.details){
-                e.first=true;
-            }
+            
         }
         if (!this.isView) {
             var year = (new Date()).getFullYear();
@@ -137,26 +165,52 @@ export class DataForm {
         }
     }
 
+
+
     detailsChanged(e) {
         let group = {};
         this.previewDataTable = [];
         //this.previewDataTable =this.previewData;
         //this.previewDataTable = JSON.parse(JSON.stringify(this.previewData));
         //console.log(this.options);
-        console.log(this.data.details);
         
         if (this.data.details) {
             var remEH=[];
             for (let detail of this.data.details) {
                 if(detail.weeklyPlanYear && detail.unit && detail.week){
                     let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
-                    let uniq = this.data.details.find(o => (o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString())  == cat);
-                    remEH[cat]=uniq.remainingEH;
+                    let uniq = this.data.details.find(o => {
+                        if(o.weeklyPlanYear && o.unit && o.week){
+                            if( o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString()  == cat)
+                            return o;
+                        }
+                    });
+                    
+                    if(remEH[cat]){
+                        if(remEH[cat]<uniq.remainingEH){
+                            remEH[cat]=uniq.remainingEH;
+                        }
+                    }
+                    else{
+                        remEH[cat]=uniq.remainingEH;
+                    }
                     
                 }
-                console.log(detail);
                 if(detail.oldVal){
-                    console.log(detail.oldVal);
+                    if(detail.oldVal.year && detail.oldVal.unitCode){
+                        let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
+                        if(remEH[cat]){
+                            if(remEH[cat]<detail.oldVal.remainingEH){
+                                remEH[cat]=detail.oldVal.remainingEH;
+                            }
+                        }
+                        else{
+                            remEH[cat]=detail.oldVal.remainingEH;
+                        }
+                        
+                    }
+                }
+                if(detail.oldVal){
                     if(detail.oldVal.year && detail.oldVal.unitCode){
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                         if (item) {
@@ -176,13 +230,12 @@ export class DataForm {
                      detail.remainingEH= remEH[cat];
                      detail.sisaEH=detail.remainingEH-detail.ehBooking;
                      remEH[cat]-=detail.ehBooking;
-                     console.log(remEH[cat]);
                     let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
                     //console.log(category);
                     if (item) {
                         // console.log(item[item.unitCode]);
                         // console.log(detail.ehBooking);
-                        // debugger;
+    
                         item[detail.week.weekNumber] = detail.sisaEH;
                         //console.log(item[detail.week.weekNumber]);
                     }
@@ -229,7 +282,6 @@ export class DataForm {
                             }
                         }
                     }
-                    console.log(remEH);
                     for (let detail of this.data.details) {
                         if(detail.weeklyPlanYear && detail.unit && detail.week){
                             let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
@@ -256,41 +308,12 @@ export class DataForm {
                 }
             }
 
-            
-
-            console.log(this.previewData);
             this.context.previewTable.refresh();
         };
 
     }
 
-    selectedBookingOrderChanged(newValue) {
-        var _selectedData = newValue;
-        if (_selectedData) {
-            this.data.bookingOrderNo = _selectedData.code;
-            this.data.bookingOrderId = _selectedData._id;
-            this.data.garmentBuyerId = _selectedData.garmentBuyerId;
-            this.data.garmentBuyerName = _selectedData.garmentBuyerName;
-            this.data.garmentBuyerCode = _selectedData.garmentBuyerCode;
-            this.data.bookingDate = _selectedData.bookingDate;
-            this.data.deliveryDate = _selectedData.deliveryDate;
-            this.data.quantity = _selectedData.orderQuantity;
-            this.data.remark = _selectedData.remark;
-            this.data.bookingItems = _selectedData.items;
-            this.options.buyerCode = this.data.garmentBuyerCode;
-        } else {
-            delete this.data.bookingOrderNo;
-            delete this.data.bookingOrderId;
-            delete this.data.garmentBuyerId;
-            delete this.data.garmentBuyerName;
-            delete this.data.garmentBuyerCode;
-            delete this.data.quantity;
-            delete this.data.remark;
-            delete this.data.bookingDate;
-            delete this.data.deliveryDate;
-            this.data.bookingItems = [];
-        }
-    }
+    
 
     get bookingLoader() {
         return BookingLoader;
@@ -333,46 +356,46 @@ export class DataForm {
 
 
 
-    getMonth(month) {
-        var monthName = 0;
-        switch (month) {
-            case "Januari":
-                monthName = 1;
-                break;
-            case "Februari":
-                monthName = 2;
-                break;
-            case "Maret":
-                monthName = 3;
-                break;
-            case "April":
-                monthName = 4;
-                break;
-            case "Mei":
-                monthName = 5;
-                break;
-            case "Juni":
-                monthName = 6;
-                break;
-            case "Juli":
-                monthName = 7;
-                break;
-            case "Agustus":
-                monthName = 8;
-                break;
-            case "September":
-                monthName = 9;
-                break;
-            case "Oktober":
-                monthName = 10;
-                break;
-            case "November":
-                monthName = 11;
-                break;
-            case "Desember":
-                monthName = 12;
-                break;
-        }
-        return monthName;
-    }
+    // getMonth(month) {
+    //     var monthName = 0;
+    //     switch (month) {
+    //         case "Januari":
+    //             monthName = 1;
+    //             break;
+    //         case "Februari":
+    //             monthName = 2;
+    //             break;
+    //         case "Maret":
+    //             monthName = 3;
+    //             break;
+    //         case "April":
+    //             monthName = 4;
+    //             break;
+    //         case "Mei":
+    //             monthName = 5;
+    //             break;
+    //         case "Juni":
+    //             monthName = 6;
+    //             break;
+    //         case "Juli":
+    //             monthName = 7;
+    //             break;
+    //         case "Agustus":
+    //             monthName = 8;
+    //             break;
+    //         case "September":
+    //             monthName = 9;
+    //             break;
+    //         case "Oktober":
+    //             monthName = 10;
+    //             break;
+    //         case "November":
+    //             monthName = 11;
+    //             break;
+    //         case "Desember":
+    //             monthName = 12;
+    //             break;
+    //     }
+    //     return monthName;
+    // }
 }
