@@ -4,7 +4,7 @@ module.exports = [
         name: 'yarn-output-production',
         moduleId: './modules/production/spinning/yarn-output-production/index',
         nav: true,
-        title: 'Output Produksi Spinning',
+        title: 'Output Produksi Winder',
         auth: true,
         settings: {
             group: "s-production",
