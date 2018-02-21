@@ -86,7 +86,6 @@ export class DataForm {
     };
 
     unitChanged(newValue, oldValue) {
-
         if (this.unit && this.unit._id) {
             this.data.Unit = this.unit
         }
@@ -94,8 +93,6 @@ export class DataForm {
             this.unit = null;
             this.machine = null;
             this.yarn = null;
-            this.Lot = null;
-            this.lot = "";
         }
     }
 
@@ -105,7 +102,6 @@ export class DataForm {
             this.data.Machine = this.machine
         }
         else {
-
             this.machine = null;
         }
     }
@@ -125,8 +121,6 @@ export class DataForm {
         }
         else {
             this.yarn = null;
-            this.lot = "";
-
         }
     }
 
@@ -143,7 +137,7 @@ export class DataForm {
 
 
     get lot() {
-        if (this.Lot) {
+        if (this.Lot && this.machine != null && this.yarn != null && this.unit != null) {
             this.data.Lot = this.Lot.Lot;
             return this.data.Lot;
         } else {

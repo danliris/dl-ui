@@ -12,7 +12,7 @@
             options.bind="controlOptions">
         </au-dropdown>
 
-        <au-autocomplete label="Mesin" value.bind="machine" error.bind="error.MachineId" read-only.bind="readOnly" show.bind="unit"
+        <au-autocomplete label="Mesin" value.bind="machine" error.bind="error.MachineId" read-only.bind="readOnly" show.bind="unit._id"
             loader.one-time="machineLoader"  options.bind="controlOptions" placeholder="Cari mesin" text="name" query.bind="filter"></au-autocomplete>
 
         <au-autocomplete value.bind="yarn" label="Benang" error.bind="error.YarnId" loader.one-time="yarnLoader" text="Name" placeholder="cari benang"
