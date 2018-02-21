@@ -67,15 +67,16 @@ export class List {
                 code: this.data[x].unit.code,
                 remainingEH: this.data[x].items[y].remainingEH,
                 classBackground: 
-                  this.data[x].items[y].remainingEH > 0 ? "warning" : 
-                  this.data[x].items[y].remainingEH < 0 ? "danger" :
-                  "success"
+                  this.data[x].items[y].remainingEH > 0 ? "#FF5555" : 
+                  this.data[x].items[y].remainingEH < 0 ? "#00FF00" :
+                  "#0000FF"
               };
               var unitsTemp = units[y] ? units[y] : [];
               unitsTemp.push(unit);
               units[y] = unitsTemp;
             }
           }
+          console.log(JSON.stringify(units));
 
           this.weeks = [];
           for (var x = 0; x < units.length; x++) {

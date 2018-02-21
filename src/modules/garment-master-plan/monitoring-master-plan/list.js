@@ -1,279 +1,323 @@
-import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
+import { inject, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-
-var YearLoader = require('../../../loader/weekly-plan-year-loader');
-
+var YearLoader = require('../../../loader/garment-master-plan-weekly-plan-year-loader');
 var UnitLoader = require('../../../loader/weekly-plan-unit-loader');
-@inject(Router, Service, BindingEngine)
+
+@inject(Router, Service)
 export class List {
-    @bindable year;
-    @bindable unit;
-    constructor(router, service, bindingEngine) {
+    constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.bindingEngine = bindingEngine;
-
     }
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 5
+        }
+    }
+
     get yearLoader() {
         return YearLoader;
-
+    }
+    yearView = (year) => {
+        return `${year.year}`
     }
     get unitLoader() {
         return UnitLoader;
-
-    }
-    yearView = (year) => {
-        return `${year._id.year}`
     }
     unitView = (unit) => {
-        return `${unit._id.unitcode}`
-
+        return `${unit.code} - ${unit.name}`
     }
-    yearChanged(newValue) {
-        if (newValue) {
-            this.filter = {
-                "year": newValue._id.year
-            }
-        } else {
-            this.filter = {};
+
+    @computedFrom("year")
+    get filterUnit() {
+        if (this.year) {
+            this.unit = "";
+            return { "year": this.year.year }
         }
-
+        else {
+            return { "year": "" }
+        }
     }
+
     searching() {
 
-        var info = {
-
-            unit: this.unit ? this.unit.code : "",
-            year: this.year ? this.year : ""
+        if (!this.year) {
+            alert("Tahun Harus Diisi");
         }
-        this.service.search(info)
+        else {
+            var info = {
+                year: this.year.year,
+                unit: this.unit ? this.unit.code : "",
+            }
+            this.service.search(info)
 
-            .then(result => {
+                .then(result => {
 
-                this.dataTemp = [];
-                this.data = [];
-                this.weeklyNumbers = 0;
-                this.WeekQuantity = [];
-                for (var pr of result) {
-                    this.weeklyNumbers = pr._id.weekNumber;
-                    break;
-                }
-
-               
-                for (var pr of result) {
-                    var dataTemp = {};
-                    dataTemp.quantity = [];
-                    dataTemp.efficiency=[];
-                    dataTemp.unitBuyerQuantity=[];
-                    dataTemp.units = pr._id.unit;
-                    dataTemp.buyer = pr._id.buyer;
-                    dataTemp.unitBuyer=pr._id.unit +';' +pr._id.buyer;
-                    dataTemp.SMVTotal = pr.SMVTot;
-                    dataTemp.dataCount = pr.count;
-                    dataTemp.operator = pr._id.operator;
-                    dataTemp.workingHours=pr._id.workingHoours;
-                    dataTemp.AH=pr._id.AHTotal;
-                    dataTemp.EH=pr._id.EHTotal;
-                    dataTemp.usedEH=pr._id.usedTotal;
-                    dataTemp.remainingEH=pr._id.remainingEH;
-                    //dataTemp.efficiency=pr._id.efficiency;
-                    for(var j=0 ;j<pr._id.efficiency.length;j++)
-                    {
-                        dataTemp.efficiency[j]=pr._id.efficiency[j].toString() +'%';
+                    this.dataTemp = [];
+                    this.data = [];
+                    this.weeklyNumbers = 0;
+                    this.WeekQuantity = [];
+                    for (var pr of result) {
+                        this.weeklyNumbers = pr._id.weekNumber;
+                        break;
                     }
-                    dataTemp.weekSewingBlocking=pr._id.weekSewingBlocking;
-                    dataTemp.SMVSewings = pr.SMVTot / pr.count;
-                    dataTemp.SMVSewingWeek = pr._id.weekSewingBlocking;
-                    dataTemp.bookingQty=pr._id.bookingQty;
-                    for (var i = 0; i < this.weeklyNumbers.length; i++) {
-                        if (i + 1 === pr._id.weekSewingBlocking)
-                        {
-                            dataTemp.quantity[i] = pr._id.bookingQty;
+
+
+                    for (var pr of result) {
+                        var dataTemp = {};
+                        dataTemp.backgroundColor = [];
+                        dataTemp.quantity = [];
+                        dataTemp.efficiency = [];
+                        dataTemp.unitBuyerQuantity = [];
+                        //dataTemp.isConfirmed=[];
+                        dataTemp.units = pr._id.unit;
+                        dataTemp.buyer = pr._id.buyer;
+                        dataTemp.unitBuyer = pr._id.unit + ';' + pr._id.buyer;
+                        dataTemp.SMVTotal = pr.SMVTot;
+                        dataTemp.dataCount = pr.count;
+                        dataTemp.operator = pr._id.operator;
+                        dataTemp.workingHours = pr._id.workingHoours;
+                        dataTemp.AH = pr._id.AHTotal;
+                        dataTemp.EH = pr._id.EHTotal;
+                        dataTemp.usedEH = pr._id.usedTotal;
+                        dataTemp.remainingEH = pr._id.remainingEH;
+                      
+                        for (var j = 0; j < pr._id.efficiency.length; j++) {
+                            dataTemp.efficiency[j] = pr._id.efficiency[j].toString() + '%';
+                            dataTemp.backgroundColor[j] = dataTemp.remainingEH[j] > 0 ? "#FFFF00" :
+                                dataTemp.remainingEH[j] < 0 ? "#f62c2c" :
+                                    "#52df46";
+                        }
+                        dataTemp.weekSewingBlocking = pr._id.weekSewingBlocking;
+                        dataTemp.SMVSewings = pr.SMVTot / pr.count;
+                        dataTemp.SMVSewingWeek = pr._id.weekSewingBlocking;
+                        dataTemp.bookingQty = pr._id.bookingQty;
+                        dataTemp.isConfirmed = pr._id.isConfirmed ? 1 : 0;
+                        for (var i = 0; i < this.weeklyNumbers.length; i++) {
+                            if (i + 1 === pr._id.weekSewingBlocking) {
+                                dataTemp.quantity[i] = pr._id.bookingQty;
+
+                            }
+                            else {
+                                dataTemp.quantity[i] = 0;
+                            }
+
+                        }
+                        this.dataTemp.push(dataTemp);
+                    }
+                    // console.log((this.dataTemp));
+                    //units
+                    var flags = [], output = [], l = this.dataTemp.length, i;
+                    for (i = 0; i < l; i++) {
+                        if (flags[this.dataTemp[i].units]) continue;
+                        flags[this.dataTemp[i].units] = true;
+                        output.push(this.dataTemp[i].units);
+
+                    }
+
+                    var flags = [], output2 = [], l = this.dataTemp.length, i;
+                    for (i = 0; i < l; i++) {
+                        if (flags[this.dataTemp[i].unitBuyer]) continue;
+                        flags[this.dataTemp[i].unitBuyer] = true;
+                        output2.push({ unit: this.dataTemp[i].units, buyer: this.dataTemp[i].buyer });
+
+                    }
+                    // console.log(output2);
+                    //total smvSewing
+                    var arr = this.dataTemp,
+                        totalSewing = arr.reduce(function (r, o) {
+                            (r[o.unitBuyer]) ? r[o.unitBuyer] += o.SMVSewings : r[o.unitBuyer] = o.SMVSewings;
+                            return r;
+                        }, {});
+                    var totalSewing = Object.keys(totalSewing).map(function (key) {
+                        return { unitBuyer: key, SMVTotal: totalSewing[key] };
+                    });
+
+                    //Total per Unit
+                    var arr = this.dataTemp,
+                        totalSMV = arr.reduce(function (r, o) {
+                            (r[o.units]) ? r[o.units] += o.SMVTotal : r[o.units] = o.SMVTotal;
+                            return r;
+                        }, {});
+                    var groups = Object.keys(totalSMV).map(function (key) {
+                        return { units: key, SMVTotal: totalSMV[key] };
+                    });
+
+                    // console.log(groups);
+                    let cat = [];
+                    let category = [];
+                    var len = [];
+                    for (var c of this.dataTemp) {
+                        var oye = {};
+                        if (!cat[c.units + c.buyer + c.weekSewingBlocking]) {
+                            cat[c.units + c.buyer + c.weekSewingBlocking] = c.bookingQty;
                         }
                         else {
-                            dataTemp.quantity[i] = 0;
-                            
+                            cat[c.units + c.buyer + c.weekSewingBlocking] += c.bookingQty;
                         }
-                         
-                    }
-                    this.dataTemp.push(dataTemp);
-                }
-                console.log((this.dataTemp));
-               //units
-                var flags = [], output = [], l = this.dataTemp.length, i;
-                for (i = 0; i < l; i++) {
-                    if (flags[this.dataTemp[i].units]) continue;
-                    flags[this.dataTemp[i].units] = true;
-                    output.push(this.dataTemp[i].units);
+                        if (!category[c.units + c.buyer + c.weekSewingBlocking]) {
+                            category[c.units + c.buyer + c.weekSewingBlocking] = c.isConfirmed;
+                        }
+                        else
+                        {
+                            category[c.units + c.buyer + c.weekSewingBlocking] += c.isConfirmed;
+                        }
+                        if (!len[c.units + c.buyer + c.weekSewingBlocking]) {
+                            len[c.units + c.buyer + c.weekSewingBlocking] = 1;
+                        }
+                        else
+                        {
+                            len[c.units + c.buyer + c.weekSewingBlocking] += 1;
+                        }
+                       // console.log(c.units + c.buyer + c.weekSewingBlocking, category[c.units + c.buyer + c.weekSewingBlocking], len[c.units + c.buyer + c.weekSewingBlocking]);
+                     
 
-                }
+                        if (!cat[c.units + "TOTAL" + c.weekSewingBlocking]) {
+                            cat[c.units + "TOTAL" + c.weekSewingBlocking] = c.bookingQty;
+                        }
+                        else {
+                            cat[c.units + "TOTAL" + c.weekSewingBlocking] += c.bookingQty;
+                        }
+                        if (!cat[c.units + "smv" + c.buyer]) {
+                            cat[c.units + "smv" + c.buyer] = c.SMVSewings;
+                        }
+                        else {
+                            cat[c.units + "smv" + c.buyer] += c.SMVSewings;
+                        }
+                        if (!cat[c.units + "efisiensi"]) {
+                            cat[c.units + "efisiensi"] = c.efficiency;
+                        }
+                        if (!cat[c.units + "operator"]) {
+                            cat[c.units + "operator"] = c.operator;
+                        }
+                        if (!cat[c.units + "totalAH"]) {
+                            cat[c.units + "totalAH"] = c.AH;
+                        }
+                        if (!cat[c.units + "totalEH"]) {
+                            cat[c.units + "totalEH"] = c.EH;
+                        }
+                        if (!cat[c.units + "usedEH"]) {
+                            cat[c.units + "usedEH"] = c.usedEH;
+                        }
+                        if (!cat[c.units + "workingHours"]) {
+                            cat[c.units + "workingHours"] = c.workingHours;
+                        }
+                        if (!cat[c.units + "remainingEH"]) {
+                            cat[c.units + "remainingEH"] = c.remainingEH;
+                        }
+                        if (!cat[c.units + "background"]) {
+                            cat[c.units + "background"] = c.backgroundColor;
+                        }
 
-                var flags = [], output2 = [], l = this.dataTemp.length, i;
-                for (i = 0; i < l; i++) {
-                    if (flags[this.dataTemp[i].unitBuyer]) continue;
-                    flags[this.dataTemp[i].unitBuyer] = true;
-                    output2.push({unit:this.dataTemp[i].units, buyer:this.dataTemp[i].buyer});
+                    }
+                    for (var j of output) {
+                        var data = {};
+                        data.units = j;
+                        data.collection = [];
+                        this.sewing = [];
+                        var un = this.dataTemp.filter(o => (o.units == j));
 
-                }
-                console.log(output2);
-                //total smvSewing
-                    var arr =this.dataTemp,
-                      totalSewing = arr.reduce(function (r, o) {
-                        (r[o.unitBuyer])? r[o.unitBuyer] += o.SMVSewings : r[o.unitBuyer] = o.SMVSewings;
-                        return r;
-                      },{});
-                      var totalSewing = Object.keys(totalSewing).map(function (key) {
-                        return {unitBuyer: key, SMVTotal: totalSewing[key]};
-                    });
-                 
-                //Total per Unit
-                    var arr =this.dataTemp,
-                      totalSMV = arr.reduce(function (r, o) {
-                        (r[o.units])? r[o.units] += o.SMVTotal : r[o.units] = o.SMVTotal;
-                        return r;
-                      },{});
-                      var groups = Object.keys(totalSMV).map(function (key) {
-                        return {units: key, SMVTotal: totalSMV[key]};
-                    });
-                   
-                   // console.log(groups);
-                let cat=[];
-                for(var c of this.dataTemp){
-                    var oye={};
-                    if(!cat[c.units+c.buyer+c.weekSewingBlocking]){
-                        cat[c.units+c.buyer+c.weekSewingBlocking]=c.bookingQty;
-                    }
-                    else{
-                        cat[c.units+c.buyer+c.weekSewingBlocking]+=c.bookingQty;
-                    }
-                    if(!cat[c.units+"TOTAL"+c.weekSewingBlocking]){
-                        cat[c.units+"TOTAL"+c.weekSewingBlocking]=c.bookingQty;
-                    }
-                    else{
-                        cat[c.units+"TOTAL"+c.weekSewingBlocking]+=c.bookingQty;
-                    }
-                    if(!cat[c.units+"smv"+c.buyer]){
-                        cat[c.units+"smv"+c.buyer]=c.SMVSewings;
-                    }
-                    else{
-                        cat[c.units+"smv"+c.buyer]+=c.SMVSewings;
-                    }
-                    if(!cat[c.units+"efisiensi"]){
-                        cat[c.units+"efisiensi"]=c.efficiency;
-                    }
-                    if(!cat[c.units+"operator"]){
-                        cat[c.units+"operator"]=c.operator;
-                    }
-                    if(!cat[c.units+"totalAH"]){
-                        cat[c.units+"totalAH"]=c.AH;
-                    }
-                    if(!cat[c.units+"totalEH"]){
-                        cat[c.units+"totalEH"]=c.EH;
-                    }
-                    if(!cat[c.units+"usedEH"]){
-                        cat[c.units+"usedEH"]=c.usedEH;
-                    }
-                    if(!cat[c.units+"workingHours"]){
-                        cat[c.units+"workingHours"]=c.workingHours;
-                    }
-                    if(!cat[c.units+"remainingEH"]){
-                        cat[c.units+"remainingEH"]=c.remainingEH;
-                    }
-                    
-                }
-                console.log(cat);
-                
-                for (var j of output) {
-                    var data = {};
-                    data.units =j;
-                    data.collection = [];
-                    this. sewing=[];
-                    var un= this.dataTemp.filter(o=>(o.units == j));
-                   
-                    for(var i of output2){
-                        if(j==i.unit){
-                            data.quantity=[];
-                            for (var k = 0; k<= this.weeklyNumbers.length; k++)
-                            {
-                                var categ=j+i.buyer+(k).toString();
-                                if(k==0)
-                                {
-                                    categ=j+"smv"+i.buyer;
+                        for (var i of output2) {
+                            if (j == i.unit) {
+                                data.quantity = [];
+                                var background = [];
+                                for (var k = 0; k <= this.weeklyNumbers.length; k++) {
+                                    var categ = j + i.buyer + (k).toString();
+
+                                    if (k == 0) {
+                                        categ = j + "smv" + i.buyer;
+                                    }
+                                    if (category[categ] == 0) {
+                                        // console.log("YELLOW");
+                                        background[k] = "#eee860";
+                                    }
+                                    else if(category[categ] == len[categ]) 
+                                    {
+                                        background[k] = "#ffffff";
+                                        // console.log("white");
+                                    }else
+                                    {
+                                        if (category[categ] != undefined) {
+                                            // console.log("orange");
+                                            background[k] = "#F4A919";
+                                        }
+                                    }
+                                    console.log(categ,category[categ],len[categ], j, i.buyer, cat[categ], k);
+
+
+                                    data.quantity[k] = cat[categ] ? cat[categ] : '-';
+                                    //console.log(isConfirmed);
                                 }
-                                
-                                
-                                data.quantity[k]=cat[categ]? cat[categ] : 0;
-                                console.log(categ,data.quantity[k+1]);
+                                data.collection.push({ name: i.buyer, quantity: data.quantity, units: j, background: background });
                             }
-                            data.collection.push({name: i.buyer, quantity :data.quantity,units:j});
+                            // console.log(data.collection)
                         }
-                        console.log(data.collection)
+                        var qty = [];
+                        for (var y = 0; y < this.weeklyNumbers.length; y++) {
+
+                            var categ = j + "TOTAL" + (y + 1).toString();
+                            qty[y + 1] = cat[categ] ? cat[categ] : '-';
+
+                            // console.log(categ,qty[y+1]);
+                        }
+                        data.collection.push({ name: "TOTAL", quantity: qty });
+                        var eff = cat[j + "efisiensi"];
+                        var opp = cat[j + "operator"];
+                        var AH = cat[j + "totalAH"];
+                        var EH = cat[j + "totalEH"];
+                        var usedEH = cat[j + "usedEH"];
+                        var remainingEH = cat[j + "remainingEH"];
+                        var background = cat[j + "background"];
+                        var workingHours = cat[j + "workingHours"];
+
+                        eff.splice(0, 0, "");
+                        opp.splice(0, 0, "");
+                        AH.splice(0, 0, "");
+                        EH.splice(0, 0, "");
+                        usedEH.splice(0, 0, "");
+                        remainingEH.splice(0, 0, "");
+                        workingHours.splice(0, 0, "");
+                        background.splice(0, 0, "");
+                        data.collection.push({ name: "Efisiensi", quantity: eff });
+                        data.collection.push({ name: "Total Operator Sewing", quantity: opp });
+                        data.collection.push({ name: "Working Hours", quantity: workingHours });
+                        data.collection.push({ name: "Total AH", quantity: AH });
+                        data.collection.push({ name: "Total EH", quantity: EH });
+                        data.collection.push({ name: "Used EH", quantity: usedEH });
+                        data.collection.push({ name: "Remaining EH", quantity: remainingEH, background: background });
+
+
+                        this.data.push(data);
                     }
-                    var qty=[];
-                    for (var y = 0; y< this.weeklyNumbers.length; y++)
-                    {
-                                
-                        var categ=j+"TOTAL"+(y+1).toString();
-                        qty[y+1]=cat[categ]? cat[categ] : 0;
-                        console.log(categ,qty[y+1]);
-                    }
-                    data.collection.push({name: "TOTAL", quantity :qty});
-                    var eff=cat[j+"efisiensi"];
-                    var opp=cat[j+"operator"];
-                    var AH=cat[j+"totalAH"];
-                    var EH=cat[j+"totalEH"];
-                    var usedEH=cat[j+"usedEH"];
-                    var remainingEH=cat[j+"remainingEH"];
-                    var workingHours=cat[j+"workingHours"];
-                    eff.splice(0,0,"");
-                    opp.splice(0,0,"");
-                    AH.splice(0,0,"");
-                    EH.splice(0,0,"");
-                    usedEH.splice(0,0,"");
-                    remainingEH.splice(0,0,"");
-                    workingHours.splice(0,0,"");
-                    data.collection.push({name: "Efisiensi", quantity :eff});
-                    data.collection.push({name: "Total Operator Sewing", quantity :opp});
-                    data.collection.push({name: "Working Hours", quantity :workingHours});
-                    data.collection.push({name: "Total AH", quantity :AH});
-                    data.collection.push({name: "Total EH", quantity :EH});
-                    data.collection.push({name: "Used EH", quantity :usedEH});
-                    data.collection.push({name: "Remaining EH", quantity :remainingEH});
-                 
-                    
-                    this.data.push(data);
-                }
 
-                console.log(JSON.stringify (this.data));
-                
-                var same=[];
-               
+                    // console.log(JSON.stringify(this.data));
 
-            });
+                    var same = [];
 
+
+                });
+        }
     }
     ExportToExcel() {
-        // var info = {
-
-        //     code : this.code ? this.code.code : "",
-        //     buyer : this.buyer ? this.buyer.name : "",
-        //     comodity : this.comodity ? this.comodity.name : "",
-        //     confirmState : this.confirmState ? this.confirmState : "",
-        //     bookingOrderState : this.bookingOrderState ? this.bookingOrderState : "",
-        //     dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-        //     dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
-        // }
-        // this.service.generateExcel(info);
-        //console.log(this.loadData);
+        var info = {
+            year: this.year.year,
+            unit: this.unit ? this.unit.code : "",
+        }
+         this.service.generateExcel(info);
+       
     }
 
 
     reset() {
         this.code = "";
-        this.year = "";
+        this.year ="";
 
     }
 }

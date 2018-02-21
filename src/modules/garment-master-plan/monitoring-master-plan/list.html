@@ -3,7 +3,7 @@
   
         <h1 class="page-header">Report Master Plan</h1>
         <form class="form-horizontal">
-            <au-autocomplete 
+            <!-- <au-autocomplete 
                 value.bind="year" 
                 label="Tahun" 
                 loader.one-time="yearLoader" 
@@ -24,7 +24,26 @@
                 placeholder="Cari Unit"
                 read-only.bind="readOnly" 
                 options.bind="controlOptions">
-            </au-autocomplete>
+            </au-autocomplete> -->
+
+            <au-autocomplete 
+            value.bind="year" 
+            label="Year" 
+            loader.bind="yearLoader"
+            text.bind = "yearView"
+            placeholder="Tahun" 
+            options.bind="controlOptions">
+          </au-autocomplete>
+      
+          <au-autocomplete 
+            value.bind="unit" 
+            label="Unit" 
+            loader.bind="unitLoader"
+            text.bind = "unitView"
+            placeholder="Unit" 
+            query.bind="filterUnit"
+            options.bind="controlOptions">
+          </au-autocomplete>
 
             <div class="form-group">
                 <label for="contact" class="col-sm-6 control-label"></label>
@@ -58,7 +77,7 @@
                                 </tr>
                                 <tr repeat.for="c of d.collection">
                                   <td>${c.name}</td>
-                                  <td repeat.for= "q of c.quantity">${q}</td> 
+                                  <td class="text-right" repeat.for= "q of c.quantity" css="background:${c.background[$index]};">${q}</td> 
                                 </tr>
                             </template>
                 </tbody>
