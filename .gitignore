@@ -10,5 +10,3 @@ npm-debug.log*
 /test/coverage
 yarn.lock
 /.vscode
-src/main.js
-src/main.js
