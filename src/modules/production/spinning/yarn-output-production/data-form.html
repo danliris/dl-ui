@@ -66,7 +66,7 @@
 
     <au-numeric
       value.bind="data.YarnWeightPerCone"
-      label="Berat Benang per Cone"
+      label="Berat Benang per Cone (kg)"
       read-only.bind="readOnly"
       error.bind="error.YarnWeightPerCone"
       if.bind="isView || isEdit"
@@ -74,7 +74,7 @@
     </au-numeric>
 
     <au-numeric
-      label="Good Output"
+      label="Good Output (cone)"
       value.bind="data.GoodOutput"
       error.bind="error.GoodOutput"
       read-only.bind="readOnly"
@@ -83,7 +83,7 @@
     </au-numeric>
 
     <au-numeric
-      label="Bad Output"
+      label="Bad Output (cone)"
       value.bind="data.BadOutput"
       error.bind="error.BadOutput"
       read-only.bind="readOnly"
