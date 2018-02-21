@@ -22,7 +22,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var spinning = info.Filter.UnitName ? info.Filter.UnitName : " ";
+        var spinning = info.Filter.UnitName ? info.Filter.UnitName : "all";
         var dateFrom = info.Filter.DateFrom ? info.Filter.DateFrom : " ";
         var dateTo = info.Filter.DateTo ? info.Filter.DateTo : " ";
         var endpoint = `${serviceUri}/report/${spinning}/${dateFrom}/${dateTo}`;
@@ -30,7 +30,7 @@ export class Service extends RestService {
     }
 
     generateExcel(info) {
-        var spinning = info.Filter.UnitName ? info.Filter.UnitName : " ";
+        var spinning = info.Filter.UnitName ? info.Filter.UnitName : "all";
         var dateFrom = info.Filter.DateFrom ? info.Filter.DateFrom : " ";
         var dateTo = info.Filter.DateTo ? info.Filter.DateTo : " ";
         var endpoint = `${serviceUri}/download/${spinning}/${dateFrom}/${dateTo}`;

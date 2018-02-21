@@ -14,17 +14,19 @@ export class List {
     }
 
     columns =[
-        { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
-        { field: "YarnName", title: "Yarn Name" },
         {
             field: "Date", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "UnitName", title: "Unit Name" },
-        { field: "MachineName", title: "Machine Name" },
+        { field: "Unit", title: "Unit Name" },
+        { field: "Yarn", title: "Yarn Name" },
+        { field: "Machine", title: "Machine Name" },
         { field: "Lot", title: "Lot" },
-        { field: "Shift", title: "Shift" },
+        { field: "FirstShift", title: "Shift I" },
+        { field: "SecondShift", title: "Shift II" },
+        { field: "ThirdShift", title: "Shift III" },
+        { field: "Total", title: "Total" },
     ];
 
     controlOptions = {
@@ -50,9 +52,9 @@ export class List {
     filter() {
         this.arg = {};
         this.arg.Filter = {
-            "UnitName": this.unit.name,
-            "DateFrom": moment(this.dateFrom).format("DD MMM YYYY"),
-            "DateTo":  moment(this.dateTo).format("DD MMM YYYY")
+            "UnitName": this.unit.name ? this.unit.name :"all",
+            "DateFrom": moment(this.dateFrom?this.dateFrom:new Date("12-25-1900")).format("DD MMM YYYY HH:mm"),
+            "DateTo":  moment(this.dateTo?this.dateTo:new Date()).format("DD MMM YYYY HH:mm")
         };
     }
 
@@ -77,7 +79,6 @@ export class List {
             this.filter(),
             this.service.search(this.arg).then((result) => {
                 return {
-                    // total: result.info.total,
                     data: result
                 }
             })
@@ -85,27 +86,27 @@ export class List {
     }
 
     search() {
-        var e = {};
-        if (!this.unit) {
-            e.unit = "unit harus di isi";
-            this.error = e;
-        }
+        // var e = {};
+        // if (!this.unit) {
+        //     e.unit = "unit harus di isi";
+        //     this.error = e;
+        // }
 
-        if (this.dateFrom == undefined) {
-            e.dateFrom = "tanggal awal harus di isi";
-            this.error = e;
-        }
+        // if (this.dateFrom == undefined) {
+        //     e.dateFrom = "tanggal awal harus di isi";
+        //     this.error = e;
+        // }
 
-        if (this.dateTo == undefined) {
-            e.dateTo = "tanggal akhir harus di isi";
-            this.error = e;
-        }
+        // if (this.dateTo == undefined) {
+        //     e.dateTo = "tanggal akhir harus di isi";
+        //     this.error = e;
+        // }
 
-        if (Object.getOwnPropertyNames(e) == 0) {
+        // if (Object.getOwnPropertyNames(e) == 0) {
 
             this.listDataFlag = true;
             this.table.refresh();
-        }
+        // }
     }
 
     reset() {
