@@ -55,6 +55,7 @@
                         <td >Tgl SPB</td>
                         <td >No SPB</td>
                         <td >Nama Brg</td>
+                        <td >Satuan</td>
                         <td >Jml</td>
                         <td >Hrg Sat</td>
                         <td >Jumlah Hrg</td>
@@ -68,11 +69,13 @@
                         <td >Tgl INV</td>
                         <td >No INV</td>
                         <td >JT</td>
+                        <td >Kode Supplier</td>
                         <td >Supplier</td>
                         <td >Unit</td>
                         <td >Div</td>
                         <td >ADM</td>
                         <td >Staff</td>
+                        <td >Mata Uang</td>
                        
                     </tr>
                   
@@ -104,6 +107,7 @@
                         <td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.no}</td>
                         <td>${PO.product}</td>
+                        <td>${PO.satuan}</td>
                         <td>${PO.banyak}</td>
                         <td>${PO.harga}</td>
                         <td>${PO.banyak*PO.harga}</td>
@@ -117,11 +121,13 @@
                         <td>${PO.invoceDate | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.invoceNo}</td>
                         <td>${PO.dueDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${PO.codesupplier}</td>
                         <td>${PO.supplier}</td>
                         <td>${PO.namaUnit}</td>
                         <td>${PO.divisi}</td>
                         <td>${PO._createdBy}</td>
                         <td>${PO.staff}</td>
+                        <td>${PO.matauang}</td>
                     </tr>
                 </tbody>
             </table>
