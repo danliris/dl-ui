@@ -66,10 +66,10 @@ export class List {
               var unit = {
                 code: this.data[x].unit.code,
                 remainingEH: this.data[x].items[y].remainingEH,
-                classBackground: 
-                  this.data[x].items[y].remainingEH > 0 ? "#FF5555" : 
-                  this.data[x].items[y].remainingEH < 0 ? "#00FF00" :
-                  "#0000FF"
+                background: 
+                  this.data[x].items[y].remainingEH > 0 ? "#FFFF00" : // yellow
+                  this.data[x].items[y].remainingEH < 0 ? "#F62C2C" : // red
+                  "#52DF46" // green
               };
               var unitsTemp = units[y] ? units[y] : [];
               unitsTemp.push(unit);
