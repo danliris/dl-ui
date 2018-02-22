@@ -40,7 +40,7 @@ export class DataForm {
         }
     }
 
-    controlOptions = {
+    numberOptions = {
         control: {
           length: 2
         }
@@ -49,7 +49,7 @@ export class DataForm {
     itemColumns = ["Berat Benang per Cone", "Good Output", "Bad Output", "Jumlah Drum"];
     spinningFilter = { "division.name": { "$regex": "SPINNING", "$options": "i" } };
     @bindable machineFilter = { "unit.name": { "$exists": true } };
-    shiftItems = ["", "Shift I: 06.00 - 14.00", "Shift II: 14.00 - 22.00", "Shift I: 22.00 - 06.00"];
+    shiftItems = ["", "Shift I: 06.00 - 14.00", "Shift II: 14.00 - 22.00", "Shift III: 22.00 - 06.00"];
 
     @bindable selectedYarn;
     async selectedYarnChanged(newVal, oldVal) {

@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -33,11 +34,11 @@ export class View {
             if(this.data && this.data.bookingOrderId){
                 this.booking = {};
                 var bookingData = await this.service.getBookingById(this.data.bookingOrderId);
-                if(this.data.bookingDate !== bookingData.bookingDate)
+                if(moment(this.data.bookingDate).format("DD MMM YYYY") !== moment(bookingData.bookingDate).format("DD MMM YYYY"))
                     this.booking["bookingDate"] = bookingData.bookingDate;
                 if(this.data.quantity !== bookingData.orderQuantity)
                     this.booking["quantity"] = bookingData.orderQuantity;
-                if(this.data.deliveryDate !== bookingData.deliveryDate)
+                if(moment(this.data.deliveryDate).format("DD MMM YYYY") !== moment(bookingData.deliveryDate).format("DD MMM YYYY"))
                     this.booking["deliveryDate"] = bookingData.deliveryDate;
                 if(this.data.remark !== bookingData.remark)
                     this.booking["remark"] = bookingData.remark;
