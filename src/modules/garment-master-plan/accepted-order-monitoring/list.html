@@ -40,15 +40,19 @@
         <thead>
           <tr>
             <th class="text-center">UNIT</th>
-            <th class="text-center" repeat.for="plan of data">${plan.unit.code}</th>
-            <th class="text-center">Head Count</th>
+            <th class="text-center" repeat.for="plan of units">${plan}</th>
+            
           </tr>
         </thead>
         <tbody>
           <tr repeat.for="week of weeks">
-            <td>${week.week}</td>
-            <td repeat.for="unit of week.units" class="${unit.classBackground}">${unit.remainingEH}</td>
-            <td>${week.headCount}</td>
+            <td>${week.weeknumber}</td>
+            <td repeat.for="unit of qty">${unit.quantity}</td>
+            <!-- <td repeat.for="quantity of qty">${quantity}</td> -->
+          </tr>
+          <tr>
+            <td>TOTAL</td>
+            <td repeat.for="">${}</td>
           </tr>
         </tbody>
       </table>

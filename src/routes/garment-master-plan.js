@@ -131,9 +131,9 @@ module.exports = [
   },
 
     {
-        route: '/garment-master-plan/monitoring-order-diterima-dan-booking',
-        name: 'monitoring-order-diterima-dan-booking',
-        moduleId: './modules/garment-master-plan/monitoring-order-diterima-dan-booking/index',
+        route: '/garment-master-plan/accepted-order-monitoring',
+        name: 'accepted-order-monitoring',
+        moduleId: './modules/garment-master-plan/accepted-order-monitoring/index',
         nav: true,
         title: 'Monitoring Order Diterima dan Booking',
         auth: true,
