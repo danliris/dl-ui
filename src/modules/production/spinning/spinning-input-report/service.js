@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
+import { debug } from 'util';
 var moment = require('moment');
 
 const serviceUri = 'SpinningInputProduction';

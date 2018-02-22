@@ -86,6 +86,8 @@ export class DataForm {
     };
 
     unitChanged(newValue, oldValue) {
+        this.machine = null;
+        this.yarn = null;
         if (this.unit && this.unit._id) {
             this.data.Unit = this.unit
         }
@@ -97,7 +99,7 @@ export class DataForm {
     }
 
     machineChanged(newValue, oldValue) {
-
+        this.yarn = null;
         if (this.machine && this.machine._id) {
             this.data.Machine = this.machine
         }
