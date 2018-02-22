@@ -52,7 +52,7 @@ export class List {
     filter() {
         this.arg = {};
         this.arg.Filter = {
-            "UnitName": this.unit.name ? this.unit.name :"all",
+            "UnitName": this.unit != null || this.unit != undefined ? this.unit.name :"all",
             "DateFrom": moment(this.dateFrom?this.dateFrom:new Date("12-25-1900")).format("DD MMM YYYY HH:mm"),
             "DateTo":  moment(this.dateTo?this.dateTo:new Date()).format("DD MMM YYYY HH:mm")
         };
@@ -103,7 +103,6 @@ export class List {
         // }
 
         // if (Object.getOwnPropertyNames(e) == 0) {
-
             this.listDataFlag = true;
             this.table.refresh();
         // }
