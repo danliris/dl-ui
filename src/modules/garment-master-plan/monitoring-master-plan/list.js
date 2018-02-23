@@ -88,6 +88,7 @@ export class List {
                         dataTemp.EH = pr._id.EHTotal;
                         dataTemp.usedEH = pr._id.usedTotal;
                         dataTemp.remainingEH = pr._id.remainingEH;
+                        dataTemp. dataCount= pr.count;
                       
                         for (var j = 0; j < pr._id.efficiency.length; j++) {
                             dataTemp.efficiency[j] = pr._id.efficiency[j].toString() + '%';
@@ -191,6 +192,13 @@ export class List {
                         else {
                             cat[c.units + "smv" + c.buyer] += c.SMVSewings;
                         }
+                        if (!cat[c.units + "count" + c.buyer]) {
+                            cat[c.units + "count" + c.buyer] = c.dataCount;
+                        }
+                        else {
+                            cat[c.units + "count" + c.buyer] += c.dataCount;
+                        }
+                      
                         if (!cat[c.units + "efisiensi"]) {
                             cat[c.units + "efisiensi"] = c.efficiency;
                         }
@@ -215,8 +223,9 @@ export class List {
                         if (!cat[c.units + "background"]) {
                             cat[c.units + "background"] = c.backgroundColor;
                         }
-
+                      
                     }
+                
                     for (var j of output) {
                         var data = {};
                         data.units = j;
@@ -224,7 +233,10 @@ export class List {
                         this.sewing = [];
                         var un = this.dataTemp.filter(o => (o.units == j));
 
+                        var smvTot=0;
+                        var counts=0;
                         for (var i of output2) {
+                           
                             if (j == i.unit) {
                                 data.quantity = [];
                                 var background = [];
@@ -232,40 +244,46 @@ export class List {
                                     var categ = j + i.buyer + (k).toString();
 
                                     if (k == 0) {
-                                        categ = j + "smv" + i.buyer;
+                                         categ =( j + "smv" + i.buyer);
+                                         data.quantity[k] = (cat[j + "smv" + i.buyer]/cat[j + "count" + i.buyer] )?Math.round((cat[j + "smv" + i.buyer]/cat[j + "count" + i.buyer] )) : '-';
+                                         smvTot+=Math.round(cat[j + "smv" + i.buyer]/cat[j + "count" + i.buyer] );
+                                        counts+=1;
+                                       
+                                        }else
+                                    {
+                                         data.quantity[k] = cat[categ] ? cat[categ] : '-';
                                     }
                                     if (category[categ] == 0) {
-                                        // console.log("YELLOW");
+                                      
                                         background[k] = "#eee860";
                                     }
                                     else if(category[categ] == len[categ]) 
                                     {
                                         background[k] = "#ffffff";
-                                        // console.log("white");
+                                      
                                     }else
                                     {
                                         if (category[categ] != undefined) {
-                                            // console.log("orange");
+                                           
                                             background[k] = "#F4A919";
                                         }
                                     }
-                                    console.log(categ,category[categ],len[categ], j, i.buyer, cat[categ], k);
-
-
-                                    data.quantity[k] = cat[categ] ? cat[categ] : '-';
-                                    //console.log(isConfirmed);
+                                  
                                 }
                                 data.collection.push({ name: i.buyer, quantity: data.quantity, units: j, background: background, fontWeight: "normal"});
                             }
-                            // console.log(data.collection)
+                            
                         }
                         var qty = [];
                         for (var y = 0; y < this.weeklyNumbers.length; y++) {
 
                             var categ = j + "TOTAL" + (y + 1).toString();
+                            
                             qty[y + 1] = cat[categ] ? cat[categ] : '-';
-
-                            // console.log(categ,qty[y+1]);
+                          
+                           
+                            qty[0]=Math.round(smvTot/counts);
+                            
                         }
                         data.collection.push({ name: "TOTAL", quantity: qty, fontWeight: "bold" });
                         var eff = cat[j + "efisiensi"];
@@ -276,7 +294,7 @@ export class List {
                         var remainingEH = cat[j + "remainingEH"];
                         var background = cat[j + "background"];
                         var workingHours = cat[j + "workingHours"];
-
+                       
                         eff.splice(0, 0, "");
                         opp.splice(0, 0, "");
                         AH.splice(0, 0, "");
