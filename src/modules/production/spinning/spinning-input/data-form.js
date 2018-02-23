@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
+import { debug } from 'util';
 
 var YarnLoader = require('../../../../loader/spinning-yarn-loader');
 var MachineLoader = require('../../../../loader/machine-loader');
@@ -71,6 +72,10 @@ export class DataForm {
             this.data.Input.push(inputData)
         }
 
+        if (this.data.Lot) {
+            this.Lot = this.data.Lot;
+        }
+
     }
 
     inputInfo = {
@@ -86,10 +91,12 @@ export class DataForm {
     };
 
     unitChanged(newValue, oldValue) {
-        this.machine = null;
-        this.yarn = null;
         if (this.unit && this.unit._id) {
             this.data.Unit = this.unit
+            if (oldValue) {
+                this.machine = null;
+                this.yarn = null;
+            }
         }
         else {
             this.unit = null;
@@ -99,9 +106,11 @@ export class DataForm {
     }
 
     machineChanged(newValue, oldValue) {
-        this.yarn = null;
         if (this.machine && this.machine._id) {
             this.data.Machine = this.machine
+            if (oldValue) {
+                this.yarn = null;
+            }
         }
         else {
             this.machine = null;
@@ -147,7 +156,6 @@ export class DataForm {
         }
 
     }
-
 
     get machineLoader() {
         return MachineLoader;
