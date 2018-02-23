@@ -76,8 +76,8 @@
                                   <td rowspan="${d.collection.length + 1}">${d.units}</td>
                                 </tr>
                                 <tr repeat.for="c of d.collection">
-                                  <td>${c.name}</td>
-                                  <td class="text-right" repeat.for= "q of c.quantity" css="background:${c.background[$index]};">${q}</td> 
+                                  <td css="font-weight: ${c.fontWeight};">${c.name}</td>
+                                  <td class="text-right" repeat.for= "q of c.quantity" css="background:${c.background[$index]};font-weight: ${c.fontWeight};">${q}</td> 
                                 </tr>
                             </template>
                 </tbody>
