@@ -13,7 +13,7 @@ export class List {
 
     context = ["detail"];
     columns = [
-        { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
+        // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
         { field: "Yarn.Name", title: "Yarn Name" },
         {
             field: "Date", title: "Date", formatter: function (value, data, index) {

@@ -21,8 +21,8 @@ export class List {
         },
         { field: "Unit", title: "Unit Name" },
         { field: "Yarn", title: "Yarn Name" },
-        { field: "Machine", title: "Machine Name" },
-        { field: "Lot", title: "Lot" },
+        // { field: "Machine", title: "Machine Name" },
+        // { field: "Lot", title: "Lot" },
         { field: "FirstShift", title: "Shift I" },
         { field: "SecondShift", title: "Shift II" },
         { field: "ThirdShift", title: "Shift III" },
@@ -78,6 +78,14 @@ export class List {
         return this.listDataFlag ? (
             this.filter(),
             this.service.search(this.arg).then((result) => {
+
+                for(var i of result){
+                    i.FirstShift= parseFloat(i.FirstShift.toFixed(2));
+                    i.SecondShift= parseFloat(i.FirstShift.toFixed(2));
+                    i.ThirdShift= parseFloat(i.FirstShift.toFixed(2));
+                    i.Total=parseFloat(i.Total.toFixed(2));
+                }
+
                 return {
                     data: result
                 }
