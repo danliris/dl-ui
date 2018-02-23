@@ -255,7 +255,7 @@ export class List {
                                     data.quantity[k] = cat[categ] ? cat[categ] : '-';
                                     //console.log(isConfirmed);
                                 }
-                                data.collection.push({ name: i.buyer, quantity: data.quantity, units: j, background: background });
+                                data.collection.push({ name: i.buyer, quantity: data.quantity, units: j, background: background, fontWeight: "normal"});
                             }
                             // console.log(data.collection)
                         }
@@ -267,7 +267,7 @@ export class List {
 
                             // console.log(categ,qty[y+1]);
                         }
-                        data.collection.push({ name: "TOTAL", quantity: qty });
+                        data.collection.push({ name: "TOTAL", quantity: qty, fontWeight: "bold" });
                         var eff = cat[j + "efisiensi"];
                         var opp = cat[j + "operator"];
                         var AH = cat[j + "totalAH"];
@@ -285,13 +285,13 @@ export class List {
                         remainingEH.splice(0, 0, "");
                         workingHours.splice(0, 0, "");
                         background.splice(0, 0, "");
-                        data.collection.push({ name: "Efisiensi", quantity: eff });
-                        data.collection.push({ name: "Total Operator Sewing", quantity: opp });
-                        data.collection.push({ name: "Working Hours", quantity: workingHours });
-                        data.collection.push({ name: "Total AH", quantity: AH });
-                        data.collection.push({ name: "Total EH", quantity: EH });
-                        data.collection.push({ name: "Used EH", quantity: usedEH });
-                        data.collection.push({ name: "Remaining EH", quantity: remainingEH, background: background });
+                        data.collection.push({ name: "Efisiensi", quantity: eff, fontWeight: "bold" });
+                        data.collection.push({ name: "Total Operator Sewing", quantity: opp, fontWeight: "bold" });
+                        data.collection.push({ name: "Working Hours", quantity: workingHours, fontWeight: "bold" });
+                        data.collection.push({ name: "Total AH", quantity: AH, fontWeight: "bold" });
+                        data.collection.push({ name: "Total EH", quantity: EH, fontWeight: "bold" });
+                        data.collection.push({ name: "Used EH", quantity: usedEH, fontWeight: "bold" });
+                        data.collection.push({ name: "Remaining EH", quantity: remainingEH, background: background, fontWeight: "bold" });
 
 
                         this.data.push(data);

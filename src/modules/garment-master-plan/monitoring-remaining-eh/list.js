@@ -76,7 +76,6 @@ export class List {
               units[y] = unitsTemp;
             }
           }
-          console.log(JSON.stringify(units));
 
           this.weeks = [];
           for (var x = 0; x < units.length; x++) {
