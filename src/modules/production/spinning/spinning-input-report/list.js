@@ -4,6 +4,7 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 var UnitLoader = require('../../../../loader/unit-loader');
+var YarnLoader = require('../../../../loader/spinning-yarn-loader');
 
 @inject(Router, Service)
 export class List {
@@ -53,6 +54,7 @@ export class List {
         this.arg = {};
         this.arg.Filter = {
             "UnitName": this.unit != null || this.unit != undefined ? this.unit.name :"all",
+            "YarnName":this.yarn !=null||this.yarn != undefined? this.yarn.Name:"all",
             "DateFrom": moment(this.dateFrom?this.dateFrom:new Date("12-25-1900")).format("DD MMM YYYY HH:mm"),
             "DateTo":  moment(this.dateTo?this.dateTo:new Date()).format("DD MMM YYYY HH:mm")
         };
@@ -100,6 +102,7 @@ export class List {
 
     reset() {
         this.unit = null;
+        this.yarn = null;
         this.dateFrom = undefined;
         this.dateTo = undefined;
         this.error = "";
@@ -114,7 +117,20 @@ export class List {
         }
     }
 
+    yarnChanged(newValue, oldValue) {
+        if (this.yarn && this.yarn.Id) {
+            this.data.Yarn = this.yarn
+        }
+        else {
+            this.yarn = null;
+        }
+    }
+
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get yarnLoader() {
+        return YarnLoader;
     }
 }
