@@ -9,6 +9,7 @@ const serviceUriUnitPaymentOrder = 'generating-data/intern-note';
 const serviceUriInvoice = 'generating-data/invoice';
 const serviceUriPaymentCorrectionNote = 'generating-data/correction-note';
 const serviceUriQuantityCorrectionNote = 'generating-data/quantity-correction-note';
+const serviceUriUnitReceiptNote = 'generating-data/unit-receipt-note';
 
 export class Service extends RestService {
 
@@ -128,6 +129,23 @@ export class Service extends RestService {
         return super.getXls(endpoint);
     }
 
+generateUnitReceiptNote(dateFrom, dateTo) {
+        var endpoint = `${serviceUriUnitReceiptNote}`;
+        var query = '';
+        if (dateFrom) {
+            if (query == '') query = `dateFrom=${dateFrom}`;
+            else query = `${query}&dateFrom=${dateFrom}`;
+        }
+        if (dateTo) {
+            if (query == '') query = `dateTo=${dateTo}`;
+            else query = `${query}&dateTo=${dateTo}`;
+        }
+          
+        if (query != '')
+            endpoint = `${serviceUriUnitReceiptNote}?${query}`;
+        return super.getXls(endpoint);
+    }
+
     exportData(dateFrom, dateTo) {
         return new Promise((resolve, reject) => {
             var tasks = [];
@@ -138,7 +156,8 @@ export class Service extends RestService {
             tasks.push(this.generateUnitPaymentOrder(dateFrom, dateTo));
             tasks.push(this.generatePaymentCorrectionNote(dateFrom, dateTo));
             tasks.push(this.generateQuantityCorrectionNote(dateFrom, dateTo));
-            
+            tasks.push(this.generateUnitReceiptNote(dateFrom, dateTo));
+         
             Promise.all(tasks)
                 .then(result => {
                     resolve(true);
