@@ -75,6 +75,7 @@ export class List {
         this.arg.state = this.poState ? this.poState.value : null;
         this.arg.artikel = this.artikel ? this.artikel : null;
         this.arg.prRefNo = this.prRefNo ? this.prRefNo : null;
+        this.arg.deliveryOrderNo = this.deliveryOrderNo ? this.deliveryOrderNo : null;
     }
 
 
@@ -230,6 +231,7 @@ export class List {
         this.user = "";
         this.artikel = "";
         this.prRefNo = "";
+        this.deliveryOrderNo = "";
         this.dateFrom = null;
         this.dateTo = null;
         this.listDataFlag = false;
