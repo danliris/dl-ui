@@ -41,7 +41,6 @@ export class DataForm {
     spinningFilter = { "division.name": { "$regex": "SPINNING", "$options": "i" } };
     shift = ["Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
 
-
     constructor(service) {
         this.service = service;
     }

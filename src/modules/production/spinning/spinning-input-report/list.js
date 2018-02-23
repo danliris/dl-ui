@@ -94,26 +94,8 @@ export class List {
     }
 
     search() {
-        // var e = {};
-        // if (!this.unit) {
-        //     e.unit = "unit harus di isi";
-        //     this.error = e;
-        // }
-
-        // if (this.dateFrom == undefined) {
-        //     e.dateFrom = "tanggal awal harus di isi";
-        //     this.error = e;
-        // }
-
-        // if (this.dateTo == undefined) {
-        //     e.dateTo = "tanggal akhir harus di isi";
-        //     this.error = e;
-        // }
-
-        // if (Object.getOwnPropertyNames(e) == 0) {
             this.listDataFlag = true;
             this.table.refresh();
-        // }
     }
 
     reset() {
