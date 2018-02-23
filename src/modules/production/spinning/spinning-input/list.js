@@ -14,16 +14,19 @@ export class List {
     context = ["detail"];
     columns = [
         // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
-        { field: "Yarn.Name", title: "Yarn Name" },
+        // { field: "Yarn.Name", title: "Yarn Name" },
+        { field: "Unit.name", title: "Unit Name" },
         {
             field: "Date", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "Unit.name", title: "Unit Name" },
-        { field: "Machine.name", title: "Machine Name" },
-        { field: "Lot", title: "Lot" },
         { field: "Shift", title: "Shift" },
+        { field: "Machine.name", title: "Machine Name" },
+        { field: "Yarn.Name", title: "Yarn Name" },
+        { field: "Lot", title: "Lot" },
+        { field: "Counter", title: "Input (Counter)" },
+        { field: "Hank", title: "Input (Hank)" }
     ]
 
     loader = (info) => {
