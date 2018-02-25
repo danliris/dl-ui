@@ -5,7 +5,7 @@ export default {
     loginUrl: "authenticate",
     profileUrl: "/me",
 
-    authTokenType: "JWT",
+    authTokenType: "Bearer",
     accessTokenProp: "data",
 
     storageChangedReload : true

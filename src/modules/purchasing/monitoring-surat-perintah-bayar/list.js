@@ -120,6 +120,9 @@ var index=1;
             "datepr": a.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.date,
             "nonote":a.items.unitReceiptNote.no,
             "staff":a.staff,
+            "matauang":a.matauang,
+            "satuan":a.satuan,
+            "codesupplier":a.codesupplier,
             "datenote":a.items.unitReceiptNote.date,
                       
                     }
