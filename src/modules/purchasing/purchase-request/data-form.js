@@ -7,6 +7,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
+    @bindable prInternal;
 
     @bindable title;
 
@@ -23,6 +24,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
+        if(this.data.internal){
+            this.prInternal = this.data.internal;
+        }
+
     }
 
     itemsColumns = [
@@ -45,6 +51,14 @@ export class DataForm {
     categoryChanged(e) {
         if (this.data.category)
             this.data.categoryId = this.data.category._id ? this.data.category._id : {};
+    }
+
+    prInternalChanged(e){
+            if(e==true){
+                this.data.internal = true;
+            }else{
+                this.data.internal = false;
+            }
     }
 
     get unitLoader() {
