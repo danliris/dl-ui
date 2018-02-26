@@ -324,14 +324,18 @@ export class List {
         }
     }
     ExportToExcel() {
-        var info = {
-            year: this.year.year,
-            unit: this.unit ? this.unit.code : "",
+        if (!this.year) {
+            alert("Tahun Harus Diisi");
+          }
+          else {
+            var info = {
+              year: this.year.year,
+              unit: this.unit ? this.unit.code : "",
+            }
+            this.service.generateExcel(info);
+          }
         }
-         this.service.generateExcel(info);
-       
-    }
-
+      
 
     reset() {
         this.code = "";
