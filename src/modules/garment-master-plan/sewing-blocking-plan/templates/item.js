@@ -212,33 +212,34 @@ export class Item {
           if (this.data.weeklyPlanYear && this.data.unit && this.data.week) {
             var unVal = [];
             for (var x of this.items) {
-              let uniq = x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString();
-              unVal.push(uniq);
+              if(x.weeklyPlanYear && x.unit.code && x.week.weekNumber){
+                let uniq = x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString();
+                unVal.push(uniq);
+              }
             }
             unVal.pop();
+            //console.log(unVal);
             let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
 
-            let dup = unVal.find(o => (o == cat));
-            if (dup) {
-              let y = unVal.lastIndexOf(dup);
-              if (y != this.items.length - 1) {
-                this.data.remainingEH = this.items[y].sisaEH;
-              }
-              else {
+            // let dup = unVal.find(o => (o == cat));
+            // if (dup) {
+            //   let y = unVal.lastIndexOf(dup);
+            //   if (y != this.items.length - 1) {
+            //     this.data.remainingEH = this.items[y].sisaEH;
+            //   }
+            //   else {
+            //     this.data.remainingEH = this.data.week.remainingEH;
+            //   }
+            // }
+            // else {
 
-                this.data.remainingEH = this.data.week.remainingEH;
-              }
-            }
-            else {
-
-              this.data.remainingEH = this.data.week.remainingEH;
-            }
+            //   this.data.remainingEH = this.data.week.remainingEH;
+            // }
           }
         }
         else {
           this.data.remainingEH = this.data.week.remainingEH;
         }
-        if(!this.data.remainingEH || this.data.remainingEH===0)
           this.data.remainingEH = this.data.week.remainingEH;
         console.log(this.data.remainingEH);console.log(this.data.week.remainingEH);
         this.data.efficiency = this.data.week.efficiency;
@@ -257,6 +258,9 @@ export class Item {
   }
 
   quantityChanged(e) {
+    if(this.data.quantity===0){
+      this.data.ehBooking=0;
+    }
     if (this.data.quantity && this.data.week) {
       this.data.ehBooking = Math.round((this.data.shSewing * this.data.quantity) / 60);
       this.data.sisaEH = this.data.remainingEH - this.data.ehBooking;
