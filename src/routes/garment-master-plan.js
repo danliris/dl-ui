@@ -141,7 +141,7 @@ module.exports = [
           permission: { "C5": 1, "C9": 1 },
           iconClass: 'fa fa-dashboard'
       }
-  }
+  },
 
     {
         route: '/garment-master-plan/accepted-order-monitoring',
@@ -155,7 +155,7 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },
+    }
 
 
 ]

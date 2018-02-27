@@ -59,124 +59,78 @@ export class List {
       }
 
 
-      this.previewWeeklyPlan = await this.service.getWeeklyPlan(info.year.year);
+      this.previewWeeklyPlan = await this.service.getWeeklyPlan(info.year.year,info.unit);
       this.service.search(info)
         .then(result => {
           this.data = result;
           this.units = [];
           this.weeks = [];
           this.qty = [];
-          this.item_unit = [];
-          // this.unit_code=this.data._id.unitcode;
-          console.log(this.data);
-          for(var item of this.previewWeeklyPlan){
-            if(this.units.length<=0){
-              this.units.push(item.unit.code);
+          this.total = [];
+          
+          if(info.unit==''){
+            for(var item of this.previewWeeklyPlan){
+              if(this.units.length<=0){
+               this.units.push(item.unit.code);
+              }
+              var u=this.units.find(i=> i==item.unit.code);
+              if(!u){
+               this.units.push(item.unit.code);
+              }
             }
-            var u=this.units.find(i=> i==item.unit.code);
-            if(!u){
-              this.units.push(item.unit.code);
-            }
+          }
+          else if(info.unit!=''){
+            this.units.push(info.unit);
           }
 
           for(var weekly of this.previewWeeklyPlan){
             this.length_week= weekly.items.length;
             break;
           }
-          var z=0;
-          //var group=[];
           
+          var totalqty=[];
+          for(var z of this.data){
+            for(var code of this.units){
+              if(code==z._id.unitcode){
+                if(!totalqty[code]){
+                  totalqty[code]=z.qty;
+                } else {
+                  totalqty[code]+=z.qty; 
+                }
+              }
+            }
+          }
+          this.total=Object.values(totalqty);
 
           for(var x=0;x<this.length_week;x++){
             var obj=[];
-            week={
+            var week={
               weeknumber:'W'+(x+1)
             }
             this.weeks.push(week);
             for(var y of this.units){
               var unit={};
-              var grup= this.data.find(o=>o._id.unitcode==y && o._id.week == x);
+              var grup= this.data.find(o=>o._id.unitcode==y && o._id.week == (x+1));
               if(grup){
                 unit={
                   code:y,
-                  week:x,
-                  quantity:grup.qty
+                  week:x+1,
+                  quantity:grup.qty,
                 }
               } else {
                 unit={
                   code:y,
-                  week:x,
+                  week:x+1,
                   quantity:'-'
                 }
               }
+              
               obj.push(unit);
+
             }
             this.qty.push(obj);
-          
+            
           }
-          console.log(this.qty);
-          // for(var x=0;x<this.length_week;x++){
-          //   var week_row=x+1;
-          //   var unit=[];
-          //   // var week = {
-          //   //   weeknumber:"W"+(week_row),
-          //   // }
-
-          //   // this.weeks.push(week.weeknumber);
-
-          //   for(var y=0;y<this.units.length;y++){
-          //     if(this.data[z]){
-          //       this.a=this.data[z]._id.unitcode;
-          //       this.b=this.data[z]._id.week;
-          //     }
-          //     if(this.units[y]==this.a && week_row==this.b){
-          //       unit = {
-          //         code: this.data[z]._id.unitcode,
-          //         quantity: this.data[z].qty,
-          //         weeknumber:"W"+(week_row),
-          //       }
-          //       this.qty.push(unit);
-          //       z++;
-          //     } else {
-          //       // var blank='-';
-          //       unit = {
-          //         code: '-',
-          //         quantity: '-',
-          //         weeknumber:"W"+(week_row),
-          //       }
-          //       this.qty.push(unit);
-          //     }
-          //   }
-          //   // for (var y=0; y < this.units.length; y++){
-          //   //   //   this.weeks.push(this.qty[y]);
-          //   //       var week = {
-          //   //         units:this.qty[y]
-          //   //       }
-          //   //       this.weeks.push(week);
-          //   //     }
-          // }
-
-          // console.log(this.qty);
-          // function push_week(object){
-          //   for (var x = 0; x < this.length_week; x++) {
-          //     for (var y=0; y < this.units.length; y++){
-          //   // //   this.weeks.push(this.qty[y]);
-          //       var week = {
-          //         units:this.qty[y]
-          //       }
-          //       this.weeks.push(week,push_week(this.weeks));
-          //     }
-          //   }
-
-          // // // //   var week = {
-          // // // //     weeknumber:"W"+(x+1),
-          // // // //     // units:qty[y]
-          // //   this.item_unit.push(this.weeks[x])
-          // }
-          // console.log(this.item_unit);
-          // //   this.weeks.push(week);
-          // }
-          // console.log(this.weeks);
         });
     }
   }

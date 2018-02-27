@@ -45,14 +45,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr repeat.for="week of weeks">
-            <td>${week.weeknumber}</td>
-            <td repeat.for="unit of qty">${unit.quantity}</td>
-            <!-- <td repeat.for="quantity of qty">${quantity}</td> -->
+          <tr repeat.for="week of qty">
+            <td>W${$index + 1}</td>
+            <td repeat.for="unit of week">${unit.quantity}</td>
           </tr>
           <tr>
             <td>TOTAL</td>
-            <td repeat.for="">${}</td>
+            <td repeat.for="i of total">${i}</td>
           </tr>
         </tbody>
       </table>
