@@ -1,6 +1,8 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 
+var numeral = require('numeral');
+
 var StorageLoader = require('../../../../loader/storage-loader');
 var ProductLoader = require('../../../../loader/product-loader');
 
@@ -13,8 +15,22 @@ export class List {
     columns = [
         { field: "storageName", title: "Storage" },
         { field: "productName", title: "Nama Barang" },
-        { field: "quantity", title: "Kuantiti" },
+        {
+            field: "quantity", title: "Kuantiti", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
         { field: "uom", title: "UOM" },
+        {
+            field: "totalLengthMtr", title: "Total Panjang (meter)", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
+            field: "totalLengthYds", title: "Total Panjang (yard)", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        }
     ];
 
     tableOptions = {
