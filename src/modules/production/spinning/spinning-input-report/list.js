@@ -4,6 +4,7 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 var UnitLoader = require('../../../../loader/unit-loader');
+var YarnLoader = require('../../../../loader/spinning-yarn-loader');
 
 @inject(Router, Service)
 export class List {
@@ -14,17 +15,19 @@ export class List {
     }
 
     columns =[
-        { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
-        { field: "YarnName", title: "Yarn Name" },
         {
             field: "Date", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "UnitName", title: "Unit Name" },
-        { field: "MachineName", title: "Machine Name" },
-        { field: "Lot", title: "Lot" },
-        { field: "Shift", title: "Shift" },
+        { field: "Unit", title: "Unit Name" },
+        { field: "Yarn", title: "Yarn Name" },
+        // { field: "Machine", title: "Machine Name" },
+        // { field: "Lot", title: "Lot" },
+        { field: "FirstShift", title: "Shift I" },
+        { field: "SecondShift", title: "Shift II" },
+        { field: "ThirdShift", title: "Shift III" },
+        { field: "Total", title: "Total" },
     ];
 
     controlOptions = {
@@ -50,9 +53,10 @@ export class List {
     filter() {
         this.arg = {};
         this.arg.Filter = {
-            "UnitName": this.unit.name,
-            "DateFrom": moment(this.dateFrom).format("DD MMM YYYY"),
-            "DateTo":  moment(this.dateTo).format("DD MMM YYYY")
+            "UnitName": this.unit != null || this.unit != undefined ? this.unit.name :"all",
+            "YarnName":this.yarn !=null||this.yarn != undefined? this.yarn.Name:"all",
+            "DateFrom": moment(this.dateFrom?this.dateFrom:new Date("12-25-1900")).format("DD MMM YYYY HH:mm"),
+            "DateTo":  moment(this.dateTo?this.dateTo:new Date()).format("DD MMM YYYY HH:mm")
         };
     }
 
@@ -76,8 +80,15 @@ export class List {
         return this.listDataFlag ? (
             this.filter(),
             this.service.search(this.arg).then((result) => {
+
+                for(var i of result){
+                    i.FirstShift= parseFloat(i.FirstShift.toFixed(2));
+                    i.SecondShift= parseFloat(i.FirstShift.toFixed(2));
+                    i.ThirdShift= parseFloat(i.FirstShift.toFixed(2));
+                    i.Total=parseFloat(i.Total.toFixed(2));
+                }
+
                 return {
-                    // total: result.info.total,
                     data: result
                 }
             })
@@ -85,31 +96,13 @@ export class List {
     }
 
     search() {
-        var e = {};
-        if (!this.unit) {
-            e.unit = "unit harus di isi";
-            this.error = e;
-        }
-
-        if (this.dateFrom == undefined) {
-            e.dateFrom = "tanggal awal harus di isi";
-            this.error = e;
-        }
-
-        if (this.dateTo == undefined) {
-            e.dateTo = "tanggal akhir harus di isi";
-            this.error = e;
-        }
-
-        if (Object.getOwnPropertyNames(e) == 0) {
-
             this.listDataFlag = true;
             this.table.refresh();
-        }
     }
 
     reset() {
         this.unit = null;
+        this.yarn = null;
         this.dateFrom = undefined;
         this.dateTo = undefined;
         this.error = "";
@@ -124,7 +117,20 @@ export class List {
         }
     }
 
+    yarnChanged(newValue, oldValue) {
+        if (this.yarn && this.yarn.Id) {
+            this.data.Yarn = this.yarn
+        }
+        else {
+            this.yarn = null;
+        }
+    }
+
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get yarnLoader() {
+        return YarnLoader;
     }
 }

@@ -72,6 +72,14 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-checkbox 
+            label="Pembelian Internal ?" 
+            value.bind="prInternal" 
+            error.bind="error.prInternal" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-checkbox>
+
         <au-multiline 
             label="Keterangan" 
             value.bind="data.remark"

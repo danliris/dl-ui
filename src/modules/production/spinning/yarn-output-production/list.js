@@ -31,7 +31,9 @@ export class List {
             { field: "Shift", title: "Shift" },
             { field: "Machine.name", title: "Mesin" },
             { field: "Yarn.Name", title: "Benang" },
-            { field: "LotYarn.Lot", title: "Lot" }
+            { field: "LotYarn.Lot", title: "Lot" },
+            { field: "GoodOutput", title: "Good Output (Cone)" },
+            { field: "BadOutput", title: "Bad Output (Cone)" }
         ];
     }
 
