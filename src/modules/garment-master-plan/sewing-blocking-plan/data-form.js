@@ -248,6 +248,13 @@ export class DataForm {
                     if(item){
                         remEH[cat]=item[detail.week.weekNumber];
                     }
+                    if(this.tempEH){
+                        if(remEH[cat]){
+                            if(remEH[cat]<this.tempEH[cat]){
+                                remEH[cat]=this.tempEH[cat];
+                            }
+                        }
+                    }
                     else{
                         let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.weeklyPlanYear.toString() + detail.unit.code.toString()));
                         if(item1){
@@ -282,11 +289,33 @@ export class DataForm {
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                         if (item) {
                             item[detail.oldVal.weekNumber] = detail.oldVal.remainingEH;
+                            var total=[];
+                            for( var a =0; a<this.previewData.length-1; a++){
+                                if(!total[detail.oldVal.weekNumber]){
+                                    total[detail.oldVal.weekNumber]=this.previewData[a][detail.oldVal.weekNumber];
+                                }
+                                else{
+                                    total[detail.oldVal.weekNumber]+=this.previewData[a][detail.oldVal.weekNumber];
+                                }
+                            }
+                            let totalItem=this.previewData.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
+                            totalItem[detail.oldVal.weekNumber]=total[detail.oldVal.weekNumber];
                         }
                         else{
                             let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                             if (item1) {
                                 item1[detail.oldVal.weekNumber] = detail.oldVal.remainingEH;
+                                var total1=[];
+                                for( var a =0; a<this.previewData1.length-1; a++){
+                                    if(!total1[detail.oldVal.weekNumber]){
+                                        total1[detail.oldVal.weekNumber]=this.previewData1[a][detail.oldVal.weekNumber];
+                                    }
+                                    else{
+                                        total1[detail.oldVal.weekNumber]+=this.previewData1[a][detail.oldVal.weekNumber];
+                                    }
+                                }
+                                let totalItem1=this.previewData1.find(o => (o.year.toString() ==''&& o.unitCode.toString()) == "Total");
+                                totalItem1[detail.oldVal.weekNumber]=total1[detail.oldVal.weekNumber];
                             }
                         }
                     }
@@ -338,7 +367,13 @@ export class DataForm {
                     }
                 }
             }
-            
+            this.tempEH=[];
+            for(let eh of this.data.details){
+                let cat=eh.weeklyPlanYear.toString() + eh.unit.code.toString()+eh.week.weekNumber.toString();
+                if(!this.tempEH[cat]){
+                    this.tempEH[cat]=eh.remainingEH;
+                }
+            }
         }
         this.context.previewTable.refresh();
         this.context.previewTable1.refresh();
