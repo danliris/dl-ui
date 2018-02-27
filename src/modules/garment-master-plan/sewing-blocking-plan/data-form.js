@@ -127,8 +127,8 @@ export class DataForm {
             }
             //this.previewWeeklyPlan = await this.service.getPreview(2018);
             this.previewWeeklyPlan = await this.service.getWeeklyPlan(yr);
-            this.columnPreview = [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
-            this.columnPreview1= [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
+            
+            
             // var weeklength=[];
             // var o=[];
             
@@ -141,17 +141,24 @@ export class DataForm {
                     prev.push(a);
                 }
             }
-            for (var i of prev[0].items) {
-                this.columnPreview.push({ field: i.weekNumber, title: "W" + i.weekNumber + " " + moment(i.endDate).format("DD MMM") });
+            this.columnPreview =[];
+            if(prev.length>0){
+                this.columnPreview = [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
+                for (var i of prev[0].items) {
+                    this.columnPreview.push({ field: i.weekNumber, title: "W" + i.weekNumber + " " + moment(i.endDate).format("DD MMM") });
+                }
             }
             for (var a of this.previewWeeklyPlan) {
                 if (a.year === year + 1) {
                     prev1.push(a);
                 }
-
             }
-            for (var i of prev1[0].items) {
-                this.columnPreview1.push({ field: i.weekNumber, title: "W" + i.weekNumber + " " + moment(i.endDate).format("DD MMM") });
+            this.columnPreview1=[];
+            if(prev1.length>0){
+                this.columnPreview1= [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
+                for (var i of prev1[0].items) {
+                    this.columnPreview1.push({ field: i.weekNumber, title: "W" + i.weekNumber + " " + moment(i.endDate).format("DD MMM") });
+                }
             }
             var options = {
                 pagination: false,
