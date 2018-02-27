@@ -141,7 +141,21 @@ module.exports = [
           permission: { "C5": 1, "C9": 1 },
           iconClass: 'fa fa-dashboard'
       }
-  }
+  },
+
+    {
+        route: '/garment-master-plan/accepted-order-monitoring',
+        name: 'accepted-order-monitoring',
+        moduleId: './modules/garment-master-plan/accepted-order-monitoring/index',
+        nav: true,
+        title: 'Monitoring Order Diterima dan Booking',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 
 
 ]
