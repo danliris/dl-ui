@@ -57,9 +57,13 @@ export class List {
         year: this.year.year,
         unit: this.unit ? this.unit.code : "",
       }
-
-
-      this.previewWeeklyPlan = await this.service.getWeeklyPlan(info.year.year,info.unit);
+      var yr = {
+        year: { "$in": [this.year.year] }
+      }
+      console.log(yr);
+      this.previewWeeklyPlan = [];
+      this.previewWeeklyPlan = await this.service.getWeeklyPlan(yr);
+      
       this.service.search(info)
         .then(result => {
           this.data = result;
@@ -67,7 +71,7 @@ export class List {
           this.weeks = [];
           this.qty = [];
           this.total = [];
-          
+          console.log(this.previewWeeklyPlan);
           if(info.unit==''){
             for(var item of this.previewWeeklyPlan){
               if(this.units.length<=0){
@@ -89,18 +93,22 @@ export class List {
           }
           
           var totalqty=[];
-          for(var z of this.data){
-            for(var code of this.units){
-              if(code==z._id.unitcode){
+          for(var code of this.units){
+            for(var z of this.data){
+              if(z._id.unitcode==code){
                 if(!totalqty[code]){
                   totalqty[code]=z.qty;
                 } else {
                   totalqty[code]+=z.qty; 
                 }
-              }
+              } 
+            }
+            if(!totalqty[code]){
+              totalqty[code]='-';
             }
           }
           this.total=Object.values(totalqty);
+
 
           for(var x=0;x<this.length_week;x++){
             var obj=[];
