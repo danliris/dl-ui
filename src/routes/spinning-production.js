@@ -17,7 +17,7 @@ module.exports = [
         name: 'spinning-input-production',
         moduleId: './modules/production/spinning/spinning-input/index',
         nav: true,
-        title: 'Input Produksi Spinning',
+        title: 'Input Produksi Winder',
         auth: true,
         settings: {
             group: "s-production",
@@ -43,7 +43,7 @@ module.exports = [
         name: 'spinning-input-production-report',
         moduleId: './modules/production/spinning/spinning-input-report/index',
         nav: true,
-        title: 'Input Produksi Spinning Report',
+        title: 'Laporan Input Produksi Winder',
         auth: true,
         settings: {
             group: "s-production",
