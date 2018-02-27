@@ -133,6 +133,12 @@
         data.bind="previewData"
         if.bind="!isView"></au-table>
 
+        <au-table 
+        view-model.ref="previewTable1"
+        columns.bind="columnPreview"
+        data.bind="previewData1"
+        if.bind="!isView"></au-table>
+
         <!--<label for="Preview 6 bulan" if.bind="data.bookingOrderId">Preview 6 bulan</label>
         <au-dropdown
             label="Bulan"
