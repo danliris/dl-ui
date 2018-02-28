@@ -100,13 +100,18 @@ export class Item {
     }
   }
 
-  @computedFrom("data.weeklyPlanYear")
+  @computedFrom("yearFilter")
   get filterYear() {
     var yearFilter = {};
     if (this.data.weeklyPlanYear && this.data.unit && this.data.unit.code) {
-      yearFilter = {
-        year: this.data.weeklyPlanYear,
-        unit: this.data.unit.code
+      if(this.yearFilter){
+        yearFilter = this.yearFilter;
+      }
+      else{
+        yearFilter = {
+          year: this.data.weeklyPlanYear,
+          unit: this.data.unit.code
+        };
       }
     }
     return yearFilter;
@@ -173,9 +178,9 @@ export class Item {
       this.selectedWeek = {};
       this.data.remainingEH=0;
     }
-    var yearFilter = {};
+    this.yearFilter = {};
     if (this.data.weeklyPlanYear && this.data.unit && this.data.unit.code) {
-      yearFilter = {
+      this.yearFilter = {
         year: this.data.weeklyPlanYear,
         unit: this.data.unit.code
       }
@@ -213,14 +218,25 @@ export class Item {
             var unVal = [];
             for (var x of this.items) {
               if(x.weeklyPlanYear && x.unit.code && x.week.weekNumber){
+                let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
                 let uniq = x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString();
-                unVal.push(uniq);
+                
+                if(cat==uniq){
+                  if(!unVal[cat]){
+                    unVal[cat]=x.remainingEH;
+                  }
+                  else{
+                    if(unVal[cat]< x.remainingEH){
+                      unVal[cat]=x.remainingEH;
+                    }
+                  }
+                }
               }
             }
-            unVal.pop();
-            //console.log(unVal);
+            console.log(unVal);
             let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-
+            let dup=this.items.find(x=> x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
+            dup.remainingEH=unVal[cat];
             // let dup = unVal.find(o => (o == cat));
             // if (dup) {
             //   let y = unVal.lastIndexOf(dup);
@@ -240,7 +256,11 @@ export class Item {
         else {
           this.data.remainingEH = this.data.week.remainingEH;
         }
-          this.data.remainingEH = this.data.week.remainingEH;
+        this.data.remainingEH = this.data.week.remainingEH;
+        let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
+        if(this.data.remainingEH< unVal[cat])
+          this.data.remainingEH= unVal[cat];
+          
         console.log(this.data.remainingEH);console.log(this.data.week.remainingEH);
         this.data.efficiency = this.data.week.efficiency;
         this.data.ehBooking = Math.round((this.data.shSewing * this.data.quantity) / 60);

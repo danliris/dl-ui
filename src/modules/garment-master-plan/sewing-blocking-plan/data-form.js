@@ -376,9 +376,11 @@ export class DataForm {
             }
             this.tempEH=[];
             for(let eh of this.data.details){
-                let cat=eh.weeklyPlanYear.toString() + eh.unit.code.toString()+eh.week.weekNumber.toString();
-                if(!this.tempEH[cat]){
-                    this.tempEH[cat]=eh.remainingEH;
+                if(eh.weeklyPlanYear && eh.unit && eh.week){
+                    let cat=eh.weeklyPlanYear.toString() + eh.unit.code.toString()+eh.week.weekNumber.toString();
+                    if(!this.tempEH[cat]){
+                        this.tempEH[cat]=eh.remainingEH;
+                    }
                 }
             }
         }
