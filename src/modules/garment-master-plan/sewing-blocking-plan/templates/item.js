@@ -233,7 +233,6 @@ export class Item {
                 }
               }
             }
-            console.log(unVal);
             let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
             let dup=this.items.find(x=> x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
             dup.remainingEH=unVal[cat];
@@ -258,8 +257,9 @@ export class Item {
         }
         this.data.remainingEH = this.data.week.remainingEH;
         let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-        if(this.data.remainingEH< unVal[cat])
-          this.data.remainingEH= unVal[cat];
+        if(unVal)
+          if(this.data.remainingEH< unVal[cat])
+            this.data.remainingEH= unVal[cat];
           
         console.log(this.data.remainingEH);console.log(this.data.week.remainingEH);
         this.data.efficiency = this.data.week.efficiency;
