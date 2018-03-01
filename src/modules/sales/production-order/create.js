@@ -32,7 +32,7 @@ export class Create {
             })
             .catch(e => {
                 if (e.statusCode == 500) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                    alert(e.error);
                 } else {
                     this.error = e;
                 }
