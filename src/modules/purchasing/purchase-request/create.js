@@ -35,7 +35,6 @@ export class Create {
         if (this.data.expectedDeliveryDate == "undefined") {
             this.data.expectedDeliveryDate == "";
         }
-        debugger
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
