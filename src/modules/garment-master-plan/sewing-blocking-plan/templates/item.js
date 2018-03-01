@@ -257,11 +257,11 @@ export class Item {
         }
         this.data.remainingEH = this.data.week.remainingEH;
         let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-        if(unVal)
-          if(this.data.remainingEH< unVal[cat])
+        if(unVal){
+          if(this.data.remainingEH< unVal[cat]){
             this.data.remainingEH= unVal[cat];
-          
-        console.log(this.data.remainingEH);console.log(this.data.week.remainingEH);
+          }
+        }
         this.data.efficiency = this.data.week.efficiency;
         this.data.ehBooking = Math.round((this.data.shSewing * this.data.quantity) / 60);
         this.data.sisaEH = this.data.remainingEH - this.data.ehBooking;
