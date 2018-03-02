@@ -347,7 +347,7 @@ scFields=["salesContractNo"];
       this.data.uom.unit="MTR";
     }
     if (this.data.salesContractId) {
-            this.selectedSC = await this.service.getSCbyId(this.data.salesContractNo,this.scFields);
+            this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.salesContractNo),this.scFields);
             this.data.salesContract =this.selectedSC;
             if(this.data.salesContract.remainingQuantity!=undefined){
               this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
