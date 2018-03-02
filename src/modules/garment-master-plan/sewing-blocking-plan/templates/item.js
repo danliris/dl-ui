@@ -217,9 +217,9 @@ export class Item {
       this.data.week = _selectedData.items;
       //this.selectedWeek=_selectedData.items;
       if (this.data.week) {
+        var unVal = [];
         if (this.items.length > 1) {
           if (this.data.weeklyPlanYear && this.data.unit && this.data.week) {
-            var unVal = [];
             for (var x of this.items) {
               if(x.weeklyPlanYear && x.unit && x.week){
                 let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
