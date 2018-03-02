@@ -137,6 +137,7 @@ export class Item {
       // this.data.oldVal.year=this.data.weeklyPlanYear;
       // this.data.oldVal.remainingEH=this.data.remainingEH;
     }
+    //console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.unitId = _selectedData._id;
@@ -160,13 +161,16 @@ export class Item {
 
   selectedWeeklyPlanChanged(newValue,oldValue) {
     if(newValue!=null)
-    if(oldValue){
-      this.data.oldVal.year=this.data.oldVal.year? this.data.oldVal.year : oldValue.year;
-      this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.unit.code;
-      // this.data.oldVal.weekNumber=this.data.weekNumber;
-      // this.data.oldVal.unitCode=this.data.unit.code;
-      // this.data.oldVal.remainingEH=this.data.remainingEH;
-    }
+      if(oldValue){
+        
+    //console.log(oldValue)
+        this.data.oldVal.year=this.data.oldVal.year? this.data.oldVal.year : oldValue.year;
+        this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.unit.code;
+        // this.data.oldVal.weekNumber=this.data.weekNumber;
+        // this.data.oldVal.unitCode=this.data.unit.code;
+        // this.data.oldVal.remainingEH=this.data.remainingEH;
+      }
+    //console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.weeklyPlanYear = _selectedData.year;
@@ -217,7 +221,7 @@ export class Item {
           if (this.data.weeklyPlanYear && this.data.unit && this.data.week) {
             var unVal = [];
             for (var x of this.items) {
-              if(x.weeklyPlanYear && x.unit.code && x.week.weekNumber){
+              if(x.weeklyPlanYear && x.unit && x.week){
                 let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
                 let uniq = x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString();
                 
@@ -233,9 +237,11 @@ export class Item {
                 }
               }
             }
-            let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-            let dup=this.items.find(x=> x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
-            dup.remainingEH=unVal[cat];
+            //console.log(unVal);
+            //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
+            // let dup=this.items.find(x=> x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
+            
+            // dup.remainingEH=unVal[cat];
             // let dup = unVal.find(o => (o == cat));
             // if (dup) {
             //   let y = unVal.lastIndexOf(dup);
