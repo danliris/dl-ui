@@ -124,6 +124,7 @@ var index=1;
             "satuan":a.satuan,
             "codesupplier":a.codesupplier,
             "datenote":a.items.unitReceiptNote.date,
+            "kategori":a.kategori,
                       
                     }
                      dataTemp.push(temp);

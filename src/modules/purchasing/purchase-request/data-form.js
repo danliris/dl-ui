@@ -7,7 +7,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-    @bindable prInternal;
+    // @bindable prInternal;
 
     @bindable title;
 
@@ -25,9 +25,9 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        if(this.data.internal){
-            this.prInternal = this.data.internal;
-        }
+        // if(this.data.internal){
+        //     this.prInternal = this.data.internal;
+        // }
 
     }
 
@@ -53,13 +53,13 @@ export class DataForm {
             this.data.categoryId = this.data.category._id ? this.data.category._id : {};
     }
 
-    prInternalChanged(e){
-            if(e==true){
-                this.data.internal = true;
-            }else{
-                this.data.internal = false;
-            }
-    }
+    // prInternalChanged(e){
+    //         if(e==true){
+    //             this.data.internal = true;
+    //         }else{
+    //             this.data.internal = false;
+    //         }
+    // }
 
     get unitLoader() {
         return UnitLoader;

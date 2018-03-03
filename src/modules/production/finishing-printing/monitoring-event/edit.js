@@ -6,7 +6,7 @@ var moment = require('moment');
 
 @inject(Router, Service)
 export class Edit {
-    selectedProductionOrderDetail = {};
+    // selectedProductionOrderDetail = {};
 
     constructor(router, service) {
         this.router = router;
@@ -22,11 +22,11 @@ export class Edit {
         if (this.data.timeInMillisEnd == null)
             delete this.data.timeInMillisEnd;
 
-        if (this.data.selectedProductionOrderDetail.colorRequest) {
-            this.data.selectedProductionOrderDetail.toString = function () {
-                return `${this.colorRequest}`;
-            };
-        }
+        // if (this.data.selectedProductionOrderDetail.colorRequest) {
+        //     this.data.selectedProductionOrderDetail.toString = function () {
+        //         return `${this.colorRequest}`;
+        //     };
+        // }
     }
 
     view() {
