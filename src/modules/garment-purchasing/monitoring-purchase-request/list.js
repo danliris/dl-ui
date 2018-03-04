@@ -111,7 +111,7 @@ export class List {
     ExportToExcel() {
         if (!this.prState)
             this.prState = this.prStates[0];
-            //debugger
+
         this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.buyer ? this.buyer._id : "", this.purchaseRequest ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 

@@ -509,7 +509,7 @@ export class DataForm {
   // }
 
   // bankChanged(e) {
-  //   debugger
+
   //   var selectedAccount = e.detail || {};
   //   if (selectedAccount) {
   //     this.data.accountBankId = selectedAccount._id ? selectedAccount._id : "";

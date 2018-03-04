@@ -1,0 +1,64 @@
+<template>
+    <form class="form-horizontal">
+      <h3>Monitoring Order Diterima dan Booking</h3>
+      <hr/>
+  
+      <au-autocomplete 
+        value.bind="year" 
+        label="Year" 
+        loader.bind="yearLoader"
+        text.bind = "yearView"
+        placeholder="Tahun" 
+        options.bind="controlOptions">
+      </au-autocomplete>
+  
+      <au-autocomplete 
+        value.bind="unit" 
+        label="Unit" 
+        loader.bind="unitLoader"
+        text.bind = "unitView"
+        placeholder="Unit" 
+        query.bind="filterUnit"
+        options.bind="controlOptions">
+      </au-autocomplete>
+  
+      <div class="text-center">
+        <button class="btn btn-primary" click.delegate="searching()">Cari</button>
+        <button class="btn btn-success" click.delegate="reset()">Reset</button>
+      </div>
+  
+    </form>
+  
+    <div class="btn-group pull-left">
+      <button class="btn btn-primary" click.delegate="ExportToExcel()">Export to Excel</button>
+    </div>
+    <br>
+    <br>
+  
+    <div class="table-responsive" if.bind="data.length > 0">
+      <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead>
+          <tr>
+            <th class="text-center">UNIT</th>
+            <th class="text-center" repeat.for="plan of units">${plan}</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="week of qty">
+            <td>W${$index + 1}</td>
+            <td repeat.for="unit of week">${unit.quantity}</td>
+          </tr>
+          <tr>
+            <td>TOTAL</td>
+            <td repeat.for="i of total">${i}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+      Tidak ada data.
+  </div>
+  
+  </template>
+  

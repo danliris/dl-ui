@@ -40,7 +40,7 @@ export class DataForm {
         }
     }
 
-    controlOptions = {
+    numberOptions = {
         control: {
           length: 2
         }
@@ -49,21 +49,14 @@ export class DataForm {
     itemColumns = ["Berat Benang per Cone", "Good Output", "Bad Output", "Jumlah Drum"];
     spinningFilter = { "division.name": { "$regex": "SPINNING", "$options": "i" } };
     @bindable machineFilter = { "unit.name": { "$exists": true } };
-    shiftItems = ["", "Shift I: 06.00 - 14.00", "Shift II: 14.00 - 22.00", "Shift I: 22.00 - 06.00"];
+    shiftItems = ["", "Shift I: 06.00 - 14.00", "Shift II: 14.00 - 22.00", "Shift III: 22.00 - 06.00"];
 
     @bindable selectedYarn;
     async selectedYarnChanged(newVal, oldVal) {
         if (this.selectedYarn && this.selectedYarn.Id) {
             this.data.Yarn = this.selectedYarn;
 
-            if (this.selectedSpinning && this.selectedMachine && this.selectedYarn && this.selectedSpinning._id && this.selectedMachine._id && this.selectedYarn.Id) {
-                var info = {
-                    spinning: this.selectedSpinning.name,
-                    machine: this.selectedMachine.name,
-                    yarn: this.selectedYarn.Name
-                };
-                this.selectedLotYarn = await this.service.getLotYarn(info);
-            }
+            this.getLotYarn();
         }
         else {
             this.data.Yarn = null;
@@ -80,18 +73,34 @@ export class DataForm {
     @bindable selectedLotYarn;
     selectedLotYarnChanged(newVal, oldVal) {
         if (this.selectedLotYarn && this.selectedLotYarn.Id) {
-            console.log(this.selectedLotYarn);
             this.data.LotYarn = this.selectedLotYarn;
         } else {
             this.data.LotYarn = null;
         }
     }
 
+    async getLotYarn() {
+        if (this.selectedSpinning && this.selectedMachine && this.selectedYarn && this.selectedSpinning._id && this.selectedMachine._id && this.selectedYarn.Id) {
+            var info = {
+                spinning: this.selectedSpinning.name,
+                machine: this.selectedMachine.name,
+                yarn: this.selectedYarn.Name
+            };
+            this.selectedLotYarn = await this.service.getLotYarn(info)
+        }
+    }
+
     @bindable selectedSpinning;
-    selectedSpinningChanged(newVal, oldVal) {
+    async selectedSpinningChanged(newVal, oldVal) {
         if (this.selectedSpinning && this.selectedSpinning._id) {
             this.data.Spinning = this.selectedSpinning;
             this.machineFilter = { "unit.name": { "$regex": this.selectedSpinning.name, "$options": "i" } };
+
+            if (oldVal) {
+                this.selectedMachine = null;
+            }
+
+            this.getLotYarn();
         }
         else {
             this.machineFilter = { "unit.name": { "$exists": true } };
@@ -113,14 +122,7 @@ export class DataForm {
         if (this.selectedMachine && this.selectedMachine._id) {
             this.data.Machine = this.selectedMachine;
 
-            if (this.selectedSpinning && this.selectedMachine && this.selectedYarn && this.selectedSpinning._id && this.selectedMachine._id && this.selectedYarn.Id) {
-                var info = {
-                    spinning: this.selectedSpinning.name,
-                    machine: this.selectedMachine.name,
-                    yarn: this.selectedYarn.Name
-                };
-                this.selectedLotYarn = await this.service.getLotYarn(info)
-            }
+            this.getLotYarn();
         }
         else {
             this.data.Machine = null;
@@ -142,20 +144,12 @@ export class DataForm {
             { header: "Total Drum", value: "DrumTotal" }
         ],
         onAdd: function () {
-            this.data.YarnOutputItems.push({});
-        }.bind(this)
-    };
-
-    get addItem() {
-        return (event) => {
-            var newItem = {
-                YarnWeightPerCone: 0,
+            this.data.YarnOutputItems.push({
+                YarnWeightPerCone: 1.89,
                 GoodOutput: 0,
                 BadOutput: 0,
                 DrumTotal: 0
-            };
-            this.context.YarnOutputCollection.bind();
-            this.data.YarnOutputItems.push(newItem);
-        };
-    }
+            });
+        }.bind(this)
+    };
 } 
