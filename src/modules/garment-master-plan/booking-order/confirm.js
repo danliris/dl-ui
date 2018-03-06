@@ -53,7 +53,7 @@ export class Confirm {
           if (diff >= 0) {
             if (diffDays >= 0 && diffDays <= 45) {
               if (item.masterPlanComodity)
-                warning.push('Comodity ' + item.masterPlanComodity.name + ' kurang ' + diffDays + ' hari dari Tanggal Pengiriman\n');
+                warning.push('Comodity ' + item.masterPlanComodity.name + ' (Jumlah Confirm = ' + item.quantity + ') kurang ' + diffDays + ' hari dari Tanggal Pengiriman\n');
             }
           }
           else {
@@ -76,7 +76,7 @@ export class Confirm {
 
 
         if (warning.length > 0 && warning_confirm.length <= 0) {
-          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString() + 'Tetap Confirm?')) {
+          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g,"") + 'Tetap Confirm?')) {
             this.service.update(this.data)
               .then(result => {
                 alert("Data Confirmed");
@@ -87,7 +87,7 @@ export class Confirm {
           }
         }
         else if (warning.length > 0 && warning_confirm.length > 0) {
-          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString() + warning_confirm.toString() + 'Tetap Confirm?')) {
+          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g,"") + warning_confirm.toString() + 'Tetap Confirm?')) {
             this.service.update(this.data)
               .then(result => {
                 alert("Data Confirmed");
