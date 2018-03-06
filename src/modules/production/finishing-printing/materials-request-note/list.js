@@ -25,7 +25,7 @@ export class List {
             { field: "Code", title: "No. SPB" },
             { field: "Unit.name", title: "Unit" },
             { field: "RequestType", title: "Tipe" },
-            { field: "ProductionOrderList", title: "Benang" }
+            { field: "ProductionOrderList", title: "No. SPP" }
         ];
     }
 
