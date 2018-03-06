@@ -12,7 +12,7 @@ export class View {
   hascancelConfirm = true;
   hasConfirm = true;
   hasMasterPlan = true;
-  expireBooking=false;
+  expireBooking = false;
 
   constructor(router, service) {
     this.router = router;
@@ -20,51 +20,52 @@ export class View {
   }
 
   async activate(params) {
-      var id = params.id;
-      this.data = await this.service.getById(id);
-      var conf=false;
-      if(this.data.items){
-         if(this.data.items.length>0){
-           conf=true;
-           this.hasEdit = false;         }
-        }
-      if(!this.data.isMasterPlan){
-        this.hasMasterPlan=false;
-      }
-      if(this.data.isCanceled){
+    var id = params.id;
+    this.data = await this.service.getById(id);
+    var conf = false;
+    if (this.data.items) {
+      if (this.data.items.length > 0) {
+        conf = true;
         this.hasEdit = false;
-        this.hascancelConfirm = false;
-        this.hasDelete = false;
-        this.hasConfirm = false;
-        //this.hasMasterPlan = false;
       }
-      // else if(this.data.isMasterPlan){
-      //   this.hasDelete = false;
-      //   //this.hasConfirm = false;
-      // }
-      else if(conf){
-        this.hasDelete = false;
-        //this.hasConfirm = false;
-      }
-      var total=0;
-      for(var b of this.data.items){
-          total+=b.quantity;
-      }
-      var c = new Date(this.data.deliveryDate);
-      var b = new Date();
-      c.setHours(0,0,0,0);
-      b.setHours(0,0,0,0);
-      var diff=c.getTime() - b.getTime();
-      var timeDiff = Math.abs(c.getTime() - b.getTime());
-      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      if(diffDays<=45){
-        this.hasConfirm = false;
-        this.hasEdit = false;
-        this.expireBooking=true;
-      }
-      if(this.data.orderQuantity<=total){
-        this.expireBooking=false;
-      }
+    }
+    if (!this.data.isMasterPlan) {
+      this.hasMasterPlan = false;
+    }
+    if (this.data.isCanceled) {
+      this.hasEdit = false;
+      this.hascancelConfirm = false;
+      this.hasDelete = false;
+      this.hasConfirm = false;
+      //this.hasMasterPlan = false;
+    }
+    // else if(this.data.isMasterPlan){
+    //   this.hasDelete = false;
+    //   //this.hasConfirm = false;
+    // }
+    else if (conf) {
+      this.hasDelete = false;
+      //this.hasConfirm = false;
+    }
+    var total = 0;
+    for (var b of this.data.items) {
+      total += b.quantity;
+    }
+    var c = new Date(this.data.deliveryDate);
+    var b = new Date();
+    c.setHours(0, 0, 0, 0);
+    b.setHours(0, 0, 0, 0);
+    var diff = c.getTime() - b.getTime();
+    var timeDiff = Math.abs(c.getTime() - b.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if (diffDays <= 45) {
+      this.hasConfirm = false;
+      this.hasEdit = false;
+      this.expireBooking = true;
+    }
+    if (this.data.orderQuantity <= total) {
+      this.expireBooking = false;
+    }
   }
 
   cancel(event) {
@@ -73,29 +74,29 @@ export class View {
 
   edit(event) {
     this.router.navigateToRoute('edit', { id: this.data._id });
-  }   
+  }
 
   cancelBooking() {
-        this.service.cancelBooking(this.data)
-        .then(result => {
-          this.cancel();
-        });
-    }
+    this.service.cancelBooking(this.data)
+      .then(result => {
+        this.cancel();
+      });
+  }
 
   confirmBooking(event) {
     this.router.navigateToRoute('confirm', { id: this.data._id });
-  }  
+  }
 
   masterPlan(event) {
     this.router.navigateToRoute('detail', { id: this.data.code });
   }
 
   expired() {
-        this.service.expiredBooking(this.data)
-        .then(result => {
-          this.cancel();
-        });
-    }
+    this.service.expiredBooking(this.data)
+      .then(result => {
+        this.cancel();
+      });
+  }
 
   // confirmBooking() {
   //     var today=new Date();
@@ -122,11 +123,11 @@ export class View {
   //               });
   //     }
   // }
-   
+
   delete(event) {
     this.service.delete(this.data)
-        .then(result => {
-          this.cancel();
-        });
-  }  
+      .then(result => {
+        this.cancel();
+      });
+  }
 }
