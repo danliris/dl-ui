@@ -68,6 +68,7 @@ export class List {
         this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         this.arg.purchaseOrderExternalNo = this.purchaseOrderExternalNo ? this.purchaseOrderExternalNo : null;
+        this.arg.roNo = this.roNo ? this.roNo : null;
         this.arg.user = this.user && this.user.username ? this.user.username : null;
         this.arg.supplierId = this.supplier ? this.supplier._id : null;
         this.arg.categoryId = this.category ? this.category._id : null;
@@ -89,6 +90,8 @@ export class List {
         { field: "division", title: "Divisi" },
         { field: "refNo", title: "No. Ref. Purchase Request" },
         { field: "roNo", title: "No. RO" },
+        { field: "buyerCode", title: "Buyer" },
+        { field: "buyerName", title: "Nama Buyer" },
         { field: "shipmentDate", title: "Shipment Garment" },
         { field: "artikel", title: "Artikel" },
         { field: "category", title: "Kategori" },
@@ -109,6 +112,9 @@ export class List {
         { field: "poExtNo", title: "No. PO Eksternal" },
         { field: "poExtDate", title: "Tanggal PO Eksternal" },
         { field: "poExtExpectedDeliveryDate", title: "Tanggal Target Datang" },
+        { field: "poExtPPN", title: "Dikenakan PPN" },
+        { field: "poExtPPH", title: "Dikenakan PPH" },
+        { field: "poExtVat", title: "PPH" },                
         { field: "deliveryOrderNo", title: "No. Surat Jalan" },
         {
             field: "deliveryOrderUseCustoms", title: "Dikenakan Bea Cukai",
@@ -137,7 +143,7 @@ export class List {
         },
         { field: "invoiceIncomeTaxNo", title: "No. PPN" },
         { field: "invoiceIncomeTaxDate", title: "Tanggal PPN" },
-        { field: "incomeValue", title: "Nilai PPH" },
+        { field: "incomeValue", title: "Nilai PPN" },
         {
             field: "invoiceUseVat", title: "Dikenakan PPH",
             formatter: function (value, row, index) {
@@ -231,6 +237,7 @@ export class List {
         this.user = "";
         this.artikel = "";
         this.prRefNo = "";
+        this.roNo = "";
         this.deliveryOrderNo = "";
         this.dateFrom = null;
         this.dateTo = null;
