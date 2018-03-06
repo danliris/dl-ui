@@ -1,6 +1,6 @@
 export default {
     endpoint: "auth",
-    configureEndpoints: ["auth", "core", "production", "purchasing","garment-purchasing","inventory","garment-master-plan"],
+    configureEndpoints: ["auth", "core", "production", "purchasing", "garment-purchasing", "inventory", "inventory-azure", "garment-master-plan"],
 
     loginUrl: "authenticate",
     profileUrl: "/me",
@@ -8,5 +8,5 @@ export default {
     authTokenType: "Bearer",
     accessTokenProp: "data",
 
-    storageChangedReload : true
+    storageChangedReload: true
 };
