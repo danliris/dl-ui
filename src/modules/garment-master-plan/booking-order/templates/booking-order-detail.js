@@ -6,13 +6,13 @@ var comodityLoader = require('../../../../loader/garment-master-plan-comodity-lo
 
 export class DetailItem {
 
-  
+
   activate(item) {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
-    if(this.data){
-      this.data.confirmDate=this.data._createdDate? this.data._createdDate : new Date();
+    if (this.data) {
+      this.data.confirmDate = this.data._createdDate ? this.data._createdDate : new Date();
     }
   }
 
@@ -27,6 +27,10 @@ export class DetailItem {
   }
 
   comoView = (comodity) => {
-        return `${comodity.code} - ${comodity.name}`
-    }
+    return `${comodity.code} - ${comodity.name}`
+  }
+
+  oncancel(){
+    alert("canceled");
+  }
 }

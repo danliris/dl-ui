@@ -58,6 +58,10 @@
     </au-multiline >
 
   </td>
-  <td if.bind="!options.readOnly" ><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+  <td if.bind="!options.readOnly" >
+    <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+    <br><br>
+    <button class="btn btn-danger pull-right" click.delegate="oncancel()">Cancel Confirm</button>
+  </td>
 </tr>
 </template>
