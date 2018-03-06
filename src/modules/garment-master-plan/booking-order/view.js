@@ -22,11 +22,13 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    var conf = false;
+    var isConfirmed = false;
     if (this.data.items) {
-      if (this.data.items.length > 0) {
-        conf = true;
-        this.hasEdit = false;
+      if (this.data.items.length > 0 &&
+        this.data.items.reduce(
+          (total, value) => { return total + (value.isCanceled ? 0 : 1); }, 0
+        ) > 0) {
+        isConfirmed = true;
       }
     }
     if (!this.data.isMasterPlan) {
@@ -43,8 +45,9 @@ export class View {
     //   this.hasDelete = false;
     //   //this.hasConfirm = false;
     // }
-    else if (conf) {
+    else if (isConfirmed) {
       this.hasDelete = false;
+      this.hasEdit = false;
       //this.hasConfirm = false;
     }
     var total = 0;
