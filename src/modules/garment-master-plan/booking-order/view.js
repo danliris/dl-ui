@@ -26,7 +26,7 @@ export class View {
       if(this.data.items){
          if(this.data.items.length>0){
            conf=true;
-         }
+           this.hasEdit = false;         }
         }
       if(!this.data.isMasterPlan){
         this.hasMasterPlan=false;
