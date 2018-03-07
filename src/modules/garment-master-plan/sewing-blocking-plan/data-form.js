@@ -135,12 +135,15 @@ export class DataForm {
             
             // console.log(this.previewWeeklyPlan);
             
-            let prev = [];let prev1 = []; let weekLength=0; 
+            let prev = [];//for preview year now
+            let prev1 = []; //for preview next year
+            let weekLength=0; 
             for (var a of this.previewWeeklyPlan) {
                 if (a.year === year) {
                     prev.push(a);
                 }
             }
+            //assign columns
             this.columnPreview =[];
             if(prev.length>0){
                 this.columnPreview = [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
@@ -178,6 +181,7 @@ export class DataForm {
             this.context.previewTable.__table("refreshOptions", options);
             this.context.previewTable1.__table("refreshOptions", options1);
 
+            //assign data
             var total=[];
             for (var a of prev) {
                 let obj = {};
@@ -224,6 +228,7 @@ export class DataForm {
                 year:'',
                 unitCode:"Total"
             }
+            //sum EH per week
             for (var i = 1; i < total1.length; i++) {
                 x1[i]=total1[i];
             }
@@ -276,10 +281,9 @@ export class DataForm {
                     else{
                         remEH[cat]=uniq.remainingEH;
                     }
-                    
                 }
                 if(detail.oldVal){
-                    if(detail.oldVal.year && detail.oldVal.unitCode){
+                    if(detail.oldVal.year && detail.oldVal.unitCode && detail.oldVal.weekNumber){
                         let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
                         if(remEH[cat]){
                             if(remEH[cat]<detail.oldVal.remainingEH){
@@ -326,6 +330,7 @@ export class DataForm {
                             }
                         }
                     }
+                    detail.oldVal={};
                 }
             }
             //console.log(remEH);
