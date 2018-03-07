@@ -258,11 +258,10 @@ export class Item {
             // }
           }
         }
-        else {
-          this.data.remainingEH = this.data.week.remainingEH;
-        }
+        console.log(unVal)
         this.data.remainingEH = this.data.week.remainingEH;
         let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
+        if(this.data.code)
         if(unVal){
           if(this.data.remainingEH< unVal[cat]){
             this.data.remainingEH= unVal[cat];
