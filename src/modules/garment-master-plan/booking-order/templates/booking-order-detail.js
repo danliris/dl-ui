@@ -30,7 +30,7 @@ export class DetailItem {
     return `${comodity.code} - ${comodity.name}`
   }
 
-  oncancel(){
-    alert("canceled");
+  oncancel(data) {
+    this.data.isCanceled = true;
   }
 }

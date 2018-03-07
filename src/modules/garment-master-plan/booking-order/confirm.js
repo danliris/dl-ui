@@ -32,6 +32,12 @@ export class Confirm {
     var warn = '';
     if (this.data.items) {
       if (this.data.items.length > 0) {
+        this.data.items.forEach(item => {
+          if (item.isCanceled)
+            this.data.canceledItems ? this.data.canceledItems.push(item) : this.data.canceledItems = [item];
+        });
+        this.data.items = this.data.items.filter(item => !item.isCanceled);
+
         var warning = [];
         var warning_confirm = [];
         var total_item = 0;
@@ -76,7 +82,7 @@ export class Confirm {
 
 
         if (warning.length > 0 && warning_confirm.length <= 0) {
-          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g,"") + 'Tetap Confirm?')) {
+          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g, "") + 'Tetap Confirm?')) {
             this.service.update(this.data)
               .then(result => {
                 alert("Data Confirmed");
@@ -87,7 +93,7 @@ export class Confirm {
           }
         }
         else if (warning.length > 0 && warning_confirm.length > 0) {
-          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g,"") + warning_confirm.toString() + 'Tetap Confirm?')) {
+          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g, "") + warning_confirm.toString() + 'Tetap Confirm?')) {
             this.service.update(this.data)
               .then(result => {
                 alert("Data Confirmed");

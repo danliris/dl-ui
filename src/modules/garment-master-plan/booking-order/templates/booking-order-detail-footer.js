@@ -11,6 +11,7 @@ export class DetailFooter {
 
   get itemSum() {
     var qty = this.context.items
+      .filter(item => item.data.isCanceled == false)
       .map((item) => item.data.quantity);
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
