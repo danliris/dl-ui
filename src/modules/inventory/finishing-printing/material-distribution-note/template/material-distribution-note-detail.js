@@ -25,6 +25,7 @@ export class MaterialRequestNoteDetail {
     }
 
     receivedLengthChanged = (newValue, oldValue) => {
+        /*
         let items = this.context.context.items;
         let sameProductionOrderItems = items.filter(p => p.data.ProductionOrder.orderNo === this.data.ProductionOrder.orderNo);
 
@@ -38,6 +39,11 @@ export class MaterialRequestNoteDetail {
         for (let item of sameProductionOrderItems) {
             item.data.IsDisposition = isDisposition;
         }
+        */
+       
+        let dispositionRule = Number(((this.data.MaterialRequestNoteItemLength * 0.005) + this.data.MaterialRequestNoteItemLength).toFixed(2));
+        let isDisposition = this.data.ReceivedLength > dispositionRule ? true : false;
+        this.data.IsDisposition = isDisposition;
     }
 
     get supplierLoader() {
