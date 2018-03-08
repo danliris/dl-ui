@@ -35,10 +35,11 @@ export class Confirm {
         this.data.items.forEach(item => {
           if (item.isCanceled) {
             this.data.canceledItems ? this.data.canceledItems.push(item) : this.data.canceledItems = [item];
+            this.data.items.splice(this.data.items.indexOf(item));
           }
         });
-        this.data.items = this.data.items.filter(item => !item.isCanceled);
-
+        // this.data.items = this.data.items.filter(item => !item.isCanceled); // [>_<]
+        
         var warning = [];
         var warning_confirm = [];
         var total_item = 0;
