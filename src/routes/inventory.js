@@ -155,5 +155,18 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "inventory/finishing-printing/disposition-material-distribution-note",
+        name: "inventory/finishing-printing/disposition-material-distribution-note",
+        moduleId: "modules/inventory/finishing-printing/disposition-material-distribution-note/index",
+        nav: true,
+        title: "Bon Pengantar Greige Disposisi",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
 ]

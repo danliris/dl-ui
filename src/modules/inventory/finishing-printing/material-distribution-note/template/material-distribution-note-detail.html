@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td>
+        <td show.bind="!options.isTest">
             <au-textbox value.bind="data.ProductionOrder.orderNo" read-only="true"></au-textbox>
         </td>
         <td>
@@ -22,7 +22,7 @@
                 error.bind="error.ReceivedLength"
                 read-only.bind="readOnly" />
         </td>
-        <td>
+        <td show.bind="!options.isTest">
             <p class="form-control-static">${ data.IsDisposition ? 'Ya' : 'Tidak' }</p>
         </td>
         <td>
