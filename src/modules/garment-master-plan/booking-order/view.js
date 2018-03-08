@@ -44,6 +44,7 @@ export class View {
       // }
       else if(conf){
         this.hasDelete = false;
+        this.hasEdit = false;
         //this.hasConfirm = false;
       }
       var total=0;
