@@ -217,57 +217,55 @@ export class Item {
       this.data.week = _selectedData.items;
       //this.selectedWeek=_selectedData.items;
       if (this.data.week) {
-        var unVal = [];
-        if (this.items.length > 1) {
-          if (this.data.weeklyPlanYear && this.data.unit && this.data.week) {
-            for (var x of this.items) {
-              if(x.weeklyPlanYear && x.unit && x.week){
-                let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-                let uniq = x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString();
+        // var unVal = [];
+        // if (this.items.length > 1) {
+        //   if (this.data.weeklyPlanYear && this.data.unit && this.data.week) {
+        //     for (var x of this.items) {
+        //       if(x.weeklyPlanYear && x.unit && x.week){
+        //         let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
+        //         let uniq = x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString();
                 
-                if(cat==uniq){
-                  if(!unVal[cat]){
-                    unVal[cat]=x.remainingEH;
-                  }
-                  else{
-                    if(unVal[cat]< x.remainingEH){
-                      unVal[cat]=x.remainingEH;
-                    }
-                  }
-                }
-              }
-            }
-            //console.log(unVal);
-            //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-            // let dup=this.items.find(x=> x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
+        //         if(cat==uniq){
+        //           if(!unVal[cat]){
+        //             unVal[cat]=x.remainingEH;
+        //           }
+        //           else{
+        //             if(unVal[cat]< x.remainingEH){
+        //               unVal[cat]=x.remainingEH;
+        //             }
+        //           }
+        //         }
+        //       }
+        //     }
+        //     //console.log(unVal);
+        //     //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
+        //     // let dup=this.items.find(x=> x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
             
-            // dup.remainingEH=unVal[cat];
-            // let dup = unVal.find(o => (o == cat));
-            // if (dup) {
-            //   let y = unVal.lastIndexOf(dup);
-            //   if (y != this.items.length - 1) {
-            //     this.data.remainingEH = this.items[y].sisaEH;
-            //   }
-            //   else {
-            //     this.data.remainingEH = this.data.week.remainingEH;
-            //   }
-            // }
-            // else {
+        //     // dup.remainingEH=unVal[cat];
+        //     // let dup = unVal.find(o => (o == cat));
+        //     // if (dup) {
+        //     //   let y = unVal.lastIndexOf(dup);
+        //     //   if (y != this.items.length - 1) {
+        //     //     this.data.remainingEH = this.items[y].sisaEH;
+        //     //   }
+        //     //   else {
+        //     //     this.data.remainingEH = this.data.week.remainingEH;
+        //     //   }
+        //     // }
+        //     // else {
 
-            //   this.data.remainingEH = this.data.week.remainingEH;
-            // }
-          }
-        }
-        else {
-          this.data.remainingEH = this.data.week.remainingEH;
-        }
+        //     //   this.data.remainingEH = this.data.week.remainingEH;
+        //     // }
+        //   }
+        // }
         this.data.remainingEH = this.data.week.remainingEH;
-        let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-        if(unVal){
-          if(this.data.remainingEH< unVal[cat]){
-            this.data.remainingEH= unVal[cat];
-          }
-        }
+        //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
+        // if(this.data.code)
+        //   if(unVal){
+        //     if(this.data.remainingEH< unVal[cat]){
+        //       this.data.remainingEH= unVal[cat];
+        //     }
+        //   }
         this.data.efficiency = this.data.week.efficiency;
         this.data.ehBooking = Math.round((this.data.shSewing * this.data.quantity) / 60);
         this.data.sisaEH = this.data.remainingEH - this.data.ehBooking;

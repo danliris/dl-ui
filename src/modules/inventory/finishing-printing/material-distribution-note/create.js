@@ -5,38 +5,50 @@ import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
-    isCreate = true;
-
     constructor(router, service) {
         this.router = router;
         this.service = service;
         this.data = {};
-        this.error = {};
     }
 
-
-    back() {
+    list() {
         this.router.navigateToRoute('list');
     }
 
-    determineActivationStrategy() {
-        return activationStrategy.replace; //replace the viewmodel with a new instance
-        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-        // or activationStrategy.noChange to explicitly use the default behavior
+    cancelCallback(event) {
+        this.list();
     }
 
-    save() {
+    determineActivationStrategy() {
+        return activationStrategy.replace;
+    }
+
+    getDisposition() {
+        let flag = false;
+
+        for (let item of this.data.MaterialDistributionNoteItems) {
+            let exists = item.MaterialDistributionNoteDetails.filter(p => p.IsDisposition === true).length > 0;
+
+            if (exists) {
+                flag = true;
+                break;
+            }
+        }
+
+        return flag;
+    }
+
+    saveCallback(event) {
+        this.data.IsDisposition = this.getDisposition();
+        this.data.IsApproved = false;
+
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                if (e.statusCode == 500) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                } else {
-                    this.error = e;
-                }
-            })
+                this.error = e;
+            });
     }
 }

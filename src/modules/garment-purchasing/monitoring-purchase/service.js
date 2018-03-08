@@ -42,6 +42,9 @@ export class Service extends RestService {
         if (info.purchaseOrderExternalNo)
             query = `${query}&purchaseOrderExternalNo=${info.purchaseOrderExternalNo}`;
 
+        if (info.roNo)
+            query = `${query}&roNo=${info.roNo}`;
+
         if (info.artikel)
             query = `${query}&artikel=${info.artikel}`;
             
