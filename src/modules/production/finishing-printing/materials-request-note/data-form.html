@@ -3,7 +3,7 @@
 
     <au-textbox
       label="No."
-      if.bind="isEdit || isView"
+      show.bind="isEdit || isView"
       value.bind="data.Code"
       read-only.bind="true">
     </au-textbox>
@@ -25,6 +25,7 @@
       value.bind="data.RequestType"
       items.bind="typeItems"
       error.bind="error.RequestType"
+      change.delegate="typeChanged($event)"
       read-only.bind="isEdit || isView">
     </au-dropdown>
 
@@ -35,20 +36,20 @@
     </au-multiline>
 
     <au-textbox
-      if.bind="data.MaterialsRequestNote_Items.length == 0"
+      show.bind="!data.MaterialsRequestNote_Items || data.MaterialsRequestNote_Items.length == 0"
       error.bind="error.MaterialsRequestNote_Items"
       read-only.bind="true">
     </au-textbox>
 
     <au-collection
-      view-model.ref="MaterialsCollection"
-      options.bind="itemsOptions"
-      show.bind="selectedUnit"
-      columns.bind="itemHeader"
+      errors.bind="error.MaterialsRequestNote_Items" 
       items.bind="data.MaterialsRequestNote_Items"
-      errors.bind="error.MaterialsRequestNote_Items"
-      add.bind="addItems"
+      options.bind="itemsOptions" 
+      columns.bind="itemHeader" 
+      add.bind="itemInfo.onAdd" 
+      remove.bind="itemInfo.onRemove"
       read-only.bind="readOnly"
+      show.bind="selectedUnit"
       item-template="modules/production/finishing-printing/materials-request-note/template/materials-request-note-item">
     </au-collection>
     
