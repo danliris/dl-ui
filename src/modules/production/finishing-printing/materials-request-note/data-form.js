@@ -39,24 +39,21 @@ export class DataForm {
     }
 
     @bindable unitFilter = { "division.name": "FINISHING & PRINTING" };
-    typeItems = ["", "AWAL", "PENGGANTI BAD OUTPUT"];
+    typeItems = ["", "AWAL", "PENGGANTI BAD OUTPUT", "TEST"];
 
     itemsOptions = {};
     @bindable selectedUnit;
-    async selectedUnitChanged(newVal, oldVal) {
-        // this.data.MaterialsRequestNote_Items = !this.isView ? [] : this.data.MaterialsRequestNote_Items;
+    selectedUnitChanged(newVal, oldVal) {
         if (this.selectedUnit && this.selectedUnit._id) {
             this.data.Unit = this.selectedUnit;
             this.itemsOptions.productionOrderFilter = this.selectedUnit.name && this.selectedUnit.name.toUpperCase() === "PRINTING" ? { "orderType.name": "PRINTING", "isClosed": false } : { "orderType.name": { "$nin": ["PRINTING"] }, "isClosed": false };
 
-            // console.log(this);
             if (oldVal)
-                this.data.MaterialsRequestNote_Items = [];
+                this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
         }
         else {
             this.data = {};
-            this.data.MaterialsRequestNote_Items = [];
-            this.selectedUnit = null;
+            this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
         }
     }
 
@@ -64,37 +61,40 @@ export class DataForm {
         return UnitLoader;
     }
 
-    // MaterialsRequestNoteInfo = {
-    //     columns: [
-    //         { header: "No. SPP" },
-    //         { header: "Nama Barang" },
-    //         { header: "Grade" },
-    //         { header: "Panjang (Meter)" }
-    //     ],
-    //     onAdd: function () {
-    //         this.data.MaterialsRequestNote_Items.push({});
-    //     }.bind(this)
-    // }
-
-    get itemHeader() {
-        return [
-            { header: "No. SPP", value: "ProductionOrder" },
-            { header: "Nama Barang", value: "Product" },
-            { header: "Grade", value: "Grade" },
-            { header: "Panjang (Meter)", value: "Length" }
-        ]
+    typeChanged(e) {
+        this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
     }
 
-    get addItems() {
-        return (event) => {
-            var newDetail = {
+    get itemHeader() {
+        if (this.data.RequestType && this.data.RequestType.toUpperCase() === "TEST") {
+            return [
+                { header: "Nama Barang", value: "Product" },
+                { header: "Grade", value: "Grade" },
+                { header: "Panjang (Meter)", value: "Length" }
+            ]
+        } else {
+            return [
+                { header: "No. SPP", value: "ProductionOrder" },
+                { header: "Nama Barang", value: "Product" },
+                { header: "Grade", value: "Grade" },
+                { header: "Panjang (Meter)", value: "Length" }
+            ]
+        }
+
+    }
+
+    itemInfo = {
+        onAdd: function () {
+            this.data.MaterialsRequestNote_Items.push({
                 ProductionOrder: null,
                 Product: null,
                 Grade: "",
                 Length: 0
-            };
-            this.context.MaterialsCollection.bind();
-            this.data.MaterialsRequestNote_Items.push(newDetail);
-        };
+            });
+            this.itemsOptions.isTest = this.data.RequestType && this.data.RequestType.toUpperCase() == "TEST" ? true : false;
+        }.bind(this),
+        onRemove: function () {
+
+        }.bind(this)
     }
 } 
