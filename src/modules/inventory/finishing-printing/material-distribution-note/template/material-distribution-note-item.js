@@ -7,7 +7,7 @@ const MaterialRequestNoteLoader = require('../../../../../loader/material-reques
 export class MaterialRequestNoteItem {
     @bindable materialRequestNote;
 
-    columns = ["No SPP", "Nama Barang", "Grade", "Jumlah (Piece)", "Panjang SPB (Meter)", "Panjang Barang Datang", "Disposisi", "Asal"];
+    columns;
 
     constructor(service) {
         this.service = service;
@@ -26,6 +26,11 @@ export class MaterialRequestNoteItem {
 
         if (this.data.MaterialRequestNoteId)
             this.materialRequestNote = { Code: this.data.MaterialRequestNoteCode };
+
+        if (this.options.isTest)
+            this.columns = ["Nama Barang", "Grade", "Jumlah (Piece)", "Panjang SPB (Meter)", "Panjang Barang Datang", "Asal"];
+        else
+            this.columns = ["No SPP", "Nama Barang", "Grade", "Jumlah (Piece)", "Panjang SPB (Meter)", "Panjang Barang Datang", "Disposisi", "Asal"];
 
         if (!this.readOnly)
             this.columns.push("");

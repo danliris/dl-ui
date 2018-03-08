@@ -17,12 +17,12 @@ export class List {
         { field: "Type", title: "Tipe Bon" },
         {
             field: "IsDisposition", title: "Disposisi", formatter: function (value, data, index) {
-                return value ? "Iya" : "Tidak";
+                return value ? "IYA" : "TIDAK";
             }
         },
         {
             field: "IsApproved", title: "Status Approve", formatter: function (value, data, index) {
-                return value ? "Sudah" : "Belum";
+                return data.IsDisposition ? (value ? "SUDAH" : "BELUM") : "-";
             }
         }
     ];
@@ -69,7 +69,7 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
-                return data.Status;
+                return data.IsApproved;
             default:
                 return true;
         }

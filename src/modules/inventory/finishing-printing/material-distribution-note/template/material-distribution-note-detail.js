@@ -11,11 +11,17 @@ export class MaterialRequestNoteDetail {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
+        this.options = context.context.options;
         this.readOnly = context.options.readOnly;
 
-        this.bindingEngine
-            .propertyObserver(this.data, "ReceivedLength")
-            .subscribe(this.receivedLengthChanged);
+        if (this.options.isTest) {
+            this.data.IsDisposition = false;
+        }
+        else {
+            this.bindingEngine
+                .propertyObserver(this.data, "ReceivedLength")
+                .subscribe(this.receivedLengthChanged);
+        }
     }
 
     receivedLengthChanged = (newValue, oldValue) => {
@@ -28,8 +34,8 @@ export class MaterialRequestNoteDetail {
 
         let dispositionRule = Number(((this.data.MaterialRequestNoteItemLength * 0.005) + this.data.MaterialRequestNoteItemLength).toFixed(2));
         let isDisposition = totalReceivedLength > dispositionRule ? true : false;
-        
-        for(let item of sameProductionOrderItems) {
+
+        for (let item of sameProductionOrderItems) {
             item.data.IsDisposition = isDisposition;
         }
     }
