@@ -56,7 +56,6 @@ export class Service extends RestService {
             for(var detail of productionOrder.details){
                 productionOrderDetails.push(detail);
             }
-
             return productionOrderDetails;
         });
   }

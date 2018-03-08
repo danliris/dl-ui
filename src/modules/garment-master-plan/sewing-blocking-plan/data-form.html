@@ -19,7 +19,7 @@
             placeholder="cari booking order" 
             query.bind="filterBookingOrder"
             key="code" 
-            read-only.bind="isView"
+            read-only.bind="isView || isEdit"
             if.bind="!isView"
             options.bind="controlOptions">
         </au-autocomplete>
@@ -131,6 +131,12 @@
         view-model.ref="previewTable"
         columns.bind="columnPreview"
         data.bind="previewData"
+        if.bind="!isView"></au-table>
+
+        <au-table 
+        view-model.ref="previewTable1"
+        columns.bind="columnPreview"
+        data.bind="previewData1"
         if.bind="!isView"></au-table>
 
         <!--<label for="Preview 6 bulan" if.bind="data.bookingOrderId">Preview 6 bulan</label>

@@ -324,6 +324,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-unit-receipt-note-all',
+        name: 'unit-receipt-note',
+        moduleId: './modules/garment-purchasing/monitoring-unit-receipt-note-all/index',
+        nav: true,
+        title: 'Monitoring Bon Terima Unit All',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/purchase-quantity-correction',
         name: 'purchase-quantity-correction',
         moduleId: './modules/garment-purchasing/purchase-quantity-correction/index',

@@ -1,0 +1,50 @@
+<template>
+    <tr>
+        <td>
+            <au-autocomplete
+                value.bind="data.ProductionOrder"
+                error.bind="error.ProductionOrderId"
+                change.delegate="productionOrderChanged($event)"
+                loader.bind="productionOrderLoader"
+                placeholder="cari surat perintah produksi"
+                query.bind="productionOrderFilter"
+                key="orderNo"
+                text="orderNo"
+                read-only.bind="options.readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td>
+            <au-autocomplete 
+                value.bind="data.Product" 
+                error.bind="error.ProductId"
+                change.delegate="productChanged($event)"
+                loader.bind="productLoader"
+                placeholder="cari barang" 
+                key="name"
+                text="name"
+                read-only.bind="options.readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.Grade"
+                error.bind="error.Grade"
+                read-only.bind="options.readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.Length"
+                error.bind="error.Length"
+                read-only.bind="options.readOnly"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>

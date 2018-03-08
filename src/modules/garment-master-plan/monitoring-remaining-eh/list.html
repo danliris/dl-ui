@@ -29,6 +29,7 @@
 
   </form>
 
+  <br>
   <div class="btn-group pull-left">
     <button class="btn btn-primary" click.delegate="ExportToExcel()">Export to Excel</button>
   </div>
@@ -47,7 +48,7 @@
       <tbody>
         <tr repeat.for="week of weeks">
           <td>${week.week}</td>
-          <td repeat.for="unit of week.units" class="${unit.classBackground}">${unit.remainingEH}</td>
+          <td repeat.for="unit of week.units" css="background:${unit.background}">${unit.remainingEH}</td>
           <td>${week.headCount}</td>
         </tr>
       </tbody>

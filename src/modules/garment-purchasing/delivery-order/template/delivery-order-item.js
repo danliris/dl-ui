@@ -53,6 +53,7 @@ export class DeliveryOrderItem {
     } else if (newValue._id) {
       this.data.purchaseOrderExternalNo = newValue.no;
       this.data.purchaseOrderExternalId = newValue._id;
+      this.data.payment = newValue.paymentMethod;
       var doFulfillments = this.data.fulfillments || [];
       var poExternal = newValue || {};
       var poCollection = poExternal.items.map((item) => { return item.poId })

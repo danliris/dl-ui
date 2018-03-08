@@ -49,6 +49,11 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
+    expiredBooking(data) {
+        var endpoint = 'booking-orders-expired';
+        return super.post(endpoint, data);
+    }
+
     confirmBooking(data) {
         var endpoint = 'booking-orders-confirm';
         return super.post(endpoint, data);
