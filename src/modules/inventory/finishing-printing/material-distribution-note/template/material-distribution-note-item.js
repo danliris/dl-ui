@@ -50,6 +50,7 @@ export class MaterialRequestNoteItem {
                         MaterialDistributionNoteDetails: []
                     };
 
+                    /*
                     for (let item of result.MaterialsRequestNote_Items) {
                         let grades = item.Grade.split("");
 
@@ -64,6 +65,19 @@ export class MaterialRequestNoteItem {
 
                             processedData.MaterialDistributionNoteDetails.push(detail);
                         }
+                    }
+                    */
+
+                    for (let item of result.MaterialsRequestNote_Items) {
+                        let detail = {
+                            MaterialsRequestNoteItemId: item.Id,
+                            ProductionOrder: item.ProductionOrder,
+                            Product: item.Product,
+                            MaterialRequestNoteItemLength: item.Length,
+                            Grade: item.Grade
+                        };
+
+                        processedData.MaterialDistributionNoteDetails.push(detail);
                     }
 
                     Object.assign(this.data, processedData);
