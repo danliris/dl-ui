@@ -37,7 +37,7 @@ export class DataForm {
 			}
 		};
 
-		this.types = ["", "Produksi", "Re-Grading", "Test"];
+		this.types = ["", "PRODUKSI", "RE-GRADING", "TEST"];
 		this.unitQuery = { "division.name": "FINISHING & PRINTING" };
 	}
 
@@ -70,7 +70,7 @@ export class DataForm {
 
 			delete this.mdnInfo.options.filter.RequestType;
 
-			if (this.data.Type === "Test")
+			if (this.data.Type === "TEST")
 				Object.assign(this.mdnInfo.options.filter, { "RequestType": this.data.Type });
 		}
 		else {
