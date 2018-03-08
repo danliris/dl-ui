@@ -1,0 +1,36 @@
+<template>
+    <tr>
+
+        <td>
+            <au-autocomplete value.bind="BonProduct" error.bind="error.BonProduct" placeholder="Cari Bon Pengantar Greige" key="name"
+                text="name" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+
+        <td>
+            <au-numeric value.bind="Details.Quantity" read-only.bind="options.readOnly" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+
+        <td>
+            <au-numeric value.bind="Details.Length" read-only.bind="options.readOnly" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+
+        <td>
+            <au-numeric value.bind="Yard" read-only.bind="true" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+
+        <td>
+            <au-multiline value.bind="Details.remark" placeholder="tambah keterangan" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-multiline>
+        </td>
+
+
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove($event)">-</button>
+        </td>
+        
+    </tr>
+</template>
