@@ -33,8 +33,9 @@ export class Confirm {
     if (this.data.items) {
       if (this.data.items.length > 0) {
         this.data.items.forEach(item => {
-          if (item.isCanceled)
+          if (item.isCanceled) {
             this.data.canceledItems ? this.data.canceledItems.push(item) : this.data.canceledItems = [item];
+          }
         });
         this.data.items = this.data.items.filter(item => !item.isCanceled);
 

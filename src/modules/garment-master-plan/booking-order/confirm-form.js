@@ -66,7 +66,7 @@ export class DataForm {
                 code:this.data.code,
                 masterPlanComodity: this.data.masterPlanComodity,
                 quantity: 0,
-                // isCanceled: false,
+                isCanceled: false,
                 remark: ''
             };
             this.data.items.push(newDetail);
