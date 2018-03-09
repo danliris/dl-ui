@@ -33,11 +33,12 @@ export class DataForm {
 				this.data.MaterialDistributionNoteItems.push({});
 			},
 			options: {
-				filter: {}
+				filter: {},
+				isTest: false
 			}
 		};
 
-		this.types = ["", "Produksi", "Re-Grading", "Test"];
+		this.types = ["", "PRODUKSI", "RE-GRADING", "TEST"];
 		this.unitQuery = { "division.name": "FINISHING & PRINTING" };
 	}
 
@@ -49,6 +50,8 @@ export class DataForm {
 		this.cancelCallback = this.context.cancelCallback;
 		this.deleteCallback = this.context.deleteCallback;
 		this.saveCallback = this.context.saveCallback;
+
+		this.mdnInfo.options.isTest = this.data.Type === "TEST" ? true : false;
 	}
 
 	unitChanged(newValue, oldValue) {
@@ -70,8 +73,13 @@ export class DataForm {
 
 			delete this.mdnInfo.options.filter.RequestType;
 
-			if (this.data.Type === "Test")
+			if (this.data.Type === "TEST") {
 				Object.assign(this.mdnInfo.options.filter, { "RequestType": this.data.Type });
+				this.mdnInfo.options.isTest = true;
+			}
+			else {
+				this.mdnInfo.options.isTest = false;
+			}
 		}
 		else {
 			this.data.Type = "";

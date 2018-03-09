@@ -8,6 +8,7 @@ export class MaterialsRequestNoteItem {
         this.error = context.error;
         this.options = context.options;
         this.productionOrderFilter = context.context.options.productionOrderFilter;
+        this.isTest = context.context.options.isTest;
     }
 
     get productLoader() {

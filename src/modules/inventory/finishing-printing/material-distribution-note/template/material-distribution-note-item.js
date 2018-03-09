@@ -7,7 +7,7 @@ const MaterialRequestNoteLoader = require('../../../../../loader/material-reques
 export class MaterialRequestNoteItem {
     @bindable materialRequestNote;
 
-    columns = ["No SPP", "Nama Barang", "Grade", "Jumlah (Piece)", "Panjang SPB (Meter)", "Panjang Barang Datang", "Disposisi", "Asal"];
+    columns;
 
     constructor(service) {
         this.service = service;
@@ -27,6 +27,11 @@ export class MaterialRequestNoteItem {
         if (this.data.MaterialRequestNoteId)
             this.materialRequestNote = { Code: this.data.MaterialRequestNoteCode };
 
+        if (this.options.isTest)
+            this.columns = ["Nama Barang", "Grade", "Jumlah (Piece)", "Panjang SPB (Meter)", "Panjang Barang Datang", "Asal"];
+        else
+            this.columns = ["No SPP", "Nama Barang", "Grade", "Jumlah (Piece)", "Panjang SPB (Meter)", "Panjang Barang Datang", "Disposisi", "Asal"];
+
         if (!this.readOnly)
             this.columns.push("");
     }
@@ -45,6 +50,7 @@ export class MaterialRequestNoteItem {
                         MaterialDistributionNoteDetails: []
                     };
 
+                    /*
                     for (let item of result.MaterialsRequestNote_Items) {
                         let grades = item.Grade.split("");
 
@@ -59,6 +65,19 @@ export class MaterialRequestNoteItem {
 
                             processedData.MaterialDistributionNoteDetails.push(detail);
                         }
+                    }
+                    */
+
+                    for (let item of result.MaterialsRequestNote_Items) {
+                        let detail = {
+                            MaterialsRequestNoteItemId: item.Id,
+                            ProductionOrder: item.ProductionOrder,
+                            Product: item.Product,
+                            MaterialRequestNoteItemLength: item.Length,
+                            Grade: item.Grade
+                        };
+
+                        processedData.MaterialDistributionNoteDetails.push(detail);
                     }
 
                     Object.assign(this.data, processedData);

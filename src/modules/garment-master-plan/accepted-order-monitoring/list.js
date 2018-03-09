@@ -71,7 +71,7 @@ export class List {
           this.weeks = [];
           this.qty = [];
           this.total = [];
-          console.log(this.previewWeeklyPlan);
+          
           if(info.unit==''){
             for(var item of this.previewWeeklyPlan){
               if(this.units.length<=0){

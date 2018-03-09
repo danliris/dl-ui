@@ -26,12 +26,17 @@ export class Service extends RestService {
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
     
     getMaterialRequestNoteById(id) {
         var endpoint = `${mrnServiceUri}/${id}`;
         return super.get(endpoint);
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
     }
 }

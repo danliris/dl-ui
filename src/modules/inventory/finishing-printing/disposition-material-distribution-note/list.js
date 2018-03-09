@@ -5,21 +5,22 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian", "Cetak PDF"];
+    approve = [];
 
     columns = [
+        {
+            title: "Approve Checkbox", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = data.IsApproved ? false : true;
+            }
+        },
         { field: "No", title: "No Bon Pengantar" },
         {
-            field: "_CreatedUtc", title: "Tanggal", formatter: function (value, data, index) {
+            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "Type", title: "Tipe Bon" },
-        {
-            field: "IsDisposition", title: "Disposisi", formatter: function (value, data, index) {
-                return value ? "IYA" : "TIDAK";
-            }
-        },
         {
             field: "IsApproved", title: "Status Approve", formatter: function (value, data, index) {
                 return data.IsDisposition ? (value ? "SUDAH" : "BELUM") : "-";
@@ -40,7 +41,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            filter: JSON.stringify({ IsDisposition: true })
         };
 
         return this.service.search(arg)
@@ -52,30 +54,27 @@ export class List {
             });
     }
 
-    contextClickCallback(event) {
-        let arg = event.detail;
-        let data = arg.data;
+    approveData() {
+        if (this.approve.length > 0) {
+            let updateData = this.approve.map(d => {
+                return d.Id;
+            });
 
-        switch (arg.name) {
-            case "Rincian":
-                this.router.navigateToRoute('view', { id: data.Id });
-                break;
-            case "Cetak PDF":
-                this.service.getPdfById(data.Id);
-                break;
+            this.service.approveData(updateData)
+                .then(response => {
+                    this.table.refresh();
+                    this.approve = [];
+                })
+                .catch(e => {
+                    this.error = e;
+                });
         }
     }
 
-    contextShowCallback(index, name, data) {
-        switch (name) {
-            case "Cetak PDF":
-                return !data.IsDisposition || data.IsApproved;
-            default:
-                return true;
-        }
-    }
-
-    create() {
-        this.router.navigateToRoute('create');
+    rowFormatter(data, index) {
+        if (data.IsApproved)
+            return { classes: "success" };
+        else
+            return {};
     }
 }

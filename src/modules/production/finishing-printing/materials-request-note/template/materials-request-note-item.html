@@ -1,7 +1,8 @@
 <template>
     <tr>
-        <td>
+        <td show.bind="!isTest">
             <au-autocomplete
+                show.bind="!isTest"
                 value.bind="data.ProductionOrder"
                 error.bind="error.ProductionOrderId"
                 change.delegate="productionOrderChanged($event)"
@@ -29,6 +30,7 @@
         </td>
         <td>
             <au-textbox
+                placholder="masukkan grade"
                 value.bind="data.Grade"
                 error.bind="error.Grade"
                 read-only.bind="options.readOnly"
@@ -36,12 +38,12 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox
+            <au-numeric
                 value.bind="data.Length"
                 error.bind="error.Length"
                 read-only.bind="options.readOnly"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-numeric>
         </td>
         <td if.bind="!options.readOnly">
             <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
