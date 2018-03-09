@@ -17,7 +17,7 @@ export class List {
     }
 
     setContext() {
-        this.context = ["Rincian"];
+        this.context = ["Rincian", "Cetak PDF"];
     }
 
     setColumns() {
@@ -64,6 +64,9 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
