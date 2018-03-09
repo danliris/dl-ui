@@ -10,15 +10,15 @@ export class Service extends RestService {
         super(http, aggregator, config, "garment-purchasing");
     }
 
-search(no,pr, unit,supplier, purchaseRequestRefNo, dateFrom, dateTo) { 
+search(no,pr, unit,supplier, purchaseRequestRefNo, roNo, deliveryorderNo, dateFrom, dateTo) { 
      
-        var endpoint = `${serviceUri}?no=${no}&pr=${pr}&unit=${unit}&supplier=${supplier}&purchaseRequestRefNo=${purchaseRequestRefNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        var endpoint = `${serviceUri}?no=${no}&pr=${pr}&unit=${unit}&supplier=${supplier}&purchaseRequestRefNo=${purchaseRequestRefNo}&roNo=${roNo}&deliveryorderNo=${deliveryorderNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.get(endpoint);
     }
 
-generateXls(no,pr, unit,supplier, purchaseRequestRefNo, dateFrom, dateTo) { 
+generateXls(no,pr, unit,supplier, purchaseRequestRefNo, roNo, deliveryorderNo, dateFrom, dateTo) { 
        console.log(supplier);
-        var endpoint = `${serviceUri}?no=${no}&pr=${pr}&unit=${unit}&supplier=${supplier}&purchaseRequestRefNo=${purchaseRequestRefNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        var endpoint = `${serviceUri}?no=${no}&pr=${pr}&unit=${unit}&supplier=${supplier}&purchaseRequestRefNo=${purchaseRequestRefNo}&roNo=${roNo}&deliveryorderNo=${deliveryorderNo}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.getXls(endpoint);
     }
 }
