@@ -21,6 +21,17 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-autocomplete 
+            value.bind="selectedSection" 
+            error.bind="error.section"
+            label="Seksi" 
+            loader.bind="sectionLoader"
+            text.bind = "sectionView"
+            key="code" 
+            read-only="true"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-datepicker 
             label="Tanggal Booking" 
             value.bind="data.bookingDate" 
@@ -55,6 +66,15 @@
             if.bind = "!data.code">
         </au-autocomplete>
         
+        <numeric 
+            label="Jumlah Order Awal" 
+            value.bind="data.beginingOrderQuantity" 
+            error.bind="error.beginingOrderQuantity" 
+            if.bind="data.beginingOrderQuantity"
+            format="0"
+            read-only="true">
+        </numeric>
+
         <numeric 
             label="Jumlah Order" 
             value.bind="data.orderQuantity" 
