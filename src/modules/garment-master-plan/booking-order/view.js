@@ -61,6 +61,7 @@ export class View {
         this.hasConfirm = false;
         this.hasEdit = false;
         this.expireBooking=true;
+        this.hasDelete = false;
       }
       if(this.data.orderQuantity<=total){
         this.expireBooking=false;
