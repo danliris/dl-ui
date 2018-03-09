@@ -23,7 +23,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if(this.data.status=== "Booking Dihapus"){
+        if(this.data.status=== "Booking Dihapus" || this.data.status=== "Booking Expired"){
             this.hasEdit=false;
         }
         else if(this.data.status=== "Booking Dibatalkan"){
@@ -34,6 +34,8 @@ export class View {
             if(this.data && this.data.bookingOrderId){
                 this.booking = {};
                 var bookingData = await this.service.getBookingById(this.data.bookingOrderId);
+                
+                console.log(bookingData.orderQuantity);
                 if(moment(this.data.bookingDate).format("DD MMM YYYY") !== moment(bookingData.bookingDate).format("DD MMM YYYY"))
                     this.booking["bookingDate"] = bookingData.bookingDate;
                 if(this.data.quantity !== bookingData.orderQuantity)
