@@ -15,7 +15,7 @@ export class DataForm {
     @bindable booking = {};
     @bindable preview = {};
     @bindable previewData;
-    @bindable previewDataTable;
+    //@bindable previewDataTable;
     @bindable options = { buyerCode: "" };
 
     controlOptions = {
@@ -29,7 +29,10 @@ export class DataForm {
 
     filterBookingOrder = {
         "isMasterPlan": false,
-        "isCanceled": false
+        "isCanceled": false,
+        "orderQuantity":{
+            $gt:0
+        }
     };
 
     months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
@@ -51,8 +54,8 @@ export class DataForm {
         { header: "EH Booking" },
         { header: "Sisa EH" },
         //{ header: "Plan Working Hours" }
-    ]
-    previewColumns = [{ header: "Konveksi" }]
+    ];
+    previewColumns = [{ header: "Konveksi" }];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -64,7 +67,6 @@ export class DataForm {
         }
         this.previewData = [];
         this.previewData1 = [];
-        this.previewDataTable = [];
     }
 
     selectedBookingOrderChanged(newValue) {
@@ -76,6 +78,32 @@ export class DataForm {
             this.data.garmentBuyerName = _selectedData.garmentBuyerName;
             this.data.garmentBuyerCode = _selectedData.garmentBuyerCode;
             if (!this.data._id) {
+                if(this.data && this.data.details && this.data.details.length > 0){
+                    for(var detail of this.data.details){
+                        let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                        let uniq = this.data.details.find(o => {
+                            if(o.weeklyPlanYear && o.unit && o.week){
+                                if( o.weeklyPlanYear.toString() + o.unit.code.toString() + o.week.weekNumber.toString()  == cat)
+                                return o;
+                            }
+                        });
+                        let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.weeklyPlanYear.toString() + detail.unit.code.toString()));
+                        if(uniq){
+                            if(item)
+                                item[detail.week.weekNumber]=uniq.remainingEH;
+                            else {
+                                let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.weeklyPlanYear.toString() + detail.unit.code.toString()));
+                                if(item1){
+                                    item1[detail.week.weekNumber]=uniq.remainingEH;
+                                }
+                            }
+                        }
+                    }
+                    var count = this.data.details.length;
+                    for(var a = count; a >= 0; a--){
+                        this.data.details.splice((a-1), 1);
+                    }
+                }
                 this.data.bookingDate = _selectedData.bookingDate;
                 this.data.deliveryDate = _selectedData.deliveryDate;
                 this.data.quantity = _selectedData.orderQuantity;
@@ -120,6 +148,8 @@ export class DataForm {
             
         }
         if (!this.isView) {
+            this.previewDataTable1=[];
+            this.previewDataTable=[];
             var year = (new Date()).getFullYear();
             var month = (new Date()).getMonth();
             var yr = {
@@ -135,12 +165,15 @@ export class DataForm {
             
             // console.log(this.previewWeeklyPlan);
             
-            let prev = [];let prev1 = []; let weekLength=0; 
+            let prev = [];//for preview year now
+            let prev1 = []; //for preview next year
+            let weekLength=0; 
             for (var a of this.previewWeeklyPlan) {
                 if (a.year === year) {
                     prev.push(a);
                 }
             }
+            //assign columns
             this.columnPreview =[];
             if(prev.length>0){
                 this.columnPreview = [{ field: "year", title: "Tahun" }, { field: "unitCode", title: "Unit" }];
@@ -178,6 +211,7 @@ export class DataForm {
             this.context.previewTable.__table("refreshOptions", options);
             this.context.previewTable1.__table("refreshOptions", options1);
 
+            //assign data
             var total=[];
             for (var a of prev) {
                 let obj = {};
@@ -192,7 +226,7 @@ export class DataForm {
                         total[b.weekNumber]+=b.remainingEH;
                     }
                 }
-
+                this.previewDataTable.push(obj);
                 this.previewData.push(obj);
             }
             var x={
@@ -202,6 +236,8 @@ export class DataForm {
             for (var i = 1; i < total.length; i++) {
                 x[i]=total[i];
             }
+
+            this.previewDataTable.push(x);
             this.previewData.push(x);
             var total1=[];
             for (var a of prev1) {
@@ -217,16 +253,18 @@ export class DataForm {
                         total1[b.weekNumber]+=b.remainingEH;
                     }
                 }
-
+                this.previewDataTable1.push(obj);
                 this.previewData1.push(obj);
             }
             var x1={
                 year:'',
                 unitCode:"Total"
             }
+            //sum EH per week
             for (var i = 1; i < total1.length; i++) {
                 x1[i]=total1[i];
             }
+            this.previewDataTable1.push(x1);
             this.previewData1.push(x1);
         }
     }
@@ -235,7 +273,6 @@ export class DataForm {
 
     detailsChanged(e) {
         let group = {};
-        this.previewDataTable = [];
         //this.previewDataTable =this.previewData;
         //this.previewDataTable = JSON.parse(JSON.stringify(this.previewData));
         //console.log(this.options);
@@ -276,10 +313,9 @@ export class DataForm {
                     else{
                         remEH[cat]=uniq.remainingEH;
                     }
-                    
                 }
                 if(detail.oldVal){
-                    if(detail.oldVal.year && detail.oldVal.unitCode){
+                    if(detail.oldVal.year && detail.oldVal.unitCode && detail.oldVal.weekNumber){
                         let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
                         if(remEH[cat]){
                             if(remEH[cat]<detail.oldVal.remainingEH){
@@ -326,6 +362,7 @@ export class DataForm {
                             }
                         }
                     }
+                    detail.oldVal={};
                 }
             }
             //console.log(remEH);
@@ -384,6 +421,7 @@ export class DataForm {
                 }
             }
         }
+
         this.context.previewTable.refresh();
         this.context.previewTable1.refresh();
 
@@ -528,7 +566,7 @@ export class DataForm {
     get addDetails() {
         return (event) => {
             var newDetail = {
-                index:this.data.details ? this.data.details.length : 0,
+                deliveryDate: "",
                 isConfirmed: false,
                 shSewing: 0,
                 quantity: 0,

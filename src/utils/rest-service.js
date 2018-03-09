@@ -23,11 +23,11 @@ export class RestService {
   }
 
   parseResult(result) {
-    if (result.error) {
-      return Promise.reject(result.error);
-    }
-    else if (result.statusCode === 500) {
+    if (result.statusCode === 500) {
       return Promise.reject(result);
+    }
+    else if (result.error) {
+      return Promise.reject(result.error);
     }
     else {
       return Promise.resolve(result.data)

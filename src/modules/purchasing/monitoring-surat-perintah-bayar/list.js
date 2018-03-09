@@ -98,7 +98,9 @@ export class List {
                     }else{
                         hasil2=0;
                     }
-
+var Tempo= a.tgltambah;
+var JatuhTempo = new Date(a.items.unitReceiptNote.date);
+                JatuhTempo.setDate(JatuhTempo.getDate() + Tempo);
 var index=1;
                var temp = {
                         "no": a.no,
@@ -109,7 +111,7 @@ var index=1;
             "harga": a.items.unitReceiptNote.items.pricePerDealUnit,
             "invoceDate": a.invoceDate,
             "invoceNo": a.invoceNo,
-            "dueDate": a.dueDate,
+            "dueDate": a.dueDate || JatuhTempo,
             "supplier": a.supplier.name,
             "divisi": a.division.name,
             "useIncomeTax":hasil,
@@ -124,6 +126,7 @@ var index=1;
             "satuan":a.satuan,
             "codesupplier":a.codesupplier,
             "datenote":a.items.unitReceiptNote.date,
+            "kategori":a.kategori,
                       
                     }
                      dataTemp.push(temp);

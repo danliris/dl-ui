@@ -1,0 +1,13 @@
+<template>
+  <tr>
+    <th repeat.for="column of columns">
+      <label>${column.header}</label>
+    </th>
+    <th>
+      <button click.delegate="onadd($event)" class="btn btn-success pull-right">+</button>
+    </th>
+    <th if.bind="__hasItems">
+      <label>Cancel Confirm</label>
+    </th>
+  </tr>
+</template>

@@ -12,6 +12,7 @@ export class View {
   hascancelConfirm = true;
   hasConfirm = true;
   hasMasterPlan = true;
+  expireBooking=false;
 
   constructor(router, service) {
     this.router = router;
@@ -45,6 +46,25 @@ export class View {
         this.hasDelete = false;
         //this.hasConfirm = false;
       }
+      var total=0;
+      for(var b of this.data.items){
+          total+=b.quantity;
+      }
+      var c = new Date(this.data.deliveryDate);
+      var b = new Date();
+      c.setHours(0,0,0,0);
+      b.setHours(0,0,0,0);
+      var diff=c.getTime() - b.getTime();
+      var timeDiff = Math.abs(c.getTime() - b.getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      if(diffDays<=45){
+        this.hasConfirm = false;
+        this.hasEdit = false;
+        this.expireBooking=true;
+      }
+      if(this.data.orderQuantity<=total){
+        this.expireBooking=false;
+      }
   }
 
   cancel(event) {
@@ -69,6 +89,13 @@ export class View {
   masterPlan(event) {
     this.router.navigateToRoute('detail', { id: this.data.code });
   }
+
+  expired() {
+        this.service.expiredBooking(this.data)
+        .then(result => {
+          this.cancel();
+        });
+    }
 
   // confirmBooking() {
   //     var today=new Date();
