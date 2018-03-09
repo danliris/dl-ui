@@ -1,18 +1,21 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { Dialog } from '../../../../components/dialog/dialog';
+import { AlertView } from './custom-dialog-view/alert-view';
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
 
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-        
+
         this.unit = this.data.Unit;
         this.type = this.data.Type;
     }
@@ -26,9 +29,15 @@ export class View {
     }
 
     deleteCallback(event) {
-        this.service.delete(this.data)
-            .then(result => {
-                this.list();
+        this.dialog.show(AlertView, { message: "<div>Apakah anda yakin akan menghapus data ini?</div>" })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.service.delete(this.data)
+                        .then(result => {
+                            this.list();
+                        });
+                }
             });
+
     }
 }
