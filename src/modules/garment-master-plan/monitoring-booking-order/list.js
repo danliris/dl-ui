@@ -24,7 +24,7 @@ export class List {
     }
      
     confirmStateOption = ["","Belum Dikonfirmasi","Sudah Dikonfirmasi"];
-    bookingOrderStateOption = ["","Booking","Sudah Dibuat Master Plan","Booking Dibatalkan"];
+    bookingOrderStateOption = ["","Booking","Confirmed","Sudah Dibuat Master Plan","Booking Dibatalkan"];
  searching() {
      
     var info = {
@@ -42,12 +42,14 @@ export class List {
             .then(result => {
                this.data=result;
                this.data = [];
+               this.row_temp = [];
                var counter = 1;
                var remain=0;
                var temp=result;
                this.temp=[];
                var bookingNo="";
                var temps={};
+               var count=0;
                
             for (var prs of result) {
                 temps.bookingCode=prs.bookingCode;
@@ -55,13 +57,14 @@ export class List {
                 this.temp.push(temps);
               
             }
-           
+            var _temp = {};
+            var row_span_count=1;
                for (var pr of result) {
-            
                   var _data = {};
-               
+                  
+                  
                      _data.code=  pr.bookingCode;
-                      _data.bookingDate =pr.bookingDate;
+                      _data.bookingDate =pr.bookingDate ? moment(pr.bookingDate).format("DD MMMM YYYY") : "";;
                       _data.buyer = pr.buyer;
                       _data.totalOrderQty = pr.totalOrderQty;
                       _data.deliveryDateConfirm=  pr.deliveryDateConfirm ? moment(pr.deliveryDateConfirm).format("DD MMMM YYYY") : "";
@@ -69,7 +72,23 @@ export class List {
                       _data.comodity =pr.comodity;
                       _data.orderQty = pr.orderQty;
                       _data.deliveryDateBooking = pr.deliveryDateBooking ? moment(pr.deliveryDateBooking).format("DD MMMM YYYY") : "";
-                      _data.remark = pr.remark;                   
+                      _data.remark = pr.remark;  
+
+                      var today=new Date();
+                      var a = new Date(_data.deliveryDateBooking);
+                      var b = today;
+                      a.setHours(0,0,0,0);
+                      b.setHours(0,0,0,0);
+                      var diff=a.getTime() - b.getTime();
+                      var timeDiff = Math.abs(a.getTime() - b.getTime());
+                      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                      
+                      
+                      if(diffDays>0 && diffDays<=45){
+                        _data.diffDeliveryDateBooking = diffDays;
+                      } else if(diffDays<=0 || diffDays>45){
+                        _data.diffDeliveryDateBooking = '-';
+                      }
 
                       if(pr.deliveryDateConfirm=="")
                       {
@@ -86,7 +105,11 @@ export class List {
                         _data.bookingOrderState="Sudah Dibuat Master Plan";   
                       }else if(pr.isMasterPlan == false && pr.isCanceled==false)
                       {
-                        _data.bookingOrderState="Booking";
+                        if(!pr.items){
+                            _data.bookingOrderState="Booking";
+                        } else if(pr.items){
+                            _data.bookingOrderState="Confirmed";
+                        }  
                       }
                     for(var item of  temp)
                     {
@@ -97,13 +120,40 @@ export class List {
                         }
                       
                     }
-                    remain=0;
-                      this.data.push(_data);
+                    _data.row_count=row_span_count;
                     
+                    if(_temp.code == _data.code){
+                        _data.code=null;
+                        _data.bookingDate=null;
+                        _data.buyer=null;
+                        _data.totalOrderQty=null;
+                        _data.confirmState=null;
+                        _data.bookingOrderState=null;
+                        _data.remaining=null;
+                        _data.diffDeliveryDateBooking=null;
+                        _data.row_count=row_span_count+1;
+                        
+                    } else if(!_temp.code || _temp.code!=pr.bookingCode){
+                        _temp.code=_data.code;
+                    }
+                
+
+                    remain=0;
+                    this.data.push(_data);
+                    
+                    if (this.data[count].row_count>1){
+                        for(var x=_data.row_count;0<x;x--){
+                            var z=count-x;
+                            
+                            this.data[z+1].row_count=this.data[count].row_count;
+                        }    
+                    }
+                    
+                 count++;    
                  counter ++;
-                 }
-              
+                 }                 
             });
+            
     }
     ExportToExcel() {
         var info = {
@@ -148,15 +198,13 @@ export class List {
         this.bookingOrderState="";
         if(selectedBookingOrder=="Booking"){ 
             this.bookingOrderState="Booking";
-        }
-       else if(selectedBookingOrder=="Sudah Dibuat Master Plan")
-       {  
+        }else if(selectedBookingOrder=="Confirmed"){
+            this.bookingOrderState="Confirmed";
+        }else if(selectedBookingOrder=="Sudah Dibuat Master Plan"){  
             this.bookingOrderState="Sudah Dibuat Master Plan";
-       }else  if(selectedBookingOrder=="Booking Dibatalkan")
-       {
+        }else  if(selectedBookingOrder=="Booking Dibatalkan"){
             this.bookingOrderState="Booking Dibatalkan";
-        }else
-        {
+        }else{
             this.bookingOrderState="";
         }
     }
