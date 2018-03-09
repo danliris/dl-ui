@@ -147,7 +147,7 @@ export class DataForm {
 
             var jobs = [];
             for (var prId of listPurchaseRequestId) {
-                jobs.push(this.service.getPurchaseRequestById(prId, ["artikel", "buyer", "no", "_id"]))
+                jobs.push(this.service.getPurchaseRequestById(prId, ["artikel", "buyer", "no", "_id", "items"]))
             }
 
             Promise.all(jobs)
@@ -161,6 +161,12 @@ export class DataForm {
                                 _item.artikel = pr.artikel;
                                 _item.buyer = pr.buyer;
                                 _item.buyerId = pr.buyer._id;
+                                var remark = [];
+                                for (var prr of pr.items){
+                                    if (prr.refNo==fulfillment.purchaseRequestRefNo)
+                                    remark.push(prr.remark) ;
+                                }
+                                _item.remark = remark.toString();
                             }
 
                             _item.product = fulfillment.product;
