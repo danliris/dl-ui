@@ -1,5 +1,5 @@
 <template>
-<tr>
+<tr if.bind="!data.isCanceled"> <!-- add data.isCanceled = undefined if not exist -->
   
   <!--<td width="5%" text-align="center" if.bind="data.code">
     <au-checkbox
@@ -31,7 +31,7 @@
     </au-numeric>
   </td>
 
-  <td width="20%">
+  <td width="15%">
     <au-datepicker 
         value.bind="data.deliveryDate" 
         error.bind="error.deliveryDate" 
@@ -40,7 +40,7 @@
     </au-datepicker>
   </td>
 
-   <td width="20%">
+   <td width="15%">
     <au-datepicker 
         value.bind="data.confirmDate" 
         error.bind="error.confirmDate" 
@@ -49,7 +49,7 @@
     </au-datepicker>
   </td>
 
-  <td width="20%">
+  <td width="25%">
     <au-multiline 
     value.bind="data.remark" 
     error.bind="error.remark" 
@@ -58,6 +58,11 @@
     </au-multiline >
 
   </td>
-  <td if.bind="!options.readOnly" ><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+  <td if.bind="!options.readOnly" >
+    <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+  </td>
+  <td if.bind="!options.readOnly && data._type" >
+    <button class="btn btn-danger pull-right" click.delegate="oncancel(data)">Cancel Confirm</button>
+  </td>
 </tr>
 </template>

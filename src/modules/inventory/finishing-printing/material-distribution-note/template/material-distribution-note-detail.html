@@ -1,0 +1,41 @@
+<template>
+    <tr>
+        <td show.bind="!options.isTest">
+            <au-textbox value.bind="data.ProductionOrder.orderNo" read-only="true"></au-textbox>
+        </td>
+        <td>
+            <au-textbox value.bind="data.Product.name" read-only="true"></au-textbox>
+        </td>
+        <td class="col-sm-2">
+            <au-textbox value.bind="data.Grade" read-only="true"></au-textbox>
+        </td>
+        <td>
+            <au-numeric
+                value.bind="data.Quantity"
+                error.bind="error.Quantity"
+                read-only.bind="readOnly" />
+        </td>
+        <td><au-numeric value.bind="data.MaterialRequestNoteItemLength" read-only="true"></au-numeric></td>
+        <td>
+            <au-numeric
+                value.bind="data.ReceivedLength"
+                error.bind="error.ReceivedLength"
+                read-only.bind="readOnly" />
+        </td>
+        <td show.bind="!options.isTest">
+            <p class="form-control-static">${ data.IsDisposition ? 'Ya' : 'Tidak' }</p>
+        </td>
+        <td>
+            <au-autocomplete 
+                value.bind="data.Supplier" 
+                error.bind="error.Supplier"
+                loader.one-time="supplierLoader"
+                read-only.bind="readOnly"
+                text="name">
+            </au-autocomplete>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger" click.delegate="onremove(data)">-</button>
+        </td>
+    </tr>
+</template>
