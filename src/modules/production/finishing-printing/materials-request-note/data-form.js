@@ -30,6 +30,8 @@ export class DataForm {
         if (this.data.Unit && this.data.Unit._id) {
             this.selectedUnit = this.data.Unit;
         }
+
+        this.itemsOptions.isTest = this.data.RequestType && this.data.RequestType.toUpperCase() == "TEST" ? true : false;
     }
 
     numberOptions = {

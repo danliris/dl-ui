@@ -10,7 +10,7 @@ export class List {
     columns = [
         { field: "No", title: "No Bon Pengantar" },
         {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+            field: "_CreatedUtc", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -69,7 +69,7 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
-                return data.IsApproved;
+                return !data.IsDisposition || data.IsApproved;
             default:
                 return true;
         }

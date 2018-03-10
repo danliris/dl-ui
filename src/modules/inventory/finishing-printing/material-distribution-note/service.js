@@ -34,4 +34,9 @@ export class Service extends RestService {
         var endpoint = `${mrnServiceUri}/${id}`;
         return super.get(endpoint);
     }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }

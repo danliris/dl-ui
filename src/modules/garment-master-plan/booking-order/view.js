@@ -44,6 +44,7 @@ export class View {
       // }
       else if(conf){
         this.hasDelete = false;
+        this.hasEdit = false;
         //this.hasConfirm = false;
       }
       var total=0;
@@ -61,10 +62,12 @@ export class View {
         this.hasConfirm = false;
         this.hasEdit = false;
         this.expireBooking=true;
+        this.hascancelConfirm = false;
         this.hasDelete = false;
       }
       if(this.data.orderQuantity<=total){
         this.expireBooking=false;
+        this.hascancelConfirm = false;
       }
   }
 
