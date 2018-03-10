@@ -15,6 +15,8 @@ export class List {
             return { classes: "warning" };
         else if(data.status === "Booking Ada Perubahan")
             return { classes: "info" };
+        else if (data.status === "Booking Expired")
+            return { classes: "danger" };
         else
             return {};
     }
