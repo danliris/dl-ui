@@ -1,0 +1,58 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+
+    <au-textbox
+      label="No."
+      show.bind="isEdit || isView"
+      value.bind="data.Code"
+      read-only.bind="true">
+    </au-textbox>
+
+    <au-autocomplete
+      placeholder="pilih unit"
+      label="Unit"
+      value.bind="selectedUnit"
+      error.bind="error.UnitId"
+      read-only.bind="isEdit || isView"
+      loader.bind="unitLoader"
+      query.bind="unitFilter"
+      key="name"
+      text="name">
+    </au-autocomplete>
+    
+    <au-dropdown
+      label="Tipe SPB"
+      value.bind="data.RequestType"
+      items.bind="typeItems"
+      error.bind="error.RequestType"
+      change.delegate="typeChanged($event)"
+      read-only.bind="isEdit || isView">
+    </au-dropdown>
+
+    <au-multiline
+      label="Remark"
+      value.bind="data.Remark"
+      read-only.bind="readOnly">
+    </au-multiline>
+
+    <au-textbox
+      show.bind="!data.MaterialsRequestNote_Items || data.MaterialsRequestNote_Items.length == 0"
+      error.bind="error.MaterialsRequestNote_Items"
+      read-only.bind="true">
+    </au-textbox>
+
+    <au-collection
+      errors.bind="error.MaterialsRequestNote_Items" 
+      items.bind="data.MaterialsRequestNote_Items"
+      options.bind="itemsOptions" 
+      columns.bind="itemHeader" 
+      add.bind="itemInfo.onAdd" 
+      remove.bind="itemInfo.onRemove"
+      read-only.bind="readOnly"
+      show.bind="selectedUnit"
+      item-template="modules/production/finishing-printing/materials-request-note/template/materials-request-note-item">
+    </au-collection>
+    
+  </au-input-form>
+
+</template>

@@ -45,6 +45,16 @@ export class List {
 
     loader = (info) => {
         var order = {};
+        var filter={
+            $or:[
+                {expiredBookingOrder:0},
+                { 
+                    orderQuantity:{
+                        $gt:0
+                    }
+                }
+            ]
+        };
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
@@ -52,7 +62,8 @@ export class List {
             size: info.limit,
             keyword: info.search,
            // select:["isConfirmed", "bookingDate", "garmentBuyerName", "style.code", "standardHour.shSewing", "orderQuantity", "deliveryDate"],
-            order: order
+            order: order,
+            filter:JSON.stringify(filter)
         }
 
         return this.service.search(arg)
@@ -69,6 +80,7 @@ export class List {
                     //status jumlah konfirm
                     if(a.items && a.items.length>0){
                         a.statusBook="Confirmed";
+
                         for(var b of a.items){
                             total+=b.quantity;
                         }
@@ -100,6 +112,9 @@ export class List {
                         }
                     }
                     if(total>a.orderQuantity || total===a.orderQuantity){
+                        a.expired="-";
+                    }
+                    if(a.isCanceled==true){
                         a.expired="-";
                     }
                 }

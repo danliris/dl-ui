@@ -60,7 +60,7 @@
             read-only.bind="true"
             options.bind="controlOptions">
         </numeric>
-        <div class="has-error" if.bind="booking.quantity">
+        <div class="has-error" if.bind="booking.quantity!=null">
             <numeric 
                 label="Jumlah Order Berubah" 
                 value.bind="booking.quantity" 
