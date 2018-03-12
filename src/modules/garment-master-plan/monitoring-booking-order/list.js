@@ -80,9 +80,9 @@ export class List {
                       a.setHours(0,0,0,0);
                       b.setHours(0,0,0,0);
                       var diff=a.getTime() - b.getTime();
-                      var timeDiff = Math.abs(a.getTime() - b.getTime());
+                      var timeDiff = a.getTime() - b.getTime();
                       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                      
+                    //   console.log(pr.items);
                       
                       if(diffDays>0 && diffDays<=45){
                         _data.diffDeliveryDateBooking = diffDays;
@@ -105,7 +105,7 @@ export class List {
                         _data.bookingOrderState="Sudah Dibuat Master Plan";   
                       }else if(pr.isMasterPlan == false && pr.isCanceled==false)
                       {
-                        if(!pr.items){
+                        if(pr.items==undefined){
                             _data.bookingOrderState="Booking";
                         } else if(pr.items){
                             _data.bookingOrderState="Confirmed";
@@ -120,22 +120,27 @@ export class List {
                         }
                       
                     }
-                    _data.row_count=row_span_count;
+                    
                     
                     if(_temp.code == _data.code){
                         _data.code=null;
                         _data.bookingDate=null;
                         _data.buyer=null;
                         _data.totalOrderQty=null;
+                        _data.deliveryDateBooking=null;
                         _data.confirmState=null;
                         _data.bookingOrderState=null;
                         _data.remaining=null;
                         _data.diffDeliveryDateBooking=null;
-                        _data.row_count=row_span_count+1;
+                        row_span_count=row_span_count+1;
+                        _data.row_count=row_span_count;
                         
                     } else if(!_temp.code || _temp.code!=pr.bookingCode){
                         _temp.code=_data.code;
+                        row_span_count=1;
+                        _data.row_count=row_span_count;
                     }
+                    console.log(_data.row_count);
                 
 
                     remain=0;
@@ -151,7 +156,8 @@ export class List {
                     
                  count++;    
                  counter ++;
-                 }                 
+                 }
+                //  console.log(this.data)                 
             });
             
     }
