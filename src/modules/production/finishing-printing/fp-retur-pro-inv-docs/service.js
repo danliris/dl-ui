@@ -22,7 +22,7 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    getBonById(id){
+    getBonById(id) {
         var endpoint = `${resource}/${id}`;
         return super.get(endpoint);
     }
@@ -40,6 +40,11 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
     }
 
 }

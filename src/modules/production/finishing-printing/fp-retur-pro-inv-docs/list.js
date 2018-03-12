@@ -11,7 +11,7 @@ export class List {
         this.router = router;
     }
 
-    context = ["detail"];
+    context = ["detail","Cetak PDF"];
     columns = [
         { field: "Code", title: "No. Bon Retur Barang" },
         { field: "Bon.No", title: "No. Bon Pengantar Greige" },
@@ -67,6 +67,9 @@ export class List {
         switch (arg.name) {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
