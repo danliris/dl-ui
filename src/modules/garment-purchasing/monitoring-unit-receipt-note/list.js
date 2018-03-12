@@ -31,12 +31,14 @@ export class List {
             no : this.no ? this.no : "",
             pr : this.pr ? this.pr : "",
             purchaseRequestRefNo : this.purchaseRequestRefNo ? this.purchaseRequestRefNo : "",
+            roNo : this.roNo ? this.roNo : "",
+            deliveryorderNo : this.deliveryorderNo ? this.deliveryorderNo : "",
             supplier : this.supplier ? this.supplier.code : "",
             unit : this.unit ? this.unit.code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        this.service.search(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.dateFrom,info.dateTo)
+        this.service.search(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.roNo,info.deliveryorderNo,info.dateFrom,info.dateTo)
             .then(result => {
                this.data=result;
             });
@@ -47,12 +49,14 @@ export class List {
             no : this.no ? this.no : "",
             pr : this.pr ? this.pr : "",
             purchaseRequestRefNo : this.purchaseRequestRefNo ? this.purchaseRequestRefNo : "",
+            roNo : this.roNo ? this.roNo : "",
+            deliveryorderNo : this.deliveryorderNo ? this.deliveryorderNo : "",
             supplier : this.supplier ? this.supplier.code : "",
             unit : this.unit ? this.unit.code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        this.service.generateXls(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.dateFrom,info.dateTo)
+        this.service.generateXls(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.roNo,info.deliveryorderNo,info.dateFrom,info.dateTo)
     }
   
 
@@ -61,6 +65,8 @@ export class List {
         this.no = "";
         this.pr="";
         this.purchaseRequestRefNo="";
+        this.roNo="";
+        this.deliveryorderNo="";
         this.unit = "";
         this.dateFrom = "";
         this.dateTo = "";

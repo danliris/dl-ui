@@ -10,7 +10,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable selectedBuyer;
-    @bindable selectedStyle;
+    @bindable selectedSection;
 
     controlOptions = {
         label: {
@@ -24,6 +24,7 @@ export class DataForm {
     // detailColumnsNew = [{ header: "Komoditi" }, {header: "Jumlah"}, {header: "Keterangan"}];
 
     buyerFields=["name", "code"];
+    sectionFields=["name", "code"];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -38,7 +39,16 @@ export class DataForm {
         if (this.data.garmentBuyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
             this.data.garmentBuyerId =this.selectedBuyer._id;
+            this.selectedSection = await this.service.getSectionById(this.data.garmentSectionId, this.sectionFields);
+            this.data.garmentSectionId =this.selectedSection._id;
         }
+
+        if(this.data._id) {
+          if (this.data.canceledBookingOrder){
+            this.data.beginingOrderQuantity=this.data.orderQuantity+this.data.canceledBookingOrder;
+          }
+        }
+
     }
 
     @computedFrom("data._id")
@@ -66,6 +76,7 @@ export class DataForm {
                 code:this.data.code,
                 masterPlanComodity: this.data.masterPlanComodity,
                 quantity: 0,
+                isCanceled: false,
                 remark: ''
             };
             this.data.items.push(newDetail);
@@ -75,5 +86,9 @@ export class DataForm {
     buyerView = (buyer) => {
         return `${buyer.code} - ${buyer.name}`
     }
+
+    sectionView = (section) => {
+      return `${section.code} - ${section.name}`
+  }
 
 } 

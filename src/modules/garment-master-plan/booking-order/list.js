@@ -34,17 +34,27 @@ export class List {
             }
         },
         {
-            field: "isMasterPlan", title: "Status",
+            field: "isMasterPlan", title: "Status Booking Order",
             formatter: function (value, data, index) {
-                return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : "Booking";
+                return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : data.statusBook;
             }
         },
-        {
-            field: "confirmStatus", title: "Status Jumlah Confirm" }
+        { field: "confirmStatus", title: "Status Jumlah Confirm" },
+        { field: "expired", title: "Status Sisa Order" }
     ];
 
     loader = (info) => {
         var order = {};
+        var filter={
+            $or:[
+                {expiredBookingOrder:0},
+                { 
+                    orderQuantity:{
+                        $gt:0
+                    }
+                }
+            ]
+        };
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
@@ -52,7 +62,8 @@ export class List {
             size: info.limit,
             keyword: info.search,
            // select:["isConfirmed", "bookingDate", "garmentBuyerName", "style.code", "standardHour.shSewing", "orderQuantity", "deliveryDate"],
-            order: order
+            order: order,
+            filter:JSON.stringify(filter)
         }
 
         return this.service.search(arg)
@@ -60,10 +71,16 @@ export class List {
                 var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
+                var today=new Date();
                 for(var a of result.data){
                     a.confirmStatus='';
+                    a.expired="On Process";
+                    a.statusBook="Booking";
                     var total=0;
+                    //status jumlah konfirm
                     if(a.items && a.items.length>0){
+                        a.statusBook="Confirmed";
+
                         for(var b of a.items){
                             total+=b.quantity;
                         }
@@ -79,6 +96,26 @@ export class List {
                     }
                     else{
                         a.confirmStatus='Belum Confirm';
+                    }
+
+                    //status sisa order
+                    if(a.orderQuantity> total ||  a.items.length==0){
+                        var c = new Date(a.deliveryDate);
+                        var b = today;
+                        c.setHours(0,0,0,0);
+                        b.setHours(0,0,0,0);
+                        var diff=c.getTime() - b.getTime();
+                        var timeDiff = Math.abs(c.getTime() - b.getTime());
+                        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                        if(diffDays<=45){
+                            a.expired="Expired";
+                        }
+                    }
+                    if(total>a.orderQuantity || total===a.orderQuantity){
+                        a.expired="-";
+                    }
+                    if(a.isCanceled==true){
+                        a.expired="-";
                     }
                 }
                 return {

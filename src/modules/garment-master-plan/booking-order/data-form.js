@@ -47,6 +47,15 @@ export class DataForm {
         if (!this.data.bookingDate) {
             this.data.bookingDate = new Date();
         }
+
+        if(this.data._id) {
+          if (this.data.expiredBookingOrder){
+            this.data.beginingOrderQuantity=this.data.orderQuantity+this.data.expiredBookingOrder;
+          }
+          if (this.data.canceledBookingOrder){
+            this.data.beginingOrderQuantity=this.data.orderQuantity+this.data.canceledBookingOrder;
+          }
+        }
     }
 
     @computedFrom("data._id")

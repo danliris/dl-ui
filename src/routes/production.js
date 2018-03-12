@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1 },
+            //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -22,7 +22,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1 },
+            //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -35,7 +35,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1 },
+            //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -48,7 +48,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1 },
+            //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -353,6 +353,7 @@ module.exports = [
         }
     },
     {
+
         route: 'production/finishing-printing/fp-retur-pro-inv-docs',
         name: 'fp-retur-pro-inv-docs',
         moduleId: './modules/production/finishing-printing/fp-retur-pro-inv-docs/index',
@@ -364,7 +365,20 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    }, {
+        route: "production/finishing-printing/materials-request-note",
+        name: "production/finishing-printing/materials-request-note",
+        moduleId: "./modules/production/finishing-printing/materials-request-note/index",
+        nav: true,
+        title: "Surat Permintaan Barang",
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "*": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
+
 ]
 
 

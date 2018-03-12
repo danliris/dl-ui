@@ -21,6 +21,17 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-autocomplete 
+            value.bind="selectedSection" 
+            error.bind="error.section"
+            label="Seksi" 
+            loader.bind="sectionLoader"
+            text.bind = "sectionView"
+            key="code" 
+            read-only="true"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-datepicker 
             label="Tanggal Booking" 
             value.bind="data.bookingDate" 
@@ -56,6 +67,15 @@
         </au-autocomplete>
         
         <numeric 
+            label="Jumlah Order Awal" 
+            value.bind="data.beginingOrderQuantity" 
+            error.bind="error.beginingOrderQuantity" 
+            if.bind="data.beginingOrderQuantity"
+            format="0"
+            read-only="true">
+        </numeric>
+
+        <numeric 
             label="Jumlah Order" 
             value.bind="data.orderQuantity" 
             error.bind="error.orderQuantity" 
@@ -89,6 +109,7 @@
             remove.bind="removeItems"
             options.bind="options"
             read-only.bind="readOnly"
+            header-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-header"
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
         </au-collection>
