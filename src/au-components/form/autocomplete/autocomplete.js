@@ -78,7 +78,8 @@ export class Autocomplete {
 
     var promise;
     if (Array.isArray(this.loader)) {
-      promise = Promise.resolve(this.loader.filter(item => startsWith(this.getSuggestionValue(item), keyword)));
+      // promise = Promise.resolve(this.loader.filter(item => startsWith(this.getSuggestionValue(item), keyword)));
+      promise = Promise.resolve(this.loader.filter(item => item[this.text].toUpperCase().indexOf(keyword.toUpperCase()) !== -1));
     } else if (typeof this.loader === 'function') {
       promise = this.loader(keyword, this.query);
     }
