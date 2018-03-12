@@ -2,11 +2,9 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 import { debug } from 'util';
 
-var YarnLoader = require('../../../../loader/spinning-yarn-loader');
-var MachineLoader = require('../../../../loader/machine-loader');
-var UnitLoader = require('../../../../loader/unit-loader');
+var MaterialDistributionLoader = require('../../../../loader/material-distribution-notes');
+var materialDistributionDetailsLoader = require('../../../../loader/material-distribution-notes-details');
 
-// var moment = require('moment');
 @inject(Service)
 export class DataForm {
     @bindable isCreate = false;
@@ -16,10 +14,8 @@ export class DataForm {
     @bindable data = {};
     @bindable error;
     @bindable title;
-    // @bindable unit;
-    // @bindable machine;
-    // @bindable yarn;
-    // @bindable Details = [];
+    @bindable Supplier;
+    @bindable NoBon;
 
     formOptions = {
         cancelText: "Kembali",
@@ -27,7 +23,6 @@ export class DataForm {
         editText: "Ubah",
         deleteText: "Hapus",
     };
-
 
     controlOptions = {
         label: {
@@ -38,8 +33,9 @@ export class DataForm {
         }
     }
 
-    // spinningFilter = { "division.name": { "$regex": "SPINNING", "$options": "i" } };
-    // shift = ["Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
+    filter = {}
+    products = [];
+    options = {};
 
     constructor(service) {
         this.service = service;
@@ -50,22 +46,14 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        // this.data.Input = this.data.Input || [];
-        // this.Lot = {}
 
-        // if (this.data.Unit && this.data.Unit._id) {
-        //     this.unit = this.data.Unit;
-        // }
+        if (this.data.Bon && this.data.Bon.Id) {
+            this.NoBon = this.data.Bon;
+        }
 
-
-        // if (this.data.Counter && this.data.Hank) {
-        //     var inputData = {
-        //         Counter: this.data.Counter,
-        //         Hank: this.data.Hank
-        //     };
-        //     this.data.Input.push(inputData)
-        // }
-
+        if (this.data.Supplier && this.data.Supplier._id) {
+            this.Supplier = this.data.Supplier;
+        }
 
     }
 
@@ -74,15 +62,61 @@ export class DataForm {
             { header: "Nama Barang", value: "BonProduct" },
             { header: "Jumlah (Piece)", value: "Quantity" },
             { header: "Panjang (Meter)", value: "Length" },
-            { header: "Panjang (Yard)", value: "Yard" },
             { header: "Keterangan", value: "remark" },
         ],
         onAdd: function () {
-            // this.data.Details.push({ BonProduct: {}, Quantity: 0, Length: 0, Yard: 0, remark: "" });
             this.data.Details.push({});
         }.bind(this),
         onRemove: function () {
         }.bind(this)
     };
+
+    get materialDistributionLoader() {
+        return MaterialDistributionLoader;
+    }
+
+    get materialDistributionDetailsLoader() {
+        return materialDistributionDetailsLoader;
+    }
+
+    SupplierChanged(newValue, oldValue) {
+        this.products = [];
+
+        if (newValue.details != undefined) {
+            for (let detail of newValue.details) {
+                this.products.push({
+                    Id: detail.Product._id,
+                    Code: detail.Product.code,
+                    Name: detail.Product.name,
+                    Length: detail.ReceivedLength,
+                    Quantity: detail.Quantity,
+                })
+            }
+            this.options.productLoader = this.products;
+        }
+
+        if (this.Supplier && this.Supplier.name) {
+            this.data.Supplier = this.Supplier
+        }
+        else {
+            this.Supplier = null;
+        }
+    }
+
+    async NoBonChanged(newValue, oldValue) {
+        if (this.NoBon && this.NoBon.Id) {
+            this.filter = { "Id": newValue.Id };
+            var BonData = await this.service.getBonById(newValue.Id);
+            this.data.Bon = this.NoBon;
+            this.data.Bon.UnitName = BonData.Unit.name;
+            if (oldValue) {
+                this.Supplier = null;
+            }
+        }
+        else {
+            this.NoBon = null;
+            this.Supplier = null;
+        }
+    }
 
 } 

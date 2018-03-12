@@ -1,9 +1,9 @@
 export class detail {
     activate(context) {
         this.context = context;
-        this.Input = context.data;
+        this.data = context.data;
         this.error = context.error;
-        this.options = context.options;
+        this.options = context.context.options;
         this.contextOptions = context.context.options;
     }
 
@@ -12,4 +12,9 @@ export class detail {
             length: 12
         }
     };
+
+    get productLoader() {
+        return this.options.productLoader ? this.options.productLoader : [];
+    }
+
 }

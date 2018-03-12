@@ -13,19 +13,16 @@ export class List {
 
     context = ["detail"];
     columns = [
-        // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
-        // { field: "Yarn.Name", title: "Yarn Name" },
-        { field: "Unit.name", title: "No Bon Retur" },
-        { field: "Unit.name", title: "No Bon Terima Unit" },
-        { field: "Unit.name", title: "Supplier" },
+        { field: "Code", title: "No. Bon Retur Barang" },
+        { field: "Bon.No", title: "No. Bon Pengantar Greige" },
+        { field: "Supplier.name", title: "Supplier" },
         {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+            field: "_CreatedUtc", title: "Tanggal", formatter: (value, data) => {
+                return moment(value).format("DD-MMM-YYYY");
             }
         },
-        { field: "Unit.name", title: "Total Jumlah" },
-        { field: "Unit.name", title: "Total Panjang" },
-        { field: "Shift", title: "Keterangan" },
+        { field: "Total", title: "Total" },
+        { field: "TotalLength", title: "Total Panjang (Meter)" },
     ]
 
     loader = (info) => {
@@ -42,9 +39,20 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                var results = []
+                for (var data of result.data) {
+                    data.Total = 0;
+                    data.TotalLength = 0;
+
+                    for (var i of data.Details) {
+                        data.Total += i.Quantity;
+                        data.TotalLength += i.Length;
+                    }
+                    results.push(data);
+                }
                 return {
                     total: result.info.total,
-                    data: result.data
+                    data: results,
                 }
             });
     }
