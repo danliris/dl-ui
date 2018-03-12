@@ -82,7 +82,7 @@ export class List {
                       var diff=a.getTime() - b.getTime();
                       var timeDiff = a.getTime() - b.getTime();
                       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                      console.log(pr.items);
+                    //   console.log(pr.items);
                       
                       if(diffDays>0 && diffDays<=45){
                         _data.diffDeliveryDateBooking = diffDays;
@@ -120,7 +120,7 @@ export class List {
                         }
                       
                     }
-                    _data.row_count=row_span_count;
+                    
                     
                     if(_temp.code == _data.code){
                         _data.code=null;
@@ -132,11 +132,15 @@ export class List {
                         _data.bookingOrderState=null;
                         _data.remaining=null;
                         _data.diffDeliveryDateBooking=null;
-                        _data.row_count=row_span_count+1;
+                        row_span_count=row_span_count+1;
+                        _data.row_count=row_span_count;
                         
                     } else if(!_temp.code || _temp.code!=pr.bookingCode){
                         _temp.code=_data.code;
+                        row_span_count=1;
+                        _data.row_count=row_span_count;
                     }
+                    console.log(_data.row_count);
                 
 
                     remain=0;
@@ -152,7 +156,8 @@ export class List {
                     
                  count++;    
                  counter ++;
-                 }                 
+                 }
+                //  console.log(this.data)                 
             });
             
     }
