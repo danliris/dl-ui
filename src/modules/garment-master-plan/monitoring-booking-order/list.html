@@ -4,6 +4,15 @@
         <h1 class="page-header">Monitoring Booking Order</h1>
         <form class="form-horizontal">
             <au-autocomplete 
+                value.bind="section.code" 
+                label="Section" 
+                loader.bind="sectionLoader"
+                text.bind = "sectionView"
+                placeholder="Section" 
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
+            </au-autocomplete>
+            <au-autocomplete 
                 value.bind="code" 
                 label="Kode Booking" 
                 loader.bind="bookingOrderLoader"
