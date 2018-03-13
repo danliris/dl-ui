@@ -20,6 +20,7 @@ export class View {
   }
 
   async activate(params) {
+      this.params = params;
       var id = params.id;
       this.data = await this.service.getById(id);
       var conf=false;
@@ -133,4 +134,20 @@ export class View {
           this.cancel();
         });
   }  
+
+  onitemchange(event) {
+    var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
+    
+    if(indexCanceledItem > -1) {
+      this.service.update(this.data)
+        .then(result => {
+          alert("Data Canceled");
+          this.activate(this.params);
+        })
+        .catch(e => {
+          this.error = e;
+          this.activate(this.params);
+        });
+    }
+  }
 }

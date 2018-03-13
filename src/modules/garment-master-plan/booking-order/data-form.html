@@ -114,6 +114,8 @@
             options.bind="options"
             read-only="true"
             if.bind="data.code"
+            click.delegate="onitemchange($event)"
+            header-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-header"
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
         </au-collection>
