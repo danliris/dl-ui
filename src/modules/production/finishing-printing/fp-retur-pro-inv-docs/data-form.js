@@ -41,7 +41,6 @@ export class DataForm {
         this.service = service;
     }
 
-
     bind(context) {
         this.context = context;
         this.data = this.context.data;
