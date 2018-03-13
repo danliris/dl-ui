@@ -33,6 +33,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "remark", title: "Keterangan" },
         {
             field: "isMasterPlan", title: "Status Booking Order",
             formatter: function (value, data, index) {
@@ -46,14 +47,9 @@ export class List {
     loader = (info) => {
         var order = {};
         var filter={
-            $or:[
-                {expiredBookingOrder:0},
-                { 
                     orderQuantity:{
                         $gt:0
                     }
-                }
-            ]
         };
         if (info.sort)
             order[info.sort] = info.order;
