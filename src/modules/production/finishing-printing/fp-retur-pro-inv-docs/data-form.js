@@ -80,7 +80,6 @@ export class DataForm {
 
     SupplierChanged(newValue, oldValue) {
         this.products = [];
-
         if (newValue.details != undefined) {
             for (let detail of newValue.details) {
                 this.products.push({

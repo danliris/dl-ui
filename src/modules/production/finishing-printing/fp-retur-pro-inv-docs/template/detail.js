@@ -14,7 +14,7 @@ export class detail {
     };
 
     get productLoader() {
-        return this.options.productLoader ? this.options.productLoader : [];
+        return this.options.productLoader;
     }
 
 }
