@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'invoice-notes/by-user';
 const deliveryOrderUri = 'delivery-orders/no-invoice';
+const deliveryOrderUriRouter = 'basic-delivery-orders';
 
 export class Service extends RestService {
 
@@ -51,5 +52,10 @@ export class Service extends RestService {
     getDeliveryOrder(filter) {
         var endpoint = `${deliveryOrderUri}`;
         return super.list(endpoint, {filter: JSON.stringify(filter)});
+    }
+
+    getDeliveryOrder2(info) {
+        var endpoint = `${deliveryOrderUriRouter}`;
+        return super.list(endpoint, info);
     }
 }

@@ -1,153 +1,71 @@
 <template>
-    
-        <au-input-form title.bind="title" with.bind="context">
-            <div slot="actions" class="btn-group">
-                <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
-                <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
-                <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-                <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
-            </div>
-    
-            <au-textbox 
-                label="Nomor Invoice" 
-                value.bind="data.no" 
-                error.bind="error.no" 
-                placeholder="masukan nomor invoice" 
-                read-only.bind="readOnly"
-                options.bind="controlOptions">
-            </au-textbox>
-    
-            <au-datepicker 
-                label="Tgl. Invoice" 
-                value.bind="data.date" 
-                error.bind="error.date" 
-                read-only.bind="readOnly"
-                options.bind="controlOptions">
-            </au-datepicker>
-    
-            <au-autocomplete 
-                value.bind="supplier" 
-                error.bind="error.supplierId"
-                label="Supplier" 
-                loader.bind="supplierLoader"
-                text.bind = "supplierView"
-                placeholder="cari supplier" 
-                key="code" 
-                read-only.bind="readOnly"
-                options.bind="controlOptions">
-            </au-autocomplete>
-    
-            <au-autocomplete 
-                value.bind="currency" 
-                error.bind="error.currency"
-                label="Mata Uang" 
-                loader.bind="currencyLoader"
-                text.bind = "currencyView"
-                placeholder="cari mata uang" 
-                key="code" 
-                read-only.bind="readOnly"
-                options.bind="controlOptions">
-            </au-autocomplete>
-    
-            <au-checkbox 
-                label="Apakah kena Ppn?" 
-                value.bind="data.useIncomeTax" 
-                error.bind="error.useIncomeTax" 
-                change.delegate="useIncomeTaxChanged($event)"
-                read-only.bind="readOnly"
-                options.bind="controlOptions">
-            </au-checkbox>
-    
-            <au-textbox 
-                label="Nomor Ppn" 
-                value.bind="data.incomeTaxNo" 
-                error.bind="error.incomeTaxNo" 
-                read-only.bind="readOnly"
-                show.bind="data.useIncomeTax"
-                placeholder="masukan nomor Ppn" 
-                options.bind="controlOptions">
-            </au-textbox>
-    
-            <au-datepicker 
-                label="Tgl. Ppn" 
-                value.bind="data.incomeTaxDate" 
-                error.bind="error.incomeTaxDate" 
-                read-only.bind="readOnly"
-                show.bind="data.useIncomeTax"
-                options.bind="controlOptions">
-            </au-datepicker>
-    
-            <au-checkbox 
-                label="Apakah kena Pph?" 
-                value.bind="data.useVat" 
-                error.bind="error.useVat" 
-                change.delegate="useVatChanged($event)"
-                read-only.bind="readOnly"
-                options.bind="controlOptions">
-            </au-checkbox>
-    
-            <au-textbox 
-                label="Nomor Pph" 
-                value.bind="data.vatNo" 
-                error.bind="error.vatNo" 
-                read-only.bind="readOnly"
-                show.bind="data.useVat"
-                placeholder="masukan nomor Pph" 
-                options.bind="controlOptions">
-            </au-textbox>
-    
-            <au-datepicker 
-                label="Tgl. Pph" 
-                value.bind="data.vatDate" 
-                error.bind="error.vatDate" 
-                read-only.bind="readOnly"
-                show.bind="data.useVat"
-                options.bind="controlOptions">
-            </au-datepicker>
-    
-            <au-autocomplete 
-                value.bind="vat" 
-                error.bind="error.vat"
-                label="Jenis Pph" 
-                loader.bind="vatLoader"
-                text.bind = "vatView"
-                placeholder="cari pph" 
-                read-only.bind="readOnly"
-                show.bind="data.useVat"
-                options.bind="controlOptions"
-                view-model.ref="vatVM">
-            </au-autocomplete>
-    
-            <au-checkbox 
-                label="Apakah bayar pajak?" 
-                value.bind="data.isPayTax" 
-                error.bind="error.isPayTax" 
-                read-only.bind="readOnly"
-                show.bind="data.useVat || data.useIncomeTax"
-                options.bind="controlOptions">
-            </au-checkbox>
-            
-            <au-collection 
-                items.bind="data.items" 
-                errors.bind="error.items" 
-                columns.bind="itemsInfo.columns"
-                show.bind="data.items.length > 0  && !readOnly"
-                read-only.bind="readOnly"
-                options.bind="options"
-                checkall.delegate="onClickAllDataSource($event)"
-                item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
-            </au-collection>
-    
-            <au-collection 
-                items.bind="data.items" 
-                errors.bind="error.items" 
-                columns.bind="itemsInfo.columnsReadOnly"
-                show.bind="data.items.length > 0 && readOnly"
-                read-only.bind="readOnly"
-                options.bind="options"
-                checkall.delegate="onClickAllDataSource($event)"
-                item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
-            </au-collection>
-    
-        </au-input-form>
-    </template>
+
+    <au-input-form title.bind="title" with.bind="context">
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
+        <au-textbox label="Nomor Invoice" value.bind="data.no" error.bind="error.no" placeholder="masukan nomor invoice" read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker label="Tgl. Invoice" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-autocomplete value.bind="supplier" error.bind="error.supplierId" label="Supplier" loader.bind="supplierLoader" text.bind="supplierView"
+            placeholder="cari supplier" key="code" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete value.bind="currency" error.bind="error.currency" label="Mata Uang" loader.bind="currencyLoader" text.bind="currencyView"
+            placeholder="cari mata uang" key="code" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-checkbox label="Apakah kena Ppn?" value.bind="data.useIncomeTax" error.bind="error.useIncomeTax" change.delegate="useIncomeTaxChanged($event)"
+            read-only.bind="readOnly" options.bind="controlOptions">
+        </au-checkbox>
+
+        <au-textbox label="Nomor Ppn" value.bind="data.incomeTaxNo" error.bind="error.incomeTaxNo" read-only.bind="readOnly" show.bind="data.useIncomeTax"
+            placeholder="masukan nomor Ppn" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker label="Tgl. Ppn" value.bind="data.incomeTaxDate" error.bind="error.incomeTaxDate" read-only.bind="readOnly"
+            show.bind="data.useIncomeTax" options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-checkbox label="Apakah kena Pph?" value.bind="data.useVat" error.bind="error.useVat" change.delegate="useVatChanged($event)"
+            read-only.bind="readOnly" options.bind="controlOptions">
+        </au-checkbox>
+
+        <au-textbox label="Nomor Pph" value.bind="data.vatNo" error.bind="error.vatNo" read-only.bind="readOnly" show.bind="data.useVat"
+            placeholder="masukan nomor Pph" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker label="Tgl. Pph" value.bind="data.vatDate" error.bind="error.vatDate" read-only.bind="readOnly" show.bind="data.useVat"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-autocomplete value.bind="vat" error.bind="error.vat" label="Jenis Pph" loader.bind="vatLoader" text.bind="vatView" placeholder="cari pph"
+            read-only.bind="readOnly" show.bind="data.useVat" options.bind="controlOptions" view-model.ref="vatVM">
+        </au-autocomplete>
+
+        <au-checkbox label="Apakah bayar pajak?" value.bind="data.isPayTax" error.bind="error.isPayTax" read-only.bind="readOnly"
+            show.bind="data.useVat || data.useIncomeTax" options.bind="controlOptions">
+        </au-checkbox>
+
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.items.length > 0  && !readOnly"
+            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+        </au-collection>
+
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columnsReadOnly" show.bind="data.items.length > 0 && readOnly"
+            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+        </au-collection>
+
+        <div class="text-center">
+            <button class="circle-btn" type="button" click.delegate="loadItems()" show.bind="!isActivitiesEqualTotal">Load More</button>
+        </div>
+
+    </au-input-form>
+</template>
