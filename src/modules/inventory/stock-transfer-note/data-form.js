@@ -57,28 +57,6 @@ export class DataForm {
 			delete this.stnInfo.options.filter.storageCode;
 
 			Object.assign(this.stnInfo.options.filter, { "storageCode": this.data.SourceStorage.code });
-
-			var filter = {
-				"$and": [
-					{ "storageCode": this.sourceStorage.code },
-					{ "_deleted": false },
-				]
-			}
-
-			var info = { filter: JSON.stringify(filter) };
-
-			this.service.getSummaries(info)
-				.then(result => {
-
-					for (let item of result) {
-						let detail = {
-							Summary: item,
-							TransferedQuantity: 0
-						};
-
-						this.data.StockTransferNoteItems.push(detail);
-					}
-				});
 		}
 		else {
 			this.data.SourceStorage = undefined;
