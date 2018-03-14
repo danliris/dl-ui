@@ -141,7 +141,11 @@ export class View {
     if(indexCanceledItem > -1) {
       this.service.update(this.data)
         .then(result => {
-          alert("Data Canceled");
+          alert("Confirm Canceled");
+          this.hasEdit = true;
+          this.hasDelete = true;
+          this.hascancelConfirm = true;
+          this.hasConfirm = true;
           this.activate(this.params);
         })
         .catch(e => {
