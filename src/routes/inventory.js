@@ -168,5 +168,31 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
+    },
+    {
+        route: "inventory/stock-transfer-note",
+        name: "inventory/stock-transfer-note",
+        moduleId: "modules/inventory/stock-transfer-note/index",
+        nav: true,
+        title: "Catatan Transfer Stok",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "inventory/stock-transfer-approval",
+        name: "inventory/stock-transfer-approval",
+        moduleId: "modules/inventory/stock-transfer-approval/index",
+        nav: true,
+        title: "Terima Transfer Stok",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     }
 ]
