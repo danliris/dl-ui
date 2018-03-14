@@ -75,7 +75,7 @@
             error.bind="error.beginingOrderQuantity" 
             if.bind="data.beginingOrderQuantity"
             format="0"
-            read-only.bind="readOnly">
+            read-only="true">
         </numeric>
 
         <numeric 
@@ -114,7 +114,7 @@
             options.bind="options"
             read-only="true"
             if.bind="data.code"
-            click.delegate="onitemchange($event)"
+            change.delegate="onitemchange($event)"
             header-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-header"
             item-template="modules/garment-master-plan/booking-order/templates/booking-order-detail"
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
