@@ -70,6 +70,10 @@ export class View {
         this.expireBooking=false;
         this.hascancelConfirm = false;
       }
+
+      if(this.data.canceledItems && this.data.canceledItems.length > 0) {
+        this.hasEdit = false;
+      }
   }
 
   cancel(event) {
