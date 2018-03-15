@@ -22,10 +22,9 @@
     
     <au-dropdown
       label="Tipe SPB"
-      value.bind="data.RequestType"
+      value.bind="type"
       items.bind="typeItems"
       error.bind="error.RequestType"
-      change.delegate="typeChanged($event)"
       read-only.bind="isEdit || isView">
     </au-dropdown>
 
