@@ -64,7 +64,7 @@
         </au-collection>
 
         <div class="text-center">
-            <button class="circle-btn" type="button" click.delegate="loadItems()" show.bind="!isActivitiesEqualTotal">Load More</button>
+            <button class="circle-btn" type="button" click.delegate="loadItems()" show.bind="!isActivitiesEqualTotal && !readOnly && data.items.length > 0">Load More</button>
         </div>
 
     </au-input-form>

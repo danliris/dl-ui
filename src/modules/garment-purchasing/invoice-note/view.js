@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -9,9 +9,14 @@ export class View {
     hasEdit = true;
     hasDelete = true;
 
+    totalData = 0;
+    size = 5;
+    items = [];
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
+
     }
 
     async activate(params) {
@@ -20,6 +25,9 @@ export class View {
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
         this.vat = this.data.vat;
+
+        this.items = this.data.items;
+        this.totalData = this.items.length;
     }
 
     cancel(event) {
@@ -31,7 +39,19 @@ export class View {
     }
 
     delete(event) {
+
+        var itemTemp = [];
+        for (var i = 0; i < this.size; i++) {
+            itemTemp.push(this.items[i]);
+        }
+        this.data.items = itemTemp;
+        this.items = this.items.slice(itemTemp.length);
+
         this.service.delete(this.data).then(result => {
+            if (this.size < this.totalData) {
+                this.size += this.size;
+                this.delete(event);
+            }
             this.cancel();
         });
     }

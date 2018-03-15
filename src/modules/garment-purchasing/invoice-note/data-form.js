@@ -244,17 +244,17 @@ export class DataForm {
         this.resetErrorItems();
     }
 
-
     arg = {
         page: 1,
         size: 10,
+        select: ["hasInvoice", "_id", "no", "date", "supplierDoDate", "items"]
     };
 
     totalItem = 0;
 
     @computedFrom("data.items.length")
     get isActivitiesEqualTotal() {
-        return this.totalItem == this.data.items.length;
+            return this.totalItem == this.data.items.length;
     }
 
     async loadItems() {
