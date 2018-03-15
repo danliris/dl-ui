@@ -11,8 +11,8 @@
         <hr/>
         <div class="btn-group pull-right">
             <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
-            <a click.delegate="edit(data)" class='btn btn-primary btn-sm'>Ubah</a>
-            <a click.delegate="promptDelete()" class='btn btn-danger btn-sm'>Hapus</a>
+            <a click.delegate="edit(data)" if.bind="!data.IsDistributed" class='btn btn-primary btn-sm'>Ubah</a>
+            <a click.delegate="promptDelete()" if.bind="!data.IsDistributed" class='btn btn-danger btn-sm'>Hapus</a>
         </div>
     </block>
 </template>
