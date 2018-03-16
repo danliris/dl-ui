@@ -254,12 +254,12 @@ export class DataForm {
 
     @computedFrom("data.items.length")
     get isActivitiesEqualTotal() {
-            return this.totalItem == this.data.items.length;
+        return this.totalItem == this.data.items.length;
     }
 
     async loadItems() {
-        this.arg.filter = JSON.stringify({ $and: [{ "supplier.code": this.data.supplier.code }, { hasInvoice: false }] });
-        var result = await this.service.getDeliveryOrder2(this.arg);
+        this.arg.filter = JSON.stringify({ "supplier.code": this.data.supplier.code, hasInvoice: false });
+        var result = await this.service.getDeliveryOrder(this.arg);
         this.totalItem = result.info.total
         this.arg.page++
         var _deliveryOrders = result.data || []

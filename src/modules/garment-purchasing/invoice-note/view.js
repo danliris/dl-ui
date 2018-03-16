@@ -42,7 +42,9 @@ export class View {
 
         var itemTemp = [];
         for (var i = 0; i < this.size; i++) {
-            itemTemp.push(this.items[i]);
+            if (this.items[i] != undefined) {
+                itemTemp.push(this.items[i]);
+            }
         }
         this.data.items = itemTemp;
         this.items = this.items.slice(itemTemp.length);
