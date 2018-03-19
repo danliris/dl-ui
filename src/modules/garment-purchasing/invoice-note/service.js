@@ -49,12 +49,7 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
-    getDeliveryOrder(filter) {
-        var endpoint = `${deliveryOrderUri}`;
-        return super.list(endpoint, {filter: JSON.stringify(filter)});
-    }
-
-    getDeliveryOrder2(info) {
+    getDeliveryOrder(info) {
         var endpoint = `${deliveryOrderUriRouter}`;
         return super.list(endpoint, info);
     }

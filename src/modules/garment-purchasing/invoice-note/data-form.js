@@ -244,10 +244,10 @@ export class DataForm {
         this.resetErrorItems();
     }
 
-
     arg = {
         page: 1,
         size: 10,
+        select: ["hasInvoice", "_id", "no", "date", "supplierDoDate", "items"]
     };
 
     totalItem = 0;
@@ -258,8 +258,8 @@ export class DataForm {
     }
 
     async loadItems() {
-        this.arg.filter = JSON.stringify({ $and: [{ "supplier.code": this.data.supplier.code }, { hasInvoice: false }] });
-        var result = await this.service.getDeliveryOrder2(this.arg);
+        this.arg.filter = JSON.stringify({ "supplier.code": this.data.supplier.code, hasInvoice: false });
+        var result = await this.service.getDeliveryOrder(this.arg);
         this.totalItem = result.info.total
         this.arg.page++
         var _deliveryOrders = result.data || []
