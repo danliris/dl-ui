@@ -37,7 +37,7 @@ export class DataForm {
 
     items = {
         columns: [
-            "Nomor PR - Nomor Referensi PR",
+            "Nomor PR - No. Referensi PR - Article",
             "Nomor RO",
             "Barang",
             "Jumlah Diminta",
@@ -326,6 +326,7 @@ export class DataForm {
                                 prId: data.purchaseRequest._id,
                                 prRefNo: data.items.refNo,
                                 roNo: data.roNo,
+                                artikel: data.artikel,
                                 productId: data.items.productId,
                                 product: data.items.product,
                                 categoryId: data.items.category._id,
