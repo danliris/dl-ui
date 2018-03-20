@@ -15,11 +15,17 @@ export class DataForm {
     @bindable data;
     @bindable error;
 
-
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
         this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
+
+        this.itemsOptions = {
+            productionOrderFilter: {
+                "isClosed": false
+            },
+            isTest: false
+        }
     }
 
     bind(context) {
@@ -27,11 +33,14 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
+        this.type = this.data.RequestType || null;
+
         if (this.data.Unit && this.data.Unit._id) {
             this.selectedUnit = this.data.Unit;
         }
 
         this.itemsOptions.isTest = this.data.RequestType && this.data.RequestType.toUpperCase() == "TEST" ? true : false;
+
     }
 
     numberOptions = {
@@ -48,7 +57,10 @@ export class DataForm {
     selectedUnitChanged(newVal, oldVal) {
         if (this.selectedUnit && this.selectedUnit._id) {
             this.data.Unit = this.selectedUnit;
-            this.itemsOptions.productionOrderFilter = this.selectedUnit.name && this.selectedUnit.name.toUpperCase() === "PRINTING" ? { "orderType.name": "PRINTING", "isClosed": false } : { "orderType.name": { "$nin": ["PRINTING"] }, "isClosed": false };
+
+            delete this.itemsOptions.productionOrderFilter["orderType"];
+            var filter = this.selectedUnit.name && this.selectedUnit.name.toUpperCase() === "PRINTING" ? { "orderType.name": "PRINTING" } : { "orderType.name": { "$nin": ["PRINTING"] } };
+            Object.assign(this.itemsOptions.productionOrderFilter, filter);
 
             if (oldVal)
                 this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
@@ -63,8 +75,20 @@ export class DataForm {
         return UnitLoader;
     }
 
-    typeChanged(e) {
-        this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
+    @bindable type;
+    typeChanged(newVal, oldVal) {
+        this.data.RequestType = newVal ? newVal : this.data.RequestType;
+
+        delete this.itemsOptions.productionOrderFilter["isRequested"];
+        if (newVal && newVal.toUpperCase() == "AWAL") {
+            var filter = {
+                "isRequested": false
+            }
+            Object.assign(this.itemsOptions.productionOrderFilter, filter);
+        }
+
+        if (oldVal)
+            this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
     }
 
     get itemHeader() {

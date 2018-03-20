@@ -24,8 +24,6 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.data.Date =  moment(this.data.Date).format("DD MMM YYYY HH:mm")
-        debugger
         this.service.create(this.data)
             .then(result => {
                 alert(`create data success`);

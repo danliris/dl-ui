@@ -31,6 +31,8 @@ export class DetailItem {
   }
 
   oncancel(data) {
-    this.data.isCanceled = true;
+    if (confirm("Cancel Confirm Comodity " + this.data.masterPlanComodity.name + " (Jumlah : " + this.data.quantity + ")\nLanjutkan?")) {
+      this.data.isCanceled = true;
+    }
   }
 }
