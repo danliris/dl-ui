@@ -6,6 +6,7 @@ import moment from 'moment';
 var BuyerLoader=require('../../../loader/garment-buyers-loader');
 var BookingOrderLoader=require('../../../loader/garment-booking-order-loader');
 var ComodityLoader=require('../../../loader/garment-master-plan-comodity-loader');
+var SectionLoader=require('../../../loader/garment-sections-loader');
 
 @inject(Router, Service)
 export class List {
@@ -22,13 +23,18 @@ export class List {
      get comodityLoader(){
         return ComodityLoader;
     }
+     get sectionLoader(){
+        return SectionLoader;
+     }
+    
      
     confirmStateOption = ["","Belum Dikonfirmasi","Sudah Dikonfirmasi"];
-    bookingOrderStateOption = ["","Booking","Confirmed","Sudah Dibuat Master Plan","Booking Dibatalkan"];
+    bookingOrderStateOption = ["","Booking","Confirmed","Sudah Dibuat Master Plan"];//,"Booking Dibatalkan"];
  searching() {
      
     var info = {
             
+            section : this.section ? this.section.code.code : "",
             code : this.code ? this.code.code : "",
             buyer : this.buyer ? this.buyer.name : "",
             comodity : this.comodity ? this.comodity.name : "",
@@ -37,6 +43,7 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
+
         this.service.search(info)
      
             .then(result => {
@@ -62,8 +69,7 @@ export class List {
                for (var pr of result) {
                   var _data = {};
                   
-                  
-                     _data.code=  pr.bookingCode;
+                      _data.code=  pr.bookingCode;
                       _data.bookingDate =pr.bookingDate ? moment(pr.bookingDate).format("DD MMMM YYYY") : "";;
                       _data.buyer = pr.buyer;
                       _data.totalOrderQty = pr.totalOrderQty;
@@ -80,9 +86,9 @@ export class List {
                       a.setHours(0,0,0,0);
                       b.setHours(0,0,0,0);
                       var diff=a.getTime() - b.getTime();
-                      var timeDiff = Math.abs(a.getTime() - b.getTime());
+                      var timeDiff = a.getTime() - b.getTime();
                       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                      
+                    //   console.log(pr.items);
                       
                       if(diffDays>0 && diffDays<=45){
                         _data.diffDeliveryDateBooking = diffDays;
@@ -97,15 +103,17 @@ export class List {
                       {
                         _data.confirmState="Sudah Dikonfirmasi";
                       }
-                      if(pr.isCanceled==true)
-                      {
-                        _data.bookingOrderState="Booking Dibatalkan";
-                      }else if(pr.isMasterPlan ==true)
+                    //   if(pr.isCanceled==true)
+                    //   {
+                    //     _data.bookingOrderState="Booking Dibatalkan";
+                    //   }
+                    //   else 
+                      if(pr.isMasterPlan ==true)
                       {
                         _data.bookingOrderState="Sudah Dibuat Master Plan";   
                       }else if(pr.isMasterPlan == false && pr.isCanceled==false)
                       {
-                        if(!pr.items){
+                        if(pr.items==undefined){
                             _data.bookingOrderState="Booking";
                         } else if(pr.items){
                             _data.bookingOrderState="Confirmed";
@@ -120,22 +128,27 @@ export class List {
                         }
                       
                     }
-                    _data.row_count=row_span_count;
+                    
                     
                     if(_temp.code == _data.code){
                         _data.code=null;
                         _data.bookingDate=null;
                         _data.buyer=null;
                         _data.totalOrderQty=null;
+                        _data.deliveryDateBooking=null;
                         _data.confirmState=null;
                         _data.bookingOrderState=null;
                         _data.remaining=null;
                         _data.diffDeliveryDateBooking=null;
-                        _data.row_count=row_span_count+1;
+                        row_span_count=row_span_count+1;
+                        _data.row_count=row_span_count;
                         
                     } else if(!_temp.code || _temp.code!=pr.bookingCode){
                         _temp.code=_data.code;
+                        row_span_count=1;
+                        _data.row_count=row_span_count;
                     }
+                    // console.log(_data.row_count);
                 
 
                     remain=0;
@@ -151,13 +164,14 @@ export class List {
                     
                  count++;    
                  counter ++;
-                 }                 
+                 }
+                //  console.log(this.data)                 
             });
             
     }
     ExportToExcel() {
         var info = {
-            
+            section : this.section ? this.section.code.code : "",
             code : this.code ? this.code.code : "",
             buyer : this.buyer ? this.buyer.name : "",
             comodity : this.comodity ? this.comodity.name : "",
@@ -171,6 +185,7 @@ export class List {
 
 
       reset() {
+        this.section = "";
         this.code = "";
         this.buyer="";
         this.comodity="";
@@ -181,6 +196,9 @@ export class List {
         
     }
 
+    sectionView = (section) => {
+        return `${section.code} - ${section.name}`
+    }
     
     buyerView = (buyer) => {
         return `${buyer.name} `
@@ -202,9 +220,11 @@ export class List {
             this.bookingOrderState="Confirmed";
         }else if(selectedBookingOrder=="Sudah Dibuat Master Plan"){  
             this.bookingOrderState="Sudah Dibuat Master Plan";
-        }else  if(selectedBookingOrder=="Booking Dibatalkan"){
-            this.bookingOrderState="Booking Dibatalkan";
-        }else{
+        }
+        // else  if(selectedBookingOrder=="Booking Dibatalkan"){
+        //     this.bookingOrderState="Booking Dibatalkan";
+        // }
+        else{
             this.bookingOrderState="";
         }
     }

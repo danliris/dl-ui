@@ -103,8 +103,8 @@ export class List {
         this.summaryTable.refresh();
     }
 
-    autocomplete_change(e) {
-        if (e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
-            e.au.controller.view.bindingContext.value = e.au.controller.view.bindingContext.value == undefined ? "" : undefined;
-    }
+    // autocomplete_change(e) {
+    //     if (e.au.controller.view.bindingContext.value == undefined || e.au.controller.view.bindingContext.value == "")
+    //         e.au.controller.view.bindingContext.value = e.au.controller.view.bindingContext.value == undefined ? "" : undefined;
+    // }
 }

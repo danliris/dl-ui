@@ -14,13 +14,13 @@ export class Service extends RestService {
     }
 
     search(info) { 
-        var endpoint = `${serviceUri}?code=${info.code}&buyer=${info.buyer}&comodity=${info.comodity}&confirmState=${info.confirmState}&bookingOrderState=${info.bookingOrderState}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}?section=${info.section}&code=${info.code}&buyer=${info.buyer}&comodity=${info.comodity}&confirmState=${info.confirmState}&bookingOrderState=${info.bookingOrderState}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.get(endpoint);
         
     }
     
     generateExcel(info) {
-        var endpoint = `${serviceUri}?code=${info.code}&buyer=${info.buyer}&comodity=${info.comodity}&confirmState=${info.confirmState}&bookingOrderState=${info.bookingOrderState}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}?section=${info.section}&code=${info.code}&buyer=${info.buyer}&comodity=${info.comodity}&confirmState=${info.confirmState}&bookingOrderState=${info.bookingOrderState}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 }

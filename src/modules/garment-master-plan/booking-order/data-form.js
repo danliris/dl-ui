@@ -49,11 +49,10 @@ export class DataForm {
         }
 
         if(this.data._id) {
-          if (this.data.expiredBookingOrder){
-            this.data.beginingOrderQuantity=this.data.orderQuantity+this.data.expiredBookingOrder;
-          }
-          if (this.data.canceledBookingOrder){
-            this.data.beginingOrderQuantity=this.data.orderQuantity+this.data.canceledBookingOrder;
+          if (this.data.expiredBookingOrder || this.data.canceledBookingOrder){
+            this.data.beginingOrderQuantity = this.data.orderQuantity +
+              (this.data.expiredBookingOrder || 0) +
+              (this.data.canceledBookingOrder || 0);
           }
         }
     }

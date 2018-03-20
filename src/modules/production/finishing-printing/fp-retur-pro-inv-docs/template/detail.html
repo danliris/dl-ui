@@ -1,0 +1,30 @@
+<template>
+    <tr>
+
+        <td>
+            <au-autocomplete value.bind="data.Product" error.bind="error.Product" placeholder="Cari Nama Produk" text="Name" 
+                read-only.bind="readOnly" options.bind="controlOptions" loader.bind="productLoader">
+            </au-autocomplete>
+        </td>
+
+        <td>
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+
+        <td>
+            <au-numeric value.bind="data.Length" error.bind="error.Length" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+
+        <td>
+            <au-multiline value.bind="data.Remark" placeholder="tambah keterangan" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-multiline>
+        </td>
+
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove($event)">-</button>
+        </td>
+        
+    </tr>
+</template>
