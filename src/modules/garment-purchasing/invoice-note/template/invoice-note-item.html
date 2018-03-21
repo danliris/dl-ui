@@ -3,52 +3,37 @@
         <td if.bind="!options.readOnly">
             <au-checkbox value.bind="data.check"> </au-checkbox>
         </td>
-        <td >
-            <au-textbox 
-                value.bind="data.deliveryOrderNo"
-                error.bind="error.deliveryOrderId"
-                read-only.bind="true"
-                options.bind="controlOptions">
-            </au-textbox>
+        <td>
+            <au-autocomplete value.bind="deliveryOrder" error.bind="error.deliveryOrderId" loader.bind="deliveryOrderLoader" placeholder="cari nomor surat jalan"
+                text="no" key="no" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-autocomplete>
         </td>
         <td>
-            <au-datepicker 
-                value.bind="data.deliveryOrderSupplierDoDate" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
+            <au-datepicker value.bind="data.deliveryOrderSupplierDoDate" read-only.bind="true" options.bind="controlOptions">
             </au-datepicker>
         </td>
         <td>
-            <au-datepicker 
-                value.bind="data.deliveryOrderDate" 
-                read-only.bind="true" 
-                options.bind="controlOptions">
+            <au-datepicker value.bind="data.deliveryOrderDate" read-only.bind="true" options.bind="controlOptions">
             </au-datepicker>
         </td>
         <td>
             <div class="col-sm-7">
-                <au-numeric 
-                    value.bind="total" 
-                    read-only.bind="true" 
-                    options.bind="controlOptions">
+                <au-numeric value.bind="total" read-only.bind="true" options.bind="controlOptions">
                 </au-numeric>
             </div>
-            <div class="col-sm-1  pull-right">    
-                <button class="btn btn-info pull-right" if.bind= "data.items" click.delegate="toggle()">i</button>
+            <div class="col-sm-1  pull-right">
+                <button class="btn btn-info pull-right" if.bind="data.items" click.delegate="toggle()">i</button>
             </div>
+        </td>
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove($event)">-</button>
         </td>
     </tr>
     <tr show.bind="isShowing">
         <td colspan="5">
-            <au-collection 
-                items.bind="data.items" 
-                errors.bind="error.items"
-                columns.bind="itemsColumns" 
-                remove.bind="removeItems"
-                options.bind="context.context.options"
-                read-only.bind="options.readOnly"
-                item-template="modules/garment-purchasing/invoice-note/template/invoice-note-fulfillment">
+            <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsColumns" remove.bind="removeItems" options.bind="context.context.options"
+                read-only.bind="options.readOnly" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-fulfillment">
             </au-collection>
-        </td>  
+        </td>
     </tr>
 </template>
