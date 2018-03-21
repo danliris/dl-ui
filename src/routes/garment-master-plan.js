@@ -155,7 +155,20 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
 
+    {
+        route: '/garment-master-plan/booking-orders-canceled-monitoring',
+        name: 'booking-orders-canceled-monitoring',
+        moduleId: './modules/garment-master-plan/monitoring-canceled-booking-order/index',
+        nav: true,
+        title: 'Monitoring Canceled Booking Order',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 
 ]
