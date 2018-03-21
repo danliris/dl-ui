@@ -30,7 +30,7 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        // console.log(this.cancelState);
+        
         this.service.search(info)
      
             .then(result => {
@@ -40,7 +40,7 @@ export class List {
                var count=0;
                var _temp = {};
                var _temp2 = {};
-               var _temp3 = {};console.log(result);
+               var _temp3 = {};
                var row_span_count=1;
                for (var pr of result) {
                   var _data = {};
@@ -168,7 +168,7 @@ export class List {
                                 this.data.push(_data);
                         } else {
                             this.data.push(_data);
-                            console.log(this.data[count].row_count);
+                            
                             if (this.data[count].row_count>1){
                                 for(var x=_data.row_count;0<x;x--){
                                     if(this.data[count].cancelState=="Cancel Confirm")
@@ -181,7 +181,6 @@ export class List {
                         }       
                     }
                  }
-                 console.log(this.data); 
             });
             
             
