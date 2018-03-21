@@ -41,7 +41,6 @@ export class DataForm {
         this.service = service;
     }
 
-
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -81,7 +80,6 @@ export class DataForm {
 
     SupplierChanged(newValue, oldValue) {
         this.products = [];
-
         if (newValue.details != undefined) {
             for (let detail of newValue.details) {
                 this.products.push({

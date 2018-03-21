@@ -1,15 +1,16 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
-        <au-autocomplete label="No Bon Pengantar Greige" value.bind="NoBon" error.bind="error.NoBon" placeholder="Cari No Bon" text="No"
+        <au-autocomplete label="No Bon Pengantar Greige" value.bind="NoBon" error.bind="error.Bon" placeholder="Cari No Bon" text="No"
             loader.bind="materialDistributionLoader" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-autocomplete label="Supplier" value.bind="Supplier" error.bind="error.Supplier" placeholder="Cari Supplier" text="name" show.bind="NoBon"
-            loader.bind="materialDistributionDetailsLoader" read-only.bind="readOnly" query.bind="filter" options.bind="controlOptions">
+        <au-autocomplete label="Supplier" value.bind="Supplier" error.bind="error.Supplier" placeholder="Cari Supplier" text="name"
+            show.bind="NoBon" loader.bind="materialDistributionDetailsLoader" read-only.bind="readOnly" query.bind="filter" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-collection items.bind="data.Details" errors.bind="error.Details" add.bind="DetailInfo.onAdd" remove.bind="DetailInfo.onRemove" options.bind="options"
-            columns.bind="DetailInfo.columns" read-only.bind="readOnly" item-template="modules/production/finishing-printing/fp-retur-pro-inv-docs/template/detail">
+        <au-collection items.bind="data.Details" errors.bind="error.Details" add.bind="DetailInfo.onAdd" remove.bind="DetailInfo.onRemove"
+            options.bind="options" columns.bind="DetailInfo.columns" read-only.bind="readOnly" item-template="modules/production/finishing-printing/fp-retur-pro-inv-docs/template/detail"
+            footer-template="modules/production/finishing-printing/fp-retur-pro-inv-docs/template/footer">
         </au-collection>
 
     </au-input-form>

@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -44,8 +45,8 @@ export class Edit {
                         detail["bookingQuantity"] = bookingDetail.quantity;
                     if(bookingDetail.remark !== detail.remark)
                         detail["bookingRemark"] = bookingDetail.remark;
-                    if(bookingDetail.deliveryDate && detail.deliveryDate && bookingDetail.deliveryDate !== detail.deliveryDate)
-                        detail["bookingDeliveryDate"] = `${(new Date(bookingDetail.deliveryDate)).getDay()} - ${((new Date(bookingDetail.deliveryDate)).getMonth() + 1)} - ${(new Date(bookingDetail.deliveryDate)).getFullYear()}`;
+                    if(bookingDetail.deliveryDate && detail.deliveryDate && moment(bookingDetail.deliveryDate).format("DD MMM YYYY") !== moment(detail.deliveryDate).format("DD MMM YYYY"))
+                            detail["bookingDeliveryDate"] = moment(bookingDetail.deliveryDate).format("DD MMM YYYY");
                 }else{
                     detail["deletedData"] = "MD telah menghapus detail ini"
                 }

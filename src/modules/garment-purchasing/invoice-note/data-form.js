@@ -56,66 +56,67 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    async supplierChanged(newValue) {
-        var selectedSupplier = newValue;
-        if (selectedSupplier) {
-            if (selectedSupplier._id) {
-                this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
-                var result = await this.service.getDeliveryOrder({ supplierId: this.data.supplierId });
-                var _deliveryOrders = result.data || []
-                var dataItems = _deliveryOrders.map((deliveryOrder) => {
-                    var items = deliveryOrder.items.map(doItem => {
-                        var fulfillment = doItem.fulfillments.map(doFulfillment => {
-                            return {
-                                purchaseOrderExternalId: doItem.purchaseOrderExternalId,
-                                purchaseOrderExternalNo: doItem.purchaseOrderExternalNo,
-                                purchaseOrderId: doFulfillment.purchaseOrderId,
-                                purchaseOrderNo: doFulfillment.purchaseOrderNo,
-                                purchaseRequestId: doFulfillment.purchaseRequestId,
-                                purchaseRequestNo: doFulfillment.purchaseRequestNo,
-                                purchaseRequestRefNo:doFulfillment.purchaseRequestRefNo,
-                                roNo: doFulfillment.roNo,
-                                productId: doFulfillment.productId,
-                                product: doFulfillment.product,
-                                purchaseOrderQuantity: doFulfillment.purchaseOrderQuantity,
-                                purchaseOrderUom: doFulfillment.purchaseOrderUom,
-                                deliveredQuantity: doFulfillment.deliveredQuantity,
-                                pricePerDealUnit: doFulfillment.pricePerDealUnit,
-                                paymentMethod: doItem.paymentMethod,
-                                paymentType: doItem.paymentType,
-                                paymentDueDays: doItem.paymentDueDays,
-                            }
-                        });
-                        fulfillment = [].concat.apply([], fulfillment);
-                        return fulfillment;
-                    });
-                    items = [].concat.apply([], items);
+    // async supplierChanged(newValue) {
+    //     var selectedSupplier = newValue;
+    //     if (selectedSupplier) {
+    //         if (selectedSupplier._id) {
+    //             this.data.supplier = selectedSupplier;
+    //             this.data.supplierId = selectedSupplier._id;
+    //             var result = await this.service.getDeliveryOrder({ supplierId: this.data.supplierId });
+    //             var _deliveryOrders = result.data || []
+    //             debugger
+    //             var dataItems = _deliveryOrders.map((deliveryOrder) => {
+    //                 var items = deliveryOrder.items.map(doItem => {
+    //                     var fulfillment = doItem.fulfillments.map(doFulfillment => {
+    //                         return {
+    //                             purchaseOrderExternalId: doItem.purchaseOrderExternalId,
+    //                             purchaseOrderExternalNo: doItem.purchaseOrderExternalNo,
+    //                             purchaseOrderId: doFulfillment.purchaseOrderId,
+    //                             purchaseOrderNo: doFulfillment.purchaseOrderNo,
+    //                             purchaseRequestId: doFulfillment.purchaseRequestId,
+    //                             purchaseRequestNo: doFulfillment.purchaseRequestNo,
+    //                             purchaseRequestRefNo:doFulfillment.purchaseRequestRefNo,
+    //                             roNo: doFulfillment.roNo,
+    //                             productId: doFulfillment.productId,
+    //                             product: doFulfillment.product,
+    //                             purchaseOrderQuantity: doFulfillment.purchaseOrderQuantity,
+    //                             purchaseOrderUom: doFulfillment.purchaseOrderUom,
+    //                             deliveredQuantity: doFulfillment.deliveredQuantity,
+    //                             pricePerDealUnit: doFulfillment.pricePerDealUnit,
+    //                             paymentMethod: doItem.paymentMethod,
+    //                             paymentType: doItem.paymentType,
+    //                             paymentDueDays: doItem.paymentDueDays,
+    //                         }
+    //                     });
+    //                     fulfillment = [].concat.apply([], fulfillment);
+    //                     return fulfillment;
+    //                 });
+    //                 items = [].concat.apply([], items);
 
-                    var doItem = {};
-                    doItem.deliveryOrderId = deliveryOrder._id;
-                    doItem.deliveryOrderNo = deliveryOrder.no;
-                    doItem.deliveryOrderDate = deliveryOrder.date;
-                    doItem.deliveryOrderSupplierDoDate = deliveryOrder.supplierDoDate;
-                    doItem.items = items;
-                    return doItem;
-                });
-                dataItems = [].concat.apply([], dataItems);
-                this.data.items = dataItems;
+    //                 var doItem = {};
+    //                 doItem.deliveryOrderId = deliveryOrder._id;
+    //                 doItem.deliveryOrderNo = deliveryOrder.no;
+    //                 doItem.deliveryOrderDate = deliveryOrder.date;
+    //                 doItem.deliveryOrderSupplierDoDate = deliveryOrder.supplierDoDate;
+    //                 doItem.items = items;
+    //                 return doItem;
+    //             });
+    //             dataItems = [].concat.apply([], dataItems);
+    //             this.data.items = dataItems;
 
-            }
-            else {
-                this.data.supplier = {};
-                this.data.supplierId = null;
-                this.data.items = [];
-            }
-        } else {
-            this.data.supplier = {};
-            this.data.supplierId = null;
-            this.data.items = [];
-        }
-        this.resetErrorItems();
-    }
+    //         }
+    //         else {
+    //             this.data.supplier = {};
+    //             this.data.supplierId = null;
+    //             this.data.items = [];
+    //         }
+    //     } else {
+    //         this.data.supplier = {};
+    //         this.data.supplierId = null;
+    //         this.data.items = [];
+    //     }
+    //     this.resetErrorItems();
+    // }
 
     currencyChanged(newValue) {
         var selectedCurrency = newValue;
@@ -209,6 +210,100 @@ export class DataForm {
     onClickAllDataSource($event) {
         for (var item of this.data.items) {
             item.check = $event.detail.target.checked;
+        }
+    }
+
+    async supplierChanged(newValue) {
+        var selectedSupplier = newValue;
+        if (selectedSupplier) {
+            if (selectedSupplier._id) {
+                this.data.supplier = selectedSupplier;
+                this.data.supplierId = selectedSupplier._id;
+                this.loadItems();
+            }
+            else {
+                this.data.supplier = {};
+                this.data.supplierId = null;
+                this.data.items = [];
+                this.arg = {
+                    page: 1,
+                    size: 10,
+                }
+                this.totalItem = 0;
+            }
+        } else {
+            this.data.supplier = {};
+            this.data.supplierId = null;
+            this.data.items = [];
+            this.arg = {
+                page: 1,
+                size: 10,
+            }
+            this.totalItem = 0;
+        }
+        this.resetErrorItems();
+    }
+
+    arg = {
+        page: 1,
+        size: 10,
+        select: ["hasInvoice", "_id", "no", "date", "supplierDoDate", "items"]
+    };
+
+    totalItem = 0;
+
+    @computedFrom("data.items.length")
+    get isActivitiesEqualTotal() {
+        return this.totalItem == this.data.items.length;
+    }
+
+    async loadItems() {
+        this.arg.filter = JSON.stringify({ "supplier.code": this.data.supplier.code, hasInvoice: false });
+        var result = await this.service.getDeliveryOrder(this.arg);
+        this.totalItem = result.info.total
+        this.arg.page++
+        var _deliveryOrders = result.data || []
+        var dataItems = _deliveryOrders.map((deliveryOrder) => {
+            var items = deliveryOrder.items.map(doItem => {
+                var fulfillment = doItem.fulfillments.map(doFulfillment => {
+                    return {
+                        purchaseOrderExternalId: doItem.purchaseOrderExternalId,
+                        purchaseOrderExternalNo: doItem.purchaseOrderExternalNo,
+                        purchaseOrderId: doFulfillment.purchaseOrderId,
+                        purchaseOrderNo: doFulfillment.purchaseOrderNo,
+                        purchaseRequestId: doFulfillment.purchaseRequestId,
+                        purchaseRequestNo: doFulfillment.purchaseRequestNo,
+                        purchaseRequestRefNo: doFulfillment.purchaseRequestRefNo,
+                        roNo: doFulfillment.roNo,
+                        productId: doFulfillment.productId,
+                        product: doFulfillment.product,
+                        purchaseOrderQuantity: doFulfillment.purchaseOrderQuantity,
+                        purchaseOrderUom: doFulfillment.purchaseOrderUom,
+                        deliveredQuantity: doFulfillment.deliveredQuantity,
+                        pricePerDealUnit: doFulfillment.pricePerDealUnit,
+                        paymentMethod: doItem.paymentMethod,
+                        paymentType: doItem.paymentType,
+                        paymentDueDays: doItem.paymentDueDays,
+                    }
+                });
+                fulfillment = [].concat.apply([], fulfillment);
+                return fulfillment;
+            });
+            items = [].concat.apply([], items);
+
+            var doItem = {};
+            doItem.deliveryOrderId = deliveryOrder._id;
+            doItem.deliveryOrderNo = deliveryOrder.no;
+            doItem.deliveryOrderDate = deliveryOrder.date;
+            doItem.deliveryOrderSupplierDoDate = deliveryOrder.supplierDoDate;
+            doItem.items = items;
+            return doItem;
+        });
+        dataItems = [].concat.apply([], dataItems);
+        if (this.data.items.length == 0) {
+            this.data.items = dataItems;
+        } else if (this.data.items.length > 0) {
+            this.data.items = this.data.items.concat(dataItems);
         }
     }
 } 

@@ -2,18 +2,18 @@
     <tr>
 
         <td>
-            <au-autocomplete value.bind="data.Product" error.bind="error.BonProduct" placeholder="Cari Bon Pengantar Greige" text="Name" 
-                read-only.bind="readOnly" options.bind="controlOptions" loader.one-time="productLoader">
+            <au-autocomplete value.bind="data.Product" error.bind="error.Product" placeholder="Cari Nama Produk" text="Name" 
+                read-only.bind="readOnly" options.bind="controlOptions" loader.bind="productLoader">
             </au-autocomplete>
         </td>
 
         <td>
-            <au-numeric value.bind="data.Quantity" read-only.bind="readOnly" options.bind="controlOptions">
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
 
         <td>
-            <au-numeric value.bind="data.Length" read-only.bind="readOnly" options.bind="controlOptions">
+            <au-numeric value.bind="data.Length" error.bind="error.Length" read-only.bind="readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
 

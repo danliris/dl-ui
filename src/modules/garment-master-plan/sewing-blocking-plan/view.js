@@ -35,7 +35,6 @@ export class View {
                 this.booking = {};
                 var bookingData = await this.service.getBookingById(this.data.bookingOrderId);
                 
-                console.log(bookingData.orderQuantity);
                 if(moment(this.data.bookingDate).format("DD MMM YYYY") !== moment(bookingData.bookingDate).format("DD MMM YYYY"))
                     this.booking["bookingDate"] = bookingData.bookingDate;
                 if(this.data.quantity !== bookingData.orderQuantity)
@@ -60,8 +59,8 @@ export class View {
                         }
                         if(bookingDetail.remark !== detail.remark)
                             detail["bookingRemark"] = bookingDetail.remark;
-                        if(bookingDetail.deliveryDate && detail.deliveryDate && bookingDetail.deliveryDate !== detail.deliveryDate)
-                            detail["bookingDeliveryDate"] = `${(new Date(bookingDetail.deliveryDate)).getDay()} - ${((new Date(bookingDetail.deliveryDate)).getMonth() + 1)} - ${(new Date(bookingDetail.deliveryDate)).getFullYear()}`;
+                        if(bookingDetail.deliveryDate && detail.deliveryDate && moment(bookingDetail.deliveryDate).format("DD MMM YYYY") !== moment(detail.deliveryDate).format("DD MMM YYYY"))
+                            detail["bookingDeliveryDate"] = moment(bookingDetail.deliveryDate).format("DD MMM YYYY");//`${(new Date(bookingDetail.deliveryDate)).getDay()} - ${((new Date(bookingDetail.deliveryDate)).getMonth() + 1)} - ${(new Date(bookingDetail.deliveryDate)).getFullYear()}`;
                     }else{
                         detail["deletedData"] = "MD telah menghapus detail ini"
                     }
