@@ -55,13 +55,13 @@ export class List {
                      
                   
                 
-                      if(pr.canceledBookingOrder==0 && pr.expiredBookingOrder==0){
+                      if((pr.canceledBookingOrder==0 || pr.canceledBookingOrder==undefined) && (pr.expiredBookingOrder==0 || pr.expiredBookingOrder==undefined)){
                         _data.totalOrderBeginning = pr.totalOrderQty;
                       } else if(pr.canceledBookingOrder>0 && pr.expiredBookingOrder>0){
                         _data.totalOrderBeginning = pr.totalOrderQty + pr.canceledBookingOrder + pr.expiredBookingOrder;
-                      } else if(pr.canceledBookingOrder>0 && pr.expiredBookingOrder==0){
+                      } else if(pr.canceledBookingOrder>0 && (pr.expiredBookingOrder==0 || pr.expiredBookingOrder==undefined)){
                         _data.totalOrderBeginning = pr.totalOrderQty + pr.canceledBookingOrder;
-                      } else if(pr.canceledBookingOrder==0 && pr.expiredBookingOrder>0){
+                      } else if((pr.canceledBookingOrder==0 || pr.canceledBookingOrder==undefined) && pr.expiredBookingOrder>0){
                         _data.totalOrderBeginning= pr.totalOrderQty + pr.expiredBookingOrder;
                       }
 
