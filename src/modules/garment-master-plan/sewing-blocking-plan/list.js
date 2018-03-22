@@ -48,7 +48,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select:["_id","bookingOrderNo", "garmentBuyerName", "quantity", "bookingDate", "deliveryDate", "remark", "status"],
+            select:["_id","bookingOrderNo", "garmentBuyerName", "quantity", "bookingDate", "deliveryDate", "remark", "status","details"],
             order: order
         }
 
@@ -58,6 +58,23 @@ export class List {
                 data.total = result.info.total;
                 data.data = result.data;
                 // return data;
+                for(var dt of result.data){
+                    var flag=0;
+                    var count=0;
+                    for(var item of dt.details){
+                        if(item.isConfirmed){
+                            flag++;
+                        }
+                        count++;
+                    }
+                    if(flag===count && dt.status=="Booking"){
+                        dt.status="Confirm Full";
+                    }
+                    else if(flag>0 && dt.status=="Booking"){
+                        dt.status="Confirm Sebagian";
+                    }
+
+                }
                 return {
                     total: result.info.total,
                     data: result.data
