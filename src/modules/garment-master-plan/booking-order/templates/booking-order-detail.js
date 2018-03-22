@@ -35,7 +35,7 @@ export class DetailItem {
   }
 
   oncancel(data) {
-    this.dialog.prompt("Cancel Confirm Comodity " + this.data.masterPlanComodity.name + " (Jumlah : " + this.data.quantity + ")", "Lanjutkan?")
+    this.dialog.prompt("Cancel Confirm Comodity " + this.data.masterPlanComodity.name + " (Jumlah : " + this.data.quantity + "). Lanjutkan?", "Cancel Confirm")
       .then(response => {
         if (response == "ok") {
           this.data.isCanceled = true;
