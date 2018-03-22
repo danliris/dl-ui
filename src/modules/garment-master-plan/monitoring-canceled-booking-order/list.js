@@ -98,8 +98,8 @@ export class List {
                         _data.canceledQuantity=pr.orderQty;
                         _data.cancelState="Cancel Confirm";
                     }
-
-                    if (pr.canceledDate || (pr.canceledBookingOrder>0 || pr.expiredBookingOrder>0)){
+                    
+                    if (_data.cancelItemsDate || (pr.canceledBookingOrder>0 || pr.expiredBookingOrder>0)){
                         if(this.cancelState!=="Cancel Confirm"){
                             if(pr.canceledBookingOrder>0 && pr.canceledItems && (_data.code!==_temp2.code || !_temp2.code) && (_data.cancelState!==_temp2.cancelState || !_temp2.cancelState) && this.cancelState!=="Expired"){ //&& _data.cancelState!=="Cancel Confirm"){  
                                 _temp2.code=_data.code;
@@ -109,11 +109,11 @@ export class List {
                                 temporaryCancelSisa.buyer = _data.buyer;
                                 temporaryCancelSisa.totalOrderEnd = _data.totalOrderEnd
                                 temporaryCancelSisa.deliveryDateBooking = _data.deliveryDateBooking;
-                                temporaryCancelSisa.comodity = _data.comodity;
-                                temporaryCancelSisa.orderQty = _data.orderQty;
-                                temporaryCancelSisa.cancelConfirmDate = _data.cancelConfirmDate;
-                                temporaryCancelSisa.deliveryDateConfirm = _data.deliveryDateConfirm;
-                                temporaryCancelSisa.remark = _data.remark;
+                                temporaryCancelSisa.comodity = "";
+                                temporaryCancelSisa.orderQty = "";
+                                temporaryCancelSisa.cancelConfirmDate = "";
+                                temporaryCancelSisa.deliveryDateConfirm = "";
+                                temporaryCancelSisa.remark = "";
                                 temporaryCancelSisa.totalOrderBeginning = _data.totalOrderBeginning;
                                 temporaryCancelSisa.row_count=1;
                                 temporaryCancelSisa.cancelItemsDate=pr.canceledDate ? moment(pr.canceledDate).format("DD MMMM YYYY") : "";
@@ -130,11 +130,11 @@ export class List {
                                 temporaryExpired.buyer = _data.buyer;
                                 temporaryExpired.totalOrderEnd = _data.totalOrderEnd
                                 temporaryExpired.deliveryDateBooking = _data.deliveryDateBooking;
-                                temporaryExpired.comodity = _data.comodity;
-                                temporaryExpired.orderQty = _data.orderQty;
-                                temporaryExpired.cancelConfirmDate = _data.cancelConfirmDate;
-                                temporaryExpired.deliveryDateConfirm = _data.deliveryDateConfirm;
-                                temporaryExpired.remark = _data.remark;
+                                temporaryExpired.comodity = "";
+                                temporaryExpired.orderQty = "";
+                                temporaryExpired.cancelConfirmDate = "";
+                                temporaryExpired.deliveryDateConfirm = "";
+                                temporaryExpired.remark = "";
                                 temporaryExpired.totalOrderBeginning = _data.totalOrderBeginning;
                                 temporaryExpired.row_count=1;
                                 temporaryExpired.cancelItemsDate=pr.expiredDeletedDate ? moment(pr.expiredDeletedDate).format("DD MMMM YYYY") : "";
