@@ -9,7 +9,7 @@ export class List {
     info = { page: 1, keyword: '' };
 
     rowFormatter(data, index) {
-        if (data.isCanceled)
+        if (data.expired=="Expired")
             return { classes: "danger" }
         else if (data.isMasterPlan)
             return { classes: "success" }
