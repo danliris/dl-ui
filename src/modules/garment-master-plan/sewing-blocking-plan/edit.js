@@ -48,7 +48,7 @@ export class Edit {
                     if(bookingDetail.deliveryDate && detail.deliveryDate && moment(bookingDetail.deliveryDate).format("DD MMM YYYY") !== moment(detail.deliveryDate).format("DD MMM YYYY"))
                             detail["bookingDeliveryDate"] = moment(bookingDetail.deliveryDate).format("DD MMM YYYY");
                 }else{
-                    detail["deletedData"] = "MD telah menghapus detail ini"
+                    detail["deletedData"] = "Md telah menghapus detail ini"
                 }
                 details.push(detail);
             }
@@ -62,7 +62,7 @@ export class Edit {
                         quantity:item.quantity,
                         remark:item.remark,
                         deliveryDate:item.deliveryDate,
-                        newData:"MD telah menambah detail ini"
+                        newData:"Md telah menambah detail ini"
                     }
                     details.push(newDetail);
                 }
