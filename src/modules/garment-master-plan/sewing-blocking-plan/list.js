@@ -12,11 +12,15 @@ export class List {
         if (data.status === "Booking Dihapus")
             return { classes: "danger" };
         else if(data.status === "Booking Dibatalkan")
-            return { classes: "warning" };
+            return { classes: "danger" };
         else if(data.status === "Booking Ada Perubahan")
             return { classes: "info" };
         else if (data.status === "Booking Expired")
             return { classes: "danger" };
+        else if (data.status === "Confirm Full")
+            return { classes: "success" };
+        else if (data.status === "Confirm Sebagian")
+            return { classes: "warning" };
         else
             return {};
     }
