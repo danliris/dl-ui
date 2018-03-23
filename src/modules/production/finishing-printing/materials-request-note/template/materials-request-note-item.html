@@ -1,5 +1,13 @@
 <template>
     <tr>
+        <td show.bind="isComplete">
+            <au-checkbox
+                show.bind="isComplete"
+                value.bind="data.ProductionOrder.isCompleted"
+                click.delegate="checkboxClick()"
+                change.delegate="checkboxChanges($event)">
+            </au-checkbox>
+        </td>
         <td show.bind="!isTest">
             <au-autocomplete
                 show.bind="!isTest"
@@ -11,7 +19,7 @@
                 query.bind="productionOrderFilter"
                 key="orderNo"
                 text="orderNo"
-                read-only.bind="options.readOnly"
+                read-only.bind="options.readOnly || isComplete"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
@@ -24,7 +32,7 @@
                 placeholder="cari barang" 
                 key="name"
                 text="name"
-                read-only.bind="options.readOnly"
+                read-only.bind="options.readOnly || isComplete"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
@@ -33,7 +41,7 @@
                 placholder="masukkan grade"
                 value.bind="data.Grade"
                 error.bind="error.Grade"
-                read-only.bind="options.readOnly"
+                read-only.bind="options.readOnly || isComplete"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
@@ -41,12 +49,15 @@
             <au-numeric
                 value.bind="data.Length"
                 error.bind="error.Length"
-                read-only.bind="options.readOnly"
+                read-only.bind="options.readOnly || isComplete"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td if.bind="!options.readOnly">
-            <button if.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        <td show.bind="!isEdit && isAwal || isComplete">
+            <p show.bind="!isEdit && isAwal || isComplete" class="form-control-static">${ data.ProductionOrder.isCompleted ? 'Ya' : 'Tidak' }</p>
+        </td>
+        <td show.bind="!options.readOnly">
+            <button show.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
