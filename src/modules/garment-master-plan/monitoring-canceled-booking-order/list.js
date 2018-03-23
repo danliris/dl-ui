@@ -52,9 +52,8 @@ export class List {
                       _data.buyer = pr.buyer;
                       _data.totalOrderEnd = pr.totalOrderQty;
                       _data.deliveryDateBooking = pr.deliveryDateBooking ? moment(pr.deliveryDateBooking).format("DD MMMM YYYY") : "";
-                     
+                      _data.row_count=1;
                   
-                
                       if((pr.canceledBookingOrder==0 || pr.canceledBookingOrder==undefined) && (pr.expiredBookingOrder==0 || pr.expiredBookingOrder==undefined)){
                         _data.totalOrderBeginning = pr.totalOrderQty;
                       } else if(pr.canceledBookingOrder>0 && pr.expiredBookingOrder>0){
@@ -177,8 +176,8 @@ export class List {
                                     this.data[z+1].row_count=this.data[count].row_count;}
                                 }    
                             } 
-                            count++;                           
-                        }       
+                            count++;            
+                        }    
                     }
                  }
             });
