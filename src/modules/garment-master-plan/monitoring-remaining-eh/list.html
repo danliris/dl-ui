@@ -42,7 +42,7 @@
         <tr>
           <th class="text-center">UNIT</th>
           <th class="text-center" repeat.for="plan of data">${plan.unit.code}</th>
-          <th class="text-center" if.bind="!unit" width= "20%">Total Remaining EH</th>
+          <th class="text-center" if.bind="isTotal" width= "20%">Total Remaining EH</th>
           <th class="text-center" >Head Count</th>
         </tr>
       </thead>
@@ -50,7 +50,7 @@
         <tr repeat.for="week of weeks">
           <td>${week.week}</td>
           <td repeat.for="unit of week.units" css="background:${unit.background}">${unit.remainingEH}</td>
-          <td if.bind="!unit">${week.eh}</td>
+          <td if.bind="isTotal">${week.eh}</td>
           <td>${week.headCount}</td>
         </tr>
       </tbody>

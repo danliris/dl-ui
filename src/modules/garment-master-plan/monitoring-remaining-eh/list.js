@@ -76,7 +76,10 @@ export class List {
               units[y] = unitsTemp;
             }
           }
-
+          this.isTotal=false;
+          if(unitsTemp.length>1){
+            this.isTotal=true;
+          }
           this.weeks = [];
           for (var x = 0; x < units.length; x++) {
             var headCount = 0;
