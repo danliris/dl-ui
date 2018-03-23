@@ -41,8 +41,14 @@ export class MaterialRequestNoteDetail {
         }
         */
        
-        let dispositionRule = Number(((this.data.MaterialRequestNoteItemLength * 0.005) + this.data.MaterialRequestNoteItemLength).toFixed(2));
-        let isDisposition = this.data.ReceivedLength > dispositionRule ? true : false;
+        /*
+        // let dispositionRule = Number(((this.data.MaterialRequestNoteItemLength * 0.005) + this.data.MaterialRequestNoteItemLength).toFixed(2));
+        // let isDisposition = this.data.ReceivedLength > dispositionRule ? true : false;
+        // this.data.IsDisposition = isDisposition;
+        */
+
+        let dispositionRule = Number((1.005 * this.data.MaterialRequestNoteItemLength).toFixed(2));
+        let isDisposition = this.data.ReceivedLength + this.data.DistributedLength > dispositionRule ? true : false;
         this.data.IsDisposition = isDisposition;
     }
 
