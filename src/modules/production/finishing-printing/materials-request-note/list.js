@@ -25,7 +25,8 @@ export class List {
             { field: "Code", title: "No. SPB" },
             { field: "Unit.name", title: "Unit" },
             { field: "RequestType", title: "Tipe" },
-            { field: "ProductionOrderList", title: "No. SPP" }
+            { field: "ProductionOrderList", title: "No. SPP" },
+            { field: "IsCompleted", title: "Status" }
         ];
     }
 
@@ -46,7 +47,8 @@ export class List {
             .then((result) => {
                 for (var data of result.data) {
                     data.ProductionOrderList = data.MaterialsRequestNote_Items.map((item) => {
-                        return "- " + item.ProductionOrder.orderNo;
+                        if (item && item.ProductionOrder.orderNo)
+                            return "- " + item.ProductionOrder.orderNo;
                     });
                     data.ProductionOrderList = data.ProductionOrderList.join("\n");
                 }

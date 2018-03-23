@@ -20,6 +20,12 @@ export class View {
 
   }
 
+  get isAwal() {
+    if (this.data.RequestType.toUpperCase() === "AWAL")
+      return true;
+    return false;
+  }
+
   generateMessage() {
     var message = "<div>Apakah anda yakin akan menghapus data ini?</div>";
     return message;
@@ -40,6 +46,10 @@ export class View {
 
   edit(event) {
     this.router.navigateToRoute('edit', { id: this.data.Id });
+  }
+
+  complete(event) {
+    this.router.navigateToRoute('complete', { id: this.data.Id });
   }
 
   delete(event) {
