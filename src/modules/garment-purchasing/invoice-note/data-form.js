@@ -26,14 +26,14 @@ export class DataForm {
 
     itemsInfo = {
         columns: [
-            { header: " ", value: "__check" },
-            { header: "Nomor Surat Jalan", value: "purchaseOrderExternal" },
+            // { header: " ", value: "__check" },
+            { header: "Nomor Surat Jalan", value: "no" },
             { header: "Tanggal Surat Jalan" },
             { header: "Tanggal Barang Datang" },
             { header: "Total Amount" }]
         , onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.items.push({ purchaseOrderExternal: { no: "" } });
+            this.data.items.push({ no: { no: "" } });
         }.bind(this),
     };
 
@@ -215,11 +215,11 @@ export class DataForm {
         }
     }
 
-    onClickAllDataSource($event) {
-        for (var item of this.data.items) {
-            item.check = $event.detail.target.checked;
-        }
-    }
+    // onClickAllDataSource($event) {
+    //     for (var item of this.data.items) {
+    //         item.check = $event.detail.target.checked;
+    //     }
+    // }
 
     async supplierChanged(newValue) {
         var selectedSupplier = newValue;

@@ -1,8 +1,8 @@
 <template>
     <tr>
-        <td if.bind="!options.readOnly">
+        <!-- <td if.bind="!options.readOnly">
             <au-checkbox value.bind="data.check"> </au-checkbox>
-        </td>
+        </td> -->
         <td>
             <au-autocomplete value.bind="deliveryOrder" error.bind="error.deliveryOrderId" loader.bind="deliveryOrderLoader" placeholder="cari nomor surat jalan"
                 text="no" key="no" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
