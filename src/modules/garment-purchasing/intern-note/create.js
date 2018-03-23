@@ -26,6 +26,7 @@ export class Create {
     }
 
     save() {
+
         var listStatus = this.data.items.map((invoiceNote) => {
             var invoiceNoteItems = invoiceNote.items.map((invoiceNoteItem) => {
                 var doItems = invoiceNoteItem.items.map((doItem) => {

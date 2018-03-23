@@ -1,45 +1,32 @@
 <template>
 	<tr>
 		<td>
-			<au-textbox
-				value.one-way="data.no"
-				read-only="true"
-				error.bind="error.InvoiceNoteId">
-			</au-textbox>
+			<au-autocomplete value.bind="invoice" error.bind="error.InvoiceNoteId" loader.bind="invoiceNoteLoader" placeholder="cari nomor invoice"
+			 text="no" key="no" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
+			</au-autocomplete>
 		</td>
 		<td>
-			<au-datepicker
-				value.bind="data.date"
-				read-only.bind="true">
+			<au-datepicker value.bind="data.date" read-only.bind="true">
 			</au-datepicker>
 		</td>
 		<td>
-            <div class="col-sm-7">
-				<au-numeric 
-					value.bind="totalAmount" 
-					read-only.bind="true" 
-					options.bind="controlOptions">
+			<div class="col-sm-7">
+				<au-numeric value.bind="totalAmount" read-only.bind="true" options.bind="controlOptions">
 				</au-numeric>
 			</div>
-			<div class="col-sm-1  pull-right">    
-				<button class="btn btn-info pull-right" if.bind= "data.items" click.delegate="toggle()">i</button>
+			<div class="col-sm-1  pull-right">
+				<button class="btn btn-info pull-right" if.bind="items" click.delegate="toggle()">i</button>
 			</div>
 		</td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
 		</td>
 	</tr>
-    <tr show.bind="isShowing">
-        <td colspan="5">
-            <au-collection 
-                items.bind="items" 
-                errors.bind="error.items"
-                columns.bind="itemsColumns" 
-                remove.bind="removeItems"
-                options.bind="context.context.options"
-                read-only.bind="options.readOnly"
-                item-template="modules/garment-purchasing/intern-note/template/invoice-note-item">
-            </au-collection>
-        </td>  
-    </tr>
+	<tr show.bind="isShowing">
+		<td colspan="5">
+			<au-collection items.bind="items" errors.bind="error.items" columns.bind="itemsColumns" remove.bind="removeItems" options.bind="context.context.options"
+			 read-only.bind="options.readOnly" item-template="modules/garment-purchasing/intern-note/template/invoice-note-item">
+			</au-collection>
+		</td>
+	</tr>
 </template>
