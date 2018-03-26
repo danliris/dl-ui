@@ -1,7 +1,6 @@
 import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
 var DeliveryOrderLoader = require('../../../../loader/garment-delivery-order-basic-loader')
-var PurchaseOrderExternalLoader = require('../../../../loader/garment-purchase-order-external-by-supplier-loader');
 
 @containerless()
 @inject(BindingEngine, Service)
@@ -30,7 +29,11 @@ export class DeliveryOrderItem {
     this.error = context.error;
     this.isShowing = false;
     this.options = context.context.options;
-    this.deliveryOrder = this.data.deliveryOrderNo ? this.data.deliveryOrderNo : "";
+
+    if (this.data) {
+      this.deliveryOrder = { no: this.data.deliveryOrderNo }
+    }
+
   }
 
   get total() {
@@ -77,19 +80,29 @@ export class DeliveryOrderItem {
       });
       items = [].concat.apply([], items);
 
+      // this.data.deliveryOrder = this.deliveryOrder;
       this.data.deliveryOrderId = this.deliveryOrder._id;
       this.data.deliveryOrderNo = this.deliveryOrder.no;
       this.data.deliveryOrderSupplierDoDate = this.deliveryOrder.supplierDoDate;
       this.data.deliveryOrderDate = this.deliveryOrder.date;
       this.data.items = items;
+      // if (oldValue) {
+      //   // this.deliveryOrder = {};
+      //   this.data.deliveryOrderDate = undefined;
+      //   this.data.deliveryOrderId = "";
+      //   this.data.deliveryOrderNo = "";
+      //   this.data.deliveryOrderSupplierDoDate = undefined;
+      //   this.data.items = [];
+      // }
     }
     else {
-      this.data = {};
+
+      this.data.deliveryOrderDate = undefined;
+      this.data.deliveryOrderId = "";
+      this.data.deliveryOrderNo = "";
+      this.data.deliveryOrderSupplierDoDate = undefined;
       this.data.items = [];
     }
-  }
-  get purchaseOrderExternalLoader() {
-    return PurchaseOrderExternalLoader;
   }
 
   get deliveryOrderLoader() {
