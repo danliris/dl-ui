@@ -32,9 +32,10 @@ export class DataForm {
             { header: "Tanggal Barang Datang" },
             { header: "Total Amount" }]
         , onAdd: function () {
-            this.context.ItemsCollection.bind();
-            this.data.items.push({ no: { no: "" } });
+            // this.context.ItemsCollection.bind();
+            this.data.items.push({});
         }.bind(this),
+ 
     };
 
     itemsInfoReadOnly = {
@@ -221,7 +222,7 @@ export class DataForm {
     //     }
     // }
 
-    async supplierChanged(newValue) {
+    async supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
             if (selectedSupplier._id) {
@@ -229,7 +230,7 @@ export class DataForm {
                 this.data.supplierId = selectedSupplier._id;
                 this.options.supplierCode = selectedSupplier.code;
             }
-            else {
+            if (oldValue) {
                 this.data.supplier = {};
                 this.data.supplierId = null;
                 this.data.items = [];

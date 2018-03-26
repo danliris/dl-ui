@@ -55,9 +55,12 @@
             show.bind="data.useVat || data.useIncomeTax" options.bind="controlOptions">
         </au-checkbox>
 
+        <!-- <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.supplier  && !readOnly"
+            add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove" view-model.ref="ItemsCollection" remove.bind="itemsInfo.onRemove"
+            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+        </au-collection> -->
         <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.supplier  && !readOnly"
-            add.bind="itemsInfo.onAdd" view-model.ref="ItemsCollection" remove.bind="itemsInfo.onRemove" read-only.bind="readOnly"
-            options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+            add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove" read-only.bind="readOnly" options.bind="options" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
         </au-collection>
 
         <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfoReadOnly.columnsReadOnly" show.bind="data.items.length > 0 && readOnly"

@@ -7,7 +7,7 @@ import { activationStrategy } from 'aurelia-router';
 export class Create {
     hasCancel = true;
     hasSave = true;
-    isCreate=true;
+    isCreate = true;
 
     constructor(router, service) {
         this.router = router;
@@ -32,25 +32,53 @@ export class Create {
     }
 
     save(event) {
+        var validateErrors = this.validateData(this.data);
         // var itemToBeSaved = this.data.items.filter(function (item) {
         //     return item.check
         // });
         // var _data = Object.assign({}, this.data);
         // _data.items = itemToBeSaved;
-        this.service.create(this.data)
-            .then(result => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                // this.data.no = "";
-                // this.data.items = this.data.items.filter(function (item) {
-                //     return !item.check
-                // });
-                // this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                // var supplier = Object.assign({}, this.data.supplier);
-                // this.data = Object.assign({}, { supplier: supplier, supplierId: supplier._id, items: [] });
-            })
-            .catch(e => {
-                this.error = e;
-            })
+        if (validateErrors.length == 0) {
+            this.service.create(this.data)
+                .then(result => {
+                    alert("Data berhasil dibuat");
+                    this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                    // this.data.no = "";
+                    // this.data.items = this.data.items.filter(function (item) {
+                    //     return !item.check
+                    // });
+                    // this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                    // var supplier = Object.assign({}, this.data.supplier);
+                    // this.data = Object.assign({}, { supplier: supplier, supplierId: supplier._id, items: [] });
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+        }
+    }
+
+    validateData(valid) {
+        var validateArrTemp = [];
+        var errors = []
+        for (var data of valid.items) {
+            var error = {};
+            var tempValid;
+
+            error.deliveryOrderId = "payment method:" + data.items[0].paymentMethod + ", " + "payment type:" + data.items[0].paymentType +" (semua harus sama)";
+            errors.push(error);
+
+            tempValid = data.items[0].paymentMethod + data.items[0].paymentType;
+            if (!(validateArrTemp.find(data => data == tempValid))) {
+                validateArrTemp.push(tempValid);
+            }
+        }
+
+        if (validateArrTemp.length > 1) {
+            this.error.items = errors;
+            return this.error.items;
+        } else {
+            return this.error.items = [];
+        }
+
     }
 }

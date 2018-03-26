@@ -24,6 +24,7 @@ export class Create {
     }
 
     saveCallback(event) {
+
         this.service.create(this.data)
             .then(result => {
                 alert(`create data success`);

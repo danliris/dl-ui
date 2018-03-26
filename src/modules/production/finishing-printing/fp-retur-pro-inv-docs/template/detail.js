@@ -7,6 +7,9 @@ export class detail {
         this.contextOptions = context.context.options;
     }
 
+    gradeList=["A","B","C","BS"];
+    return=["Ya","Tidak"];
+
     controlOptions = {
         control: {
             length: 12
