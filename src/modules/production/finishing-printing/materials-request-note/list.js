@@ -26,7 +26,11 @@ export class List {
             { field: "Unit.name", title: "Unit" },
             { field: "RequestType", title: "Tipe" },
             { field: "ProductionOrderList", title: "No. SPP" },
-            { field: "IsCompleted", title: "Status" }
+            {
+                field: "IsCompleted", title: "Status", formatter: function (value, data, index) {
+                    return data.RequestType.toUpperCase() == "AWAL" ? (value ? "SUDAH" : "BELUM") : "-";
+                }
+            }
         ];
     }
 

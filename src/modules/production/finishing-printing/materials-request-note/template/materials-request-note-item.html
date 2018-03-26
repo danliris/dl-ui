@@ -1,11 +1,16 @@
 <template>
+    <style>
+        .disabled {
+            pointer-events: none;
+        }
+    </style>
     <tr>
         <td show.bind="isComplete">
             <au-checkbox
                 show.bind="isComplete"
                 value.bind="data.ProductionOrder.isCompleted"
-                click.delegate="checkboxClick()"
-                change.delegate="checkboxChanges($event)">
+                change.delegate="checkboxChanged($event)"
+                class="${ isDisabled ? 'disabled' : ''}">
             </au-checkbox>
         </td>
         <td show.bind="!isTest">
