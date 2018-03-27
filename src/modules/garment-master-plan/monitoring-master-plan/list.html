@@ -37,33 +37,8 @@
      <br>
   </br>
 
-  <div class="table-responsive">
-      <table class="table table-bordered table-hover" border="1" id="myTable">
-          <thead align="center">
-              <tr>
-                  <td>UNIT</td>
-                  <td>BUYER-KOMODITI</td> 
-                  <td>SMV Sewing</td> 
-                  <td repeat.for ="item of weeklyNumbers">W${item} ${weeklyEndDate[$index]}</td> 
-              </tr>
-          </thead>
-          <tbody>
-                  <template repeat.for="d of data">
-                          <tr>
-                            <td rowspan="${d.collection.length + 1}">${d.units}</td>
-                          </tr>
-                          <tr repeat.for="c of d.collection">
-                            <td css="font-weight: ${c.fontWeight};">${c.name}</td>
-                            <td class="text-right" repeat.for= "q of c.quantity" css="background:${c.background[$index]};font-weight: ${c.fontWeight};">${q}</td> 
-                          </tr>
-                      </template>
-          </tbody>
-      </table>
-  </div>
+  <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
   <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
       Tidak ada data.
   </div>
-  <hr/>
-  </form>
-</au-input-form> 
 </template>
