@@ -13,9 +13,8 @@ export class MaterialsRequestNoteItem {
         this.isView = context.context.options.isView;
         this.isAwal = context.context.options.isAwal;
         this.isEdit = context.context.options.isEdit;
-        this.alreadyChecked = this.data.ProductionOrder && this.data.ProductionOrder.isCompleted ? true : false;
-        this.data.checked = false;
-        console.log(this.data)
+
+        this.isDisabled = this.data.isDisabled;
         
     }
 
@@ -23,17 +22,12 @@ export class MaterialsRequestNoteItem {
         return ProductLoader;
     }
 
-    checkboxClick() {
-        console.log("click")
-        if (this.alreadyChecked) {
-            return false;
-        }
-        return true;
+    checkboxChanged(e) {
+        console.log("changed");
+        this.data.toBeCompleted = this.data.ProductionOrder.isCompleted;
     }
 
-    checkboxChanges(e) {
-        this.data.ProductionOrder.isCompleted = this.data.checked ? true : false;
-    }
+    // change.delegate="checkboxChanges($event)"
 
     productChanged(e) {
         this.data.Product = this.data && this.data.Product && this.data.Product._id ? this.data.Product : null;
