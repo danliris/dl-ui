@@ -194,5 +194,18 @@ module.exports = [
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
-    }
+    },
+    {
+        route: "inventory/finishing-printing/reports/material-distribution-note",
+        name: "inventory/finishing-printing/reports/material-distribution-note",
+        moduleId: "modules/inventory/finishing-printing/reports/material-distribution-note/index",
+        nav: true,
+        title: "Laporan Bon Pengantar Greige",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
