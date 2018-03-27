@@ -406,7 +406,7 @@ export class List {
             fixedColumns: true,
             fixedNumber: 3
           };
-          if (this.data.length > 1) {
+          if (data.length > 10) { // row > 10
             bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
           }
           $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
