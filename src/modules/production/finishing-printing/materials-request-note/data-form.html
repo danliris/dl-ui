@@ -3,7 +3,7 @@
 
     <au-textbox
       label="No."
-      show.bind="isEdit || isView"
+      show.bind="isEdit || isView || isComplete"
       value.bind="data.Code"
       read-only.bind="true">
     </au-textbox>
@@ -13,7 +13,7 @@
       label="Unit"
       value.bind="selectedUnit"
       error.bind="error.UnitId"
-      read-only.bind="isEdit || isView"
+      read-only.bind="isEdit || isView || isComplete"
       loader.bind="unitLoader"
       query.bind="unitFilter"
       key="name"
@@ -25,13 +25,13 @@
       value.bind="type"
       items.bind="typeItems"
       error.bind="error.RequestType"
-      read-only.bind="isEdit || isView">
+      read-only.bind="isEdit || isView || isComplete">
     </au-dropdown>
 
     <au-multiline
       label="Remark"
       value.bind="data.Remark"
-      read-only.bind="readOnly">
+      read-only.bind="readOnly || isComplete">
     </au-multiline>
 
     <au-textbox
@@ -47,7 +47,7 @@
       columns.bind="itemHeader" 
       add.bind="itemInfo.onAdd" 
       remove.bind="itemInfo.onRemove"
-      read-only.bind="readOnly"
+      read-only.bind="readOnly || isComplete"
       show.bind="selectedUnit"
       item-template="modules/production/finishing-printing/materials-request-note/template/materials-request-note-item">
     </au-collection>

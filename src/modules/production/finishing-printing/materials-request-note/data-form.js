@@ -10,6 +10,7 @@ export class DataForm {
     @bindable isCreate = false;
     @bindable isEdit = false;
     @bindable isView = false;
+    @bindable isComplete = false;
     @bindable title;
     @bindable readOnly;
     @bindable data;
@@ -39,7 +40,21 @@ export class DataForm {
             this.selectedUnit = this.data.Unit;
         }
 
-        this.itemsOptions.isTest = this.data.RequestType && this.data.RequestType.toUpperCase() == "TEST" ? true : false;
+        this.itemsOptions.isTest = this.data.RequestType && (this.data.RequestType.toUpperCase() == "TEST" || this.data.RequestType.toUpperCase() == "PEMBELIAN") ? true : false;
+        this.itemsOptions.isComplete = this.context.isComplete ? true : false;
+        this.itemsOptions.isAwal = this.data.RequestType && this.data.RequestType.toUpperCase() == "AWAL" ? true : false;
+        this.itemsOptions.isView = this.context.isView ? true : false;
+        this.itemsOptions.isEdit = this.context.isEdit ? true : false;
+
+        if (this.context.isComplete) {
+            this.data.MaterialsRequestNote_Items.map((item) => {
+                item.isDisabled = item.ProductionOrder.isCompleted ? true : false;
+                return item;
+            })
+        }
+        // this.readOnly = this.itemsOptions.isComplete;
+        // this.isView = this.itemsOptions.isComplete;
+        // this.itemsOptions.        
 
     }
 
@@ -50,7 +65,7 @@ export class DataForm {
     }
 
     @bindable unitFilter = { "division.name": "FINISHING & PRINTING" };
-    typeItems = ["", "AWAL", "PENGGANTI BAD OUTPUT", "TEST"];
+    typeItems = ["", "AWAL", "PENGGANTI BAD OUTPUT", "TEST", "PEMBELIAN"];
 
     itemsOptions = {};
     @bindable selectedUnit;
@@ -80,7 +95,7 @@ export class DataForm {
         this.data.RequestType = newVal ? newVal : this.data.RequestType;
 
         delete this.itemsOptions.productionOrderFilter["isRequested"];
-        if (newVal && newVal.toUpperCase() == "AWAL") {
+        if (newVal && (newVal.toUpperCase() == "AWAL" || newVal.toUpperCase() == "PEMBELIAN")) {
             var filter = {
                 "isRequested": false
             }
@@ -92,19 +107,23 @@ export class DataForm {
     }
 
     get itemHeader() {
-        if (this.data.RequestType && this.data.RequestType.toUpperCase() === "TEST") {
+        if (this.data.RequestType && (this.data.RequestType.toUpperCase() === "TEST" || this.data.RequestType.toUpperCase() == "PEMBELIAN")) {
             return [
                 { header: "Nama Barang", value: "Product" },
                 { header: "Grade", value: "Grade" },
                 { header: "Panjang (Meter)", value: "Length" }
-            ]
+            ];
+        } else if (this.data.RequestType && (this.context.isView && this.data.RequestType.toUpperCase() == "AWAL")) {
+            return ["No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Status"];
+        } else if (this.context.isComplete) {
+            return ["Pilih", "No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Status"];
         } else {
             return [
                 { header: "No. SPP", value: "ProductionOrder" },
                 { header: "Nama Barang", value: "Product" },
                 { header: "Grade", value: "Grade" },
-                { header: "Panjang (Meter)", value: "Length" }
-            ]
+                { header: "Panjang (Meter)", value: "Length" },
+            ];
         }
 
     }
@@ -117,7 +136,7 @@ export class DataForm {
                 Grade: "",
                 Length: 0
             });
-            this.itemsOptions.isTest = this.data.RequestType && this.data.RequestType.toUpperCase() == "TEST" ? true : false;
+            this.itemsOptions.isTest = this.data.RequestType && (this.data.RequestType.toUpperCase() == "TEST" || this.data.RequestType.toUpperCase() == "PEMBELIAN") ? true : false;
         }.bind(this),
         onRemove: function () {
 

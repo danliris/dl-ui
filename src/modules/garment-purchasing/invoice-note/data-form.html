@@ -55,17 +55,21 @@
             show.bind="data.useVat || data.useIncomeTax" options.bind="controlOptions">
         </au-checkbox>
 
-        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.items.length > 0  && !readOnly"
+        <!-- <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.supplier  && !readOnly"
+            add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove" view-model.ref="ItemsCollection" remove.bind="itemsInfo.onRemove"
+            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+        </au-collection> -->
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.supplier  && !readOnly"
+            add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove" read-only.bind="readOnly" options.bind="options" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+        </au-collection>
+
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfoReadOnly.columnsReadOnly" show.bind="data.items.length > 0 && readOnly"
             read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
         </au-collection>
 
-        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columnsReadOnly" show.bind="data.items.length > 0 && readOnly"
-            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
-        </au-collection>
-
-        <div class="text-center">
+        <!-- <div class="text-center">
             <button class="circle-btn" type="button" click.delegate="loadItems()" show.bind="!isActivitiesEqualTotal && !readOnly && data.items.length > 0 && isCreate">Load More</button>
-        </div>
+        </div> -->
 
     </au-input-form>
 </template>
