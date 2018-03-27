@@ -59,9 +59,10 @@ export class DataForm {
     DetailInfo = {
         columns: [
             { header: "Nama Barang", value: "BonProduct" },
-            { header: "Jumlah (Piece)", value: "Quantity" },
+            // { header: "Jumlah (Piece)", value: "Quantity" },
             { header: "Panjang (Meter)", value: "Length" },
-            { header: "Keterangan", value: "remark" },
+            { header: "Grade", value: "Grade" },
+            { header: "Retur", value: "Retur" },
         ],
         onAdd: function () {
             this.data.Details.push({});

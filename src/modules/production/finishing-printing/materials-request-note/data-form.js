@@ -45,6 +45,13 @@ export class DataForm {
         this.itemsOptions.isAwal = this.data.RequestType && this.data.RequestType.toUpperCase() == "AWAL" ? true : false;
         this.itemsOptions.isView = this.context.isView ? true : false;
         this.itemsOptions.isEdit = this.context.isEdit ? true : false;
+
+        if (this.context.isComplete) {
+            this.data.MaterialsRequestNote_Items.map((item) => {
+                item.isDisabled = item.ProductionOrder.isCompleted ? true : false;
+                return item;
+            })
+        }
         // this.readOnly = this.itemsOptions.isComplete;
         // this.isView = this.itemsOptions.isComplete;
         // this.itemsOptions.        
