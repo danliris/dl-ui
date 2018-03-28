@@ -61,6 +61,7 @@ export class DataForm {
             { header: "Alasan", value: "badOutputReason" },
             { header: "Jumlah Panjang (m)", value: "precentage" },
             { header: "Action", value: "action" },
+            { header: "Mesin Penyebab Bad Output", value: "machine" },
             { header: "Keterangan", value: "description" }
         ],
         onAdd: function () {
@@ -152,16 +153,37 @@ export class DataForm {
 
     get getFilterReason(){
         this.filterReason = {};
+        var reason={};
+        var machineCodes={};
         if(this.data.machine){
-            this.filterReason = {
-                "machines" : {
-                    "$elemMatch" : {
-                        "code" : this.data.machine.code
-                    }
-                },
-                "action": this.data.action ? this.data.action : ""
+            reason = {
+                
+                    "machines" : {
+                        "$elemMatch" : {
+                            "code" : this.data.machine.code
+                        }
+                    },
+                    "action": this.data.action ? this.data.action : ""
+                
             }
         }
+
+        if(this.data.kanban){
+            var machineCode=[];
+            if(this.data.step){
+                for(var mc of this.data.kanban.instruction.steps){
+                    machineCode.push(mc.machine.code);
+                    if(this.data.stepId==mc._id){
+                        break;
+                    }
+                }
+            }
+            machineCodes={
+                code:machineCode,
+                kanban:this.data.kanban.code
+            }
+        }
+        this.filterReason={reason:reason,machineCode:machineCodes};
         return this.filterReason;
     }
 
@@ -176,6 +198,24 @@ export class DataForm {
                 this.data.input = Number(selectedKanban.cart.qty);
             if(this.output && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.goodOutput = Number(selectedKanban.cart.qty);
+            
+            var machineCode=[];
+            if(this.data.step){
+                for(var mc of this.data.kanban.instruction.steps){
+                    machineCode.push(mc.machine.code);
+                    if(this.data.stepId==mc._id){
+                        break;
+                    }
+                }
+            }
+            this.filterReason={
+                reason:this.filterReason.reason,
+                machineCode:{
+                    code:machineCode,
+                    kanban:this.data.kanban.code
+                }
+            };
+            this.data.badOutputReasons.filter=this.filterMachineReason;
         }
         else {
             delete this.data.kanbanId;
@@ -204,9 +244,11 @@ export class DataForm {
             this.data.machine = selectedMachine;
             this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
             this.filterReason = {
-                "machines" : {
-                    "$elemMatch" : {
-                        "code" : this.data.machine.code
+                reason:{
+                    "machines" : {
+                        "$elemMatch" : {
+                            "code" : this.data.machine.code
+                        }
                     }
                 }
             }
