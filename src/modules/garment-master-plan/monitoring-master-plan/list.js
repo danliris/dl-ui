@@ -19,6 +19,19 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    
+    this.onContentResize = (e) => {
+      this.refreshOptionsTable();
+    }
+
+  }
+
+  attached() {
+    window.addEventListener("resize", this.onContentResize);
+  }
+
+  detached() {
+    window.removeEventListener("resize", this.onContentResize);
   }
 
   controlOptions = {
@@ -448,6 +461,35 @@ export class List {
 
     $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
   }
+
+  refreshOptionsTable() {
+    var bootstrapTableOptions = {
+      // columns: columns,
+      // data: data,
+      fixedColumns: true,
+      fixedNumber: 3
+    };
+    var data = $(this.table).bootstrapTable('getData');
+    if (data.length > 10) { // row > 10
+      bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
+    }
+    $(this.table).bootstrapTable('refreshOptions', bootstrapTableOptions);
+
+    var rowIndex = 0;
+    var unitTemp = "";
+    for (var d of this.data) {
+      for (var c of d.collection) {
+        if(unitTemp != d.units) {
+          // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "unit", rowspan: d.collection.length, colspan: 1 });
+          var $fixedTableBodyColumns = $('.fixed-table-body-columns');
+          this.mergeCells($fixedTableBodyColumns, { index : rowIndex, field: 0, rowspan: d.collection.length, colspan: 1 });
+          unitTemp = d.units;
+        }
+        rowIndex++;
+      }
+    }
+
+  }
   
   ExportToExcel() {
     if (!this.year) {
@@ -461,7 +503,6 @@ export class List {
       this.service.generateExcel(info);
     }
   }
-
 
   reset() {
     this.code = "";
