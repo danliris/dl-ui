@@ -46,15 +46,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
-        if (this.data.Bon && this.data.Bon.Id) {
-            this.NoBon = this.data.Bon;
-        }
-
-        if (this.data.Supplier && this.data.Supplier._id) {
-            this.Supplier = this.data.Supplier;
-        }
-
     }
 
     filterUnit = { "unit.division.name": "FINISHING & PRINTING" };

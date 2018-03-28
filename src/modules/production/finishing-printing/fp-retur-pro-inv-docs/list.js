@@ -52,11 +52,7 @@ export class List {
                         data.TotalLength += i.Length;
                     }
 
-                    if (data.Status = data.Details.find(res => res.Retur == "Ya")) {
-                        data.Status = "Ya"
-                    }else{
-                        data.Status = "Tidak"
-                    }
+                    data.Status =  data.Details.find(res => res.Retur == "Ya") ? "Ya":"Tidak";
                     results.push(data);
                 }
                 return {
