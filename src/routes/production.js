@@ -358,7 +358,7 @@ module.exports = [
         name: 'fp-retur-pro-inv-docs',
         moduleId: './modules/production/finishing-printing/fp-retur-pro-inv-docs/index',
         nav: true,
-        title: 'Bon Retur Barang',
+        title: 'Bon Hasil Re-grading',
         auth: true,
         settings: {
             group: "production",
