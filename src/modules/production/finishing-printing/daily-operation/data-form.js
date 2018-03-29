@@ -215,7 +215,6 @@ export class DataForm {
                     kanban:this.data.kanban.code
                 }
             };
-            this.data.badOutputReasons.filter=this.filterMachineReason;
         }
         else {
             delete this.data.kanbanId;
