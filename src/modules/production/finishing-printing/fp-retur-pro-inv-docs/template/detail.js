@@ -1,12 +1,12 @@
 
-import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
+// import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 
-@containerless()
-@inject(BindingEngine)
+// @containerless()
+// @inject(BindingEngine)
 export class detail {
-    constructor(bindingEngine) {
-        this.bindingEngine = bindingEngine;
-    }
+    // constructor(bindingEngine) {
+    //     this.bindingEngine = bindingEngine;
+    // }
 
     activate(context) {
         this.context = context;
@@ -14,10 +14,10 @@ export class detail {
         this.error = context.error;
         this.options = context.context.options;
         this.contextOptions = context.context.options;
-        this.Product = this.data ? this.data.Product : {};
+        // this.Product = this.data ? this.data.Product : {};
     }
 
-    @bindable Product;
+    // @bindable Product;
 
     gradeList = ["A", "B", "C", "BS"];
     return = ["Ya", "Tidak"];
@@ -28,16 +28,16 @@ export class detail {
         }
     };
 
-    ProductChanged(newValue, oldValue) {
-        if (this.Product) {
-            this.data.Product = this.Product;
-        } else {
-            this.data = {};
-        }
-    }
+    // ProductChanged(newValue, oldValue) {
+    //     if (this.Product) {
+    //         this.data.Product = this.Product;
+    //     } else {
+    //         this.data = {};
+    //     }
+    // }
 
-    get productLoader() {
-        return this.options.productLoader;
-    }
+    // get productLoader() {
+    //     return this.options.productLoader;
+    // }
 
 }
