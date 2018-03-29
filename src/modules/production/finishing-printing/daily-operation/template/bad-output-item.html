@@ -30,6 +30,18 @@
             </au-dropdown>
         </td>
         <td>
+            <au-autocomplete 
+                value.bind="machine"
+                loader.bind="machineLoader" 
+                text="name"
+                placeholder="search Mesin Penyebab Bad Output"
+                read-only.bind="(readOnly || isEdit)"
+                error.bind="error.machine"
+                options.bind="controlOptions"
+                query.bind="filterMachine">
+            </au-autocomplete>
+        </td>
+        <td>
             <au-textbox 
                 value.bind="data.description"
                 error.bind="error.description"
