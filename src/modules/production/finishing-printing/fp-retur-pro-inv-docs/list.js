@@ -11,18 +11,20 @@ export class List {
         this.router = router;
     }
 
-    context = ["detail","Cetak PDF"];
+    context = ["detail", "Cetak PDF"];
     columns = [
-        { field: "Code", title: "No. Bon Retur Barang" },
-        { field: "Bon.No", title: "No. Bon Pengantar Greige" },
-        { field: "Supplier.name", title: "Supplier" },
+        { field: "Code", title: "No. Bon Hasil Re-grading" },
+        { field: "Bon.no", title: "No. Bon Terima Unit" },
+        { field: "Bon.unitName", title: "Unit" },
         {
             field: "_CreatedUtc", title: "Tanggal", formatter: (value, data) => {
                 return moment(value).format("DD-MMM-YYYY");
             }
         },
-        { field: "Total", title: "Total" },
+        { field: "Count", title: "Total Jumlah (Piece)" },
         { field: "TotalLength", title: "Total Panjang (Meter)" },
+        { field: "Supplier.name", title: "Supplier" },
+        { field: "Status", title: "Status Retur" },
     ]
 
     loader = (info) => {
@@ -41,13 +43,16 @@ export class List {
             .then(result => {
                 var results = []
                 for (var data of result.data) {
-                    data.Total = 0;
+                    data.Count = 0;
                     data.TotalLength = 0;
 
                     for (var i of data.Details) {
-                        data.Total += i.Quantity;
+                        data.Count++;
+
                         data.TotalLength += i.Length;
                     }
+
+                    data.Status =  data.Details.find(res => res.Retur == "Ya") ? "Ya":"Tidak";
                     results.push(data);
                 }
                 return {

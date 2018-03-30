@@ -2,8 +2,9 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 import { debug } from 'util';
 
-var MaterialDistributionLoader = require('../../../../loader/material-distribution-notes');
-var materialDistributionDetailsLoader = require('../../../../loader/material-distribution-notes-details');
+var UnitReceiptNoteLoader = require('../../../../loader/unit-receipt-note-basic-loader')
+var MachineLoader = require('../../../../loader/machines-loader')
+var AccountLoader = require('../../../../loader/account-loader')
 
 @inject(Service)
 export class DataForm {
@@ -16,6 +17,8 @@ export class DataForm {
     @bindable title;
     @bindable Supplier;
     @bindable NoBon;
+    @bindable Product;
+    @bindable Machine;
 
     formOptions = {
         cancelText: "Kembali",
@@ -36,6 +39,7 @@ export class DataForm {
     filter = {}
     products = [];
     options = {};
+    ProductLoader = [];
 
     constructor(service) {
         this.service = service;
@@ -45,77 +49,87 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
-        if (this.data.Bon && this.data.Bon.Id) {
-            this.NoBon = this.data.Bon;
-        }
-
-        if (this.data.Supplier && this.data.Supplier._id) {
-            this.Supplier = this.data.Supplier;
-        }
-
     }
+
+    filterUnit = { "unit.division.name": "FINISHING & PRINTING" };
+    @bindable machineFilter = { "unit.name": { "$exists": true } };
+    shiftOptions = [
+        "Shift I: 06.00 - 14.00",
+        "Shift II: 14.00 - 22.00",
+        "Shift III: 22.00 - 06.00"]
+
 
     DetailInfo = {
         columns: [
-            { header: "Nama Barang", value: "BonProduct" },
-            // { header: "Jumlah (Piece)", value: "Quantity" },
-            { header: "Panjang (Meter)", value: "Length" },
-            { header: "Grade", value: "Grade" },
-            { header: "Retur", value: "Retur" },
+            { header: "Panjang Sebelum Re-grade(Meter)" },
+            { header: "Panjang Hasil Re-grade(Meter)" },
+            { header: "Grade" },
+            { header: "Retur" },
         ],
         onAdd: function () {
             this.data.Details.push({});
         }.bind(this),
-        onRemove: function () {
-        }.bind(this)
     };
 
-    get materialDistributionLoader() {
-        return MaterialDistributionLoader;
-    }
-
-    get materialDistributionDetailsLoader() {
-        return materialDistributionDetailsLoader;
-    }
-
-    SupplierChanged(newValue, oldValue) {
-        this.products = [];
-        if (newValue.details != undefined) {
-            for (let detail of newValue.details) {
-                this.products.push({
-                    Id: detail.Product._id,
-                    Code: detail.Product.code,
-                    Name: detail.Product.name,
-                    Length: detail.ReceivedLength,
-                    Quantity: detail.Quantity,
-                })
-            }
-            this.options.productLoader = this.products;
-        }
-
-        if (this.Supplier && this.Supplier.name) {
-            this.data.Supplier = this.Supplier
-        }
-        else {
-            this.Supplier = null;
-        }
+    get unitReceiptNoteLoader() {
+        return UnitReceiptNoteLoader;
     }
 
     async NoBonChanged(newValue, oldValue) {
-        if (this.NoBon && this.NoBon.Id) {
-            this.filter = { "Id": newValue.Id };
-            var BonData = await this.service.getBonById(newValue.Id);
+        this.products = [];
+        if (this.NoBon && this.NoBon._id) {
+            // this.filter = { "Id": newValue.Id };
+            // var BonData = await this.service.getBonById(newValue.Id);
             this.data.Bon = this.NoBon;
-            this.data.Bon.UnitName = BonData.Unit.name;
+            this.data.Bon.unitName = this.NoBon.unit.name;
+            this.data.Supplier = this.NoBon.supplier;
+            for (let data of this.NoBon.items) {
+                this.products.push({
+                    Id: data.product._id,
+                    Code: data.product.code,
+                    Name: data.product.name,
+                    Length: data.deliveredQuantity,
+                })
+            }
+            this.ProductLoader = this.products
+
             if (oldValue) {
-                this.Supplier = null;
+                this.Product = null;
+                this.data.Details.splice(0, this.data.Details.length);
             }
         }
         else {
             this.NoBon = null;
-            this.Supplier = null;
+
         }
     }
 
-} 
+    ProductChanged(newValue, oldValue) {
+        if (this.Product) {
+            this.data.Product = this.Product;
+            if (oldValue) {
+                this.data.Details.splice(0, this.data.Details.length);
+            }
+        } else {
+            this.Product = null;
+            this.data.Details.splice(0, this.data.Details.length);
+        }
+    }
+
+    get productLoader() {
+        return this.ProductLoader;
+    }
+
+    MachineChanged(newValue, oldValue) {
+        if (this.Machine) {
+            this.data.Machine = this.Machine;
+        } else {
+            this.Machine = null;
+        }
+    }
+
+    get machineLoader() {
+        return MachineLoader;
+    }
+
+}

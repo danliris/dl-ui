@@ -114,9 +114,9 @@ export class DataForm {
                 { header: "Panjang (Meter)", value: "Length" }
             ];
         } else if (this.data.RequestType && (this.context.isView && this.data.RequestType.toUpperCase() == "AWAL")) {
-            return ["No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Status"];
+            return ["No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Panjang Realisasi (Meter)", "Status"];
         } else if (this.context.isComplete) {
-            return ["Pilih", "No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Status"];
+            return ["Pilih", "No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Panjang Realisasi (Meter)", "Status"];
         } else {
             return [
                 { header: "No. SPP", value: "ProductionOrder" },
