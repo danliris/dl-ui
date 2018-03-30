@@ -17,8 +17,9 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.NoBon = this.data ? this.data.Bon : {}
-
+        this.NoBon = this.data ? this.data.Bon : {};
+        this.Product = this.data ? this.data.Product : {};
+        this.Machine = this.data ? this.data.Machine : {};
     }
 
     cancelCallback(event) {

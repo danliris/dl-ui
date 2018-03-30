@@ -3,8 +3,8 @@ import { Service } from './service';
 import { debug } from 'util';
 
 var UnitReceiptNoteLoader = require('../../../../loader/unit-receipt-note-basic-loader')
-// var MaterialDistributionLoader = require('../../../../loader/material-distribution-notes');
-// var materialDistributionDetailsLoader = require('../../../../loader/material-distribution-notes-details');
+var MachineLoader = require('../../../../loader/machines-loader')
+var AccountLoader = require('../../../../loader/account-loader')
 
 @inject(Service)
 export class DataForm {
@@ -17,6 +17,8 @@ export class DataForm {
     @bindable title;
     @bindable Supplier;
     @bindable NoBon;
+    @bindable Product;
+    @bindable Machine;
 
     formOptions = {
         cancelText: "Kembali",
@@ -37,6 +39,7 @@ export class DataForm {
     filter = {}
     products = [];
     options = {};
+    ProductLoader = [];
 
     constructor(service) {
         this.service = service;
@@ -49,56 +52,28 @@ export class DataForm {
     }
 
     filterUnit = { "unit.division.name": "FINISHING & PRINTING" };
+    @bindable machineFilter = { "unit.name": { "$exists": true } };
+    shiftOptions = [
+        "Shift I: 06.00 - 14.00",
+        "Shift II: 14.00 - 22.00",
+        "Shift III: 22.00 - 06.00"]
+
 
     DetailInfo = {
         columns: [
-            { header: "Nama Barang", value: "BonProduct" },
-            // { header: "Jumlah (Piece)", value: "Quantity" },
-            { header: "Panjang (Meter)", value: "Length" },
-            { header: "Grade", value: "Grade" },
-            { header: "Retur", value: "Retur" },
+            { header: "Panjang Sebelum Re-grade(Meter)" },
+            { header: "Panjang Hasil Re-grade(Meter)" },
+            { header: "Grade" },
+            { header: "Retur" },
         ],
         onAdd: function () {
             this.data.Details.push({});
         }.bind(this),
-        onRemove: function () {
-        }.bind(this)
     };
-
-    // get materialDistributionLoader() {
-    //     return MaterialDistributionLoader;
-    // }
-
-    // get materialDistributionDetailsLoader() {
-    //     return materialDistributionDetailsLoader;
-    // }
 
     get unitReceiptNoteLoader() {
         return UnitReceiptNoteLoader;
     }
-
-    // SupplierChanged(newValue, oldValue) {
-    //     this.products = [];
-    //     if (newValue.details != undefined) {
-    //         for (let detail of newValue.details) {
-    //             this.products.push({
-    //                 Id: detail.Product._id,
-    //                 Code: detail.Product.code,
-    //                 Name: detail.Product.name,
-    //                 Length: detail.ReceivedLength,
-    //                 Quantity: detail.Quantity,
-    //             })
-    //         }
-    //         this.options.productLoader = this.products;
-    //     }
-
-    //     if (this.Supplier && this.Supplier.name) {
-    //         this.data.Supplier = this.Supplier
-    //     }
-    //     else {
-    //         this.Supplier = null;
-    //     }
-    // }
 
     async NoBonChanged(newValue, oldValue) {
         this.products = [];
@@ -116,15 +91,45 @@ export class DataForm {
                     Length: data.deliveredQuantity,
                 })
             }
-            this.options.productLoader = this.products;
-            // if (oldValue) {
-            //     this.Supplier = null;
-            // }
+            this.ProductLoader = this.products
+
+            if (oldValue) {
+                this.Product = null;
+                this.data.Details.splice(0, this.data.Details.length);
+            }
         }
         else {
             this.NoBon = null;
-            // this.Supplier = null;
+
         }
+    }
+
+    ProductChanged(newValue, oldValue) {
+        if (this.Product) {
+            this.data.Product = this.Product;
+            if (oldValue) {
+                this.data.Details.splice(0, this.data.Details.length);
+            }
+        } else {
+            this.Product = null;
+            this.data.Details.splice(0, this.data.Details.length);
+        }
+    }
+
+    get productLoader() {
+        return this.ProductLoader;
+    }
+
+    MachineChanged(newValue, oldValue) {
+        if (this.Machine) {
+            this.data.Machine = this.Machine;
+        } else {
+            this.Machine = null;
+        }
+    }
+
+    get machineLoader() {
+        return MachineLoader;
     }
 
 }
