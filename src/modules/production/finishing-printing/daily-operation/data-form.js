@@ -89,26 +89,49 @@ export class DataForm {
         this.error = this.context.error;
         this.localInputDate = new Date(Date.parse(this.data.dateInput));
         this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
-        //this._machineCode=[];
-        // if(this.data.kanban && this.data.machine){
-        //     var filterDaily={
-        //         "kanban.code":this.data.kanban.code,
-        //         _deleted:false
-        //     };
-        //     this.dailyOperations= await this.service.search(filterDaily);
-        //     this._machineCode.push(this.data.machine.code);
-        //     for (var item of this.dailyOperations.data){
-        //         if(this._machineCode.length>0){
-        //             var dup=this._machineCode.find(mc=>mc==item.machine.code);
-        //             if(!dup)
-        //                 this._machineCode.push(item.machine.code);
-        //         }
-        //         else{
-        //             this._machineCode.push(item.machine.code);
-        //         }
-        //     }
-        // }
+        this.filterReason = {};
+        var reason={};
+        var machineCodes={};
+        if(this.data.machine){
+            reason = {
+                
+                    "machines" : {
+                        "$elemMatch" : {
+                            "code" : this.data.machine.code
+                        }
+                    },
+                    "action": this.data.action ? this.data.action : ""
+                
+            }
+        }
+        var _machineCode=[];
+        if(this.data.kanban && this.data.machine && this.data.badOutput>0){
+            var filterDaily={
+                "kanban.code":this.data.kanban.code,
+                _deleted:false,
+                type:"input"
+            };
+            var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
+             var _machineCode=[];
+            _machineCode.push(this.data.machine.code);
+            for (var item of dailyOperations.data){
+                if(_machineCode.length>0){
+                    var dup=_machineCode.find(mc=>mc==item.machine.code);
+                    if(!dup)
+                        _machineCode.push(item.machine.code);
+                }
+                else{
+                    _machineCode.push(item.machine.code);
+                }
+            }
+            machineCodes={
+                code:_machineCode,
+                kanban:this.data.kanban.code
+            }
+        }
 
+        this.filterReason={reason:reason,machineCode:machineCodes};
+        
         this.filterMachine = {
             "unit.division.name" : "FINISHING & PRINTING"
         }
@@ -172,43 +195,51 @@ export class DataForm {
         return this.data && this.data.machineId && this.data.machineId !== "" && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
-    get getFilterReason(){
-        this.filterReason = {};
-        var reason={};
-        var machineCodes={};
-        if(this.data.machine){
-            reason = {
+    // get getFilterReason(){
+    //     if(this.data.machine){
+    //         reason = {
                 
-                    "machines" : {
-                        "$elemMatch" : {
-                            "code" : this.data.machine.code
-                        }
-                    },
-                    "action": this.data.action ? this.data.action : ""
+    //                 "machines" : {
+    //                     "$elemMatch" : {
+    //                         "code" : this.data.machine.code
+    //                     }
+    //                 },
+    //                 "action": this.data.action ? this.data.action : ""
                 
-            }
-        }
+    //         }
+    //     }
+    //     var _machineCode=[];
+    //     if(this.data.kanban && this.data.machine && this.data.badOutput>0){
+    //         var filterDaily={
+    //             "kanban.code":this.data.kanban.code,
+    //             _deleted:false,
+    //             type:"input"
+    //         };
+    //         var dailyOperations= this.service.search(filterDaily);
+    //          var _machineCode=[];
+    //         _machineCode.push(this.data.machine.code);
+    //         for (var item of dailyOperations.data){
+    //             if(_machineCode.length>0){
+    //                 var dup=_machineCode.find(mc=>mc==item.machine.code);
+    //                 if(!dup)
+    //                     _machineCode.push(item.machine.code);
+    //             }
+    //             else{
+    //                 _machineCode.push(item.machine.code);
+    //             }
+    //         }
+    //         machineCodes={
+    //             code:_machineCode,
+    //             kanban:this.data.kanban.code
+    //         }
+    //         console.log(machineCodes)
+    //     }
 
-        if(this.data.kanban && this.data.machine){
-            
-            
-        //     var machineCode=[];
-        //     if(this.data.step){
-        //         for(var mc of this.data.kanban.instruction.steps){
-        //             machineCode.push(mc.machine.code);
-        //             if(this.data.stepId==mc._id){
-        //                 break;
-        //             }
-        //         }
-        //     }
-            machineCodes={
-                code:this._machineCode,
-                kanban:this.data.kanban.code
-            }
-        }
-        this.filterReason={reason:reason,machineCode:machineCodes};
-        return this.filterReason;
-    }
+    //     this.filterReason={reason:reason,machineCode:machineCodes};
+        
+    //     console.log(this.filterReason)
+    //     return this.filterReason;
+    // }
 
     async kanbanChanged(newValue, oldValue){
         var selectedKanban = newValue;
@@ -222,41 +253,45 @@ export class DataForm {
             if(this.output && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.goodOutput = Number(selectedKanban.cart.qty);
             
-            
-            // var filterDaily={
-            //     "kanban.code":this.data.kanban.code,
-            //     _deleted:false
-            // };
-            // var dailyOperations= await this.service.search(filterDaily);
-            // var _machineCode=[];
-            // _machineCode.push(this.data.machine.code);
-            // for (var item of this.dailyOperations.data){
-            //     if(_machineCode.length>0){
-            //         var dup=_machineCode.find(mc=>mc==item.machine.code);
-            //         if(!dup)
-            //             _machineCode.push(item.machine.code);
-            //     }
-            //     else{
-            //         _machineCode.push(item.machine.code);
-            //     }
-            // }
-            
-            // var machineCode=[];
-            // if(this.data.step){
-            //     for(var mc of this.data.kanban.instruction.steps){
-            //         machineCode.push(mc.machine.code);
-            //         if(this.data.stepId==mc._id){
-            //             break;
-            //         }
-            //     }
-            // }
-            this.filterReason={
-                reason:this.filterReason.reason,
-                machineCode:{
-                    code:this.data.machine.code,
-                    kanban:this.data.kanban.code
+            if(this.output){
+                var filterDaily={
+                    "kanban.code":this.data.kanban.code,
+                    _deleted:false,
+                    type:"input"
+                };
+
+                var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
+                var _machineCode=[];
+                _machineCode.push(this.data.machine.code);
+                for (var item of dailyOperations.data){
+                    if(_machineCode.length>0){
+                        var dup=_machineCode.find(mc=>mc==item.machine.code);
+                        if(!dup)
+                            _machineCode.push(item.machine.code);
+                    }
+                    else{
+                        _machineCode.push(item.machine.code);
+                    }
                 }
-            };
+                
+                // var machineCode=[];
+                // if(this.data.step){
+                //     for(var mc of this.data.kanban.instruction.steps){
+                //         machineCode.push(mc.machine.code);
+                //         if(this.data.stepId==mc._id){
+                //             break;
+                //         }
+                //     }
+                // }
+                this.filterReason={
+                    reason:this.filterReason.reason,
+                    machineCode:{
+                        code:_machineCode,
+                        kanban:this.data.kanban.code
+                    }
+                };
+                
+            }
         }
         else {
             delete this.data.kanbanId;
