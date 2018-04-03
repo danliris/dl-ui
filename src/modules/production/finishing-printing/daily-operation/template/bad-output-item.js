@@ -24,31 +24,38 @@ export class BadOutputItem {
         this.data.action = this.data.hasOwnProperty("action") ? this.data.action : this.filter.action; 
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("production");
-        var filterKanban={
-            "kanban.code":this.machineFilter.kanban,
-            _deleted:false
-        };
-        var _machineCode=[];
-        await endpoint.find(resource, { filter: JSON.stringify(filterKanban)})
-        .then((result) => {
-            for(var item of result.data){
-                if(_machineCode.length>0){
-                    var dup=_machineCode.find(mc=>mc==item.machine.code);
-                    if(!dup)
-                        _machineCode.push(item.machine.code);
-                }
-                else{
-                    _machineCode.push(item.machine.code);
-                }
-            }
-            _machineCode.push(this.machineFilter.code);
-            this.filterMachine={
+        // var filterKanban={
+        //     "kanban.code":this.machineFilter.kanban,
+        //     _deleted:false,
+        //     type:"input"
+        // };
+        // var _machineCode=[];
+        // await endpoint.find(resource, { filter: JSON.stringify(filterKanban)})
+        // .then((result) => {
+        //     for(var item of result.data){
+        //         if(_machineCode.length>0){
+        //             var dup=_machineCode.find(mc=>mc==item.machine.code);
+        //             if(!dup)
+        //                 _machineCode.push(item.machine.code);
+        //         }
+        //         else{
+        //             _machineCode.push(item.machine.code);
+        //         }
+        //     }
+        //     _machineCode.push(this.machineFilter.code);
+        //     this.filterMachine={
+        //         code:{
+        //             $in:_machineCode
+        //         }
+        //     };
+        // });
+        if(this.machineFilter)
+        this.filterMachine={
                 code:{
-                    $in:_machineCode
+                    $in:this.machineFilter.code
                 }
             };
-        });
-        
+        console.log(this.filterMachine)
     }
 
     controlOptions = {
