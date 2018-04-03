@@ -58,13 +58,16 @@ export class DataForm {
         "Shift II: 14.00 - 22.00",
         "Shift III: 22.00 - 06.00"]
 
-
     DetailInfo = {
         columns: [
+            { header: "No"},
             { header: "Panjang Sebelum Re-grade(Meter)" },
             { header: "Panjang Hasil Re-grade(Meter)" },
-            { header: "Grade" },
+            { header: "Grade (asli)" },
+            { header: "Grade (hasil Re-grade)" },
             { header: "Retur" },
+            { header: "Keterangan" },
+
         ],
         onAdd: function () {
             this.data.Details.push({});
