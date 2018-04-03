@@ -105,7 +105,7 @@ export class DataForm {
             }
         }
         var _machineCode=[];
-        if(this.data.kanban && this.data.machine && this.data.badOutput>0){
+        if(this.data.kanban && this.data.machine && this.output){
             var filterDaily={
                 "kanban.code":this.data.kanban.code,
                 _deleted:false,
