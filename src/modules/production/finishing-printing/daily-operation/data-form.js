@@ -128,12 +128,10 @@ export class DataForm {
                 code:_machineCode,
                 kanban:this.data.kanban.code
             }
-            console.log(machineCodes)
         }
 
         this.filterReason={reason:reason,machineCode:machineCodes};
         
-        console.log(this.filterReason)
         this.filterMachine = {
             "unit.division.name" : "FINISHING & PRINTING"
         }
@@ -261,12 +259,10 @@ export class DataForm {
                     _deleted:false,
                     type:"input"
                 };
-                console.log(filterDaily)
 
                 var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
                 var _machineCode=[];
                 _machineCode.push(this.data.machine.code);
-                console.log(dailyOperations.data)
                 for (var item of dailyOperations.data){
                     if(_machineCode.length>0){
                         var dup=_machineCode.find(mc=>mc==item.machine.code);
@@ -295,7 +291,6 @@ export class DataForm {
                     }
                 };
                 
-                console.log(this.filterReason);
             }
         }
         else {

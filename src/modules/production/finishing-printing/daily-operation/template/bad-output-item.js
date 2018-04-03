@@ -55,7 +55,6 @@ export class BadOutputItem {
                     $in:this.machineFilter.code
                 }
             };
-        console.log(this.filterMachine)
     }
 
     controlOptions = {
