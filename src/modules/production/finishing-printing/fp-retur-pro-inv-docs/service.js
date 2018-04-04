@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 var moment = require('moment');
 
-const serviceUri = 'fp-retur-pro-inv-docs';
+const serviceUri = 'FpRegradingResultDocs';
 const resource = 'material-distribution-notes';
 
 export class Service extends RestService {
