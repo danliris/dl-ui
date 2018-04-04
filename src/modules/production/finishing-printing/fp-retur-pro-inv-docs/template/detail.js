@@ -17,8 +17,7 @@ export class detail {
         // this.Product = this.data ? this.data.Product : {};
     }
 
-    // @bindable Product;
-
+    // @bindable No = 0;
     gradeList = ["A", "B", "C", "BS"];
     return = ["Ya", "Tidak"];
 

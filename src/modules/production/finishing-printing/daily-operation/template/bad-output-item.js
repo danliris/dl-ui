@@ -24,10 +24,12 @@ export class BadOutputItem {
         this.data.action = this.data.hasOwnProperty("action") ? this.data.action : this.filter.action; 
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("production");
-        var filterKanban={
-            "kanban.code":this.machineFilter.kanban
-        };
-        var _machineCode=[];
+        // var filterKanban={
+        //     "kanban.code":this.machineFilter.kanban,
+        //     _deleted:false,
+        //     type:"input"
+        // };
+        // var _machineCode=[];
         // await endpoint.find(resource, { filter: JSON.stringify(filterKanban)})
         // .then((result) => {
         //     for(var item of result.data){
@@ -40,14 +42,19 @@ export class BadOutputItem {
         //             _machineCode.push(item.machine.code);
         //         }
         //     }
-           
+        //     _machineCode.push(this.machineFilter.code);
+        //     this.filterMachine={
+        //         code:{
+        //             $in:_machineCode
+        //         }
+        //     };
         // });
-        // _machineCode.push(this.machineFilter.code);
+        if(this.machineFilter)
         this.filterMachine={
-            code:{
-                $in:this.machineFilter.code
-            }
-        };
+                code:{
+                    $in:this.machineFilter.code
+                }
+            };
     }
 
     controlOptions = {
