@@ -14,15 +14,16 @@
         <au-dropdown label="Shift" value.bind="data.Shift" items.bind="shiftOptions" error.bind="error.Shift" read-only.bind="readOnly"
             options.bind="controlOptions"></au-dropdown>
 
-        <au-autocomplete label="Nama Barang" value.bind="Product" error.bind="error.Product" placeholder="Cari Nama Barang" text="Name"
+        <au-autocomplete label="Nama Barang" value.bind="Product" error.bind="error.Product" placeholder="Cari Nama Barang" text="ProductView"
             show.bind="NoBon" loader.bind="productLoader" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-multiline label="Keterangan" value.bind="data.Remark" read-only.bind="readOnly" options.bind="controlOptions">
-        </au-multiline>
+        <!-- <au-multiline label="Keterangan" value.bind="data.Remark" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-multiline> -->
 
         <au-collection items.bind="data.Details" errors.bind="error.Details" show.bind="Product" add.bind="DetailInfo.onAdd" remove.bind="DetailInfo.onRemove"
-            options.bind="options" columns.bind="DetailInfo.columns" read-only.bind="readOnly" item-template="modules/production/finishing-printing/fp-retur-pro-inv-docs/template/detail"></au-collection>
+            options.bind="options" columns.bind="DetailInfo.columns" read-only.bind="readOnly" item-template="modules/production/finishing-printing/fp-retur-pro-inv-docs/template/detail"
+            footer-template="modules/production/finishing-printing/fp-retur-pro-inv-docs/template/footer"></au-collection>
         </au-collection>
 
     </au-input-form>
