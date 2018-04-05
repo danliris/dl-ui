@@ -60,7 +60,7 @@ export class DataForm {
 
     DetailInfo = {
         columns: [
-            { header: "No"},
+            { header: "No" },
             { header: "Panjang Sebelum Re-grade(Meter)" },
             { header: "Panjang Hasil Re-grade(Meter)" },
             { header: "Grade (asli)" },
@@ -92,6 +92,7 @@ export class DataForm {
                     Code: data.product.code,
                     Name: data.product.name,
                     Length: data.deliveredQuantity,
+                    ProductView: data.product.code + " - " + data.product.name
                 })
             }
             this.ProductLoader = this.products
