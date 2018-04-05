@@ -66,6 +66,14 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
+        <td>
+            <au-textbox
+                placholder="masukkan keterangan"
+                value.bind="data.Remark"
+                read-only.bind="options.readOnly || isComplete"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
         <td show.bind="!isEdit && isAwal || isComplete">
             <p show.bind="!isEdit && isAwal || isComplete">${ data.ProductionOrder.isCompleted ? 'Sudah Complete' : 'Belum Complete' }</p>
         </td>
