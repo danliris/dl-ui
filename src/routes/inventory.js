@@ -208,4 +208,17 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "inventory/finishing-printing/fp-return-inv-to-purchasing",
+        name: "inventory/finishing-printing/fp-return-inv-to-purchasing",
+        moduleId: "modules/inventory/finishing-printing/fp-return-inv-to-purchasing/index",
+        nav: true,
+        title: "Bon Retur Barang - Pembelian",
+        auth: true,
+        settings: {
+            group: "Inventory",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
