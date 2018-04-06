@@ -52,9 +52,17 @@ export class List {
                         data.TotalLength += i.Length;
                     }
 
-                    data.Status =  data.Details.find(res => res.Retur == "Ya") ? "Ya":"Tidak";
+                    data.Status = data.Details.find(res => res.Retur == "Ya") ? "Ya" : "Tidak";
                     results.push(data);
                 }
+
+                // if (info.sort === "Total") { //custom sort
+                //     if (info.order === "desc")
+                //         results.sort(this.desc());
+                //     else
+                //         results.sort(this.asc());
+                // }
+
                 return {
                     total: result.info.total,
                     data: results,
