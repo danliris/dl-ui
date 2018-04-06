@@ -5,7 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian", "Cetak PDF"];
+    context = ["Rincian"];
 
     columns = [
         { field: "Code", title: "No. Transfer Stok" },
