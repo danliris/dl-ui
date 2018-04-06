@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'fp-regrading-result-docs-loader';
+const resource = 'FpRegradingResultDocs';
 
 module.exports = function (keyword, filter) {
 

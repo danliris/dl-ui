@@ -51,6 +51,18 @@ export class FPReturnInvToPurchasingDetail {
     }
 
     get fpRegradingResultDocsLoader() {
-        return FPRegradingResultDocsLoader;
+        return function (keyword, filter) {
+            return FPRegradingResultDocsLoader(keyword, filter)
+                .then(data => {
+                    let loaderData = [];
+
+                    for (let d of data) {
+                        if (d.Details.filter(p => p.Retur == "Ya").length > 0)
+                            loaderData.push(d);
+                    }
+
+                    return loaderData;
+                });
+        }
     }
 }
