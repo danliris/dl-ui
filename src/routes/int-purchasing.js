@@ -2,7 +2,7 @@ module.exports = [
     {
         route: ['int-purchasing/transfer-delivery-order'],
         name: 'transfer-delivery-order',
-        moduleId: './modules/purchasing/transfer-delivery-order/index',
+        moduleId: './modules/int-purchasing/transfer-delivery-order/index',
         nav: true,
         title: 'Surat Jalan',
         auth: true,
