@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = "stock-transfer-notes";
-const serviceUriByNotUser = 'stock-transfer-notes/by-not-user';
+// const serviceUriByNotUser = 'stock-transfer-notes/by-not-user';
 const approvalServiceUri = 'stock-transfer-notes/approve';
 
 export class Service extends RestService {
@@ -11,8 +11,14 @@ export class Service extends RestService {
         super(http, aggregator, config, "inventory-azure");
     }
     
+    // //by not user
+    // search(info) {
+    //     let endpoint = `${serviceUriByNotUser}`;
+    //     return super.list(endpoint, info);
+    // }
+
     search(info) {
-        let endpoint = `${serviceUriByNotUser}`;
+        let endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
 
