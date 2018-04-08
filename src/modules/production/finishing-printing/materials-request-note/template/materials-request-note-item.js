@@ -23,7 +23,6 @@ export class MaterialsRequestNoteItem {
     }
 
     checkboxChanged(e) {
-        console.log("changed");
         this.data.toBeCompleted = this.data.ProductionOrder.isCompleted;
     }
 

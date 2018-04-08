@@ -1,11 +1,12 @@
 import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import { Service } from "./service";
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis');
 var MachineLoader = require('../../../../loader/machine-loader');
 var StepLoader = require('../../../../loader/step-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 
-@inject(BindingEngine, Element)
+@inject(Service, BindingEngine, Element)
 export class DataForm {
     @bindable readOnlyInput = false;
     @bindable readOnlyOutput = false;
@@ -61,6 +62,7 @@ export class DataForm {
             { header: "Alasan", value: "badOutputReason" },
             { header: "Jumlah Panjang (m)", value: "precentage" },
             { header: "Action", value: "action" },
+            { header: "Mesin Penyebab Bad Output", value: "machine" },
             { header: "Keterangan", value: "description" }
         ],
         onAdd: function () {
@@ -73,12 +75,13 @@ export class DataForm {
         }.bind(this)
     };
 
-    constructor(bindingEngine, element) {
+    constructor(service,bindingEngine, element) {
+        this.service = service;
         this.bindingEngine = bindingEngine;
         this.element = element;
     }
 
-    bind(context)
+    async bind(context)
     {
         //console.log(context);
         this.context = context;
@@ -86,6 +89,48 @@ export class DataForm {
         this.error = this.context.error;
         this.localInputDate = new Date(Date.parse(this.data.dateInput));
         this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
+        this.filterReason = {};
+        var reason={};
+        var machineCodes={};
+        if(this.data.machine){
+            reason = {
+                
+                    "machines" : {
+                        "$elemMatch" : {
+                            "code" : this.data.machine.code
+                        }
+                    },
+                    "action": this.data.action ? this.data.action : ""
+                
+            }
+        }
+        var _machineCode=[];
+        if(this.data.kanban && this.data.machine && this.output){
+            var filterDaily={
+                "kanban.code":this.data.kanban.code,
+                _deleted:false,
+                type:"input"
+            };
+            var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
+             var _machineCode=[];
+            _machineCode.push(this.data.machine.code);
+            for (var item of dailyOperations.data){
+                if(_machineCode.length>0){
+                    var dup=_machineCode.find(mc=>mc==item.machine.code);
+                    if(!dup)
+                        _machineCode.push(item.machine.code);
+                }
+                else{
+                    _machineCode.push(item.machine.code);
+                }
+            }
+            machineCodes={
+                code:_machineCode,
+                kanban:this.data.kanban.code
+            }
+        }
+
+        this.filterReason={reason:reason,machineCode:machineCodes};
         
         this.filterMachine = {
             "unit.division.name" : "FINISHING & PRINTING"
@@ -150,22 +195,53 @@ export class DataForm {
         return this.data && this.data.machineId && this.data.machineId !== "" && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
-    get getFilterReason(){
-        this.filterReason = {};
-        if(this.data.machine){
-            this.filterReason = {
-                "machines" : {
-                    "$elemMatch" : {
-                        "code" : this.data.machine.code
-                    }
-                },
-                "action": this.data.action ? this.data.action : ""
-            }
-        }
-        return this.filterReason;
-    }
+    // get getFilterReason(){
+    //     if(this.data.machine){
+    //         reason = {
+                
+    //                 "machines" : {
+    //                     "$elemMatch" : {
+    //                         "code" : this.data.machine.code
+    //                     }
+    //                 },
+    //                 "action": this.data.action ? this.data.action : ""
+                
+    //         }
+    //     }
+    //     var _machineCode=[];
+    //     if(this.data.kanban && this.data.machine && this.data.badOutput>0){
+    //         var filterDaily={
+    //             "kanban.code":this.data.kanban.code,
+    //             _deleted:false,
+    //             type:"input"
+    //         };
+    //         var dailyOperations= this.service.search(filterDaily);
+    //          var _machineCode=[];
+    //         _machineCode.push(this.data.machine.code);
+    //         for (var item of dailyOperations.data){
+    //             if(_machineCode.length>0){
+    //                 var dup=_machineCode.find(mc=>mc==item.machine.code);
+    //                 if(!dup)
+    //                     _machineCode.push(item.machine.code);
+    //             }
+    //             else{
+    //                 _machineCode.push(item.machine.code);
+    //             }
+    //         }
+    //         machineCodes={
+    //             code:_machineCode,
+    //             kanban:this.data.kanban.code
+    //         }
+    //         console.log(machineCodes)
+    //     }
 
-    kanbanChanged(newValue, oldValue){
+    //     this.filterReason={reason:reason,machineCode:machineCodes};
+        
+    //     console.log(this.filterReason)
+    //     return this.filterReason;
+    // }
+
+    async kanbanChanged(newValue, oldValue){
         var selectedKanban = newValue;
 
         if(selectedKanban){
@@ -176,6 +252,46 @@ export class DataForm {
                 this.data.input = Number(selectedKanban.cart.qty);
             if(this.output && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.goodOutput = Number(selectedKanban.cart.qty);
+            
+            if(this.output){
+                var filterDaily={
+                    "kanban.code":this.data.kanban.code,
+                    _deleted:false,
+                    type:"input"
+                };
+
+                var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
+                var _machineCode=[];
+                _machineCode.push(this.data.machine.code);
+                for (var item of dailyOperations.data){
+                    if(_machineCode.length>0){
+                        var dup=_machineCode.find(mc=>mc==item.machine.code);
+                        if(!dup)
+                            _machineCode.push(item.machine.code);
+                    }
+                    else{
+                        _machineCode.push(item.machine.code);
+                    }
+                }
+                
+                // var machineCode=[];
+                // if(this.data.step){
+                //     for(var mc of this.data.kanban.instruction.steps){
+                //         machineCode.push(mc.machine.code);
+                //         if(this.data.stepId==mc._id){
+                //             break;
+                //         }
+                //     }
+                // }
+                this.filterReason={
+                    reason:this.filterReason.reason,
+                    machineCode:{
+                        code:_machineCode,
+                        kanban:this.data.kanban.code
+                    }
+                };
+                
+            }
         }
         else {
             delete this.data.kanbanId;
@@ -204,9 +320,11 @@ export class DataForm {
             this.data.machine = selectedMachine;
             this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
             this.filterReason = {
-                "machines" : {
-                    "$elemMatch" : {
-                        "code" : this.data.machine.code
+                reason:{
+                    "machines" : {
+                        "$elemMatch" : {
+                            "code" : this.data.machine.code
+                        }
                     }
                 }
             }

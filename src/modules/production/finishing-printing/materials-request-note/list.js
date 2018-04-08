@@ -28,7 +28,7 @@ export class List {
             { field: "ProductionOrderList", title: "No. SPP" },
             {
                 field: "IsCompleted", title: "Status", formatter: function (value, data, index) {
-                    return data.RequestType.toUpperCase() == "AWAL" ? (value ? "SUDAH" : "BELUM") : "-";
+                    return data.RequestType.toUpperCase() == "AWAL" ? (value ? "SUDAH COMPLETE" : "BELUM COMPLETE") : "-";
                 }
             }
         ];
