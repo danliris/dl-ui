@@ -18,6 +18,17 @@
             show.bind="NoBon" loader.bind="productLoader" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-textbox
+            label="Panjang Total (MTR)"
+            value.bind="data.TotalLength"
+            show.bind="Product"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox label="Grade Asli" value.bind="data.OriginalGrade" error.bind="error.OriginalGreade" read-only.bind="readOnly" options.bind="controlOptions" placeholder="Grade">
+        </au-textbox>
+
         <!-- <au-multiline label="Keterangan" value.bind="data.Remark" read-only.bind="readOnly" options.bind="controlOptions">
         </au-multiline> -->
 

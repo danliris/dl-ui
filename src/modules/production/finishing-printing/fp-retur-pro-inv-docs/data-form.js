@@ -61,10 +61,10 @@ export class DataForm {
     DetailInfo = {
         columns: [
             { header: "No" },
-            { header: "Panjang Sebelum Re-grade(Meter)" },
-            { header: "Panjang Hasil Re-grade(Meter)" },
-            { header: "Grade (asli)" },
-            { header: "Grade (hasil Re-grade)" },
+            // { header: "Panjang Sebelum Re-grade(Meter)" },
+            { header: "Panjang (Meter)" },
+            { header: "Grade" },
+            // { header: "Grade (hasil Re-grade)" },
             { header: "Retur" },
             { header: "Keterangan" },
 
@@ -111,11 +111,14 @@ export class DataForm {
     ProductChanged(newValue, oldValue) {
         if (this.Product) {
             this.data.Product = this.Product;
+            this.data.TotalLength = newValue.Length;
+
             if (oldValue) {
                 this.data.Details.splice(0, this.data.Details.length);
             }
         } else {
             this.Product = null;
+            this.data.TotalLength = 0;
             this.data.Details.splice(0, this.data.Details.length);
         }
     }
