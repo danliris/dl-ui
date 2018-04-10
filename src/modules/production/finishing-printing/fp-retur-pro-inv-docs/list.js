@@ -11,7 +11,7 @@ export class List {
         this.router = router;
     }
 
-    context = ["detail", "Cetak PDF"];
+    context = ["Rincian", "Cetak PDF"];
     columns = [
         { field: "Code", title: "No. Bon Hasil Re-grading" },
         { field: "Bon.no", title: "No. Bon Terima Unit" },
@@ -78,7 +78,7 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "detail":
+            case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":

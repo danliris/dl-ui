@@ -24,7 +24,7 @@ export class Create {
     saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
-                alert(`create data success`);
+                alert(`Data berhasil dibuat`);
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
