@@ -22,6 +22,8 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.IsReturn = this.data.Details.every(p => p.Retur === "Ya");
+
         this.service.create(this.data)
             .then(result => {
                 alert(`Data berhasil dibuat`);
