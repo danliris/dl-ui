@@ -400,6 +400,19 @@ module.exports = [
             permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+     {
+        route: '/garment/monitoring-pengiriman-barang',
+        name: 'monitoring-pengiriman-barang',
+        moduleId: './modules/garment-purchasing/monitoring-pengiriman-barang/index',
+        nav: true,
+        title: 'Monitoring Ketepatan Pengiriman Barang',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]
