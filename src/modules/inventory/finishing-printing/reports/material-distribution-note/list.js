@@ -39,8 +39,8 @@ export class List {
         { field: "ProductionOrderNo", title: "No SPP" },
         { field: "ProductName", title: "Nama Barang" },
         { field: "Grade", title: "Grade" },
-        { field: "Quantity", title: "Jumlah (Piece)" },
-        { field: "Length", title: "Panjang Barang Datang (Meter)" },
+        { field: "Quantity", title: "Jumlah (Piece)", sortable: false },
+        { field: "Length", title: "Panjang Barang Datang (Meter)", sortable: false },
         { field: "SupplierName", title: "Asal" },
         {
             field: "IsDisposition", title: "Disposisi", formatter: function (value, data, index) {
