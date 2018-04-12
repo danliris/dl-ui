@@ -22,9 +22,11 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.IsReturn = this.data.Details.every(p => p.Retur === "Ya");
+
         this.service.create(this.data)
             .then(result => {
-                alert(`create data success`);
+                alert(`Data berhasil dibuat`);
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {

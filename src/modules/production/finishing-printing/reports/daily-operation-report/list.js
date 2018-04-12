@@ -32,7 +32,11 @@ export class List {
 
     columns = [
         [
-            { field: "no", title: "No", rowspan: "3", valign: "top" },
+            {
+                field: "no", title: "No", rowspan: "3", valign: "top", formatter: function (value, data, index) {
+                    return index + 1;
+                }
+            },
             { field: "kanban.productionOrder.orderNo", title: "No. Order", rowspan: "3", valign: "top" },
             { field: "kanban.cart.cartNumber", title: "No. Kereta", rowspan: "3", valign: "top" },
             { field: "kanban.isReprocess", title: "Reproses", rowspan: "3", valign: "top" },
@@ -44,7 +48,7 @@ export class List {
             { field: "kanban.productionOrder.processType.name", title: "Jenis Proses", rowspan: "3", valign: "top" },
             { title: "Panjang In (m)", colspan: "3", valign: "middle" },
             { title: "Panjang Out (m)", colspan: "4", valign: "middle" },
-            { field: "badOutputDescription", title: "Keterangan BS", rowspan: "3", valign: "middle", classes:"newLine"},
+            { field: "badOutputDescription", title: "Keterangan BS", rowspan: "3", valign: "middle", classes: "newLine" },
         ],
         [
             {
@@ -52,14 +56,22 @@ export class List {
                     return value ? moment(value).format("DD MMM YYYY") : "-";
                 }
             },
-            { field: "timeInput", title: "Jam", rowspan: "2", valign: "middle" },
-            { field: "input", title: "In Qty", rowspan: "2", valign: "middle" },
+            {
+                field: "timeInput", title: "Jam", rowspan: "2", valign: "middle", formatter: function (value, data, index) {
+                    return value ? moment(value).format('HH:mm') : '-';
+                }
+            },
+            { field: "input", title: "In Qty", rowspan: "2", valign: "middle", },
             {
                 field: "dateOutput", title: "Tgl", rowspan: "2", valign: "middle", formatter: function (value, data, index) {
                     return value ? moment(value).format("DD MMM YYYY") : "-";
                 }
             },
-            { field: "timeOutput", title: "Jam", rowspan: "2", valign: "middle" },
+            {
+                field: "timeOutput", title: "Jam", rowspan: "2", valign: "middle", formatter: function (value, data, index) {
+                    return value ? moment(value).format('HH:mm') : '-';
+                }
+            },
             { title: "Out Qty", colspan: "2", valign: "middle" },
         ],
         [
@@ -93,8 +105,6 @@ export class List {
         // } else {
         //     return {};
         // }
-
-        console.log(data);
         return {};
     }
 
@@ -105,13 +115,6 @@ export class List {
         return this.listDataFlag ? (
             this.service.getReport(this.dateFrom, this.dateTo, this.machine, this.kanban)
                 .then((result) => {
-                    console.log(result);
-                    var index = 1;
-                    for (var daily of result) {
-                        daily.no = index++;
-                        daily.timeInput = daily.dateInput ? moment(daily.timeInput).format('HH:mm') : '-';
-                        daily.timeOutput = daily.timeOutput ? moment(daily.timeOutput).format('HH:mm') : '-';
-                    }
                     return {
                         data: result
                     }

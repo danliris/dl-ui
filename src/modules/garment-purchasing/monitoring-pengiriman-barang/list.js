@@ -9,8 +9,6 @@ var CategoryLoader = require('../../../loader/garment-category-loader');
 
 @inject(Router, Service)
 export class List {
-  reprosesOption = ['','Bahan Baku', 'Bahan Pendukung'];
-
   
     purchaseRequest = {};
     filter = {isPosted: true};
@@ -25,16 +23,16 @@ export class List {
     }
 
  activate(params) {
-  if (params.dateFrom != null || params.dateTo != null || params.kategori != null) {
+  if (params.dateFrom != null || params.dateTo != null ) {
             this.dateFrom = params.dateFrom;
             this.dateTo = params.dateTo;
-            this.kategori = params.kategori;
+     
             var uri = "";
      
-            if (this.dateFrom == undefined && this.dateTo == undefined && this.kategori == undefined )
-                uri = this.service.search(this.dateFrom, this.dateTo, this.kategori);
+            if (this.dateFrom == undefined && this.dateTo == undefined  )
+                uri = this.service.search(this.dateFrom, this.dateTo);
             else
-                uri = this.service.search(this.dateFrom, this.dateTo, this.kategori);
+                uri = this.service.search(this.dateFrom, this.dateTo);
                 
                 uri.then(result => {
                 this.data = [];
@@ -97,31 +95,16 @@ export class List {
   }else{
       this.dateFrom='';
       this.dateTo='';
-      this.kategori='';
   }
 }
 
-    get prLoader(){
-        return PRLoader;
-    }
-
-    get unitLoader(){
-        return UnitLoader;
-    }
-    get categoryLoader(){
-        return CategoryLoader;
-    }
-    get buyerLoader(){
-        return BuyerLoader;
-    }
-
+   
     search() {
-         if (this.dateFrom == '' || this.dateTo == '' || this.kategori == '' )  {
-             this.kategori='';
+         if (this.dateFrom == '' || this.dateTo == '' )  {
              this.dateFrom='';
              this.dateTo='';
          }else{
-    this.service.search(this.dateFrom, this.dateTo,this.kategori)
+    this.service.search(this.dateFrom, this.dateTo)
             .then(result => {
                 this.data = [];
                 console.log(result);
@@ -183,21 +166,19 @@ export class List {
   
         this.dateFrom = "";
         this.dateTo = "";
-        this.kategori = "";
         this.data=[];
  
     }
 
-  view(data, dateFrom, dateTo, kategori) {
-       this.router.navigateToRoute('view', { id: data.supplier,supplier: data._id.kdsupplier, dateFrom:this.dateFrom, dateTo:this.dateTo ,kategori:this.kategori });
+  view(data, dateFrom, dateTo) {
+       this.router.navigateToRoute('view', { id: data.supplier,supplier: data._id.kdsupplier, dateFrom:this.dateFrom, dateTo:this.dateTo  });
         
     }
 
     ExportToExcel() {
-        // if (!this.prState)
-        //     this.prState = this.prStates[0];
-this.service.generateExcel(this.dateFrom ? this.dateFrom : "", this.dateTo ?this.dateTo : "",this.kategori ? this.kategori : "")
-      //  this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.buyer ? this.buyer._id : "", this.purchaseRequest ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
+     
+this.service.generateExcel(this.dateFrom ? this.dateFrom : "", this.dateTo ?this.dateTo : "")
+
     }
 
     dateFromChanged(e) {
