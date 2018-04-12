@@ -90,7 +90,7 @@ export class List {
             code: this.doc ? this.doc.Code : "",
             productName: this.product ? this.product.name : "",
             isReturn: this.returnStatus === "" ? null : (this.returnStatus === "Ya" ? true : false),
-            alreadyReturn: this.alreadyReturn === "" ? null : (this.alreadyReturn === "Sudah" ? true : false),
+            isReturnedToPurchasing: this.alreadyReturn === "" ? null : (this.alreadyReturn === "Sudah" ? true : false),
             dateFrom: (!this.dateFrom || this.dateFrom == "Invalid Date") ? null : moment(this.dateFrom).format("MM/DD/YYYY"),
             dateTo: (!this.dateTo || this.dateTo == "Invalid Date") ? null : moment(this.dateTo).format("MM/DD/YYYY")
         };
