@@ -1,6 +1,6 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 // var purchaseOrders = require('../../../loader/garment-product-loader');
@@ -36,7 +36,18 @@ export class List {
             select: ["machine.name", "input", "machine.monthlyCapacity", "machine.code", "dateInput"],
         };
 
-        this.arg.filter = JSON.stringify({ "$and": [{ "machine.code": this.machine.code }, { "type": "input" }, { "$where": "this.dateInput >=new Date('" + this.dateFrom.toString() + "') && this.dateInput <= new Date('" + this.dateTo.toString() + "')" }] });
+        // this.arg.filter = JSON.stringify({ "$and": [{ "machine.code": this.machine.code }, { "type": "input" }, { "$where": "this.dateInput >=new Date('" + this.dateFrom.toString() + "') && this.dateInput <= new Date('" + this.dateTo.toString() + "')" }] });
+
+        this.arg.filter = JSON.stringify({
+            "$and": [{ "machine.code": this.machine.code },
+            { "type": "input" },
+            {
+                "dateInput": {
+                    "$gte": new Date(this.dateFrom),
+                    "$lte": new Date(this.dateTo)
+                }
+            }]
+        });
     }
 
     filter = {};
