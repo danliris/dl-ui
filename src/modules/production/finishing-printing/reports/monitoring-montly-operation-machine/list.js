@@ -33,7 +33,7 @@ export class List {
         this.arg = {
             page: 1,
             size: Number.MAX_SAFE_INTEGER,
-            select: ["machine.name", "input", "machine.monthlyCapacity", "machine.code", "dateInput"]
+            select: ["machine.name", "input", "machine.monthlyCapacity", "machine.code", "dateInput"],
         };
 
         this.arg.filter = JSON.stringify({ "$and": [{ "machine.code": this.machine.code }, { "type": "input" }, { "$where": "this.dateInput >=new Date('" + this.dateFrom.toString() + "') && this.dateInput <= new Date('" + this.dateTo.toString() + "')" }] });
