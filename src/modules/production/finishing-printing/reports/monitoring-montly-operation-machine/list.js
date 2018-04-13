@@ -39,14 +39,10 @@ export class List {
         // this.arg.filter = JSON.stringify({ "$and": [{ "machine.code": this.machine.code }, { "type": "input" }, { "$where": "this.dateInput >=new Date('" + this.dateFrom.toString() + "') && this.dateInput <= new Date('" + this.dateTo.toString() + "')" }] });
 
         this.arg.filter = JSON.stringify({
-            "$and": [{ "machine.code": this.machine.code },
-            { "type": "input" },
-            {
-                "dateInput": {
-                    "$gte": new Date(this.dateFrom),
-                    "$lte": new Date(this.dateTo)
-                }
-            }]
+            "machineCode": this.machine.code,
+            "type": "input",
+            "dateFrom": new Date(this.dateFrom),
+            "dateTo": new Date(this.dateTo),
         });
     }
 
@@ -71,18 +67,18 @@ export class List {
             this.Values(),
             this.service.search(this.arg).then((result) => {
                 var data;
-
-                if (result.data.length == 0) {
+debugger
+                if (result.info.length == 0) {
                     data = {};
                 } else {
                     var sum = 0;
-                    for (var i of result.data) {
+                    for (var i of result.info) {
                         sum += i.input;
                     }
 
                     data = [{
-                        name: result.data[0].machine.name,
-                        capacity: result.data[0].machine.monthlyCapacity,
+                        name: result.info[0].machine.name,
+                        capacity: result.info[0].machine.monthlyCapacity,
                         monthlyCapacity: sum,
                         date: moment(this.dateFrom).format("DD-MMM-YYYY") + " hingga " + moment(this.dateTo).format("DD-MMM-YYYY"),
                     }];
