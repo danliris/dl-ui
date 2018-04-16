@@ -31,13 +31,13 @@ export class Edit {
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
-        }
+        };
         this.data.category.toString = function () {
             return [this.code, this.name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
-        }
+        };
         this.data.details.forEach(item => {
             item.product.toString = function () {
                 return [this.code, this.name]
@@ -45,7 +45,9 @@ export class Edit {
                         return item && item.toString().trim().length > 0;
                     }).join(" - ");
             }
-        })
+        });
+        // this.data.trDate =  moment(this.data.trDate).format("DD MMM YYYY HH:mm");
+        // this.data.requestedArrivalDate =  moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm");
     }
 
     cancel(event) {
@@ -53,10 +55,8 @@ export class Edit {
     }
 
     save(event) {
-        if(this.data.trDate)
-            this.data.trDate =  moment(this.data.trDate).format("DD MMM YYYY HH:mm");
-        if(this.data.requestedArrivalDate)
-            this.data.requestedArrivalDate =  moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm");
+       this.data.trDate =this.data.trDate?  moment(this.data.trDate).format("DD MMM YYYY HH:mm"):"";
+        this.data.requestedArrivalDate = this.data.requestedArrivalDate? moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm"): "";
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

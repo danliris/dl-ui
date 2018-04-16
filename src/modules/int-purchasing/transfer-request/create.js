@@ -33,10 +33,8 @@ export class Create {
     }
 
     save(event) {
-        if(this.data.trDate)
-            this.data.trDate =  moment(this.data.trDate).format("DD MMM YYYY HH:mm");
-        if(this.data.requestedArrivalDate)
-            this.data.requestedArrivalDate =  moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm");
+        this.data.trDate =this.data.trDate?  moment(this.data.trDate).format("DD MMM YYYY HH:mm"):"";
+        this.data.requestedArrivalDate = this.data.requestedArrivalDate? moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm"): "";
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
