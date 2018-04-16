@@ -44,7 +44,7 @@
             loader.bind="unitLoader"
             placeholder="cari unit" 
             key="code"
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-autocomplete>
 
