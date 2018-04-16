@@ -115,15 +115,16 @@ export class DataForm {
                 { header: "Keterangan", value: "Remark" }
             ];
         } else if (this.data.RequestType && (this.context.isView && this.data.RequestType.toUpperCase() == "AWAL")) {
-            return ["No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Panjang Realisasi (Meter)", "Keterangan", "Status"];
+            return ["No. Spp", "Nama Barang", "Grade", "Panjang SPP (Meter)", "Panjang SPB (Meter)", "Panjang Realisasi (Meter)", "Keterangan", "Status"];
         } else if (this.context.isComplete) {
-            return ["Pilih", "No. Spp", "Nama Barang", "Grade", "Panjang (Meter)", "Panjang Realisasi (Meter)", "Keterangan", "Status"];
+            return ["Pilih", "No. Spp", "Nama Barang", "Grade", "Panjang SPP (Meter)", "Panjang SPB (Meter)", "Panjang Realisasi (Meter)", "Keterangan", "Status"];
         } else {
             return [
                 { header: "No. SPP", value: "ProductionOrder" },
                 { header: "Nama Barang", value: "Product" },
                 { header: "Grade", value: "Grade" },
-                { header: "Panjang (Meter)", value: "Length" },
+                { header: "Panjang SPP (Meter)", value: "OrderQuantity" },
+                { header: "Panjang SPB (Meter)", value: "Length" },
                 { header: "Keterangan", value: "Keterangan" },
             ];
         }

@@ -44,7 +44,8 @@ export class List {
         { field: "OrderNo", title: "No. SPP" },
         { field: "ProductName", title: "Nama Barang" },
         { field: "Grade", title: "Grade" },
-        { field: "Length", title: "Panjang (Meter)" },
+        { field: "OrderQuantity", title: "Panjang SPP (Meter)" },
+        { field: "Length", title: "Panjang SPB (Meter)" },
         { field: "DistributedLength", title: "Panjang Realisasi (Meter)" },
         {
             field: "Status", title: "Status", formatter: function (value, data, index) {
