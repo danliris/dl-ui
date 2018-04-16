@@ -1,6 +1,7 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
+import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -11,6 +12,7 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.isEdit=true;
     }
 
     bind() {
@@ -51,6 +53,10 @@ export class Edit {
     }
 
     save(event) {
+        if(this.data.trDate)
+            this.data.trDate =  moment(this.data.trDate).format("DD MMM YYYY HH:mm");
+        if(this.data.requestedArrivalDate)
+            this.data.requestedArrivalDate =  moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm");
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

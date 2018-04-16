@@ -34,9 +34,13 @@ export class Service extends RestService {
     }
 
     post(data) {
-        console.log(data)
         var endpoint = `${serviceUri}/trpost`;
         return super.put(endpoint, data);
+    }
+
+    unpost(id) {
+        var endpoint = `${serviceUri}/trunpost/${id}`;
+        return super.put(endpoint);
     }
 
     delete(data) {
@@ -48,4 +52,5 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
     }
+
 }
