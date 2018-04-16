@@ -48,6 +48,14 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+        <td if.bind="!isTest">
+            <au-numeric
+                if.bind="data.ProductionOrder"
+                value.bind="data.ProductionOrder.orderQuantity"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
         <td>
             <au-numeric
                 value.bind="data.Length"
