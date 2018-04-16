@@ -2,12 +2,8 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import numeral from 'numeral';
 
-// var purchaseOrders = require('../../../loader/garment-product-loader');
-// var purchaseOrders = require('../../../loader/garment-purchase-orders-loader');
-// var Unit = require('../../../loader/unit-loader');
-// var Buyer = require('../../../../../loader/garment-buyers-loader');
-// var Category = require('../../../loader/garment-category-loader');
 var machineLoader = require('../../../../../loader/machine-loader');
 var Unit = require('../../../../../loader/unit-loader');
 
@@ -36,8 +32,6 @@ export class List {
             select: ["machine.name", "input", "machine.monthlyCapacity", "machine.code", "dateInput"],
         };
 
-        // this.arg.filter = JSON.stringify({ "$and": [{ "machine.code": this.machine.code }, { "type": "input" }, { "$where": "this.dateInput >=new Date('" + this.dateFrom.toString() + "') && this.dateInput <= new Date('" + this.dateTo.toString() + "')" }] });
-
         this.arg.filter = JSON.stringify({
             "machineCode": this.machine.code,
             "type": "input",
@@ -51,9 +45,9 @@ export class List {
 
     columns = [
         { field: "name", title: "Nama Mesin" },
-        { field: "capacity", title: "Kapasitas" },
-        { field: "monthlyCapacity", title: "Input" },
-        { field: "date", title: "Periode" },
+        { field: "capacity", title: "Kapasitas", align: "right" },
+        { field: "monthlyCapacity", title: "Input", align: "right" },
+        { field: "date", title: "Periode", align: "right" },
     ]
 
     loader = (info) => {
@@ -67,7 +61,6 @@ export class List {
             this.Values(),
             this.service.search(this.arg).then((result) => {
                 var data;
-debugger
                 if (result.info.length == 0) {
                     data = {};
                 } else {
@@ -78,8 +71,8 @@ debugger
 
                     data = [{
                         name: result.info[0].machine.name,
-                        capacity: result.info[0].machine.monthlyCapacity,
-                        monthlyCapacity: sum,
+                        capacity: numeral(parseFloat(result.info[0].machine.monthlyCapacity.toFixed(2))).format('0,000.00'),
+                        monthlyCapacity: numeral(parseFloat(sum.toFixed(2))).format('0,000.00'),
                         date: moment(this.dateFrom).format("DD-MMM-YYYY") + " hingga " + moment(this.dateTo).format("DD-MMM-YYYY"),
                     }];
 
@@ -131,14 +124,11 @@ debugger
     }
 
     reset() {
-        this.no = "";
-        this.unit = "";
-        this.category = "";
-        this.buyer = "";
+        this.machine = null;
         this.dateFrom = null;
         this.dateTo = null;
         this.listDataFlag = false;
-        this.movementTable.refresh();
+        this.table.refresh();
     }
 
 }
