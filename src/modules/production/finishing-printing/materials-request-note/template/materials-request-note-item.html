@@ -8,9 +8,7 @@
         <td show.bind="isComplete">
             <au-checkbox
                 show.bind="isComplete"
-                value.bind="data.ProductionOrder.isCompleted"
-                change.delegate="checkboxChanged($event)"
-                class="${ isDisabled ? 'disabled' : ''}">
+                value.bind="data.ProductionOrder.isCompleted">
             </au-checkbox>
         </td>
         <td show.bind="!isTest">
@@ -49,6 +47,14 @@
                 read-only.bind="options.readOnly || isComplete"
                 options.bind="controlOptions">
             </au-textbox>
+        </td>
+        <td if.bind="!isTest">
+            <au-numeric
+                if.bind="data.ProductionOrder"
+                value.bind="data.ProductionOrder.orderQuantity"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>
         </td>
         <td>
             <au-numeric

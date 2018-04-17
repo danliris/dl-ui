@@ -40,6 +40,8 @@ export class MaterialRequestNoteItem {
 
         if (!this.readOnly)
             this.columns.push("");
+        else
+            this.columns.push("Status");
     }
 
     toggle() {

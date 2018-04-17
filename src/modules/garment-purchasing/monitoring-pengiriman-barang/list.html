@@ -1,10 +1,9 @@
 <template>
-    <h1 class="page-header">Monitoring Ketepatan Kedatangan Barang</h1>
+    <h1 class="page-header">Monitoring Ketepatan Pengiriman Barang</h1>
     <form class="form-horizontal">
         
-        <dropdown    required()  label="Kategori" value.bind="kategori"      items.bind="reprosesOption" ></dropdown>
-          <datepicker  label="Tgl Datang Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)" ></datepicker>
-        <datepicker  label="Tgl Datang Akhir" value.bind="dateTo" min.bind="dateFrom" ></datepicker>
+          <datepicker  label="Tgl Surat Jalan Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)" ></datepicker>
+        <datepicker  label="Tgl Surat Jalan Akhir" value.bind="dateTo" min.bind="dateFrom" ></datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -28,13 +27,13 @@
                     <tr>
                         <td>No</td>
                         <td>Supplier</td>
-                        <td>Kedatangan OK (%)</td>                   
+                        <td>Pengiriman OK (%)</td>                   
                         <td>Jumlah</td>
                     
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="pr of data"  click.delegate="view(pr,dateFrom,dateTo,kategori)" >
+                    <tr repeat.for="pr of data"  click.delegate="view(pr,dateFrom,dateTo)" >
                         <td>${$index + 1}</td>
                         <td>${pr.supplier}</td>
                           <td>${pr.persen}%</td>

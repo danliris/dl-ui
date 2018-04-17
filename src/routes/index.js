@@ -12,7 +12,7 @@ var garmentMasterPlanRoutes = require("./garment-master-plan");
 var migrationLog = require("./migration-log");
 var garmentMasterPlanRoutes = require("./garment-master-plan");
 var spinningRoutes = require("./spinning-production");
-var intPurchasingRoutes=require("./int-purchasing");
+var intPurchasingRoutes = require("./int-purchasing");
 
 export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, spinningRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, garmentPurchasingRoutes, garmentMasterPlanRoutes, intPurchasingRoutes, authRoutes, migrationLog, reportRoutes);
 

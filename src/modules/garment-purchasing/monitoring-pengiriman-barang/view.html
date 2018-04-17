@@ -1,18 +1,14 @@
 <template>
-    <h1 class="page-header">Detail Monitoring Ketepatan Kedatangan Barang </h1> 
+    <h1 class="page-header">Detail Monitoring Ketepatan Pengiriman Barang Supplier </h1> 
     
     <form class="form-horizontal">
     
-  <!--<div class="btn-group pull-left" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
-        </div>-->
+
            <div>
             <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
         </div>
          <div class="table-responsive">
         <table class="table table-bordered table-hover">
-             <!--<div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="doReport">-->
         <thead>
           <tr>
                         <td>No</td>
@@ -26,8 +22,8 @@
                         <td>Keterangan Barang</td>
                         <td>Artikel</td>
                         <td>RO</td>
-                        <td>Tgl Shipment</td>
-                        <td>Tgl Datang</td>
+                        <td>Tgl Estimasi Datang</td>
+                        <td>Tgl Surat Jalan</td>
                         <td>+ /- Datang</td>
                         <td>Staff</td>
                         <td>kategori</td>

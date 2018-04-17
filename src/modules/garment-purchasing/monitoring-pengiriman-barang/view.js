@@ -13,20 +13,20 @@ export class View {
 async activate(params) {
         var id = params.id;
         var supplier = params.supplier;
-        var kategori = params.kategori;
+
         var dateFrom = params.dateFrom;
         var dateTo = params.dateTo;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
         this.supplier = supplier;
-        this.kategori = kategori;
+ 
         var dataReport = [];
         var uri = "";
         
         if (this.supplier == undefined  )
-            uri = this.service.getDetail(supplier,dateFrom,dateTo,kategori);
+            uri = this.service.getDetail(supplier,dateFrom,dateTo);
         else
-            uri = this.service.getDetail(supplier,dateFrom,dateTo,kategori);
+            uri = this.service.getDetail(supplier,dateFrom,dateTo);
 
 
         uri.then(data => {
@@ -35,19 +35,13 @@ async activate(params) {
              for (var isi of data) {
 
             var ket='';
-            if(isi.category =='FABRIC' || isi.category =='INTERLINING' ){
-                   if(isi.selisih >=30 ){
-                         ket='OK';
-                     }else{
+         
+                if(isi.selisih > 5 ){
                          ket='NOT OK';
-                     }
-            }else{
-                if(isi.selisih >=20 ){
-                         ket='OK';
                      }else{
-                         ket='NOT OK';
+                         ket='OK';
                      }
-            }
+        
            
                  var item = {
                         keterangan: ket,
@@ -82,7 +76,7 @@ async activate(params) {
 
    ExportToExcel() {
 
-this.service.generateExcel2(this.supplier ? this.supplier : "",this.dateFrom ? this.dateFrom : "", this.dateTo ?this.dateTo : "",this.kategori ? this.kategori : "")
+this.service.generateExcel2(this.supplier ? this.supplier : "",this.dateFrom ? this.dateFrom : "", this.dateTo ?this.dateTo : "")
     }
 
     list(dateFrom, dateTo, kategori) {
