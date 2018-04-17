@@ -53,7 +53,10 @@ export class Service extends RestService {
         
         if (info.deliveryOrderNo)
             query = `${query}&deliveryOrderNo=${info.deliveryOrderNo}`;
-            
+        
+        if (info.state)
+            query = `${query}&state=${info.state}`;
+
         if (query !== '') {
             query = query.substring(1);
             endpoint = `${endpoint}?${query}`;
