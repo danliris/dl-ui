@@ -27,6 +27,19 @@ module.exports = [
         }
     },
     {
+        route: ['int-purchasing/internal-transfer-order-report'],
+        name: 'internal-transfer-order',
+        moduleId: './modules/int-purchasing/internal-transfer-order-report/index',
+        nav: true,
+        title: 'Report Transfer Order Internal',
+        auth: true,
+        settings: {
+            group: "int-purchasing",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/int-purchasing/transfer-request',
         name: 'transfer-request',
         moduleId: './modules/int-purchasing/transfer-request/index',
