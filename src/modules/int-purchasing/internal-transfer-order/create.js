@@ -2,6 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 import {activationStrategy} from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class Create {
@@ -31,6 +32,9 @@ export class Create {
     save(event) {
       
         console.log(this.data);
+        this.data.TRDate =this.data.TRDate?  moment(this.data.TRDate).format("DD MMM YYYY HH:mm"):"";
+        this.data.RequestedArrivalDate = this.data.RequestedArrivalDate? moment(this.data.RequestedArrivalDate).format("DD MMM YYYY HH:mm"): "";
+      
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
