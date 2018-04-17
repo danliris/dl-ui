@@ -27,7 +27,7 @@ export class Edit {
         this.data.transferRequest={};
         this.data.transferRequest.TRNo=this.data.TRNo;
         this.data.transferRequest.TRDate=this.data.TRDate;
-        this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName
+        this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName;
         this.data.transferRequest.Remarks=this.data.Remarks;
         this.data.transferRequest.CategoryName=this.data.CategoryName;
         this.data.transferRequest.RequestedArrivalDate=this.data.RequestedArrivalDate;
