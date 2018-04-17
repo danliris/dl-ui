@@ -23,15 +23,24 @@ export class View {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
-
-        console.log(this.data);
+        this.data.isUsed= false;
+        if(this.data.details){
+            for(var detail of this.data.details){
+                if(detail.status != "Belum diterima Pembelian"){
+                    this.data.isUsed=true;
+                }
+                break;
+            }
+        }
+        //console.log(this.data);
         // this.data.date = moment(this.data.date).format("DD MMMM YYYY");
         // this.data.expectedDeliveryDate = moment(this.data.expectedDeliveryDate).format("DD MMMM YYYY");
         if (!this.data.isPosted) {
             this.hasEdit = true;
             this.hasDelete = true;
-        } else {
-            if (!this.data.isUsed) {
+        } 
+        else {
+            if (!this.data.isUsed && this.data.isPosted) {
                 this.hasUnpost = true;
             }
         }

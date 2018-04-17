@@ -70,6 +70,15 @@ export class List {
         }
     }
 
+    contextShowCallback(index, name, data) {
+    switch (name) {
+      case "Cetak PDF":
+        return data.isPosted;
+      default:
+        return true;
+    }
+  }
+
     create() {
         this.router.navigateToRoute('create');
     }
