@@ -39,7 +39,7 @@ export async function configure(aurelia) {
       var inventoryAzure = "https://com-danliris-service-inventory-dev.azurewebsites.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi-dev.mybluemix.net/v1/";
       var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
-      var intPurchasing = "http://127.0.0.1:9080/v1/";
+      var intPurchasing = "http://127.0.0.1:53075/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);

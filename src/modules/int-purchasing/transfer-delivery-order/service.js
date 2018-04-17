@@ -5,7 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'transfer-deliver-orders';
+const serviceUri = 'transfer-delivery-orders';
 
 export class Service extends RestService {
 

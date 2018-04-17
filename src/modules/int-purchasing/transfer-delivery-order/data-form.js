@@ -1,79 +1,85 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service } from './service';
-const TransferDeliveryOrderLoader = require('../../../loader/transfer-delivery-order-loader');
+import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
+import { Service } from "./service";
+var SupplierLoader = require('../../../loader/supplier-loader');
 
-@inject(Service, BindingEngine)
+@containerless()
+@inject(BindingEngine, Element)
 export class DataForm {
-	@bindable title;
-	@bindable readOnly;
-	@bindable selectedBuyer;
+    @bindable readOnly = false;
+    @bindable data = {};
+    @bindable error = {};
+    @bindable title;
+    @bindable supplier;
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 5
+        }
+    }
+	itemsInfo = {
+        columns: [{ header: "Nomor TO External", value: "transferOrderExternal" }],
+        onAdd: function () {
+            this.context.ItemsCollection.bind();
+            this.data.items.push({ purchaseOrderExternal: { no: "" } });
+        }.bind(this)
+    };
 	
-
-	formOptions = {
-		cancelText: "Kembali",
-		saveText: "Simpan",
-		deleteText: "Hapus"
-	};
-
-	controlOptions = {
-		label: {
-			length: 4
-		},
-		control: {
-			length: 4
-		}
-	};
-
-	constructor(service, bindingEngine) {
-		this.service = service;
-		this.bindingEngine= bindingEngine;
-
-		// this.stnInfo = {
-		// 	columns: ["Nomor Surat Jalan", "Tanggal Surat Jalan", "Tanggal Tiba", "Remark"],
-		// 	onAdd: () => {
-		// 		this.data.StockTransferNoteItems.push({});
-		// 	},
-		// 	options: {
-		// 		filter: {}
-		// 	}
-		// };
-
+	constructor(bindingEngine, element) {
+        this.bindingEngine = bindingEngine;
+        this.element = element;
 	}
 
 	bind(context) {
-		this.context = context;
-		this.data = this.context.data;
-		this.error = this.context.error;
-
-		if (this.data.SupplierId) {
-            this.selectedSupplier = await this.service.getSupplierById(this.data.SupplierId);
-            this.data.SupplierId =this.selectedSupplier._id;
-        }
-
-		if (!this.data.DeliveryOrderDate) {
-            this.data.DeliveryOrderDate = new Date();
-		}
-		
-		if (!this.data.ArrivedDate) {
-            this.data.ArrivedDate = new Date();
-		}
-
-		this.cancelCallback = this.context.cancelCallback;
-		this.deleteCallback = this.context.deleteCallback;
-		this.saveCallback = this.context.saveCallback;
-
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
 	}
 
-	selectedSupplierChanged(newValue) {
-        var _selectedSupplier = newValue;
-        if (_selectedSupplier) {
-            this.data.SupplierId = _selectedBuyer;
-            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";
-            
-        }
+	@computedFrom("data._id")
+    get isEdit() {
+        return (this.data._id || '').toString() != '';
     }
 
-	get storageLoader() {
-		return StorageLoader;
-	}
+    @computedFrom("data.supplier")
+    get filter() {
+        var filter = {
+            supplierId: this.data.supplierId || {},
+            isEdit: this.isEdit
+        }
+        return filter;
+    }
+
+    supplierChanged(newValue, oldValue) {
+        var selectedSupplier = newValue;
+        if (selectedSupplier) {
+            if (selectedSupplier._id) {
+                this.data.supplier = selectedSupplier;
+                this.data.supplierId = selectedSupplier._id;
+            }
+        } else {
+            this.data.supplier = {};
+            this.data.supplierId = undefined;
+        }
+        this.data.items = [];
+        this.resetErrorItems();
+    }
+
+    get supplierLoader() {
+        return SupplierLoader;
+    }
+
+    supplierView = (supplier) => {
+        return `${supplier.code} - ${supplier.name}`
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
+    }
 } 

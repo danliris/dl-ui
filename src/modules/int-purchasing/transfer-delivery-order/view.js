@@ -1,46 +1,54 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
-import { Service } from './service';
-import { Dialog } from '../../../components/dialog/dialog';
-// import { AlertView } from './custom-dialog-view/alert-view';
+import {inject, Lazy} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
+import {Service} from './service';
 
-@inject(Router, Service, Dialog)
+
+@inject(Router, Service)
 export class View {
-    constructor(router, service, dialog) {
+    hasCancel = true;
+    hasEdit = false;
+    hasDelete = false;
+
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.dialog = dialog;
     }
+    isReceived = false;
 
     async activate(params) {
-        let id = params.id;
+        var id = params.id;
         this.data = await this.service.getById(id);
+        this.supplier = this.data.supplier;
+        this.isReceived = this.data.items
+            .map((item) => {
+                var _isReceived = item.fulfillments
+                    .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
+                    .reduce((prev, curr, index) => {
+                        return prev || curr
+                    }, false);
+                return _isReceived
+            })
+            .reduce((prev, curr, index) => {
+                return prev || curr
+            }, false);
 
-        this.sourceStorage = this.data.SourceStorage;
-        this.targetStorage = this.data.TargetStorage;
+        if (!this.isReceived) {
+            this.hasDelete = true;
+            this.hasEdit = true;
+        }
     }
 
-    list() {
+    cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    attached() {
-        this.deleteCallback = this.data.IsApproved ? undefined : this.deleteCallback;
+    edit(event) {
+        this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    cancelCallback(event) {
-        this.list();
-    }
-
-    deleteCallback(event) {
-        this.dialog.show(AlertView, { message: "<div>Apakah anda yakin akan menghapus data ini?</div>" })
-            .then(response => {
-                if (!response.wasCancelled) {
-                    this.service.delete(this.data)
-                        .then(result => {
-                            this.list();
-                        });
-                }
-            });
+    delete(event) {
+        this.service.delete(this.data).then(result => {
+            this.cancel();
+        });
     }
 }
