@@ -90,7 +90,7 @@ export class ShipmentDetail {
                                 "$in": productNames
                             }
                         }
-                        var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields };
+                        var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields, size: 100 };
                         var products = await this.service.searchProducts(productInfo);
 
                         //find summaries
