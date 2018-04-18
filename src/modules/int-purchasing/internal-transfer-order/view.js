@@ -33,7 +33,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {
