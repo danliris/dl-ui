@@ -17,9 +17,6 @@ export class View {
     }
 
     async activate(params) {
-        var locale = 'id-ID';
-        var moment = require('moment');
-        moment.locale(locale);
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
