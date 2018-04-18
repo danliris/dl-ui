@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "s-production",
-            permission: { "*": 1 },
+            permission: { "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "s-production",
-            permission: { "*": 1 },
+            permission: { "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "s-production",
-            permission: { "*": 1 },
+            permission: { "S1": 1, "S2": 1, "S3": 1, "S4": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,7 +47,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "s-production",
-            permission: { "*": 1 },
+            permission: { "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
