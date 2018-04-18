@@ -19,6 +19,9 @@ export class Create {
     bind() {
         this.data = { items: [] };
         this.error = {};
+
+        this.data.trDate = new Date();
+        this.data.requestedArrivalDate = new Date();
     }
 
     cancel(event) {
@@ -33,8 +36,8 @@ export class Create {
     }
 
     save(event) {
-        this.data.trDate =this.data.trDate?  moment(this.data.trDate).format("DD MMM YYYY HH:mm"):"";
-        this.data.requestedArrivalDate = this.data.requestedArrivalDate? moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm"): "";
+        this.data.requestedArrivalDate = moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm");
+        this.data.trDate = moment(this.data.trDate).format("DD MMM YYYY HH:mm");
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
