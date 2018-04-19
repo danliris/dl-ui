@@ -45,7 +45,7 @@ module.exports = [
         name: 'internal-transfer-order',
         moduleId: './modules/int-purchasing/internal-transfer-order-report/index',
         nav: true,
-        title: 'Report Transfer Order Internal',
+        title: 'Laporan Transfer Order Internal',
         auth: true,
         settings: {
             group: "int-purchasing",

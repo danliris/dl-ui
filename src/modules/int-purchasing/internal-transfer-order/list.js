@@ -7,6 +7,7 @@ import moment from 'moment';
 export class List {
 
     rowFormatter(data, index) {
+        console.log(this.data);
         if (data.isPosted)
             return { classes: "success" }
         else
@@ -15,6 +16,7 @@ export class List {
     context = ["Rincian"]
 
     columns = [
+        { field: "ITONo", title: "No TO Internal" },
         { field: "DivisionName", title: "Divisi" },
         { field: "UnitName", title: "Unit" },
         { field: "CategoryName", title: "Kategori" },
@@ -31,7 +33,7 @@ export class List {
         },
         { field: "_CreatedBy", title: "Staff Pembelian" },
         {
-            field: "IsPosted", title: "Posted",
+            field: "IsPost", title: "Posted",
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
@@ -51,6 +53,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+               
                 return {
                     total: result.info.total,
                     data: result.data
