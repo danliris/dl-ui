@@ -20,9 +20,6 @@ export class Edit {
     }
 
     async activate(params) {
-        var locale = 'id-ID';
-        var moment = require('moment');
-        moment.locale(locale);
         var id = params.id;
         this.data = await this.service.getById(id);
 
@@ -46,8 +43,8 @@ export class Edit {
                     }).join(" - ");
             }
         });
-        // this.data.trDate =  moment(this.data.trDate).format("DD MMM YYYY HH:mm");
-        // this.data.requestedArrivalDate =  moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm");
+        this.data.trDate = new Date(this.data.trDate);
+        this.data.requestedArrivalDate = new Date(this.data.requestedArrivalDate);
     }
 
     cancel(event) {
@@ -55,8 +52,8 @@ export class Edit {
     }
 
     save(event) {
-       this.data.trDate =this.data.trDate?  moment(this.data.trDate).format("DD MMM YYYY HH:mm"):"";
-        this.data.requestedArrivalDate = this.data.requestedArrivalDate? moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm"): "";
+        this.data.requestedArrivalDate = moment(this.data.requestedArrivalDate).format("DD MMM YYYY HH:mm");
+        this.data.trDate = moment(this.data.trDate).format("DD MMM YYYY HH:mm");
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {
