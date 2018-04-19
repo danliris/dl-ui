@@ -34,7 +34,8 @@ export class DataForm {
         { header: "Barang", value: "product" },
         { header: "Jumlah", value: "defaultQuantity" },
         { header: "Satuan", value: "defaultUom" },
-        { header: "Keterangan", value: "remark" }
+        { header: "Grade", value: "Grade" },
+        { header: "Keterangan", value: "productRemark" }
     ]
 
     get transferRequestPostedLoader() {
@@ -72,7 +73,7 @@ export class DataForm {
             this.data.Remarks=this.data.transferRequest.remark;
             this.data.transferRequest.UnitName=this.data.transferRequest.divisionName +"-"+ this.data.transferRequest.unitName
             this.data.transferRequest.Remarks=this.data.transferRequest.remark;
-            this.data.transferRequest.CategoryName=this.data.transferRequest.categoryName;
+            this.data.transferRequest.CategoryName=this.data.transferRequest.categoryCode+"-"+this.data.transferRequest.categoryName;
             this.data.transferRequest.TRDate=this.data.transferRequest.trDate;
             this.data.transferRequest.TRNo=this.data.transferRequest.trNo;
             this.data.transferRequest.RequestedArrivalDate=this.data.transferRequest.requestedArrivalDate;
@@ -82,6 +83,7 @@ export class DataForm {
                 _item.ProductId=item.product._id;
                 _item.ProductCode=item.product.code;
                 _item.ProductName = item.product.name;
+                _item.product=item.product.code+"-"+ item.product.name;
                 _item.Quantity = item.quantity;
                 _item.Grade = item.grade;
                 _item.ProductRemark=item.productRemark;

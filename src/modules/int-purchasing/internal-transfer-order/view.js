@@ -16,16 +16,18 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if (!this.data.isPosted) {
+        if (!this.data.IsPost) {
             this.hasEdit = true;
             this.hasDelete = true;
         }
      
         this.data.transferRequest=this.data;
-        this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName
-         
-        console.log(this.data);
-        // this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName;
+        this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName;
+        this.data.transferRequest.CategoryName=this.data.CategoryCode +"-"+ this.data.CategoryName;
+        for(var item of this.data.InternalTransferOrderDetails)   {
+           item.product =item.ProductCode+"-"+ item.ProductName;
+        }
+      
     }
 
     cancel(event) {
