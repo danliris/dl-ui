@@ -20,10 +20,10 @@ export class DataForm {
         }
     }
 	itemsInfo = {
-        columns: [{ header: "Nomor TO External", value: "transferOrderExternal" }],
+        columns: [{ header: "Nomor TO External", value: "ETONo" }],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.items.push({ purchaseOrderExternal: { no: "" } });
+            this.data.items.push({ ExternalTransferOrderNo: { no: "" } });
         }.bind(this)
     };
 	
@@ -38,15 +38,15 @@ export class DataForm {
         this.error = this.context.error;
 	}
 
-	@computedFrom("data._id")
+	@computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     @computedFrom("data.supplier")
     get filter() {
         var filter = {
-            supplierId: this.data.supplierId || {},
+            SupplierId: this.data.SupplierId || {},
             isEdit: this.isEdit
         }
         return filter;
@@ -57,11 +57,12 @@ export class DataForm {
         if (selectedSupplier) {
             if (selectedSupplier._id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
+                this.data.SupplierId = selectedSupplier._id;
+                console.log(this.data.supplier);
             }
         } else {
-            this.data.supplier = {};
-            this.data.supplierId = undefined;
+            this.data.SupplierName = {};
+            this.data.SupplierId = undefined;
         }
         this.data.items = [];
         this.resetErrorItems();

@@ -1,16 +1,18 @@
 import {bindable} from 'aurelia-framework'
-var PurchaseOrderExternalLoader = require('../../../../loader/purchase-order-external-loader');
+var ExternalTransferOrderLoader = require('../../../../loader/external-transfer-order-loader');
 
 export class DeliveryOrderItem {
-  @bindable selectedPurchaseOrderExternal;
+  @bindable selectedExternalTransferOrder;
 
   itemsColumns = [
-    { header: "Nomor PR", value: "purchaseOrder" },
-    { header: "Barang", value: "product" },
-    { header: "Dipesan", value: "purchaseOrderQuantity" },
-    { header: "Satuan", value: "purchaseOrderUom" },
-    { header: "Diterima", value: "deliveredQuantity" },
-    { header: "Catatan", value: "remark" }
+    { header: "Nomor TR", value: "items.TRNo" },
+    { header: "Nama Barang", value: "items.details.ProductId" },
+    { header: "Jumlah Diminta", value: "items.details.DealQuantity" },
+    { header: "Jumlah Datang", value: "items.details.RemainingQuantity" },
+    { header: "Satuan", value: "items.details.DealUomUnit" },
+    { header: "Grade", value: "items.details.Grade" },
+    { header: "Keterangan", value: "items.details.Remark" },
+    { header: "Catatan", value: "items.details.Note" }
   ]
 
   activate(context) {
@@ -18,85 +20,51 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.filter = this.context.context.options.supplierId ? { "supplierId": this.context.context.options.supplierId } : {};
+    this.filter = this.context.context.options.SupplierId ? { "SupplierId": this.context.context.options.SupplierId } : {};
     this.isEdit = this.context.context.options.isEdit || false;
     this.isShowing = false;
     if (this.data) {
-      this.selectedPurchaseOrderExternal = this.data.purchaseOrderExternal;
-      if (this.data.fulfillments) {
+      this.selectedExternalTransferOrder = this.data.ExternalTransferOrderNo;
+      if (this.data.details) {
         this.isShowing = true;
       }
     }
   }
 
-  get purchaseOrderExternalLoader() {
-    return PurchaseOrderExternalLoader;
+  get externalTransferOrderLoader() {
+    return ExternalTransferOrderLoader;
   }
 
-  selectedPurchaseOrderExternalChanged(newValue) {
+  selectedExternalTransferOrder(newValue) {
     if (newValue === null) {
-      this.data.fulfillments = [];
+      this.data.items.details = [];
       this.error = {};
       this.isShowing = false;
-    } else if (newValue._id) {
-      this.data.purchaseOrderExternal = newValue;
-      this.data.purchaseOrderExternalId = newValue._id;
-      var doFulfillments = this.data.fulfillments || [];
-      var poExternal = this.data.purchaseOrderExternal || {};
-      var poCollection = poExternal.items || [];
-      var fulfillments = [];
-      for (var purchaseOrder of poCollection) {
-        for (var poItem of purchaseOrder.items) {
-          var correctionQty = [];
-          poItem.fulfillments.map((fulfillment) => {
-            if (fulfillment.correction) {
-              fulfillment.correction.map((correction) => {
-                if (correction.correctionRemark == "Koreksi Jumlah") {
-                  correctionQty.push(correction.correctionQuantity < 0 ? correction.correctionQuantity * -1 : correction.correctionQuantity)
-                }
-              })
-            }
-          })
-
-          var isQuantityCorrection = correctionQty.length > 0;
-
-          if ((poItem.dealQuantity - poItem.realizationQuantity) > 0) {
-            var deliveredQuantity = (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity);
-            var remainingQuantity = poItem.dealQuantity - poItem.realizationQuantity;
-            if (isQuantityCorrection) {
-              deliveredQuantity += correctionQty.reduce((prev, curr) => prev + curr);
-              remainingQuantity += correctionQty.reduce((prev, curr) => prev + curr);
-            }
-            var fulfillment = {
-              purchaseOrderId: purchaseOrder._id,
-              purchaseOrder: purchaseOrder,
-              productId: poItem.product._id,
-              product: poItem.product,
-              purchaseOrderQuantity: poItem.dealQuantity,
-              purchaseOrderUom: poItem.dealUom,
-              remainingQuantity: remainingQuantity,
-              deliveredQuantity: deliveredQuantity,
-              remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
-            };
-            fulfillments.push(fulfillment);
-          }
-          else if (isQuantityCorrection) {
-            var fulfillment = {
-              purchaseOrderId: purchaseOrder._id,
-              purchaseOrder: purchaseOrder,
-              productId: poItem.product._id,
-              product: poItem.product,
-              purchaseOrderQuantity: poItem.dealQuantity,
-              purchaseOrderUom: poItem.dealUom,
-              remainingQuantity: poItem.dealQuantity + correctionQty[correctionQty.length - 1],
-              deliveredQuantity: (doFulfillments[fulfillments.length] || {}).deliveredQuantity ? doFulfillments[fulfillments.length].deliveredQuantity : (poItem.dealQuantity - poItem.realizationQuantity) + correctionQty.reduce((prev, curr) => prev + curr),
-              remark: (doFulfillments[fulfillments.length] || {}).remark ? doFulfillments[fulfillments.length].remark : ''
-            };
-            fulfillments.push(fulfillment);
-          }
+    } else if (newValue.ExternalTransferOrderNo) {
+      this.data.ExternalTransferOrderNo = newValue.ExternalTransferOrderNo;
+      
+      var doDetails = this.data.items.details || [];
+      var toExternal = this.data.ExternalTransferOrderNo || {};
+      var toCollection = toExternal.items || [];
+      var details = [];
+      for (var purchaseDeliveryOrder of toCollection) {
+        for (var toItem of purchaseDeliveryOrder.items) {
+          var details = {
+            TransferRequestNo: this.data.TransferRequestNo,
+            ProductId: toItem.ProductId,
+            ProductCode: toItem.ProductCode,
+            ProductName: toItem.ProductName,
+            RequestedQuantity: toItem.dealQuantity,
+            RemainingQuantity: toItem.RemainingQuantity,
+            UomId: toItem.DealUomId,
+            UomUnit: toItem.DealUomName,
+            Grade: toItem.Grade,
+            Remark: toItem.Remark,
+          };
+          details.push(details);        
         }
       }
-      this.data.fulfillments = doFulfillments.length > 0 ? doFulfillments : fulfillments;
+      
       this.error = {};
       this.isShowing = true;
     }
@@ -109,8 +77,8 @@ export class DeliveryOrderItem {
       this.isShowing = !this.isShowing;
   }
 
-  purchaseOrderExternalView = (purchaseOrderExternal) => {
-    return purchaseOrderExternal.no
+  ExternalTransferOrderView = (externalTransferOrder) => {
+    return externalTransferOrder.ExternalTransferOrderNo
   }
 
   controlOptions = {

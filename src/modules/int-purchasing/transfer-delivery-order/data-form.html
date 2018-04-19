@@ -83,8 +83,8 @@
 
         <au-textbox 
             label="Nomor Surat Jalan" 
-            value.bind="data.Code" 
-            error.bind="error.Code" 
+            value.bind="data.DONo" 
+            error.bind="error.DONo" 
             placeholder="tambahkan nomor surat jalan" 
             read-only.bind="readOnly ||isEdit"
             options.bind="controlOptions">
@@ -92,23 +92,23 @@
 
         <au-datepicker 
             label="Tgl. Surat Jalan" 
-            value.bind="data.DeliveryOrderDate" 
-            error.bind="error.DeliveryOrderDate" 
+            value.bind="data.DODate" 
+            error.bind="error.DODate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker 
             label="Tgl. Tiba" 
-            value.bind="data.ArrivedDate" 
-            error.bind="error.ArrivedDate" 
+            value.bind="data.ArrivalDate" 
+            error.bind="error.ArrivalDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-autocomplete 
-            value.bind="SupplierId" 
-            error.bind="error.SupplierId"
+            value.bind="supplier" 
+            error.bind="error.supplier"
             label="Supplier" 
             loader.bind="supplierLoader"
             text.bind = "supplierView"

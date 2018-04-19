@@ -8,34 +8,24 @@ export class View {
     hasCancel = true;
     hasEdit = false;
     hasDelete = false;
-
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
-    isReceived = false;
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.supplier = this.data.supplier;
-        this.isReceived = this.data.items
-            .map((item) => {
-                var _isReceived = item.fulfillments
-                    .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
-                    .reduce((prev, curr, index) => {
-                        return prev || curr
-                    }, false);
-                return _isReceived
-            })
-            .reduce((prev, curr, index) => {
-                return prev || curr
-            }, false);
-
-        if (!this.isReceived) {
-            this.hasDelete = true;
+        if (!this.data.isPosted) {
             this.hasEdit = true;
+            this.hasDelete = true;
         }
+     
+        this.data.transferRequest=this.data;
+        this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName
+         
+        console.log(this.data);
+        // this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName;
     }
 
     cancel(event) {
