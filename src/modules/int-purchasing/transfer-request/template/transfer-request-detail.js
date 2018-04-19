@@ -22,6 +22,9 @@ export class TransferRequestItem {
         }
 
         this.data.product.uom=this.data.uom;
+        this.data.productId=this.data.product._id;
+        this.data.productCode=this.data.product.code;
+        this.data.productName=this.data.product.name;
     }
   }
 

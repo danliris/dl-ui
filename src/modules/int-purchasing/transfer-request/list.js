@@ -22,9 +22,9 @@ export class List {
             }
         },
         { field: "trNo", title: "Nomor TR" },
-        { field: "unit.divisionName", title: "Divisi"},
-        { field: "unit.name", title: "Unit"},
-        { field: "category.name", title: "Kategori"},
+        { field: "divisionName", title: "Divisi"},
+        { field: "unitName", title: "Unit"},
+        { field: "categoryName", title: "Kategori"},
         { field: "isPosted", title: "Status Post", formatter: function (value, data, index) {
                  return value==1 ? "SUDAH" : "BELUM";
                 }
@@ -49,6 +49,11 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                for(var a of result.data){
+                    a.unitName=a.unit.name;
+                    a.divisionName=a.unit.divisionName;
+                    a.categoryName=a.category.name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
