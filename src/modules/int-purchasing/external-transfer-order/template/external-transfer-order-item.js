@@ -1,13 +1,14 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 const ProductLoader = require('../../../../loader/product-loader');
-const InternalTransferOrderLoader = require('../../../../loader/internal-transfer-order-loader');
+const InternalTransferOrderLoader = require('../../../../loader/internal-transfer-order-unused-loader');
 
 var moment = require('moment');
 
 @inject(Service)
 export class ExternalTransferOrderItem {
     @bindable selectedInternalTransferOrder;
+    @bindable selectedInternalTransferOrderFilter = {};
 
     columns = ["Product", "DefaultQuantity", "DefaultUom", "DealQuantity", "DealUom", "Convertion", "Grade", "ProductRemark"];
 
@@ -16,6 +17,7 @@ export class ExternalTransferOrderItem {
     }
 
     activate(context) {
+        this.items = context.context.items;
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
@@ -29,6 +31,8 @@ export class ExternalTransferOrderItem {
 
             this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
         }
+
+        this.selectedInternalTransferOrderFilter.currentUsed = this.items.map(item => item.data.InternalTransferOrderId);
     }
 
     get internalTransferOrderLoader() {
@@ -73,6 +77,7 @@ export class ExternalTransferOrderItem {
                     }
 
                     this.isShowing = true;
+                    this.error = [];
                 });
         }
     }
