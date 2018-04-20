@@ -49,11 +49,11 @@ export class List {
         { field: "grade", title: "Grade" , sortable: false},
         { field: "quantity", title: "Jumlah", sortable: false },
         { field: "uom", title: "Satuan", sortable: false },
-        { field: "requestedArrivalDate", title: "Tanggal diminta datang TR", sortable: false, formatter: function (value, data, index) {
+        { field: "requestedArrivalDate", title: "Tgl diminta datang TR", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "deliveryDateETO", title: "Tanggal diminta datang TO Eksternal", sortable: false, formatter: function (value, data, index) {
+        { field: "deliveryDateETO", title: "Tgl diminta datang TO Eksternal", sortable: false, formatter: function (value, data, index) {
             
                 return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
