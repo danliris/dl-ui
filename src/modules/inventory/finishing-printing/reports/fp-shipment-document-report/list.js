@@ -63,33 +63,57 @@ export class List {
         }
         this.service.search(this.info)
             .then((result) => {
-                var tempData;
                 this.no = 0;
                 this.newData = [];
 
                 for (var i = 0; i < result.data.length; i++) {
                     for (var j = 0; j < result.data[i].details.length; j++) {
                         for (var k = 0; k < result.data[i].details[j].items.length; k++) {
+                            let item = result.data[i].details[j].items[k];
 
-                            tempData = {};
-                            this.no += 1;
+                            if (item.packingReceiptItems) {
+                                for (let l = 0; l < item.packingReceiptItems.length; l++) {
+                                    let tempData = {};
+                                    this.no += 1;
+                                    let packingReceiptItem = item.packingReceiptItems[l];
 
-                            tempData.no = this.no;
-                            tempData._createdDate = result.data[i]._createdDate;
-                            tempData.code = result.data[i].code;
-                            tempData.shipmentNumber = result.data[i].shipmentNumber;
-                            tempData.deliveryCode = result.data[i].deliveryCode;
-                            tempData.productIdentity = result.data[i].productIdentity;
-                            tempData.productionOrderNo = result.data[i].details[j].productionOrderNo;
-                            tempData.buyer = result.data[i].buyerName;
-                            tempData.productName = result.data[i].details[j].items[k].productName;
-                            tempData.uomUnit = result.data[i].details[j].items[k].uomUnit;
-                            tempData.quantity = result.data[i].details[j].items[k].quantity;
-                            tempData.lengthTotal = (result.data[i].details[j].items[k].quantity * result.data[i].details[j].items[k].length).toFixed(2);
-                            tempData.weightTotal = (result.data[i].details[j].items[k].quantity * result.data[i].details[j].items[k].weight).toFixed(2);
+                                    tempData.no = this.no;
+                                    tempData._createdDate = result.data[i]._createdDate;
+                                    tempData.code = result.data[i].code;
+                                    tempData.shipmentNumber = result.data[i].shipmentNumber;
+                                    tempData.deliveryCode = result.data[i].deliveryCode;
+                                    tempData.productIdentity = result.data[i].productIdentity;
+                                    tempData.productionOrderNo = result.data[i].details[j].productionOrderNo;
+                                    tempData.buyer = result.data[i].buyerName;
+                                    tempData.productName = packingReceiptItem.productName;
+                                    tempData.uomUnit = packingReceiptItem.uomUnit;
+                                    tempData.quantity = packingReceiptItem.quantity;
+                                    tempData.lengthTotal = (packingReceiptItem.quantity * packingReceiptItem.length).toFixed(2);
+                                    tempData.weightTotal = (packingReceiptItem.quantity * packingReceiptItem.weight).toFixed(2);
 
-                            this.newData.push(tempData);
+                                    this.newData.push(tempData);
+                                }
+                            }
+                            else {
+                                let tempData = {};
+                                this.no += 1;
 
+                                tempData.no = this.no;
+                                tempData._createdDate = result.data[i]._createdDate;
+                                tempData.code = result.data[i].code;
+                                tempData.shipmentNumber = result.data[i].shipmentNumber;
+                                tempData.deliveryCode = result.data[i].deliveryCode;
+                                tempData.productIdentity = result.data[i].productIdentity;
+                                tempData.productionOrderNo = result.data[i].details[j].productionOrderNo;
+                                tempData.buyer = result.data[i].buyerName;
+                                tempData.productName = result.data[i].details[j].items[k].productName;
+                                tempData.uomUnit = result.data[i].details[j].items[k].uomUnit;
+                                tempData.quantity = result.data[i].details[j].items[k].quantity;
+                                tempData.lengthTotal = (result.data[i].details[j].items[k].quantity * result.data[i].details[j].items[k].length).toFixed(2);
+                                tempData.weightTotal = (result.data[i].details[j].items[k].quantity * result.data[i].details[j].items[k].weight).toFixed(2);
+
+                                this.newData.push(tempData);
+                            }
                         }
                     }
                 }
