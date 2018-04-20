@@ -52,6 +52,19 @@ module.exports = [
         }
     },
     {
+        route: '/int-purchasing/external-transfer-order',
+        name: 'external-transfer-order',
+        moduleId: './modules/int-purchasing/external-transfer-order/index',
+        nav: true,
+        title: 'Transfer Order Eksternal',
+        auth: true,
+        settings: {
+            group: "int-purchasing",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
 
         route: ['int-purchasing/transfer-delivery-order'],
         name: 'transfer-delivery-order',
@@ -62,19 +75,6 @@ module.exports = [
         settings: {
             group: "int-purchasing",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/int-purchasing/external-transfer-order',
-        name: 'external-transfer-order',
-        moduleId: './modules/int-purchasing/external-transfer-order/index',
-        nav: true,
-        title: 'Transfer Order Eksternal',
-        auth: true,
-        settings: {
-            group: "int-purchasing",
-            permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
