@@ -3,7 +3,7 @@ var ProductLoader = require('../../../../loader/product-loader');
 
 export class TransferRequestItem {
   
-    gradeOptions=["A","B","C"];
+    gradeOptions=["","A","B","C"];
   activate(context) {
     this.data = context.data;
     this.error = context.error;
