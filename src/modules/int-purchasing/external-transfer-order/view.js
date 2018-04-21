@@ -13,10 +13,13 @@ export class View {
         let id = params.id;
         this.data = await this.service.getById(id);
 
-        this.editCallback = this.data.IsPosted ? null : this.editCallback;
-        this.deleteCallback = this.data.IsPosted ? null : this.deleteCallback;
-        this.hasUnpost = this.data.IsPosted;
-        this.hasCancel = !this.data.IsCanceled;
+        let isUsed = await this.service.isUsedByDeliveryOrder(id);
+
+        this.editCallback = !this.data.IsPosted && !isUsed ? this.editCallback : null;
+        this.deleteCallback = !this.data.IsPosted && !isUsed ? this.deleteCallback : null;
+
+        this.hasUnpost = this.data.IsPosted && !isUsed;
+        this.hasCancel = !this.data.IsCanceled && !isUsed;
         this.hasClose = !this.data.IsClosed;
     }
 
