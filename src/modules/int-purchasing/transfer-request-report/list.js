@@ -13,7 +13,7 @@ export class List {
         this.service = service;
 
         this.flag = false;
-        this.statuses = ["", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier","Barang sudah datang sebagian","Barang sudah datang semua"];
+        this.statuses = ["","Dibatalkan", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier","Barang sudah datang sebagian","Barang sudah datang semua"];
         
         this.error = {};
     }
@@ -58,7 +58,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "status", title: "Status", sortable: false },
+        { field: "status", title: "Status Transfer Request", sortable: false },
     ];
 
     search() {
@@ -103,6 +103,11 @@ export class List {
             (
                 this.service.search(args)
                     .then(result => {
+                        for(var a of result.data){
+                            if(a.isCanceled){
+                                a.status="Dibatalkan";
+                            }
+                        }
                         return {
                             total: result.info.total,
                             data: result.data
