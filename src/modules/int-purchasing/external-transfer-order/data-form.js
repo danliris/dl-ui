@@ -2,7 +2,7 @@ import { bindable, inject, containerless, computedFrom, BindingEngine } from "au
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 
-var SupplierLoader = require('../../../loader/supplier-loader');
+var DivisionLoader = require('../../../loader/division-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 
 @containerless()
@@ -12,7 +12,7 @@ export class DataForm {
     @bindable isEdit = false;
     @bindable data = {};
     @bindable title;
-    @bindable selectedSupplier;
+    @bindable selectedDivision;
     @bindable selectedCurrency;
 
     constructor(service, bindingSignaler, bindingEngine) {
@@ -51,7 +51,7 @@ export class DataForm {
         }
 
         if (this.data) {
-            this.selectedSupplier = this.data.Supplier;
+            this.selectedDivision = this.data.Division;
         }
 
         if (!this.selectedCurrency) {
@@ -60,16 +60,16 @@ export class DataForm {
 
     }
 
-    get supplierLoader() {
-        return SupplierLoader;
+    get divisionLoader() {
+        return DivisionLoader;
     }
-    supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`
+    divisionView = (division) => {
+        return `${division.code} - ${division.name}`
     }
-    selectedSupplierChanged(newValue) {
+    selectedDivisionChanged(newValue) {
         if (newValue) {
-            this.data.Supplier = newValue;
-            this.data.SupplierId = newValue._id;
+            this.data.Division = newValue;
+            this.data.DivisionId = newValue._id;
         }
     }
 
