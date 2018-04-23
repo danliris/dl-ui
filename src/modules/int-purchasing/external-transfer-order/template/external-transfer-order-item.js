@@ -71,7 +71,8 @@ export class ExternalTransferOrderItem {
                                 unit: detail.UomUnit
                             },
                             Convertion: 1,
-                            Grade: detail.Grade || "-"
+                            Grade: detail.Grade || "-",
+                            ProductRemark: detail.ProductRemark
                         };
                         this.data.ExternalTransferOrderDetails.push(externalTransferOrderDetail);
                     }
