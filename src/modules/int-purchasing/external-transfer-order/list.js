@@ -28,7 +28,7 @@ export class List {
         {
             field: "ExternalTransferOrderItems", title: "Nomor Transfer Request",
             formatter: items => {
-                items = items.map(item => "&#9679; " + item.TRNo + " - " + item.ITONo);
+                items = items.map(item => "&#9679; " + item.TRNo);
                 return items.join("<br>");
             }
         },

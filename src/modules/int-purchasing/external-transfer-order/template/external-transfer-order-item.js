@@ -39,7 +39,7 @@ export class ExternalTransferOrderItem {
         return InternalTransferOrderLoader;
     }
     selectedInternalTransferOrderView = (selectedInternalTransferOrder) => {
-        return `${selectedInternalTransferOrder.TRNo} - ${selectedInternalTransferOrder.ITONo}`;
+        return `${selectedInternalTransferOrder.TRNo}`;
     }
     selectedInternalTransferOrderChanged(newValue) {
         if (newValue) {
