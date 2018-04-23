@@ -15,8 +15,8 @@ export class View {
 
         let isUsed = await this.service.isUsedByDeliveryOrder(id);
 
-        this.editCallback = !this.data.IsPosted && !isUsed ? this.editCallback : null;
-        this.deleteCallback = !this.data.IsPosted && !isUsed ? this.deleteCallback : null;
+        this.editCallback = !this.data.IsPosted ? this.editCallback : null;
+        this.deleteCallback = !this.data.IsPosted ? this.deleteCallback : null;
 
         this.hasUnpost = this.data.IsPosted && !isUsed;
         this.hasCancel = !this.data.IsCanceled && !isUsed;
