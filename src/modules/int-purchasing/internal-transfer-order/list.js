@@ -16,7 +16,6 @@ export class List {
     context = ["Rincian"]
 
     columns = [
-        { field: "ITONo", title: "No TO Internal" },
         { field: "DivisionName", title: "Divisi" },
         { field: "UnitName", title: "Unit" },
         { field: "CategoryName", title: "Kategori" },
