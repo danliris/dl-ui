@@ -57,7 +57,7 @@ export class FPReturnInvToPurchasingDetail {
                     let loaderData = [];
 
                     for (let d of data) {
-                        if (d.Details.filter(p => p.Retur == "Ya").length > 0)
+                        if (d.IsReturnedToPurchasing === false && d.Details.filter(p => p.Retur == "Ya").length > 0)
                             loaderData.push(d);
                     }
 
