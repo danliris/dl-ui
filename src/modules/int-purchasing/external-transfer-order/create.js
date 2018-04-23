@@ -30,6 +30,8 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY HH:mm");
+        this.data.OrderDate = moment(this.data.OrderDate).format("DD MMM YYYY HH:mm");
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

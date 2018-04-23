@@ -13,7 +13,7 @@ export class List {
         this.service = service;
 
         this.flag = false;
-        this.statuses = ["", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier","Barang sudah datang sebagian","Barang sudah datang semua"];
+        this.statuses = ["","Dibatalkan", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier","Barang sudah datang sebagian","Barang sudah datang semua"];
         
         this.error = {};
     }
@@ -34,30 +34,31 @@ export class List {
     }
 
     columns = [
-        { field: "trNo", title: "Nomor TR" },
-        { field: "trDate", title: "Tanggal TR", formatter: function (value, data, index) {
+        { field: "trNo", title: "Nomor TR" , sortable: false},
+        { field: "trDate", title: "Tanggal TR", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "unitName", title: "Unit" , formatter: function (value, data, index) {
+        { field: "unitName", title: "Unit" , sortable: false, formatter: function (value, data, index) {
                 return data.divisionName + " - " + data.unitName;
             }
         },
-        { field: "categoryName", title: "Kategori" },
-        { field: "productCode", title: "Kode Barang" },
-        { field: "productName", title: "Nama Barang" },
-        { field: "grade", title: "Grade" },
+        { field: "categoryName", title: "Kategori", sortable: false },
+        { field: "productCode", title: "Kode Barang", sortable: false },
+        { field: "productName", title: "Nama Barang", sortable: false },
+        { field: "grade", title: "Grade" , sortable: false},
         { field: "quantity", title: "Jumlah", sortable: false },
         { field: "uom", title: "Satuan", sortable: false },
-        { field: "requestedArrivalDate", title: "Tanggal diminta datang TR", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+        { field: "requestedArrivalDate", title: "Tgl diminta datang TR", sortable: false, formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "deliveryDateETO", title: "Tanggal diminta datang TO Eksternal", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+        { field: "deliveryDateETO", title: "Tgl diminta datang TO Eksternal", sortable: false, formatter: function (value, data, index) {
+            
+                return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "status", title: "Status", sortable: false },
+        { field: "status", title: "Status Transfer Request", sortable: false },
     ];
 
     search() {
@@ -102,6 +103,11 @@ export class List {
             (
                 this.service.search(args)
                     .then(result => {
+                        for(var a of result.data){
+                            if(a.isCanceled){
+                                a.status="Dibatalkan";
+                            }
+                        }
                         return {
                             total: result.info.total,
                             data: result.data

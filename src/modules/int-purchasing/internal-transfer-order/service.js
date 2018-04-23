@@ -20,11 +20,13 @@ export class Service extends RestService {
     }
     create(data) {
         var endpoint = `${serviceUri}`;
+      
         return super.post(endpoint, data);
     }   
 
     split(data) {
         var endpoint = 'internal-transfer-orders/split';
+        console.log(data);
         return super.post(endpoint, data);
      
     }

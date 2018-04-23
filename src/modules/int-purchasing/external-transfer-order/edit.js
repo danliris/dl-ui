@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class Edit {
@@ -12,6 +13,8 @@ export class Edit {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+        this.data.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY HH:mm");
+        this.data.OrderDate = moment(this.data.OrderDate).format("DD MMM YYYY HH:mm");
     }
 
     bind() {
@@ -23,6 +26,8 @@ export class Edit {
     }
 
     saveCallback(event) {
+        this.data.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY HH:mm");
+        this.data.OrderDate = moment(this.data.OrderDate).format("DD MMM YYYY HH:mm");
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

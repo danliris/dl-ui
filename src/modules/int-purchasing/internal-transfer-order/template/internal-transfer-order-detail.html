@@ -2,7 +2,7 @@
     <tr>
         <td  class="col-sm-3">
             <au-autocomplete 
-                    value.bind="data.ProductName" 
+                    value.bind="data.product" 
                     change.delegate="productChanged($event)"
                     loader.bind="productLoader"
                     placeholder="cari barang" 
@@ -27,8 +27,15 @@
                 </au-textbox>
         </td>
         <td class="col-sm-2">
+            <au-textbox 
+                value.bind="data.Grade" 
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-2">
                 <au-textbox 
-                    value.bind="data.Grade" 
+                    value.bind="data.ProductRemark" 
                     read-only.bind="true" 
                     options.bind="controlOptions">
                 </au-textbox>

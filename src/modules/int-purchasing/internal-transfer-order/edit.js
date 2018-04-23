@@ -25,12 +25,16 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.data.isSplit = true;     
         this.data.transferRequest={};
+        this.data.transferRequest.ITONo=this.data.ITONo;
         this.data.transferRequest.TRNo=this.data.TRNo;
         this.data.transferRequest.TRDate=this.data.TRDate;
         this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName;
         this.data.transferRequest.Remarks=this.data.Remarks;
-        this.data.transferRequest.CategoryName=this.data.CategoryName;
         this.data.transferRequest.RequestedArrivalDate=this.data.RequestedArrivalDate;
+        this.data.transferRequest.CategoryName=this.data.CategoryCode +"-"+ this.data.CategoryName;
+        for(var item of this.data.InternalTransferOrderDetails)   {
+           item.product =item.ProductCode+"-"+ item.ProductName;
+        }
     }
 
     cancel(event) {
@@ -46,8 +50,9 @@ export class Edit {
     }
 
     split(event) {
-     
+   
         this.service.split(this.copyForSplit(this.data)).then(result => {
+            console.log(result);
             this.cancel();
         }).catch(e => {
             this.error = e;
