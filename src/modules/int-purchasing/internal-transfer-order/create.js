@@ -15,7 +15,7 @@ export class Create {
     }
 
     bind() {
-        this.data = { items: [] };
+        this.data = {};
         this.error = {};
     }
 
@@ -30,30 +30,23 @@ export class Create {
     }
 
     save(event) {
-     
+        this.data.CategoryCode=this.data.CategoryCode?this.data.CategoryCode:"";
+        this.data.CategoryId=this.data.CategoryId?this.data.CategoryId:0;
         this.data.CategoryName=this.data.CategoryName ?this.data.CategoryName :"";
         this.data.ITONo=this.data.ITONo?this.data.ITONo:"";
         this.data.Id=this.data.Id?this.data.Id:0;
+        this.data.TRId=this.data.TRId?this.data.TRId:0;
+        this.data.TRNo=this.data.TRNo?this.data.TRNo:0;
+        this.data.UnitId=this.data.UnitId?this.data.UnitId:0; 
         this.data.Remarks=this.data.Remarks?this.data.Remarks:"";
         this.data.RequestedArrivalDate = this.data.RequestedArrivalDate? moment(this.data.RequestedArrivalDate).format("DD MMM YYYY HH:mm"): "";
         this.data.TRDate =this.data.TRDate?  moment(this.data.TRDate).format("DD MMM YYYY HH:mm"):"";
-        this.data.TRNo=this.data.TRNo?this.data.TRNo:"";
-        this.data.CategoryCode=this.data.CategoryCode?this.data.CategoryCode:"";
-        this.data.CategoryId=this.data.CategoryId?this.data.CategoryId:"";
-        this.data.CategoryName=this.data.CategoryName?this.data.CategoryName:"";
-        this.data.TRId=this.data.TRId?this.data.TRId:"";
-        this.data.DivisionCode=this.data.DivisionCode?this.data.DivisionCode:"";
-        this.data.DivisionId=this.data.DivisionId?this.data.DivisionId:"";
-        this.data.DivisionName=this.data.divisionName?this.data.DivisionName:"";
-        this.data.IsCanceled=this.data.IsCanceled?this.data.IsCanceled:"";
-        this.data.IsPost=this.data.IsPost?this.data.IsPost:"";
-        this.data.Remarks=this.data.Remarks?this.data.Remarks:"";
         this.data.UnitCode=this.data.UnitCode?this.data.UnitCode:"";
-        this.data.UnitId=this.data.UnitId?this.data.UnitId:"";
         this.data.UnitName=this.data.UnitName?this.data.UnitName:"";
-
-      
-        
+        this.data.DivisionCode=this.data.DivisionCode?this.data.DivisionCode:"";
+        this.data.DivisionId=this.data.DivisionId?this.data.DivisionId:0;
+        this.data.DivisionName=this.data.DivisionName?this.data.DivisionName:"";
+        this.data.IsPost=this.data.IsPost?this.data.IsPost:false; 
         console.log(this.data);
         this.service.create(this.data)
             .then(result => {

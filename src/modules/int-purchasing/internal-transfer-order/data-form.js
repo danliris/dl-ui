@@ -94,7 +94,7 @@ export class DataForm {
               
             })
        
-            this.data.items=_items;
+             
             this.data.InternalTransferOrderDetails = _items;
             
         }

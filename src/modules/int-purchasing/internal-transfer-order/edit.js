@@ -25,7 +25,7 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.data.isSplit = true;     
         this.data.transferRequest={};
-        this.data.transferRequest.ITONo=this.data.ITONo;
+       
         this.data.transferRequest.TRNo=this.data.TRNo;
         this.data.transferRequest.TRDate=this.data.TRDate;
         this.data.transferRequest.UnitName=this.data.DivisionName +"-"+ this.data.UnitName;
