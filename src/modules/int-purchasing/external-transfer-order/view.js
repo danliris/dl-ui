@@ -32,7 +32,7 @@ export class View {
     }
 
     deleteCallback(event) {
-        if (confirm(`Hapus ${this.data.ExternalTransferOrderNo}?`))
+        if (confirm(`Hapus ${this.data.ETONo}?`))
             this.service.delete(this.data)
                 .then(result => {
                     this.cancelCallback();

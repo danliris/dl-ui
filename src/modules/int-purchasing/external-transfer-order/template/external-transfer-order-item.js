@@ -23,16 +23,16 @@ export class ExternalTransferOrderItem {
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
 
-        if (this.data.TransferRequestNo) {
+        if (this.data.TRNo) {
             this.selectedInternalTransferOrder = {
-                TRNo: this.data.TransferRequestNo,
-                ITONo: this.data.InternalTransferOrderNo
+                TRNo: this.data.TRNo,
+                ITONo: this.data.ITONo
             };
 
             this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
         }
 
-        this.selectedInternalTransferOrderFilter.currentUsed = this.items.map(item => item.data.InternalTransferOrderId);
+        this.selectedInternalTransferOrderFilter.currentUsed = this.items.map(item => item.data.ITOId);
     }
 
     get internalTransferOrderLoader() {
@@ -45,16 +45,16 @@ export class ExternalTransferOrderItem {
         if (newValue) {
             this.service.getInternalTransferOrderById(newValue.Id)
                 .then(result => {
-                    this.data.InternalTransferOrderId = result.Id;
-                    this.data.InternalTransferOrderNo = result.ITONo;
-                    this.data.TransferRequestId = result.TRId;
-                    this.data.TransferRequestNo = result.TRNo;
+                    this.data.ITOId = result.Id;
+                    this.data.ITONo = result.ITONo;
+                    this.data.TRId = result.TRId;
+                    this.data.TRNo = result.TRNo;
 
                     this.data.ExternalTransferOrderDetails = [];
                     for (var detail of result.InternalTransferOrderDetails) {
                         var externalTransferOrderDetail = {
-                            InternalTransferOrderDetailId: detail.Id,
-                            TransferRequestDetailId: detail.TRDetailId,
+                            ITODetailId: detail.Id,
+                            TRDetailId: detail.TRDetailId,
                             Product: detail.Product || {
                                 _id: detail.ProductId,
                                 code: detail.ProductCode,

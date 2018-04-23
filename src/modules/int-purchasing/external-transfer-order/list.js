@@ -22,13 +22,13 @@ export class List {
                 return { disabled: data.IsPosted, }
             }
         },
-        { field: "ExternalTransferOrderNo", title: "Nomor TO Eksternal" },
+        { field: "ETONo", title: "Nomor TO Eksternal" },
         { field: "OrderDate", title: "Tanggal TO Eksternal", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "Division.name", title: "Divisi Pengirim" },
         {
             field: "ExternalTransferOrderItems", title: "Nomor Transfer Request",
             formatter: items => {
-                items = items.map(item => "&#9679; " + item.TransferRequestNo + " - " + item.InternalTransferOrderNo);
+                items = items.map(item => "&#9679; " + item.TRNo + " - " + item.ITONo);
                 return items.join("<br>");
             }
         },
