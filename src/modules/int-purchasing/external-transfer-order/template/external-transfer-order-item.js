@@ -51,9 +51,9 @@ export class ExternalTransferOrderItem {
                     this.data.TRId = result.TRId;
                     this.data.TRNo = result.TRNo;
                     this.data.Unit = result.Unit || {
-                        _id: detail.UnitId,
-                        code: detail.UnitCode,
-                        name: detail.UnitName
+                        _id: result.UnitId,
+                        code: result.UnitCode,
+                        name: result.UnitName
                     };
 
                     this.data.ExternalTransferOrderDetails = [];
