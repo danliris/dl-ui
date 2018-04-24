@@ -49,6 +49,11 @@ export class ExternalTransferOrderItem {
                     this.data.ITONo = result.ITONo;
                     this.data.TRId = result.TRId;
                     this.data.TRNo = result.TRNo;
+                    this.data.Unit = result.Unit || {
+                        _id: detail.UnitId,
+                        code: detail.UnitCode,
+                        name: detail.UnitName
+                    };
 
                     this.data.ExternalTransferOrderDetails = [];
                     for (var detail of result.InternalTransferOrderDetails) {
