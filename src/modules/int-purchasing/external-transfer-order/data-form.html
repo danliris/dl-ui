@@ -18,8 +18,19 @@
         </au-textbox>
 
         <au-autocomplete
-            value.bind="selectedDivision"
-            error.bind="error.Division"
+            value.bind="selectedOrderDivision"
+            error.bind="error.OrderDivision"
+            label="Divisi Pemesan"
+            loader.bind="divisionLoader"
+            text.bind="divisionView"
+            placeholder="Divisi Pemesan"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
+            value.bind="selectedDeliveryDivision"
+            error.bind="error.DeliveryDivision"
             label="Divisi Pengirim"
             loader.bind="divisionLoader"
             text.bind="divisionView"
@@ -71,9 +82,9 @@
             items.bind="data.ExternalTransferOrderItems"
             errors.bind="error.ExternalTransferOrderItems"
             columns.bind="externalTransferOrderItemsColumns"
+            options.bind="externalTransferOrderItemsOptions"
             add.bind="addExternalTransferOrderItems"
-            read-only.bind="readOnly"
-            show.bind="data.Division && data.OrderDate && data.DeliveryDate || true"
+            read-only.bind="readOnly || !data.OrderDivision"
             item-template="modules/int-purchasing/external-transfer-order/template/external-transfer-order-item">
         </au-collection>
 

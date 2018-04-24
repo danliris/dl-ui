@@ -32,6 +32,7 @@ export class ExternalTransferOrderItem {
             this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
         }
 
+        this.selectedInternalTransferOrderFilter = this.options.filter;
         this.selectedInternalTransferOrderFilter.currentUsed = this.items.map(item => item.data.ITOId);
     }
 
@@ -49,6 +50,11 @@ export class ExternalTransferOrderItem {
                     this.data.ITONo = result.ITONo;
                     this.data.TRId = result.TRId;
                     this.data.TRNo = result.TRNo;
+                    this.data.Unit = result.Unit || {
+                        _id: result.UnitId,
+                        code: result.UnitCode,
+                        name: result.UnitName
+                    };
 
                     this.data.ExternalTransferOrderDetails = [];
                     for (var detail of result.InternalTransferOrderDetails) {
