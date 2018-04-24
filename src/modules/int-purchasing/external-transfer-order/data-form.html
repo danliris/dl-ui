@@ -24,7 +24,7 @@
             loader.bind="divisionLoader"
             text.bind="divisionView"
             placeholder="Divisi Pemesan"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
 
