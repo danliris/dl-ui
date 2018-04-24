@@ -20,6 +20,7 @@ export class DataForm {
         this.service = service;
         this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
+        this.externalTransferOrderItemsOptions = { filter: {} };
     }
 
     formOptions = {
@@ -73,6 +74,7 @@ export class DataForm {
         if (newValue) {
             this.data.OrderDivision = newValue;
             this.data.OrderDivisionId = newValue._id;
+            Object.assign(this.externalTransferOrderItemsOptions.filter, { DivisionId: newValue._id });
         }
     }
 

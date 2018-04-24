@@ -82,9 +82,9 @@
             items.bind="data.ExternalTransferOrderItems"
             errors.bind="error.ExternalTransferOrderItems"
             columns.bind="externalTransferOrderItemsColumns"
+            options.bind="externalTransferOrderItemsOptions"
             add.bind="addExternalTransferOrderItems"
-            read-only.bind="readOnly"
-            show.bind="data.DeliveryDivision && data.OrderDate && data.DeliveryDate || true"
+            read-only.bind="readOnly || !data.OrderDivision"
             item-template="modules/int-purchasing/external-transfer-order/template/external-transfer-order-item">
         </au-collection>
 

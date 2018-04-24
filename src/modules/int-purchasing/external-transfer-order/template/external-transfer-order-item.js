@@ -32,6 +32,7 @@ export class ExternalTransferOrderItem {
             this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
         }
 
+        this.selectedInternalTransferOrderFilter = this.options.filter;
         this.selectedInternalTransferOrderFilter.currentUsed = this.items.map(item => item.data.ITOId);
     }
 
