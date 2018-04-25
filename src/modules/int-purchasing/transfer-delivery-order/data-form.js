@@ -23,7 +23,7 @@ export class DataForm {
         columns: [{ header: "Nomor TO External", value: "ETONo" }],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.items.push({ ExternalTransferOrderNo: { no: "" } });
+            this.data.items.push({ ETONo: { no: "" } });
         }.bind(this)
     };
 	
@@ -46,7 +46,7 @@ export class DataForm {
     @computedFrom("data.supplier")
     get filter() {
         var filter = {
-            SupplierId: this.data.SupplierId || {},
+            SupplierName: this.data.SupplierName || {},
             isEdit: this.isEdit
         }
         return filter;
@@ -58,7 +58,8 @@ export class DataForm {
             if (selectedSupplier._id) {
                 this.data.supplier = selectedSupplier;
                 this.data.SupplierId = selectedSupplier._id;
-                console.log(this.data.supplier);
+                this.data.SupplierName=selectedSupplier.name;
+                // console.log(this.data.supplier);
             }
         } else {
             this.data.SupplierName = {};

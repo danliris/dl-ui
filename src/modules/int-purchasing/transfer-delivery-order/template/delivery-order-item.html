@@ -4,11 +4,11 @@
             <div class="col-sm-11">
                 <au-autocomplete 
                         value.bind="selectedExternalTransferOrder"
-                        error.bind="error.ETONo"
+                        error.bind="error.ExternalTransferOrderNo"
                         loader.bind="externalTransferOrderLoader"
                         text.bind="ExternalTransferOrderView"
                         placeholder="cari nomor transfer order external" 
-                        key="ExternalTransferOrderNo"
+                        key="ETONo"
                         query.bind="filter"
                         read-only.bind="options.readOnly"
                         options.bind="controlOptions">
@@ -16,20 +16,20 @@
             </div>
             <div class="col-sm-1">
                 <button class="btn btn-danger pull-left" click.delegate="onremove(data, $event)" if.bind="!options.readOnly">-</button>            
-                <button class="btn btn-info pull-right" if.bind= "data.fulfillments" click.delegate="toggle()">i</button>
+                <button class="btn btn-info pull-right" if.bind= "details" click.delegate="toggle()">i</button>
             </div>
         </td>
     </tr>
     <tr if.bind="isShowing">
         <td>
             <au-collection 
-                items.bind="data.Fulfillments" 
-                errors.bind="error.Fulfillments"
+                items.bind="data.details" 
+                errors.bind="error.details"
                 columns.bind="itemsColumns" 
                 remove.bind="removeItems"
                 options.bind="context.context.options"
                 read-only.bind="options.readOnly"
-                item-template="modules/purchasing/delivery-order/template/delivery-order-fulfillment">
+                item-template="modules/int-purchasing/transfer-delivery-order/template/delivery-order-details">
             </au-collection>
         </td>  
     </tr>

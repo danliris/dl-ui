@@ -8,13 +8,13 @@ export class List {
     context = ["Detail"];
 
     columns = [
-        { field: "DONo", title: "No. Surat Jalan" },
+        { field: "DONo", title: "Nomor DO" },
         {
-            field: "DODate", title: "Tanggal Surat Jalan", formatter: function (value, data, index) {
+            field: "DODate", title: "Tanggal DO", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "SupplierName", title: "Nama Supplier" },
+        { field: "SupplierName", title: "Unit Pengirim" },
         { field: "ETONo", title: "List Nomor Eksternal TO", sortable: false }
     ];
 

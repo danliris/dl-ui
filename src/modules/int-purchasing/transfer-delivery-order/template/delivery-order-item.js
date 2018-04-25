@@ -5,66 +5,80 @@ export class DeliveryOrderItem {
   @bindable selectedExternalTransferOrder;
 
   itemsColumns = [
-    { header: "Nomor TR", value: "items.TRNo" },
-    { header: "Nama Barang", value: "items.details.ProductId" },
-    { header: "Jumlah Diminta", value: "items.details.DealQuantity" },
-    { header: "Jumlah Datang", value: "items.details.RemainingQuantity" },
-    { header: "Satuan", value: "items.details.DealUomUnit" },
-    { header: "Grade", value: "items.details.Grade" },
-    { header: "Keterangan", value: "items.details.Remark" },
-    { header: "Catatan", value: "items.details.Note" }
+    { header: "Unit Pemesanan", value: "details.UnitName"},
+    { header: "Nomor TR", value: "details.TRNo" },
+    { header: "Nama Barang", value: "details.Product" },
+    { header: "Jumlah Diminta (TO Eks)", value: "details.RequestedQuantity" },
+    { header: "Jumlah DO", value: "details.RemainingQuantity" },
+    { header: "Satuan", value: "details.UomUnit" },
+    { header: "Grade", value: "details.Grade" },
+    { header: "Keterangan", value: "details.Remark"}
   ]
 
   activate(context) {
     this.context = context;
     this.data = context.data;
+    console.log(this.context);
     this.error = context.error;
     this.options = context.options;
-    this.filter = this.context.context.options.SupplierId ? { "SupplierId": this.context.context.options.SupplierId } : {};
+    
+    // this.filter = this.context.context.options.SupplierName ? { "SupplierName": this.context.context.options.SupplierName } : {};
     this.isEdit = this.context.context.options.isEdit || false;
+    // this.IsPosted = false;
     this.isShowing = false;
     if (this.data) {
-      this.selectedExternalTransferOrder = this.data.ExternalTransferOrderNo;
-      if (this.data.details) {
-        this.isShowing = true;
-      }
+      this.selectedExternalTransferOrder = this.data.ETONo;
+      // if (this.selectedExternalTransferOrder) {
+      //   this.isShowing = true;
+      // }
     }
+    // console.log(context);
   }
 
   get externalTransferOrderLoader() {
     return ExternalTransferOrderLoader;
   }
 
-  selectedExternalTransferOrder(newValue) {
+  selectedExternalTransferOrderChanged(newValue,externalTransferOrder) {
+    // console.log(newValue);
     if (newValue === null) {
-      this.data.items.details = [];
+      this.data.ExternalTransferOrderItems = [];
       this.error = {};
       this.isShowing = false;
-    } else if (newValue.ExternalTransferOrderNo) {
-      this.data.ExternalTransferOrderNo = newValue.ExternalTransferOrderNo;
+    } else if (newValue.ETONo) {
+      this.data=newValue;
+      var i = 0;
+      var ExternalTransferOrderItems = this.data.ExternalTransferOrderItems[i]; 
+      var toDetails = ExternalTransferOrderItems.ExternalTransferOrderDetails;
+      var toExternal = this.data.ETONo || {};
       
-      var doDetails = this.data.items.details || [];
-      var toExternal = this.data.ExternalTransferOrderNo || {};
-      var toCollection = toExternal.items || [];
-      var details = [];
-      for (var purchaseDeliveryOrder of toCollection) {
-        for (var toItem of purchaseDeliveryOrder.items) {
-          var details = {
-            TransferRequestNo: this.data.TransferRequestNo,
-            ProductId: toItem.ProductId,
-            ProductCode: toItem.ProductCode,
-            ProductName: toItem.ProductName,
-            RequestedQuantity: toItem.dealQuantity,
-            RemainingQuantity: toItem.RemainingQuantity,
-            UomId: toItem.DealUomId,
-            UomUnit: toItem.DealUomName,
-            Grade: toItem.Grade,
-            Remark: toItem.Remark,
+      this.data.details = [];
+      for (var toDetail of toDetails) {
+          var detail = {
+            UnitId : ExternalTransferOrderItems.UnitId,
+            UnitCode : ExternalTransferOrderItems.UnitCode,
+            UnitName : ExternalTransferOrderItems.UnitName,
+            TRNo : ExternalTransferOrderItems.TRNo,
+            DOItemId : ExternalTransferOrderItems.Id,
+            ETODetailId : toDetail.Id,
+            ITODetailId : toDetail.ITODetailId,
+            TRDetailId : toDetail.TRDetailId,
+            ProductId: toDetail.Product.Id,
+            ProductCode : toDetail.Product.code,
+            ProductName : toDetail.Product.name,
+            Product : toDetail.Product.code +' - '+ toDetail.Product.name,
+            Grade : toDetail.Grade,
+            Remark : toDetail.ProductRemark,
+            RequestedQuantity : toDetail.DealQuantity,
+            UomId : toDetail.DealUom.Id,
+            UomUnit : toDetail.DealUom.unit,
+            RemainingQuantity : toDetail.RemainingQuantity,           
           };
-          details.push(details);        
-        }
+          
+          this.data.details.push(detail);           
       }
-      
+      // console.log(details);
+      // console.log(this.data.ExternalTransferOrderItems)
       this.error = {};
       this.isShowing = true;
     }
@@ -78,7 +92,7 @@ export class DeliveryOrderItem {
   }
 
   ExternalTransferOrderView = (externalTransferOrder) => {
-    return externalTransferOrder.ExternalTransferOrderNo
+    return externalTransferOrder.ETONo
   }
 
   controlOptions = {

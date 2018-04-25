@@ -1,76 +1,3 @@
-<!-- <template>
-    <style>
-        table .btn-success {
-            float: none !important;
-        }
-
-        .col-sm-12 {
-            margin-top: 0px !important;
-        }
-    </style>
-    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
-        <au-textbox 
-            label="Nomor Surat Jalan" 
-            value.bind="data.Code" 
-            error.bind="error.Code" 
-            placeholder="masukkan nomor surat jalan"
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-textbox>
-
-        <au-datepicker 
-            label="Tanggal Surat Jalan" 
-            value.bind="data.DeliveryOrderDate" 
-            error.bind="error.DeliveryOrderDate" 
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-datepicker> 
-
-        <au-datepicker 
-            label="Tanggal Tiba" 
-            value.bind="data.ArrivedDate" 
-            error.bind="error.ArrivedDate" 
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-datepicker>
-
-        <au-autocomplete 
-            value.bind="selectedSupplier" 
-            error.bind="error.SupplierId"
-            label="Supplier" 
-            loader.bind="supplierLoader"
-            text.bind = "supplierView"
-            placeholder="cari supplier" 
-            key="_id" 
-            read-only="true"
-            options.bind="controlOptions"
-            if.bind = "data.SupplierId">
-        </au-autocomplete>
-
-        <au-autocomplete 
-            value.bind="supplier" 
-            error.bind="error.supplier"
-            label="Supplier" 
-            loader.bind="supplierLoader"
-            text.bind = "supplierView"
-            placeholder="cari supplier" 
-            key="code" 
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-multiline 
-            label="Keterangan" 
-            value.bind="data.Remark"
-            placeholder="Tambah Keterangan" 
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-multiline>
-
-        
-    </au-input-form>
-</template> -->
-
 <template>
 
     <au-input-form title.bind="title" with.bind="context">
@@ -82,26 +9,19 @@
         </div>
 
         <au-textbox 
-            label="Nomor Surat Jalan" 
+            label="Nomor DO" 
             value.bind="data.DONo" 
             error.bind="error.DONo" 
             placeholder="tambahkan nomor surat jalan" 
-            read-only.bind="readOnly ||isEdit"
+            read-only.bind="true"
+            if.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-textbox>
-
+       
         <au-datepicker 
-            label="Tgl. Surat Jalan" 
+            label="Tgl. DO" 
             value.bind="data.DODate" 
             error.bind="error.DODate" 
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-datepicker>
-
-        <au-datepicker 
-            label="Tgl. Tiba" 
-            value.bind="data.ArrivalDate" 
-            error.bind="error.ArrivalDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
@@ -109,7 +29,7 @@
         <au-autocomplete 
             value.bind="supplier" 
             error.bind="error.supplier"
-            label="Supplier" 
+            label="Unit Pengirim" 
             loader.bind="supplierLoader"
             text.bind = "supplierView"
             placeholder="cari supplier" 
