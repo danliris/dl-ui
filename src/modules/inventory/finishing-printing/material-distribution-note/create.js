@@ -42,14 +42,6 @@ export class Create {
         this.data.IsDisposition = this.getDisposition();
         this.data.IsApproved = false;
 
-        for (let item of this.data.MaterialDistributionNoteItems) {
-            for (let detail of item.MaterialDistributionNoteDetails) {
-                if (detail.ReceivedLength == null || detail.ReceivedLength == 0) {
-                    delete detail;
-                }
-            }
-        }
-
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
