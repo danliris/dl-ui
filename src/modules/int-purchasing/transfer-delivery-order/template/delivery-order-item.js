@@ -18,7 +18,7 @@ export class DeliveryOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-    console.log(this.context);
+    // console.log(this.context);
     this.error = context.error;
     this.options = context.options;
     

@@ -10,7 +10,7 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    console.log(this.data);
+    // console.log(this.data);
       
     // this.isEdit = this.context.context.options.isEdit || false;
 

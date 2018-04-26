@@ -1,6 +1,7 @@
 import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
+var DivisionLoader = require('../../../loader/division-loader');
 
 @containerless()
 @inject(BindingEngine, Element)
@@ -75,6 +76,21 @@ export class DataForm {
 
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`
+    }
+
+    get divisionLoader() {
+        return DivisionLoader;
+    }
+    divisionView = (division) => {
+        return `${division.code} - ${division.name}`;
+    }
+
+    selectedOrderDivisionChanged(newValue) {
+        if (newValue) {
+            this.data.OrderDivision = newValue;
+            this.data.OrderDivisionId = newValue._id;
+            // Object.assign(this.externalTransferOrderItemsOptions.filter, { DivisionId: newValue._id });
+        }
     }
 
     resetErrorItems() {

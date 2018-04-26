@@ -8,6 +8,17 @@
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
         </div>
 
+        <au-autocomplete
+            value.bind="selectedOrderDivision"
+            error.bind="error.OrderDivision"
+            label="Divisi Pemesan"
+            loader.bind="divisionLoader"
+            text.bind="divisionView"
+            placeholder="Divisi Pemesan"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-textbox 
             label="Nomor DO" 
             value.bind="data.DONo" 
