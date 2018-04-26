@@ -55,6 +55,9 @@ export class BadOutputItem {
                     $in:this.machineFilter.code
                 }
             };
+
+        this.selectBadOutput = ["code", "reason", ""];
+        this.selectMachine = ["code", "name"];
     }
 
     controlOptions = {
