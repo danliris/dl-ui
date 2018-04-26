@@ -27,7 +27,7 @@ export class Create {
         let flag = false;
 
         for (let item of this.data.MaterialDistributionNoteItems) {
-            let exists = item.MaterialDistributionNoteDetails.filter(p => p.IsDisposition === true).length > 0;
+            let exists = item.MaterialDistributionNoteDetails.filter(p => p.IsDisposition === true && p.ReceivedLength > 0).length > 0;
 
             if (exists) {
                 flag = true;
