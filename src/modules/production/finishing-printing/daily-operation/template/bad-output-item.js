@@ -11,17 +11,17 @@ export class BadOutputItem {
     @bindable machine;
     async activate(context) {
         this.data = context.data;
-        this.error = typeof context.error === 'object'  ? context.error : {};
+        this.error = typeof context.error === 'object' ? context.error : {};
         this.options = context.options;
         this.badOutputReason = this.data.badOutputReason;
         this.filter = context.context.options.reason;
-        this.machineFilter=context.context.options.machineCode;
-        this.machine=this.data.machine;
+        // this.machineFilter=context.context.options.machineCode;
+        this.machine = this.data.machine;
         // this.data.precentage = this.error && this.error.length ? this.data.length : this.data.precentage;
         // this.data.length = this.data.length && !this.error ? this.data.length : this.data.precentage;
         this.data.length = this.data.hasOwnProperty("length") ? this.data.length : this.data.hasOwnProperty("precentage") ? this.data.precentage : 0;
 
-        this.data.action = this.data.hasOwnProperty("action") ? this.data.action : this.filter.action; 
+        this.data.action = this.data.hasOwnProperty("action") ? this.data.action : this.filter.action;
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("production");
         // var filterKanban={
@@ -49,13 +49,14 @@ export class BadOutputItem {
         //         }
         //     };
         // });
-        if(this.machineFilter)
-        this.filterMachine={
-                code:{
-                    $in:this.machineFilter.code
-                }
-            };
 
+        // if(this.machineFilter)
+        this.filterMachine = {
+            // code:{
+            //     $in:this.machineFilter.code
+            // }
+            "unit.division.name": "FINISHING & PRINTING"
+        };
         this.selectBadOutput = ["code", "reason", ""];
         this.selectMachine = ["code", "name"];
     }

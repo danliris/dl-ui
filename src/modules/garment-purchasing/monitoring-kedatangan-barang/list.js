@@ -189,7 +189,7 @@ export class List {
     }
 
   view(data, dateFrom, dateTo, kategori) {
-       this.router.navigateToRoute('view', { id: data.supplier,supplier: data.supplier, dateFrom:this.dateFrom, dateTo:this.dateTo ,kategori:this.kategori });
+       this.router.navigateToRoute('view', { id: data.supplier,supplier: data._id.kdsupplier, dateFrom:this.dateFrom, dateTo:this.dateTo ,kategori:this.kategori });
         
     }
 

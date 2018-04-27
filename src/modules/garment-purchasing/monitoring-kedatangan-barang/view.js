@@ -18,6 +18,7 @@ async activate(params) {
         var dateTo = params.dateTo;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
+        this.supplier = supplier;
         this.kategori = kategori;
         var dataReport = [];
         var uri = "";
@@ -34,7 +35,7 @@ async activate(params) {
              for (var isi of data) {
 
             var ket='';
-            if(isi.category =='FABRIC' || isi.category =='SUBKON' ){
+            if(isi.category =='FABRIC' || isi.category =='INTERLINING' ){
                    if(isi.selisih >=30 ){
                          ket='OK';
                      }else{
@@ -65,6 +66,7 @@ async activate(params) {
                         tglll: isi.tglll ? isi.tglll : "-",
                         tglpr: isi.tglpr ? isi.tglpr : "-",
                         tglpo: isi.tglpo ? isi.tglpo : "-",
+                        kategori: isi.kategori ? isi.kategori : "-",
                         _createdBy: isi._createdBy ? isi._createdBy : "-",
                         purchaseRequestshipmentDate: isi.purchaseRequestshipmentDate ? isi.purchaseRequestshipmentDate : "-", 
                         
@@ -78,9 +80,9 @@ async activate(params) {
     }
 
 
-  ExportToExcel() {
-     
-            this.service.generateExcel2(this.dateFrom, this.dateTo, this.staff, this.divisi);
+   ExportToExcel() {
+
+this.service.generateExcel2(this.supplier ? this.supplier : "",this.dateFrom ? this.dateFrom : "", this.dateTo ?this.dateTo : "",this.kategori ? this.kategori : "")
     }
 
     list(dateFrom, dateTo, kategori) {
