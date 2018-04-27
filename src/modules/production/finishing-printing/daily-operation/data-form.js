@@ -136,7 +136,7 @@ export class DataForm {
             "unit.division.name" : "FINISHING & PRINTING"
         }
 
-        this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process"];
+        this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
         this.selectStep = ["process", "processArea", "deadline", "isNotDone"];
         this.selectKanban = ["code", "productionOrder._id", "productionOrder.orderNo", "productionOrder.salesContractNo",
             "productionOrder.materialId", "productionOrder.material.code", "productionOrder.material.name",
