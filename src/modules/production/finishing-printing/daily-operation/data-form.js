@@ -136,20 +136,21 @@ export class DataForm {
             "unit.division.name" : "FINISHING & PRINTING"
         }
 
-        this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process"];
+        this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
         this.selectStep = ["process", "processArea", "deadline", "isNotDone"];
         this.selectKanban = ["code", "productionOrder._id", "productionOrder.orderNo", "productionOrder.salesContractNo",
             "productionOrder.materialId", "productionOrder.material.code", "productionOrder.material.name",
             "productionOrder.materialConstruction._id", "productionOrder.materialConstruction.name",
             "productionOrder.yarnMaterial._id", "productionOrder.yarnMaterial.name",
-            "productionOrder.OrderType.name", "selectedProductionOrderDetail.code",
+            "productionOrder.orderType.name", "selectedProductionOrderDetail.code",
             "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorTemplate",
             "selectedProductionOrderDetail.uom._id", "selectedProductionOrderDetail.uom.unit",
-            "selectedProductionOrderDetail.materialWidth", "cart.cartNumber", "cart.qty",
+            "productionOrder.materialWidth", "cart.cartNumber", "cart.qty",
             "cart.code", "cart.pcs", "cart.uom._id", "cart.uom.unit", "instruction.code",
             "instruction.name", "grade", "isComplete", "currentStepIndex", "currentQty",
             "oldKanbanId", "oldKanban.cart.cartNumber", "productionOrder.finishWidth",
-            "instruction.steps.process"
+            "instruction.steps.process", "productionOrder.orderTypeId", "productionOrder.orderType.code",
+            "instruction.steps._id", "selectedProductionOrderDetail.uomId", "oldKanban.cart.code", "step._id"
         ];
     }
 
