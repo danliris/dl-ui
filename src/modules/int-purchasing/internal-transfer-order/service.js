@@ -26,7 +26,7 @@ export class Service extends RestService {
 
     split(data) {
         var endpoint = 'internal-transfer-orders/split';
-        console.log(data);
+        // console.log(data);
         return super.post(endpoint, data);
      
     }
