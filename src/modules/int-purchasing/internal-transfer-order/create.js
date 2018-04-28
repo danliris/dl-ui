@@ -47,7 +47,7 @@ export class Create {
         this.data.DivisionId=this.data.DivisionId?this.data.DivisionId:"";
         this.data.DivisionName=this.data.DivisionName?this.data.DivisionName:"";
         this.data.IsPost=this.data.IsPost?this.data.IsPost:false; 
-        console.log(this.data);
+        // console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
