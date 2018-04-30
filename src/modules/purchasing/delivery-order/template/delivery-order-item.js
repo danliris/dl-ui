@@ -15,6 +15,7 @@ export class DeliveryOrderItem {
 
   activate(context) {
     this.context = context;
+    console.log(context);
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
@@ -97,6 +98,7 @@ export class DeliveryOrderItem {
         }
       }
       this.data.fulfillments = doFulfillments.length > 0 ? doFulfillments : fulfillments;
+      console.log(this.data.fulfillments);
       this.error = {};
       this.isShowing = true;
     }

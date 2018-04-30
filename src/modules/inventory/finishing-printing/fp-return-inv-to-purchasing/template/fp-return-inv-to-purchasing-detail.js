@@ -37,7 +37,7 @@ export class FPReturnInvToPurchasingDetail {
                     let Details = result.Details.filter(p => p.Retur == "Ya");
 
                     for (let detail of Details) {
-                        TotalQuantity++;
+                        TotalQuantity += detail.Quantity;
                         TotalLength += detail.Length;
                     }
 

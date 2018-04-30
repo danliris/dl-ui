@@ -7,7 +7,7 @@ export class ExternalTransferOrderDetail {
         this.bindingEngine = bindingEngine;
     }
 
-    gradeItems = ["A", "B", "C"];
+    gradeItems = ["", "A", "B", "C"];
 
     activate(context) {
         this.context = context;

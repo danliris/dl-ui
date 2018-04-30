@@ -81,4 +81,9 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/close/${id}`;
         return super.put(endpoint);
     }
+
+    isUsedByDeliveryOrder(id) {
+        var endpoint = `${serviceUri}/isused/${id}`;
+        return super.get(endpoint);
+    }
 }

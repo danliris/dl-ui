@@ -19,13 +19,20 @@
             <au-numeric
                 show.bind="fpRegradingResultDocs"
                 value.bind="data.Quantity"
-                read-only.bind="true" />
+                read-only="true" />
         </td>
         <td>
             <au-numeric
                 show.bind="fpRegradingResultDocs"
                 value.bind="data.Length"
-                read-only.bind="true" />
+                read-only="true" />
+        </td>
+        <td>
+            <au-numeric
+                show.bind="fpRegradingResultDocs"
+                value.bind="data.NecessaryLength"
+                error.bind="error.NecessaryLength"
+                read-only.bind="readOnly" />
         </td>
         <td>
             <au-textbox value.bind="data.Description" placeholder="Keterangan" read-only.bind="readOnly"></au-textbox>            

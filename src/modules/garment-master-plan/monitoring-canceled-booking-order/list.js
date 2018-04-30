@@ -34,7 +34,7 @@ export class List {
         this.service.search(info)
      
             .then(result => {
-               this.data=result;
+               this.data=result;console.log(result);
                this.data = [];
                var temp=result;
                var count=0;
