@@ -62,6 +62,7 @@ export class DataForm {
         columns: [
             { header: "No" },
             // { header: "Panjang Sebelum Re-grade(Meter)" },
+            { header: "Jumlah (Piece)" },
             { header: "Panjang (Meter)" },
             { header: "Grade" },
             // { header: "Grade (hasil Re-grade)" },

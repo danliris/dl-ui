@@ -40,7 +40,7 @@ export async function configure(aurelia) {
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi-uat.mybluemix.net/v1/";
       var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
-     
+      var customsReport="https://com-danliris-support-dev.azurewebsites.net/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
@@ -52,7 +52,8 @@ export async function configure(aurelia) {
       config.registerEndpoint('garment-master-plan', garmentMasterPlan, defaultConfig);
       config.registerEndpoint('spinning', spinning, defaultConfig);
       config.registerEndpoint('int-purchasing', intPurchasing, defaultConfig);
-  })
+      config.registerEndpoint('customs-report', customsReport, defaultConfig);
+    })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
 

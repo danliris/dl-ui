@@ -29,7 +29,7 @@ export class DataForm {
 		this.service = service;
 
 		this.fpRITP = {
-			columns: ["No Bon Hasil Re-grading", "Nama Barang", "Jumlah (Piece)", "Panjang (Meter)", "Keterangan"],
+			columns: ["No Bon Hasil Re-grading", "Nama Barang", "Jumlah (Piece)", "Panjang Re-grade (Meter)", "Panjang Seharusnya (Meter)", "Keterangan"],
 			onAdd: () => { this.data.FPReturnInvToPurchasingDetails.push({}); },
 			options: { filter: {} }
 		};
