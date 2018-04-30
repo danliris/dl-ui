@@ -19,7 +19,10 @@
                   <input type="checkbox" value="remember-me"> Remember me
                 </label>
               </div>
-              <button type="submit" class="btn btn-success btn-lg btn-block" click.delegate="login()">Sign in</button>
+              <button type="submit" class="btn btn-success btn-lg btn-block" click.delegate="login()" disabled.bind="disabledButton">Sign in</button>
+              <div class="form-group has-error" show.bind="error">
+                <label>You have entered an invalid username or password</label>
+              </div>
             </form>
           </div>
         </div>

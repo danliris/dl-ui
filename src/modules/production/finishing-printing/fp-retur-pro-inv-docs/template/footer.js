@@ -19,6 +19,21 @@ export class footer {
         }
     }
 
+    get QuantityTotal() {
+        if (this.context.items) {
+            if (this.context.items.length > 0) {
+                var qty = this.context.items
+                    .map((item) => parseFloat(item.data.Quantity.toFixed(2)));
+                return qty
+                    .reduce((prev, curr, index) => { return prev + parseFloat(curr.toFixed(2)) }, 0);
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
     // get LengthTotalBefore() {
     //     if (this.context.items) {
     //         if (this.context.items.length > 0) {

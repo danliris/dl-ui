@@ -56,7 +56,7 @@ export class DataForm {
        
         if (this.data.transferRequest) {
             var _items = [];
-            console.log(this.data.transferRequest);
+            // console.log(this.data.transferRequest);
             this.data.TRNo=this.data.transferRequest.trNo;
             this.data.TRId=this.data.transferRequest.Id;
             this.data.TRDate=this.data.transferRequest.trDate;
