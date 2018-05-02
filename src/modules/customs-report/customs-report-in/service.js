@@ -10,7 +10,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}`;
+        let endpoint = `${serviceUri}/in`;
         console.log(info)
         return super.list(endpoint, info);
     }

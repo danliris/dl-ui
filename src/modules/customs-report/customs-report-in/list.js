@@ -24,8 +24,20 @@ export class List {
     Types = ["","BC 262","BC 23","BC 40","BC 27"];
 
     search(){
-        this.info.page = 1;
-        this.searching();
+         this.error = {};
+
+        if (!this.dateTo || this.dateTo == "Invalid Date")
+            this.error.dateTo = "Tanggal Akhir harus diisi";
+
+        if (!this.dateFrom || this.dateFrom == "Invalid Date")
+            this.error.dateFrom = "Tanggal Awal harus diisi";
+
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            this.flag = true;
+            this.info.page = 1;
+            this.searching();
+        }
     }
 
     searching() {
@@ -49,32 +61,31 @@ export class List {
                    var doc=a.BCNo;
                    if(!this.rowCount[bc]){
                        this.rowCount[bc]=1;
-                       
                    }
                    else{
-                       a.BCType="";
                        this.rowCount[bc]++;
                    }
 
-                   if(!rowDoc[doc]){
+                   if(!rowDoc[doc+bc]){
                        index++;
-                       a.count=index;
-                       rowDoc[doc]=1;
+                       //a.count=index;
+                       rowDoc[doc+bc]=1;
                    }
                    else{
-                       a.BCNo="";
-                       rowDoc[doc]++;
+                       rowDoc[doc+bc]++;
                    }
                }
                for(var b of result.data){
-                   if(b.BCType!=""){
-                       b.rowspan=this.rowCount[b.BCType];
+                   let bcno=result.data.find(o=> o.BCType + o.BCNo==b.BCType + b.BCNo);
+                   if(bcno){
+                       bcno.docspan=rowDoc[b.BCNo+b.BCType];
                    }
-                   if(b.BCNo!=""){
-                       b.docSpan=rowDoc[b.BCNo];
+                   let bctipe=result.data.find(o=> o.BCType ==b.BCType);
+                   if(bctipe){
+                       bctipe.rowspan=this.rowCount[b.BCType];
                    }
                }
-               this.data=result.data;    
+               this.data=result.data;
             });
             
     }
