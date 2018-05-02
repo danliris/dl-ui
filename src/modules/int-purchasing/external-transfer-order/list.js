@@ -37,7 +37,10 @@ export class List {
     ];
 
     rowFormatter(data, index) {
-        return data.IsPosted ? { classes: "success" } : {};
+        if (data.IsCanceled) return { classes: "danger" };
+        if (data.IsClosed) return { classes: "warning" };
+        if (data.IsPosted) return { classes: "success" };
+        return {};
     }
 
     loader = (info) => {
