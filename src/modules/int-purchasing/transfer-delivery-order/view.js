@@ -5,50 +5,63 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class View {
-    hasCancel = true;
-    hasEdit = false;
-    hasDelete = false;
-
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
-    isReceived = false;
 
     async activate(params) {
-        var id = params.id;
+        let id = params.id;
         this.data = await this.service.getById(id);
-        this.supplier = this.data.supplier;
-        this.isReceived = this.data.items
-            .map((item) => {
-                var _isReceived = item.fulfillments
-                    .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
-                    .reduce((prev, curr, index) => {
-                        return prev || curr
-                    }, false);
-                return _isReceived
-            })
-            .reduce((prev, curr, index) => {
-                return prev || curr
-            }, false);
+        this.editCallback = !this.data.IsPosted ? this.editCallback : null;
+        this.deleteCallback = !this.data.IsPosted ? this.deleteCallback : null;
 
-        if (!this.isReceived) {
-            this.hasDelete = true;
-            this.hasEdit = true;
-        }
+        this.hasUnpost = this.data.IsPosted;
+        
+        // this.supplier = this.data.supplier;
+        // this.isReceived = this.data.items
+        //     .map((item) => {
+        //         var _isReceived = item.fulfillments
+        //             .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
+        //             .reduce((prev, curr, index) => {
+        //                 return prev || curr
+        //             }, false);
+        //         return _isReceived
+        //     })
+        //     .reduce((prev, curr, index) => {
+        //         return prev || curr
+        //     }, false);
+
+        // if (!this.isReceived) {
+        //     this.hasDelete = true;
+        //     this.hasEdit = true;
+        // }
     }
 
-    cancel(event) {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
-    edit(event) {
+    editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
-    delete(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
-        });
+    deleteCallback(event) {
+        if (confirm(`Hapus ${this.data.ETONo}?`))
+            this.service.delete(this.data)
+                .then(result => {
+                    this.cancelCallback();
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+    }
+
+    unpost(event) {
+        this.service.unpost(this.data.Id).then(result => {
+            this.cancelCallback();
+        }).catch(e => {
+            this.error = e;
+        })
     }
 }

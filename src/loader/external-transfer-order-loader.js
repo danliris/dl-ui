@@ -7,15 +7,15 @@ module.exports = function(keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("int-purchasing");
-    console.log(keyword);
-    return endpoint.find(resource, { keyword: keyword })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
     .then(results => {
         return results.data.map(result => {
             result.toString = function () {
                 return `${this.ETONo}`;
             }
-            console.log(result);
+            console.log(results);
             return result;
+            
         });
     });
 }

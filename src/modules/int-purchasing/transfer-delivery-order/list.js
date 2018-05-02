@@ -5,24 +5,41 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    context = ["Detail"];
 
+    context = ["Rincian","Cetak PDF"];
     columns = [
-        { field: "DONo", title: "Nomor DO" },
         {
-            field: "DODate", title: "Tanggal DO", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+            field: "postedItem", checkbox: true, sortable: false,
+            formatter: (value, data) => {
+                return { disabled: data.IsPosted, }
             }
         },
-        { field: "SupplierName", title: "Unit Pengirim" },
-        { field: "ETONo", title: "List Nomor Eksternal TO", sortable: false }
+        { field: "DONo", title: "Nomor DO" },
+        {
+            field: "DODate", title: "Tanggal DO", formatter: value => moment(value).format("DD MMM YYYY")
+        },
+        { field: "Supplier.name", title: "Unit Pengirim" },
+        // { field: "items[0].ETONo", title: "List Nomor Eksternal TO", sortable: false },
+        {
+            field: "items", title: "List Nomor Eksternal TO",
+            formatter: items => {
+                items = items.map(item => "&#9679; " + item.ETONo);
+                return items.join("<br>");
+            }
+        },
+        { field: "IsPosted", title: "Status Post", formatter: value => { return value ? "SUDAH" : "BELUM" } },
     ];
 
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        console.log(this.service);
     }
 
+    rowFormatter(data, index) {
+        return data.IsPosted ? { classes: "success" } : {};
+    }
+    
     loader = (info) => {
         var order = {};
         if (info.sort)
@@ -48,14 +65,30 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
+        console.log(arg);
         switch (arg.name) {
-            case "detail":
+            case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF":
+                this.service.pdf(data);
                 break;
         }
     }
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    post() {
+        var idPostItems = this.selectedItem.map(value => value.Id);
+        if (idPostItems.length > 0) {
+            this.service.post(idPostItems).then(result => {
+                this.table.refresh();
+                this.selectedItem = [];
+            }).catch(e => {
+                this.error = e;
+            })
+        }
     }
 }

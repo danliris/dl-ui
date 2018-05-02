@@ -27,6 +27,11 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
+    
+    update(data) {
+        var endpoint = `${serviceUri}/${data.Id}`;
+        return super.put(endpoint, data);
+    }
 
     delete(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
@@ -42,5 +47,15 @@ export class Service extends RestService {
             .then(result => {
                 return result.data;
             });
+    }
+
+    post(data) {
+        var endpoint = `${serviceUri}/eto-post`;
+        return super.put(endpoint, data);
+    }
+
+    unpost(id) {
+        var endpoint = `${serviceUri}/eto-unpost/${id}`;
+        return super.put(endpoint);
     }
 }

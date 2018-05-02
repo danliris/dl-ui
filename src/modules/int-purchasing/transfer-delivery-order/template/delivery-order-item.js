@@ -2,7 +2,7 @@ import {bindable} from 'aurelia-framework'
 var ExternalTransferOrderLoader = require('../../../../loader/external-transfer-order-loader');
 
 export class DeliveryOrderItem {
-  @bindable selectedExternalTransferOrder;
+  @bindable ETONo;
 
   itemsColumns = [
     { header: "Unit Pemesanan", value: "details.UnitName"},
@@ -17,49 +17,60 @@ export class DeliveryOrderItem {
 
   activate(context) {
     this.context = context;
+    // console.log(context);
     this.data = context.data;
     // console.log(this.context);
     this.error = context.error;
     this.options = context.options;
     
-    // this.filter = this.context.context.options.SupplierName ? { "SupplierName": this.context.context.options.SupplierName } : {};
+    this.filter = this.context.context.options.DivisionName ? { "OrderDivisionName": this.context.context.options.DivisionName } : {};
     this.isEdit = this.context.context.options.isEdit || false;
     // this.IsPosted = false;
     this.isShowing = false;
     if (this.data) {
-      this.selectedExternalTransferOrder = this.data.ETONo;
-      // if (this.selectedExternalTransferOrder) {
-      //   this.isShowing = true;
-      // }
+       this.data.ETONo;
+      // console.log(this.selectedExternalTransferOrder);
+      if (this.data.ETONo=="") {
+        this.isShowing = false;
+      }
     }
-    // console.log(context);
   }
 
   get externalTransferOrderLoader() {
     return ExternalTransferOrderLoader;
   }
 
-  selectedExternalTransferOrderChanged(newValue,externalTransferOrder) {
+  ETONoChanged(newValue,externalTransferOrder) {
     // console.log(newValue);
     if (newValue === null) {
       this.data.ExternalTransferOrderItems = [];
       this.error = {};
       this.isShowing = false;
     } else if (newValue.ETONo) {
-      this.data=newValue;
+      this.externalTransferOrderItems = newValue;
+      this.data.ETONo=this.externalTransferOrderItems.ETONo;
+      this.data.ETOId=this.externalTransferOrderItems.Id;
       var i = 0;
-      var ExternalTransferOrderItems = this.data.ExternalTransferOrderItems[i]; 
-      var toDetails = ExternalTransferOrderItems.ExternalTransferOrderDetails;
+      var ExternalTransferOrderItems = this.externalTransferOrderItems.ExternalTransferOrderItems[i]; 
+    //  console.log(ExternalTransferOrderItems);
+     this.data.ITOId=ExternalTransferOrderItems.ITOId;
+     this.data.ITONo=ExternalTransferOrderItems.ITONo;
+     this.data.TRId=ExternalTransferOrderItems.TRId;
+     this.data.TRNo=ExternalTransferOrderItems.TRNo;
+     this.data.UnitId=ExternalTransferOrderItems.Unit.Id;
+     this.data.UnitCode=ExternalTransferOrderItems.Unit.code;
+     this.data.UnitName=ExternalTransferOrderItems.Unit.name;
+      // var toDetails = ExternalTransferOrderItems.ExternalTransferOrderDetails;
       var toExternal = this.data.ETONo || {};
       
       this.data.details = [];
-      for (var toDetail of toDetails) {
-          var detail = {
-            UnitId : ExternalTransferOrderItems.UnitId,
-            UnitCode : ExternalTransferOrderItems.UnitCode,
-            UnitName : ExternalTransferOrderItems.UnitName,
+      for (var toDetail of ExternalTransferOrderItems.ExternalTransferOrderDetails) {
+        console.log(toDetail.DealQuantity)  ;
+        var detail = {
+            UnitId : ExternalTransferOrderItems.Unit.Id,
+            UnitCode : ExternalTransferOrderItems.Unit.code,
+            UnitName : ExternalTransferOrderItems.Unit.name,
             TRNo : ExternalTransferOrderItems.TRNo,
-            DOItemId : ExternalTransferOrderItems.Id,
             ETODetailId : toDetail.Id,
             ITODetailId : toDetail.ITODetailId,
             TRDetailId : toDetail.TRDetailId,
@@ -68,14 +79,16 @@ export class DeliveryOrderItem {
             ProductName : toDetail.Product.name,
             Product : toDetail.Product.code +' - '+ toDetail.Product.name,
             Grade : toDetail.Grade,
-            Remark : toDetail.ProductRemark,
+            ProductRemark : toDetail.ProductRemark,
             RequestedQuantity : toDetail.DealQuantity,
             UomId : toDetail.DealUom.Id,
             UomUnit : toDetail.DealUom.unit,
-            RemainingQuantity : toDetail.RemainingQuantity,           
+            DOQuantity : toDetail.RemainingQuantity, 
+            RemainingQuantity : toDetail.RemainingQuantity          
           };
           
-          this.data.details.push(detail);           
+          this.data.details.push(detail);     
+          // console.log(this.data.details)      ;
       }
       // console.log(details);
       // console.log(this.data.ExternalTransferOrderItems)
@@ -91,8 +104,8 @@ export class DeliveryOrderItem {
       this.isShowing = !this.isShowing;
   }
 
-  ExternalTransferOrderView = (externalTransferOrder) => {
-    return externalTransferOrder.ETONo
+  TransferDeliveryOrderView = (transferDeliveryOrder) => {
+    return transferDeliveryOrder.ETONo
   }
 
   controlOptions = {

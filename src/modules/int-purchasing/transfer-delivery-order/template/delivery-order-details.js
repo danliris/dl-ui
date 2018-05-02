@@ -4,11 +4,16 @@ import { bindable } from 'aurelia-framework'
 export class DeliveryOrderItem {
   isWarning = false;
   // @bindable deliveredQuantity;
+
+  grades = ["", "A", "B", "C"];
+
   activate(context) {
     this.context = context;
     
     this.data = context.data;
+    // console.log(this.context);
     this.error = context.error;
+    console.log(this.context);
     this.options = context.options;
     // console.log(this.data);
       

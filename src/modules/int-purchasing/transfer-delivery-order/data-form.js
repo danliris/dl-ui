@@ -11,6 +11,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable supplier;
+    @bindable division;
 
     controlOptions = {
         label: {
@@ -20,24 +21,41 @@ export class DataForm {
             length: 5
         }
     }
-	itemsInfo = {
-        columns: [{ header: "Nomor TO External", value: "ETONo" }],
-        onAdd: function () {
-            this.context.ItemsCollection.bind();
-            this.data.items.push({ ETONo: { no: "" } });
-        }.bind(this)
-    };
+	// itemsInfo = {
+    //     columns: [{ header: "Nomor TO External", value: "ETONo" }],
+    //     // onAdd: function () {
+    //     //     console.log(this.context);
+    //     //     this.context.ItemsCollection.bind();
+    //     //     this.data.items.push({});
+    //     // }.bind(this)
+    // };
+    itemsInfoColumns = [
+        "Nomor TO External",
+    ];
 	
-	constructor(bindingEngine, element) {
+	constructor(service, bindingSignaler, bindingEngine) {
+        this.service = service;
+        this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
-        this.element = element;
+        this.transferDeliveryOrderItemsOptions = { filter: {} };
 	}
 
-	bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
+        console.log(this.data);
         this.error = this.context.error;
-	}
+
+        if (this.readOnly) {
+            this.itemsInfoColumns.push("");
+        }
+
+        if (this.data) {
+            this.supplier = this.data.Supplier;
+            this.division = this.data.Division;
+        }
+
+    }
 
 	@computedFrom("data.Id")
     get isEdit() {
@@ -47,27 +65,21 @@ export class DataForm {
     @computedFrom("data.supplier")
     get filter() {
         var filter = {
-            SupplierName: this.data.SupplierName || {},
-            isEdit: this.isEdit
+            DivisionName: this.data.DivisionName || {}
         }
         return filter;
     }
 
-    supplierChanged(newValue, oldValue) {
-        var selectedSupplier = newValue;
-        if (selectedSupplier) {
-            if (selectedSupplier._id) {
-                this.data.supplier = selectedSupplier;
-                this.data.SupplierId = selectedSupplier._id;
-                this.data.SupplierName=selectedSupplier.name;
-                // console.log(this.data.supplier);
-            }
-        } else {
-            this.data.SupplierName = {};
-            this.data.SupplierId = undefined;
+    supplierChanged(newValue) {
+        if (newValue) {
+            this.data.supplier = newValue;
+            this.data.SupplierId = newValue._id;
+            this.data.SupplierName=newValue.name;
+            this.data.SupplierCode=newValue.code;
+            Object.assign(this.transferDeliveryOrderItemsOptions.filter, { DivisionId: this.data.DivisionId });
         }
         this.data.items = [];
-        this.resetErrorItems();
+        // this.resetErrorItems();
     }
 
     get supplierLoader() {
@@ -85,19 +97,35 @@ export class DataForm {
         return `${division.code} - ${division.name}`;
     }
 
-    selectedOrderDivisionChanged(newValue) {
-        if (newValue) {
-            this.data.OrderDivision = newValue;
-            this.data.OrderDivisionId = newValue._id;
-            // Object.assign(this.externalTransferOrderItemsOptions.filter, { DivisionId: newValue._id });
+    divisionChanged(newValue,oldValue) {
+        var selectedDivision = newValue;
+        if (selectedDivision) {
+            this.data.division = selectedDivision;
+            this.data.DivisionId = selectedDivision._id;
+            this.data.DivisionName=selectedDivision.name;
+            this.data.DivisionCode=selectedDivision.code;            
         }
     }
 
-    resetErrorItems() {
-        if (this.error) {
-            if (this.error.items) {
-                this.error.items = [];
-            }
+    divisionChanged(newValue) {
+        if (newValue) {
+            this.data.division = newValue;
+            this.data.DivisionId = newValue._id;
+            this.data.DivisionName=newValue.name;
+            this.data.DivisionCode=newValue.code;
         }
     }
+
+    get addTransferDeliveryOrderItems() {
+        return () => {
+            this.data.items.push({});
+        }
+    };
+    // resetErrorItems() {
+    //     if (this.error) {
+    //         if (this.error.items) {
+    //             this.error.items = [];
+    //         }
+    //     }
+    // }
 } 

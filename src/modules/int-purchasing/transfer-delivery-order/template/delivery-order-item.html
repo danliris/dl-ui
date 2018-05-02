@@ -3,10 +3,10 @@
         <td >
             <div class="col-sm-11">
                 <au-autocomplete 
-                        value.bind="selectedExternalTransferOrder"
-                        error.bind="error.ExternalTransferOrderNo"
+                        value.bind="ETONo"
+                        error.bind="error.ETONo"
                         loader.bind="externalTransferOrderLoader"
-                        text.bind="ExternalTransferOrderView"
+                        text.bind="TransferDeliveryOrderView"
                         placeholder="cari nomor transfer order external" 
                         key="ETONo"
                         query.bind="filter"
