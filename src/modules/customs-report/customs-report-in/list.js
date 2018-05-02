@@ -11,6 +11,15 @@ export class List {
     }
     
     info = { page: 1,size:50};
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
      
     Types = ["","BC 262","BC 23","BC 40","BC 27"];
 
@@ -31,9 +40,41 @@ export class List {
         this.service.search(args)
      
             .then(result => {
-               this.data=result.data;
-                console.log(this.info)   
-               this.info.total=result.info.total;              
+               this.rowCount=[];
+               var rowDoc=[];
+               this.info.total=result.info.total;    
+               var index=0;    
+               for(var a of result.data){
+                   var bc=a.BCType.toString();
+                   var doc=a.BCNo;
+                   if(!this.rowCount[bc]){
+                       this.rowCount[bc]=1;
+                       
+                   }
+                   else{
+                       a.BCType="";
+                       this.rowCount[bc]++;
+                   }
+
+                   if(!rowDoc[doc]){
+                       index++;
+                       a.count=index;
+                       rowDoc[doc]=1;
+                   }
+                   else{
+                       a.BCNo="";
+                       rowDoc[doc]++;
+                   }
+               }
+               for(var b of result.data){
+                   if(b.BCType!=""){
+                       b.rowspan=this.rowCount[b.BCType];
+                   }
+                   if(b.BCNo!=""){
+                       b.docSpan=rowDoc[b.BCNo];
+                   }
+               }
+               this.data=result.data;    
             });
             
     }
