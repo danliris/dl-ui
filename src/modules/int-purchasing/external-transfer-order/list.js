@@ -24,6 +24,7 @@ export class List {
         },
         { field: "ETONo", title: "Nomor TO Eksternal" },
         { field: "OrderDate", title: "Tanggal TO Eksternal", formatter: value => moment(value).format("DD MMM YYYY") },
+        { field: "OrderDivision.name", title: "Divisi Pemesan" },
         { field: "DeliveryDivision.name", title: "Divisi Pengirim" },
         {
             field: "ExternalTransferOrderItems", title: "Nomor Transfer Request",
