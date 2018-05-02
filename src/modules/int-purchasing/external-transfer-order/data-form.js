@@ -55,6 +55,7 @@ export class DataForm {
         if (this.data) {
             this.selectedOrderDivision = this.data.OrderDivision;
             this.selectedDeliveryDivision = this.data.DeliveryDivision;
+            this.selectedCurrency = this.data.Currency;
         }
 
         if (!this.selectedCurrency) {
