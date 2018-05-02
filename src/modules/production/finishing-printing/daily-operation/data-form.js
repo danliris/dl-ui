@@ -135,6 +135,27 @@ export class DataForm {
         this.filterMachine = {
             "unit.division.name" : "FINISHING & PRINTING"
         }
+
+        this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
+        this.selectStep = ["process", "processArea", "deadline", "isNotDone"];
+        this.selectKanban = ["code", "productionOrderId",
+            "productionOrder._id", "productionOrder.orderNo", "productionOrder.salesContractNo",
+            "productionOrder.materialId", "productionOrder.material.code", "productionOrder.material.name",
+            "productionOrder.materialConstruction._id", "productionOrder.materialConstruction.name",
+            "productionOrder.yarnMaterialId",
+            "productionOrder.yarnMaterial._id", "productionOrder.yarnMaterial.name",
+            "productionOrder.orderType.name", "selectedProductionOrderDetail.code",
+            "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorTemplate",
+            "selectedProductionOrderDetail.uom._id", "selectedProductionOrderDetail.uom.unit",
+            "productionOrder.materialWidth", "cart.cartNumber", "cart.qty",
+            "cart.code", "cart.pcs", "cart.uom._id", "cart.uom.unit", "instruction.code",
+            "instruction.name", "grade", "isComplete", "currentStepIndex", "currentQty",
+            "oldKanbanId", "oldKanban.cart.cartNumber", "productionOrder.finishWidth",
+            "instruction.steps.process", "instruction.steps.processArea",
+            "instruction.steps.deadline", "instruction.steps.isNotDone",
+            "productionOrder.orderTypeId", "productionOrder.orderType.code",
+            "instruction.steps._id", "selectedProductionOrderDetail.uomId", "oldKanban.cart.code", "step._id"
+        ];
     }
 
     localInputDateChanged(newValue) {
@@ -160,6 +181,7 @@ export class DataForm {
         return this.filterKanban;
     }
 
+    @computedFrom("data.machine")
     get isFilterStep(){
         this.filterStep = {};
         if(this.data.machine)

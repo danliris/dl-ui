@@ -49,6 +49,7 @@ export class BadOutputItem {
         //         }
         //     };
         // });
+
         // if(this.machineFilter)
         this.filterMachine = {
             // code:{
@@ -56,6 +57,8 @@ export class BadOutputItem {
             // }
             "unit.division.name": "FINISHING & PRINTING"
         };
+        this.selectBadOutput = ["code", "reason", ""];
+        this.selectMachine = ["code", "name"];
     }
 
     controlOptions = {
