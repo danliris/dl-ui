@@ -60,6 +60,15 @@ export class List {
             });
     }
 
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF":
+                return data.IsPosted;
+            default:
+                return true;
+        }
+    }
+
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
