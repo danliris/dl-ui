@@ -99,10 +99,19 @@ export class DataForm {
             
         }
         else {
-            this.data.transferRequest = {};
-            this.data.Id = {};
-            this.data.Remark = "";
-            this.data.InternalTransferOrderDetails = [];
+            // this.data.transferRequest = {};
+            // this.data.Id = {};
+            // this.data.Remark = "";
+            // this.data.InternalTransferOrderDetails = [];
+
+            Object.keys(this.data).forEach(
+                key => {
+                    if(typeof this.data[key] != "object")
+                        delete this.data[key];
+                    else
+                        this.data[key] = null;
+                }
+            )
         }
     }
 

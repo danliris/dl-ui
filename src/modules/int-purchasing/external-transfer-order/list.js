@@ -24,6 +24,7 @@ export class List {
         },
         { field: "ETONo", title: "Nomor TO Eksternal" },
         { field: "OrderDate", title: "Tanggal TO Eksternal", formatter: value => moment(value).format("DD MMM YYYY") },
+        { field: "OrderDivision.name", title: "Divisi Pemesan" },
         { field: "DeliveryDivision.name", title: "Divisi Pengirim" },
         {
             field: "ExternalTransferOrderItems", title: "Nomor Transfer Request",
@@ -36,7 +37,10 @@ export class List {
     ];
 
     rowFormatter(data, index) {
-        return data.IsPosted ? { classes: "success" } : {};
+        if (data.IsCanceled) return { classes: "danger" };
+        if (data.IsClosed) return { classes: "warning" };
+        if (data.IsPosted) return { classes: "success" };
+        return {};
     }
 
     loader = (info) => {
@@ -58,6 +62,15 @@ export class List {
                     data: result.data
                 }
             });
+    }
+
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF":
+                return data.IsPosted;
+            default:
+                return true;
+        }
     }
 
     contextClickCallback(event) {

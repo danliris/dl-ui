@@ -29,7 +29,8 @@ export class ExternalTransferOrderItem {
                 ITONo: this.data.ITONo
             };
 
-            this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
+            // this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
+            this.isShowing = true;
         }
 
         this.selectedInternalTransferOrderFilter = this.options.filter;
