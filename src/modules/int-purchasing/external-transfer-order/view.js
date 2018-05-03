@@ -21,6 +21,15 @@ export class View {
         this.hasUnpost = this.data.IsPosted && !isUsed;
         this.hasCancel = !this.data.IsCanceled && !isUsed;
         this.hasClose = !this.data.IsClosed;
+
+        // alter semua kondisi jika IsClosed dan IsCanceled
+        if (this.data.IsClosed || this.data.IsCanceled) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+            this.hasUnpost = false;
+            this.hasCancel = false;
+            this.hasClose = false;
+        }
     }
 
     cancelCallback(event) {

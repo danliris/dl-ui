@@ -29,7 +29,8 @@ export class ExternalTransferOrderItem {
                 ITONo: this.data.ITONo
             };
 
-            this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
+            // this.isShowing = this.error && this.error.ExternalTransferOrderDetails && this.error.ExternalTransferOrderDetails.length > 0;
+            this.isShowing = true;
         }
 
         this.selectedInternalTransferOrderFilter = this.options.filter;
@@ -76,6 +77,7 @@ export class ExternalTransferOrderItem {
                                 _id: detail.UomId,
                                 unit: detail.UomUnit
                             },
+                            RemainingQuantity: detail.Quantity,
                             Convertion: 1,
                             Grade: detail.Grade || "-",
                             ProductRemark: detail.ProductRemark

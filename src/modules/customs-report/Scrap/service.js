@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'fact-beacukai-reports';
+const serviceUri = 'customs-report/scrap';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -10,7 +10,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}/in`;
+        let endpoint = `${serviceUri}`;
         console.log(info)
         return super.list(endpoint, info);
     }
