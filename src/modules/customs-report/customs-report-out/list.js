@@ -21,10 +21,11 @@ export class List {
         }
     };
      
-    Types = ["","BC 262","BC 23","BC 40","BC 27"];
+    Types = ["","BC 2.6.1","BC 3.0","BC 4.0","BC 4.1","BC 2.7","BC 2.5"];
+
 
     search(){
-         this.error = {};
+        this.error = {};
 
         if (!this.dateTo || this.dateTo == "Invalid Date")
             this.error.dateTo = "Tanggal Akhir harus diisi";
