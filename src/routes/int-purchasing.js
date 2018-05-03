@@ -78,4 +78,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: ['int-purchasing/transfer-shipping-order'],
+        name: 'transfer-shipping-order',
+        moduleId: './modules/int-purchasing/transfer-shipping-order/index',
+        nav: true,
+        title: 'Surat Jalan',
+        auth: true,
+        settings: {
+            group: "int-purchasing",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]

@@ -77,6 +77,7 @@ export class ExternalTransferOrderItem {
                                 _id: detail.UomId,
                                 unit: detail.UomUnit
                             },
+                            RemainingQuantity: detail.Quantity,
                             Convertion: 1,
                             Grade: detail.Grade || "-",
                             ProductRemark: detail.ProductRemark
