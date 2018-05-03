@@ -24,14 +24,15 @@ export class List {
         },
         { field: "ETONo", title: "Nomor TO Eksternal" },
         { field: "OrderDate", title: "Tanggal TO Eksternal", formatter: value => moment(value).format("DD MMM YYYY") },
-        { field: "OrderDivision.name", title: "Divisi Pemesan" },
-        { field: "DeliveryDivision.name", title: "Divisi Pengirim" },
+        { field: "OrderDivisionName", title: "Divisi Pemesan" },
+        { field: "DeliveryDivisionName", title: "Divisi Pengirim" },
         {
             field: "ExternalTransferOrderItems", title: "Nomor Transfer Request",
             formatter: items => {
                 items = items.map(item => "&#9679; " + item.TRNo);
                 return items.join("<br>");
-            }
+            },
+            sortable: false
         },
         { field: "IsPosted", title: "Status Post", formatter: value => { return value ? "SUDAH" : "BELUM" } },
     ];
@@ -57,6 +58,10 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                for (var data of result.data) {
+                    data.OrderDivisionName = data.OrderDivision.name;
+                    data.DeliveryDivisionName = data.DeliveryDivision.name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
