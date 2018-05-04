@@ -16,25 +16,6 @@ export class View {
         this.editCallback = !this.data.IsPosted ? this.editCallback : null;
         this.deleteCallback = !this.data.IsPosted ? this.deleteCallback : null;
         this.hasUnpost = this.data.IsPosted;
-        
-        // this.supplier = this.data.supplier;
-        // this.isReceived = this.data.items
-        //     .map((item) => {
-        //         var _isReceived = item.fulfillments
-        //             .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
-        //             .reduce((prev, curr, index) => {
-        //                 return prev || curr
-        //             }, false);
-        //         return _isReceived
-        //     })
-        //     .reduce((prev, curr, index) => {
-        //         return prev || curr
-        //     }, false);
-
-        // if (!this.isReceived) {
-        //     this.hasDelete = true;
-        //     this.hasEdit = true;
-        // }
     }
 
     cancelCallback(event) {

@@ -207,10 +207,7 @@ export class DataForm {
                 this.data.SupplierCode=selectedSupplier.code;
                 Object.assign(this.externalTransferOrderItemsOptions.filter, { OrderDivisionName: this.data.DivisionName });
             }
-    //    console.log(this.externalTransferOrderItemsOptions);
-        // this.data.items = [];
         }
-        // this.resetErrorItems();
     }
 
     divisionChanged(newValue) {
@@ -224,8 +221,6 @@ export class DataForm {
                 
             }
         }
-        // this.data.items = [];
-        // this.resetErrorItems();
     }
 
     get addItems() {

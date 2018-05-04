@@ -19,7 +19,7 @@ export class List {
             field: "DODate", title: "Tanggal DO", formatter: value => moment(value).format("DD MMM YYYY")
         },
         { field: "Supplier.name", title: "Unit Pengirim" },
-        // { field: "items[0].ETONo", title: "List Nomor Eksternal TO", sortable: false },
+
         {
             field: "items", title: "List Nomor Eksternal TO",
             formatter: items => {
@@ -33,7 +33,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        // console.log(this.service);
+        
     }
 
     rowFormatter(data, index) {
@@ -48,13 +48,13 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            // select:["DONo", "ArrivalDate", "supplier.name","items.purchaseOrderExternal.no"],
+            
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
-                // return data;
+                
                 return {
                     total: result.info.total,
                     data: result.data
@@ -62,10 +62,18 @@ export class List {
             });
     }
 
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF":
+                return data.IsPosted;
+            default:
+                return true;
+        }
+    }
+
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        // console.log(arg);
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
@@ -75,15 +83,6 @@ export class List {
                 break;
         }
     }
-
-    contextShowCallback(index, name, data) {
-        switch (name) {
-          case "Cetak PDF":
-            return data.isPosted;
-          default:
-            return true;
-        }
-      }
 
     create() {
         this.router.navigateToRoute('create');

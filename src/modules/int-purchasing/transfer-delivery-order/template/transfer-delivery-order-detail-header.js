@@ -5,6 +5,5 @@ import { Config } from "aurelia-api"
 export class TransferDeliveryOrderDetailHeader {
   activate(context) {
     this.context = context;
-    // console.log(this.context);
   }
 }
