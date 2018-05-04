@@ -44,4 +44,19 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    post(data) {
+        var endpoint = `${serviceUri}/so-post`;
+        return super.put(endpoint, data);
+    }
+
+    unpost(id) {
+        var endpoint = `${serviceUri}/so-unpost/${id}`;
+        return super.put(endpoint);
+    }
+
+    pdf(data) {
+        var endpoint = `${serviceUri}/pdf/${data.Id}`;
+        return super.getPdf(endpoint);
+    }
+
 }

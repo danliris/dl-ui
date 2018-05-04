@@ -13,9 +13,15 @@ export class List {
         this.router = router;
     }
 
-    contextMenu = ["Rincian"];
+    contextMenu = ["Rincian", "Cetak PDF"];
 
     columns = [
+        {
+            field: "postedItem", checkbox: true, sortable: false,
+            formatter: (value, data) => {
+                return { disabled: data.IsPosted, }
+            }
+        },
         { field: "SONo", title: "Nomor Surat Jalan" },
         { field: "SODate", title: "Tanggal Surat Jalan", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "SupplierName", title: "Unit Pengirim" },
@@ -53,6 +59,14 @@ export class List {
             });
     }
 
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak PDF":
+                return data.IsPosted;
+            default:
+                return true;
+        }
+    }
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
@@ -60,10 +74,25 @@ export class List {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
+            case "Cetak PDF":
+                this.service.pdf(data);
+                break;
         }
     }
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    post() {
+        var idPostItems = this.selectedItem.map(value => value.Id);
+        if (idPostItems.length > 0) {
+            this.service.post(idPostItems).then(result => {
+                this.table.refresh();
+                this.selectedItem = [];
+            }).catch(e => {
+                this.error = e;
+            })
+        }
     }
 }

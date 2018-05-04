@@ -22,6 +22,8 @@ export class TransferShippingOrderItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
+        this.isEdit = this.options.isEdit;
+
 
         if (this.data.DONo) {
             this.selectedTransferDeliveryOrder = {
@@ -30,8 +32,23 @@ export class TransferShippingOrderItem {
             this.isShowing = true;
         }
 
-        if(!this.readOnly) {
+        if (!this.readOnly) {
             this.columns.push("");
+
+            this.selectedTransferDeliveryOrderFilter = this.options.filter;
+            // this.selectedTransferDeliveryOrderFilter.IsPosted = true;
+            if (!this.isEdit) {
+                this.selectedTransferDeliveryOrderFilter.currentUsed = this.items.map(item => item.data.DOId);
+            }
+
+            this.allDODetailIds = [];
+            for (let item of this.items) {
+                if (item.data.TransferShippingOrderDetails) {
+                    for (let detail of item.data.TransferShippingOrderDetails) {
+                        this.allDODetailIds.push(detail.DODetailId);
+                    }
+                }
+            }
         }
     }
 
@@ -49,29 +66,31 @@ export class TransferShippingOrderItem {
                     this.data.TransferShippingOrderDetails = [];
                     for (var item of result.items) {
                         for (var detail of item.details) {
-                            var transferShippingOrderDetail = {
-                                DODetailId: detail.Id,
-                                ETODetailId: detail.ETODetailId,
-                                ITODetailId: detail.ITODetailId,
-                                TRDetailId: detail.TRDetailId,
-                                TRNo: item.TRNo,
-                                Product: detail.Product || {
-                                    _id: detail.ProductId,
-                                    code: detail.ProductCode,
-                                    name: detail.ProductName
-                                },
-                                Uom: detail.Uom || {
-                                    _id: detail.UomId,
-                                    unit: detail.UomUnit
-                                },
-                                Grade: detail.Grade,
-                                DOQuantity: detail.ReceivedQuantity,
-                                DeliveryQuantity: detail.RemainingQuantity,
-                                ReceiptQuantity: 0,
-                                RemainingQuantity: 0,
-                                ProductRemark: detail.ProductRemark
-                            };
-                            this.data.TransferShippingOrderDetails.push(transferShippingOrderDetail);
+                            if (this.allDODetailIds.indexOf(detail.Id) > 0) {
+                                var transferShippingOrderDetail = {
+                                    DODetailId: detail.Id,
+                                    ETODetailId: detail.ETODetailId,
+                                    ITODetailId: detail.ITODetailId,
+                                    TRDetailId: detail.TRDetailId,
+                                    TRNo: item.TRNo,
+                                    Product: detail.Product || {
+                                        _id: detail.ProductId,
+                                        code: detail.ProductCode,
+                                        name: detail.ProductName
+                                    },
+                                    Uom: detail.Uom || {
+                                        _id: detail.UomId,
+                                        unit: detail.UomUnit
+                                    },
+                                    Grade: detail.Grade,
+                                    DOQuantity: detail.ReceivedQuantity,
+                                    DeliveryQuantity: detail.RemainingQuantity,
+                                    ReceiptQuantity: 0,
+                                    RemainingQuantity: detail.RemainingQuantity,
+                                    ProductRemark: detail.ProductRemark
+                                };
+                                this.data.TransferShippingOrderDetails.push(transferShippingOrderDetail);
+                            }
                         }
                     }
 
