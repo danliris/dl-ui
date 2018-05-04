@@ -83,8 +83,10 @@ export class DataForm {
         }
 
         this.selectProductionOrder = [
+            "_id",
+            "material._id", "materialConstruction._id", "yarnMaterial._id",
             'orderNo', 'orderQuantity', 'salesContractNo', 'salesContractId',
-            'buyerId', 'buyerName', 'processTypeId', 'processType.code',
+            'buyerId', 'buyer.name', 'buyer._id', 'buyer.code', 'processTypeId', 'processType.code',
             'processType.orderTypeId', 'processType.orderType.code',
             'processType.orderType.name', 'processType.name',
             'materialId', 'material.code', 'material.name',
@@ -104,10 +106,13 @@ export class DataForm {
         ];
 
         this.selectKanban = [
+            "productionOrder._id", 'productionOrder.buyer',
+            "productionOrder.materialConstruction._id", "productionOrder.yarnMaterial._id",
             '_id', 'code', 'productionOrderId', 'productionOrder.orderNo',
             'productionOrder.orderQuantity', 'productionOrder.salesContractNo',
             'productionOrder.salesContractId', 'productionOrder.buyerId',
             'productionOrder.buyer.name', 'productionOrder.processTypeId',
+            "productionOrder.material._id",
             'productionOrder.processType.code', 'productionOrder.processType.orderTypeId',
             'productionOrder.processType.orderType.code', 'productionOrder.processType.orderType.name',
             'productionOrder.processType.name', 'productionOrder.materialId', 'productionOrder.material.code',
