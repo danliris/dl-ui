@@ -15,7 +15,6 @@ module.exports = [
     {
         route: '/customs-report/customs-report-out',
         name: 'customs-report-out',
-        name: 'customs-report-out',
         moduleId: './modules/customs-report/customs-report-out/index',
         nav: true,
         title: 'Laporan Pengeluaran Barang per Dokumen Pabean',
