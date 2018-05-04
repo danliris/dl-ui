@@ -16,6 +16,11 @@ export class List {
         { field: "storageName", title: "Storage" },
         { field: "productName", title: "Nama Barang" },
         {
+            field: "stockPlanning", title: "Stock Planning", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            }
+        },
+        {
             field: "quantity", title: "Kuantiti", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             }
