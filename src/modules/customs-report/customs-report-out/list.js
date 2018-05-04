@@ -37,6 +37,7 @@ export class List {
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
             this.info.page = 1;
+            this.info.total=0;
             this.searching();
         }
     }

@@ -36,6 +36,7 @@ export class List {
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
             this.info.page = 1;
+            this.info.total=0;
             this.searching();
         }
     }
@@ -54,7 +55,9 @@ export class List {
             .then(result => {
                this.rowCount=[];
                var rowDoc=[];
-               this.info.total=result.info.total;    
+               this.info.total=result.info.total; 
+               
+                console.log(this.info);   
                var index=0;    
                for(var a of result.data){
                    var bc=a.BCType.toString();
@@ -105,6 +108,7 @@ export class List {
 
     changePage(e) {
         var page = e.detail;
+        console.log(page); 
         this.info.page = page;
         this.searching();
     }
