@@ -21,10 +21,11 @@ export class List {
         }
     };
      
-    Types = ["","BC 262","BC 23","BC 40","BC 27"];
+    Types = ["","BC 2.6.1","BC 3.0","BC 4.0","BC 4.1","BC 2.7","BC 2.5"];
+
 
     search(){
-         this.error = {};
+        this.error = {};
 
         if (!this.dateTo || this.dateTo == "Invalid Date")
             this.error.dateTo = "Tanggal Akhir harus diisi";
@@ -55,9 +56,7 @@ export class List {
             .then(result => {
                this.rowCount=[];
                var rowDoc=[];
-               this.info.total=result.info.total; 
-               
-                console.log(this.info);   
+               this.info.total=result.info.total;    
                var index=0;    
                for(var a of result.data){
                    var bc=a.BCType.toString();
@@ -108,7 +107,6 @@ export class List {
 
     changePage(e) {
         var page = e.detail;
-        console.log(page); 
         this.info.page = page;
         this.searching();
     }

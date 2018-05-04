@@ -55,6 +55,7 @@ export class DataForm {
         if (this.data) {
             this.selectedOrderDivision = this.data.OrderDivision;
             this.selectedDeliveryDivision = this.data.DeliveryDivision;
+            this.selectedCurrency = this.data.Currency;
         }
 
         if (!this.selectedCurrency) {
@@ -70,11 +71,18 @@ export class DataForm {
         return `${division.code} - ${division.name}`;
     }
 
-    selectedOrderDivisionChanged(newValue) {
+    selectedOrderDivisionChanged(newValue, oldvalue) {
+        this.data.OrderDivision = newValue;
         if (newValue) {
-            this.data.OrderDivision = newValue;
             this.data.OrderDivisionId = newValue._id;
-            Object.assign(this.externalTransferOrderItemsOptions.filter, { DivisionId: newValue._id });
+
+            Object.assign(this.externalTransferOrderItemsOptions.filter, { DivisionId: newValue._id }); // DivisionId dari table ITO
+
+            if (oldvalue && newValue._id !== oldvalue._id)
+                this.data.ExternalTransferOrderItems.splice(0, this.data.ExternalTransferOrderItems.length);
+        }
+        else if (oldvalue) {
+            this.data.ExternalTransferOrderItems.splice(0, this.data.ExternalTransferOrderItems.length);
         }
     }
 
