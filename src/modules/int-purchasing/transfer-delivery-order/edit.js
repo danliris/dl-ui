@@ -13,6 +13,7 @@ export class Edit {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+        
         this.data.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY HH:mm");
         this.data.OrderDate = moment(this.data.OrderDate).format("DD MMM YYYY HH:mm");
     }

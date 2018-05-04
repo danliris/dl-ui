@@ -33,7 +33,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        console.log(this.service);
+        // console.log(this.service);
     }
 
     rowFormatter(data, index) {
@@ -65,7 +65,7 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        console.log(arg);
+        // console.log(arg);
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
@@ -75,6 +75,15 @@ export class List {
                 break;
         }
     }
+
+    contextShowCallback(index, name, data) {
+        switch (name) {
+          case "Cetak PDF":
+            return data.isPosted;
+          default:
+            return true;
+        }
+      }
 
     create() {
         this.router.navigateToRoute('create');

@@ -38,6 +38,11 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
+    pdf(data) {
+        var endpoint = `${serviceUri}/pdf/${data.Id}`;
+        return super.getPdf(endpoint);
+    }
+
     getSupplierById(id, select) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");

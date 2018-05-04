@@ -15,7 +15,6 @@ export class View {
         this.data = await this.service.getById(id);
         this.editCallback = !this.data.IsPosted ? this.editCallback : null;
         this.deleteCallback = !this.data.IsPosted ? this.deleteCallback : null;
-
         this.hasUnpost = this.data.IsPosted;
         
         // this.supplier = this.data.supplier;

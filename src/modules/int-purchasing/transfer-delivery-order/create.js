@@ -20,7 +20,7 @@ export class Create {
         this.error = {};
     }
 
-    cancel(event) {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
@@ -30,8 +30,8 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    save(event) {
-        console.log(this.data);
+    saveCallback(event) {
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

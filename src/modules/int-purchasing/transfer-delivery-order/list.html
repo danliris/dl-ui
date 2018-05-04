@@ -9,6 +9,7 @@
         data-click-to-select="true"
         context.bind="context" 
         context-click.delegate="contextClickCallback($event)"
+        context-show.call="contextShowCallback(index, context, data)"
         row-formatter.bind="rowFormatter"
         selections.bind="selectedItem">
         <div slot="toolbar" class="btn-group">
