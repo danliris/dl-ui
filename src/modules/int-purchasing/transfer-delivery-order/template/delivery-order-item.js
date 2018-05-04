@@ -20,8 +20,6 @@ export class DeliveryOrderItem {
         
         this.error = context.error;
         this.options = context.context.options;
-        console.log(this.error);
-        console.log(this.options);
         this.readOnly = context.options.readOnly;
         if (this.data.ETONo) {
           this.ETONo=this.data.ETONo;
@@ -36,7 +34,6 @@ export class DeliveryOrderItem {
 
         this.selectedExternalTransferOrderFilter = this.options.filter;
         this.selectedExternalTransferOrderFilter.currentUsed =  this.items.map(item => item.data.ETONo);
-        console.log(this.selectedExternalTransferOrderFilter);
     }
 
     get externalTransferOrderLoader() {
@@ -64,7 +61,6 @@ export class DeliveryOrderItem {
             
             this.data.details = [];
             for (var toDetail of ExternalTransferOrderItems.ExternalTransferOrderDetails) {
-              // console.log(toDetail.DealQuantity)  ;
               var detail = {
                   UnitId : ExternalTransferOrderItems.Unit.Id,
                   UnitCode : ExternalTransferOrderItems.Unit.code,

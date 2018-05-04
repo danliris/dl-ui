@@ -1,5 +1,5 @@
 import { inject, BindingEngine } from 'aurelia-framework';
-// var ProductLoader = require('../../../../loader/product-loader');
+
 
 export class DeliveryOrderItem {
   constructor(bindingEngine) {
@@ -11,7 +11,6 @@ export class DeliveryOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-// console.log(context);
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;

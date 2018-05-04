@@ -27,7 +27,7 @@ export class View {
     }
 
     deleteCallback(event) {
-        if (confirm(`Hapus ${this.data.ETONo}?`))
+        if (confirm(`Hapus ${this.data.DONo}?`))
             this.service.delete(this.data)
                 .then(result => {
                     this.cancelCallback();
