@@ -11,12 +11,7 @@ export class List {
     }
     
     info = { page: 1,size:50};
-     
-   
-    search(){
-        this.info.page = 1;
-        this.searching();
-    }
+
     controlOptions = {
         label: {
             length: 4
@@ -25,23 +20,27 @@ export class List {
             length: 4
         }
     };
+  
+    search(){
+            this.flag = true;
+            this.info.page = 1;
+            this.searching();
+    }
+
     
     searching() {
-     
-    var args = {
-            page: this.info.page,
-            size: this.info.size,
-            date  : this.date ? moment(this.date ).format("YYYY-MM-DD") : ""
-             
+        var args = {
+                page: this.info.page,
+                size: this.info.size,
+                dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            }
+            this.service.search(args)
+                .then(result => {
+                   this.data=result.data;       
+                });
+                
         }
-        this.service.search(args)
-     
-            .then(result => {
-               this.data=result.data;
-            //    this.info.total=result.info.total;              
-            });
-           
-    }
     // ExportToExcel() {
     //     var info = {
     //         section : this.section ? this.section.code.code : "",
@@ -62,8 +61,8 @@ export class List {
         this.searching();
     }
       reset() {
-        this.date = "";
-        
+        this.dateFrom = "";
+        this.dateTo = "";
         this.info.page = 1;
     }
 
