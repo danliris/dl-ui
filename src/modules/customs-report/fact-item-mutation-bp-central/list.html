@@ -1,15 +1,8 @@
 
 <template>
   
-        <h1 class="page-header">Laporan Pertanggungjawaban Mutasi Bahan Penolong Unit</h1>
+        <h1 class="page-header">Laporan Pertanggungjawaban Mutasi Bahan Penolong Pusat</h1>
         <form class="form-horizontal">
-            <au-dropdown 
-                label="Konveksi" 
-                value.bind="unit"
-                items.bind="units"
-                options.bind="controlOptions" >
-            </au-dropdown>
-             
             <au-datepicker 
             label="Tanggal Awal Laporan" 
             value.bind="dateFrom" error.bind="error.dateFrom"

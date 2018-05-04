@@ -37,9 +37,7 @@ export class List {
         this.service.search(args)
      
             .then(result => {
-                console.log(result)   ;
                this.data=result.data;
-                console.log(result)   ;
             //    this.info.total=result.info.total;              
             });
            
@@ -64,9 +62,7 @@ export class List {
         this.searching();
     }
       reset() {
-        this.type = "";
-        this.dateFrom = "";
-        this.dateTo = "";
+        this.date = "";
         
         this.info.page = 1;
     }
