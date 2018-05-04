@@ -62,9 +62,7 @@ export class List {
         this.searching();
     }
       reset() {
-        this.type = "";
-        this.dateFrom = "";
-        this.dateTo = "";
+        this.date = "";
         
         this.info.page = 1;
     }
