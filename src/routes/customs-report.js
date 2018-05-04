@@ -27,9 +27,23 @@ module.exports = [
         }
     },
     {
-        route: '/customs-report/Scrap',
+        route: '/customs-report/wip',
+        name: 'customs-report',
+        moduleId: './modules/customs-report/wip/index',
+        nav: true,
+        title: 'Laporan Posisi WIP',
+        auth: true,
+        settings: {
+            group: "customs-report",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+    {
+        route: '/customs-report/scrap',
         name: 'customs-report-scrap',
-        moduleId: './modules/customs-report/Scrap/index',
+        moduleId: './modules/customs-report/scrap/index',
         nav: true,
         title: 'Laporan Pertanggungjawaban Barang Reject dan Scrap',
         auth: true,

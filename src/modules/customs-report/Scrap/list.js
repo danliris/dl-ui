@@ -14,7 +14,14 @@ export class List {
         this.info.page = 1;
         this.searching();
     }
-
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
     searching() {
     var args = {
             page: this.info.page,
