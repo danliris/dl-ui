@@ -20,18 +20,16 @@ export class Create {
         this.error = {};
     }
 
-    cancel(event) {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
     determineActivationStrategy() {
         return activationStrategy.replace; //replace the viewmodel with a new instance
-        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-        // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    save(event) {
-        console.log(this.data);
+    saveCallback(event) {
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

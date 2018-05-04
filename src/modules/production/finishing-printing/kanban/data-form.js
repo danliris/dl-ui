@@ -81,6 +81,56 @@ export class DataForm {
             this.cartInfo.columns.splice(0, 0, { header: "", value: "reprocess" });
             this.options.reprocessStepsHide = true;
         }
+
+        this.selectProductionOrder = [
+            'orderNo', 'orderQuantity', 'salesContractNo', 'salesContractId',
+            'buyerId', 'buyerName', 'processTypeId', 'processType.code',
+            'processType.orderTypeId', 'processType.orderType.code',
+            'processType.orderType.name', 'processType.name',
+            'materialId', 'material.code', 'material.name',
+            'materialConstructionId', 'materialConstruction.code',
+            'materialConstruction.name', 'yarnMaterialId',
+            'yarnMaterial.code', 'yarnMaterial.name', 'handlingStandard',
+            'finishWidth', 'orderType.name', 'orderType.code', 'orderTypeId',
+            'details.code','details.colorRequest', 'details.colorTemplate',
+            'details.colorType.code', 'details.colorType.name', 'details.colorType._id',
+            'details.quantity', 'details.uom', 'details.uomId', 'uom.unit'
+        ];
+
+        this.selectInstruction = [
+            'code', 'name', 'steps._id', 'steps.process',
+            'steps.stepIndicators.name', 'steps.stepIndicators.value',
+            'steps.stepIndicators.uom', 'steps.alias'
+        ];
+
+        this.selectKanban = [
+            '_id', 'code', 'productionOrderId', 'productionOrder.orderNo',
+            'productionOrder.orderQuantity', 'productionOrder.salesContractNo',
+            'productionOrder.salesContractId', 'productionOrder.buyerId',
+            'productionOrder.buyer.name', 'productionOrder.processTypeId',
+            'productionOrder.processType.code', 'productionOrder.processType.orderTypeId',
+            'productionOrder.processType.orderType.code', 'productionOrder.processType.orderType.name',
+            'productionOrder.processType.name', 'productionOrder.materialId', 'productionOrder.material.code',
+            'productionOrder.material.name', 'productionOrder.materialConstructionId',
+            'productionOrder.materialConstruction.code', 'productionOrder.materialConstruction.name',
+            'productionOrder.yarnMaterialId', 'productionOrder.yarnMaterial.code',
+            'productionOrder.yarnMaterial.name', 'productionOrder.handlingStandard',
+            'productionOrder.finishWidth', 'selectedProductionOrderDetail.code',
+            'selectedProductionOrderDetail.colorRequest', 'selectedProductionOrderDetail.colorTemplate',
+            'selectedProductionOrderDetail.colorTypeId', 'selectedProductionOrderDetail.quantity',
+            'cart.cartNumber', 'cart.qty', 'cart.uomId', 'cart.uom.unit', 'cart.pcs',
+            'instructionId', 'instruction.code', 'instruction.name', 'instruction.steps._id',
+            'instruction.steps.process', 'instruction.steps.stepIndicators.name', 'instruction.steps.stepIndicators.value',
+            'instruction.steps.stepIndicators.uom', 'instruction.steps.machine._id',
+            'instruction.steps.machine.code', 'instruction.steps.machine.name',
+            'instruction.steps.machine.monthlyCapacity', 'instruction.steps.processArea',
+            'instruction.steps.alias', 'instruction.steps.deadline',
+            'instruction.steps.selectedIndex', 'instruction.steps.isNotDone',
+            'grade', 'isComplete', 'currentStepIndex', 'currentQty', 'goodOutput',
+            'badOutput', 'oldKanbanId', 'oldKanban.cart.cartNumber', 'isBadOutput',
+            'isReproses', 'isInactive', 'productionOrder.orderType.name', 'productionOrder.orderType.code', 'productionOrder.orderTypeId',
+            'productionOrder.details', 'productionOrder.uom', 'productionOrder.uomId',
+        ];
     }
 
     controlOptions = {
@@ -216,7 +266,13 @@ export class DataForm {
 
             this._mapProductionOrderDetail();
             this.data.selectedProductionOrderDetail = {};
-            this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
+            this.data.selectedProductionOrderDetail = {
+                code: this.productionOrderDetails[0].code,
+                colorRequest: this.productionOrderDetails[0].colorRequest,
+                colorTemplate: this.productionOrderDetails[0].colorTemplate,
+                colorTypeId: this.productionOrderDetails[0].colorTypeId,
+                quantity: this.productionOrderDetails[0].quantity,
+            };
 
             for (var cart of this.data.carts) {
                 cart.uom = "MTR";
