@@ -4,6 +4,8 @@
         with.bind="context"
         options.bind="formOptions">
 
+        <button slot="actions" class="btn btn-success" click.delegate="context.unpost($event)" if.one-way="context.hasUnpost">Unpost</button>
+
         <au-textbox
             if.bind="data.SONo"
             value.bind="data.SONo"
@@ -21,7 +23,7 @@
         </au-datepicker> 
 
         <au-autocomplete
-            value.bind="data.Supplier"
+            value.bind="dataSupplier"
             error.bind="error.Supplier"
             label="Unit Pengirim"
             loader.bind="supplierLoader"
@@ -51,7 +53,7 @@
             columns.bind="transferShippingOrderItemsColumns"
             options.bind="transferShippingOrderItemsOptions"
             add.bind="addTransferShippingOrderItems"
-            read-only.bind="readOnly || !data.Supplier && false"
+            read-only.bind="readOnly || !data.Supplier"
             item-template="modules/int-purchasing/transfer-shipping-order/template/transfer-shipping-order-item">
         </au-collection>
 

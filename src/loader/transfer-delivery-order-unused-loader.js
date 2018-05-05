@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'transfer-delivery-orders';
+const resource = 'transfer-delivery-orders/unused';
 
 module.exports = function (keyword, filter) {
 

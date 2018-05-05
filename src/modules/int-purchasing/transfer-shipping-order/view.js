@@ -12,6 +12,14 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+
+        // let isUsed = await this.service.isUsedByDeliveryOrder(id);
+
+        this.editCallback = !this.data.IsPosted ? this.editCallback : null;
+        this.deleteCallback = !this.data.IsPosted ? this.deleteCallback : null;
+
+        // this.hasUnpost = this.data.IsPosted && !isUsed;
+        this.hasUnpost = this.data.IsPosted;
     }
 
     cancelCallback(event) {
@@ -31,6 +39,14 @@ export class View {
                 .catch(e => {
                     this.error = e;
                 })
+    }
+
+    unpost(event) {
+        this.service.unpost(this.data.Id).then(result => {
+            this.cancelCallback();
+        }).catch(e => {
+            this.error = e;
+        })
     }
 
 }
