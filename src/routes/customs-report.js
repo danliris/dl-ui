@@ -15,7 +15,6 @@ module.exports = [
     {
         route: '/customs-report/customs-report-out',
         name: 'customs-report-out',
-        name: 'customs-report-out',
         moduleId: './modules/customs-report/customs-report-out/index',
         nav: true,
         title: 'Laporan Pengeluaran Barang per Dokumen Pabean',
@@ -41,11 +40,11 @@ module.exports = [
 
     },
     {
-        route: '/customs-report/finished-good',
-        name: 'customs-report',
-        moduleId: './modules/customs-report/finished-good/index',
+        route: '/customs-report/fact-item-mutation-bb-central',
+        name: 'customs-report-item-mutation-bb-central',
+        moduleId: './modules/customs-report/fact-item-mutation-bb-central/index',
         nav: true,
-        title: 'Laporan Pertanggungjawaban Mutasi Barang Jadi',
+        title: 'Laporan Pertanggungjawaban Mutasi Bahan Baku Pusat',
         auth: true,
         settings: {
             group: "customs-report",
@@ -59,20 +58,6 @@ module.exports = [
         moduleId: './modules/customs-report/machine-mutation/index',
         nav: true,
         title: 'Laporan Pertanggungjawaban Mutasi Mesin dan Peralatan',
-        auth: true,
-        settings: {
-            group: "customs-report",
-            permission: { "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-
-    },
-    {
-        route: '/customs-report/scrap',
-        name: 'customs-report-scrap',
-        moduleId: './modules/customs-report/scrap/index',
-        nav: true,
-        title: 'Laporan Pertanggungjawaban Barang Reject dan Scrap',
         auth: true,
         settings: {
             group: "customs-report",
@@ -96,11 +81,39 @@ module.exports = [
 
     },
     {
+        route: '/customs-report/fact-item-mutation-bp-central',
+        name: 'customs-report-item-mutation-bp-central',
+        moduleId: './modules/customs-report/fact-item-mutation-bp-central/index',
+        nav: true,
+        title: 'Laporan Pertanggungjawaban Mutasi Bahan Penolong Pusat',
+        auth: true,
+        settings: {
+            group: "customs-report",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+    {
         route: '/customs-report/fact-item-mutation-bp-unit',
         name: 'customs-report-item-mutation-bp-unit',
         moduleId: './modules/customs-report/fact-item-mutation-bp-unit/index',
         nav: true,
         title: 'Laporan Pertanggungjawaban Mutasi Bahan Penolong Unit',
+        auth: true,
+        settings: {
+            group: "customs-report",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+    {
+        route: '/customs-report/scrap',
+        name: 'customs-report-scrap',
+        moduleId: './modules/customs-report/scrap/index',
+        nav: true,
+        title: 'Laporan Pertanggungjawaban Barang Reject dan Scrap',
         auth: true,
         settings: {
             group: "customs-report",

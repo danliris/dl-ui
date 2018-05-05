@@ -4,12 +4,13 @@
     <h1 class="page-header">Laporan Posisi WIP</h1>
     <form class="form-horizontal">
        
-        <au-datepicker label="Tanggal" value.bind="date"></au-datepicker>
+        <au-datepicker label="Tanggal" value.bind="date" options.bind="controlOptions"></au-datepicker>
       
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
          <!--<div class="btn-group pull-left">
@@ -37,7 +38,7 @@
                         <td class="text-left">${item.Kode}</td>
                         <td class="text-left">${item.Comodity}</td>
                         <td class="text-left">${item.UnitQtyName}</td>
-                        <td class="text-left">${item.WIP}</td>
+                        <td class="text-right">${item.WIP}</td>
                 </tr>
             </tbody>
         </table>
