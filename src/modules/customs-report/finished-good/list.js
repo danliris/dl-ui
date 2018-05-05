@@ -29,10 +29,13 @@ export class List {
 
         if (!this.dateFrom || this.dateFrom == "Invalid Date")
             this.error.dateFrom = "Tanggal Awal harus diisi";
-
+            
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
             this.info.page = 1;
+            this.info.total=0;
             this.searching();
+        }
     }
 
     
@@ -45,7 +48,16 @@ export class List {
             }
             this.service.search(args)
                 .then(result => {
-                   this.data=result.data;       
+                   this.data=result.data;      
+                   for(var item of this.data){
+                       item.SaldoAwal=item.SaldoAwal.toFixed(2);
+                       item.Pemasukan=item.Pemasukan.toFixed(2);
+                       item.Pengeluaran=item.Pengeluaran.toFixed(2);
+                       item.Penyesuaian=item.Penyesuaian.toFixed(2);
+                       item.SaldoBuku=item.SaldoBuku.toFixed(2);
+                       item.StockOpname=item.StockOpname.toFixed(2);
+                       item.Selisih=item.Selisih.toFixed(2);
+                   }
                 });
                 
         }
