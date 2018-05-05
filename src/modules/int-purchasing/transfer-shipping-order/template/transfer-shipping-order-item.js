@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 const ProductLoader = require('../../../../loader/product-loader');
-const TransferDeliveryOrderLoader = require('../../../../loader/transfer-delivery-order-loader');
+const TransferDeliveryOrderLoader = require('../../../../loader/transfer-delivery-order-unused-loader');
 
 var moment = require('moment');
 
@@ -36,7 +36,7 @@ export class TransferShippingOrderItem {
             this.columns.push("");
 
             this.selectedTransferDeliveryOrderFilter = this.options.filter;
-            // this.selectedTransferDeliveryOrderFilter.IsPosted = true;
+            this.selectedTransferDeliveryOrderFilter.IsPosted = true;
             if (!this.isEdit) {
                 this.selectedTransferDeliveryOrderFilter.currentUsed = this.items.map(item => item.data.DOId);
             }
