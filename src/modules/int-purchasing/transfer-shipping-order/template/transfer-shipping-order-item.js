@@ -66,7 +66,7 @@ export class TransferShippingOrderItem {
                     this.data.TransferShippingOrderDetails = [];
                     for (var item of result.items) {
                         for (var detail of item.details) {
-                            if (this.allDODetailIds.indexOf(detail.Id) > 0) {
+                            if (this.allDODetailIds.indexOf(detail.Id) < 0) {
                                 var transferShippingOrderDetail = {
                                     DODetailId: detail.Id,
                                     ETODetailId: detail.ETODetailId,
