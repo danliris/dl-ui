@@ -52,6 +52,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
 
+    },{
+        route: '/customs-report/machine-mutation',
+        name: 'customs-report',
+        moduleId: './modules/customs-report/machine-mutation/index',
+        nav: true,
+        title: 'Laporan Pertanggungjawaban Mutasi Mesin dan Peralatan',
+        auth: true,
+        settings: {
+            group: "customs-report",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
     },
     {
         route: '/customs-report/fact-item-mutation-bb-unit',

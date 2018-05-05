@@ -29,8 +29,7 @@ export class List {
 
         if (!this.dateFrom || this.dateFrom == "Invalid Date")
             this.error.dateFrom = "Tanggal Awal harus diisi";
-
-
+            
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
             this.info.page = 1;
