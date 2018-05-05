@@ -96,6 +96,20 @@ module.exports = [
 
     },
     {
+        route: '/customs-report/finished-good',
+        name: 'customs-report-finished-good',
+        moduleId: './modules/customs-report/finished-good/index',
+        nav: true,
+        title: 'Laporan Pertanggungjawaban Mutasi Barang Jadi',
+        auth: true,
+        settings: {
+            group: "customs-report",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+    {
         route: '/customs-report/scrap',
         name: 'customs-report-scrap',
         moduleId: './modules/customs-report/scrap/index',
