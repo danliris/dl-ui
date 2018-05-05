@@ -87,6 +87,8 @@ export class List {
                    if(bctipe){
                        bctipe.rowspan=this.rowCount[b.BCType];
                    }
+                   b.Quantity=b.Quantity.toFixed(2);
+                   b.Nominal=b.Nominal.toFixed(2);
                }
                this.data=result.data;
             });
