@@ -24,7 +24,8 @@ export default class RoleItemCollectionReact extends React.Component {
         this.setState({ value: props.value || [], error: props.error || [], options: props.options || {} });
     }
 
-    handleItemAdd() {
+    handleItemAdd(e) {
+        e.preventDefault();
         var newItem = { toString: function () { return '' } };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });
