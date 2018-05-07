@@ -86,26 +86,11 @@ export class List {
                    if(bctipe){
                        bctipe.rowspan=this.rowCount[b.BCType];
                    }
-                   b.Quantity=b.Quantity.toFixed(2);
-                   b.Nominal=b.Nominal.toFixed(2);
                }
                this.data=result.data;
             });
             
     }
-    // ExportToExcel() {
-    //     var info = {
-    //         section : this.section ? this.section.code.code : "",
-    //         code : this.code ? this.code.code : "",
-    //         buyer : this.buyer ? this.buyer.name : "",
-    //         comodity : this.comodity ? this.comodity.name : "",
-    //         confirmState : this.confirmState ? this.confirmState : "",
-    //         bookingOrderState : this.bookingOrderState ? this.bookingOrderState : "",
-    //         dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-    //         dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
-    //     }
-    //     this.service.generateExcel(info);
-    // }
 
     changePage(e) {
         var page = e.detail;

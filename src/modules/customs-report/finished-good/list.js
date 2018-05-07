@@ -49,15 +49,7 @@ export class List {
             this.service.search(args)
                 .then(result => {
                    this.data=result.data;      
-                   for(var item of this.data){
-                       item.SaldoAwal=item.SaldoAwal.toFixed(2);
-                       item.Pemasukan=item.Pemasukan.toFixed(2);
-                       item.Pengeluaran=item.Pengeluaran.toFixed(2);
-                       item.Penyesuaian=item.Penyesuaian.toFixed(2);
-                       item.SaldoBuku=item.SaldoBuku.toFixed(2);
-                       item.StockOpname=item.StockOpname.toFixed(2);
-                       item.Selisih=item.Selisih.toFixed(2);
-                   }
+                   
                 });
                 
         }
