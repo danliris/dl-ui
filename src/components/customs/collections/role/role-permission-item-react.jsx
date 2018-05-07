@@ -49,7 +49,9 @@ export default class RolePermissionItemReact extends React.Component {
         this.handleValueChange(value);
     }
 
-    handleRemove() {
+    handleRemove(e) {
+        e.preventDefault();
+        
         if (this.props.onRemove)
             this.props.onRemove(this.state.value);
     }
