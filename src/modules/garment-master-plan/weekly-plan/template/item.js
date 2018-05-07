@@ -8,7 +8,7 @@ export class Item {
     this.context = context;
 
     // week yang sudah dipakai (dibooking, usedEH > 0) tidak boleh diubah
-    this.options.readOnly = this.options.readOnly || this.data.usedEH > 0;
+    //this.options.readOnly = this.options.readOnly || this.data.usedEH > 0;
   }
 
   controlOptions = {
