@@ -61,7 +61,7 @@ export class List {
                var index=0;    
                for(var a of result.data){
                    var bc=a.BCType.toString();
-                   var doc=a.BCNo;
+                   var doc=a.BCNo.toString();
                    if(!this.rowCount[bc]){
                        this.rowCount[bc]=1;
                    }
@@ -87,10 +87,10 @@ export class List {
                    if(bctipe){
                        bctipe.rowspan=this.rowCount[b.BCType];
                    }
-                   b.Quantity=b.Quantity.toFixed(2);
-                   b.Nominal=b.Nominal.toFixed(2);
+                   
                }
                this.data=result.data;
+               console.log(this.data);
             });
             
     }

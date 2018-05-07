@@ -49,9 +49,7 @@ export class List {
      
             .then(result => {
                this.data=result.data;
-                for(var a of this.data){
-                    a.WIP=a.WIP.toFixed(2);
-                }      
+                   
             });
            
     }
