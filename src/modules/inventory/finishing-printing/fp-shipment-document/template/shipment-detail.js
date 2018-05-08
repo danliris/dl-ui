@@ -104,7 +104,7 @@ export class ShipmentDetail {
                                 { "storageCode": this.selectedStorageCode }
                             ]
                         }
-                        var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter) };
+                        var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter), size: 100 };
                         var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
 
                         for (var packingReceiptItem of packingReceipt.items) {
