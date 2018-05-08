@@ -136,5 +136,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
 
+    },
+     {
+        route: '/customs-report/cctv',
+        name: 'customs-report-cctv',
+        moduleId: './modules/customs-report/cctv/index',
+        nav: true,
+        title: 'CCTV',
+        auth: true,
+        settings: {
+            group: "customs-report",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
     }
 ]
