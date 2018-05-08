@@ -72,7 +72,7 @@ export class TransferShippingOrderItem {
                                     ETODetailId: detail.ETODetailId,
                                     ITODetailId: detail.ITODetailId,
                                     TRDetailId: detail.TRDetailId,
-                                    TRNo: item.TRNo,
+                                    TRNo: detail.TRNo,
                                     Product: detail.Product || {
                                         _id: detail.ProductId,
                                         code: detail.ProductCode,
