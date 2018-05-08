@@ -83,7 +83,7 @@ export class TransferShippingOrderItem {
                                         unit: detail.UomUnit
                                     },
                                     Grade: detail.Grade,
-                                    DOQuantity: detail.ReceivedQuantity,
+                                    DOQuantity: detail.RequestedQuantity,
                                     DeliveryQuantity: detail.RemainingQuantity,
                                     ReceiptQuantity: 0,
                                     RemainingQuantity: detail.RemainingQuantity,
