@@ -56,7 +56,7 @@
                 <tbody>
                  
                     <tr repeat.for="item of data">
-                            <td if.bind="item.docspan" rowspan="${item.docspan}">${item.docspan}</td>
+                            <td if.bind="item.docspan" rowspan="${item.docspan}">${item.count}</td>
                             <td class="text-left" if.bind="item.rowspan" rowspan="${item.rowspan}">${item.BCType}</td>
                             <!--<td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.BCType}</td>-->
                             <td class="text-left" if.bind="item.docspan" rowspan="${item.docspan}">${item.BCNo}</td>
