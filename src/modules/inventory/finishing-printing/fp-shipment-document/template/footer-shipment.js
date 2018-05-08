@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
+import numeral from 'numeral';
 
 export class FooterShipment {
     activate(context) {
@@ -32,8 +33,8 @@ export class FooterShipment {
                         return 0
                     }
                 });
-            return total
-                .reduce((prev, curr, index) => { return prev + curr }, 0);
+            return numeral(total
+                .reduce((prev, curr, index) => { return prev + curr }, 0)).format('0,000.00');
         }
         else {
             return 0
@@ -64,8 +65,8 @@ export class FooterShipment {
                         return 0
                     }
                 });
-            return total
-                .reduce((prev, curr, index) => { return prev + curr }, 0);
+            return numeral(total
+                .reduce((prev, curr, index) => { return prev + curr }, 0)).format('0,000.00');
         }
         else {
             return 0
@@ -96,8 +97,8 @@ export class FooterShipment {
                         return 0
                     }
                 });
-            return total
-                .reduce((prev, curr, index) => { return prev + curr }, 0);
+            return numeral(total
+                .reduce((prev, curr, index) => { return prev + curr }, 0)).format('0,000.00');
         }
         else {
             return 0
