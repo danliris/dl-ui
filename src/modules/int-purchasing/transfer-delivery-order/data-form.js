@@ -47,7 +47,7 @@ export class DataForm {
         this.data = this.context.data;
         
         this.error = this.context.error;
-
+// console.log(this.readOnly);
         if (this.readOnly) {
             this.itemsInfo.push("");
         }
@@ -56,6 +56,7 @@ export class DataForm {
             this.division = this.data.Division;
             this.supplier = this.data.Supplier;
         }
+        // console.log(this.division);
     }
 
     get divisionLoader() {
@@ -79,28 +80,26 @@ export class DataForm {
                 this.data.SupplierId = selectedSupplier._id;
                 this.data.SupplierName=selectedSupplier.name;
                 this.data.SupplierCode=selectedSupplier.code;
-                Object.assign(this.externalTransferOrderItemsOptions.filter, { OrderDivisionName: this.data.DivisionName });
+                
             }
         }
     }
 
     divisionChanged(newValue) {
-        var selectedDivision = newValue;
-        if (selectedDivision) {
-            if (selectedDivision._id) {
-                this.data.division = selectedDivision;
-                this.data.DivisionId = selectedDivision._id;
-                this.data.DivisionName=selectedDivision.name;
-                this.data.DivisionCode=selectedDivision.code;
-                
-            }
+        this.data.division = newValue;
+        if (this.data.division) {
+            // console.log(this.data.division)
+            this.data.DivisionId = this.data.division._id;
+            this.data.DivisionName=this.data.division.name;
+            this.data.DivisionCode=this.data.division.code;
+            Object.assign(this.externalTransferOrderItemsOptions.filter, { OrderDivisionName: this.data.DivisionName });
         }
     }
 
     get addItems() {
         return () => {
             this.data.items.push({});
-            
+            // console.log(this.division);
         }
     };
 

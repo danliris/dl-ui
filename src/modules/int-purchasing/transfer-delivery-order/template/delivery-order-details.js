@@ -10,6 +10,7 @@ export class DeliveryOrderItem {
 
   activate(context) {
     this.context = context;
+    // console.log(this.context);
     this.data = context.data;
     this.error = context.error;
     this.options = context.context.options;

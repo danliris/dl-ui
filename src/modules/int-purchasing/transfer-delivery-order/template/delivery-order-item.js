@@ -21,15 +21,17 @@ export class DeliveryOrderItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
+        // console.log(context.options.readOnly);
         if (this.data.ETONo) {
           this.ETONo=this.data.ETONo;
-
-          var i = 0;
-          for (var Detail of this.data.details) {
-              Detail.UnitName = this.data.UnitName;
-              Detail.TRNo = this.data.TRNo ;
-          }
-         this.isShowing = this.error && this.error.details && this.error.details.length > 0;
+          
+          // var i = 0;
+          // for (var Detail of this.data.details) {
+          //     Detail.UnitName = this.data.UnitName;
+          //     Detail.TRNo = this.data.TRNo ;
+          // }
+          this.isShowing = true;
+          
        }
 
         this.selectedExternalTransferOrderFilter = this.options.filter;
@@ -45,27 +47,19 @@ export class DeliveryOrderItem {
     
     ETONoChanged(newValue,externalTransferOrder) {
             this.externalTransferOrderItems = newValue;
-            this.data.ETONo=this.externalTransferOrderItems.ETONo;
-            this.data.ETOId=this.externalTransferOrderItems.Id;
-            var i = 0;
-            var ExternalTransferOrderItems = this.externalTransferOrderItems.ExternalTransferOrderItems[i]; 
-           this.data.ITOId=ExternalTransferOrderItems.ITOId;
-           this.data.ITONo=ExternalTransferOrderItems.ITONo;
-           this.data.TRId=ExternalTransferOrderItems.TRId;
-           this.data.TRNo=ExternalTransferOrderItems.TRNo;
-           this.data.UnitId=ExternalTransferOrderItems.Unit.Id;
-           this.data.UnitCode=ExternalTransferOrderItems.Unit.code;
-           this.data.UnitName=ExternalTransferOrderItems.Unit.name;
-            
-            var toExternal = this.data.ETONo || {};
-            
-            this.data.details = [];
-            for (var toDetail of ExternalTransferOrderItems.ExternalTransferOrderDetails) {
-              var detail = {
-                  UnitId : ExternalTransferOrderItems.Unit.Id,
-                  UnitCode : ExternalTransferOrderItems.Unit.code,
-                  UnitName : ExternalTransferOrderItems.Unit.name,
-                  TRNo : ExternalTransferOrderItems.TRNo,
+            // console.log(newValue);
+            this.data.items = [];
+            this.data.items.details =[];
+            var i = 0; //pake for disini buat ambil newvalue.ExternalTransferOrderItems
+            for (var ExternalTransferOrderItems of this.externalTransferOrderItems.ExternalTransferOrderItems){
+             
+                this.data.ETONo = this.externalTransferOrderItems.ETONo,
+                this.data.ETOId = this.externalTransferOrderItems.Id,
+                this.data.ITOId = ExternalTransferOrderItems.ITOId,
+                this.data.ITONo = ExternalTransferOrderItems.ITONo
+              
+              for (var toDetail of ExternalTransferOrderItems.ExternalTransferOrderDetails){
+                var detail = {
                   ETODetailId : toDetail.Id,
                   ITODetailId : toDetail.ITODetailId,
                   TRDetailId : toDetail.TRDetailId,
@@ -79,11 +73,18 @@ export class DeliveryOrderItem {
                   UomId : toDetail.DealUom.Id,
                   UomUnit : toDetail.DealUom.unit,
                   DOQuantity : toDetail.RemainingQuantity, 
-                  RemainingQuantity : toDetail.RemainingQuantity          
-                };
-                
-                this.data.details.push(detail);     
-            }
+                  RemainingQuantity : toDetail.RemainingQuantity,
+                  TRId : ExternalTransferOrderItems.TRId,
+                  TRNo : ExternalTransferOrderItems.TRNo,
+                  UnitId : ExternalTransferOrderItems.Unit.Id,
+                  UnitCode : ExternalTransferOrderItems.Unit.code,
+                  UnitName : ExternalTransferOrderItems.Unit.name  
+                }
+              }
+              
+              this.data.details.push(detail);
+            } 
+            
             this.error = {};
             this.isShowing = true;
           
