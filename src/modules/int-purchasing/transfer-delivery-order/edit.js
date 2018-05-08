@@ -29,6 +29,7 @@ export class Edit {
     saveCallback(event) {
         this.data.DeliveryDate = moment(this.data.DeliveryDate).format("DD MMM YYYY HH:mm");
         this.data.OrderDate = moment(this.data.OrderDate).format("DD MMM YYYY HH:mm");
+        
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

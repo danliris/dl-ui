@@ -64,7 +64,7 @@
             columns.bind="itemsInfo"
             options.bind="externalTransferOrderItemsOptions"
             add.bind="addItems"
-            read-only.bind="readOnly || !data.supplier"
+            read-only.bind="readOnly || !division"
             item-template="modules/int-purchasing/transfer-delivery-order/template/delivery-order-item">
         </au-collection>
 
