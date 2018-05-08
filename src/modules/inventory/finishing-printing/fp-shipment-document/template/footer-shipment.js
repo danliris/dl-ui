@@ -17,7 +17,7 @@ export class FooterShipment {
                             .map((detailItem) => {
                                 if (detailItem.packingReceiptItems instanceof Array) {
                                     var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => parseInt(packingReceiptItem.quantity));
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
@@ -49,7 +49,7 @@ export class FooterShipment {
                             .map((detailItem) => {
                                 if (detailItem.packingReceiptItems instanceof Array) {
                                     var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => parseInt(packingReceiptItem.quantity) * parseInt(packingReceiptItem.length));
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity) * Number(packingReceiptItem.length));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
@@ -81,7 +81,7 @@ export class FooterShipment {
                             .map((detailItem) => {
                                 if (detailItem.packingReceiptItems instanceof Array) {
                                     var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => parseInt(packingReceiptItem.quantity) * parseInt(packingReceiptItem.weight));
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity) * Number(packingReceiptItem.weight));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
