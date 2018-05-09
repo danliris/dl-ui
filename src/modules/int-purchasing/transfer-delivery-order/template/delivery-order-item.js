@@ -1,6 +1,6 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
-var ExternalTransferOrderLoader = require('../../../../loader/external-transfer-order-loader');
+var ExternalTransferOrderLoader = require('../../../../loader/external-transfer-order-by-division-loader');
 var moment = require('moment');
 
 @inject(Service)
