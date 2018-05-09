@@ -8,17 +8,19 @@ module.exports = function (keyword, filter) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("int-purchasing");
 
-    var localFilter = filter ? filter.localFilter : null;
+    var filterTemp = Object.assign({}, filter);
 
-    if (filter && filter.localFilter) {
-        delete filter.localFilter;
+    var currentUsed = filterTemp ? filterTemp.currentUsed : null;
+    
+    if (filterTemp && filterTemp.currentUsed) {
+        delete filterTemp.currentUsed;
     }
 
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filterTemp), currentUsed: currentUsed })
         .then(results => {
-            if (localFilter) {
-                return results.data.filter((data) => data && localFilter.indexOf(data.RequestType) >= 0)
+            if (currentUsed) {
+                return results.data.filter((data) => data && currentUsed.indexOf(data.Id) < 0);
             }
-            return results.data;
+            return results.data
         });
 }

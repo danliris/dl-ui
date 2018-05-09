@@ -91,19 +91,6 @@ export class List {
             });
             
     }
-    // ExportToExcel() {
-    //     var info = {
-    //         section : this.section ? this.section.code.code : "",
-    //         code : this.code ? this.code.code : "",
-    //         buyer : this.buyer ? this.buyer.name : "",
-    //         comodity : this.comodity ? this.comodity.name : "",
-    //         confirmState : this.confirmState ? this.confirmState : "",
-    //         bookingOrderState : this.bookingOrderState ? this.bookingOrderState : "",
-    //         dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-    //         dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
-    //     }
-    //     this.service.generateExcel(info);
-    // }
 
     changePage(e) {
         var page = e.detail;

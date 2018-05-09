@@ -54,10 +54,7 @@ export class List {
             .then(result => {
                this.info.total=result.info.total;    
                this.data=result.data;
-               for(var a of this.data){
-                   a.LastQty=a.BeginQty+a.ReceiptQty-a.ExpenditureQty+a.AdjustmentQty+a.OpnameQty;
-                   a.Diff=0;
-               }
+               
             });
             
     }

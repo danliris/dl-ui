@@ -33,7 +33,8 @@ export class List {
         this.service.search(args)
      
             .then(result => {
-               this.data=result.data;       
+               this.data=result.data;     
+               
             });
             
     }

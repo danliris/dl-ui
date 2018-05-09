@@ -96,7 +96,7 @@ export class DataForm {
             'finishWidth', 'orderType.name', 'orderType.code', 'orderTypeId',
             'details.code','details.colorRequest', 'details.colorTemplate',
             'details.colorType.code', 'details.colorType.name', 'details.colorType._id',
-            'details.quantity', 'details.uom', 'details.uomId', 'uom.unit'
+            'details.quantity', 'details.uom', 'details.uomId', 'uom.unit', 'deliveryDate'
         ];
 
         this.selectInstruction = [
@@ -106,7 +106,7 @@ export class DataForm {
         ];
 
         this.selectKanban = [
-            "productionOrder._id", 'productionOrder.buyer',
+            "productionOrder._id", 'productionOrder.buyer', 'productionOrder.deliveryDate',
             "productionOrder.materialConstruction._id", "productionOrder.yarnMaterial._id",
             '_id', 'code', 'productionOrderId', 'productionOrder.orderNo',
             'productionOrder.orderQuantity', 'productionOrder.salesContractNo',

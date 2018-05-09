@@ -8,10 +8,13 @@
         page-size="25"
         data-click-to-select="true"
         context.bind="contextMenu"
+        context-show.call="contextShowCallback(index, context, data)"
         context-click.delegate="contextClickCallback($event)"
+        row-formatter.bind="rowFormatter"
         selections.bind="selectedItem">
         <div slot="toolbar" class="btn-group">
             <button class="btn btn-success" click.delegate="create()">Buat</button>
+            <button class="btn btn-primary" disabled.bind="selectedItem.length < 1" click.delegate="post()">Posting</button>
         </div>
     </au-table>
 </template>

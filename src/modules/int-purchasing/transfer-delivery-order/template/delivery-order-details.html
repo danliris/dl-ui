@@ -31,7 +31,7 @@
         <td>
             <au-numeric 
                 value.bind="data.DOQuantity" 
-                read-only.bind="readOnly" 
+                read-only.bind="readOnly"
                 error.bind="error.DOQuantity"
                 options.bind="controlOptions">
             </au-numeric>
@@ -47,13 +47,14 @@
             <au-dropdown
                 items.bind="grades"
                 value.bind="data.Grade"
+                read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-dropdown>
         </td>
         <td>
             <au-textbox  
                 value.bind="data.ProductRemark" 
-                read-only.bind="readOnly" 
+                read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-textbox>
         </td>    

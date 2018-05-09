@@ -12,17 +12,19 @@
                 <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == value ? 'active' : ''">
                     <a href="#" title.bind="key.toUpperCase()">
                         <i class="fa fa-list-alt" if.bind="key.toUpperCase() == 'MASTER'"></i>
-                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
-                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'G-MASTER-PLAN'"></i>
-                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'G-PURCHASING'"></i>
+                        <i class="fa fa-shopping-cart" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
+                        <i class="fa fa-calendar" if.bind="key.toUpperCase() == 'G-MASTER-PLAN'"></i>
+                        <i class="fa fa-shopping-cart" if.bind="key.toUpperCase() == 'G-PURCHASING'"></i>
                         <i class="fa fa-industry" if.bind="key.toUpperCase() == 'PRODUCTION'"></i>
                         <i class="fa fa-industry" if.bind="key.toUpperCase() == 'S-PRODUCTION'"></i>
-                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'SALES'"></i>
-                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'INVENTORY'"></i>
+                        <i class="fa fa-money" if.bind="key.toUpperCase() == 'SALES'"></i>
+                        <i class="fa fa-building" if.bind="key.toUpperCase() == 'INVENTORY'"></i>
                         <i class="fa fa-exchange" if.bind="key.toUpperCase() == 'INT-PURCHASING'"></i>
                         <i class="fa fa-table" if.bind="key.toUpperCase() == 'CUSTOMS-REPORT'"></i>
-                        <i class="fa fa-files-o" if.bind="key.toUpperCase() == 'AUTH'"></i>
+                        <i class="fa fa-users" if.bind="key.toUpperCase() == 'AUTH'"></i>
                         <i class="fa fa-table" if.bind="key.toUpperCase() == 'REPORTS'"></i>
+                        <i class="fa fa-sticky-note" if.bind="key.toUpperCase() == 'MIGRATION-LOG'"></i>
+                        <i class="fa fa-clone" if.bind="key.toUpperCase() == 'EXPEDITION'"></i>
 
                         <!--<i class="fa fa-dashboard"></i>-->
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
