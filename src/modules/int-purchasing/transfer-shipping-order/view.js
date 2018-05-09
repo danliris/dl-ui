@@ -13,13 +13,12 @@ export class View {
         let id = params.id;
         this.data = await this.service.getById(id);
 
-        // let isUsed = await this.service.isUsedByDeliveryOrder(id);
+        let isUsed = await this.service.isUsedByUnitReceiptNotes(id);
 
         this.editCallback = !this.data.IsPosted ? this.editCallback : null;
         this.deleteCallback = !this.data.IsPosted ? this.deleteCallback : null;
 
-        // this.hasUnpost = this.data.IsPosted && !isUsed;
-        this.hasUnpost = this.data.IsPosted;
+        this.hasUnpost = this.data.IsPosted && !isUsed;
     }
 
     cancelCallback(event) {
