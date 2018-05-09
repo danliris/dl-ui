@@ -5,7 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-
+    selectedItem = [];
     context = ["Rincian","Cetak PDF"];
     columns = [
         {
@@ -25,7 +25,8 @@ export class List {
             formatter: items => {
                 items = items.map(item => "&#9679; " + item.ETONo);
                 return items.join("<br>");
-            }
+            },
+            sortable: false
         },
         { field: "IsPosted", title: "Status Post", formatter: value => { return value ? "SUDAH" : "BELUM" } },
     ];
@@ -57,7 +58,8 @@ export class List {
                 
                 return {
                     total: result.info.total,
-                    data: result.data
+                    data: result.data,
+                    
                 }
             });
     }
