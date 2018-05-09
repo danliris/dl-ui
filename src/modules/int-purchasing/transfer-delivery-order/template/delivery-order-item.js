@@ -1,6 +1,6 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
-var ExternalTransferOrderLoader = require('../../../../loader/external-transfer-order-loader');
+var ExternalTransferOrderLoader = require('../../../../loader/external-transfer-order-by-division-loader');
 var moment = require('moment');
 
 @inject(Service)
@@ -31,11 +31,17 @@ export class DeliveryOrderItem {
           //     Detail.TRNo = this.data.TRNo ;
           // }
           this.isShowing = true;
+          this.isEdit = true;
           
        }
 
         this.selectedExternalTransferOrderFilter = this.options.filter;
-        this.selectedExternalTransferOrderFilter.currentUsed =  this.items.map(item => item.data.ETONo);
+        // this.selectedExternalTransferOrderFilter.currentUsed =  this.items.map(item => item.data.ETONo);
+        if(this.isEdit!=false){
+
+          this.selectedExternalTransferOrderFilter.currentUsed =  this.items.map(item => item.data.ETONo);
+        }
+        
     }
 
     get externalTransferOrderLoader() {
@@ -63,31 +69,29 @@ export class DeliveryOrderItem {
                   ETODetailId : toDetail.Id,
                   ITODetailId : toDetail.ITODetailId,
                   TRDetailId : toDetail.TRDetailId,
-                  ProductId: toDetail.Product.Id,
+                  ProductId: toDetail.Product._id,
                   ProductCode : toDetail.Product.code,
                   ProductName : toDetail.Product.name,
                   Product : toDetail.Product.code +' - '+ toDetail.Product.name,
                   Grade : toDetail.Grade,
                   ProductRemark : toDetail.ProductRemark,
                   RequestedQuantity : toDetail.DealQuantity,
-                  UomId : toDetail.DealUom.Id,
+                  UomId : toDetail.DealUom._id,
                   UomUnit : toDetail.DealUom.unit,
                   DOQuantity : toDetail.RemainingQuantity, 
                   RemainingQuantity : toDetail.RemainingQuantity,
                   TRId : ExternalTransferOrderItems.TRId,
                   TRNo : ExternalTransferOrderItems.TRNo,
-                  UnitId : ExternalTransferOrderItems.Unit.Id,
+                  UnitId : ExternalTransferOrderItems.Unit._id,
                   UnitCode : ExternalTransferOrderItems.Unit.code,
                   UnitName : ExternalTransferOrderItems.Unit.name  
                 }
-              }
               
               this.data.details.push(detail);
+              }
             } 
-            
             this.error = {};
             this.isShowing = true;
-          
         }
         
     toggle() {
