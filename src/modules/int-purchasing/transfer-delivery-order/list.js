@@ -5,7 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    selectedItem = [];
+
     context = ["Rincian","Cetak PDF"];
     columns = [
         {
@@ -18,15 +18,14 @@ export class List {
         {
             field: "DODate", title: "Tanggal DO", formatter: value => moment(value).format("DD MMM YYYY")
         },
-        { field: "SupplierName", title: "Unit Pengirim" },
+        { field: "Supplier.name", title: "Unit Pengirim" },
 
         {
             field: "items", title: "List Nomor Eksternal TO",
             formatter: items => {
                 items = items.map(item => "&#9679; " + item.ETONo);
                 return items.join("<br>");
-            },
-            sortable: false
+            }
         },
         { field: "IsPosted", title: "Status Post", formatter: value => { return value ? "SUDAH" : "BELUM" } },
     ];
@@ -55,18 +54,11 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result);
-                for (var data of result.data) {
-                    console.log(data);
-                    data.SupplierName = data.Supplier.name;
-                }
-                console.log(result);
+                
                 return {
                     total: result.info.total,
-                    data: result.data,
-                    
+                    data: result.data
                 }
-                
             });
     }
 

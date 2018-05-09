@@ -85,19 +85,14 @@ export class DataForm {
         }
     }
 
-    divisionChanged(newValue, oldValue) {
+    divisionChanged(newValue) {
         this.data.division = newValue;
-        if (newValue) {
+        if (this.data.division) {
             // console.log(this.data.division)
             this.data.DivisionId = this.data.division._id;
             this.data.DivisionName=this.data.division.name;
             this.data.DivisionCode=this.data.division.code;
             Object.assign(this.externalTransferOrderItemsOptions.filter, { OrderDivisionName: this.data.DivisionName });
-            if (oldValue && newValue._id !== oldValue._id)
-                this.data.items.splice(0, this.data.items.length);
-        }
-        else if (oldValue) {
-            this.data.items.splice(0, this.data.items.length);
         }
     }
 

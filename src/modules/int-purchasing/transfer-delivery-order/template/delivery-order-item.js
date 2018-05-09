@@ -21,7 +21,7 @@ export class DeliveryOrderItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
-        
+        // console.log(context.options.readOnly);
         if (this.data.ETONo) {
           this.ETONo=this.data.ETONo;
           
@@ -31,15 +31,11 @@ export class DeliveryOrderItem {
           //     Detail.TRNo = this.data.TRNo ;
           // }
           this.isShowing = true;
-          this.isEdit = true;
+          
        }
-       this.isEdit=false;
-        this.selectedExternalTransferOrderFilter = this.options.filter;
-        if(this.isEdit!=false){
 
-          this.selectedExternalTransferOrderFilter.currentUsed =  this.items.map(item => item.data.ETONo);
-        }
-        
+        this.selectedExternalTransferOrderFilter = this.options.filter;
+        this.selectedExternalTransferOrderFilter.currentUsed =  this.items.map(item => item.data.ETONo);
     }
 
     get externalTransferOrderLoader() {
@@ -50,7 +46,6 @@ export class DeliveryOrderItem {
     } 
     
     ETONoChanged(newValue,externalTransferOrder) {
-      if(newValue){
             this.externalTransferOrderItems = newValue;
             // console.log(newValue);
             this.data.items = [];
@@ -62,37 +57,37 @@ export class DeliveryOrderItem {
                 this.data.ETOId = this.externalTransferOrderItems.Id,
                 this.data.ITOId = ExternalTransferOrderItems.ITOId,
                 this.data.ITONo = ExternalTransferOrderItems.ITONo
-              // console.log(ExternalTransferOrderItems.ExternalTransferOrderDetails);
+              
               for (var toDetail of ExternalTransferOrderItems.ExternalTransferOrderDetails){
                 var detail = {
                   ETODetailId : toDetail.Id,
                   ITODetailId : toDetail.ITODetailId,
                   TRDetailId : toDetail.TRDetailId,
-                  ProductId: toDetail.Product._id,
+                  ProductId: toDetail.Product.Id,
                   ProductCode : toDetail.Product.code,
                   ProductName : toDetail.Product.name,
                   Product : toDetail.Product.code +' - '+ toDetail.Product.name,
                   Grade : toDetail.Grade,
                   ProductRemark : toDetail.ProductRemark,
                   RequestedQuantity : toDetail.DealQuantity,
-                  UomId : toDetail.DealUom._id,
+                  UomId : toDetail.DealUom.Id,
                   UomUnit : toDetail.DealUom.unit,
                   DOQuantity : toDetail.RemainingQuantity, 
                   RemainingQuantity : toDetail.RemainingQuantity,
                   TRId : ExternalTransferOrderItems.TRId,
                   TRNo : ExternalTransferOrderItems.TRNo,
-                  UnitId : ExternalTransferOrderItems.Unit._id,
+                  UnitId : ExternalTransferOrderItems.Unit.Id,
                   UnitCode : ExternalTransferOrderItems.Unit.code,
                   UnitName : ExternalTransferOrderItems.Unit.name  
                 }
+              }
               
               this.data.details.push(detail);
-              }
             } 
             
             this.error = {};
             this.isShowing = true;
-          }
+          
         }
         
     toggle() {
