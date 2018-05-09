@@ -33,7 +33,13 @@ export class List {
             },
             sortable : false
         },
+        { field: "IsPosted", title: "Status Post", formatter: value => { return value ? "SUDAH" : "BELUM" } },
     ];
+
+    rowFormatter(data, index) {
+        if (data.IsPosted) return { classes: "success" };
+        return {};
+    }
 
     loader = (info) => {
         var order = {};

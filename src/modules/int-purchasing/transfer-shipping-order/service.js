@@ -59,4 +59,8 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    isUsedByUnitReceiptNotes(id) {
+        var endpoint = `${serviceUri}/isused/${id}`;
+        return super.get(endpoint);
+    }
 }
