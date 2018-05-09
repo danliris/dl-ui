@@ -13,7 +13,7 @@ module.exports = [
         }
     },
     {
-        route: '/garment-master-plan/standard-minute-value',
+        route: '/garment-master-plan/standard-minute-value-list',
         name: 'standard-hour',
         moduleId: './modules/garment-master-plan/standard-hour-list/index',
         nav: true,
@@ -52,7 +52,7 @@ module.exports = [
         }
     },
     {
-        route: '/garment-master-plan/master-plan-comodity',
+        route: '/garment-master-plan/master-plan-comodity-list',
         name: 'master-plan-comodity',
         moduleId: './modules/garment-master-plan/master-plan-comodity-list/index',
         nav: true,
