@@ -6,6 +6,7 @@
                 error.bind="error.UnitPaymentOrder"
                 loader.one-time="unitPaymentOrderLoader"
                 text="no"
+                query.bind="queryUPO"
                 select.bind="selectUPO">
             </au-autocomplete>
         </td>
@@ -49,7 +50,7 @@
             <au-collection
                 items.bind="data.details" 
                 columns.bind="columns"
-                item-template="modules/expedition/purchasing-document-expedition/templates/detail">
+                item-template="modules/expedition/purchasing-to-verification/templates/detail">
             </au-collection>
         </td>  
     </tr>
