@@ -105,5 +105,23 @@ export class List {
         this.info.page = 1;
     }
 
-    
+    ExportToExcel() {
+        this.error = {};
+
+        if (!this.dateTo || this.dateTo == "Invalid Date")
+            this.error.dateTo = "Tanggal Akhir harus diisi";
+
+        if (!this.dateFrom || this.dateFrom == "Invalid Date")
+            this.error.dateFrom = "Tanggal Awal harus diisi";
+
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            var info = {
+                type : this.type ? this.type : "",
+                dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            }
+            this.service.generateExcel(info);
+        }
+    }
 }
