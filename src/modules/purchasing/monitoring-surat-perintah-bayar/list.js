@@ -80,7 +80,8 @@ export class List {
          moment.locale(locale);
         // if (!this.poState)
         //     this.poState = this.poStates[0];
-        this.service.getDataSpb(this.unit ? this.unit._id : "", this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.noSpb ? this.noSpb : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.staffName ? this.staffName.username : "")
+     //   this.service.getDataSpb(this.unit ? this.unit._id : "", this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.noSpb ? this.noSpb : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.staffName ? this.staffName.username : "")
+this.service.getDataSpb(this.unit ? this.unit._id : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo)
             .then(data => {
                  //this.data = data;
                  var hasil=0;
@@ -112,7 +113,7 @@ var index=1;
             "invoceDate": a.invoceDate,
             "invoceNo": a.invoceNo,
             "dueDate": a.dueDate || JatuhTempo,
-            "supplier": a.supplier.name,
+            "supplier": a.suppliernm,
             "divisi": a.division.name,
             "useIncomeTax":hasil,
             "useVat":hasil2,
@@ -121,7 +122,7 @@ var index=1;
             "nopr": a.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no,
             "datepr": a.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.date,
             "nonote":a.items.unitReceiptNote.no,
-            "staff":a.staff,
+   
             "matauang":a.matauang,
             "satuan":a.satuan,
             "codesupplier":a.codesupplier,

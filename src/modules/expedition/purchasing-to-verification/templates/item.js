@@ -7,6 +7,7 @@ export class Item {
     @bindable unitPaymentOrder;
 
     constructor() {
+        this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
             'division.name', 'supplier.name',
             'currency.code', 'no', 'date',
@@ -21,6 +22,7 @@ export class Item {
 
     activate(context) {
         this.data = context.data;
+        this.error = context.error;
         this.isShowing = false;
 
         if (this.data.no)
