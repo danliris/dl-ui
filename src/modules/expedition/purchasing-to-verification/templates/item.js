@@ -1,20 +1,26 @@
-import { bindable } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
+import moment from 'moment';
 import numeral from 'numeral';
-
+import { PurchasingService } from "../service";
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 
+@inject(PurchasingService)
 export class Item {
     @bindable unitPaymentOrder;
 
-    constructor() {
+    constructor(service) {
+        this.service = service;
         this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
-            'division.name', 'supplier.name',
+            'division.code', 'division.name',
+            'supplier.code', 'supplier.name',
             'currency.code', 'no', 'date',
+            'items.unitReceiptNote.date',
             'items.unitReceiptNote.items.product.name',
             'items.unitReceiptNote.items.deliveredQuantity',
             'items.unitReceiptNote.items.deliveredUom.unit',
             'items.unitReceiptNote.items.pricePerDealUnit',
+            'items.unitReceiptNote.items.purchaseOrder.purchaseOrderExternal.no',
         ];
 
         this.columns = ['Nama Barang', 'Jumlah', 'UOM', 'Harga'];
@@ -31,42 +37,67 @@ export class Item {
 
     unitPaymentOrderChanged(newV, oldV) {
         if (newV) {
-            Object.assign(this.data, {
-                no: newV.no,
-                date: newV.date,
-                supplierName: newV.supplier.name,
-                division: newV.division.name,
-                totalPrice: 0,
-                currency: newV.currency.code,
-                details: [],
-            });
-
-            let details = [], totalPrice = 0;
+            let details = [], noPOE = [], totalPaid = 0, dates = [];
             for (let item of newV.items) {
                 for (let detail of item.unitReceiptNote.items) {
+                    if (!noPOE.some(p => p === detail.purchaseOrder.purchaseOrderExternal.no))
+                        noPOE.push(detail.purchaseOrder.purchaseOrderExternal.no);
+
                     details.push({
+                        dateURN: item.unitReceiptNote.date,
+                        noPOE: detail.purchaseOrder.purchaseOrderExternal.no,
                         productName: detail.product.name,
                         quantity: detail.deliveredQuantity,
                         uom: detail.deliveredUom.unit,
                         price: numeral(detail.pricePerDealUnit * detail.deliveredQuantity).format('0,000.00'),
                     });
 
-                    totalPrice += detail.pricePerDealUnit * detail.deliveredQuantity;
+                    totalPaid += detail.pricePerDealUnit * detail.deliveredQuantity;
                 }
             }
 
-            this.data.totalPrice = numeral(totalPrice).format('0,000.00');
-            this.data.details = details;
+            let argsPOE = {
+                page: 1,
+                size: noPOE.length,
+                filter: JSON.stringify({ no: { '$in': noPOE } }),
+                select: ['no', 'paymentDueDays'],
+            };
+
+            this.service.searchPOE(argsPOE)
+                .then(response => {
+                    let dueDaysPOE = response.data;
+
+                    for (let detail of details) {
+                        let POE = dueDaysPOE.find(p => p.no === detail.noPOE);
+                        dates.push(moment(detail.dateURN).add(POE.paymentDueDays, 'days'));
+                    }
+
+                    Object.assign(this.data, {
+                        no: newV.no,
+                        date: newV.date,
+                        dueDate: moment.min(dates),
+                        supplierCode: newV.supplier.code,
+                        supplierName: newV.supplier.name,
+                        divisionCode: newV.division.code,
+                        divisionName: newV.division.name,
+                        totalPaid: numeral(totalPaid).format('0,000.00'),
+                        currency: newV.currency.code,
+                        details: details,
+                    });
+                });
         }
         else {
             Object.assign(this.data, {
                 no: undefined,
                 date: undefined,
+                dueDate: undefined,
+                supplierCode: undefined,
                 supplierName: undefined,
-                division: undefined,
-                totalPrice: undefined,
+                divisionCode: undefined,
+                divisionName: undefined,
+                totalPaid: undefined,
                 currency: undefined,
-                details: []
+                details: [],
             });
         }
     }

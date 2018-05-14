@@ -17,6 +17,12 @@
             </au-datepicker>
         </td>
         <td>
+            <au-datepicker 
+                value.bind="data.dueDate"
+                read-only="true">
+            </au-datepicker>
+        </td>
+        <td>
             <au-textbox
                 value.bind="data.supplierName"
                 read-only="true">
@@ -24,13 +30,13 @@
         </td>
         <td>
             <au-textbox
-                value.bind="data.division"
+                value.bind="data.divisionName"
                 read-only="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox
-                value.bind="data.totalPrice"
+                value.bind="data.totalPaid"
                 read-only="true">
             </au-textbox>
         </td>
@@ -46,7 +52,7 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="7">
+        <td colspan="8">
             <au-collection
                 items.bind="data.details" 
                 columns.bind="columns"
