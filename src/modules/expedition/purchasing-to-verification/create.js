@@ -20,7 +20,7 @@ export class Create {
         this.data = {};
 
         this.collection = {
-            columns: ["No. SPB", "Tanggal SPB", "Supplier", "Divisi", "Total Bayar", "Mata Uang"],
+            columns: ["No. SPB", "Tanggal SPB", "Tanggal Jatuh Tempo", "Supplier", "Divisi", "Total Bayar", "Mata Uang"],
             onAdd: () => {
                 this.data.UnitPaymentOrders.push({});
             },
@@ -38,14 +38,20 @@ export class Create {
     saveCallback(event) {
         let data = {
             SubmissionDate: this.data.SubmissionDate,
-            UnitPaymentOrders: []
+            UnitPaymentOrders: [],
         };
 
         for (let unitPaymentOrder of this.data.UnitPaymentOrders) {
             data.UnitPaymentOrders.push({
                 No: unitPaymentOrder.no,
-                Supplier: unitPaymentOrder.supplierName,
-                Division: unitPaymentOrder.division,
+                UPODate: unitPaymentOrder.date,
+                DueDate: unitPaymentOrder.dueDate,
+                SupplierCode: unitPaymentOrder.supplierCode,
+                SupplierName: unitPaymentOrder.supplierName,
+                DivisionCode: unitPaymentOrder.divisionCode,
+                DivisionName: unitPaymentOrder.divisionName,
+                TotalPaid: unitPaymentOrder.totalPaid,
+                Currency: unitPaymentOrder.currency,
             });
         }
 

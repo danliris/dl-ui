@@ -12,15 +12,23 @@ export class List {
     columns = [
         { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
         {
-            field: 'Date', title: 'Tanggal SPB', formatter: function (value, data, index) {
+            field: 'UPODate', title: 'Tanggal SPB', formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             },
-            sortable: false,
         },
-        { field: 'Supplier', title: 'Supplier' },
-        { field: 'Division', title: 'Divisi' },
-        { field: 'Total', title: 'Total Bayar', sortable: false },
-        { field: 'Currency', title: 'Mata Uang', sortable: false },
+        {
+            field: 'DueDate', title: 'Tanggal Jatuh Tempo', formatter: function (value, data, index) {
+                return moment(value).format('DD MMM YYYY');
+            },
+        },
+        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'DivisionName', title: 'Divisi' },
+        {
+            field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
+        { field: 'Currency', title: 'Mata Uang' },
     ];
 
     constructor(router, service, azureService, dialog) {
@@ -44,43 +52,10 @@ export class List {
 
         return this.azureService.search(arg)
             .then(result => {
-                let selectUPO = [
-                    'currency.code', 'no', 'date',
-                    'items.unitReceiptNote.items.deliveredQuantity',
-                    'items.unitReceiptNote.items.pricePerDealUnit',
-                ];
-
-                let argUPO = {
-                    page: 1,
-                    size: 25,
-                    filter: JSON.stringify({ no: { '$in': result.data.map(p => p.UnitPaymentOrderNo) } }),
-                    select: selectUPO,
-                };
-
-                return this.service.search(argUPO)
-                    .then(resultUPO => {
-                        for (let data of result.data) {
-                            let UPO = resultUPO.data.find(p => p.no === data.UnitPaymentOrderNo);
-
-                            if (UPO) {
-                                let totalPrice = 0;
-                                for (let item of UPO.items) {
-                                    for (let detail of item.unitReceiptNote.items) {
-                                        totalPrice += detail.pricePerDealUnit * detail.deliveredQuantity;
-                                    }
-                                }
-
-                                data.Date = UPO.date;
-                                data.Total = numeral(totalPrice).format('0,000.00');
-                                data.Currency = UPO.currency.code;
-                            }
-                        }
-
-                        return {
-                            total: result.info.total,
-                            data: result.data
-                        };
-                    });
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
             });
     }
 
