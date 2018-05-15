@@ -11,8 +11,8 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing");
     }
 
-    getDataSpb(unitId, PRNo, noSpb, supplierId, sdate, edate,staffName) {
-        var endpoint = `${serviceUri}?unitId=${unitId}&PRNo=${PRNo}&noSpb=${noSpb}&supplierId=${supplierId}&dateFrom=${sdate}&dateTo=${edate}&staffName=${staffName}`;
+    getDataSpb(unitId, supplierId, sdate, edate) {
+        var endpoint = `${serviceUri}?unitId=${unitId}&supplierId=${supplierId}&dateFrom=${sdate}&dateTo=${edate}`;
         return super.get(endpoint);
     }
 

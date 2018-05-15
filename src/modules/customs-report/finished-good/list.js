@@ -52,20 +52,26 @@ export class List {
                    
                 });
                 
+    }
+    
+    ExportToExcel() {
+        this.error = {};
+
+        if (!this.dateTo || this.dateTo == "Invalid Date")
+            this.error.dateTo = "Tanggal Akhir harus diisi";
+
+        if (!this.dateFrom || this.dateFrom == "Invalid Date")
+            this.error.dateFrom = "Tanggal Awal harus diisi";
+
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            var info = {
+                dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            }
+            this.service.generateExcel(info);
         }
-    // ExportToExcel() {
-    //     var info = {
-    //         section : this.section ? this.section.code.code : "",
-    //         code : this.code ? this.code.code : "",
-    //         buyer : this.buyer ? this.buyer.name : "",
-    //         comodity : this.comodity ? this.comodity.name : "",
-    //         confirmState : this.confirmState ? this.confirmState : "",
-    //         bookingOrderState : this.bookingOrderState ? this.bookingOrderState : "",
-    //         dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-    //         dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
-    //     }
-    //     this.service.generateExcel(info);
-    // }
+    }
 
     changePage(e) {
         var page = e.detail;
