@@ -1,11 +1,14 @@
 import { inject } from 'aurelia-framework';
-import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Dialog } from '../../../au-components/dialog/dialog';
+import { Service } from './service';
+import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
+import { PermissionHelper } from '../../../utils/permission-helper';
+import { VERIFICATION, CASHIER, FINANCE } from '../shared/permission-constants';
 
-@inject(Router, PurchasingDocumentExpeditionService, Dialog)
+@inject(Router, Service, PurchasingDocumentExpeditionService, Dialog, PermissionHelper)
 export class List {
     context = ['Delete'];
 
@@ -31,14 +34,39 @@ export class List {
         { field: 'Currency', title: 'Mata Uang' },
     ];
 
-    constructor(router, service, dialog) {
+    constructor(router, service, purchasingDocumentExpeditionService, dialog, permissionHelper) {
         this.service = service;
+        this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
         this.router = router;
         this.dialog = dialog;
+
+        this.permissions = permissionHelper.getUserPermissions();
+        this.initPermission();
+    }
+
+    initPermission() {
+        this.roles = [VERIFICATION, CASHIER, FINANCE];
+        this.accessCount = 0;
+
+        for (let i = this.roles.length - 1; i >= 0; i--) {
+            if (this.permissions.hasOwnProperty(this.roles[i].code)) {
+                this.roles[i].hasPermission = true;
+                this.accessCount++;
+                this.activeRole = this.roles[i];
+            }
+        }
+    }
+
+    changeRole(role) {
+        if (role.key !== this.activeRole.key) {
+            this.activeRole = role;
+            this.tableList.refresh();
+        }
     }
 
     loader = (info) => {
         let order = {};
+
         if (info.sort)
             order[info.sort] = info.order;
         let arg = {
@@ -46,10 +74,10 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Position: 2 }), // SEND_TO_VERIFICATION_DIVISION
+            filter: JSON.stringify({ Position: this.activeRole.position }), // VERIFICATION_DIVISION
         };
 
-        return this.service.search(arg)
+        return this.purchasingDocumentExpeditionService.search(arg)
             .then(result => {
                 return {
                     total: result.info.total,
@@ -64,7 +92,7 @@ export class List {
 
         switch (arg.name) {
             case 'Delete':
-                this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penyerahan Dokumen Pembelian ke Verifikasi')
+                this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penerimaan Dokumen Pembelian')
                     .then(response => {
                         if (response.ok) {
                             this.service.delete(data)

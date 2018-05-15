@@ -1,10 +1,10 @@
 import { inject, bindable } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
-import { PurchasingService } from "../service";
+import { Service } from "../service";
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 
-@inject(PurchasingService)
+@inject(Service)
 export class Item {
     @bindable unitPaymentOrder;
 
