@@ -1,9 +1,9 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { PurchasingAzureService } from './service';
+import { AzureService } from './service';
 import { activationStrategy } from 'aurelia-router';
 
-@inject(Router, PurchasingAzureService)
+@inject(Router, AzureService)
 export class Create {
     controlOptions = {
         label: {
@@ -12,6 +12,11 @@ export class Create {
         control: {
             length: 4,
         },
+    };
+
+    formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
     };
 
     constructor(router, service) {
