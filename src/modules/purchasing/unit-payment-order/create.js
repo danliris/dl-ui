@@ -39,7 +39,11 @@ export class Create {
                 this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
             })
             .catch(e => {
-                this.error = e;
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else {
+                    this.error = e;
+                }
             })
     }
 }
