@@ -8,7 +8,7 @@ module.exports =  [
         auth: true,
         settings: {
             group: "expedition",
-            permission: { "C5": 1, "C9": 1 },
+            permission: { "P1": 1,"P2": 1,"P3": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -21,7 +21,7 @@ module.exports =  [
         auth: true,
         settings: {
             group: "expedition",
-            permission: { "C5": 1, "C9": 1 },
+            permission: { "B4": 1,"B9": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
