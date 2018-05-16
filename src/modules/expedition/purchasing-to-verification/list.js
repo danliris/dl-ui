@@ -7,7 +7,7 @@ import { Dialog } from '../../../au-components/dialog/dialog';
 
 @inject(Router, PurchasingDocumentExpeditionService, Dialog)
 export class List {
-    context = ['Delete'];
+    context = ['Hapus'];
 
     columns = [
         { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
@@ -63,7 +63,7 @@ export class List {
         let data = arg.data;
 
         switch (arg.name) {
-            case 'Delete':
+            case 'Hapus':
                 this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penyerahan Dokumen Pembelian ke Verifikasi')
                     .then(response => {
                         if (response.ok) {
