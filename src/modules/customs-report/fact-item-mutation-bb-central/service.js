@@ -14,4 +14,10 @@ export class Service extends RestService {
         console.log(info)
         return super.list(endpoint, info);
     }
+
+    generateExcel(info) {
+        console.log(info);
+        let endpoint = `${serviceUri}/bbCentrals/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
 }

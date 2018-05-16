@@ -47,10 +47,16 @@ export class View {
                     return prev || curr
                 }, false);
 
+
             if (!this.isCorrection) {
                 this.hasEdit = true;
                 this.hasDelete = true;
-            }
+            } 
+        }
+
+        if (this.data.position !== 1 && this.data.position !== 6) {
+            this.hasEdit = false;
+            this.hasDelete = false;
         }
     }
 

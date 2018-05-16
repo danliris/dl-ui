@@ -1,6 +1,7 @@
 <template>
     <h1 class="page-header">Penyerahan Dokumen Pembelian ke Verifikasi</h1>
     <au-table
+        view-model.ref="tableList"
         data.bind="loader"
         columns.bind="columns"
         sortable.bind="true"
