@@ -7,6 +7,7 @@ import {Service} from './service';
 export class Edit {
     hasCancel = true;
     hasSave = true;
+    isEdit=true;
 
     constructor(router, service) {
         this.router = router;
