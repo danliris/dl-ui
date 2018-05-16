@@ -1,15 +1,12 @@
-import { inject, bindable } from 'aurelia-framework';
+import { bindable } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
-import { Service } from "../service";
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 
-@inject(Service)
 export class Item {
     @bindable unitPaymentOrder;
 
-    constructor(service) {
-        this.service = service;
+    constructor() {
         this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
             'division.code', 'division.name',
