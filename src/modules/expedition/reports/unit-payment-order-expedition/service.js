@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
-const uriPurchasingToVerification = 'expedition/purchasing-to-verification';
+const uriPurchasingDocumentExpeditionReport = 'expedition/purchasing-document-expeditions-report';
 const uriUPO = 'unit-payment-orders-expedition-report';
 
 class Service extends RestService {
@@ -21,9 +21,9 @@ class AzureService extends RestService {
         super(http, aggregator, config, 'purchasing-azure');
     }
 
-    create(data) {
-        let endpoint = `${uriPurchasingToVerification}`;
-        return super.post(endpoint, data);
+    search(info) {
+        let endpoint = `${uriPurchasingDocumentExpeditionReport}`;
+        return super.list(endpoint, info);
     }
 }
 
