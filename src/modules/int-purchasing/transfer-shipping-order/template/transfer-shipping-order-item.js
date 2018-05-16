@@ -72,7 +72,7 @@ export class TransferShippingOrderItem {
                                     ETODetailId: detail.ETODetailId,
                                     ITODetailId: detail.ITODetailId,
                                     TRDetailId: detail.TRDetailId,
-                                    TRNo: item.TRNo,
+                                    TRNo: detail.TRNo,
                                     Product: detail.Product || {
                                         _id: detail.ProductId,
                                         code: detail.ProductCode,
@@ -83,7 +83,7 @@ export class TransferShippingOrderItem {
                                         unit: detail.UomUnit
                                     },
                                     Grade: detail.Grade,
-                                    DOQuantity: detail.ReceivedQuantity,
+                                    DOQuantity: detail.DOQuantity,
                                     DeliveryQuantity: detail.RemainingQuantity,
                                     ReceiptQuantity: 0,
                                     RemainingQuantity: detail.RemainingQuantity,

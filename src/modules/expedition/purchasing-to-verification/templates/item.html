@@ -6,12 +6,19 @@
                 error.bind="error.UnitPaymentOrder"
                 loader.one-time="unitPaymentOrderLoader"
                 text="no"
+                query.bind="queryUPO"
                 select.bind="selectUPO">
             </au-autocomplete>
         </td>
         <td>
             <au-datepicker 
                 value.bind="data.date"
+                read-only="true">
+            </au-datepicker>
+        </td>
+        <td>
+            <au-datepicker 
+                value.bind="data.dueDate"
                 read-only="true">
             </au-datepicker>
         </td>
@@ -23,13 +30,13 @@
         </td>
         <td>
             <au-textbox
-                value.bind="data.division"
+                value.bind="data.divisionName"
                 read-only="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox
-                value.bind="data.totalPrice"
+                value.bind="data.totalPaid"
                 read-only="true">
             </au-textbox>
         </td>
@@ -45,11 +52,11 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="7">
+        <td colspan="8">
             <au-collection
                 items.bind="data.details" 
                 columns.bind="columns"
-                item-template="modules/expedition/purchasing-document-expedition/templates/detail">
+                item-template="modules/expedition/purchasing-to-verification/templates/detail">
             </au-collection>
         </td>  
     </tr>
