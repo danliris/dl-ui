@@ -96,14 +96,14 @@ export class List {
         this.divisionSelect = ['code', 'name'];
         this.itemsStatus = [
             { text: '', value: 0 },
-            { text: 'Diterima oleh Bag. Pembelian', value: 1 },
+            { text: 'Bag. Pembelian', value: 1 },
             { text: 'Dikirim ke Bag. Verifikasi', value: 2 },
-            { text: 'Diterima oleh Bag. Verifikasi', value: 3 },
+            { text: 'Bag. Verifikasi', value: 3 },
             { text: 'Dikirim ke Bag. Kasir', value: 4 },
             { text: 'Dikirim ke Bag. Keuangan', value: 5 },
             { text: 'Dikirim ke Bag. Pembelian', value: 6 },
-            { text: 'Diterima oleh Bag. Kasir', value: 7 },
-            { text: 'Diterima oleh Bag. Keuangan', value: 8 },
+            { text: 'Bag. Kasir', value: 7 },
+            { text: 'Bag. Keuangan', value: 8 },
         ];
 
     }
