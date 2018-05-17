@@ -11,34 +11,17 @@ export class List {
     }
     
       tv1() {
-    window.open("http://cctv.danliris.com:8001/");
-    }
+    window.open("http://cctv.danliris.com:8001");  
+  }
       tv2() {
-    window.open("http://cctv.danliris.com:8001/");
+    window.open("http://cctv.danliris.com:8002");
+
     }
       tv3() {
-    window.open("http://cctv.danliris.com:8002/");
-    }
-
-
+    window.open("http://cctv.danliris.com:8006");  
+  }
       tv4() {
-    window.open("http://cctv.danliris.com:8003/");
+    window.open("http://cctv.danliris.com:8007");
     }
-      tv5() {
-    window.open("http://cctv.danliris.com:8004/");
-    }
-      tv6() {
-    window.open("http://cctv.danliris.com:8005/");
-    }
-      tv7() {
-    window.open("http://cctv.danliris.com:8002/");
-    }
-      tv8() {
-    window.open("http://cctv.danliris.com:8006/");
-    }
-      tv9() {
-    window.open("http://cctv.danliris.com:8007/");
-    }
-
-    
+   
 }
