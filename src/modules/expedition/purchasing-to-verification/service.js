@@ -5,18 +5,7 @@ import { RestService } from '../../../utils/rest-service';
 const uriPurchasingToVerification = 'expedition/purchasing-to-verification';
 const uriPOE = 'purchase-orders-externals';
 
-class Service extends RestService {
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing');
-    }
-    
-    searchPOE(info) {
-        let endpoint = `${uriPOE}`;
-        return super.list(endpoint, info);
-    }
-}
-
-class AzureService extends RestService {
+export class AzureService extends RestService {
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, 'purchasing-azure');
     }
@@ -26,8 +15,3 @@ class AzureService extends RestService {
         return super.post(endpoint, data);
     }
 }
-
-export {
-    Service,
-    AzureService,
-};

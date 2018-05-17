@@ -10,7 +10,7 @@ import { VERIFICATION, CASHIER, FINANCE } from '../shared/permission-constants';
 
 @inject(Router, Service, PurchasingDocumentExpeditionService, Dialog, PermissionHelper)
 export class List {
-    context = ['Delete'];
+    context = ['Hapus'];
 
     columns = [
         { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
@@ -91,7 +91,7 @@ export class List {
         let data = arg.data;
 
         switch (arg.name) {
-            case 'Delete':
+            case 'Hapus':
                 this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penerimaan Dokumen Pembelian')
                     .then(response => {
                         if (response.ok) {
