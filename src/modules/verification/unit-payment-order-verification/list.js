@@ -12,60 +12,51 @@ export class List {
         this.router = router;
     }
 
-    context = ["Rincian", "Cetak PDF"];
+    context = ["Rincian"];
     columns = [
-        // {
-        //     field: "Date", title: "Tanggal Cek", formatter: (value, data) => {
-        //         return moment(value).format("DD-MMM-YYYY");
-        //     }
-        // },
-        { field: "_id", title: "No. SPB" },
-        // {
-        //     field: "Date", title: "Tanggal Cek", formatter: (value, data) => {
-        //         return moment(value).format("DD-MMM-YYYY");
-        //     }
-        // },
-        // { field: "Bon.no", title: "Supplier" },
-        // { field: "Bon.unitName", title: "Divisi" },
-        // { field: "Bon.unitName", title: "Status" },
-        // {
-        //     field: "Date", title: "Tanggal", formatter: (value, data) => {
-        //         return moment(value).format("DD-MMM-YYYY");
-        //     }
-        // },
-        // { field: "TotalQuantity", title: "Total Jumlah (Piece)" },
-        // { field: "TotalLength", title: "Total Panjang (Meter)" },
-        // { field: "Supplier.name", title: "Supplier" },
-        // { field: "Status", title: "Status Retur" },
+        {
+            field: "VerifyDate", title: "Tanggal Cek", formatter: (value, data) => {
+                return moment(value).format("DD-MMM-YYYY");
+            }
+        },
+        { field: "UnitPaymentOrderNo", title: "No. SPB" },
+        {
+            field: "UPODate", title: "Tanggal SPB", formatter: (value, data) => {
+                return moment(value).format("DD-MMM-YYYY");
+            }
+        },
+        { field: "SupplierName", title: "Supplier" },
+        { field: "DivisionName", title: "Divisi" },
+        {
+            field: "Position", title: "Status", formatter: (value, data) => {
+                return (value == 6 ? "Not Verified" : "Verified");
+            }
+        },
+        { field: "TotalPaid", title: "Total Bayar" },
+        { field: "Currency", title: "Currency" },
     ]
 
-    // loader = (info) => {
-    //     var order = {};
-    //     if (info.sort)
-    //         order[info.sort] = info.order;
+    loader = (info) => {
+        var order = {};
+        if (info.sort)
+            order[info.sort] = info.order;
 
-    //     var arg = {
-    //         page: parseInt(info.offset / info.limit, 10) + 1,
-    //         size: info.limit,
-    //         keyword: info.search,
-    //         order: order
-    //     }
+        var arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order,
+            filter: JSON.stringify({ verificationFilter: "" }),
+        }
 
-    //     return this.service.search(arg)
-    //         .then(result => {
-    //             for (var _data of result.data) {
-    //                 var btuNo = _data.items.map(function (item) {
-    //                     return item
-    //                 });
-    //                 // _data.unitReceiptNoteNo = `<ul>${btuNo.join()}</ul>`;
-    //             }
-    //             debugger
-    //             return {
-    //                 total: result.info.total,
-    //                 data: results.data,
-    //             }
-    //         });
-    // }
+        return this.service.search(arg)
+            .then(result => {
+                return {
+                    total: result.info.total,
+                    data: result.data,
+                }
+            });
+    }
 
     create() {
         this.router.navigateToRoute('create');
@@ -77,9 +68,6 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
-                break;
-            case "Cetak PDF":
-                this.service.getPdfById(data.Id);
                 break;
         }
     }

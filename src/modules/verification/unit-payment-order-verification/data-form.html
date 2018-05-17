@@ -1,10 +1,10 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-datepicker label="Tanggal Verifikasi" value.bind="data.CreatedDate" read-only.bind="readOnly" options.bind="controlOptions">
+        <au-datepicker label="Tanggal Verifikasi" value.bind="data.VerificationDate" error.bind="error.VerificationDate" read-only.bind="readOnly" options.bind="controlOptions">
         </au-datepicker>
 
-        <au-autocomplete label="No Surat Perintah Bayar" value.bind="SPB" error.bind="error.SPB" query.bind="SPBQuery" select.bind="selectSPB"
+        <au-autocomplete label="No Surat Perintah Bayar" value.bind="SPB" error.bind="error.UnitPaymentOrderNo" query.bind="SPBQuery" select.bind="selectSPB"
             loader.one-time="unitPaymentOrderLoader" read-only.bind="readOnly" options.bind="controlOptions" placeholder="Cari No Surat Perintah Bayar"
             text="no">
         </au-autocomplete>
@@ -47,7 +47,14 @@
             <au-textbox label="Apakah Kena PPN?" value.bind="data.useIncomeTax" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
 
-            <au-table data.bind="items" errors.bind="error.items" columns.bind="columns" options.bind="tableOptions" read-only.bind="readOnly">
+            <au-table 
+                data.bind="items" 
+                errors.bind="error.items" 
+                columns.bind="columns" 
+                options.bind="tableOptions" 
+                read-only.bind="readOnly"
+                context.bind="context" 
+                context-click.delegate="contextCallback($event)">
             </au-table>
 
         </div>

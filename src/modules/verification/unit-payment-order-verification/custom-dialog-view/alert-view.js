@@ -9,24 +9,27 @@ export class AlertView {
     }
 
     activate(data) {
+
         this.data = data;
+        this.error = {};
+
+        this.data.Remark = "";
     }
 
-    bind() {
-        this.error = "";
-    }
 
     save(context) {
-        debugger
+
         this.data.context = context;
         if (this.data.context == "NotVerified") {
             if (this.data.Remark == undefined || this.data.Remark == "") {
-                this.error = "alasan harus di isi"
+                this.error.Remark = "alasan harus di isi"
+            } else {
+                this.error = {};
             }
         }
-        if (this.error == "") {
+
+        if (this.error.Remark == "" || this.error.Remark == undefined) {
             this.controller.ok(this.data);
         }
-
     }
 }

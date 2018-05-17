@@ -1,8 +1,8 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service } from './service';
+import { Service, MongoService } from './service';
 var UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loader');
 
-@inject(Service)
+@inject(Service, MongoService)
 export class DataForm {
 
     @bindable readOnly; //false
@@ -10,9 +10,9 @@ export class DataForm {
     @bindable SPB;
     @bindable items = [];
 
-    constructor(service) {
+    constructor(service, mongoService) {
         this.service = service;
-
+        this.mongoService = mongoService;
         this.SPBQuery = { "position": 3 };
 
         this.selectSPB = [
@@ -45,8 +45,14 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        // this.items = this.data.items ? this.data.items : [];
+        if (this.data.length != 0 && this.data.length != undefined) {
+            this.SPB = this.data[0];
+            this.mapItems(this.data[0]);
+        }
+
     }
+
+    context = ["Rincian Purchase Request"];
 
     columns = [
         { field: "productName", title: "Nama Barang" },
@@ -86,34 +92,55 @@ export class DataForm {
 
     SPBChanged(newValue, oldValue) {
         if (this.SPB) {
-            var dataItems = [];
-            this.data = Object.assign(this.data, this.SPB)
-            //maping item
-            for (var dataItem of this.data.items) {
-                for (var unitItem of dataItem.unitReceiptNote.items) {
-                    var item = {};
-                    item.no = dataItem.unitReceiptNote.no;
-                    item.productName = unitItem.product.name;
-                    item.deliveredQuantity = unitItem.deliveredQuantity;
-                    item.unit = unitItem.deliveredUom.unit;
-                    item.pricePerDealUnit = unitItem.pricePerDealUnit;
-                    item.totalPrice = parseFloat(item.deliveredQuantity) * parseFloat(item.pricePerDealUnit);
-                    item.correctionNo = unitItem.correction.correctionNo;
-                    item.purchaseOrderExternalNo = unitItem.purchaseOrder.purchaseOrderExternal.no;
-                    item.purchaseRequestNo = unitItem.purchaseOrder.purchaseRequest.no;
-                    dataItems.push(item);
-                }
-            }
 
-            this.items = dataItems;
+            this.data = Object.assign(this.data, this.SPB)
+
+            this.mapItems(this.data);
+
+            this.data.UnitPaymentOrderNo = this.SPB.no;
 
         } else {
             this.data = {}
         }
     }
 
+    mapItems(data) {
+        var dataItems = [];
+        for (var dataItem of data.items) {
+            for (var unitItem of dataItem.unitReceiptNote.items) {
+                var item = {};
+                item.no = dataItem.unitReceiptNote.no;
+                item.productName = unitItem.product.name;
+                item.deliveredQuantity = unitItem.deliveredQuantity;
+                item.unit = unitItem.deliveredUom.unit;
+                item.pricePerDealUnit = unitItem.pricePerDealUnit;
+                item.totalPrice = parseFloat(item.deliveredQuantity) * parseFloat(item.pricePerDealUnit);
+                item.correctionNo = unitItem.correction.correctionNo;
+                item.purchaseOrderExternalNo = unitItem.purchaseOrder.purchaseOrderExternal.no;
+                item.purchaseRequestNo = unitItem.purchaseOrder.purchaseRequest.no;
+                dataItems.push(item);
+            }
+        }
+        this.items = dataItems;
+    }
+
     get unitPaymentOrderLoader() {
         return UnitPaymentOrderLoader;
     }
+
+    // async contextCallback(event) {
+    //     var arg = event.detail;
+    //     var data = arg.data;
+    //     var PrFilter = {
+    //         filter: JSON.stringify({ no: data.purchaseRequestNo }),
+    //         select: ["_id"],
+    //     }
+    //     var Pr = await this.mongoService.searchByCode(PrFilter);
+    //     switch (arg.name) {
+    //         case "Rincian Purchase Request":
+    //             window.open(`${window.location.origin}/#/pr/view/${encodeURIComponent(Pr[0]._id)}`);
+    //             break;
+    //     }
+    // }
 
 }

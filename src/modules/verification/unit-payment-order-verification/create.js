@@ -25,24 +25,24 @@ export class Create {
     }
 
     Submit(context) {
+
         var Data = this.data;
         this.submitContext.verifiedAlert = context == "VerifiedAlert" ? true : false;
         this.dialog.show(AlertView, this.submitContext)
             .then(response => {
-                debugger
+
                 if (!response.wasCancelled) {
-                    debugger
-                    if (response.output.Remark == "Finance") {
-                        Data.SubmitPosition = 8;
-                    } else if (response.output.Remark == "Cashier") {
-                        Data.SubmitPosition = 7;
+                    if (response.output.context == "Finance") {
+                        Data.SubmitPosition = 5;
+                    } else if (response.output.context == "Cashier") {
+                        Data.SubmitPosition = 4;
                     } else {
                         Data.SubmitPosition = 6;
                         Data.Remark = response.output.Remark;
                     }
-                    this.service.delete(Data).then(result => {
-                        alert(`delete data success`);
-                        this.cancelCallback();
+                    this.service.create(Data).then(result => {
+                        alert("Data berhasil dibuat");
+                        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
                     });
                 }
             });

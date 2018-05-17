@@ -15,6 +15,8 @@ export class View {
         this.service = service;
         this.dialog = dialog;
         this.mongoService = mongoService;
+
+        this.submitContext = { verifiedAlert: false };
     }
 
     context = ["Rincian Purchase Request"];
@@ -58,12 +60,32 @@ export class View {
         this.data.VerificationDate = this.dataExpedition.VerifyDate;
     }
 
-    list() {
-        this.router.navigateToRoute('list');
+    cancel(event) {
+        this.router.navigateToRoute('view', { id: this.dataExpedition.Id });
     }
 
-    edit(event) {
-        this.router.navigateToRoute('edit', { id: this.dataExpedition.Id });
+    Submit(context) {
+
+        var Data = this.data;
+        this.submitContext.verifiedAlert = context == "VerifiedAlert" ? true : false;
+        this.dialog.show(AlertView, this.submitContext)
+            .then(response => {
+
+                if (!response.wasCancelled) {
+                    if (response.output.context == "Finance") {
+                        Data.SubmitPosition = 5;
+                    } else if (response.output.context == "Cashier") {
+                        Data.SubmitPosition = 4;
+                    } else {
+                        Data.SubmitPosition = 6;
+                        Data.Remark = response.output.Remark;
+                    }
+                    this.service.create(Data).then(result => {
+                        alert("Data berhasil diubah");
+                        this.cancel();
+                    });
+                }
+            });
     }
 
     async contextCallback(event) {
