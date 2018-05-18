@@ -13,8 +13,13 @@ export class Create {
         this.service = service;
         this.dialog = dialog;
         this.data = {};
-        this.submitContext = { verifiedAlert: false };
+        this.submitContext = {
+            verifiedAlert: false,
+            position: 0,
+        };
     }
+
+    context = ["Rincian Purchase Request"];
 
     list() {
         this.router.navigateToRoute('list');
@@ -46,5 +51,16 @@ export class Create {
                     });
                 }
             });
+    }
+
+    async contextCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+
+        switch (arg.name) {
+            case "Rincian Purchase Request":
+                window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${encodeURIComponent(data.purchaseRequestNo)}`);
+                break;
+        }
     }
 }
