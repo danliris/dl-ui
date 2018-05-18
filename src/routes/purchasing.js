@@ -414,5 +414,18 @@ module.exports = [
             permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'unit-payment-order-not-verified-report',
+        name: 'unit-payment-order-not-verified-report',
+        moduleId: './modules/purchasing/reports/unit-payment-order-not-verified-report/index',
+        nav: true,
+        title: 'Laporan SPB Not Verified',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
     ]
