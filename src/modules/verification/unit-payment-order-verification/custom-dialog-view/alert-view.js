@@ -12,13 +12,10 @@ export class AlertView {
 
         this.data = data;
         this.error = {};
-
         this.data.Remark = "";
     }
 
-
     save(context) {
-
         this.data.context = context;
         if (this.data.context == "NotVerified") {
             if (this.data.Remark == undefined || this.data.Remark == "") {
