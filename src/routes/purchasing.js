@@ -402,7 +402,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
- {
+    {
         route: 'po/reports/ketepatan/staff',
         name: 'purchase-order-reports-ketepatan-staff',
         moduleId: './modules/purchasing/reports/purchase-order-report/staff-report/index',
@@ -414,5 +414,18 @@ module.exports = [
             permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
-    }
-    ]
+    },
+    {
+        route: 'report/import-purchasing-book',
+        name: 'import-purchasing-book-report',
+        moduleId: './modules/purchasing/reports/import-purchasing-book/index',
+        nav: true,
+        title: 'Laporan Buku Pembelian Import',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+]
