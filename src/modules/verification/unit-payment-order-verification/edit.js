@@ -5,18 +5,20 @@ import { activationStrategy } from 'aurelia-router';
 import { Dialog } from '../../../components/dialog/dialog';
 import { AlertView } from './custom-dialog-view/alert-view';
 
-var moment = require("moment");
-
 @inject(Router, Service, MongoService, Dialog)
-export class View {
+export class Edit {
 
     constructor(router, service, mongoService, dialog) {
         this.router = router;
         this.service = service;
         this.dialog = dialog;
         this.mongoService = mongoService;
+        this.data = {};
 
-        this.submitContext = { verifiedAlert: false };
+        this.submitContext = {
+            verifiedAlert: false,
+            position: 0,
+        };
     }
 
     context = ["Rincian Purchase Request"];
@@ -43,6 +45,7 @@ export class View {
         'items.unitReceiptNote.items.correction.correctionNo',
         'items.unitReceiptNote.items.purchaseOrder.purchaseOrderExternal.no',
         'items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no',
+        'items.unitReceiptNote.items.currency.code'
     ];
 
     async activate(params) {
@@ -55,9 +58,9 @@ export class View {
         }
 
         var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
-
-        this.data = UnitPaymentOrder.data;
+        this.data = UnitPaymentOrder.data[0];
         this.data.VerificationDate = this.dataExpedition.VerifyDate;
+        this.data.Id = id;
     }
 
     cancel(event) {
@@ -65,12 +68,13 @@ export class View {
     }
 
     Submit(context) {
-
         var Data = this.data;
+
         this.submitContext.verifiedAlert = context == "VerifiedAlert" ? true : false;
+        this.submitContext.position = this.dataExpedition.Position;
+
         this.dialog.show(AlertView, this.submitContext)
             .then(response => {
-
                 if (!response.wasCancelled) {
                     if (response.output.context == "Finance") {
                         Data.SubmitPosition = 5;
@@ -78,7 +82,7 @@ export class View {
                         Data.SubmitPosition = 4;
                     } else {
                         Data.SubmitPosition = 6;
-                        Data.Remark = response.output.Remark;
+                        Data.Reason = response.output.Remark;
                     }
                     this.service.create(Data).then(result => {
                         alert("Data berhasil diubah");
@@ -91,15 +95,10 @@ export class View {
     async contextCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        var PrFilter = {
-            filter: JSON.stringify({ no: data.purchaseRequestNo }),
-            select: ["_id"],
-        }
-        var Pr = await this.mongoService.searchPrByCode(PrFilter);
-        var _id = Pr.data[0]._id;
+
         switch (arg.name) {
             case "Rincian Purchase Request":
-                window.open(`${window.location.origin}/#/pr/view/${encodeURIComponent(_id)}`);
+                window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${encodeURIComponent(data.purchaseRequestNo)}`);
                 break;
         }
     }

@@ -37,6 +37,7 @@ export class DataForm {
             'items.unitReceiptNote.items.correction.correctionNo',
             'items.unitReceiptNote.items.purchaseOrder.purchaseOrderExternal.no',
             'items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no',
+            'items.unitReceiptNote.items.currency.code'
         ];
     }
 
@@ -45,9 +46,9 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        if (this.data.length != 0 && this.data.length != undefined) {
-            this.SPB = this.data[0];
-            this.mapItems(this.data[0]);
+        if (this.data && this.data._id) {
+            this.SPB = this.data;
+            this.mapItems(this.data);
         }
 
     }
@@ -59,7 +60,7 @@ export class DataForm {
         { field: "deliveredQuantity", title: "Jumlah" },
         { field: "pricePerDealUnit", title: "Harga Satuan" },
         { field: "totalPrice", title: "Harga Total" },
-        { field: "unit", title: "Mata Uang" },
+        { field: "currency", title: "Mata Uang" },
         { field: "no", title: "No Bon Terima Unit" },
         { field: "purchaseOrderExternalNo", title: "No PO Eksternal" },
         { field: "purchaseRequestNo", title: "No PR" },
@@ -112,7 +113,7 @@ export class DataForm {
                 item.no = dataItem.unitReceiptNote.no;
                 item.productName = unitItem.product.name;
                 item.deliveredQuantity = unitItem.deliveredQuantity;
-                item.unit = unitItem.deliveredUom.unit;
+                item.currency = unitItem.currency.code;
                 item.pricePerDealUnit = unitItem.pricePerDealUnit;
                 item.totalPrice = parseFloat(item.deliveredQuantity) * parseFloat(item.pricePerDealUnit);
                 item.correctionNo = unitItem.correction.correctionNo;
@@ -127,20 +128,5 @@ export class DataForm {
     get unitPaymentOrderLoader() {
         return UnitPaymentOrderLoader;
     }
-
-    // async contextCallback(event) {
-    //     var arg = event.detail;
-    //     var data = arg.data;
-    //     var PrFilter = {
-    //         filter: JSON.stringify({ no: data.purchaseRequestNo }),
-    //         select: ["_id"],
-    //     }
-    //     var Pr = await this.mongoService.searchByCode(PrFilter);
-    //     switch (arg.name) {
-    //         case "Rincian Purchase Request":
-    //             window.open(`${window.location.origin}/#/pr/view/${encodeURIComponent(Pr[0]._id)}`);
-    //             break;
-    //     }
-    // }
 
 }

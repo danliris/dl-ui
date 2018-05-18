@@ -6,6 +6,7 @@ const serviceUri = 'unit-payment-order-verification';
 const serviceUriExpedition = 'expedition/purchasing-document-expeditions';
 const serviceUriUnitPaymenOrder = 'unit-payment-orders';
 const serviceUriPurchaseRequest = 'purchase-requests/by-user';
+const serviceUriPR = 'purchase-orders/monitoring/by-user';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -36,6 +37,17 @@ class MongoService extends RestService {
     searchByCode(info) {
         var endpoint = `${serviceUriUnitPaymenOrder}`;
         return super.list(endpoint, info);
+    }
+
+
+    search(unitId, categoryId, PODLNo, PRNo, supplierId, dateFrom, dateTo, state,budgetId) {
+        var endpoint = `${serviceUriPR}?unitId=${unitId}&categoryId=${categoryId}&PODLNo=${PODLNo}&PRNo=${PRNo}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}&budgetId=${budgetId}`;
+        return super.get(endpoint);
+    }
+
+    generateExcel(unitId, categoryId, PODLNo, PRNo, supplierId, dateFrom, dateTo, state,budgetId) {
+        var endpoint = `${serviceUriPR}?unitId=${unitId}&categoryId=${categoryId}&PODLNo=${PODLNo}&PRNo=${PRNo}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}&budgetId=${budgetId}`;
+        return super.getXls(endpoint);
     }
 
     searchPrByCode(info) {

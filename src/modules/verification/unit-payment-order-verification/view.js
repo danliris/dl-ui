@@ -41,6 +41,7 @@ export class View {
         'items.unitReceiptNote.items.correction.correctionNo',
         'items.unitReceiptNote.items.purchaseOrder.purchaseOrderExternal.no',
         'items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no',
+        'items.unitReceiptNote.items.currency.code'
     ];
 
     async activate(params) {
@@ -54,7 +55,7 @@ export class View {
 
         var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
 
-        this.data = UnitPaymentOrder.data;
+        this.data = UnitPaymentOrder.data[0];
         this.data.VerificationDate = this.dataExpedition.VerifyDate;
     }
 
@@ -69,15 +70,10 @@ export class View {
     async contextCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        var PrFilter = {
-            filter: JSON.stringify({ no: data.purchaseRequestNo }),
-            select: ["_id"],
-        }
-        var Pr = await this.mongoService.searchPrByCode(PrFilter);
-        var _id = Pr.data[0]._id;
+
         switch (arg.name) {
             case "Rincian Purchase Request":
-                window.open(`${window.location.origin}/#/pr/view/${encodeURIComponent(_id)}`);
+                window.open(`${window.location.origin}/#/verification/unit-payment-order-verification/monitoring-purchase/${encodeURIComponent(data.purchaseRequestNo)}`);
                 break;
         }
     }
