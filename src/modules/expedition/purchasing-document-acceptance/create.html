@@ -27,7 +27,7 @@
         </div>
         <br>
     </template>
-    <au-input-form title="Buat Penerimaan Dokumen Pembelian" options.bind="formOptions">
+    <au-input-form title="Buat Penerimaan Dokumen Pembelian ${activeRole.position === 3 ? 'dari Pembelian' : 'dari Verifikasi'}" options.bind="formOptions">
         <div class="row">
             <div class="col-sm-4">
                 <au-autocomplete

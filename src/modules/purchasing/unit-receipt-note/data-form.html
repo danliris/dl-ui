@@ -22,7 +22,7 @@
             label="Unit" 
             loader.one-time="unitLoader" 
             text.bind="unitView"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly  || isEdit"
             error.bind="error.unitId"
             options.bind="auInputOptions">
         </au-autocomplete>
@@ -32,7 +32,7 @@
             label="Supplier" 
             loader.one-time="supplierLoader" 
             text.bind="supplierView"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly  || isEdit"
             error.bind="error.supplier"
             options.bind="auInputOptions">
         </au-autocomplete>
