@@ -13,6 +13,4 @@ export class List {
       tv1() {
     window.open("http://cctv.danliris.com:8001");  
   }
- 
-   
 }
