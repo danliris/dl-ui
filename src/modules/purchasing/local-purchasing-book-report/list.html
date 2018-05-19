@@ -1,0 +1,96 @@
+
+<template>
+  
+    <h1 class="page-header">Laporan Buku Pembelian Lokal</h1>
+    <form class="form-horizontal">
+        <au-autocomplete 
+            value.bind="no" 
+            label="Nomor Nota" 
+            loader.bind="unitReceiptNoteLoader"
+            text.bind = "unitReceiptNoteView"
+            placeholder="Cari Nomor Nota"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-autocomplete>
+        <au-autocomplete 
+            value.bind="category" 
+            label="Kategori" 
+            loader.bind="categoryLoader"
+            text.bind = "categoryView"
+            placeholder="Cari Kategori"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-autocomplete>
+        <au-autocomplete 
+            value.bind="unit" 
+            label="Unit" 
+            loader.bind="unitLoader"
+            text.bind = "unitView"
+            placeholder="Cari Unit"
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-autocomplete> 
+        <au-datepicker label="Dari Tanggal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Sampai Tanggal" value.bind="dateTo"></au-datepicker>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+         <div class="btn-group pull-left">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+    </form>
+
+       <br>
+    </br>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" border="1" id="myTable">
+            <thead align="center">
+                <tr>
+                    <td rowspan=2>Tanggal</td>
+                    <td rowspan=2>Nomor Nota</td>
+                    <td rowspan=2>Nama Barang</td>
+                    <td rowspan=2>No Faktur Pajak</td>
+                    <td rowspan=2>Tipe</td>
+                    <td rowspan=2>Unit</td>
+                    <td colspan=2>Pembelian</td>
+                    <td rowspan=2>Total</td>
+                </tr>
+                <tr>
+                    <td>DPP</td>
+                    <td>PPN</td>
+                </tr>
+            </thead>
+            <tbody>
+             
+                <!-- <tr repeat.for="item of data"> -->
+                        <!-- <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.code}</td>
+                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.bookingDate}</td>
+                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.buyer}</td>
+                        <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.totalOrderBeginning}</td>
+                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.totalOrderEnd}</td>
+                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.deliveryDateBooking}</td>
+                        <td class="text-left">${item.comodity}</td>
+                        <td class="text-right">${item.orderQty}</td>
+                        <td class="text-left">${item.cancelConfirmDate}</td>
+                        <td class="text-left">${item.deliveryDateConfirm}</td>
+                        <td class="text-left">${item.remark}</td>
+                        <td class="text-left">${item.cancelItemsDate}</td>
+                        <td class="text-left">${item.canceledQuantity}</td>
+                        <td class="text-right">${item.cancelState}</td> -->
+                <!-- </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+        Tidak ada data.
+    </div>
+    <hr/>
+    </form>
+</au-input-form> 
+</template>
