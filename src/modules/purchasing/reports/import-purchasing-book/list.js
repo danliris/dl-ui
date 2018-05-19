@@ -81,11 +81,11 @@ export class List {
           }
 
           var categories = [];
-          this.total = 0;          
+          this.total = 0;
           for (var data in dataByCategory) {
             categories.push({
               data: dataByCategory[data],
-              subTotal : subTotalCategory[data],
+              subTotal: subTotalCategory[data],
             });
             this.total += subTotalCategory[data];
           }
@@ -107,7 +107,10 @@ export class List {
         dateFrom: moment(this.dateFrom).format("DD MMM YYYY HH:mm"),
         dateTo: moment(this.dateTo).format("DD MMM YYYY HH:mm"),
       }
-      this.service.generateExcel(filter);
+      this.service.generateExcel(filter)
+        .catch(e => {
+          alert(e.replace(e, "Error: ", ""));
+        });
     }
   }
 
