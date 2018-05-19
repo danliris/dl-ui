@@ -25,4 +25,17 @@ module.exports =  [
             iconClass: 'fa fa-clone'
         }
     },
+    {
+        route: '/expedition/reports/unit-payment-order-expedition',
+        name: 'unit-payment-order-expedition',
+        moduleId: './modules/expedition/reports/unit-payment-order-expedition/index',
+        nav: true,
+        title: 'Laporan Ekspedisi Surat Perintah Bayar',
+        auth: true,
+        settings: {
+            group: "expedition",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
 ];

@@ -29,6 +29,10 @@ export class List {
      
     units = [
         {
+            "name": "All",
+            "value": 0
+        },
+        {
             "name": "KONF 2A/EX.K1",
             "value": 1
         }, {
