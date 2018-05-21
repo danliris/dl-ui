@@ -7,6 +7,7 @@ import { Service } from './service';
 import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
 import { VERIFICATION, CASHIER, FINANCE } from '../shared/permission-constants';
+const UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loader');
 const SupplierLoader = require('../../../loader/supplier-loader');
 const DivisionLoader = require('../../../loader/division-loader');
 
@@ -25,6 +26,7 @@ export class Create {
                 return moment(value).format('DD MMM YYYY');
             },
         },
+        { field: 'InvoiceNo', title: 'Nomor Invoice' },
         { field: 'SupplierName', title: 'Supplier' },
         { field: 'DivisionName', title: 'Divisi' },
         {
@@ -61,8 +63,9 @@ export class Create {
         this.service = service;
         this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
 
-        this.supplierSelect = ['code', 'name'];
-        this.divisionSelect = ['code', 'name'];
+        this.selectUPO = ['no'];
+        this.selectSupplier = ['code', 'name'];
+        this.selectDivision = ['code', 'name'];
         this.documentData = [];
         this.selectedItems = [];
 
@@ -99,6 +102,9 @@ export class Create {
     search() {
         let filter = { Position: this.activeRole.positionAutocomplete };
 
+        if (this.unitPaymentOrder)
+            filter.UnitPaymentOrderNo = this.unitPaymentOrder.no;
+
         if (this.supplier)
             filter.SupplierCode = this.supplier.code;
 
@@ -107,7 +113,7 @@ export class Create {
 
         let arg = {
             page: 1,
-            size: 100,
+            size: 255,
             filter: JSON.stringify(filter),
         };
 
@@ -125,8 +131,15 @@ export class Create {
     }
 
     saveCallback(event) {
+        /*
+            let data = {
+                ReceiptDate: this.receiptDate,
+                Role: this.activeRole.key,
+                PurchasingDocumentExpedition: [],
+            };
+        */
+
         let data = {
-            ReceiptDate: this.receiptDate,
             Role: this.activeRole.key,
             PurchasingDocumentExpedition: [],
         };
@@ -146,6 +159,10 @@ export class Create {
             .catch(e => {
                 this.error = e;
             });
+    }
+
+    get unitPaymentOrderLoader() {
+        return UnitPaymentOrderLoader;
     }
 
     get supplierLoader() {
