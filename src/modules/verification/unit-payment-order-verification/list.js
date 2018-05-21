@@ -32,6 +32,11 @@ export class List {
                 return (value == 6 ? "Not Verified" : "Verified");
             }
         },
+        {
+            field: "Position", title: "Di Kirim Ke?", formatter: (value, data) => {
+                return (value == 6 ? "Pembelian" : (value == 5 ? "Keuangan" : "Kasir"));
+            }
+        },
         { field: "TotalPaid", title: "Total Bayar" },
         { field: "Currency", title: "Currency" },
     ]
