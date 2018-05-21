@@ -31,6 +31,15 @@
         <div class="row">
             <div class="col-sm-4">
                 <au-autocomplete
+                    label="No SPB"
+                    value.bind="unitPaymentOrder"
+                    loader.one-time="unitPaymentOrderLoader"
+                    select.bind="selectUPO">
+                </au-autocomplete>
+            </div>
+
+            <div class="col-sm-3">
+                <au-autocomplete
                     label="Supplier"
                     value.bind="supplier"
                     loader.one-time="supplierLoader"
@@ -38,7 +47,7 @@
                 </au-autocomplete>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <au-autocomplete
                     label="Divisi"
                     value.bind="division"
@@ -55,12 +64,14 @@
 
         <br><br>
         
-        <au-datepicker
-            label="Tanggal Terima"
-            value.bind="receiptDate"
-            error.bind="error.ReceiptDate"
-            options.bind="controlOptions">
-        </au-datepicker>
+        <!--
+            <au-datepicker
+                label="Tanggal Terima"
+                value.bind="receiptDate"
+                error.bind="error.ReceiptDate"
+                options.bind="controlOptions">
+            </au-datepicker>
+        -->
 
         <au-textbox
             show.bind="error.PurchaseDocumentExpeditionCollection"

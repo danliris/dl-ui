@@ -9,7 +9,7 @@ export class Item {
     constructor() {
         this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
-            'division.code', 'division.name',
+            'invoceNo', 'division.code', 'division.name',
             'supplier.code', 'supplier.name',
             'currency.code', 'no', 'date', 'dueDate',
             'items.unitReceiptNote.date',
@@ -52,6 +52,7 @@ export class Item {
                 no: newV.no,
                 date: newV.date,
                 dueDate: newV.dueDate,
+                invoceNo: newV.invoceNo,
                 supplierCode: newV.supplier.code,
                 supplierName: newV.supplier.name,
                 divisionCode: newV.division.code,
@@ -66,6 +67,7 @@ export class Item {
                 no: undefined,
                 date: undefined,
                 dueDate: undefined,
+                invoceNo: undefined,
                 supplierCode: undefined,
                 supplierName: undefined,
                 divisionCode: undefined,
