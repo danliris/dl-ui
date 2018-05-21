@@ -25,6 +25,7 @@ export class List {
                 rowspan: 2,
                 sortable: true,
             },
+            { field: 'invoceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
             { field: 'supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
             { field: 'division.name', title: 'Divisi', rowspan: 2, sortable: true },
             {
@@ -142,7 +143,7 @@ export class List {
             size: info.limit,
             filter: JSON.stringify(filter),
             order: order,
-            select: ['no', 'date', 'dueDate', 'supplier.name', 'division.name', 'position'],
+            select: ['no', 'date', 'dueDate', 'invoceNo', 'supplier.name', 'division.name', 'position'],
         };
 
         return this.flag ? (

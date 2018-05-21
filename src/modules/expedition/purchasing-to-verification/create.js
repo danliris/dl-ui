@@ -15,8 +15,8 @@ export class Create {
     };
 
     formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
+        cancelText: 'Kembali',
+        saveText: 'Simpan',
     };
 
     constructor(router, service) {
@@ -25,7 +25,7 @@ export class Create {
         this.data = {};
 
         this.collection = {
-            columns: ["No. SPB", "Tanggal SPB", "Tanggal Jatuh Tempo", "Supplier", "Divisi", "Total Bayar", "Mata Uang"],
+            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'Total Bayar', 'Mata Uang'],
             onAdd: () => {
                 this.data.UnitPaymentOrders.push({});
             },
@@ -35,14 +35,20 @@ export class Create {
     determineActivationStrategy() {
         return activationStrategy.replace;
     }
-    
+
     cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
     saveCallback(event) {
+        /*
+            let data = {
+                SubmissionDate: this.data.SubmissionDate,
+                UnitPaymentOrders: [],
+            };
+        */
+
         let data = {
-            SubmissionDate: this.data.SubmissionDate,
             UnitPaymentOrders: [],
         };
 
@@ -51,6 +57,7 @@ export class Create {
                 No: unitPaymentOrder.no,
                 UPODate: unitPaymentOrder.date,
                 DueDate: unitPaymentOrder.dueDate,
+                InvoiceNo: unitPaymentOrder.invoceNo,
                 SupplierCode: unitPaymentOrder.supplierCode,
                 SupplierName: unitPaymentOrder.supplierName,
                 DivisionCode: unitPaymentOrder.divisionCode,
@@ -62,7 +69,7 @@ export class Create {
 
         this.service.create(data)
             .then(result => {
-                alert("Data berhasil dibuat");
+                alert('Data berhasil dibuat');
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {

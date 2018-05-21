@@ -1,18 +1,19 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service, AzureService } from './service';
 
 
-@inject(Router, Service)
+@inject(Router, Service, AzureService)
 export class View {
     hasCancel = true;
     hasEdit = false;
     hasDelete = false;
 
     isCorrection = false;
-    constructor(router, service) {
+    constructor(router, service, azureService) {
         this.router = router;
         this.service = service;
+        this.azureService = azureService;
     }
 
     async activate(params) {
@@ -51,7 +52,7 @@ export class View {
             if (!this.isCorrection) {
                 this.hasEdit = true;
                 this.hasDelete = true;
-            } 
+            }
         }
 
         if (this.data.position !== 1 && this.data.position !== 6) {
@@ -69,8 +70,9 @@ export class View {
     }
 
     delete(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
-        });
+        Promise.all([this.service.delete(this.data), this.azureService.delete(this.data)])
+            .then(result => {
+                this.cancel();
+            });
     }
 }

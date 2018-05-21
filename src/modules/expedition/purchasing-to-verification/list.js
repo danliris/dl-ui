@@ -21,6 +21,7 @@ export class List {
                 return moment(value).format('DD MMM YYYY');
             },
         },
+        { field: 'InvoiceNo', title: 'Nomor Invoice' },        
         { field: 'SupplierName', title: 'Supplier' },
         { field: 'DivisionName', title: 'Divisi' },
         {
