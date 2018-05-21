@@ -1,8 +1,10 @@
-import { inject, BindingEngine } from 'aurelia-framework';
+import { inject, BindingEngine, bindable } from 'aurelia-framework';
 const UomLoader = require('../../../../loader/uom-loader');
 
 @inject(BindingEngine)
 export class TransferShippingOrderDetail {
+    @bindable dataDeliveryQuantity;
+
     constructor(bindingEngine) {
         this.bindingEngine = bindingEngine;
     }
@@ -17,9 +19,15 @@ export class TransferShippingOrderDetail {
         this.readOnly = context.options.readOnly;
 
         this.dataProduct = `${this.data.Product.code} - ${this.data.Product.name}`;
+        this.dataDeliveryQuantity = this.data.DeliveryQuantity;
     }
 
     get uomLoader() {
         return UomLoader;
+    }
+
+    dataDeliveryQuantityChanged(newValue) {
+        this.data.DeliveryQuantity = newValue;
+        this.data.RemainingQuantity = newValue;
     }
 }

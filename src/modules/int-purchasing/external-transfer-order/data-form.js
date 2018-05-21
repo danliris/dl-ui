@@ -71,17 +71,17 @@ export class DataForm {
         return `${division.code} - ${division.name}`;
     }
 
-    selectedOrderDivisionChanged(newValue, oldvalue) {
+    selectedOrderDivisionChanged(newValue, oldValue) {
         this.data.OrderDivision = newValue;
         if (newValue) {
             this.data.OrderDivisionId = newValue._id;
 
             Object.assign(this.externalTransferOrderItemsOptions.filter, { DivisionId: newValue._id }); // DivisionId dari table ITO
 
-            if (oldvalue && newValue._id !== oldvalue._id)
+            if (oldValue && newValue._id !== oldValue._id)
                 this.data.ExternalTransferOrderItems.splice(0, this.data.ExternalTransferOrderItems.length);
         }
-        else if (oldvalue) {
+        else if (oldValue) {
             this.data.ExternalTransferOrderItems.splice(0, this.data.ExternalTransferOrderItems.length);
         }
     }

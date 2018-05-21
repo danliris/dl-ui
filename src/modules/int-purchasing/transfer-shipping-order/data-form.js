@@ -7,6 +7,7 @@ export class DataForm {
     @bindable isEdit = false;
     @bindable data = {};
     @bindable title;
+    @bindable dataSupplier;
 
     formOptions = {
         cancelText: "Kembali",
@@ -39,6 +40,11 @@ export class DataForm {
             this.transferShippingOrderItemsColumns.push("");
         }
 
+        if (this.data) {
+            this.dataSupplier = this.data.Supplier;
+        }
+
+        this.transferShippingOrderItemsOptions.isEdit = this.isEdit;
     }
 
     get supplierLoader() {
@@ -46,6 +52,19 @@ export class DataForm {
     }
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`;
+    }
+
+    dataSupplierChanged(newValue, oldValue) {
+        this.data.Supplier = newValue;
+        if (newValue) {
+            Object.assign(this.transferShippingOrderItemsOptions.filter, { SupplierId: newValue._id });
+
+            if (oldValue && newValue._id !== oldValue._id)
+                this.data.TransferShippingOrderItems.splice(0, this.data.TransferShippingOrderItems.length);
+        }
+        else if (oldValue) {
+            this.data.TransferShippingOrderItems.splice(0, this.data.TransferShippingOrderItems.length);
+        }
     }
 
     get addTransferShippingOrderItems() {

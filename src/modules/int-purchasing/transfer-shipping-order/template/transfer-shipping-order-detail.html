@@ -17,7 +17,7 @@
         </td>
         <td class="col-sm-1">
             <au-numeric
-                value.bind="data.DeliveryQuantity"
+                value.bind="dataDeliveryQuantity"
                 error.bind="error.DeliveryQuantity"
                 read-only.bind="readOnly" />
         </td>
@@ -27,7 +27,7 @@
                 error.bind="error.Uom"
                 loader.one-time="uomLoader"
                 text="unit"
-                read-only.bind="readOnly" />
+                read-only="true" />
         </td>
         <td class="col-sm-1">
             <au-dropdown

@@ -25,7 +25,7 @@
                         <i class="fa fa-table" if.bind="key.toUpperCase() == 'REPORTS'"></i>
                         <i class="fa fa-sticky-note" if.bind="key.toUpperCase() == 'MIGRATION-LOG'"></i>
                         <i class="fa fa-clone" if.bind="key.toUpperCase() == 'EXPEDITION'"></i>
-
+                        <i class="fa fa-calendar-check-o" if.bind="key.toUpperCase() == 'VERIFICATION'"></i>
                         <!--<i class="fa fa-dashboard"></i>-->
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
                         <div class="pull-right" if.bind="value.length > 0 && !minimized">

@@ -14,9 +14,20 @@ export class List {
      
    
     search(){
-        this.info.page = 1;
-        this.searching();
+        
+        this.error = {};
+
+        if (!this.date || this.date == "Invalid Date")
+            this.error.date = "Tanggal harus diisi";
+
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            this.flag = true;
+            this.info.page = 1;
+            this.searching();
+        }
     }
+
     controlOptions = {
         label: {
             length: 4
@@ -37,26 +48,12 @@ export class List {
         this.service.search(args)
      
             .then(result => {
-                console.log(result)   ;
                this.data=result.data;
-                console.log(result)   ;
-            //    this.info.total=result.info.total;              
+                   
             });
            
     }
-    // ExportToExcel() {
-    //     var info = {
-    //         section : this.section ? this.section.code.code : "",
-    //         code : this.code ? this.code.code : "",
-    //         buyer : this.buyer ? this.buyer.name : "",
-    //         comodity : this.comodity ? this.comodity.name : "",
-    //         confirmState : this.confirmState ? this.confirmState : "",
-    //         bookingOrderState : this.bookingOrderState ? this.bookingOrderState : "",
-    //         dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-    //         dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
-    //     }
-    //     this.service.generateExcel(info);
-    // }
+    
 
     changePage(e) {
         var page = e.detail;
@@ -64,12 +61,26 @@ export class List {
         this.searching();
     }
       reset() {
-        this.type = "";
-        this.dateFrom = "";
-        this.dateTo = "";
+        this.date = "";
         
         this.info.page = 1;
     }
 
-    
+    ExportToExcel() {
+        this.error = {};
+
+        if (!this.dateTo || this.dateTo == "Invalid Date")
+            this.error.dateTo = "Tanggal Akhir harus diisi";
+
+        if (!this.dateFrom || this.dateFrom == "Invalid Date")
+            this.error.dateFrom = "Tanggal Awal harus diisi";
+
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            var info = {
+                date  : this.date ? moment(this.date ).format("YYYY-MM-DD") : ""
+            }
+            this.service.generateExcel(info);
+        }
+    }
 }

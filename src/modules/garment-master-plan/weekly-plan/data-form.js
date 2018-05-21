@@ -265,8 +265,9 @@ export class DataForm {
         var row = event.path[trPath].rowIndex; // start from 1
 
         for (var i = row; i < this.data.items.length; i++) {
-            if (this.data.items[i].usedEH == 0)
-                this.data.items[i][columnName] = Number(event.target.value);
+             
+            // if (this.data.items[i].usedEH == 0)
+                 this.data.items[i][columnName] = Number(event.target.value);
         }
     }
 }
