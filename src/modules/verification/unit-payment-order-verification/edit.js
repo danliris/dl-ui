@@ -59,7 +59,7 @@ export class Edit {
 
         var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
         this.data = UnitPaymentOrder.data[0];
-        this.data.VerificationDate = this.dataExpedition.VerifyDate;
+        this.data.VerificationDate = new Date();
         this.data.Id = id;
     }
 
