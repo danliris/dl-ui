@@ -103,9 +103,8 @@ export class List {
   }
 
     rowFormatter(data, index) {
-        if (data.isPosted)
-            return { classes: "success" };
-        else
-            return {  };
+        if (data.isCanceled) return { classes: "danger" };
+        if (data.isPosted) return { classes: "success" };
+        return {  };
     }
 }

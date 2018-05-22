@@ -5,15 +5,14 @@ import { DialogController } from 'aurelia-dialog';
 @useView("./alert-view.html")
 export class AlertView {
     constructor(controller) {
-        this.controller = controller; 
+        this.controller = controller;
     }
-    
+
     activate(data) {
         this.data = data;
     }
 
-    save()
-    {
+    save() {
         this.controller.ok(this.data);
     }
 }

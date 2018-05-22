@@ -26,6 +26,7 @@ export class Autocomplete {
   @bindable placeholder = ''; // placeholder for input control 
   @bindable filter // function to filter out suggestions
   @bindable query // query object
+  @bindable select
   @bindable editorValue; // input field value;
 
   @bindable({ defaultBindingMode: bindingMode.oneWay }) key;
@@ -81,7 +82,7 @@ export class Autocomplete {
       // promise = Promise.resolve(this.loader.filter(item => startsWith(this.getSuggestionValue(item), keyword)));
       promise = Promise.resolve(this.loader.filter(item => item[this.text].toUpperCase().indexOf(keyword.toUpperCase()) !== -1));
     } else if (typeof this.loader === 'function') {
-      promise = this.loader(keyword, this.query);
+      promise = this.loader(keyword, this.query, this.select);
     }
     return promise.then(suggestions => {
       this._isLoading = false;

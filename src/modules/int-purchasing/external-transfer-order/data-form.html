@@ -10,20 +10,31 @@
         <!-- <button slot="actions" class="btn btn-default" click.delegate="oncancel($event)" if.one-way="hasCancel">${__currentOptions.cancelText}</button> -->
 
         <au-textbox
-            if.bind="data.ExternalTransferOrderNo"
-            value.bind="data.ExternalTransferOrderNo"
+            if.bind="data.ETONo"
+            value.bind="data.ETONo"
             label="No"
             read-only="true"
             options.bind="controlOptions">
         </au-textbox>
 
         <au-autocomplete
-            value.bind="selectedSupplier"
-            error.bind="error.Supplier"
-            label="Supplier"
-            loader.bind="supplierLoader"
-            text.bind="supplierView"
-            placeholder="Supplier"
+            value.bind="selectedOrderDivision"
+            error.bind="error.OrderDivision"
+            label="Divisi Pemesan"
+            loader.bind="divisionLoader"
+            text.bind="divisionView"
+            placeholder="Divisi Pemesan"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete
+            value.bind="selectedDeliveryDivision"
+            error.bind="error.DeliveryDivision"
+            label="Divisi Pengirim"
+            loader.bind="divisionLoader"
+            text.bind="divisionView"
+            placeholder="Divisi Pengirim"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
@@ -71,9 +82,9 @@
             items.bind="data.ExternalTransferOrderItems"
             errors.bind="error.ExternalTransferOrderItems"
             columns.bind="externalTransferOrderItemsColumns"
+            options.bind="externalTransferOrderItemsOptions"
             add.bind="addExternalTransferOrderItems"
-            read-only.bind="readOnly"
-            show.bind="data.Supplier && data.OrderDate && data.DeliveryDate || true"
+            read-only.bind="readOnly || !data.OrderDivision"
             item-template="modules/int-purchasing/external-transfer-order/template/external-transfer-order-item">
         </au-collection>
 

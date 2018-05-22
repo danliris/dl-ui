@@ -3,6 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'unit-payment-orders/by-user';
+const pdeServiceUri = 'expedition/purchasing-document-expeditions'
 
 export class Service extends RestService {
 
@@ -37,5 +38,16 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
+    }
+}
+
+export class AzureService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing-azure");
+    }
+
+    delete(data) {
+        var endpoint = `${pdeServiceUri}/PDE/${data.no}`;
+        return super.delete(endpoint, data);
     }
 }

@@ -6,6 +6,7 @@ export class DeliveryOrderItem {
   @bindable deliveredQuantity;
   activate(context) {
     this.context = context;
+    // console.log(context.data);
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;

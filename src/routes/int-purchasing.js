@@ -70,6 +70,19 @@ module.exports = [
         name: 'transfer-delivery-order',
         moduleId: './modules/int-purchasing/transfer-delivery-order/index',
         nav: true,
+        title: 'DO',
+        auth: true,
+        settings: {
+            group: "int-purchasing",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: ['int-purchasing/transfer-shipping-order'],
+        name: 'transfer-shipping-order',
+        moduleId: './modules/int-purchasing/transfer-shipping-order/index',
+        nav: true,
         title: 'Surat Jalan',
         auth: true,
         settings: {
@@ -79,4 +92,3 @@ module.exports = [
         }
     },
 ]
-

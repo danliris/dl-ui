@@ -3,12 +3,14 @@
         <au-textbox label="No. Bon Hasil Re-grade" value.bind="data.Code" if.bind="readOnly" read-only.bind="readOnly" options.bind="controlOptions">
         </au-textbox>
 
+        <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="error.Date" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-datepicker>
+
         <au-autocomplete label="No. Bon Terima Unit" value.bind="NoBon" error.bind="error.Bon" placeholder="Cari No Bon" text="no"
             key="no" loader.bind="unitReceiptNoteLoader" query.bind="filterUnit" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-datepicker
-            label="Tanggal" value.bind="data._CreatedUtc" if.bind="readOnly" options.bind="controlOptions" read-only.bind="readOnly">
+        <au-datepicker label="Tanggal" value.bind="data._CreatedUtc" if.bind="readOnly" options.bind="controlOptions" read-only.bind="readOnly">
         </au-datepicker>
 
         <au-autocomplete label="Nama Mesin" value.bind="Machine" error.bind="error.Machine" placeholder="Cari Mesin" text="name"
@@ -25,15 +27,11 @@
             show.bind="NoBon" loader.bind="productLoader" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-textbox
-            label="Panjang Total (MTR)"
-            value.bind="data.TotalLength"
-            show.bind="Product"
-            read-only="true"
-            options.bind="controlOptions">
+        <au-textbox label="Panjang Total (MTR)" value.bind="data.TotalLength" show.bind="Product" read-only="true" options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox label="Grade Asli" value.bind="data.OriginalGrade" error.bind="error.OriginalGreade" read-only.bind="readOnly" options.bind="controlOptions" placeholder="Grade">
+        <au-textbox label="Grade Asli" value.bind="data.OriginalGrade" error.bind="error.OriginalGreade" read-only.bind="readOnly"
+            options.bind="controlOptions" placeholder="Grade">
         </au-textbox>
 
         <!-- <au-multiline label="Keterangan" value.bind="data.Remark" read-only.bind="readOnly" options.bind="controlOptions">

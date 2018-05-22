@@ -16,7 +16,7 @@ export class List {
             }
         },
         { field: "TotalQuantity", title: "Total Jumlah (Piece)" },
-        { field: "TotalLength", title: "Total Panjang (Meter)" },
+        { field: "TotalNecessaryLength", title: "Total Panjang (Meter)" },
         { field: "SupplierName", title: "Supplier" },
     ];
 

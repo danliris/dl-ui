@@ -9,6 +9,7 @@
                 key="code"
                 text="reason" 
                 read-only.bind="(readOnly || isEdit)"
+                select.bind="selectBadOutput"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
@@ -38,6 +39,7 @@
                 read-only.bind="(readOnly || isEdit)"
                 error.bind="error.machine"
                 options.bind="controlOptions"
+                select.bind="selectMachine"
                 query.bind="filterMachine">
             </au-autocomplete>
         </td>

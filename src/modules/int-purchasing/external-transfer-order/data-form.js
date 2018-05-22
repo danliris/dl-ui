@@ -2,7 +2,7 @@ import { bindable, inject, containerless, computedFrom, BindingEngine } from "au
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 
-var SupplierLoader = require('../../../loader/supplier-loader');
+var DivisionLoader = require('../../../loader/division-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 
 @containerless()
@@ -12,13 +12,15 @@ export class DataForm {
     @bindable isEdit = false;
     @bindable data = {};
     @bindable title;
-    @bindable selectedSupplier;
+    @bindable selectedOrderDivision;
+    @bindable selectedDeliveryDivision;
     @bindable selectedCurrency;
 
     constructor(service, bindingSignaler, bindingEngine) {
         this.service = service;
         this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
+        this.externalTransferOrderItemsOptions = { filter: {} };
     }
 
     formOptions = {
@@ -51,7 +53,9 @@ export class DataForm {
         }
 
         if (this.data) {
-            this.selectedSupplier = this.data.Supplier;
+            this.selectedOrderDivision = this.data.OrderDivision;
+            this.selectedDeliveryDivision = this.data.DeliveryDivision;
+            this.selectedCurrency = this.data.Currency;
         }
 
         if (!this.selectedCurrency) {
@@ -60,21 +64,37 @@ export class DataForm {
 
     }
 
-    get supplierLoader() {
-        return SupplierLoader;
+    get divisionLoader() {
+        return DivisionLoader;
     }
-    supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`
+    divisionView = (division) => {
+        return `${division.code} - ${division.name}`;
     }
-    selectedSupplierChanged(newValue) {
+
+    selectedOrderDivisionChanged(newValue, oldValue) {
+        this.data.OrderDivision = newValue;
         if (newValue) {
-            this.data.Supplier = newValue;
-            this.data.SupplierId = newValue._id;
+            this.data.OrderDivisionId = newValue._id;
+
+            Object.assign(this.externalTransferOrderItemsOptions.filter, { DivisionId: newValue._id }); // DivisionId dari table ITO
+
+            if (oldValue && newValue._id !== oldValue._id)
+                this.data.ExternalTransferOrderItems.splice(0, this.data.ExternalTransferOrderItems.length);
+        }
+        else if (oldValue) {
+            this.data.ExternalTransferOrderItems.splice(0, this.data.ExternalTransferOrderItems.length);
+        }
+    }
+
+    selectedDeliveryDivisionChanged(newValue) {
+        if (newValue) {
+            this.data.DeliveryDivision = newValue;
+            this.data.DeliveryDivisionId = newValue._id;
         }
     }
 
     currencyView = (currency) => {
-        return `${currency.code} - ${currency.description}`
+        return `${currency.code} - ${currency.description}`;
     }
     selectedCurrencyChanged(newValue) {
         if (newValue) {

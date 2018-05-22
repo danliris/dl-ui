@@ -52,6 +52,19 @@ module.exports = [
         }
     },
     {
+        route: 'purchase-order-internal/monitoring',
+        name: 'po-internal-belum-po-external-monitoring',
+        moduleId: './modules/purchasing/monitoring-po-internal-belum-po-external/index',
+        nav: true,
+        title: 'Monitoring Purchase Order Internal Belum Diproses Pembelian',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C5": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po-internal/monitoring',
         name: 'purchase-order-internal-monitoring',
         moduleId: './modules/purchasing/monitoring-purchase-order-internal/index',

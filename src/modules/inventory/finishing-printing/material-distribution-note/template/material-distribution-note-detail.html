@@ -1,12 +1,12 @@
 <template>
-    <tr>
+    <tr class="${ !readOnly && data.ReceivedLength > 0 ? 'success' : '' }">
         <td show.bind="!options.isTest">
             <au-textbox value.bind="data.ProductionOrder.orderNo" read-only="true"></au-textbox>
         </td>
         <td>
             <au-textbox value.bind="data.Product.name" error.bind="error.Product" read-only="true"></au-textbox>
         </td>
-        <td class="col-sm-2">
+        <td>
             <au-textbox value.bind="data.Grade" read-only="true"></au-textbox>
         </td>
         <td>

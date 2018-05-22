@@ -7,11 +7,9 @@ import moment from 'moment';
 export class List {
 
     rowFormatter(data, index) {
-        console.log(this.data);
-        if (data.isPosted)
-            return { classes: "success" }
-        else
-            return {}
+        if (data.IsCanceled) return { classes: "danger" };
+        if (data.IsPost) return { classes: "success" };
+        return {  };
     }
     context = ["Rincian"]
 
@@ -73,7 +71,7 @@ export class List {
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
-        console.log(data);
+        // console.log(data);
     }
 
     create() {

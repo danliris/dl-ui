@@ -8,6 +8,7 @@
         page-size="25"
         data-click-to-select="true"
         context.bind="contextMenu"
+        context-show.call="contextShowCallback(index, context, data)"
         context-click.delegate="contextClickCallback($event)"
         row-formatter.bind="rowFormatter"
         selections.bind="selectedItem">

@@ -19,7 +19,7 @@ export class detail {
 
     // @bindable No = 0;
     gradeList = ["A", "B", "C", "BS"];
-    return = ["Ya", "Tidak"];
+    return = ["Tidak", "Ya"];
 
     controlOptions = {
         control: {

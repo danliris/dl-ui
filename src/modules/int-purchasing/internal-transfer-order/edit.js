@@ -52,7 +52,7 @@ export class Edit {
     split(event) {
    
         this.service.split(this.copyForSplit(this.data)).then(result => {
-            console.log(result);
+            // console.log(result);
             this.cancel();
         }).catch(e => {
             this.error = e;

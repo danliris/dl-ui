@@ -56,7 +56,7 @@ export class DataForm {
        
         if (this.data.transferRequest) {
             var _items = [];
-            console.log(this.data.transferRequest);
+            // console.log(this.data.transferRequest);
             this.data.TRNo=this.data.transferRequest.trNo;
             this.data.TRId=this.data.transferRequest.Id;
             this.data.TRDate=this.data.transferRequest.trDate;
@@ -99,10 +99,19 @@ export class DataForm {
             
         }
         else {
-            this.data.transferRequest = {};
-            this.data.Id = {};
-            this.data.Remark = "";
-            this.data.InternalTransferOrderDetails = [];
+            // this.data.transferRequest = {};
+            // this.data.Id = {};
+            // this.data.Remark = "";
+            // this.data.InternalTransferOrderDetails = [];
+
+            Object.keys(this.data).forEach(
+                key => {
+                    if(typeof this.data[key] != "object")
+                        delete this.data[key];
+                    else
+                        this.data[key] = null;
+                }
+            )
         }
     }
 

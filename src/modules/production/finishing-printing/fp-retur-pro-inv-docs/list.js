@@ -17,11 +17,11 @@ export class List {
         { field: "Bon.no", title: "No. Bon Terima Unit" },
         { field: "Bon.unitName", title: "Unit" },
         {
-            field: "_CreatedUtc", title: "Tanggal", formatter: (value, data) => {
+            field: "Date", title: "Tanggal", formatter: (value, data) => {
                 return moment(value).format("DD-MMM-YYYY");
             }
         },
-        { field: "Count", title: "Total Jumlah (Piece)" },
+        { field: "TotalQuantity", title: "Total Jumlah (Piece)" },
         { field: "TotalLength", title: "Total Panjang (Meter)" },
         { field: "Supplier.name", title: "Supplier" },
         { field: "Status", title: "Status Retur" },
@@ -43,12 +43,11 @@ export class List {
             .then(result => {
                 var results = []
                 for (var data of result.data) {
-                    data.Count = 0;
+                    data.TotalQuantity = 0;
                     data.TotalLength = 0;
 
                     for (var i of data.Details) {
-                        data.Count++;
-
+                        data.TotalQuantity += i.Quantity;
                         data.TotalLength += i.Length;
                     }
 
