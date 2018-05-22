@@ -16,7 +16,8 @@ var intPurchasingRoutes = require("./int-purchasing");
 var customsReportRoutes = require("./customs-report");
 let expeditionRoutes = require('./expedition');
 let verificationRoutes = require('./verification');
+let merchandiserRoutes = require('./merchandiser');
 
-export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, spinningRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, garmentPurchasingRoutes, garmentMasterPlanRoutes, intPurchasingRoutes, customsReportRoutes, authRoutes, expeditionRoutes,verificationRoutes, migrationLog, reportRoutes);
+export default [].concat(publicRoutes, generalRoutes, masterRoutes, productionRoutes, spinningRoutes, purchasingRoutes, salesRoutes, inventoryRoutes, garmentPurchasingRoutes, garmentMasterPlanRoutes, intPurchasingRoutes, customsReportRoutes, authRoutes, expeditionRoutes,verificationRoutes,merchandiserRoutes, migrationLog, reportRoutes);
 
 
