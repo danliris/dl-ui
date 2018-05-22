@@ -41,7 +41,6 @@ export class List {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
                 rowspan: 2,
-                sortable: true,
             },
             { title: 'Verifikasi', colspan: 3 },
             { title: 'Kasir', colspan: 2 }
