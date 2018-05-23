@@ -70,13 +70,13 @@ export class List {
                 Category: item.purchaseOrder.category.name,
                 Unit: data.unit.name,
                 PIB: data.pibNo || "-",
-                Nilai: (item.pricePerDealUnit * item.deliveredQuantity).toFixed(2),
-                CurrencyRate: item.currencyRate.toFixed(2),
-                Total: Number((Number((item.pricePerDealUnit * item.deliveredQuantity).toFixed(2)) * item.currencyRate).toFixed(2)),
+                Nilai: Math.round(item.pricePerDealUnit * item.deliveredQuantity * 100) / 100,
+                CurrencyRate: Math.round(item.currencyRate * 100) / 100,
+                Total: Math.round(item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate * 100) / 100,
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
-              subTotalCategory[Category] += Number((Number((item.pricePerDealUnit * item.deliveredQuantity).toFixed(2)) * item.currencyRate).toFixed(2));
+              subTotalCategory[Category] += Math.round(item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate * 100) / 100;
             }
           }
 
