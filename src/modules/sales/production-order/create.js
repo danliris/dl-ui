@@ -25,6 +25,7 @@ export class Create {
     }
 
     save() {
+        this.data.isRequested = false;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

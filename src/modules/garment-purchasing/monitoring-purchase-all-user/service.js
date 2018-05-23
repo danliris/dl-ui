@@ -56,6 +56,9 @@ export class Service extends RestService {
         
         if (info.prRefNo)
             query = `${query}&prRefNo=${info.prRefNo}`;
+
+        if (info.state)
+            query = `${query}&state=${info.state}`;    
             
         if (query !== '') {
             query = query.substring(1);

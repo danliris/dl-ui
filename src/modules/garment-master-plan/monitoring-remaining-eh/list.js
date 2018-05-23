@@ -76,17 +76,24 @@ export class List {
               units[y] = unitsTemp;
             }
           }
-
+          this.isTotal=false;
+          if(unitsTemp.length>1){
+            this.isTotal=true;
+          }
           this.weeks = [];
           for (var x = 0; x < units.length; x++) {
             var headCount = 0;
+            var remainingEH=0;
             for (var y = 0; y < units[x].length; y++) {
               headCount += Number(this.data[y].items[x].operator);
+              remainingEH += Number(this.data[y].items[x].remainingEH);
+
             }
             var week = {
               week: "W" + (x + 1),
               units: units[x],
-              headCount: headCount
+              headCount: headCount,
+              eh:remainingEH
             };
             this.weeks.push(week);
           }

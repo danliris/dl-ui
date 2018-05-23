@@ -14,21 +14,10 @@
                 <au-autocomplete value.bind="unit" label="Unit" loader.bind="unitLoader" placeholder="nama unit" key="code">
                 </au-autocomplete>
 
-
-                <au-autocomplete value.bind="purchaseOrder" label="Nomor PR" loader.bind="purchaseOrderLoader" placeholder="nomor pr" key="no">
-                </au-autocomplete>
-
-                <au-autocomplete value.bind="noSpb" label="Nomor SPB" loader.bind="noteLoader" placeholder="nomor spb" key="no">
-                </au-autocomplete>
-
-                
-
                 <au-autocomplete value.bind="supplier" label="Nama Supplier" loader.bind="supplierLoader" placeholder="nama supplier" key="code">
                 </au-autocomplete>
 
-                <au-autocomplete value.bind="staffName" label="Nama Staff Pembelian" loader.bind="accountLoader" placeholder="nama staff pembelian"
-                    key="code">
-                </au-autocomplete>
+        
 
                 <au-datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
                 </au-datepicker>
@@ -74,7 +63,7 @@
                         <td >Unit</td>
                         <td >Div</td>
                         <td >ADM</td>
-                        <td >Staff</td>
+               
                         <td >Mata Uang</td>
                         <td >Kategori</td>
                        
@@ -83,27 +72,7 @@
                 </thead>
                 <tbody>
                   <tr repeat.for="PO of data">
-                        <!--<td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${PO.no}</td>
-                        <td>${PO.items.unitReceiptNote.items.product.name}</td>
-                        <td>${PO.items.unitReceiptNote.items.deliveredQuantity}</td>
-                        <td>${PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
-                        <td>${PO.items.unitReceiptNote.items.deliveredQuantity*PO.items.unitReceiptNote.items.pricePerDealUnit}</td>
-                        <td>${nilais}</td>
-                        <td>${PO.useVat}</td>
-                        <td>Total Bayar</td>
-                        <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.date  | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${PO.items.unitReceiptNote.items.purchaseOrder.purchaseRequest.no}</td>
-                        <td>${PO.items.unitReceiptNote.date | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${PO.items.unitReceiptNote.no}</td>
-                        <td>${PO.invoceDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${PO.invoceNo}</td>
-                        <td>${PO.dueDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${PO.supplier.name}</td>
-                        <td>${PO.namaUnit}</td>
-                        <td>${PO.division.name}</td>
-                        <td>${PO._createdBy}</td>
-                        <td>${PO.staff}</td>-->
+                     
                         <td>${$index + 1}</td>
                         <td>${PO.date  | dateFormat:'DD-MM-YYYY'}</td>
                         <td>${PO.no}</td>
@@ -127,7 +96,7 @@
                         <td>${PO.namaUnit}</td>
                         <td>${PO.divisi}</td>
                         <td>${PO._createdBy}</td>
-                        <td>${PO.staff}</td>
+                  
                         <td>${PO.matauang}</td>
                         <td>${PO.kategori}</td>
                     </tr>

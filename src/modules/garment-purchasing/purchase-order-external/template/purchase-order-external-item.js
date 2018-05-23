@@ -91,7 +91,7 @@ export class PurchaseOrderItem {
   }
 
   get prNo() {
-    return `${this.data.prNo} - ${this.data.prRefNo}`;
+    return `${this.data.prNo} - ${this.data.prRefNo} - ${this.data.artikel}`;
   }
 
   get product() {

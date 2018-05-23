@@ -62,10 +62,22 @@ export class Reprocess {
     }
 
     message += "<br>";
-    message += "<div>" + this.range["PRE TREATMENT"].area + ": " + moment(this.range["PRE TREATMENT"].startDate).format("DD MMM YYYY") + " - " + moment(this.range["PRE TREATMENT"].endDate).format("DD MMM YYYY") + "</div>";
-    message += "<div>" + this.range["DYEING"].area + ": " + moment(this.range["DYEING"].startDate).format("DD MMM YYYY") + " - " + moment(this.range["DYEING"].endDate).format("DD MMM YYYY") + "</div>";
-    message += "<div>" + this.range["PRINTING"].area + ": " + moment(this.range["PRINTING"].startDate).format("DD MMM YYYY") + " - " + moment(this.range["PRINTING"].endDate).format("DD MMM YYYY") + "</div>";
-    message += "<div>" + this.range["FINISHING"].area + ": " + moment(this.range["FINISHING"].startDate).format("DD MMM YYYY") + " - " + moment(this.range["FINISHING"].endDate).format("DD MMM YYYY") + "</div>";
+    
+    let removeData = ["length", "PPIC", "PREPARING"];
+    let areas = Object.getOwnPropertyNames(this.range);
+
+    for(let j = 0; j < removeData.length; j++)
+    {
+      let index = areas.indexOf(removeData[j]);
+      if (index >= 0) {
+        areas.splice( index, 1 );
+      }
+    }
+
+    for(let i = areas.length - 1; i >= 0; i--)
+    {
+      message += "<div>" + this.range[areas[i]].area + ": " + moment(this.range[areas[i]].startDate).format("DD MMM YYYY") + " - " + moment(this.range[areas[i]].endDate).format("DD MMM YYYY") + "</div>";
+    }
 
     return message;
   }
@@ -99,8 +111,7 @@ export class Reprocess {
         if(step.processArea && step.processArea != "") {
           r = this.range[step.processArea.toUpperCase().replace("AREA ", "")];
         }
-
-        if (Object.getOwnPropertyNames(r).length > 0 && step.deadline && (new Date(step.deadline) < new Date(r.startDate) || new Date(step.deadline) > new Date(r.endDate))) {
+        if (r && Object.getOwnPropertyNames(r).length > 0 && step.deadline && (step.deadline < r.startDate || step.deadline > r.endDate)) {
           this.invalidSteps.push({ no: index, process: step.process });
         }
 

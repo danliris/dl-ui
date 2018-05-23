@@ -12,7 +12,8 @@ export class DataForm {
     @bindable title;
     @bindable currency;
     @bindable supplier;
-    
+    @bindable options = {};
+
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -34,9 +35,10 @@ export class DataForm {
                 { header: "Tanggal Invoice" },
                 { header: "Total Amount" }
             ],
-            onRemove: function () {
-                this.bind();
-            }
+            onAdd: function () {
+                this.context.ItemsCollection.bind();
+                this.data.items.push({ });
+            }.bind(this),
         };
     }
 
@@ -44,6 +46,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.options = this.options ? this.options : {};
     }
 
     @computedFrom("data._id")
@@ -68,16 +71,18 @@ export class DataForm {
         if (selectedSupplier) {
             this.data.supplier = selectedSupplier;
             this.data.supplierId = selectedSupplier._id;
-            var res = await this.service.getInvoiceNote({supplierId: this.data.supplierId, currency: this.data.currency.code});
-            var _items = res.data || [];
-            this.data.items = _items;
+            this.options.supplierCode = selectedSupplier.code;
+            this.options.currencyCode = this.data.currency.code;
+            // var res = await this.service.getInvoiceNote({supplierId: this.data.supplierId, currency: this.data.currency.code});
+            // var _items = res.data || [];
+            // this.data.items = _items;
         }
         else {
             this.data.supplier = null;
             this.data.supplierId = null;
-            this.data.items=[];
+            this.data.items = [];
         }
-        this.context.error.items=[];
+        this.context.error.items = [];
     }
 
     currencyChanged(newValue, oldValue) {
@@ -89,8 +94,8 @@ export class DataForm {
         else {
             this.data.currency = null;
         }
-        this.data.items=[];
-        this.context.error.items=[];
+        this.data.items = [];
+        this.context.error.items = [];
     }
 
     get currencyLoader() {
@@ -100,7 +105,7 @@ export class DataForm {
     get supplierLoader() {
         return SupplierLoader;
     }
-    
+
     currencyView = (currency) => {
         return currency.code
     }

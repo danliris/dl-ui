@@ -387,6 +387,57 @@ module.exports = [
             permission: { "C9": 1, "PG": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+     {
+        route: '/garment/monitoring-kedatangan-barang',
+        name: 'monitoring-kedatangan-barang',
+        moduleId: './modules/garment-purchasing/monitoring-kedatangan-barang/index',
+        nav: true,
+        title: 'Monitoring Ketepatan Kedatangan Barang',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+     {
+        route: '/garment/monitoring-pengiriman-barang',
+        name: 'monitoring-pengiriman-barang',
+        moduleId: './modules/garment-purchasing/monitoring-pengiriman-barang/index',
+        nav: true,
+        title: 'Monitoring Ketepatan Pengiriman Barang',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-order-purchase-order-external-duration-report',
+        name: 'purchase-order-purchase-order-external-duration-report',
+        moduleId: './modules/garment-purchasing/reports/duration-reports/purchase-order-purchase-order-external-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PO Internal - PO Eksternal',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'purchase-order-external-delivery-order-duration-report',
+        name: 'purchase-order-external-delivery-order-duration-report',
+        moduleId: './modules/garment-purchasing/reports/duration-reports/purchase-order-external-delivery-order-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PO Eksternal - Surat Jalan ',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
-
 ]

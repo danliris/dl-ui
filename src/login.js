@@ -9,17 +9,24 @@ export class Login {
 
     username="";
     password="";
+    error = false;
+    disabledButton = false;
 
     constructor(authService) {
         this.authService = authService;
     }
 
     login() {
+        this.error = false;
+        this.disabledButton = true;
+
         return this.authService.login({ "username": this.username, "password": this.password })
             .then(response => {
                 console.log("success logged " + response);
             })
             .catch(err => {
+                this.error = true;
+                this.disabledButton = false;
                 console.log(err);
                 console.log("login failure");
             });

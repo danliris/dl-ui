@@ -28,7 +28,7 @@ export class DataForm {
 		this.service = service;
 
 		this.mdnInfo = {
-			columns: ["Masukkan No SPB"],
+			columns: ["Masukkan No SPB", "Tanggal"],
 			onAdd: () => {
 				this.data.MaterialDistributionNoteItems.push({});
 			},
@@ -72,12 +72,16 @@ export class DataForm {
 			this.data.Type = newValue;
 
 			delete this.mdnInfo.options.filter.RequestType;
+			delete this.mdnInfo.options.filter.localFilter;
 
 			if (this.data.Type === "TEST") {
 				Object.assign(this.mdnInfo.options.filter, { "RequestType": this.data.Type });
 				this.mdnInfo.options.isTest = true;
-			}
-			else {
+			} else if (this.data.Type === "RE-GRADING") {
+				Object.assign(this.mdnInfo.options.filter, { "RequestType": "PEMBELIAN" });
+				this.mdnInfo.options.isTest = true;
+			} else {
+				Object.assign(this.mdnInfo.options.filter, { "localFilter": ["AWAL", "PENGGANTI BAD OUTPUT"] })
 				this.mdnInfo.options.isTest = false;
 			}
 		}

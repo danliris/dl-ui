@@ -1,0 +1,73 @@
+<template>
+    <h1 class="page-header">Detail Monitoring Ketepatan Kedatangan Barang </h1> 
+    
+    <form class="form-horizontal">
+    
+  <!--<div class="btn-group pull-left" if.bind="data.length > 0">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>-->
+           <div>
+            <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
+        </div>
+         <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+             <!--<div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="doReport">-->
+        <thead>
+          <tr>
+                        <td>No</td>
+                        <td>Supplier</td>
+                        <td>Plan PO </td>
+                        <td>Tgl Purchase Request</td>
+                        <td>Tgl PO Internal</td>
+                        <td>Tgl Pembelian</td>
+                        <td>Kode Barang</td>
+                        <td>Nama Barang</td>
+                        <td>Keterangan Barang</td>
+                        <td>Artikel</td>
+                        <td>RO</td>
+                        <td>Tgl Shipment</td>
+                        <td>Tgl Datang</td>
+                        <td>+ /- Datang</td>
+                        <td>Staff</td>
+                        <td>kategori</td>
+                  
+                    
+                    </tr>
+            
+        </thead>
+    
+        <tbody>
+                    <tr repeat.for="pr of dataReport"  >
+                        <td>${$index + 1}</td>
+                        <td>${pr.supplier}</td>
+                        <td>${pr.refNo}</td>
+                        <td>${pr.tglpr | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.tglpo | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.poeDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.productcode}</td>
+                        <td>${pr.productname}</td>
+                        <td>${pr.productdescription}</td>
+                        <td>${pr.artikel}</td>
+                        <td>${pr.roNo}</td>
+                        <td>${pr.purchaseRequestshipmentDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.tglll | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.keterangan}</td>
+                        <td>${pr._createdBy}</td>
+                        <td>${pr.kategori}</td>  
+                    </tr>
+                </tbody>
+    </table>
+    </div>
+        
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+     
+        <hr/>
+        <div class="btn-group pull-right">
+            <a click.delegate="list(dateFrom,dateTo,kategori)" class='btn btn-default btn-sm'>Kembali</a>
+        </div>
+    </form>
+        
+</template>

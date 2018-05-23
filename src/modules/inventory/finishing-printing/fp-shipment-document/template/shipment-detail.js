@@ -90,7 +90,7 @@ export class ShipmentDetail {
                                 "$in": productNames
                             }
                         }
-                        var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields };
+                        var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields, size: 100 };
                         var products = await this.service.searchProducts(productInfo);
 
                         //find summaries
@@ -104,7 +104,7 @@ export class ShipmentDetail {
                                 { "storageCode": this.selectedStorageCode }
                             ]
                         }
-                        var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter) };
+                        var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter), size: 100 };
                         var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
 
                         for (var packingReceiptItem of packingReceipt.items) {

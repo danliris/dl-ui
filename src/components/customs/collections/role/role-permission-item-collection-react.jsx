@@ -23,7 +23,8 @@ export default class RolePermissionItemCollectionReact extends React.Component {
         this.setState({ value: props.value || [], error: props.error || [], options: props.options || {} });
     }
 
-    handleItemAdd() {
+    handleItemAdd(e) {
+        e.preventDefault();
         var newItem = {
             unit: { toString: function () { return '' } },
             unitId: { toString: function () { return '' } },

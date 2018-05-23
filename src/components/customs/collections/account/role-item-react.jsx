@@ -27,7 +27,9 @@ export default class RoleItemReact extends React.Component {
             this.props.onChange(role);
     }
 
-    handleRemove() {
+    handleRemove(e) {
+        e.preventDefault();
+
         if (this.props.onRemove)
             this.props.onRemove(this.state.value);
     }

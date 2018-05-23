@@ -16,6 +16,7 @@
       loader.bind="productionOrderLoader"
       read-only.bind="readOnly"
       options.bind="controlOptions"
+      select.bind="selectProductionOrder"
       if.bind="!isReprocess"
       text="orderNo">
     </au-autocomplete>
@@ -28,6 +29,7 @@
       read-only.bind="readOnly"
       text.bind="kanbanView"
       options.bind="controlOptions"
+      select.bind="kanbanSelect"
       if.bind="isReprocess"
       query.bind="query">
     </au-autocomplete>
@@ -241,6 +243,7 @@
       label="Instruksi" 
       loader.one-time="instructionLoader"
       placeholder="search instruction" 
+      select.bind="selectInstruction"
       key="code"
       text="name"
       read-only.bind="readOnly || isReprocess || oldKanbanStatus"

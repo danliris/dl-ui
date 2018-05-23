@@ -1,0 +1,52 @@
+<template>
+    <tr>
+        <td style="width: 10%">
+            <au-autocomplete placeholder="Cari Kategori" value.bind="category" text.bind="categoryText" error.bind="error.Category"
+                loader.one-time="categoryLoader" options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td style="width: 12%">
+            <au-autocomplete placeholder="Cari Material" value.bind="data.Material" error.bind="error.Material" loader.one-time="materialLoader"
+                options.bind="controlOptions" text="Name" query.bind="filterMaterial" show.bind="categoryIsFilled">
+            </au-autocomplete>
+        </td>
+        <td style="width: 15%">
+            <au-multiline placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description" options.bind="controlOptions"
+                show.bind="categoryIsFilled"></au-multiline>
+        </td>
+        <td style="width: 5.5%">
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" options.bind="controlOptions" show.bind="categoryIsFilled"></au-numeric>
+        </td>
+        <td style="width: 7%">
+            <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="satuanQuantityLoader"
+                options.bind="controlOptions" text="Name" show.bind="categoryIsFilled">
+            </au-autocomplete>
+        </td>
+        <td style="width: 7%">
+            <au-numeric value.bind="data.Price" error.bind="error.Price" options.bind="controlOptions" show.bind="categoryIsFilled"></au-numeric>
+        </td>
+        <td style="width: 7%">
+            <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="satuanPriceLoader"
+                options.bind="controlOptions" text="Name" show.bind="categoryIsFilled">
+            </au-autocomplete>
+        </td>
+        <td style="width: 5.5%">
+            <au-numeric value.bind="data.Conversion" error.bind="error.Conversion" options.bind="controlOptions" show.bind="categoryIsFilled"></au-numeric>
+        </td>
+        <td style="width: 8%">
+            <au-numeric value.bind="total" read-only.bind="disabled"></au-numeric>
+        </td>
+        <td style="width: 6%">
+            <au-numeric value.bind="data.ShippingFeePortion" error.bind="error.ShippingFeePortion" options.bind="controlOptions" show.bind="categoryIsFilled"></au-numeric>
+        </td>
+        <td style="width: 8%">
+            <au-numeric value.bind="totalShippingFee" read-only.bind="disabled"></au-numeric>
+        </td>
+        <td style="width: 6%">
+            <au-numeric value.bind="budgetQuantity" read-only.bind="disabled"></au-numeric>
+        </td>
+        <td style="width: 3%" if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(stepIndicators, $event)">-</button>
+        </td>
+    </tr>
+</template>

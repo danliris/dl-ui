@@ -21,6 +21,16 @@ export class StepItem {
     this.tdDeadline.addEventListener("click", (event) => {
       this.onItemClicked(this.step, undefined);
     });
+
+    this.selectStep = [
+      '_id', 'process',
+      'stepIndicators.name', 'stepIndicators.value',
+      'stepIndicators.uom', 'alias'
+    ];
+
+    this.selectMachine = [
+      '_id', 'code', 'name', 'monthlyCapacity'
+    ];
   }
   stepIndicatorColumns = [
     { header: "Indikator", value: "name" },

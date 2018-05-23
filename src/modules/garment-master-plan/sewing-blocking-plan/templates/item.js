@@ -27,12 +27,13 @@ export class Item {
       this.items.push(this.context.items[a].data);
     }
     
-    // console.log(this.data.code);
+    
     // console.log(this.items[this.context.items.length-1].code);
     if (this.data.unit)
       this.selectedUnit = this.data.unit;
     if (this.data.weeklyPlanYear)
       this.selectedWeeklyPlan = { year: this.data.weeklyPlanYear.toString() };
+    
     if (this.data.week) {
       if (!this.data.remainingEH) {
         this.data.remainingEH = this.data.week.remainingEH;
@@ -380,6 +381,7 @@ export class Item {
   }
 
   yearView = (week) => {
-    return week.year;
+    if(week.year)
+      return `${week.year}`
   }
 }

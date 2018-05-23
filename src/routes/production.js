@@ -353,6 +353,34 @@ module.exports = [
         }
     },
     {
+
+        route: 'production/finishing-printing/fp-retur-pro-inv-docs',
+        name: 'fp-retur-pro-inv-docs',
+        moduleId: './modules/production/finishing-printing/fp-retur-pro-inv-docs/index',
+        nav: true,
+        title: 'Bon Hasil Re-grading',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+
+        route: 'production/finishing-printing/reports/fp-regrading-result-doc-report',
+        name: 'fp-regrading-result-doc-report',
+        moduleId: './modules/production/finishing-printing/reports/fp-regrading-result-doc-report/index',
+        nav: true,
+        title: 'Laporan Bon Hasil Re-grading',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: "production/finishing-printing/materials-request-note",
         name: "production/finishing-printing/materials-request-note",
         moduleId: "./modules/production/finishing-printing/materials-request-note/index",
@@ -363,6 +391,19 @@ module.exports = [
             group: "production",
             permission: { "*": 1 },
             iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: 'production/finishing-printing/reports/materials-request-note-report',
+        name: 'materials-request-note-report',
+        moduleId: './modules/production/finishing-printing/reports/materials-request-note-report/index',
+        nav: true,
+        title: 'Laporan Surat Permintaan Barang',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
         }
     }
 ]

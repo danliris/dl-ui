@@ -1,6 +1,14 @@
 import { inject, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+
+import "bootstrap-table";
+import "bootstrap-table/dist/bootstrap-table.css";
+import "bootstrap-table/dist/locale/bootstrap-table-id-ID.js";
+
+import "./fixed-columns/bootstrap-table-fixed-columns";
+import "./fixed-columns/bootstrap-table-fixed-columns.css";
+
 var moment = require('moment');
 
 var YearLoader = require('../../../loader/garment-master-plan-weekly-plan-year-loader');
@@ -11,6 +19,19 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    
+    this.onContentResize = (e) => {
+      this.refreshOptionsTable();
+    }
+
+  }
+
+  attached() {
+    window.addEventListener("resize", this.onContentResize);
+  }
+
+  detached() {
+    window.removeEventListener("resize", this.onContentResize);
   }
 
   controlOptions = {
@@ -337,10 +358,139 @@ export class List {
 
           var same = [];
 
+          var columns = [
+            {
+              cellStyle: () => { return { classes: 'fixed' } },
+              field: 'unit', title: 'UNIT'
+            },
+            {
+              field: 'buyer', title: 'BUYER-KOMODITI', cellStyle: (value, row, index, field) => {
+                return (row["buyer"] === "TOTAL" || row["smv"] === "") ?
+                  { classes: 'fixed', css: { "font-weight": "bold" } } :
+                  { classes: 'fixed' };
+              }
+            },
+            {
+              field: 'smv', title: 'SMV<br>Sewing', cellStyle: (value, row, index, field) => {
+                return row["buyer"] === "TOTAL" ?
+                  { classes: 'fixed', css: { "font-weight": "bold" } } :
+                  { classes: 'fixed' };
+              }
+            },
+          ];
+          for (var i in this.weeklyNumbers) {
+            columns.push({
+              field: `W${this.weeklyNumbers[i]}`,
+              title: `W${this.weeklyNumbers[i]}<br>${this.weeklyEndDate[i]}`,
+              cellStyle: (value, row, index, field) => {
+                if (row["buyer"] === "Remaining EH") {
+                  return { css: { "font-weight": "bold", "background": value.value > 0 ? "#FFFF00" : value.value < 0 ? "#f62c2c" : "#52df46" } }
+                } else {
+                  return { css: value.background ? { "background": value.background } : { "font-weight": "bold" } };
+                }
+              },
+              formatter: (value, row, index, field) => {
+                return value.value;
+              }
+            });
+          };
+
+          var data = [];
+          for (var d of this.data) {
+            for (var c of d.collection) {
+              var rowData = { unit: d.units, buyer: c.name };
+              for (var i in c.quantity) {
+                if (i == 0) {
+                  rowData["smv"] = c.quantity[i];
+                } else {
+                  rowData[`W${this.weeklyNumbers[i - 1]}`] = { value: c.quantity[i] };
+                  if (c.background) {
+                    rowData[`W${this.weeklyNumbers[i - 1]}`].background = c.background[i];
+                  }
+                }
+              }
+              data.push(rowData);
+            }
+          }
+
+          var bootstrapTableOptions = {
+            columns: columns,
+            data: data,
+            fixedColumns: true,
+            fixedNumber: 3
+          };
+          if (data.length > 10) { // row > 10
+            bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
+          }
+          $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
+
+          var rowIndex = 0;
+          var unitTemp = "";
+          for (var d of this.data) {
+            for (var c of d.collection) {
+              if(unitTemp != d.units) {
+                // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "unit", rowspan: d.collection.length, colspan: 1 });
+                var $fixedTableBodyColumns = $('.fixed-table-body-columns');
+                this.mergeCells($fixedTableBodyColumns, { index : rowIndex, field: 0, rowspan: d.collection.length, colspan: 1 });
+                unitTemp = d.units;
+              }
+              rowIndex++;
+            }
+          }
 
         });
     }
   }
+
+  mergeCells($el, options) {
+    var row = options.index,
+        col = options.field,
+        rowspan = options.rowspan || 1,
+        colspan = options.colspan || 1,
+        i, j,
+        $tr = $el.find('tr'),
+        $td;
+
+    $td = $tr.eq(row).find('>td').eq(col);
+
+    for (i = row; i < row + rowspan; i++) {
+        for (j = col; j < col + colspan; j++) {
+            $tr.eq(i).find('>td').eq(j).hide();
+        }
+    }
+
+    $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
+  }
+
+  refreshOptionsTable() {
+    var bootstrapTableOptions = {
+      // columns: columns,
+      // data: data,
+      fixedColumns: true,
+      fixedNumber: 3
+    };
+    var data = $(this.table).bootstrapTable('getData');
+    if (data.length > 10) { // row > 10
+      bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
+    }
+    $(this.table).bootstrapTable('refreshOptions', bootstrapTableOptions);
+
+    var rowIndex = 0;
+    var unitTemp = "";
+    for (var d of this.data) {
+      for (var c of d.collection) {
+        if(unitTemp != d.units) {
+          // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "unit", rowspan: d.collection.length, colspan: 1 });
+          var $fixedTableBodyColumns = $('.fixed-table-body-columns');
+          this.mergeCells($fixedTableBodyColumns, { index : rowIndex, field: 0, rowspan: d.collection.length, colspan: 1 });
+          unitTemp = d.units;
+        }
+        rowIndex++;
+      }
+    }
+
+  }
+  
   ExportToExcel() {
     if (!this.year) {
       alert("Tahun Harus Diisi");
@@ -353,7 +503,6 @@ export class List {
       this.service.generateExcel(info);
     }
   }
-
 
   reset() {
     this.code = "";

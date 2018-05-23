@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-
+import moment from 'moment';
 
 @inject(Router, Service)
 export class Edit {
@@ -41,7 +41,20 @@ export class Edit {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
+    generateDueDate() {
+        let dates = [];
+
+        for (let item of this.data.items) {
+            for (let detail of item.unitReceiptNote.items) {
+                dates.push(moment(item.unitReceiptNote.date).add(detail.purchaseOrder.purchaseOrderExternal.paymentDueDays, 'days'));
+            }
+        }
+
+        return moment.min(dates);
+    }
+
     save() {
+        this.data.dueDate = this.generateDueDate();
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

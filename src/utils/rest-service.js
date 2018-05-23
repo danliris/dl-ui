@@ -147,8 +147,13 @@ export class RestService {
       .then(response => {
         if (response.status == 200)
           return Promise.resolve(response);
-        else
-          return Promise.reject(new Error('Error downloading file'));
+        else {
+          return response.json()
+            .then(result => {
+              this.publish(request);
+              return Promise.reject(new Error(result.error));
+            });
+        }
       })
       .then(response => {
         return new Promise((resolve, reject) => {

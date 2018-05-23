@@ -15,6 +15,7 @@ export class DeliveryOrderItem {
   get totalPrice() {
     return Number.isInteger(this.data.pricePerDealUnit * this.data.deliveredQuantity) ? this.data.pricePerDealUnit * this.data.deliveredQuantity : Number((this.data.pricePerDealUnit * this.data.deliveredQuantity).toFixed(2))
   }
+  
   controlOptions = {
     control: {
       length: 12

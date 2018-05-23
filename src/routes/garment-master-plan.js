@@ -13,6 +13,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-master-plan/standard-minute-value-list',
+        name: 'standard-hour',
+        moduleId: './modules/garment-master-plan/standard-hour-list/index',
+        nav: true,
+        title: 'Standard Minute Value',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-master-plan/garment-section',
         name: 'garment-section',
         moduleId: './modules/garment-master-plan/garment-section/index',
@@ -29,6 +42,19 @@ module.exports = [
         route: '/garment-master-plan/master-plan-comodity',
         name: 'master-plan-comodity',
         moduleId: './modules/garment-master-plan/master-plan-comodity/index',
+        nav: true,
+        title: 'Komoditi',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-master-plan/master-plan-comodity-list',
+        name: 'master-plan-comodity',
+        moduleId: './modules/garment-master-plan/master-plan-comodity-list/index',
         nav: true,
         title: 'Komoditi',
         auth: true,
@@ -155,7 +181,20 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
 
+    {
+        route: '/garment-master-plan/booking-orders-canceled-monitoring',
+        name: 'booking-orders-canceled-monitoring',
+        moduleId: './modules/garment-master-plan/monitoring-canceled-booking-order/index',
+        nav: true,
+        title: 'Monitoring Canceled Booking Order',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 
 ]

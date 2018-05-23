@@ -16,7 +16,7 @@ export class List {
         },
         { field: "No", title: "No Bon Pengantar" },
         {
-            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+            field: "_CreatedUtc", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

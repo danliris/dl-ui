@@ -20,6 +20,7 @@ export class View {
   }
 
   async activate(params) {
+      this.params = params;
       var id = params.id;
       this.data = await this.service.getById(id);
       var conf=false;
@@ -68,6 +69,10 @@ export class View {
       if(this.data.orderQuantity<=total){
         this.expireBooking=false;
         this.hascancelConfirm = false;
+      }
+
+      if(this.data.canceledItems && this.data.canceledItems.length > 0) {
+        this.hasEdit = false;
       }
   }
 
@@ -133,4 +138,24 @@ export class View {
           this.cancel();
         });
   }  
+
+  onitemchange(event) {
+    var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
+    
+    if(indexCanceledItem > -1) {
+      this.service.update(this.data)
+        .then(result => {
+          alert("Confirm Canceled");
+          this.hasEdit = true;
+          this.hasDelete = true;
+          this.hascancelConfirm = true;
+          this.hasConfirm = true;
+          this.activate(this.params);
+        })
+        .catch(e => {
+          this.error = e;
+          this.activate(this.params);
+        });
+    }
+  }
 }

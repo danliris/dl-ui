@@ -47,7 +47,7 @@ export class DataForm {
     }
 
     columns = [
-        { title: "Nomor PR - Nomor Referensi PR", field: "prNo" },
+        { title: "Nomor PR - No. Referensi PR - Article", field: "prNo" },
         { title: "Nomor RO", field: "roNo" },
         { title: "Barang", field: "product.name" },
         { title: "Jumlah Diminta", field: "defaultQuantity" },
@@ -61,7 +61,7 @@ export class DataForm {
     ]
 
     columns2 = [
-        { title: "Nomor PR - Nomor Referensi PR", field: "prNo" },
+        { title: "Nomor PR - No. Referensi PR - Article", field: "prNo" },
     ]
 
     // items = {
@@ -138,6 +138,7 @@ export class DataForm {
                 prId: data.prId,
                 prRefNo: data.prRefNo,
                 roNo: data.roNo,
+                artikel: data.artikel,
                 productId: data.productId,
                 product: data.product,
                 categoryId: data.categoryId,
@@ -353,6 +354,7 @@ export class DataForm {
     //                                         prId: data.prId,
     //                                         prRefNo: data.prRefNo,
     //                                         roNo: data.roNo,
+    //                                         artikel: data.artikel,
     //                                         productId: data.productId,
     //                                         product: data.product,
     //                                         categoryId: data.categoryId,

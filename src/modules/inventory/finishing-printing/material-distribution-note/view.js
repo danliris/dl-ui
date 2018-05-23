@@ -18,6 +18,15 @@ export class View {
 
         this.unit = this.data.Unit;
         this.type = this.data.Type;
+
+        for (let d of this.data.MaterialDistributionNoteItems) {
+            let exists = d.MaterialDistributionNoteDetails.find(p => p.IsCompleted === true);
+
+            if (exists) {
+                this.deleteCallback = null;
+                break;
+            }
+        }
     }
 
     list() {

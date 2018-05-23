@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
+import numeral from 'numeral';
 
 export class FooterShipment {
     activate(context) {
@@ -17,7 +18,7 @@ export class FooterShipment {
                             .map((detailItem) => {
                                 if (detailItem.packingReceiptItems instanceof Array) {
                                     var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => parseInt(packingReceiptItem.quantity));
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
@@ -32,8 +33,8 @@ export class FooterShipment {
                         return 0
                     }
                 });
-            return total
-                .reduce((prev, curr, index) => { return prev + curr }, 0);
+            return numeral(total
+                .reduce((prev, curr, index) => { return prev + curr }, 0)).format('0,000.00');
         }
         else {
             return 0
@@ -49,7 +50,7 @@ export class FooterShipment {
                             .map((detailItem) => {
                                 if (detailItem.packingReceiptItems instanceof Array) {
                                     var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => parseInt(packingReceiptItem.quantity) * parseInt(packingReceiptItem.length));
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity) * Number(packingReceiptItem.length));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
@@ -64,8 +65,8 @@ export class FooterShipment {
                         return 0
                     }
                 });
-            return total
-                .reduce((prev, curr, index) => { return prev + curr }, 0);
+            return numeral(total
+                .reduce((prev, curr, index) => { return prev + curr }, 0)).format('0,000.00');
         }
         else {
             return 0
@@ -81,7 +82,7 @@ export class FooterShipment {
                             .map((detailItem) => {
                                 if (detailItem.packingReceiptItems instanceof Array) {
                                     var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => parseInt(packingReceiptItem.quantity) * parseInt(packingReceiptItem.weight));
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity) * Number(packingReceiptItem.weight));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
@@ -96,8 +97,8 @@ export class FooterShipment {
                         return 0
                     }
                 });
-            return total
-                .reduce((prev, curr, index) => { return prev + curr }, 0);
+            return numeral(total
+                .reduce((prev, curr, index) => { return prev + curr }, 0)).format('0,000.00');
         }
         else {
             return 0

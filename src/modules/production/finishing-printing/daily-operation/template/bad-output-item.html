@@ -9,6 +9,7 @@
                 key="code"
                 text="reason" 
                 read-only.bind="(readOnly || isEdit)"
+                select.bind="selectBadOutput"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
@@ -28,6 +29,19 @@
                 options.bind="controlOptions"
                 items.bind="actionList">
             </au-dropdown>
+        </td>
+        <td>
+            <au-autocomplete 
+                value.bind="machine"
+                loader.bind="machineLoader" 
+                text="name"
+                placeholder="search Mesin Penyebab Bad Output"
+                read-only.bind="(readOnly || isEdit)"
+                error.bind="error.machine"
+                options.bind="controlOptions"
+                select.bind="selectMachine"
+                query.bind="filterMachine">
+            </au-autocomplete>
         </td>
         <td>
             <au-textbox 

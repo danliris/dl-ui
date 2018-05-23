@@ -61,8 +61,8 @@
   <td if.bind="!options.readOnly" >
     <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
   </td>
-  <td if.bind="!options.readOnly && data._type" >
-    <button class="btn btn-danger pull-right" click.delegate="oncancel(data)">Cancel Confirm</button>
+  <td if.bind="options.readOnly" >
+    <button class="btn btn-danger" click.delegate="oncancel(data)">Cancel Confirm</button>
   </td>
 </tr>
 </template>

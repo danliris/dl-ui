@@ -39,7 +39,12 @@ export class Numeric {
   attached() {
     if (this.input && this.input.element) {
       this.input.element.addEventListener("keydown", this.keydownCallback, false);
+      this.input.element.addEventListener("blur", this.onBlur, false);
     }
+  }
+
+  onBlur = () => {
+    this.value = Number((numeral(this.value).format(this.format)).replace(/,/g, ''));
   }
 
   keydownCallback(e) {
