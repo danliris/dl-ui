@@ -416,9 +416,9 @@ module.exports = [
         }
     },
     {
-        route: 'local-purchasing-book-report',
+        route: 'report/local-purchasing-book-report',
         name: 'local-purchasing-book-report',
-        moduleId: './modules/purchasing/local-purchasing-book-report/index',
+        moduleId: './modules/purchasing/reports/local-purchasing-book-report/index',
         nav: true,
         title: 'Laporan Buku Pembelian Internal',
         auth: true,

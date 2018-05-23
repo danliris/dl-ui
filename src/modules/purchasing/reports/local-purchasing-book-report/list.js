@@ -3,9 +3,9 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var CategoryLoader=require('../../../loader/category-loader');
-var UnitLoader=require('../../../loader/unit-loader');
-var UnitReceiptNoteLoader=require('../../../loader/unit-receipt-note-loader');
+var CategoryLoader=require('../../../../loader/category-loader');
+var UnitLoader=require('../../../../loader/unit-loader');
+var UnitReceiptNoteLoader=require('../../../../loader/unit-receipt-note-loader');
 
 @inject(Router, Service)
 export class List {
@@ -22,16 +22,19 @@ export class List {
     get unitLoader(){
         return UnitLoader;
     }    
-     
-    // cancelStateOption = ["","Cancel Confirm","Cancel Sisa","Expired"];
+    bind() {
+        this.reset();
+    }
+    
 
- searching() {
-     
+searching() {
+    if (false){
+        alert("");
+    } else {
     var info = {
-            no : this.no,
+            no : this.unitReceiptNote ? this.unitReceiptNote.no : "",
             category : this.category ? this.category.name : "",
             unit : this.unit ? this.unit.name : "",
-            // cancelState : this.cancelState ? this.cancelState : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -186,29 +189,35 @@ export class List {
             //         }
             //      }
             });
+    }   
             
-            
-    }
+}
     
     ExportToExcel() {
-        var info = {
-            no : this.no,
-            category : this.category ? this.category.name : "",
-            unit : this.unit ? this.unit.name : "",
-            // cancelState : this.cancelState ? this.cancelState : "",
-            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+        if (false){
+            alert("");
+        } else {
+            var filter = {
+                no : this.unitReceiptNote ? this.unitReceiptNote.no : "",
+                category : this.category ? this.category.name : "",
+                unit : this.unit ? this.unit.name : "",
+                dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            }
+        this.service.generateExcel(filter)
+            .catch(e => {
+                alert(e.replace(e, "Error: ",""))
+            });
         }
-        this.service.generateExcel(info);
     }
 
 
       reset() {
-        this.code = "";
+        this.unitReceiptNote = "";
         this.category="";
         this.unit="";
-        this.dateFrom = "";
-        this.dateTo = "";
+        this.dateFrom = new Date();
+        this.dateTo = new Date();
         
     }
 
@@ -223,19 +232,4 @@ export class List {
     unitReceiptNoteView = (unitReceiptNote) => {
         return `${unitReceiptNote.no} `
     }
-
-    // cancelStateChanged(e){
-    //     var selectedCancelState= e.srcElement.value;
-    //     this.cancelState="";
-    //     if(selectedCancelState=="Cancel Confirm"){ 
-    //         this.cancelState="Cancel Confirm";
-    //     }else if(selectedCancelState=="Cancel Sisa"){
-    //         this.cancelState="Cancel Sisa";
-    //     }else if(selectedCancelState=="Expired"){  
-    //         this.cancelState="Expired";
-    //     }
-    //     else{
-    //         this.bookingOrderState="";
-    //     }
-    // }
 }
