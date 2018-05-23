@@ -60,23 +60,23 @@ export class List {
           var dataByCategory = {};
           var subTotalCategory = {};
           for (var data of result) {
-            for (var item of data.UnitReceiptNoteItems) {
-              var Category = item.PurchaseOrder.Category.Name;
+            for (var item of data.items) {
+              var Category = item.purchaseOrder.category.name;
               if (!dataByCategory[Category]) dataByCategory[Category] = [];
               dataByCategory[Category].push({
-                Date: moment(data.Date).format("DD MMM YYYY"),
-                No: data.No,
-                Product: item.Product.Name,
-                Category: item.PurchaseOrder.Category.Name,
-                Unit: data.Unit.Name,
-                PIB: data.PIB || "-",
-                Nilai: item.PricePerDealUnit * item.DeliveredQuantity,
-                CurrencyRate: item.CurrencyRate,
-                Total: item.PricePerDealUnit * item.DeliveredQuantity * item.CurrencyRate,
+                Date: moment(data.date).format("DD MMM YYYY"),
+                No: data.no,
+                Product: item.product.name,
+                Category: item.purchaseOrder.category.name,
+                Unit: data.unit.name,
+                PIB: data.pibNo || "-",
+                Nilai: (item.pricePerDealUnit * item.deliveredQuantity).toFixed(2),
+                CurrencyRate: item.currencyRate.toFixed(2),
+                Total: Number((Number((item.pricePerDealUnit * item.deliveredQuantity).toFixed(2)) * item.currencyRate).toFixed(2)),
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
-              subTotalCategory[Category] += item.PricePerDealUnit * item.DeliveredQuantity * item.CurrencyRate;
+              subTotalCategory[Category] += Number((Number((item.pricePerDealUnit * item.deliveredQuantity).toFixed(2)) * item.currencyRate).toFixed(2));
             }
           }
 
