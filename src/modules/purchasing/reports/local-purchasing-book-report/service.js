@@ -5,7 +5,6 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 const serviceUri = 'report/local-purchasing-book-reports';
-// const HourServiceUri = 'standard-hours-by-style';
 
 export class Service extends RestService {
 
