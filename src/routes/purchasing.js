@@ -428,4 +428,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: 'unit-payment-order-not-verified-report',
+        name: 'unit-payment-order-not-verified-report',
+        moduleId: './modules/purchasing/reports/unit-payment-order-not-verified-report/index',
+        nav: true,
+        title: 'Laporan SPB Not Verified',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ]
