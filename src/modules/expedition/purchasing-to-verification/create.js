@@ -1,9 +1,9 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { PurchasingAzureService } from './service';
+import { AzureService } from './service';
 import { activationStrategy } from 'aurelia-router';
 
-@inject(Router, PurchasingAzureService)
+@inject(Router, AzureService)
 export class Create {
     controlOptions = {
         label: {
@@ -14,13 +14,18 @@ export class Create {
         },
     };
 
+    formOptions = {
+        cancelText: 'Kembali',
+        saveText: 'Simpan',
+    };
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
         this.data = {};
 
         this.collection = {
-            columns: ["No. SPB", "Tanggal SPB", "Supplier", "Divisi", "Total Bayar", "Mata Uang"],
+            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'Total Bayar', 'Mata Uang'],
             onAdd: () => {
                 this.data.UnitPaymentOrders.push({});
             },
@@ -30,28 +35,41 @@ export class Create {
     determineActivationStrategy() {
         return activationStrategy.replace;
     }
-    
+
     cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
     saveCallback(event) {
+        /*
+            let data = {
+                SubmissionDate: this.data.SubmissionDate,
+                UnitPaymentOrders: [],
+            };
+        */
+
         let data = {
-            SubmissionDate: this.data.SubmissionDate,
-            UnitPaymentOrders: []
+            UnitPaymentOrders: [],
         };
 
         for (let unitPaymentOrder of this.data.UnitPaymentOrders) {
             data.UnitPaymentOrders.push({
                 No: unitPaymentOrder.no,
-                Supplier: unitPaymentOrder.supplierName,
-                Division: unitPaymentOrder.division,
+                UPODate: unitPaymentOrder.date,
+                DueDate: unitPaymentOrder.dueDate,
+                InvoiceNo: unitPaymentOrder.invoceNo,
+                SupplierCode: unitPaymentOrder.supplierCode,
+                SupplierName: unitPaymentOrder.supplierName,
+                DivisionCode: unitPaymentOrder.divisionCode,
+                DivisionName: unitPaymentOrder.divisionName,
+                TotalPaid: unitPaymentOrder.totalPaid,
+                Currency: unitPaymentOrder.currency,
             });
         }
 
         this.service.create(data)
             .then(result => {
-                alert("Data berhasil dibuat");
+                alert('Data berhasil dibuat');
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {

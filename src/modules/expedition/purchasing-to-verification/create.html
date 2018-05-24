@@ -3,13 +3,15 @@
         table .btn-success { float: none !important; }
         .col-sm-12 { margin-top: 0px !important; }
     </style>
-    <au-input-form title="Buat Penyerahan Dokumen Pembelian ke Verifikasi">
-        <au-datepicker
-            label="Tanggal Penyerahan"
-            value.bind="data.SubmissionDate"
-            error.bind="error.SubmissionDate"
-            options.bind="controlOptions">
-        </au-datepicker>
+    <au-input-form title="Buat Penyerahan Dokumen Pembelian ke Verifikasi" options.bind="formOptions">
+        <!--
+            <au-datepicker
+                label="Tanggal Penyerahan"
+                value.bind="data.SubmissionDate"
+                error.bind="error.SubmissionDate"
+                options.bind="controlOptions">
+            </au-datepicker>
+        -->
 
         <au-textbox
             show.bind="error.UnitPaymentOrdersCollection"

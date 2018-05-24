@@ -426,5 +426,18 @@ module.exports = [
             permission: { "*": 0 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'purchase-order-external-delivery-order-duration-report',
+        name: 'purchase-order-external-delivery-order-duration-report',
+        moduleId: './modules/garment-purchasing/reports/duration-reports/purchase-order-external-delivery-order-duration-report/index',
+        nav: true,
+        title: 'Laporan Durasi PO Eksternal - Surat Jalan ',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ]

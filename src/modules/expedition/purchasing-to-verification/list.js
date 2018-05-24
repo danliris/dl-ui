@@ -1,31 +1,39 @@
 import { inject } from 'aurelia-framework';
-import { PurchasingService, PurchasingAzureService } from './service';
+import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, PurchasingService, PurchasingAzureService, Dialog)
+@inject(Router, PurchasingDocumentExpeditionService, Dialog)
 export class List {
-    context = ['Delete'];
+    context = ['Hapus'];
 
     columns = [
         { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
         {
-            field: 'Date', title: 'Tanggal SPB', formatter: function (value, data, index) {
+            field: 'UPODate', title: 'Tanggal SPB', formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             },
-            sortable: false,
         },
-        { field: 'Supplier', title: 'Supplier' },
-        { field: 'Division', title: 'Divisi' },
-        { field: 'Total', title: 'Total Bayar', sortable: false },
-        { field: 'Currency', title: 'Mata Uang', sortable: false },
+        {
+            field: 'DueDate', title: 'Tanggal Jatuh Tempo', formatter: function (value, data, index) {
+                return moment(value).format('DD MMM YYYY');
+            },
+        },
+        { field: 'InvoiceNo', title: 'Nomor Invoice' },        
+        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'DivisionName', title: 'Divisi' },
+        {
+            field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+        },
+        { field: 'Currency', title: 'Mata Uang' },
     ];
 
-    constructor(router, service, azureService, dialog) {
+    constructor(router, service, dialog) {
         this.service = service;
-        this.azureService = azureService;
         this.router = router;
         this.dialog = dialog;
     }
@@ -42,45 +50,12 @@ export class List {
             filter: JSON.stringify({ Position: 2 }), // SEND_TO_VERIFICATION_DIVISION
         };
 
-        return this.azureService.search(arg)
+        return this.service.search(arg)
             .then(result => {
-                let selectUPO = [
-                    'currency.code', 'no', 'date',
-                    'items.unitReceiptNote.items.deliveredQuantity',
-                    'items.unitReceiptNote.items.pricePerDealUnit',
-                ];
-
-                let argUPO = {
-                    page: 1,
-                    size: 25,
-                    filter: JSON.stringify({ no: { '$in': result.data.map(p => p.UnitPaymentOrderNo) } }),
-                    select: selectUPO,
-                };
-
-                return this.service.search(argUPO)
-                    .then(resultUPO => {
-                        for (let data of result.data) {
-                            let UPO = resultUPO.data.find(p => p.no === data.UnitPaymentOrderNo);
-
-                            if (UPO) {
-                                let totalPrice = 0;
-                                for (let item of UPO.items) {
-                                    for (let detail of item.unitReceiptNote.items) {
-                                        totalPrice += detail.pricePerDealUnit * detail.deliveredQuantity;
-                                    }
-                                }
-
-                                data.Date = UPO.date;
-                                data.Total = numeral(totalPrice).format('0,000.00');
-                                data.Currency = UPO.currency.code;
-                            }
-                        }
-
-                        return {
-                            total: result.info.total,
-                            data: result.data
-                        };
-                    });
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
             });
     }
 
@@ -89,11 +64,11 @@ export class List {
         let data = arg.data;
 
         switch (arg.name) {
-            case 'Delete':
+            case 'Hapus':
                 this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penyerahan Dokumen Pembelian ke Verifikasi')
                     .then(response => {
                         if (response.ok) {
-                            this.azureService.delete(data)
+                            this.service.delete(data)
                                 .then(result => {
                                     this.tableList.refresh();
                                 });

@@ -1,6 +1,6 @@
 import { bindable } from 'aurelia-framework';
+import moment from 'moment';
 import numeral from 'numeral';
-
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 
 export class Item {
@@ -9,12 +9,15 @@ export class Item {
     constructor() {
         this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
-            'division.name', 'supplier.name',
-            'currency.code', 'no', 'date',
+            'invoceNo', 'division.code', 'division.name',
+            'supplier.code', 'supplier.name',
+            'currency.code', 'no', 'date', 'dueDate',
+            'items.unitReceiptNote.date',
             'items.unitReceiptNote.items.product.name',
             'items.unitReceiptNote.items.deliveredQuantity',
             'items.unitReceiptNote.items.deliveredUom.unit',
             'items.unitReceiptNote.items.pricePerDealUnit',
+            'items.unitReceiptNote.items.purchaseOrder.purchaseOrderExternal.no',
         ];
 
         this.columns = ['Nama Barang', 'Jumlah', 'UOM', 'Harga'];
@@ -31,17 +34,7 @@ export class Item {
 
     unitPaymentOrderChanged(newV, oldV) {
         if (newV) {
-            Object.assign(this.data, {
-                no: newV.no,
-                date: newV.date,
-                supplierName: newV.supplier.name,
-                division: newV.division.name,
-                totalPrice: 0,
-                currency: newV.currency.code,
-                details: [],
-            });
-
-            let details = [], totalPrice = 0;
+            let details = [], totalPaid = 0;
             for (let item of newV.items) {
                 for (let detail of item.unitReceiptNote.items) {
                     details.push({
@@ -51,22 +44,37 @@ export class Item {
                         price: numeral(detail.pricePerDealUnit * detail.deliveredQuantity).format('0,000.00'),
                     });
 
-                    totalPrice += detail.pricePerDealUnit * detail.deliveredQuantity;
+                    totalPaid += detail.pricePerDealUnit * detail.deliveredQuantity;
                 }
             }
 
-            this.data.totalPrice = numeral(totalPrice).format('0,000.00');
-            this.data.details = details;
+            Object.assign(this.data, {
+                no: newV.no,
+                date: newV.date,
+                dueDate: newV.dueDate,
+                invoceNo: newV.invoceNo,
+                supplierCode: newV.supplier.code,
+                supplierName: newV.supplier.name,
+                divisionCode: newV.division.code,
+                divisionName: newV.division.name,
+                totalPaid: numeral(totalPaid).format('0,000.00'),
+                currency: newV.currency.code,
+                details: details,
+            });
         }
         else {
             Object.assign(this.data, {
                 no: undefined,
                 date: undefined,
+                dueDate: undefined,
+                invoceNo: undefined,
+                supplierCode: undefined,
                 supplierName: undefined,
-                division: undefined,
-                totalPrice: undefined,
+                divisionCode: undefined,
+                divisionName: undefined,
+                totalPaid: undefined,
                 currency: undefined,
-                details: []
+                details: [],
             });
         }
     }
