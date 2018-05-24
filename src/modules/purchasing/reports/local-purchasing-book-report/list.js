@@ -21,18 +21,28 @@ export class List {
           length: 5
         }
       }
+    bind() {
+        this.reset();
+    }
     get unitReceiptNoteLoader(){
         return UnitReceiptNoteLoader;
+    }
+    unitReceiptNoteView = (unitReceiptNote) => {
+        return `${unitReceiptNote.no} `
     }
     get categoryLoader(){
         return CategoryLoader;
     }
+    categoryView = (category) => {
+        return `${category.code} - ${category.name}`
+    }
     get unitLoader(){
         return UnitLoader;
-    }    
-    bind() {
-        this.reset();
-    }
+    }   
+    unitView = (unit) => {
+        return `${unit.code} - ${unit.name}`
+    } 
+    
     
 
 searching() {
@@ -46,9 +56,7 @@ searching() {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        
         this.service.search(info)
-     
             .then(result => {
                this.data=result;console.log(result);
                this.data = [];
@@ -122,15 +130,4 @@ searching() {
         
     }
 
-    categoryView = (category) => {
-        return `${category.code} - ${category.name}`
-    }
-    
-    unitView = (unit) => {
-        return `${unit.code} - ${unit.name}`
-    }
-
-    unitReceiptNoteView = (unitReceiptNote) => {
-        return `${unitReceiptNote.no} `
-    }
 }

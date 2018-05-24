@@ -29,8 +29,8 @@
             read-only.bind="readOnly" 
             options.bind="controlOptions">
         </au-autocomplete> 
-        <au-datepicker label="Dari Tanggal" value.bind="dateFrom"></au-datepicker>
-        <au-datepicker label="Sampai Tanggal" value.bind="dateTo"></au-datepicker>
+        <au-datepicker label="Dari Tanggal" value.bind="dateFrom" options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Sampai Tanggal" value.bind="dateTo" options.bind="controlOptions"></au-datepicker>
 
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -47,7 +47,7 @@
        <br>
     </br>
 
-    <div class="table-responsive">
+    <div class="table-responsive" if.bind="categories.length > 0">
         <table class="table table-bordered table-hover" border="1" id="myTable">
             <thead align="center">
                 <tr>
@@ -81,9 +81,9 @@
                     <tr class="active">
                         <td class="text-right" colspan="4"><strong>SUB TOTAL</strong></td>
                         <td>${data.Category}</td>
-                        <td>${data.Unit}</td>
-                        <td>${data.DPP}</td>
-                        <td>${data.PPN}</td>
+                        <td></td>
+                        <td>${data.subTotalDPP}</td>
+                        <td>${data.subTotalPPNPPN}</td>
                         <td class="text-center"><strong>${category.subTotal}</strong></td>
                     </tr>
                 </template>
@@ -91,8 +91,8 @@
                         <td class="text-right" colspan="4"><strong>TOTAL</strong></td>
                         <td></td>
                         <td></td>
-                        <td>${data.DPP}</td>
-                        <td>${data.PPN}</td>
+                        <td>${totalDPP}</td>
+                        <td>${totalPPN}</td>
                         <td class="text-center"><strong>${total}</strong></td>
                     </tr>
             </tbody>
