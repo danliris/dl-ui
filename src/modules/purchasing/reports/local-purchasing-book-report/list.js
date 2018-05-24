@@ -5,7 +5,7 @@ import moment from 'moment';
 
 var CategoryLoader=require('../../../../loader/category-loader');
 var UnitLoader=require('../../../../loader/unit-loader');
-var UnitReceiptNoteLoader=require('../../../../loader/unit-receipt-note-loader');
+var UnitReceiptNoteLoader=require('../../../../loader/unit-receipt-note-basic-loader');
 
 @inject(Router, Service)
 export class List {
