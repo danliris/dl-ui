@@ -58,7 +58,7 @@ searching() {
         }
         this.service.search(info)
             .then(result => {
-               this.data=result;console.log(result);
+               this.data=result;
                this.data = [];
                var dataByCategory = {};
                var subTotalCategory = {};
@@ -85,9 +85,13 @@ searching() {
      
                var categories = [];
                this.total = 0;
+               this.totalDPP = 0;
+               this.totalPPN = 0;
+               
                for (var data in dataByCategory) {
                  categories.push({
                    data: dataByCategory[data],
+                   category: dataByCategory[data][0].Category,
                    subTotalDPP: subTotalCategory[data],
                    subTotalPPN: subTotalCategory[data]*10/100,
                    subTotal: subTotalCategory[data] + (subTotalCategory[data]*10/100),
@@ -97,7 +101,6 @@ searching() {
                  this.total += subTotalCategory[data] + (subTotalCategory[data]*10/100);
                }
                this.categories = categories;
-     
              });
         }
     }

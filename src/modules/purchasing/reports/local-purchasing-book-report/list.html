@@ -80,10 +80,10 @@
                     </tr>
                     <tr class="active">
                         <td class="text-right" colspan="4"><strong>SUB TOTAL</strong></td>
-                        <td>${data.Category}</td>
+                        <td>${category.category}</td>
                         <td></td>
-                        <td>${data.subTotalDPP}</td>
-                        <td>${data.subTotalPPNPPN}</td>
+                        <td class="text-center">${category.subTotalDPP}</td>
+                        <td class="text-center">${category.subTotalPPN}</td>
                         <td class="text-center"><strong>${category.subTotal}</strong></td>
                     </tr>
                 </template>
@@ -91,8 +91,8 @@
                         <td class="text-right" colspan="4"><strong>TOTAL</strong></td>
                         <td></td>
                         <td></td>
-                        <td>${totalDPP}</td>
-                        <td>${totalPPN}</td>
+                        <td class="text-center">${totalDPP}</td>
+                        <td class="text-center">${totalPPN}</td>
                         <td class="text-center"><strong>${total}</strong></td>
                     </tr>
             </tbody>
