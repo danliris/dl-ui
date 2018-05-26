@@ -40,7 +40,7 @@ export class PurchaseOrderItem {
 
   checkIsOverBudget() {
     if (this.context.context.options.checkOverBudget) {
-      var totalDealPrice = (this.data.dealQuantity * this.price * this.kurs.rate) + this.data.budgetUsed;
+      var totalDealPrice = ((this.data.dealQuantity * this.price * this.kurs.rate) + this.data.budgetUsed).toFixed(4);
       if (totalDealPrice > this.data.totalBudget) {
         this.data.isOverBudget = true;
       } else {
