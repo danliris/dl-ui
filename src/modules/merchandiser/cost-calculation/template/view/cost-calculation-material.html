@@ -1,0 +1,22 @@
+<template>
+    <tr>
+        <td class="col-md-2">
+            <au-textbox value.bind="data.Category.FullName" options.bind="controlOptions" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td class="col-md-2">
+            <au-textbox value.bind="data.Material.Name" options.bind="controlOptions" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td class="col-md-2">
+            <au-textbox value.bind="data.Description" options.bind="controlOptions" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td class="col-md-2">
+            <au-textbox value.bind="data.QuantityInUnit" options.bind="controlOptions" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td class="col-md-2">
+            <au-textbox value.bind="data.PricePerUnit" options.bind="controlOptions" read-only.bind="readOnly"></au-textbox>
+        </td>
+        <td class="col-md-2">
+            <au-numeric value.bind="data.Total" options.bind="controlOptions" read-only.bind="readOnly"></au-numeric>
+        </td>
+    </tr>
+</template>
