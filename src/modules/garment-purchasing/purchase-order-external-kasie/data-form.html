@@ -167,8 +167,9 @@
                     label="Apakah kena Ppn?" 
                     value.bind="data.useIncomeTax" 
                     error.bind="error.useIncomeTax" 
-                    read-only.bind="readOnly"
+                    read-only.bind="true"
                     change.delegate="useIncomeTaxChanged($event)"
+                    if.bind="data.supplierId"
                     options.bind="controlOptions">
                 </au-checkbox>
                 
