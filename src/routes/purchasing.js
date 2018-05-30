@@ -402,7 +402,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
- {
+    {
         route: 'po/reports/ketepatan/staff',
         name: 'purchase-order-reports-ketepatan-staff',
         moduleId: './modules/purchasing/reports/purchase-order-report/staff-report/index',
@@ -414,5 +414,44 @@ module.exports = [
             permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PG": 7 , "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'report/local-purchasing-book-report',
+        name: 'local-purchasing-book-report',
+        moduleId: './modules/purchasing/reports/local-purchasing-book-report/index',
+        nav: true,
+        title: 'Laporan Buku Pembelian Internal',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'report/import-purchasing-book',
+        name: 'import-purchasing-book-report',
+        moduleId: './modules/purchasing/reports/import-purchasing-book/index',
+        nav: true,
+        title: 'Laporan Buku Pembelian Import',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'unit-payment-order-not-verified-report',
+        name: 'unit-payment-order-not-verified-report',
+        moduleId: './modules/purchasing/reports/unit-payment-order-not-verified-report/index',
+        nav: true,
+        title: 'Laporan SPB Not Verified',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "*": 0 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
-    ]
+]
