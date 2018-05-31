@@ -88,6 +88,12 @@
             options.bind="controlOptions">
         </au-multiline>
 
+        <au-textbox
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
+
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
