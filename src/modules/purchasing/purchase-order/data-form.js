@@ -2,7 +2,7 @@ import {inject, bindable, computedFrom} from 'aurelia-framework'
 import {Service} from './service';
 var UnitLoader = require('../../../loader/unit-loader');
 var CategoryLoader = require('../../../loader/category-loader');
-var PurchaseRequestPostedLoader = require('../../../loader/purchase-request-posted-loader');
+var PurchaseRequestPostedLoader = require('../../../loader/purchase-request-posted-azure-loader');
 var moment = require('moment');
 
 export class DataForm {
@@ -50,6 +50,7 @@ export class DataForm {
     }
 
     purchaseRequestChanged(newValue) {
+        console.log(newValue);
         this.data.purchaseRequest = newValue;
         if (this.data.purchaseRequest) {
             var _items = [];
