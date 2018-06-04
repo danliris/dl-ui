@@ -1,8 +1,6 @@
 import { Router } from "aurelia-router";
 import { inject, bindable, computedFrom, BindingEngine } from "aurelia-framework";
 
-var SizeRangeLoader  = require('../../../loader/size-range-loader');
-
 
 @inject(Router, BindingEngine)
 export class DataForm {
@@ -77,9 +75,5 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-    }
-
-    get sizeRangeLoader() {
-      return SizeRangeLoader;
     }
 }

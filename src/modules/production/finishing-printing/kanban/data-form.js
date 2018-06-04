@@ -91,7 +91,7 @@ export class DataForm {
             'processType.orderType.name', 'processType.name',
             'materialId', 'material.code', 'material.name',
             'materialConstructionId', 'materialConstruction.code',
-            'materialConstruction.name', 'yarnMaterialId', 'materialWidth',
+            'materialConstruction.name', 'yarnMaterialId',
             'yarnMaterial.code', 'yarnMaterial.name', 'handlingStandard',
             'finishWidth', 'orderType.name', 'orderType.code', 'orderTypeId',
             'details.code','details.colorRequest', 'details.colorTemplate',
@@ -102,7 +102,7 @@ export class DataForm {
         this.selectInstruction = [
             'code', 'name', 'steps._id', 'steps.process',
             'steps.stepIndicators.name', 'steps.stepIndicators.value',
-            'steps.stepIndicators.uom', 'steps.alias', 'steps.processArea'
+            'steps.stepIndicators.uom', 'steps.alias'
         ];
 
         this.selectKanban = [
@@ -112,7 +112,7 @@ export class DataForm {
             'productionOrder.orderQuantity', 'productionOrder.salesContractNo',
             'productionOrder.salesContractId', 'productionOrder.buyerId',
             'productionOrder.buyer.name', 'productionOrder.processTypeId',
-            "productionOrder.material._id", 'productionOrder.materialWidth',
+            "productionOrder.material._id",
             'productionOrder.processType.code', 'productionOrder.processType.orderTypeId',
             'productionOrder.processType.orderType.code', 'productionOrder.processType.orderType.name',
             'productionOrder.processType.name', 'productionOrder.materialId', 'productionOrder.material.code',
@@ -129,7 +129,7 @@ export class DataForm {
             'instruction.steps.stepIndicators.uom', 'instruction.steps.machine._id',
             'instruction.steps.machine.code', 'instruction.steps.machine.name',
             'instruction.steps.machine.monthlyCapacity', 'instruction.steps.processArea',
-            'instruction.steps.alias', 'instruction.steps.deadline', 'instruction.steps.processArea',
+            'instruction.steps.alias', 'instruction.steps.deadline',
             'instruction.steps.selectedIndex', 'instruction.steps.isNotDone',
             'grade', 'isComplete', 'currentStepIndex', 'currentQty', 'goodOutput',
             'badOutput', 'oldKanbanId', 'oldKanban.cart.cartNumber', 'isBadOutput',

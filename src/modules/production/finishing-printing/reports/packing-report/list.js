@@ -54,7 +54,6 @@ export class List {
                         tempData.buyerName = result.data[i].buyerName;
                         tempData.productionOrderNo = result.data[i].productionOrderNo;
                         tempData.orderType = result.data[i].orderType;
-                        tempData.finishedProductType = result.data[i].finishedProductType;
                         tempData.construction = result.data[i].construction;
                         tempData.designCode = result.data[i].designCode;
                         tempData.colorName = result.data[i].colorName;

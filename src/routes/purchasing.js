@@ -416,19 +416,6 @@ module.exports = [
         }
     },
     {
-        route: 'report/local-purchasing-book-report',
-        name: 'local-purchasing-book-report',
-        moduleId: './modules/purchasing/reports/local-purchasing-book-report/index',
-        nav: true,
-        title: 'Laporan Buku Pembelian Internal',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'report/import-purchasing-book',
         name: 'import-purchasing-book-report',
         moduleId: './modules/purchasing/reports/import-purchasing-book/index',

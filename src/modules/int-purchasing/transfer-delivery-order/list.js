@@ -18,7 +18,7 @@ export class List {
         {
             field: "DODate", title: "Tanggal DO", formatter: value => moment(value).format("DD MMM YYYY")
         },
-        { field: "SupplierName", title: "Unit Pengirim" },
+        { field: "Supplier.name", title: "Unit Pengirim" },
 
         {
             field: "items", title: "List Nomor Eksternal TO",
@@ -55,18 +55,12 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result);
-                for (var data of result.data) {
-                    console.log(data);
-                    data.SupplierName = data.name;
-                }
-                console.log(result);
+                
                 return {
                     total: result.info.total,
                     data: result.data,
                     
                 }
-                
             });
     }
 
