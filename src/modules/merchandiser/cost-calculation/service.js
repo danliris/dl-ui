@@ -1,17 +1,19 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 
-const serviceUri = '';
+const serviceUri = 'cost-calculation-garments';
 // const serviceUri = "rates";
 // const serviceUri = "efficiencies";
 
 
 
-class Service extends RestService {
+export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "md");
+        super(http, aggregator, config, "merchandiser");
     }
 
     search(info) {
@@ -63,6 +65,18 @@ class Service extends RestService {
     getEffByQty(qty) {
         var endpoint = `${serviceUri}/quantity/${qty}`;
         return super.get(endpoint);
+    }
+
+    getGarmentProducts(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garment-products';
+
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
     }
 
 };

@@ -1,9 +1,9 @@
 <template>
     <tr>
-        <td colspan.bind="11" class="text-right" style="padding-right:10%">
-            Total Material
+        <td colspan.bind="12" class="text-right" style="padding-right:10%">
+            Total Harga
         </td>
-        <td colspan.bind="2" class="text-left">
+        <td colspan.bind="5" class="text-left">
             <require from="../../../../../lib/number-format-value-converter"></require>
             ${totalMaterial | numberFormat:"0,000.00"}
         </td>
