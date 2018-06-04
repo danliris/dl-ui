@@ -70,13 +70,13 @@ export class List {
                 Category: item.purchaseOrder.category.name,
                 Unit: data.unit.name,
                 PIB: data.pibNo || "-",
-                Nilai: Math.round(item.pricePerDealUnit * item.deliveredQuantity * 100) / 100,
-                CurrencyRate: Math.round(item.currencyRate * 100) / 100,
-                Total: Math.round(item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate * 100) / 100,
+                Nilai: (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID'),
+                CurrencyRate: item.currencyRate.toLocaleString('id-ID'),
+                Total: (item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate).toLocaleString('id-ID'),
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
-              subTotalCategory[Category] += Math.round(item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate * 100) / 100;
+              subTotalCategory[Category] += (item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate);
             }
           }
 
@@ -85,10 +85,11 @@ export class List {
           for (var data in dataByCategory) {
             categories.push({
               data: dataByCategory[data],
-              subTotal: subTotalCategory[data],
+              subTotal: subTotalCategory[data].toLocaleString('id-ID'),
             });
             this.total += subTotalCategory[data];
           }
+          this.total = this.total.toLocaleString('id-ID');
           this.categories = categories;
 
         });
