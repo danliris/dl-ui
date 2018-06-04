@@ -71,14 +71,14 @@ export class DataForm {
             }
 
             this.data.remark = this.data.purchaseRequest.remark;
-            this.data.purchaseRequest.items.map((item) => {
-                var _item = {};
-                _item.product = item.product;
-                _item.defaultUom = item.product.uom;
-                _item.defaultQuantity = item.quantity;
-                _item.remark = item.remark;
-                _items.push(_item);
-            })
+            // this.data.purchaseRequest.items.map((item) => {
+            //     var _item = {};
+            //     _item.product = item.product;
+            //     _item.defaultUom = item.product.uom;
+            //     _item.defaultQuantity = item.quantity;
+            //     _item.remark = item.remark;
+            //     _items.push(_item);
+            // })
             this.data.items = _items;
 
             this.data.items.forEach(item => {
