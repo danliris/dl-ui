@@ -513,6 +513,71 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: 'line',
+        name: 'line',
+        moduleId: './modules/master/line/index',
+        nav: true,
+        title: 'Line',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'rate',
+        name: 'rate',
+        moduleId: './modules/master/rate/index',
+        nav: true,
+        title: 'Rate',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'size',
+        name: 'size',
+        moduleId: './modules/master/size/index',
+        nav: true,
+        title: 'Size',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'size-range',
+        name: 'size-range',
+        moduleId: './modules/master/size-range/index',
+        nav: true,
+        title: 'Size Range',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'efficiency',
+        name: 'efficiency',
+        moduleId: './modules/master/efficiency/index',
+        nav: true,
+        title: 'Efficiency',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 
-] 
+]
 
