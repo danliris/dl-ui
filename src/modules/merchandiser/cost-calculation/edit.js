@@ -1,9 +1,10 @@
-import { inject, bindable, Lazy } from 'aurelia-framework';
+import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
+
 @inject(Router, Service)
-export class Create {
+export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -11,18 +12,19 @@ export class Create {
         this.error = {};
     }
 
-    list() {
-        this.router.navigateToRoute('list');
+    async activate(params) {
+        var id = params.id;
+        this.data = await this.service.getById(id);
     }
 
     cancelCallback(event) {
-        this.list();
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
-    saveCallback() {
-        this.service.create(this.data)
+    saveCallback(event) {
+        this.service.update(this.data)
             .then(result => {
-                this.list();
+                this.router.navigateToRoute('view', { id: this.data.Id });
             })
             .catch(e => {
                 this.error = e;
