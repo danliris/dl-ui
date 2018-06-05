@@ -22,10 +22,14 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.data.isSplit = true;
         
+        this.data.purchaseRequest=this.data;
+
         this.data.purchaseRequest.toString = function () {
-            return `${this.no}`
+            return `${this.prNo}`
         }
         this.purchaseRequest=this.data.purchaseRequest;
+        
+        this.data.purchaseRequest.date=this.data.prDate;
         
         this.data.purchaseRequest.unit.toString = function () {
             return [this.division.name, this.name]
@@ -35,18 +39,18 @@ export class Edit {
         }
 
         this.data.purchaseRequest.category.toString = function () {
-                return [this.code, this.name]
-                    .filter((item, index) => {
-                        return item && item.toString().trim().length > 0;
-                    }).join(" - ");
-            }
+            return [this.code, this.name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
+        }
 
         this.data.items.forEach(item => {
             item.product.toString = function () {
                 return [this.code, this.name]
                     .filter((item, index) => {
                         return item && item.toString().trim().length > 0;
-                    }).join(" - ");
+                    }).join(" - ");      
             }
         })
     }

@@ -50,12 +50,18 @@ export class DataForm {
     }
 
     purchaseRequestChanged(newValue) {
-        console.log(newValue);
+        console.log(this.data)
         this.data.purchaseRequest = newValue;
         if (this.data.purchaseRequest) {
             var _items = [];
-            this.data.purchaseRequestId = this.data.purchaseRequest._id;
-
+            this.data.PRNo = this.data.purchaseRequest.no;
+            this.data.PRId = this.data.purchaseRequest._id;
+            this.data.PRDate = this.data.purchaseRequest.date;
+            this.data.category = this.data.purchaseRequest.category;
+            this.data.budget = this.data.purchaseRequest.budget;
+            this.data.unit = this.data.purchaseRequest.unit;
+            this.data.division = this.data.purchaseRequest.unit.division;
+            this.data.expectedDeliveryDate = this.data.purchaseRequest.expectedDeliveryDate;
             this.data.purchaseRequest.unit.toString = function () {
                 return [this.division.name, this.name]
                     .filter((item, index) => {
@@ -69,7 +75,6 @@ export class DataForm {
                         return item && item.toString().trim().length > 0;
                     }).join(" - ");
             }
-
             this.data.remark = this.data.purchaseRequest.remark;
             // this.data.purchaseRequest.items.map((item) => {
             //     var _item = {};
@@ -79,7 +84,7 @@ export class DataForm {
             //     _item.remark = item.remark;
             //     _items.push(_item);
             // })
-            this.data.items = _items;
+            // this.data.items = _items;
 
             this.data.items.forEach(item => {
                 item.product.toString = function () {
