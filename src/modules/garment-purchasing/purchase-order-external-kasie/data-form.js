@@ -138,6 +138,7 @@ export class DataForm {
         if (_selectedSupplier._id) {
             this.data.supplier = _selectedSupplier;
             this.data.supplierId = _selectedSupplier._id ? _selectedSupplier._id : "";
+            this.data.useIncomeTax = _selectedSupplier.useIncomeTax;
         }
     }
 

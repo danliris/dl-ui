@@ -5,6 +5,7 @@
                 <au-textbox label="Kode" value.bind="data.code" error.bind="error.code" read-only.bind="(readOnly || isEdit)"></au-textbox>
                 <au-textbox label="Nama" value.bind="data.name" error.bind="error.name" read-only.bind="readOnly"></au-textbox>
                 <au-checkbox label="Import" value.bind="data.import" error.bind="error.import" read-only.bind="readOnly"></au-checkbox>
+                <au-checkbox label="Apakah kena PPN ?" value.bind="data.useIncomeTax" error.bind="error.useIncomeTax" read-only.bind="readOnly"></au-checkbox>
                 <fieldset>
                     <legend>Legal</legend>
                     <au-textbox label="NPWP" value.bind="data.NPWP" error.bind="error.NPWP" read-only.bind="readOnly"></au-textbox>
