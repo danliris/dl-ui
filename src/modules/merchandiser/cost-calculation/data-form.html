@@ -22,7 +22,7 @@
                     text="Name" loader.bind="sizeRangeLoader"></au-datepicker>
             </div>
             <div class="col-md-3">
-                <au-dropdown label="Lead Time" value.bind="data.LeadTime" read-only.bind="readOnly" error.bind="error.LeadTime" options.bind="length4"
+                <au-dropdown label="Lead Time" value.bind="selectedLeadTime" read-only.bind="readOnly" error.bind="error.LeadTime" options.bind="length4"
                     items.bind="leadTimeList"></au-dropdown>
                 <au-numeric label="SMV Cutting" value.bind="data.SMV_Cutting" error.bind="error.SMV_Cutting" options.bind="length4"></au-numeric>
                 <au-numeric label="SMV Sewing" value.bind="data.SMV_Sewing" error.bind="error.SMV_Sewing" options.bind="length4"></au-numeric>

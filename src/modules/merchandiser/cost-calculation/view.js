@@ -33,7 +33,11 @@ export class View {
   costCalculationGarment_MaterialsInfo = {
     columns: [
       { header: "Kategori", value: "Category" },
-      { header: "Material", value: "Material" },
+      { header: "Kode Barang", value: "Product.code" },
+      { header: "Komposisi", value: "Product.composition" },
+      { header: "Konstruksi", value: "Product.construction" },
+      { header: "Yarn", value: "Product.yarn" },
+      { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
       { header: "Kuantitas", value: "Quantity" },
       { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
@@ -120,6 +124,8 @@ export class View {
     this.data.SMV_Sewing = numeral(this.data.SMV_Sewing).format();
     this.data.SMV_Finishing = numeral(this.data.SMV_Finishing).format();
     this.data.SMV_Total = numeral(this.data.SMV_Total).format();
+
+    this.data.LeadTime = `${this.data.LeadTime} hari`
   }
 
   async bind(context) {

@@ -92,121 +92,130 @@ export class DataForm {
     this.selectedRate = "USD"
   }
 
-  async bind(context) {
-    this.context = context;
-    this.data = this.context.data;
-    this.error = this.context.error;
-    this.data.SMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
-    this.data.SMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
-    this.data.SMV_Finishing = this.data.SMV_Finishing ? this.data.SMV_Finishing : 0;
-    this.quantity = this.data.Quantity ? this.data.Quantity : 1;
-    this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
-    this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
-    this.data.Risk = this.data.Risk ? this.data.Risk : 5;
-    this.imageSrc = this.data.ImageFile;
+  // async bind(context) {
+  //   this.context = context;
+  //   this.data = this.context.data;
+  //   this.error = this.context.error;
+  //   this.data.SMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
+  //   this.data.SMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
+  //   this.data.SMV_Finishing = this.data.SMV_Finishing ? this.data.SMV_Finishing : 0;
+  //   this.quantity = this.data.Quantity ? this.data.Quantity : 1;
+  //   this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
+  //   this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
+  //   this.data.Risk = this.data.Risk ? this.data.Risk : 5;
+  //   this.imageSrc = this.data.ImageFile;
 
-    let promises = [];
+  //   let promises = [];
 
-    let wage;
-    if (this.data.Wage) {
-      wage = new Promise((resolve, reject) => {
-        resolve(this.data.Wage);
-      });
-    } else {
-      this.data.Wage = this.defaultRate;
-      wage = this.rateService.search({ keyword: "OL" }).then(results => {
-        let result = results.data[0] ? results.data[0] : this.defaultRate;
-        result.Value = numeral(
-          numeral(result.Value).format(rateNumberFormat)
-        ).value();
-        return result;
-      });
-    }
-    promises.push(wage);
+  //   let wage;
+  //   if (this.data.Wage) {
+  //     wage = new Promise((resolve, reject) => {
+  //       resolve(this.data.Wage);
+  //     });
+  //   } else {
+  //     this.data.Wage = this.defaultRate;
+  //     wage = this.rateService.search({ keyword: "OL" }).then(results => {
+  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
+  //       result.Value = numeral(
+  //         numeral(result.Value).format(rateNumberFormat)
+  //       ).value();
+  //       return result;
+  //     });
+  //   }
+  //   promises.push(wage);
 
-    let THR;
-    if (this.data.THR) {
-      THR = new Promise((resolve, reject) => {
-        resolve(this.data.THR);
-      });
-    } else {
-      this.data.THR = this.defaultRate;
-      THR = this.rateService.search({ keyword: "THR" }).then(results => {
-        let result = results.data[0] ? results.data[0] : this.defaultRate;
-        result.Value = numeral(
-          numeral(result.Value).format(rateNumberFormat)
-        ).value();
-        return result;
-      });
-    }
-    promises.push(THR);
+  //   let THR;
+  //   if (this.data.THR) {
+  //     THR = new Promise((resolve, reject) => {
+  //       resolve(this.data.THR);
+  //     });
+  //   } else {
+  //     this.data.THR = this.defaultRate;
+  //     THR = this.rateService.search({ keyword: "THR" }).then(results => {
+  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
+  //       result.Value = numeral(
+  //         numeral(result.Value).format(rateNumberFormat)
+  //       ).value();
+  //       return result;
+  //     });
+  //   }
+  //   promises.push(THR);
 
-    let rate;
-    if (this.data.Rate) {
-      rate = new Promise((resolve, reject) => {
-        resolve(this.data.Rate);
-      });
-    } else {
-      this.data.Rate = this.defaultRate;
-      rate = this.rateService.search({ keyword: "USD" }).then(results => {
-        let result = results.data[0] ? results.data[0] : this.defaultRate;
-        result.Value = numeral(
-          numeral(result.Value).format(rateNumberFormat)
-        ).value();
-        return result;
-      });
-    }
-    promises.push(rate);
+  //   let rate;
+  //   if (this.data.Rate) {
+  //     rate = new Promise((resolve, reject) => {
+  //       resolve(this.data.Rate);
+  //     });
+  //   } else {
+  //     this.data.Rate = this.defaultRate;
+  //     rate = this.rateService.search({ keyword: "USD" }).then(results => {
+  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
+  //       result.Value = numeral(
+  //         numeral(result.Value).format(rateNumberFormat)
+  //       ).value();
+  //       return result;
+  //     });
+  //   }
+  //   promises.push(rate);
 
-    let OTL1;
-    if (this.data.OTL1) {
-      OTL1 = new Promise((resolve, reject) => {
-        resolve(this.data.OTL1);
-      });
-    } else {
-      this.data.OTL1 = this.defaultRate;
-      OTL1 = this.rateService.search({ keyword: "OTL 1" }).then(results => {
-        let result = results.data[0] ? results.data[0] : this.defaultRate;
-        return result;
-      });
-    }
-    promises.push(OTL1);
+  //   let OTL1;
+  //   if (this.data.OTL1) {
+  //     OTL1 = new Promise((resolve, reject) => {
+  //       resolve(this.data.OTL1);
+  //     });
+  //   } else {
+  //     this.data.OTL1 = this.defaultRate;
+  //     OTL1 = this.rateService.search({ keyword: "OTL 1" }).then(results => {
+  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
+  //       return result;
+  //     });
+  //   }
+  //   promises.push(OTL1);
 
-    let OTL2;
-    if (this.data.OTL2) {
-      OTL2 = new Promise((resolve, reject) => {
-        resolve(this.data.OTL2);
-      });
-    } else {
-      this.data.OTL2 = this.defaultRate;
-      OTL2 = this.rateService.search({ keyword: "OTL 2" }).then(results => {
-        let result = results.data[0] ? results.data[0] : this.defaultRate;
-        return result;
-      });
-    }
-    promises.push(OTL2);
+  //   let OTL2;
+  //   if (this.data.OTL2) {
+  //     OTL2 = new Promise((resolve, reject) => {
+  //       resolve(this.data.OTL2);
+  //     });
+  //   } else {
+  //     this.data.OTL2 = this.defaultRate;
+  //     OTL2 = this.rateService.search({ keyword: "OTL 2" }).then(results => {
+  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
+  //       return result;
+  //     });
+  //   }
+  //   promises.push(OTL2);
 
-    let all = await Promise.all(promises);
-    this.data.Wage = all[0];
-    this.data.THR = all[1];
-    this.RateDollar = all[2];
-    this.data.OTL1 = all[3];
-    this.data.OTL2 = all[4];
-    this.selectedRate = this.data.Rate ? this.radio.Dollar : this.radio.Rupiah;
-    if (this.data.CostCalculationGarment_Materials) {
-      this.data.CostCalculationGarment_Materials.forEach(item => {
-        item.QuantityOrder = this.data.Quantity;
-        item.FabricAllowance = this.data.FabricAllowance;
-        item.AccessoriesAllowance = this.data.AccessoriesAllowance;
-        item.Rate = this.data.Rate;
-      });
-    }
-  }
+  //   let all = await Promise.all(promises);
+  //   this.data.Wage = all[0];
+  //   this.data.THR = all[1];
+  //   this.RateDollar = all[2];
+  //   this.data.OTL1 = all[3];
+  //   this.data.OTL2 = all[4];
+  //   this.selectedRate = this.data.Rate ? this.radio.Dollar : this.radio.Rupiah;
+  //   if (this.data.CostCalculationGarment_Materials) {
+  //     this.data.CostCalculationGarment_Materials.forEach(item => {
+  //       item.QuantityOrder = this.data.Quantity;
+  //       item.FabricAllowance = this.data.FabricAllowance;
+  //       item.AccessoriesAllowance = this.data.AccessoriesAllowance;
+  //       item.Rate = this.data.Rate;
+  //     });
+  //   }
+  // }
 
   get sizeRangeLoader() {
     return SizeRangeLoader;
   }
 
+  @bindable selectedLeadTime = "";
+  selectedLeadTimeChanged(newVal, oldVal) {
+    if (newVal = "30 hari")
+      this.data.LeadTime = 30;
+    else if (newVal = "45 hari")
+      this.data.LeadTime = 45;
+    else
+      this.data.LeadTime = 0;
+  }
 
   @bindable imageUpload;
   @bindable imageSrc;
@@ -252,6 +261,7 @@ export class DataForm {
     this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
     this.data.Risk = this.data.Risk ? this.data.Risk : 5;
     this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "#") : "#";
+    this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
 
     let promises = [];
 
@@ -460,6 +470,8 @@ export class DataForm {
     this.data.FreightCost = numeral(freightCost).value();
     return freightCost;
   }
+
+
 
   get NETFOBP() {
     let allMaterialCost = 0;

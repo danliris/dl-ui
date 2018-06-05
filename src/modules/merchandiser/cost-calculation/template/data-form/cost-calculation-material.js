@@ -5,11 +5,12 @@ numeral.defaultFormat("0,0.00");
 const GarmentProductLoader = require('../../../../../loader/garment-product-loader');
 const GarmentCategoryLoader = require('../../../../../loader/garment-category-loader');
 import { Service } from '../../service';
+import { ServiceCore } from '../../service-core';
 
 // const materialLoader = require('../../../../../loader/material-md-loader');
 const UomLoader = require('../../../../../loader/uom-loader');
 
-@inject(Dialog, Service)
+@inject(Dialog, Service, ServiceCore)
 export class CostCalculationMaterial {
 
     controlOptions = {
@@ -18,9 +19,10 @@ export class CostCalculationMaterial {
         }
     };
 
-    constructor(dialog, service) {
+    constructor(dialog, service, serviceCore) {
         this.dialog = dialog;
         this.service = service;
+        this.serviceCore = serviceCore
     }
 
     activate(context) {
@@ -35,41 +37,38 @@ export class CostCalculationMaterial {
         // console.log(this.data);
 
         if (this.data.Category) {
-            this.selectedCategory = {
-                code: this.data.Category.Code,
-                name: this.data.Category.Name
-            };
-            this.categoryIsExist = true;
+            this.selectedCategory = this.data.Category;
+            this.categoryIsExist = this.data.Category.name.toUpperCase() == "FABRIC" ? true : false;
         }
 
         if (this.data.Product) {
             if (this.data.Product.code) {
                 this.productCode = this.data.Product.code;
+                this.productCodeIsExist = true;
             }
             if (this.data.Product.composition) {
                 this.data.Product.description = this.data.Product.composition;
+                this.compositionIsExist = true;
+                this.selectedComposition = Object.assign({}, this.data.Product);
             }
 
             this.data.Product.properties = [];
             if (this.data.Product.construction) {
                 this.data.Product.properties.push(this.data.Product.construction);
+                this.constructionIsExist = true;
+                this.selectedConstruction = Object.assign({}, this.data.Product);
             }
 
             if (this.data.Product.yarn) {
                 this.data.Product.properties.push(this.data.Product.yarn);
+                this.yarnIsExist = true;
+                this.selectedYarn = Object.assign({}, this.data.Product);
             }
 
             if (this.data.Product.width) {
                 this.data.Product.properties.push(this.data.Product.width);
+                this.selectedWidth = Object.assign({}, this.data.Product);
             }
-
-            this.compositionIsExist = true;
-            this.constructionIsExist = true;
-            this.yarnIsExist = true;
-            this.selectedComposition = Object.assign({}, this.data.Product);
-            this.selectedConstruction = Object.assign({}, this.data.Product);
-            this.selectedYarn = Object.assign({}, this.data.Product);
-            this.selectedWidth = Object.assign({}, this.data.Product);
         }
     }
 
@@ -80,16 +79,21 @@ export class CostCalculationMaterial {
     // @bindable productCode = "Test";
     @bindable selectedCategory;
     @bindable categoryIsExist = false;
-    selectedCategoryChanged(newVal, oldVal) {
+    async selectedCategoryChanged(newVal, oldVal) {
+        this.data.Category = newVal;        
         if (newVal) {
-            this.data.Category = {
-                Code: newVal.code,
-                Name: newVal.name
-            }
             this.selectedComposition = null;
-            this.categoryIsExist = true;
+            this.data.Desription = "";
+            this.data.Quantity = 0;
+            this.data.UOMQuantity = null;
+            this.data.Price = 0;
+            this.data.UOMPrice = null;
+            this.data.Conversion = 0;
+            this.data.ShippingFeePortion = 0;
+
             // this.productCode = "Change";
-            if (this.data.Category.Name.toUpperCase() === "FABRIC") {
+            if (this.data.Category.name.toUpperCase() === "FABRIC") {
+                this.categoryIsExist = true;                
                 this.dialog.prompt("Apakah fabric ini menggunakan harga CMT?", "Detail Fabric Material")
                     .then(response => {
                         if (response == "ok") {
@@ -97,10 +101,14 @@ export class CostCalculationMaterial {
                         }
                         this.data.showDialog = false;
                     });
+            } else {
+                this.categoryIsExist = false;
+                this.data.Product = await this.serviceCore.getByName(newVal.name);
+                this.productCode = this.data.Product ? this.data.Product.code : "";
             }
         } else if (!newVal) {
             this.selectedComposition = null;
-            this.categoryIsExist = true;
+            this.categoryIsExist = false;
         }
     }
 
@@ -146,9 +154,17 @@ export class CostCalculationMaterial {
         }
     }
 
-    @bindable selectedWidth;
     @bindable productCode = "";
-    // @bindable productCode;
+    productCodeIsExist = false;
+    productCodeChanged(newVal, oldVal) {
+        if (newVal) {
+            this.productCodeIsExist = true;
+        } else {
+            this.productCodeIsExist = false;
+        }
+    }
+
+    @bindable selectedWidth;
     selectedWidthChanged(newVal, oldVal) {
         this.data.Product = newVal;
         if (newVal) {
@@ -269,9 +285,9 @@ export class CostCalculationMaterial {
     get budgetQuantity() {
         let allowance = 0;
         if (this.data.Category) {
-            if (this.data.Category.Name.toUpperCase() === "FABRIC") {
+            if (this.data.Category.name.toUpperCase() === "FABRIC") {
                 allowance = this.data.FabricAllowance / 100;
-            } else if (this.data.Category.Name.toUpperCase() === "ACC") {
+            } else if (this.data.Category.name.toUpperCase() === "ACC") {
                 allowance = this.data.AccessoriesAllowance / 100;
             }
         }

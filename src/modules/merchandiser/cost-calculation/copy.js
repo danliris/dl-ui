@@ -14,16 +14,16 @@ export class Copy {
   async activate(params) {
     this.id = params.id;
     this.data = await this.service.getById(this.id);
+    console.log(this.data)
     this.clearDataProperties();
-    this.getLineWithCode();
+    // this.getLineWithCode();
   }
 
   clearDataProperties() {
     [
       "Id",
       "Code",
-      "RO",
-      "RO_SerialNumber",
+      "RO_Number",
       "ImagePath",
       "RO_RetailId",
       "_IsDeleted",
@@ -33,7 +33,8 @@ export class Copy {
       "_CreatedAgent",
       "_LastModifiedUtc",
       "_LastModifiedBy",
-      "_LastModifiedAgent"
+      "_LastModifiedAgent",
+      "Article"
     ].forEach(prop => delete this.data[prop]);
     this.data.CostCalculationGarment_Materials.forEach(ccm => {
       [
@@ -53,12 +54,12 @@ export class Copy {
     });
   }
 
-  async getLineWithCode() {
-    if (!this.data.Line.Code) {
-      const line = await this.service.getLineById(this.data.Line.Id);
-      this.data.Line = line ? line : null;
-    }
-  }
+  // async getLineWithCode() {
+  //   if (!this.data.Line.Code) {
+  //     const line = await this.service.getLineById(this.data.Line.Id);
+  //     this.data.Line = line ? line : null;
+  //   }
+  // }
 
   list() {
     this.router.navigateToRoute("list");
