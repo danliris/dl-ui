@@ -167,7 +167,7 @@ export class DataForm {
     let all = await Promise.all(promises);
     this.data.Wage = all[0];
     this.data.THR = all[1];
-    this.RateDollar = all[2];
+    this.data.Rate = all[2];
     
     // this.selectedRate = this.data.Rate ? this.data.Rate.Name : "";
     if (this.data.CostCalculationGarment_Materials) {
@@ -346,6 +346,9 @@ export class DataForm {
 
   @computedFrom('data.ConfirmPrice', 'data.Rate', 'data.CommissionRate')
   get NETFOB() {
+    console.log(this.data.ConfirmPrice);
+    console.log(this.data.Rate.Value);
+    console.log(this.data.CommissionRate);
     let NETFOB = this.data.ConfirmPrice * this.data.Rate.Value - this.data.CommissionRate;
     NETFOB = numeral(NETFOB).format();
     this.data.NETFOB = numeral(NETFOB).value();
