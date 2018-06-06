@@ -8,8 +8,8 @@
     <div class="row" if.bind="!readOnly">
       <div class="col-md-6">
         <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationGarment" error.bind="error.CostCalculationGarment"
-          loader.one-time="costCalculationGarmentLoader" query.bind="filterCostCalculationGarment" options.bind="length4" key="Code"
-          text="RO" read-only.bind="readOnly || isEdit"></au-autocomplete>
+          loader.one-time="costCalculationGarmentLoader" query.bind="filterCostCalculationGarment" options.bind="length4"
+          text="RO_Number" read-only.bind="readOnly || isEdit"></au-autocomplete>
         <au-textbox label="Description" value.bind="data.CostCalculationGarment.Description" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
       </div>
