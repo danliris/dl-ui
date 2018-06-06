@@ -13,7 +13,7 @@
         </td>
         <td class="col-sm-2">
                 <au-numeric 
-                    value.bind="data.defaultQuantity" 
+                    value.bind="data.quantity" 
                     error.bind="error.defaultQuantity"
                     read-only.bind="options.readOnly" 
                     options.bind="controlOptions">
@@ -21,7 +21,7 @@
         </td>
         <td style="text-align:center;" class="col-sm-2">
                 <au-textbox 
-                    value.bind="data.defaultUom.unit" 
+                    value.bind="data.product.uom.unit" 
                     read-only.bind="true" 
                     options.bind="controlOptions">
                 </au-textbox>

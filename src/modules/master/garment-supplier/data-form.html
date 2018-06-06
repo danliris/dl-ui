@@ -27,6 +27,13 @@
         read-only.bind="readOnly"
       ></au-checkbox>
 
+      <au-checkbox        
+        label="Apakah Kena PPN ?"          
+        value.bind="data.useIncomeTax"        
+        error.bind="error.useIncomeTax"       
+        read-only.bind="readOnly"
+      ></au-checkbox>
+
       <fieldset>
         <legend>Legal</legend>
           <au-textbox 
