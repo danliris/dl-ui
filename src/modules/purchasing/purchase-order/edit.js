@@ -78,9 +78,9 @@ export class Edit {
     copyForSplit(purchaseOrder) {
         var newPurchaseOrder = Object.assign({}, purchaseOrder);
         delete newPurchaseOrder._id;
-
         newPurchaseOrder.sourcePurchaseOrderId = purchaseOrder._id;
         newPurchaseOrder.sourcePurchaseOrder = Object.assign({}, purchaseOrder);
+        console.log(newPurchaseOrder);
         return newPurchaseOrder;
     }
 }

@@ -7,6 +7,7 @@ import moment from 'moment';
 export class List {
 
     rowFormatter(data, index) {
+        console.log(data);
         if (data.isPosted)
             return { classes: "success" }
         else
@@ -15,23 +16,23 @@ export class List {
     context = ["Rincian"]
 
     columns = [
-        { field: "DivisionName", title: "Divisi" },
-        { field: "UnitName", title: "Unit" },
-        { field: "CategoryName", title: "Kategori" },
-        { field: "PRNo", title: "No. PR" },
+        { field: "unit.division.name", title: "Divisi" },
+        { field: "unit.name", title: "Unit" },
+        { field: "category.name", title: "Kategori" },
+        { field: "prNo", title: "No. PR" },
         {
-            field: "PRDate", title: "Tgl. PR", formatter: function (value, data, index) {
+            field: "prDate", title: "Tgl. PR", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "ExpectedDeliveryDate", title: "Tgl. Diminta Datang", formatter: function (value, data, index) {
+            field: "expectedDeliveryDate", title: "Tgl. Diminta Datang", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "CreatedBy", title: "Staff Pembelian" },
         {
-            field: "IsPosted", title: "Posted",
+            field: "isPosted", title: "Posted",
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
