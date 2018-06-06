@@ -20,8 +20,11 @@ export class DataForm {
   }
   CCG_M_FabricInfo = {
     columns: [
-      { header: "Fabric", value: "Category" },
-      { header: "Name", value: "Material" },
+      { header: "Product Code" },
+      { header: "Composition" },
+      { header: "Construction" },
+      { header: "Yarn" },
+      { header: "Width" },
       { header: "Description", value: "Description" },
       { header: "Quantity", value: "Quantity" },
       { header: "Remark", value: "Information" }
@@ -29,7 +32,11 @@ export class DataForm {
   }
   CCG_M_AccessoriesInfo = {
     columns: [
-      { header: "Accessories  ", value: "Category" },
+      { header: "Product Code" },
+      { header: "Composition" },
+      { header: "Construction" },
+      { header: "Yarn" },
+      { header: "Width" },
       { header: "Name", value: "Material" },
       { header: "Description", value: "Description" },
       { header: "Quantity", value: "Quantity" },
@@ -38,7 +45,11 @@ export class DataForm {
   }
   CCG_M_RateInfo = {
     columns: [
-      { header: "Ongkos", value: "Category" },
+      { header: "Product Code" },
+      { header: "Composition" },
+      { header: "Construction" },
+      { header: "Yarn" },
+      { header: "Width" },
       { header: "Name", value: "Material" },
       { header: "Description", value: "Description" },
       { header: "Quantity", value: "Quantity" },
