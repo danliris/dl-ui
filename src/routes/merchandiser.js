@@ -4,7 +4,7 @@ module.exports = [
         name: 'cost-calculation',
         moduleId: './modules/merchandiser/cost-calculation/index',
         nav: true,
-        title: 'Cost Calculation',
+        title: 'Cost Calculation Export Garment',
         auth: true,
         settings: {
             group: "merchandiser",

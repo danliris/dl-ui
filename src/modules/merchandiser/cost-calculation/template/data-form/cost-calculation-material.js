@@ -287,7 +287,7 @@ export class CostCalculationMaterial {
         if (this.data.Category) {
             if (this.data.Category.name.toUpperCase() === "FABRIC") {
                 allowance = this.data.FabricAllowance / 100;
-            } else if (this.data.Category.name.toUpperCase() === "ACC") {
+            } else {
                 allowance = this.data.AccessoriesAllowance / 100;
             }
         }
