@@ -50,15 +50,15 @@
         </au-collection>
       </div>
       <div class="row" show.bind="hasCCG_M_Accessories">
-        <au-collection title="Accessories" items.bind="CCG_M_Accessories" columns.bind="CCG_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
+        <au-collection title="Accessories Dan Lain-Lain" items.bind="CCG_M_Accessories" columns.bind="CCG_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
           read-only.bind="readOnly">
         </au-collection>
       </div>
-      <div class="row" show.bind="hasCCG_M_Rate">
+      <!-- <div class="row" show.bind="hasCCG_M_Rate">
         <au-collection title="Ongkos" items.bind="CCG_M_Rate" columns.bind="CCG_M_RateInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
           read-only.bind="readOnly">
         </au-collection>
-      </div>
+      </div> -->
     </div>
     <div class="col-md-2" if.bind="hasCostCalculationGarment">
       <img src.bind="data.CostCalculationGarment.ImageFile || 'https://bateeqstorage.blob.core.windows.net/other/no-image.jpg'"
