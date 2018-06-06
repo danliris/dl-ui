@@ -29,6 +29,7 @@ export class Create {
     }
 
     save(event) {
+        console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
