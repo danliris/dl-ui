@@ -9,7 +9,7 @@ numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
 
 var SizeRangeLoader = require('../../../loader/size-range-loader');
-var BuyersLoader = require('../../../loader/buyers-loader');
+var BuyersLoader = require('../../../loader/garment-buyers-loader');
 var MasterPlanComodityLoader = require('../../../loader/garment-master-plan-comodity-loader');
 
 @inject(Router, BindingEngine, ServiceEffeciency, RateService)
