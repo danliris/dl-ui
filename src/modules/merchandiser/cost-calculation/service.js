@@ -80,6 +80,16 @@ export class Service extends RestService {
             });
     }
 
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
+
+    getBudgetById(id) {
+        var endpoint = `${serviceUri}/budget/${id}`;
+        return super.getPdf(endpoint);
+    }
+
 };
 
 
