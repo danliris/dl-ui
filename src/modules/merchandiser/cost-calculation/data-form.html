@@ -4,11 +4,12 @@
             <div class="col-md-3">
                 <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"
                     read-only.bind="isEdit"></au-textbox>
-                <au-dropdown label="Konveksi" value.bind="data.Convection" error.bind="error.Convection" read-only.bind="readOnly" placeholder="pilih konveksi"
+                <au-dropdown label="Konveksi" value.bind="selectedConvection" error.bind="error.Convection" read-only.bind="readOnly" placeholder="pilih konveksi"
                     items.bind="convectionsList" options.bind="length4"></au-dropdown>
-                <au-textbox label="Komoditi" placeholder="Nama Komoditi" value.bind="data.Commodity" error.bind="error.Commodity" options.bind="length4"></au-textbox>
-                <au-textbox placeholder="Deskripsi Komoditi" label="Deskripsi Komoditi" value.bind="data.ComodityDescription" error.bind="error.ComodityDescription"
-                    options.bind="length4"></au-textbox>
+                <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="data.Commodity" error.bind="error.Commodity" loader.one-time="masterPlanComodityLoader"
+                    options.bind="length4" key="name" text="name"></au-autocomplete>
+                <au-multiline placeholder="Deskripsi Komoditi" label="Deskripsi Komoditi" value.bind="data.CommodityDescription" error.bind="error.CommodityDescription"
+                    options.bind="length4"></au-multiline>
                 <au-numeric label="Fabric (%)" value.bind="fabricAllowance" error.bind="error.FabricAllowance" options.bind="length4"></au-numeric>
                 <au-numeric label="Accessories (%)" value.bind="accessoriesAllowance" error.bind="error.AccessoriesAllowance" options.bind="length4"></au-numeric>
             </div>
