@@ -107,7 +107,6 @@ export class DataForm {
 
   async bind(context) {
     this.context = context;
-    console.log(this.context);
     this.data = this.context.data;
     this.error = this.context.error;
     this.selectedSMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;

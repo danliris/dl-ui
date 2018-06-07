@@ -38,8 +38,6 @@ export class CostCalculationMaterial {
         this.data.showDialog = this.data.showDialog === undefined ? (this.data.Category === undefined ? true : false) : (this.data.showDialog === true ? true : false);
         this.data.isFabricCM = this.data.isFabricCM ? this.data.isFabricCM : false;
 
-        console.log(this.data);
-
         if (this.data.Category) {
             this.selectedCategory = this.data.Category;
             this.categoryIsExist = this.data.Category.name.toUpperCase() == "FABRIC" ? true : false;
@@ -126,7 +124,6 @@ export class CostCalculationMaterial {
                 this.productCode = this.data.Product ? this.data.Product.code : "";
 
                 this.data.Price = this.calculateProcessPrice();
-                console.log(this.data.Price)
 
             } else {
                 this.categoryIsExist = false;
@@ -248,26 +245,10 @@ export class CostCalculationMaterial {
         return await this.garmentProductLoader('', this.filterProductQuery);
     }
 
-
-    // get materialLoader() {
-    //     return materialLoader;
-    // }
-
-    // @computedFrom('data.Category')
-    // get filterMaterial() {
-    //     return { "CategoryId": this.data.Category ? this.data.Category.Id : 0 }
-    // }
-
-    // get garmentProductLoader() {
-    //     return GarmentProductLoader;
-    // }
-
     get garmentProductLoader() {
         return (keyword) => {
-            // console.log
             var filter = "";
 
-            // filter = JSON.stringify({ "description": "100% COTTON" });
             if (this.selectedCategory && this.selectedCategory.name) {
                 if (this.selectedComposition && this.selectedComposition.description) {
                     if (this.selectedConstruction && this.selectedConstruction.properties && this.selectedConstruction.properties.length > 0) {
