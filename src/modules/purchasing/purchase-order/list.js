@@ -70,7 +70,7 @@ export class List {
         
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data.Id });
+                this.router.navigateToRoute('view', { id: data._id });
                 break;
         }
     }

@@ -26,15 +26,17 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
-    split(data) {
-        var endpoint = `purchase-orders/split/${data._id}`;
-        console.log(endpoint);
+    spliting(id, data) {
+        var endpoint = `internal-purchase-orders/spliting/${id}`;
+        console.log(id);
+        console.log(data);
         return super.post(endpoint, data);
     }
 
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
-        return super.put(endpoint, data);
+        console.log(data);
+        return super.put(endpoint);
     }
 
     delete(data) {
