@@ -16,7 +16,15 @@
             <div class="col-md-3">
                 <au-dropdown label="Seksi" value.bind="data.Section" read-only.bind="readOnly" placeholder="pilih seksi" items.bind="sectionsList"
                     options.bind="length4"></au-dropdown>
-                <au-numeric label="Quantity" format="0" value.bind="quantity" error.bind="error.Quantity" options.bind="length4"></au-numeric>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <au-numeric label="Quantity" format="0" value.bind="quantity" error.bind="error.Quantity" options.bind="length6"></au-numeric>
+                    </div>
+                    <div class="col-sm-4">
+                        <au-autocomplete label="Satuan" placeholder="Cari Satuan" value.bind="data.UOM" error.bind="error.UOM" loader.one-time="uomLoader"
+                        options.bind="length4" key="unit" text="unit"></au-autocomplete>
+                    </div>
+                </div>
                 <au-textbox placeholder="Size Range" label="Size Range" value.bind="data.SizeRange" error.bind="error.SizeRange" options.bind="length4"></au-textbox>
                 <au-datepicker label="Delivery Date" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" options.bind="length4"></au-datepicker>
                 <au-datepicker label="Confirm Date" value.bind="data.ConfirmDate" error.bind="error.ConfirmDate" options.bind="length4" key="Code"
@@ -25,9 +33,9 @@
             <div class="col-md-3">
                 <au-dropdown label="Lead Time" value.bind="selectedLeadTime" read-only.bind="readOnly" error.bind="error.LeadTime" options.bind="length4"
                     items.bind="leadTimeList"></au-dropdown>
-                <au-numeric label="SMV Cutting" value.bind="data.SMV_Cutting" error.bind="error.SMV_Cutting" options.bind="length4"></au-numeric>
-                <au-numeric label="SMV Sewing" value.bind="data.SMV_Sewing" error.bind="error.SMV_Sewing" options.bind="length4"></au-numeric>
-                <au-numeric label="SMV Finishing" value.bind="data.SMV_Finishing" error.bind="error.SMV_Finishing" options.bind="length4"></au-numeric>
+                <au-numeric label="SMV Cutting" value.bind="selectedSMV_Cutting" error.bind="error.SMV_Cutting" options.bind="length4"></au-numeric>
+                <au-numeric label="SMV Sewing" value.bind="selectedSMV_Sewing" error.bind="error.SMV_Sewing" options.bind="length4"></au-numeric>
+                <au-numeric label="SMV Finishing" value.bind="selectedSMV_Finishing" error.bind="error.SMV_Finishing" options.bind="length4"></au-numeric>
                 <au-numeric label="SMV Total" value.bind="SMV_Total" options.bind="length4" read-only="disabled"></au-numeric>
             </div>
             <div class="col-md-3">
@@ -60,7 +68,7 @@
         <span class="help-block" style="color:#dd4b39;" if.bind="hasError">${error.CostCalculationGarment_MaterialTable}</span>
         <div class="row">
             <div class="col-md-12">
-                <au-collection items.bind="data.CostCalculationGarment_Materials" errors.bind="error.CostCalculationGarment_Materials" columns.bind="costCalculationGarment_MaterialsInfo.columns"
+                <au-collection view-model.ref="itemsCollection" items.bind="data.CostCalculationGarment_Materials" errors.bind="error.CostCalculationGarment_Materials" columns.bind="costCalculationGarment_MaterialsInfo.columns"
                     add.bind="costCalculationGarment_MaterialsInfo.onAdd" remove.bind="costCalculationGarment_MaterialsInfo.onRemove"
                     options.bind="costCalculationGarment_MaterialsInfo.options" item-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material"
                     footer-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material-footer">
