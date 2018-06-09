@@ -2,6 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
+var UnitLoader = require('../../../loader/unit-loader');
 var VatLoader = require('../../../loader/vat-loader');
 
 @containerless()
@@ -14,6 +15,7 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedCurrency;
     @bindable selectedVat;
+    @bindable selectedUnit;
     @bindable options = { isUseIncomeTax: false };
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
@@ -41,11 +43,16 @@ export class DataForm {
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
+        if (this.data.unit) {
+            this.selectedUnit = this.data.unit;
+        }
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
+            this.data.currencyRate=this.data.currency.rate;
         }
         if (this.data.vat) {
             this.selectedVat = this.data.vat;
+            this.data.vatRate=this.data.vat.rate;
         }
         if (this.data.useIncomeTax) {
             this.options.isUseIncomeTax = true;
@@ -62,6 +69,15 @@ export class DataForm {
         if (_selectedSupplier._id) {
             this.data.supplier = _selectedSupplier;
             this.data.supplierId = _selectedSupplier._id ? _selectedSupplier._id : "";
+        }
+    }
+
+    selectedUnitChanged(newValue) {
+        var _selectedUnit = newValue;
+        if (_selectedUnit._id) {
+            this.data.unit = _selectedUnit;
+            this.data.unitId = _selectedUnit._id ? _selectedUnit._id : "";
+            this.data.division=_selectedUnit.division;
         }
     }
 
@@ -121,6 +137,11 @@ export class DataForm {
     get supplierLoader() {
         return SupplierLoader;
     }
+    
+    get unitLoader() {
+        return UnitLoader;
+    }
+
 
     get currencyLoader() {
         return CurrencyLoader;
@@ -140,11 +161,16 @@ export class DataForm {
         return `${supplier.code} - ${supplier.name}`
     }
 
+    unitView = (unit) => {
+        return `${unit.division.name} - ${unit.name}`
+    }
+
     currencyView = (currency) => {
         return currency.code
     }
 
     vatView = (vat) => {
+        console.log(vat)
         return `${vat.name} - ${vat.rate}`
     }
 

@@ -28,10 +28,19 @@ export class PurchaseOrderItem {
     this.isShowing = false;
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
+      if (this.data.details) {
+        console.log(this.data.details)
+        this.data.items=this.data.details;
+        this.isShowing = true;
+      }
       if (this.data.items) {
         this.isShowing = true;
       }
+
     }
+    this.filter={
+      "unit.code":this.options.unitCode
+    };
   }
 
   get purchaseOrderLoader() {
@@ -40,6 +49,7 @@ export class PurchaseOrderItem {
 
   async selectedPurchaseOrderChanged(newValue) {
     if (newValue._id) {
+      console.log(newValue);
       Object.assign(this.data, newValue);
       var productList = this.data.items.map((item) => { return item.product._id });
       productList = [].concat.apply([], productList);
@@ -48,7 +58,10 @@ export class PurchaseOrderItem {
       })
       var config = Container.instance.get(Config);
       var endpoint = config.getEndpoint("core");
-
+      for(var a of this.data.items){
+        a.defaultUom=a.product.uom;
+        a.defaultQuantity=a.quantity;
+      }
       await endpoint.find(resource, { productList: JSON.stringify(productList) })
         .then((result) => {
           for (var product of result.data) {
@@ -60,6 +73,7 @@ export class PurchaseOrderItem {
         });
       this.isShowing = true;
     }
+    this.data.details=this.data.items;
   }
 
   toggle() {
@@ -70,7 +84,8 @@ export class PurchaseOrderItem {
   }
 
   purchaseOrderView = (purchaseOrder) => {
-    return purchaseOrder.purchaseRequest.no
+    console.log(purchaseOrder)
+    return purchaseOrder.prNo
   }
 
   controlOptions = {

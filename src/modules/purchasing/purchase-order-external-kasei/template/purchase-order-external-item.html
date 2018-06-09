@@ -4,11 +4,12 @@
             <div class="col-sm-11">
                 <au-autocomplete 
                         value.bind="selectedPurchaseOrder" 
+                        error.bind="error.purchaseOrder"
                         change.delegate="selectedPurchaseOrderChanged($event)"
                         loader.bind="purchaseOrderLoader"
                         text.bind="purchaseOrderView"
                         placeholder="cari nomor purchase request" 
-                        key="no"
+                        key="prNo"
                         read-only.bind="options.readOnly"
                         options.bind="controlOptions">
                 </au-autocomplete>
@@ -22,13 +23,13 @@
     <tr if.bind="isShowing">
         <td>
             <au-collection 
-            items.bind="data.items" 
-            errors.bind="error.items" 
+            items.bind="data.details" 
+            errors.bind="error.details" 
             columns.bind="itemsColumns"
             options.bind="context.context.options"
             read-only.bind="options.readOnly"
-            header-template="modules/purchasing/purchase-order-external/template/purchase-order-internal-item-header"
-            item-template="modules/purchasing/purchase-order-external/template/purchase-order-internal-item">
+            header-template="modules/purchasing/purchase-order-external-kasei/template/purchase-order-internal-item-header"
+            item-template="modules/purchasing/purchase-order-external-kasei/template/purchase-order-internal-item">
         </au-collection>
         </td>  
     </tr>

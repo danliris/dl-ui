@@ -3,12 +3,12 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'purchase-orders-externals';
+const serviceUri = 'external-purchase-orders';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
@@ -32,7 +32,7 @@ export class Service extends RestService {
     }
 
     post(data) {
-        var endpoint = 'purchase-orders/externals/post';
+        var endpoint = `${serviceUri}/post`;
         return super.post(endpoint, data);
     }
 
@@ -47,17 +47,17 @@ export class Service extends RestService {
     }
 
     cancel(id) {
-        var endpoint = `purchase-orders/externals/cancel/${id}`;
+        var endpoint = `${serviceUri}/cancel/${id}`;
         return super.put(endpoint);
     }
 
     unpost(id) {
-        var endpoint = `purchase-orders/externals/unpost/${id}`;
+        var endpoint = `${serviceUri}/unpost/${id}`;
         return super.put(endpoint);
     }
 
     close(id) {
-        var endpoint = `purchase-orders/externals/close/${id}`;
+        var endpoint = `${serviceUri}/close/${id}`;
         return super.put(endpoint);
     }
 }
