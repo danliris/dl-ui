@@ -32,6 +32,19 @@ export class Create {
     }
 
     save(event) {
+        if(this.data.items){
+            for(var item of this.data.items){
+                item.poId= item._id;
+                delete item._id;
+                if(item.details)
+                    for(var detail of item.details){
+                        detail.poItemId= detail._id;
+                        delete detail._id;
+                        console.log(detail.poItemId)
+                    }
+            }
+        }
+
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

@@ -16,22 +16,34 @@ export class PurchaseOrderItem {
   }
 
   updateItem() {
-    if (this.data.dealQuantity === 0) {
+    if (!this.data.dealQuantity || this.data.dealQuantity === 0) {
       this.data.dealQuantity = this.data.defaultQuantity;
     }
-    if (!this.data.dealUom.unit) {
+    if (!this.data.dealUom) {
+      this.data.dealUom={};
       Object.assign(this.data.dealUom, this.data.defaultUom);
     }
-
     if (!this.error && this.data.priceBeforeTax === 0) {
       this.data.priceBeforeTax = this.data.product.price;
     }
 
-    if (this.data.conversion === 0) {
+    if (!this.data.conversion || this.data.conversion === 0) {
       this.data.priceBeforeTax = this.data.product.price;
     }
 
     this.selectedDealUom = this.data.dealUom;
+    if(!this.data.defaultUom){
+      this.data.defaultUom=this.data.product.uom;
+      if(!this.data.conversion || this.data.conversion === 0)
+        if (this.data.dealUom.unit == this.data.defaultUom.unit) {
+              this.data.conversion = 1;
+        }
+    }
+    else{
+      if (this.data.dealUom.unit == this.data.defaultUom.unit) {
+              this.data.conversion = 1;
+        }
+    }
   }
 
   updatePrice() {
