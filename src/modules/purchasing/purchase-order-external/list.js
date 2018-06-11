@@ -57,7 +57,7 @@ export class List {
             .then(result => {
                 for (var _data of result.data) {
                     var prNo = _data.items.map(function (item) {
-                        return `<li>${item.purchaseRequest.no}</li>`;
+                        return `<li>${item.prNo}</li>`;
                     });
                     _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
                 }

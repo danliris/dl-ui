@@ -24,7 +24,7 @@
 
         <au-autocomplete 
             value.bind="selectedSupplier" 
-            error.bind="error.supplierId"
+            error.bind="error.supplier"
             label="Supplier" 
             loader.bind="supplierLoader"
             text.bind = "supplierView"
@@ -34,18 +34,30 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-autocomplete 
+            value.bind="selectedUnit" 
+            error.bind="error.unit"
+            label="Unit" 
+            loader.bind="unitLoader"
+            text.bind = "unitView"
+            placeholder="cari unit" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-datepicker 
             label="Tgl. Order" 
-            value.bind="data.date" 
-            error.bind="error.date" 
+            value.bind="data.orderDate" 
+            error.bind="error.orderDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker 
             label="Tgl. Delivery" 
-            value.bind="data.expectedDeliveryDate" 
-            error.bind="error.expectedDeliveryDate" 
+            value.bind="data.deliveryDate" 
+            error.bind="error.deliveryDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
@@ -84,7 +96,7 @@
         <numeric 
             label="Rate" 
             value.bind="data.currencyRate" 
-            error.bind="error.currencyRate" 
+            error.bind="error.currency" 
             format="0"
             read-only.bind="true">
         </numeric>
@@ -147,6 +159,12 @@
             options.bind="controlOptions">
         </au-multiline>
 
+        <au-textbox
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
+
         <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
@@ -155,7 +173,7 @@
             remove.bind="removeItems"
             options.bind="options"
             read-only.bind="readOnly"
-            item-template="modules/purchasing/purchase-order-external/template/purchase-order-external-item">
+            item-template="modules/purchasing/purchase-order-external-kasei/template/purchase-order-external-item">
         </au-collection>
   </au-input-form>
 </template>
