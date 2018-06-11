@@ -3,12 +3,12 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'purchase-orders/by-user';
+const serviceUri = 'internal-purchase-orders';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
@@ -26,14 +26,15 @@ export class Service extends RestService {
         return super.post(endpoint, data);
     }
 
-    split(data) {
-        var endpoint = 'purchase-orders/split';
+    spliting(id, data) {
+        var endpoint = `internal-purchase-orders/spliting/${id}`;
         return super.post(endpoint, data);
     }
 
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
-        return super.put(endpoint, data);
+        console.log(data);
+        return super.put(endpoint);
     }
 
     delete(data) {
