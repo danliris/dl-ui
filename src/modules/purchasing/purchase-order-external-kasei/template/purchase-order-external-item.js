@@ -38,6 +38,10 @@ export class PurchaseOrderItem {
       }
 
     }
+    this.filter={
+      "UnitName":this.context.context.options.unitCode,
+      "IsPosted":false
+    };
   }
 
   get purchaseOrderLoader() {

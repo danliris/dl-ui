@@ -11,7 +11,8 @@
                         placeholder="cari nomor purchase request" 
                         key="prNo"
                         read-only.bind="options.readOnly"
-                        options.bind="controlOptions">
+                        options.bind="controlOptions"
+                        query.bind="filter">
                 </au-autocomplete>
             </div>
             <div class="col-sm-1">

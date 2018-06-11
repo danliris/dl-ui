@@ -7,9 +7,6 @@ module.exports = function(keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("purchasing-azure");
-    var filter={
-        isPosted:false
-    };
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
             return results.data.map(purchaseOrder => {

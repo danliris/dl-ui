@@ -39,8 +39,10 @@ export class PurchaseOrderItem {
 
     }
     this.filter={
-      "unit.code":this.options.unitCode
+      "UnitName":this.context.context.options.unitCode,
+      "IsPosted":false
     };
+    console.log(this.data);
   }
 
   get purchaseOrderLoader() {

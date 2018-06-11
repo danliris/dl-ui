@@ -45,7 +45,7 @@ export class DataForm {
         }
         if (this.data.unit) {
             this.selectedUnit = this.data.unit;
-            this.options.unitCode=selectedUnit.code;
+            this.options.unitCode=selectedUnit.name;
         }
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
@@ -79,7 +79,7 @@ export class DataForm {
             this.data.unit = _selectedUnit;
             this.data.unitId = _selectedUnit._id ? _selectedUnit._id : "";
             this.data.division=_selectedUnit.division;
-            this.options.unitCode=_selectedUnit.code;
+            this.options.unitCode=_selectedUnit.name;
         }
     }
 
