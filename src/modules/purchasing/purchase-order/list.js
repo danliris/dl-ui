@@ -7,7 +7,6 @@ import moment from 'moment';
 export class List {
 
     rowFormatter(data, index) {
-        console.log(data);
         if (data.isPosted)
             return { classes: "success" }
         else
@@ -19,18 +18,18 @@ export class List {
         { field: "unit.division.name", title: "Divisi" },
         { field: "unit.name", title: "Unit" },
         { field: "category.name", title: "Kategori" },
-        { field: "prNo", title: "No. PR" },
+        { field: "purchaseRequest.no", title: "No. PR" },
         {
-            field: "prDate", title: "Tgl. PR", formatter: function (value, data, index) {
+            field: "purchaseRequest.date", title: "Tgl. PR", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "expectedDeliveryDate", title: "Tgl. Diminta Datang", formatter: function (value, data, index) {
+            field: "purchaseRequest.expectedDeliveryDate", title: "Tgl. Diminta Datang", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "CreatedBy", title: "Staff Pembelian" },
+        { field: "_createdBy", title: "Staff Pembelian" },
         {
             field: "isPosted", title: "Posted",
             formatter: function (value, row, index) {
@@ -67,7 +66,6 @@ export class List {
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data._id });
