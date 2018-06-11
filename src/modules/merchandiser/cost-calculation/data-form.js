@@ -189,6 +189,13 @@ export class DataForm {
         item.FabricAllowance = this.data.FabricAllowance;
         item.AccessoriesAllowance = this.data.AccessoriesAllowance;
         item.Rate = this.data.Rate;
+        item.SMV_Cutting = this.data.SMV_Cutting;
+        item.SMV_Sewing = this.data.SMV_Sewing;
+        item.SMV_Finishing = this.data.SMV_Finishing;
+        item.THR = this.data.THR;
+        item.Wage = this.data.Wage;
+        item.SMV_Total = this.data.SMV_Total;
+        item.Efficiency = this.data.Efficiency;
       })
     }
   }
