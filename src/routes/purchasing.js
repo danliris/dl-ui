@@ -420,7 +420,7 @@ module.exports = [
         name: 'local-purchasing-book-report',
         moduleId: './modules/purchasing/reports/local-purchasing-book-report/index',
         nav: true,
-        title: 'Laporan Buku Pembelian Internal',
+        title: 'Laporan Buku Pembelian Lokal',
         auth: true,
         settings: {
             group: "purchasing",
