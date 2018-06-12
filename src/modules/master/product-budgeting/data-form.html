@@ -8,31 +8,31 @@
 
           <au-textbox
             label="Kode"
-            value.bind="data.code"
+            value.bind="data.Code"
             error.bind="error.code"
             read-only.bind="(readOnly || isEdit)"
           ></au-textbox>
 
           <au-textbox
             label="Nama"
-            value.bind="data.name"
+            value.bind="data.Name"
             error.bind="error.name"
             read-only.bind="readOnly"
           ></au-textbox>
 
           <au-autocomplete
             label="Satuan"
-            value.bind="data.uom"
+            value.bind="data.Uom"
             error.bind="error.uom"
             loader.bind="uomLoader"
             read-only.bind="readOnly"
-            key="unit"
-            text="unit"
+            key="Unit"
+            text="Unit"
           ></au-autocomplete>
 
           <au-autocomplete
             label="Mata Uang"
-            value.bind="data.currency"
+            value.bind="Currency"
             error.bind="error.currency"
             loader.bind="currencyLoader"
             read-only.bind="readOnly"
@@ -42,21 +42,21 @@
 
           <au-numeric
             label="Harga"
-            value.bind="data.price"
+            value.bind="data.Price"
             error.bind="error.price"
             read-only.bind="readOnly"
           ></au-numeric>
 
           <au-multiline
             label="Tags"
-            value.bind="data.tags"
+            value.bind="data.Tags"
             error.bind="error.tags"
             read-only.bind="readOnly"
           ></au-multiline>
 
           <au-multiline
             label="Keterangan"
-            value.bind="data.description"
+            value.bind="data.Description"
             error.bind="error.description"
             read-only.bind="readOnly"
           ></au-multiline>

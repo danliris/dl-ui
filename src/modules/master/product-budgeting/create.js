@@ -24,6 +24,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        debugger
         this.service.create(this.data)
             .then(result => {
                 this.list();

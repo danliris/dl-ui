@@ -38,27 +38,27 @@
         </td>
         <!-- kuantitas -->
         <td>
-            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" options.bind="controlOptions" show.bind="productCodeIsExist"></au-numeric>
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
         </td>
         <!-- satuan -->
         <td>
             <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
-                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist">
+                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist" read-only.bind="isProcess">
             </au-autocomplete>
         </td>
         <!-- price -->
         <td>
-            <au-numeric value.bind="data.Price" error.bind="error.Price" options.bind="controlOptions" show.bind="productCodeIsExist"></au-numeric>
+            <au-numeric value.bind="data.Price" error.bind="error.Price" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
         </td>
-        <!-- harga satuan -->
+        <!-- satuan harga -->
         <td>
             <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="uomLoader"
-                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist">
+                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist" read-only.bind="isProcess">
             </au-autocomplete>
         </td>
         <!-- konversi -->
         <td>
-            <au-numeric value.bind="data.Conversion" error.bind="error.Conversion" options.bind="controlOptions" show.bind="productCodeIsExist"></au-numeric>
+            <au-numeric value.bind="data.Conversion" error.bind="error.Conversion" options.bind="controlOptions" show.bind="productCodeIsExist" read-only.bind="isProcess"></au-numeric>
         </td>
         <!-- total -->
         <td>

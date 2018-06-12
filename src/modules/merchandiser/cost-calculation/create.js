@@ -22,6 +22,7 @@ export class Create {
     saveCallback() {
         this.service.create(this.data)
             .then(result => {
+                alert("Data berhasil dibuat");
                 this.list();
             })
             .catch(e => {
