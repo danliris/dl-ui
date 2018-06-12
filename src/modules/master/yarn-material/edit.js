@@ -11,18 +11,18 @@ export class Edit {
     }
 
     async activate(params) {
-        var id = params.id;
-        this.data = await this.service.getById(id);
+        var Id = params.id;
+        this.data = await this.service.getById(Id);
     }
 
     cancelCallback(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     saveCallback(event) {
         this.service.update(this.data)
             .then(result => {
-                this.router.navigateToRoute('view', { id: this.data._id });
+                this.router.navigateToRoute('view', { id: this.data.Id });
             })
             .catch(e => {
                 this.error = e;

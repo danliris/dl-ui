@@ -72,7 +72,7 @@ export class Edit {
         delete newInternalPurchaseOrder.purchaseRequest;
         delete newInternalPurchaseOrder.toString();
         delete newInternalPurchaseOrder._id;
-        console.log(this.data._id);
+        
         this.service.spliting(this.data._id, newInternalPurchaseOrder).then(result => {
             // console.log(this.data);
             this.cancel();

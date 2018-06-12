@@ -32,7 +32,7 @@
             label="Tgl. Diminta Datang" 
             value.bind="data.expectedDeliveryDate" 
             error.bind="error.expectedDeliveryDate" 
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-datepicker>
 

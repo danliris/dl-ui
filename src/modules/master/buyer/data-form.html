@@ -10,35 +10,35 @@
 
         <au-textbox 
           label="Kode"
-          value.bind="data.code"
+          value.bind="data.Code"
           error.bind="error.code"
           read-only.bind="(readOnly || isEdit)"
         ></au-textbox>
 
         <au-textbox 
           label="Nama"
-          value.bind="data.name"
+          value.bind="data.Name"
           error.bind="error.name"
           read-only.bind="readOnly"
         ></au-textbox>
 
         <au-multiline 
           label="Alamat"
-          value.bind="data.address"
+          value.bind="data.Address"
           error.bind="error.address"
           read-only.bind="readOnly"
         ></au-multiline>
 
         <au-textbox 
           label="Kota"
-          value.bind="data.city"
+          value.bind="data.City"
           error.bind="error.city"
           read-only.bind="readOnly"
         ></au-textbox>
 
         <au-dropdown
           label="Negara"
-          value.bind="data.country"
+          value.bind="data.Country"
           error.bind="error.country"
           read-only.bind="readOnly"
           items.bind="countries"
@@ -46,14 +46,14 @@
 
         <au-textbox 
           label="Kontak"
-          value.bind="data.contact"
+          value.bind="data.Contact"
           error.bind="error.contact"
           read-only.bind="readOnly"
         ></au-textbox>
 
         <au-numeric
           label="Tempo"
-          value.bind="data.tempo"
+          value.bind="data.Tempo"
           error.bind="error.tempo"
           format="0"
           read-only.bind="readOnly"
@@ -68,7 +68,7 @@
 
         <au-dropdown
           label="Jenis Buyer"
-          value.bind="data.type"
+          value.bind="data.Type"
           error.bind="error.type"
           read-only.bind="readOnly"
           items.bind="types"
