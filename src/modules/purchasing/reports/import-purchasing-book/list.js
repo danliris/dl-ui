@@ -70,9 +70,9 @@ export class List {
                 Category: item.purchaseOrder.category.name,
                 Unit: data.unit.name,
                 PIB: data.pibNo || "-",
-                Nilai: (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID'),
-                CurrencyRate: item.currencyRate.toLocaleString('id-ID'),
-                Total: (item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate).toLocaleString('id-ID'),
+                Nilai: (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                CurrencyRate: item.currencyRate.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                Total: (item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate).toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
@@ -85,11 +85,11 @@ export class List {
           for (var data in dataByCategory) {
             categories.push({
               data: dataByCategory[data],
-              subTotal: subTotalCategory[data].toLocaleString('id-ID'),
+              subTotal: subTotalCategory[data].toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
             });
             this.total += subTotalCategory[data];
           }
-          this.total = this.total.toLocaleString('id-ID');
+          this.total = this.total.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           this.categories = categories;
 
         });
