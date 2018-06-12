@@ -30,7 +30,7 @@ export class ActivityFormView {
         await this.service.getActivityById(params.id)
             .then((result) => {
                 this.data = result;
-                this.currentAttachments = this.data.field.attachments;
+                this.currentAttachments = this.data.Attachments;
             });
     }
 

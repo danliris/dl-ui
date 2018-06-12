@@ -17,7 +17,7 @@ module.exports = [
         name: 'ro-garment',
         moduleId: './modules/merchandiser/ro-garment/index',
         nav: true,
-        title: 'RO Penjualan Umum',
+        title: 'RO Export Garment',
         auth: true,
         settings: {
             group: "merchandiser",

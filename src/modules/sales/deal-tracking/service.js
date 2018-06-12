@@ -1,15 +1,16 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../utils/rest-service';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service';
 
-const boardServiceUri = 'sales/deal-tracking-boards';
-const stageServiceUri = 'sales/deal-tracking-stages';
-const dealServiceUri = 'sales/deal-tracking-deals';
-const activityServiceUri = 'sales/deal-tracking-activities';
+const boardServiceUri = 'deal-tracking-boards';
+const stageServiceUri = 'deal-tracking-stages';
+const dealServiceUri = 'deal-tracking-deals';
+const activityServiceUri = 'deal-tracking-activities';
+const moveActivityServiceUri = 'deal-tracking-move-activities';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "deal-tracking");
     }
 
     /* Board */
@@ -29,12 +30,12 @@ export class Service extends RestService {
     }
 
     updateBoard(data) {
-        var endpoint = `${boardServiceUri}/${data._id}`;
+        var endpoint = `${boardServiceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     deleteBoard(data) {
-        var endpoint = `${boardServiceUri}/${data._id}`;
+        var endpoint = `${boardServiceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
@@ -55,12 +56,12 @@ export class Service extends RestService {
     }
 
     updateStage(data) {
-        var endpoint = `${stageServiceUri}/${data._id}`;
+        var endpoint = `${stageServiceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     deleteStage(data) {
-        var endpoint = `${stageServiceUri}/${data._id}`;
+        var endpoint = `${stageServiceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
@@ -81,12 +82,12 @@ export class Service extends RestService {
     }
 
     updateDeal(data) {
-        var endpoint = `${dealServiceUri}/${data._id}`;
+        var endpoint = `${dealServiceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     deleteDeal(data) {
-        var endpoint = `${dealServiceUri}/${data._id}`;
+        var endpoint = `${dealServiceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
@@ -111,8 +112,8 @@ export class Service extends RestService {
 
         var formData = new FormData();
 
-        if(data.update) {
-            formData.append("_id", data._id);
+        if (data.update) {
+            formData.append("Id", data.Id);
             formData.append("update", data.update);
         }
         else {
@@ -169,12 +170,19 @@ export class Service extends RestService {
     }
 
     updateActivity(data) {
-        var endpoint = `${activityServiceUri}/${data._id}`;
+        var endpoint = `${activityServiceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     deleteActivity(data) {
-        var endpoint = `${activityServiceUri}/${data._id}`;
+        var endpoint = `${activityServiceUri}/${data.Id}`;
         return super.delete(endpoint, data);
+    }
+
+    /* Move Activity */
+
+    moveActivity(data) {
+        var endpoint = `${moveActivityServiceUri}`;
+        return super.put(endpoint, data);
     }
 }

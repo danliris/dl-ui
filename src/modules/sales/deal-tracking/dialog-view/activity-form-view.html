@@ -45,12 +45,12 @@
                 </section>
 
                 <section if.bind="!isNotes">
-                    <au-textbox value.bind="data.field.title" error.bind="error.title" placeholder="Judul tugas"></au-textbox>
-                    <au-multiline value.bind="data.field.notes" error.bind="error.notes" placeholder="Catatan"></au-multiline>
-                    <au-autocomplete value.bind="data.field.assignedTo" error.bind="error.assignedTo" label="Ditugaskan Kepada" loader.one-time="accountLoader"
+                    <au-textbox value.bind="data.TaskTitle" error.bind="error.TaskTitle" placeholder="Judul tugas"></au-textbox>
+                    <au-multiline value.bind="data.Notes" error.bind="error.Notes" placeholder="Catatan"></au-multiline>
+                    <au-autocomplete value.bind="data.AssignedTo" error.bind="error.AssignedTo" label="Ditugaskan Kepada" loader.one-time="accountLoader"
                         placeholder="Ditugaskan kepada" text="username">
                     </au-autocomplete>
-                    <au-datetimepicker value.bind="data.field.dueDate" label="Batas tanggal terakhir" placeholder="Batal tanggal terahkir" error.bind="error.dueDate"></au-datetimepicker>
+                    <au-datetimepicker value.bind="data.DueDate" label="Batas tanggal terakhir" placeholder="Batal tanggal terahkir" error.bind="error.DueDate"></au-datetimepicker>
                 </section>
             </form>
         </ai-dialog-body>

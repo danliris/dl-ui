@@ -6,19 +6,19 @@
         <au-input-form title="Rincian Deal" options.bind="formOptions">
             <div class="row">
                 <div class="col-sm-4">
-                    <au-textbox value.bind="deal.name" read-only="true" label="Judul Deal"></au-textbox>
+                    <au-textbox value.bind="deal.Name" read-only="true" label="Judul Deal"></au-textbox>
                     <au-textbox value.one-time="stageName" read-only="true" label="Stage"></au-textbox>
                     <!-- <au-textbox value.bind="deal.product.name" read-only="true" label="Barang"></au-textbox> -->
-                    <au-textbox value.bind="deal.quantity | numberFormat: '0,000'" read-only="true" label="Jumlah"></au-textbox>  
+                    <au-textbox value.bind="deal.Quantity | numberFormat: '0,000'" read-only="true" label="Jumlah"></au-textbox>  
                     <!-- <au-textbox value.bind="deal.product.uom.unit" read-only="true" label="Satuan"></au-textbox>                   -->
-                    <au-textbox value.bind="deal.uom.unit" read-only="true" label="Satuan"></au-textbox>                  
-                    <au-textbox value.bind="deal.amount | numberFormat: '0,000.00'" read-only="true" label="Total Harga"></au-textbox>
-                    <au-textbox value.one-time="board.currency.code" read-only="true" label="Mata Uang"></au-textbox>
-                    <au-textbox value.bind="deal.company.name" read-only="true" label="Perusahaan"></au-textbox>
+                    <au-textbox value.bind="deal.Uom.Unit" read-only="true" label="Satuan"></au-textbox>                  
+                    <au-textbox value.bind="deal.Amount | numberFormat: '0,000.00'" read-only="true" label="Total Harga"></au-textbox>
+                    <au-textbox value.one-time="board.Currency.Code" read-only="true" label="Mata Uang"></au-textbox>
+                    <au-textbox value.bind="deal.Company.Name" read-only="true" label="Perusahaan"></au-textbox>
                     <au-textbox value.bind="deal.fullName" read-only="true" label="Kontak"></au-textbox>
-                    <au-datepicker value.bind="deal.closeDate" read-only="true" label="Tanggal Tutup"></au-datepicker>  
-                    <au-multiline value.bind="deal.description" read-only="true" label="Deskripsi"></au-multiline>
-                    <au-textbox value.bind="deal.reason" read-only="true" label="Alasan"></au-textbox>                                                          
+                    <au-datepicker value.bind="deal.CloseDate" read-only="true" label="Tanggal Tutup"></au-datepicker>  
+                    <au-multiline value.bind="deal.Description" read-only="true" label="Deskripsi"></au-multiline>
+                    <au-textbox value.bind="deal.LoseReason" read-only="true" label="Alasan"></au-textbox>                                                          
                 </div>
                 <div class="col-sm-8">
                     <div class="row">
@@ -99,10 +99,10 @@
                                                 ${activity.title}
                                                 <div class="pull-right">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Ubah" click.delegate="editActivity(activity)"></i>
-                                                    <i class="fa fa-trash-o" aria-hidden="true" title="Hapus" click.delegate="deleteActivity(activity._id)"></i>
+                                                    <i class="fa fa-trash-o" aria-hidden="true" title="Hapus" click.delegate="deleteActivity(activity.Id)"></i>
                                                 </div>
                                             </h4>
-                                            <h4 if.bind="activity.taskTitle"><input type="checkbox" id.bind="activity.code" change.delegate="updateTaskStatus(activity._id, $event.target.checked)" checked.bind="activity.status"> <label for.bind="activity.code">${activity.taskTitle}</label></h4>
+                                            <h4 if.bind="activity.taskTitle"><input type="checkbox" id.bind="activity.code" change.delegate="updateTaskStatus(activity.Id, $event.target.checked)" checked.bind="activity.status"> <label for.bind="activity.code">${activity.taskTitle}</label></h4>
                                             <div innerhtml.bind="activity.notes"></div>
 
                                             <div class="row" if.bind="activity.type == 'NOTES'">

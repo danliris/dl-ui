@@ -1,7 +1,7 @@
-import {inject, useView} from 'aurelia-framework';
-import {DialogController} from 'aurelia-dialog';
-import {Service} from "../service";
-import {CoreService} from "../core-service";
+import { inject, useView } from 'aurelia-framework';
+import { DialogController } from 'aurelia-dialog';
+import { Service } from "../service";
+import { CoreService } from "../core-service";
 
 var CompanyLoader = require('../../../../loader/company-loader');
 var ContactLoader = require('../../../../loader/contact-loader');
@@ -39,7 +39,7 @@ export class DealFormView {
             this.data.stage = params.stageName;
         }
 
-        this.data.currency = params.currency;
+        this.data.Currency = params.currency;
 
         await this.getDealTrackingReason();
     }
@@ -50,10 +50,10 @@ export class DealFormView {
                 var reasons = [];
                 reasons.push("");
 
-                for(var data of results.data) {
-                    reasons.push(data.reason);
+                for (var data of results.data) {
+                    reasons.push(data.LoseReason);
                 }
-            
+
                 this.reasons = reasons;
             });
     }
@@ -66,10 +66,10 @@ export class DealFormView {
     save() {
         this.error = {};
 
-        this.data.amount = this.data.amount || 0;
+        this.data.amount = this.data.Amount || 0;
 
         if (this.type == "Add") {
-            this.data.stageId = this.data.stage._id;
+            this.data.StageId = this.data.Stage.Id;
 
             this.service.createDeal(this.data)
                 .then((result) => {
@@ -104,10 +104,6 @@ export class DealFormView {
 
     get uomLoader() {
         return UomLoader;
-    }
-
-    contactView = (contact) => {
-        return `${contact.firstName} ${contact.lastName}`;
     }
 
     keydownCallback(e) {

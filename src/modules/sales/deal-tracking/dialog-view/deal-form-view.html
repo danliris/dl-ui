@@ -5,12 +5,12 @@
 
         <ai-dialog-body>
             <form class="form-horizontal">
-                <au-textbox value.bind="data.name" label="Judul" placeholder="Judul" error.bind="error.name"></au-textbox>
+                <au-textbox value.bind="data.Name" label="Judul" placeholder="Judul" error.bind="error.Name"></au-textbox>
                 
                 <au-dropdown
                     label="Stage"
-                    value.bind="data.stage"
-                    error.bind="error.stage"
+                    value.bind="data.Stage"
+                    error.bind="error.Stage"
                     items.bind="stageData"
                     read-only.bind="isEdit"
                     text="name">
@@ -33,16 +33,16 @@
                     </div>
                 </div> -->
 
-                <au-numeric label="Jumlah" value.bind="data.quantity" format="0,000" error.bind="error.quantity"></au-numeric>
+                <au-numeric label="Jumlah" value.bind="data.Quantity" format="0,000" error.bind="error.Quantity"></au-numeric>
 
                 <!-- <au-textbox value.bind="data.product.uom.unit" label="Satuan" read-only="true" if.bind="data.product"></au-textbox> -->
                 <au-autocomplete 
-                    value.bind="data.uom" 
-                    error.bind="error.uom"
+                    value.bind="data.Uom" 
+                    error.bind="error.Uom"
                     label="Satuan"
                     loader.one-time="uomLoader"
                     placeholder="Cari satuan"
-                    text="unit">
+                    text="Unit">
                 </au-autocomplete>
 
                 <!-- <div class="form-group ${error.amount ? 'has-error' : ''}">
@@ -52,36 +52,36 @@
                         <span class="help-block" if.bind="error.amount">${error.amount}</span>
                     </div>
                 </div> -->
-                <au-numeric label="Total Harga" value.bind="data.amount" format="0,000.00" error.bind="error.amount"></au-numeric>
+                <au-numeric label="Total Harga" value.bind="data.Amount" format="0,000.00" error.bind="error.Amount"></au-numeric>
                 
-                <au-textbox value.bind="data.currency" label="Mata Uang" read-only="true"></au-textbox>
+                <au-textbox value.bind="data.Currency" label="Mata Uang" read-only="true"></au-textbox>
                 
                 <au-autocomplete 
-                    value.bind="data.company" 
-                    error.bind="error.company"
+                    value.bind="data.Company" 
+                    error.bind="error.Company"
                     label="Perusahaan" 
                     loader.one-time="companyLoader"
                     placeholder="Cari perusahaan" 
-                    text="name">
+                    text="Name">
                 </au-autocomplete>
 
                 <au-autocomplete 
-                    value.bind="data.contact" 
-                    error.bind="error.contact"
+                    value.bind="data.Contact" 
+                    error.bind="error.Contact"
                     label="Kontak" 
                     loader.one-time="contactLoader"
                     placeholder="Cari kontak" 
-                    text.bind="contactView">
+                    text="Name">
                 </au-autocomplete>
 
-                <au-datepicker value.bind="data.closeDate" label="Tanggal Tutup" placeholder="Tanggal tutup" error.bind="error.closeDate"></au-datepicker>
+                <au-datepicker value.bind="data.CloseDate" label="Tanggal Tutup" placeholder="Tanggal tutup" error.bind="error.CloseDate"></au-datepicker>
 
-                <au-multiline value.bind="data.description" label="Deskripsi" placeholder="Deskripsi" error.bind="error.description"></au-multiline>
+                <au-multiline value.bind="data.Description" label="Deskripsi" placeholder="Deskripsi" error.bind="error.Description"></au-multiline>
                 
                 <au-dropdown
                     label="Alasan"
-                    value.bind="data.reason"
-                    error.bind="error.reason"
+                    value.bind="data.LoseReason"
+                    error.bind="error.LoseReason"
                     items.bind="reasons">
                 </au-dropdown>
             </form>

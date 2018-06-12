@@ -59,17 +59,16 @@ export class Deal {
         await this.service.getDealById(this.dealId)
             .then((result) => {
                 this.deal = result;
-                this.deal.fullName = `${this.deal.contact.firstName} ${this.deal.contact.lastName}`;
+                this.deal.fullName = this.deal.Contact.Name;
             });
     }
 
     async getActivityData() {
         var arg = {
-            _id: this.dealId,
-            boardId: this.boardId,
             page: this.activityFilter.page,
             size: this.activityFilter.size,
-            order: this.activityFilter.order
+            order: this.activityFilter.order,
+            filter: JSON.stringify({ DealId: this.dealId })
         };
 
         await this.service.searchActivity(arg)
@@ -78,54 +77,54 @@ export class Deal {
                 this.activityFilter.total = result.info.total;
 
                 for (var data of result.data) {
-                    switch (data.type) {
+                    switch (data.Type) {
                         case "ADD": {
                             this.activities.push({
                                 icon: "fa fa-plus",
-                                notes: this.deal.name + " dibuat",
-                                date: moment(data._createdDate).format("DD MMM YYYY"),
-                                time: moment(data._createdDate).format("HH:mm"),
+                                notes: this.deal.Name + " dibuat",
+                                date: moment.utc(data.CreatedUtc).local().format("DD MMM YYYY"),
+                                time: moment.utc(data.CreatedUtc).local().format("HH:mm"),
                                 visibility: true
                             });
                             break;
                         }
                         case "TASK": {
                             this.activities.push({
-                                _id: data._id,
-                                type: data.type,
+                                Id: data.Id,
+                                type: data.Type,
                                 icon: "fa fa-tasks",
-                                title: (data._createdBy == result.info.username ? "Kamu" : data._createdBy) + " membuat sebuah tugas",
-                                code: data.code,
-                                status: data.field.status,
-                                taskTitle: data.field.title,
-                                notes: data.field.notes,
-                                assignedTo: data.field.assignedTo ? data.field.assignedTo.username : "-",
-                                dueDate: moment(data.field.dueDate).format("DD MMM YYYY HH:mm"),
-                                date: moment(data._createdDate).format("DD MMM YYYY"),
-                                time: moment(data._createdDate).format("HH:mm")
+                                title: (data.CreatedBy == result.info.username ? "Kamu" : data.CreatedBy) + " membuat sebuah tugas",
+                                code: data.Code,
+                                status: data.Status,
+                                taskTitle: data.TaskTitle,
+                                notes: data.Notes,
+                                assignedTo: data.AssignedTo ? data.AssignedTo : "-",
+                                dueDate: moment(data.DueDate).format("DD MMM YYYY HH:mm"),
+                                date: moment.utc(data.CreatedUtc).local().format("DD MMM YYYY"),
+                                time: moment.utc(data.CreatedUtc).local().format("HH:mm"),
                             });
                             break;
                         }
                         case "NOTES": {
                             this.activities.push({
-                                _id: data._id,
-                                type: data.type,
+                                Id: data.Id,
+                                type: data.Type,
                                 icon: "fa fa-sticky-note",
                                 title: (data._createdBy == result.info.username ? "Kamu" : data._createdBy) + " meninggalkan sebuah catatan",
-                                notes: data.field.notes,
+                                notes: data.Notes,
                                 attachments: data.field.attachments,
-                                date: moment(data._createdDate).format("DD MMM YYYY"),
-                                time: moment(data._createdDate).format("HH:mm")
+                                date: moment.utc(data.CreatedUtc).local().format("DD MMM YYYY"),
+                                time: moment.utc(data.CreatedUtc).local().format("HH:mm"),
                             });
                             break;
                         }
                         case "MOVE": {
                             this.activities.push({
-                                type: data.type,
+                                type: data.Type,
                                 icon: "fa fa-window-restore",
-                                notes: (data._createdBy == result.info.username ? "Kamu" : data._createdBy) + " memindahkan " + this.deal.name + " dari " + (data.field.from ? data.field.from : "-") + " ke " + (data.field.to ? data.field.to : "-"),
-                                date: moment(data._createdDate).format("DD MMM YYYY"),
-                                time: moment(data._createdDate).format("HH:mm")
+                                notes: (data.CreatedBy == result.info.username ? "Kamu" : data.CreatedBy) + " memindahkan " + this.deal.Name + " dari " + data.StageFromName + " ke " + data.StageToName,
+                                date: moment.utc(data.CreatedUtc).local().format("DD MMM YYYY"),
+                                time: moment.utc(data.CreatedUtc).local().format("HH:mm"),
                             });
                             break;
                         }
@@ -168,13 +167,13 @@ export class Deal {
         else {
             activityData = {
                 dealId: this.dealId,
+                dealCode: this.deal.Code,
+                dealName: this.deal.Name,
                 type: "TASK",
-                field: {
-                    title: this.title,
-                    notes: this.notes,
-                    assignedTo: this.assignedTo,
-                    dueDate: this.dueDate
-                }
+                taskTitle: this.title,
+                notes: this.notes,
+                assignedTo: this.assignedTo.username,
+                dueDate: this.dueDate
             };
 
             this.service.createActivity(activityData)
@@ -190,7 +189,7 @@ export class Deal {
     }
 
     editActivity(activity) {
-        this.dialog.show(ActivityFormView, { id: activity._id, type: activity.type, formatBytes: this.formatBytes })
+        this.dialog.show(ActivityFormView, { id: activity.Id, type: activity.Type, formatBytes: this.formatBytes })
             .then(response => {
                 if (!response.wasCancelled) {
                     if (activity.type == "TASK") {
@@ -211,7 +210,7 @@ export class Deal {
         this.dialog.prompt("Apakah anda yakin mau menghapus aktivitas ini?", "Hapus Aktivitas")
             .then(response => {
                 if (response == "ok") {
-                    this.service.deleteActivity({ _id: id })
+                    this.service.deleteActivity({ Id: id })
                         .then(result => {
                             this.resetActivityFilter();
                             this.getActivityData();
@@ -300,7 +299,7 @@ export class Deal {
             page: 1,
             size: 15,
             total: 0,
-            order: { "_createdDate": "desc" }
+            order: { "CreatedUtc": "desc" }
         };    
     }
 
@@ -308,7 +307,7 @@ export class Deal {
         var params = {
             id: this.dealId,
             stageName: this.stageName,
-            currency: this.board.currency.code,
+            currency: this.board.Currency.Code,
             type: "Edit"
         };
 
@@ -324,7 +323,7 @@ export class Deal {
         this.dialog.prompt("Apakah anda yakin mau menghapus deal ini?", "Hapus Deal")
             .then(response => {
                 if (response == "ok") {
-                    this.service.deleteDeal({ _id: this.dealId })
+                    this.service.deleteDeal({ Id: this.dealId })
                         .then(result => {
                             this.cancelCallback();
                         });

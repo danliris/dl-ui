@@ -6,11 +6,11 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["Rincian"];
     columns = [
-		{ field: "name", title: "Nama" },
-		{ field: "website", title: "Website" },
-		{ field: "industry", title: "Industri" },
-		{ field: "phoneNumber", title: "Nomor Telepon" },
-		{ field: "city", title: "Kota" },
+		{ field: "Name", title: "Nama" },
+		{ field: "Website", title: "Website" },
+		{ field: "Industry", title: "Industri" },
+		{ field: "PhoneNumber", title: "Nomor Telepon" },
+		{ field: "City", title: "Kota" },
     ];
 
 	constructor(router, service) {
@@ -28,7 +28,7 @@ export class List {
 			size: info.limit,
 			keyword: info.search,
 			order: order,
-			select: ['name', 'website', 'industry', 'phoneNumber', 'city']
+			select: ['Name', 'Website', 'Industry', 'PhoneNumber', 'City']
 		}
 
 		return this.service.search(arg)
@@ -45,13 +45,13 @@ export class List {
 		var data = arg.data;
 		switch (arg.name) {
 			case "Rincian":
-				this.router.navigateToRoute('view', { id: data._id });
+				this.router.navigateToRoute('view', { id: data.Id });
 				break;
 		}
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
     }
 
 	create() {

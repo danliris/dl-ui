@@ -1,11 +1,11 @@
-import {inject, computedFrom} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from "./service";
-import {moveBefore} from 'aurelia-dragula';
-import {Dialog} from '../../../components/dialog/dialog';
-import {BoardFormView} from './dialog-view/board-form-view';
-import {DealFormView} from './dialog-view/deal-form-view';
-import {StageFormView} from './dialog-view/stage-form-view';
+import { inject, computedFrom } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from "./service";
+import { moveBefore } from 'aurelia-dragula';
+import { Dialog } from '../../../components/dialog/dialog';
+import { BoardFormView } from './dialog-view/board-form-view';
+import { DealFormView } from './dialog-view/deal-form-view';
+import { StageFormView } from './dialog-view/stage-form-view';
 
 var moment = require("moment");
 
@@ -14,11 +14,11 @@ export class View {
 	formOptions = {
 		editText: "Ubah",
 		deleteText: "Hapus",
-        cancelText: "Kembali"
-    };
+		cancelText: "Kembali"
+	};
 
-    constructor(router, dialog, service) {
-        this.router = router;
+	constructor(router, dialog, service) {
+		this.router = router;
 		this.dialog = dialog;
 		this.service = service;
 
@@ -27,13 +27,13 @@ export class View {
 		this.map = [];
 
 		this.index = 0;
-    }
+	}
 
 	async activate(params) {
 		this.boardId = params.id;
-        await this.getBoardData();
+		await this.getBoardData();
 		await this.getStageData();
-    }
+	}
 
 	async getBoardData() {
 		await this.service.getBoardById(this.boardId)
@@ -47,35 +47,41 @@ export class View {
 		this.map = [];
 
 		var arg = {
-			_id: this.boardId
-        };
+			filter: JSON.stringify({ 'BoardId': this.boardId }),
+			order: { "CreatedUtc": "asc" }
+		};
 
-        await this.service.searchStage(arg)
-            .then((result) => {
-				for (var data of result.data) {
-					var total = 0;
+		await this.service.searchStage(arg)
+			.then((result) => {
+				for (let data of result.data) {
+					let total = 0;
+					let deals = [];
 
-					data.deals = data.deals.map((deal) => {
-						deal.closeDate = moment(deal.closeDate).format("DD MMM YYYY");
-						total += deal.amount;
+					if (data.DealsOrder) {
+						for (let dealId of JSON.parse(data.DealsOrder)) {
+							console.log(dealId);
+							let deal = data.Deals.find(p => p.Id == dealId);
+							deal.CloseDate = moment(deal.CloseDate).format("DD MMM YYYY");
+							total += deal.Amount;
 
-						return deal;
-					});
+							deals.push(deal);
+						}
+					}
 
-					this.map[data.code] = data.deals;
+					this.map[data.Code] = deals;
 
 					this.stages.push({
-						_id: data._id,
-						code: data.code,
-						name: data.name,
+						Id: data.Id,
+						code: data.Code,
+						name: data.Name,
 						total: total,
-						map: this.map[data.code]
+						map: this.map[data.Code]
 					});
 				}
-            });
+			});
 	}
 
-    itemDropped(item, target, source, sibling, itemVM, siblingVM) {
+	itemDropped(item, target, source, sibling, itemVM, siblingVM) {
 		let sourceArr;
 		let targetArr;
 		let sourceStage = this.getStage(source.dataset.code);
@@ -87,25 +93,27 @@ export class View {
 		if (source.dataset.code == target.dataset.code) {
 			let itemId = item.dataset.id;
 			let siblingId = sibling ? sibling.dataset.id : null;
-			let indexOfSource = this.arrayObjectIndexOf(sourceArr, itemId, "_id");
+			let indexOfSource = this.arrayObjectIndexOf(sourceArr, itemId, "Id");
 
-			moveBefore(sourceArr, (arr) => arr._id == itemId, (arr) => arr._id == siblingId);
+			moveBefore(sourceArr, (arr) => arr.Id == itemId, (arr) => arr.Id == siblingId);
 
-			if (indexOfSource != this.arrayObjectIndexOf(sourceArr, itemId, "_id")) { /* Jika posisi tidak sama */
-				var updateData = {
-					_id: sourceStage._id,
-					deals: [],
-					type: "Activity"
+			if (indexOfSource != this.arrayObjectIndexOf(sourceArr, itemId, "Id")) { /* Jika posisi tidak sama */
+				let updateData = {
+					SourceStageId: sourceStage.Id,
+					SourceDealsOrder: [],
+					Type: 'Order',
 				};
 
-				var total = 0;
+				let total = 0;
 
-				for (var source of sourceArr) {
-					total += source.amount;
-					updateData.deals.push(source._id);
+				for (let source of sourceArr) {
+					total += source.Amount;
+					updateData.SourceDealsOrder.push(source.Id);
 				}
 
-				this.service.updateStage(updateData)
+				updateData.SourceDealsOrder = JSON.stringify(updateData.SourceDealsOrder);
+
+				this.service.moveActivity(updateData)
 					.then(() => {
 						sourceStage.total = total;
 					});
@@ -127,54 +135,41 @@ export class View {
 				targetArr.splice(parseInt(siblingIndex), 0, theItem);
 			}
 
-			var totalSource = 0, totalTarget = 0;
+			let totalSource = 0, totalTarget = 0;
 
-			var updateDataSource = {
-				_id: sourceStage._id,
-				deals: [],
-				type: "Activity"
+			let updateData = {
+				SourceStageId: sourceStage.Id,
+				SourceStageName: sourceStage.name,
+				SourceDealsOrder: [],
+				TargetStageId: targetStage.Id,
+				TargetStageName: targetStage.name,
+				TargetDealsOrder: [],
+				DealId: theItem.Id,
+				type: "Move"
 			};
 
-			for (var source of sourceArr) {
-				totalSource += source.amount;
-				updateDataSource.deals.push(source._id);
+			for (let source of sourceArr) {
+				totalSource += source.Amount;
+				updateData.SourceDealsOrder.push(source.Id);
 			}
 
-			var updateDataTarget = {
-				_id: targetStage._id,
-				deals: [],
-				type: "Activity"
-			};
-
-			for (var target of targetArr) {
-				totalTarget += target.amount;
-				updateDataTarget.deals.push(target._id);
+			for (let target of targetArr) {
+				totalTarget += target.Amount;
+				updateData.TargetDealsOrder.push(target.Id);
 			}
 
-			this.service.updateStage(updateDataSource)
+			updateData.SourceDealsOrder = JSON.stringify(updateData.SourceDealsOrder);
+			updateData.TargetDealsOrder = JSON.stringify(updateData.TargetDealsOrder);
+
+			this.service.moveActivity(updateData)
 				.then(() => {
-					this.service.updateStage(updateDataTarget)
-						.then(() => {
-							var activityData = {
-								dealId: item.dataset.id,
-								type: "MOVE",
-								field: {
-									sourceStageId: updateDataSource._id,
-									targetStageId: updateDataTarget._id
-								}
-							};
-
-							this.service.createActivity(activityData)
-								.then(() => {
-									sourceStage.total = totalSource;
-									targetStage.total = totalTarget;
-								});
-						});
+					sourceStage.total = totalSource;
+					targetStage.total = totalTarget;
 				});
 		}
 	}
 
-    getStage(code) {
+	getStage(code) {
 		let l = {};
 
 		for (var i = 0; i < this.stages.length; i++) {
@@ -190,37 +185,37 @@ export class View {
 	createDeal() {
 		var params = {
 			stages: this.stages,
-			currency: this.board.currency.code,
+			currency: this.board.Currency.Code,
 			type: "Add"
 		};
 
-        this.dialog.show(DealFormView, params)
-            .then(response => {
-                if (!response.wasCancelled) {
+		this.dialog.show(DealFormView, params)
+			.then(response => {
+				if (!response.wasCancelled) {
 					this.getStageData();
 				}
-            });
-    }
+			});
+	}
 
 	createStage() {
 		this.dialog.show(StageFormView, { id: this.boardId, type: "Add" })
-            .then(response => {
-                if (!response.wasCancelled) {
+			.then(response => {
+				if (!response.wasCancelled) {
 					this.getStageData();
 				}
-            });
+			});
 	}
 
 	deleteStage(id) {
 		this.dialog.prompt("Apakah anda yakin mau menghapus stage ini?", "Hapus Stage")
-            .then(response => {
-                if (response == "ok") {
-					this.service.deleteStage({ _id: id})
+			.then(response => {
+				if (response == "ok") {
+					this.service.deleteStage({ Id: id })
 						.then(result => {
 							this.getStageData();
 						});
-                }
-            });
+				}
+			});
 	}
 
 	@computedFrom("stages.length")
@@ -233,17 +228,17 @@ export class View {
 	}
 
 	editStage(stage) {
-		this.dialog.show(StageFormView, { id: stage._id, type: "Edit" })
-            .then(response => {
-                if (!response.wasCancelled) {
+		this.dialog.show(StageFormView, { id: stage.Id, type: "Edit" })
+			.then(response => {
+				if (!response.wasCancelled) {
 					stage.name = response.output.name;
 				}
-            });
+			});
 	}
 
 	editCallback() {
 		this.dialog.show(BoardFormView, { id: this.boardId, type: "Edit" })
-            .then(response => {
+			.then(response => {
 				if (!response.wasCancelled) {
 					this.getBoardData();
 				}
@@ -252,15 +247,15 @@ export class View {
 
 	deleteCallback(event) {
 		this.dialog.prompt("Apakah anda yakin mau menghapus board ini?", "Hapus Board")
-            .then(response => {
-                if (response == "ok") {
-					this.service.deleteBoard({ _id: this.boardId })
+			.then(response => {
+				if (response == "ok") {
+					this.service.deleteBoard({ Id: this.boardId })
 						.then(result => {
 							this.cancelCallback();
 						});
-                }
-            });
-    }
+				}
+			});
+	}
 
 	cancelCallback() {
 		this.router.navigateToRoute('list');
@@ -268,7 +263,7 @@ export class View {
 
 	arrayObjectIndexOf(myArray, searchTerm, property) {
 		for (var i = 0, len = myArray.length; i < len; i++) {
-			if (myArray[i][property] === searchTerm) return i;
+			if (myArray[i][property] == searchTerm) return i;
 		}
 		return -1;
 	}

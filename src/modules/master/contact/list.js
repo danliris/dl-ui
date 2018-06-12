@@ -1,24 +1,24 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian"];
-    columns = [
-		{ field: "name", title: "Nama" },
-		{ field: "email", title: "Email" },
-		{ field: "phoneNumber", title: "Nomor Telepon" },
-		{ field: "company.name", title: "Nama Perusahaan" },
-		{ field: "jobTitle", title: "Pekerjaan" },
-    ];
+	context = ["Rincian"];
+	columns = [
+		{ field: "Name", title: "Nama" },
+		{ field: "Email", title: "Email" },
+		{ field: "PhoneNumber", title: "Nomor Telepon" },
+		{ field: "Company.Name", title: "Nama Perusahaan" },
+		{ field: "JobTitle", title: "Pekerjaan" },
+	];
 
 	constructor(router, service) {
-        this.service = service;
-        this.router = router;
-    }
+		this.service = service;
+		this.router = router;
+	}
 
-    loader = (info) => {
+	loader = (info) => {
 		var order = {};
 		if (info.sort)
 			order[info.sort] = info.order;
@@ -33,7 +33,7 @@ export class List {
 
 		return this.service.search(arg)
 			.then(result => {
-				result.data.map((data)=> {
+				result.data.map((data) => {
 					data.name = `${data.firstName} ${data.lastName}`;
 				});
 
@@ -42,21 +42,21 @@ export class List {
 					data: result.data
 				}
 			});
-    }
+	}
 
-    contextCallback(event) {
+	contextCallback(event) {
 		var arg = event.detail;
 		var data = arg.data;
 		switch (arg.name) {
 			case "Rincian":
-				this.router.navigateToRoute('view', { id: data._id });
+				this.router.navigateToRoute('view', { id: data.Id });
 				break;
 		}
-    }
+	}
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
-    }
+	view(data) {
+		this.router.navigateToRoute('view', { id: data.Id });
+	}
 
 	create() {
 		this.router.navigateToRoute('create');
