@@ -67,8 +67,8 @@
                     </td>
                     <td if.bind="context.context.options.isUseIncomeTax" align="center">
                         <au-checkbox 
-                            value.bind="data.useIncomeTax" 
-                            error.bind="error.useIncomeTax" 
+                            value.bind="data.includePpn" 
+                            error.bind="error.includePpn" 
                             read-only.bind="readOnly"
                             change.delegate="useIncomeTaxChanged($event)"
                             options.bind="controlOptions">
