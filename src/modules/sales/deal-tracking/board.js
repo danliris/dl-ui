@@ -53,29 +53,36 @@ export class View {
 
 		await this.service.searchStage(arg)
 			.then((result) => {
-				for (let data of result.data) {
-					let total = 0;
-					let deals = [];
-
-					if (data.DealsOrder) {
-						for (let dealId of JSON.parse(data.DealsOrder)) {
-							let deal = data.Deals.find(p => p.Id == dealId);
-							deal.CloseDate = moment(deal.CloseDate).format("DD MMM YYYY");
-							total += deal.Amount;
-
-							deals.push(deal);
+				if(result.data.length > 0) {
+					for (let data of result.data) {
+						let total = 0;
+						let deals = [];
+	
+						if (data.DealsOrder) {
+							for (let dealId of JSON.parse(data.DealsOrder)) {
+								let deal = data.Deals.find(p => p.Id == dealId);
+								deal.CloseDate = moment(deal.CloseDate).format("DD MMM YYYY");
+								total += deal.Amount;
+	
+								deals.push(deal);
+							}
 						}
+	
+						this.map[data.Code] = deals;
+	
+						this.stages.push({
+							Id: data.Id,
+							code: data.Code,
+							name: data.Name,
+							total: total,
+							map: this.map[data.Code]
+						});
 					}
 
-					this.map[data.Code] = deals;
-
-					this.stages.push({
-						Id: data.Id,
-						code: data.Code,
-						name: data.Name,
-						total: total,
-						map: this.map[data.Code]
-					});
+					this.deleteCallback = null;
+				}
+				else {
+					this.deleteCallback = this.delete;
 				}
 			});
 	}
@@ -244,7 +251,7 @@ export class View {
 			});
 	}
 
-	deleteCallback(event) {
+	delete(event) {
 		this.dialog.prompt("Apakah anda yakin mau menghapus board ini?", "Hapus Board")
 			.then(response => {
 				if (response == "ok") {
