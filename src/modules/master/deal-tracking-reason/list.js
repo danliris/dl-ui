@@ -6,7 +6,7 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["Rincian"];
     columns = [
-		{ field: "reason", title: "Keterangan" },
+		{ field: "LoseReason", title: "Keterangan" },
     ];
 
 	constructor(router, service) {
@@ -41,13 +41,13 @@ export class List {
 		var data = arg.data;
 		switch (arg.name) {
 			case "Rincian":
-				this.router.navigateToRoute('view', { id: data._id });
+				this.router.navigateToRoute('view', { id: data.Id });
 				break;
 		}
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
     }
 
 	create() {

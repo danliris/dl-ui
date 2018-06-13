@@ -25,7 +25,6 @@ export class StageFormView {
                     this.data = result;   
                 });
         }
-        
     }
 
     save()
@@ -44,7 +43,7 @@ export class StageFormView {
         else {
             this.service.updateStage(this.data)
                 .then(response => {
-                    this.controller.ok({ name: this.data.name });
+                    this.controller.ok({ name: this.data.Name });
                 })
                 .catch(e => {
                     this.error = e;
