@@ -9,8 +9,9 @@ numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
 
 var SizeRangeLoader = require('../../../loader/size-range-loader');
-var BuyersLoader = require('../../../loader/buyers-loader');
-
+var BuyersLoader = require('../../../loader/garment-buyers-loader');
+var MasterPlanComodityLoader = require('../../../loader/garment-master-plan-comodity-loader');
+var UOMLoader = require('../../../loader/uom-loader');
 
 @inject(Router, BindingEngine, ServiceEffeciency, RateService)
 export class DataForm {
@@ -75,7 +76,19 @@ export class DataForm {
       { header: "Kuantitas Budget", value: "BudgetQuantity" },
     ],
     onAdd: function () {
-      this.data.CostCalculationGarment_Materials.push({ QuantityOrder: this.data.Quantity, FabricAllowance: this.data.FabricAllowance, AccessoriesAllowance: this.data.AccessoriesAllowance, Rate: this.data.Rate });
+      this.data.CostCalculationGarment_Materials.push({
+        QuantityOrder: this.data.Quantity,
+        FabricAllowance: this.data.FabricAllowance,
+        AccessoriesAllowance: this.data.AccessoriesAllowance,
+        Rate: this.data.Rate,
+        SMV_Cutting: this.data.SMV_Cutting,
+        SMV_Sewing: this.data.SMV_Sewing,
+        SMV_Finishing: this.data.SMV_Finishing,
+        THR: this.data.THR,
+        Wage: this.data.Wage,
+        SMV_Total: this.data.SMV_Total,
+        Efficiency: this.data.Efficiency
+      });
     }.bind(this)
   }
   radio = {
@@ -92,176 +105,24 @@ export class DataForm {
     this.selectedRate = "USD"
   }
 
-  // async bind(context) {
-  //   this.context = context;
-  //   this.data = this.context.data;
-  //   this.error = this.context.error;
-  //   this.data.SMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
-  //   this.data.SMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
-  //   this.data.SMV_Finishing = this.data.SMV_Finishing ? this.data.SMV_Finishing : 0;
-  //   this.quantity = this.data.Quantity ? this.data.Quantity : 1;
-  //   this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
-  //   this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
-  //   this.data.Risk = this.data.Risk ? this.data.Risk : 5;
-  //   this.imageSrc = this.data.ImageFile;
-
-  //   let promises = [];
-
-  //   let wage;
-  //   if (this.data.Wage) {
-  //     wage = new Promise((resolve, reject) => {
-  //       resolve(this.data.Wage);
-  //     });
-  //   } else {
-  //     this.data.Wage = this.defaultRate;
-  //     wage = this.rateService.search({ keyword: "OL" }).then(results => {
-  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
-  //       result.Value = numeral(
-  //         numeral(result.Value).format(rateNumberFormat)
-  //       ).value();
-  //       return result;
-  //     });
-  //   }
-  //   promises.push(wage);
-
-  //   let THR;
-  //   if (this.data.THR) {
-  //     THR = new Promise((resolve, reject) => {
-  //       resolve(this.data.THR);
-  //     });
-  //   } else {
-  //     this.data.THR = this.defaultRate;
-  //     THR = this.rateService.search({ keyword: "THR" }).then(results => {
-  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
-  //       result.Value = numeral(
-  //         numeral(result.Value).format(rateNumberFormat)
-  //       ).value();
-  //       return result;
-  //     });
-  //   }
-  //   promises.push(THR);
-
-  //   let rate;
-  //   if (this.data.Rate) {
-  //     rate = new Promise((resolve, reject) => {
-  //       resolve(this.data.Rate);
-  //     });
-  //   } else {
-  //     this.data.Rate = this.defaultRate;
-  //     rate = this.rateService.search({ keyword: "USD" }).then(results => {
-  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
-  //       result.Value = numeral(
-  //         numeral(result.Value).format(rateNumberFormat)
-  //       ).value();
-  //       return result;
-  //     });
-  //   }
-  //   promises.push(rate);
-
-  //   let OTL1;
-  //   if (this.data.OTL1) {
-  //     OTL1 = new Promise((resolve, reject) => {
-  //       resolve(this.data.OTL1);
-  //     });
-  //   } else {
-  //     this.data.OTL1 = this.defaultRate;
-  //     OTL1 = this.rateService.search({ keyword: "OTL 1" }).then(results => {
-  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
-  //       return result;
-  //     });
-  //   }
-  //   promises.push(OTL1);
-
-  //   let OTL2;
-  //   if (this.data.OTL2) {
-  //     OTL2 = new Promise((resolve, reject) => {
-  //       resolve(this.data.OTL2);
-  //     });
-  //   } else {
-  //     this.data.OTL2 = this.defaultRate;
-  //     OTL2 = this.rateService.search({ keyword: "OTL 2" }).then(results => {
-  //       let result = results.data[0] ? results.data[0] : this.defaultRate;
-  //       return result;
-  //     });
-  //   }
-  //   promises.push(OTL2);
-
-  //   let all = await Promise.all(promises);
-  //   this.data.Wage = all[0];
-  //   this.data.THR = all[1];
-  //   this.RateDollar = all[2];
-  //   this.data.OTL1 = all[3];
-  //   this.data.OTL2 = all[4];
-  //   this.selectedRate = this.data.Rate ? this.radio.Dollar : this.radio.Rupiah;
-  //   if (this.data.CostCalculationGarment_Materials) {
-  //     this.data.CostCalculationGarment_Materials.forEach(item => {
-  //       item.QuantityOrder = this.data.Quantity;
-  //       item.FabricAllowance = this.data.FabricAllowance;
-  //       item.AccessoriesAllowance = this.data.AccessoriesAllowance;
-  //       item.Rate = this.data.Rate;
-  //     });
-  //   }
-  // }
-
-  get sizeRangeLoader() {
-    return SizeRangeLoader;
-  }
-
-  @bindable selectedLeadTime = "";
-  selectedLeadTimeChanged(newVal, oldVal) {
-    if (newVal = "30 hari")
-      this.data.LeadTime = 30;
-    else if (newVal = "45 hari")
-      this.data.LeadTime = 45;
-    else
-      this.data.LeadTime = 0;
-  }
-
-  @bindable imageUpload;
-  @bindable imageSrc;
-  imageUploadChanged(newValue) {
-    let imageInput = document.getElementById('imageInput');
-    let reader = new FileReader();
-    reader.onload = event => {
-      let base64Image = event.target.result;
-      this.imageSrc = this.data.ImageFile = base64Image;
-    }
-    reader.readAsDataURL(imageInput.files[0]);
-  }
-
-  @bindable selectedRate;
-  selectedRateChanged(newValue) {
-    if (newValue.toUpperCase() === "RUPIAH") {
-      this.data.Rate = { Id: 0, Value: 1, CalculatedValue: 1 };
-    }
-    else {
-      this.data.Rate = this.RateDollar;
-    }
-  }
-
-  @computedFrom("data.Id")
-  get isEdit() {
-    return (this.data.Id || 0) != 0;
-  }
-
-  @computedFrom("error.CostCalculationGarment_MaterialTable")
-  get hasError() {
-    return (this.error.CostCalculationGarment_MaterialTable ? this.error.CostCalculationGarment_MaterialTable.length : 0) > 0;
-  }
-
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    this.data.SMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
-    this.data.SMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
-    this.data.SMV_Finishing = this.data.SMV_Finishing ? this.data.SMV_Finishing : 0;
+    this.selectedSMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
+    this.selectedSMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
+    this.selectedSMV_Finishing = this.data.SMV_Finishing ? this.data.SMV_Finishing : 0;
     this.quantity = this.data.Quantity ? this.data.Quantity : 1;
     this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
     this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
     this.data.Risk = this.data.Risk ? this.data.Risk : 5;
     this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "#") : "#";
     this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
+
+    this.selectedConvection = this.data.Convection ? this.data.Convection : "";
+
+    this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
+    this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
 
     let promises = [];
 
@@ -316,53 +177,81 @@ export class DataForm {
     }
     promises.push(rate);
 
-    let OTL1;
-    if (this.data.OTL1) {
-      OTL1 = new Promise((resolve, reject) => {
-        resolve(this.data.OTL1);
-      });
-    }
-    else {
-      this.data.OTL1 = this.defaultRate;
-      OTL1 = this.rateService.search({ keyword: "OTL 1" })
-        .then(results => {
-          let result = results.data[0] ? results.data[0] : this.defaultRate;
-          return result;
-        });
-    }
-    promises.push(OTL1);
-
-    let OTL2;
-    if (this.data.OTL2) {
-      OTL2 = new Promise((resolve, reject) => {
-        resolve(this.data.OTL2);
-      });
-    }
-    else {
-      this.data.OTL2 = this.defaultRate;
-      OTL2 = this.rateService.search({ keyword: "OTL 2" })
-        .then(results => {
-          let result = results.data[0] ? results.data[0] : this.defaultRate;
-          return result;
-        });
-    }
-    promises.push(OTL2);
-
     let all = await Promise.all(promises);
     this.data.Wage = all[0];
     this.data.THR = all[1];
-    this.RateDollar = all[2];
-    this.data.OTL1 = all[3];
-    this.data.OTL2 = all[4];
-    this.selectedRate = this.data.Rate ? this.radio.Dollar : this.radio.Rupiah;
+    this.data.Rate = all[2];
+
+    // this.selectedRate = this.data.Rate ? this.data.Rate.Name : "";
     if (this.data.CostCalculationGarment_Materials) {
       this.data.CostCalculationGarment_Materials.forEach(item => {
         item.QuantityOrder = this.data.Quantity;
         item.FabricAllowance = this.data.FabricAllowance;
         item.AccessoriesAllowance = this.data.AccessoriesAllowance;
         item.Rate = this.data.Rate;
+        item.SMV_Cutting = this.data.SMV_Cutting;
+        item.SMV_Sewing = this.data.SMV_Sewing;
+        item.SMV_Finishing = this.data.SMV_Finishing;
+        item.THR = this.data.THR;
+        item.Wage = this.data.Wage;
+        item.SMV_Total = this.data.SMV_Total;
+        item.Efficiency = this.data.Efficiency;
       })
     }
+  }
+
+  get sizeRangeLoader() {
+    return SizeRangeLoader;
+  }
+
+  get masterPlanComodityLoader() {
+    return MasterPlanComodityLoader;
+  }
+
+  get uomLoader() {
+    return UOMLoader;
+  }
+
+  @bindable selectedLeadTime = "";
+  selectedLeadTimeChanged(newVal) {
+    if (newVal = "30 hari")
+      this.data.LeadTime = 30;
+    else if (newVal = "45 hari")
+      this.data.LeadTime = 45;
+    else
+      this.data.LeadTime = 0;
+  }
+
+  @bindable imageUpload;
+  @bindable imageSrc;
+  imageUploadChanged(newValue) {
+    let imageInput = document.getElementById('imageInput');
+    let reader = new FileReader();
+    reader.onload = event => {
+      let base64Image = event.target.result;
+      this.imageSrc = this.data.ImageFile = base64Image;
+    }
+    reader.readAsDataURL(imageInput.files[0]);
+  }
+
+  @bindable selectedRate;
+  // selectedRateChanged(newValue, oldValue) {
+  //   if (newValue && newValue.toUpperCase() === "RUPIAH") {
+  //     this.data.Rate = { Id: 0, Value: 1, CalculatedValue: 1 };
+  //   }
+  //   else {
+  //     this.data.Rate = this.RateDollar;
+  //   }
+  // }
+
+  @computedFrom("data.Id")
+  get isEdit() {
+    return (this.data.Id || 0) != 0;
+  }
+
+  @computedFrom("error.CostCalculationGarment_MaterialTable")
+  get hasError() {
+    return (this.error.CostCalculationGarment_MaterialTable ? this.error.CostCalculationGarment_MaterialTable.length : 0) > 0;
   }
 
   get lineLoader() {
@@ -406,11 +295,79 @@ export class DataForm {
     }
   }
 
+  @bindable selectedSMV_Cutting;
+  selectedSMV_CuttingChanged(newValue) {
+    this.data.SMV_Cutting = newValue;
+    if (this.data.CostCalculationGarment_Materials) {
+      this.data.CostCalculationGarment_Materials.forEach(item => {
+        item.SMV_Cutting = this.data.SMV_Cutting;
+      })
+      this.context.itemsCollection.bind()
+    }
+  }
+
+  @bindable selectedSMV_Sewing;
+  selectedSMV_SewingChanged(newValue) {
+    this.data.SMV_Sewing = newValue;
+    if (this.data.CostCalculationGarment_Materials) {
+      this.data.CostCalculationGarment_Materials.forEach(item => {
+        item.SMV_Sewing = this.data.SMV_Sewing;
+      })
+      this.context.itemsCollection.bind()
+    }
+  }
+
+  @bindable selectedSMV_Finishing;
+  selectedSMV_FinishingChanged(newValue) {
+    this.data.SMV_Finishing = newValue;
+    if (this.data.CostCalculationGarment_Materials) {
+      this.data.CostCalculationGarment_Materials.forEach(item => {
+        item.SMV_Finishing = this.data.SMV_Finishing;
+      })
+      this.context.itemsCollection.bind()
+    }
+  }
+
+  @bindable selectedConvection;
+  async selectedConvectionChanged(newVal) {
+    this.data.Convection = newVal;
+    if (newVal) {
+      let convection = newVal.substring(0, 2);
+
+      let promises = [];
+      let OTL1 = this.rateService.search({ keyword: `OTL 1 - ${convection}` }).then((results) => {
+        let result = results.data[0] ? results.data[0] : this.defaultRate;
+        result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+        return result;
+      });
+      promises.push(OTL1);
+
+      let OTL2 = this.rateService.search({ keyword: `OTL 2 - ${convection}` }).then((results) => {
+        let result = results.data[0] ? results.data[0] : this.defaultRate;
+        result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+        return result;
+      });
+      promises.push(OTL2);
+
+      let results = await Promise.all(promises);
+
+      this.data.OTL1 = results[0];
+      this.data.OTL2 = results[1];
+    }
+  }
+
   @computedFrom('data.SMV_Cutting', 'data.SMV_Sewing', 'data.SMV_Finishing')
   get SMV_Total() {
     let SMV_Total = this.data.SMV_Cutting + this.data.SMV_Sewing + this.data.SMV_Finishing;
     SMV_Total = numeral(SMV_Total).format();
     this.data.SMV_Total = numeral(SMV_Total).value();
+
+    if (this.data.CostCalculationGarment_Materials) {
+      this.data.CostCalculationGarment_Materials.forEach(item => {
+        item.SMV_Finishing = this.data.SMV_Total;
+      })
+    }
+
     return SMV_Total;
   }
 

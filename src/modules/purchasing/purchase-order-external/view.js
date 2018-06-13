@@ -20,17 +20,18 @@ export class View {
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
-        if (this.data.status.value === 0) {
+        console.log(this.data);
+        if (this.data.doQuantity && this.data.doQuantity>0) {
             isVoid = true;
         }
-        if (this.data.items.find(po => { return po.status.value > 3 }) != undefined) {
-            isArriving = true;
-        }
+        // if (this.data.items.find(po => { return po.status.value > 3 }) != undefined) {
+        //     isArriving = true;
+        // }
         if (!this.data.isPosted) {
             this.hasDelete = true;
             this.hasEdit = true;
         }
-        if (this.data.isPosted && !isVoid && !isArriving && !this.data.isClosed) {
+        if (this.data.isPosted && !isVoid && !this.data.isClosed) {
             this.hasUnpost = true;
         }
     }

@@ -9,7 +9,7 @@ const RP = "Rp. ";
 
 @inject(Router, Service, Dialog)
 export class View {
-  title = "Detail Cost Calculation";
+  title = "Detail Cost Calculation Export Garment";
   readOnly = true;
   length4 = {
     label: {
@@ -40,8 +40,8 @@ export class View {
       { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
       { header: "Kuantitas", value: "Quantity" },
-      { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
-      { header: "Total (Rp)", value: "Total" }
+      { header: "Harga Per Satuan (USD)", value: "PricePerUnit" },
+      { header: "Total (USD)", value: "Total" }
     ]
   };
 

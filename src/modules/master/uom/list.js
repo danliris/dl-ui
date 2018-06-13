@@ -20,7 +20,7 @@ export class List {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
-        select:['unit'],
+        select:['Unit'],
         order: order
       }
 
@@ -36,8 +36,8 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.uomId = "";
-        this.uoms = [];
+        // this.uomId = "";
+        // this.uoms = [];
     }
 
     contextCallback(event) {
