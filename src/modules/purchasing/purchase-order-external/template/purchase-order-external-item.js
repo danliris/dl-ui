@@ -29,9 +29,9 @@ export class PurchaseOrderItem {
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.details) {
-        console.log(this.data.details)
         this.data.items=this.data.details;
         this.isShowing = true;
+        console.log(this.data.items)
       }
       if (this.data.items) {
         this.isShowing = true;

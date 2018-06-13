@@ -20,10 +20,10 @@ export class View {
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
         if (this.data.doQuantity && this.data.doQuantity>0) {
             isVoid = true;
         }
+        console.log(this.data)
         // if (this.data.items.find(po => { return po.status.value > 3 }) != undefined) {
         //     isArriving = true;
         // }

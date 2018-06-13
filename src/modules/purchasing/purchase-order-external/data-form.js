@@ -45,7 +45,7 @@ export class DataForm {
         }
         if (this.data.unit) {
             this.selectedUnit = this.data.unit;
-            this.options.unitCode=selectedUnit.name;
+            this.options.unitCode=this.selectedUnit.name;
         }
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
@@ -75,6 +75,14 @@ export class DataForm {
 
     selectedUnitChanged(newValue) {
         var _selectedUnit = newValue;
+        if(this.data.unit && this.data.unit!=newValue){
+            if(this.data && this.data.items && this.data.items.length > 0){
+                var count = this.data.items.length;
+                for(var a = count; a >= 0; a--){
+                    this.data.items.splice((a-1), 1);
+                }
+            }
+        }
         if (_selectedUnit._id) {
             this.data.unit = _selectedUnit;
             this.data.unitId = _selectedUnit._id ? _selectedUnit._id : "";
