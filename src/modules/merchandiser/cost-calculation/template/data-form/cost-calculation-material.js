@@ -7,6 +7,8 @@ const GarmentCategoryLoader = require('../../../../../loader/garment-category-lo
 import { Service } from '../../service';
 import { ServiceCore } from '../../service-core';
 
+const rateNumberFormat = "0,0.000";
+
 // const materialLoader = require('../../../../../loader/material-md-loader');
 const UomLoader = require('../../../../../loader/uom-loader');
 
@@ -25,6 +27,7 @@ export class CostCalculationMaterial {
         this.serviceCore = serviceCore
     }
 
+    @bindable isProcess = false;
     activate(context) {
         this.context = context;
         this.data = context.data;
@@ -34,11 +37,15 @@ export class CostCalculationMaterial {
         this.disabled = true;
         this.data.showDialog = this.data.showDialog === undefined ? (this.data.Category === undefined ? true : false) : (this.data.showDialog === true ? true : false);
         this.data.isFabricCM = this.data.isFabricCM ? this.data.isFabricCM : false;
-        // console.log(this.data);
 
         if (this.data.Category) {
             this.selectedCategory = this.data.Category;
             this.categoryIsExist = this.data.Category.name.toUpperCase() == "FABRIC" ? true : false;
+
+            if (this.data.Category.name.toUpperCase() == 'PROCESS') {
+                this.isProcess = true;
+                this.data.Price = this.data.Price || this.calculateProcessPrice();
+            }
         }
 
         if (this.data.Product) {
@@ -80,7 +87,7 @@ export class CostCalculationMaterial {
     @bindable selectedCategory;
     @bindable categoryIsExist = false;
     async selectedCategoryChanged(newVal, oldVal) {
-        this.data.Category = newVal;        
+        this.data.Category = newVal;
         if (newVal) {
             this.selectedComposition = null;
             this.data.Desription = "";
@@ -93,7 +100,7 @@ export class CostCalculationMaterial {
 
             // this.productCode = "Change";
             if (this.data.Category.name.toUpperCase() === "FABRIC") {
-                this.categoryIsExist = true;                
+                this.categoryIsExist = true;
                 this.dialog.prompt("Apakah fabric ini menggunakan harga CMT?", "Detail Fabric Material")
                     .then(response => {
                         if (response == "ok") {
@@ -101,6 +108,23 @@ export class CostCalculationMaterial {
                         }
                         this.data.showDialog = false;
                     });
+            } else if (this.data.Category.name.toUpperCase() === "PROCESS") {
+                this.data.Product = await this.serviceCore.getByName(newVal.name);
+                let UOM = await this.serviceCore.getUomByUnit("PCS");
+
+                this.data.UOMQuantity = UOM;
+                this.data.UOMPrice = UOM;
+
+                this.isProcess = true;
+                this.data.Quantity = 1;
+                this.data.Conversion = 1;
+
+                this.categoryIsExist = false;
+
+                this.productCode = this.data.Product ? this.data.Product.code : "";
+
+                this.data.Price = this.calculateProcessPrice();
+
             } else {
                 this.categoryIsExist = false;
                 this.data.Product = await this.serviceCore.getByName(newVal.name);
@@ -110,6 +134,19 @@ export class CostCalculationMaterial {
             this.selectedComposition = null;
             this.categoryIsExist = false;
         }
+    }
+
+    calculateProcessPrice() {
+
+        let CuttingFee = this.data.Wage.Value * this.data.SMV_Cutting * (100 / 75);
+        let SewingFee = this.data.Wage.Value * this.data.SMV_Sewing * (100 / this.data.Efficiency.Value);
+        let FinishingFee = this.data.Wage.Value * this.data.SMV_Finishing * (100 / 90);
+        let THR = this.data.THR.Value * this.data.SMV_Total;
+
+        let result = CuttingFee + SewingFee + FinishingFee + THR;
+
+        return numeral(numeral(result).format(rateNumberFormat)).value();
+
     }
 
     @bindable selectedComposition;
@@ -208,26 +245,10 @@ export class CostCalculationMaterial {
         return await this.garmentProductLoader('', this.filterProductQuery);
     }
 
-
-    // get materialLoader() {
-    //     return materialLoader;
-    // }
-
-    // @computedFrom('data.Category')
-    // get filterMaterial() {
-    //     return { "CategoryId": this.data.Category ? this.data.Category.Id : 0 }
-    // }
-
-    // get garmentProductLoader() {
-    //     return GarmentProductLoader;
-    // }
-
     get garmentProductLoader() {
         return (keyword) => {
-            // console.log
             var filter = "";
 
-            // filter = JSON.stringify({ "description": "100% COTTON" });
             if (this.selectedCategory && this.selectedCategory.name) {
                 if (this.selectedComposition && this.selectedComposition.description) {
                     if (this.selectedConstruction && this.selectedConstruction.properties && this.selectedConstruction.properties.length > 0) {
@@ -287,7 +308,7 @@ export class CostCalculationMaterial {
         if (this.data.Category) {
             if (this.data.Category.name.toUpperCase() === "FABRIC") {
                 allowance = this.data.FabricAllowance / 100;
-            } else if (this.data.Category.name.toUpperCase() === "ACC") {
+            } else {
                 allowance = this.data.AccessoriesAllowance / 100;
             }
         }

@@ -22,7 +22,6 @@ export class Service extends RestService {
     }
 
     create(data) {
-        console.log(data);
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
@@ -78,6 +77,16 @@ export class Service extends RestService {
             .then(results => {
                 return results.data;
             });
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
+
+    getBudgetById(id) {
+        var endpoint = `${serviceUri}/budget/${id}`;
+        return super.getPdf(endpoint);
     }
 
 };

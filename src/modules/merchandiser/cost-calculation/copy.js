@@ -14,7 +14,6 @@ export class Copy {
   async activate(params) {
     this.id = params.id;
     this.data = await this.service.getById(this.id);
-    console.log(this.data)
     this.clearDataProperties();
     // this.getLineWithCode();
   }
@@ -73,6 +72,7 @@ export class Copy {
     this.service
       .create(this.data)
       .then(result => {
+        alert("Data berhasil dibuat");
         this.list();
       })
       .catch(e => {

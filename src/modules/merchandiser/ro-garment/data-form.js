@@ -20,8 +20,11 @@ export class DataForm {
   }
   CCG_M_FabricInfo = {
     columns: [
-      { header: "Fabric", value: "Category" },
-      { header: "Name", value: "Material" },
+      { header: "Product Code" },
+      { header: "Composition" },
+      { header: "Construction" },
+      { header: "Yarn" },
+      { header: "Width" },
       { header: "Description", value: "Description" },
       { header: "Quantity", value: "Quantity" },
       { header: "Remark", value: "Information" }
@@ -29,8 +32,11 @@ export class DataForm {
   }
   CCG_M_AccessoriesInfo = {
     columns: [
-      { header: "Accessories  ", value: "Category" },
-      { header: "Name", value: "Material" },
+      { header: "Product Code" },
+      { header: "Composition" },
+      { header: "Construction" },
+      { header: "Yarn" },
+      { header: "Width" },
       { header: "Description", value: "Description" },
       { header: "Quantity", value: "Quantity" },
       { header: "Remark", value: "Information" }
@@ -38,7 +44,11 @@ export class DataForm {
   }
   CCG_M_RateInfo = {
     columns: [
-      { header: "Ongkos", value: "Category" },
+      { header: "Product Code" },
+      { header: "Composition" },
+      { header: "Construction" },
+      { header: "Yarn" },
+      { header: "Width" },
       { header: "Name", value: "Material" },
       { header: "Description", value: "Description" },
       { header: "Quantity", value: "Quantity" },
@@ -132,9 +142,9 @@ export class DataForm {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
       }
       if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
-        this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "FAB");
-        this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ACC");
-        this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
+        this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
+        this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
+        // this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
       }
     }
   }
@@ -154,10 +164,10 @@ export class DataForm {
     return this.CCG_M_Accessories.length !== 0;
   }
 
-  @computedFrom("CCG_M_Rate")
-  get hasCCG_M_Rate() {
-    return this.CCG_M_Rate.length !== 0;
-  }
+  // @computedFrom("CCG_M_Rate")
+  // get hasCCG_M_Rate() {
+  //   return this.CCG_M_Rate.length !== 0;
+  // }
 
   get total() {
     this.data.Total = 0;

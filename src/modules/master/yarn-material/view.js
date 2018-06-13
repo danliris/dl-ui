@@ -11,8 +11,8 @@ export class View {
     }
 
     async activate(params) {
-        var id = params.id;
-        this.data = await this.service.getById(id);
+        var Id = params.id;
+        this.data = await this.service.getById(Id);
     }
 
     list() {
@@ -25,7 +25,7 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     deleteCallback(event) {

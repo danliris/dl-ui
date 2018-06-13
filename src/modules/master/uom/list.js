@@ -8,7 +8,7 @@ export class List {
     // info = { page: 1, keyword: '' };
     context = ["detail"];
     columns = [
-      { field: "unit", title: "Satuan" },
+      { field: "Unit", title: "Satuan" },
     ]
 
     loader = (info) => {
@@ -20,7 +20,7 @@ export class List {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
-        select:['unit'],
+        select:['Unit'],
         order: order
       }
 
@@ -36,8 +36,8 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.uomId = "";
-        this.uoms = [];
+        // this.uomId = "";
+        // this.uoms = [];
     }
 
     contextCallback(event) {
@@ -45,7 +45,7 @@ export class List {
       var data = arg.data;
       switch(arg.name) {
         case "detail":
-        this.router.navigateToRoute('view', {id: data._id});
+        this.router.navigateToRoute('view', {id: data.Id});
         break;
       }
     }

@@ -1,8 +1,9 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../utils/rest-service'; 
+import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'master/garment-products';
+const garmentProductServiceUri = 'master/garment-products';
+const uomServiceUri = 'master/uoms';
 
 export class ServiceCore extends RestService {
 
@@ -11,15 +12,28 @@ export class ServiceCore extends RestService {
   }
 
   getByName(name) {
-    var endpoint = `${serviceUri}?keyword=${name}`;
+    var endpoint = `${garmentProductServiceUri}?keyword=${name}`;
     return super.get(endpoint)
-    .then((result) => {
+      .then((result) => {
         if (result && result.length > 0) {
-            return result[0];
+          return result[0];
         } else {
-            return null;
+          return null;
         }
-    })
+      })
+  }
+
+  getUomByUnit(unit) {
+    var endpoint = `${uomServiceUri}?keyword=${unit}`;
+    return super.get(endpoint)
+      .then((result) => {
+        console.log(result)
+        if (result && result.length > 0) {
+          return result[0];
+        } else {
+          return null;
+        }
+      })
   }
 
 }

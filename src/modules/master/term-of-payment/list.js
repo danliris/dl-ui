@@ -8,7 +8,7 @@ export class List {
     columns = [
 		{ field: "termOfPayment", title: "Term of Payment" },
 		{
-			field: "isExport", title: "Export",
+			field: "IsExport", title: "Export",
 			formatter: function (value, row, index) {
 			  return value ? "Ya" : "Tidak";
 			}

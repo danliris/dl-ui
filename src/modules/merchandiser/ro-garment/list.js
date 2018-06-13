@@ -6,7 +6,7 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Rincian", "Cetak PDF"];
     columns = [
-        { field: "CostCalculationGarment.RO", title: "No RO" },
+        { field: "CostCalculationGarment.RO_Number", title: "No RO" },
         { field: "CostCalculationGarment.Article", title: "Artikel" },
         { field: "CostCalculationGarment.Convection", title: "Convection" },
         { field: "Total", title: "Kuantitas RO" }
@@ -43,7 +43,7 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "Detail":
+            case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":

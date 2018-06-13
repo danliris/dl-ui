@@ -8,8 +8,8 @@
     <div class="row" if.bind="!readOnly">
       <div class="col-md-6">
         <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationGarment" error.bind="error.CostCalculationGarment"
-          loader.one-time="costCalculationGarmentLoader" query.bind="filterCostCalculationGarment" options.bind="length4" key="Code"
-          text="RO" read-only.bind="readOnly || isEdit"></au-autocomplete>
+          loader.one-time="costCalculationGarmentLoader" query.bind="filterCostCalculationGarment" options.bind="length4"
+          text="RO_Number" read-only.bind="readOnly || isEdit"></au-autocomplete>
         <au-textbox label="Description" value.bind="data.CostCalculationGarment.Description" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
       </div>
@@ -50,15 +50,15 @@
         </au-collection>
       </div>
       <div class="row" show.bind="hasCCG_M_Accessories">
-        <au-collection title="Accessories" items.bind="CCG_M_Accessories" columns.bind="CCG_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
+        <au-collection title="Accessories Dan Lain-Lain" items.bind="CCG_M_Accessories" columns.bind="CCG_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
           read-only.bind="readOnly">
         </au-collection>
       </div>
-      <div class="row" show.bind="hasCCG_M_Rate">
+      <!-- <div class="row" show.bind="hasCCG_M_Rate">
         <au-collection title="Ongkos" items.bind="CCG_M_Rate" columns.bind="CCG_M_RateInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
           read-only.bind="readOnly">
         </au-collection>
-      </div>
+      </div> -->
     </div>
     <div class="col-md-2" if.bind="hasCostCalculationGarment">
       <img src.bind="data.CostCalculationGarment.ImageFile || 'https://bateeqstorage.blob.core.windows.net/other/no-image.jpg'"
