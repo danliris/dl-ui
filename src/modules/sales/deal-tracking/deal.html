@@ -64,17 +64,17 @@
                             </section>
 
                             <section id="task-content">
-                                <au-textbox value.bind="title" error.bind="error.title" placeholder="Judul tugas"></au-textbox>
-                                <au-multiline value.bind="notes" error.bind="error.notes" placeholder="Catatan"></au-multiline>
+                                <au-textbox value.bind="title" error.bind="error.TaskTitle" placeholder="Judul tugas"></au-textbox>
+                                <au-multiline value.bind="notes" error.bind="error.Notes" placeholder="Catatan"></au-multiline>
                                 <au-autocomplete 
                                     value.bind="assignedTo" 
-                                    error.bind="error.assignedTo"
+                                    error.bind="error.AssignedTo"
                                     label="Ditugaskan Kepada" 
                                     loader.one-time="accountLoader"
                                     placeholder="Ditugaskan kepada" 
                                     text="username">
                                 </au-autocomplete>
-                                <au-datetimepicker value.bind="dueDate" label="Batas tanggal terakhir" placeholder="Batal tanggal terahkir" error.bind="error.dueDate"></au-datetimepicker>
+                                <au-datetimepicker value.bind="dueDate" label="Batas tanggal terakhir" placeholder="Batal tanggal terahkir" error.bind="error.DueDate"></au-datetimepicker>
 
                                 <div class="btn-group pull-right">
                                     <button class="btn btn-success" click.delegate="create()">Buat</button>
@@ -108,8 +108,8 @@
                                             <div class="row" if.bind="activity.type == 'NOTES'">
                                                 <div class="col-sm-6" repeat.for="attachment of activity.attachments">
                                                     <div class="activity-attachment-box">
-                                                        <div class="col-sm-10 downloadFile" click.delegate="getFile(attachment.fileNameStorage)">
-                                                            <i class="fa fa-file-o" aria-hidden="true"> ${attachment.fileName}</i> 
+                                                        <div class="col-sm-10 downloadFile" click.delegate="getFile(attachment.FilePath)">
+                                                            <i class="fa fa-file-o" aria-hidden="true"> ${attachment.FileName}</i> 
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <i class="fa fa-window-close-o" aria-hidden="true" click.delegate="deleteFile($index, activity)"></i>

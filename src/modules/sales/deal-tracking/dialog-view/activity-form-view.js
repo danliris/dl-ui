@@ -23,13 +23,17 @@ export class ActivityFormView {
 
         this.formatBytes = params.formatBytes;
 
-        if (this.type == "NOTES") {
-            this.isNotes = true;
-        }
-
         await this.service.getActivityById(params.id)
             .then((result) => {
                 this.data = result;
+
+                if (this.type == "NOTES") {
+                    this.isNotes = true;
+                }
+                else {
+                    this.data.AssignedTo = { username: this.data.AssignedTo };
+                }
+
                 this.currentAttachments = this.data.Attachments;
             });
     }
@@ -52,12 +56,13 @@ export class ActivityFormView {
     save() {
         this.error = {};
 
-        if (this.data.type == "NOTES") {
-            if (!this.data.field.notes || this.data.field.notes === "")
-                this.error.notes = "Notes is required";
+        if (this.data.Type == "NOTES") {
+            if (!this.data.Notes || this.data.Notes === "")
+                this.error.Notes = "Notes is required";
             else {
-                this.data.field.attachments = this.attachments;
+                this.data.attachments = this.attachments;
                 this.data.update = true;
+                this.data.notes = this.data.Notes;
 
                 this.service.upsertActivityAttachment(this.data)
                     .then((result) => {
@@ -69,9 +74,12 @@ export class ActivityFormView {
             }
         }
         else {
-            this.service.updateActivity(this.data)
+            let data = JSON.parse(JSON.stringify(this.data));
+            data.AssignedTo = data.AssignedTo.username;
+
+            this.service.updateActivity(data)
                 .then((result) => {
-                    this.controller.ok(this.data.field);
+                    this.controller.ok(data);
                 })
                 .catch(e => {
                     this.error = e;
@@ -83,7 +91,7 @@ export class ActivityFormView {
         this.dialog.show(HyperlinkFormView, {})
             .then(response => {
                 if (!response.wasCancelled) {
-                    this.data.field.notes += `<a href='${response.output.url}' target='${response.output.newTab}'>${response.output.linkText}</a>`;
+                    this.data.Notes += `<a href='${response.output.url}' target='${response.output.newTab}'>${response.output.linkText}</a>`;
                 }
             });
     }

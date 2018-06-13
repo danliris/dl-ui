@@ -59,7 +59,6 @@ export class View {
 
 					if (data.DealsOrder) {
 						for (let dealId of JSON.parse(data.DealsOrder)) {
-							console.log(dealId);
 							let deal = data.Deals.find(p => p.Id == dealId);
 							deal.CloseDate = moment(deal.CloseDate).format("DD MMM YYYY");
 							total += deal.Amount;

@@ -1,10 +1,10 @@
-import {inject, computedFrom} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from "./service";
-import {Dialog} from '../../../components/dialog/dialog';
-import {ActivityFormView} from './dialog-view/activity-form-view';
-import {DealFormView} from './dialog-view/deal-form-view';
-import {HyperlinkFormView} from './dialog-view/hyperlink-form-view';
+import { inject, computedFrom } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from "./service";
+import { Dialog } from '../../../components/dialog/dialog';
+import { ActivityFormView } from './dialog-view/activity-form-view';
+import { DealFormView } from './dialog-view/deal-form-view';
+import { HyperlinkFormView } from './dialog-view/hyperlink-form-view';
 
 var moment = require("moment");
 var AccountLoader = require("../../../loader/account-loader");
@@ -110,9 +110,9 @@ export class Deal {
                                 Id: data.Id,
                                 type: data.Type,
                                 icon: "fa fa-sticky-note",
-                                title: (data._createdBy == result.info.username ? "Kamu" : data._createdBy) + " meninggalkan sebuah catatan",
+                                title: (data.CreatedBy == result.info.username ? "Kamu" : data.CreatedBy) + " meninggalkan sebuah catatan",
                                 notes: data.Notes,
-                                attachments: data.field.attachments,
+                                attachments: data.Attachments,
                                 date: moment.utc(data.CreatedUtc).local().format("DD MMM YYYY"),
                                 time: moment.utc(data.CreatedUtc).local().format("HH:mm"),
                             });
@@ -146,11 +146,11 @@ export class Deal {
             else {
                 activityData = {
                     dealId: this.dealId,
+                    dealCode: this.deal.Code,
+                    dealName: this.deal.Name,
                     type: "NOTES",
-                    field: {
-                        notes: this.notes,
-                        attachments: this.attachments
-                    }
+                    notes: this.notes,
+                    attachments: this.attachments
                 };
 
                 this.service.upsertActivityAttachment(activityData)
@@ -172,7 +172,7 @@ export class Deal {
                 type: "TASK",
                 taskTitle: this.title,
                 notes: this.notes,
-                assignedTo: this.assignedTo.username,
+                assignedTo: this.assignedTo ? this.assignedTo.username : '',
                 dueDate: this.dueDate
             };
 
@@ -189,14 +189,14 @@ export class Deal {
     }
 
     editActivity(activity) {
-        this.dialog.show(ActivityFormView, { id: activity.Id, type: activity.Type, formatBytes: this.formatBytes })
+        this.dialog.show(ActivityFormView, { id: activity.Id, type: activity.type, formatBytes: this.formatBytes })
             .then(response => {
                 if (!response.wasCancelled) {
                     if (activity.type == "TASK") {
-                        activity.taskTitle = response.output.title;
-                        activity.notes = response.output.notes;
-                        activity.assignedTo = response.output.assignedTo.username;
-                        activity.dueDate = moment(response.output.dueDate).format("DD MMM YYYY HH:mm");
+                        activity.taskTitle = response.output.TaskTitle;
+                        activity.notes = response.output.Notes;
+                        activity.assignedTo = response.output.AssignedTo;
+                        activity.dueDate = moment(response.output.DueDate).format("DD MMM YYYY HH:mm");
                     }
                     else {
                         this.resetActivityFilter();
@@ -220,13 +220,11 @@ export class Deal {
     }
 
     updateTaskStatus(id, checked) {
-        var updateData = {
-            _id: id,
-            status: checked,
-            type: "Update Task Status"
-        };
-
-        this.service.updateActivity(updateData);
+        this.service.getActivityById(id)
+            .then((response => {
+                response.Status = checked;
+                this.service.updateActivity(response);
+            }));
     }
 
     createHyperlink() {
@@ -258,12 +256,11 @@ export class Deal {
             .then(response => {
                 if (response == "ok") {
                     var data = {
-                        _id: activity._id,
-                        fileName: activity.attachments[index].fileNameStorage,
-                        attachments: activity.attachments
+                        Id: activity.attachments[index].Id,
+                        FilePath: activity.attachments[index].FilePath
                     };
 
-                    data.attachments.splice(index, 1);
+                    activity.attachments.splice(index, 1);
 
                     this.service.deleteFile(data);
                 }
@@ -300,7 +297,7 @@ export class Deal {
             size: 15,
             total: 0,
             order: { "CreatedUtc": "desc" }
-        };    
+        };
     }
 
     editCallback() {

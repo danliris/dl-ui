@@ -5,8 +5,8 @@
         <ai-dialog-body>
             <form class="form-horizontal">
                 <section id="dragula" if.bind="isNotes">
-                    <div id="notes-box" contentEditable=true data-text="Catatan" innerhtml.bind="data.field.notes"></div>
-                    <div class="margin-bottom"><span class="error-text" show.bind="error.notes">${error.notes}</span></div>
+                    <div id="notes-box" contentEditable=true data-text="Catatan" innerhtml.bind="data.Notes"></div>
+                    <div class="margin-bottom"><span class="error-text" show.bind="error.Notes">${error.notes}</span></div>
 
                     <div>
                         <i class="fa fa-link fa-2x" title="Hyperlink" aria-hidden="true" click.delegate="createHyperlink()"></i>
@@ -22,7 +22,7 @@
                                     <i class="fa fa-file-o" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-sm-9">
-                                    ${attachment.fileName}
+                                    ${attachment.FileName}
                                 </div>
                             </div>
                         </div>

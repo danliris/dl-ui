@@ -118,13 +118,15 @@ export class Service extends RestService {
         }
         else {
             formData.append("dealId", data.dealId);
+            formData.append("dealCode", data.dealCode);
+            formData.append("dealName", data.dealName);
             formData.append("type", data.type);
         }
 
-        formData.append("notes", data.field.notes);
+        formData.append("notes", data.notes);
 
-        for (var i = 0; i < data.field.attachments.length; i++) {
-            formData.append("fileUpload-" + i, data.field.attachments[i]);
+        for (var i = 0; i < data.attachments.length; i++) {
+            formData.append("fileUpload-" + i, data.attachments[i]);
         }
 
         var request = {
@@ -165,7 +167,7 @@ export class Service extends RestService {
     }
 
     deleteFile(data) {
-        var endpoint = `${activityServiceUri}/activity/updateAttachment`;
+        var endpoint = `${activityServiceUri}/attachment/delete`;
         return super.put(endpoint, data);
     }
 
