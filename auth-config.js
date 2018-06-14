@@ -1,6 +1,6 @@
 export default {
     endpoint: "auth",
-    configureEndpoints: ["auth", "core", "production", "purchasing", "purchasing-azure", "garment-purchasing", "inventory", "inventory-azure", "garment-master-plan", "int-purchasing","customs-report","merchandiser", "deal-tracking"],
+    configureEndpoints: ["auth", "core", "production", "purchasing", "purchasing-azure", "garment-purchasing", "inventory", "inventory-azure", "garment-master-plan", "int-purchasing","customs-report","merchandiser", "deal-tracking", "sales"],
     loginUrl: "authenticate",
     profileUrl: "/me",
 
