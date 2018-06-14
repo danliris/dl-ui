@@ -22,7 +22,7 @@ export class List {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
-        select:["code","symbol","description"],
+        select:["Code","Symbol","Description"],
         order: order
       }
 

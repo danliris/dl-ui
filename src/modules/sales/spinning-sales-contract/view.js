@@ -17,22 +17,22 @@ export class View {
 
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');
+    // this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');
     
-    if(this.data.fromStock){
-      this.data.fromStock="Ya";
-    }
-    else{
-      this.data.fromStock="Tidak";
-    }
+    // if(this.data.fromStock){
+    //   this.data.fromStock="Ya";
+    // }
+    // else{
+    //   this.data.fromStock="Tidak";
+    // }
 
 
-    this.data.accountBank.toString = function () {
-      return [this.accountName, this.bankName, this.accountNumber]
-        .filter((item, index) => {
-          return item && item.toString().trim().length > 0;
-        }).join(" - ");
-    }
+    // this.data.accountBank.toString = function () {
+    //   return [this.accountName, this.bankName, this.accountNumber]
+    //     .filter((item, index) => {
+    //       return item && item.toString().trim().length > 0;
+    //     }).join(" - ");
+    // }
   }
 
   cancelCallback(event) {
@@ -40,7 +40,7 @@ export class View {
   }
 
   editCallback(event) {
-    this.router.navigateToRoute('edit', { id: this.data._id });
+    this.router.navigateToRoute('edit', { id: this.data.Id });
   }
 
   deleteCallback(event) {

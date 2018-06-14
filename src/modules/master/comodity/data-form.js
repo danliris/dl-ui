@@ -35,9 +35,9 @@ export class DataForm {
     }
     
 
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
+    // @computedFrom("data.Id")
+    // get isEdit() {
+    //     return (this.data.Id || '').toString() != '';
+    // }
 
 } 

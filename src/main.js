@@ -44,6 +44,7 @@ export async function configure(aurelia) {
       var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md-dev.azurewebsites.net/v1/";
       const dealTracking = 'https://com-danliris-service-deal-tracking-dev.azurewebsites.net/v1/';
+      const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
@@ -58,7 +59,8 @@ export async function configure(aurelia) {
       config.registerEndpoint('int-purchasing', intPurchasing, defaultConfig);
       config.registerEndpoint('customs-report', customsReport, defaultConfig);
       config.registerEndpoint('merchandiser', merchandiser, defaultConfig);
-      config.registerEndpoint('deal-tracking', dealTracking, defaultConfig);      
+      config.registerEndpoint('deal-tracking', dealTracking, defaultConfig);
+      config.registerEndpoint('sales', sales, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

@@ -19,11 +19,18 @@ export class DataForm {
     @bindable isEdit;
     @bindable isView;
 
+    @bindable Buyer;
+    @bindable TermOfPayment;
+    @bindable Comodity;
+    @bindable Quality;
+    @bindable AccountBank;
+    @bindable Agent;
+
     termOfPaymentFilter = {};
 
-    tagsFilter = { tags: { "$regex": "Material" } };
-
-    incomeTaxOptions = ['Tanpa PPn', 'Exclude PPn', 'Include PPn'];
+    // tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
+    tagsFilter = {};
+    incomeTaxOptions = ['Tanpa PPn', 'Include PPn', 'Exclude PPn'];
 
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
@@ -41,6 +48,32 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
+        if (this.data.Id) {
+            this.Buyer = this.data.Buyer;
+            this.Agent = this.data.Agent;
+            this.Comodity = this.data.Comodity;
+
+            this.TermOfPayment =
+                {
+                    _id: this.data.TermOfPayment.Id,
+                    code: this.data.TermOfPayment.Code,
+                    termOfPayment: this.data.TermOfPayment.Name,
+                    IsExport: this.data.TermOfPayment.IsExport
+                }
+
+            this.Quality = this.data.Quality;
+
+            this.AccountBank =
+                {
+                    code: this.data.AccountBank.Code,
+                    accountName: this.data.AccountBank.AccountName,
+                    accountNumber: this.data.AccountBank.AccountNumber,
+                    currency: { code: this.data.AccountBank.AccountCurrencyCode },
+                    bankName: this.data.AccountBank.BankName
+                };
+            this.data.FromStock = this.data.FromStock ? "Ya" : "Tidak";
+        }
+
         // this.termOfPayment={};
     }
 
@@ -54,112 +87,123 @@ export class DataForm {
     }
 
     //set termOfPaymentFilter
-    @computedFrom("data.buyer")
-    get istermOfPayment() {
-        this.termOfPayment = false;
-        this.termOfPaymentFilter = {};
-        if (this.data.buyer) {
-            this.termOfPayment = true;
-            if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.termOfPaymentFilter = { isExport: true };
-            } else {
-                this.termOfPaymentFilter = { isExport: false };
+    BuyerChanged(newValue, oldValue) {
+        if (this.Buyer) {
+            this.data.Buyer = this.Buyer;
+            if (this.data.Buyer) {
+                if (this.data.Buyer.Type == "Ekspor") {
+                    this.termOfPaymentFilter = { "IsExport": true };
+                } else {
+                    this.termOfPaymentFilter = { "IsExport": false };
+                }
+            }
+
+            // if (oldValue) {
+            //     this.Buyer = {};
+            //     this.TermOfPayment = {};
+            //     this.Agent = {};
+
+            //     this.data.Comission = "";
+            //     this.data.TermOfShipment = "";
+            //     this.data.Remark = "";
+            //     this.data.ShipmentDescription = "";
+            // }
+        } else {
+            this.Buyer = {};
+            this.data.Buyer = {};
+
+            this.TermOfPayment = {};
+            this.data.TermOfPayment = {};
+
+            this.Agent = {};
+            this.data.Agent = {};
+
+            this.data.Comission = "";
+            this.data.TermOfShipment = "";
+            this.data.Remark = "";
+            this.data.ShipmentDescription = "";
+        }
+    }
+
+    TermOfPaymentChanged(newValue, oldValue) {
+        if (this.TermOfPayment) {
+            this.data.TermOfPayment = {
+                Id: this.TermOfPayment._id,
+                Code: this.TermOfPayment.code,
+                Name: this.TermOfPayment.termOfPayment,
+                IsExport: this.TermOfPayment.IsExport
             }
         } else {
-            this.termOfPayments = {};
+            this.TermOfPayment = {};
+            this.data.TermOfPayment = {};
         }
-        return this.termOfPayment;
     }
 
-    @computedFrom("data.buyer")
-    get isExport() {
-        this.agent = false;
-        if (this.data.buyer) {
-            if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.agent = true;
-            }
+    ComodityChanged(newValue, oldValue) {
+        if (this.Comodity) {
+            this.data.Comodity = this.Comodity;
+        } else {
+            this.Comodity = {};
+            this.data.Comodity = {};
         }
-        return this.agent;
     }
 
-    @computedFrom("data.buyer")
-    get isTermOfShipment() {
-        this.termOfShipment = false;
-        if (this.data.buyer) {
-            if (this.data.buyer.type.trim().toLowerCase() == "ekspor") {
-                this.termOfShipment = true;
-            }
+    UomChanged() {
+        if (this.Uom) {
+            this.data.Uom = this.Uom;
+        } else {
+            this.Uom = {};
+            this.data.Uom = {};
         }
-        return this.termOfShipment;
     }
 
-    buyersChanged(e) {
-        var selectedBuyer = e.detail;
-        this.data.agent = {};
-        this.agentChanged({});
-        this.data.termOfPayment = {};
-        this.termOfPaymentChanged({});
-        this.data.comission = "";
-        this.data.termOfShipment = "";
-        this.data.remark = "";
-        this.data.shipmentDescription = "";
-        this.data.incomeTax = this.incomeTaxOptions[0];
-        if (selectedBuyer) {
-            this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
-            if (selectedBuyer.type.toLowerCase() == "ekspor" || selectedBuyer.type.toLowerCase() == "export") {
-                this.filterpayment = {
-                    "isExport": true
-                };
-            }
-            else {
-                this.filterpayment = {
-                    "isExport": false
-                };
-            }
-
+    QualityChanged() {
+        if (this.Quality) {
+            this.data.Quality = this.Quality;
+        } else {
+            this.Quality = {};
+            this.data.Quality = {};
         }
-        console.log('buyer changed');
     }
 
-    comodityChanged(e) {
-        console.log('comodity changed');
-    }
-
-    uomChanged(e) {
-        console.log('uom changed');
-    }
-
-    qualityChanged(e) {
-        console.log('quality changed');
-    }
-
-    accountBankChanged(e) {
-        console.log('accountBank changed');
-    }
-
-    productChanged(e) {
-        console.log('product changed');
-    }
-
-    termOfPaymentChanged(e) {
-        console.log('term of payment Changed');
-    }
-
-    agentChanged(e) {
-        var selectedAgent = e.detail || {};
-        if (selectedAgent) {
-            this.data.agentId = selectedAgent._id ? selectedAgent._id : "";
-            if (!this.readOnly) {
-                this.data.comission = "";
+    AccountBankChanged() {
+        if (this.AccountBank) {
+            this.data.AccountBank = {
+                Id: this.AccountBank._id,
+                AccountName: this.AccountBank.accountName,
+                AccountNumber: this.AccountBank.accountNumber,
+                BankName: this.AccountBank.bankName,
+                Code: this.AccountBank.code,
+                AccountCurrencyId: this.AccountBank.currency._id,
+                AccountCurrencyCode: this.AccountBank.currency.code,
             }
+        } else {
+            this.AccountBank = {};
+            this.data.AccountBank = {};
+        }
+    }
+
+
+    getAccount = (text) => {
+        var data = text.code ? `${text.accountName}-${text.bankName}-${text.accountNumber}-${text.currency.code}` : "";
+        return data
+    }
+
+    getAgentText = (text) => {
+        var data = text.Code ? `${text.Code}-${text.Name}` : "";
+        return data
+    }
+
+    AgentChanged() {
+        if (this.Agent) {
+            this.data.Agent = this.Agent
         }
         else {
-            this.data.comission = "";
+            this.Agent = {};
+            this.data.Agent = {};
+            this.data.Comission = "";
         }
-        console.log('agent changed');
     }
-
-
 
     get buyersLoader() {
         return BuyersLoader;
@@ -181,8 +225,16 @@ export class DataForm {
         return AccountBankLoader;
     }
 
+    get materialLoader() {
+        return MaterialLoader;
+    }
+
     get productLoader() {
         return ProductLoader;
+    }
+
+    get yarnMaterialLoader() {
+        return YarnMaterialLoader;
     }
 
     get termOfPaymentLoader() {
@@ -191,13 +243,5 @@ export class DataForm {
 
     get agentLoader() {
         return AgentLoader;
-    }
-
-    activate() {
-
-    }
-
-    attached() {
-
     }
 } 
