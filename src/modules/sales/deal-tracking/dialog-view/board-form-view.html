@@ -4,15 +4,15 @@
 
         <ai-dialog-body>
             <form class="form-horizontal">
-                <au-textbox value.bind="data.title" label="Judul Board" placeholder="Judul board" error.bind="error.title"></au-textbox>
+                <au-textbox value.bind="data.Title" label="Judul Board" placeholder="Judul board" error.bind="error.Title"></au-textbox>
             
                 <au-autocomplete 
-                    value.bind="data.currency" 
-                    error.bind="error.currency"
+                    value.bind="data.Currency" 
+                    error.bind="error.Currency"
                     label="Mata Uang" 
                     loader.one-time="currencyLoader"
                     placeholder="Cari mata uang" 
-                    text="code">
+                    text="Code">
                 </au-autocomplete>
             </form>
         </ai-dialog-body>

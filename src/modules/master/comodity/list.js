@@ -1,7 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
@@ -20,7 +19,6 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["Name"],
       order: order
     }
 

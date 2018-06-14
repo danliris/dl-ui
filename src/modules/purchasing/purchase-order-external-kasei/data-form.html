@@ -42,7 +42,7 @@
             text.bind = "unitView"
             placeholder="cari unit" 
             key="code" 
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -50,7 +50,7 @@
             label="Tgl. Order" 
             value.bind="data.orderDate" 
             error.bind="error.orderDate" 
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -173,7 +173,8 @@
             remove.bind="removeItems"
             options.bind="options"
             read-only.bind="readOnly"
-            item-template="modules/purchasing/purchase-order-external-kasei/template/purchase-order-external-item">
+            item-template="modules/purchasing/purchase-order-external-kasei/template/purchase-order-external-item"
+            if.bind="selectedUnit">
         </au-collection>
   </au-input-form>
 </template>
