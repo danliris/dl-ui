@@ -26,16 +26,16 @@ export class Edit {
     var id = params.id;
     this.data = await this.service.getById(id);
 
-    this.data.accountBank.toString = function () {
-      return [this.accountName, this.bankName, this.accountNumber]
-        .filter((item, index) => {
-          return item && item.toString().trim().length > 0;
-        }).join(" - ");
-    }
+    // this.data.accountBank.toString = function () {
+    //   return [this.accountName, this.bankName, this.accountNumber]
+    //     .filter((item, index) => {
+    //       return item && item.toString().trim().length > 0;
+    //     }).join(" - ");
+    // }
   }
 
   cancel(event) {
-    this.router.navigateToRoute('view', { id: this.data._id });
+    this.router.navigateToRoute('view', { id: this.data.Id });
   }
 
   save(event) {

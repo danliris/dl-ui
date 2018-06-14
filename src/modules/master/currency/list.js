@@ -8,9 +8,9 @@ export class List {
     // info = { page: 1, keyword: '' };
     context = ["detail"];
     columns = [
-      { field: "code", title: "Kode" },
-      { field: "symbol", title: "Simbol" },
-      { field: "description", title: "Keterangan" },
+      { field: "Code", title: "Kode" },
+      { field: "Symbol", title: "Simbol" },
+      { field: "Description", title: "Keterangan" },
     ]
 
     loader = (info) => {
@@ -22,7 +22,7 @@ export class List {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
-        select:["code","symbol","description"],
+        select:["Code","Symbol","Description"],
         order: order
       }
 
@@ -47,13 +47,13 @@ export class List {
       var data = arg.data;
       switch(arg.name) {
         case "detail":
-        this.router.navigateToRoute('view', {id: data._id});
+        this.router.navigateToRoute('view', {id: data.Id});
         break;
       }
     }
     
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
     } 
 
     upload() {

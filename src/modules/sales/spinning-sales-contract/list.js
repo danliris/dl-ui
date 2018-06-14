@@ -41,7 +41,7 @@ export class List {
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
     }
 
     create() {
@@ -49,7 +49,7 @@ export class List {
     }
 
     exportPDF(data) {
-        this.service.getPdfById(data._id);
+        this.service.getPdfById(data.Id);
     }
 
 }
