@@ -8,7 +8,7 @@ const serviceUri = 'sales/spinning-sales-contracts';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "sales");
     }
 
 
