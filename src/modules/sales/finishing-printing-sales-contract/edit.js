@@ -14,7 +14,7 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
         if (this.data.referenceNumber && this.data.referenceNumber != "") {
-            this.data.reference = { orderNo: this.data.referenceNumber };
+            this.data.reference = { orderNo: this.data.ReferenceNumber };
         }
         else {
             this.data.reference = {};
@@ -22,17 +22,15 @@ export class Edit {
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save() {
-        this.data.remainingQuantity = this.data.orderQuantity + (this.data.orderQuantity * this.data.shippingQuantityTolerance / 100);
+        this.data.RemainingQuantity = this.data.OrderQuantity + (this.data.OrderQuantity * this.data.ShippingQuantityTolerance / 100);
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
             this.error = e;
         })
     }
-
-
 }
