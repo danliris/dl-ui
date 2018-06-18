@@ -81,7 +81,7 @@
         </au-textbox>
 
         <au-autocomplete label="Syarat Pembayaran" placeholder="cari syarat pembayaran" value.bind="TermOfPayment" error.bind="error.TermOfPayment"
-          read-only.bind="(readOnly || isEdit)" key="Code" text="termOfPayment" loader.bind="termOfPaymentLoader" query.bind="termOfPaymentFilter"
+          read-only.bind="(readOnly || isEdit)" key="Code" text="Name" loader.bind="termOfPaymentLoader" query.bind="termOfPaymentFilter"
           if.bind="Buyer.Id" keypress.delegate="enterDelegate($event)"></au-autocomplete>
 
         <au-autocomplete value.bind="AccountBank" error.bind="error.AccountBank" label="Pembayaran ke Rekening" loader.bind="accountBankLoader"

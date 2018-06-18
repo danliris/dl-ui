@@ -57,31 +57,24 @@ export class DataForm {
             this.Buyer = this.data.Buyer;
             this.Agent = this.data.Agent;
             this.Comodity = this.data.Comodity;
-
-            this.TermOfPayment =
-                {
-                    _id: this.data.TermOfPayment.Id,
-                    code: this.data.TermOfPayment.Code,
-                    termOfPayment: this.data.TermOfPayment.Name,
-                    IsExport: this.data.TermOfPayment.IsExport
-                }
-
+            this.TermOfPayment = this.data.TermOfPayment;
             this.Uom = this.data.Uom;
             this.Quality = this.data.Quality;
 
             this.AccountBank =
                 {
-                    code: this.data.AccountBank.Code,
-                    accountName: this.data.AccountBank.AccountName,
-                    accountNumber: this.data.AccountBank.AccountNumber,
-                    currency: { code: this.data.AccountBank.AccountCurrencyCode },
-                    bankName: this.data.AccountBank.BankName
+                    Id: this.data.AccountBank.Id,
+                    Code: this.data.AccountBank.Code,
+                    AccountName: this.data.AccountBank.AccountName,
+                    AccountNumber: this.data.AccountBank.AccountNumber,
+                    Currency: { Code: this.data.AccountBank.AccountCurrencyCode },
+                    BankName: this.data.AccountBank.BankName
                 };
 
             this.Material = this.data.Product;
             this.YarnMaterial = this.data.YarnMaterial;
             this.MaterialConstruction = this.data.MaterialConstruction;
-            this.data.FromStock = this.data.FromStock ? "Ya" : "Tidak";
+
         }
     }
 
@@ -134,12 +127,8 @@ export class DataForm {
 
     TermOfPaymentChanged(newValue, oldValue) {
         if (this.TermOfPayment) {
-            this.data.TermOfPayment = {
-                Id: this.TermOfPayment._id,
-                Code: this.TermOfPayment.code,
-                Name: this.TermOfPayment.termOfPayment,
-                IsExport: this.TermOfPayment.IsExport
-            }
+            this.data.TermOfPayment = this.TermOfPayment
+
         } else {
             this.TermOfPayment = {};
             this.data.TermOfPayment = {};
@@ -176,13 +165,13 @@ export class DataForm {
     AccountBankChanged() {
         if (this.AccountBank) {
             this.data.AccountBank = {
-                Id: this.AccountBank._id,
-                AccountName: this.AccountBank.accountName,
-                AccountNumber: this.AccountBank.accountNumber,
-                BankName: this.AccountBank.bankName,
-                Code: this.AccountBank.code,
-                AccountCurrencyId: this.AccountBank.currency._id,
-                AccountCurrencyCode: this.AccountBank.currency.code,
+                Id: this.AccountBank.Id,
+                AccountName: this.AccountBank.AccountName,
+                AccountNumber: this.AccountBank.AccountNumber,
+                BankName: this.AccountBank.BankName,
+                Code: this.AccountBank.Code,
+                AccountCurrencyId: this.AccountBank.Currency.Id,
+                AccountCurrencyCode: this.AccountBank.Currency.Code,
             }
         } else {
             this.AccountBank = {};
@@ -218,7 +207,7 @@ export class DataForm {
     }
 
     getAccount = (text) => {
-        var data = text.code ? `${text.accountName}-${text.bankName}-${text.accountNumber}-${text.currency.code}` : "";
+        var data = text.Code ? `${text.AccountName}-${text.BankName}-${text.AccountNumber}-${text.Currency.Code}` : "";
         return data
     }
 

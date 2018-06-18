@@ -6,7 +6,7 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["Rincian"];
     columns = [
-		{ field: "termOfPayment", title: "Term of Payment" },
+		{ field: "Name", title: "Term of Payment" },
 		{
 			field: "IsExport", title: "Export",
 			formatter: function (value, row, index) {
@@ -30,7 +30,7 @@ export class List {
 			size: info.limit,
 			keyword: info.search,
 			order: order,
-			select: ['termOfPayment', 'isExport']
+			select: ['Name', 'IsExport']
 		}
 
 		return this.service.search(arg)
@@ -47,13 +47,13 @@ export class List {
 		var data = arg.data;
 		switch (arg.name) {
 			case "Rincian":
-				this.router.navigateToRoute('view', { id: data._id });
+				this.router.navigateToRoute('view', { id: data.Id });
 				break;
 		}
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
     }
 
 	create() {
