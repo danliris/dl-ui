@@ -10,11 +10,11 @@ export class List {
     context = ["detail", "print"]
 
     columns = [
-        { field: "salesContractNo", title: "Nomor Sales Contract" },
-        { field: "buyer.type", title: "Jenis Buyer" },
-        { field: "buyer.name", title: "Buyer" },
+        { field: "SalesContractNo", title: "Nomor Sales Contract" },
+        { field: "Buyer.Type", title: "Jenis Buyer" },
+        { field: "Buyer.Name", title: "Buyer" },
         {
-            field: "deliverySchedule", title: "Tanggal Delivery", formatter: function (value, data, index) {
+            field: "DeliverySchedule", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         }
@@ -24,13 +24,11 @@ export class List {
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-        console.log(info)
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["salesContractNo", "buyer", "deliverySchedule"]
         }
 
         return this.service.search(arg)
@@ -40,8 +38,6 @@ export class List {
                 data.data = result.data;
                 return data;
             });
-
-
     }
 
     constructor(router, service) {
@@ -55,10 +51,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "print":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
