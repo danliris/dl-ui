@@ -21,7 +21,7 @@
     </div>
     <div class="row" if.bind="readOnly">
       <div class="col-md-4">
-        <au-textbox label="No RO" value.bind="data.CostCalculationGarment.RO" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-textbox>
+        <au-textbox label="No RO" value.bind="data.CostCalculationGarment.RO_Number" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-textbox>
         <au-textbox label="Konveksi" value.bind="data.CostCalculationGarment.Convection" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
         <au-textbox label="Description" value.bind="data.CostCalculationGarment.Description" read-only.bind="disabled" options.bind="length4"
@@ -30,7 +30,7 @@
       <div class="col-md-4">
         <au-textbox label="Seksi" value.bind="data.CostCalculationGarment.Section" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
-        <au-textbox label="Buyer" value.bind="data.CostCalculationGarment.Buyer.Name" read-only.bind="disabled" options.bind="length4"
+        <au-textbox label="Buyer" value.bind="data.CostCalculationGarment.Buyer.name" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
         <au-numeric label="Kuantitas RO" value.bind="total" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-numeric>
       </div>

@@ -30,9 +30,9 @@ export class List {
       }
     },
     { field: "no", title: "No. PR" },
-    { field: "DivisionName", title: "Divisi" },
-    { field: "UnitName", title: "Unit" },
-    { field: "CategoryName", title: "Kategori" },
+    { field: "unit.division.name", title: "Divisi" },
+    { field: "unit.name", title: "Unit" },
+    { field: "category.name", title: "Kategori" },
     // { field: "NPWP", title: "NPWP" },
     {
       field: "isPosted", title: "Posted",
@@ -57,11 +57,6 @@ export class List {
 
     return this.service.search(arg)
       .then(result => {
-        for (var data of result.data) {
-            data.DivisionName = data.unit.division.name;
-            data.UnitName = data.unit.name;
-            data.CategoryName = data.category.name;
-        }
         return {
           total: result.info.total,
           data: result.data

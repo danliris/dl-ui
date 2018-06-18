@@ -22,35 +22,31 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.data.isSplit = true;
         
-        this.data.purchaseRequest=this.data;
-
         this.data.purchaseRequest.toString = function () {
-            return `${this.prNo}`
+            return `${this.no}`
         }
         this.purchaseRequest=this.data.purchaseRequest;
-        
-        this.data.purchaseRequest.date=this.data.prDate;
         
         this.data.purchaseRequest.unit.toString = function () {
             return [this.division.name, this.name]
                 .filter((item, index) => {
-                    return item ;
+                    return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
 
         this.data.purchaseRequest.category.toString = function () {
-            return [this.code, this.name]
-                .filter((item, index) => {
-                    return item ;
-                }).join(" - ");
-        }
+                return [this.code, this.name]
+                    .filter((item, index) => {
+                        return item && item.toString().trim().length > 0;
+                    }).join(" - ");
+            }
 
         this.data.items.forEach(item => {
             item.product.toString = function () {
                 return [this.code, this.name]
                     .filter((item, index) => {
-                        return item ;
-                    }).join(" - ");      
+                        return item && item.toString().trim().length > 0;
+                    }).join(" - ");
             }
         })
     }
@@ -68,33 +64,19 @@ export class Edit {
     }
 
     split(event) {
-        var newInternalPurchaseOrder = Object.assign({}, this.data);
-        delete newInternalPurchaseOrder.purchaseRequest;
-        delete newInternalPurchaseOrder.toString();
-        delete newInternalPurchaseOrder._id;
-        
-        this.service.spliting(this.data._id, newInternalPurchaseOrder).then(result => {
-            // console.log(this.data);
+        this.service.split(this.copyForSplit(this.data)).then(result => {
             this.cancel();
         }).catch(e => {
-            console.log(e);
             this.error = e;
         })
     }
-    // split(event) {
-    //     this.service.split(this.copyForSplit(this.data)).then(result => {
-    //         this.cancel();
-    //     }).catch(e => {
-    //         this.error = e;
-    //     })
-    // }
 
-    // copyForSplit(purchaseOrder) {
-    //     var newPurchaseOrder = Object.assign({}, purchaseOrder);
-    //     delete newPurchaseOrder._id;
-    //     newPurchaseOrder.sourcePurchaseOrderId = purchaseOrder._id;
-    //     newPurchaseOrder.sourcePurchaseOrder = Object.assign({}, purchaseOrder);
-    //     console.log(newPurchaseOrder);
-    //     return newPurchaseOrder;
-    // }
+    copyForSplit(purchaseOrder) {
+        var newPurchaseOrder = Object.assign({}, purchaseOrder);
+        delete newPurchaseOrder._id;
+
+        newPurchaseOrder.sourcePurchaseOrderId = purchaseOrder._id;
+        newPurchaseOrder.sourcePurchaseOrder = Object.assign({}, purchaseOrder);
+        return newPurchaseOrder;
+    }
 }
