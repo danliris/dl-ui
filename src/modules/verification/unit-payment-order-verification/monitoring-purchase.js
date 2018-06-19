@@ -69,6 +69,7 @@ export class List {
         console.log(param)
         this.purchaseOrder = no;
         this.search();
+
     }
 
 

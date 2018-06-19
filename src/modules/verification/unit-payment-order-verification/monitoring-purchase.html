@@ -23,7 +23,7 @@
             <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
         </div>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="poReport">
+            <table class="table table-bordered table-hover table-dark" border="1" id="poReport">
                 <thead align="center">
                     <tr>
                         <td rowspan="3">NO</td>
@@ -96,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="PO of data">
+                    <tr repeat.for="PO of data" class="${PO.Status == 'Semua sudah dibuat SPB' ?'success':'primary'}">
                         <td>${PO['No']}</td>
                         <td>${PO['Tanggal Purchase Request']}</td>
                         <td>${PO['No Purchase Request']}</td>
