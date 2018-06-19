@@ -71,7 +71,7 @@
         <au-multiline label="Packing" placeholder="input packing" value.bind="data.Packing" error.bind="error.Packing" read-only.bind="(readOnly)"></au-multiline>
 
         <au-dropdown label="PPN" value.bind="data.IncomeTax" error.bind="error.IncomeTax" read-only.bind="(readOnly)" items.bind="incomeTaxOptions"
-          if.bind="Buyer.Type =='Ekspor'" keypress.delegate="enterDelegate($event)"></au-dropdown>
+          keypress.delegate="enterDelegate($event)"></au-dropdown>
 
       </div>
       <div class="col-md-6" style="padding:10">

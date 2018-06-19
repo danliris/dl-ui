@@ -22,7 +22,7 @@
 
           <au-autocomplete
             label="Satuan"
-            value.bind="data.Uom"
+            value.bind="UOM"
             error.bind="error.uom"
             loader.bind="uomLoader"
             read-only.bind="readOnly"
@@ -36,8 +36,8 @@
             error.bind="error.currency"
             loader.bind="currencyLoader"
             read-only.bind="readOnly"
-            key="symbol"
-            text="code"      
+            key="Symbol"
+            text="Code"      
           ></au-autocomplete>
 
           <au-numeric

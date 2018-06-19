@@ -53,7 +53,7 @@
         <au-multiline label="Packing" placeholder="input packing" value.bind="data.Packing" error.bind="error.Packing" read-only.bind="(readOnly)"></au-multiline>
 
         <au-dropdown label="PPN" value.bind="data.IncomeTax" error.bind="error.IncomeTax" read-only.bind="(readOnly)" items.bind="incomeTaxOptions"
-          if.bind="Buyer.Type =='Ekspor'" keypress.delegate="enterDelegate($event)"></au-dropdown>
+          keypress.delegate="enterDelegate($event)"></au-dropdown>
 
       </div>
       <div class="col-md-6" style="padding:10">
@@ -63,7 +63,7 @@
         </au-textbox>
 
         <au-autocomplete label="Syarat Pembayaran" placeholder="cari syarat pembayaran" value.bind="TermOfPayment" error.bind="error.TermOfPayment"
-          read-only.bind="(readOnly || isEdit)" key="Code" text="termOfPayment" loader.bind="termOfPaymentLoader" query.bind="termOfPaymentFilter"
+          read-only.bind="(readOnly || isEdit)" key="Code" text="Name" loader.bind="termOfPaymentLoader" query.bind="termOfPaymentFilter"
           if.bind="Buyer.Id" keypress.delegate="enterDelegate($event)"></au-autocomplete>
 
         <au-autocomplete value.bind="AccountBank" error.bind="error.AccountBank" label="Pembayaran ke Rekening" loader.bind="accountBankLoader"
