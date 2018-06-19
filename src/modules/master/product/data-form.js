@@ -20,9 +20,9 @@ export class DataForm {
     bind(context) {
     this.context = context;
     this.data = this.context.data;
-    if (this.data && this.data.uom)
-            this.data.uom.toString = function () {
-                return this.unit;
+    if (this.data && this.data.UOM)
+            this.data.UOM.toString = function () {
+                return this.Unit;
             };
     this.error = this.context.error;
 
@@ -36,7 +36,7 @@ export class DataForm {
     uomChanged(e) {
         var selectedUom = e.detail;
         if (selectedUom)
-            this.data.uomId = selectedUom._id;
+            this.data.UOM = selectedUom.Id;
     }
 
 }

@@ -7,6 +7,7 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable Currency;
+    @bindable UOM;
 
     formOptions = {
         cancelText: "Kembali",
@@ -26,9 +27,10 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-
-        this.Currency = this.data.Currency ? this.data.Currency = { symbol: this.data.Currency.Symbol, code: this.data.Currency.Code, _id: this.data.Currency.Id } : {};
-        this.data.Uom = this.data.UOM ? this.data.UOM : {};
+        if (this.data.Id) {
+            this.Currency = this.data.Currency;
+            this.UOM = this.data.UOM;
+        }
 
         this.error = this.context.error;
 
@@ -38,18 +40,17 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
     }
 
-    uomChanged(e) {
-        var selectedUom = e.detail;
-        if (selectedUom)
-            this.data.Uom = selectedUom;
+    UOMChanged() {
+        if (this.UOM) {
+            this.data.UOM = this.UOM
+        } else {
+            this.UOM = {};
+        }
     }
 
     CurrencyChanged() {
         if (this.Currency) {
-            this.data.Currency = {
-                Id: this.Currency._id,
-                Code: this.Currency.code
-            }
+            this.data.Currency = this.Currency;
         } else {
             this.Currency = {};
         }

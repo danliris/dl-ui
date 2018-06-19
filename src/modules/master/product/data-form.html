@@ -22,28 +22,28 @@
 
           <au-autocomplete
             label="Satuan"
-            value.bind="data.Uom"
-            error.bind="error.Uom"
+            value.bind="data.UOM"
+            error.bind="error.uom"
             read-only.bind="readOnly"
           ></au-autocomplete>
 
           <au-autocomplete
             label="Mata Uang"
-            value.bind="data.currency.code"
-            error.bind="error.currency.code"
+            value.bind="data.Currency.Code"
+            error.bind="error.currency"
             read-only.bind="readOnly"
           ></au-autocomplete>
 
           <au-numeric
             label="Harga"
-            value.bind="data.price"
+            value.bind="data.Price"
             error.bind="error.price"
             read-only.bind="readOnly"
           ></au-numeric>
 
           <au-multiline
             label="Tags"
-            value.bind="data.tags"
+            value.bind="data.Tags"
             error.bind="error.tags"
             read-only.bind="readOnly"
           ></au-multiline>
