@@ -54,9 +54,11 @@ export class View {
         }
 
         var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
-
         this.data = UnitPaymentOrder.data[0];
-        this.data.VerificationDate = this.dataExpedition.VerifyDate;
+        this.data.VerifyDate = this.dataExpedition.VerifyDate;
+        this.data.useVat = this.dataExpedition.IncomeTax;
+        this.data.useIncomeTax = this.dataExpedition.Vat;
+        this.data.remark = this.data.useVat + this.data.useIncomeTax;
     }
 
     list() {

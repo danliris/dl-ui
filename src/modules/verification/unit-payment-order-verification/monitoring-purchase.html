@@ -96,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="PO of data">
+                    <tr repeat.for="PO of data" class="${PO.isVerified == 6 ?'primary':'success'}">
                         <td>${PO['No']}</td>
                         <td>${PO['Tanggal Purchase Request']}</td>
                         <td>${PO['No Purchase Request']}</td>
