@@ -43,7 +43,7 @@ export class List {
                 rowspan: 2,
             },
             { title: 'Verifikasi', colspan: 3 },
-            { title: 'Kasir', colspan: 2 }
+            { title: 'Kasir', colspan: 3 }
         ], [
             {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
@@ -62,6 +62,11 @@ export class List {
             },
             {
                 field: 'CashierDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
+                    return value ? moment(value).format('DD MMM YYYY') : '-';
+                },
+            },
+            {
+                field: 'SendToAccountingDivisionDate', title: 'Tgl Bayar', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
             },

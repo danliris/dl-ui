@@ -25,7 +25,7 @@ export class Create {
         this.data = {};
 
         this.collection = {
-            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'Total Bayar', 'Mata Uang'],
+            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'PPH', 'PPN', 'Total Bayar (DPP + PPN)', 'Mata Uang'],
             onAdd: () => {
                 this.data.UnitPaymentOrders.push({});
             },
@@ -62,8 +62,14 @@ export class Create {
                 SupplierName: unitPaymentOrder.supplierName,
                 DivisionCode: unitPaymentOrder.divisionCode,
                 DivisionName: unitPaymentOrder.divisionName,
+                IncomeTax: unitPaymentOrder.incomeTax,
+                Vat: unitPaymentOrder.vat,
+                IncomeTaxId: unitPaymentOrder.incomeTaxId,
+                IncomeTaxName: unitPaymentOrder.incomeTaxName,
+                IncomeTaxRate: unitPaymentOrder.incomeTaxRate,
                 TotalPaid: unitPaymentOrder.totalPaid,
                 Currency: unitPaymentOrder.currency,
+                Items: unitPaymentOrder.items,
             });
         }
 
