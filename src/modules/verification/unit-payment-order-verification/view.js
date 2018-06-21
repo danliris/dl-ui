@@ -58,7 +58,7 @@ export class View {
         this.data.VerifyDate = this.dataExpedition.VerifyDate;
         this.data.useVat = this.dataExpedition.IncomeTax;
         this.data.useIncomeTax = this.dataExpedition.Vat;
-        this.data.remark = this.data.useVat + this.data.useIncomeTax;
+        this.data.remark = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat) - this.dataExpedition.IncomeTax;
     }
 
     list() {
