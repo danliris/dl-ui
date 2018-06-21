@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
+import XLSX from 'xlsx';
 import { Service, AzureService } from './service';
 const SupplierLoader = require('../../../../loader/supplier-loader');
 const DivisionLoader = require('../../../../loader/division-loader');
@@ -110,7 +111,6 @@ export class List {
             { text: 'Bag. Kasir', value: 7 },
             { text: 'Bag. Keuangan', value: 8 },
         ];
-
     }
 
     loader = (info) => {
@@ -179,6 +179,73 @@ export class List {
     search() {
         this.flag = true;
         this.tableList.refresh();
+    }
+
+    getExcelData() {
+        let info = {
+            offset: this.page * 50,
+            limit: 50,
+        };
+
+        this.loader(info)
+            .then(response => {
+                this.excelData.push(...response.data);
+
+                if (this.excelData.length !== response.total) {
+                    this.page++;
+                    this.getExcelData();
+                }
+                else {
+                    let wsData = [];
+
+                    for (let data of this.excelData) {
+                        wsData.push({
+                            'No. SPB': data.no,
+                            'Tgl SPB': moment(data.date).format('DD MMM YYYY'),
+                            'Tgl Jatuh Tempo': moment(data.dueDate).format('DD MMM YYYY'),
+                            'Nomor Invoice': data.invoceNo,
+                            'Supplier': data.supplier.name,
+                            'Divisi': data.division.name,
+                            'Posisi': this.itemsStatus.find(p => p.value === data.position).text,
+                            'Tgl Pembelian Kirim': data.SendToVerificationDivisionDate ? moment(data.SendToVerificationDivisionDate).format('DD MMM YYYY') : '-',
+                            'Tgl Terima Verifikasi': data.VerificationDivisionDate ? moment(data.VerificationDivisionDate).format('DD MMM YYYY') : '-',
+                            'Tgl Cek Verifikasi': data.VerifyDate ? moment(data.VerifyDate).format('DD MMM YYYY') : '-',
+                            'Tgl Kirim Verifikasi': data.SendDate ? moment(data.SendDate).format('DD MMM YYYY') : '-',
+                            'Tgl Terima Kasir': data.CashierDivisionDate ? moment(data.CashierDivisionDate).format('DD MMM YYYY') : '-',
+                            'Tgl Bayar Kasir': data.SendToAccountingDivisionDate ? moment(data.SendToAccountingDivisionDate).format('DD MMM YYYY') : '-',
+                            'No Kuitansi': data.BankExpenditureNoteNo
+                        });
+                    }
+
+                    let wb = XLSX.utils.book_new();
+                    wb.Props = {
+                        Title: 'Report',
+                        Subject: 'Dan Liris',
+                        Author: 'Dan Liris',
+                        CreatedDate: new Date()
+                    };
+                    wb.SheetNames.push('Surat Perintah Bayar');
+
+                    let ws = XLSX.utils.json_to_sheet(wsData);
+                    wb.Sheets['Surat Perintah Bayar'] = ws;
+
+                    let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+                    let buf = new ArrayBuffer(wbout.length);
+                    let view = new Uint8Array(buf);
+                    for (let i = 0; i < wbout.length; i++) view[i] = wbout.charCodeAt(i) & 0xFF;
+
+                    let fileSaver = require('file-saver');
+                    fileSaver.saveAs(new Blob([buf], { type: 'application/octet-stream' }), 'Laporan Expedisi.xlsx');
+                }
+            });
+    }
+
+    excel() {
+        this.flag = true;
+
+        this.page = 0;
+        this.excelData = [];
+        this.getExcelData();
     }
 
     reset() {
