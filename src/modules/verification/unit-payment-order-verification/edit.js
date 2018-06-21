@@ -61,6 +61,9 @@ export class Edit {
         this.data = UnitPaymentOrder.data[0];
         this.data.VerificationDate = new Date();
         this.data.Id = id;
+        this.data.useVat = this.dataExpedition.IncomeTax;
+        this.data.useIncomeTax = this.dataExpedition.Vat;
+        this.data.remark = this.data.useVat + this.data.useIncomeTax;
     }
 
     cancel(event) {
