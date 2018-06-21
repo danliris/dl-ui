@@ -88,9 +88,9 @@ export class List {
                         for (var PR of data) {
                             temp = PR;
                             if (i.UnitPaymentOrderNo == PR["No Nota Intern"]) {
-                                temp.isVerified = i.Position;
+                                temp.Position = i.Position;
                             } else {
-                                temp.isVerified = 6;
+                                temp.Position = 0;
                             }
                             dataPR.push(temp)
                         }
