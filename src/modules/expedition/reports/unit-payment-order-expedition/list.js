@@ -111,6 +111,8 @@ export class List {
             { text: 'Bag. Kasir', value: 7 },
             { text: 'Bag. Keuangan', value: 8 },
         ];
+
+        this.isExcel = false;
     }
 
     loader = (info) => {
@@ -136,11 +138,16 @@ export class List {
             filter.status = this.status.value;
         }
 
-        if (this.dateFrom && this.dateFrom != 'Invalid Date')
+        if (this.dateFrom && this.dateFrom != 'Invalid Date' && this.dateTo && this.dateTo != 'Invalid Date') {
             filter.dateFrom = this.dateFrom;
-
-        if (this.dateTo && this.dateTo != 'Invalid Date')
             filter.dateTo = this.dateTo;
+        }
+            
+        if (this.isExcel && Object.getOwnPropertyNames(filter).length === 0) {
+            filter.dateFrom = new Date();
+            filter.dateFrom.setMonth(filter.dateFrom.getMonth() - 1);
+            filter.dateTo = new Date();
+        }
 
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
@@ -178,6 +185,7 @@ export class List {
 
     search() {
         this.flag = true;
+        this.isExcel = false;
         this.tableList.refresh();
     }
 
@@ -242,6 +250,7 @@ export class List {
 
     excel() {
         this.flag = true;
+        this.isExcel = true;
 
         this.page = 0;
         this.excelData = [];
