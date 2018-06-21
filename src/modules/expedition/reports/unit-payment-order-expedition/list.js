@@ -111,8 +111,6 @@ export class List {
             { text: 'Bag. Kasir', value: 7 },
             { text: 'Bag. Keuangan', value: 8 },
         ];
-
-        this.isExcel = false;
     }
 
     loader = (info) => {
@@ -143,7 +141,7 @@ export class List {
             filter.dateTo = this.dateTo;
         }
             
-        if (this.isExcel && Object.getOwnPropertyNames(filter).length === 0) {
+        if (Object.getOwnPropertyNames(filter).length === 0) {
             filter.dateFrom = new Date();
             filter.dateFrom.setMonth(filter.dateFrom.getMonth() - 1);
             filter.dateTo = new Date();
@@ -185,7 +183,6 @@ export class List {
 
     search() {
         this.flag = true;
-        this.isExcel = false;
         this.tableList.refresh();
     }
 
@@ -250,7 +247,6 @@ export class List {
 
     excel() {
         this.flag = true;
-        this.isExcel = true;
 
         this.page = 0;
         this.excelData = [];
