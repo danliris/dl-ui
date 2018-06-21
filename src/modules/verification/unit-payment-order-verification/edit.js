@@ -63,7 +63,7 @@ export class Edit {
         this.data.Id = id;
         this.data.useVat = this.dataExpedition.IncomeTax;
         this.data.useIncomeTax = this.dataExpedition.Vat;
-        this.data.remark = this.data.useVat + this.data.useIncomeTax;
+        this.data.remark = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat) - this.dataExpedition.IncomeTax;
     }
 
     cancel(event) {
