@@ -77,18 +77,18 @@ searching() {
                      SPB: data.incomeTaxNo || "-",
                      Category: item.purchaseOrder.category.name,
                      Unit: data.unit.name,
-                     DPP: Math.round(item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID'),
-                     PPN: Math.round(((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax).toLocaleString('id-ID'),
-                     Total: Math.round((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax)).toLocaleString('id-ID'),
+                     DPP: (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     PPN: (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     Total: ((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax)).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
                    });
                    if (!subTotalCategory[Category]){
                     subTotalDPPCategory[Category] = 0;
                     subTotalPPNCategory[Category] = 0;
                     subTotalCategory[Category] = 0;
                    } 
-                   subTotalDPPCategory[Category] += Math.round(item.pricePerDealUnit * item.deliveredQuantity);
-                   subTotalPPNCategory[Category] += Math.round(((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax);
-                   subTotalCategory[Category] += Math.round((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax));
+                   subTotalDPPCategory[Category] += (item.pricePerDealUnit * item.deliveredQuantity);
+                   subTotalPPNCategory[Category] += (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax);
+                   subTotalCategory[Category] += ((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax));
                  }
                }
      
@@ -101,28 +101,28 @@ searching() {
                  categories.push({
                    data: dataByCategory[data],
                    category: dataByCategory[data][0].Category,
-                   subTotalDPP: (subTotalDPPCategory[data]).toLocaleString('id-ID'),
-                   subTotalPPN: (subTotalPPNCategory[data]).toLocaleString('id-ID'),
-                   subTotal: (subTotalCategory[data]).toLocaleString('id-ID'),
+                   subTotalDPP: (subTotalDPPCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                   subTotalPPN: (subTotalPPNCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                   subTotal: (subTotalCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
                  });
                  this.totalDPP += subTotalDPPCategory[data];
                  this.totalPPN += subTotalPPNCategory[data];
                  this.total += subTotalCategory[data];
                }
-               this.totalDPP = this.totalDPP.toLocaleString('id-ID');
-               if(this.totalPPN==0){
+               this.totalDPP = this.totalDPP.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+               if(this.totalPPN=='0,00'){
                 this.totalPPN = "-";
                } else {
-                this.totalPPN = this.totalPPN.toLocaleString('id-ID');
+                this.totalPPN = this.totalPPN.toLocaleString('id-ID', { minimumFractionDigits: 2 });
                }
-               this.total = this.total.toLocaleString('id-ID');
+               this.total = this.total.toLocaleString('id-ID', { minimumFractionDigits: 2 });
                this.categories = categories;
                
                for (var data of this.categories){
-                   if(data.subTotalPPN==0)data.subTotalPPN="-";
+                   if(data.subTotalPPN=='0,00')data.subTotalPPN="-";
                    for(var item of data.data){
                
-                       if(item.PPN==0)item.PPN="-";
+                       if(item.PPN=='0,00')item.PPN="-";
                    }
                }
                

@@ -79,6 +79,18 @@ export class Service extends RestService {
             });
     }
 
+    getGarmentProductsDistinctDescription(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garment-products/read/distinct-product-description';
+
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
+
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
