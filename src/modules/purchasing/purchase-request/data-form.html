@@ -24,7 +24,7 @@
             label="Tgl. PR" 
             value.bind="data.date" 
             error.bind="error.date" 
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -87,6 +87,12 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-multiline>
+
+        <au-textbox
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
 
         <au-collection 
             items.bind="data.items" 
