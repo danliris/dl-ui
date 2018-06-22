@@ -24,14 +24,14 @@ export class PurchaseOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
+    this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.details) {
-        console.log(this.data.details)
         this.data.items=this.data.details;
         this.isShowing = true;
+        console.log(this.data.items)
       }
       if (this.data.items) {
         this.isShowing = true;
@@ -42,6 +42,7 @@ export class PurchaseOrderItem {
       "UnitName":this.context.context.options.unitCode,
       "IsPosted":false
     };
+    console.log(this.data);
   }
 
   get purchaseOrderLoader() {

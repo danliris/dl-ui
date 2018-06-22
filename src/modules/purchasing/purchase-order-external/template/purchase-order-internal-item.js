@@ -9,7 +9,7 @@ export class PurchaseOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
+    this.useVat = this.context.context.options.useVat || false;
     if (this.data) {
       this.updateItem();
     }

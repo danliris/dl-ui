@@ -156,9 +156,9 @@ module.exports = [
         }
     },
     {
-        route: 'vats',
-        name: 'vats',
-        moduleId: './modules/master/vat/index',
+        route: 'income-taxes',
+        name: 'income-taxes',
+        moduleId: './modules/master/income-tax/index',
         nav: true,
         title: 'Pajak PPH',
         auth: true,
