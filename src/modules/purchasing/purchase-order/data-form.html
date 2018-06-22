@@ -62,6 +62,12 @@
               options.bind="controlOptions">
           </au-multiline>
       </fieldset>
+      
+      <au-textbox
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
 
       <au-collection 
           items.bind="data.items" 
