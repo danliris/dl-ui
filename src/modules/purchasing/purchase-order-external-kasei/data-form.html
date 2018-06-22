@@ -11,7 +11,7 @@
             <button class="btn btn-primary" click.delegate="context.cancelPO($event)"   if.one-way="context.hasCancelPo">Cancel PO</button>
             <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
             <button class="btn btn-primary" click.delegate="context.closePO($event)"    if.one-way="context.hasClosePo">Close PO</button>
-        </div>
+         </div>
 
         <au-textbox 
             label="No" 
@@ -122,11 +122,11 @@
         </numeric>
         
         <au-autocomplete 
-            value.bind="selectedVat" 
-            error.bind="error.vat"
+            value.bind="selectedIncomeTax" 
+            error.bind="error.incomeTax"
             label="Pph" 
-            loader.bind="vatLoader"
-            text.bind = "vatView"
+            loader.bind="incomeTaxLoader"
+            text.bind = "incomeTaxView"
             placeholder="cari pph" 
             key="" 
             read-only.bind="readOnly"
@@ -135,8 +135,8 @@
 
         <numeric 
             label="Rate Pph" 
-            value.bind="data.vatRate" 
-            error.bind="error.vatRate" 
+            value.bind="data.incomeTaxRate" 
+            error.bind="error.incomeTaxRate" 
             format="0"
             read-only.bind="true"
             post-fix="%">
@@ -144,10 +144,10 @@
 
         <au-checkbox 
             label="Apakah kena Ppn?" 
-            value.bind="data.useIncomeTax" 
-            error.bind="error.useIncomeTax" 
+            value.bind="data.useVat" 
+            error.bind="error.useVat" 
             read-only.bind="readOnly"
-            change.delegate="useIncomeTaxChanged($event)"
+            change.delegate="useVatChanged($event)"
             options.bind="controlOptions">
         </au-checkbox>
                 
