@@ -8,8 +8,10 @@
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-primary" click.delegate="context.cancelPO($event)"   if.one-way="context.hasCancelPo">Cancel PO</button>
             <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
-        </div>
+            <button class="btn btn-primary" click.delegate="context.closePO($event)"    if.one-way="context.hasClosePo">Close PO</button>
+         </div>
 
         <au-textbox 
             label="No" 
@@ -171,7 +173,7 @@
             remove.bind="removeItems"
             options.bind="options"
             read-only.bind="readOnly"
-            item-template="modules/purchasing/purchase-order-external/template/purchase-order-external-item"
+            item-template="modules/purchasing/purchase-order-external-kasei/template/purchase-order-external-item"
             if.bind="selectedUnit">
         </au-collection>
   </au-input-form>
