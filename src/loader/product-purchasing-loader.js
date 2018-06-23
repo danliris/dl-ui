@@ -11,12 +11,12 @@ module.exports = function (keyword, filter) {
     if (!filter) {
         filter = {};
     }
-    Object.assign(filter, { tags: { "$regex": '^((?!sales contract).)*$', "$options": "i" } })
+    Object.assign(filter, { "Tags.StartsWith(\"sales contract\")": false } )
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
             return results.data.map(product => {
                 product.toString = function () {
-                    return [this.code, this.name]
+                    return [this.Code, this.Name]
                         .filter((item, index) => {
                             return item && item.toString().trim().length > 0;
                         }).join(" - ");
