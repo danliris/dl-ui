@@ -69,11 +69,6 @@ export class List {
         console.log(param)
         this.purchaseOrder = no;
         this.search();
-<<<<<<< HEAD
-
-    }
-=======
->>>>>>> upstream/dev
 
     }
 
