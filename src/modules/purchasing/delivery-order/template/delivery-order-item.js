@@ -18,7 +18,7 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.filter = this.context.context.options.supplierId ? { "SupplierId": this.context.context.options.supplierId } : {};
+    this.filter = this.context.context.options.supplierCode ? { "SupplierCode": this.context.context.options.supplierCode } : {};
     this.isEdit = this.context.context.options.isEdit || false;
     this.isShowing = false;
     if (this.data) {

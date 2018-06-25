@@ -51,6 +51,7 @@ export class DataForm {
     get filter() {
         var filter = {
             supplierId: this.data.supplierId || {},
+            supplierCode: this.data.supplier.code,
             isEdit: this.isEdit
         }
         return filter;
