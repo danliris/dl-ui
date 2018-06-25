@@ -96,7 +96,11 @@
                     </tr>
                 </thead>
                 <tbody>
+<<<<<<< HEAD
                     <tr repeat.for="PO of data" class="${PO.Status == 'Semua sudah dibuat SPB' ?'success':'primary'}">
+=======
+                    <tr repeat.for="PO of data" class="${PO.Position == 6 ?'danger': PO.Position == 4 || PO.Position == 3 ?'success':'primary'}">
+>>>>>>> upstream/dev
                         <td>${PO['No']}</td>
                         <td>${PO['Tanggal Purchase Request']}</td>
                         <td>${PO['No Purchase Request']}</td>
@@ -147,6 +151,10 @@
         </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.
+        </div>
+        <div>
+            * Baris warna merah : telah di kirim ke bagian Pembelian (not verified)
+            <br> * Baris warna hijau : telah di kirim ke bagian Kasir atau Accounting (verified)
         </div>
         <hr/>
     </form>

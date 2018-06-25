@@ -69,9 +69,13 @@ export class List {
         console.log(param)
         this.purchaseOrder = no;
         this.search();
+<<<<<<< HEAD
 
     }
+=======
+>>>>>>> upstream/dev
 
+    }
 
     search() {
         var dateFormat = "DD MMM YYYY";
@@ -82,10 +86,47 @@ export class List {
             this.poState = this.poStates[0];
         this.mongoService.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "")
             .then(data => {
-                this.data = data;
+                this.isVerified(data).then(result => {
+                    var dataPR = [];
+                    var temp = {};
+                    for (var i of result) {
+                        for (var PR of data) {
+                            temp = PR;
+                            if (i.UnitPaymentOrderNo == PR["No Nota Intern"]) {
+                                temp.Position = i.Position;
+                            } else {
+                                temp.Position = 0;
+                            }
+                            dataPR.push(temp)
+                        }
+                    }
+                    this.data = dataPR
+                })
             })
     }
 
+    isVerified(data) {
+        return new Promise((resolve, reject) => {
+            var isVerified = [];
+
+            for (var item of data) {
+                var arg = {
+                    filter: JSON.stringify({ UnitPaymentOrderNo: item["No Nota Intern"] }),
+                }
+                isVerified.push(this.service.search(arg));
+            }
+
+            Promise.all(isVerified).then(res => {
+                var dataVerification = [];
+                for (var i of res) {
+                    if (i.data[0] != undefined) {
+                        dataVerification.push(i.data[0])
+                    }
+                }
+                resolve(dataVerification);
+            })
+        })
+    }
 
     exportToXls() {
         if (!this.poState)

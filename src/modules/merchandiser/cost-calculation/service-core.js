@@ -1,25 +1,19 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const garmentProductServiceUri = 'master/garment-products';
+const garmentProductSingleByNameServiceUri = 'master/garment-products/read-single/product-by-name';
 const uomServiceUri = 'master/uoms';
 
 export class ServiceCore extends RestService {
 
-  constructor(http, aggregator, config, api) {
+  constructor(http, aggregator, config) {
     super(http, aggregator, config, "core");
   }
 
   getByName(name) {
-    var endpoint = `${garmentProductServiceUri}?keyword=${name}`;
+    var endpoint = `${garmentProductSingleByNameServiceUri}?name=${name}`;
     return super.get(endpoint)
       .then((result) => {
-        if (result && result.length > 0) {
-          return result[0];
-        } else {
-          return null;
-        }
+        return result;
       })
   }
 
@@ -27,7 +21,6 @@ export class ServiceCore extends RestService {
     var endpoint = `${uomServiceUri}?keyword=${unit}`;
     return super.get(endpoint)
       .then((result) => {
-        console.log(result)
         if (result && result.length > 0) {
           return result[0];
         } else {
