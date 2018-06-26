@@ -50,6 +50,7 @@ export class DataForm {
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
             this.data.currencyRate=this.data.currency.rate;
+            console.log(this.data.currency)
         }
         if (this.data.incomeTax) {
             this.selectedIncomeTax = this.data.incomeTax;
@@ -93,10 +94,13 @@ export class DataForm {
 
     selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
-        if (_selectedCurrency._id) {
-            var currencyRate = parseInt(_selectedCurrency.rate ? _selectedCurrency.rate : 1, 10);
+        if (_selectedCurrency.Id) {
+            var currencyRate = parseInt(_selectedCurrency.Rate ? _selectedCurrency.Rate : 1, 10);
             this.data.currency = _selectedCurrency;
             this.data.currencyRate = currencyRate;
+            this.data.currency._id = _selectedCurrency.Id;
+            this.data.currency.code = _selectedCurrency.Code;
+            this.data.currency.rate = this.data.currencyRate;
             
         }
         else {
@@ -177,11 +181,10 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        return currency.Code?currency.Code:currency.code;
     }
 
     incomeTaxView = (incomeTax) => {
-        console.log(incomeTax)
         return `${incomeTax.name} - ${incomeTax.rate}`
     }
 
