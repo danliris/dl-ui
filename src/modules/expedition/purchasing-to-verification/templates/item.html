@@ -42,6 +42,18 @@
         </td>
         <td>
             <au-textbox
+                value.bind="data.incomeTax"
+                read-only="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.vat"
+                read-only="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox
                 value.bind="data.totalPaid"
                 read-only="true">
             </au-textbox>
@@ -58,9 +70,9 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="8">
+        <td colspan="11">
             <au-collection
-                items.bind="data.details" 
+                items.bind="data.items" 
                 columns.bind="columns"
                 item-template="modules/expedition/purchasing-to-verification/templates/detail">
             </au-collection>
