@@ -3,11 +3,10 @@ import PurchasingDocumentExpeditionService from '../shared/purchasing-document-e
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
-import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, PurchasingDocumentExpeditionService, Dialog)
+@inject(Router, PurchasingDocumentExpeditionService)
 export class List {
-    context = ['Hapus'];
+    context = ['Rincian'];
 
     columns = [
         { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
@@ -21,7 +20,7 @@ export class List {
                 return moment(value).format('DD MMM YYYY');
             },
         },
-        { field: 'InvoiceNo', title: 'Nomor Invoice' },        
+        { field: 'InvoiceNo', title: 'Nomor Invoice' },
         { field: 'SupplierName', title: 'Supplier' },
         { field: 'DivisionName', title: 'Divisi' },
         {
@@ -32,10 +31,9 @@ export class List {
         { field: 'Currency', title: 'Mata Uang' },
     ];
 
-    constructor(router, service, dialog) {
+    constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.dialog = dialog;
     }
 
     loader = (info) => {
@@ -64,17 +62,8 @@ export class List {
         let data = arg.data;
 
         switch (arg.name) {
-            case 'Hapus':
-                this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Penyerahan Dokumen Pembelian ke Verifikasi')
-                    .then(response => {
-                        if (response.ok) {
-                            this.service.delete(data)
-                                .then(result => {
-                                    this.tableList.refresh();
-                                });
-                        }
-                    });
-                break;
+            case 'Rincian':
+                this.router.navigateToRoute('view', { id: data.Id });
         }
     }
 

@@ -274,6 +274,35 @@ export class CostCalculationMaterial {
         }
     }
 
+    get garmentProductDistinctDescriptionLoader() {
+        return (keyword) => {
+            var filter = "";
+
+            if (this.selectedCategory && this.selectedCategory.name) {
+                if (this.selectedComposition && this.selectedComposition.description) {
+                    if (this.selectedConstruction && this.selectedConstruction.properties && this.selectedConstruction.properties.length > 0) {
+                        if (this.selectedYarn && this.selectedYarn.properties && this.selectedYarn.properties.length > 0) {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "description": this.selectedComposition.description, "properties.0": this.selectedConstruction.properties[0], "properties.1": this.selectedYarn.properties[1] });
+                        } else {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "description": this.selectedComposition.description, "properties.0": this.selectedConstruction.properties[0] });
+                        }
+                    } else {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name, "description": this.selectedComposition.description });
+                    }
+                } else {
+                    if (this.selectedCategory.name.toUpperCase() == 'FABRIC') {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name })
+                    }
+                }
+            }
+
+            return this.service.getGarmentProductsDistinctDescription(keyword, filter)
+                .then((result) => {
+                    return result;
+                });
+        }
+    }
+
     get uomLoader() {
         return UomLoader;
     }
