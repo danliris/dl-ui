@@ -40,11 +40,10 @@ export class Create {
                     for(var detail of item.details){
                         detail.poItemId= detail._id;
                         delete detail._id;
-                        console.log(detail.poItemId)
                     }
             }
         }
-
+        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
