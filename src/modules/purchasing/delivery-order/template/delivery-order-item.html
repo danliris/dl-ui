@@ -22,6 +22,7 @@
     </tr>
     <tr if.bind="isShowing">
         <td>
+            <div if.bind="error.fulfillmentscount" class="form-group has-error"><span class="text-danger help-block">${error.fulfillmentscount}</span></div>
             <au-collection 
                 items.bind="data.fulfillments" 
                 errors.bind="error.fulfillments"

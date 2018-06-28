@@ -16,8 +16,11 @@ export class PurchaseRequestItem {
   }
 
   productChanged(e) {
-    if (this.data.product)
-      this.data.productId = this.data.product._id ? this.data.product._id : {};
+    if (this.data.product) {
+      this.data.productId = this.data.product.Id || {};
+      this.data.product._id = this.data.productId;
+      this.data.product.UOM._id = this.data.product.UOM.Id;
+    }
   }
 
   controlOptions = {

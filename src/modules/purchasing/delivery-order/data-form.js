@@ -37,6 +37,9 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
+        if(this.data.supplier)
+            this.data.supplierId = this.data.supplier._id;
     }
 
     @computedFrom("data._id")
@@ -48,6 +51,7 @@ export class DataForm {
     get filter() {
         var filter = {
             supplierId: this.data.supplierId || {},
+            supplierCode: this.data.supplier.code,
             isEdit: this.isEdit
         }
         return filter;
