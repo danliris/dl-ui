@@ -82,7 +82,7 @@ export class Item {
                                 }
                             }
                             else {
-                                price = Number((detail.pricePerDealUnit * detail.deliveredQuantity).toFixed(2));
+                                price = Number((detail.pricePerDealUnit * detail.deliveredQuantity).toFixed(4));
                                 quantity = detail.deliveredQuantity;
                             }
 
@@ -102,8 +102,8 @@ export class Item {
                         }
                     }
 
-                    let vat = newV.useIncomeTax ? Number((totalPaid * 0.1).toFixed(2)) : 0;
-                    let incomeTax = newV.useVat ? Number(((newV.vat.rate * totalPaid) / 100).toFixed(2)) : 0;
+                    let vat = newV.useIncomeTax ? Number((totalPaid * 0.1).toFixed(4)) : 0;
+                    let incomeTax = newV.useVat ? Number(((newV.vat.rate * totalPaid) / 100).toFixed(4)) : 0;
              
                     Object.assign(this.data, {
                         id: newV._id,
@@ -120,7 +120,7 @@ export class Item {
                         incomeTaxId: newV.vat._id,
                         incomeTaxName: newV.vat.name,
                         incomeTaxRate: newV.vat.rate,
-                        totalPaid: Number((totalPaid + vat).toFixed(2)),
+                        totalPaid: Number((totalPaid + vat).toFixed(4)),
                         currency: newV.currency.code,
                         items: items,
                     });

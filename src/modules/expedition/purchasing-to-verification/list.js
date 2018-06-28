@@ -25,7 +25,7 @@ export class List {
         { field: 'DivisionName', title: 'Divisi' },
         {
             field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
+                return numeral(value).format('0,000.0000');
             },
         },
         { field: 'Currency', title: 'Mata Uang' },
