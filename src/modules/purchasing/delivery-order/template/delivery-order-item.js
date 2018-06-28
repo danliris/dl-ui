@@ -109,7 +109,7 @@ export class DeliveryOrderItem {
           var fulfillment = {
             EPODetailId: detail._id,
             POItemId: detail.poItemId,
-            purchaseOrder: { purchaseRequest: { _id: item.prId, no: item.prNo } },
+            purchaseOrder: { purchaseRequest: { _id: item.prId, no: item.prNo, unit: item.unit } },
             PRItemId: detail.prItemId,
             product: detail.product,
             purchaseOrderQuantity: detail.dealQuantity,
