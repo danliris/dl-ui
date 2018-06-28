@@ -32,6 +32,8 @@ export class View {
         //         return prev || curr
         //     }, false);
 
+        this.isReceived = this.data.unitReceiptNoteIds && this.data.unitReceiptNoteIds.length > 0;
+
         if (!this.isReceived) {
             this.hasDelete = true;
             this.hasEdit = true;
