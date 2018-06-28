@@ -16,7 +16,7 @@ export class List {
     context = ["Rincian"]
 
     columns = [
-        { field: "unit.division.name", title: "Divisi" },
+        { field: "DivisionName", title: "Divisi" },
         { field: "unit.name", title: "Unit" },
         { field: "category.name", title: "Kategori" },
         { field: "prNo", title: "No. PR" },
@@ -51,12 +51,17 @@ export class List {
         }
 
         return this.service.search(arg)
-            .then(result => {
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+      .then(result => {
+        for (var data of result.data) {
+            data.DivisionName = data.unit.division.name;
+            data.UnitName = data.unit.name;
+            data.CategoryName = data.category.name;
+        }
+        return {
+          total: result.info.total,
+          data: result.data
+        }
+      });
     }
 
     constructor(router, service) {
