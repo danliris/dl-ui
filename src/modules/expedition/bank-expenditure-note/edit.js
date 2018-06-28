@@ -49,7 +49,7 @@ export class Edit {
         let arg = {
             page: 1,
             size: Number.MAX_SAFE_INTEGER,
-            filter: JSON.stringify({ "Position": 7, "SupplierCode": newVal.code, "IsPaid": false }) //CASHIER DIVISION
+            filter: JSON.stringify({ "Position": 7, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) //CASHIER DIVISION
         };
 
         this.UPOResults = await this.purchasingDocumentExpeditionService.searchAllByPosition(arg)
