@@ -58,6 +58,7 @@ export class List {
     return this.service.search(arg)
       .then(result => {
         for (var data of result.data) {
+            data.Id = data._id;
             data.DivisionName = data.unit.division.name;
             data.UnitName = data.unit.name;
             data.CategoryName = data.category.name;
