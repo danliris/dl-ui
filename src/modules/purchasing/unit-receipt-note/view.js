@@ -19,10 +19,13 @@ export class View {
                 item.showDetails = false
             })
         }
-
+        console.log(this.data)
         this.unit = this.data.unit;
         this.supplier = this.data.supplier;
-        this.deliveryOrder = this.data.deliveryOrder;
+        this.deliveryOrder = this.data.items;
+        for(var _item of this.deliveryOrder){
+            _item.deliveredUom=_item.product.uom;
+        }
     }
 
     list() {
