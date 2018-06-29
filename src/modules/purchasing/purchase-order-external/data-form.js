@@ -95,7 +95,6 @@ export class DataForm {
     selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
         if (_selectedCurrency.Id) {
-            console.log(_selectedCurrency)
             var currencyRate = parseInt(_selectedCurrency.Rate ? _selectedCurrency.Rate : 1, 10);
             this.data.currency = _selectedCurrency;
             this.data.currencyRate = currencyRate;
