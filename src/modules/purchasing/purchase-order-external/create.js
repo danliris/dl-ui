@@ -34,12 +34,14 @@ export class Create {
     save(event) {
         if(this.data.items){
             for(var item of this.data.items){
-                item.poId= item._id;
+                item.poId= item._id ? item._id : item.Id;
                 delete item._id;
+                delete item.Id;
                 if(item.details)
                     for(var detail of item.details){
-                        detail.poItemId= detail._id;
+                        detail.poItemId= detail._id ? detail._id : detail.Id;
                         delete detail._id;
+                        delete detail.Id;
                     }
             }
         }

@@ -185,7 +185,7 @@ export class DataForm {
     }
 
     incomeTaxView = (incomeTax) => {
-        return `${incomeTax.name} - ${incomeTax.rate}`
+        return incomeTax.name?`${incomeTax.name} - ${incomeTax.rate}`:"";
     }
 
 } 

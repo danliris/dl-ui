@@ -28,9 +28,16 @@ export class View {
         // if (this.data.items.find(po => { return po.status.value > 3 }) != undefined) {
         //     isArriving = true;
         // }
-        if (this.data.doQuantity && this.data.doQuantity>0) {
-            isVoid = true;
+        
+        for(var a of this.data.items){
+            for(var b of a.details){
+                if (b.doQuantity && b.doQuantity>0) {
+                    isVoid = true;
+                    break;
+                }
+            }
         }
+        
         if (!this.data.isPosted) {
             this.hasDelete = true;
             this.hasEdit = true;
