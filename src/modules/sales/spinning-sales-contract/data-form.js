@@ -48,6 +48,8 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
+        this.data.UomUnit="BALL"
+
         if (this.data.Id) {
             this.Buyer = this.data.Buyer;
             this.Agent = this.data.Agent;
