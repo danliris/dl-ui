@@ -20,7 +20,9 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
         this.element = element; 
         this.service = service;
-
+        
+        
+        
         this.auInputOptions = {
             label: {
                 length: 4,
@@ -64,8 +66,10 @@ export class DataForm {
     @computedFrom("data.supplier", "data.unit")
     get filter() {
         var filter = {
-            unitId: this.data.unitId,
-            supplierId: this.data.supplierId
+            //"Items.SelectMany(item=>item.Details.Where(detail => detail.unitId ))":this.data.unitId,
+            //"Items.Contains(p=>p.EPONo)": "PE-A4-18-06-001",
+            "unitId" :this.data.unitId,
+            "supplierId": this.data.supplierId
         };
         return filter;
     }
@@ -115,6 +119,7 @@ export class DataForm {
         if (selectedUnit) {
             this.data.unit = selectedUnit;
             this.data.unitId = selectedUnit._id;
+            this.data.unit.division=selectedUnit.division;
         }
         else {
             this.data.unitId = null;
@@ -133,34 +138,50 @@ export class DataForm {
         if (selectedDo) {
             this.data.deliveryOrder = selectedDo;
             this.data.deliveryOrderId = selectedDo._id;
-            var selectedItem = selectedDo.items || []
+            this.data.doNo=selectedDo.no;
+            var selectedItem = selectedDo.items || [];
+            
+            console.log(selectedDo);
             var _items = [];
             for (var item of selectedItem) {
                 for (var fulfillment of item.fulfillments) {
+                    
+            console.log(fulfillment);
                     var _item = {};
-                    if (fulfillment.purchaseOrder.unitId == this.data.unitId) {
+                    if (fulfillment.purchaseOrder.purchaseRequest.unit._id == this.data.unitId) {
                         _item.product = fulfillment.product;
                         _item.deliveredUom = fulfillment.purchaseOrderUom;
+                        _item.product.uom=_item.deliveredUom;
                         _item.purchaseOrder = fulfillment.purchaseOrder;
                         _item.purchaseOrderId = fulfillment.purchaseOrderId;
                         _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
-                        _item.currency = fulfillment.purchaseOrder.currency;
-                        _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
+                        _item.epoDetailId=fulfillment.EPODetailId;
+                        _item.prItemlId=fulfillment.PRItemId;
+                        _item.poItemlId=fulfillment.POItemId;
+                        _item.doDetailId=fulfillment._id;
+                        _item.prId=fulfillment.purchaseOrder.purchaseRequest._id;
+                        _item.prNo=fulfillment.purchaseOrder.purchaseRequest.no;
+                        // _item.currency = fulfillment.purchaseOrder.currency;
+                        // _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
 
-                        var total = fulfillment.realizationQuantity
-                            .map(qty => qty.deliveredQuantity)
-                            .reduce((prev, curr, index) => {
-                                return prev + curr;
-                            }, 0);
+                        // var total = fulfillment.realizationQuantity
+                        //     .map(qty => qty.deliveredQuantity)
+                        //     .reduce((prev, curr, index) => {
+                        //         return prev + curr;
+                        //     }, 0);
 
-                        _item.deliveredQuantity = fulfillment.deliveredQuantity - total;
+                        //_item.deliveredQuantity = fulfillment.deliveredQuantity - total;
 
-                        for (var _poItem of fulfillment.purchaseOrder.items) {
-                            if (_poItem.product._id == fulfillment.product._id) {
-                                _item.pricePerDealUnit = _poItem.pricePerDealUnit;
-                                break;
-                            }
-                        }
+                        _item.deliveredQuantity = fulfillment.deliveredQuantity - fulfillment.receiptQuantity;
+
+                        // for (var _poItem of fulfillment.purchaseOrder.items) {
+                        //     if (_poItem.product._id == fulfillment.product._id) {
+                        //         _item.pricePerDealUnit = _poItem.pricePerDealUnit;
+                        //         break;
+                        //     }
+                        // }
+                        //_item.deliveredQuantity=fulfillment.deliveredQuantity;
+            console.log(_item);
                         if (_item.deliveredQuantity > 0)
                             _items.push(_item);
                     }

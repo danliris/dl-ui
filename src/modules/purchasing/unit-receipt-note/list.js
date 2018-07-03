@@ -15,7 +15,8 @@ export class List {
             }
         },
         { field: "supplier.name", title: "Supplier" },
-        { field: "deliveryOrder.no", title: "No. Surat Jalan" }
+        { field: "doNo", title: "No. Surat Jalan" },
+        { field: "prNo", title: "No. Purchase Request" }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -48,11 +49,14 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                console.log(result.data)
                 result.data.map((data) => {
                     data.unitDivision = data.unit.division.name + " - " + data.unit.name;
                     return data;
                 });
-
+                var prNo = _data.items.map(function (item) {
+                        return `<li>${item.prNo}</li>`;
+                    });
                 return {
                     total: result.info.total,
                     data: result.data
