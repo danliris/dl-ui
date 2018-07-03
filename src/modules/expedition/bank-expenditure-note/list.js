@@ -1,34 +1,28 @@
 import { inject } from 'aurelia-framework';
-import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
+import Service from './service';
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 import numeral from 'numeral';
 
-@inject(Router, PurchasingDocumentExpeditionService)
+@inject(Router, Service)
 export class List {
     context = ['Rincian'];
 
     columns = [
-        { field: 'UnitPaymentOrderNo', title: 'No. SPB' },
+        { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Barang' },
         {
-            field: 'UPODate', title: 'Tanggal SPB', formatter: function (value, data, index) {
+            field: '_CreatedUTC', title: 'Tanggal', formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             },
         },
-        {
-            field: 'DueDate', title: 'Tanggal Jatuh Tempo', formatter: function (value, data, index) {
-                return moment(value).format('DD MMM YYYY');
-            },
-        },
-        { field: 'InvoiceNo', title: 'Nomor Invoice' },
+        { field: 'BankName', title: 'Bank' },
         { field: 'SupplierName', title: 'Supplier' },
-        { field: 'DivisionName', title: 'Divisi' },
         {
-            field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+            field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
+                return numeral(value).format('0,000.00');
             },
         },
-        { field: 'Currency', title: 'Mata Uang' },
+        { field: 'BankCurrencyCode', title: 'Mata Uang' }
     ];
 
     constructor(router, service) {
@@ -45,13 +39,12 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Position: 2 }), // SEND_TO_VERIFICATION_DIVISION
         };
 
         return this.service.search(arg)
             .then(result => {
                 return {
-                    total: result.info.total,
+                    total: result.data.total,
                     data: result.data
                 }
             });
@@ -64,6 +57,7 @@ export class List {
         switch (arg.name) {
             case 'Rincian':
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
         }
     }
 
