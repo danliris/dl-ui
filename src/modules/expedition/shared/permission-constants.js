@@ -14,10 +14,10 @@ export const CASHIER = {
     code: 'P3',
 };
 
-export const FINANCE = {
-    key: 'FINANCE',
-    label: 'Keuangan',
-    position: 8, //FINANCE_DIVISION
-    positionAutocomplete: 5, //SEND_TO_FINANCE_DIVISION
+export const ACCOUNTING = {
+    key: 'ACCOUNTING',
+    label: 'Akuntansi',
+    position: 8, //ACCOUNTING_DIVISION
+    positionAutocomplete: 5, //SEND_TO_ACCOUNTING_DIVISION
     code: 'B4',
 };

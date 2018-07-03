@@ -8,10 +8,20 @@ class PurchasingDocumentExpeditionService extends RestService {
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, 'purchasing-azure');
     }
-    
+
     search(info) {
         let endpoint = `${uriPurchasingDocumentExpedition}`;
         return super.list(endpoint, info);
+    }
+
+    searchAllByPosition(info) {
+        let endpoint = `${uriPurchasingDocumentExpedition}/no-select/by-position`;
+        return super.list(endpoint, info);
+    }
+
+    getById(id) {
+        let endpoint = `${uriPurchasingDocumentExpedition}/${id}`;
+        return super.get(endpoint);
     }
 
     delete(data) {

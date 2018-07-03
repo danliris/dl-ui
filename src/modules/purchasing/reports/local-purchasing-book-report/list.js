@@ -49,10 +49,10 @@ searching() {
     if (false){
         alert("");
     } else {
-    var info = {
-            no : this.unitReceiptNote ? this.unitReceiptNote.no : "",
-            category : this.category ? this.category.name : "",
-            unit : this.unit ? this.unit.name : "",
+            var info = {
+            no : this.no ? this.no : "",
+            category : this.category ? this.category.code : "",
+            unit : this.unit ? this.unit.code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -61,10 +61,14 @@ searching() {
                this.data=result;
                this.data = [];
                var dataByCategory = {};
+               var subTotalDPPCategory = {};
+               var subTotalPPNCategory = {};
                var subTotalCategory = {};
                for (var data of result) {
                  for (var item of data.items) {
                    var Category = item.purchaseOrder.category.name;
+                   var checkIncomeTax = 0;
+                   if (item.purchaseOrder.useIncomeTax == true) checkIncomeTax=1;
                    if (!dataByCategory[Category]) dataByCategory[Category] = [];
                    dataByCategory[Category].push({
                      Date: moment(data.date).format("DD MMM YYYY"),
@@ -73,13 +77,18 @@ searching() {
                      SPB: data.incomeTaxNo || "-",
                      Category: item.purchaseOrder.category.name,
                      Unit: data.unit.name,
-                     DPP: Math.round(item.pricePerDealUnit * item.deliveredQuantity),
-                     PPN: Math.round(item.pricePerDealUnit * item.deliveredQuantity)*10/100,
-                     Total: (Math.round(item.pricePerDealUnit * item.deliveredQuantity)) + (Math.round(item.pricePerDealUnit * item.deliveredQuantity)*10/100),
+                     DPP: (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     PPN: (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     Total: ((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax)).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
                    });
-     
-                   if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
-                   subTotalCategory[Category] += Math.round(item.pricePerDealUnit * item.deliveredQuantity);
+                   if (!subTotalCategory[Category]){
+                    subTotalDPPCategory[Category] = 0;
+                    subTotalPPNCategory[Category] = 0;
+                    subTotalCategory[Category] = 0;
+                   } 
+                   subTotalDPPCategory[Category] += (item.pricePerDealUnit * item.deliveredQuantity);
+                   subTotalPPNCategory[Category] += (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax);
+                   subTotalCategory[Category] += ((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax));
                  }
                }
      
@@ -92,15 +101,32 @@ searching() {
                  categories.push({
                    data: dataByCategory[data],
                    category: dataByCategory[data][0].Category,
-                   subTotalDPP: subTotalCategory[data],
-                   subTotalPPN: subTotalCategory[data]*10/100,
-                   subTotal: subTotalCategory[data] + (subTotalCategory[data]*10/100),
+                   subTotalDPP: (subTotalDPPCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                   subTotalPPN: (subTotalPPNCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                   subTotal: (subTotalCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
                  });
-                 this.totalDPP += subTotalCategory[data];
-                 this.totalPPN += subTotalCategory[data]*10/100;
-                 this.total += subTotalCategory[data] + (subTotalCategory[data]*10/100);
+                 this.totalDPP += subTotalDPPCategory[data];
+                 this.totalPPN += subTotalPPNCategory[data];
+                 this.total += subTotalCategory[data];
                }
+               this.totalDPP = this.totalDPP.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+               if(this.totalPPN=='0,00'){
+                this.totalPPN = "-";
+               } else {
+                this.totalPPN = this.totalPPN.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+               }
+               this.total = this.total.toLocaleString('id-ID', { minimumFractionDigits: 2 });
                this.categories = categories;
+               
+               for (var data of this.categories){
+                   if(data.subTotalPPN=='0,00')data.subTotalPPN="-";
+                   for(var item of data.data){
+               
+                       if(item.PPN=='0,00')item.PPN="-";
+                   }
+               }
+               
+            //    if(this.categories.data.PPN == 0) this.categories.data.PPN="-";
              });
         }
     }
@@ -110,12 +136,13 @@ searching() {
             alert("");
         } else {
             var filter = {
-                no : this.unitReceiptNote ? this.unitReceiptNote.no : "",
-                category : this.category ? this.category.name : "",
-                unit : this.unit ? this.unit.name : "",
+                no : this.no ? this.no : "",
+                category : this.category ? this.category.code : "",
+                unit : this.unit ? this.unit.code : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
+
         this.service.generateExcel(filter)
             .catch(e => {
                 alert(e.replace(e, "Error: ",""))
@@ -125,7 +152,7 @@ searching() {
 
 
       reset() {
-        this.unitReceiptNote = "";
+        this.no = "";
         this.category="";
         this.unit="";
         this.dateFrom = new Date();

@@ -51,4 +51,30 @@ module.exports =  [
             iconClass: 'fa fa-calendar-check-o'
         }
     },
+    {
+        route: '/expedition/pph-bank-expenditure-note',
+        name: 'pph-bank-expenditure-note',
+        moduleId: './modules/expedition/pph-bank-expenditure-note/index',
+        nav: true,
+        title: 'Bukti Pengeluaran Bank PPH',
+        auth: true,
+        settings: {
+            group: "expedition",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
+    },
+    {
+        route: '/expedition/bank-expenditure-note',
+        name: 'purchasing-document-expedition',
+        moduleId: './modules/expedition/bank-expenditure-note/index',
+        nav: true,
+        title: 'Bukti Pengeluaran Bank',
+        auth: true,
+        settings: {
+            group: "expedition",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
+    },
 ];

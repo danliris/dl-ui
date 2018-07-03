@@ -90,6 +90,15 @@ export class DataForm {
         }
     }
 
+    numericOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 2
+        }
+    }
+
 
     SPBChanged(newValue, oldValue) {
         if (this.SPB) {
