@@ -59,7 +59,7 @@
 
         <au-textbox
             error.bind="error.Details"
-            show.bind"error.Details"
+            show.bind="error.Details"
             read-only.bind="true">
         </au-textbox>
 
@@ -71,6 +71,6 @@
             item-template="modules/expedition/bank-expenditure-note/templates/item">
         </au-collection>
 
-        TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${selectedBank && selectedBank.currency ? selectedBank.currency.code : ''}
+        TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${currency}
     </au-input-form>
 </template>

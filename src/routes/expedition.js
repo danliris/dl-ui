@@ -69,7 +69,7 @@ module.exports =  [
         name: 'purchasing-document-expedition',
         moduleId: './modules/expedition/bank-expenditure-note/index',
         nav: true,
-        title: 'Bukti Pengeluaran Bank',
+        title: 'Bukti Pengeluaran Bank DPP + PPN',
         auth: true,
         settings: {
             group: "expedition",
