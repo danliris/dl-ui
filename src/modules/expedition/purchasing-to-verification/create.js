@@ -58,6 +58,7 @@ export class Create {
                 UPODate: unitPaymentOrder.date,
                 DueDate: unitPaymentOrder.dueDate,
                 InvoiceNo: unitPaymentOrder.invoceNo,
+                PaymentMethod: unitPaymentOrder.paymentMethod,
                 SupplierCode: unitPaymentOrder.supplierCode,
                 SupplierName: unitPaymentOrder.supplierName,
                 DivisionCode: unitPaymentOrder.divisionCode,
