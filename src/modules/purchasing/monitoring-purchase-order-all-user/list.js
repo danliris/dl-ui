@@ -81,6 +81,14 @@ export class List {
         this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "", this.staffName ? this.staffName.username : "")
             .then(data => {
                 this.data = data;
+                for(var PO of this.data){
+                    PO['Jumlah Barang']=(PO['Jumlah Barang']).toLocaleString();
+                    PO['Harga Barang']=(PO['Harga Barang']).toLocaleString();
+                    PO['Harga Total']=(PO['Harga Total']).toLocaleString();
+                    PO['Nilai Nota Intern']=PO['Nilai Nota Intern'].toLocaleString();
+                    PO['Nilai PPN']=PO['Nilai PPN'].toLocaleString();
+                    PO['Nilai PPH']=PO['Nilai PPH'].toLocaleString();
+                }
             })
     }
 
