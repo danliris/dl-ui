@@ -1,12 +1,6 @@
 <template>
-    <au-input-form title="Bukti Pengeluaran Bank" options.bind="formOptions">
-
-        <au-textbox
-            label="Supplier"
-            value.bind="data.Supplier.name"
-            read-only.bind="true"
-            options.bind="controlOptions">
-        </au-textbox>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <au-input-form title="Bukti Pengeluaran Bank DPP + PPN" options.bind="formOptions">
 
         <au-textbox
             label="Bank"
@@ -30,6 +24,13 @@
         </au-textbox>
 
         <au-textbox
+            label="Supplier"
+            value.bind="data.Supplier.name"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
             label="No. BG/Cek"
             value.bind="data.BGCheckNumber"
             read-only.bind="true"
@@ -42,11 +43,13 @@
             item-template="modules/expedition/bank-expenditure-note/templates/item-view">
         </au-collection>
 
-        <au-numeric
+        <!-- <au-numeric
             label="Total Bayar"
             value.bind="data.GrandTotal"
             read-only.bind="true"
             options.bind="controlOptions">
-        </au-numeric>
+        </au-numeric> -->
+
+        TOTAL BAYAR DPP + PPN ${data.GrandTotal | numberFormat: '0,000.0000'} ${data.Bank.currency.code}
     </au-input-form>
 </template>
