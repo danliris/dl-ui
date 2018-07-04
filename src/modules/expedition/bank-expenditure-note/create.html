@@ -1,44 +1,16 @@
 <template>
-    <!-- <style>
-        table .btn-success {
-            float: none !important;
-        }
-
-        .col-sm-12 {
-            margin-top: 0px !important;
-        }
-    </style> -->
-    <au-input-form title="Buat Bukti Pengeluaran Bank" options.bind="formOptions">
-        <!--
-            <au-datepicker
-                label="Tanggal Penyerahan"
-                value.bind="data.SubmissionDate"
-                error.bind="error.SubmissionDate"
-                options.bind="controlOptions">
-            </au-datepicker>
-        -->
-
-        <au-autocomplete
-            label="Supplier"
-            placeholder="pilih supplier"
-            value.bind="selectedSupplier"
-            error.bind="error.Supplier"
-            loader.one-time="supplierLoader"
-            text="name"
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-autocomplete>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <au-input-form title="Buat Bukti Pengeluaran Bank DPP + PPN" options.bind="formOptions">
 
         <au-autocomplete
             label="Bank"
             placeholder="pilih bank"
-            value.bind="data.Bank"
+            value.bind="selectedBank"
             error.bind="error.Bank"
             loader.one-time="bankLoader"
-            text="bankName"
+            text.bind="bankView"
             read-only.bind="readOnly"
-            options.bind="controlOptions"
-            show.bind="isExistSupplier">
+            options.bind="controlOptions">
         </au-autocomplete>
 
         <au-textbox
@@ -46,7 +18,7 @@
             value.bind="data.Bank.accountNumber"
             read-only.bind="true"
             options.bind="controlOptions"
-            show.bind="isExistSupplier">
+            show.bind="isExistBank">
         </au-textbox>
 
         <au-textbox
@@ -54,32 +26,51 @@
             value.bind="data.Bank.currency.code"
             read-only.bind="true"
             options.bind="controlOptions"
-            show.bind="isExistSupplier">
+            show.bind="isExistBank">
         </au-textbox>
+
+        <au-autocomplete
+            label="Supplier"
+            placeholder="pilih supplier"
+            value.bind="selectedSupplier"
+            loader.one-time="supplierLoader"
+            text="name"
+            read-only.bind="readOnly"
+            show.bind="isExistBank"
+            options.bind="controlOptions">
+        </au-autocomplete>
 
         <au-textbox
             label="No. BG/Cek"
             value.bind="data.BGCheckNumber"
+            error.bind="error.BGCheckNumber"
             read-only.bind="readOnly"
             options.bind="controlOptions"
-            show.bind="isExistSupplier">
+            show.bind="isExistBank">
+        </au-textbox>
+
+        <au-datepicker
+            label="Tanggal"
+            value.bind="data.Date"
+            error.bind="error.Date"
+            show.bind="isExistBank"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-textbox
+            error.bind="error.Details"
+            show.bind"error.Details"
+            read-only.bind="true">
         </au-textbox>
 
         <au-collection
-            show.bind="isExistSupplier"
-            items.bind="data.Details" 
-            errors.bind="error.Details"
+            show.bind="isExistBank"
+            items.bind="UPOResults" 
             columns.bind="collection.columns"
             checkall.delegate="onCheckAll($event)"
             item-template="modules/expedition/bank-expenditure-note/templates/item">
         </au-collection>
 
-        <au-numeric
-            label="Total Bayar"
-            value.bind="grandTotal"
-            read-only.bind="true"
-            options.bind="controlOptions"
-            show.bind="isExistSupplier">
-        </au-numeric>
+        TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${selectedBank && selectedBank.currency ? selectedBank.currency.code : ''}
     </au-input-form>
 </template>
