@@ -2,4 +2,4 @@ language: generic
 before_install: true
 install: true
 before_script: echo "Before Script"
-script: bash ./deploy.sh
+script: if [ "$TRAVIS_PULL_REQUEST" == false ]; then bash ./deploy.sh; fi
