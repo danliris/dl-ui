@@ -16,7 +16,7 @@ export class List {
         },
         { field: "supplier.name", title: "Supplier" },
         { field: "doNo", title: "No. Surat Jalan" },
-        { field: "prNo", title: "No. Purchase Request" }
+        { field: "purchaseRequestNo", title: "No. Purchase Request" }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -54,9 +54,13 @@ export class List {
                     data.unitDivision = data.unit.division.name + " - " + data.unit.name;
                     return data;
                 });
-                var prNo = _data.items.map(function (item) {
+                for (var _data of result.data) {
+                    _data.Id= _data._id?_data._id:_data.Id;
+                    var prNo = _data.items.map(function (item) {
                         return `<li>${item.prNo}</li>`;
                     });
+                    _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
