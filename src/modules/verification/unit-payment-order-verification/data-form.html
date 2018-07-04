@@ -39,13 +39,13 @@
             <au-textbox label="No. PIB" value.bind="data.pibNo" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
 
-            <au-numeric label="Apakah Kena PPH?" value.bind="data.useIncomeTax"  read-only.bind="true" options.bind="numericOptions">
+            <au-numeric label="Apakah Kena PPH?"  value.bind="data.useIncomeTax" read-only.bind="true" options.bind="numericOptions">
             </au-numeric>
 
             <au-numeric label="Apakah Kena PPN?" value.bind="data.useVat" read-only.bind="true" options.bind="numericOptions">
             </au-numeric>
 
-            <au-numeric label="Total Harga" value.bind="data.remark" read-only.bind="true" options.bind="numericOptions">
+            <au-numeric label="Total Bayar" value.bind="data.remark" read-only.bind="true" options.bind="numericOptions">
             </au-numeric>
 
             <au-table data.bind="items" errors.bind="error.items" columns.bind="columns" options.bind="tableOptions" read-only.bind="readOnly"

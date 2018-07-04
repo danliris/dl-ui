@@ -39,6 +39,7 @@ export async function configure(aurelia) {
       var inventory = "https://dl-inventory-webapi-dev.mybluemix.net/v1/";
       var inventoryAzure = "https://com-danliris-service-inventory-dev.azurewebsites.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi-dev.mybluemix.net/v1/";
+      var spMasterPlan = "https://dl-sp-master-plan-webapi-dev.mybluemix.net/v1/";
       var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
       var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
@@ -57,6 +58,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('inventory', inventory, defaultConfig);
       config.registerEndpoint('inventory-azure', inventoryAzure, defaultConfig);
       config.registerEndpoint('garment-master-plan', garmentMasterPlan, defaultConfig);
+      config.registerEndpoint('sp-master-plan', spMasterPlan, defaultConfig);
       config.registerEndpoint('spinning', spinning, defaultConfig);
       config.registerEndpoint('int-purchasing', intPurchasing, defaultConfig);
       config.registerEndpoint('customs-report', customsReport, defaultConfig);
