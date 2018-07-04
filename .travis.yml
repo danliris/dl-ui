@@ -4,5 +4,5 @@ install: true
 before_script: echo "Before Script"
 script:
   - if [ "$TRAVIS_PULL_REQUEST" == false ]; then
-      bash ./deploy.sh
+    bash ./deploy.sh
     fi
