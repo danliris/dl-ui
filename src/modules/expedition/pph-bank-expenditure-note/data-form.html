@@ -2,14 +2,6 @@
     <require from="../../../lib/number-format-value-converter"></require>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">  
         <au-datepicker
-            label="Tanggal"
-            value.bind="data.Date"
-            error.bind="error.Date"
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
-        </au-datepicker>
-
-        <au-datepicker
             value.bind="dateFrom"
             label="Tanggal Awal"
             if.bind="!readOnly && !isEdit"
@@ -70,6 +62,15 @@
             show.bind="data.Bank">
         </au-textbox>
 
+        <au-datepicker
+            label="Tanggal"
+            value.bind="data.Date"
+            error.bind="error.Date"
+            read-only.bind="readOnly"
+            show.bind="data.UnitPaymentOrders.length > 0"
+            options.bind="controlOptions">
+        </au-datepicker>
+
         <au-textbox
             value.bind="data.BGNo"
             label="No BG/Cek"
@@ -83,7 +84,7 @@
             show.bind="error.PPHBankExpenditureNoteItems"
             read-only="true">
         </au-textbox>
-        
+
         <au-collection
             items.bind="data.UnitPaymentOrders" 
             errors.bind="error.UnitPaymentOrders"

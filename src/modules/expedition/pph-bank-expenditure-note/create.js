@@ -30,7 +30,7 @@ export class Create {
     saveCallback(event) {
         this.data.PPHBankExpenditureNoteItems = [];
 
-        for (let item of this.data.UnitPaymentOrders.filter(p => p.Check === true)) {
+        for (let item of JSON.parse(JSON.stringify(this.data.UnitPaymentOrders.filter(p => p.Check === true)))) {
             item.PurchasingDocumentExpeditionId = item.Id;
             item.Id = 0;
             this.data.PPHBankExpenditureNoteItems.push(item);
