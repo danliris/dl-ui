@@ -19,6 +19,11 @@ class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getPdfById(id) {
+        let endpoint = `${serviceUri}/${id}`;
+        return super.getPdf(endpoint);
+    }
+
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);

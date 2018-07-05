@@ -58,6 +58,6 @@
             read-only.bind="true"
             options.bind="controlOptions">
         </au-numeric>
-        TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${selectedBank && selectedBank.currency ? selectedBank.currency.code : ''}
+        TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${data.Bank.currency.code}
     </au-input-form>
 </template>
