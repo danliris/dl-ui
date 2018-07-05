@@ -15,14 +15,14 @@ export class List {
                 return moment(value).format('DD MMM YYYY');
             },
         },
-        { field: 'BankName', title: 'Bank' },
-        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'BankName', title: 'Bank' },        
         {
             field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             },
         },
-        { field: 'BankCurrencyCode', title: 'Mata Uang' }
+        { field: 'BankCurrencyCode', title: 'Mata Uang' },
+        { field: 'suppliers', title: 'Supplier' }
     ];
 
     constructor(router, service) {
@@ -43,8 +43,27 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+
+                // let distinctData =
+                if (result.data && result.data.length > 0) {
+                    result.data = result.data.map((datum) => {
+                        let listSupplier = [];
+
+                        for (let detail of datum.Details) {
+                            let exist = listSupplier.find((supplier) => supplier == '- ' + detail.SupplierName);
+                            if (!exist) {
+                                listSupplier.push('- ' + detail.SupplierName);
+                            }
+                        }
+                        
+                        datum.suppliers = listSupplier.join('\n');
+
+                        return datum;
+                    })
+                }
+
                 return {
-                    total: result.data.total,
+                    total: result.total,
                     data: result.data
                 }
             });
