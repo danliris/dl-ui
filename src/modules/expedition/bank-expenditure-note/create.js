@@ -6,10 +6,9 @@ import { activationStrategy } from 'aurelia-router';
 import SupplierLoader from '../../../loader/supplier-loader';
 import BankLoader from '../../../loader/banks-loader';
 
-import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
 import Service from './service';
 
-@inject(Router, PurchasingDocumentExpeditionService, Service)
+@inject(Router, Service)
 export class Create {
     controlOptions = {
         label: {
@@ -25,10 +24,9 @@ export class Create {
         saveText: 'Simpan',
     };
 
-    constructor(router, purchasingDocumentExpeditionService, service) {
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
         this.data = {};
 
         this.collection = {
@@ -45,13 +43,13 @@ export class Create {
     }
 
     onCheckAll(event) {
-        for (var item of this.data.Details) {
+        for (var item of this.UPOResults) {
             item.Select = event.detail.target.checked;
         }
     }
 
     saveCallback(event) {
-        this.data.Details = this.data.Details.filter((detail) => detail.Select)
+        this.data.Details = this.UPOResults.filter((detail) => detail.Select)
         this.service.create(this.data)
             .then(result => {
                 alert('Data berhasil dibuat');
@@ -70,38 +68,75 @@ export class Create {
         return BankLoader;
     }
 
-    @bindable selectedSupplier;
-    isExistSupplier = false;
-    UPOResults = [];
+    @bindable selectedSupplier;   
     async selectedSupplierChanged(newVal, oldVal) {
         this.data.Supplier = newVal;
+        if (newVal) {
+            if (this.selectedBank && this.selectedBank.currency.code) {
+                let arg = {
+                    page: 1,
+                    size: Number.MAX_SAFE_INTEGER,
+                    filter: JSON.stringify({ "Position": 7, "SupplierCode": newVal.code, "Currency": this.selectedBank.currency.code, "IsPaid": false }) //CASHIER DIVISION
+                };
+    
+                this.UPOResults = await this.service.searchAllByPosition(arg)
+                    .then((result) => {
+                        return result.data;
+                    });    
+            }
+        } else {
+            if (this.selectedBank && this.selectedBank.currency.code) {
+                let arg = {
+                    page: 1,
+                    size: Number.MAX_SAFE_INTEGER,
+                    filter: JSON.stringify({ "Position": 7, "Currency": this.selectedBank.currency.code, "IsPaid": false }) //CASHIER DIVISION
+                };
+    
+                this.UPOResults = await this.service.searchAllByPosition(arg)
+                    .then((result) => {
+                        return result.data;
+                    });    
+            }
+        }
+    }
+
+    @bindable selectedBank;
+    isExistBank = false;
+    UPOResults = [];
+    async selectedBankChanged(newVal) {
+        this.data.Bank = newVal;
         if (newVal) {
 
             let arg = {
                 page: 1,
                 size: Number.MAX_SAFE_INTEGER,
-                filter: JSON.stringify({ "Position": 7, "SupplierCode": newVal.code, "IsPaid": false }) //CASHIER DIVISION
+                filter: this.selectedSupplier && this.selectedSupplier.code ? JSON.stringify({ "Position": 7, "SupplierCode": this.selectedSupplier.code, "Currency": newVal.currency.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": newVal.currency.code, "IsPaid": false }) //CASHIER DIVISION
             };
 
-            this.UPOResults = await this.purchasingDocumentExpeditionService.searchAllByPosition(arg)
+            this.UPOResults = await this.service.searchAllByPosition(arg)
                 .then((result) => {
                     return result.data;
                 });
 
-            this.data.Details = this.UPOResults;
-            this.isExistSupplier = true;
+            this.isExistBank = true;
+        } else {
+            this.UPOResults = [];
         }
     }
 
     get grandTotal() {
         let result = 0;
-        if (this.data.Details && this.data.Details.length > 0) {
-            for (let detail of this.data.Details) {
+        if (this.UPOResults && this.UPOResults.length > 0) {
+            for (let detail of this.UPOResults) {
                 if (detail.Select)
                     result += detail.TotalPaid;
             }
         }
         this.data.GrandTotal = result;
         return result;
+    }
+
+    bankView(bank) {
+        return bank.accountName ? `${bank.accountName} - ${bank.bankName} - ${bank.accountNumber} - ${bank.currency.code}` : '';
     }
 }
