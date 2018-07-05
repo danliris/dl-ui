@@ -1,11 +1,10 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 
-import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
 import Service from './service';
 
 
-@inject(Router, Service, PurchasingDocumentExpeditionService)
+@inject(Router, Service)
 export class Edit {
 
     controlOptions = {
@@ -22,10 +21,9 @@ export class Edit {
         saveText: 'Simpan',
     };
 
-    constructor(router, service, purchasingDocumentExpeditionService) {
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
 
         this.collection = {
             columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang', ''],
@@ -41,7 +39,7 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        this.data.Details.map((detail) => {
+        this.UPOResults = this.data.Details.map((detail) => {
             detail.Select = true;
             return detail;
         });
@@ -49,16 +47,16 @@ export class Edit {
         let arg = {
             page: 1,
             size: Number.MAX_SAFE_INTEGER,
-            filter: JSON.stringify({ "Position": 7, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) //CASHIER DIVISION
+            filter: this.data.Supplier && this.data.Supplier.code ? JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "IsPaid": false }) //CASHIER DIVISION
         };
 
-        this.UPOResults = await this.purchasingDocumentExpeditionService.searchAllByPosition(arg)
+        let newData = await this.service.searchAllByPosition(arg)
             .then((result) => {
-                return result.data;
+                return result.data
             });
 
-        if (this.UPOResults.length > 0) {
-            this.data.Details.concat(this.UPOResults);
+        if (newData.length > 0) {
+            this.UPOResults = this.UPOResults.concat(newData);
         }
     }
 
@@ -67,7 +65,7 @@ export class Edit {
     }
 
     saveCallback(event) {
-        this.data.Details = this.data.Details.filter((detail) => detail.Select)
+        this.data.Details = this.UPOResults.filter((detail) => detail.Select)
         this.service.update(this.data).then(result => {
             this.cancelCallback();
         }).catch(e => {
@@ -77,8 +75,8 @@ export class Edit {
 
     get grandTotal() {
         let result = 0;
-        if (this.data.Details && this.data.Details.length > 0) {
-            for (let detail of this.data.Details) {
+        if (this.UPOResults && this.UPOResults.length > 0) {
+            for (let detail of this.UPOResults) {
                 if (detail.Select)
                     result += detail.TotalPaid;
             }
@@ -88,7 +86,7 @@ export class Edit {
     }
 
     onCheckAll(event) {
-        for (var item of this.data.Details) {
+        for (var item of this.UPOResults) {
             item.Select = event.detail.target.checked;
         }
     }

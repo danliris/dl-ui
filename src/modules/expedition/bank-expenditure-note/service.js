@@ -33,6 +33,11 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
+
+    searchAllByPosition(info) {
+        let endpoint = `${serviceUri}/no-select/by-position`;
+        return super.list(endpoint, info);
+    }
 }
 
 export default Service;
