@@ -103,6 +103,7 @@ export class Create {
     @bindable selectedBank;
     isExistBank = false;
     UPOResults = [];
+    currency = "";
     async selectedBankChanged(newVal) {
         this.data.Bank = newVal;
         if (newVal) {
@@ -119,7 +120,9 @@ export class Create {
                 });
 
             this.isExistBank = true;
+            this.currency = newVal.currency.code;
         } else {
+            this.currency = "";
             this.UPOResults = [];
         }
     }
