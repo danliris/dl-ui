@@ -31,7 +31,7 @@ export async function configure(aurelia) {
       }
 
       var core = "https://dl-core-api.mybluemix.net/v1/";
-	    var auth = "https://dl-auth-apiat.mybluemix.net/v1/";
+	    var auth = "https://dl-auth-api.mybluemix.net/v1/";
 	    var production = "https://dl-production-webapi.mybluemix.net/v1/";
 	    var purchasing = "https://dl-purchasing-webapi.mybluemix.net/v1/";
 	    var purchasingAzure = "https://com-danliris-service-purchasing-uat.azurewebsites.net/v1/";
