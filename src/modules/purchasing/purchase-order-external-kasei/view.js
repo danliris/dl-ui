@@ -49,6 +49,16 @@ export class View {
         if (this.data.isPosted && !isVoid  && !this.data.isClosed) {
             this.hasClosePo = true;
         }
+        if(isVoid){
+            this.hasClosePo = true;
+        }
+        if(this.data.isClosed || this.data.isCanceled){
+            this.hasDelete = false;
+            this.hasEdit = false;
+            this.hasUnpost = false;
+            this.hasClosePo = false;
+            this.hasCancelPo = false;
+        }
     }
 
     cancel(event) {

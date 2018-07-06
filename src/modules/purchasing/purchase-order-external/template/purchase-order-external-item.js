@@ -26,6 +26,7 @@ export class PurchaseOrderItem {
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
+    this._items=[];
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.details) {
@@ -49,8 +50,9 @@ export class PurchaseOrderItem {
 
   async selectedPurchaseOrderChanged(newValue) {
     if (newValue._id) {
-      console.log(newValue)
       Object.assign(this.data, newValue);
+      console.log(this.data);
+      
       var productList = this.data.items.map((item) => { return item.product._id });
       productList = [].concat.apply([], productList);
       productList = productList.filter(function (elem, index, self) {
@@ -69,12 +71,16 @@ export class PurchaseOrderItem {
             var item = this.data.items.find((_item) => _item.product._id.toString() === product.Id.toString())
             if (item) {
               item.product.price = product.Price;
+              item.productPrice=product.Price;
+              if(item.quantity>0){
+                this._items.push(item);
+              }
             }
           }
         });
       this.isShowing = true;
     }
-    this.data.details=this.data.items;
+    this.data.details=this._items;
   }
 
   toggle() {
