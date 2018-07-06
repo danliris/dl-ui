@@ -18,6 +18,7 @@ export class View {
 
     async activate(params) {
         var isVoid = false;
+        var canClose=false;
         var isArriving = false;
         var id = params.id;
         this.poExId = id;
@@ -33,10 +34,13 @@ export class View {
             for(var b of a.details){
                 if (b.doQuantity && b.doQuantity>0) {
                     isVoid = true;
-                    break;
+                }
+                if(b.doQuantity && b.doQuantity>0 && b.doQuantity< b.dealQuantity){
+                    canClose=true;
                 }
             }
         }
+        
         
         if (!this.data.isPosted) {
             this.hasDelete = true;
@@ -46,12 +50,10 @@ export class View {
             this.hasUnpost = true;
             this.hasCancelPo = true;
         }
-        if (this.data.isPosted && !isVoid  && !this.data.isClosed) {
+        if (this.data.isPosted && !isVoid  && !this.data.isClosed &&  canClose) {
             this.hasClosePo = true;
         }
-        if(isVoid){
-            this.hasClosePo = true;
-        }
+
         if(this.data.isClosed || this.data.isCanceled){
             this.hasDelete = false;
             this.hasEdit = false;
