@@ -6,5 +6,10 @@ export class ItemView {
 
     activate(context) {
         this.data = context.data
+        this.isShowing = false;
+    }
+
+    toggle() {
+        this.isShowing = !this.isShowing;
     }
 }

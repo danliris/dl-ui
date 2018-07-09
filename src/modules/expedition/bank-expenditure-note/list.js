@@ -22,7 +22,8 @@ export class List {
             },
         },
         { field: 'BankCurrencyCode', title: 'Mata Uang' },
-        { field: 'suppliers', title: 'Supplier' }
+        { field: 'suppliers', title: 'Supplier' },
+        { field: 'unitPaymentOrders', title: 'Nomor SPB' }
     ];
 
     constructor(router, service) {
@@ -48,15 +49,22 @@ export class List {
                 if (result.data && result.data.length > 0) {
                     result.data = result.data.map((datum) => {
                         let listSupplier = [];
+                        let listUnitPaymentOrderNo = [];
 
                         for (let detail of datum.Details) {
-                            let exist = listSupplier.find((supplier) => supplier == '- ' + detail.SupplierName);
-                            if (!exist) {
+                            let existSupplier = listSupplier.find((supplier) => supplier == '- ' + detail.SupplierName);
+                            if (!existSupplier) {
                                 listSupplier.push('- ' + detail.SupplierName);
+                            }
+
+                            let existUnitPaymentOrderNo = listUnitPaymentOrderNo.find((unitPaymentOrderNo) => unitPaymentOrderNo == '- ' + detail.UnitPaymentOrderNo);
+                            if (!existUnitPaymentOrderNo) {
+                                listUnitPaymentOrderNo.push('- ' + detail.UnitPaymentOrderNo);
                             }
                         }
                         
                         datum.suppliers = listSupplier.join('\n');
+                        datum.unitPaymentOrders = listUnitPaymentOrderNo.join('\n');
 
                         return datum;
                     })
