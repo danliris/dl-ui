@@ -1,89 +1,35 @@
 import { inject } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
-import XLSX from 'xlsx';
-import { Service, AzureService } from './service';
+import { Service } from './service';
 const PPHBankExpenditureNoteLoader = require('../../../../loader/pph-bank-expenditure-note-loader');
 const PurchasingDocumentExpeditionLoader = require('../../../../loader/purchasing-document-expedition-loader');
 const SupplierLoader = require('../../../../loader/supplier-loader');
 const DivisionLoader = require('../../../../loader/division-loader');
 
-@inject(Service, AzureService)
+@inject(Service)
 export class List {
     columns = [
-        [
-            { field: 'no', title: 'No. SPB', rowspan: 2, sortable: true },
-            {
-                field: 'date', title: 'Tgl SPB', formatter: function (value, data, index) {
-                    return moment(value).format('DD MMM YYYY');
-                },
-                rowspan: 2,
-                sortable: true,
+        { field: 'No', title: 'No Bukti Pengeluaran Bank' },
+        {
+            field: 'Date', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
+                return moment(value).format('DD MMM YYYY');
             },
-            {
-                field: 'dueDate', title: 'Tgl Jatuh Tempo', formatter: function (value, data, index) {
-                    return moment(value).format('DD MMM YYYY');
-                },
-                rowspan: 2,
-                sortable: true,
+        },
+        {
+            field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
+                return numeral(value).format('0,000.0000');
             },
-            { field: 'invoceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
-            { field: 'supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
-            { field: 'division.name', title: 'Divisi', rowspan: 2, sortable: true },
-            {
-                field: 'position', title: 'Posisi', formatter: (value, data, index) => {
-                    let status = this.itemsStatus.find(p => p.value === value);
-                    return status.text;
-                },
-                rowspan: 2,
-                sortable: true,
+        },
+        {
+            field: 'IncomeTax', title: 'PPH', formatter: function (value, data, index) {
+                return numeral(value).format('0,000.0000');
             },
-            {
-                field: 'SendToVerificationDivisionDate', title: 'Tgl Pembelian Kirim', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-                rowspan: 2,
-            },
-            { title: 'Verifikasi', colspan: 3 },
-            { title: 'Kasir', colspan: 5 }
-        ], [
-            {
-                field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'VerifyDate', title: 'Tgl Cek', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'SendDate', title: 'Tgl Kirim', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'CashierDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'BankExpenditureNoteDate', title: 'Tgl Bayar', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'BankExpenditureNoteNo', title: 'No Kuitansi'
-            },
-            {
-                field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'BankExpenditureNotePPHNo', title: 'No Kuitansi PPH'
-            },
-        ]
+        },
+        { field: 'Currency', title: 'Mata Uang' },
+        { field: 'Bank', title: 'Bank Bayar PPH' },
+        { field: 'SPBSupplier', title: 'No SPB / Supplier' },
+        { field: 'InvoiceNo', title: 'No Invoice' },
     ];
 
     controlOptions = {
@@ -101,9 +47,8 @@ export class List {
         showToggle: false,
     };
 
-    constructor(service, azureService) {
+    constructor(service) {
         this.service = service;
-        this.azureService = azureService;
 
         this.flag = false;
         this.selectUPO = ['no'];
@@ -117,73 +62,72 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
 
-        let filter = {};
-
-        if (this.pphBankExpenditureNote) {
-            filter.no = this.pphBankExpenditureNote.No;
-        }
-
-        if (this.unitPaymentOrder) {
-            filter.unitPaymentOrderNo = this.unitPaymentOrder.UnitPaymentOrderNo;
-        }
-
-        if (this.expedition) {
-            filter.invoiceNo = this.expedition.InvoiceNo;
-        }
-        
-        if (this.supplier) {
-            filter.supplierCode = this.supplier.code;
-        }
-
-        if (this.division) {
-            filter.divisionCode = this.division.code;
-        }
-
-        if (this.paymentMethod != '') {
-            filter.paymentMethod = this.paymentMethod;
-        }
-
-        if (this.dateFrom && this.dateFrom != 'Invalid Date' && this.dateTo && this.dateTo != 'Invalid Date') {
-            filter.dateFrom = this.dateFrom;
-            filter.dateTo = this.dateTo;
-        }
-
-        if (Object.getOwnPropertyNames(filter).length === 0) {
-            filter.dateFrom = new Date();
-            filter.dateFrom.setMonth(filter.dateFrom.getMonth() - 1);
-            filter.dateTo = new Date();
-        }
-
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            filter: JSON.stringify(filter),
             order: order,
             select: ['no', 'date', 'dueDate', 'invoceNo', 'supplier.name', 'division.name', 'position'],
         };
 
+        if (this.pphBankExpenditureNote) {
+            arg.no = this.pphBankExpenditureNote.No;
+        }
+
+        if (this.unitPaymentOrder) {
+            arg.unitPaymentOrderNo = this.unitPaymentOrder.UnitPaymentOrderNo;
+        }
+
+        if (this.expedition) {
+            arg.invoiceNo = this.expedition.InvoiceNo;
+        }
+
+        if (this.supplier) {
+            arg.supplierCode = this.supplier.code;
+        }
+
+        if (this.division) {
+            arg.divisionCode = this.division.code;
+        }
+
+        if (this.paymentMethod != '') {
+            arg.paymentMethod = this.paymentMethod;
+        }
+
+        if (this.dateFrom && this.dateFrom != 'Invalid Date' && this.dateTo && this.dateTo != 'Invalid Date') {
+            arg.dateFrom = this.dateFrom;
+            arg.dateTo = this.dateTo;
+        }
+
+        if (Object.getOwnPropertyNames(arg).length === 4) {
+            arg.dateFrom = new Date();
+            arg.dateFrom.setMonth(arg.dateFrom.getMonth() - 1);
+            arg.dateTo = new Date();
+        }
+
         return this.flag ? (
             this.service.search(arg)
                 .then(result => {
-                    let unitPaymentOrders = result.data.map(p => p.no);
+                    let arr = [], before, obj;
 
-                    return this.azureService.search({ unitPaymentOrders })
-                        .then(response => {
-                            let expeditions = response.data;
+                    for (let datum of result.data) {
+                        if (datum.No != before) {
+                            obj = new Object(datum);
+                            obj.InvoiceNo = `- ${obj.InvoiceNo}`;
+                            obj.SPBSupplier = `- ${obj.SPBSupplier}`;
+                            arr.push(obj);
+                        }
+                        else {
+                            obj.InvoiceNo += `<br>- ${datum.InvoiceNo}`;
+                            obj.SPBSupplier += `<br>- ${datum.SPBSupplier}`;
+                        }
 
-                            for (let d of result.data) {
-                                let expedition = expeditions.find(p => p.UnitPaymentOrderNo == d.no);
+                        before = datum.No;
+                    }
 
-                                if (expedition) {
-                                    Object.assign(d, expedition);
-                                }
-                            }
-
-                            return {
-                                total: result.info.total,
-                                data: result.data
-                            }
-                        });
+                    return {
+                        total: result.info.total,
+                        data: arr
+                    }
                 })
         ) : { total: 0, data: [] };
     }
