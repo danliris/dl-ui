@@ -1,4 +1,5 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { Dialog } from '../../../components/dialog/dialog';
 import { Router } from 'aurelia-router';
 import { AzureService } from './service';
 import { activationStrategy } from 'aurelia-router';
@@ -8,7 +9,7 @@ import BankLoader from '../../../loader/banks-loader';
 
 import Service from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class Create {
     controlOptions = {
         label: {
@@ -24,9 +25,10 @@ export class Create {
         saveText: 'Simpan',
     };
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
         this.data = {};
 
         this.collection = {
@@ -49,14 +51,19 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.data.Details = this.UPOResults.filter((detail) => detail.Select)
-        this.service.create(this.data)
-            .then(result => {
-                alert('Data berhasil dibuat');
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch(e => {
-                this.error = e;
+        this.data.Details = this.UPOResults.filter((detail) => detail.Select);
+        this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
+            .then(response => {
+                if (response == "ok") {
+                    this.service.create(this.data)
+                        .then(result => {
+                            alert('Data berhasil dibuat');
+                            this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                        })
+                        .catch(e => {
+                            this.error = e;
+                        });
+                }
             });
     }
 
@@ -68,7 +75,7 @@ export class Create {
         return BankLoader;
     }
 
-    @bindable selectedSupplier;   
+    @bindable selectedSupplier;
     async selectedSupplierChanged(newVal, oldVal) {
         this.data.Supplier = newVal;
         if (newVal) {
@@ -78,11 +85,11 @@ export class Create {
                     size: Number.MAX_SAFE_INTEGER,
                     filter: JSON.stringify({ "Position": 7, "SupplierCode": newVal.code, "Currency": this.selectedBank.currency.code, "IsPaid": false }) //CASHIER DIVISION
                 };
-    
+
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                     .then((result) => {
                         return result.data;
-                    });    
+                    });
             }
         } else {
             if (this.selectedBank && this.selectedBank.currency.code) {
@@ -91,11 +98,11 @@ export class Create {
                     size: Number.MAX_SAFE_INTEGER,
                     filter: JSON.stringify({ "Position": 7, "Currency": this.selectedBank.currency.code, "IsPaid": false }) //CASHIER DIVISION
                 };
-    
+
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                     .then((result) => {
                         return result.data;
-                    });    
+                    });
             }
         }
     }
@@ -103,6 +110,7 @@ export class Create {
     @bindable selectedBank;
     isExistBank = false;
     UPOResults = [];
+    currency = "";
     async selectedBankChanged(newVal) {
         this.data.Bank = newVal;
         if (newVal) {
@@ -119,7 +127,9 @@ export class Create {
                 });
 
             this.isExistBank = true;
+            this.currency = newVal.currency.code;
         } else {
+            this.currency = "";
             this.UPOResults = [];
         }
     }
