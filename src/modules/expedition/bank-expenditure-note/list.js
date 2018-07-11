@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = ['Rincian'];
+    context = ['Rincian', 'Cetak PDF'];
 
     columns = [
         { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Barang' },
@@ -15,14 +15,15 @@ export class List {
                 return moment(value).format('DD MMM YYYY');
             },
         },
-        { field: 'BankName', title: 'Bank' },
-        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'BankName', title: 'Bank' },        
         {
             field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             },
         },
-        { field: 'BankCurrencyCode', title: 'Mata Uang' }
+        { field: 'BankCurrencyCode', title: 'Mata Uang' },
+        { field: 'suppliers', title: 'Supplier' },
+        { field: 'unitPaymentOrders', title: 'Nomor SPB' }
     ];
 
     constructor(router, service) {
@@ -43,8 +44,34 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+
+                // let distinctData =
+                if (result.data && result.data.length > 0) {
+                    result.data = result.data.map((datum) => {
+                        let listSupplier = [];
+                        let listUnitPaymentOrderNo = [];
+
+                        for (let detail of datum.Details) {
+                            let existSupplier = listSupplier.find((supplier) => supplier == '- ' + detail.SupplierName);
+                            if (!existSupplier) {
+                                listSupplier.push('- ' + detail.SupplierName);
+                            }
+
+                            let existUnitPaymentOrderNo = listUnitPaymentOrderNo.find((unitPaymentOrderNo) => unitPaymentOrderNo == '- ' + detail.UnitPaymentOrderNo);
+                            if (!existUnitPaymentOrderNo) {
+                                listUnitPaymentOrderNo.push('- ' + detail.UnitPaymentOrderNo);
+                            }
+                        }
+                        
+                        datum.suppliers = listSupplier.join('\n');
+                        datum.unitPaymentOrders = listUnitPaymentOrderNo.join('\n');
+
+                        return datum;
+                    })
+                }
+
                 return {
-                    total: result.data.total,
+                    total: result.total,
                     data: result.data
                 }
             });
@@ -57,6 +84,9 @@ export class List {
         switch (arg.name) {
             case 'Rincian':
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
