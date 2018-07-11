@@ -1,32 +1,14 @@
 <template>
-    <h1 class="page-header">Laporan Bukti Pengeluaran Bank</h1>
+    <h1 class="page-header">Laporan Status Bayar SPB</h1>
 
     <form class="form-horizontal">
         <au-autocomplete 
-            value.bind="bankExpenditureNote"
-            loader.one-time="bankExpenditureNoteLoader"
-            text="No"
-            label="No Bukti Pengeluaran Bank"
-            options.bind="controlOptions"
-            placeholder="Masukkan No Bukti Pengeluaran Bank">
-        </au-autocomplete>
-
-        <au-autocomplete 
-            value.bind="unitPaymentOrder"
-            loader.one-time="unitPaymentOrderLoader"
-            text="UnitPaymentOrderNo"
-            label="No SPB"
-            options.bind="controlOptions"
-            placeholder="Masukkan No SPB">
-        </au-autocomplete>
-
-        <au-autocomplete 
-            value.bind="expedition"
+            value.bind="purchasingDocumentExpedition"
             loader.one-time="purchasingDocumentExpeditionLoader"
-            text="InvoiceNo"
-            label="No Invoice"
+            text="UnitPaymentOrderNo"
+            label="No Surat Perintah Bayar"
             options.bind="controlOptions"
-            placeholder="Masukkan No Invoice">
+            placeholder="Masukkan No Surat Perintah Bayar">
         </au-autocomplete>
 
         <au-autocomplete 
@@ -49,10 +31,10 @@
         </au-autocomplete>
 
         <au-dropdown
-            value.bind="paymentMethod"
-            label="Cara Pembayaran"
+            value.bind="status"
+            label="Status"
             options.bind="controlOptions"
-            items.bind="paymentMethodItems">
+            items.bind="statusItems">
         </au-dropdown>
 
         <au-datepicker
@@ -75,13 +57,14 @@
             </div>
         </div>
     </form>
-
-    <au-table
-        view-model.ref="tableList"
-        data.bind="loader"
-        columns.bind="columns"
-        sortable="true"
-        page-size="25"
-        options.bind="tableOptions">
-    </au-table>
+    <div id="pph-bank-table">
+        <au-table
+            view-model.ref="tableList"
+            data.bind="loader"
+            sortable="true"
+            columns.bind="columns"
+            page-size="25"
+            options.bind="tableOptions">
+        </au-table>
+    </div>
 </template>

@@ -13,22 +13,23 @@ export class List {
         { field: 'No', title: 'No Bukti Pengeluaran Bank' },
         {
             field: 'Date', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
-                return moment(value).format('DD MMM YYYY');
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
         },
         {
             field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+                return value ? numeral(value).format('0,000.0000') : '-';
             },
         },
         {
             field: 'IncomeTax', title: 'PPH', formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+                return value ? numeral(value).format('0,000.0000') : '-';
             },
         },
         { field: 'Currency', title: 'Mata Uang' },
         { field: 'Bank', title: 'Bank Bayar PPH' },
-        { field: 'SPBSupplier', title: 'No SPB / Supplier' },
+        { field: 'Supplier', title: 'Supplier' },
+        { field: 'SPB', title: 'No SPB' },
         { field: 'InvoiceNo', title: 'No Invoice' },
     ];
 
@@ -89,45 +90,75 @@ export class List {
             arg.divisionCode = this.division.code;
         }
 
+        /*
         if (this.paymentMethod != '') {
             arg.paymentMethod = this.paymentMethod;
         }
+        */
 
         if (this.dateFrom && this.dateFrom != 'Invalid Date' && this.dateTo && this.dateTo != 'Invalid Date') {
             arg.dateFrom = this.dateFrom;
             arg.dateTo = this.dateTo;
+
+            arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
+            arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
         }
 
         if (Object.getOwnPropertyNames(arg).length === 4) {
             arg.dateFrom = new Date();
             arg.dateFrom.setMonth(arg.dateFrom.getMonth() - 1);
             arg.dateTo = new Date();
+
+            arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
+            arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
         }
 
         return this.flag ? (
             this.service.search(arg)
                 .then(result => {
-                    let arr = [], before, obj;
+                    let before = {};
 
-                    for (let datum of result.data) {
-                        if (datum.No != before) {
-                            obj = new Object(datum);
-                            obj.InvoiceNo = `- ${obj.InvoiceNo}`;
-                            obj.SPBSupplier = `- ${obj.SPBSupplier}`;
-                            arr.push(obj);
+                    for (let i in result.data) {
+                        if (result.data[i].No != before.No) {
+                            before = result.data[i];
+                            before._No_rowspan = 1;
+                            before._Date_rowspan = 1;
+                            before._DPP_rowspan = 1;
+                            before._IncomeTax_rowspan = 1;
+                            before._Currency_rowspan = 1;
+                            before._Bank_rowspan = 1;
                         }
                         else {
-                            obj.InvoiceNo += `<br>- ${datum.InvoiceNo}`;
-                            obj.SPBSupplier += `<br>- ${datum.SPBSupplier}`;
-                        }
+                            before._No_rowspan++;
+                            before._Date_rowspan++;
+                            before._DPP_rowspan++;
+                            before._IncomeTax_rowspan++;
+                            before._Currency_rowspan++;
+                            before._Bank_rowspan++;
 
-                        before = datum.No;
+                            before.DPP += result.data[i].DPP;
+                            before.IncomeTax += result.data[i].IncomeTax;
+
+                            result.data[i].No = undefined;
+                            result.data[i].Date = undefined;
+                            result.data[i].DPP = undefined;
+                            result.data[i].IncomeTax = undefined;
+                            result.data[i].Currency = undefined;
+                            result.data[i].Bank = undefined;
+                        }
                     }
+
+                    setTimeout(() => {
+                        $('#pph-bank-table td').each(function () {
+                            if ($(this).html() === '-')
+                                $(this).hide();
+                        })
+                    }, 10);
 
                     return {
                         total: result.info.total,
-                        data: arr
-                    }
+                        data: result.data
+                    };
                 })
         ) : { total: 0, data: [] };
     }

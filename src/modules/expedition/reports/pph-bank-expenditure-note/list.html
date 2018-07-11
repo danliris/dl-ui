@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Laporan Bukti Pengeluaran Bank</h1>
+    <h1 class="page-header">Laporan Bukti Pengeluaran Bank PPH</h1>
 
     <form class="form-horizontal">
         <au-autocomplete 
@@ -77,13 +77,13 @@
             </div>
         </div>
     </form>
-
-    <au-table
-        view-model.ref="tableList"
-        data.bind="loader"
-        columns.bind="columns"
-        sortable="true"
-        page-size="25"
-        options.bind="tableOptions">
-    </au-table>
+    <div id="pph-bank-table">
+        <au-table
+            view-model.ref="tableList"
+            data.bind="loader"
+            columns.bind="columns"
+            page-size="25"
+            options.bind="tableOptions">
+        </au-table>
+    </div>
 </template>

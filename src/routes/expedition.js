@@ -91,11 +91,11 @@ module.exports =  [
         }
     },
     {
-        route: '/expedition/reports/bank-expenditure-note',
-        name: 'bank-expenditure-note',
-        moduleId: './modules/expedition/reports/bank-expenditure-note/index',
+        route: '/expedition/reports/unit-payment-order-paid-status',
+        name: 'unit-payment-order-paid-status',
+        moduleId: './modules/expedition/reports/unit-payment-order-paid-status/index',
         nav: true,
-        title: 'Laporan Bukti Pengeluaran Bank',
+        title: 'Laporan Status Bayar SPB',
         auth: true,
         settings: {
             group: "expedition",
