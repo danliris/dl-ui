@@ -17,7 +17,8 @@ export class UnitPaymentOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.filter = this.context.context.options ? this.context.context.options : {};
+    // this.filter = this.context.context.options ? this.context.context.options : {};
+    this.filter = {};
     this.isShowing = false;
     if (this.data) {
       this.selectedUnitReceiptNote = this.data.unitReceiptNote;
@@ -39,13 +40,26 @@ export class UnitPaymentOrderItem {
     } else if (newValue._id) {
       var items = [];
       for (var item of newValue.items) {
-        if (item.purchaseOrder.categoryId.toString() === this.filter.categoryId.toString()) {
-          items.push(item);
-        }
+        // if (item.purchaseOrder.categoryId.toString() === this.filter.categoryId.toString()) {
+        //   items.push(item);
+        // }
+        item.URNItemId = item._id;
+        item.deliveredUom = {
+         _id: item.uomId,
+         unit: item.uom 
+        };
+        item.priceTotal = item.pricePerDealUnit * item.deliveredQuantity;
+
+        items.push(item);
       }
       newValue.items = items;
+
       this.data.unitReceiptNote = newValue;
-      this.data.unitReceiptNoteId = newValue._id;
+      this.data.unitReceiptNote.deliveryOrder = {
+        _id: newValue.doId || 0,
+        no: newValue.doNo || null,
+      };
+
       this.error = {};
       this.isShowing = true;
     }
@@ -59,7 +73,11 @@ export class UnitPaymentOrderItem {
   }
 
   unitReceiptNoteView = (unitReceiptNote) => {
-    return unitReceiptNote.no
+    return unitReceiptNote.deliveryOrder ?
+      `${unitReceiptNote.no} - ${unitReceiptNote.deliveryOrder.no}` :
+      unitReceiptNote.doNo ?
+      `${unitReceiptNote.no} - ${unitReceiptNote.doNo}` :
+      "";
   }
 
   controlOptions = {
