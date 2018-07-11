@@ -399,7 +399,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "S1": 1, "S2": 1, "S3": 1, "S4": 1, "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -412,7 +412,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "S1": 1, "S2": 1, "S3": 1, "S4": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -425,7 +425,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "F1": 1, "F2": 1, "A1": 1, "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
@@ -440,7 +440,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "F1": 1, "F2": 1, "A1": 1, "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -455,7 +455,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "A1": 1, "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -469,7 +469,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "A1": 1, "A2": 1, "C9": 1  },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -482,7 +482,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "F1": 1, "F2": 1, "A1": 1, "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -495,7 +495,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "F1": 1, "F2": 1, "A1": 1, "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -509,7 +509,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "F1": 1, "F2": 1, "A1": 1, "A2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -522,7 +522,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "PGA": 1, "C9":1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -535,7 +535,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "PGA": 1, "C9":1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -548,7 +548,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "PGA": 1, "C9":1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -561,7 +561,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "PGA": 1, "C9":1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -574,7 +574,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "master",
-            permission: { "*": 1 },
+            permission: { "PGA": 1, "C9":1 },
             iconClass: 'fa fa-dashboard'
         }
     },
