@@ -10,15 +10,15 @@ export class List {
     context = ["Rincian", "Cetak PDF"]
 
     columns = [
-        { field: "division.name", title: "Divisi" },
-        { field: "supplier.name", title: "Supplier" },
+        { field: "DivisionName", title: "Divisi" },
+        { field: "SupplierName", title: "Supplier" },
         {
-            field: "date", title: "Tanggal Surat Perintah Bayar", formatter: function (value, data, index) {
+            field: "Date", title: "Tanggal Surat Perintah Bayar", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "no", title: "Nomor Surat Perintah Bayar" },
-        { field: "unitReceiptNoteNo", title: "List Nomor Bon Unit-Nomor Surat Jalan" }
+        { field: "UPONo", title: "Nomor Surat Perintah Bayar" },
+        { field: "unitReceiptNoteNo", title: "List Nomor Bon Unit-Nomor Surat Jalan", sortable: false }
     ];
 
     loader = (info) => {
@@ -40,6 +40,9 @@ export class List {
                         return `<li>${item.unitReceiptNote.no} - ${item.unitReceiptNote.deliveryOrder.no} </li>`;
                     });
                     _data.unitReceiptNoteNo = `<ul>${btuNo.join()}</ul>`;
+                    _data.UPONo = _data.no;
+                    _data.DivisionName = _data.division.name;
+                    _data.SupplierName = _data.supplier.name;
                 }
                 return {
                     total: result.info.total,

@@ -37,6 +37,7 @@ export class Create {
         let dates = [];
 
         for (let item of this.data.items) {
+            if (item.unitReceiptNote.items)
             for (let detail of item.unitReceiptNote.items) {
                 dates.push(moment(item.unitReceiptNote.date).add(detail.purchaseOrder.purchaseOrderExternal.paymentDueDays, 'days'));
             }
@@ -46,7 +47,7 @@ export class Create {
     }
 
     save() {
-        this.data.dueDate = this.generateDueDate();
+        // this.data.dueDate = this.generateDueDate();
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
