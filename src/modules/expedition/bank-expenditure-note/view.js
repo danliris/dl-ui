@@ -47,7 +47,7 @@ export class View {
     deleteCallback(event) {
         this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
             .then(response => {
-                if (response == "ok") {
+                if (response.ok) {
                     this.service.delete(this.data).then(result => {
                         this.cancelCallback();
                     });
