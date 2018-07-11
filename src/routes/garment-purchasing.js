@@ -423,7 +423,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "*": 0 },
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "FC": 1, "P": 1, "P2A": 1, "P2B": 1, "P2C": 1, "P1A": 1, "P1B": 1, "PG": 1, "C5": 1, "B1": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -436,7 +436,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            permission: { "*": 0 },
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "FC": 1, "P": 1, "P2A": 1, "P2B": 1, "P2C": 1, "P1A": 1, "P1B": 1, "PG": 1, "C5": 1, "B1": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
