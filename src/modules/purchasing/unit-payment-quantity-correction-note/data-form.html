@@ -1,19 +1,26 @@
 <template>
     <form class="form-horizontal">
-        <textbox                            label="No. Koreksi"                     value.bind="data.no"                        error.bind="error.no"                           read-only.bind="true" if.bind="readOnly || isEdit"></textbox>
-        <datepicker                         label="Tgl. Koreksi"                    value.bind="data.date"                      error.bind="error.date"                         read-only.bind="readOnly"></datepicker> 
-        <unit-payment-order-auto-suggest    label="No. Surat Perintah Bayar"        value.bind="data.unitPaymentOrder"          error.bind="error.unitPaymentOrder"             read-only.bind="readOnly"   change.delegate="unitPaymentOrderChanged($event)" if.bind="flag"></unit-payment-order-auto-suggest>         
-        <textbox                            label="No. Bon Keluar"                  value.bind="data.releaseOrderNoteNo"        error.bind="error.releaseOrderNoteNo"           read-only.bind="readOnly"></textbox>
-        <supplier-auto-suggest              label="Supplier"                        value.bind="data.unitPaymentOrder.supplier" error.bind="error.unitPaymentOrder.supplier"    read-only.bind="true"   if.bind="data.unitPaymentOrderId && data.unitPaymentOrder._id"></supplier-auto-suggest>
-        <textbox                            label="No. Invoice Koreksi"             value.bind="data.invoiceCorrectionNo"       error.bind="error.invoiceCorrectionNo"          read-only.bind="readOnly"></textbox>
-        <datepicker                         label="Tgl. Invoice Koreksi"            value.bind="data.invoiceCorrectionDate"     error.bind="error.invoiceCorrectionDate"        read-only.bind="readOnly"></datepicker> 
-        <textbox                            label="No. Faktur Pajak Koreksi (PPN)"  value.bind="data.incomeTaxCorrectionNo"     error.bind="error.incomeTaxCorrectionNo"        read-only.bind="readOnly"></textbox>
-        <datepicker                         label="Tgl. Faktur Pajak Koreksi (PPN)" value.bind="data.incomeTaxCorrectionDate"   error.bind="error.incomeTaxCorrectionDate"      read-only.bind="readOnly"></datepicker> 
-        <textbox                            label="No. Faktur Pajak Koreksi (PPH)"  value.bind="data.vatTaxCorrectionNo"        error.bind="error.vatTaxCorrectionNo"           read-only.bind="readOnly"></textbox>
-        <datepicker                         label="Tgl. Faktur Pajak Koreksi (PPH)" value.bind="data.vatTaxCorrectionDate"      error.bind="error.vatTaxCorrectionDate"         read-only.bind="readOnly"></datepicker> 
-        <datepicker                         label="Tgl. Jatuh Tempo"                value.bind="data.unitPaymentOrder.dueDate"  error.bind="error.unitPaymentOrder.dueDate"     read-only.bind="true"   if.bind="data.unitPaymentOrderId && data.unitPaymentOrder._id"></datepicker>
-        <multiline                          label="Keterangan"                      value.bind="data.remark"                    error.bind="error.remark"                       read-only.bind="readOnly" ></multiline>
+        <au-textbox                            label="No. Koreksi"                     value.bind="data.uPCNo"                        error.bind="error.uPCNo"                           read-only.bind="true" if.bind="readOnly || isEdit" options.bind="controlOptions"></au-textbox>
+        <au-datepicker                         label="Tgl. Koreksi"                    value.bind="data.correctionDate"                      error.bind="error.correctionDate"                         read-only.bind="readOnly" options.bind="controlOptions"></au-datepicker> 
+        <au-autocomplete                    label="No. Surat Perintah Bayar"        value.bind="unitPaymentOrder"          error.bind="error.uPOId"             read-only.bind="readOnly" loader.one-time="unitPaymentOrderLoader"  change.delegate="unitPaymentOrderChanged($event)" if.bind="flag" options.bind="controlOptions"></au-autocomplete>         
+        <au-textbox                            label="No. Bon Keluar"                  value.bind="data.releaseOrderNoteNo"        error.bind="error.releaseOrderNoteNo"   read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
+        <au-autocomplete                    label="Supplier"                        value.bind="supplier" error.bind="error.supplier"  loader.one-time="supplierLoader"   read-only.bind="true"  text.bind="supplierView" if.bind="data.uPOId" options.bind="controlOptions"></au-autocomplete>
+        <au-textbox                            label="No. Invoice Koreksi"             value.bind="data.invoiceCorrectionNo"       error.bind="error.invoiceCorrectionNo"          read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
+        <au-datepicker                         label="Tgl. Invoice Koreksi"            value.bind="data.invoiceCorrectionDate"     error.bind="error.invoiceCorrectionDate"        read-only.bind="readOnly" options.bind="controlOptions"></au-datepicker> 
+        <au-textbox                            label="No. Faktur Pajak Koreksi (PPN)"  value.bind="data.incomeTaxCorrectionNo"     error.bind="error.incomeTaxCorrectionNo"        read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
+        <au-datepicker                         label="Tgl. Faktur Pajak Koreksi (PPN)" value.bind="data.incomeTaxCorrectionDate"   error.bind="error.incomeTaxCorrectionDate"      read-only.bind="readOnly" options.bind="controlOptions"></au-datepicker> 
+        <au-textbox                            label="No. Faktur Pajak Koreksi (PPH)"  value.bind="data.vatTaxCorrectionNo"        error.bind="error.vatTaxCorrectionNo"           read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
+        <au-datepicker                         label="Tgl. Faktur Pajak Koreksi (PPH)" value.bind="data.vatTaxCorrectionDate"      error.bind="error.vatTaxCorrectionDate"         read-only.bind="readOnly" options.bind="controlOptions"></au-datepicker> 
+        <au-datepicker                         label="Tgl. Jatuh Tempo"                value.bind="data.dueDate"  error.bind="error.dueDate"     read-only.bind="true"   if.bind="data.uPOId" options.bind="controlOptions"></au-datepicker>
+        <au-multiline                          label="Keterangan"                      value.bind="data.remark"                    error.bind="error.remark"                       read-only.bind="readOnly" options.bind="controlOptions"></au-multiline>
         <hr />
-        <unit-payment-quantity-correction-note-collection      value.bind="data.items"         error.bind="error.items"        read-only.bind="readOnly"></unit-payment-quantity-correction-note-collection>
+        <!-- <unit-payment-quantity-correction-note-collection      value.bind="data.items"         error.bind="error.items"        read-only.bind="readOnly"></unit-payment-quantity-correction-note-collection> -->
+        <au-collection
+            items.bind="data.items"
+            errors.bind="error.items"
+            columns.bind="itemsColumns"
+            read-only.bind="readOnly"
+            item-template="modules/purchasing/unit-payment-quantity-correction-note/template/unit-payment-quantity-correction-note">
+        </au-collection>
     </form>
 </template>

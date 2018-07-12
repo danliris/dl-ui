@@ -16,11 +16,13 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+        console.log(this.service);
     }
 
     async activate() {
         this.info.keyword = '';
         var result = await this.service.search(this.info);
+        console.log(result);
         this.data = result.data;
         this.info = result.info;
     }
@@ -31,7 +33,7 @@ export class List {
             .then(result => {
                 this.data = result.data;
                 this.info = result.info;
-                this.info.keyword = keyword;
+                this.info.keyword = info.search;
             })
     }
 
