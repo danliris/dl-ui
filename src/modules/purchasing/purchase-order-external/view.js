@@ -17,6 +17,7 @@ export class View {
     async activate(params) {
         var isVoid = false;
         var isArriving = false;
+        var canClose=false;
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
