@@ -10,12 +10,31 @@ export class PurchaseOrderItem {
     this.error = context.error;
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
+    if(!this.useVat){
+      this.data.includePpn=false;
+    }
     if (this.data) {
       this.updateItem();
     }
   }
 
   updateItem() {
+    // if (this.data.dealQuantity === 0) {
+    //   this.data.dealQuantity = this.data.defaultQuantity;
+    // }
+    // if (!this.data.dealUom.unit) {
+    //   Object.assign(this.data.dealUom, this.data.defaultUom);
+    // }
+
+    // if (!this.error && this.data.priceBeforeTax === 0) {
+    //   this.data.priceBeforeTax = this.data.product.price;
+    // }
+
+    // if (this.data.conversion === 0) {
+    //   this.data.priceBeforeTax = this.data.product.price;
+    // }
+
+    // this.selectedDealUom = this.data.dealUom;
     if (!this.data.dealQuantity || this.data.dealQuantity === 0) {
       this.data.dealQuantity = this.data.defaultQuantity;
     }
