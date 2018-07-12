@@ -6,17 +6,27 @@ var moment = require("moment");
 @inject(Router, Service)
 export class List {
     columns = [
-        { field: "unitDivision", title: "Unit" },
-        { field: "no", title: "No. Bon Unit" },
-        {
-            field: "date", title: "Tanggal Bon Unit",
+        { field: "unit.name", title: "Unit",
             formatter: (value, data) => {
-                return moment(value).format("DD MMM YYYY");
+                return data.unitDivision;
+            } 
+        },
+        { field: "URNNo", title: "No. Bon Unit" ,
+            formatter: (value, data) => {
+                return data.no;
+            } },
+        {
+            field: "receiptDate", title: "Tanggal Bon Unit",
+            formatter: (value, data) => {
+                return moment(data.date).format("DD MMM YYYY");
             }
         },
         { field: "supplier.name", title: "Supplier" },
         { field: "doNo", title: "No. Surat Jalan" },
-        { field: "purchaseRequestNo", title: "No. Purchase Request" }
+        { field: "Items.PRNo", title: "No. Purchase Request" ,
+            formatter: (value, data) => {
+                return data.purchaseRequestNo;
+            } }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -49,7 +59,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result.data)
                 result.data.map((data) => {
                     data.unitDivision = data.unit.division.name + " - " + data.unit.name;
                     return data;

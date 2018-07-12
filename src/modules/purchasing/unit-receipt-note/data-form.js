@@ -50,10 +50,11 @@ export class DataForm {
          var storageFilter={};
         if(this.data.unit){
             storageFilter={
-                "unit.code": this.data.unit.code,
-                "unit.division.code" : this.data.unit.division.code
+                "UnitName": this.data.unit.name,
+                "DivisionName" : this.data.unit.division.name
             };
         }
+        console.log(storageFilter);
         return storageFilter;
     }
 
@@ -120,6 +121,7 @@ export class DataForm {
             this.data.unit = selectedUnit;
             this.data.unitId = selectedUnit._id;
             this.data.unit.division=selectedUnit.division;
+            
         }
         else {
             this.data.unitId = null;
@@ -161,6 +163,7 @@ export class DataForm {
                         _item.doDetailId=fulfillment._id;
                         _item.prId=fulfillment.purchaseOrder.purchaseRequest._id;
                         _item.prNo=fulfillment.purchaseOrder.purchaseRequest.no;
+                        //_item.pricePerDealUnit=
                         // _item.currency = fulfillment.purchaseOrder.currency;
                         // _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
 
@@ -243,6 +246,7 @@ export class DataForm {
     }
 
     storageView = (storage) => {
+        console.log(storage)
         return `${storage.unit.name} - ${storage.name}`;
     }
 } 
