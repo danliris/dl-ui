@@ -59,7 +59,7 @@
                     <td>
                         <au-numeric 
                             value.bind="data.priceBeforeTax" 
-                            error.bind="error.priceBeforeTax"
+                            error.bind="error.price"
                             read-only.bind="options.readOnly" 
                             change.delegate="priceBeforeTaxChanged($event)"
                             options.bind="controlOptions">

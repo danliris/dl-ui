@@ -32,8 +32,8 @@ export class Edit {
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
         }
-        if (this.data.vat) {
-            this.selectedVat = this.data.vat;
+        if (this.data.incomeTax) {
+            this.selectedIncomeTax = this.data.incomeTax;
         }
     }
 
@@ -54,7 +54,7 @@ export class Edit {
     }
 
     save() {
-        this.data.dueDate = this.generateDueDate();
+        // this.data.dueDate = this.generateDueDate();
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

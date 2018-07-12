@@ -15,7 +15,8 @@ export class List {
             }
         },
         { field: "supplier.name", title: "Supplier" },
-        { field: "deliveryOrder.no", title: "No. Surat Jalan" }
+        { field: "doNo", title: "No. Surat Jalan" },
+        { field: "purchaseRequestNo", title: "No. Purchase Request" }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -48,11 +49,18 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                console.log(result.data)
                 result.data.map((data) => {
                     data.unitDivision = data.unit.division.name + " - " + data.unit.name;
                     return data;
                 });
-
+                for (var _data of result.data) {
+                    _data.Id= _data._id?_data._id:_data.Id;
+                    var prNo = _data.items.map(function (item) {
+                        return `<li>${item.prNo}</li>`;
+                    });
+                    _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
+                }
                 return {
                     total: result.info.total,
                     data: result.data

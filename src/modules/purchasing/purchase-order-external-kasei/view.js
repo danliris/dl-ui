@@ -18,6 +18,7 @@ export class View {
 
     async activate(params) {
         var isVoid = false;
+        var canClose=false;
         var isArriving = false;
         var id = params.id;
         this.poExId = id;
@@ -28,9 +29,19 @@ export class View {
         // if (this.data.items.find(po => { return po.status.value > 3 }) != undefined) {
         //     isArriving = true;
         // }
-        if (this.data.doQuantity && this.data.doQuantity>0) {
-            isVoid = true;
+        
+        for(var a of this.data.items){
+            for(var b of a.details){
+                if (b.doQuantity && b.doQuantity>0) {
+                    isVoid = true;
+                }
+                if(b.doQuantity && b.doQuantity>0 && b.doQuantity< b.dealQuantity){
+                    canClose=true;
+                }
+            }
         }
+        
+        
         if (!this.data.isPosted) {
             this.hasDelete = true;
             this.hasEdit = true;
@@ -39,8 +50,16 @@ export class View {
             this.hasUnpost = true;
             this.hasCancelPo = true;
         }
-        if (this.data.isPosted && !isVoid  && !this.data.isClosed) {
+        if (this.data.isPosted && !isVoid  && !this.data.isClosed &&  canClose) {
             this.hasClosePo = true;
+        }
+
+        if(this.data.isClosed || this.data.isCanceled){
+            this.hasDelete = false;
+            this.hasEdit = false;
+            this.hasUnpost = false;
+            this.hasClosePo = false;
+            this.hasCancelPo = false;
         }
     }
 

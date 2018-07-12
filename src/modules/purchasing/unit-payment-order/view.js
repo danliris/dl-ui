@@ -31,22 +31,22 @@ export class View {
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
         }
-        if (this.data.vat) {
-            this.selectedVat = this.data.vat;
+        if (this.data.incomeTax) {
+            this.selectedIncomeTax = this.data.incomeTax;
         }
 
         if (this.data.items) {
-            this.isCorrection = this.data.items
-                .map((item) => {
-                    return item.unitReceiptNote.items
-                        .map((urnItem) => urnItem.correction.length > 0)
-                        .reduce((prev, curr, index) => {
-                            return prev || curr
-                        }, false);
-                })
-                .reduce((prev, curr, index) => {
-                    return prev || curr
-                }, false);
+            // this.isCorrection = this.data.items
+            //     .map((item) => {
+            //         return item.unitReceiptNote.items
+            //             .map((urnItem) => urnItem.correction.length > 0)
+            //             .reduce((prev, curr, index) => {
+            //                 return prev || curr
+            //             }, false);
+            //     })
+            //     .reduce((prev, curr, index) => {
+            //         return prev || curr
+            //     }, false);
 
 
             if (!this.isCorrection) {
@@ -55,7 +55,12 @@ export class View {
             }
         }
 
-        if (this.data.position !== 1 && this.data.position !== 6) {
+        // if (this.data.position !== 1 && this.data.position !== 6) {
+        //     this.hasEdit = false;
+        //     this.hasDelete = false;
+        // }
+
+        if (this.data.isPaid) {
             this.hasEdit = false;
             this.hasDelete = false;
         }

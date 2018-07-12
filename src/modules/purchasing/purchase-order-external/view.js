@@ -20,10 +20,14 @@ export class View {
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
-        if (this.data.doQuantity && this.data.doQuantity>0) {
-            isVoid = true;
+        for(var a of this.data.items){
+            for(var b of a.details){
+                if (b.doQuantity && b.doQuantity>0) {
+                    isVoid = true;
+                    break;
+                }
+            }
         }
-        console.log(this.data)
         // if (this.data.items.find(po => { return po.status.value > 3 }) != undefined) {
         //     isArriving = true;
         // }
@@ -33,6 +37,16 @@ export class View {
         }
         if (this.data.isPosted && !isVoid && !this.data.isClosed) {
             this.hasUnpost = true;
+        }
+        if(isVoid){
+            this.hasClosePo = true;
+        }
+        if(this.data.isClosed || this.data.isCanceled){
+            this.hasDelete = false;
+            this.hasEdit = false;
+            this.hasUnpost = false;
+            this.hasClosePo = false;
+            this.hasCancelPo = false;
         }
     }
 

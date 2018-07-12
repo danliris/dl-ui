@@ -56,6 +56,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {
+                    _data.Id= _data._id?_data._id:_data.Id;
                     var prNo = _data.items.map(function (item) {
                         return `<li>${item.prNo}</li>`;
                     });
