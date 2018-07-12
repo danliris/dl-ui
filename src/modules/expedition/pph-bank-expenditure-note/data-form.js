@@ -101,6 +101,7 @@ export class DataForm {
     bankChanged(newV, olV) {
         if (newV) {
             this.data.Bank = newV;
+            this.data.Bank.code = this.data.Bank.bankCode;
             this.Currency = this.data.Bank.currency.code;
         }
         else {
