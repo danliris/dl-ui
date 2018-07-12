@@ -54,7 +54,9 @@ export class Edit {
 
         let newData = await this.service.searchAllByPosition(arg)
             .then((result) => {
-                return result.data
+                let resultData = result.data && result.data.length < 0 ? result.data.filter((datum) => datum.PaymentMethod.toLowerCase() != "cash") : [];
+
+                return resultData;
             });
 
         if (newData.length > 0) {
