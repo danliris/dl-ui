@@ -10,14 +10,6 @@ module.exports = function(keyword, filter) {
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
-            return results.data.map(budget => {
-                budget.toString = function () {
-                    return [this.unit.name, this.name]
-                        .filter((item, index) => {
-                            return item && item.toString().trim().length > 0;
-                        }).join(" - ");
-                }
-                return budget;
-            })
+            return results.data
         });
 }
