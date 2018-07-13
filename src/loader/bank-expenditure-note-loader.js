@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'expedition/bank-expenditure-notes';
+const resource = 'bank-expenditure-notes';
 
 module.exports = function (keyword, filter) {
     var config = Container.instance.get(Config);
