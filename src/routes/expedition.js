@@ -72,7 +72,7 @@ module.exports = [
         title: 'Laporan Bukti Pengeluaran Bank PPH',
         auth: true,
         settings: {
-            group: "expedition",
+            group: "finance",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }

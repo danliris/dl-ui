@@ -5,8 +5,8 @@ import XLSX from 'xlsx';
 import { Service } from './service';
 const SupplierLoader = require('../../../../loader/supplier-loader');
 const DivisionLoader = require('../../../../loader/division-loader');
-const PurchasingDocumentExpeditionLoader = require('../../../../loader/purchasing-document-expedition-loader');
-const BankExpenditureNoteDPPAndPPNLoader = require('../../../../loader/bank-expenditure-note-dpp-ppn-loader');
+const PurchasingDocumentExpeditionLoader = require('../../../../loader/bank-expenditure-note-dpp-ppn-loader');
+const BankExpenditureNoteDPPAndPPNLoader = require('../../../../loader/bank-expenditure-note-loader');
 
 @inject(Service)
 export class List {

@@ -15,7 +15,11 @@ export class List {
                 return moment(value).format('DD MMM YYYY');
             },
         },
-        { field: 'BankName', title: 'Bank' },        
+        {
+            field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
+                return data ? `${data.BankAccountName} ${data.BankCurrencyCode}` : '';
+            }
+        },
         {
             field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
@@ -62,7 +66,7 @@ export class List {
                                 listUnitPaymentOrderNo.push('- ' + detail.UnitPaymentOrderNo);
                             }
                         }
-                        
+
                         datum.suppliers = listSupplier.join('\n');
                         datum.unitPaymentOrders = listUnitPaymentOrderNo.join('\n');
 
