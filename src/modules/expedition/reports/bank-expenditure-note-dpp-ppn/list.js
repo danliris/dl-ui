@@ -176,6 +176,11 @@ export class List {
     }
 
     search() {
+        if (this.info.dateFrom == 'Invalid Date')
+            this.info.dateFrom = undefined;
+        if (this.info.dateTo == 'Invalid Date')
+            this.info.dateTo = undefined;
+
         if ((this.info.dateFrom && this.info.dateTo) || (!this.info.dateFrom && !this.info.dateTo)) {
             this.error = {};
             this.flag = true;
