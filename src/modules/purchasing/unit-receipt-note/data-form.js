@@ -50,10 +50,11 @@ export class DataForm {
          var storageFilter={};
         if(this.data.unit){
             storageFilter={
-                "unit.code": this.data.unit.code,
-                "unit.division.code" : this.data.unit.division.code
+                "UnitName": this.data.unit.name,
+                "DivisionName" : this.data.unit.division.name
             };
         }
+        console.log(storageFilter);
         return storageFilter;
     }
 
@@ -80,12 +81,16 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+console.log(this.data);
         if (this.data && this.data.supplier)
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
-        
+        if(this.data.storage && this.data.unit){
+            this.data.storage.unit=this.data.unit;
+            this.storage=this.data.storage;
+        }
+            
         if (this.data.isInventory) {
             this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
             this.data.storage =this.storage;
@@ -120,6 +125,7 @@ export class DataForm {
             this.data.unit = selectedUnit;
             this.data.unitId = selectedUnit._id;
             this.data.unit.division=selectedUnit.division;
+            
         }
         else {
             this.data.unitId = null;
@@ -137,7 +143,7 @@ export class DataForm {
         
         if (selectedDo) {
             this.data.deliveryOrder = selectedDo;
-            this.data.deliveryOrderId = selectedDo._id;
+            this.data.doId = selectedDo._id;
             this.data.doNo=selectedDo.no;
             var selectedItem = selectedDo.items || [];
             
@@ -161,6 +167,7 @@ export class DataForm {
                         _item.doDetailId=fulfillment._id;
                         _item.prId=fulfillment.purchaseOrder.purchaseRequest._id;
                         _item.prNo=fulfillment.purchaseOrder.purchaseRequest.no;
+                        //_item.pricePerDealUnit=
                         // _item.currency = fulfillment.purchaseOrder.currency;
                         // _item.currencyRate = fulfillment.purchaseOrder.currencyRate;
 

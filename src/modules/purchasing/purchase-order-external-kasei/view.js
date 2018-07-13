@@ -32,7 +32,7 @@ export class View {
         
         for(var a of this.data.items){
             for(var b of a.details){
-                if (b.doQuantity && b.doQuantity>0) {
+                if (b.doQuantity && b.doQuantity==b.dealQuantity) {
                     isVoid = true;
                 }
                 if(b.doQuantity && b.doQuantity>0 && b.doQuantity< b.dealQuantity){
