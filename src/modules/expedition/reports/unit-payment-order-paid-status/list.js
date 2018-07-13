@@ -161,6 +161,7 @@ export class List {
 
     reset() {
         this.flag = false;
+        this.error = {};
         this.purchasingDocumentExpedition = undefined;
         this.supplier = undefined;
         this.division = undefined;
