@@ -40,12 +40,14 @@
         <au-datepicker
             value.bind="dateFrom"
             label="Tanggal Awal"
+            error.bind="error.dateFrom"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker
             value.bind="dateTo"
             label="Tanggal Akhir"
+            error.bind="error.dateTo"
             options.bind="controlOptions">
         </au-datepicker>
 
