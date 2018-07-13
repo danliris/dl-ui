@@ -63,6 +63,7 @@ export class List {
     constructor(service) {
         this.service = service;
         this.info = {};
+        this.error = {};
     }
 
     loader = (info) => {
@@ -89,14 +90,23 @@ export class List {
             arg.divisionCode = this.info.division.code;
         if (this.info.paymentMethod)
             arg.paymentMethod = this.info.paymentMethod;
-        if (this.info.dateFrom && this.info.dateFrom != 'Invalid Date' && this.info.dateTo && this.info.dateTo != 'Invalid Date') {
-            arg.dateFrom = this.info.dateFrom;
-            arg.dateTo = this.info.dateTo;
+        if ((this.info.dateFrom && this.info.dateFrom != 'Invalid Date') || (this.info.dateTo && this.info.dateTo != 'Invalid Date')) {
+            arg.dateFrom = this.info.dateFrom && this.info.dateFrom != 'Invalid Date' ? this.info.dateFrom : '';
+            arg.dateTo = this.info.dateTo && this.info.dateTo != 'Invalid Date' ? this.info.dateTo : '';
 
-            arg.dateFrom = moment(arg.DateFrom).format("MM/DD/YYYY");
-            arg.dateTo = moment(arg.DateTo).format("MM/DD/YYYY");
-        }
-        if (Object.getOwnPropertyNames(arg).length === 4) {
+            if (!arg.dateFrom) {
+                arg.dateFrom = new Date(arg.dateTo);
+                arg.dateFrom.setMonth(arg.dateFrom.getMonth() - 1);
+            }
+
+            if (!arg.dateTo) {
+                arg.dateTo = new Date(arg.dateFrom);
+                arg.dateTo.setMonth(arg.dateTo.getMonth() + 1);
+            }
+
+            arg.dateFrom = moment(arg.dateFrom).format("MM/DD/YYYY");
+            arg.dateTo = moment(arg.dateTo).format("MM/DD/YYYY");
+        } else {
             arg.dateFrom = new Date();
             arg.dateFrom.setMonth(arg.dateFrom.getMonth() - 1);
             arg.dateTo = new Date();
@@ -166,17 +176,32 @@ export class List {
     }
 
     search() {
-        this.flag = true;
-        this.tableList.refresh();
+        if ((this.info.dateFrom && this.info.dateTo) || (!this.info.dateFrom && !this.info.dateTo)) {
+            this.error = {};
+            this.flag = true;
+            this.tableList.refresh();
+        } else {
+            // console.log(this.info.dateFrom);
+            // console.log(this.info.dateTo);
+            if (!this.info.dateFrom)
+                this.error.dateFrom = "Tanggal Awal harus diisi";
+            if (!this.info.dateTo)
+                this.error.dateTo = "Tanggal Akhir harus diisi";
+        }
     }
 
     reset() {
         this.flag = false;
-        this.unitPaymentOrder = undefined;
-        this.supplier = undefined;
-        this.division = undefined;
-        this.dateFrom = undefined;
-        this.dateTo = undefined;
+        this.info.bankExpenditureNote = undefined;
+        this.info.unitPaymentOrder = undefined;
+        this.info.invoice = undefined;
+        this.info.supplier = undefined;
+        this.info.division = undefined;
+        this.info.dateFrom = undefined;
+        this.info.dateTo = undefined;
+        this.info.paymentMethod = "";
+        this.error.dateFrom = undefined;
+        this.error.dateTo = undefined;
         this.tableList.refresh();
     }
 
