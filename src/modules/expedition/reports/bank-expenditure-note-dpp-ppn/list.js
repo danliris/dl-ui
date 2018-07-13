@@ -63,6 +63,7 @@ export class List {
     constructor(service) {
         this.service = service;
         this.info = {};
+        this.error = {};
     }
 
     loader = (info) => {
@@ -175,8 +176,18 @@ export class List {
     }
 
     search() {
-        this.flag = true;
-        this.tableList.refresh();
+        if ((this.info.dateFrom && this.info.dateTo) || (!this.info.dateFrom && !this.info.dateTo)) {
+            this.error = {};
+            this.flag = true;
+            this.tableList.refresh();
+        } else {
+            // console.log(this.info.dateFrom);
+            // console.log(this.info.dateTo);
+            if (!this.info.dateFrom)
+                this.error.dateFrom = "Tanggal Awal harus diisi";
+            if (!this.info.dateTo)
+                this.error.dateTo = "Tanggal Akhir harus diisi";
+        }
     }
 
     reset() {
@@ -189,6 +200,8 @@ export class List {
         this.info.dateFrom = undefined;
         this.info.dateTo = undefined;
         this.info.paymentMethod = "";
+        this.error.dateFrom = undefined;
+        this.error.dateTo = undefined;
         this.tableList.refresh();
     }
 

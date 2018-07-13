@@ -60,13 +60,15 @@
         <au-datepicker
             value.bind="info.dateFrom"
             label="Tanggal Awal"
-            options.bind="controlOptions">
+            options.bind="controlOptions"
+            error.bind="error.dateFrom">
         </au-datepicker>
 
         <au-datepicker
             value.bind="info.dateTo"
             label="Tanggal Akhir"
-            options.bind="controlOptions">
+            options.bind="controlOptions"
+            error.bind="error.dateTo">
         </au-datepicker>
 
         <div class="form-group">
