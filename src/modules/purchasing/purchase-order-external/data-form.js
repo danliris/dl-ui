@@ -50,7 +50,6 @@ export class DataForm {
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
             this.data.currencyRate=this.data.currency.rate;
-            console.log(this.data.currency)
         }
         if (this.data.incomeTax) {
             this.selectedIncomeTax = this.data.incomeTax;

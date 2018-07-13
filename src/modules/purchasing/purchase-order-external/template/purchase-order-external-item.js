@@ -15,7 +15,7 @@ export class PurchaseOrderItem {
     { header: "Satuan", value: "dealUom" },
     { header: "Konversi", value: "conversion" },
     { header: "Harga", value: "priceBeforeTax" },
-    { header: "Include Ppn?", value: "useIncomeTax" },
+    { header: "Include Ppn?", value: "includePpn" },
     { header: "Keterangan", value: "remark" }
   ]
 
@@ -51,7 +51,6 @@ export class PurchaseOrderItem {
   async selectedPurchaseOrderChanged(newValue) {
     if (newValue._id) {
       Object.assign(this.data, newValue);
-      console.log(this.data);
       
       var productList = this.data.items.map((item) => { return item.product._id });
       productList = [].concat.apply([], productList);
