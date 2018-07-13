@@ -50,6 +50,7 @@ export class List {
 
     constructor(service) {
         this.service = service;
+        this.error = {};
 
         this.flag = false;
         this.selectUPO = ['no'];
@@ -164,12 +165,27 @@ export class List {
     }
 
     search() {
-        this.flag = true;
-        this.tableList.refresh();
+        if (this.dateFrom == 'Invalid Date')
+            this.dateFrom = undefined;
+        if (this.dateTo == 'Invalid Date')
+            this.dateTo = undefined;
+
+        if ((this.dateFrom && this.dateTo) || (!this.dateFrom && !this.dateTo)) {
+            this.error = {};
+            this.flag = true;
+            this.tableList.refresh();
+        }
+        else {
+            if (!this.dateFrom)
+                this.error.dateFrom = "Tanggal Awal harus diisi";
+            else if (!this.dateTo)
+                this.error.dateTo = "Tanggal Akhir harus diisi";
+        }
     }
 
     reset() {
         this.flag = false;
+        this.error = {};
         this.pphBankExpenditureNote = undefined;
         this.unitPaymentOrder = undefined;
         this.expedition = undefined;
