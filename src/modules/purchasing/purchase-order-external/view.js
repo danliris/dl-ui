@@ -23,8 +23,8 @@ export class View {
         this.data = await this.service.getById(id);
         for(var a of this.data.items){
             for(var b of a.details){
-                if (b.doQuantity && b.doQuantity==b.dealQuantity) {
-                    isVoid = true;
+                if(b.doQuantity && b.doQuantity>0 ){
+                    isVoid=true;
                 }
                 if(b.doQuantity && b.doQuantity>0 && b.doQuantity< b.dealQuantity){
                     canClose=true;
@@ -37,11 +37,11 @@ export class View {
             this.hasDelete = true;
             this.hasEdit = true;
         }
-        if (this.data.isPosted && !isVoid  && !this.data.isClosed) {
+        if (this.data.isPosted && !isVoid  && !this.data.isClosed && !this.data.isCanceled) {
             this.hasUnpost = true;
             this.hasCancelPo = true;
         }
-        if (this.data.isPosted && !isVoid  && !this.data.isClosed &&  canClose) {
+        if (this.data.isPosted && !this.data.isClosed &&  canClose) {
             this.hasClosePo = true;
         }
 

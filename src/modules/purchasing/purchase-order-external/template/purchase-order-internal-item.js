@@ -66,7 +66,7 @@ export class PurchaseOrderItem {
   }
 
   updatePrice() {
-    if (this.data.useIncomeTax) {
+    if (this.data.includePpn) {
       this.data.pricePerDealUnit = (100 * this.data.priceBeforeTax) / 110;
     } else {
       this.data.pricePerDealUnit = this.data.priceBeforeTax;
@@ -74,7 +74,6 @@ export class PurchaseOrderItem {
   }
 
   selectedDealUomChanged(newValue) {
-    console.log(newValue)
     if (newValue._id || newValue.Id ) {
       this.data.dealUom = newValue;
       if (newValue.Unit)
@@ -98,6 +97,7 @@ export class PurchaseOrderItem {
   }
 
   useIncomeTaxChanged(e) {
+    console.log(this.data.includePpn)
     this.updatePrice();
   }
 
