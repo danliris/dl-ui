@@ -1,4 +1,5 @@
 echo "Build"
+echo $BRANCH
 npm install
 npm run build:prod
 
