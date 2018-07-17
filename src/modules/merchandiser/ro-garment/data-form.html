@@ -61,12 +61,13 @@
       </div> -->
     </div>
     <div class="col-md-2" if.bind="hasCostCalculationGarment">
-      <img src.bind="data.CostCalculationGarment.ImageFile || 'https://bateeqstorage.blob.core.windows.net/other/no-image.jpg'"
-        class="center-block" height="auto" width="60%">
+      <img src.bind="data.CostCalculationGarment.ImageFile"
+        class="center-block" height="auto" width="60%" alt="No Image">
       <br>
     </div>
     <div class="row" if.bind="hasCostCalculationGarment">
       <div class="col-md-12">
+        <au-textbox error.bind="error.SizeBreakdowns" read-only="true" show.bind="error.SizeBreakdowns"></au-textbox>
         <au-collection title="Size Breakdown" items.bind="data.RO_Garment_SizeBreakdowns" columns.bind="RO_Garment_SizeBreakdownsInfo.columns"
           options.bind="RO_Garment_SizeBreakdownsInfo.options" add.bind="RO_Garment_SizeBreakdownsInfo.onAdd" item-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown"
           footer-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown-footer" read-only.bind="readOnly">

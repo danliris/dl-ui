@@ -1,14 +1,16 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
     readOnly = true;
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
 
     async activate(params) {
@@ -29,9 +31,14 @@ export class View {
     }
 
     deleteCallback(event) {
-        this.service.delete(this.data)
-            .then(result => {
-                this.list();
+        this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data RO')
+            .then(response => {
+                if (response.ok) {
+                    this.service.delete(this.data)
+                        .then(result => {
+                            this.list();
+                        });
+                }
             });
     }
 }
