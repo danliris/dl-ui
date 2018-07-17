@@ -11,6 +11,8 @@ elif [ "$BRANCH" == "uat" ]; then
     git clone $GIT_URL_UAT out
 elif [ "$BRANCH" == "master" ]; then
     git clone $GIT_URL_MASTER out
+else
+    git clone $GIT_URL out
 fi
 
 cp -a dist/. out/.
