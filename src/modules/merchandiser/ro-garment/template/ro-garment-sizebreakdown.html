@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="col-md-2">
-            <au-autocomplete placeholder="Cari Warna" value.bind="data.Color" error.bind="error.Color" options.bind="controlOptions"
+            <au-autocomplete placeholder="Cari Warna" error.bind="error.Color" value.bind="data.Color" error.bind="error.Color" options.bind="controlOptions"
                 loader.one-time="colorLoader" text="Name" read-only.bind="readOnly"></au-autocomplete>
         </td>
         <td class="col-md-${readOnly ? 9 : 10}">
@@ -11,6 +11,7 @@
                 read-only.bind="readOnly">
             </au-collection>
             <span show.bind="shown">${total}</span>
+            <au-textbox error.bind="error.Detail" read-only="true" show.bind="error.Detail"></au-textbox>
         </td>
         <td class="col-md-1" if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
