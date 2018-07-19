@@ -1,120 +1,177 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
-import { Router } from 'aurelia-router';
 
-@inject(Router, Service)
+import moment from 'moment';
+
+var UnitLoader = require('../../../loader/unit-loader');
+var PRLoader = require('../../../loader/purchase-request-all-loader');
+var BudgetLoader = require('../../../loader/budget-loader');
+var CategoryLoader = require('../../../loader/category-loader');
+
+@inject(Service)
+
 export class List {
-
-    prStates = [
-        {
-            "name": "",
-            "value": -1
-        },
-        {
-            "name": "Dibatalkan",
-            "value": 0
-        }, {
-            "name": "Belum diterima Pembelian",
-            "value": 2
-        }, {
-            "name": "Sudah diterima Pembelian",
-            "value": 7
-        }, {
-            "name": "Sudah diorder ke Supplier",
-            "value": 3
-        }, {
-            "name": "Barang sudah datang sebagian",
-            "value": 4
-        }, {
-            "name": "Barang sudah datang semua",
-            "value": 9
-        }
-    ];
-    purchaseRequest = {};
-    filter = { isPosted: true };
-    constructor(router, service) {
+    constructor(service) {
         this.service = service;
-        this.router = router;
-        this.today = new Date();
-        this.prStates = this.prStates.map(prState => {
-            prState.toString = function () {
-                return this.name;
+
+        this.flag = false;
+        this.statuses = ["", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier"];//,"Barang sudah datang sebagian","Barang sudah datang semua"];
+        this.poStatuses = ["","Dibatalkan","PO Internal belum diorder","Sudah dibuat PO Eksternal","Sudah diorder ke Supplier","Barang sudah datang parsial","Barang sudah datang semua","Barang sudah diterima Unit parsial","Barang sudah diterima Unit semua"];
+        
+        this.error = {};
+    }
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
+
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false
+    }
+
+    columns = [
+        { field: "index", title: "No" , sortable: false},
+        { field: "date", title: "Tanggal PR", sortable: false, formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
             }
-            return prState;
-        })
-    }
-    attached() {
-    }
-
-    activate() {
-
-    }
-
+        },
+        { field: "unit", title: "Unit" , sortable: false },
+        { field: "category", title: "Kategori", sortable: false },
+        { field: "budget", title: "Budget", sortable: false },
+        { field: "date", title: "Tanggal PR", sortable: false, formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "no", title: "Nomor PR" , sortable: false},
+        { field: "productCode", title: "Kode Barang", sortable: false },
+        { field: "productName", title: "Nama Barang", sortable: false },
+        { field: "quantity", title: "Jumlah", sortable: false },
+        { field: "uom", title: "Satuan", sortable: false },
+        { field: "expectedDeliveryDatePR", title: "Tgl diminta datang PR", sortable: false, formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "expectedDeliveryDatePO", title: "Tgl diminta datang PO Eksternal", sortable: false, formatter: function (value, data, index) {
+            
+                return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "prStatus", title: "Status PR", sortable: false },
+        { field: "poStatus", title: "Status Barang", sortable: false },
+    ];
 
     search() {
-        var dateFormat = "DD MMM YYYY";
-        var locale = 'id-ID';
-        var moment = require('moment');
-        moment.locale(locale);
-        if (!this.prState)
-            this.prState = this.prStates[0];
+        this.error = {};
 
 
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value)
-            .then(data => {
-                this.data = data;
-                this.data = [];
-                var counter = 1;
-                for (var pr of data) {
-                    for (var item of pr.items) {
-                        var _data = {};
-                        var status = pr.status ? pr.status.label : "-";
-
-                        if (pr.status.value === 4 || pr.status.value === 9) {
-                            status = item.deliveryOrderNos.length > 0 ? `${status} (${item.deliveryOrderNos.join(", ")})` : status;
-                        }
-
-                        _data.no = counter;
-                        _data.prDate = moment(new Date(pr.date)).format(dateFormat);
-                        _data.prNo = pr.no;
-                        _data.productName = item.product.name;
-                        _data.unit = `${pr.unit.division.name} - ${pr.unit.name}`;
-                        _data.category = pr.category.name;
-                        _data.productCode = item.product.code;
-                        _data.budget = pr.budget.name;
-                        _data.productQty = item.quantity ? item.quantity : 0;
-                        _data.productUom = item.product.uom.unit ? item.product.uom.unit : "-";
-                        _data.expected = pr.expectedDeliveryDate;
-                        _data.status = status;
-                        _data.poEks = moment(new Date(pr.poEks.expectedDeliveryDate)).format(dateFormat);
-                        this.data.push(_data);
-                    }
-                }
-            })
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            this.flag = true;
+            this.prTable.refresh();
+        }
     }
+
     reset() {
-        this.purchaseRequest = {};
-        this.category = null;
+        this.pr=null;
         this.unit = null;
+        this.category = null;
         this.budget = null;
-        this.dateFrom = null;
-        this.dateTo = null;
-        this.prState = this.prStates[0];
+        this.poStatus = "";
+        this.prStatus = "";
+        this.dateTo = undefined;
+        this.dateFrom = undefined;
+        this.error = {};
+
+        this.flag = false;
+        this.prTable.refresh();
     }
 
-    ExportToExcel() {
-        if (!this.prState)
-            this.prState = this.prStates[0];
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.budget ? this.budget._id : "", this.purchaseRequest._id ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
+    loader = (info) => {
+        var order = {};
+
+        if (info.sort)
+            order[info.sort] = info.order;
+
+        let args = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            no: this.pr ? this.pr.no : "",
+            unitId: this.unit ? this.unit._id : "",
+            categoryId: this.category ? this.category._id : "",
+            budgetId: this.budget ? this.budget._id : "",
+            prStatus: this.prStatus,
+            poStatus: this.poStatus,
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+
+        };
+
+        return this.flag ?
+            (
+                this.service.search(args)
+                    .then(result => {
+                        var index=0;
+                        for(var a of result.data){
+                            index++;
+                            a.index=index;
+                            if(a.isCanceled){
+                                a.status="Dibatalkan";
+                            }
+                        }
+                        return {
+                            total: result.info.total,
+                            data: result.data
+                        };
+                    })
+            ) : { total: 0, data: [] };
     }
 
-    dateFromChanged(e) {
-        var _startDate = new Date(e.srcElement.value);
-        var _endDate = new Date(this.dateTo);
+    xls() {
+        this.error = {};
 
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            let args = {
+            no: this.pr ? this.pr.no : "",
+            unitId: this.unit ? this.unit._id : "",
+            categoryId: this.category ? this.category._id : "",
+            budgetId: this.budget ? this.budget._id : "",
+            prStatus: this.prStatus,
+            poStatus: this.poStatus,
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
-        if (_startDate > _endDate)
-            this.dateTo = e.srcElement.value;
+        };
 
+            this.service.getXls(args)
+                .catch(e => {
+                    alert(e.replace(e, "Error: ", ""));
+                });
+        }
     }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    get prLoader() {
+        return PRLoader;
+    }
+    
+    get categoryLoader() {
+        return CategoryLoader;
+    }
+    
+    get budgetLoader() {
+        return BudgetLoader;
+    }
+
+    prView = (tr) => {
+      return `${tr.no}`;
+  }
 }

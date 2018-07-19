@@ -144,6 +144,14 @@ export class DataForm {
                     poItem.pricePerDealUnit = poItem.priceBeforeTax;
                 }
             }
+            if(this.data.items){
+                for(var item of this.data.items){
+                    if(item.details)
+                        for(var detail of item.details){
+                            detail.includePpn=false;
+                        }
+                }
+            }
         } else {
             this.options.useVat = true;
         }
