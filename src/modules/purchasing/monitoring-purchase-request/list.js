@@ -15,7 +15,7 @@ export class List {
         this.service = service;
 
         this.flag = false;
-        this.statuses = ["","Dibatalkan", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier"];//,"Barang sudah datang sebagian","Barang sudah datang semua"];
+        this.statuses = ["", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier"];//,"Barang sudah datang sebagian","Barang sudah datang semua"];
         this.poStatuses = ["","Dibatalkan","PO Internal belum diorder","Sudah dibuat PO Eksternal","Sudah diorder ke Supplier","Barang sudah datang parsial","Barang sudah datang semua","Barang sudah diterima Unit parsial","Barang sudah diterima Unit semua"];
         
         this.error = {};
