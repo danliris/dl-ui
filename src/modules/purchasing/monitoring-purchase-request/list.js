@@ -38,10 +38,6 @@ export class List {
 
     columns = [
         { field: "index", title: "No" , sortable: false},
-        { field: "date", title: "Tanggal PR", sortable: false, formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
         { field: "unit", title: "Unit" , sortable: false },
         { field: "category", title: "Kategori", sortable: false },
         { field: "budget", title: "Budget", sortable: false },
