@@ -17,8 +17,7 @@ export class UnitPaymentOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    // this.filter = this.context.context.options ? this.context.context.options : {};
-    this.filter = {};
+    this.filter = this.context.context.options ? this.context.context.options : {};
     this.isShowing = false;
     if (this.data) {
       this.selectedUnitReceiptNote = this.data.unitReceiptNote;
@@ -40,15 +39,26 @@ export class UnitPaymentOrderItem {
     } else if (newValue._id) {
       var items = [];
       for (var item of newValue.items) {
-        // if (item.purchaseOrder.categoryId.toString() === this.filter.categoryId.toString()) {
-        //   items.push(item);
-        // }
         item.URNItemId = item._id;
+
+        delete item._id;
+        delete item.Id;
+        delete item.Active;
+        delete item.CreatedAgent;
+        delete item.CreatedBy;
+        delete item.CreatedUtc;
+        delete item.IsDeleted;
+        delete item.LastModifiedAgent;
+        delete item.LastModifiedBy;
+        delete item.LastModifiedUtc;
+
         item.deliveredUom = {
          _id: item.uomId,
          unit: item.uom 
         };
-        item.priceTotal = item.pricePerDealUnit * item.deliveredQuantity;
+        item.PriceTotal = item.pricePerDealUnit * item.deliveredQuantity;
+        item.PricePerDealUnitCorrection = item.pricePerDealUnit;
+        item.PriceTotalCorrection = item.PriceTotal;
 
         items.push(item);
       }

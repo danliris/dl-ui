@@ -56,16 +56,16 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.incomeTaxRate", "data.useVat")
+    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.incomeTax", "data.useVat")
     get filter() {
         var filter = {
-            divisionId: this.data.division ? this.data.division._id : this.data.division,
-            supplierId: this.data.supplier ? this.data.supplier._id : this.data.supplier,
-            categoryId: this.data.category ? this.data.category._id : this.data.category,
-            paymentMethod: this.data.paymentMethod,
-            currencyCode: (this.data.currency || {}).code || (this.data.currency || {}).Code || "",
-            incomeTaxRate: this.data.incomeTaxRate,
-            useVat: this.data.useVat
+            DivisionId: this.data.division ? this.data.division._id : this.data.division,
+            SupplierId: this.data.supplier ? this.data.supplier._id : this.data.supplier,
+            CategoryId: this.data.category ? this.data.category._id : this.data.category,
+            PaymentMethod: this.data.paymentMethod,
+            CurrencyCode: (this.data.currency || {}).code || (this.data.currency || {}).Code || "",
+            IncomeTaxId: this.data.incomeTax ? this.data.incomeTax._id : null,
+            UseVat: this.data.useVat
         }
         return filter;
     }
@@ -115,18 +115,20 @@ export class DataForm {
     }
 
     selectedIncomeTaxChanged(newValue) {
-        var _selectedIncomeTax = newValue;
-        // this.data.incomeTaxRate = this.data.incomeTaxRate ? this.data.incomeTaxRate : 0;
-        // this.data.useVat = this.data.useVat ? this.data.useVat : false;
+        var _selectedIncomeTax = newValue || {};
         if (_selectedIncomeTax._id) {
             this.data.incomeTax = _selectedIncomeTax;
             this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
+        }
+        else {
+            this.data.incomeTax = {};
         }
         this.resetErrorItems();
     }
 
     useIncomeTaxChanged(e) {
         this.data.items = [];
+        this.selectedIncomeTax = null;
         this.data.incomeTax = {};
         this.data.incomeTaxRate = 0;
         this.data.incomeTaxNo = "";
