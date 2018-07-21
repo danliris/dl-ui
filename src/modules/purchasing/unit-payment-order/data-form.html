@@ -151,7 +151,7 @@
 
                 <numeric 
                     label="Rate Pph" 
-                    value.bind="data.incomeTaxRate" 
+                    value.bind="data.incomeTax.rate" 
                     error.bind="error.incomeTaxRate" 
                     format="0"
                     read-only.bind="true"
@@ -209,13 +209,14 @@
         </div>
 
         <au-textbox
-            if.bind = "filter.divisionId && filter.supplierId && filter.categoryId && filter.paymentMethod && filter.currencyCode"
+            if.bind = "filter.DivisionId && filter.SupplierId && filter.CategoryId && filter.PaymentMethod && filter.CurrencyCode"
             show.bind="error.itemscount"
             error.bind="error.itemscount"
             read-only="true">
         </au-textbox>
 
         <au-collection 
+            if.bind = "filter.DivisionId && filter.SupplierId && filter.CategoryId && filter.PaymentMethod && filter.CurrencyCode"
             items.bind="data.items" 
             errors.bind="error.items" 
             columns.bind="itemsInfo.columns" 

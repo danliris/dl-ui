@@ -1,8 +1,8 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-// const resource = 'unit-receipt-notes/by-supplier-unit';
-const resource = 'unit-receipt-notes/by-user';
+const resource = 'unit-receipt-notes/by-supplier-unit';
+// const resource = 'unit-receipt-notes/by-user';
 
 module.exports = function(keyword, filter) {
 
