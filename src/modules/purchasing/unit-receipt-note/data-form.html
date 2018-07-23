@@ -41,7 +41,7 @@
             value.bind="deliveryOrder"
             label="Surat Jalan" 
             loader.one-time="deliveryOrderBySupplierLoader" 
-            read-only.bind="readOnly"
+            read-only.bind="readOnly|| isEdit"
             error.bind="error.deliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
