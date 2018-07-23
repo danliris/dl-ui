@@ -35,6 +35,7 @@ export class DataForm {
 
         this.deliveryOrderItem = {
             columns: [
+                { header: "No PR" },
                 { header: "Barang" },
                 { header: "Jumlah" },
                 { header: "Satuan" },
