@@ -16,7 +16,7 @@ export class List {
 
         this.flag = false;
         this.statuses = ["", "Belum diterima Pembelian", "Sudah diterima Pembelian", "Sudah diorder ke Supplier"];//,"Barang sudah datang sebagian","Barang sudah datang semua"];
-        this.poStatuses = ["","Dibatalkan","PO Internal belum diorder","Sudah dibuat PO Eksternal","Sudah diorder ke Supplier","Barang sudah datang parsial","Barang sudah datang semua","Barang sudah diterima Unit parsial","Barang sudah diterima Unit semua"];
+        this.poStatuses = ["","Dibatalkan","PO Internal belum diorder","Sudah dibuat PO Eksternal","Sudah diorder ke Supplier","Barang sudah datang parsial","Barang sudah datang semua","Barang sudah diterima Unit parsial","Barang sudah diterima Unit semua","Sudah dibuat SPB sebagian","Sudah dibuat SPB semua"];
         
         this.error = {};
     }
@@ -48,8 +48,8 @@ export class List {
         { field: "no", title: "Nomor PR" , sortable: false},
         { field: "productCode", title: "Kode Barang", sortable: false },
         { field: "productName", title: "Nama Barang", sortable: false },
-        { field: "quantity", title: "Jumlah", sortable: false },
-        { field: "uom", title: "Satuan", sortable: false },
+        { field: "quantity", title: "Jumlah Diminta", sortable: false },
+        { field: "uom", title: "Satuan Diminta", sortable: false },
         { field: "expectedDeliveryDatePR", title: "Tgl diminta datang PR", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
@@ -59,6 +59,8 @@ export class List {
                 return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "dealQuantity", title: "Jumlah Deal PO Eksternal", sortable: false },
+        { field: "dealUom", title: "Satuan Deal PO Eksternal", sortable: false },
         { field: "prStatus", title: "Status PR", sortable: false },
         { field: "poStatus", title: "Status Barang", sortable: false },
     ];
