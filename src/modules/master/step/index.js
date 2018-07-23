@@ -6,5 +6,7 @@ export class Index {
             { route: 'view/:id', moduleId: './view', name: 'view', nav: false, title: 'View: Step' },
             { route: 'edit/:id', moduleId: './edit', name: 'edit', nav: false, title: 'Edit: Step' }
         ]);
+
+        this.router = router;
     }
 }
