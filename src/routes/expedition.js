@@ -115,5 +115,6 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
+        
     }
 ];
