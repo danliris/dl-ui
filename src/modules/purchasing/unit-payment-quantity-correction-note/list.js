@@ -16,19 +16,21 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        console.log(this.service);
+        // console.log(this.router);
     }
 
     async activate() {
         this.info.keyword = '';
         var result = await this.service.search(this.info);
-        console.log(result);
+        // console.log(result);
         this.data = result.data;
+        console.log(this.data);
         this.info = result.info;
     }
 
     loadPage() {
         var keyword = this.info.keyword;
+        console.log(this.info);
         this.service.search(this.info)
             .then(result => {
                 this.data = result.data;

@@ -12,13 +12,14 @@ export class View {
 
     async activate(params) {
         var id = params.id;
-
         this.data = await this.service.getById(id);
-        if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
-        }
+        console.log(this.data);
+        // if (this.data.items) {
+        //     this.data.items.forEach(item => {
+        //         item.showDetails = false
+        //     })
+        // }
+        
     }
 
     list() {

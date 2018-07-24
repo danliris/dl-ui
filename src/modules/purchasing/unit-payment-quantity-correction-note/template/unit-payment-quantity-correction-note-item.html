@@ -3,7 +3,7 @@
         <td  class="col-sm-3">
             <au-autocomplete 
                     value.bind="data.ePONo" 
-                    error.bind="data.ePONo"
+                    error.bind="error.ePONo"
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -11,7 +11,7 @@
         <td  class="col-sm-3">
             <au-autocomplete 
                     value.bind="data.pRNo" 
-                    error.bind="data.pRNo"
+                    error.bind="error.pRNo"
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -19,10 +19,6 @@
         <td  class="col-sm-3">
             <au-autocomplete 
                     value.bind="data.product" 
-                    change.delegate="productChanged($event)"
-                    loader.bind="productLoader"
-                    placeholder="cari barang" 
-                    key="code"
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -30,14 +26,15 @@
         <td class="col-sm-2">
                 <au-numeric 
                     value.bind="data.quantity" 
-                    error.bind="error.defaultQuantity"
+                    error.bind="error.quantity"
+                    change.delegate="quantityChanged($event)"
                     read-only.bind="options.readOnly" 
                     options.bind="controlOptions">
                 </au-numeric>
         </td>
         <td style="text-align:center;" class="col-sm-2">
                 <au-textbox 
-                    value.bind="data.product.uom.unit" 
+                    value.bind="data.uom.unit" 
                     read-only.bind="true" 
                     options.bind="controlOptions">
                 </au-textbox>
@@ -58,6 +55,6 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td class="col-sm-2" if.bind="!data.ePONo"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+        <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-left" click.delegate="onremove(data, $event)">-</button></td>
     </tr>
 </template>

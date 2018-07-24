@@ -6,18 +6,14 @@ export class UnitPaymentQuantityCorrectionNoteItem {
     this.error = context.error;
     this.options = context.options;
     // this.data.ProductRemark = this.data.remark;
-    console.log(this.data);
+    // console.log(context);
+    // console.log(this.data);
   }
 
-  get productLoader() {
-    return ProductLoader;
-  }
-
-  productChanged(e) {
-    if (this.data.product)
-      this.data.productId = this.data.product._id ? this.data.product._id : {};
-      // this.data.ProductRemark = this.data.remark;
-      
+  quantityChanged(e) {
+    // console.log(e.target.value);
+    this.data.priceTotalAfter = this.data.pricePerDealUnitAfter * e.target.value;
+    // console.log(this.data);
   }
 
   controlOptions = {
