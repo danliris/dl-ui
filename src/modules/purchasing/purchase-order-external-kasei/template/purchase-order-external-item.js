@@ -15,7 +15,7 @@ export class PurchaseOrderItem {
     { header: "Satuan", value: "dealUom" },
     { header: "Konversi", value: "conversion" },
     { header: "Harga", value: "priceBeforeTax" },
-    { header: "Include Ppn?", value: "useIncomeTax" },
+    { header: "Include Ppn?", value: "includePpn" },
     { header: "Keterangan", value: "remark" }
   ]
 

@@ -10,6 +10,9 @@ export class PurchaseOrderItem {
     this.error = context.error;
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
+    if(!this.useVat){
+      this.data.includePpn=false;
+    }
     if (this.data) {
       this.updateItem();
     }
@@ -47,7 +50,7 @@ export class PurchaseOrderItem {
   }
 
   updatePrice() {
-    if (this.data.useIncomeTax) {
+    if (this.data.includePpn) {
       this.data.pricePerDealUnit = (100 * this.data.priceBeforeTax) / 110;
     } else {
       this.data.pricePerDealUnit = this.data.priceBeforeTax;

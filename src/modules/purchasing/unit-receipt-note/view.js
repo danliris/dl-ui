@@ -32,7 +32,11 @@ export class View {
         if(this.data.unit && this.data.supplier){
             this.data.unitId=this.data.unit._id;
             this.data.supplierId=this.data.supplier._id;
+            
         }
+        if(this.data.storage && this.data.unit){
+                this.data.storage.unit=this.data.unit;
+            }
     }
 
     list() {

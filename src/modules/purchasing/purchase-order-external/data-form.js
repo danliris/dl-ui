@@ -50,7 +50,6 @@ export class DataForm {
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
             this.data.currencyRate=this.data.currency.rate;
-            console.log(this.data.currency)
         }
         if (this.data.incomeTax) {
             this.selectedIncomeTax = this.data.incomeTax;
@@ -144,6 +143,15 @@ export class DataForm {
                     poItem.pricePerDealUnit = poItem.priceBeforeTax;
                 }
             }
+            if(this.data.items){
+                for(var item of this.data.items){
+                    if(item.details)
+                        for(var detail of item.details){
+                            detail.includePpn=false;
+                        }
+                }
+            }
+            
         } else {
             this.options.useVat = true;
         }
