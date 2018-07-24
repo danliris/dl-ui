@@ -2,7 +2,7 @@ import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aure
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
-var VatLoader = require('../../../loader/vat-loader');
+var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 var DivisionLoader = require('../../../loader/division-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 
@@ -15,7 +15,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedSupplier;
     @bindable selectedCurrency;
-    @bindable selectedVat;
+    @bindable selectedIncomeTax;
     @bindable selectedDivision;
     @bindable selectedCategory;
 
@@ -56,16 +56,16 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.vatRate", "data.useIncomeTax")
+    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.incomeTax", "data.useVat")
     get filter() {
         var filter = {
-            divisionId: this.data.divisionId,
-            supplierId: this.data.supplierId,
-            categoryId: this.data.categoryId,
-            paymentMethod: this.data.paymentMethod,
-            currencyCode: (this.data.currency || {}).code || "",
-            vatRate: this.data.vatRate,
-            useIncomeTax: this.data.useIncomeTax
+            DivisionId: this.data.division ? this.data.division._id : this.data.division,
+            SupplierId: this.data.supplier ? this.data.supplier._id : this.data.supplier,
+            CategoryId: this.data.category ? this.data.category._id : this.data.category,
+            PaymentMethod: this.data.paymentMethod,
+            CurrencyCode: (this.data.currency || {}).code || (this.data.currency || {}).Code || "",
+            IncomeTaxId: this.data.incomeTax ? this.data.incomeTax._id : null,
+            UseVat: this.data.useVat
         }
         return filter;
     }
@@ -107,35 +107,38 @@ export class DataForm {
 
     selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
-        if (_selectedCurrency._id) {
+        if (_selectedCurrency.Id) {
             this.data.currency = _selectedCurrency;
+            this.data.currency._id = _selectedCurrency.Id;
         }
         this.resetErrorItems();
     }
 
-    selectedVatChanged(newValue) {
-        var _selectedVat = newValue;
-        // this.data.vatRate = this.data.vatRate ? this.data.vatRate : 0;
-        // this.data.useIncomeTax = this.data.useIncomeTax ? this.data.useIncomeTax : false;
-        if (_selectedVat._id) {
-            this.data.vat = _selectedVat;
-            this.data.vatRate = _selectedVat.rate ? _selectedVat.rate : 0;
+    selectedIncomeTaxChanged(newValue) {
+        var _selectedIncomeTax = newValue || {};
+        if (_selectedIncomeTax._id) {
+            this.data.incomeTax = _selectedIncomeTax;
+            this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
+        }
+        else {
+            this.data.incomeTax = {};
         }
         this.resetErrorItems();
-    }
-
-    useVatChanged(e) {
-        this.data.items = [];
-        this.data.vat = {};
-        this.data.vatRate = 0;
-        this.data.vatNo = "";
-        this.data.vatDate = null;
     }
 
     useIncomeTaxChanged(e) {
         this.data.items = [];
+        this.selectedIncomeTax = null;
+        this.data.incomeTax = {};
+        this.data.incomeTaxRate = 0;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = null;
+    }
+
+    useVatChanged(e) {
+        this.data.items = [];
+        this.data.vatNo = "";
+        this.data.vatDate = null;
     }
 
     resetErrorItems() {
@@ -160,11 +163,11 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        return currency.code || currency.Code
     }
 
-    vatView = (vat) => {
-        return `${vat.name} - ${vat.rate}`
+    incomeTaxView = (incomeTax) => {
+        return `${incomeTax.name} - ${incomeTax.rate}`
     }
 
     get divisionLoader() {
@@ -183,8 +186,8 @@ export class DataForm {
         return CurrencyLoader;
     }
 
-    get vatLoader() {
-        return VatLoader;
+    get incomeTaxLoader() {
+        return IncomeTaxLoader;
     }
 
     addItems = (e) => {

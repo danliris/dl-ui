@@ -19,18 +19,20 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.supplier = this.data.supplier;
-        this.isReceived = this.data.items
-            .map((item) => {
-                var _isReceived = item.fulfillments
-                    .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
-                    .reduce((prev, curr, index) => {
-                        return prev || curr
-                    }, false);
-                return _isReceived
-            })
-            .reduce((prev, curr, index) => {
-                return prev || curr
-            }, false);
+        // this.isReceived = this.data.items
+        //     .map((item) => {
+        //         var _isReceived = item.fulfillments
+        //             .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
+        //             .reduce((prev, curr, index) => {
+        //                 return prev || curr
+        //             }, false);
+        //         return _isReceived
+        //     })
+        //     .reduce((prev, curr, index) => {
+        //         return prev || curr
+        //     }, false);
+
+        this.isReceived = this.data.unitReceiptNoteIds && this.data.unitReceiptNoteIds.length > 0;
 
         if (!this.isReceived) {
             this.hasDelete = true;

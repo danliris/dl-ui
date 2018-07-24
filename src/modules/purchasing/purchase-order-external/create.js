@@ -34,17 +34,23 @@ export class Create {
     save(event) {
         if(this.data.items){
             for(var item of this.data.items){
-                item.poId= item._id;
-                delete item._id;
+                if(!item.poId){
+                    item.poId= item._id ? item._id : item.Id;
+                    delete item._id;
+                    delete item.Id;
+                }
                 if(item.details)
                     for(var detail of item.details){
-                        detail.poItemId= detail._id;
-                        delete detail._id;
-                        console.log(detail.poItemId)
+                        if(!detail.poItemId){
+                            detail.poItemId= detail._id ? detail._id : detail.Id;
+                            delete detail._id;
+                            delete detail.Id;
+                        }
                     }
+                item.unit=this.data.unit;
             }
         }
-
+        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

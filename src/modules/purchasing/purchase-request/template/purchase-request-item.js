@@ -2,6 +2,8 @@ import {bindable} from 'aurelia-framework'
 var ProductLoader = require('../../../../loader/product-purchasing-loader');
 
 export class PurchaseRequestItem {
+  @bindable dataProduct;
+
   activate(context) {
     this.data = context.data;
     this.error = context.error;
@@ -9,15 +11,26 @@ export class PurchaseRequestItem {
     if (!this.data.productId) {
       this.data.productId = {};
     }
+    if (this.data.product) {
+      this.dataProduct = this.data.product;
+    }
   }
 
   get productLoader() {
     return ProductLoader;
   }
 
-  productChanged(e) {
-    if (this.data.product)
-      this.data.productId = this.data.product._id ? this.data.product._id : {};
+  dataProductChanged(newValue) {
+    this.data.product = newValue;
+    if (this.data.product) {
+      this.data.productId = this.data.product.Id || {};
+      this.data.product._id = this.data.productId;
+      this.data.product.uom = {
+        _id: this.data.product.UOM.Id,
+        unit: this.data.product.UOM.Unit
+      };
+      delete this.data.product.UOM._id;
+    }
   }
 
   controlOptions = {

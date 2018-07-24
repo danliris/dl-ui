@@ -9,7 +9,10 @@ export class PurchaseOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
+    this.useVat = this.context.context.options.useVat || false;
+    if(!this.useVat){
+      this.data.includePpn=false;
+    }
     if (this.data) {
       this.updateItem();
     }
@@ -47,7 +50,7 @@ export class PurchaseOrderItem {
   }
 
   updatePrice() {
-    if (this.data.useIncomeTax) {
+    if (this.data.includePpn) {
       this.data.pricePerDealUnit = (100 * this.data.priceBeforeTax) / 110;
     } else {
       this.data.pricePerDealUnit = this.data.priceBeforeTax;
@@ -55,12 +58,15 @@ export class PurchaseOrderItem {
   }
 
   selectedDealUomChanged(newValue) {
-    if (newValue._id) {
+    console.log(newValue)
+    if (newValue._id || newValue.Id ) {
       this.data.dealUom = newValue;
-      if (newValue.unit)
-        if (this.data.dealUom.unit == this.data.defaultUom.unit) {
+      if (newValue.Unit)
+        if (this.data.dealUom.Unit == this.data.defaultUom.Unit || this.data.dealUom.unit == this.data.defaultUom.unit) {
           this.data.conversion = 1;
         }
+        this.data.dealUom._id=newValue.Id;
+        this.data.dealUom.unit=newValue.Unit;
     }
   }
 
@@ -92,7 +98,7 @@ export class PurchaseOrderItem {
   }
 
   uomView = (uom) => {
-    return uom.unit
+    return uom.unit ? uom.unit : uom.Unit;
   }
 
   controlOptions = {

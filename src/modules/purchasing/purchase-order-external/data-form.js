@@ -3,7 +3,7 @@ import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 var UnitLoader = require('../../../loader/unit-loader');
-var VatLoader = require('../../../loader/vat-loader');
+var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -14,9 +14,9 @@ export class DataForm {
     @bindable title;
     @bindable selectedSupplier;
     @bindable selectedCurrency;
-    @bindable selectedVat;
+    @bindable selectedIncomeTax;
     @bindable selectedUnit;
-    @bindable options = { isUseIncomeTax: false };
+    @bindable options = { useVat: false };
 
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
@@ -51,12 +51,12 @@ export class DataForm {
             this.selectedCurrency = this.data.currency;
             this.data.currencyRate=this.data.currency.rate;
         }
-        if (this.data.vat) {
-            this.selectedVat = this.data.vat;
-            this.data.vatRate=this.data.vat.rate;
+        if (this.data.incomeTax) {
+            this.selectedIncomeTax = this.data.incomeTax;
+            this.data.incomeTaxRate=this.data.incomeTax.rate;
         }
-        if (this.data.useIncomeTax) {
-            this.options.isUseIncomeTax = true;
+        if (this.data.useVat) {
+            this.options.useVat = true;
         }
     }
 
@@ -93,10 +93,13 @@ export class DataForm {
 
     selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
-        if (_selectedCurrency._id) {
-            var currencyRate = parseInt(_selectedCurrency.rate ? _selectedCurrency.rate : 1, 10);
+        if (_selectedCurrency.Id) {
+            var currencyRate = parseInt(_selectedCurrency.Rate ? _selectedCurrency.Rate : 1, 10);
             this.data.currency = _selectedCurrency;
             this.data.currencyRate = currencyRate;
+            this.data.currency._id = _selectedCurrency.Id;
+            this.data.currency.code = _selectedCurrency.Code;
+            this.data.currency.rate = this.data.currencyRate;
             
         }
         else {
@@ -117,31 +120,40 @@ export class DataForm {
         }
     }
 
-    selectedVatChanged(newValue) {
-        var _selectedVat = newValue;
-        if (!_selectedVat) {
-            this.data.vatRate = 0;
-            this.data.useVat = false;
-            this.data.vat = {};
-        } else if (_selectedVat._id) {
-            this.data.vatRate = _selectedVat.rate ? _selectedVat.rate : 0;
-            this.data.useVat = true;
-            this.data.vat = _selectedVat;
+    selectedIncomeTaxChanged(newValue) {
+        var _selectedIncomeTax = newValue;
+        if (!_selectedIncomeTax) {
+            this.data.incomeTaxRate = 0;
+            this.data.useIncomeTax = false;
+            this.data.incomeTax = {};
+        } else if (_selectedIncomeTax._id) {
+            this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
+            this.data.useIncomeTax = true;
+            this.data.incomeTax = _selectedIncomeTax;
         }
     }
 
-    useIncomeTaxChanged(e) {
-        var selectedUseIncomeTax = e.srcElement.checked || false;
-        if (!selectedUseIncomeTax) {
-            this.options.isUseIncomeTax = false;
+    useVatChanged(e) {
+        var selectedUseVat = e.srcElement.checked || false;
+        if (!selectedUseVat) {
+            this.options.useVat = false;
             for (var po of this.data.items) {
                 for (var poItem of po.items) {
-                    poItem.useIncomeTax = false;
+                    poItem.useVat = false;
                     poItem.pricePerDealUnit = poItem.priceBeforeTax;
                 }
             }
+            if(this.data.items){
+                for(var item of this.data.items){
+                    if(item.details)
+                        for(var detail of item.details){
+                            detail.includePpn=false;
+                        }
+                }
+            }
+            
         } else {
-            this.options.isUseIncomeTax = true;
+            this.options.useVat = true;
         }
     }
 
@@ -158,8 +170,8 @@ export class DataForm {
         return CurrencyLoader;
     }
 
-    get vatLoader() {
-        return VatLoader;
+    get incomeTaxLoader() {
+        return IncomeTaxLoader;
     }
 
     get addItems() {
@@ -177,12 +189,11 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        return currency.Code?currency.Code:currency.code;
     }
 
-    vatView = (vat) => {
-        console.log(vat)
-        return `${vat.name} - ${vat.rate}`
+    incomeTaxView = (incomeTax) => {
+        return incomeTax.name?`${incomeTax.name} - ${incomeTax.rate}`:"";
     }
 
 } 

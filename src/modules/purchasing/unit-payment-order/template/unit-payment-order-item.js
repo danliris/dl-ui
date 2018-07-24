@@ -39,13 +39,37 @@ export class UnitPaymentOrderItem {
     } else if (newValue._id) {
       var items = [];
       for (var item of newValue.items) {
-        if (item.purchaseOrder.categoryId.toString() === this.filter.categoryId.toString()) {
-          items.push(item);
-        }
+        item.URNItemId = item._id;
+
+        delete item._id;
+        delete item.Id;
+        delete item.Active;
+        delete item.CreatedAgent;
+        delete item.CreatedBy;
+        delete item.CreatedUtc;
+        delete item.IsDeleted;
+        delete item.LastModifiedAgent;
+        delete item.LastModifiedBy;
+        delete item.LastModifiedUtc;
+
+        item.deliveredUom = {
+         _id: item.uomId,
+         unit: item.uom 
+        };
+        item.PriceTotal = item.pricePerDealUnit * item.deliveredQuantity;
+        item.PricePerDealUnitCorrection = item.pricePerDealUnit;
+        item.PriceTotalCorrection = item.PriceTotal;
+
+        items.push(item);
       }
       newValue.items = items;
+
       this.data.unitReceiptNote = newValue;
-      this.data.unitReceiptNoteId = newValue._id;
+      this.data.unitReceiptNote.deliveryOrder = {
+        _id: newValue.doId || 0,
+        no: newValue.doNo || null,
+      };
+
       this.error = {};
       this.isShowing = true;
     }
@@ -59,7 +83,11 @@ export class UnitPaymentOrderItem {
   }
 
   unitReceiptNoteView = (unitReceiptNote) => {
-    return unitReceiptNote.no
+    return unitReceiptNote.deliveryOrder ?
+      `${unitReceiptNote.no} - ${unitReceiptNote.deliveryOrder.no}` :
+      unitReceiptNote.doNo ?
+      `${unitReceiptNote.no} - ${unitReceiptNote.doNo}` :
+      "";
   }
 
   controlOptions = {

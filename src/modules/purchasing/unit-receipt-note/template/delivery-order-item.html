@@ -2,6 +2,12 @@
 	<tr>
 		<td>
 			<au-textbox
+				value.one-way="data.prNo"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
 				value.one-way="product"
 				read-only="true">
 			</au-textbox>
@@ -9,7 +15,7 @@
 		<td>
 			<au-numeric
 				value.bind="data.deliveredQuantity"
-				read-only.bind="readOnly"
+				read-only.bind="true"
 				error.bind="error.deliveredQuantity">
 			</au-numeric>
 		</td>
@@ -21,12 +27,12 @@
 		</td>
 		<td>
 			<au-textbox
-				value.bind="data.remark"
+				value.bind="data.productRemark"
 				read-only.bind="readOnly">
 			</au-textbox>
 		</td>
-		<td if.bind="!readOnly">
+		<!--<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
-		</td>
+		</td>-->
 	</tr>
 </template>
