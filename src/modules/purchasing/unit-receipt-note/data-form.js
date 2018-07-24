@@ -41,9 +41,9 @@ export class DataForm {
                 { header: "Satuan" },
                 { header: "Keterangan" }   
             ],
-            onRemove: function() {
-                this.bind();
-            }
+            // onRemove: function() {
+            //     this.bind();
+            // }
         };
     }
     @computedFrom("data.deliveryOrder" , "data.unit")
@@ -97,9 +97,9 @@ console.log(this.data);
             this.data.storage =this.storage;
         }
 
-        if(!this.readOnly) {
-            this.deliveryOrderItem.columns.push({ header: "" });
-        }
+        // if(!this.readOnly) {
+        //     this.deliveryOrderItem.columns.push({ header: "" });
+        // }
     }
 
     supplierChanged(newValue, oldValue) {
