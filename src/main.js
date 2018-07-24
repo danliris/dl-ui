@@ -30,8 +30,7 @@ export async function configure(aurelia) {
         }
       }
 
-      // var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
-      // var core = "https://dl-core-api-dev.mybluemix.net/v1/";
+      var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
       var auth = "https://dl-auth-api-dev.mybluemix.net/v1/";
       var production = "https://dl-production-webapi-dev.mybluemix.net/v1/";
       var purchasing = "https://dl-purchasing-webapi-dev.mybluemix.net/v1/";
@@ -45,9 +44,7 @@ export async function configure(aurelia) {
       var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md-dev.azurewebsites.net/v1/";
       const dealTracking = 'https://com-danliris-service-deal-tracking-dev.azurewebsites.net/v1/';
-      // const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
-      const core ="http://localhost:5100/v1/";
-      const sales = "http://localhost:41763/v1/";
+      const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
 
 
       config.registerEndpoint('auth', auth);
