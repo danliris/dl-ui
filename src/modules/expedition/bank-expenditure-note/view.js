@@ -1,9 +1,10 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
 import Service from './service';
+import { Dialog } from '../../../au-components/dialog/dialog'
 
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
     controlOptions = {
         label: {
@@ -20,12 +21,13 @@ export class View {
         deleteText: 'Hapus'
     };
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
 
         this.collection = {
-            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang'],
+            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang', ''],
         };
     }
 
@@ -43,8 +45,13 @@ export class View {
     }
 
     deleteCallback(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancelCallback();
-        });
+        this.dialog.prompt("Apakah anda yakin akan menghapus data?", "Hapus Data")
+            .then(response => {
+                if (response.ok) {
+                    this.service.delete(this.data).then(result => {
+                        this.cancelCallback();
+                    });
+                }
+            });
     }
 }

@@ -44,7 +44,7 @@ export class List {
                 rowspan: 2,
             },
             { title: 'Verifikasi', colspan: 3 },
-            { title: 'Kasir', colspan: 3 }
+            { title: 'Kasir', colspan: 5 }
         ], [
             {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
@@ -67,12 +67,20 @@ export class List {
                 },
             },
             {
-                field: 'SendToAccountingDivisionDate', title: 'Tgl Bayar', formatter: function (value, data, index) {
+                field: 'BankExpenditureNoteDate', title: 'Tgl Bayar', formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
             },
             {
                 field: 'BankExpenditureNoteNo', title: 'No Kuitansi'
+            },
+            {
+                field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
+                    return value ? moment(value).format('DD MMM YYYY') : '-';
+                },
+            },
+            {
+                field: 'BankExpenditureNotePPHNo', title: 'No Kuitansi PPH'
             },
         ]
     ];
@@ -217,8 +225,10 @@ export class List {
                             'Tgl Cek Verifikasi': data.VerifyDate ? moment(data.VerifyDate).format('DD MMM YYYY') : '-',
                             'Tgl Kirim Verifikasi': data.SendDate ? moment(data.SendDate).format('DD MMM YYYY') : '-',
                             'Tgl Terima Kasir': data.CashierDivisionDate ? moment(data.CashierDivisionDate).format('DD MMM YYYY') : '-',
-                            'Tgl Bayar Kasir': data.SendToAccountingDivisionDate ? moment(data.SendToAccountingDivisionDate).format('DD MMM YYYY') : '-',
-                            'No Kuitansi': data.BankExpenditureNoteNo
+                            'Tgl Bayar Kasir': data.BankExpenditureNoteDate ? moment(data.BankExpenditureNoteDate).format('DD MMM YYYY') : '-',
+                            'No Kuitansi': data.BankExpenditureNoteNo,
+                            'Tgl Bayar Kasir PPH': data.BankExpenditureNotePPHDate ? moment(data.BankExpenditureNotePPHDate).format('DD MMM YYYY') : '-',
+                            'No Kuitansi PPH': data.BankExpenditureNotePPHNo
                         });
                     }
 

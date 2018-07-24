@@ -12,7 +12,7 @@ export class Item {
         this.service = service;
         this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
-            'invoceNo', 'division.code', 'division.name',
+            'paymentMethod', 'invoceNo', 'division.code', 'division.name',
             'supplier.code', 'supplier.name',
             'currency.code', 'no', 'date', 'dueDate',
             'useVat', 'useIncomeTax', 'vat._id', 'vat.name', 'vat.rate',
@@ -111,6 +111,7 @@ export class Item {
                         date: newV.date,
                         dueDate: newV.dueDate,
                         invoceNo: newV.invoceNo,
+                        paymentMethod: newV.paymentMethod,
                         supplierCode: newV.supplier.code,
                         supplierName: newV.supplier.name,
                         divisionCode: newV.division.code,
@@ -133,6 +134,7 @@ export class Item {
                 date: undefined,
                 dueDate: undefined,
                 invoceNo: undefined,
+                paymentMethod: undefined,
                 supplierCode: undefined,
                 supplierName: undefined,
                 divisionCode: undefined,

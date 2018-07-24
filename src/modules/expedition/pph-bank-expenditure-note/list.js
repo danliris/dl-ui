@@ -6,11 +6,11 @@ import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak PDF"];
     columns = [
         { field: "No", title: "No Bukti Pengeluaran Bank" },
         {
-            field: "CreatedUtc", title: "Tanggal", formatter: function (value, data, index) {
+            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
@@ -72,6 +72,9 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
                 break;
         }
     }

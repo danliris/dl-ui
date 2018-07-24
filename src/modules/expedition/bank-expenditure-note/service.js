@@ -19,6 +19,11 @@ class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getPdfById(id) {
+        let endpoint = `${serviceUri}/${id}`;
+        return super.getPdf(endpoint);
+    }
+
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
@@ -32,6 +37,11 @@ class Service extends RestService {
     update(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
+    }
+
+    searchAllByPosition(info) {
+        let endpoint = `${serviceUri}/no-select/by-position`;
+        return super.list(endpoint, info);
     }
 }
 

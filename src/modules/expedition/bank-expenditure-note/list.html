@@ -1,5 +1,10 @@
 <template>
-    <h1 class="page-header">Bukti Pengeluaran Bank</h1>
+    <style>
+        td {
+            white-space: pre;
+        }
+    </style>
+    <h1 class="page-header">Bukti Pengeluaran Bank DPP + PPN</h1>
     <au-table
         view-model.ref="tableList"
         data.bind="loader"
