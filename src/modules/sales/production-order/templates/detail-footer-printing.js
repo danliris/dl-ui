@@ -9,7 +9,7 @@ export class DetailFooter {
 
   get itemSum() {
     var qty = this.context.items
-      .map((item) => item.data.quantity);
+      .map((item) => item.data.Quantity);
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
@@ -17,8 +17,8 @@ export class DetailFooter {
   get uom() {
     var uom;
     if(this.context.items.length>0){
-      if(this.context.items[0].data.uom.unit){
-          return this.context.items[0].data.uom.unit;
+      if(this.context.items[0].data.Uom.Unit){
+          return this.context.items[0].data.Uom.Unit;
       }
       else{
         uom="MTR";

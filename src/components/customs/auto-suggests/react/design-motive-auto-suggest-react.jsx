@@ -20,7 +20,7 @@ export default class DesignMotiveAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, DesignMotiveAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.name}`;
+            return `${this.Name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -48,7 +48,7 @@ DesignMotiveAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(designMotive => {
                         designMotive.toString = function () {
-                            return `${this.name}`;
+                            return `${this.Name}`;
                         }
                         return designMotive;
                     });

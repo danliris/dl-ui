@@ -19,7 +19,7 @@
             
           <au-textbox 
             label="Jenis Proses"
-            value.bind="data.name"
+            value.bind="data.Name"
             error.bind="error.name"
             read-only.bind="readOnly"
             options.bind="controlOptions"
@@ -27,33 +27,20 @@
 
         <au-autocomplete 
             value.bind="selectedOrder" 
-            error.bind="error.order"
+            error.bind="error.Order"
             label="Jenis Order" 
             loader.bind="orderLoader"
             text.bind = "orderView"
             placeholder="cari order" 
-            key="code" 
+            key="Name" 
             read-only.bind="readOnly"
             options.bind="controlOptions"
-            if.bind = "data.code">
-        </au-autocomplete>
-
-        <au-autocomplete 
-            value.bind="selectedOrder" 
-            error.bind="error.order"
-            label="Jenis Order" 
-            loader.bind="orderLoader"
-            text.bind = "orderView"
-            placeholder="cari order" 
-            key="code" 
-            read-only.bind="readOnly"
-            options.bind="controlOptions"
-            if.bind = "!data.code">
+            if.bind = "!data.Code">
         </au-autocomplete>
           
         <au-multiline 
             label="Keterangan" 
-            value.bind="data.remark"
+            value.bind="data.Remark"
             placeholder="tambah keterangan" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
