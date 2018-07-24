@@ -211,7 +211,6 @@ export class DataForm {
                             unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnit;
                             unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                         }
-                        console.log(unitQuantityCorrectionNoteItem);
                         _items.push(unitQuantityCorrectionNoteItem);
                     }
                 }
