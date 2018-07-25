@@ -19,7 +19,7 @@ export default class SalesMaterialAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, SalesMaterialAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.name}`;
+            return `${this.Name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -47,7 +47,7 @@ SalesMaterialAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.info.map(material => {
                         material.toString = function () {
-                            return `${this.name}`;
+                            return `${this.Name}`;
                         }
                         return material;
                     });

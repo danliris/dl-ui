@@ -24,7 +24,7 @@ export default class BuyerAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, BuyerAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.code, this.name]
+            return [this.Code, this.Name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -56,7 +56,7 @@ BuyerAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(buyer => {
                         buyer.toString = function () {
-                            return [this.code, this.name]
+                            return [this.Code, this.Name]
                                 .filter((item, index) => {
                                     return item && item.toString().trim().length > 0;
                                 }).join(" - ");

@@ -27,7 +27,7 @@ export default class RolePermissionItemCollectionReact extends React.Component {
         e.preventDefault();
         var newItem = {
             unit: { toString: function () { return '' } },
-            unitId: { toString: function () { return '' } },
+            // unitId: { toString: function () { return '' } },
             permission: 1
         };
         this.state.value.push(newItem);

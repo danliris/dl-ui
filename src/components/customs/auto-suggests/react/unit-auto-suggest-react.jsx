@@ -6,10 +6,10 @@ import { Config } from "aurelia-api";
 const resource = 'master/units';
 
 const empty = {
-    division: {
-        name: ''
+    Division: {
+        Name: ''
     },
-    name: ''
+    Name: ''
 }
 
 'use strict';
@@ -23,7 +23,7 @@ export default class UnitAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, UnitAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return [this.division.name, this.name]
+            return [this.Division.Name, this.Name]
                 .filter((item, index) => {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
@@ -53,7 +53,7 @@ UnitAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(unit => {
                         unit.toString = function () {
-                            return [this.division.name, this.name]
+                            return [this.Division.Name, this.Name]
                                 .filter((item, index) => {
                                     return item && item.toString().trim().length > 0;
                                 }).join(" - ");
