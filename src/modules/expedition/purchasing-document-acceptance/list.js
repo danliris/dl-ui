@@ -78,14 +78,6 @@ export class List {
             filter: JSON.stringify({ Position: this.activeRole.position }), // VERIFICATION_DIVISION
         };
 
-        if (this.activeRole.key === 'CASHIER') {
-            let filter = JSON.parse(arg.filter);
-            
-            filter.IsPaid = false;
-            filter.IsPaidPPH = false;
-            arg.filter = JSON.stringify(filter);
-        }
-
         return this.purchasingDocumentExpeditionService.search(arg)
             .then(result => {
                 return {

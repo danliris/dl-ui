@@ -46,10 +46,6 @@ export class List {
         this.service.search(this.dateFrom, this.dateTo, this.productName ? this.productName : "")
             .then(data => {
                 this.data = data;
-                for(var PO of this.data){
-                    PO['Jumlah Barang']=(PO['Jumlah Barang']).toLocaleString();
-                    PO['Harga Barang']=(PO['Harga Barang']).toLocaleString();
-                }
             })
     }
 

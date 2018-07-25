@@ -140,14 +140,13 @@ export class DataForm {
     if (newValue && newValue.Id) {
       if (!this.isEdit) {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
+        this.data.CostCalculationGarment.ImageFile = this.data.CostCalculationGarment.ImageFile || '#';
       }
       if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
         this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
         this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
         // this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
       }
-
-      this.data.CostCalculationGarment.ImageFile = this.data.CostCalculationGarment.ImageFile || '#';
     }
   }
 

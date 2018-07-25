@@ -33,8 +33,7 @@ export class Copy {
       "_LastModifiedUtc",
       "_LastModifiedBy",
       "_LastModifiedAgent",
-      "Article",
-      "RO_GarmentId"
+      "Article"
     ].forEach(prop => delete this.data[prop]);
     this.data.CostCalculationGarment_Materials.forEach(ccm => {
       [

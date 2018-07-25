@@ -1,6 +1,5 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service, MongoService } from './service';
-import moment from 'moment';
 var UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loader');
 
 @inject(Service, MongoService)
@@ -10,8 +9,6 @@ export class DataForm {
     @bindable data = {};
     @bindable SPB;
     @bindable items = [];
-    // @bindable tableItems;
-    totalPaid = 0;
 
     constructor(service, mongoService) {
         this.service = service;
@@ -29,7 +26,6 @@ export class DataForm {
             'pibNo',
             'useVat', //pph
             'useIncomeTax', //ppn
-            'vatRate',
             'no',
             'date',
             'remark',
@@ -51,11 +47,9 @@ export class DataForm {
         this.error = this.context.error;
 
         if (this.data && this.data._id) {
+            this.SPB = this.data;
             this.mapItems(this.data);
-        } else {
-            this.data.VerifyDate = moment(new Date()).format("DD-MMM-YYYY");
         }
-
 
     }
 
@@ -113,25 +107,15 @@ export class DataForm {
 
             this.mapItems(this.data);
 
-            this.context.tableItems.refresh();
-
-            this.data.useIncomeTax = this.data.useVat ? parseFloat(((this.data.vatRate * this.totalPaid) / 100).toFixed(2)) : 0;
-            this.data.useVat = this.data.useIncomeTax ? parseFloat(((0.1 * this.totalPaid) / 100).toFixed(2)) : 0;
-            this.data.remark = parseFloat((this.totalPaid + this.data.useVat).toFixed(2)) //this is "Total Paid"    
-
             this.data.UnitPaymentOrderNo = this.SPB.no;
 
-
         } else {
-            this.data = Object.assign(this.data, {})
-            this.items = [];
-            this.context.tableItems.refresh();
+            this.data = {}
         }
     }
 
     mapItems(data) {
         var dataItems = [];
-        this.totalPaid = 0;
         for (var dataItem of data.items) {
             for (var unitItem of dataItem.unitReceiptNote.items) {
                 var item = {};
@@ -140,18 +124,14 @@ export class DataForm {
                 item.deliveredQuantity = unitItem.deliveredQuantity;
                 item.currency = unitItem.currency.code;
                 item.pricePerDealUnit = unitItem.pricePerDealUnit;
-                item.totalPrice = parseFloat((parseFloat(item.deliveredQuantity) * parseFloat(item.pricePerDealUnit)).toFixed(2));
+                item.totalPrice = parseFloat(item.deliveredQuantity) * parseFloat(item.pricePerDealUnit);
                 item.correctionNo = unitItem.correction.correctionNo;
                 item.purchaseOrderExternalNo = unitItem.purchaseOrder.purchaseOrderExternal.no;
                 item.purchaseRequestNo = unitItem.purchaseOrder.purchaseRequest.no;
-
                 dataItems.push(item);
-
-                this.totalPaid += item.totalPrice;
             }
         }
         this.items = dataItems;
-        // this.context.tableItems.refresh();
     }
 
     get unitPaymentOrderLoader() {

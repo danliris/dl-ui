@@ -12,7 +12,7 @@ export class Item {
         this.service = service;
         this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
-            'paymentMethod', 'invoceNo', 'division.code', 'division.name',
+            'invoceNo', 'division.code', 'division.name',
             'supplier.code', 'supplier.name',
             'currency.code', 'no', 'date', 'dueDate',
             'useVat', 'useIncomeTax', 'vat._id', 'vat.name', 'vat.rate',
@@ -82,7 +82,7 @@ export class Item {
                                 }
                             }
                             else {
-                                price = Number((detail.pricePerDealUnit * detail.deliveredQuantity).toFixed(4));
+                                price = Number((detail.pricePerDealUnit * detail.deliveredQuantity).toFixed(2));
                                 quantity = detail.deliveredQuantity;
                             }
 
@@ -102,8 +102,8 @@ export class Item {
                         }
                     }
 
-                    let vat = newV.useIncomeTax ? Number((totalPaid * 0.1).toFixed(4)) : 0;
-                    let incomeTax = newV.useVat ? Number(((newV.vat.rate * totalPaid) / 100).toFixed(4)) : 0;
+                    let vat = newV.useIncomeTax ? Number((totalPaid * 0.1).toFixed(2)) : 0;
+                    let incomeTax = newV.useVat ? Number(((newV.vat.rate * totalPaid) / 100).toFixed(2)) : 0;
              
                     Object.assign(this.data, {
                         id: newV._id,
@@ -111,7 +111,6 @@ export class Item {
                         date: newV.date,
                         dueDate: newV.dueDate,
                         invoceNo: newV.invoceNo,
-                        paymentMethod: newV.paymentMethod,
                         supplierCode: newV.supplier.code,
                         supplierName: newV.supplier.name,
                         divisionCode: newV.division.code,
@@ -121,7 +120,7 @@ export class Item {
                         incomeTaxId: newV.vat._id,
                         incomeTaxName: newV.vat.name,
                         incomeTaxRate: newV.vat.rate,
-                        totalPaid: Number((totalPaid + vat).toFixed(4)),
+                        totalPaid: Number((totalPaid + vat).toFixed(2)),
                         currency: newV.currency.code,
                         items: items,
                     });
@@ -134,7 +133,6 @@ export class Item {
                 date: undefined,
                 dueDate: undefined,
                 invoceNo: undefined,
-                paymentMethod: undefined,
                 supplierCode: undefined,
                 supplierName: undefined,
                 divisionCode: undefined,
