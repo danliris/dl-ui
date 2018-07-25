@@ -32,7 +32,7 @@ export class List {
             }
         },
         { field: "supplier.name", title: "Nama Supplier" },
-        { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
+        { field: "purchaseRequestNo", title: "Nomor Purchase Request", sortable: false },
         {
             field: "isPosted", title: "Status Post",
             formatter: function (value, row, index) {
@@ -60,7 +60,10 @@ export class List {
                     var prNo = _data.items.map(function (item) {
                         return `<li>${item.prNo}</li>`;
                     });
-                    _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
+                    var uniqueArray = prNo.filter(function(item, pos) {
+                        return prNo.indexOf(item) == pos;
+                    })
+                    _data.purchaseRequestNo = `<ul>${uniqueArray.join()}</ul>`;
                 }
                 return {
                     total: result.info.total,

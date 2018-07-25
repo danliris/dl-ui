@@ -23,7 +23,7 @@ export class List {
         },
         { field: "supplier.name", title: "Supplier" },
         { field: "doNo", title: "No. Surat Jalan" },
-        { field: "Items.PRNo", title: "No. Purchase Request" ,
+        { field: "Items.PRNo", title: "No. Purchase Request" , sortable: false ,
             formatter: (value, data) => {
                 return data.purchaseRequestNo;
             } }
@@ -68,7 +68,10 @@ export class List {
                     var prNo = _data.items.map(function (item) {
                         return `<li>${item.prNo}</li>`;
                     });
-                    _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
+                    var uniqueArray = prNo.filter(function(item, pos) {
+                        return prNo.indexOf(item) == pos;
+                    })
+                    _data.purchaseRequestNo = `<ul>${uniqueArray.join()}</ul>`;
                 }
                 return {
                     total: result.info.total,
