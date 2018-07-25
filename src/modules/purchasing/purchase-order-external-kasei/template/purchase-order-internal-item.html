@@ -59,16 +59,16 @@
                     <td>
                         <au-numeric 
                             value.bind="data.priceBeforeTax" 
-                            error.bind="error.priceBeforeTax"
+                            error.bind="error.price"
                             read-only.bind="options.readOnly" 
                             change.delegate="priceBeforeTaxChanged($event)"
                             options.bind="controlOptions">
                         </au-numeric>
                     </td>
-                    <td if.bind="context.context.options.isUseIncomeTax" align="center">
+                    <td if.bind="context.context.options.useVat" align="center">
                         <au-checkbox 
-                            value.bind="data.useIncomeTax" 
-                            error.bind="error.useIncomeTax" 
+                            value.bind="data.includePpn" 
+                            error.bind="error.includePpn" 
                             read-only.bind="readOnly"
                             change.delegate="useIncomeTaxChanged($event)"
                             options.bind="controlOptions">
@@ -77,7 +77,7 @@
                     <td>
                         <au-textbox 
                             value.bind="data.productRemark" 
-                            error.bind="error.remark"
+                            error.bind="error.productRemark"
                             read-only.bind="options.readOnly" 
                             placeholder="tambah keterangan" 
                             options.bind="controlOptions">

@@ -7,13 +7,13 @@ import moment from 'moment';
 export class List {
     context = ["detail"];
     columns = [
-        { field: "no", title: "Nomor Surat Jalan" },
+        { field: "DONo", title: "Nomor Surat Jalan" },
         {
-            field: "supplierDoDate", title: "Tanggal Surat Jalan", formatter: function (value, data, index) {
+            field: "DODate", title: "Tanggal Surat Jalan", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Nama Supplier" },
+        { field: "SupplierName", title: "Nama Supplier" },
         { field: "items", title: "List Nomor Eksternal PO", sortable: false }
     ];
 
@@ -45,6 +45,11 @@ export class List {
                     }
                 });
                 // return data;
+                for (var _data of result.data) {
+                    _data.DONo = _data.no;
+                    _data.DODate = _data.supplierDoDate;
+                    _data.SupplierName = _data.supplier.name;
+                }
                 return {
                     total: result.info.total,
                     data: result.data

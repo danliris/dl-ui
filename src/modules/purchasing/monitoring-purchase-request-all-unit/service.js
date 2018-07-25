@@ -11,8 +11,9 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing");
     }
 
-    search(unitId, categoryId, budgetId, PRNo, dateFrom, dateTo, state) { 
-        var endpoint = `${serviceUri}?unitId=${unitId}&categoryId=${categoryId}&budgetId=${budgetId}&PRNo=${PRNo}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}`;
+    search(unitId, categoryId, budgetId, PRNo,prStatus,poStatus, dateFrom, dateTo, state) { 
+        //(no, unitId, categoryId, budgetId, prStatus, poStatus, dateFrom, dateTo, page, size, Order, offset);
+        var endpoint = `${serviceUri}?no=${PRNo}&unitId=${unitId}&categoryId=${categoryId}&budgetId=${budgetId}&prStatus=${prStatus}&poStatus=${poStatus}&dateFrom=${dateFrom}&dateTo=${dateTo}&state=${state}`;
         return super.get(endpoint);
     }
 

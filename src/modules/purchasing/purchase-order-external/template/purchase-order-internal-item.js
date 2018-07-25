@@ -9,13 +9,32 @@ export class PurchaseOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
+    this.useVat = this.context.context.options.useVat || false;
+    if(!this.useVat){
+      this.data.includePpn=false;
+    }
     if (this.data) {
       this.updateItem();
     }
   }
 
   updateItem() {
+    // if (this.data.dealQuantity === 0) {
+    //   this.data.dealQuantity = this.data.defaultQuantity;
+    // }
+    // if (!this.data.dealUom.unit) {
+    //   Object.assign(this.data.dealUom, this.data.defaultUom);
+    // }
+
+    // if (!this.error && this.data.priceBeforeTax === 0) {
+    //   this.data.priceBeforeTax = this.data.product.price;
+    // }
+
+    // if (this.data.conversion === 0) {
+    //   this.data.priceBeforeTax = this.data.product.price;
+    // }
+
+    // this.selectedDealUom = this.data.dealUom;
     if (!this.data.dealQuantity || this.data.dealQuantity === 0) {
       this.data.dealQuantity = this.data.defaultQuantity;
     }
@@ -47,7 +66,7 @@ export class PurchaseOrderItem {
   }
 
   updatePrice() {
-    if (this.data.useIncomeTax) {
+    if (this.data.includePpn) {
       this.data.pricePerDealUnit = (100 * this.data.priceBeforeTax) / 110;
     } else {
       this.data.pricePerDealUnit = this.data.priceBeforeTax;
@@ -55,12 +74,14 @@ export class PurchaseOrderItem {
   }
 
   selectedDealUomChanged(newValue) {
-    if (newValue._id) {
+    if (newValue._id || newValue.Id ) {
       this.data.dealUom = newValue;
-      if (newValue.unit)
-        if (this.data.dealUom.unit == this.data.defaultUom.unit) {
+      if (newValue.Unit)
+        if (this.data.dealUom.Unit == this.data.defaultUom.Unit || this.data.dealUom.unit == this.data.defaultUom.unit) {
           this.data.conversion = 1;
         }
+        this.data.dealUom._id=newValue.Id;
+        this.data.dealUom.unit=newValue.Unit;
     }
   }
 
@@ -76,6 +97,7 @@ export class PurchaseOrderItem {
   }
 
   useIncomeTaxChanged(e) {
+    console.log(this.data.includePpn)
     this.updatePrice();
   }
 
@@ -92,7 +114,7 @@ export class PurchaseOrderItem {
   }
 
   uomView = (uom) => {
-    return uom.unit
+    return uom.unit ? uom.unit : uom.Unit;
   }
 
   controlOptions = {

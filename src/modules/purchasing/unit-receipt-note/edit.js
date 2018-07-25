@@ -15,7 +15,18 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.unit = this.data.unit;
         this.supplier = this.data.supplier;
-        this.deliveryOrder = this.data.deliveryOrder;
+        this.deliveryOrder = this.data.items;
+        if(this.data.doNo){
+            this.deliveryOrder.no=this.data.doNo;
+            
+        }
+        for(var _item of this.deliveryOrder){
+            _item.deliveredUom=_item.product.uom;
+        }
+        if(this.data.unit && this.data.supplier){
+            this.data.unitId=this.data.unit._id;
+            this.data.supplierId=this.data.supplier._id;
+        }
     }
 
     view() {

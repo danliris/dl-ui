@@ -33,20 +33,7 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    generateDueDate() {
-        let dates = [];
-
-        for (let item of this.data.items) {
-            for (let detail of item.unitReceiptNote.items) {
-                dates.push(moment(item.unitReceiptNote.date).add(detail.purchaseOrder.purchaseOrderExternal.paymentDueDays, 'days'));
-            }
-        }
-
-        return moment.min(dates);
-    }
-
     save() {
-        this.data.dueDate = this.generateDueDate();
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

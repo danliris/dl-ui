@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'purchase-requests/posted';
+const resource = 'purchase-requests';
 
 module.exports = function(keyword, filter) {
 

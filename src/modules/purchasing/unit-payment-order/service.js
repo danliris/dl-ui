@@ -2,17 +2,17 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'unit-payment-orders/by-user';
+const serviceUri = 'unit-payment-orders';
 const pdeServiceUri = 'expedition/purchasing-document-expeditions'
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/by-user`;
         return super.list(endpoint, info);
     }
 

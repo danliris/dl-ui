@@ -15,7 +15,7 @@ export class PurchaseOrderItem {
     { header: "Satuan", value: "dealUom" },
     { header: "Konversi", value: "conversion" },
     { header: "Harga", value: "priceBeforeTax" },
-    { header: "Include Ppn?", value: "useIncomeTax" },
+    { header: "Include Ppn?", value: "includePpn" },
     { header: "Keterangan", value: "remark" }
   ]
 
@@ -24,12 +24,12 @@ export class PurchaseOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.isUseIncomeTax = this.context.context.options.isUseIncomeTax || false;
+    this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
+    this._items=[];
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.details) {
-        console.log(this.data.details)
         this.data.items=this.data.details;
         this.isShowing = true;
       }
@@ -50,8 +50,9 @@ export class PurchaseOrderItem {
 
   async selectedPurchaseOrderChanged(newValue) {
     if (newValue._id) {
-      console.log(newValue);
       Object.assign(this.data, newValue);
+      console.log(this.data);
+      
       var productList = this.data.items.map((item) => { return item.product._id });
       productList = [].concat.apply([], productList);
       productList = productList.filter(function (elem, index, self) {
@@ -63,18 +64,23 @@ export class PurchaseOrderItem {
         a.defaultUom=a.product.uom;
         a.defaultQuantity=a.quantity;
       }
-      await endpoint.find(resource, { productList: JSON.stringify(productList) })
+      await endpoint.find(resource, { productList})
         .then((result) => {
           for (var product of result.data) {
-            var item = this.data.items.find((_item) => _item.product._id.toString() === product._id.toString())
+
+            var item = this.data.items.find((_item) => _item.product._id.toString() === product.Id.toString())
             if (item) {
-              item.product.price = product.price;
+              item.product.price = product.Price;
+              item.productPrice=product.Price;
+              if(item.quantity>0){
+                this._items.push(item);
+              }
             }
           }
         });
       this.isShowing = true;
     }
-    this.data.details=this.data.items;
+    this.data.details=this._items;
   }
 
   toggle() {
@@ -85,7 +91,6 @@ export class PurchaseOrderItem {
   }
 
   purchaseOrderView = (purchaseOrder) => {
-    console.log(purchaseOrder)
     return purchaseOrder.prNo
   }
 

@@ -6,16 +6,27 @@ var moment = require("moment");
 @inject(Router, Service)
 export class List {
     columns = [
-        { field: "unitDivision", title: "Unit" },
-        { field: "no", title: "No. Bon Unit" },
-        {
-            field: "date", title: "Tanggal Bon Unit",
+        { field: "unit.name", title: "Unit",
             formatter: (value, data) => {
-                return moment(value).format("DD MMM YYYY");
+                return data.unitDivision;
+            } 
+        },
+        { field: "URNNo", title: "No. Bon Unit" ,
+            formatter: (value, data) => {
+                return data.no;
+            } },
+        {
+            field: "receiptDate", title: "Tanggal Bon Unit",
+            formatter: (value, data) => {
+                return moment(data.date).format("DD MMM YYYY");
             }
         },
         { field: "supplier.name", title: "Supplier" },
-        { field: "deliveryOrder.no", title: "No. Surat Jalan" }
+        { field: "doNo", title: "No. Surat Jalan" },
+        { field: "Items.PRNo", title: "No. Purchase Request" ,
+            formatter: (value, data) => {
+                return data.purchaseRequestNo;
+            } }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -52,7 +63,13 @@ export class List {
                     data.unitDivision = data.unit.division.name + " - " + data.unit.name;
                     return data;
                 });
-
+                for (var _data of result.data) {
+                    _data.Id= _data._id?_data._id:_data.Id;
+                    var prNo = _data.items.map(function (item) {
+                        return `<li>${item.prNo}</li>`;
+                    });
+                    _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
