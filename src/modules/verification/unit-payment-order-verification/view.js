@@ -16,7 +16,7 @@ export class View {
         this.dialog = dialog;
         this.mongoService = mongoService;
     }
-    totalPaid=0;
+
     context = ["Rincian Purchase Request"];
 
     selectSPB = [
@@ -56,11 +56,9 @@ export class View {
         var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
         this.data = UnitPaymentOrder.data[0];
         this.data.VerifyDate = this.dataExpedition.VerifyDate;
-
-        this.data.useVat = this.dataExpedition.Vat;
-        this.data.useIncomeTax = this.dataExpedition.IncomeTax;
-        this.data.remark = this.dataExpedition.TotalPaid;
-        this.SPB = this.data;
+        this.data.useVat = this.dataExpedition.IncomeTax;
+        this.data.useIncomeTax = this.dataExpedition.Vat;
+        this.data.remark = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat) - this.dataExpedition.IncomeTax;
     }
 
     list() {

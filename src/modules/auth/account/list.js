@@ -19,9 +19,6 @@ export class List {
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
-        for (var a of this.data){
-            a.profileName=a.profile.firstname+ " " +a.profile.lastname;
-        }
     }
 
     loadPage() {
@@ -31,9 +28,6 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
-                for (var a of this.data){
-                    a.profileName=a.profile.firstname+ " " +a.profile.lastname;
-                }
             })
     }
 

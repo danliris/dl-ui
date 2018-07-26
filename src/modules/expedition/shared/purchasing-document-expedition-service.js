@@ -14,11 +14,6 @@ class PurchasingDocumentExpeditionService extends RestService {
         return super.list(endpoint, info);
     }
 
-    searchAllByPosition(info) {
-        let endpoint = `${uriPurchasingDocumentExpedition}/no-select/by-position`;
-        return super.list(endpoint, info);
-    }
-
     getById(id) {
         let endpoint = `${uriPurchasingDocumentExpedition}/${id}`;
         return super.get(endpoint);

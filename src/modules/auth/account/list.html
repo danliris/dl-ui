@@ -28,7 +28,7 @@
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.username}</td>
-                <td>${item.profileName}</td> 
+                <td>${[item.profile.firstname,item.profile.lastname].join(' ')}</td> 
             </tr>
         </tbody>
     </table>

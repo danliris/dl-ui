@@ -1,7 +1,7 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-datepicker label="Tanggal Verifikasi" value.bind="data.VerifyDate" error.bind="error.VerifyDate" read-only.bind="true"
+        <au-datepicker label="Tanggal Verifikasi" value.bind="data.VerifyDate" error.bind="error.VerifyDate" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -10,7 +10,7 @@
             placeholder="Cari No Surat Perintah Bayar" text="no">
         </au-autocomplete>
 
-        <div show.bind="data._id">
+        <div if.bind="SPB._id">
 
             <au-datepicker label="Tanggal Surat Perintah Bayar" value.bind="data.date" read-only.bind="true" options.bind="controlOptions">
             </au-datepicker>
@@ -39,17 +39,17 @@
             <au-textbox label="No. PIB" value.bind="data.pibNo" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
 
-            <au-numeric label="Nominal PPH?" value.bind="data.useIncomeTax" read-only.bind="true" options.bind="numericOptions">
+            <au-numeric label="Apakah Kena PPH?" value.bind="data.useIncomeTax"  read-only.bind="true" options.bind="numericOptions">
             </au-numeric>
 
-            <au-numeric label="Nominal PPN?" value.bind="data.useVat" read-only.bind="true" options.bind="numericOptions">
+            <au-numeric label="Apakah Kena PPN?" value.bind="data.useVat" read-only.bind="true" options.bind="numericOptions">
             </au-numeric>
 
-            <au-numeric label="Total Bayar (DPP+PPN)" value.bind="data.remark" read-only.bind="true" options.bind="numericOptions">
+            <au-numeric label="Total Harga" value.bind="data.remark" read-only.bind="true" options.bind="numericOptions">
             </au-numeric>
 
-            <au-table view-model.ref="tableItems" data.bind="items" errors.bind="error.items" columns.bind="columns" options.bind="tableOptions"
-                read-only.bind="readOnly" context.bind="context" context-click.delegate="contextCallback($event)">
+            <au-table data.bind="items" errors.bind="error.items" columns.bind="columns" options.bind="tableOptions" read-only.bind="readOnly"
+                context.bind="context" context-click.delegate="contextCallback($event)">
             </au-table>
 
         </div>

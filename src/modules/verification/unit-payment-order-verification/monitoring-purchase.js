@@ -66,7 +66,8 @@ export class List {
 
     activate(param) {
         var no = param.no;
-        this.purchaseOrder = decodeURIComponent(no);
+        console.log(param)
+        this.purchaseOrder = no;
         this.search();
 
     }

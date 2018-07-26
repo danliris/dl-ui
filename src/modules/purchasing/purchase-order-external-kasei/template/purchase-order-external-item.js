@@ -49,9 +49,9 @@ export class PurchaseOrderItem {
   }
 
   async selectedPurchaseOrderChanged(newValue) {
+    this._items=[];
     if (newValue._id) {
       Object.assign(this.data, newValue);
-      console.log(this.data);
       
       var productList = this.data.items.map((item) => { return item.product._id });
       productList = [].concat.apply([], productList);
@@ -79,6 +79,8 @@ export class PurchaseOrderItem {
           }
         });
       this.isShowing = true;
+      
+      this.data.details=this._items;
     }
     this.data.details=this._items;
   }

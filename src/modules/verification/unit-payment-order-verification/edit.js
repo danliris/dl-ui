@@ -4,7 +4,7 @@ import { Service, MongoService } from './service';
 import { activationStrategy } from 'aurelia-router';
 import { Dialog } from '../../../components/dialog/dialog';
 import { AlertView } from './custom-dialog-view/alert-view';
-import moment from 'moment';
+
 @inject(Router, Service, MongoService, Dialog)
 export class Edit {
 
@@ -59,13 +59,11 @@ export class Edit {
 
         var UnitPaymentOrder = await this.mongoService.searchByCode(arg);
         this.data = UnitPaymentOrder.data[0];
-        this.data.VerifyDate = moment(new Date()).format("DD-MMM-YYYY");
+        this.data.VerificationDate = new Date();
         this.data.Id = id;
-        
-        this.data.useVat = this.dataExpedition.Vat;
-        this.data.useIncomeTax = this.dataExpedition.IncomeTax;
-        this.data.remark = this.dataExpedition.TotalPaid;
-        this.SPB = this.data;
+        this.data.useVat = this.dataExpedition.IncomeTax;
+        this.data.useIncomeTax = this.dataExpedition.Vat;
+        this.data.remark = (this.dataExpedition.TotalPaid + this.dataExpedition.Vat) - this.dataExpedition.IncomeTax;
     }
 
     cancel(event) {
