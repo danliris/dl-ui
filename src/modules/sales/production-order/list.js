@@ -17,7 +17,7 @@ export class List {
                 return "";
             }
         },
-        { field: "SalesContractNo", title: "Nomor Sales Contract" },
+        { field: "FinishingPrintingSalesContract.SalesContractNo", title: "Nomor Sales Contract" },
         { field: "OrderNo", title: "Nomor Order Produksi" },
         { field: "Buyer.Type", title: "Jenis Buyer" },
         { field: "Buyer.Name", title: "Buyer" },
@@ -78,10 +78,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "print":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
