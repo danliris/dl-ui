@@ -30,7 +30,7 @@
         <au-autocomplete 
             label="No. Surat Perintah Bayar"       
             value.bind="selectectedUnitPaymentOrder"      
-            error.bind="error.unitPaymentOrder"             
+            error.bind="error.uPOId"             
             read-only.bind="readOnly"  
             loader.bind="upoLoader"
             text.bind = "upoView"
@@ -106,8 +106,8 @@
 
         <au-datepicker                         
             label="Tgl. Faktur Pajak Koreksi (PPH)" 
-            value.bind="data.incomeTaxCorrectionName"      
-            error.bind="error.incomeTaxCorrectionName"         
+            value.bind="data.incomeTaxCorrectionDate"      
+            error.bind="error.incomeTaxCorrectionDate"         
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 

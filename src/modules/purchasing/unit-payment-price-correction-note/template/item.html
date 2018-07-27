@@ -35,16 +35,25 @@
 			<au-numeric
 				value.bind="data.pricePerDealUnitAfter"
 				error.bind="error.pricePerDealUnitAfter"
-            	change.delegate="pricePerDealUnitAfterChanged($event)"
 				read-only.bind="readOnly||pricePerUnitCorrectionReadOnly"
 				format="0">
 			</au-numeric>
 		</td>
-		<td>
+		<td if.bind="pricePerUnitCorrectionReadOnly">
 			<au-numeric
 				value.bind="data.priceTotalAfter"
 				error.bind="error.priceTotalAfter"
 				read-only.bind="readOnly||!pricePerUnitCorrectionReadOnly"
+				if.bind="pricePerUnitCorrectionReadOnly"
+				format="0">
+			</au-numeric>
+		</td>
+		<td if.bind="!pricePerUnitCorrectionReadOnly">
+			<au-numeric
+				value.bind="totalPrice"
+				error.bind="error.priceTotalAfter"
+				read-only.bind="true"
+				if.bind="!pricePerUnitCorrectionReadOnly"
 				format="0">
 			</au-numeric>
 		</td>

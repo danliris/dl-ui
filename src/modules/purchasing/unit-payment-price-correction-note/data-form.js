@@ -69,7 +69,9 @@ export class DataForm {
         }
         else
             this.flag = false;
-
+        this.data.invoiceCorrectionDate=moment(this.data.invoiceCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.invoiceCorrectionDate;
+        this.data.vatTaxCorrectionDate=moment(this.data.vatTaxCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.vatTaxCorrectionDate;
+        this.data.incomeTaxCorrectionDate=moment(this.data.incomeTaxCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.incomeTaxCorrectionDate;
         if(!this.readOnly) {
             this.UpoItem.columns.push({ header: "" });
             
@@ -77,6 +79,7 @@ export class DataForm {
     }
 
     setItems(_paymentOrder) {
+        console.log("aa")
         if(!this.readOnly){
             var _items = []
             for (var unitPaymentOrder of _paymentOrder.items) {
@@ -97,8 +100,7 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.priceTotalAfter=unitReceiptNoteItem.PriceTotalCorrection;
                     unitPaymentPriceCorrectionNoteItem.pricePerDealUnitBefore=unitReceiptNoteItem.PricePerDealUnitCorrection;
                     unitPaymentPriceCorrectionNoteItem.priceTotalBefore=unitReceiptNoteItem.PriceTotalCorrection;
-                    unitPaymentPriceCorrectionNoteItem.currency=unitReceiptNoteItem.currency;
-
+                    unitPaymentPriceCorrectionNoteItem.currency=_paymentOrder.currency;
                     //FROM MONGO
                     // unitPaymentPriceCorrectionNoteItem.purchaseOrder = unitReceiptNoteItem.purchaseOrder;
                     // unitPaymentPriceCorrectionNoteItem.purchaseOrderId = unitReceiptNoteItem.purchaseOrderId;
@@ -200,7 +202,7 @@ export class DataForm {
                     this.pricePerUnitCorrectionReadOnly = false;
                 else if (this.data.correctionType == "Harga Total")
                     this.pricePerUnitCorrectionReadOnly = true;
-                if (this.data.unitPaymentOrderId && this.data.unitPaymentOrder) {
+                if (this.data.uPOId && this.data.unitPaymentOrder) {
                     if (this.data.unitPaymentOrder.items)
                         this.setItems(this.data.unitPaymentOrder);
                 }

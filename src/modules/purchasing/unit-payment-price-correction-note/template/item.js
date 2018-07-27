@@ -12,14 +12,18 @@ export class UnitReceiptNoteItem {
 		return `${this.data.product.code} - ${this.data.product.name}`;
 	}
 
-  // get totalPrice(){
-  //   return this.data.pricePerDealUnit * this.data.deliveredQuantity
-  // }
-
-  pricePerDealUnitAfterChanged(e){
-    if(this.pricePerUnitCorrectionReadOnly && !this.readOnly)
-      this.data.priceTotalAfter=this.data.quantity * this.data.pricePerDealUnitAfter;
+  get totalPrice(){
+    this.data.priceTotalAfter=this.data.quantity * this.data.pricePerDealUnitAfter;
+    return this.data.priceTotalAfter
   }
+
+  // pricePerDealUnitAfterChanged(e){
+  //   if(!this.pricePerUnitCorrectionReadOnly){
+  //     this.data.priceTotalAfter=this.data.quantity * this.data.pricePerDealUnitAfter;
+      
+  //   console.log(this.data.pricePerDealUnitAfter )
+  //   }
+  // }
 
   controlOptions = {
     control: {
