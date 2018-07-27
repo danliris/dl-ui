@@ -179,6 +179,8 @@ export class DataForm {
                 this.data.division=_selectedPaymentOrder.division;
                 this.data.category=_selectedPaymentOrder.category;
                 this.selectedSupplier=this.data.supplier.code +" - "+this.data.supplier.name;
+                this.data.useVat=_selectedPaymentOrder.useVat;
+                this.data.useIncomeTax=_selectedPaymentOrder.useIncomeTax;
                 this.setItems(_selectedPaymentOrder);
             }
             else {

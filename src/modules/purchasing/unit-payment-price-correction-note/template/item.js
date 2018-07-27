@@ -16,6 +16,11 @@ export class UnitReceiptNoteItem {
   //   return this.data.pricePerDealUnit * this.data.deliveredQuantity
   // }
 
+  pricePerDealUnitAfterChanged(e){
+    if(this.pricePerUnitCorrectionReadOnly && !this.readOnly)
+      this.data.priceTotalAfter=this.data.quantity * this.data.pricePerDealUnitAfter;
+  }
+
   controlOptions = {
     control: {
       length: 12
