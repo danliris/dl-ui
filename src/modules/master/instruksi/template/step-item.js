@@ -1,5 +1,5 @@
 import { bindable } from 'aurelia-framework'
-var StepLoader = require('../../../../loader/step-loader');
+var StepLoader = require('../../../../loader/step-instruction-loader');
 
 export class StepItem {
   @bindable temp;
@@ -16,9 +16,9 @@ export class StepItem {
   }
 
   stepIndicatorColumns = [
-    { header: "Indikator", value: "name" },
-    { header: "Nilai", value: "value" },
-    { header: "Satuan", value: "uom" },
+    { header: "Indikator", value: "Name" },
+    { header: "Nilai", value: "Value" },
+    { header: "Satuan", value: "Uom" },
   ];
 
   controlOptions = {
@@ -67,9 +67,9 @@ export class StepItem {
 
   get stepIndicatorInfo() {
     var info = "";
-    if (this.step.stepIndicators && this.step.stepIndicators.length > 0) {
-      for (var stepIndicator of this.step.stepIndicators) {
-        info += stepIndicator.name + "=" + stepIndicator.value + ",";
+    if (this.step.StepIndicators && this.step.StepIndicators.length > 0) {
+      for (var stepIndicator of this.step.StepIndicators) {
+        info += stepIndicator.Name + "=" + stepIndicator.Value + ",";
       }
       info = info.substring(0, info.length - 1);
     }
