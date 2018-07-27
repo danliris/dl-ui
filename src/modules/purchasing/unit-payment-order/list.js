@@ -13,7 +13,7 @@ export class List {
         { field: "DivisionName", title: "Divisi" },
         { field: "SupplierName", title: "Supplier" },
         {
-            field: "Date", title: "Tanggal Surat Perintah Bayar", formatter: function (value, data, index) {
+            field: "date", title: "Tanggal Surat Perintah Bayar", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
