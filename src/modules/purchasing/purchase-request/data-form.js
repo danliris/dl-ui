@@ -40,7 +40,13 @@ export class DataForm {
 
     unitChanged(e) {
         if (this.data.unit)
-            this.data.unitId = this.data.unit._id ? this.data.unit._id : {};
+        {
+            this.data.unitId = this.data.unit.Id || this.data.unit._id || {};
+            this.data.unit._id = this.data.unitId;
+
+            if(this.data.unit.Division)
+                this.data.unit.Division._id = this.data.unit.Division.Id || "";
+        }
     }
 
     budgetChanged(e) {
