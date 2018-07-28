@@ -100,7 +100,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             no: this.pr ? this.pr.no : "",
-            unitId: this.unit ? this.unit._id : "",
+            unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             budgetId: this.budget ? this.budget._id : "",
             prStatus: this.prStatus,
@@ -136,7 +136,7 @@ export class List {
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             let args = {
             no: this.pr ? this.pr.no : "",
-            unitId: this.unit ? this.unit._id : "",
+            unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             budgetId: this.budget ? this.budget._id : "",
             prStatus: this.prStatus,
