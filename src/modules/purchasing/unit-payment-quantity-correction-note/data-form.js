@@ -10,12 +10,35 @@ export class DataForm {
     @bindable error = {};
     @bindable unitPaymentOrder;
     @bindable quantity;
-    controlOptions = {
-        label: {
-            length: 4
-        },
-        control: {
-            length: 4
+
+    constructor(bindingEngine, element, service) {
+        this.bindingEngine = bindingEngine;
+        this.element = element; 
+        this.service = service;
+
+        this.controlOptions = {
+            label: {
+                    length: 4,
+                    align: "right"
+                },
+                control: {
+                    length: 5
+                }
+        }
+        
+        this.UpoItem = {
+            itemsColumns: [
+                { header: "No. PO Eksternal", value: "ePONo" },
+                { header: "No. PR", value: "pRNo" },
+                { header: "Barang", value: "product" },
+                { header: "Jumlah", value: "quantity" },
+                { header: "Satuan", value: "uom" },
+                { header: "Harga Satuan", value: "pricePerDealUnitAfter" },
+                { header: "Harga Total", value: "priceTotalAfter" }
+            ],
+            onRemove: function() {
+                this.bind();
+            }
         }
     }
     
@@ -72,15 +95,8 @@ export class DataForm {
         }
     }
 
-    itemsColumns = [
-        { header: "No. PO Eksternal", value: "ePONo" },
-        { header: "No. PR", value: "pRNo" },
-        { header: "Barang", value: "product" },
-        { header: "Jumlah", value: "quantity" },
-        { header: "Satuan", value: "uom" },
-        { header: "Harga Satuan", value: "pricePerDealUnitAfter" },
-        { header: "Harga Total", value: "priceTotalAfter" }
-    ]
+    
+    
 
     get supplierLoader() {
         return SupplierLoader;

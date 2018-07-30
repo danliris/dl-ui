@@ -161,8 +161,8 @@
          <au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 
-            columns.bind="itemsColumns" 
-            remove.bind="removeItems"
+            columns.bind="UpoItem.itemsColumns" 
+            remove.bind="UpoItem.onRemove"
             read-only.bind="readOnly" 
             item-template="modules/purchasing/unit-payment-quantity-correction-note/template/unit-payment-quantity-correction-note-item">
         </au-collection>
