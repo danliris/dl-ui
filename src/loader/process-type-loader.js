@@ -12,7 +12,7 @@ module.exports = function(keyword, filter) {
         .then(results => {
             return results.data.map(step => {
                 step.toString = function () {
-                    return `${this.name}`;
+                    return `${this.Name}`;
                 }
                 return step;
             });

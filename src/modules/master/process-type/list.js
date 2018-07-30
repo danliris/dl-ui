@@ -8,8 +8,8 @@ export class List {
   context = ["Rincian"];
   columns = [
     // { field: "code", title: "Kode" },
-    { field: "name", title: "Jenis Proses" },    
-    { field: "orderType.name", title: "Jenis Order" },
+    { field: "Name", title: "Jenis Proses" },    
+    { field: "OrderType.Name", title: "Jenis Order" },
 ];
 
   loader = (info) => {
@@ -21,7 +21,6 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["name","orderType"],
       order: order
     }
 
@@ -42,9 +41,10 @@ export class List {
   contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
+
     switch (arg.name) {
       case "Rincian":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }

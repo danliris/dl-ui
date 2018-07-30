@@ -5,401 +5,399 @@ import { Service } from './service';
 
 var FinishingPrintingSalesContractLoader = require('../../../loader/finishing-printing-sales-contract-loader');
 var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
+var ProcessTypeLoader = require('../../../loader/process-type-loader');
+var DesignMotiveLoader = require('../../../loader/design-motive-loader');
+var MaterialConstructionLoader = require('../../../loader/material-construction-loader');
+var FinishTypeLoader = require('../../../loader/finish-type-loader');
+var StandardTests = require('../../../loader/standard-tests-loader');
+var AccountLoader = require('../../../loader/account-loader');
 
 @inject(BindingEngine, Element, Service)
 export class DataForm {
   @bindable readOnly = false;
   @bindable data = {};
   @bindable error = {};
-  @bindable salesContract;
+  @bindable SalesContract;
+  @bindable OrderType;
+  @bindable Material;
+  @bindable account;
 
   lampHeader = [{ header: "Standar Lampu" }];
-  
+
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
-  rq=false;
+  rq = false;
 
 
-  
+
   constructor(bindingEngine, element, service) {
     this.bindingEngine = bindingEngine;
     this.element = element;
     this.service = service;
-    
-    this.filterAccount = {
-            "roles" : {
-                "$elemMatch" : { 
-                    "permissions" : {
-                        "$elemMatch" : { 
-                            "unit.name" : "PENJUALAN FINISHING & PRINTING"
-                        }
-                    }
-                }
-            }
-        };
 
-      this.filterMaterial = {
-      "tags" :"material"
+    this.filterAccount = {
+      "roles": {
+        "$elemMatch": {
+          "permissions": {
+            "$elemMatch": {
+              "unit.name": "PENJUALAN FINISHING & PRINTING"
+            }
+          }
+        }
+      }
+    };
+
+    this.filterMaterial = {
+      "tags": "material"
     }
   }
-  
-  @computedFrom("data.buyer")
-  get buyerType(){
-    this.ekspor=false;
-    if(this.data.buyer){
-      if(this.data.buyer.type.toLowerCase()=="ekspor"||this.data.buyer.type.toLowerCase()=="export"){
-          this.ekspor=true;
-        }
+
+  @computedFrom("data.Buyer")
+  get buyerType() {
+    this.ekspor = false;
+    if (this.data.Buyer) {
+      if (this.data.Buyer.Type.toLowerCase() == "ekspor" || this.data.Buyer.Type.toLowerCase() == "export") {
+        this.ekspor = true;
+      }
     }
-      return this.ekspor;
+    return this.ekspor;
   }
 
   get fpSalesContractLoader() {
-        return FinishingPrintingSalesContractLoader;
-    }
-
-  @computedFrom("data.dataId")
-  get isEdit() {
-    return (this.data.dataId || '').toString() != '';
+    return FinishingPrintingSalesContractLoader;
   }
 
-  @computedFrom("data.orderType")
+  @computedFrom("data.Id")
+  get isEdit() {
+    return (this.data ? this.data.Id : "" || '').toString() != '';
+  }
+
+  @computedFrom("data.OrderType")
   get isPrinting() {
     this.printing = false;
-    if (this.data.orderType) {
-      if (this.data.orderType.name.trim().toLowerCase() == "printing") {
+    if (this.data.OrderType) {
+      if (this.data.OrderType.Name.trim().toLowerCase() == "printing") {
         this.printing = true;
       }
     }
     return this.printing;
   }
 
-  @computedFrom("data.orderType")
+  @computedFrom("data.OrderType")
   get isYarnDyed() {
     this.yarndyed = false;
-    if (this.data.orderType) {
-      if (this.data.orderType.name.trim().toLowerCase() == "yarn dyed") {
+    if (this.data.OrderType) {
+      if (this.data.OrderType.Name.trim().toLowerCase() == "yarn dyed") {
         this.yarndyed = true;
       }
     }
     return this.yarndyed;
   }
 
-  @computedFrom("data.orderType")
-  get isPrintingOnly(){
-        this.printingOnly=false;
-        if(this.data.orderType){
-            if(this.data.orderType.name.toLowerCase()=="printing"){
-                this.printingOnly=true;
-            }
-        }
-        return this.printingOnly;
+  @computedFrom("data.OrderType")
+  get isPrintingOnly() {
+    this.printingOnly = false;
+    if (this.data.OrderType) {
+      if (this.data.OrderType.Name.toLowerCase() == "printing") {
+        this.printingOnly = true;
+      }
     }
-
-  @computedFrom("data.orderType")
-  get isFilterOrder(){
-      this.filterOrder = {
-        "orderType.code": this.data.orderType.code
-      };
-    
-    return this.filterOrder;
-  }
-  @computedFrom("data.dataId")
-  get isRUN(){
-      this.run=false;
-        if(this.data.RUNWidth){
-          if(this.data.RUNWidth.length>0)
-            this.run=true;
-        }
-      return this.run;
+    return this.printingOnly;
   }
 
-  salesContractChanged(e){
-      if(this.data && this.data.details && this.data.details.length > 0){
-            var count = this.data.details.length;
-            console.log(this.data.details);
-            for(var a = count; a >= 0; a--){
-                this.data.details.splice((a-1), 1);
-            }
-            console.log(this.data.details);
-        }
-      this.data.salesContractId=this.data.salesContract._id ? this.data.salesContract._id : "";
-      this.data.salesContractNo=this.data.salesContract.salesContractNo ? this.data.salesContract.salesContractNo: "";
-      this.data.buyer=this.data.salesContract.buyer;
-      this.data.orderType=this.data.salesContract.orderType;
-      this.data.material=this.data.salesContract.material;
-      this.data.yarnMaterial=this.data.salesContract.yarnMaterial;
-      this.data.designMotive=this.data.salesContract.designMotive;
-      
-      if(this.data.uom){
-        this.data.uom.unit=this.data.uom.unit;
-      }
-      else{
-        this.data.uom={};
-        this.data.uom.unit="MTR";
-      }
-      this.data.finishWidth=this.data.salesContract.materialWidth;
-      this.data.beforeQuantity=0;
-      if(this.data.salesContract.remainingQuantity!=undefined){
-        this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
-        this.rq=true;
-      }
-      else{
-        this.data.remainingQuantity=undefined;
-        this.rq=false;
-      }
-      console.log(this.data.details);
+
+  @computedFrom("data")
+  get isRUN() {
+    this.run = false;
+    if (this.data.RunWidth) {
+      if (this.data.RunWidth.length > 0)
+        this.run = true;
+    }
+    return this.run;
   }
-  
-    orderChanged(e){
-        var selectedOrder=e.detail || {};
-        console.log(selectedOrder);
-        if(selectedOrder){
-            this.data.orderTypeId=selectedOrder._id ? selectedOrder._id : "";
-            var code= selectedOrder.code;
-            if (!this.readOnly) {
-                this.data.processType={};
-                this.processChanged({});
-                this.data.details.length=0;
-            }
-            if(code){
-                this.filterOrder={
-                    "orderType.code": code
-                }; 
-            }
-            if(selectedOrder.name)
-            {
-                if(selectedOrder.name.toLowerCase()=="printing"){
-                    this.printingOnly=true;
-                }
-                else{
-                    this.printingOnly=false;
-                }
-                if(selectedOrder.name.toLowerCase()=="printing" ){
-                    this.printing=true;
-                }
-                else{
-                    this.printing=false;
-                }
-                if( selectedOrder.name.toLowerCase()=="yarn dyed"){
-                    this.yarndyed=true;
-                }
-                else{
-                    this.yarndyed=false;
-                }
-                
-            }
-            
+
+  SalesContractChanged(e) {
+    if (this.SalesContract) {
+      if (this.data && this.data.Details && this.data.Details.length > 0) {
+        var count = this.data.Details.length;
+
+        for (var a = count; a >= 0; a--) {
+          this.data.Details.splice((a - 1), 1);
+        }
+
+      }
+      this.data.FinishingPrintingSalesContract = this.SalesContract;
+      this.data.Buyer = this.data.FinishingPrintingSalesContract.Buyer;
+      this.data.OrderType = this.data.FinishingPrintingSalesContract.OrderType;
+      this.OrderType = this.data.OrderType;
+      this.data.Material = this.data.FinishingPrintingSalesContract.Material;
+      this.Material = this.data.Material;
+      this.data.YarnMaterial = this.data.FinishingPrintingSalesContract.YarnMaterial;
+      this.data.DesignMotive = this.data.FinishingPrintingSalesContract.DesignMotive;
+      if (this.data.Uom) {
+        this.data.Uom.Unit = this.data.Uom.Unit;
+      }
+      else {
+        this.data.Uom = {};
+        this.data.Uom.Unit = "MTR";
+      }
+      this.data.FinishWidth = this.SalesContract.MaterialWidth;
+      this.data.BeforeQuantity = 0;
+      if (this.data.FinishingPrintingSalesContract.RemainingQuantity != undefined) {
+        // this.data.RemainingQuantity = this.data.SalesContract.RemainingQuantity ? this.data.SalesContract.RemainingQuantity:0;
+        this.rq = true;
+      }
+      else {
+        // this.data.RemainingQuantity = undefined;
+        this.rq = false;
+      }
+    } else {
+      this.data = {};
+      this.data = null;
+    }
+  }
+
+  getBuyerText = (text) => {
+    var data = text.Code ? `${text.Code} - ${text.Name}` : "";
+    return data
+  }
+
+  OrderTypeChanged() {
+    if (this.OrderType) {
+      if (!this.readOnly) {
+        this.data.ProcessType = {};
+        this.data.Details.length = 0;
+      }
+      var code = this.OrderType.Code;
+      if (code) {
+        this.filterOrder = {
+          "OrderTypeCode": code
+        };
+      }
+      if (this.OrderType.Name) {
+        if (this.OrderType.Name.toLowerCase() == "printing") {
+          this.printingOnly = true;
         }
         else {
-          if (!this.readOnly) {
-            this.data.processType = {};
-            this.processChanged({});
-            this.data.details = [];
-          }
-          var code = this.data.orderType.code;
-          if (this.data.orderType && code) {
-            this.filterOrder = {
-              "orderType.code": code
-            };
-          }
-          if (this.data.orderType) {
-            if (this.data.orderType.name.toLowerCase() == "printing" || this.data.orderType.name.toLowerCase() == "yarn dyed") {
-              this.printing = true;
-            }
-            else {
-              this.printing = false;
-            }
-            if (this.data.orderType.name.toLowerCase() == "printing") {
-              this.printingOnly = true;
-            }
-            else {
-              this.printingOnly = false;
-            }
-          }
+          this.printingOnly = false;
+        }
+        if (this.OrderType.Name.toLowerCase() == "printing") {
+          this.printing = true;
+        }
+        else {
+          this.printing = false;
+        }
+        if (this.OrderType.Name.toLowerCase() == "yarn dyed") {
+          this.yarndyed = true;
+        }
+        else {
+          this.yarndyed = false;
+        }
 
+      }
+    }
+    else {
+      if (!this.readOnly) {
+        this.data.ProcessType = {};
+        this.data.Details = [];
+      }
+      var code = this.data.OrderType.Code;
+      if (this.data.OrderType && code) {
+        this.filterOrder = {
+          "OrderTypeCode": code
+        };
+      }
+      if (this.data != null) {
+        if (this.data.OrderType) {
+          if (this.data.OrderType.Name.toLowerCase() == "printing" || this.data.OrderType.Name.toLowerCase() == "yarn dyed") {
+            this.printing = true;
+          }
+          else {
+            this.printing = false;
+          }
+          if (this.data.OrderType.Name.toLowerCase() == "printing") {
+            this.printingOnly = true;
+          }
+          else {
+            this.printingOnly = false;
+          }
         }
       }
 
-  processChanged(e) {
-    var selectedProcess = e.detail || {};
-    if (selectedProcess) {
-      this.data.processTypeId = selectedProcess._id ? selectedProcess._id : "";
-    }
-
-  }
-
-  materialChanged(e) {
-    var selectedMaterial = e.detail || {};
-    if (selectedMaterial) {
-      this.data.materialId = selectedMaterial._id ? selectedMaterial._id : "";
     }
   }
 
-  constructionChanged(e) {
-    var selectedConstruction = e.detail || {};
-    if (selectedConstruction) {
-      this.data.materialConstructionId = selectedConstruction._id ? selectedConstruction._id : "";
-    }
-  }
 
-  uomChanged(e) {
-    var selectedUom = e.detail;
-    if (selectedUom) {
-      this.data.uomId = selectedUom._id;
-      if (this.data.details) {
-        for (var i of this.data.details) {
-          i.uom = selectedUom;
-          i.uomId = selectedUom._id;
+
+  RUNChanged(e) {
+    var selectedRUN = e.srcElement.value;
+    if (selectedRUN) {
+      this.data.RunWidth = [];
+      if (selectedRUN == "Tanpa RUN") {
+        this.run = false;
+        this.data.RunWidth.length = 0;
+      }
+      if (selectedRUN == "1 RUN") {
+
+        this.run = true;
+        this.data.RunWidth[0] = 0;
+        if (this.data.RunWidth.length == 0) {
+          this.data.RunWidth[0] = 0;
+        }
+
+      }
+      if (selectedRUN == "2 RUN") {
+        this.run = true;
+        this.data.RunWidth.length = 0;
+        if (this.data.RunWidth.length == 0) {
+          this.data.RunWidth.push(0, 0);
         }
       }
-    }
-  }
-
-   RUNChanged(e){
-        var selectedRUN=e.srcElement.value;
-        if(selectedRUN){
-            this.data.RUNWidth = [];
-            if(selectedRUN=="Tanpa RUN"){
-                this.run=false;
-                this.data.RUNWidth.length=0;
-            }
-            if(selectedRUN=="1 RUN"){
-              console.log(selectedRUN)
-                this.run=true;
-                this.data.RUNWidth[0]=0;
-                if(this.data.RUNWidth.length==0){
-                    this.data.RUNWidth[0]=0;
-                }
-                console.log(this.data.RUNWidth);
-            }
-            if(selectedRUN=="2 RUN"){
-                this.run=true;
-                this.data.RUNWidth.length=0;
-                if(this.data.RUNWidth.length==0){
-                    this.data.RUNWidth.push(0,0);
-                }
-            }
-            if(selectedRUN=="3 RUN"){
-                this.run=true;
-                this.data.RUNWidth.length=0;
-                if(this.data.RUNWidth.length==0){
-                    this.data.RUNWidth.push(0,0,0);
-                }
-            }
-            if(selectedRUN=="4 RUN"){
-                this.run=true;
-                this.data.RUNWidth.length=0;
-                if(this.data.RUNWidth.length==0){
-                    this.data.RUNWidth.push(0,0,0,0);
-                }
-            }
-            
+      if (selectedRUN == "3 RUN") {
+        this.run = true;
+        this.data.RunWidth.length = 0;
+        if (this.data.RunWidth.length == 0) {
+          this.data.RunWidth.push(0, 0, 0);
         }
-    }
+      }
+      if (selectedRUN == "4 RUN") {
+        this.run = true;
+        this.data.RunWidth.length = 0;
+        if (this.data.RunWidth.length == 0) {
+          this.data.RunWidth.push(0, 0, 0, 0);
+        }
+      }
 
-  buyerChanged(e) {
-    var selectedBuyer = e.detail;
-    if (selectedBuyer) {
-      this.data.buyerId = selectedBuyer._id ? selectedBuyer._id : "";
     }
   }
 
-  yarnChanged(e) {
-    var selectedYarn = e.detail || {};
-    if (selectedYarn) {
-      this.data.yarnMaterialId = selectedYarn._id ? selectedYarn._id : "";
-    }
-  }
-
-  finishTypeChanged(e) {
-    var selectedFinish = e.detail || {};
-    if (selectedFinish) {
-      this.data.finishTypeId = selectedFinish._id ? selectedFinish._id : "";
-    }
-  }
-
-  standardTestChanged(e) {
-    var selectedTest = e.detail || {};
-    if (selectedTest) {
-      this.data.standardTestId = selectedTest._id ? selectedTest._id : "";
-    }
-  }
 
   accountChanged(e) {
-    var selectedAccount = e.detail || {};
+    var selectedAccount = this.account;
     if (selectedAccount) {
-      this.data.accountId = selectedAccount._id ? selectedAccount._id : "";
+
+      this.data.Account = {
+        // Id: 1, //test auth
+        Username: selectedAccount.username,
+        FirstName: selectedAccount.profile.firstname,
+        LastName: selectedAccount.profile.lastname,
+        Gender: selectedAccount.profile.gender,
+        // Roles: [],
+      };
+
+      // for (var item of selectedAccount.roles) {
+      //   var role = {
+      //     Name: item.name,
+      //     Code: item.code,
+      //     Description: item.description
+      //   }
+      //   this.data.Account.Roles.push(role);
+      // }
     }
   }
   // NEW CODE
 
-scFields=["salesContractNo"];
+  scFields = ["salesContractNo"];
   async bind() {
     this.data = this.data || {};
-    this.data.lampStandards = this.data.lampStandards || [];
-    this.data.details = this.data.details || [];
-    this.data.beforeQuantity=this.data.orderQuantity;
-    if(this.data.uom){
-      this.data.uom.unit=this.data.uom.unit;
+    this.data.LampStandards = this.data.LampStandards || [];
+    this.data.Details = this.data.Details || [];
+    this.data.BeforeQuantity = this.data.OrderQuantity;
+    if (this.data.Uom) {
+      this.data.Uom.Unit = this.data.Uom.Unit;
     }
-    else{
-      this.data.uom={};
-      this.data.uom.unit="MTR";
+    else {
+      this.data.Uom = {};
+      this.data.Uom.Unit = "MTR";
     }
-    if (this.data.salesContractId) {
-            this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.salesContractNo),this.scFields);
-            this.data.salesContract =this.selectedSC;
-            if(this.data.salesContract.remainingQuantity!=undefined){
-              this.data.remainingQuantity=this.data.salesContract.remainingQuantity;
-              this.rq=true;
-            }
-           // this.selectedMaterial = this.data.material;
+    if (this.data) {
+      if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
+        this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.SalesContractNo), this.scFields);
+        this.data.FinishingPrintingSalesContract = this.selectedSC;
+        if (this.data.FinishingPrintingSalesContract.RemainingQuantity != undefined) {
+          // this.data.RemainingQuantity = this.data.SalesContract.RemainingQuantity;
+          this.rq = true;
         }
+        // this.selectedMaterial = this.data.material;
+      }
+
+    }
   }
 
   get addLamp() {
     return (event) => {
-      this.data.lampStandards.push({ lampStandard: {}, lampStandardId: {} });
+      var LampStandards = {
+        LampStandardId: 0,
+        Name: "",
+        Code: "",
+        Description: "",
+      };
+      this.data.LampStandards.push(LampStandards);
     };
   }
 
-  get detailHeader(){
-    if(!this.printing && !this.yarndyed){
+  get detailHeader() {
+    if (!this.printing && !this.yarndyed) {
       return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jenis Warna" }, { header: "Jumlah" }, { header: "Satuan" }];
     }
-    else{
-      return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jumlah" }, { header: "Satuan" }]; 
+    else {
+      return [{ header: "Acuan Warna/Desain" }, { header: "Warna Yang Diminta" }, { header: "Jumlah" }, { header: "Satuan" }];
     }
-  } 
+  }
+
   get removeLamp() {
     return (event) => console.log(event);
   }
 
   get addDetailnonPrinting() {
     return (event) => {
-      var newDetail=   {
-            uom: this.data.uom,
-            uomId: this.data.uom._id,
-            colorRequest: '',
-            colorTemplate: '',
-            quantity: 0,
-            printing : this.isPrinting
-          };
-      this.data.details.push(newDetail);
+      var newDetail = {
+        Uom: this.data.Uom,
+        // uomId: this.data.uom._id,
+        ColorRequest: '',
+        ColorTemplate: '',
+        Quantity: 0,
+        Printing: this.isPrinting
+      };
+      this.data.Details.push(newDetail);
     };
   }
 
-  get addDetailPrintingYarnDyed(){
+  get addDetailPrintingYarnDyed() {
     return (event) => {
-      var newDetail=   {
-            uom: this.data.uom,
-            uomId: this.data.uom._id,
-            colorRequest: '',
-            colorTemplate: '',
-            quantity: 0,
-            printing : this.isPrinting
-          };
-      this.data.details.push(newDetail);
+      var newDetail = {
+        Uom: this.data.Uom,
+        // uomId: this.data.uom._id,
+        ColorRequest: '',
+        ColorTemplate: '',
+        Quantity: 0,
+        Printing: this.isPrinting
+      };
+      this.data.Details.push(newDetail);
     };
   }
+
+  get designMotiveLoader() {
+    return DesignMotiveLoader;
+  }
+
+  get processTypeLoader() {
+    return ProcessTypeLoader;
+  }
+
+  get materialConstructionLoader() {
+    return MaterialConstructionLoader;
+  }
+
+  get finishTypeLoader() {
+    return FinishTypeLoader;
+  }
+
+  get standardTests() {
+    return StandardTests;
+  }
+
+  get accountLoader() {
+    return AccountLoader;
+  }
+
 }

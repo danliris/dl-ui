@@ -17,8 +17,8 @@ export class DetailFooter {
   get uom() {
    var uom;
     if(this.context.items.length>0){
-      if(this.context.items[0].data.uom.unit){
-          return this.context.items[0].data.uom.unit;
+      if(this.context.items[0].data.Uom.Unit){
+          return this.context.items[0].data.Uom.Unit;
       }
       else{
         uom="MTR";

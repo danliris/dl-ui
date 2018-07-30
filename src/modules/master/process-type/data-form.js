@@ -26,11 +26,11 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     }
-    
-    detailColumns = [{ header: "Jenis Proses" }, {header: "Jenis Order"}, {header: "Keterangan"}];
-   
 
-    orderFields=["name", "code"];
+    // detailColumns = [{ header: "Jenis Proses" }, { header: "Jenis Order" }, { header: "Keterangan" }];
+
+
+    orderFields = ["name", "code"];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -42,25 +42,26 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        if (this.data.orderTypeId) {
-            this.selectedOrder = await this.service.getOrderById(this.data.orderTypeId, this.orderFields);
-            this.data.orderTypeId =this.selectedOrder._id;
-        }
+        // if (this.data.orderTypeId) {
+        //     this.selectedOrder = await this.service.getOrderById(this.data.orderTypeId, this.orderFields);
+        //     this.data.orderTypeId = this.selectedOrder._id;
+        // }
     }
-    
 
-    @computedFrom("data._id")
+
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     selectedOrderChanged(newValue) {
         var _selectedOrder = newValue;
         if (_selectedOrder) {
-            this.data.orderType = _selectedOrder;
-            this.data.orderTypeId = _selectedOrder._id ? _selectedOrder._id : "";   
-        }else{
-            delete this.data.orderTypeId;
+            this.data.OrderType = _selectedOrder;
+            // this.data.orderTypeId = _selectedOrder.Id ? _selectedOrder.Id : "";
+        } else {
+            // delete this.data.orderTypeId;
+            this.selectedOrder = {};
         }
 
     }
@@ -70,7 +71,7 @@ export class DataForm {
     }
 
     orderView = (order) => {
-        return `${order.code} - ${order.name}`
+        return `${order.Code ? order.Code : ""} - ${order.Name}`
     }
 
 } 
