@@ -19,20 +19,20 @@ export class DataForm {
         }
     }
     
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
+    // @computedFrom("data._id")
+    // get isEdit() {
+    //     return (this.data._id || '').toString() != '';
+    // }
 
     bind(context) {
         this.context = context;
-        // console.log(this.context);
+        console.log(this.context);
         this.data = this.context.data;
         this.error = this.context.error;
         this.flgSpb = false;
         this.flag = true;
         
-        console.log(this.data);
+        // console.log(this.data);
         if (!this.data.uPCNo){
             // console.log(this.data.uPCNo);
             this.useVatCheck = false;
@@ -79,8 +79,7 @@ export class DataForm {
         { header: "Jumlah", value: "quantity" },
         { header: "Satuan", value: "uom" },
         { header: "Harga Satuan", value: "pricePerDealUnitAfter" },
-        { header: "Harga Total", value: "priceTotalAfter" },
-        { header: "", value: ""}
+        { header: "Harga Total", value: "priceTotalAfter" }
     ]
 
     get supplierLoader() {
@@ -92,11 +91,12 @@ export class DataForm {
     }
 
     unitPaymentOrderChanged(newValue) {
-        // console.log(newValue);
+        console.log(newValue);
         this.flgSpb=true;
         // this.data = newValue;
         var selectedPaymentOrder=newValue;
         if (this.data && !this.readOnly) {
+            if (selectedPaymentOrder) {
             // this.data.useVat = selectedPaymentOrder.useVat;
             // this.data.useIncomeTax = selectedPaymentOrder.useIncomeTax;
             if (newValue.useVat != true){
@@ -140,13 +140,13 @@ export class DataForm {
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
 
-                    for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
-
+                    // for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
+                    unitPaymentOrder.unitReceiptNote.items.map((unitReceiptNoteItem) => {
                         var unitQuantityCorrectionNoteItem = {};
                         unitQuantityCorrectionNoteItem.ePONo = unitReceiptNoteItem.EPONo;
                         unitQuantityCorrectionNoteItem.pRNo = unitReceiptNoteItem.PRNo;
                         unitQuantityCorrectionNoteItem.pRId = unitReceiptNoteItem.PRId;
-                        unitQyantityCorrectionNoteItem.pRDetailId = unitReceiptNoteItem.PRItemId;
+                        unitQuantityCorrectionNoteItem.pRDetailId = unitReceiptNoteItem.PRItemId;
                         unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
                         unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
                         // unitQuantityCorrectionNoteItem.productView = unitReceiptNoteItem.product;
@@ -167,23 +167,6 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                         if (unitReceiptNoteItem.correction) {
                             if (unitReceiptNoteItem.correction.length > 0) {
-                                // var _qty = 0;
-                                // var _hasQtyCorrection = false;
-                                // for (var correction of unitReceiptNoteItem.correction) {
-                                //     if (correction.correctionRemark === "Koreksi Jumlah") {
-                                //         _qty += correction.correctionQuantity;
-                                //         _hasQtyCorrection = true;
-                                //     }
-                                // }
-                                // if (!_hasQtyCorrection) {
-                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-                                // } else {
-                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
-                                // }
                                 var _qty = unitReceiptNoteItem.correction
                                     .map((correction) => {
                                         if (correction.correctionRemark === "Koreksi Jumlah") {
@@ -212,8 +195,9 @@ export class DataForm {
                             unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                         }
                         _items.push(unitQuantityCorrectionNoteItem);
-                    }
+                    })
                 }
+                console.log(_items);
                 this.data.items = _items;
             }
             else {
@@ -225,15 +209,21 @@ export class DataForm {
             // this.data.items = [];
             _items = [];
         }
-        // console.log(this.data);
-        this.resetErrorItems();
-    }
+        
+        console.log(this.data.items);
+        // this.resetErrorItems();
+    }}
 
-    resetErrorItems() {
-        if (this.error) {
-            if (this.error.items) {
-                this.error.items = [];
-            }
-        }
+    // resetErrorItems() {
+    //     if (this.error) {
+    //         if (this.error.items) {
+    //             this.error.items = [];
+    //         }
+    //     }
+    // }
+    get addItems() {
+        return (event) => {
+            this.data.items.push({})
+        };
     }
 } 
