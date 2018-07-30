@@ -9,7 +9,7 @@ export class List {
         { field: "uPCNo", title: "No. Koreksi" },
         { field: "correctionDate", title: "Tgl Koreksi",
             formatter: (value, data) => {
-                return moment(data.date).format("DD MMM YYYY");
+                return moment(data.correctionDate).format("DD MMM YYYY");
             }
         },
         { field: "uPONo", title: "No. Surat Perintah Bayar" },
@@ -20,7 +20,7 @@ export class List {
         { field: "invoiceCorrectionNo", title: "No. Invoice Koreksi" },
         { field: "dueDate", title: "Tgl Jatuh Tempo",
             formatter: (value, data) => {
-                return moment(data.date).format("DD MMM YYYY");
+                return moment(data.dueDate).format("DD MMM YYYY");
             }
         },
     ];

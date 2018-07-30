@@ -72,9 +72,10 @@ export class DataForm {
 
     selectedDivisionChanged(newValue) {
         var _selectedDivision = newValue;
-        if (_selectedDivision._id) {
+        if (_selectedDivision.Id ||_selectedDivision._id) {
             this.data.division = _selectedDivision;
-            this.data.divisionId = _selectedDivision._id ? _selectedDivision._id : "";
+            this.data.divisionId = _selectedDivision.Id || _selectedDivision._id || "";
+            this.data.division._id = this.data.divisionId;
         }
         this.resetErrorItems();
     }

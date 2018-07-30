@@ -241,7 +241,7 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return `${unit.division.Name} - ${unit.Name}`;
+        return `${unit.Division.Name} - ${unit.Name}`;
     }
 
     supplierView = (supplier) => {
