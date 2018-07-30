@@ -146,6 +146,7 @@ export class DataForm {
             }
             this.data.dueDate = newValue.dueDate;
             this.data.remark = newValue.remark;
+            this.data.correctionType = "Jumlah";
             
             // this.data.dueDate = newValue.dueDate
             
