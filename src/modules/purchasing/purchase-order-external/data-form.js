@@ -83,11 +83,17 @@ export class DataForm {
                 }
             }
         }
-        if (_selectedUnit._id) {
+        if (_selectedUnit.Id) {
             this.data.unit = _selectedUnit;
+            this.data.unit._id = _selectedUnit.Id;
+            this.data.unit.name = _selectedUnit.Name;
+            this.data.unit.code = _selectedUnit.Code;
             this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
-            this.data.division=_selectedUnit.division;
+            this.data.division=_selectedUnit.Division;
             this.options.unitCode=_selectedUnit.Name;
+            this.data.division._id=_selectedUnit.Division.Id;
+            this.data.division.name=_selectedUnit.Division.Name;
+            this.data.division.code=_selectedUnit.Division.Code;
         }
     }
 
