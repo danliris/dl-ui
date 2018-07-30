@@ -16,7 +16,7 @@ export class Edit {
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save() {

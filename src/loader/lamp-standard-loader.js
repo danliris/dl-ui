@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/lamp-standards';
+const resource = 'master/lamp-standard';
 
 module.exports = function(keyword, filter) {
 

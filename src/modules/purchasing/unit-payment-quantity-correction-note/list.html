@@ -33,16 +33,16 @@
             </thead>
             <tbody>
                 <tr repeat.for="item of data">
-                    <td style="text-align:center">${item.no}</td>
-                    <td style="text-align:center">${item.date | dateFormat:'D MMM YYYY'}</td>
-                    <td style="text-align:center">${item.unitPaymentOrder.no}</td>
-                    <td style="text-align:center">${item.unitPaymentOrder.supplier.name}</td>
+                    <td style="text-align:center">${item.uPCNo}</td>
+                    <td style="text-align:center">${item.correctionDate | dateFormat:'D MMM YYYY'}</td>
+                    <td style="text-align:center">${item.uPONo}</td>
+                    <td style="text-align:center">${item.name}</td>
                     <td style="text-align:center">${item.invoiceCorrectionNo}</td>
-                    <td style="text-align:center">${item.unitPaymentOrder.dueDate | dateFormat:'D MMM YYYY'}</td>
+                    <td style="text-align:center">${item.dueDate | dateFormat:'D MMM YYYY'}</td>
                     <td style="text-align:center">
                         <button class="btn btn-default" click.delegate="view(item)">Rincian</button>
                         <button class="btn btn-primary" click.delegate="getPDF(item)">Cetak Pdf</button>
-                        <button class="btn btn-primary" click.delegate="getPDFRetur(item)" if.bind="item.unitPaymentOrder.useIncomeTax">Cetak Nota Retur</button>
+                        <button class="btn btn-primary" click.delegate="getPDFRetur(item)" if.bind="item.useIncomeTax">Cetak Nota Retur</button>
                     </td>
                 </tr>
             </tbody>

@@ -26,7 +26,8 @@ export class PurchaseOrderItem {
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
-    
+    this._items=[];
+
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.details) {
@@ -82,6 +83,7 @@ export class PurchaseOrderItem {
       
       this.data.details=this._items;
     }
+    this.data.details=this._items;
   }
 
   toggle() {
