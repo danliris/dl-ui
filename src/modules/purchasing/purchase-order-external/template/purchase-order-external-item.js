@@ -27,6 +27,7 @@ export class PurchaseOrderItem {
     this.useVat = this.context.context.options.useVat || false;
     this.isShowing = false;
     this._items=[];
+
     if (this.data) {
       this.selectedPurchaseOrder = this.data;
       if (this.data.details) {
@@ -49,6 +50,7 @@ export class PurchaseOrderItem {
   }
 
   async selectedPurchaseOrderChanged(newValue) {
+    this._items=[];
     if (newValue._id) {
       Object.assign(this.data, newValue);
       
@@ -78,6 +80,8 @@ export class PurchaseOrderItem {
           }
         });
       this.isShowing = true;
+      
+      this.data.details=this._items;
     }
     this.data.details=this._items;
   }

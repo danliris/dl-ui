@@ -41,7 +41,7 @@
             value.bind="deliveryOrder"
             label="Surat Jalan" 
             loader.one-time="deliveryOrderBySupplierLoader" 
-            read-only.bind="readOnly"
+            read-only.bind="readOnly|| isEdit"
             error.bind="error.deliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
@@ -82,7 +82,6 @@
         <au-collection 
             items.bind="data.items" 
             columns.bind="deliveryOrderItem.columns"
-            remove.bind="deliveryOrderItem.onRemove"
             errors.bind="error.items"
             read-only.bind="readOnly"
             item-template="modules/purchasing/unit-receipt-note/template/delivery-order-item"

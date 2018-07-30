@@ -1,149 +1,147 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
-import { Router } from 'aurelia-router';
-var moment = require('moment');
+
+import moment from 'moment';
+
 var UnitLoader = require('../../../loader/unit-loader');
-var BudgetLoader = require('../../../loader/budget-loader');
-var CategoryLoader = require('../../../loader/category-loader');
-var SupplierLoader = require('../../../loader/supplier-loader');
 var AccountLoader = require('../../../loader/account-loader');
-var PurchaseOrderLoader = require('../../../loader/purchase-order-by-user-loader');
+var CategoryLoader = require('../../../loader/category-loader');
 
-@inject(Router, Service)
+@inject(Service)
+
 export class List {
+    constructor(service) {
+        this.service = service;
 
-    columns = [
-        {
-            field: "isPosted", title: "Posted",
-            formatter: function (value, row, index) {
-                return value ? "SUDAH" : "BELUM";
-            }
+        this.flag = false;
+        this.error = {};
+    }
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
         }
+    };
+
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false
+    }
+    columns = [
+        { field: "index", title: "No" , sortable: false},
+        { field: "date", title: "Tanggal PR", sortable: false, formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "prNo", title: "No PR" , sortable: false},
+        { field: "category", title: "Kategori", sortable: false },
+        { field: "productName", title: "Nama Barang", sortable: false },
+        { field: "quantity", title: "Jumlah", sortable: false },
+        { field: "uom", title: "Satuan", sortable: false },
+        { field: "expectedDeliveryDatePO", title: "Tgl diminta datang PO Eksternal", sortable: false, formatter: function (value, data, index) {
+            
+                return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "unit", title: "Unit" , sortable: false },
+        { field: "poStatus", title: "Status", sortable: false },
+        { field: "staff", title: "Staff", sortable: false },
     ];
 
-    poStates = [
-        {
-            "name": "",
-            "value": -1
-        }, {
-            "name": "Dibatalkan",
-            "value": 0
-        }, {
-            "name": "PO Internal belum diorder",
-            "value": 1
-        }, {
-            "name": "Sudah dibuat PO Eksternal",
-            "value": 2
-        }, {
-            "name": "Sudah diorder ke Supplier",
-            "value": 3
-        }, {
-            "name": "Barang sudah datang parsial",
-            "value": 4
-        }, {
-            "name": "Barang sudah datang",
-            "value": 5
-        }, {
-            "name": "Barang sudah diterima Unit parsial",
-            "value": 6
-        }, {
-            "name": "Barang sudah diterima Unit",
-            "value": 7
-        }, {
-            "name": "Sebagian sudah dibuat SPB",
-            "value": 8
-        }, {
-            "name": "Complete",
-            "value": 9
-        }];
-
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
-        this.today = new Date();
-        this.poStates = this.poStates.map(poState => {
-            poState.toString = function () {
-                return this.name;
-            }
-            return poState;
-        })
-        this.data=[];
-    }
-    attached() {
-    }
-
-    activate() {
-    }
-
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
-    }
-
     search() {
-        var dateFormat = "DD MMM YYYY";
-        var locale = 'id-ID';
-        var moment = require('moment');
-        moment.locale(locale);
-        if (!this.poState)
-            this.poState = this.poStates[0];
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "", this.staffName ? this.staffName.username : "")
-        // this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.dateFrom, this.dateTo)
-            .then(data => {
-                this.data = data;
-            })
+        this.error = {};
+
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            this.flag = true;
+            this.poTable.refresh();
+        }
     }
 
     reset() {
-        this.unit = "";
-        this.category = "";
-       // this.PODLNo = "";
-       // this.purchaseOrder = "";
-       // this.supplier = "";
-        this.dateFrom = null;
-        this.dateTo = null;
-       // this.poState = this.poStates[0];
-       // this.budget = "";
-        this.data = [];
+        this.unit = null;
+        this.category = null;
+        this.account = null;
+        this.dateTo = undefined;
+        this.dateFrom = undefined;
+        this.error = {};
+
+        this.flag = false;
+        this.poTable.refresh();
     }
 
-    exportToXls() {
-        if (!this.poState)
-            this.poState = this.poStates[0];
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "");
+    loader = (info) => {
+        var order = {};
+
+        if (info.sort)
+            order[info.sort] = info.order;
+
+        let args = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            unitId: this.unit ? this.unit.Id : "",
+            categoryId: this.category ? this.category._id : "",
+            staff: this.staffName ? this.staffName.username : "",
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+
+        };
+
+        return this.flag ?
+            (
+                this.service.search(args)
+                    .then(result => {
+                        var index=0;
+                        for(var a of result.data){
+                            index++;
+                            a.index=index;
+                            if(a.isCanceled){
+                                a.status="Dibatalkan";
+                            }
+                        }
+                        return {
+                            total: result.info.total,
+                            data: result.data
+                        };
+                    })
+            ) : { total: 0, data: [] };
     }
 
-    dateFromChanged(e) {
-        var _startDate = new Date(e.srcElement.value);
-        var _endDate = new Date(this.dateTo);
-        this.dateMin = moment(_startDate).format("YYYY-MM-DD");
+    xls() {
+        this.error = {};
 
-        if (_startDate > _endDate || !this.dateTo) {
-            this.dateTo = e.srcElement.value;
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            let args = {
+            no: this.pr ? this.pr.no : "",
+            unitId: this.unit ? this.unit.Id : "",
+            categoryId: this.category ? this.category._id : "",
+            staff: this.staffName ? this.staffName.username : "",
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+
+        };
+
+            this.service.getXls(args)
+                .catch(e => {
+                    alert(e.replace(e, "Error: ", ""));
+                });
         }
-
     }
 
     get unitLoader() {
         return UnitLoader;
     }
-
-    get budgetLoader() {
-        return BudgetLoader;
-    }
-
+    
     get categoryLoader() {
         return CategoryLoader;
-    }
-
-    get purchaseOrderLoader() {
-        return PurchaseOrderLoader;
-    }
-
-    get supplierLoader() {
-        return SupplierLoader;
     }
     
     get accountLoader() {
         return AccountLoader;
     }
+
 }

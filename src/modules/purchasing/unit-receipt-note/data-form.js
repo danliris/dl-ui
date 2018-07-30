@@ -35,14 +35,15 @@ export class DataForm {
 
         this.deliveryOrderItem = {
             columns: [
+                { header: "No PR" },
                 { header: "Barang" },
                 { header: "Jumlah" },
                 { header: "Satuan" },
                 { header: "Keterangan" }   
             ],
-            onRemove: function() {
-                this.bind();
-            }
+            // onRemove: function() {
+            //     this.bind();
+            // }
         };
     }
     @computedFrom("data.deliveryOrder" , "data.unit")
@@ -50,8 +51,8 @@ export class DataForm {
          var storageFilter={};
         if(this.data.unit){
             storageFilter={
-                "UnitName": this.data.unit.name,
-                "DivisionName" : this.data.unit.division.name
+                "UnitName": this.data.unit.Name,
+                "DivisionName" : this.data.unit.division.Name
             };
         }
         console.log(storageFilter);
@@ -81,7 +82,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-console.log(this.data);
         if (this.data && this.data.supplier)
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
@@ -96,9 +96,9 @@ console.log(this.data);
             this.data.storage =this.storage;
         }
 
-        if(!this.readOnly) {
-            this.deliveryOrderItem.columns.push({ header: "" });
-        }
+        // if(!this.readOnly) {
+        //     this.deliveryOrderItem.columns.push({ header: "" });
+        // }
     }
 
     supplierChanged(newValue, oldValue) {
@@ -123,7 +123,7 @@ console.log(this.data);
 
         if (selectedUnit) {
             this.data.unit = selectedUnit;
-            this.data.unitId = selectedUnit._id;
+            this.data.unitId = selectedUnit.Id;
             this.data.unit.division=selectedUnit.division;
             
         }
@@ -188,7 +188,6 @@ console.log(this.data);
                         //     }
                         // }
                         //_item.deliveredQuantity=fulfillment.deliveredQuantity;
-            console.log(_item);
                         if (_item.deliveredQuantity > 0)
                             _items.push(_item);
                     }
@@ -242,7 +241,7 @@ console.log(this.data);
     }
 
     unitView = (unit) => {
-        return `${unit.division.name} - ${unit.name}`;
+        return `${unit.Division.Name} - ${unit.Name}`;
     }
 
     supplierView = (supplier) => {

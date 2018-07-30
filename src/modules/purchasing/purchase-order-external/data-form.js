@@ -85,9 +85,9 @@ export class DataForm {
         }
         if (_selectedUnit._id) {
             this.data.unit = _selectedUnit;
-            this.data.unitId = _selectedUnit._id ? _selectedUnit._id : "";
+            this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
             this.data.division=_selectedUnit.division;
-            this.options.unitCode=_selectedUnit.name;
+            this.options.unitCode=_selectedUnit.Name;
         }
     }
 
@@ -185,7 +185,8 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return `${unit.division.name} - ${unit.name}`
+        console.log(unit)
+        return `${unit.Division.Name} - ${unit.Name}`
     }
 
     currencyView = (currency) => {

@@ -20,7 +20,7 @@ export default class OrderTypesAutoSuggestReact extends AutoSuggestReact {
         var options = Object.assign({}, OrderTypesAutoSuggestReact.defaultProps.options, props.options);
         var initialValue = Object.assign({}, empty, props.value);
         initialValue.toString = function () {
-            return `${this.name}`;
+            return `${this.Name}`;
         };
         this.setState({ value: initialValue, label: initialValue.toString(), options: options, suggestions: [initialValue] });
     }
@@ -49,7 +49,7 @@ OrderTypesAutoSuggestReact.defaultProps = {
                 .then(results => {
                     return results.data.map(order => {
                         order.toString = function () {
-                            return `${this.name}`;
+                            return `${this.Name}`;
                         }
                         return order;
                     });

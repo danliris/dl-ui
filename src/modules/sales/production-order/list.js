@@ -17,14 +17,13 @@ export class List {
                 return "";
             }
         },
-        { field: "salesContractNo", title: "Nomor Sales Contract" },
-
-        { field: "orderNo", title: "Nomor Order Produksi" },
-        { field: "buyer.type", title: "Jenis Buyer" },
-        { field: "buyer.name", title: "Buyer" },
-        { field: "processType.name", title: "Jenis Proses" },
+        { field: "FinishingPrintingSalesContract.SalesContractNo", title: "Nomor Sales Contract" },
+        { field: "OrderNo", title: "Nomor Order Produksi" },
+        { field: "Buyer.Type", title: "Jenis Buyer" },
+        { field: "Buyer.Name", title: "Buyer" },
+        { field: "ProcessType.Name", title: "Jenis Proses" },
         {
-            field: "deliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
+            field: "DeliveryDate", title: "Tanggal Delivery", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -54,7 +53,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["orderNo", "salesContractNo", "buyer", "deliveryDate", "processType", "isClosed"]
+            // select: ["orderNo", "salesContractNo", "buyer", "deliveryDate", "processType", "isClosed"]
         }
 
         return this.service.search(arg)
@@ -79,10 +78,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "print":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
