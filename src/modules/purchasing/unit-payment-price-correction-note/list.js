@@ -1,15 +1,33 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
-
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
+var moment = require("moment");
 
 @inject(Router, Service)
 export class List {
-    data = [];
-    keyword = '';
+    columns = [
+        { field: "uPCNo", title: "No. Koreksi" },
+        { field: "correctionDate", title: "Tgl Koreksi",
+            formatter: (value, data) => {
+                return moment(data.date).format("DD MMM YYYY");
+            }
+        },
+        { field: "uPONo", title: "No. Surat Perintah Bayar" },
+        { field: "supplier", title: "Supplier",
+            formatter: (value, data) => {
+                return data.supplier?data.supplier.code+" - "+data.supplier.name:"";
+            } },
+        { field: "invoiceCorrectionNo", title: "No. Invoice Koreksi" },
+        { field: "dueDate", title: "Tgl Jatuh Tempo",
+            formatter: (value, data) => {
+                return moment(data.date).format("DD MMM YYYY");
+            }
+        },
+    ];
+
+    context = ["Rincian", "Cetak PDF"];
 
     today = new Date();
-    info = { page: 1, keyword: '' };
 
     isPrint = false;
 
@@ -19,45 +37,52 @@ export class List {
     }
 
     async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        this.data = result.data;
-        this.info = result.info;
+
     }
 
-    loadPage() {
-        var keyword = this.info.keyword;
-        this.service.search(this.info)
+    loader = (info) => {
+        var order = {};
+
+        if (info.sort)
+            order[info.sort] = info.order;
+        
+        var arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order
+        };
+
+        return this.service.search(arg)
             .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-                this.info.keyword = keyword;
-            })
-    }
-
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.loadPage();
+                for (var _data of result.data) {
+                    _data.Id= _data._id?_data._id:_data.Id;
+                }
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
+            });
     }
 
     back() {
         this.router.navigateToRoute('list');
     }
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
-    }
-
     create() {
         this.router.navigateToRoute('create');
     }
 
-    getPDF(data) {
-        this.service.getPdfById(data._id);
+    contextClickCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+            case "Rincian":
+                this.router.navigateToRoute('view', { id: data._id });
+                break;
+            case "Cetak PDF":
+                this.service.getPdfById(data._id);
+                break;
+        }
     }
-
-    // getPDFRetur(data) {
-    //     this.service.getPdfReturById(data._id);
-    // }
 }

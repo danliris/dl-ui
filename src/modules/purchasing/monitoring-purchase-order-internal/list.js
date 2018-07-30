@@ -83,7 +83,7 @@ export class List {
         let args = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            unitId: this.unit ? this.unit._id : "",
+            unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             staff: this.staffName ? this.staffName.username : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
@@ -117,7 +117,7 @@ export class List {
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             let args = {
             no: this.pr ? this.pr.no : "",
-            unitId: this.unit ? this.unit._id : "",
+            unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             staff: this.staffName ? this.staffName.username : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
