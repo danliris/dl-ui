@@ -51,8 +51,8 @@ export class DataForm {
          var storageFilter={};
         if(this.data.unit){
             storageFilter={
-                "UnitName": this.data.unit.Name,
-                "DivisionName" : this.data.unit.division.Name
+                "UnitName": this.data.unit.name,
+                "DivisionName" : this.data.division.name
             };
         }
         console.log(storageFilter);
