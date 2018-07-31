@@ -49,7 +49,6 @@ export class DataForm {
     @computedFrom("data.deliveryOrder" , "data.unit")
     get storageFilter(){
          var storageFilter={};
-         console.log(this.data.unit)
         if(this.data.unit){
             storageFilter={
                 "UnitName": this.data.unit.name,
@@ -129,10 +128,10 @@ export class DataForm {
             this.data.unit.name = _selectedUnit.Name;
             this.data.unit.code = _selectedUnit.Code;
             this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
-            this.data.division=_selectedUnit.Division;
-            this.data.division._id=_selectedUnit.Division.Id;
-            this.data.division.name=_selectedUnit.Division.Name;
-            this.data.division.code=_selectedUnit.Division.Code;
+            this.data.unit.division=_selectedUnit.Division;
+            this.data.unit.division._id=_selectedUnit.Division.Id;
+            this.data.unit.division.name=_selectedUnit.Division.Name;
+            this.data.unit.division.code=_selectedUnit.Division.Code;
         }
         else {
             this.data.unitId = null;
@@ -154,12 +153,10 @@ export class DataForm {
             this.data.doNo=selectedDo.no;
             var selectedItem = selectedDo.items || [];
             
-            console.log(selectedDo);
             var _items = [];
             for (var item of selectedItem) {
                 for (var fulfillment of item.fulfillments) {
                     
-            console.log(fulfillment);
                     var _item = {};
                     if (fulfillment.purchaseOrder.purchaseRequest.unit._id == this.data.unitId) {
                         _item.product = fulfillment.product;
