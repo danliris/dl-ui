@@ -49,10 +49,11 @@ export class DataForm {
     @computedFrom("data.deliveryOrder" , "data.unit")
     get storageFilter(){
          var storageFilter={};
+         console.log(this.data.unit)
         if(this.data.unit){
             storageFilter={
                 "UnitName": this.data.unit.name,
-                "DivisionName" : this.data.division.name
+                "DivisionName" : this.data.unit.division.name
             };
         }
         console.log(storageFilter);
@@ -90,6 +91,7 @@ export class DataForm {
             this.data.storage.unit=this.data.unit;
             this.storage=this.data.storage;
         }
+
             
         if (this.data.isInventory) {
             this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
