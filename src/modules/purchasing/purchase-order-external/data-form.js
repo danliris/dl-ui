@@ -185,7 +185,8 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return `${unit.division.Name} - ${unit.Name}`
+        console.log(unit)
+        return `${unit.Division.Name} - ${unit.Name}`
     }
 
     currencyView = (currency) => {
