@@ -152,7 +152,7 @@ export class DataForm {
     }
 
     divisionView = (division) => {
-        return division.name
+        return division.name || division.Name
     }
 
     supplierView = (supplier) => {
