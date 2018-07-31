@@ -87,7 +87,7 @@ export class List {
         this.error = {};
 
         this.flag = false;
-        this.prTable.refresh();
+        //this.prTable.refresh();
     }
 
     loader = (info) => {

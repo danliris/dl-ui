@@ -33,7 +33,7 @@ export class List {
     }
     columns = [
         { field: "index", title: "No" , sortable: false},
-        { field: "date", title: "Tanggal PR", sortable: false, formatter: function (value, data, index) {
+        { field: "prDate", title: "Tanggal PR", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
@@ -42,7 +42,7 @@ export class List {
         { field: "productName", title: "Nama Barang", sortable: false },
         { field: "quantity", title: "Jumlah", sortable: false },
         { field: "uom", title: "Satuan", sortable: false },
-        { field: "expectedDeliveryDatePO", title: "Tgl diminta datang PO Eksternal", sortable: false, formatter: function (value, data, index) {
+        { field: "expectedDeliveryDatePO", title: "Tgl diminta datang PR", sortable: false, formatter: function (value, data, index) {
             
                 return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
@@ -69,9 +69,9 @@ export class List {
         this.dateTo = undefined;
         this.dateFrom = undefined;
         this.error = {};
-
+        this.staffName=null;
         this.flag = false;
-        this.poTable.refresh();
+        //this.poTable.refresh();
     }
 
     loader = (info) => {
