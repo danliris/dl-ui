@@ -82,7 +82,6 @@ export class PurchaseOrderItem {
       
       this.data.details=this._items;
     }
-    this.data.details=this._items;
   }
 
   toggle() {

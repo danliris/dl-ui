@@ -49,10 +49,11 @@ export class DataForm {
     @computedFrom("data.deliveryOrder" , "data.unit")
     get storageFilter(){
          var storageFilter={};
+         console.log(this.data.unit)
         if(this.data.unit){
             storageFilter={
-                "UnitName": this.data.unit.Name,
-                "DivisionName" : this.data.unit.division.Name
+                "UnitName": this.data.unit.name,
+                "DivisionName" : this.data.unit.division.name
             };
         }
         console.log(storageFilter);
@@ -90,6 +91,7 @@ export class DataForm {
             this.data.storage.unit=this.data.unit;
             this.storage=this.data.storage;
         }
+
             
         if (this.data.isInventory) {
             this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
@@ -119,13 +121,18 @@ export class DataForm {
     }
 
     unitChanged(newValue, oldValue) {
-        var selectedUnit = newValue;
+        var _selectedUnit = newValue;
 
-        if (selectedUnit) {
-            this.data.unit = selectedUnit;
-            this.data.unitId = selectedUnit.Id;
-            this.data.unit.division=selectedUnit.division;
-            
+        if (_selectedUnit) {
+            this.data.unit = _selectedUnit;
+            this.data.unit._id = _selectedUnit.Id;
+            this.data.unit.name = _selectedUnit.Name;
+            this.data.unit.code = _selectedUnit.Code;
+            this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
+            this.data.division=_selectedUnit.Division;
+            this.data.division._id=_selectedUnit.Division.Id;
+            this.data.division.name=_selectedUnit.Division.Name;
+            this.data.division.code=_selectedUnit.Division.Code;
         }
         else {
             this.data.unitId = null;
@@ -241,7 +248,7 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return `${unit.Division.Name} - ${unit.Name}`;
+        return unit.division ?`${unit.division.name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`;
     }
 
     supplierView = (supplier) => {
