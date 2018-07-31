@@ -1,0 +1,7 @@
+language: generic
+before_install: true
+install: true
+before_script: echo "Before Script"
+script: 
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  - if [ "$TRAVIS_PULL_REQUEST" == false ]; then bash ./deploy.sh; fi
