@@ -86,12 +86,11 @@ export class DataForm {
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
-        if(this.data.storage && this.data.unit){
+        if(this.data.isStorage && this.data.unit){
             this.data.storage.unit=this.data.unit;
             this.storage=this.data.storage;
         }
 
-            
         if (this.data.isInventory) {
             this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
             this.data.storage =this.storage;
@@ -205,6 +204,15 @@ export class DataForm {
         this.resetErrorItems();
         this.storage=null;
         this.data.isInventory=false;
+    }
+
+    isStorageChanged(e){
+        if(!this.data.isStorage){
+            this.storage=null;
+            this.data.storage =null;
+            this.data.storageId = null;
+            console.log(this.data.storage)
+        }
     }
 
     storageChanged(newValue, oldValue) {

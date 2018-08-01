@@ -54,6 +54,7 @@
             label="Simpan ke Gudang" 
             value.bind="data.isStorage" 
             error.bind="error.isStorage" 
+            change.delegate="isStorageChanged($event)"
             read-only.bind="readOnly"
             options.bind="auInputOptions">
         </au-checkbox>
