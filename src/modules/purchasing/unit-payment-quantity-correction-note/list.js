@@ -5,11 +5,7 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    // data = [];
-    // keyword = '';
-    
     today = new Date();
-    // info = { page: 1, keyword: '' };
 
     isPrint = false;
     
@@ -32,12 +28,10 @@ export class List {
       if (info.sort)
          order[info.sort] = info.order;
         console.log(info);
-        // data.supplier.name=data.name;
          var arg = {
          page: parseInt(info.offset / info.limit, 10) + 1,
          size: info.limit,
          keyword: info.search,
-        //  select:["uPCNo", "correctionDate", "uPONo", "supplier.name", "invoiceCorrectionNo", "dueDate"],
          order: order
         }
     
@@ -58,7 +52,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        // console.log(this.router);
+        console.log(this.service);
     }
 
     contextClickCallback(event) {
@@ -69,7 +63,7 @@ export class List {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data._id });
                 break;
-            case "Cetak Pdf":
+            case "Cetak PDF":
                 this.service.getPdfById(data._id);
                 break;
             case "Cetak Nota Retur":
@@ -77,50 +71,16 @@ export class List {
                 break;
         }
     }
-
-    // async activate() {
-    //     this.info.keyword = '';
-    //     var result = await this.service.search(this.info);
-    //     // console.log(result);
-    //     this.data = result.data;
-    //     console.log(this.data);
-    //     this.info = result.info;
-    // }
-
-    // loadPage() {
-    //     var keyword = this.info.keyword;
-    //     console.log(this.info);
-    //     this.service.search(this.info)
-    //         .then(result => {
-    //             this.data = result.data;
-    //             this.info = result.info;
-    //             this.info.keyword = info.search;
-    //         })
-    // }
-
-    // changePage(e) {
-    //     var page = e.detail;
-    //     this.info.page = page;
-    //     this.loadPage();
-    // }
-
-    // back() {
-    //     this.router.navigateToRoute('list');
-    // }
-
-    // view(data) {
-    //     this.router.navigateToRoute('view', { id: data._id });
-    // }
+    contextShowCallback(index, name, data) {
+        switch (name) {
+            case "Cetak Nota Retur":
+                return data.useVat;
+            default:
+                return true;
+        }
+    }
 
     create() {
         this.router.navigateToRoute('create');
     }
-
-    // getPDF(data) {
-    //     this.service.getPdfById(data._id);
-    // }
-
-    // getPDFRetur(data) {
-    //     this.service.getPdfReturById(data._id);
-    // }
 }
