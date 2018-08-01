@@ -91,9 +91,10 @@ export class DataForm {
             this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
             this.data.division=_selectedUnit.Division;
             this.options.unitCode=_selectedUnit.Name;
-            this.data.division._id=_selectedUnit.Division.Id;
-            this.data.division.name=_selectedUnit.Division.Name;
-            this.data.division.code=_selectedUnit.Division.Code;
+            this.data.unit.division=_selectedUnit.Division;
+            this.data.unit.division._id=_selectedUnit.Division.Id;
+            this.data.unit.division.name=_selectedUnit.Division.Name;
+            this.data.unit.division.code=_selectedUnit.Division.Code;
         }
     }
 
