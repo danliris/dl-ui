@@ -13,7 +13,10 @@ export class List {
 
     columns = [
         { field: "uPCNo", title: "No. Koreksi" },
-        { field: "correctionDate", title: "Tgl. Koreksi"},
+        { field: "correctionDate", title: "Tgl. Koreksi", formatter: function(value, data, index){
+            return moment(value).format("D MMM YYYY");
+          }
+        },
         { field: "uPONo", title: "No. Surat Perintah Bayar"},
         { field: "supplier.name", title: "Supplier"},
         { field: "invoiceCorrectionNo", title: "No. Invoice Koreksi"},
