@@ -4,9 +4,9 @@ import { Service } from "./service";
 import moment from 'moment';
 
 var SupplierLoader = require('../../../loader/supplier-loader');
-var DOLoader = require('../../../loader/delivery-orders/by-supplier');
+var DOLoader = require('../../../loader/delivery-order-all-loader');
 
-@inject(Router, Service)
+@inject(Service)
 
 export class List {
     constructor(service) {
@@ -40,15 +40,15 @@ export class List {
     // }
 
     columns = [
-        { field: "index", title: "NO" , sortable: false},
-        { field: "supplierCode", title: "KODE SUPPLIER" , sortable: false },
-        { field: "supplierName", title: "NAMA SUPPLIER", sortable: false },
-        { field: "no", title: "NOMOR SURAT JALAN", sortable: false },
-        { field: "supplierDoDate", title: "TANGGAL SURAT JALAN", sortable: false, formatter: function (value, data, index) {
+        { field: "index", title: "No" , sortable: false},
+        { field: "supplierCode", title: "Kode Supplier" , sortable: false },
+        { field: "supplierName", title: "Nama Supplier", sortable: false },
+        { field: "no", title: "Nomor Surat Jalan", sortable: false },
+        { field: "supplierDoDate", title: "Tanggal Surat Jalan", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD/MM/YYYY");
             }
         },
-        { field: "date", title: "TANGGAL DATANG BARANG", sortable: false, formatter: function (value, data, index) {
+        { field: "date", title: "Tanggal Datang Barang", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD/MM/YYYY");
             }
         },
@@ -68,7 +68,7 @@ export class List {
 
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
-            this.prTable.refresh();
+            this.doTable.refresh();
         }
     }
     // search() {
@@ -103,12 +103,12 @@ export class List {
         let args = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            no: this.no ? this.no : "",
-            supplierId: this.supplier ? this.supplier.Id : "",
+            no: this.no ? this.no.no : "",
+            supplierId: this.supplier ? this.supplier._id : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
         };
-
+console.log(args);
         return this.flag ?
             (
                 this.service.search(args)
@@ -132,7 +132,7 @@ export class List {
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             let args = {
             no: this.no ? this.no : "",
-            supplierId: this.supplierId ? this.supplier.Id : "",
+            supplierId: this.supplierId ? this.supplier._id : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 

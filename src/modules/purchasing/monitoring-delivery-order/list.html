@@ -5,7 +5,7 @@
         <au-autocomplete 
             value.bind="no" 
             label="No. Surat Jalan" 
-            loader.bind="doLoader"
+            loader.bind="dOLoader"
             placeholder="cari nomor SJ" 
             text.bind = "doView"
             key="No"
@@ -40,7 +40,7 @@
         <!-- <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
         <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker> -->
         <div class="form-group">
-            <label for="contact" class="col-sm-6 control-label"></label>
+            <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
