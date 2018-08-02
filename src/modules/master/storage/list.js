@@ -9,7 +9,7 @@ export class List {
     { field: "code", title: "Kode" },
     { field: "name", title: "Nama" },
     { field: "unit", title: "Unit", formatter: function (value, data, index) {
-        return data.unit.division.name + " - " + data.unit.name;
+        return data.unit.division.Name + " - " + data.unit.name;
       } },
     { field: "description", title: "Deskripsi" },
   ];
