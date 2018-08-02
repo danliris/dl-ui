@@ -3,7 +3,7 @@ import { Service } from "./service";
 var moment = require('moment');
 
 var SupplierLoader = require('../../../loader/supplier-loader');
-var UPOLoader = require('../../../loader/unit-payment-order-loader');
+var UPOLoader = require('../../../loader/unit-payment-order-all-loader');
 
 
 @inject(BindingEngine, Element,Service)
