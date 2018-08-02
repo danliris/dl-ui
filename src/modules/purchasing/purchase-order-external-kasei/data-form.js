@@ -73,7 +73,7 @@ export class DataForm {
         }
     }
 
-    selectedUnitChanged(newValue) {
+   selectedUnitChanged(newValue) {
         var _selectedUnit = newValue;
         if(this.data.unit && this.data.unit!=newValue){
             if(this.data && this.data.items && this.data.items.length > 0){
@@ -83,7 +83,7 @@ export class DataForm {
                 }
             }
         }
-        if (_selectedUnit._id) {
+        if (_selectedUnit.Id) {
             this.data.unit = _selectedUnit;
             this.data.unit._id = _selectedUnit.Id;
             this.data.unit.name = _selectedUnit.Name;
