@@ -1,18 +1,68 @@
 <template>
     <h1 class="page-header">Monitoring Surat Jalan</h1>
     <form class="form-horizontal">
-        <delivery-order-auto-suggest label="No. Surat Jalan" value.bind="no"></delivery-order-auto-suggest>
-        <supplier-auto-suggest label="Supplier" value.bind="supplierId"></supplier-auto-suggest>
-        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
+        <!-- <delivery-order-auto-suggest label="No. Surat Jalan" value.bind="no"></delivery-order-auto-suggest> -->
+        <au-autocomplete 
+            value.bind="no" 
+            label="No. Surat Jalan" 
+            loader.bind="dOLoader"
+            placeholder="cari nomor SJ" 
+            text.bind = "doView"
+            key="No"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="supplier" 
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            text.bind = "supplierView"
+            placeholder="cari supplier" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+        <!-- <supplier-auto-suggest label="Supplier" value.bind="supplierId"></supplier-auto-suggest> -->
+        <au-datepicker
+            value.bind="dateFrom"
+            label="Dari Tgl"
+            options.bind="controlOptions"
+            error.bind="error.date">
+        </au-datepicker>
+        
+        <au-datepicker
+            value.bind="dateTo"
+            label="Sampai Tgl"
+            options.bind="controlOptions"
+            error.bind="error.date">
+        </au-datepicker>
+
+        <!-- <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker> -->
         <div class="form-group">
-            <label for="contact" class="col-sm-6 control-label"></label>
+            <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
                 <button click.delegate="search()" class='btn btn-success'>Cari</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
-        <div >
+
+        <au-table
+            view-model.ref="doTable"
+            data.bind="loader"
+            columns.bind="columns"
+            sortable.bind="true"
+            page-size="25"
+            options.bind="tableOptions">
+            
+            <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="xls()">Cetak Excel</button>
+            </div>
+        </au-table>
+        <hr/>
+    </form>
+</template>
+        <!-- <div >
             <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
         </div>
         <div class="table-responsive">
@@ -64,4 +114,4 @@
         </div>
         <hr/>
     </form>
-</template>
+</template> -->
