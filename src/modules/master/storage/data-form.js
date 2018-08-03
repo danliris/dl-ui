@@ -4,6 +4,7 @@ var UnitLoader = require('../../../loader/unit-loader');
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable selectedUnit;
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
@@ -24,13 +25,34 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+    if(this.data.unit){
+      this.selectedUnit=this.data.unit;
+      if(this.selectedUnit.division){
+        this.data.unit.name=this.selectedUnit.division.Name;
+      }
+    }
   }
 
-  unitChanged(e) {
-        var selectedUnit = e.detail;
-        if (selectedUnit)
-            this.data.unitId = selectedUnit._id;
+  selectedUnitChanged(newdata) {
+        var _selectedUnit = newdata;
+        if (_selectedUnit){
+          console.log(_selectedUnit)
+            this.data.unitId = _selectedUnit._id || _selectedUnit.Id || "" ;
+            this.data.unit=_selectedUnit;
+            this.data.unit._id=_selectedUnit._id || _selectedUnit.Id || "";
+            this.data.unit.name=_selectedUnit.name || _selectedUnit.Name || "";
+            this.data.unit.code=_selectedUnit.code || _selectedUnit.Code || "";
             
+            this.data.unit.division=_selectedUnit.division || _selectedUnit.Division || {};
+            if(this.data.unit.division){
+              this.data.unit.division._id=this.data.unit.division.Id||"";
+              this.data.unit.division.name= this.data.unit.division.Name|| "";
+              this.data.unit.division.code=this.data.unit.division.Code|| "";
+
+            }
+
+          
+        }
     }
 
   get unitLoader() {
@@ -38,6 +60,6 @@ export class DataForm {
     }
   
   unitView = (unit) => {
-        return `${unit.division.name} - ${unit.name}`;
+        return unit.division ?`${unit.division.Name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`
     }
 } 
