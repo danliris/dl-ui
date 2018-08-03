@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service, MongoService } from './service';
 import moment from 'moment';
+import numeral from 'numeral';
 var UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loader');
 
 @inject(Service, MongoService)
@@ -63,9 +64,20 @@ export class DataForm {
 
     columns = [
         { field: "productName", title: "Nama Barang" },
-        { field: "deliveredQuantity", title: "Jumlah" },
-        { field: "pricePerDealUnit", title: "Harga Satuan" },
-        { field: "totalPrice", title: "Harga Total" },
+        { 
+            field: "deliveredQuantity", title: "Jumlah", formatter: (value, data) => {
+                return numeral(value).format('(0,0)');
+            }  
+        },
+        { 
+            field: "pricePerDealUnit", title: "Harga Satuan", formatter: (value, data) => {
+                return numeral(value).format('(0,0.00)');
+            }  
+        },
+        {   field: "totalPrice", title: "Harga Total", formatter: (value, data) => {
+                return numeral(value).format('(0,0.00)');
+            } 
+        },
         { field: "currency", title: "Mata Uang" },
         { field: "no", title: "No Bon Terima Unit" },
         { field: "purchaseOrderExternalNo", title: "No PO Eksternal" },
