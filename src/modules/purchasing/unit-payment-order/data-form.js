@@ -56,7 +56,7 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.incomeTax", "data.useVat")
+    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.useIncomeTax", "data.incomeTax", "data.useVat")
     get filter() {
         var filter = {
             DivisionId: this.data.division ? this.data.division._id : this.data.division,
@@ -64,8 +64,9 @@ export class DataForm {
             CategoryId: this.data.category ? this.data.category._id : this.data.category,
             PaymentMethod: this.data.paymentMethod,
             CurrencyCode: (this.data.currency || {}).code || (this.data.currency || {}).Code || "",
+            UseIncomeTax: this.data.useIncomeTax,
             IncomeTaxId: this.data.incomeTax ? this.data.incomeTax._id : null,
-            UseVat: this.data.useVat
+            UseVat: this.data.useVat,
         }
         return filter;
     }
