@@ -30,21 +30,21 @@ export async function configure(aurelia) {
         }
       }
 
-      var core = "https://dl-core-api.mybluemix.net/v1/";
-	    var auth = "https://dl-auth-api.mybluemix.net/v1/";
-	    var production = "https://dl-production-webapi.mybluemix.net/v1/";
-	    var purchasing = "https://dl-purchasing-webapi.mybluemix.net/v1/";
+      var core = "https://dl-core-api.azurewebsites.net/v1/";
+	    var auth = "https://dl-auth-api.azurewebsites.net/v1/";
+	    var production = "https://dl-production-webapi.azurewebsites.net/v1/";
+	    var purchasing = "https://dl-purchasing-webapi.azurewebsites.net/v1/";
 	    var purchasingAzure = "https://com-danliris-service-purchasing-uat.azurewebsites.net/v1/";
-	    var garmentPurchasing = "https://dl-purchasing-garment-webapi.mybluemix.net/v1/";
-	    var inventory = "https://dl-inventory-webapi.mybluemix.net/v1/";
+	    var garmentPurchasing = "https://dl-purchasing-garment-webapi.azurewebsites.net/v1/";
+	    var inventory = "https://dl-inventory-webapi.azurewebsites.net/v1/";
 	    var inventoryAzure = "https://com-danliris-service-inventory-prd.azurewebsites.net/v1/";
-	    var garmentMasterPlan = "https://dl-garment-masterplan-webapi.mybluemix.net/v1/";
+	    var garmentMasterPlan = "https://dl-garment-masterplan-webapi.azurewebsites.net/v1/";
 	    var spMasterPlan = "https://dl-sp-master-plan-webapi-dev.mybluemix.net/v1/";
 	    var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
 	    var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
 	    var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
 	    var merchandiser = "https://com-danliris-service-md-uat.azurewebsites.net/v1/";
-    
+
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production, defaultConfig);
