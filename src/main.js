@@ -34,7 +34,7 @@ export async function configure(aurelia) {
 	    var auth = "https://dl-auth-api.azurewebsites.net/v1/";
 	    var production = "https://dl-production-webapi.azurewebsites.net/v1/";
 	    var purchasing = "https://dl-purchasing-webapi.azurewebsites.net/v1/";
-	    var purchasingAzure = "https://com-danliris-service-purchasing-uat.azurewebsites.net/v1/";
+	    var purchasingAzure = "https://com-danliris-service-purchasing.azurewebsites.net/v1/";
 	    var garmentPurchasing = "https://dl-purchasing-garment-webapi.azurewebsites.net/v1/";
 	    var inventory = "https://dl-inventory-webapi.azurewebsites.net/v1/";
 	    var inventoryAzure = "https://com-danliris-service-inventory-prd.azurewebsites.net/v1/";
