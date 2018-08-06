@@ -134,10 +134,7 @@ export class DataForm {
             this.useIncomeTaxCheck = newValue.useIncomeTax;
             this.data.useVat = newValue.useVat ;
             this.data.useIncomeTax = newValue.useIncomeTax;
-            // console.log(selectedPaymentOrder.supplier);
-            // this.data.supplier = {};
             this.data.supplier = newValue.supplier;
-            // this.data.supplierView = newValue.supplier;
             this.data.supplier.toString = function () {
                 return [newValue.supplier.code, newValue.supplier.name]
                     .filter((item, index) => {
@@ -145,14 +142,9 @@ export class DataForm {
                     }).join(" - ");
             }
             this.data.dueDate = newValue.dueDate;
-            this.data.remark = newValue.remark;
             this.data.correctionType = "Jumlah";
             
-            // this.data.dueDate = newValue.dueDate
-            
-            // console.log(this.data.supplier); 
-            // if(!this.data)
-                var _items = [];
+            var _items = [];
 
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
@@ -163,6 +155,7 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.ePONo = unitReceiptNoteItem.EPONo;
                         unitQuantityCorrectionNoteItem.pRNo = unitReceiptNoteItem.PRNo;
                         unitQuantityCorrectionNoteItem.pRId = unitReceiptNoteItem.PRId;
+                        unitQuantityCorrectionNoteItem.uPODetailId = unitReceiptNoteItem.Id; 
                         unitQuantityCorrectionNoteItem.pRDetailId = unitReceiptNoteItem.PRItemId;
                         unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
                         unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
@@ -197,18 +190,24 @@ export class DataForm {
                                         return prev + curr;
                                     }, 0);
 
-                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+                                // unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
+                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.quantityCorrection - _qty;
+                                unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.deliveredQuantity - _qty;
                                 unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
                                 unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
 
                             } else {
-                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                                unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnit;
+                                // unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.quantityCorrection;
+                                unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.deliveredQuantity;
+                                unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnitCorrection;
                                 unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                             }
                         } else {
-                            unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                            unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnit;
+                            // unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                            unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.quantityCorrection;
+                            unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.deliveredQuantity;
+                            unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnitCorrection;
                             unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
                         }
                         _items.push(unitQuantityCorrectionNoteItem);
