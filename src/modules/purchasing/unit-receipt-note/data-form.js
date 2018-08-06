@@ -91,10 +91,10 @@ export class DataForm {
             this.storage=this.data.storage;
         }
 
-        if (this.data.isInventory) {
-            this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
-            this.data.storage =this.storage;
-        }
+        // if (this.data.isInventory) {
+        //     this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
+        //     this.data.storage =this.storage;
+        // }
 
         // if(!this.readOnly) {
         //     this.deliveryOrderItem.columns.push({ header: "" });
