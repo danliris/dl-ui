@@ -1,12 +1,12 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'unit-payment-orders/spb';
+const resource = 'unit-payment-orders';
 
 module.exports = function (keyword, filter) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("purchasing-azure");
-console.log(config);console.log(endpoint);console.log(keyword);console.log(filter);
+
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
             return results.data.map(unitPaymentOrder => {

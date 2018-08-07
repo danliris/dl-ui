@@ -83,11 +83,18 @@ export class DataForm {
                 }
             }
         }
-        if (_selectedUnit._id) {
+        if (_selectedUnit.Id) {
             this.data.unit = _selectedUnit;
+            this.data.unit._id = _selectedUnit.Id;
+            this.data.unit.name = _selectedUnit.Name;
+            this.data.unit.code = _selectedUnit.Code;
             this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
-            this.data.division=_selectedUnit.division;
+            this.data.division=_selectedUnit.Division;
             this.options.unitCode=_selectedUnit.Name;
+            this.data.unit.division=_selectedUnit.Division;
+            this.data.unit.division._id=_selectedUnit.Division.Id;
+            this.data.unit.division.name=_selectedUnit.Division.Name;
+            this.data.unit.division.code=_selectedUnit.Division.Code;
         }
     }
 
@@ -185,8 +192,7 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        console.log(unit)
-        return `${unit.Division.Name} - ${unit.Name}`
+        return unit.division ?`${unit.division.name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`;
     }
 
     currencyView = (currency) => {

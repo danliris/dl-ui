@@ -51,8 +51,8 @@ export class DataForm {
          var storageFilter={};
         if(this.data.unit){
             storageFilter={
-                "UnitName": this.data.unit.Name,
-                "DivisionName" : this.data.unit.division.Name
+                "UnitName": this.data.unit.name,
+                "DivisionName" : this.data.unit.division.name
             };
         }
         console.log(storageFilter);
@@ -86,15 +86,15 @@ export class DataForm {
             this.data.supplier.toString = function () {
                 return this.code + " - " + this.name;
             };
-        if(this.data.storage && this.data.unit){
+        if(this.data.isStorage && this.data.unit){
             this.data.storage.unit=this.data.unit;
             this.storage=this.data.storage;
         }
-            
-        if (this.data.isInventory) {
-            this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
-            this.data.storage =this.storage;
-        }
+
+        // if (this.data.isInventory) {
+        //     this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
+        //     this.data.storage =this.storage;
+        // }
 
         // if(!this.readOnly) {
         //     this.deliveryOrderItem.columns.push({ header: "" });
@@ -119,13 +119,18 @@ export class DataForm {
     }
 
     unitChanged(newValue, oldValue) {
-        var selectedUnit = newValue;
+        var _selectedUnit = newValue;
 
-        if (selectedUnit) {
-            this.data.unit = selectedUnit;
-            this.data.unitId = selectedUnit.Id;
-            this.data.unit.division=selectedUnit.division;
-            
+        if (_selectedUnit) {
+            this.data.unit = _selectedUnit;
+            this.data.unit._id = _selectedUnit.Id;
+            this.data.unit.name = _selectedUnit.Name;
+            this.data.unit.code = _selectedUnit.Code;
+            this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
+            this.data.unit.division=_selectedUnit.Division;
+            this.data.unit.division._id=_selectedUnit.Division.Id;
+            this.data.unit.division.name=_selectedUnit.Division.Name;
+            this.data.unit.division.code=_selectedUnit.Division.Code;
         }
         else {
             this.data.unitId = null;
@@ -147,12 +152,10 @@ export class DataForm {
             this.data.doNo=selectedDo.no;
             var selectedItem = selectedDo.items || [];
             
-            console.log(selectedDo);
             var _items = [];
             for (var item of selectedItem) {
                 for (var fulfillment of item.fulfillments) {
                     
-            console.log(fulfillment);
                     var _item = {};
                     if (fulfillment.purchaseOrder.purchaseRequest.unit._id == this.data.unitId) {
                         _item.product = fulfillment.product;
@@ -203,6 +206,15 @@ export class DataForm {
         this.data.isInventory=false;
     }
 
+    isStorageChanged(e){
+        if(!this.data.isStorage){
+            this.storage=null;
+            this.data.storage =null;
+            this.data.storageId = null;
+            console.log(this.data.storage)
+        }
+    }
+
     storageChanged(newValue, oldValue) {
         var selectedStorage = newValue;
 
@@ -241,7 +253,7 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return `${unit.Division.Name} - ${unit.Name}`;
+        return unit.division ?`${unit.division.name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`;
     }
 
     supplierView = (supplier) => {

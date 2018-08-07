@@ -1,6 +1,95 @@
 <template>
     <h1 class="page-header">Monitoring Bon Terima Unit</h1>
     <form class="form-horizontal">
+        <au-autocomplete 
+            value.bind="unitReceiptNote" 
+            label="Nomor Bon Unit" 
+            loader.bind="urnLoader"
+            placeholder="cari nomor Bon Terima" 
+            text.bind = "urnView"
+            key="URNNo"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="pr" 
+            label="Nomor PR" 
+            loader.bind="prLoader"
+            placeholder="cari nomor PR" 
+            text.bind = "prView"
+            key="No"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="unit" 
+            label="Unit" 
+            loader.bind="unitLoader"
+            placeholder="cari unit" 
+            key="code"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        
+        <au-autocomplete 
+            value.bind="category" 
+            label="Kategori" 
+            loader.bind="categoryLoader"
+            placeholder="cari kategori" 
+            key="code"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="supplier" 
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            placeholder="cari supplier" 
+            key="code"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-datepicker
+            value.bind="dateFrom"
+            label="Dari Tgl"
+            options.bind="controlOptions"
+            error.bind="error.date">
+        </au-datepicker>
+        
+        <au-datepicker
+            value.bind="dateTo"
+            label="Sampai Tgl"
+            options.bind="controlOptions"
+            error.bind="error.date">
+        </au-datepicker>
+        
+        <div class="form-group">
+            <label for="contact" class="col-sm-5 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button> 
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+    
+        <au-table
+            view-model.ref="prTable"
+            data.bind="loader"
+            columns.bind="columns"
+            sortable.bind="true"
+            page-size="25"
+            options.bind="tableOptions">
+            
+            <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="xls()">Cetak Excel</button>
+            </div>
+        </au-table>
+        <hr/>
+    </form>
+</template>
+
+<!--<template>
+    <h1 class="page-header">Monitoring Bon Terima Unit</h1>
+    <form class="form-horizontal">
         <unit-receipt-note-auto-suggest label="No. Bon Unit" value.bind="no"></unit-receipt-note-auto-suggest>
         <purchase-request-auto-suggest-by-user  label="Nomor PR"        value.bind="purchaseOrder"  filter.bind="filter"></purchase-request-auto-suggest-by-user>
         <unit-auto-suggest label="Unit" value.bind="unitId"></unit-auto-suggest>
@@ -68,4 +157,4 @@
         </div>
         <hr/>
     </form>
-</template>
+</template>-->

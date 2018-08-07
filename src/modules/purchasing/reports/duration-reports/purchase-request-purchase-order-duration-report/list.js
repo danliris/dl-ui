@@ -60,7 +60,7 @@ export class List {
     }
 
     fillValues() {
-        this.arg.unitId = this.filter.unit ? this.filter.unit._id : "";
+        this.arg.unitId = this.filter.unit ? this.filter.unit.Id : "";
         this.arg.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -79,11 +79,18 @@ export class List {
             keyword: info.search,
             order: order
         };
-
+        console.log(this.arg);
         return this.listDataFlag ? (
             this.fillValues(),
             this.service.search(this.arg)
+           
                 .then(result => {
+                    var index=0;
+                        for(var a of result.data){
+                            index++;
+                            a.index=index;
+                            
+                        }
                     return {
                         total: result.info.length,
                         data: result.data

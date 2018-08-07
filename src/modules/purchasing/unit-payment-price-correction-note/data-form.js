@@ -3,7 +3,7 @@ import { Service } from "./service";
 var moment = require('moment');
 
 var SupplierLoader = require('../../../loader/supplier-loader');
-var UPOLoader = require('../../../loader/unit-payment-order-loader');
+var UPOLoader = require('../../../loader/unit-payment-order-all-loader');
 
 
 @inject(BindingEngine, Element,Service)
@@ -79,7 +79,6 @@ export class DataForm {
     }
 
     setItems(_paymentOrder) {
-        console.log("aa")
         if(!this.readOnly){
             var _items = []
             for (var unitPaymentOrder of _paymentOrder.items) {
@@ -167,7 +166,7 @@ export class DataForm {
         }
     }
 
-    selectectedUnitPaymentOrderChanged(newValue) {
+    async selectectedUnitPaymentOrderChanged(newValue) {
         if(!this.readOnly){
             var _selectedPaymentOrder = newValue;
             console.log(_selectedPaymentOrder);
@@ -178,6 +177,10 @@ export class DataForm {
                 this.data.uPOId = _selectedPaymentOrder._id;
                 this.data.uPONo=_selectedPaymentOrder.no;
                 this.data.supplier=_selectedPaymentOrder.supplier;
+                if(_selectedPaymentOrder.supplier){
+                    this.data.supplier = await this.service.getSupplierById(_selectedPaymentOrder.supplier._id);
+                    
+                }
                 this.data.division=_selectedPaymentOrder.division;
                 this.data.category=_selectedPaymentOrder.category;
                 this.selectedSupplier=this.data.supplier.code +" - "+this.data.supplier.name;

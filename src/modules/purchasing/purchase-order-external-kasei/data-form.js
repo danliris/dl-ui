@@ -50,7 +50,6 @@ export class DataForm {
         if (this.data.currency) {
             this.selectedCurrency = this.data.currency;
             this.data.currencyRate=this.data.currency.rate;
-            console.log(this.data.currency)
         }
         if (this.data.incomeTax) {
             this.selectedIncomeTax = this.data.incomeTax;
@@ -74,7 +73,7 @@ export class DataForm {
         }
     }
 
-    selectedUnitChanged(newValue) {
+   selectedUnitChanged(newValue) {
         var _selectedUnit = newValue;
         if(this.data.unit && this.data.unit!=newValue){
             if(this.data && this.data.items && this.data.items.length > 0){
@@ -84,11 +83,18 @@ export class DataForm {
                 }
             }
         }
-        if (_selectedUnit._id) {
+        if (_selectedUnit.Id) {
             this.data.unit = _selectedUnit;
-            this.data.unitId = _selectedUnit._id ? _selectedUnit._id : "";
-            this.data.division=_selectedUnit.division;
-            this.options.unitCode=_selectedUnit.name;
+            this.data.unit._id = _selectedUnit.Id;
+            this.data.unit.name = _selectedUnit.Name;
+            this.data.unit.code = _selectedUnit.Code;
+            this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
+            this.data.division=_selectedUnit.Division;
+            this.options.unitCode=_selectedUnit.Name;
+            this.data.unit.division=_selectedUnit.Division;
+            this.data.unit.division._id=_selectedUnit.Division.Id;
+            this.data.unit.division.name=_selectedUnit.Division.Name;
+            this.data.unit.division.code=_selectedUnit.Division.Code;
         }
     }
 
@@ -185,7 +191,7 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return `${unit.Division.Name} - ${unit.Name}`
+        return unit.division ?`${unit.division.name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`
     }
 
     currencyView = (currency) => {

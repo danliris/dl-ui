@@ -59,7 +59,7 @@ export class UnitPaymentOrderItem {
         item.PriceTotal = item.pricePerDealUnit * item.deliveredQuantity;
         item.PricePerDealUnitCorrection = item.pricePerDealUnit;
         item.PriceTotalCorrection = item.PriceTotal;
-
+        item.QuantityCorrection= item.deliveredQuantity;
         items.push(item);
       }
       newValue.items = items;
