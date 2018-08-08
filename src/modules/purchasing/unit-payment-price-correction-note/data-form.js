@@ -93,7 +93,7 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.pRId=unitReceiptNoteItem.PRId;
                     unitPaymentPriceCorrectionNoteItem.pRDetailId=unitReceiptNoteItem.PRItemId;
                     unitPaymentPriceCorrectionNoteItem.product=unitReceiptNoteItem.product;
-                    unitPaymentPriceCorrectionNoteItem.quantity=unitReceiptNoteItem.deliveredQuantity;
+                    unitPaymentPriceCorrectionNoteItem.quantity=unitReceiptNoteItem.QuantityCorrection;
                     unitPaymentPriceCorrectionNoteItem.uom=unitReceiptNoteItem.deliveredUom;
                     unitPaymentPriceCorrectionNoteItem.pricePerDealUnitAfter=unitReceiptNoteItem.PricePerDealUnitCorrection;
                     unitPaymentPriceCorrectionNoteItem.priceTotalAfter=unitReceiptNoteItem.PriceTotalCorrection;
