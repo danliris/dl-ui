@@ -49,7 +49,6 @@ export class DataForm {
 
     bind(context) {
         this.context = context;
-        console.log(this.context);
         this.data = this.context.data;
         this.error = this.context.error;
         this.flgSpb = false;
@@ -67,6 +66,13 @@ export class DataForm {
             this.unitPaymentOrder = this.data.uPCNo;
             this.useVatCheck = this.data.useVat;
             this.useIncomeTaxCheck = this.data.useIncomeTax;
+
+            // if(this.data.incomeTaxCorrectionDate=="0001-01-01T00:00:00+00:00")
+            //     this.data.incomeTaxCorrectionDate="";
+            
+            // if(this.data.vatTaxCorrectionDate=="0001-01-01T00:00:00+00:00")
+            //     this.data.vatTaxCorrectionDate="";
+            
             var supplierCode=this.data.supplier.code;
             var supplierName=this.data.supplier.name;
             this.data.supplier.toString = function () {
@@ -107,7 +113,6 @@ export class DataForm {
     }
 
     unitPaymentOrderChanged(newValue) {
-        console.log(newValue);
         this.flgSpb=true;
         // this.data = newValue;
         var selectedPaymentOrder=newValue;
@@ -129,15 +134,11 @@ export class DataForm {
             this.data.division = newValue.division;
             this.data.category = newValue.category;
             this.data.currency = newValue.currency;
-            
             this.useVatCheck = newValue.useVat;
             this.useIncomeTaxCheck = newValue.useIncomeTax;
             this.data.useVat = newValue.useVat ;
             this.data.useIncomeTax = newValue.useIncomeTax;
-            // console.log(selectedPaymentOrder.supplier);
-            // this.data.supplier = {};
             this.data.supplier = newValue.supplier;
-            // this.data.supplierView = newValue.supplier;
             this.data.supplier.toString = function () {
                 return [newValue.supplier.code, newValue.supplier.name]
                     .filter((item, index) => {
@@ -145,15 +146,10 @@ export class DataForm {
                     }).join(" - ");
             }
             this.data.dueDate = newValue.dueDate;
-            this.data.remark = newValue.remark;
             this.data.correctionType = "Jumlah";
             
-            // this.data.dueDate = newValue.dueDate
-            
-            // console.log(this.data.supplier); 
-            // if(!this.data)
-                var _items = [];
-
+            var _items = [];
+            console.log(selectedPaymentOrder);
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
 
@@ -163,6 +159,7 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.ePONo = unitReceiptNoteItem.EPONo;
                         unitQuantityCorrectionNoteItem.pRNo = unitReceiptNoteItem.PRNo;
                         unitQuantityCorrectionNoteItem.pRId = unitReceiptNoteItem.PRId;
+                        unitQuantityCorrectionNoteItem.uPODetailId = unitReceiptNoteItem.Id; 
                         unitQuantityCorrectionNoteItem.pRDetailId = unitReceiptNoteItem.PRItemId;
                         unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
                         unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
@@ -182,35 +179,14 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.currencyRate = newValue.currency.rate;
                         unitQuantityCorrectionNoteItem.uRNNo = unitPaymentOrder.unitReceiptNote.no;
                         unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
-                        if (unitReceiptNoteItem.correction) {
-                            if (unitReceiptNoteItem.correction.length > 0) {
-                                var _qty = unitReceiptNoteItem.correction
-                                    .map((correction) => {
-                                        if (correction.correctionRemark === "Koreksi Jumlah") {
-                                            return correction.correctionQuantity;
-                                        }
-                                        else {
-                                            return 0;
-                                        }
-                                    })
-                                    .reduce((prev, curr, index) => {
-                                        return prev + curr;
-                                    }, 0);
-
-                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                                unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-
-                            } else {
-                                unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                                unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnit;
-                                unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
-                            }
-                        } else {
-                            unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
-                            unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnit;
-                            unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
-                        }
+                        
+                            // unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection;
+                        unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection;
+                        unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+                        
+                        
                         _items.push(unitQuantityCorrectionNoteItem);
                     })
                 }
@@ -231,13 +207,6 @@ export class DataForm {
         // this.resetErrorItems();
     }}
 
-    // resetErrorItems() {
-    //     if (this.error) {
-    //         if (this.error.items) {
-    //             this.error.items = [];
-    //         }
-    //     }
-    // }
     get addItems() {
         return (event) => {
             this.data.items.push({})
