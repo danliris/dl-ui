@@ -91,7 +91,7 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.ePONo=unitReceiptNoteItem.EPONo;
                     unitPaymentPriceCorrectionNoteItem.pRNo=unitReceiptNoteItem.PRNo;
                     unitPaymentPriceCorrectionNoteItem.pRId=unitReceiptNoteItem.PRId;
-                    unitPaymentPriceCorrectionNoteItem.pRDetailId=unitReceiptNoteItem.PRDetailId;
+                    unitPaymentPriceCorrectionNoteItem.pRDetailId=unitReceiptNoteItem.PRItemId;
                     unitPaymentPriceCorrectionNoteItem.product=unitReceiptNoteItem.product;
                     unitPaymentPriceCorrectionNoteItem.quantity=unitReceiptNoteItem.deliveredQuantity;
                     unitPaymentPriceCorrectionNoteItem.uom=unitReceiptNoteItem.deliveredUom;
@@ -181,6 +181,7 @@ export class DataForm {
                     this.data.supplier = await this.service.getSupplierById(_selectedPaymentOrder.supplier._id);
                     
                 }
+                this.data.dueDate=_selectedPaymentOrder.dueDate;
                 this.data.division=_selectedPaymentOrder.division;
                 this.data.category=_selectedPaymentOrder.category;
                 this.selectedSupplier=this.data.supplier.code +" - "+this.data.supplier.name;
