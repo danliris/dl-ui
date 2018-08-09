@@ -59,7 +59,7 @@ export class List {
         { field: "dealQuantity", title: "Jumlah Yang Diminta", sortable: false },
         { field: "dOQuantity", title: "Jumlah Yang Datang", sortable: false },
         { field: "remainingQuantity", title: "Sisa Qty", sortable: false },
-        { field: "uomUnit", title: "Satuanan", sortable: false },
+        { field: "uomUnit", title: "Satuan", sortable: false },
     ];
 
     search() {
@@ -128,16 +128,14 @@ console.log(args);
     
     xls() {
         this.error = {};
-
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             let args = {
             no: this.no ? this.no : "",
-            supplierId: this.supplierId ? this.supplier._id : "",
+            supplierId: this.supplier ? this.supplier._id : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
         };
-
             this.service.getXls(args)
                 .catch(e => {
                     alert(e.replace(e, "Error: ", ""));
