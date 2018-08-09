@@ -27,7 +27,7 @@ export class View {
         this.dialog = dialog;
 
         this.collection = {
-            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang', ''],
+            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang', ''],
         };
     }
 

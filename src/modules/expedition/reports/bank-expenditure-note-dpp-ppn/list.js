@@ -20,6 +20,7 @@ export class List {
                 return value ? moment(value).format('DD MMM YYYY') : '-';
             },
         },
+        { field: 'CategoryName', title: 'Category' },
         { field: 'DivisionName', title: 'Divisi' },
         { field: 'PaymentMethod', title: 'Cara Pembayaran' },
         {
@@ -126,6 +127,7 @@ export class List {
                             before = result.data[i];
                             before._DocumentNo_rowspan = 1;
                             before._Date_rowspan = 1;
+                            before._CategoryName_rowspan = 1;
                             before._DivisionName_rowspan = 1;
                             before._PaymentMethod_rowspan = 1;
                             before._DPP_rowspan = 1;
@@ -136,6 +138,7 @@ export class List {
                         } else {
                             before._DocumentNo_rowspan++;
                             before._Date_rowspan++;
+                            before._CategoryName_rowspan++;
                             before._DivisionName_rowspan++;
                             before._PaymentMethod_rowspan++;
                             before._DPP_rowspan++;
@@ -150,6 +153,7 @@ export class List {
 
                             result.data[i].DocumentNo = undefined;
                             result.data[i].Date = undefined;
+                            result.data[i].CategoryName = undefined;
                             result.data[i].DivisionName = undefined;
                             result.data[i].PaymentMethod = undefined;
                             result.data[i].DPP = undefined;
@@ -193,6 +197,72 @@ export class List {
             if (!this.info.dateTo)
                 this.error.dateTo = "Tanggal Akhir harus diisi";
         }
+    }
+
+    getExcelData() {
+        let info = {
+            offset: this.page * 50,
+            limit: 50,
+        };
+
+        this.loader(info)
+            .then(response => {
+                this.excelData.push(...response.data);
+
+                if (this.excelData.length !== response.total) {
+                    this.page++;
+                    this.getExcelData();
+                }
+                else {
+                    let wsData = [];
+
+                    for (let data of this.excelData) {
+                        wsData.push({
+                            'No Bukti Pengeluaran Bank': data.DocumentNo,
+                            'Tanggal Bayar DPP + PPN': data.Date ? moment(data.Date).format('DD MMM YYYY') : '-',
+                            'Category': data.CategoryName,
+                            'Divisi': data.DivisionName,
+                            'Cara Pembayaran': data.PaymentMethod,
+                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.0000') : '-',
+                            'PPN': data.VAT ? numeral(data.VAT).format('0,000.0000') : '-',
+                            'TotalPaid': data.TotalPaid ? numeral(data.TotalPaid).format('0,000.0000') : '-',
+                            'Mata Uang': data.Currency,
+                            'Bank Bayar PPH': data.BankName,
+                            'Supplier': data.SupplierName,
+                            'No SPB': data.UnitPaymentOrderNo,
+                            'No Invoice': data.InvoiceNumber,
+                        });
+                    }
+
+                    let wb = XLSX.utils.book_new();
+                    wb.Props = {
+                        Title: 'Report',
+                        Subject: 'Dan Liris',
+                        Author: 'Dan Liris',
+                        CreatedDate: new Date()
+                    };
+                    wb.SheetNames.push('Laporan DPP PPN');
+
+                    let ws = XLSX.utils.json_to_sheet(wsData);
+                    wb.Sheets['Laporan DPP PPN'] = ws;
+
+                    let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+                    let buf = new ArrayBuffer(wbout.length);
+                    let view = new Uint8Array(buf);
+                    for (let i = 0; i < wbout.length; i++) view[i] = wbout.charCodeAt(i) & 0xFF;
+
+                    let fileSaver = require('file-saver');
+                    fileSaver.saveAs(new Blob([buf], { type: 'application/octet-stream' }), 'Laporan DPP PPN.xlsx');
+                }
+            });
+    }
+
+    excel() {
+        this.flag = true;
+
+        this.page = 0;
+        this.excelData = [];
+        this.getExcelData();
     }
 
     reset() {

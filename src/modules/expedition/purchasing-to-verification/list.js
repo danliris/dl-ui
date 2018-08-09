@@ -22,6 +22,7 @@ export class List {
         },
         { field: 'InvoiceNo', title: 'Nomor Invoice' },
         { field: 'SupplierName', title: 'Supplier' },
+        { field: 'CategoryName', title: 'Category' },
         { field: 'DivisionName', title: 'Divisi' },
         {
             field: 'TotalPaid', title: 'Total Bayar', formatter: function (value, data, index) {
