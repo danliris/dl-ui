@@ -128,8 +128,8 @@ export class DataForm {
             this.context.tableItems.refresh();
 
             this.data.useIncomeTax = this.data.useVat ? parseFloat(((this.data.vatRate * this.totalPaid) / 100).toFixed(2)) : 0;
-            this.data.useVat = this.data.useIncomeTax ? parseFloat(((0.1 * this.totalPaid) / 100).toFixed(2)) : 0;
-            this.data.remark = parseFloat((this.totalPaid + this.data.useVat).toFixed(2)) //this is "Total Paid"    
+            this.data.useVat = this.data.useIncomeTax ? parseFloat((0.1 * this.totalPaid).toFixed(2)) : 0;
+            this.data.remark = parseFloat((this.totalPaid + this.data.useVat).toFixed(2)); //this is "Total Paid"    
 
             this.data.UnitPaymentOrderNo = this.SPB.no;
 

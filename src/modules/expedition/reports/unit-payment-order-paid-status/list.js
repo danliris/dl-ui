@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
+import XLSX from 'xlsx';
 import { Service } from './service';
 const PurchasingDocumentExpeditionLoader = require('../../../../loader/purchasing-document-expedition-loader');
 const SupplierLoader = require('../../../../loader/supplier-loader');
@@ -157,6 +158,76 @@ export class List {
             else if (!this.dateTo)
                 this.error.dateTo = "Tanggal Akhir harus diisi";
         }
+    }
+
+    getExcelData() {
+        let info = {
+            offset: this.page * 50,
+            limit: 50,
+        };
+
+        this.loader(info)
+            .then(response => {
+                this.excelData.push(...response.data);
+
+                if (this.excelData.length !== response.total) {
+                    this.page++;
+                    this.getExcelData();
+                }
+                else {
+                    let wsData = [];
+
+                    for (let data of this.excelData) {
+                        wsData.push({
+                            'No. SPB': data.UnitPaymentOrderNo,
+                            'Tanggal SPB': moment(data.UPODate).format('DD MMM YYYY'),
+                            'Tanggal Jatuh Tempo': moment(data.DueDate).format('DD MMM YYYY'),
+                            'No Invoice': data.InvoiceNo,
+                            'Supplier': data.SupplierName,
+                            'Divisi': data.DivisionName,
+                            'Cara Pembayaran': data.PaymentMethod,
+                            'Status': data.Status,
+                            'DPP': data.DPP ? numeral(data.DPP).format('0,000.0000') : '-',
+                            'PPH': data.IncomeTax ? numeral(data.IncomeTax).format('0,000.0000') : '-',
+                            'PPN': data.VAT ? numeral(data.VAT).format('0,000.0000') : '-',
+                            'TotalPaid': data.TotalPaid ? numeral(data.TotalPaid).format('0,000.0000') : '-',
+                            'Mata Uang': data.Currency,
+                            'Tanggal Bayar PPH': data.BankExpenditureNotePPHDate ? moment(data.BankExpenditureNotePPHDate).format('DD MMM YYYY') : '-',
+                            'Bank Bayar PPH': data.PPHBank ? data.PPHBank : '-',
+                            'Tanggal Bayar DPP+PPN': data.BankExpenditureNoteDate ? moment(data.BankExpenditureNoteDate).format('DD MMM YYYY') : '-',
+                            'Bank Bayar DPP+PPN': data.Bank ? data.Bank : '-',
+                        });
+                    }
+
+                    let wb = XLSX.utils.book_new();
+                    wb.Props = {
+                        Title: 'Report',
+                        Subject: 'Dan Liris',
+                        Author: 'Dan Liris',
+                        CreatedDate: new Date()
+                    };
+                    wb.SheetNames.push('Laporan SPB');
+
+                    let ws = XLSX.utils.json_to_sheet(wsData);
+                    wb.Sheets['Laporan SPB'] = ws;
+
+                    let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+                    let buf = new ArrayBuffer(wbout.length);
+                    let view = new Uint8Array(buf);
+                    for (let i = 0; i < wbout.length; i++) view[i] = wbout.charCodeAt(i) & 0xFF;
+
+                    let fileSaver = require('file-saver');
+                    fileSaver.saveAs(new Blob([buf], { type: 'application/octet-stream' }), 'Laporan SPB.xlsx');
+                }
+            });
+    }
+
+    excel() {
+        this.flag = true;
+
+        this.page = 0;
+        this.excelData = [];
+        this.getExcelData();
     }
 
     reset() {

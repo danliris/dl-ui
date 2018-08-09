@@ -24,6 +24,8 @@ export class Item {
             'items.unitReceiptNote.items.deliveredUom.unit',
             'items.unitReceiptNote.items.pricePerDealUnit',
             'items.unitReceiptNote.items.purchaseOrder.purchaseOrderExternal.no',
+            'items.unitReceiptNote.items.purchaseOrder.category.name',
+            'items.unitReceiptNote.items.purchaseOrder.category.code',
             'items.unitReceiptNote.no',
             'items.unitReceiptNote.items.correction',
         ];
@@ -59,7 +61,6 @@ export class Item {
 
                     for (let item of newV.items) {
                         let urnObj = urn.find(p => p.no === item.unitReceiptNote.no);
-                        
                         for (let detail of item.unitReceiptNote.items) {
                             let corrections = detail.correction;
                             let price, quantity;
@@ -104,7 +105,7 @@ export class Item {
 
                     let vat = newV.useIncomeTax ? Number((totalPaid * 0.1).toFixed(4)) : 0;
                     let incomeTax = newV.useVat ? Number(((newV.vat.rate * totalPaid) / 100).toFixed(4)) : 0;
-             
+                    console.log(newV)
                     Object.assign(this.data, {
                         id: newV._id,
                         no: newV.no,
@@ -124,6 +125,8 @@ export class Item {
                         totalPaid: Number((totalPaid + vat).toFixed(4)),
                         currency: newV.currency.code,
                         items: items,
+                        categoryName: newV.items[0].unitReceiptNote.items[0].purchaseOrder.category.name,
+                        categoryCode: newV.items[0].unitReceiptNote.items[0].purchaseOrder.category.code,
                     });
                 });
         }
