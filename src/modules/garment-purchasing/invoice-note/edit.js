@@ -33,12 +33,13 @@ export class Edit {
     }
 
     save(event) {
-        var itemToBeSaved = this.data.items.filter(function (item) {
-            return item.check
-        });
-        var _data = Object.assign({}, this.data);
-        _data.items = itemToBeSaved;
-        this.service.update(_data).then(result => {
+        // var itemToBeSaved = this.data.items.filter(function (item) {
+        //     return item.check
+        // });
+        // console.log(itemToBeSaved)
+        // var _data = Object.assign({}, this.data);
+        // _data.items = itemToBeSaved;
+        this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {
             this.error = e;
