@@ -67,7 +67,8 @@
         <au-checkbox
             label="Apakah kena koreksi PPN?"        
             value.bind="data.useVat"              
-            error.bind="error.useVat"                 
+            error.bind="error.useVat"    
+            change.delegate="useVatChanged($event)"             
             read-only.bind="readOnly || !selectectedUnitPaymentOrder.useVat" 
             options.bind="controlOptions">
         </au-checkbox>
@@ -77,7 +78,7 @@
             value.bind="data.vatTaxCorrectionNo"     
             error.bind="error.vatTaxCorrectionNo"        
             read-only.bind="readOnly"
-            show.bind="selectectedUnitPaymentOrder.useVat"
+            show.bind="data.useVat"
             options.bind="controlOptions">
         </au-textbox>
 
@@ -86,14 +87,15 @@
             value.bind="data.vatTaxCorrectionDate"   
             error.bind="error.vatTaxCorrectionDate"      
             read-only.bind="readOnly"
-            show.bind="selectectedUnitPaymentOrder.useVat"
+            show.bind="data.useVat"
             options.bind="controlOptions">
         </au-datepicker> 
 
         <au-checkbox                           
             label="Apakah kena koreksi PPH?"        
             value.bind="data.useIncomeTax"                    
-            error.bind="error.useIncomeTax"                       
+            error.bind="error.useIncomeTax"     
+            change.delegate="useIncomeTaxChanged($event)"                   
             read-only.bind="readOnly || !selectectedUnitPaymentOrder.useIncomeTax" 
             options.bind="controlOptions">
         </au-checkbox>
@@ -102,7 +104,7 @@
             label="No. Faktur Pajak Koreksi (PPH)"  
             value.bind="data.incomeTaxCorrectionNo"        
             error.bind="error.incomeTaxCorrectionNo"   
-            show.bind="selectectedUnitPaymentOrder.useIncomeTax"        
+            show.bind="data.useIncomeTax"        
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
@@ -111,7 +113,7 @@
             label="Tgl. Faktur Pajak Koreksi (PPH)" 
             value.bind="data.incomeTaxCorrectionDate"      
             error.bind="error.incomeTaxCorrectionDate"  
-            show.bind="selectectedUnitPaymentOrder.useIncomeTax"          
+            show.bind="data.useIncomeTax"          
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker> 
