@@ -208,7 +208,7 @@ export class DataForm {
         }
     }
     useVatChanged(e){
-        if(!this.data.useIncomeTax){
+        if(!this.data.useVat){
             this.data.vatTaxCorrectionNo="";
             this.data.vatTaxCorrectionDate=null;
         }
