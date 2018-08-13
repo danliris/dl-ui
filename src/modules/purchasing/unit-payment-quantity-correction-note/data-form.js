@@ -9,6 +9,8 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable unitPaymentOrder;
+    @bindable useVat;
+    @bindable useIncomeTax;
     @bindable quantity;
 
     constructor(bindingEngine, element, service) {
@@ -53,19 +55,33 @@ export class DataForm {
         this.error = this.context.error;
         this.flgSpb = false;
         this.flag = true;
+        this.useVat = false;
+        this.useIncomeTax = false;
         
+        if (this.useVat=false)
+        {
+            this.data.vatTaxCorrectionNo=null;
+            this.data.vatTaxCorrectionDate=null;
+        }
+        if (this.useIncomeTax=false)
+        {
+            this.data.vatTaxCorrectionNo=null;
+            this.data.vatTaxCorrectionDate=null;
+        }
+
         // console.log(this.data);
         if (!this.data.uPCNo){
-            // console.log(this.data.uPCNo);
+            
             this.useVatCheck = false;
             this.useIncomeTaxCheck = false;
             this.useVatString = false;
             this.useIncomeTaxString = false;
         }
         else{
-            this.unitPaymentOrder = this.data.uPCNo;
-            this.useVatCheck = this.data.useVat;
-            this.useIncomeTaxCheck = this.data.useIncomeTax;
+            console.log(this.data);
+            this.unitPaymentOrder = this.data.uPONo;
+            this.useVat = this.data.useVat;
+            this.useIncomeTax= this.data.useIncomeTax;
 
             // if(this.data.incomeTaxCorrectionDate=="0001-01-01T00:00:00+00:00")
             //     this.data.incomeTaxCorrectionDate="";
@@ -97,7 +113,6 @@ export class DataForm {
             if(this.data.useIncomeTax==false)
                 this.useIncomeTaxString = true;
 
-            // this.useIncomeTaxString = this.data.useIncomeTax;
         }
     }
 
@@ -112,17 +127,39 @@ export class DataForm {
         return UnitPaymentOrderLoader;
     }
 
-    unitPaymentOrderChanged(newValue) {
+    async useVatChanged(){
+        if(this.useVat==false){
+            this.data.vatTaxCorrectionNo=null;
+            this.data.vatTaxCorrectionDate=null;
+            this.data.useVat=false;
+        } else {
+            this.data.useVat=true;
+        }
+    }
+    async useIncomeTaxChanged(){
+        if(this.useIncomeTax==false){
+            this.data.incomeTaxCorrectionNo=null;
+            this.data.incomeTaxCorrectionDate=null;
+            this.data.useIncomeTax=false;
+        } else {
+            this.data.useIncomeTax=true;
+        }
+    }
+
+    async unitPaymentOrderChanged(newValue) {
         this.flgSpb=true;
-        // this.data = newValue;
+        this.useVatString = false;
+        this.useIncomeTaxString = false;
         var selectedPaymentOrder=newValue;
-        if (this.data && !this.readOnly) {
-            if (selectedPaymentOrder) {
+        console.log(selectedPaymentOrder);
+        if (selectedPaymentOrder && !this.readOnly) {
             // this.data.useVat = selectedPaymentOrder.useVat;
             // this.data.useIncomeTax = selectedPaymentOrder.useIncomeTax;
+            this.useVat=newValue.useVat;
             if (newValue.useVat != true){
                 this.useVatString = true;
             }
+            this.useIncomeTax=newValue.useIncomeTax;
             if (newValue.useIncomeTax != true){
                 this.useIncomeTaxString = true;
             }
@@ -178,13 +215,13 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.currency = newValue.currency;
                         unitQuantityCorrectionNoteItem.currencyRate = newValue.currency.rate;
                         unitQuantityCorrectionNoteItem.uRNNo = unitPaymentOrder.unitReceiptNote.no;
-                        unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection;
                         
                             // unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
                         unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection;
-                        unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.QuantityCorrection;
                         unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection;
-                        unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.PriceTotalCorrection;
                         
                         
                         _items.push(unitQuantityCorrectionNoteItem);
@@ -193,19 +230,27 @@ export class DataForm {
                 console.log(_items);
                 this.data.items = _items;
             }
-            else {
-                _items = [];
-                // this.data.items = [];
-            }
-        }
-        else {
-            // this.data.items = [];
-            _items = [];
-        }
-        
+            // else {
+            //     _items = [];
+            //     // this.data.items = [];
+            // }
         console.log(this.data.items);
-        // this.resetErrorItems();
-    }}
+        }
+        else if(!selectedPaymentOrder){
+            this.data.items = [];
+            this.data.supplier = null;
+            this.useVatString = false;
+            this.useIncomeTaxString = false;
+            this.data.dueDate = null;
+            this.flgSpb=false;
+            this.data.uPOId=null;
+            this.useVatCheck=false;
+            this.useIncomeTaxCheck=false;
+            this.data.useVat=false;
+            this.data.useIncomeTax=false;
+        }
+
+    }
 
     get addItems() {
         return (event) => {
