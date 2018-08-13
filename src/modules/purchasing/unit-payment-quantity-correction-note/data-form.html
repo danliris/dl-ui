@@ -80,8 +80,7 @@
 
           <au-textbox                            
               label="Apakah kena koreksi PPN?"        
-              value="Tidak"     
-              error.bind="error.useVatString"        
+              value.bind="uV"     
               read-only.bind="true" 
               options.bind="controlOptions" 
               if.bind="useVatString">
@@ -115,8 +114,7 @@
 
           <au-textbox                            
               label="Apakah kena koreksi PPH?"        
-              value="Tidak"             
-              error.bind="error.useIncomeTaxString"        
+              value.bind="uIT"             
               read-only.bind="true" 
               options.bind="controlOptions" 
               if.bind="useIncomeTaxString">

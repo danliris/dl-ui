@@ -6,7 +6,6 @@ export class UnitPaymentQuantityCorrectionNoteItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options; 
-   console.log(this.data);
   }
     controlOptions = {
     control: {
@@ -14,9 +13,7 @@ export class UnitPaymentQuantityCorrectionNoteItem {
     }
   };
   quantityChanged(e) {
-    // console.log(e.target.value);
     this.data.priceTotalAfter = this.data.pricePerDealUnitAfter * e.target.value;
-    // console.log(this.data);
   }
   
 }
