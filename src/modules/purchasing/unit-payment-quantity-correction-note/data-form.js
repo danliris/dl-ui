@@ -43,11 +43,6 @@ export class DataForm {
             }
         }
     }
-    
-    // @computedFrom("data._id")
-    // get isEdit() {
-    //     return (this.data._id || '').toString() != '';
-    // }
 
     bind(context) {
         this.context = context;
@@ -57,6 +52,10 @@ export class DataForm {
         this.flag = true;
         this.useVat = false;
         this.useIncomeTax = false;
+        this.useVatString = false;
+        this.useIncomeTaxString = false;
+        this.uV = "Tidak";
+        this.uIT = "Tidak";
         
         if (this.useVat=false)
         {
@@ -69,26 +68,26 @@ export class DataForm {
             this.data.vatTaxCorrectionDate=null;
         }
 
-        // console.log(this.data);
         if (!this.data.uPCNo){
-            
             this.useVatCheck = false;
             this.useIncomeTaxCheck = false;
             this.useVatString = false;
             this.useIncomeTaxString = false;
         }
         else{
-            console.log(this.data);
+            this.useVatString = true;
+            this.useIncomeTaxString = true;
+            if(this.data.useVat==true){
+                this.uV = "Ya";
+            }
+            if(this.data.useIncomeTax==true){
+                this.uIT = "Ya";
+            }
+            
             this.unitPaymentOrder = this.data.uPONo;
             this.useVat = this.data.useVat;
             this.useIncomeTax= this.data.useIncomeTax;
 
-            // if(this.data.incomeTaxCorrectionDate=="0001-01-01T00:00:00+00:00")
-            //     this.data.incomeTaxCorrectionDate="";
-            
-            // if(this.data.vatTaxCorrectionDate=="0001-01-01T00:00:00+00:00")
-            //     this.data.vatTaxCorrectionDate="";
-            
             var supplierCode=this.data.supplier.code;
             var supplierName=this.data.supplier.name;
             this.data.supplier.toString = function () {
@@ -107,12 +106,6 @@ export class DataForm {
                         }).join(" - ");
                 }
             }
-        
-            if(this.data.useVat==false)
-                this.useVatString = true;
-            if(this.data.useIncomeTax==false)
-                this.useIncomeTaxString = true;
-
         }
     }
 
@@ -148,13 +141,8 @@ export class DataForm {
 
     async unitPaymentOrderChanged(newValue) {
         this.flgSpb=true;
-        this.useVatString = false;
-        this.useIncomeTaxString = false;
         var selectedPaymentOrder=newValue;
-        console.log(selectedPaymentOrder);
         if (selectedPaymentOrder && !this.readOnly) {
-            // this.data.useVat = selectedPaymentOrder.useVat;
-            // this.data.useIncomeTax = selectedPaymentOrder.useIncomeTax;
             this.useVat=newValue.useVat;
             if (newValue.useVat != true){
                 this.useVatString = true;
@@ -163,9 +151,6 @@ export class DataForm {
             if (newValue.useIncomeTax != true){
                 this.useIncomeTaxString = true;
             }
-            // console.log(this.readOnly);
-            // if (!this.readOnly)
-            //     this.data.items = [];
             this.data.uPOId = newValue._id;
             this.data.uPONo = newValue.no;
             this.data.division = newValue.division;
@@ -184,13 +169,10 @@ export class DataForm {
             }
             this.data.dueDate = newValue.dueDate;
             this.data.correctionType = "Jumlah";
-            
             var _items = [];
-            console.log(selectedPaymentOrder);
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
 
-                    // for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
                     unitPaymentOrder.unitReceiptNote.items.map((unitReceiptNoteItem) => {
                         var unitQuantityCorrectionNoteItem = {};
                         unitQuantityCorrectionNoteItem.ePONo = unitReceiptNoteItem.EPONo;
@@ -200,40 +182,32 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.pRDetailId = unitReceiptNoteItem.PRItemId;
                         unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
                         unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
-                        // unitQuantityCorrectionNoteItem.productView = unitReceiptNoteItem.product;
                         unitQuantityCorrectionNoteItem.product.toString = function () {
                             return [unitReceiptNoteItem.product.code, unitReceiptNoteItem.product.name]
                                 .filter((item, index) => {
                                     return item && item.toString().trim().length > 0;
                                 }).join(" - ");
                         }
-
                         unitQuantityCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
                         unitQuantityCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
                         unitQuantityCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.pricePerDealUnit;
-                        // unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnit;
+
                         unitQuantityCorrectionNoteItem.currency = newValue.currency;
                         unitQuantityCorrectionNoteItem.currencyRate = newValue.currency.rate;
                         unitQuantityCorrectionNoteItem.uRNNo = unitPaymentOrder.unitReceiptNote.no;
                         unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection;
                         
-                            // unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
                         unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection;
                         unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.QuantityCorrection;
                         unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection;
                         unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.PriceTotalCorrection;
                         
-                        
                         _items.push(unitQuantityCorrectionNoteItem);
                     })
                 }
-                console.log(_items);
                 this.data.items = _items;
             }
-            // else {
-            //     _items = [];
-            //     // this.data.items = [];
-            // }
+
         console.log(this.data.items);
         }
         else if(!selectedPaymentOrder){
