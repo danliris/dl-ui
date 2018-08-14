@@ -30,7 +30,6 @@ export class List {
       var order = {};
       if (info.sort)
          order[info.sort] = info.order;
-        console.log(info);
          var arg = {
          page: parseInt(info.offset / info.limit, 10) + 1,
          size: info.limit,
@@ -43,7 +42,6 @@ export class List {
             for (var data of result.data) {
                 data.uPCNo = data.uPCNo || data.uPCNo || 0;
                 data.uPONo = data.uPONo;
-                // data.supplier.name = data.supplier.name;
             }
             return {
               total: result.info.total,
@@ -55,7 +53,6 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        console.log(this.service);
     }
 
     contextClickCallback(event) {

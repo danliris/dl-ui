@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../utils/rest-service';
 
 
-const serviceUri = 'purchase-requests/monitoring';
+const serviceUri = 'purchase-requests/monitoring/by-user';
 
 export class Service extends RestService {
 

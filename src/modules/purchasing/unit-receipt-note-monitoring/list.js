@@ -116,7 +116,7 @@ export class List {
         this.error = {};
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             let args = {
-            urnNo:this.unitReceiptNote? this.unitReceiptNote.urnNo:"",
+            urnNo:this.unitReceiptNote? this.unitReceiptNote.no:"",
             prNo: this.pr ? this.pr.no : "",
             unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",

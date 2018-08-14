@@ -93,7 +93,7 @@ export class DataForm {
                     unitPaymentPriceCorrectionNoteItem.pRId=unitReceiptNoteItem.PRId;
                     unitPaymentPriceCorrectionNoteItem.pRDetailId=unitReceiptNoteItem.PRItemId;
                     unitPaymentPriceCorrectionNoteItem.product=unitReceiptNoteItem.product;
-                    unitPaymentPriceCorrectionNoteItem.quantity=unitReceiptNoteItem.deliveredQuantity;
+                    unitPaymentPriceCorrectionNoteItem.quantity=unitReceiptNoteItem.QuantityCorrection;
                     unitPaymentPriceCorrectionNoteItem.uom=unitReceiptNoteItem.deliveredUom;
                     unitPaymentPriceCorrectionNoteItem.pricePerDealUnitAfter=unitReceiptNoteItem.PricePerDealUnitCorrection;
                     unitPaymentPriceCorrectionNoteItem.priceTotalAfter=unitReceiptNoteItem.PriceTotalCorrection;
@@ -169,7 +169,6 @@ export class DataForm {
     async selectectedUnitPaymentOrderChanged(newValue) {
         if(!this.readOnly){
             var _selectedPaymentOrder = newValue;
-            console.log(_selectedPaymentOrder);
             if (_selectedPaymentOrder && !this.readOnly) {
                 this.data.unitPaymentOrder=_selectedPaymentOrder;
                 if (!this.readOnly)
@@ -192,13 +191,30 @@ export class DataForm {
             else {
                 this.data.items = [];
                 this.data.supplier=null;
+                this.data.useVat=false;
+                this.data.useIncomeTax=false;
+                this.data.dueDate=null;
+                this.data.vatTaxCorrectionNo="";
+                this.data.vatTaxCorrectionDate=null;
+                this.data.incomeTaxCorrectionNo="";
+                this.data.incomeTaxCorrectionDate=null;
             }
         }
     }
-
+    useIncomeTaxChanged(e){
+        if(!this.data.useIncomeTax){
+            this.data.incomeTaxCorrectionNo="";
+            this.data.incomeTaxCorrectionDate=null;
+        }
+    }
+    useVatChanged(e){
+        if(!this.data.useVat){
+            this.data.vatTaxCorrectionNo="";
+            this.data.vatTaxCorrectionDate=null;
+        }
+    }
     correctionTypeChanged(e) {
         
-            console.log(e)
         if (e.srcElement) {
             if (e.srcElement.value) {
                 this.data.correctionType = e.srcElement.value;
