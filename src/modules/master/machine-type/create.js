@@ -17,7 +17,7 @@ export class Create {
     }
 
     bind() {
-      this.data = { indicators: [] };
+      this.data = { Indicators: [] };
     }
 
     cancelCallback(event) {
@@ -25,10 +25,10 @@ export class Create {
     }
 
     saveCallback(event) {
-        for (var d of this.data.indicators) {
+        for (var d of this.data.Indicators) {
             if (d.dataType == "numeric") {
-                if (d.defaultValue == "" || !d.defaultValue || d.defaultValue == 0) {
-                    d.defaultValue = 0;
+                if (d.DefaultValue == "" || !d.DefaultValue || d.DefaultValue == 0) {
+                    d.DefaultValue = 0;
                 }
             }
 

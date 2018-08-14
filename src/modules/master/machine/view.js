@@ -18,8 +18,8 @@ export class View {
     var id = params.id;
     this.data = await this.service.getById(id);
     
-    this.data.unit.toString = function () {
-      return [this.division.name, this.name]
+    this.data.Unit.toString = function () {
+      return [this.Division.Name, this.Name]
           .filter((item, index) => {
               return item && item.toString().trim().length > 0;
           }).join(" - ");
@@ -30,7 +30,7 @@ export class View {
     this.router.navigateToRoute('list');
   }
   editCallback(event) {
-    this.router.navigateToRoute('edit', { id: this.data._id });
+    this.router.navigateToRoute('edit', { id: this.data.Id });
   }    
   deleteCallback(event) {
     this.service.delete(this.data)

@@ -15,12 +15,12 @@ export class DataForm {
 
     stepIndicatorsInfo = {
         columns: [
-            { header: "Indikator", value: "name" },
-            { header: "Nilai", value: "qty" }, 
-            { header: "Satuan", value: "uom" },
+            { header: "Indikator", value: "Name" },
+            { header: "Nilai", value: "Qty" },
+            { header: "Satuan", value: "Uom" },
         ],
         onAdd: function () {
-            this.data.stepIndicators.push({ name: "", qty: 0, uom: "" });
+            this.data.StepIndicators.push({ Name: "", Qty: 0, Uom: "" });
             console.log("add");
         }.bind(this),
         onRemove: function () {

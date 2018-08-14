@@ -25,9 +25,9 @@ export default class MonitoringSpecificationMachineCollectionReact extends React
 
     handleItemAdd() {
         var newItem = {
-            indicator: "",
-            value: "",
-            uom: "",
+            Indicator: "",
+            Value: "",
+            Uom: "",
         };
         this.state.value.push(newItem);
         this.setState({ value: this.state.value });
