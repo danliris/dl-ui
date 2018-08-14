@@ -190,7 +190,7 @@ export class DataForm {
                         }
                         unitQuantityCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
                         unitQuantityCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
-                        unitQuantityCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.pricePerDealUnit;
+                        unitQuantityCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.PricePerDealUnitCorrection;
 
                         unitQuantityCorrectionNoteItem.currency = newValue.currency;
                         unitQuantityCorrectionNoteItem.currencyRate = newValue.currency.rate;
@@ -208,7 +208,6 @@ export class DataForm {
                 this.data.items = _items;
             }
 
-        console.log(this.data.items);
         }
         else if(!selectedPaymentOrder){
             this.data.items = [];
