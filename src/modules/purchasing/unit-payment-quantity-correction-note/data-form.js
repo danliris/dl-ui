@@ -9,6 +9,8 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable unitPaymentOrder;
+    @bindable useVat;
+    @bindable useIncomeTax;
     @bindable quantity;
 
     constructor(bindingEngine, element, service) {
@@ -41,11 +43,6 @@ export class DataForm {
             }
         }
     }
-    
-    // @computedFrom("data._id")
-    // get isEdit() {
-    //     return (this.data._id || '').toString() != '';
-    // }
 
     bind(context) {
         this.context = context;
@@ -53,26 +50,44 @@ export class DataForm {
         this.error = this.context.error;
         this.flgSpb = false;
         this.flag = true;
+        this.useVat = false;
+        this.useIncomeTax = false;
+        this.useVatString = false;
+        this.useIncomeTaxString = false;
+        this.uV = "Tidak";
+        this.uIT = "Tidak";
         
-        // console.log(this.data);
+        if (this.useVat=false)
+        {
+            this.data.vatTaxCorrectionNo=null;
+            this.data.vatTaxCorrectionDate=null;
+        }
+        if (this.useIncomeTax=false)
+        {
+            this.data.vatTaxCorrectionNo=null;
+            this.data.vatTaxCorrectionDate=null;
+        }
+
         if (!this.data.uPCNo){
-            // console.log(this.data.uPCNo);
             this.useVatCheck = false;
             this.useIncomeTaxCheck = false;
             this.useVatString = false;
             this.useIncomeTaxString = false;
         }
         else{
-            this.unitPaymentOrder = this.data.uPCNo;
-            this.useVatCheck = this.data.useVat;
-            this.useIncomeTaxCheck = this.data.useIncomeTax;
+            this.useVatString = true;
+            this.useIncomeTaxString = true;
+            if(this.data.useVat==true){
+                this.uV = "Ya";
+            }
+            if(this.data.useIncomeTax==true){
+                this.uIT = "Ya";
+            }
+            
+            this.unitPaymentOrder = this.data.uPONo;
+            this.useVat = this.data.useVat;
+            this.useIncomeTax= this.data.useIncomeTax;
 
-            // if(this.data.incomeTaxCorrectionDate=="0001-01-01T00:00:00+00:00")
-            //     this.data.incomeTaxCorrectionDate="";
-            
-            // if(this.data.vatTaxCorrectionDate=="0001-01-01T00:00:00+00:00")
-            //     this.data.vatTaxCorrectionDate="";
-            
             var supplierCode=this.data.supplier.code;
             var supplierName=this.data.supplier.name;
             this.data.supplier.toString = function () {
@@ -91,13 +106,6 @@ export class DataForm {
                         }).join(" - ");
                 }
             }
-        
-            if(this.data.useVat==false)
-                this.useVatString = true;
-            if(this.data.useIncomeTax==false)
-                this.useIncomeTaxString = true;
-
-            // this.useIncomeTaxString = this.data.useIncomeTax;
         }
     }
 
@@ -112,23 +120,37 @@ export class DataForm {
         return UnitPaymentOrderLoader;
     }
 
-    unitPaymentOrderChanged(newValue) {
+    async useVatChanged(){
+        if(this.useVat==false){
+            this.data.vatTaxCorrectionNo=null;
+            this.data.vatTaxCorrectionDate=null;
+            this.data.useVat=false;
+        } else {
+            this.data.useVat=true;
+        }
+    }
+    async useIncomeTaxChanged(){
+        if(this.useIncomeTax==false){
+            this.data.incomeTaxCorrectionNo=null;
+            this.data.incomeTaxCorrectionDate=null;
+            this.data.useIncomeTax=false;
+        } else {
+            this.data.useIncomeTax=true;
+        }
+    }
+
+    async unitPaymentOrderChanged(newValue) {
         this.flgSpb=true;
-        // this.data = newValue;
         var selectedPaymentOrder=newValue;
-        if (this.data && !this.readOnly) {
-            if (selectedPaymentOrder) {
-            // this.data.useVat = selectedPaymentOrder.useVat;
-            // this.data.useIncomeTax = selectedPaymentOrder.useIncomeTax;
+        if (selectedPaymentOrder && !this.readOnly) {
+            this.useVat=newValue.useVat;
             if (newValue.useVat != true){
                 this.useVatString = true;
             }
+            this.useIncomeTax=newValue.useIncomeTax;
             if (newValue.useIncomeTax != true){
                 this.useIncomeTaxString = true;
             }
-            // console.log(this.readOnly);
-            // if (!this.readOnly)
-            //     this.data.items = [];
             this.data.uPOId = newValue._id;
             this.data.uPONo = newValue.no;
             this.data.division = newValue.division;
@@ -147,13 +169,10 @@ export class DataForm {
             }
             this.data.dueDate = newValue.dueDate;
             this.data.correctionType = "Jumlah";
-            
             var _items = [];
-            console.log(selectedPaymentOrder);
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
 
-                    // for (var unitReceiptNoteItem of unitPaymentOrder.unitReceiptNote.items) {
                     unitPaymentOrder.unitReceiptNote.items.map((unitReceiptNoteItem) => {
                         var unitQuantityCorrectionNoteItem = {};
                         unitQuantityCorrectionNoteItem.ePONo = unitReceiptNoteItem.EPONo;
@@ -163,49 +182,48 @@ export class DataForm {
                         unitQuantityCorrectionNoteItem.pRDetailId = unitReceiptNoteItem.PRItemId;
                         unitQuantityCorrectionNoteItem.product = unitReceiptNoteItem.product;
                         unitQuantityCorrectionNoteItem.productId = unitReceiptNoteItem.product._id;
-                        // unitQuantityCorrectionNoteItem.productView = unitReceiptNoteItem.product;
                         unitQuantityCorrectionNoteItem.product.toString = function () {
                             return [unitReceiptNoteItem.product.code, unitReceiptNoteItem.product.name]
                                 .filter((item, index) => {
                                     return item && item.toString().trim().length > 0;
                                 }).join(" - ");
                         }
-
                         unitQuantityCorrectionNoteItem.uom = unitReceiptNoteItem.deliveredUom;
                         unitQuantityCorrectionNoteItem.uomId = unitReceiptNoteItem.deliveredUom._id;
-                        unitQuantityCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.pricePerDealUnit;
-                        // unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.pricePerDealUnit;
+                        unitQuantityCorrectionNoteItem.pricePerDealUnitBefore = unitReceiptNoteItem.PricePerDealUnitCorrection;
+
                         unitQuantityCorrectionNoteItem.currency = newValue.currency;
                         unitQuantityCorrectionNoteItem.currencyRate = newValue.currency.rate;
                         unitQuantityCorrectionNoteItem.uRNNo = unitPaymentOrder.unitReceiptNote.no;
-                        unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.priceTotalBefore = unitReceiptNoteItem.PriceTotalCorrection;
                         
-                            // unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity;
                         unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.QuantityCorrection;
-                        unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.deliveredQuantity;
+                        unitQuantityCorrectionNoteItem.quantityCheck = unitReceiptNoteItem.QuantityCorrection;
                         unitQuantityCorrectionNoteItem.pricePerDealUnitAfter = unitReceiptNoteItem.PricePerDealUnitCorrection;
-                        unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.pricePerDealUnit * unitReceiptNoteItem.deliveredQuantity;
-                        
+                        unitQuantityCorrectionNoteItem.priceTotalAfter = unitReceiptNoteItem.PriceTotalCorrection;
                         
                         _items.push(unitQuantityCorrectionNoteItem);
                     })
                 }
-                console.log(_items);
                 this.data.items = _items;
             }
-            else {
-                _items = [];
-                // this.data.items = [];
-            }
+
         }
-        else {
-            // this.data.items = [];
-            _items = [];
+        else if(!selectedPaymentOrder){
+            this.data.items = [];
+            this.data.supplier = null;
+            this.useVatString = false;
+            this.useIncomeTaxString = false;
+            this.data.dueDate = null;
+            this.flgSpb=false;
+            this.data.uPOId=null;
+            this.useVatCheck=false;
+            this.useIncomeTaxCheck=false;
+            this.data.useVat=false;
+            this.data.useIncomeTax=false;
         }
-        
-        console.log(this.data.items);
-        // this.resetErrorItems();
-    }}
+
+    }
 
     get addItems() {
         return (event) => {

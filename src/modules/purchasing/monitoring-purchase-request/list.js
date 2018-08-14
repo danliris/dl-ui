@@ -4,7 +4,7 @@ import { Service } from "./service";
 import moment from 'moment';
 
 var UnitLoader = require('../../../loader/unit-loader');
-var PRLoader = require('../../../loader/purchase-request-all-loader');
+var PRLoader = require('../../../loader/purchase-request-by-user-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 

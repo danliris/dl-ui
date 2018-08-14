@@ -12,8 +12,8 @@
 
           <au-textbox                            
               label="No. Koreksi"                     
-              value.bind="data.uPONo"                        
-              error.bind="error.uPONo"                           
+              value.bind="data.uPCNo"                        
+              error.bind="error.uPCNo"                           
               read-only.bind="true" 
               if.bind="readOnly || data.uPCNo" 
               options.bind="controlOptions">
@@ -72,8 +72,7 @@
 
           <au-checkbox                           
               label="Apakah kena koreksi PPN?"        
-              value.bind="data.useVat"              
-              error.bind="error.useVat"                 
+              value.bind="useVat"              
               read-only.bind="readOnly" 
               if.bind="useVatCheck" 
               options.bind="controlOptions">
@@ -81,8 +80,7 @@
 
           <au-textbox                            
               label="Apakah kena koreksi PPN?"        
-              value="Tidak"     
-              error.bind="error.useVatString"        
+              value.bind="uV"     
               read-only.bind="true" 
               options.bind="controlOptions" 
               if.bind="useVatString">
@@ -108,8 +106,7 @@
 
           <au-checkbox                           
               label="Apakah kena koreksi PPH?"        
-              value.bind="data.useIncomeTax"              
-              error.bind="error.useIncomeTax"                
+              value.bind="useIncomeTax"              
               read-only.bind="readOnly" 
               if.bind="useIncomeTaxCheck" 
               options.bind="controlOptions">
@@ -117,8 +114,7 @@
 
           <au-textbox                            
               label="Apakah kena koreksi PPH?"        
-              value="Tidak"             
-              error.bind="error.useIncomeTaxString"        
+              value.bind="uIT"             
               read-only.bind="true" 
               options.bind="controlOptions" 
               if.bind="useIncomeTaxString">
