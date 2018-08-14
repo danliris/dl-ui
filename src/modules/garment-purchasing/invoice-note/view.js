@@ -28,6 +28,10 @@ export class View {
 
         this.items = this.data.items;
         this.totalData = this.items.length;
+        if(this.data.hasInternNote ){
+            this.hasEdit = false;
+            this.hasDelete = false;
+        }
     }
 
     cancel(event) {

@@ -58,6 +58,9 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options.readOnly = this.readOnly;
+        if(this.data._id){
+            this.options.supplierCode=this.data.supplier.code;
+        }
     }
 
     @computedFrom("data._id")
