@@ -4,11 +4,11 @@
       <au-autocomplete 
       loader.bind="stepLoader" 
       value.bind="step" 
-      key="_id" 
-      text="process" 
+      key="Id" 
+      text="Process" 
       read-only.bind="options.readOnly"
         options.bind="autocompleteOption" 
-        error.bind="error.steps"></au-autocomplete>
+        error.bind="error.Steps"></au-autocomplete>
         ${error}
     </td>
     <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>

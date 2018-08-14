@@ -2,33 +2,33 @@
   <tr>
       <td>
         <au-textbox 
-          value.bind="data.indicator" 
-          error.bind="error.indicator"
+          value.bind="data.Indicator" 
+          error.bind="error.Indicator"
           read-only.bind="readOnly">
         </au-textbox>
       </td>
       <td>
         <au-dropdown
-          value.bind="data.dataType"
+          value.bind="data.DataType"
           items.bind="dropDownMenu"
           read-only.bind="readOnly"
-          key="data.dataType"
-          text="data.dataType"
-          error.bind="error.dataType"
+          key="data.DataType"
+          text="data.DataType"
+          error.bind="error.DataType"
           change.delegate="handleDataTypeChange($event)"
         ></au-dropdown>
       </td>
       <td>
         <au-textbox 
-          value.bind="data.defaultValue"
-          error.bind="error.defaultValue"
-          read-only.bind="data.dataType == 'input teks' || data.dataType == 'input angka' || readOnly"
+          value.bind="data.DefaultValue"
+          error.bind="error.DefaultValue"
+          read-only.bind="data.DataType == 'input teks' || data.DataType == 'input angka' || readOnly"
         ></au-textbox>
       </td>
       <td>
         <au-textbox 
-          value.bind="data.uom"
-          error.bind="error.uom"
+          value.bind="data.Uom"
+          error.bind="error.Uom"
           read-only.bind="readOnly"
         ></au-textbox>
       </td>

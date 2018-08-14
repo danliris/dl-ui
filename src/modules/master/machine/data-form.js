@@ -6,14 +6,15 @@ var MachineTypeLoader = require('../../../loader/machine-type-loader');
 
 export class DataForm {
   @bindable readOnly;
-    formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah",
-    }
+  formOptions = {
+    cancelText: "Kembali",
+    saveText: "Simpan",
+    deleteText: "Hapus",
+    editText: "Ubah",
+  }
 
   @bindable title;
+  @bindable data = {};
 
   machineEventColumns = [
     { header: "No", value: "no" },
@@ -33,13 +34,13 @@ export class DataForm {
 
   get addMachineEvent() {
     return (event) => {
-      this.data.machineEvents.push({})
+      this.data.MachineEvents.push({})
     };
   }
-  
+
   get addStep() {
     return (event) => {
-      this.data.steps.push({})
+      this.data.MachineSteps.push({})
     };
   }
 
@@ -47,11 +48,11 @@ export class DataForm {
     return (event) => console.log(event);
   }
 
-  unitSelected(e){
+  unitSelected(e) {
     console.log('selected')
   }
 
-  unitChanged(e){
+  unitChanged(e) {
     console.log('unit changed')
   }
 
@@ -59,17 +60,17 @@ export class DataForm {
   //   console.log('step changed')
   // }
 
-  machineTypeChanged(e){
+  machineTypeChanged(e) {
     console.log('machineType changed')
   }
 
-  get unitLoader(){
+  get unitLoader() {
     return UnitLoader;
   }
   // get stepLoader(){
   //   return StepLoader;
   // }
-  get machineTypeLoader(){
+  get machineTypeLoader() {
     return MachineTypeLoader;
   }
 } 

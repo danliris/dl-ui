@@ -7,7 +7,7 @@ const serviceUri = 'master/steps';
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "core");
+    super(http, aggregator, config, "production");
   }
 
   search(info) {
