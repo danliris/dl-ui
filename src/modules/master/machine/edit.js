@@ -17,8 +17,8 @@ export class Edit {
     var id = params.id;
     this.data = await this.service.getById(id);
     
-    this.data.unit.toString = function () {
-      return [this.division.name, this.name]
+    this.data.Unit.toString = function () {
+      return [this.Division.Name, this.Name]
           .filter((item, index) => {
               return item && item.toString().trim().length > 0;
           }).join(" - ");
@@ -30,13 +30,13 @@ export class Edit {
   }
 
   cancelCallback(event) {
-    this.router.navigateToRoute('view', { id: this.data._id });
+    this.router.navigateToRoute('view', { id: this.data.Id });
   }
 
   saveCallback(event) {
     this.service.update(this.data)
         .then(result => {
-          this.router.navigateToRoute('view', { id: this.data._id });
+          this.router.navigateToRoute('view', { id: this.data.Id });
         })
         .catch(e => {
           this.error = e;

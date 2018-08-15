@@ -8,14 +8,14 @@
 
           <au-textbox 
             label="Nama" 
-            value.bind="data.name" 
-            error.bind="error.name" 
+            value.bind="data.Name" 
+            error.bind="error.Name" 
             read-only.bind="(readOnly || isEdit)">
           </au-textbox>
 
           <au-autocomplete 
-            value.bind="data.unit" 
-            error.bind="error.unit"
+            value.bind="data.Unit" 
+            error.bind="error.Unit"
             label="Unit" 
             change.delegate="unitChanged($event)" 
             loader.bind="unitLoader"
@@ -26,52 +26,52 @@
           </au-autocomplete>
 
           <au-autocomplete 
-            value.bind="data.machineType" 
-            error.bind="error.machineType"
+            value.bind="data.MachineType" 
+            error.bind="error.MachineType"
             label="Jenis Mesin" 
             change.delegate="machineTypeChanged($event)" 
             loader.bind="machineTypeLoader"
             placeholder="search machine type" 
-            key="code"
-            text="name"
+            key="Code"
+            text="Name"
             read-only.bind="(readOnly || isEdit)">
           </au-autocomplete>
 
           <au-textbox 
             label="Proses" 
-            value.bind="data.process" 
+            value.bind="data.Process" 
             read-only.bind="(readOnly || isEdit)">
           </au-textbox>
 
           <au-textbox 
             label="Manufaktur" 
-            value.bind="data.manufacture" 
+            value.bind="data.Manufacture" 
             read-only.bind="(readOnly || isEdit)">
           </au-textbox>
 
           <au-numeric 
             label="Tahun" 
-            value.bind="data.year" 
+            value.bind="data.Year" 
             format="0"
             read-only.bind="(readOnly || isEdit)">
           </au-numeric>
 
           <au-textbox 
             label="Kondisi" 
-            value.bind="data.condition" 
+            value.bind="data.Condition" 
             read-only.bind="(readOnly || isEdit)">
           </au-textbox>
 
           <au-numeric 
             label="Kapasitas Bulanan" 
-            value.bind="data.monthlyCapacity" 
+            value.bind="data.MonthlyCapacity" 
             format="0"
             read-only.bind="(readOnly)">
           </au-numeric>
 
           <au-collection              
-              items.bind="data.steps" 
-              errors.bind="error.steps" 
+              items.bind="data.MachineSteps" 
+              errors.bind="error.MachineSteps" 
               read-only.bind="readOnly" 
               columns.bind="stepColumns" 
               title="Step" 
@@ -79,12 +79,12 @@
               add.bind="addStep" 
               remove.bind="removeStep">
           </au-collection>
-          <div if.bind="error.steps.toString()">
+          <div if.bind="error.MachineSteps.toString()">
             <span style="color:red">-Step / Proses harus diisi dan tidak boleh sama.</span>
           </div>
 
           <au-collection 
-            items.bind="data.machineEvents" 
+            items.bind="data.MachineEvents" 
             columns.bind="machineEventColumns" 
             add.bind="addMachineEvent" 
             remove.bind="removeMachineEvent"

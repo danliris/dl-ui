@@ -10,18 +10,18 @@ export class List {
 
     columns = [
         {
-            field: "date", title: "Tanggal", formatter: function (value, data, index) {
+            field: "Date", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "time", title: "Jam", formatter: function (value, data, index) {
+            field: "Time", title: "Jam", formatter: function (value, data, index) {
                 return moment(value).format("HH:mm");
             }
         },
-        { field: "machine.name", title: "Mesin" },
-        { field: "productionOrder.orderNo", title: "No Surat Produksi Order" },
-        { field: "cartNumber", title: "Nomor Kereta" },
+        { field: "Machine.Name", title: "Mesin" },
+        { field: "ProductionOrder.OrderNo", title: "No Surat Produksi Order" },
+        { field: "CartNumber", title: "Nomor Kereta" },
 
 
     ];
@@ -36,7 +36,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["date", "time", "machine.name", "productionOrder.orderNo", "cartNumber"]
+            // select: ["date", "time", "machine.name", "productionOrder.orderNo", "cartNumber"]
         }
 
         return this.service.search(arg)
@@ -61,7 +61,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

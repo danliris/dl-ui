@@ -24,15 +24,15 @@ export class listItem {
 
 
   handleDataTypeChange() {
-    this.data.defaultValue = "";
-    this.data.uom = "";
+    this.data.DefaultValue = "";
+    this.data.Uom = "";
   }
 
   listIndicatorsColumns = [
-    { header: "Indikator", value: "indicator" },
-    { header: "Tipe Data", value: "dataType" },
-    { header: "Petunjuk Data", value: "defaultValue" },
-    { header: "Satuan", value: "uom" },
+    { header: "Indikator", value: "Indicator" },
+    { header: "Tipe Data", value: "DataType" },
+    { header: "Petunjuk Data", value: "DefaultValue" },
+    { header: "Satuan", value: "Uom" },
   ]
 
 }

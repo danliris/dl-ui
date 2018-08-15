@@ -4,6 +4,7 @@ import { RestService } from '../../../../utils/rest-service';
 
 
 const serviceUri = 'finishing-printing/monitoring-specification-machine';
+const serviceUriMachineType = "master/machine-types"
 
 export class Service extends RestService {
 
@@ -28,17 +29,22 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
     getByCode(code) {
         var endpoint = `${serviceUri}?keyword=${code}`;
+        return super.get(endpoint);
+    }
+
+    getMachineType(id) {
+        var endpoint = `${serviceUriMachineType}/${id}`;
         return super.get(endpoint);
     }
 

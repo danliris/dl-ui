@@ -30,9 +30,9 @@ export class MonitoringSpecificationMachineCollection {
     handleItemAdd() {
 
         this.value.push({
-            indicator: "",
-            value: "",
-            uom:"",
+            Indicator: "",
+            Value: "",
+            Uom:"",
         });
         this.bind();
     }
