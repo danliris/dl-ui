@@ -415,7 +415,7 @@ module.exports = [
         }
     },
     {
-        route: 'purchase-order-purchase-order-external-duration-report',
+        route: '/garment/purchase-order-purchase-order-external-duration-report',
         name: 'purchase-order-purchase-order-external-duration-report',
         moduleId: './modules/garment-purchasing/reports/duration-reports/purchase-order-purchase-order-external-duration-report/index',
         nav: true,
@@ -428,7 +428,7 @@ module.exports = [
         }
     },
     {
-        route: 'purchase-order-external-delivery-order-duration-report',
+        route: '/garment/purchase-order-external-delivery-order-duration-report',
         name: 'purchase-order-external-delivery-order-duration-report',
         moduleId: './modules/garment-purchasing/reports/duration-reports/purchase-order-external-delivery-order-duration-report/index',
         nav: true,
