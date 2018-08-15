@@ -14,71 +14,119 @@ export class List {
     }
     dateFrom = null;
     dateTo = null;
-    // machine = null;
-    // kanban = null;
-    // filterKanban = null;
-    // kanbanId = null;
     
     activate() {
     }
+controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
 
-    searching() {
-            this.service.getReport(this.dateFrom, this.dateTo, this.machine, this.kanban)
-                .then(result => {
-                    this.data = result;
-                   for (var daily of this.data)
-                     {
-                         var a= daily.items.pricePerUnit.toFixed(4).toString().split('.');
-                         var a1=a[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                         var harga= a1 + '.' + a[1];
-
-                         var b= daily.items.priceTotal.toFixed(2).toString().split('.');
-                         var b1=b[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                         var total= b1 + '.' + b[1];
-                         
-                         var c= daily.items.quantity.toFixed(2).toString().split('.');
-                         var c1=c[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                         var quantity= c1 + '.' + c[1];
-
-                         daily.items.pricePerUnit=harga;
-                         daily.items.priceTotal=total;
-                         daily.items.quantity=quantity;
-                        // daily.timeOutput = daily.timeOutput ? moment(daily.timeOutput).format('HH:mm') : '-';
-                     }
-                })
+    tableOptions = {
+        search: false,
+        showToggle: false,
+        showColumns: false
     }
-    
-    // kanbanChanged(e){
-    //     var selectedKanban = e.detail;
-    //     if(selectedKanban){
-    //         this.kanbanId = selectedKanban._id;
-    //         if(selectedKanban.instruction){
-    //             var steps = [];
-    //             for(var step of selectedKanban.instruction.steps){
-    //                 steps.push(step.process);
-    //             }
-    //             this.filterMachine = {
-    //                 "step.process" : { "$in" : steps }
-    //             };
-    //         }
-    //     }
-    // }
+// item.vatTaxCorrectionNo,vatDate,item.supplier,item.correctionType,item.productCode, item.productName, item.quantity, item.uom, item.pricePerDealUnitAfter, item.priceTotalAfter, item.user
+    columns = [
+        { field: "index", title: "No" , sortable: false},
+        { field: "upcNo", title: "No Nota Debet" , sortable: false },
+        { field: "correctionDate", title: "Tanggal Nota Debet", sortable: false, formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "upoNo", title: "No SPB", sortable: false },
+        { field: "epoNo", title: "No PO Eksternal", sortable: false },
+        { field: "prNo", title: "No Purchase Request" , sortable: false},
+        { field: "vatTaxCorrectionNo", title: "Faktur Pajak PPN" , sortable: false},
+        { field: "vatTaxCorrectionDate", title: "Tgl Faktur Pajak PPN" , sortable: false, formatter: function (value, data, index) {
+                return value==null || value==undefined? "-" : moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "supplier", title: "Supplier" , sortable: false},
+        { field: "correctionType", title: "Jenis Koreksi" , sortable: false},
+        { field: "productCode", title: "Kode Barang", sortable: false },
+        { field: "productName", title: "Nama Barang", sortable: false },
+        { field: "quantity", title: "Jumlah Koreksi", sortable: false },
+        { field: "uom", title: "Satuan Koreksi", sortable: false },
+        { field: "pricePerDealUnitAfter", title: "Harga Satuan Koreksi", sortable: false },
+        { field: "priceTotalAfter", title: "Harga Total Koreksi", sortable: false },
+        { field: "user", title: "User Input", sortable: false },
+    ];
+
+    search() {
+        this.error = {};
+
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            this.flag = true;
+            this.table.refresh();
+        }
+    }
 
     reset() {
-        this.dateFrom = null;
-        this.dateTo = null;
-        // this.machine = null;
-        // this.kanban = null;
-        // this.filterKanban = null;
-        // this.kanbanId = null;
-        this.data = [];
-        this.error = '';
+        
+        this.dateTo = undefined;
+        this.dateFrom = undefined;
+        this.error = {};
+
+        this.flag = false;
+        //this.prTable.refresh();
     }
 
-    ExportToExcel() {
-        //    var htmltable= document.getElementById('myTable');
-        //    var html = htmltable.outerHTML;
-        //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.dateFrom, this.dateTo);
+    loader = (info) => {
+        var order = {};
+
+        if (info.sort)
+            order[info.sort] = info.order;
+
+        let args = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+
+        };
+
+        return this.flag ?
+            (
+                this.service.search(args)
+                    .then(result => {
+                        var index=0;
+                        for(var a of result.data){
+                            index++;
+                            a.index=index;
+                            
+                        }
+                        return {
+                            total: result.info.total,
+                            data: result.data
+                        };
+                    })
+            ) : { total: 0, data: [] };
+    }
+    
+
+    
+
+    xls() {
+        this.error = {};
+
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
+            let args = {
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+
+        };
+
+            this.service.getXls(args)
+                .catch(e => {
+                    alert(e.replace(e, "Error: ", ""));
+                });
+        }
     }
 }

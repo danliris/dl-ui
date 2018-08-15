@@ -1,13 +1,17 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
+// import moment from 'moment';
+
+
 
 var MachineLoader = require('../../../../loader/machines-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 
+@inject(Service)
 export class DataForm {
 
     @bindable readOnly = false;
-    @bindable data;
+    @bindable data = {};
     @bindable error;
     @bindable machine;
     @bindable productionOrder;
@@ -23,18 +27,21 @@ export class DataForm {
         }
     };
 
-    divisionFilter = { "unit.division.name": "FINISHING & PRINTING" };
+    divisionFilter = { "UnitDivisionName": "FINISHING & PRINTING" };
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
     }
 
-    @computedFrom("data._id")
+    constructor(service) {
+        this.service = service;
+    }
+
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     get isFilterMachineType() {
@@ -45,31 +52,46 @@ export class DataForm {
     }
 
     // itemsColumns = [
-    //     { header: "Indicator", value: "indicator" },
-    //     { header: "Value", value: "defaultValue" },
-    //     { header: "Satuan", value: "uom" },
+    //     { header: "Indicator", value: "Indicator" },
+    //     { header: "Value", value: "DefaultValue" },
+    //     { header: "Satuan", value: "Uom" },
     // ]
 
-    machineChanged(newValue) {
+    // IndicatorsHeader = {
+    //     Columns: [
+    //         { header: "Indikator", value: "Indicator" },
+    //         { header: "Value", value: "DefaultValue" },
+    //         { header: "Satuan", value: "Uom" },
+    //     ],
+    //     onRemove: function () {
+    //         console.log("remove");
+    //     }.bind(this)
+    // };
+
+    async machineChanged(newValue) {
         this.resetErrors();
-        this.data.machine = newValue;
-        if (this.data.machine) {
+        this.data.Machine = newValue;
+        if (this.data.Machine) {
             var items = [];
-            for (var indicator of this.data.machine.machineType.indicators) {
+            var machineTypeId = this.data.Machine.MachineType.Id;
+            var MachineType = await this.service.getMachineType(machineTypeId);
+
+            for (var indicator of MachineType.Indicators) {
                 var item = {
-                    indicator: indicator.indicator,
-                    dataType: indicator.dataType,
-                    defaultValue: indicator.defaultValue,
-                    value: "",
-                    uom: indicator.uom,
+                    Indicator: indicator.Indicator,
+                    DataType: indicator.DataType,
+                    DefaultValue: indicator.DefaultValue,
+                    Value: "",
+                    Uom: indicator.Uom,
                 };
                 items.push(item);
             }
-            this.data.items = items;
+            console.log(items)
+            this.data.Indicators = items;
 
-            this.data.machineId = this.data.machine._id ? this.data.machine._id : "";
         } else {
-            this.data.items = [];
+            this.data.Indicators = [];
+            this.dataCollection.refresh();
         }
     }
 
@@ -82,9 +104,9 @@ export class DataForm {
     }
 
     productionOrderChanged(newValue) {
-        this.data.productionOrder = newValue;
-        if (this.data.productionOrder) {
-            this.data.productionOrderId = this.data.productionOrder._id ? this.data.productionOrder._id : "";
+        // this.data.productionOrder = newValue;
+        if (this.productionOrder) {
+            this.data.ProductionOrder = this.productionOrder;
         }
     }
 

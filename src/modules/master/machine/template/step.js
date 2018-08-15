@@ -10,7 +10,7 @@ export class Step {
 
   activate(context) {
     this.data = context.data;
-    this.step = this.data.step;
+    this.step = this.data ? this.data : {};
     this.error = context.error;
     this.options = context.options;
   }
@@ -21,14 +21,16 @@ export class Step {
     }
   }
 
-  stepChanged(newValue){
-    if (newValue){
-      this.data.step = newValue;
-      this.data.stepId = newValue._id;
+  stepChanged(newValue) {
+    if (newValue) {
+      this.data = Object.assign(this.data, newValue);
+      this.data.StepId = newValue.Id;
+      this.data.Id = 0;
+      console.log(this.data)
+      // this.data.stepId = newValue.Id;
     }
-    else{
-      this.data.step = {};
-      this.data.stepId = {};
+    else {
+      this.data = {};
     }
   }
 

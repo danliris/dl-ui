@@ -6,8 +6,8 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["detail"];
     columns = [
-        { field: "process", title: "Proses" },
-        { field: "stepIndicators", title: "Indikator", sortable: false }
+        { field: "Process", title: "Proses" },
+        { field: "StepIndicators", title: "Indikator", sortable: false }
     ];
 
     loader = (info) => {
@@ -19,17 +19,16 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["process", "stepIndicators.name"],
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
                 result.data.forEach(step => {
-                    step.stepIndicators.toString = function () {
+                    step.StepIndicators.toString = function () {
                         var str = "<ul>";
-                        for (var indikator of step.stepIndicators) {
-                            str += `<li>${indikator.name}</li>`;
+                        for (var indikator of step.StepIndicators) {
+                            str += `<li>${indikator.Name}</li>`;
                         }
                         str += "</ul>";
                         return str;

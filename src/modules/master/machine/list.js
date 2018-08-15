@@ -6,11 +6,11 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["detail"];
     columns = [
-    { field: "name", title: "Nama" },
-    { field: "unit.name", title: "Unit" },
-    { field: "process", title: "Proses" },
-    { field: "condition", title: "Kondisi" },
-    { field: "monthlyCapacity", title: "Kapasitas Bulanan" },
+    { field: "Name", title: "Nama" },
+    { field: "Unit.Name", title: "Unit" },
+    { field: "Process", title: "Proses" },
+    { field: "Condition", title: "Kondisi" },
+    { field: "MonthlyCapacity", title: "Kapasitas Bulanan" },
   ];
 
   loader = (info) => {
@@ -23,7 +23,7 @@ export class List {
       size: info.limit,
       keyword: info.search,
       order: order,
-      select: ["name", "unit.name", "process", "condition", "monthlyCapacity"]
+      // select: ["name", "unit.name", "process", "condition", "monthlyCapacity"]
     }
 
     return this.service.search(arg)
@@ -45,7 +45,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }
