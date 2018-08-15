@@ -1,10 +1,10 @@
 <template>
     <h1 class="page-header">Total Pembelian per Supplier</h1>
     <form class="form-horizontal">
-        <unit-auto-suggest      label="Unit"                value.bind="unit"></unit-auto-suggest>
-        <category-auto-suggest  label="Kategori"            value.bind="category"></category-auto-suggest>
-        <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker>
+        <au-autocomplete  value.bind="filter.unit"  label="Unit"  loader.bind="unitLoader"></au-autocomplete>
+        <au-autocomplete  value.bind="filter.category"  label="Kategori"  loader.bind="categoryLoader"></au-autocomplete>
+        <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
@@ -30,11 +30,11 @@
             <tbody>
                 <tr repeat.for="item of data">
                     <td class="text-center"> ${$index + 1}</td>
-                    <td class="text-left"> ${item._id.supplier}</td>
-                    <td class="text-center"> ${item._id.unit}</td>
-                    <td class="text-center"> ${item._id.category}</td>
-                    <td class="text-right"> ${amounts[$index]}</td>
-                    <td class="text-right"> ${percentage[$index]}%</td>
+                    <td class="text-left"> ${item.supplierName}</td>
+                    <td class="text-center"> ${item.unitName}</td>
+                    <td class="text-center"> ${item.categoryName}</td>
+                    <td class="text-right"> ${item.amount}</td>
+                    <td class="text-right"> ${item.percentage}</td>
                 </tr>
             </tbody>
             <tfoot if.bind="data.length > 0">
