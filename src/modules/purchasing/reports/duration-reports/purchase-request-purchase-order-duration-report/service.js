@@ -1,6 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
+var UnitLoader = require('../../../../../loader/unit-loader');
+var CategoryLoader = require('../../../../../loader/category-loader');
 
 const serviceUri = 'duration-report/purchase-request-to-purchase-order-duration-reports';
 
@@ -18,6 +20,12 @@ export class Service extends RestService {
     generateExcel(info) {
         var endpoint = this._getEndPoint(info);
         return super.getXls(endpoint);
+    }
+    get unitLoader() {
+        return UnitLoader;
+    }
+    get categoryLoader() {
+        return CategoryLoader;
     }
 
     _getEndPoint(info)
