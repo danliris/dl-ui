@@ -5,6 +5,7 @@ var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis')
 var MachineLoader = require('../../../../loader/machines-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
+var MachineEventLoader = require('../../../../loader/machine-event-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
@@ -19,6 +20,7 @@ export class DataForm {
     @bindable localStartDate;
     @bindable localEndDate;
     @bindable productionOrder;
+    @bindable Machine;
 
     auInputOptions = {
         label: {
@@ -30,7 +32,7 @@ export class DataForm {
         }
     };
 
-    divisionFilter = { "unit.division.name": "FINISHING & PRINTING" };
+    divisionFilter = { "UnitDivisionName": "FINISHING & PRINTING" };
 
     constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
@@ -43,44 +45,49 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.localStartDate = new Date(Date.parse(this.data.dateStart));
-        this.localEndDate = new Date(Date.parse(this.data.dateEnd));
+        this.localStartDate = new Date(Date.parse(this.data.DateStart));
+        this.localEndDate = new Date(Date.parse(this.data.DateEnd));
 
-        this.data.timeInMomentStart = this.data.timeInMillisStart != undefined ? moment(this.data.timeInMillisStart) : this._adjustMoment();
-        this.data.timeInMomentEnd = this.data.timeInMillisEnd != undefined && this.data.timeInMillisEnd != null ? moment(this.data.timeInMillisEnd) : this._adjustMoment();
+        this.data.TimeInMomentStart = this.data.TimeInMillisStart != undefined ? moment(this.data.TimeInMillisStart) : this._adjustMoment();
+        this.data.TimeInMomentEnd = this.data.TimeInMillisEnd != undefined && this.data.TimeInMillisEnd != null ? moment(this.data.TimeInMillisEnd) : this._adjustMoment();
 
-        if (this.data.productionOrder && this.data.productionOrder.details && this.data.productionOrder.details.length > 0) {
-            this.productionOrder = this.data.productionOrder;
-            this.productionOrderDetails = this.data.productionOrder.details;
-            this._mapProductionOrderDetail();
+        if (this.data.ProductionOrder && this.data.ProductionOrder.Details) {
+            if (this.data.ProductionOrder.Details > 0) {
+                this.productionOrder = this.data.ProductionOrder;
+                this.productionOrderDetails = this.data.ProductionOrder.Details;
+                this._mapProductionOrderDetail();
+            }
+
         }
     }
 
     localStartDateChanged(newValue) {
-        this.data.dateStart = this.localStartDate;
+        this.data.DateStart = this.localStartDate;
+        this.data.TimeInMillisStart = this.localStartDate.getTime();
     }
 
     localEndDateChanged(newValue) {
-        this.data.dateEnd = this.localEndDate;
+        this.data.DateEnd = this.localEndDate;
+        this.data.TimeInMillisEnd = this.localEndDate.getTime();
     }
 
-    machineChanged(newValue) {
-        delete this.data.machineEvent;
-        var selectedMachine = newValue;
-        // this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
-        this.data.machineId = this.data.machine._id;
-        // this.machineCodeFilter = selectedMachine.code;
-        this.machineCodeFilter = this.data.machine.code;
+    MachineChanged(newValue) {
+        delete this.data.MachineEvent;
+        if (this.Machine) {
+            this.data.Machine = this.Machine;
+            this.machineCodeFilter = this.Machine.Code;
+        }
+
     }
 
     timeStartChanged(E) {
         var tempTimeStart = e.detail;
         if (tempTimeStart) {
             tempTimeStart = this._adjustMoment(tempTimeStart);
-            this.data.timeInMillisStart = momentToMillis(tempTimeStart);
+            this.data.TimeInMillisStart = momentToMillis(tempTimeStart);
         }
         else {
-            delete this.data.timeInMillisStart;
+            delete this.data.TimeInMillisStart;
         }
     }
 
@@ -88,28 +95,25 @@ export class DataForm {
         var tempTimeEnd = e.detail;
         if (tempTimeEnd) {
             tempTimeEnd = this._adjustMoment(tempTimeEnd);
-            this.data.timeInMillisEnd = momentToMillis(tempTimeEnd);
+            this.data.TimeInMillisEnd = momentToMillis(tempTimeEnd);
         }
         else {
-            delete this.data.timeInMillisEnd;
+            delete this.data.TimeInMillisEnd;
         }
     }
 
     async productionOrderChanged(newValue) {
-        // this.productionOrderDetails = [];
-        // var  productionOrder  =  newValue;
         if (this.productionOrder) {
-            this.data.productionOrder = this.productionOrder
-            this.productionOrderDetails = await this.service.getProductionOrderDetails(this.productionOrder.orderNo);
-            this.data.productionOrderId = this.productionOrder._id;
+            this.data.ProductionOrder = this.productionOrder
+            this.productionOrderDetails = await this.service.getProductionOrderDetails(this.productionOrder.OrderNo);
             if (this.hasProductionOrderDetails) {
                 this._mapProductionOrderDetail();
-                this.data.selectedProductionOrderDetail = {};
-                this.data.selectedProductionOrderDetail = this.productionOrderDetails[0];
+                this.data.SelectedProductionOrderDetail = {};
+                this.data.SelectedProductionOrderDetail = this.productionOrderDetails[0];
             }
         }
         else {
-            delete this.data.selectedProductionOrderDetail;
+            delete this.data.SelectedProductionOrderDetail;
             this.productionOrder = null;
         }
     }
@@ -120,13 +124,13 @@ export class DataForm {
 
     get hasMachine() {
         // return this.data && this.data.machineId && this.data.machineId !== '';
-        return this.data && this.data.machineId && this.data.machineId !== '';
+        return this.data && this.data.Machine && this.data.Machine.Id != 0;
     }
 
     _mapProductionOrderDetail() {
         this.productionOrderDetails.map(detail => {
             detail.toString = function () {
-                return `${this.colorRequest}`;
+                return `${this.ColorRequest}`;
             }
             return detail;
         });
@@ -147,6 +151,10 @@ export class DataForm {
 
     get productionOrderLoader() {
         return ProductionOrderLoader;
+    }
+
+    get machineEventLoader() {
+        return MachineEventLoader;
     }
 
 }
