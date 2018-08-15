@@ -24,13 +24,13 @@ export class DataForm {
 	}
 
 	itemsColumns = [
-		{ header: "Nama Area", value: "name" },
-		{ header: "Durasi (hari)", value: "duration" }
+		{ header: "Nama Area", value: "Name" },
+		{ header: "Durasi (hari)", value: "Duration" }
 	]
 
-	@computedFrom("data._id")
+	@computedFrom("data.Id")
 	get isEdit() {
-		return (this.data._id || '').toString() != '';
+		return (this.data.Id || '').toString() != '';
 	}
 
 	bind(context) {
@@ -48,25 +48,13 @@ export class DataForm {
 		return ProcessTypeLoader;
 	}
 
-	selectedProcessTypeChanged(newValue) {
-		var selectedProcessType = newValue;
-		if (!selectedProcessType) {
-			this.data.processType = {};
-			this.data.processTypeId = {};
-		}
-		else if (selectedProcessType._id) {
-			this.data.processType = selectedProcessType;
-			this.data.processTypeId = selectedProcessType._id;
-		}
-	}
-
 	processTypeView = (processType) => {
-		return processType.name
+		return processType.Name
 	}
 
 	get addItems() {
 		return (event) => {
-			this.data.areas.push({})
+			this.data.Areas.push({})
 		};
 	}
 } 

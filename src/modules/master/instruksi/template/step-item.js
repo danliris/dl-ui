@@ -1,5 +1,5 @@
 import { bindable } from 'aurelia-framework'
-var StepLoader = require('../../../../loader/step-instruction-loader');
+var StepLoader = require('../../../../loader/step-no-id-loader');
 
 export class StepItem {
   @bindable temp;

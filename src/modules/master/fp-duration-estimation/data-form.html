@@ -7,8 +7,8 @@
         	options.bind="formOptions">
 
 			<au-autocomplete 
-				value.bind="selectedProcessType" 
-				error.bind="error.processTypeId"
+				value.bind="data.ProcessType" 
+				error.bind="error.ProcessType"
 				label="Jenis Proses"  
 				loader.bind="processTypeLoader"
         text.bind = "processTypeView"
@@ -19,8 +19,8 @@
 			</au-autocomplete>
 			
 			<au-collection 
-				items.bind="data.areas" 
-				errors.bind="error.areas" 
+				items.bind="data.Areas" 
+				errors.bind="error.Areas" 
 				columns.bind="itemsColumns" 
 				add.bind="addItems" 
 				remove.bind="removeItems"

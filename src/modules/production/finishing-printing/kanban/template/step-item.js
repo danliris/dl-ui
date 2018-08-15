@@ -15,7 +15,7 @@ export class StepItem {
     this.temp = Object.getOwnPropertyNames(this.step).length > 0 ? this.step : null;
     this.isShowing = false;
     this.options.disabledStepAdd = (context.context.options.disabledStepAdd) ? true : false;
-    this.options.isNotDone = !this.step.isNotDone;
+    this.options.IsNotDone = !this.step.IsNotDone;
   }
   bind() {
     this.tdDeadline.addEventListener("click", (event) => {
@@ -33,9 +33,9 @@ export class StepItem {
     ];
   }
   stepIndicatorColumns = [
-    { header: "Indikator", value: "name" },
-    { header: "Nilai", value: "value" },
-    { header: "Satuan", value: "uom" },
+    { header: "Indikator", value: "Name" },
+    { header: "Nilai", value: "Value" },
+    { header: "Satuan", value: "Uom" },
   ];
 
   controlOptions = {
@@ -50,7 +50,7 @@ export class StepItem {
 
   tempChanged(newValue, oldValue) {
     if (!newValue) {
-      Object.assign(this.context.data, { process: "", stepIndicators: [] });
+      Object.assign(this.context.data, { Process: "", StepIndicators: [] });
     }
     else {
       Object.assign(this.context.data, newValue);
@@ -107,9 +107,9 @@ export class StepItem {
 
   get stepIndicatorInfo() {
     var info = "";
-    if (this.step.stepIndicators && this.step.stepIndicators.length > 0) {
-      for (var stepIndicator of this.step.stepIndicators) {
-        info += stepIndicator.name + "=" + (stepIndicator.value ? stepIndicator.value : "0") + ",";
+    if (this.step.StepIndicators && this.step.StepIndicators.length > 0) {
+      for (var stepIndicator of this.step.StepIndicators) {
+        info += stepIndicator.Name + "=" + (stepIndicator.Value ? stepIndicator.Value : "0") + ",";
       }
       info = info.substring(0, info.length - 1);
     }

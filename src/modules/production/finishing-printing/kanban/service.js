@@ -4,14 +4,14 @@ import { RestService } from '../../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-printing/kanbans';
+const serviceUri = 'production/kanbans';
 const productionOrderServiceUri = 'sales/production-orders';
 const durationEstimationUri = 'master/fp-duration-estimations';
 
 export class Service extends RestService {
 
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "production");
+    super(http, aggregator, config, "production-azure");
   }
 
   search(info) {
@@ -25,7 +25,7 @@ export class Service extends RestService {
   }
 
   create(data) {
-    var endpoint = `${serviceUri}`;
+    var endpoint = `${serviceUri}/create/carts`;
     return super.post(endpoint, data);
   }
 
@@ -67,13 +67,15 @@ export class Service extends RestService {
   }
 
   getDurationEstimation(code, select) {
+    code = "I7UWSP65";
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("core");
+    var endpoint = config.getEndpoint("production-azure");
     var filter = {
-      "processType.code": code
+      // "processType.code": code
     };
+    var keyword = code;
 
-    var promise = endpoint.find(durationEstimationUri, { select: select, filter: JSON.stringify(filter) });
+    var promise = endpoint.find(durationEstimationUri, { filter: JSON.stringify(filter), keyword: keyword });
     this.eventAggregator.publish('httpRequest', promise);
     return promise
       .catch(e => {

@@ -1,6 +1,6 @@
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'instructions';
+const serviceUri = 'master/instructions';
 
 export class Service extends RestService {
 

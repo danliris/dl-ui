@@ -1,9 +1,9 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'steps/instruction/loader';
+const resource = 'master/steps/no-id/loader';
 
-module.exports = function(keyword, filter, select) {
+module.exports = function (keyword, filter, select) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("production-azure");
