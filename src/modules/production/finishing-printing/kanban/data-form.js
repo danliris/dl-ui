@@ -1,7 +1,7 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 
-var InstructionLoader = require('../../../../loader/instruction-loader');
+var InstructionLoader = require('../../../../loader/instruction-no-id-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
 
@@ -240,7 +240,7 @@ export class DataForm {
                 return s;
             });
 
-            this.data.currentIndex = this.data.currentStepIndex - 1;
+            this.data.currentIndex = this.data.CurrentStepIndex - 1;
 
             this.instruction = this.data.Instruction;
 
@@ -477,7 +477,7 @@ export class DataForm {
                         var area = this.data.durationEstimation.Areas[i];
                         totalDay += area.Duration;
 
-                        if (area.name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
+                        if (area.Name == step.ProcessArea.toUpperCase().replace("AREA ", ""))
                             break;
                     }
 

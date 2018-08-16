@@ -1,6 +1,6 @@
 import { bindable } from 'aurelia-framework'
 var StepLoader = require('../../../../../loader/step-loader');
-var MachineLoader = require('../../../../../loader/machine-loader');
+var MachineLoader = require('../../../../../loader/kanban-machines-azure-loader');
 
 export class StepItem {
 
@@ -87,7 +87,7 @@ export class StepItem {
       this.tdButton.setAttribute("class", "active");
 
     this.context.context.selectedStep = { data: step, index: index, tdNumber: this.tdNumber, tdStep: this.tdStep, tdButton: this.tdButton, tdMachine: this.tdMachine, tdArea: this.tdArea, tdDeadline: this.tdDeadline };
-    this.query = { "steps.step.process": this.context.data.process ? this.context.data.process : "" };
+    this.query = { "Process": this.context.data.Process ? this.context.data.Process : "" };
   }
 
   toggle() {

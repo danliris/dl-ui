@@ -30,7 +30,7 @@ export class Service extends RestService {
   }
 
   update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
@@ -40,7 +40,7 @@ export class Service extends RestService {
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
 

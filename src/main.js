@@ -33,6 +33,7 @@ export async function configure(aurelia) {
       var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
       var auth = "https://dl-auth-api-dev.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
+      var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
       var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites.net/v1/";
       var purchasingAzure = "https://com-danliris-service-purchasing-dev.azurewebsites.net/v1/";
       var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.azurewebsites.net/v1/";
@@ -50,6 +51,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production, defaultConfig);
+      config.registerEndpoint('production-azure', productionAzure, defaultConfig);
       config.registerEndpoint('purchasing', purchasing, defaultConfig);
       config.registerEndpoint('purchasing-azure', purchasingAzure, defaultConfig);
       config.registerEndpoint('garment-purchasing', garmentPurchasing, defaultConfig);

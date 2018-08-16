@@ -47,7 +47,7 @@
       </au-datepicker>
     </td>
     <td click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly && !options.disabledStepAdd">
-      <button class="btn btn-danger pull-right" click.delegate="onremove(context.data)" if.bind="!step.isNotDone">-</button>
+      <button class="btn btn-danger pull-right" click.delegate="onremove(context.data)" if.bind="!step.IsNotDone">-</button>
     </td>
   </tr>
   <tr if.bind="isShowing">
