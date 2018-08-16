@@ -40,12 +40,10 @@ export class List {
        if(this.filter.dateFrom)
        {
            this.filter.dateFrom= moment(this.filter.dateFrom).format("YYYY-MM-DD");
-           console.log(this.filter.dateFrom);
        }
        if(this.filter.dateTo)
        {
            this.filter.dateTo= moment(this.filter.dateTo).format("YYYY-MM-DD");
-           console.log(this.filter.dateTo);
        }
       }
         uri = this.service.getDataSpl(this.filter.unit, this.filter.category, this.filter.dateFrom,  this.filter.dateTo);
@@ -73,7 +71,7 @@ export class List {
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.filter.unit, this.filter.category, this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.filter.unit, this.filter.category, this.filter.dateFrom, this.filter.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
