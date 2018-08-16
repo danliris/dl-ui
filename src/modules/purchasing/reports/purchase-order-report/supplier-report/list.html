@@ -1,10 +1,10 @@
 <template>
     <h1 class="page-header">Total Pembelian per Supplier</h1>
     <form class="form-horizontal">
-        <au-autocomplete  value.bind="filter.unit"  label="Unit"  loader.bind="unitLoader"></au-autocomplete>
-        <au-autocomplete  value.bind="filter.category"  label="Kategori"  loader.bind="categoryLoader"></au-autocomplete>
-        <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
-        <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
+        <au-autocomplete  value.bind="unit"  label="Unit"  loader.bind="unitLoader"></au-autocomplete>
+        <au-autocomplete  value.bind="category"  label="Kategori"  loader.bind="categoryLoader"></au-autocomplete>
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">

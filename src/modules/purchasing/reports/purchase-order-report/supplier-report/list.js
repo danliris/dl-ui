@@ -17,8 +17,7 @@ export class List {
     category=null;
     dateFrom = null;
     dateTo = null;
-
-    listDataFlag = false;
+ 
     get unitLoader() {
         return UnitLoader;
     }
@@ -35,25 +34,14 @@ export class List {
         var data = [];
         var amounts = [];
         var uri = ""; 
-       if(this.filter)
-       {
-       if(this.filter.dateFrom)
-       {
-           this.filter.dateFrom= moment(this.filter.dateFrom).format("YYYY-MM-DD");
-       }
-       if(this.filter.dateTo)
-       {
-           this.filter.dateTo= moment(this.filter.dateTo).format("YYYY-MM-DD");
-       }
-      }
-        uri = this.service.getDataSpl(this.filter.unit, this.filter.category, this.filter.dateFrom,  this.filter.dateTo);
+   
+        uri = this.service.getDataSpl(this.unit, this.category, this.dateFrom,  this.dateTo);
       
         uri.then(data => {
         
             this.data = data;
             for(var item of data)
             {
-               
                 pricetotals= item.total;
                 item.percentage=(item.amount*100/item.total).toFixed(2);  
                 item.amount=item.amount.toLocaleString()+".00";
@@ -64,14 +52,14 @@ export class List {
     }
 
     reset() {
-        this.filter.dateFrom = null;
-        this.filter.dateTo = null;
-        this.filter.unit = null;
-        this.filter.category = null; 
+        this.dateFrom = null;
+        this.dateTo = null;
+        this.unit = null;
+        this.category = null; 
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.filter.unit, this.filter.category, this.filter.dateFrom, this.filter.dateTo);
+        this.service.generateExcel(this.unit, this.category, this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
