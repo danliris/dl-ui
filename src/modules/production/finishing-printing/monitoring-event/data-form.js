@@ -48,8 +48,8 @@ export class DataForm {
         this.localStartDate = new Date(Date.parse(this.data.DateStart));
         this.localEndDate = new Date(Date.parse(this.data.DateEnd));
 
-        this.data.TimeInMomentStart = this.data.TimeInMillisStart != undefined ? moment(this.data.TimeInMillisStart) : this._adjustMoment();
-        this.data.TimeInMomentEnd = this.data.TimeInMillisEnd != undefined && this.data.TimeInMillisEnd != null ? moment(this.data.TimeInMillisEnd) : this._adjustMoment();
+        // this.data.TimeInMomentStart = this.data.TimeInMillisStart != undefined ? moment(this.data.TimeInMillisStart) : this._adjustMoment();
+        // this.data.TimeInMomentEnd = this.data.TimeInMillisEnd != undefined && this.data.TimeInMillisEnd != null ? moment(this.data.TimeInMillisEnd) : this._adjustMoment();
 
         if (this.data.ProductionOrder && this.data.ProductionOrder.Details) {
             if (this.data.ProductionOrder.Details > 0) {
@@ -77,7 +77,6 @@ export class DataForm {
             this.data.Machine = this.Machine;
             this.machineCodeFilter = this.Machine.Code;
         }
-
     }
 
     timeStartChanged(E) {
@@ -108,12 +107,12 @@ export class DataForm {
             this.productionOrderDetails = await this.service.getProductionOrderDetails(this.productionOrder.OrderNo);
             if (this.hasProductionOrderDetails) {
                 this._mapProductionOrderDetail();
-                this.data.SelectedProductionOrderDetail = {};
-                this.data.SelectedProductionOrderDetail = this.productionOrderDetails[0];
+                this.data.ProductionOrderDetail = {};
+                this.data.ProductionOrderDetail = this.productionOrderDetails[0];
             }
         }
         else {
-            delete this.data.SelectedProductionOrderDetail;
+            delete this.data.ProductionOrderDetail;
             this.productionOrder = null;
         }
     }

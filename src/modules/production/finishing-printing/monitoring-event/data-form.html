@@ -27,12 +27,12 @@
                 </au-autocomplete>
 
 
-                <au-dropdown label="Warna" value.bind="data.SelectedProductionOrderDetail" error.bind="error.SelectedProductionOrderDetail"
+                <au-dropdown label="Warna" value.bind="data.ProductionOrderDetail" error.bind="error.SelectedProductionOrderDetail"
                     read-only.bind="readOnly" items.bind="productionOrderDetails" if.bind="hasProductionOrderDetails && !readOnly"
                     options.bind="auInputOptions">
                 </au-dropdown>
 
-                <au-textbox label="Warna" value.bind="data.SelectedProductionOrderDetail.ColorRequest" read-only.bind="readOnly" if.bind="readOnly"
+                <au-textbox label="Warna" value.bind="data.ProductionOrderDetail.ColorRequest" read-only.bind="readOnly" if.bind="readOnly"
                     options.bind="auInputOptions"></au-textbox>
 
                 <au-textbox label="Nomor Kereta" value.bind="data.CartNumber" error.bind="error.CartNumber" read-only.bind="readOnly" options.bind="auInputOptions"></au-textbox>
