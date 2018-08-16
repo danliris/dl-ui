@@ -7,7 +7,7 @@ const serviceUri = "master/machine";
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "production");
+    super(http, aggregator, config, "production-azure");
   }
 
   search(info) {
