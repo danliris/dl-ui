@@ -11,7 +11,7 @@ export class Service extends RestService {
   }
 
 getDataSpl(unit, category, sdate, edate) {
-  console.log(category);
+  console.log(sdate);
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -58,7 +58,7 @@ generateExcel(unit, category, sdate, edate) {
             
         if (query !== '')
         endpoint = `${serviceUri}/download?${query}`;
-      
+       console.log(sdate);
         return super.getXls(endpoint);
     }
 }
