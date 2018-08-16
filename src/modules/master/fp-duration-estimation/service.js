@@ -7,7 +7,7 @@ const serviceUri = 'master/fp-duration-estimations';
 export class Service extends RestService {
 
 	constructor(http, aggregator, config, api) {
-		super(http, aggregator, config, "core");
+		super(http, aggregator, config, "production-azure");
 	}
 
 	search(info) {

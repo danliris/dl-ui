@@ -6,8 +6,8 @@ import { Router } from 'aurelia-router';
 export class List {
 	context = ["Rincian"];
 	columns = [
-		{ field: "processType.name", title: "Jenis Proses" },
-		{ field: "duration", title: "Total Durasi (hari)" }
+		{ field: "ProcessType.Name", title: "Jenis Proses" },
+		{ field: "Duration", title: "Total Durasi (hari)" }
 	];
 
 	constructor(router, service) {
@@ -25,15 +25,13 @@ export class List {
 			size: info.limit,
 			keyword: info.search,
 			order: order,
-			select: ['processType.name', 'areas.duration']
 		}
 
 		return this.service.search(arg)
 			.then(result => {
 				result.data.map((data) => {
-					data.name = `${data.firstName} ${data.lastName}`;
-					data.duration = data.areas.map(item => item.duration)
-						.reduce(function (prev, curr) {
+					data.Duration = data.Areas.map(item => item.Duration)
+						.reduce((prev, curr) => {
 							return prev + curr;
 						}, 0);
 				});
@@ -50,13 +48,13 @@ export class List {
 		var data = arg.data;
 		switch (arg.name) {
 			case "Rincian":
-				this.router.navigateToRoute('view', { id: data._id });
+				this.router.navigateToRoute('view', { id: data.Id });
 				break;
 		}
 	}
 
 	view(data) {
-		this.router.navigateToRoute('view', { id: data._id });
+		this.router.navigateToRoute('view', { id: data.Id });
 	}
 
 	create() {

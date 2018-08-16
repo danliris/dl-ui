@@ -16,11 +16,6 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    // search(no, supplierId, dateFrom, dateTo) {
-    //     var endpoint = `${serviceUri}?no=${no}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
-    //     return super.get(endpoint);
-    // }
-
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
@@ -30,10 +25,4 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/download?no=${info.no}&supplierId=${info.supplierId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
-
-    // generateExcel(no, supplierId, dateFrom, dateTo) {
-    //     var endpoint = `${serviceUri}?no=${no}&supplierId=${supplierId}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
-    //     return super.getXls(endpoint);
-    // }
-
 }

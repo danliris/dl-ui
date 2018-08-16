@@ -44,9 +44,9 @@ export class List {
       { field: "category", title: "Kategori", sortable:false},
       { field: "productCode", title: "Kode Barang", sortable:false},
       { field: "productName", title: "Nama Barang", sortable:false},
-      { field: "productQuantity", title: "Jumlah Barang", sortable:false},
-      { field: "productUom", title: "Satuan Barang", sortable:false},
-      { field: "productPrice", title: "Harga Barang", sortable:false},
+      { field: "dealQuantity", title: "Jumlah Barang", sortable:false},
+      { field: "dealUomUnit", title: "Satuan Barang", sortable:false},
+      { field: "pricePerDealUnit", title: "Harga Barang", sortable:false},
       { field: "supplierCode", title: "Kode Supplier", sortable:false},
       { field: "supplierName", title: "Nama Supplier", sortable:false},
       { field: "poDate", title: "Tanggal Terima PO Internal", sortable:false,
@@ -54,22 +54,22 @@ export class List {
             return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksDate", title: "Tanggal PO Eksternal", sortable:false, 
+      { field: "orderDate", title: "Tanggal PO Eksternal", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksCreatedDate", title: "Tanggal Buat PO Eksternal", sortable:false, 
+      { field: "ePOCreatedDate", title: "Tanggal Buat PO Eksternal", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "expectedDate", title: "Tanggal Target Datang", sortable:false, 
+      { field: "deliveryDate", title: "Tanggal Target Datang", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksNo", title: "No PO Eksternal", sortable:false},
+      { field: "ePONo", title: "No PO Eksternal", sortable:false},
       { field: "dateDiff", title: "Selisih Tanggal PR - PO Eksternal (hari)", sortable:false},
       { field: "staff", title: "Nama Staff Pembelian", sortable:false},
     ]
@@ -103,6 +103,12 @@ export class List {
             this.fillValues(),
             this.service.search(this.arg)
                 .then(result => {
+                    var index=0;
+                        for(var a of result.data){
+                            index++;
+                            a.index=index;
+                            
+                        }
                     return {
                         total: result.info.length,
                         data: result.data
