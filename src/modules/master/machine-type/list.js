@@ -6,8 +6,8 @@ import {Router} from 'aurelia-router';
 export class List {
     context = ["detail"];
     columns = [
-    { field: "name", title: "Nama" },
-    { field: "indicators", title: "Indikator" },
+    { field: "Name", title: "Nama" },
+    { field: "Indicators", title: "Indikator" },
     ];
 
     loader = (info) => {
@@ -19,7 +19,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["name","indicators"],
+      // select:["name","indicators"],
       order: order
     }
 
@@ -29,10 +29,10 @@ export class List {
                 data.total = result.info.total;
                 data.data = result.data;
                 data.data.forEach(s => {
-                    s.indicators.toString = function () {
+                    s.Indicators.toString = function () {
                         var str = "<ul>";
-                        for (var item of s.indicators) {
-                            str += `<li>${item.indicator}</li>`;
+                        for (var item of s.Indicators) {
+                            str += `<li>${item.Indicator}</li>`;
                         }
                         str += "</ul>";
                         return str;
@@ -58,7 +58,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }

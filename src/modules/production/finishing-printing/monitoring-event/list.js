@@ -104,14 +104,14 @@ export class List {
                 return moment(value).format("HH:mm");
             }
         },
-        { field: "machine.name", title: "Mesin" },
-        { field: "productionOrder.orderNo", title: "Nomor Order Produksi" },
-        { field: "selectedProductionOrderDetail.colorRequest", title: "Warna" },
-        { field: "cartNumber", title: "Nomor Kereta" },
-        { field: "machineEvent.name", title: "Event Mesin" },
-        { field: "remark", title: "Keterangan" },
+        { field: "Machine.name", title: "Mesin" },
+        { field: "ProductionOrder.OrderNo", title: "Nomor Order Produksi" },
+        { field: "SelectedProductionOrderDetail.ColorRequest", title: "Warna" },
+        { field: "CartNumber", title: "Nomor Kereta" },
+        { field: "MachineEvent.Name", title: "Event Mesin" },
+        { field: "Remark", title: "Keterangan" },
         {
-            field: "productionOrder.deliveryDate", title: "Jadwal Pengiriman", formatter: function (value, data, index) {
+            field: "ProductionOrder.DeliveryDate", title: "Jadwal Pengiriman", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         }
@@ -128,7 +128,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["dateStart", "dateEnd", "machine.name", "productionOrder.orderNo", "selectedProductionOrderDetail.colorRequest", "cartNumber", "machineEvent.name", "remark", "productionOrder.deliveryDate"]
+            // select: ["dateStart", "dateEnd", "machine.name", "productionOrder.orderNo", "selectedProductionOrderDetail.colorRequest", "cartNumber", "machineEvent.name", "remark", "productionOrder.deliveryDate"]
         }
 
         return this.service.search(arg)
@@ -154,7 +154,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

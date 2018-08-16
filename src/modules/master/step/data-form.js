@@ -38,9 +38,15 @@ export class DataForm {
         this.columns = ['Indikator', 'Nilai', 'Satuan'];
     }
 
-    info = {
+    stepIndicatorsInfo = {
+        columns: [
+            { header: "Indikator", value: "Name" },
+            { header: "Nilai", value: "Qty" },
+            { header: "Satuan", value: "Uom" },
+        ],
         onAdd: function () {
-            this.data.StepIndicators.push({ Name: "", Value: 0, Uom: "" });
+            this.data.StepIndicators.push({ Name: "", Qty: 0, Uom: "" });
+            console.log("add");
         }.bind(this),
         onRemove: function () { }.bind(this)
     };

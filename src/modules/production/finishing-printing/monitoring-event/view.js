@@ -15,11 +15,11 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        if (this.data.dateEnd == null)
-            delete this.data.dateEnd;
+        if (this.data.DateEnd == null)
+            delete this.data.DateEnd;
 
-        if (this.data.timeInMillisEnd == null)
-            delete this.data.timeInMillisEnd;
+        if (this.data.TimeInMillisEnd == null)
+            delete this.data.TimeInMillisEnd;
     }
 
     back() {
@@ -27,7 +27,7 @@ export class View {
     }
 
     edit() {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete() {

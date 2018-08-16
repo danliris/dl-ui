@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/machine-types';
+const resource = 'master/machine-event';
 
 module.exports = function(keyword, filter) {
 

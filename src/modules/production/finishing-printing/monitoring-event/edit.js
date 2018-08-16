@@ -16,11 +16,11 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if (this.data.dateEnd == null)
-            delete this.data.dateEnd;
+        if (this.data.DateEnd == null)
+            delete this.data.DateEnd;
 
-        if (this.data.timeInMillisEnd == null)
-            delete this.data.timeInMillisEnd;
+        if (this.data.TimeInMillisEnd == null)
+            delete this.data.TimeInMillisEnd;
 
         // if (this.data.selectedProductionOrderDetail.colorRequest) {
         //     this.data.selectedProductionOrderDetail.toString = function () {
@@ -30,7 +30,7 @@ export class Edit {
     }
 
     view() {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save() {

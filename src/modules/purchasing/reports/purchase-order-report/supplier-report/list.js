@@ -1,6 +1,9 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+var moment = require("moment");
+var UnitLoader = require('../../../../../loader/unit-loader');
+var CategoryLoader = require('../../../../../loader/category-loader');
 
 @inject(Router, Service)
 export class List {
@@ -10,53 +13,41 @@ export class List {
         this.router = router;
         this.today = new Date();
     }
-
+    unit=null;
+    category=null;
     dateFrom = null;
     dateTo = null;
-    unit = null;
-    category = null;
-    supplier = null;
-    
+ 
+    get unitLoader() {
+        return UnitLoader;
+    }
+    get categoryLoader() {
+        return CategoryLoader;
+    }
+
     activate() {
     }
     searching() {
         var pricetotals = 0;
         var percentage = [];
         var percentagetotal = 0;
-        var persen = 0;
         var data = [];
         var amounts = [];
-        var uri = "";
-        uri = this.service.getDataSpl(this.unit, this.category, this.supplier, this.dateFrom, this.dateTo);
+        var uri = ""; 
+   
+        uri = this.service.getDataSpl(this.unit, this.category, this.dateFrom,  this.dateTo);
+      
         uri.then(data => {
+        
             this.data = data;
-            for (var price of data) {
-                pricetotals += price.pricetotal;
+            for(var item of data)
+            {
+                pricetotals= item.total;
+                item.percentage=(item.amount*100/item.total).toFixed(2);  
+                item.amount=item.amount.toLocaleString()+".00";
             }
-            this.pricetotals = pricetotals;
-
-            for (var item of data) {
-                if (item.pricetotal != 0 && this.pricetotals != 0) {
-                    this.persen = ((item.pricetotal * 100) / this.pricetotals).toFixed(2);
-                }
-                else {
-                    this.persen = 0;
-                }
-                percentage.push(this.persen);
-                var x = item.pricetotal.toFixed(2).toString().split('.');
-                var x1 = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                var amount = x1 + '.' + x[1];
-                amounts.push(amount);
-            }
-            for (var p of percentage) {
-                percentagetotal += parseFloat(p);
-            }
-            this.percentage = percentage;
-            this.percentagetotal = Math.round(percentagetotal).toFixed(2);
-            this.amounts = amounts;
-            var y = this.pricetotals.toFixed(2).toString().split('.');
-            var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            this.pricetotals = y1 + '.' + y[1];
+            this.pricetotals = pricetotals.toLocaleString() +".00";
+            this.percentagetotal = 100;
         })
     }
 
@@ -64,12 +55,11 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.unit = null;
-        this.category = null;
-        this.supplier = null;
+        this.category = null; 
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.unit, this.category, this.supplier, this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.unit, this.category, this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
