@@ -1,13 +1,13 @@
 <template>
     <tr>
         <td>
-            <au-textbox value.bind="stepIndicators.name" error.bind="error.name" read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
+            <au-textbox value.bind="stepIndicators.Name" error.bind="error.Name" read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="stepIndicators.value" error.bind="error.value" read-only.bind="readOnly" options.bind="controlOptions" format="0"></au-numeric>
+            <au-numeric value.bind="stepIndicators.Value" error.bind="error.Value" read-only.bind="readOnly" options.bind="controlOptions" format="0"></au-numeric>
         </td>
         <td>
-            <au-textbox value.bind="stepIndicators.uom" error.bind="error.uom" read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
+            <au-textbox value.bind="stepIndicators.Uom" error.bind="error.Uom" read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
         </td>
         <td if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(stepIndicators, $event)">-</button>

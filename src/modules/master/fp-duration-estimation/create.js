@@ -29,7 +29,7 @@ export class Create {
             })
     }
     bind() {
-        this.data = { areas: [] };
+        this.data = { Areas: [] };
         this.error = {};
     }
 }
