@@ -11,7 +11,6 @@ export class Service extends RestService {
   }
 
 getDataSpl(unit, category, sdate, edate) {
-  console.log(sdate);
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
