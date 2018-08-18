@@ -7,37 +7,31 @@ const serviceUri = 'master/steps';
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "production");
+    super(http, aggregator, config, "production-azure");
   }
 
   search(info) {
-    var endpoint = `${serviceUri}`;
+    let endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
   }
 
   getById(id) {
-    var endpoint = `${serviceUri}/${id}`;
-    return super.get(endpoint);
-  }
-
-  getByCode(code) {
-    var endpoint = `${serviceUri}?keyword=${code}`;
+    let endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
   }
 
   create(data) {
-    var endpoint = `${serviceUri}`;
+    let endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
 
   update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    let endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    let endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
-
 }

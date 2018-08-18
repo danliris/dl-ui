@@ -11,25 +11,22 @@ export class EditInput {
     }
 
     async activate(params) {
-        var id = params.id;
+        let id = params.id;
         this.data = await this.service.getById(id);
     }
 
-    view() {
-        this.router.navigateToRoute('view', { id: this.data._id });
+    cancelCallback(event) {
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
-    save() {
+    saveCallback(event) {
+        
         this.service.update(this.data)
             .then(result => {
-                this.view();
+                this.router.navigateToRoute('view', { id: this.data.Id });
             })
             .catch(e => {
                 this.error = e;
             })
-    }
-
-    get isEdit() {
-        return true;
     }
 }

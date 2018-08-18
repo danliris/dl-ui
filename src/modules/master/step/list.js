@@ -4,7 +4,7 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["detail"];
+    context = ["Rincian"];
     columns = [
         { field: "Process", title: "Proses" },
         { field: "StepIndicators", title: "Indikator", sortable: false }
@@ -47,11 +47,11 @@ export class List {
     }
 
     contextCallback(event) {
-        var arg = event.detail;
-        var data = arg.data;
+        let arg = event.detail;
+        let data = arg.data;
         switch (arg.name) {
-            case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+            case "Rincian":
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

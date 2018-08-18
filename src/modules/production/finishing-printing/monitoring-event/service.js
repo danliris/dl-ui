@@ -4,7 +4,7 @@ import { RestService } from '../../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'finishing-printing/monitoring-events';
+const serviceUri = 'finishing-printing/monitoring-event';
 const productionOrderServiceUri = 'sales/production-orders';
 
 export class Service extends RestService {
@@ -29,12 +29,12 @@ export class Service extends RestService {
   }
 
   update(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data._id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
 
@@ -46,14 +46,14 @@ export class Service extends RestService {
   getProductionOrderDetails(orderNo)
   {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("production");
+    var endpoint = config.getEndpoint("sales");
 
     return endpoint.find(productionOrderServiceUri, { keyword: orderNo })
         .then(results => {
             var productionOrder = results.data[0];
             var productionOrderDetails = [];
 
-            for(var detail of productionOrder.details){
+            for(var detail of productionOrder.Details){
                 productionOrderDetails.push(detail);
             }
             return productionOrderDetails;
