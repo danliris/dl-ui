@@ -61,6 +61,10 @@ export class List {
     }
 
     ExportToExcel() {
+        this.dateFrom=this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+        this.dateTo=this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        
+      
         this.service.generateExcel(this.unit, this.category, this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
