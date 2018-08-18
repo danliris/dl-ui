@@ -58,7 +58,7 @@ export class Reprocess {
     message += "<div>Apakah anda yakin mau menyimpan kanban ini?</div>";
 
     for (var invalidStep of this.invalidSteps) {
-      message += "<div>" + invalidStep.no + ". " + invalidStep.process + "</div>";
+      message += "<div>" + invalidStep.no + ". " + invalidStep.Process + "</div>";
     }
 
     message += "<br>";

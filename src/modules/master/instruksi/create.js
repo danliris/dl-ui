@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -20,6 +20,8 @@ export class Create {
     }
 
     save(event) {
+
+        console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 this.back();

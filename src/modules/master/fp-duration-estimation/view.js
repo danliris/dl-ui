@@ -13,7 +13,6 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.selectedProcessType = this.data.processType;
     }
 
     list() {
@@ -26,7 +25,7 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     deleteCallback(event) {
