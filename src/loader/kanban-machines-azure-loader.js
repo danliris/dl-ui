@@ -11,7 +11,8 @@ module.exports = function (keyword, filter) {
         .then(results => {
             let filteredResult = [];
 
-            for (let datum in results.data) {
+            for (let datum of results.data) {
+                console.log(datum);
                 let process = filter.Process ? filter.Process : "";
                 if (datum.MachineSteps.find((step) => step.Process == process))
                     filteredResult.push(datum);

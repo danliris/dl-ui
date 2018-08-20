@@ -67,7 +67,6 @@ export class Service extends RestService {
   }
 
   getDurationEstimation(code, select) {
-    code = "I7UWSP65";
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("production-azure");
     var filter = {
