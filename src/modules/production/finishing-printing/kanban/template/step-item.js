@@ -1,5 +1,5 @@
 import { bindable } from 'aurelia-framework'
-var StepLoader = require('../../../../../loader/step-loader');
+var StepLoader = require('../../../../../loader/step-no-id-loader');
 var MachineLoader = require('../../../../../loader/kanban-machines-azure-loader');
 
 export class StepItem {

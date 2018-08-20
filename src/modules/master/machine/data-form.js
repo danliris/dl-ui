@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 
 var UnitLoader = require('../../../loader/unit-loader');
-var StepLoader = require('../../..//loader/step-loader');
+var StepLoader = require('../../..//loader/step-no-id-loader');
 var MachineTypeLoader = require('../../../loader/machine-type-loader');
 
 export class DataForm {
