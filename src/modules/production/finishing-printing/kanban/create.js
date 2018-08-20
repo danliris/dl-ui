@@ -60,7 +60,7 @@ export class Create {
     message += "<div>Apakah anda yakin mau menyimpan kanban ini?</div>";
 
     for (var invalidStep of this.invalidSteps) {
-      message += "<div>" + invalidStep.no + ". " + invalidStep.rocess + "</div>";
+      message += "<div>" + invalidStep.no + ". " + invalidStep.Process + "</div>";
     }
 
     message += "<br>";
