@@ -7,7 +7,7 @@ const serviceUri = 'duration-report/purchase-order-to-purchase-order-external-du
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
