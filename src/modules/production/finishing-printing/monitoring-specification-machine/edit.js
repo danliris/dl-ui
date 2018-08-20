@@ -27,8 +27,8 @@ export class Edit {
         moment.locale(locale);
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.machine = this.data.machine;
-        this.productionOrder = this.data.productionOrder;
+        this.Machine = this.data.Machine;
+        this.ProductionOrder = this.data.ProductionOrder;
     }
 
     cancel(event) {

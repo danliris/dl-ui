@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 var moment = require('moment');
 
@@ -16,6 +16,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.Machine = this.data.Machine;
+        this.productionOrder = this.data.ProductionOrder;
         if (this.data.DateEnd == null)
             delete this.data.DateEnd;
 

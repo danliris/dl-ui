@@ -85,28 +85,28 @@ export class List {
 
     columns = [
         {
-            field: "dateStart", title: "Tanggal Mulai", formatter: function (value, data, index) {
+            field: "DateStart", title: "Tanggal Mulai", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "dateStart", title: "Jam Mulai", formatter: function (value, data, index) {
+            field: "DateStart", title: "Jam Mulai", formatter: function (value, data, index) {
                 return moment(value).format("HH:mm");
             }
         },
         {
-            field: "dateEnd", title: "Tanggal Selesai", formatter: function (value, data, index) {
+            field: "DateEnd", title: "Tanggal Selesai", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "dateEnd", title: "Jam Selesai", formatter: function (value, data, index) {
+            field: "DateEnd", title: "Jam Selesai", formatter: function (value, data, index) {
                 return moment(value).format("HH:mm");
             }
         },
-        { field: "Machine.name", title: "Mesin" },
+        { field: "Machine.Name", title: "Mesin" },
         { field: "ProductionOrder.OrderNo", title: "Nomor Order Produksi" },
-        { field: "SelectedProductionOrderDetail.ColorRequest", title: "Warna" },
+        { field: "ProductionOrderDetail.ColorRequest", title: "Warna" },
         { field: "CartNumber", title: "Nomor Kereta" },
         { field: "MachineEvent.Name", title: "Event Mesin" },
         { field: "Remark", title: "Keterangan" },

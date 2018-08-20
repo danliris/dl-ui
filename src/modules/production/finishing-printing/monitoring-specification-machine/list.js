@@ -10,12 +10,12 @@ export class List {
 
     columns = [
         {
-            field: "DateTime", title: "Tanggal", formatter: function (value, data, index) {
+            field: "DateTimeInput", title: "Tanggal", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         {
-            field: "DateTime", title: "Jam", formatter: function (value, data, index) {
+            field: "DateTimeInput", title: "Jam", formatter: function (value, data, index) {
                 return moment(value).format("HH:mm");
             }
         },
