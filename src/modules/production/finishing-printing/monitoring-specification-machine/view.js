@@ -15,7 +15,7 @@ export class View {
 
     bind() {
         this.data = this.data || {};
-        this.items = this.data.items;
+        this.Details = this.data.Details;
         this.error = {};
     }
 
@@ -25,12 +25,12 @@ export class View {
         moment.locale(locale);
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.machine = this.data.machine;
+        this.machine = this.data.Machine;
         this.Options = {
             "readOnly": true,
             "isMaster": false,
         }
-        this.productionOrder = this.data.productionOrder;
+        this.productionOrder = this.data.ProductionOrder;
 
     }
 

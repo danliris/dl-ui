@@ -87,10 +87,10 @@ export class DataForm {
                 items.push(item);
             }
             console.log(items)
-            this.data.Indicators = items;
+            this.data.Details = items;
 
         } else {
-            this.data.Indicators = [];
+            this.data.Details = [];
             this.dataCollection.refresh();
         }
     }

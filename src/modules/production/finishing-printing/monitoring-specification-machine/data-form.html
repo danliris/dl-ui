@@ -6,7 +6,7 @@
         <button slot="actions" class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
 
         <fieldset>
-            <au-datetimepicker label="Tanggal/Jam" value.bind="data.Date " error.bind="error.Date" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-datetimepicker>
+            <au-datetimepicker label="Tanggal/Jam" value.bind="data.DateTime " error.bind="error.DateTime" options.bind="auInputOptions" read-only.bind="(readOnly)"></au-datetimepicker>
             <au-autocomplete value.bind="machine" error.bind="error.Machine" label="machine" loader.bind="machineLoader" placeholder="Cari machine"
                 key="Code" text="Name" query.bind="divisionFilter" read-only.bind="(readOnly)" options.bind="auInputOptions">
             </au-autocomplete>
@@ -17,7 +17,7 @@
                 read-only.bind="(readOnly)" options.bind="auInputOptions"></au-textbox>
         </fieldset>
 
-        <monitoring-specification-machine-collection value.bind="data.Indicators" error.bind="error.Indicators" if.bind="machine" options.bind="Options"
+        <monitoring-specification-machine-collection value.bind="data.Details" error.bind="error.Details" if.bind="machine" options.bind="Options"
             click.delegate="resetErrors"></monitoring-specification-machine-collection>
         <!-- <au-collection
             items.bind="data.Indicators"

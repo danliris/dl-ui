@@ -17,7 +17,7 @@ export class Edit {
 
     bind() {
         this.data = this.data || {};
-        this.items = this.data.items;
+        this.Details = this.data.Details;
         this.error = {};
     }
 

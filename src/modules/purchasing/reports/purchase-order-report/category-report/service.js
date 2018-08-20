@@ -29,6 +29,7 @@ export class Service extends RestService {
     generateExcel(sdate, edate) {
         var endpoint =  `${serviceUri}/download`;
         var query = '';
+      
         if (sdate) {
             if (query == '') query = `dateFrom=${sdate}`;
             else query = `${query}&dateFrom=${sdate}`;
@@ -38,6 +39,7 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${edate}`;
         }
         if (query !== '')
+        console.log(query);
         endpoint = `${serviceUri}/download?${query}`;
         return super.getXls(endpoint);
     }

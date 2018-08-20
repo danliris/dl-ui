@@ -11,9 +11,9 @@
                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div> 
-        <div class="btn-group pull-left" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
-        </div> 
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+          </div> 
 <br>
     <table class="table table-bordered table-hover" border="1" id="myTable">
         <thead>
