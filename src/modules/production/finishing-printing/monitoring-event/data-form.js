@@ -62,12 +62,12 @@ export class DataForm {
     }
 
     localStartDateChanged(newValue) {
-        this.data.DateStart = this.localStartDate;
+        this.data.DateStart = new Date(this.localStartDate);
         this.data.TimeInMillisStart = this.localStartDate.getTime();
     }
 
     localEndDateChanged(newValue) {
-        this.data.DateEnd = this.localEndDate;
+        this.data.DateEnd = new Date(this.localEndDate);
         this.data.TimeInMillisEnd = this.localEndDate.getTime();
     }
 
@@ -76,6 +76,9 @@ export class DataForm {
         if (this.Machine) {
             this.data.Machine = this.Machine;
             this.machineCodeFilter = this.Machine.Code;
+        }else{
+            this.Machine=null;
+            this.data.Machine={};
         }
     }
 
@@ -114,6 +117,7 @@ export class DataForm {
         else {
             delete this.data.ProductionOrderDetail;
             this.productionOrder = null;
+            this.data.ProductionOrder={};
         }
     }
 

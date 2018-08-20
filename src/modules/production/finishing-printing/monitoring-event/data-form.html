@@ -7,10 +7,10 @@
 
         <form class="form-horizontal">
             <fieldset>
-                <au-datetimepicker label="Tanggal Mulai" value.bind="localStartDate" error.bind="error.dateStart" options.bind="auInputOptions"
+                <au-datetimepicker label="Tanggal Mulai" value.bind="localStartDate" error.bind="error.DateStart" options.bind="auInputOptions"
                     read-only.bind="(readOnly)"></au-datetimepicker>
 
-                <au-datetimepicker label="Tanggal Selesai" value.bind="localEndDate" error.bind="error.dateEnd" options.bind="auInputOptions"
+                <au-datetimepicker label="Tanggal Selesai" value.bind="localEndDate" error.bind="error.DateEnd" options.bind="auInputOptions"
                     read-only.bind="(readOnly)"></au-datetimepicker>
 
                 <au-autocomplete value.bind="Machine" error.bind="error.Machine" label="Mesin" loader.bind="machineLoader" placeholder="Cari machine"
@@ -22,7 +22,7 @@
                     key="orderNo" text="orderNo" options.bind="auInputOptions">
                 </au-autocomplete> -->
 
-                <au-autocomplete value.bind="productionOrder" error.bind="error.productionOrder" label="Nomor Order Produksi" loader.bind="productionOrderLoader"
+                <au-autocomplete value.bind="productionOrder" error.bind="error.ProductionOrder" label="Nomor Order Produksi" loader.bind="productionOrderLoader"
                     placeholder="Cari Nomor Order Produksi" read-only.bind="(readOnly)" key="OrderNo" text="OrderNo" options.bind="auInputOptions">
                 </au-autocomplete>
 
