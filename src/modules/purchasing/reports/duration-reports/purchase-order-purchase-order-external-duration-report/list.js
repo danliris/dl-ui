@@ -44,9 +44,9 @@ export class List {
       { field: "category", title: "Kategori", sortable:false},
       { field: "productCode", title: "Kode Barang", sortable:false},
       { field: "productName", title: "Nama Barang", sortable:false},
-      { field: "productQuantity", title: "Jumlah Barang", sortable:false},
-      { field: "productUom", title: "Satuan Barang", sortable:false},
-      { field: "productPrice", title: "Harga Barang", sortable:false},
+      { field: "dealQuantity", title: "Jumlah Barang", sortable:false},
+      { field: "dealUomUnit", title: "Satuan Barang", sortable:false},
+      { field: "pricePerDealUnit", title: "Harga Barang", sortable:false},
       { field: "supplierCode", title: "Kode Supplier", sortable:false},
       { field: "supplierName", title: "Nama Supplier", sortable:false},
       { field: "poDate", title: "Tanggal Terima PO Internal", sortable:false,
@@ -54,22 +54,22 @@ export class List {
             return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksDate", title: "Tanggal PO Eksternal", sortable:false, 
+      { field: "orderDate", title: "Tanggal PO Eksternal", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksCreatedDate", title: "Tanggal Buat PO Eksternal", sortable:false, 
+      { field: "ePOCreatedDate", title: "Tanggal Buat PO Eksternal", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "expectedDate", title: "Tanggal Target Datang", sortable:false, 
+      { field: "deliveryDate", title: "Tanggal Target Datang", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksNo", title: "No PO Eksternal", sortable:false},
+      { field: "ePONo", title: "No PO Eksternal", sortable:false},
       { field: "dateDiff", title: "Selisih Tanggal PO Internal - PO Eksternal (hari)", sortable:false},
       { field: "staff", title: "Nama Staff Pembelian", sortable:false},
     ]
@@ -79,7 +79,7 @@ export class List {
     }
 
     fillValues() {
-        this.arg.unitId = this.filter.unit ? this.filter.unit._id : "";
+        this.arg.unitId = this.filter.unit ? this.filter.unit.Id : "";
         this.arg.duration = this.filter.duration ? this.filter.duration : "8-14 hari";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
