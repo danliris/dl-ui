@@ -103,6 +103,12 @@ export class List {
             this.fillValues(),
             this.service.search(this.arg)
                 .then(result => {
+                    var index=0;
+                        for(var a of result.data){
+                            index++;
+                            a.index=index;
+                            
+                        }
                     return {
                         total: result.info.length,
                         data: result.data

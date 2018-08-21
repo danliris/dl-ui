@@ -77,35 +77,79 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                // modify display data
-                for (var kanban of result.data) {
-                    kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail.ColorType ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorType.Name : kanban.SelectedProductionOrderDetail.ColorRequest;
-                    kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
-                    kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.Instruction.Steps.length}`;
-                    kanban.isPending = function () {
-                        return !this.IsComplete && this.currentStepIndex >= this.Instruction.Steps.length; // used for custom sort
-                    };
-                    kanban.isDone = function () {
-                        return this.IsComplete;
-                    };
-                    kanban.isIncomplete = function () {
-                        return !this.IsComplete && this.currentStepIndex < this.Instruction.Steps.length;
+                let searchOldKanban = [];
+
+                if (result.data.length > 0) {
+                    for (let kanban of result.data) {
+                        if (kanban.OldKanbanId) {
+                            searchOldKanban.push(this.service.getById(kanban.OldKanbanId))
+                        }
                     }
                 }
 
-                if (info.sort === "IsComplete") { //custom sort
-                    if (info.order === "desc")
-                        result.data.sort(this.desc());
-                    else
-                        result.data.sort(this.asc());
-                }
+                return Promise.all(searchOldKanban)
+                    .then((oldKanbanResults) => {
+                        // modify display data
+                        for (var kanban of result.data) {
+                            kanban.OldKanban = oldKanbanResults.find((oldKanban) => oldKanban.Id == kanban.OldKanbanId);
+                            kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail.ColorType ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorType.Name : kanban.SelectedProductionOrderDetail.ColorRequest;
+                            kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
+                            kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.Instruction.Steps.length}`;
+                            kanban.isPending = function () {
+                                return !this.IsComplete && this.currentStepIndex >= this.Instruction.Steps.length; // used for custom sort
+                            };
+                            kanban.isDone = function () {
+                                return this.IsComplete;
+                            };
+                            kanban.isIncomplete = function () {
+                                return !this.IsComplete && this.currentStepIndex < this.Instruction.Steps.length;
+                            }
+                        }
 
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
+                        if (info.sort === "IsComplete") { //custom sort
+                            if (info.order === "desc")
+                                result.data.sort(this.desc());
+                            else
+                                result.data.sort(this.asc());
+                        }
+
+                        return {
+                            total: result.info.total,
+                            data: result.data
+                        }
+                    })
             });
     }
+
+    // // modify display data
+    // for (var kanban of result.data) {
+    //     kanban.OldKanban = kanban.OldKanbanId ? this.service.getById(kanban.OldKanbanId).then((result) => result.data) : null;
+    //     kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail.ColorType ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorType.Name : kanban.SelectedProductionOrderDetail.ColorRequest;
+    //     kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
+    //     kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.Instruction.Steps.length}`;
+    //     kanban.isPending = function () {
+    //         return !this.IsComplete && this.currentStepIndex >= this.Instruction.Steps.length; // used for custom sort
+    //     };
+    //     kanban.isDone = function () {
+    //         return this.IsComplete;
+    //     };
+    //     kanban.isIncomplete = function () {
+    //         return !this.IsComplete && this.currentStepIndex < this.Instruction.Steps.length;
+    //     }
+    // }
+
+    // if (info.sort === "IsComplete") { //custom sort
+    //     if (info.order === "desc")
+    //         result.data.sort(this.desc());
+    //     else
+    //         result.data.sort(this.asc());
+    // }
+
+    // console.log(result)
+    // return {
+    //     total: result.info.total,
+    //     data: result.data
+    // }
 
     asc() {
         return function (kanban1, kanban2) {
