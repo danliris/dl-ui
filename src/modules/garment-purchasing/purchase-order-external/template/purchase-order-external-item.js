@@ -56,6 +56,7 @@ export class PurchaseOrderItem {
     }
   }
 
+
   updatePrice() {
     this.data.priceBeforeTax = this.price;
     if (this.data.useIncomeTax) {

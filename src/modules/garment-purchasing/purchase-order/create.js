@@ -50,6 +50,15 @@ export class Create {
         this.service = service;
     }
 
+    rowFormatter(data, index) {
+        if (data.double) {
+            return { classes: "danger" }
+        }
+        else {
+            return {}
+        }
+    }
+
     cancel(event) {
         this.router.navigateToRoute('list');
     }
@@ -65,14 +74,39 @@ export class Create {
             alert(`Purchase Request belum dipilih`);
         }
         else {
-            this.service.create(this.dataToBeSaved)
-                .then(result => {
-                    alert(`${this.dataToBeSaved.length} data berhasil ditambahkan`);
-                    this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                })
-                .catch(e => {
-                    this.error = e;
-                })
+            let duplicateItemCheckedAllList;
+            this.dataToBeSaved.forEach(_purchaseRequest => {
+                const duplicateItemCheckedAll = this.dataToBeSaved.filter(f =>
+                    f.no === _purchaseRequest.no && f.items.id_po === _purchaseRequest.items.id_po
+                );
+                if(duplicateItemCheckedAll.length > 1) {
+                    duplicateItemCheckedAllList = duplicateItemCheckedAllList || {};
+                    duplicateItemCheckedAllList[`${_purchaseRequest.roNo}-${_purchaseRequest.no}-${_purchaseRequest.items.refNo}`] = `Duplicate Purchase Request Item : ${_purchaseRequest.roNo} - ${_purchaseRequest.no} - ${_purchaseRequest.items.refNo}`;
+                }
+            });
+            if (duplicateItemCheckedAllList) {
+                let alertMessages = "";
+                for (const m in duplicateItemCheckedAllList) {
+                    if (duplicateItemCheckedAllList.hasOwnProperty(m)) {
+                        const alertMessage = duplicateItemCheckedAllList[m];
+                        alertMessages = alertMessages.concat(alertMessage, "\n");
+                    }
+                }
+                alert(alertMessages);
+            } else {
+                this.service.create(this.dataToBeSaved)
+                    .then(result => {
+                        alert(`${this.dataToBeSaved.length} data berhasil ditambahkan`);
+                        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                    })
+                    .catch(e => {
+                        this.error = e;
+                        if (e.purchaseRequestId)
+                            alert(`${e.purchaseRequestId}`);
+                        else if(e.no)
+                            alert(`${e.no}`);
+                    });
+            }
         }
     }
 
@@ -83,6 +117,10 @@ export class Create {
                 this.data
                     .map((data) => {
                         data.check = false;
+                        const duplicateItem = result.data.filter(f =>
+                            f.no === data.no && f.items.id_po === data.items.id_po
+                        );
+                        data.double = duplicateItem.length > 1;
                     });
                 this.purchaseRequestTable.data = this.data;
                 this.purchaseRequestTable.refresh();
