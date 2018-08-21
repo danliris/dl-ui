@@ -415,8 +415,8 @@ module.exports = [
         }
     },
     {
-        route: 'purchase-order-purchase-order-external-duration-report',
-        name: 'purchase-order-purchase-order-external-duration-report',
+        route: 'garment/purchase-order-purchase-order-external-duration-report',
+        name: 'garment/purchase-order-purchase-order-external-duration-report',
         moduleId: './modules/garment-purchasing/reports/duration-reports/purchase-order-purchase-order-external-duration-report/index',
         nav: true,
         title: 'Laporan Durasi PO Internal - PO Eksternal',
