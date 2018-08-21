@@ -1,9 +1,8 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis');
 var MachineLoader = require('../../../../loader/machines-loader');
-var StepLoader = require('../../../../loader/step-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 
 @inject(Service, BindingEngine, Element)
@@ -52,8 +51,8 @@ export class DataForm {
         }
     };
 
-    shiftOptions = ['','Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
-    actionOptions = ['','Reproses', 'Digudangkan', 'Dibuang'];
+    shiftOptions = ['', 'Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
+    actionOptions = ['', 'Reproses', 'Digudangkan', 'Dibuang'];
     timePickerShowSecond = false;
     timePickerFormat = "HH:mm";
 
@@ -68,21 +67,20 @@ export class DataForm {
         onAdd: function () {
             // this.context.ItemsCollection.bind()
             this.data.badOutputReasons = this.data.badOutputReasons || [];
-            this.data.badOutputReasons.push({ badOutputReason: "", precentage : 0, description : "" });
+            this.data.badOutputReasons.push({ badOutputReason: "", precentage: 0, description: "" });
         }.bind(this),
         onRemove: function () {
             console.log("bad output reason removed");
         }.bind(this)
     };
 
-    constructor(service,bindingEngine, element) {
+    constructor(service, bindingEngine, element) {
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.element = element;
     }
 
-    async bind(context)
-    {
+    async bind(context) {
         //console.log(context);
         this.context = context;
         this.data = this.context.data;
@@ -90,50 +88,50 @@ export class DataForm {
         this.localInputDate = new Date(Date.parse(this.data.dateInput));
         this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
         this.filterReason = {};
-        var reason={};
-        var machineCodes={};
-        if(this.data.machine){
+        var reason = {};
+        var machineCodes = {};
+        if (this.data.machine) {
             // reason = {
-                
+
             //         "machines" : {
             //             "$elemMatch" : {
             //                 "code" : this.data.machine.code
             //             }
             //         },
             //         "action": this.data.action ? this.data.action : ""
-                
+
             // }
         }
-        var _machineCode=[];
-        if(this.data.kanban && this.data.machine && this.output){
-            var filterDaily={
-                "kanban.code":this.data.kanban.code,
-                _deleted:false,
-                type:"input"
+        var _machineCode = [];
+        if (this.data.kanban && this.data.machine && this.output) {
+            var filterDaily = {
+                "kanban.code": this.data.kanban.code,
+                _deleted: false,
+                type: "input"
             };
-            var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
-             var _machineCode=[];
+            var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
+            var _machineCode = [];
             _machineCode.push(this.data.machine.Code);
-            for (var item of dailyOperations.data){
-                if(_machineCode.length>0){
-                    var dup=_machineCode.find(mc=>mc==item.Machine.Code);
-                    if(!dup)
+            for (var item of dailyOperations.data) {
+                if (_machineCode.length > 0) {
+                    var dup = _machineCode.find(mc => mc == item.Machine.Code);
+                    if (!dup)
                         _machineCode.push(item.Machine.Code);
                 }
-                else{
+                else {
                     _machineCode.push(item.Machine.Code);
                 }
             }
-            machineCodes={
-                code:_machineCode,
-                kanban:this.data.kanban.code
+            machineCodes = {
+                code: _machineCode,
+                kanban: this.data.kanban.code
             }
         }
 
-        this.filterReason={reason:reason,machineCode:machineCodes};
-        
+        this.filterReason = { reason: reason, machineCode: machineCodes };
+
         this.filterMachine = {
-            "UnitDivisionName" : "FINISHING & PRINTING"
+            "UnitDivisionName": "FINISHING & PRINTING"
         }
 
         // this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
@@ -166,14 +164,15 @@ export class DataForm {
         this.data.dateOutput = this.localOutputDate;
     }
 
-    get isFilterKanban(){
+    get isFilterKanban() {
         this.filterKanban = {};
-        if(this.data.step)
-        {
+        if (this.data.step) {
             this.filterKanban = {
-                "instruction.steps" : { "$elemMatch" : {
-                    "process" : this.data.step.process
-                } },
+                "instruction.steps": {
+                    "$elemMatch": {
+                        "process": this.data.step.process
+                    }
+                },
                 "isComplete": false,
                 "$where": "this.instruction.steps.length != this.currentStepIndex"
             };
@@ -181,25 +180,8 @@ export class DataForm {
         return this.filterKanban;
     }
 
-    @computedFrom("data.Machine")
-    get isFilterStep(){
-        this.filterStep = {};
-        if(this.data.Machine)
-        {
-            var steps = [];
-            for(var step of this.data.Machine.Steps){
-                steps.push(step.step.process);
-            }
-            console.log(steps)
-            this.filterStep = {
-                "process" : { "$in" : steps }
-            };
-        }
-        return this.filterStep;
-    }
-    
-    get hasStep(){
-        return this.data && this.data.step;
+    get hasStep() {
+        return this.data && this.data.Step;
     }
 
     get hasMachine() {
@@ -210,25 +192,25 @@ export class DataForm {
         return this.data && this.data.kanban;
     }
 
-    get hasError(){
+    get hasError() {
         return this.output && this.error && this.error.badOutputReasons && typeof this.error.badOutputReasons === "string";
     }
 
-    get hasBadOutput(){
+    get hasBadOutput() {
         return this.data && this.data.machine.Id && this.data.machine.Id !== 0 && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
     // get getFilterReason(){
     //     if(this.data.machine){
     //         reason = {
-                
+
     //                 "machines" : {
     //                     "$elemMatch" : {
     //                         "code" : this.data.machine.code
     //                     }
     //                 },
     //                 "action": this.data.action ? this.data.action : ""
-                
+
     //         }
     //     }
     //     var _machineCode=[];
@@ -259,44 +241,44 @@ export class DataForm {
     //     }
 
     //     this.filterReason={reason:reason,machineCode:machineCodes};
-        
+
     //     console.log(this.filterReason)
     //     return this.filterReason;
     // }
 
-    async kanbanChanged(newValue, oldValue){
+    async kanbanChanged(newValue, oldValue) {
         var selectedKanban = newValue;
 
-        if(selectedKanban){
+        if (selectedKanban) {
             this.data.kanbanId = selectedKanban._id;
             this.data.kanban = selectedKanban;
 
-            if(this.input && this.data.kanbanId && this.data.kanbanId !== "")
+            if (this.input && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.input = Number(selectedKanban.cart.qty);
-            if(this.output && this.data.kanbanId && this.data.kanbanId !== "")
+            if (this.output && this.data.kanbanId && this.data.kanbanId !== "")
                 this.data.goodOutput = Number(selectedKanban.cart.qty);
-            
-            if(this.output){
-                var filterDaily={
-                    "kanban.code":this.data.kanban.code,
-                    _deleted:false,
-                    type:"input"
+
+            if (this.output) {
+                var filterDaily = {
+                    "kanban.code": this.data.kanban.code,
+                    _deleted: false,
+                    type: "input"
                 };
 
-                var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
-                var _machineCode=[];
+                var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
+                var _machineCode = [];
                 _machineCode.push(this.data.machine.code);
-                for (var item of dailyOperations.data){
-                    if(_machineCode.length>0){
-                        var dup=_machineCode.find(mc=>mc==item.machine.code);
-                        if(!dup)
+                for (var item of dailyOperations.data) {
+                    if (_machineCode.length > 0) {
+                        var dup = _machineCode.find(mc => mc == item.machine.code);
+                        if (!dup)
                             _machineCode.push(item.machine.code);
                     }
-                    else{
+                    else {
                         _machineCode.push(item.machine.code);
                     }
                 }
-                
+
                 // var machineCode=[];
                 // if(this.data.step){
                 //     for(var mc of this.data.kanban.instruction.steps){
@@ -306,14 +288,14 @@ export class DataForm {
                 //         }
                 //     }
                 // }
-                this.filterReason={
-                    reason:this.filterReason.reason,
-                    machineCode:{
-                        code:_machineCode,
-                        kanban:this.data.kanban.code
+                this.filterReason = {
+                    reason: this.filterReason.reason,
+                    machineCode: {
+                        code: _machineCode,
+                        kanban: this.data.kanban.code
                     }
                 };
-                
+
             }
         }
         else {
@@ -325,7 +307,7 @@ export class DataForm {
     stepChanged(newValue, oldValue) {
         var selectedStep = newValue;
 
-        if(selectedStep) {
+        if (selectedStep) {
             // this.data.stepId = selectedStep._id;
             this.data.Step = selectedStep;
         }
@@ -333,20 +315,20 @@ export class DataForm {
             delete this.data.Step.Id;
             this.data.Step = undefined;
         }
-        
+
         this.kanbanAU.editorValue = "";
     }
 
     machineChanged(newValue, oldValue) {
         var selectedMachine = newValue;
-        if(selectedMachine) {
+        if (selectedMachine) {
             this.data.Machine = selectedMachine;
             // this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
             this.filterReason = {
-                reason:{
-                    "machines" : {
-                        "$elemMatch" : {
-                            "code" : this.data.Machine.Code
+                reason: {
+                    "machines": {
+                        "$elemMatch": {
+                            "code": this.data.Machine.Code
                         }
                     }
                 }
@@ -357,11 +339,11 @@ export class DataForm {
             delete this.data.Machine.Id;
             this.filterReason = {};
         }
-        if(this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0){
+        if (this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0) {
             var count = this.data.badOutputReasons.length;
             console.log(this.data.badOutputReasons);
-            for(var a = count; a >= 0; a--){
-                this.data.badOutputReasons.splice((a-1), 1);
+            for (var a = count; a >= 0; a--) {
+                this.data.badOutputReasons.splice((a - 1), 1);
             }
             console.log(this.data.badOutputReasons);
         }
@@ -376,7 +358,7 @@ export class DataForm {
     }
 
     get stepLoader() {
-        return StepLoader;
+        return this.data.Machine ? this.data.Machine.MachineSteps : [];
     }
 
     get kanbanLoader() {
