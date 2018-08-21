@@ -13,8 +13,8 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error;
-    @bindable machine;
-    @bindable productionOrder;
+    @bindable Machine;
+    @bindable ProductionOrder;
     @bindable title;
 
     auInputOptions = {
@@ -44,12 +44,12 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    get isFilterMachineType() {
-        this.filterMachineType = {
-            "machineType.code": this.data.machineType.code
-        };
-        return this.filterMachineType;
-    }
+    // get isFilterMachineType() {
+    //     this.filterMachineType = {
+    //         "machineType.code": this.data.machineType.code
+    //     };
+    //     return this.filterMachineType;
+    // }
 
     // itemsColumns = [
     //     { header: "Indicator", value: "Indicator" },
@@ -68,7 +68,7 @@ export class DataForm {
     //     }.bind(this)
     // };
 
-    async machineChanged(newValue) {
+    async MachineChanged(newValue) {
         this.resetErrors();
         this.data.Machine = newValue;
         if (this.data.Machine) {
@@ -90,6 +90,8 @@ export class DataForm {
             this.data.Details = items;
 
         } else {
+            this.Machine = {};
+            this.data.Machine = {};
             this.data.Details = [];
             this.dataCollection.refresh();
         }
@@ -103,10 +105,12 @@ export class DataForm {
         return ProductionOrderLoader;
     }
 
-    productionOrderChanged(newValue) {
-        // this.data.productionOrder = newValue;
-        if (this.productionOrder) {
-            this.data.ProductionOrder = this.productionOrder;
+    ProductionOrderChanged(newValue) {
+        if (this.ProductionOrder) {
+            this.data.ProductionOrder = this.ProductionOrder;
+        } else {
+            this.ProductionOrder = {};
+            this.data.ProductionOrder = {};
         }
     }
 

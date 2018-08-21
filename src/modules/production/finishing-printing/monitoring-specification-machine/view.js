@@ -25,12 +25,12 @@ export class View {
         moment.locale(locale);
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.machine = this.data.Machine;
+        this.Machine = this.data.Machine;
         this.Options = {
             "readOnly": true,
             "isMaster": false,
         }
-        this.productionOrder = this.data.ProductionOrder;
+        this.ProductionOrder = this.data.ProductionOrder;
 
     }
 

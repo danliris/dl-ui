@@ -1,8 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import {Dialog} from '../../../../components/dialog/dialog';
-import {AlertView} from './custom-dialog-view/alert-view';
+import { Dialog } from '../../../../components/dialog/dialog';
+import { AlertView } from './custom-dialog-view/alert-view';
 var moment = require("moment");
 
 @inject(Router, Service, Dialog)
@@ -28,6 +28,7 @@ export class Edit {
             }
           });
       });
+    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getById(this.data.OldKanbanId) : null;
     // this.data.Cart.uom = this.data.cart.uom ? this.data.cart.uom.unit : 'MTR';
 
     var currentIndex = 0, countDoneStep = 0;
@@ -44,7 +45,7 @@ export class Edit {
 
     if (this.data.IsReprocess) {
       this.data.output = "Kanban Reproses";
-    } else if (this.data.OldKanban.Id && !this.data.IsReprocess) {
+    } else if (this.data.OldKanban && this.data.OldKanban.Id && !this.data.IsReprocess) {
       this.data.output = "Kanban Lanjut Proses";
     } else {
       this.data.output = "Kanban Baru";
@@ -102,20 +103,18 @@ export class Edit {
     }
 
     message += "<br>";
-    
+
     let removeData = ["length", "PPIC", "PREPARING"];
     let areas = Object.getOwnPropertyNames(this.range);
 
-    for(let j = 0; j < removeData.length; j++)
-    {
+    for (let j = 0; j < removeData.length; j++) {
       let index = areas.indexOf(removeData[j]);
       if (index >= 0) {
-        areas.splice( index, 1 );
+        areas.splice(index, 1);
       }
     }
 
-    for(let i = areas.length - 1; i >= 0; i--)
-    {
+    for (let i = areas.length - 1; i >= 0; i--) {
       message += "<div>" + this.range[areas[i]].area + ": " + moment(this.range[areas[i]].startDate).format("DD MMM YYYY") + " - " + moment(this.range[areas[i]].endDate).format("DD MMM YYYY") + "</div>";
     }
 
@@ -148,7 +147,7 @@ export class Edit {
       var index = 1;
       for (var step of this.data.Instruction.Steps) {
         var r = {};
-        if(step.ProcessArea && step.ProcessArea != "") {
+        if (step.ProcessArea && step.ProcessArea != "") {
           r = this.range[step.ProcessArea.toUpperCase().replace("AREA ", "")];
         }
         if (r && Object.getOwnPropertyNames(r).length > 0 && step.Deadline && (step.Deadline < r.startDate || step.Deadline > r.endDate)) {
