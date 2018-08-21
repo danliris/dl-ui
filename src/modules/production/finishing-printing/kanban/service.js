@@ -25,11 +25,40 @@ export class Service extends RestService {
   }
 
   create(data) {
+    // if (data.Instruction && data.Instruction.Steps && data.Instruction.Steps.length > 0) {
+    //   for (let step of data.Instruction.Steps) {
+    //     if (step.Machine && step.Machine.Id) {
+    //       step.MachineId = step.Machine.Id;
+    //       delete step.Machine;
+    //     }
+    //   }
+    // }
     var endpoint = `${serviceUri}/create/carts`;
     return super.post(endpoint, data);
   }
 
+  createSingle(data) {
+    // if (data.Instruction && data.Instruction.Steps && data.Instruction.Steps.length > 0) {
+    //   for (let step of data.Instruction.Steps) {
+    //     if (step.Machine && step.Machine.Id) {
+    //       step.MachineId = step.Machine.Id;
+    //       delete step.Machine;
+    //     }
+    //   }
+    // }
+    var endpoint = `${serviceUri}`;
+    return super.post(endpoint, data);
+  }
+
   update(data) {
+    // if (data.Instruction && data.Instruction.Steps && data.Instruction.Steps.length > 0) {
+    //   for (let step of data.Instruction.Steps) {
+    //     if (step.Machine && step.Machine.Id) {
+    //       step.MachineId = step.Machine.Id;
+    //       delete step.Machine;
+    //     }
+    //   }
+    // }
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
@@ -48,7 +77,7 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
   }
-  
+
   getProductionOrderDetails(orderNo) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("production");
@@ -91,7 +120,7 @@ export class Service extends RestService {
   }
 
   getPdfById(id) {
-      var endpoint = `${serviceUri}/${id}`;
-      return super.getPdf(endpoint);
+    var endpoint = `${serviceUri}/${id}`;
+    return super.getPdf(endpoint);
   }
 }

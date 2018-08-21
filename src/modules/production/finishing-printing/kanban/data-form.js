@@ -192,11 +192,12 @@ export class DataForm {
         }.bind(this)
     };
 
-    kanbanChanged(newValue, oldValue) {
+    async kanbanChanged(newValue, oldValue) {
         var kanban = newValue;
 
         if (kanban) {
-            Object.assign(this.data, kanban);
+            let oldKanban = await this.service.getById(kanban.Id)
+            Object.assign(this.data, oldKanban);
 
             this.data.reprocessSteps = {
                 "LanjutProses": [],
@@ -210,28 +211,19 @@ export class DataForm {
             this.data.reprocess = !this.data.reprocessStatus ? this.data.SEBAGIAN : true;
             this.data.reprocessSteps.Reproses = this.data.Instruction.Steps;
 
-            this.data.OldKanban = kanban;
-            // this.data.oldKanbanId = kanban._id;
+            this.data.OldKanbanId = oldKanban.Id;
 
-            // delete this.data.OldKanban._active;
-            // delete this.data.OldKanban._type;
-            // delete this.data.oldKanban._updateAgent;
-            // delete this.data.oldKanban.updatedBy;
-            // delete this.data.oldKanban.code;
-            // delete this.data.oldKanban._version;
-            // delete this.data.oldKanban._deleted;
+            delete this.data.Cart;
+            delete this.data.Id;
+            delete this.data.Active;
+            delete this.data.CreatedUtc;
+            delete this.data.CreatedBy;
+            delete this.data.CreatedAgent;
+            delete this.data.LastModifiedUtc;
+            delete this.data.LastModifiedBy;
+            delete this.data.LastModifiedAgent;
 
-            // delete this.data.cart;
-            // delete this.data._id;
-            // delete this.data._active;
-            // delete this.data._type;
-            // delete this.data._updateAgent;
-            // delete this.data.updatedBy;
-            // delete this.data.code;
-            // delete this.data._version;
-            // delete this.data._deleted;
-
-            var currentStepIndex = this.data.currentStepIndex;
+            var currentStepIndex = this.data.CurrentStepIndex;
             var i = 1;
 
             this.data.Instruction.Steps = this.data.Instruction.Steps.map(function (s) {

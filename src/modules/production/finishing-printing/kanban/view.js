@@ -13,10 +13,11 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    this.data.OldKanban = this.data.OldKanbanId ? await this.service.getById(this.data.OldKanbanId) : null;
 
     if (this.data.IsReprocess) {
       this.data.output = "Kanban Reproses";
-    } else if (this.data.OldKanban.Id && !this.data.IsReprocess) {
+    } else if (this.data.OldKanban && this.data.OldKanban.Id && !this.data.IsReprocess) {
       this.data.output = "Kanban Lanjut Proses";
     } else {
       this.data.output = "Kanban Baru";
