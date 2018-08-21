@@ -3,30 +3,55 @@
         <div class="row">
             <div  class="col-md-6" style="padding:0">
                 <fieldset>
-                    <au-autocomplete 
+                    <!-- <au-autocomplete 
                         value.bind="machine"
                         label="Mesin" 
                         loader.bind="machineLoader" 
-                        text="name"
+                        text="Name"
                         read-only.bind="readOnly"
                         error.bind="error.machine"
                         options.bind="auInputOptions"
                         select.bind="selectMachine"
                         query.bind="filterMachine">
-                    </au-autocomplete>
+                    </au-autocomplete> -->
 
                     <au-autocomplete 
+                        value.bind="machine"
+                        label="Mesin" 
+                        loader.bind="machineLoader" 
+                        text="Name"
+                        read-only.bind="readOnly"
+                        error.bind="error.machine"
+                        options.bind="auInputOptions"
+                        query.bind="filterMachine">
+                    </au-autocomplete>
+
+                    <!-- <au-autocomplete 
                         value.bind="step"
                         error.bind="error.step"
-                        label="Step / Proses" 
+                        label="Step / Proses"
                         read-only.bind="readOnly"
                         loader.bind="stepLoader" 
                         text="process"
                         query.bind="isFilterStep"
                         options.bind="auInputOptions"
-                        change.trigger="stepChanged(data.step)"
+                        change.trigger="stepChanged(data.Step)"
                         show.bind="hasMachine"
                         select.bind="selectStep"
+                        view-model.ref="stepAU">
+                    </au-autocomplete> -->
+
+                    <au-autocomplete 
+                        value.bind="step"
+                        error.bind="error.step"
+                        label="Step / Proses"
+                        read-only.bind="readOnly"
+                        loader.bind="stepLoader" 
+                        text="process"
+                        query.bind="isFilterStep"
+                        options.bind="auInputOptions"
+                        change.trigger="stepChanged(data.Step)"
+                        show.bind="hasMachine"
                         view-model.ref="stepAU">
                     </au-autocomplete>
 

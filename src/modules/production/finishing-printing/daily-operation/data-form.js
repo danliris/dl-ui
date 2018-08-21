@@ -2,7 +2,7 @@ import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia
 import { Service } from "./service";
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis');
-var MachineLoader = require('../../../../loader/machine-loader');
+var MachineLoader = require('../../../../loader/machines-loader');
 var StepLoader = require('../../../../loader/step-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 
@@ -93,16 +93,16 @@ export class DataForm {
         var reason={};
         var machineCodes={};
         if(this.data.machine){
-            reason = {
+            // reason = {
                 
-                    "machines" : {
-                        "$elemMatch" : {
-                            "code" : this.data.machine.code
-                        }
-                    },
-                    "action": this.data.action ? this.data.action : ""
+            //         "machines" : {
+            //             "$elemMatch" : {
+            //                 "code" : this.data.machine.code
+            //             }
+            //         },
+            //         "action": this.data.action ? this.data.action : ""
                 
-            }
+            // }
         }
         var _machineCode=[];
         if(this.data.kanban && this.data.machine && this.output){
@@ -113,15 +113,15 @@ export class DataForm {
             };
             var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
              var _machineCode=[];
-            _machineCode.push(this.data.machine.code);
+            _machineCode.push(this.data.machine.Code);
             for (var item of dailyOperations.data){
                 if(_machineCode.length>0){
-                    var dup=_machineCode.find(mc=>mc==item.machine.code);
+                    var dup=_machineCode.find(mc=>mc==item.Machine.Code);
                     if(!dup)
-                        _machineCode.push(item.machine.code);
+                        _machineCode.push(item.Machine.Code);
                 }
                 else{
-                    _machineCode.push(item.machine.code);
+                    _machineCode.push(item.Machine.Code);
                 }
             }
             machineCodes={
@@ -133,29 +133,29 @@ export class DataForm {
         this.filterReason={reason:reason,machineCode:machineCodes};
         
         this.filterMachine = {
-            "unit.division.name" : "FINISHING & PRINTING"
+            "UnitDivisionName" : "FINISHING & PRINTING"
         }
 
-        this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
-        this.selectStep = ["process", "processArea", "deadline", "isNotDone"];
-        this.selectKanban = ["code", "productionOrderId",
-            "productionOrder._id", "productionOrder.orderNo", "productionOrder.salesContractNo",
-            "productionOrder.materialId", "productionOrder.material.code", "productionOrder.material.name",
-            "productionOrder.materialConstruction._id", "productionOrder.materialConstruction.name",
-            "productionOrder.yarnMaterialId",
-            "productionOrder.yarnMaterial._id", "productionOrder.yarnMaterial.name",
-            "productionOrder.orderType.name", "selectedProductionOrderDetail.code",
-            "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorTemplate",
-            "selectedProductionOrderDetail.uom._id", "selectedProductionOrderDetail.uom.unit",
-            "productionOrder.materialWidth", "cart.cartNumber", "cart.qty",
-            "cart.code", "cart.pcs", "cart.uom._id", "cart.uom.unit", "instruction.code",
-            "instruction.name", "grade", "isComplete", "currentStepIndex", "currentQty",
-            "oldKanbanId", "oldKanban.cart.cartNumber", "productionOrder.finishWidth",
-            "instruction.steps.process", "instruction.steps.processArea",
-            "instruction.steps.deadline", "instruction.steps.isNotDone",
-            "productionOrder.orderTypeId", "productionOrder.orderType.code",
-            "instruction.steps._id", "selectedProductionOrderDetail.uomId", "oldKanban.cart.code", "step._id"
-        ];
+        // this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
+        // this.selectStep = ["process", "processArea", "deadline", "isNotDone"];
+        // this.selectKanban = ["code", "productionOrderId",
+        //     "productionOrder._id", "productionOrder.orderNo", "productionOrder.salesContractNo",
+        //     "productionOrder.materialId", "productionOrder.material.code", "productionOrder.material.name",
+        //     "productionOrder.materialConstruction._id", "productionOrder.materialConstruction.name",
+        //     "productionOrder.yarnMaterialId",
+        //     "productionOrder.yarnMaterial._id", "productionOrder.yarnMaterial.name",
+        //     "productionOrder.orderType.name", "selectedProductionOrderDetail.code",
+        //     "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorTemplate",
+        //     "selectedProductionOrderDetail.uom._id", "selectedProductionOrderDetail.uom.unit",
+        //     "productionOrder.materialWidth", "cart.cartNumber", "cart.qty",
+        //     "cart.code", "cart.pcs", "cart.uom._id", "cart.uom.unit", "instruction.code",
+        //     "instruction.name", "grade", "isComplete", "currentStepIndex", "currentQty",
+        //     "oldKanbanId", "oldKanban.cart.cartNumber", "productionOrder.finishWidth",
+        //     "instruction.steps.process", "instruction.steps.processArea",
+        //     "instruction.steps.deadline", "instruction.steps.isNotDone",
+        //     "productionOrder.orderTypeId", "productionOrder.orderType.code",
+        //     "instruction.steps._id", "selectedProductionOrderDetail.uomId", "oldKanban.cart.code", "step._id"
+        // ];
     }
 
     localInputDateChanged(newValue) {
@@ -181,15 +181,16 @@ export class DataForm {
         return this.filterKanban;
     }
 
-    @computedFrom("data.machine")
+    @computedFrom("data.Machine")
     get isFilterStep(){
         this.filterStep = {};
-        if(this.data.machine)
+        if(this.data.Machine)
         {
             var steps = [];
-            for(var step of this.data.machine.steps){
+            for(var step of this.data.Machine.Steps){
                 steps.push(step.step.process);
             }
+            console.log(steps)
             this.filterStep = {
                 "process" : { "$in" : steps }
             };
@@ -202,7 +203,7 @@ export class DataForm {
     }
 
     get hasMachine() {
-        return this.data && this.data.machine;
+        return this.data && this.data.Machine;
     }
 
     get hasKanban() {
@@ -214,7 +215,7 @@ export class DataForm {
     }
 
     get hasBadOutput(){
-        return this.data && this.data.machineId && this.data.machineId !== "" && this.data.badOutput && this.data.badOutput > 0 && this.output;
+        return this.data && this.data.machine.Id && this.data.machine.Id !== 0 && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
     // get getFilterReason(){
@@ -325,12 +326,12 @@ export class DataForm {
         var selectedStep = newValue;
 
         if(selectedStep) {
-            this.data.stepId = selectedStep._id;
-            this.data.step = selectedStep;
+            // this.data.stepId = selectedStep._id;
+            this.data.Step = selectedStep;
         }
         else {
-            delete this.data.stepId;
-            this.data.step = undefined;
+            delete this.data.Step.Id;
+            this.data.Step = undefined;
         }
         
         this.kanbanAU.editorValue = "";
@@ -339,21 +340,21 @@ export class DataForm {
     machineChanged(newValue, oldValue) {
         var selectedMachine = newValue;
         if(selectedMachine) {
-            this.data.machine = selectedMachine;
-            this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
+            this.data.Machine = selectedMachine;
+            // this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
             this.filterReason = {
                 reason:{
                     "machines" : {
                         "$elemMatch" : {
-                            "code" : this.data.machine.code
+                            "code" : this.data.Machine.Code
                         }
                     }
                 }
             }
         }
         else {
-            this.data.machine = undefined;
-            delete this.data.machineId;
+            this.data.Machine = undefined;
+            delete this.data.Machine.Id;
             this.filterReason = {};
         }
         if(this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0){
