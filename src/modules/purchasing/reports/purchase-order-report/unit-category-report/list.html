@@ -1,22 +1,21 @@
 <template>
  <h1 class="page-header">Total Pembelian per Unit per Kategori</h1>
      <form class="form-horizontal">
-        <division-auto-suggest  label="Divisi"                  value.bind="divisi" ></division-auto-suggest>
-        <unit-auto-suggest      label="Unit"                    value.bind="unit"       filter.one-way="unitFilter" if.bind="divisi"></unit-auto-suggest>
-        <category-auto-suggest  label="Kategori"                value.bind="category"></category-auto-suggest>
-        <currency-auto-suggest  label="Mata Uang"               value.bind="currency"></currency-auto-suggest>
-        <datepicker             label="Tanggal Awal"            value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
-        <datepicker             label="Tanggal Akhir"           value.bind="dateTo" min.bind="dateFrom"></datepicker> 
-        <div class="form-group">
+        <au-autocomplete  loader.one-time="divisionLoader"  text.bind="divisionView" label="Divisi"  value.bind="divisi" loader.bind="divisionLoader"></au-autocomplete>
+        <au-autocomplete  value.bind="category"  label="Kategori"  loader.bind="categoryLoader"></au-autocomplete>
+        <au-autocomplete  loader.one-time="currencyLoader"  text.bind="currencyView"  value.bind="currency"label="Mata Uang"  loader.bind="currencyLoader"></au-autocomplete>
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+           <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
                <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div> 
-        <div class="btn-group pull-left" if.bind="data.length > 0">
-            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
-        </div> 
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+          </div>
         <br>
         <table class="table table-bordered table-hover" border="1" id="myTable">
             <thead>
@@ -35,20 +34,20 @@
             <tbody>
                 <tr repeat.for="item of data">
                     <td class="text-center">${$index + 1}</td>
-                    <td class="text-center">${item._id.division}</td>
-                    <td class="text-center">${item._id.unit}</td>
-                    <td class="text-center">${item._id.category}</td>
-                    <td class="text-center">${item._id.currency}</td>
-                    <td class="text-right">${amountsperCurrency[$index]}</td>
-                    <td class="text-right">${amounts[$index]}</td>
-                    <td class="text-right">${percentage[$index]}%</td>
+                    <td class="text-center">${item.divisionName}</td>
+                    <td class="text-center">${item.unitName}</td>
+                    <td class="text-center">${item.categoryName}</td>
+                    <td class="text-center">${item.currencyCode}</td>
+                    <td class="text-right">${item.amount}</td>
+                    <td class="text-right">${item.amountIDR}</td>
+                    <td class="text-right">${item.percentage}</td>
                 </tr>
             </tbody>
             <tfoot if.bind="data.length > 0">
                 <tr>
                     <td colspan="6" class="text-center">Total</td>
                     <td class="text-right">${pricetotals}</td>
-                    <td class="text-right">${percentagetotal}%</td>
+                    <td class="text-right">${percentagetotal}%</td> 
                 </tr>
             </tfoot>
         </table>
