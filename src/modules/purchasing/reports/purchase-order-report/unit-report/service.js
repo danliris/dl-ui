@@ -8,12 +8,7 @@ const serviceUriDetail = 'purchase-orders/reports/subUnits';
 export class Service extends RestService {
 
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "purchasing");
-  }
-
-  getDataUnitnoDate() {
-    var endpoint = `${serviceUri}`;
-    return super.get(endpoint);
+    super(http, aggregator, config, "purchasing-azure");
   }
 
   getDataUnit(sdate, edate) {
@@ -22,32 +17,11 @@ export class Service extends RestService {
   }
 
   getDetailUnit(sdate, edate, divisiId) {
-    var endpoint = `${serviceUriDetail}?divisiId=${divisiId}&dateFrom=${sdate}&dateTo=${edate}`;
+    var endpoint = `${serviceUri}/detail?divisionId=${divisiId}&dateFrom=${sdate}&dateTo=${edate}`;
     return super.get(endpoint);
   }
-
-  getDetailUnitnoDate(divisiId) {
-    var endpoint = `${serviceUriDetail}?divisiId=${divisiId}`;
-    return super.get(endpoint);
-  }
-
-  generateExcelnoDate() {
-    var endpoint = `${serviceUri}`;
-    return super.getXls(endpoint);
-  }
-
   generateExcel(sdate, edate) {
-    var endpoint = `${serviceUri}?dateFrom=${sdate}&dateTo=${edate}`;
-    return super.getXls(endpoint);
-  }
-
-  generateExcelnoDate2() {
-    var endpoint = `${serviceUriDetail}`;
-    return super.getXls(endpoint);
-  }
-
-  generateExcel2(sdate, edate, divisiId) {
-    var endpoint = `${serviceUriDetail}?divisiId=${divisiId}&dateFrom=${sdate}&dateTo=${edate}`;
+    var endpoint = `${serviceUri}/download?dateFrom=${sdate}&dateTo=${edate}`;
     return super.getXls(endpoint);
   }
 
