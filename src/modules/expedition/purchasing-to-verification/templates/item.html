@@ -1,5 +1,6 @@
 <template>
     <tr>
+        <require from="../../../../lib/number-format-value-converter"></require>
         <td>
             <au-autocomplete 
                 value.bind="unitPaymentOrder"
@@ -48,19 +49,19 @@
         </td>
         <td>
             <au-textbox
-                value.bind="data.incomeTax"
+                value.bind="data.incomeTax | numberFormat: '0,000.0000'"
                 read-only="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox
-                value.bind="data.vat"
+                value.bind="data.vat | numberFormat: '0,000.0000'"
                 read-only="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox
-                value.bind="data.totalPaid"
+                value.bind="data.totalPaid | numberFormat: '0,000.0000'"
                 read-only="true">
             </au-textbox>
         </td>
