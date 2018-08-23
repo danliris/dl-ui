@@ -115,5 +115,18 @@ module.exports = [
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
+    },
+    {
+        route: '/expedition/reports/unit-payment-order-unpaid',
+        name: 'unit-payment-order-unpaid',
+        moduleId: './modules/expedition/reports/unit-payment-order-unpaid/index',
+        nav: true,
+        title: 'Laporan SPB Belum Lunas',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
