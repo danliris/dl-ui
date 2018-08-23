@@ -12,7 +12,6 @@ export class Service extends RestService {
 
     getData(sdate, edate, divisi, category, currency) {
         var endpoint = `${serviceUri}`;
-        console.log(divisi,category,currency);
         var query = '';
         if (sdate) {
             if (query == '') query = `dateFrom=${sdate}`;
@@ -31,8 +30,8 @@ export class Service extends RestService {
             else query = `${query}&categoryId=${category}`;
         }
         if (currency) {
-            if (query == '') query = `currencyCode=${encodeURIComponent(currency)}`;
-            else query = `${query}&currencyCode=${encodeURIComponent(currency)}`;
+            if (query == '') query = `currencyCode=${(currency)}`;
+            else query = `${query}&currencyCode=${(currency)}`;
         }
         if (query != '')
             endpoint = `${serviceUri}?${query}`;
@@ -40,8 +39,10 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate, divisi, unit, category, currency) {
+    generateExcel(sdate, edate, divisi, category, currency) {
         var endpoint = `${serviceUri}/download`;
+        
+        console.log(divisi,category,currency);
         var query = '';
         if (sdate) {
             if (query == '') query = `dateFrom=${sdate}`;
@@ -51,25 +52,22 @@ export class Service extends RestService {
             if (query == '') query = `dateTo=${edate}`;
             else query = `${query}&dateTo=${edate}`;
         }
-        if (unit) {
-            if (query == '') query = `unit=${encodeURIComponent(unit._id)}`;
-            else query = `${query}&unit=${encodeURIComponent(unit._id)}`;
-        }
         if (divisi) {
-            if (query == '') query = `divisi=${encodeURIComponent(divisi._id)}`;
-            else query = `${query}&divisi=${encodeURIComponent(divisi._id)}`;
+            if (query == '') query = `divisionId=${divisi}`;
+            else query = `${query}&divisionId=${divisi}`;
         }
         if (category) {
-            if (query == '') query = `category=${encodeURIComponent(category._id)}`;
-            else query = `${query}&category=${encodeURIComponent(category._id)}`;
+            if (query == '') query = `categoryId=${category}`;
+            else query = `${query}&categoryId=${category}`;
         }
         if (currency) {
-            if (query == '') query = `currency=${encodeURIComponent(currency._id)}`;
-            else query = `${query}&currency=${encodeURIComponent(currency._id)}`;
+            if (query == '') query = `currencyCode=${(currency)}`;
+            else query = `${query}&currencyCode=${(currency)}`;
         }
         if (query != '')
             endpoint = `${serviceUri}/download?${query}`;
 
+            console.log(query);
         return super.getXls(endpoint);
     }
 
