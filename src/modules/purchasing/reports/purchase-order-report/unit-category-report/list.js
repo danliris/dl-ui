@@ -1,7 +1,10 @@
 import { inject, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-
+var moment = require("moment");
+var DivisionLoader = require('../../../../../loader/division-loader');
+var CategoryLoader = require('../../../../../loader/category-loader');
+var CurrencyLoader = require('../../../../../loader/currency-loader');
 @inject(Router, Service)
 export class List {
     constructor(router, service) {
@@ -18,17 +21,32 @@ export class List {
     category = null;
     currency = null;
 
+    get divisionLoader() {
+        return DivisionLoader;
+    }
+    get categoryLoader() {
+        return CategoryLoader;
+    }
+    get currencyLoader() {
+        return CurrencyLoader;
+    }
+    currencyView = (currency) => {
+        return `${currency.Code}`;
+    }
+    divisionView = (division) => {
+        return `${division.Name}`;
+    }
     activate() {
     }
 
-    @computedFrom('divisi')
-    get unitFilter() {
-        if (this.divisi)
-            return {
-                "division.name": this.divisi.name
-            }
-        return {};
-    }
+    // @computedFrom('divisi')
+    // get unitFilter() {
+    //     if (this.divisi)
+    //         return {
+    //             "division.name": this.divisi.name
+    //         }
+    //     return {};
+    // }
 
 
     searching() {
@@ -37,46 +55,20 @@ export class List {
         var percentagetotal = 0;
         var persen = 0;
         var data = [];
-        var amounts = [];
-        var amountsperCurrency = [];
-        var uri = this.service.getData(this.dateFrom, this.dateTo, this.divisi, this.unit, this.category, this.currency);
-
+        this.dateFrom=this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+        this.dateTo=this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        var uri = this.service.getData(this.dateFrom, this.dateTo, this.divisi ? this.divisi.Id : "",  this.category ? this.category._id : "", this.currency ? this.currency.Id : "");
         uri.then(data => {
             this.data = data;
-            for (var price of data) {
-                pricetotals += price.pricetotal;
+            for(var item of data)
+            {
+                pricetotals= item.total;
+                item.percentage=(item.amountIDR*100/item.total).toFixed(2);  
+                item.amount=item.amount.toLocaleString()+".00";
+                item.amountIDR=item.amountIDR.toLocaleString()+".00";
             }
-            this.pricetotals = pricetotals;
-            for (var item of data) {
-                if (item.pricetotal != 0 && this.pricetotals != 0) {
-                    this.persen = ((item.pricetotal * 100) / this.pricetotals).toFixed(2);
-                }
-                else {
-                    this.persen = 0;
-                }
-                percentage.push(this.persen);
-
-                var tx = item.pricePerCurrency.toFixed(2).toString().split('.');
-                var tx1 = tx[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                var amountcurrency = tx1 + '.' + tx[1];
-                amountsperCurrency.push(amountcurrency);
-
-                var x = item.pricetotal.toFixed(2).toString().split('.');
-                var x1 = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                var amount = x1 + '.' + x[1];
-                amounts.push(amount);
-
-            }
-            for (var p of percentage) {
-                percentagetotal += parseFloat(p);
-            }
-            this.percentage = percentage;
-            this.percentagetotal = Math.round(percentagetotal).toFixed(2);
-            this.amounts = amounts;
-            this.amountsperCurrency = amountsperCurrency;
-            var y = this.pricetotals.toFixed(2).toString().split('.');
-            var y1 = y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            this.pricetotals = y1 + '.' + y[1];
+            this.pricetotals = pricetotals.toLocaleString() +".00";
+            this.percentagetotal = 100;
         })
     }
 
@@ -84,13 +76,14 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.divisi = null;
-        this.unit = null;
         this.category = null;
         this.currency = null;
     }
 
     ExportToExcel() {
-        this.service.generateExcel(this.dateFrom, this.dateTo, this.divisi, this.unit, this.category, this.currency);
+        this.dateFrom=this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
+        this.dateTo=this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
+        this.service.generateExcel(this.dateFrom, this.dateTo, this.divisi ? this.divisi.Id : "",  this.category ? this.category._id : "", this.currency ? this.currency.Id : "");
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
