@@ -1,5 +1,6 @@
 <template>
     <tr>
+        <require from="../../../../lib/number-format-value-converter"></require>
         <td>
             <au-textbox value.bind="data.unitName" read-only="true"></au-textbox>
         </td>
@@ -13,7 +14,7 @@
             <au-textbox value.bind="data.uom" read-only="true"></au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.price" read-only="true"></au-textbox>
+            <au-textbox value.bind="data.price | numberFormat: '0,000.0000'" read-only="true"></au-textbox>
         </td>
     </tr>
 </template>
