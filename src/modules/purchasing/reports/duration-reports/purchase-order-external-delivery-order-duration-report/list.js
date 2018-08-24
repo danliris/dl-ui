@@ -54,28 +54,28 @@ export class List {
             return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksDate", title: "Tanggal PO Eksternal", sortable:false, 
+      { field: "orderDate", title: "Tanggal PO Eksternal", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksCreatedDate", title: "Tanggal Buat PO Eksternal", sortable:false, 
+      { field: "ePOCreatedDate", title: "Tanggal Buat PO Eksternal", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "expectedDate", title: "Tanggal Target Datang", sortable:false, 
+      { field: "deliveryDate", title: "Tanggal Target Datang", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "poEksNo", title: "No PO Eksternal", sortable:false},
+      { field: "ePONo", title: "No PO Eksternal", sortable:false},
       { field: "doDate", title: "Tanggal Surat Jalan", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "arrivedDate", title: "Tanggal Datang Barang", sortable:false, 
+      { field: "arrivalDate", title: "Tanggal Datang Barang", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
@@ -90,7 +90,7 @@ export class List {
     }
 
     fillValues() {
-        this.arg.unitId = this.filter.unit ? this.filter.unit._id : "";
+        this.arg.unitId = this.filter.unit ? this.filter.unit.Id : "";
         this.arg.duration = this.filter.duration ? this.filter.duration : "31-60 hari";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -114,6 +114,12 @@ export class List {
             this.fillValues(),
             this.service.search(this.arg)
                 .then(result => {
+                    var index=0;
+                        for(var a of result.data){
+                            index++;
+                            a.index=index;
+                            
+                        }
                     return {
                         total: result.info.length,
                         data: result.data
