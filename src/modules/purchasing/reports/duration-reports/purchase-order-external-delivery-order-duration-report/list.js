@@ -44,9 +44,9 @@ export class List {
       { field: "category", title: "Kategori", sortable:false},
       { field: "productCode", title: "Kode Barang", sortable:false},
       { field: "productName", title: "Nama Barang", sortable:false},
-      { field: "productQuantity", title: "Jumlah Barang", sortable:false},
-      { field: "productUom", title: "Satuan Barang", sortable:false},
-      { field: "productPrice", title: "Harga Barang", sortable:false},
+      { field: "dealQuantity", title: "Jumlah Barang", sortable:false},
+      { field: "dealUomUnit", title: "Satuan Barang", sortable:false},
+      { field: "pricePerDealUnit", title: "Harga Barang", sortable:false},
       { field: "supplierCode", title: "Kode Supplier", sortable:false},
       { field: "supplierName", title: "Nama Supplier", sortable:false},
       { field: "poDate", title: "Tanggal Terima PO Internal", sortable:false,
@@ -70,7 +70,7 @@ export class List {
         }
       },
       { field: "ePONo", title: "No PO Eksternal", sortable:false},
-      { field: "doDate", title: "Tanggal Surat Jalan", sortable:false, 
+      { field: "dODate", title: "Tanggal Surat Jalan", sortable:false, 
         formatter: (value, data) => {
           return moment(value).format("DD/MM/YYYY");
         }
@@ -80,7 +80,7 @@ export class List {
           return moment(value).format("DD/MM/YYYY");
         }
       },
-      { field: "doNo", title: "No Surat Jalan", sortable:false},
+      { field: "dONo", title: "No Surat Jalan", sortable:false},
       { field: "dateDiff", title: "Selisih Tanggal PO Eksternal - Surat Jalan (hari)", sortable:false},
       { field: "staff", title: "Nama Staff Pembelian", sortable:false},
     ]
