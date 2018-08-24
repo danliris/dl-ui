@@ -17,12 +17,13 @@ export class Service extends RestService {
 
     generateExcel(info) {
         var endpoint = this._getEndPoint(info);
+        console.log(endpoint);
         return super.getXls(endpoint);
     }
 
     _getEndPoint(info)
     {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/download`;
         var query = '';
         info.offset = new Date().getTimezoneOffset() / 60 * -1;
         if (query === '') query = `offset=${info.offset}`;
@@ -45,7 +46,7 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${serviceUri}/download?${query}`;
         
         return endpoint;
     }
