@@ -34,7 +34,8 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    return `${unit.code} - ${unit.name}`
+    console.log(unit);
+    return `${unit.Code} - ${unit.Name}`
   }
   get categoryLoader() {
     return CategoryLoader;
@@ -51,7 +52,7 @@ export class List {
       var filter = {
         no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
         category: this.category ? this.category.code : "",
-        unit: this.unit ? this.unit.code : "",
+        unit: this.unit ? this.unit.Code : "",
         dateFrom: moment(this.dateFrom).format("DD MMM YYYY HH:mm"),
         dateTo: moment(this.dateTo).format("DD MMM YYYY HH:mm"),
       }
@@ -60,24 +61,24 @@ export class List {
           var dataByCategory = {};
           var subTotalCategory = {};
           for (var data of result) {
-            for (var item of data.items) {
-              var Category = item.purchaseOrder.category.name;
+            //for (var item of data.items) {
+              var Category = data.categoryName;
               if (!dataByCategory[Category]) dataByCategory[Category] = [];
               dataByCategory[Category].push({
-                Date: moment(data.date).format("DD MMM YYYY"),
-                No: data.no,
-                Product: item.product.name,
-                Category: item.purchaseOrder.category.name,
-                Unit: data.unit.name,
-                PIB: data.pibNo || "-",
-                Nilai: (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
-                CurrencyRate: item.currencyRate.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
-                Total: (item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate).toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                Date: moment(this.receiptDate).format("YYYY-MM-DD"),
+                No: data.urnNo,
+                Product: data.productName,
+                Category: data.categoryName,
+                Unit: data.unitName,
+                PIB: data.PIBNo || "-",
+                Nilai: (data.amount).toLocaleString()+".00",
+                CurrencyRate: data.rate.toLocaleString()+".00",
+                Total: (data.amountIDR).toLocaleString()+".00",
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
-              subTotalCategory[Category] += (item.pricePerDealUnit * item.deliveredQuantity * item.currencyRate);
-            }
+              subTotalCategory[Category] += (data.amountIDR);
+           // }
           }
 
           var categories = [];
@@ -85,11 +86,11 @@ export class List {
           for (var data in dataByCategory) {
             categories.push({
               data: dataByCategory[data],
-              subTotal: subTotalCategory[data].toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+              subTotal: subTotalCategory[data].toLocaleString()+".00",
             });
             this.total += subTotalCategory[data];
           }
-          this.total = this.total.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+          this.total = this.total.toLocaleString()+".00";
           this.categories = categories;
 
         });
@@ -104,7 +105,7 @@ export class List {
       var filter = {
         no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
         category: this.category ? this.category.code : "",
-        unit: this.unit ? this.unit.code : "",
+        unit: this.unit ? this.unit.Code : "",
         dateFrom: moment(this.dateFrom).format("DD MMM YYYY HH:mm"),
         dateTo: moment(this.dateTo).format("DD MMM YYYY HH:mm"),
       }
