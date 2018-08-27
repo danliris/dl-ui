@@ -6,58 +6,28 @@ var UnitLoader = require('../../../loader/unit-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
-var PurchaseOrderLoader = require('../../../loader/purchase-order-by-user-loader');
+var AccountLoader = require('../../../loader/account-loader');
+var PurchaseOrderLoader = require('../../../loader/purchase-request-by-user-loader');
+var EPOLoader = require('../../../loader/purchase-order-external-loader');
+
 
 @inject(Router, Service)
 export class List {
 
-    poStates = [
-        {
-            "name": "",
-            "value": -1
-        }, {
-            "name": "Dibatalkan",
-            "value": 0
-        }, {
-            "name": "PO Internal belum diorder",
-            "value": 1
-        }, {
-            "name": "Sudah dibuat PO Eksternal",
-            "value": 2
-        }, {
-            "name": "Sudah diorder ke Supplier",
-            "value": 3
-        }, {
-            "name": "Barang sudah datang parsial",
-            "value": 4
-        }, {
-            "name": "Barang sudah datang",
-            "value": 5
-        }, {
-            "name": "Barang sudah diterima Unit parsial",
-            "value": 6
-        }, {
-            "name": "Barang sudah diterima Unit",
-            "value": 7
-        }, {
-            "name": "Sebagian sudah dibuat SPB",
-            "value": 8
-        }, {
-            "name": "Complete",
-            "value": 9
-        }];
+    poStates = ["","Dibatalkan","PO Internal belum diorder","Sudah dibuat PO Eksternal","Sudah diorder ke Supplier","Barang sudah datang parsial","Barang sudah datang semua","Barang sudah diterima Unit parsial","Barang sudah diterima Unit semua","Sudah dibuat SPB sebagian","Sudah dibuat SPB semua"];
+    info = { page: 1,size:25};
 
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        this.today = new Date();
-        this.poStates = this.poStates.map(poState => {
-            poState.toString = function () {
-                return this.name;
-            }
-            return poState;
-        })
-        this.data=[];
+        // this.today = new Date();
+        // // this.poStates = this.poStates.map(poState => {
+        // //     poState.toString = function () {
+        // //         return this.name;
+        // //     }
+        // //     return poState;
+        // // })
+        // this.data = [];
     }
     attached() {
     }
@@ -65,40 +35,104 @@ export class List {
     activate() {
     }
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
-    }
+    search(){
+        //  this.error = {};
 
-    search() {
-        var dateFormat = "DD MMM YYYY";
-        var locale = 'id-ID';
-        var moment = require('moment');
-        moment.locale(locale);
-        if (!this.poState)
-            this.poState = this.poStates[0];
-        this.service.search(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "")
-            .then(data => {
-                this.data = data;
+        // if (Object.getOwnPropertyNames(this.error).length === 0) {
+            //this.flag = true;
+            this.info.page = 1;
+            this.info.total=0;
+            this.searching();
+        
+    }
+    searching() {
+        let args = {
+            page: this.info.page,
+            size: this.info.size,
+            prNo: this.pr ? this.pr.no : "",
+            supplierId:this.supplier? this.supplier._id : "",
+            unitId: this.unit ? this.unit.Id : "",
+            categoryId: this.category ? this.category._id : "",
+            budgetId: this.budget ? this.budget._id : "",
+            epoNo:this.epo? this.epo.no : "",
+            staff: this.staffName? this.staffName.username : "",
+            status: this.poState,
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+
+        };
+        // var dateFormat = "DD MMM YYYY";
+        // var locale = 'id-ID';
+        // var moment = require('moment');
+        // moment.locale(locale);
+        // if (!this.poState)
+        //     this.poState = this.poStates[0];
+        this.service.search(args)
+            .then(result => {
+                this.info.total=result.info.total; 
+                this.data = result.data;
+                for (var item of this.data){
+                    item.prDate=moment(item.prDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.prDate).format("DD MMM YYYY");
+                    item.createdDatePR=moment(item.createdDatePR).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.createdDatePR).format("DD MMM YYYY");
+                    item.receivedDatePO=moment(item.receivedDatePO).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.receivedDatePO).format("DD MMM YYYY");
+                    item.epoDate=moment(item.epoDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.epoDate).format("DD MMM YYYY");
+                    item.epoCreatedDate=moment(item.epoCreatedDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.epoCreatedDate).format("DD MMM YYYY");
+                    item.epoExpectedDeliveryDate=moment(item.epoExpectedDeliveryDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.epoExpectedDeliveryDate).format("DD MMM YYYY");
+                    item.epoDeliveryDate=moment(item.epoDeliveryDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.epoDeliveryDate).format("DD MMM YYYY");
+                    item.doDate=moment(item.doDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.doDate).format("DD MMM YYYY");
+                    item.doDeliveryDate=moment(item.doDeliveryDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.doDeliveryDate).format("DD MMM YYYY");
+                    item.urnDate=moment(item.urnDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.urnDate).format("DD MMM YYYY");
+                    item.invoiceDate=moment(item.invoiceDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.invoiceDate).format("DD MMM YYYY");
+                    item.upoDate=moment(item.upoDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.upoDate).format("DD MMM YYYY");
+                    item.dueDate=moment(item.dueDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.dueDate).format("DD MMM YYYY");
+                    item.vatDate=moment(item.vatDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.vatDate).format("DD MMM YYYY");
+                    item.incomeTaxDate=item.incomeTaxDate==null? "-" : moment(item.incomeTaxDate).format("DD MMM YYYY");
+                    item.correctionDate=moment(item.correctionDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.correctionDate).format("DD MMM YYYY");
+
+                    item.quantity=item.quantity.toLocaleString();
+                    item.pricePerDealUnit=item.pricePerDealUnit.toLocaleString();
+                    item.priceTotal=item.priceTotal.toLocaleString();
+                    item.urnQuantity=item.urnQuantity.toLocaleString();
+                    item.upoPriceTotal=item.upoPriceTotal.toLocaleString();
+                    item.vatValue=item.vatValue.toLocaleString();
+                    item.incomeTaxValue=item.incomeTaxValue.toLocaleString();
+                    item.valueCorrection=item.valueCorrection.toLocaleString();
+                }
             })
     }
 
     reset() {
         this.unit = "";
         this.category = "";
-        this.PODLNo = "";
+        this.epo = "";
+        this.pr=null;
         this.purchaseOrder = "";
         this.supplier = "";
         this.dateFrom = null;
         this.dateTo = null;
-        this.poState = this.poStates[0];
+        this.poState ="";
         this.budget = "";
-        this.data = [];
+        this.staffName = "";
+        //this.data = [];
     }
 
     exportToXls() {
-        if (!this.poState)
-            this.poState = this.poStates[0];
-        this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.PODLNo, this.purchaseOrder ? this.purchaseOrder.purchaseRequest.no : "", this.supplier ? this.supplier._id : "", this.dateFrom, this.dateTo, this.poState.value, this.budget ? this.budget._id : "");
+        let args = {
+            
+            prNo: this.pr ? this.pr.no : "",
+            unitId: this.unit ? this.unit.Id : "",
+            categoryId: this.category ? this.category._id : "",
+            budgetId: this.budget ? this.budget._id : "",
+            supplierId:this.supplier? this.supplier._id : "",
+            epoNo:this.epo? this.epo.no : "",
+            staff: this.staffName? this.staffName.username : "",
+            status: this.poState,
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+
+        };
+        
+        this.service.generateExcel(args);
     }
 
     dateFromChanged(e) {
@@ -111,7 +145,15 @@ export class List {
         }
 
     }
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.searching();
+    }
 
+    get epoLoader() {
+        return EPOLoader;
+    }
     get unitLoader() {
         return UnitLoader;
     }
@@ -132,4 +174,7 @@ export class List {
         return SupplierLoader;
     }
 
+    get accountLoader() {
+        return AccountLoader;
+    }
 }
