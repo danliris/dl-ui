@@ -2,9 +2,11 @@ import { inject, bindable, computedFrom, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
+import { Dialog } from '../../../components/dialog/dialog';
+import { AlertView } from './dialog-template/alert-view';
 import moment from 'moment';
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class Create {
     @bindable data = [];
     dataToBeSaved = [];
@@ -45,9 +47,10 @@ export class Create {
         }
     };
     label = "Periode Tgl. Shipment"
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
 
     rowFormatter(data, index) {
@@ -81,7 +84,7 @@ export class Create {
                 );
                 if(duplicateItemCheckedAll.length > 1) {
                     duplicateItemCheckedAllList = duplicateItemCheckedAllList || {};
-                    duplicateItemCheckedAllList[`${_purchaseRequest.roNo}-${_purchaseRequest.no}-${_purchaseRequest.items.refNo}`] = `Duplicate Purchase Request Item : ${_purchaseRequest.roNo} - ${_purchaseRequest.no} - ${_purchaseRequest.items.refNo}`;
+                    duplicateItemCheckedAllList[`${_purchaseRequest.roNo}-${_purchaseRequest.no}-${_purchaseRequest.items.refNo}`] = `Nomor RO : <strong>${_purchaseRequest.roNo}</strong>, Nomor PR : <strong>${_purchaseRequest.no}</strong>, Nomor Ref. PO : <strong>${_purchaseRequest.items.refNo}</strong>`;
                 }
             });
             if (duplicateItemCheckedAllList) {
@@ -92,7 +95,7 @@ export class Create {
                         alertMessages = alertMessages.concat(alertMessage, "\n");
                     }
                 }
-                alert(alertMessages);
+                this.dialog.show(AlertView, { title: "Duplicate Selected Purchase Request", message: alertMessages });
             } else {
                 this.service.create(this.dataToBeSaved)
                     .then(result => {
