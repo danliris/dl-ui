@@ -62,10 +62,11 @@ export class List {
           var subTotalCategory = {};
           for (var data of result) {
             //for (var item of data.items) {
+              console.log(data.receiptDate);
               var Category = data.categoryName;
               if (!dataByCategory[Category]) dataByCategory[Category] = [];
               dataByCategory[Category].push({
-                Date: moment(this.receiptDate).format("YYYY-MM-DD"),
+                Date: moment(data.receiptDate).format("YYYY-MM-DD"),
                 No: data.urnNo,
                 Product: data.productName,
                 Category: data.categoryName,
@@ -120,7 +121,7 @@ export class List {
     this.unitReceiptNote = "";
     this.category = "";
     this.unit = "";
-    this.dateFrom = new Date();
-    this.dateTo = new Date();
+    this.dateFrom = null;
+    this.dateTo = null;
   }
 }
