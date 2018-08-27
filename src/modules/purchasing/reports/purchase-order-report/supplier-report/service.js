@@ -10,7 +10,7 @@ export class Service extends RestService {
     super(http, aggregator, config, "purchasing-azure");
   }
 
-getDataSpl(unit, category, sdate, edate) {
+getDataSpl(divisi,unit, category, sdate, edate) {
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -29,13 +29,16 @@ getDataSpl(unit, category, sdate, edate) {
             if (query == '') query = `category=${encodeURIComponent(category._id)}`;
             else query = `${query}&category=${encodeURIComponent(category._id)}`;
         }
-       
+        if (divisi) {
+            if (query == '') query = `divisionId=${divisi}`;
+            else query = `${query}&divisionId=${divisi}`;
+        }
         if (query != '')
             endpoint = `${serviceUri}?${query}`;
         return super.get(endpoint);
     }
 
-generateExcel(unit, category, sdate, edate) {
+generateExcel(divisi,unit, category, sdate, edate) {
         var endpoint =  `${serviceUri}/download`;
         var query = '';
         if (sdate) {
@@ -54,7 +57,10 @@ generateExcel(unit, category, sdate, edate) {
             if (query == '') query = `category=${encodeURIComponent(category._id)}`;
             else query = `${query}&category=${encodeURIComponent(category._id)}`;
         }
-            
+        if (divisi) {
+            if (query == '') query = `divisionId=${divisi}`;
+            else query = `${query}&divisionId=${divisi}`;
+        } 
         if (query !== '')
         endpoint = `${serviceUri}/download?${query}`;
        console.log(sdate);
