@@ -6,7 +6,7 @@ import { Dialog } from '../../../au-components/dialog/dialog';
 import { Service } from './service';
 import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
-import { VERIFICATION, CASHIER, FINANCE } from '../shared/permission-constants';
+import { VERIFICATION, CASHIER, ACCOUNTING } from '../shared/permission-constants';
 
 @inject(Router, Service, PurchasingDocumentExpeditionService, Dialog, PermissionHelper)
 export class List {
@@ -46,7 +46,7 @@ export class List {
     }
 
     initPermission() {
-        this.roles = [VERIFICATION, CASHIER, FINANCE];
+        this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
         this.accessCount = 0;
 
         for (let i = this.roles.length - 1; i >= 0; i--) {
@@ -77,6 +77,14 @@ export class List {
             order: order,
             filter: JSON.stringify({ Position: this.activeRole.position }), // VERIFICATION_DIVISION
         };
+
+        if (this.activeRole.key === 'CASHIER') {
+            let filter = JSON.parse(arg.filter);
+            
+            filter.IsPaid = false;
+            filter.IsPaidPPH = false;
+            arg.filter = JSON.stringify(filter);
+        }
 
         return this.purchasingDocumentExpeditionService.search(arg)
             .then(result => {

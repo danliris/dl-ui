@@ -1,0 +1,105 @@
+<template>
+  <form class="form-horizontal">
+    <h1 class="page-header">Laporan Buku Pembelian Import</h1>
+    <hr/>
+
+    <au-autocomplete 
+      label="Nomor Nota" 
+      value.bind="unitReceiptNote"
+      loader.bind="unitReceiptNoteLoader"
+      text = "no"
+      placeholder="Nomor Nota" 
+      options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-autocomplete 
+      label="Kategori" 
+      value.bind="category" 
+      loader.bind="categoryLoader"
+      text.bind = "categoryView"
+      placeholder="Kategori" 
+      options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-autocomplete 
+      label="Unit" 
+      value.bind="unit" 
+      loader.bind="unitLoader"
+      text.bind = "unitView"
+      placeholder="Unit" 
+      options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-datepicker
+      label="Dari Tanggal"
+      value.bind="dateFrom"
+      options.bind="controlOptions">
+    </au-datepicker>
+    
+    <au-datepicker
+      label="Sampai Tanggal"
+      value.bind="dateTo"
+      options.bind="controlOptions">
+    </au-datepicker>
+    
+    <div class="text-center">
+      <button class="btn btn-primary" click.delegate="searching()">Cari</button>
+      <button class="btn btn-success" click.delegate="reset()">Reset</button>
+    </div>
+
+  </form>
+
+  <br>
+  <div class="btn-group pull-left">
+    <button class="btn btn-primary" click.delegate="ExportToExcel()">Cetak Excel</button>
+  </div>
+  <br>
+  <br>
+
+  <div class="table-responsive" if.bind="categories.length > 0">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead>
+        <tr>
+          <th class="text-center">TGL</th>
+          <th class="text-center">NOMOR NOTA</th>
+          <th class="text-center">NAMA BARANG</th>
+          <th class="text-center">TIPE</th>
+          <th class="text-center">UNIT</th>
+          <th class="text-center">NO PIB</th>
+          <th class="text-center">NILAI</th>
+          <th class="text-center">RATE</th>
+          <th class="text-center">TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template repeat.for="category of categories">
+          <tr repeat.for="data of category.data">
+            <td>${data.Date}</td>
+            <td>${data.No}</td>
+            <td>${data.Product}</td>
+            <td>${data.Category}</td>
+            <td>${data.Unit}</td>
+            <td>${data.PIB}</td>
+            <td class="text-right">${data.Nilai}</td>
+            <td class="text-right">${data.CurrencyRate}</td>
+            <td class="text-right"><strong>${data.Total}</strong></td>
+          </tr>
+          <tr class="active">
+            <td class="text-right" colspan="8"><strong>SUB TOTAL</strong></td>
+            <td class="text-right"><strong>${category.subTotal}</strong></td>
+          </tr>
+        </template>
+        <tr class="active">
+          <td class="text-right" colspan="8"><strong>TOTAL</strong></td>
+          <td class="text-right"><strong>${total}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="alert alert-info text-center" role="alert" if.bind="categories.length === 0">
+      Data tidak ditemukan.
+  </div>
+  <hr/>
+
+</template>
+  

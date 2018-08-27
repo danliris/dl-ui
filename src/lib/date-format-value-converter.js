@@ -2,7 +2,7 @@ import moment from 'moment';
 
 export class DateFormatValueConverter {
   toView(value, format) {
-    if (value) {
+    if (value && value != 'Invalid Date') {
       return moment(value).format(format);
     }
     else
