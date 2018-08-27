@@ -63,6 +63,7 @@ export class List {
         this.dateTo = null;
         this.unit = null;
         this.category = null; 
+        this.divisi = null; 
     }
 
     ExportToExcel() {
