@@ -40,7 +40,7 @@ export class List {
         return UnitLoader;
     }   
     unitView = (unit) => {
-        return `${unit.code} - ${unit.name}`
+        return `${unit.Code} - ${unit.Name}`
     } 
     
     
@@ -52,14 +52,13 @@ searching() {
             var info = {
             no : this.no ? this.no : "",
             category : this.category ? this.category.code : "",
-            unit : this.unit ? this.unit.code : "",
+            unit : this.unit ? this.unit.Code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
         this.service.search(info)
             .then(result => {
-               this.data=result;
-               this.data = [];
+                console.log(result);
                var dataByCategory = {};
                var subTotalDPPCategory = {};
                var subTotalPPNCategory = {};
