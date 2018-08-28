@@ -35,7 +35,7 @@ export class Create {
     }
 
     save(event) {
-        this.data.deliverySchedule = moment(this.data.deliverySchedule).format("YYYY-MM-DD");
+        this.data.DeliverySchedule = moment(this.data.DeliverySchedule).format("YYYY-MM-DD");
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
