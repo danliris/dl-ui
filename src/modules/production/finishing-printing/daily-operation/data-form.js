@@ -1,9 +1,8 @@
-import {inject, bindable, BindingEngine, observable, computedFrom} from 'aurelia-framework'
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 var moment = require('moment');
 var momentToMillis = require('../../../../utils/moment-to-millis');
-var MachineLoader = require('../../../../loader/machine-loader');
-var StepLoader = require('../../../../loader/step-loader');
+var MachineLoader = require('../../../../loader/machines-loader');
 var KanbanLoader = require('../../../../loader/kanban-loader');
 
 @inject(Service, BindingEngine, Element)
@@ -52,8 +51,8 @@ export class DataForm {
         }
     };
 
-    shiftOptions = ['','Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
-    actionOptions = ['','Reproses', 'Digudangkan', 'Dibuang'];
+    shiftOptions = ['', 'Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
+    actionOptions = ['', 'Reproses', 'Digudangkan', 'Dibuang'];
     timePickerShowSecond = false;
     timePickerFormat = "HH:mm";
 
@@ -68,21 +67,20 @@ export class DataForm {
         onAdd: function () {
             // this.context.ItemsCollection.bind()
             this.data.badOutputReasons = this.data.badOutputReasons || [];
-            this.data.badOutputReasons.push({ badOutputReason: "", precentage : 0, description : "" });
+            this.data.badOutputReasons.push({ badOutputReason: "", precentage: 0, description: "" });
         }.bind(this),
         onRemove: function () {
             console.log("bad output reason removed");
         }.bind(this)
     };
 
-    constructor(service,bindingEngine, element) {
+    constructor(service, bindingEngine, element) {
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.element = element;
     }
 
-    async bind(context)
-    {
+    async bind(context) {
         //console.log(context);
         this.context = context;
         this.data = this.context.data;
@@ -90,72 +88,72 @@ export class DataForm {
         this.localInputDate = new Date(Date.parse(this.data.dateInput));
         this.localOutputDate = new Date(Date.parse(this.data.dateOutput));
         this.filterReason = {};
-        var reason={};
-        var machineCodes={};
-        if(this.data.machine){
-            reason = {
-                
-                    "machines" : {
-                        "$elemMatch" : {
-                            "code" : this.data.machine.code
-                        }
-                    },
-                    "action": this.data.action ? this.data.action : ""
-                
-            }
+        var reason = {};
+        var machineCodes = {};
+        if (this.data.machine) {
+            // reason = {
+
+            //         "machines" : {
+            //             "$elemMatch" : {
+            //                 "code" : this.data.machine.code
+            //             }
+            //         },
+            //         "action": this.data.action ? this.data.action : ""
+
+            // }
         }
-        var _machineCode=[];
-        if(this.data.kanban && this.data.machine && this.output){
-            var filterDaily={
-                "kanban.code":this.data.kanban.code,
-                _deleted:false,
-                type:"input"
+        var _machineCode = [];
+        if (this.data.kanban && this.data.machine && this.output) {
+            var filterDaily = {
+                "kanban.code": this.data.kanban.code,
+                _deleted: false,
+                type: "input"
             };
-            var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
-             var _machineCode=[];
-            _machineCode.push(this.data.machine.code);
-            for (var item of dailyOperations.data){
-                if(_machineCode.length>0){
-                    var dup=_machineCode.find(mc=>mc==item.machine.code);
-                    if(!dup)
-                        _machineCode.push(item.machine.code);
+            var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
+            var _machineCode = [];
+            _machineCode.push(this.data.machine.Code);
+            for (var item of dailyOperations.data) {
+                if (_machineCode.length > 0) {
+                    var dup = _machineCode.find(mc => mc == item.Machine.Code);
+                    if (!dup)
+                        _machineCode.push(item.Machine.Code);
                 }
-                else{
-                    _machineCode.push(item.machine.code);
+                else {
+                    _machineCode.push(item.Machine.Code);
                 }
             }
-            machineCodes={
-                code:_machineCode,
-                kanban:this.data.kanban.code
+            machineCodes = {
+                code: _machineCode,
+                kanban: this.data.kanban.code
             }
         }
 
-        this.filterReason={reason:reason,machineCode:machineCodes};
-        
+        this.filterReason = { reason: reason, machineCode: machineCodes };
+
         this.filterMachine = {
-            "unit.division.name" : "FINISHING & PRINTING"
+            "UnitDivisionName": "FINISHING & PRINTING"
         }
 
-        this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
-        this.selectStep = ["process", "processArea", "deadline", "isNotDone"];
-        this.selectKanban = ["code", "productionOrderId",
-            "productionOrder._id", "productionOrder.orderNo", "productionOrder.salesContractNo",
-            "productionOrder.materialId", "productionOrder.material.code", "productionOrder.material.name",
-            "productionOrder.materialConstruction._id", "productionOrder.materialConstruction.name",
-            "productionOrder.yarnMaterialId",
-            "productionOrder.yarnMaterial._id", "productionOrder.yarnMaterial.name",
-            "productionOrder.orderType.name", "selectedProductionOrderDetail.code",
-            "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorTemplate",
-            "selectedProductionOrderDetail.uom._id", "selectedProductionOrderDetail.uom.unit",
-            "productionOrder.materialWidth", "cart.cartNumber", "cart.qty",
-            "cart.code", "cart.pcs", "cart.uom._id", "cart.uom.unit", "instruction.code",
-            "instruction.name", "grade", "isComplete", "currentStepIndex", "currentQty",
-            "oldKanbanId", "oldKanban.cart.cartNumber", "productionOrder.finishWidth",
-            "instruction.steps.process", "instruction.steps.processArea",
-            "instruction.steps.deadline", "instruction.steps.isNotDone",
-            "productionOrder.orderTypeId", "productionOrder.orderType.code",
-            "instruction.steps._id", "selectedProductionOrderDetail.uomId", "oldKanban.cart.code", "step._id"
-        ];
+        // this.selectMachine = ["code", "name", "process", "year", "condition", "monthlyCapacity", "code", "manufacture", "steps.step.process", "steps.step.code", "steps.step._id"];
+        // this.selectStep = ["process", "processArea", "deadline", "isNotDone"];
+        // this.selectKanban = ["code", "productionOrderId",
+        //     "productionOrder._id", "productionOrder.orderNo", "productionOrder.salesContractNo",
+        //     "productionOrder.materialId", "productionOrder.material.code", "productionOrder.material.name",
+        //     "productionOrder.materialConstruction._id", "productionOrder.materialConstruction.name",
+        //     "productionOrder.yarnMaterialId",
+        //     "productionOrder.yarnMaterial._id", "productionOrder.yarnMaterial.name",
+        //     "productionOrder.orderType.name", "selectedProductionOrderDetail.code",
+        //     "selectedProductionOrderDetail.colorRequest", "selectedProductionOrderDetail.colorTemplate",
+        //     "selectedProductionOrderDetail.uom._id", "selectedProductionOrderDetail.uom.unit",
+        //     "productionOrder.materialWidth", "cart.cartNumber", "cart.qty",
+        //     "cart.code", "cart.pcs", "cart.uom._id", "cart.uom.unit", "instruction.code",
+        //     "instruction.name", "grade", "isComplete", "currentStepIndex", "currentQty",
+        //     "oldKanbanId", "oldKanban.cart.cartNumber", "productionOrder.finishWidth",
+        //     "instruction.steps.process", "instruction.steps.processArea",
+        //     "instruction.steps.deadline", "instruction.steps.isNotDone",
+        //     "productionOrder.orderTypeId", "productionOrder.orderType.code",
+        //     "instruction.steps._id", "selectedProductionOrderDetail.uomId", "oldKanban.cart.code", "step._id"
+        // ];
     }
 
     localInputDateChanged(newValue) {
@@ -166,68 +164,53 @@ export class DataForm {
         this.data.dateOutput = this.localOutputDate;
     }
 
-    get isFilterKanban(){
-        this.filterKanban = {};
-        if(this.data.step)
-        {
-            this.filterKanban = {
-                "instruction.steps" : { "$elemMatch" : {
-                    "process" : this.data.step.process
-                } },
-                "isComplete": false,
-                "$where": "this.instruction.steps.length != this.currentStepIndex"
-            };
-        }
-        return this.filterKanban;
-    }
+    // get isFilterKanban() {
+    //     this.filterKanban = {};
+    //     if (this.data.step) {
+    //         this.filterKanban = {
+    //             "instruction.steps": {
+    //                 "$elemMatch": {
+    //                     "process": this.data.step.process
+    //                 }
+    //             },
+    //             "isComplete": false,
+    //             "$where": "this.instruction.steps.length != this.currentStepIndex"
+    //         };
+    //     }
+    //     return this.filterKanban;
+    // }
 
-    @computedFrom("data.machine")
-    get isFilterStep(){
-        this.filterStep = {};
-        if(this.data.machine)
-        {
-            var steps = [];
-            for(var step of this.data.machine.steps){
-                steps.push(step.step.process);
-            }
-            this.filterStep = {
-                "process" : { "$in" : steps }
-            };
-        }
-        return this.filterStep;
-    }
-    
-    get hasStep(){
-        return this.data && this.data.step;
+    get hasStep() {
+        return this.data && this.data.Step;
     }
 
     get hasMachine() {
-        return this.data && this.data.machine;
+        return this.data && this.data.Machine;
     }
 
     get hasKanban() {
-        return this.data && this.data.kanban;
+        return this.data && this.data.Kanban;
     }
 
-    get hasError(){
+    get hasError() {
         return this.output && this.error && this.error.badOutputReasons && typeof this.error.badOutputReasons === "string";
     }
 
-    get hasBadOutput(){
-        return this.data && this.data.machineId && this.data.machineId !== "" && this.data.badOutput && this.data.badOutput > 0 && this.output;
+    get hasBadOutput() {
+        return this.data && this.data.machine.Id && this.data.machine.Id !== 0 && this.data.badOutput && this.data.badOutput > 0 && this.output;
     }
 
     // get getFilterReason(){
     //     if(this.data.machine){
     //         reason = {
-                
+
     //                 "machines" : {
     //                     "$elemMatch" : {
     //                         "code" : this.data.machine.code
     //                     }
     //                 },
     //                 "action": this.data.action ? this.data.action : ""
-                
+
     //         }
     //     }
     //     var _machineCode=[];
@@ -258,62 +241,63 @@ export class DataForm {
     //     }
 
     //     this.filterReason={reason:reason,machineCode:machineCodes};
-        
+
     //     console.log(this.filterReason)
     //     return this.filterReason;
     // }
 
-    async kanbanChanged(newValue, oldValue){
+    async kanbanChanged(newValue, oldValue) {
         var selectedKanban = newValue;
 
-        if(selectedKanban){
-            this.data.kanbanId = selectedKanban._id;
-            this.data.kanban = selectedKanban;
+        if (selectedKanban) {
+            debugger
+            // this.data.kanbanId = selectedKanban._id;
+            this.data.Kanban = selectedKanban;
 
-            if(this.input && this.data.kanbanId && this.data.kanbanId !== "")
-                this.data.input = Number(selectedKanban.cart.qty);
-            if(this.output && this.data.kanbanId && this.data.kanbanId !== "")
-                this.data.goodOutput = Number(selectedKanban.cart.qty);
-            
-            if(this.output){
-                var filterDaily={
-                    "kanban.code":this.data.kanban.code,
-                    _deleted:false,
-                    type:"input"
-                };
+            if (this.Input && this.data.Kanban.Id != 0)
+                this.data.Input = Number(selectedKanban.Cart.Qty);
+            if (this.Output && this.data.Kanban.Id != 0)
+                this.data.GoodOutput = Number(selectedKanban.Cart.Qty);
 
-                var dailyOperations= await this.service.search({filter:JSON.stringify(filterDaily)});
-                var _machineCode=[];
-                _machineCode.push(this.data.machine.code);
-                for (var item of dailyOperations.data){
-                    if(_machineCode.length>0){
-                        var dup=_machineCode.find(mc=>mc==item.machine.code);
-                        if(!dup)
-                            _machineCode.push(item.machine.code);
-                    }
-                    else{
-                        _machineCode.push(item.machine.code);
-                    }
-                }
-                
-                // var machineCode=[];
-                // if(this.data.step){
-                //     for(var mc of this.data.kanban.instruction.steps){
-                //         machineCode.push(mc.machine.code);
-                //         if(this.data.stepId==mc._id){
-                //             break;
-                //         }
-                //     }
-                // }
-                this.filterReason={
-                    reason:this.filterReason.reason,
-                    machineCode:{
-                        code:_machineCode,
-                        kanban:this.data.kanban.code
-                    }
-                };
-                
-            }
+            // if (this.Output) {
+            //     var filterDaily = {
+            //         "kanban.code": this.data.kanban.code,
+            //         _deleted: false,
+            //         type: "input"
+            //     };
+
+            //     var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
+            //     var _machineCode = [];
+            //     _machineCode.push(this.data.machine.code);
+            //     for (var item of dailyOperations.data) {
+            //         if (_machineCode.length > 0) {
+            //             var dup = _machineCode.find(mc => mc == item.machine.code);
+            //             if (!dup)
+            //                 _machineCode.push(item.machine.code);
+            //         }
+            //         else {
+            //             _machineCode.push(item.machine.code);
+            //         }
+            //     }
+
+            //     // var machineCode=[];
+            //     // if(this.data.step){
+            //     //     for(var mc of this.data.kanban.instruction.steps){
+            //     //         machineCode.push(mc.machine.code);
+            //     //         if(this.data.stepId==mc._id){
+            //     //             break;
+            //     //         }
+            //     //     }
+            //     // }
+            //     this.filterReason = {
+            //         reason: this.filterReason.reason,
+            //         machineCode: {
+            //             code: _machineCode,
+            //             kanban: this.data.kanban.code
+            //         }
+            //     };
+
+            // }
         }
         else {
             delete this.data.kanbanId;
@@ -324,43 +308,43 @@ export class DataForm {
     stepChanged(newValue, oldValue) {
         var selectedStep = newValue;
 
-        if(selectedStep) {
-            this.data.stepId = selectedStep._id;
-            this.data.step = selectedStep;
+        if (selectedStep) {
+            // this.data.stepId = selectedStep._id;
+            this.data.Step = selectedStep;
         }
         else {
-            delete this.data.stepId;
-            this.data.step = undefined;
+            delete this.data.Step.Id;
+            this.data.Step = undefined;
         }
-        
+
         this.kanbanAU.editorValue = "";
     }
 
     machineChanged(newValue, oldValue) {
         var selectedMachine = newValue;
-        if(selectedMachine) {
-            this.data.machine = selectedMachine;
-            this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
+        if (selectedMachine) {
+            this.data.Machine = selectedMachine;
+            // this.data.machineId = selectedMachine._id ? selectedMachine._id : "";
             this.filterReason = {
-                reason:{
-                    "machines" : {
-                        "$elemMatch" : {
-                            "code" : this.data.machine.code
+                reason: {
+                    "machines": {
+                        "$elemMatch": {
+                            "code": this.data.Machine.Code
                         }
                     }
                 }
             }
         }
         else {
-            this.data.machine = undefined;
-            delete this.data.machineId;
+            this.data.Machine = undefined;
+            delete this.data.Machine.Id;
             this.filterReason = {};
         }
-        if(this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0){
+        if (this.data && this.data.badOutputReasons && this.data.badOutputReasons.length > 0) {
             var count = this.data.badOutputReasons.length;
             console.log(this.data.badOutputReasons);
-            for(var a = count; a >= 0; a--){
-                this.data.badOutputReasons.splice((a-1), 1);
+            for (var a = count; a >= 0; a--) {
+                this.data.badOutputReasons.splice((a - 1), 1);
             }
             console.log(this.data.badOutputReasons);
         }
@@ -375,7 +359,7 @@ export class DataForm {
     }
 
     get stepLoader() {
-        return StepLoader;
+        return this.data.Machine ? this.data.Machine.MachineSteps : [];
     }
 
     get kanbanLoader() {
@@ -383,8 +367,8 @@ export class DataForm {
     }
 
     kanbanView(kanban) {
-        if (kanban.productionOrder) {
-            return `${kanban.productionOrder.orderNo} - ${kanban.cart.cartNumber}`;
+        if (kanban.ProductionOrder) {
+            return `${kanban.ProductionOrder.OrderNo} - ${kanban.Cart.CartNumber}`;
         }
         else
             return '';

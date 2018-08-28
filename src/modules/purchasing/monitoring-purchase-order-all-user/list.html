@@ -30,7 +30,7 @@
                 </au-autocomplete>
 
                 <au-autocomplete value.bind="staffName" label="Nama Staff Pembelian" loader.bind="accountLoader" placeholder="nama staff pembelian"
-                    key="code">
+                    key="username" text.bind = "accountView">
                 </au-autocomplete>
 
                 <au-datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)">

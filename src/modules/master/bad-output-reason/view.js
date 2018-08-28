@@ -22,7 +22,7 @@ export class View {
     }
 
     edit() {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete() {
