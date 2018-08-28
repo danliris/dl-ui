@@ -4,7 +4,7 @@ import { Router } from 'aurelia-router';
 var moment = require("moment");
 var UnitLoader = require('../../../../../loader/unit-loader');
 var CategoryLoader = require('../../../../../loader/category-loader');
-
+var DivisionLoader = require('../../../../../loader/division-loader');
 @inject(Router, Service)
 export class List {
     
@@ -17,14 +17,19 @@ export class List {
     category=null;
     dateFrom = null;
     dateTo = null;
- 
+
+    get divisionLoader() {
+        return DivisionLoader;
+    }
     get unitLoader() {
         return UnitLoader;
     }
     get categoryLoader() {
         return CategoryLoader;
     }
-
+    divisionView = (division) => {
+        return `${division.Name}`;
+    }
     activate() {
     }
     searching() {
@@ -37,7 +42,7 @@ export class List {
     
         this.dateFrom=this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
         this.dateTo=this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
-        uri = this.service.getDataSpl(this.unit, this.category, this.dateFrom,  this.dateTo);
+        uri = this.service.getDataSpl(this.divisi ? this.divisi.Id : "", this.unit, this.category, this.dateFrom,  this.dateTo);
       
         uri.then(data => {
         
@@ -58,6 +63,7 @@ export class List {
         this.dateTo = null;
         this.unit = null;
         this.category = null; 
+        this.divisi = null; 
     }
 
     ExportToExcel() {
@@ -65,7 +71,7 @@ export class List {
         this.dateTo=this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
         
       
-        this.service.generateExcel(this.unit, this.category, this.dateFrom, this.dateTo);
+        this.service.generateExcel(this.divisi ? this.divisi.Id : "", this.unit, this.category, this.dateFrom, this.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
