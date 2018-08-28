@@ -34,8 +34,15 @@ export class DataForm {
             { header: "Mesin", value: "machine" },
         ],
         onAdd: function () {
-            this.data.machines = this.data.machines || [];
-            this.data.machines.push({ machine: "" });
+            this.data.MachineDetails = this.data.MachineDetails || [];
+
+            var machine = {
+                MachineId: 0,
+                Name: "",
+                Code: "",
+            }
+            this.data.MachineDetails.push(machine);
+
         }.bind(this),
         onRemove: function () {
             console.log("machine removed");
