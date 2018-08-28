@@ -164,21 +164,21 @@ export class DataForm {
         this.data.dateOutput = this.localOutputDate;
     }
 
-    get isFilterKanban() {
-        this.filterKanban = {};
-        if (this.data.step) {
-            this.filterKanban = {
-                "instruction.steps": {
-                    "$elemMatch": {
-                        "process": this.data.step.process
-                    }
-                },
-                "isComplete": false,
-                "$where": "this.instruction.steps.length != this.currentStepIndex"
-            };
-        }
-        return this.filterKanban;
-    }
+    // get isFilterKanban() {
+    //     this.filterKanban = {};
+    //     if (this.data.step) {
+    //         this.filterKanban = {
+    //             "instruction.steps": {
+    //                 "$elemMatch": {
+    //                     "process": this.data.step.process
+    //                 }
+    //             },
+    //             "isComplete": false,
+    //             "$where": "this.instruction.steps.length != this.currentStepIndex"
+    //         };
+    //     }
+    //     return this.filterKanban;
+    // }
 
     get hasStep() {
         return this.data && this.data.Step;
@@ -189,7 +189,7 @@ export class DataForm {
     }
 
     get hasKanban() {
-        return this.data && this.data.kanban;
+        return this.data && this.data.Kanban;
     }
 
     get hasError() {
@@ -250,53 +250,54 @@ export class DataForm {
         var selectedKanban = newValue;
 
         if (selectedKanban) {
-            this.data.kanbanId = selectedKanban._id;
-            this.data.kanban = selectedKanban;
+            debugger
+            // this.data.kanbanId = selectedKanban._id;
+            this.data.Kanban = selectedKanban;
 
-            if (this.input && this.data.kanbanId && this.data.kanbanId !== "")
-                this.data.input = Number(selectedKanban.cart.qty);
-            if (this.output && this.data.kanbanId && this.data.kanbanId !== "")
-                this.data.goodOutput = Number(selectedKanban.cart.qty);
+            if (this.Input && this.data.Kanban.Id != 0)
+                this.data.Input = Number(selectedKanban.Cart.Qty);
+            if (this.Output && this.data.Kanban.Id != 0)
+                this.data.GoodOutput = Number(selectedKanban.Cart.Qty);
 
-            if (this.output) {
-                var filterDaily = {
-                    "kanban.code": this.data.kanban.code,
-                    _deleted: false,
-                    type: "input"
-                };
+            // if (this.Output) {
+            //     var filterDaily = {
+            //         "kanban.code": this.data.kanban.code,
+            //         _deleted: false,
+            //         type: "input"
+            //     };
 
-                var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
-                var _machineCode = [];
-                _machineCode.push(this.data.machine.code);
-                for (var item of dailyOperations.data) {
-                    if (_machineCode.length > 0) {
-                        var dup = _machineCode.find(mc => mc == item.machine.code);
-                        if (!dup)
-                            _machineCode.push(item.machine.code);
-                    }
-                    else {
-                        _machineCode.push(item.machine.code);
-                    }
-                }
+            //     var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
+            //     var _machineCode = [];
+            //     _machineCode.push(this.data.machine.code);
+            //     for (var item of dailyOperations.data) {
+            //         if (_machineCode.length > 0) {
+            //             var dup = _machineCode.find(mc => mc == item.machine.code);
+            //             if (!dup)
+            //                 _machineCode.push(item.machine.code);
+            //         }
+            //         else {
+            //             _machineCode.push(item.machine.code);
+            //         }
+            //     }
 
-                // var machineCode=[];
-                // if(this.data.step){
-                //     for(var mc of this.data.kanban.instruction.steps){
-                //         machineCode.push(mc.machine.code);
-                //         if(this.data.stepId==mc._id){
-                //             break;
-                //         }
-                //     }
-                // }
-                this.filterReason = {
-                    reason: this.filterReason.reason,
-                    machineCode: {
-                        code: _machineCode,
-                        kanban: this.data.kanban.code
-                    }
-                };
+            //     // var machineCode=[];
+            //     // if(this.data.step){
+            //     //     for(var mc of this.data.kanban.instruction.steps){
+            //     //         machineCode.push(mc.machine.code);
+            //     //         if(this.data.stepId==mc._id){
+            //     //             break;
+            //     //         }
+            //     //     }
+            //     // }
+            //     this.filterReason = {
+            //         reason: this.filterReason.reason,
+            //         machineCode: {
+            //             code: _machineCode,
+            //             kanban: this.data.kanban.code
+            //         }
+            //     };
 
-            }
+            // }
         }
         else {
             delete this.data.kanbanId;
@@ -366,8 +367,8 @@ export class DataForm {
     }
 
     kanbanView(kanban) {
-        if (kanban.productionOrder) {
-            return `${kanban.productionOrder.orderNo} - ${kanban.cart.cartNumber}`;
+        if (kanban.ProductionOrder) {
+            return `${kanban.ProductionOrder.OrderNo} - ${kanban.Cart.CartNumber}`;
         }
         else
             return '';

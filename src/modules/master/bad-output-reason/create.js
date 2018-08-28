@@ -35,7 +35,7 @@ export class Create {
     }
 
     save(event) {
-        if(this.data.machines.length > 0){
+        if(this.data.MachineDetails.length > 0){
             this.item = "";
             this.service.create(this.data)
                 .then(result => {
