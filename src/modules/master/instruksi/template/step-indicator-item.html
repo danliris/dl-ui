@@ -1,10 +1,10 @@
 <template>
     <tr>
         <td>
-            <au-numeric value.bind="stepIndicator.Name" read-only.bind="true" options.bind="controlOptions" format="0"></au-numeric>
+            <au-textbox value.bind="stepIndicator.Name" read-only.bind="true" options.bind="controlOptions"></au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="stepIndicator.Value" read-only.bind="readOnly" options.bind="controlOptions" format="0"></au-numeric>
+            <au-textbox value.bind="stepIndicator.Value" read-only.bind="readOnly" options.bind="controlOptions"></au-textbox>
         </td> 
         <td>
             <au-textbox value.bind="stepIndicator.Uom" read-only.bind="true" options.bind="controlOptions"></au-textbox>

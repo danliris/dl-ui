@@ -23,8 +23,8 @@ export class List {
 
     setColumns() {
         this.columns = [
-            { field: "reason", title: "Keterangan Bad Output" },            
-            { field: "machine", title: "List Machine" }
+            { field: "Reason", title: "Keterangan Bad Output" },            
+            { field: "MachineDetails", title: "List Machine" }
         ];
     }
 
@@ -39,7 +39,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["reason", "machines.name"]
+
         }
 
         return this.service.search(arg)
@@ -48,15 +48,15 @@ export class List {
                 console.log(result.data);
                 for(var a of result.data){
                     var machine = ""
-                    if(a.machines || a.machines.length > 0){
-                        for(var b of a.machines){
-                            machine+=`${b.name}` + "</br>";
+                    if(a.MachineDetails || a.MachineDetails.length > 0){
+                        for(var b of a.MachineDetails){
+                            machine+=`${b.Name}` + "</br>";
                         }
                     }
                     var data = {
-                        _id : a._id,
-                        reason : a.reason,
-                        machine : machine
+                        Id : a.Id,
+                        Reason : a.Reason,
+                        MachineDetails : machine
                     }
                     items.push(data);
                 }
@@ -72,7 +72,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

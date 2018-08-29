@@ -12,8 +12,8 @@
 
         <au-textbox 
             label="Keterangan Bad Output" 
-            value.bind="data.reason"
-            error.bind="error.reason"
+            value.bind="data.Reason"
+            error.bind="error.Reason"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
@@ -21,8 +21,8 @@
         
         <au-layout error.bind="item"></au-layout>
         <au-collection 
-            items.bind="data.machines" 
-            errors.bind="error.machines"
+            items.bind="data.MachineDetails" 
+            errors.bind="error.MachineDetails"
             columns.bind="machineInfo.columns" 
             add.bind="machineInfo.onAdd" 
             remove.bind="machineInfo.onRemove"

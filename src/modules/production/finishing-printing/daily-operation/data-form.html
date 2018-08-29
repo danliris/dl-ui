@@ -3,34 +3,58 @@
         <div class="row">
             <div  class="col-md-6" style="padding:0">
                 <fieldset>
-                    <au-autocomplete 
+                    <!-- <au-autocomplete 
                         value.bind="machine"
                         label="Mesin" 
                         loader.bind="machineLoader" 
-                        text="name"
+                        text="Name"
                         read-only.bind="readOnly"
                         error.bind="error.machine"
                         options.bind="auInputOptions"
                         select.bind="selectMachine"
                         query.bind="filterMachine">
-                    </au-autocomplete>
+                    </au-autocomplete> -->
 
                     <au-autocomplete 
+                        value.bind="machine"
+                        label="Mesin" 
+                        loader.bind="machineLoader" 
+                        text="Name"
+                        read-only.bind="readOnly"
+                        error.bind="error.machine"
+                        options.bind="auInputOptions"
+                        query.bind="filterMachine">
+                    </au-autocomplete>
+
+                    <!-- <au-autocomplete 
                         value.bind="step"
                         error.bind="error.step"
-                        label="Step / Proses" 
+                        label="Step / Proses"
                         read-only.bind="readOnly"
                         loader.bind="stepLoader" 
                         text="process"
                         query.bind="isFilterStep"
                         options.bind="auInputOptions"
-                        change.trigger="stepChanged(data.step)"
+                        change.trigger="stepChanged(data.Step)"
                         show.bind="hasMachine"
                         select.bind="selectStep"
                         view-model.ref="stepAU">
-                    </au-autocomplete>
+                    </au-autocomplete> -->
 
                     <au-autocomplete 
+                        value.bind="step"
+                        error.bind="error.step"
+                        label="Step / Proses"
+                        read-only.bind="readOnly"
+                        loader.bind="stepLoader" 
+                        text="Process"
+                        options.bind="auInputOptions"
+                        change.trigger="stepChanged(data.Step)"
+                        show.bind="hasMachine"
+                        view-model.ref="stepAU">
+                    </au-autocomplete>
+
+                    <!-- <au-autocomplete 
                         value.bind="kanban"
                         error.bind="error.kanban"
                         label="Nomor Order Produksi - Kereta" 
@@ -44,11 +68,26 @@
                         show.bind="hasStep"
                         select.bind="selectKanban"
                         view-model.ref="kanbanAU">
+                    </au-autocomplete> -->
+
+                    <au-autocomplete 
+                        value.bind="kanban"
+                        error.bind="error.kanban"
+                        label="Nomor Order Produksi - Kereta" 
+                        read-only.bind="readOnly"
+                        loader.bind="kanbanLoader" 
+                        text.bind="kanbanView"
+                        change.delegate="kanbanChanged(data.kanban)"
+                        options.bind="auInputOptions"
+                        change.trigger="kanbanChanged(data.kanban)"
+                        show.bind="hasStep"
+                        select.bind="selectKanban"
+                        view-model.ref="kanbanAU">
                     </au-autocomplete>
 
                     <au-dropdown
                         label="Shift"
-                        value.bind="data.shift"
+                        value.bind="data.Shift"
                         error.bind="error.shift"
                         read-only.bind="readOnly"
                         items.bind="shiftOptions"
@@ -63,13 +102,13 @@
                         </div>
                         <div class="col-sm-3">    
                             <au-numeric
-                                value.bind="data.input"
-                                error.bind="error.input"
+                                value.bind="data.Input"
+                                error.bind="error.Input"
                                 read-only.bind="readOnlyInput">
                             </au-numeric>
                         </div>
                         <div class="col-sm-2">    
-                            <au-textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban" read-only="true"></au-textbox>
+                            <au-textbox    value.bind="data.Kanban.cart.uom.unit"  if.bind="hasKanban" read-only="true"></au-textbox>
                         </div>
                     </div>
 
@@ -81,13 +120,13 @@
                         </div>
                         <div class="col-sm-3"> 
                             <au-numeric
-                                value.bind="data.goodOutput"
-                                error.bind="error.goodOutput"
+                                value.bind="data.GoodOutput"
+                                error.bind="error.GoodOutput"
                                 read-only.bind="readOnlyOutput">
                             </au-numeric>
                         </div>
                         <div class="col-sm-2">    
-                            <au-textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
+                            <au-textbox    value.bind="data.Kanban.Cart.Uom.Unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
                         </div>
                     </div>
 
@@ -132,11 +171,11 @@
                 </fieldset>
             </div>
             <div  class="col-md-6" style="padding:0">
-                <au-textbox    label="Material"        value.bind="data.kanban.productionOrder.material.name"              if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Konstruksi"      value.bind="data.kanban.productionOrder.materialConstruction.name"  if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Nomor Benang"    value.bind="data.kanban.productionOrder.yarnMaterial.name"          if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Lebar Finish"    value.bind="data.kanban.productionOrder.finishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Warna"           value.bind="data.kanban.selectedProductionOrderDetail.colorRequest" if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Material"        value.bind="data.Kanban.ProductionOrder.Material.Name"              if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Konstruksi"      value.bind="data.Kanban.ProductionOrder.MaterialConstruction.Name"  if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Nomor Benang"    value.bind="data.Kanban.ProductionOrder.YarnMaterial.Name"          if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Lebar Finish"    value.bind="data.Kanban.ProductionOrder.FinishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Warna"           value.bind="data.Kanban.SelectedProductionOrderDetail.ColorRequest" if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
             </div>
         </div>
              <au-collection 
