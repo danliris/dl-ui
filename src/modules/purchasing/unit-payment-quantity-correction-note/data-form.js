@@ -10,6 +10,22 @@ export class DataForm {
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
+
+        this.UpoItem = {
+            columns: [
+                { header: "No. PO Eksternal", value: "purchaseOrder.purchaseOrderExternal.no" },
+                { header: "No. PR", value: "purchaseOrder.purchaseRequest.no" },
+                { header: "Barang", value: "product" },
+                { header: "Jumlah", value: "quantity" },
+                { header: "Satuan", value: "uom.unit" },
+                { header: "Harga Satuan", value: "pricePerUnit" },
+                { header: "Harga Total", value: "priceTotal" }
+            ],
+            onRemove: function() {
+                this.bind();
+            }
+            
+        }
     }
 
     @computedFrom("data._id")
@@ -22,6 +38,10 @@ export class DataForm {
             this.flag = true;
         else
             this.flag = false;
+
+        if(!this.readOnly) {
+            this.UpoItem.columns.push({ header: "" });
+        }
     }
 
     unitPaymentOrderChanged(e) {

@@ -16,6 +16,16 @@
         <datepicker                         label="Tgl. Jatuh Tempo"                value.bind="data.unitPaymentOrder.dueDate"  error.bind="error.unitPaymentOrder.dueDate"     read-only.bind="true"   if.bind="data.unitPaymentOrderId && data.unitPaymentOrder._id"></datepicker>         
         <multiline                          label="Keterangan"                      value.bind="data.remark"                    error.bind="error.remark"                       read-only.bind="readOnly" ></multiline>
         <hr />
-        <unit-payment-price-correction-note-collection      value.bind="data.items"         error.bind="error.items"        read-only.bind="readOnly" price-read-only.bind="pricePerUnitCorrectionReadOnly"></unit-payment-price-correction-note-collection>
+        <!-- <unit-payment-price-correction-note-collection      value.bind="data.items"         error.bind="error.items"        read-only.bind="readOnly" price-read-only.bind="pricePerUnitCorrectionReadOnly"></unit-payment-price-correction-note-collection> -->
+        <au-collection 
+            items.bind="data.items"         
+            error.bind="error.items"        
+            read-only.bind="readOnly" 
+            columns.bind="UpoItem.columns" 
+            remove.bind="UpoItem.onRemove"
+            view-model.ref="ItemsCollection"
+            options.one-way="pricePerUnitCorrectionReadOnly"
+            item-template="modules/purchasing/unit-payment-price-correction-note/template/item">
+        </au-collection>
     </form>
 </template>
