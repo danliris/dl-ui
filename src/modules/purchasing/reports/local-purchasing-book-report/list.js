@@ -135,7 +135,7 @@ searching() {
             var filter = {
                 no : this.no ? this.no : "",
                 category : this.category ? this.category.code : "",
-                unit : this.unit ? this.unit.code : "",
+                unit : this.unit ? this.unit.Code : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
