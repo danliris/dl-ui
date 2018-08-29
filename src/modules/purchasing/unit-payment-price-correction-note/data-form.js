@@ -71,23 +71,6 @@ export class DataForm {
                 unitPaymentPriceCorrectionNoteItem.unitReceiptNoteNo = unitPaymentOrder.unitReceiptNote.no;
                 if (unitReceiptNoteItem.correction) {
                     if (unitReceiptNoteItem.correction.length > 0) {
-                        // var _qty = 0;
-                        // var _hasQtyCorrection = false;
-                        // for (var correction of unitReceiptNoteItem.correction) {
-                        //     if (correction.correctionRemark === "Koreksi Jumlah") {
-                        //         _qty += correction.correctionQuantity;
-                        //         _hasQtyCorrection = true;
-                        //     }
-                        // }
-                        // if (!_hasQtyCorrection) {
-                        //     unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                        //     unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                        //     unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-                        // } else {
-                        //     unitPaymentPriceCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                        //     unitPaymentPriceCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                        //     unitPaymentPriceCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitPaymentPriceCorrectionNoteItem.quantity;
-                        // }
                         var _qty = unitReceiptNoteItem.correction
                             .map((correction) => {
                                 if (correction.correctionRemark === "Koreksi Jumlah") {
