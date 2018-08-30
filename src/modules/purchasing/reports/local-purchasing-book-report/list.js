@@ -40,7 +40,7 @@ export class List {
         return UnitLoader;
     }   
     unitView = (unit) => {
-        return `${unit.code} - ${unit.name}`
+        return `${unit.Code} - ${unit.Name}`
     } 
     
     
@@ -52,44 +52,41 @@ searching() {
             var info = {
             no : this.no ? this.no : "",
             category : this.category ? this.category.code : "",
-            unit : this.unit ? this.unit.code : "",
+            unit : this.unit ? this.unit.Code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
         this.service.search(info)
             .then(result => {
-               this.data=result;
-               this.data = [];
+                console.log(result);
                var dataByCategory = {};
                var subTotalDPPCategory = {};
                var subTotalPPNCategory = {};
                var subTotalCategory = {};
                for (var data of result) {
-                 for (var item of data.items) {
-                   var Category = item.purchaseOrder.category.name;
+                   var Category = data.categoryName;
                    var checkIncomeTax = 0;
-                   if (item.purchaseOrder.useIncomeTax == true) checkIncomeTax=1;
+                   if (data.useVat == true) checkIncomeTax=1;
                    if (!dataByCategory[Category]) dataByCategory[Category] = [];
                    dataByCategory[Category].push({
-                     Date: moment(data.date).format("DD MMM YYYY"),
-                     No: data.no,
-                     Product: item.product.name,
-                     SPB: data.incomeTaxNo || "-",
-                     Category: item.purchaseOrder.category.name,
-                     Unit: data.unit.name,
-                     DPP: (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
-                     PPN: (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
-                     Total: ((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax)).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     Date: moment(data.receiptDate).format("DD MMM YYYY"),
+                     No: data.uRNNo,
+                     Product: data.productName,
+                     SPB: data.invoiceNo || "-",
+                     Category: data.categoryName,
+                     Unit: data.unitName,
+                     DPP: data.dpp.toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     PPN: (data.ppn * checkIncomeTax).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     Total: (data.dpp + (data.ppn * checkIncomeTax)).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
                    });
                    if (!subTotalCategory[Category]){
                     subTotalDPPCategory[Category] = 0;
                     subTotalPPNCategory[Category] = 0;
                     subTotalCategory[Category] = 0;
                    } 
-                   subTotalDPPCategory[Category] += (item.pricePerDealUnit * item.deliveredQuantity);
-                   subTotalPPNCategory[Category] += (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax);
-                   subTotalCategory[Category] += ((item.pricePerDealUnit * item.deliveredQuantity) + (((item.pricePerDealUnit * item.deliveredQuantity)*10/100) * checkIncomeTax));
-                 }
+                   subTotalDPPCategory[Category] += data.dpp;
+                   subTotalPPNCategory[Category] += (data.ppn * checkIncomeTax);
+                   subTotalCategory[Category] += (data.dpp + (data.ppn * checkIncomeTax));
                }
      
                var categories = [];
@@ -138,7 +135,7 @@ searching() {
             var filter = {
                 no : this.no ? this.no : "",
                 category : this.category ? this.category.code : "",
-                unit : this.unit ? this.unit.code : "",
+                unit : this.unit ? this.unit.Code : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
@@ -155,8 +152,8 @@ searching() {
         this.no = "";
         this.category="";
         this.unit="";
-        this.dateFrom = new Date();
-        this.dateTo = new Date();
+        this.dateFrom = null;
+        this.dateTo = null;
         
     }
 

@@ -15,7 +15,7 @@ export class StepItem {
     this.temp = Object.getOwnPropertyNames(this.step).length > 0 ? this.step : null;
     this.isShowing = false;
     this.options.disabledStepAdd = (context.context.options.disabledStepAdd) ? true : false;
-    this.options.IsNotDone = !this.step.IsNotDone;
+    this.options.isNotDone = !this.step.IsNotDone;
   }
   bind() {
     this.tdDeadline.addEventListener("click", (event) => {

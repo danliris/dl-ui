@@ -6,7 +6,7 @@ const resource = 'sales/weaving-sales-contracts';
 module.exports = function(keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("production");
+    var endpoint = config.getEndpoint("sales");
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {

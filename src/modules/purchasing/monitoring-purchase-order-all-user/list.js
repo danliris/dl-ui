@@ -177,4 +177,7 @@ export class List {
     get accountLoader() {
         return AccountLoader;
     }
+    accountView = (account) => {
+      return `${account.username}`;
+  }
 }
