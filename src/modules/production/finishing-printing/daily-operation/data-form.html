@@ -21,7 +21,7 @@
                         loader.bind="machineLoader" 
                         text="Name"
                         read-only.bind="readOnly"
-                        error.bind="error.machine"
+                        error.bind="error.Machine"
                         options.bind="auInputOptions"
                         query.bind="filterMachine">
                     </au-autocomplete>
@@ -78,6 +78,7 @@
                         loader.bind="kanbanLoader" 
                         text.bind="kanbanView"
                         change.delegate="kanbanChanged(data.kanban)"
+                        query.bind="isFilterKanban"
                         options.bind="auInputOptions"
                         change.trigger="kanbanChanged(data.kanban)"
                         show.bind="hasStep"
@@ -136,13 +137,13 @@
                         </div>
                         <div class="col-sm-3"> 
                             <au-numeric
-                                value.bind="data.badOutput"
-                                error.bind="error.badOutput"
+                                value.bind="data.BadOutput"
+                                error.bind="error.BadOutput"
                                 read-only.bind="readOnlyOutput">
                             </au-numeric>
                         </div>
                         <div class="col-sm-2">    
-                            <au-textbox    value.bind="data.kanban.cart.uom.unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
+                            <au-textbox    value.bind="data.Kanban.Cart.Uom.Unit"  if.bind="hasKanban"	    read-only="true"></au-textbox>
                         </div>
                     </div>
                     
@@ -174,13 +175,13 @@
                 <au-textbox    label="Material"        value.bind="data.Kanban.ProductionOrder.Material.Name"              if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
                 <au-textbox    label="Konstruksi"      value.bind="data.Kanban.ProductionOrder.MaterialConstruction.Name"  if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
                 <au-textbox    label="Nomor Benang"    value.bind="data.Kanban.ProductionOrder.YarnMaterial.Name"          if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Lebar Finish"    value.bind="data.Kanban.ProductionOrder.FinishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Lebar Finish"    value.bind="data.Kanban.FinishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
                 <au-textbox    label="Warna"           value.bind="data.Kanban.SelectedProductionOrderDetail.ColorRequest" if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
             </div>
         </div>
              <au-collection 
-                        items.bind="data.badOutputReasons"
-                        errors.bind="error.badOutputReasons" 
+                        items.bind="data.BadOutputReasons"
+                        errors.bind="error.BadOutputReasons" 
                         columns.bind="badOutputInfo.columns" 
                         add.bind="badOutputInfo.onAdd" 
                         remove.bind="badOutputInfo.onRemove"
@@ -191,8 +192,8 @@
                         if.bind="output"
                         show.bind="hasBadOutput"
                         item-template="modules/production/finishing-printing/daily-operation/template/bad-output-item">
-                    </au-collection>
-                    <au-layout error.bind="error.badOutputReasons" if.bind="hasError"></au-layout>
-        
+              </au-collection>
+              
+            <au-layout error.bind="error.BadOutputReasons" if.bind="hasError"></au-layout>        
     </form>
 </template>
