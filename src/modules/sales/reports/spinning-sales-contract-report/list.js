@@ -125,6 +125,8 @@ info = { page: 1,size:25};
         this.filter = {};
     }
 
-
+buyerView = (buyer) => {
+      return `${buyer.Code} - ${buyer.Name}`;
+  }
 
 }
