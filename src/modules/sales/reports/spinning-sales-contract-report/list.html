@@ -15,7 +15,7 @@
             </au-autocomplete>
 
             <au-autocomplete value.bind="filter.buyer" label="Buyer" change.delegate="buyersChanged($event)" loader.bind="buyersLoader"
-                placeholder="cari buyer " key="Code" text="Name" read-only.bind="(readOnly || isEdit)">
+                placeholder="cari buyer " key="Code" text.bind = "buyerView" read-only.bind="(readOnly || isEdit)">
             </au-autocomplete>
 
             <au-autocomplete value.bind="filter.comodity" label="Komoditas" change.delegate="comodityChanged($event)" loader.bind="comodityLoader"
