@@ -81,30 +81,36 @@ export class List {
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         }
-        else {
-            this.info = {};
-        }
+        // else {
+        //     this.info = {};
+        // }
         this.service.generateExcel(this.info);
     }
 
     buyersChanged(e) {
-        console.log('buyer changed')
+        // console.log('buyer changed')
     }
 
     comodityChanged(e) {
-        console.log('comodity changed')
+        // console.log('comodity changed')
     }
 
     weavingSalesContractLoaderChanged(e) {
-        console.log('weavingSalesContractLoader changed')
+        // console.log('weavingSalesContractLoader changed')
     }
 
     get buyersLoader() {
         return BuyersLoader;
     }
+    buyerView = (buyer) =>{
+        return `${buyer.Code} - ${buyer.Name}`
+    }
 
     get comodityLoader() {
         return ComodityLoader;
+    }
+    comodityView = (comodity) => {
+        return `${comodity.Code} - ${comodity.Name}`
     }
 
     get weavingSalesContractLoaderLoader() {
