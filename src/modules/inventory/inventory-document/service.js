@@ -7,13 +7,13 @@ import { Config } from "aurelia-api";
 const serviceUri = 'inventory-documents';
 
 export class Service extends RestService {
-
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "inventory");
+        super(http, aggregator, config, "inventory-azure");
     }
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        console.log(endpoint)
         return super.list(endpoint, info);
     }
 
