@@ -32,11 +32,13 @@ export class Service extends RestService {
         // else
         //     delete info.order;
 
-        if (info.productId)
-            query = `${query}&productCode=${info.productCode}`;
+        if (info.productCode)
+            if (query === '')query = `${query}productCode=${info.productCode}`;
+            else query = `${query}&productCode=${info.productCode}`; 
 
-        if (info.storageId)
-            query = `${query}&storageCode=${info.storageCode}`;
+        if (info.storageCode)
+            if(query === '')query = `${query}storageCode=${info.storageCode}`;
+            else query = `${query}&storageCode=${info.storageCode}`;
 
         if (query !== ''){
             // query = query.substring(1);
