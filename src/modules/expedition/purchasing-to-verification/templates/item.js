@@ -13,7 +13,7 @@ export class Item {
         this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
         this.selectUPO = [
             'paymentMethod', 'invoceNo', 'division.code', 'division.name',
-            'supplier.code', 'supplier.name',
+            'category.code','category.name','supplier.code', 'supplier.name',
             'currency.code', 'no', 'date', 'dueDate',
             'useVat', 'useIncomeTax', 'vat._id', 'vat.name', 'vat.rate',
             'items.unitReceiptNote.date',
@@ -24,8 +24,6 @@ export class Item {
             'items.unitReceiptNote.items.deliveredUom.unit',
             'items.unitReceiptNote.items.pricePerDealUnit',
             'items.unitReceiptNote.items.purchaseOrder.purchaseOrderExternal.no',
-            'items.unitReceiptNote.items.purchaseOrder.category.name',
-            'items.unitReceiptNote.items.purchaseOrder.category.code',
             'items.unitReceiptNote.no',
             'items.unitReceiptNote.items.correction',
         ];
@@ -115,6 +113,8 @@ export class Item {
                         paymentMethod: newV.paymentMethod,
                         supplierCode: newV.supplier.code,
                         supplierName: newV.supplier.name,
+                        categoryCode: newV.category.code,
+                        categoryName: newV.category.name,
                         divisionCode: newV.division.code,
                         divisionName: newV.division.name,
                         incomeTax: incomeTax,
@@ -125,8 +125,6 @@ export class Item {
                         totalPaid: Number((totalPaid + vat).toFixed(4)),
                         currency: newV.currency.code,
                         items: items,
-                        categoryName: newV.items[0].unitReceiptNote.items[0].purchaseOrder.category.name,
-                        categoryCode: newV.items[0].unitReceiptNote.items[0].purchaseOrder.category.code,
                     });
                 });
         }
@@ -140,6 +138,8 @@ export class Item {
                 paymentMethod: undefined,
                 supplierCode: undefined,
                 supplierName: undefined,
+                categoryCode: undefined,
+                categoryName: undefined,
                 divisionCode: undefined,
                 divisionName: undefined,
                 incomeTax: undefined,
