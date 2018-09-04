@@ -16,14 +16,12 @@ export class Service extends RestService {
 
     generateExcel(info) {
         var endpoint = this._getEndPoint(info);
-        console.log(endpoint);
         return super.getXls(endpoint);
     }
 
     _getEndPoint(info) {
         var endpoint = `${serviceUri}/download`;
         var query = '';
-console.log(info);
         // if (info.order && typeof info.order === "object"){
         //     info.order = JSON.stringify(info.order);
 
