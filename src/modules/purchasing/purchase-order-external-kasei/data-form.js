@@ -101,7 +101,7 @@ export class DataForm {
     selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
         if (_selectedCurrency.Id) {
-            var currencyRate = parseInt(_selectedCurrency.Rate ? _selectedCurrency.Rate : 1, 10);
+            var currencyRate = parseInt(_selectedCurrency.Rate ? _selectedCurrency.Rate :_selectedCurrency.rate?_selectedCurrency.rate : 1, 10);
             this.data.currency = _selectedCurrency;
             this.data.currencyRate = currencyRate;
             this.data.currency._id = _selectedCurrency.Id;
@@ -111,6 +111,9 @@ export class DataForm {
         }
         else {
             this.data.currencyRate = 0;
+            if(_selectedCurrency.rate){
+                this.data.currencyRate=_selectedCurrency.rate;
+            }
         }
     }
 

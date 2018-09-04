@@ -48,11 +48,11 @@ export class InventoryDocumentItem {
 
   @bindable selectedProduct;
   selectedProductChanged(newValue, oldValue) {
-    if (this.selectedProduct && this.selectedProduct._id) {
-      this.selectedUom = this.selectedProduct.uom;
-      this.data.productId = this.selectedProduct._id;
-      this.data.productCode = this.selectedProduct.code;
-      this.data.productName = this.selectedProduct.name;
+    if (this.selectedProduct && this.selectedProduct.Id) {
+      //this.selectedUom = this.selectedProduct.Uom;
+      this.data.productId = this.selectedProduct.Id;
+      this.data.productCode = this.selectedProduct.Code;
+      this.data.productName = this.selectedProduct.Name;
     }
     else {
       this.data.productId = "";
@@ -62,7 +62,7 @@ export class InventoryDocumentItem {
   }
 
   productView = (product) => {
-    return `${product.code} - ${product.name}`;
+    return `${product.Code} - ${product.Name}`;
   }
 
   get productLoader() {
@@ -71,9 +71,9 @@ export class InventoryDocumentItem {
 
   @bindable selectedUom;
   selectedUomChanged(newValue, oldValue) {
-    if (this.selectedUom && this.selectedUom._id) {
-      this.data.uomId = this.selectedUom._id;
-      this.data.uom = this.selectedUom.unit;
+    if (this.selectedUom && this.selectedUom.Id) {
+      this.data.uomId = this.selectedUom.Id;
+      this.data.uom = this.selectedUom.Unit;
     }
     else {
       this.data.uomId = "";
@@ -82,7 +82,7 @@ export class InventoryDocumentItem {
   }
 
   uomView = (uom) => {
-    return uom.unit;
+    return uom.Unit;
   }
 
   get uomLoader() {

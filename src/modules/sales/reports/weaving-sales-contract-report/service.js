@@ -23,19 +23,19 @@ export class Service extends RestService {
     _getEndPoint(info) {
         var endpoint = `${serviceUri}/download`;
         var query = '';
-        if (info.buyerId) {
-            if (query === '') query = `buyerCode=${info.buyerId}`;
-            else query = `${query}&buyerCode=${info.buyerId}`;
+        if (info.buyerCode) {
+            if (query === '') query = `buyerCode=${info.buyerCode}`;
+            else query = `${query}&buyerCode=${info.buyerCode}`;
         }
 
-        if (info.comodityId) {
-            if (query === '') query = `comodityCode=${info.comodityId}`;
-            else query = `${query}&comodityCode=${info.comodityId}`;
+        if (info.comodityCode) {
+            if (query === '') query = `comodityCode=${info.comodityCode}`;
+            else query = `${query}&comodityCode=${info.comodityCode}`;
         }
 
-        if (info.salesContractNo) {
-            if (query === '') query = `no=${info.salesContractNo}`;
-            else query = `${query}&no=${info.salesContractNo}`;
+        if (info.no) {
+            if (query === '') query = `no=${info.no}`;
+            else query = `${query}&no=${info.no}`;
         }
 
         if (info.dateFrom) {
