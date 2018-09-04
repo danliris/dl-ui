@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
 
-    context = ["detail", "print"]
+    context = ["detail"]
 
     columns = [
         // {
@@ -80,9 +80,9 @@ export class List {
             case "detail":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
-            case "print":
-                this.service.getPdfById(data.Id);
-                break;
+            // case "print":
+            //     this.service.getPdfById(data.Id);
+            //     break;
         }
     }
 

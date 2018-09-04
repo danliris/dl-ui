@@ -309,18 +309,18 @@ export class DataForm {
       this.data.Uom = {};
       this.data.Uom.Unit = "MTR";
     }
-    if (this.data) {
-      if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
-        this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.SalesContractNo), this.scFields);
-        this.data.FinishingPrintingSalesContract = this.selectedSC;
-        if (this.data.FinishingPrintingSalesContract.RemainingQuantity != undefined) {
-          // this.data.RemainingQuantity = this.data.SalesContract.RemainingQuantity;
-          this.rq = true;
-        }
-        // this.selectedMaterial = this.data.material;
-      }
+    // if (this.data) {
+    //   if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
+    //     this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.SalesContractNo), this.scFields);
+    //     this.data.FinishingPrintingSalesContract = this.selectedSC;
+    //     if (this.data.FinishingPrintingSalesContract.RemainingQuantity != undefined) {
+    //       // this.data.RemainingQuantity = this.data.SalesContract.RemainingQuantity;
+    //       this.rq = true;
+    //     }
+    //     // this.selectedMaterial = this.data.material;
+    //   }
 
-    }
+    // }
   }
 
   get addLamp() {
