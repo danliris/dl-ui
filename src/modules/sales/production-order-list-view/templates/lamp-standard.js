@@ -5,11 +5,11 @@ var lampLoader = require('../../../../loader/lamp-standard-loader');
 
 export class LampStandard {
 
-  @bindable lampStandard;
+  @bindable LampStandards;
 
   activate(context) {
     this.data = context.data;
-    this.lampStandard = this.data.lampStandard;
+    this.LampStandards = this.data;
     this.error = context.error;
     this.options = context.options;
   }
@@ -20,14 +20,17 @@ export class LampStandard {
     }
   }
 
-  lampStandardChanged(newValue){
-    if (newValue){
-      this.data.lampStandard = newValue;
-      this.data.lampStandardId = newValue._id;
+  LampStandardsChanged(newValue) {
+    if (this.LampStandards) {
+      this.data.LampStandardId = this.LampStandards.Id;
+      this.data.Name = this.LampStandards.Name;
+      this.data.Code = this.LampStandards.Code;
+      this.data.Description = this.LampStandards.Description;
     }
-    else{
-      this.data.lampStandard = {};
-      this.data.lampStandardId = {};
+    else {
+      this.data = {};
+      this.data = null;
+      // this.data.lampStandardId = {};
     }
   }
 
