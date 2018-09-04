@@ -58,14 +58,14 @@ export class List {
     loader = (info) => {
         var order = {};
 
-        // if (info.sort)
-        //     order[info.sort] = info.order;
+        if (info.sort)
+            order[info.sort] = info.order;
 
         this.arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
-            // keyword: info.search,
-            // order: order
+            keyword: info.search,
+            order: order
         };
 
         return this.listDataFlag ? (

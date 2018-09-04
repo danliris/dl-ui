@@ -47,7 +47,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            //permission: { "*": 1 },
+            permission: { "*": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
