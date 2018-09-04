@@ -99,7 +99,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            // permission: { "F1": 1, "F2": 1, "C9": 1 },
+            permission: { "F1": 1, "F2": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
