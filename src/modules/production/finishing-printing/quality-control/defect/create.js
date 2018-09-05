@@ -1,13 +1,13 @@
 import { bindable, inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
-import {activationStrategy} from 'aurelia-router';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
   hasCancel = true;
   hasSave = true;
-  
+
   @bindable data;
   @bindable error;
 
@@ -31,13 +31,14 @@ export class Create {
   }
 
   save(event) {
-    this.data.dateIm.setHours(this.data.dateIm.getHours() - this.data.dateIm.getTimezoneOffset() / 60);
-    this.data.isUsed = false;
+    if (typeof this.data.DateIm === 'object')
+      this.data.DateIm.setHours(this.data.DateIm.getHours() - this.data.DateIm.getTimezoneOffset() / 60);
+    this.data.IsUsed = false;
 
     this.service.create(this.data)
       .then(result => {
         alert("Data berhasil dibuat");
-        this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
       })
       .catch(error => {
         this.error = error;
