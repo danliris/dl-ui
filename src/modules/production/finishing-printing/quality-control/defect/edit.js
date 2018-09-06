@@ -21,12 +21,12 @@ export class Edit {
   }
 
   cancel(event) {
-    this.router.navigateToRoute('view', { id: this.data._id });
+    this.router.navigateToRoute('view', { id: this.data.Id });
   }
 
   save(event) {
-    if(typeof this.data.dateIm === 'object')
-      this.data.dateIm.setHours(this.data.dateIm.getHours() - this.data.dateIm.getTimezoneOffset() / 60);
+    if(typeof this.data.DateIm === 'object')
+      this.data.DateIm.setHours(this.data.DateIm.getHours() - this.data.DateIm.getTimezoneOffset() / 60);
 
     this.service.update(this.data)
       .then(result => {
