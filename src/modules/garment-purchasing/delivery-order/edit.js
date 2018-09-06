@@ -32,6 +32,10 @@ export class Edit {
             this.cancel();
         }).catch(e => {
             this.error = e;
-        })
+            if (e.statusCode == 500) {
+                alert("Terjadi Kesalahan Pada Sistem!\nData tidak tersimpan secara sempurna!");
+                this.cancel();
+            }
+        });
     }
 }
