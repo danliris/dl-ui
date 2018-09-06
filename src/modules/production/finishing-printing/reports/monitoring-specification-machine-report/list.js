@@ -1,6 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
+import moment from 'moment';
 
 var MachineLoader = require('../../../../../loader/machines-loader');
 var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
