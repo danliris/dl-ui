@@ -2,12 +2,12 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'finishing-printing/reports/monitoring-specification-machine';
+const serviceUri = 'finishing-printing/monitoring-specification-machine/report';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
@@ -21,15 +21,15 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/download`;
         var query = '';
         if (info.machineId) {
             if (query === '') query = `machineId=${info.machineId}`;
             else query = `${query}&machineId=${info.machineId}`;
         }
-        if (info.productionOrderNumber) {
-            if (query === '') query = `productionOrderNumber=${info.productionOrderNumber}`;
-            else query = `${query}&productionOrderNumber=${info.productionOrderNumber}`;
+        if (info.productionOrderNo) {
+            if (query === '') query = `productionOrderNo=${info.productionOrderNo}`;
+            else query = `${query}&productionOrderNo=${info.productionOrderNo}`;
         }
         if (info.dateFrom) {
             if (query === '') query = `dateFrom=${info.dateFrom}`;
@@ -40,7 +40,7 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${serviceUri}/download?${query}`;
 
         return endpoint;
     }
