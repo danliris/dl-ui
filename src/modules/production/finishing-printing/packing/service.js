@@ -6,13 +6,13 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'finishing-printing/quality-control/packings';
 const productionOrderServiceUri = 'sales/production-orders';
-const buyerServiceUri = "master/buyer";
-const materialConstructionServiceUri = "master/material-construction";
+const buyerServiceUri = "master/buyers";
+const materialConstructionServiceUri = "master/material-constructions";
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
@@ -31,18 +31,31 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
     getByCode(code) {
         var endpoint = `${serviceUri}?keyword=${code}`;
         return super.get(endpoint);
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        console.log(endpoint);
+        return super.getPdf(endpoint);
+    }
+}
+
+export class ServiceSales extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "sales");
     }
 
     searchProductionOrder(info) {
@@ -55,6 +68,13 @@ export class Service extends RestService {
         //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
         var info = { select: select };
         return super.get(endpoint, null, info);
+    }
+}
+
+export class ServiceCore extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
     }
 
     searchBuyer(info) {
@@ -77,10 +97,5 @@ export class Service extends RestService {
         var endpoint = `${materialConstructionServiceUri}/${id}`;
         var info = { select: select };
         return super.get(endpoint, null, info);
-    }
-
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.getPdf(endpoint);
     }
 }

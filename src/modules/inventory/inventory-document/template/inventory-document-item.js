@@ -49,7 +49,8 @@ export class InventoryDocumentItem {
   @bindable selectedProduct;
   selectedProductChanged(newValue, oldValue) {
     if (this.selectedProduct && this.selectedProduct.Id) {
-      //this.selectedUom = this.selectedProduct.Uom;
+      if(!this.readOnly)
+        this.selectedUom = this.selectedProduct.UOM;
       this.data.productId = this.selectedProduct.Id;
       this.data.productCode = this.selectedProduct.Code;
       this.data.productName = this.selectedProduct.Name;

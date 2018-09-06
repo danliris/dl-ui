@@ -7,7 +7,7 @@ var moment = require("moment");
 export class List {
 
     rowFormatter(data, index) {
-        if (data.isUsed)
+        if (data.IsUsed)
             return { classes: "success" }
         else
             return {}
@@ -32,19 +32,19 @@ export class List {
     setColumns() {
         this.columns = [
             {
-                field: "dateIm", title: "Tanggal", formatter: (value, data) => {
+                field: "DateIm", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "code", title: "Nomor Pemeriksaan Kain" },
-            { field: "shiftIm", title: "Shift" },
-            { field: "operatorIm", title: "Operator" },
-            { field: "machineNoIm", title: "No. Mesin" },
-            { field: "productionOrderNo", title: "No. Order" },
-            { field: "productionOrderType", title: "Jenis Order" },
-            { field: "cartNo", title: "No. Kereta" },
+            { field: "Code", title: "Nomor Pemeriksaan Kain" },
+            { field: "ShiftIm", title: "Shift" },
+            { field: "OperatorIm", title: "Operator" },
+            { field: "MachineNoIm", title: "No. Mesin" },
+            { field: "ProductionOrderNo", title: "No. Order" },
+            { field: "ProductionOrderType", title: "Jenis Order" },
+            { field: "CartNo", title: "No. Kereta" },
             {
-                field: "isUsed", title: "Masuk Lot Warna",
+                field: "IsUsed", title: "Masuk Lot Warna",
                 formatter: function (value, row, index) {
                     return value ? "SUDAH" : "BELUM";
                 }
@@ -62,11 +62,10 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order,
-            select: ["dateIm", "code", "shiftIm", "operatorIm", "machineNoIm", "productionOrderNo", "productionOrderType", "cartNo", "isUsed"]
+            order: order
+            // select: ["dateIm", "code", "shiftIm", "operatorIm", "machineNoIm", "productionOrderNo", "productionOrderType", "cartNo", "isUsed"]
             // packing: 
         }
-
         return this.service.search(arg)
             .then(result => {
                 return {
@@ -111,10 +110,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }

@@ -31,26 +31,25 @@ export class List {
 
     setColumns() {
         this.columns = [
-            { field: "code", title: "Kode" },
+            { field: "Code", title: "Kode" },
             {
-                field: "date", title: "Tanggal", formatter: (value, data) => {
+                field: "Date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "buyerName", title: "Buyer" },
-            { field: "productionOrderNo", title: "No. SPP" },
-            { field: "colorName", title: "Warna" },
-            { field: "construction", title: "Konstruksi" },
-            { field: "designNumber", title: "Nomor Design" },
+            { field: "BuyerName", title: "Buyer" },
+            { field: "ProductionOrderNo", title: "No. SPP" },
+            { field: "ColorName", title: "Warna" },
+            { field: "Construction", title: "Konstruksi" },
+            { field: "DesignNumber", title: "Nomor Design" },
             {
-                field: "accepted", title: "Diterima", formatter: function (value, row, index) {
+                field: "Accepted", title: "Diterima", formatter: function (value, row, index) {
                     return value ? "SUDAH" : "BELUM";
                 }
             }
         ];
     }
-
-
+    
     loadData = (info) => {
         var order = {};
         if (info.sort)
@@ -77,10 +76,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
