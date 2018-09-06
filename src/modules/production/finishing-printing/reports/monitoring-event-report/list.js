@@ -80,6 +80,6 @@ export class List {
     }
 
     detail(data) {
-        this.router.navigateToRoute('detail', { id: data.machineId, productionOrderNumber: data.productionOrder.orderNo, date: data.dateStart, time: data.timeInMomentStart });
+        this.router.navigateToRoute('detail', { id: data.MachineId, productionOrderNumber: data.productionOrder.orderNo, date: data.dateStart, time: data.timeInMomentStart });
     }
 }

@@ -72,7 +72,7 @@
 
                     <au-autocomplete 
                         value.bind="kanban"
-                        error.bind="error.kanban"
+                        error.bind="error.Kanban"
                         label="Nomor Order Produksi - Kereta" 
                         read-only.bind="readOnly"
                         loader.bind="kanbanLoader" 
@@ -89,7 +89,7 @@
                     <au-dropdown
                         label="Shift"
                         value.bind="data.Shift"
-                        error.bind="error.shift"
+                        error.bind="error.Shift"
                         read-only.bind="readOnly"
                         items.bind="shiftOptions"
                         options.bind="auDropdownInputOptions">
@@ -113,7 +113,7 @@
                         </div>
                     </div>
 
-                    <au-datetimepicker label="Tanggal Output" value.bind="localOutputDate" error.bind="error.dateOutput" options.bind="auInputOptions" read-only.bind="readOnlyOutput" if.bind="output"></au-datetimepicker>
+                    <au-datetimepicker label="Tanggal Output" value.bind="localOutputDate" error.bind="error.DateOutput" options.bind="auInputOptions" read-only.bind="readOnlyOutput" if.bind="output"></au-datetimepicker>
 
                     <div class="row" if.bind="output">
                         <div class="col-sm-4" style="padding-left:25%">    
