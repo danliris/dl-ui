@@ -48,8 +48,17 @@ export class View {
     }
 
     delete(event) {
-        this.service.delete(this.data).then(result => {
+        this.service.delete(this.data)
+        .then(result => {
             this.cancel();
+        })
+        .catch(e => {
+            if (e.statusCode == 500) {
+                alert("Terjadi Kesalahan Pada Sistem!\nData tidak terhapus secara sempurna!");
+                this.cancel();
+            } else {
+                this.error = e;
+            }
         });
     }
 }

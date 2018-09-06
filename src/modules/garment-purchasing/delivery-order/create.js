@@ -54,7 +54,11 @@ export class Create {
                 })
                 .catch(e => {
                     this.error = e;
-                })
+                    if (e.statusCode == 500) {
+                        alert("Terjadi Kesalahan Pada Sistem!\nData tidak tersimpan secara sempurna!");
+                        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                    }
+                });
         } else {
             this.error.items = errorItems;
         }
