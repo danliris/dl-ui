@@ -27,6 +27,7 @@
             loader.bind="divisionLoader"
             placeholder="cari divisi" 
             key="name"
+            text.bind="divisionView"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -60,9 +61,9 @@
             page-size="25"
             options.bind="tableOptions">
             
-            <!--<div slot="toolbar" class="btn-group">
+            <div slot="toolbar" class="btn-group">
             <button class='btn btn-primary' click.delegate="xls()">Cetak Excel</button>
-            </div>-->
+            </div>
         </au-table>
         <hr/>
     </form>
