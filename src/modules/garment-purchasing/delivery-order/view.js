@@ -34,8 +34,8 @@ export class View {
 
         var hasInvoiceBeaCukai = this.data.hasInvoice ? true : this.data.customsId ? true : false;
         if (!this.isReceived && !hasInvoiceBeaCukai) {
-            this.hasDelete = true;
-            this.hasEdit = true;
+            this.hasDelete = false;
+            this.hasEdit = false;
         }
     }
 
