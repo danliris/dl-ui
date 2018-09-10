@@ -43,7 +43,7 @@ export class Create {
                         Data.SubmitPosition = 4;
                     } else {
                         Data.SubmitPosition = 6;
-                        Data.Remark = response.output.Remark;
+                        Data.Reason = response.output.Remark;
                     }
                     this.service.create(Data).then(result => {
                         alert("Data berhasil dibuat");
