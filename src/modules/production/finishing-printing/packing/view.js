@@ -55,15 +55,18 @@ export class View {
             for (var detail of this.data.PackingDetails) {
     
                 total.Quantity += detail.Quantity;
-                total.AvailableQuantity += detail.AvailableQuantity;
                 total.Weight += detail.Weight;
                 total.Length += detail.Length;
                 total.WeightTotalAmount += detail.Weight * detail.Quantity;
                 total.LengthTotalAmount += detail.Length * detail.Quantity;
             }
 
-            total.Length = numeral(total.Length).format('0,000.00');
-      
+            total.Quantity = numeral(total.Quantity).format('0,000');
+            total.Weight = numeral(total.Weight).format('0,000.0000');
+            total.Length = numeral(total.Length).format('0,000.0000');
+            total.WeightTotalAmount = numeral(total.WeightTotalAmount).format('0,000.0000');
+            total.LengthTotalAmount = numeral(total.LengthTotalAmount).format('0,000.0000');
+
             this.data.PackingDetails.push(total);
         }
 }
