@@ -246,10 +246,9 @@ export class DataForm {
         if (selectedKanban) {
             // this.data.kanbanId = selectedKanban._id;
             this.data.Kanban = selectedKanban;
-
-            if (this.Input && this.data.Kanban.Id != 0)
+            if (this.input && this.data.Kanban.Id != 0)
                 this.data.Input = Number(selectedKanban.Cart.Qty);
-            if (this.Output && this.data.Kanban.Id != 0)
+            if (this.output && this.data.Kanban.Id != 0)
                 this.data.GoodOutput = Number(selectedKanban.Cart.Qty);
 
             if (this.Output) {
@@ -330,7 +329,13 @@ export class DataForm {
             }
         }
         else {
-            this.data.Machine = undefined;
+            this.data.Machine = {};
+            this.data.Kanban = {};
+            this.kanban = null;
+            this.data.GoodOutput = 0;
+            this.localOutputDate = null;
+            this.localInputDate = null;
+            
             delete this.data.Machine.Id;
             this.filterReason = {};
         }
