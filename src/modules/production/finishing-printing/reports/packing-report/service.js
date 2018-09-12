@@ -2,16 +2,17 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'finishing-printing/reports/packings';
+const serviceUri = 'finishing-printing/quality-control/packings/reports';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        
         return super.list(endpoint, info);
     }
 
@@ -21,7 +22,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-  
+        
         var endpoint = `${serviceUri}`;
         var query = '';
         if (info.code) {

@@ -28,7 +28,6 @@ export class List {
     }
 
     searching() {
-
         if (this.filter) {
             this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo._id : null;
             this.info.code = this.filter.code ? this.filter.code._id : null;
