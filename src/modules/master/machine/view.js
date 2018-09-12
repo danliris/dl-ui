@@ -17,7 +17,6 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    
     this.data.Unit.toString = function () {
       return [this.Division.Name, this.Name]
           .filter((item, index) => {
