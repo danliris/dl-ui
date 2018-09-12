@@ -11,6 +11,7 @@
             <au-autocomplete value.bind="packing" error.bind="error.packingId" label="Kode Packing" loader.bind="packingUnacceptedLoader"
                 placeholder="Cari Packing" read-only.bind="packingReadOnly" key="code" text="code">
             </au-autocomplete>
+
             <au-autocomplete 
                 value.bind="data.storage" 
                 error.bind="error.storage"
@@ -22,6 +23,7 @@
                 read-only.bind="packingReadOnly"
                 options.bind="controlOptions">
             </au-autocomplete>
+
             <au-textbox label="Nomor Order" value.bind="data.packing.productionOrderNo" read-only.bind="true"></au-textbox>
             <au-textbox label="Jenis Order" value.bind="data.packing.orderType" read-only.bind="true"></au-textbox>
             <au-textbox label="Warna Diminta" value.bind="data.packing.colorName" read-only.bind="true"></au-textbox>
@@ -29,7 +31,6 @@
             <au-textbox label="Konstruksi" value.bind="data.packing.construction" read-only.bind="true"></au-textbox>
             <au-textbox label="Lebar Finish" value.bind="data.packing.materialWidthFinish" read-only.bind="true"></au-textbox>
             <au-textbox label="Satuan" value.bind="data.packing.packingUom" read-only.bind="true"></au-textbox>
-
         </fieldset>
 
         <au-collection items.bind="data.items" columns.bind="itemsColumns" read-only.bind="packingReadOnly" item-template="modules/inventory/packing-receipt/template/packing-item"
