@@ -4,6 +4,7 @@ import { Router } from 'aurelia-router';
 
 var moment = require('moment');
 var MachineLoader = require("../../../../../loader/machines-loader");
+var KanbanLoader = require("../../../../../loader/kanban-loader");
 
 @inject(Router, Service)
 export class List {
@@ -27,7 +28,7 @@ export class List {
     dateFrom = null;
     dateTo = null;
     Machine = null;
-    kanban = null;
+    Kanban = null;
     filterKanban = null;
     kanbanId = null;
 
@@ -113,10 +114,11 @@ export class List {
 
         this.info = {};
        
-
         return this.listDataFlag ? (
-            this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.kanban)
+            
+            this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
                 .then((result) => {
+                    debugger
                     return {
                         data: result
                     }
@@ -155,8 +157,8 @@ export class List {
         this.listDataFlag = false;
         this.dateFrom = null;
         this.dateTo = null;
-        this.machine = null;
-        this.kanban = null;
+        this.Machine = null;
+        this.Kanban = null;
         this.filterKanban = null;
         this.kanbanId = null;
         this.error = '';
@@ -166,11 +168,15 @@ export class List {
         //    var htmltable= document.getElementById('myTable');
         //    var html = htmltable.outerHTML;
         //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.dateFrom, this.dateTo, this.Machine, this.kanban);
+        this.service.generateExcel(this.dateFrom, this.dateTo, this.Machine, this.Kanban);
     }
 
     get machineLoader() {
         return MachineLoader;
+    }
+
+    get kanbanLoader() {
+        return KanbanLoader;
     }
 
 }

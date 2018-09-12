@@ -7,11 +7,12 @@ const serviceUri = 'finishing-printing/reports/packings';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        debugger
         return super.list(endpoint, info);
     }
 
@@ -21,7 +22,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-  
+        debugger
         var endpoint = `${serviceUri}`;
         var query = '';
         if (info.code) {

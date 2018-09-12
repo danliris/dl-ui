@@ -11,7 +11,7 @@ export class Service extends RestService {
     }
 
     getReport(sdate, edate, machine, kanban) {
-        
+        debugger
         var endpoint = `${serviceUri}`;
         var query = '';
         if (sdate) {
@@ -24,11 +24,11 @@ export class Service extends RestService {
         }
         if (machine) {
             if (query === '') query = `machine=${machine.Id}`;
-            else query = `${query}&machine=${machine._id}`;
+            else query = `${query}&machine=${machine.Id}`;
         }
         if (kanban) {
-            if (query === '') query = `kanban=${kanban._id}`;
-            else query = `${query}&kanban=${kanban._id}`;
+            if (query === '') query = `kanban=${kanban.Id}`;
+            else query = `${query}&kanban=${kanban.Id}`;
         }
         if (query !== '')
             endpoint = `${serviceUri}?${query}`;
