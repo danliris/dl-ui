@@ -9,11 +9,11 @@
         <h1 class="page-header">Laporan Penyerahan Produksi</h1>
         <form class="form-horizontal">
             <au-autocomplete value.bind="filter.code" label="Nomor Packing" placeholder="cari nomor packing" loader.bind="packingLoader"
-                key="code" text="code">
+                key="Code" text="Code">
             </au-autocomplete>
 
             <au-autocomplete value.bind="filter.productionOrderNo" label="Nomor Order" placeholder="cari nomor order" loader.bind="packingLoader"
-                key="productionOrderNo" text="productionOrderNo">
+                key="ProductionOrderNo" text="ProductionOrderNo">
             </au-autocomplete>
 
             <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>

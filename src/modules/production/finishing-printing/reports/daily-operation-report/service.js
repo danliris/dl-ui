@@ -11,8 +11,34 @@ export class Service extends RestService {
     }
 
     getReport(sdate, edate, machine, kanban) {
-        debugger
         var endpoint = `${serviceUri}`;
+        var query = '';
+        
+        if (sdate) {
+            if (query === '') query = `dateFrom=${(sdate)}`;
+            else query = `${query}&dateFrom=${(sdate)}`;
+        }
+        if (edate) {
+            if (query === '') query = `dateTo=${(edate)}`;
+            else query = `${query}&dateTo=${(edate)}`;
+        }
+        if (machine) {
+            if (query === '') query = `machine=${machine.Id}`;
+            else query = `${query}&machine=${machine.Id}`;
+        }
+        if (kanban) {
+            if (query === '') query = `kanban=${kanban.Id}`;
+            else query = `${query}&kanban=${kanban.Id}`;
+        }
+        if (query !== '')
+            endpoint = `${serviceUri}?${query}`;
+            
+        return super.get(endpoint);
+    }
+
+    generateExcel(sdate, edate, machine, kanban) {
+        
+        var endpoint = `${serviceUri}/downloads/xls`;
         var query = '';
         if (sdate) {
             if (query === '') query = `dateFrom=${sdate}`;
@@ -31,32 +57,7 @@ export class Service extends RestService {
             else query = `${query}&kanban=${kanban.Id}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
-
-        return super.get(endpoint);
-    }
-
-    generateExcel(sdate, edate, machine, kanban) {
-        var endpoint = `${serviceUri}`;
-        var query = '';
-        if (sdate) {
-            if (query === '') query = `dateFrom=${sdate}`;
-            else query = `${query}&dateFrom=${sdate}`;
-        }
-        if (edate) {
-            if (query === '') query = `dateTo=${edate}`;
-            else query = `${query}&dateTo=${edate}`;
-        }
-        if (machine) {
-            if (query === '') query = `machine=${machine._id}`;
-            else query = `${query}&machine=${machine._id}`;
-        }
-        if (kanban) {
-            if (query === '') query = `kanban=${kanban._id}`;
-            else query = `${query}&kanban=${kanban._id}`;
-        }
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${endpoint}?${query}`;
 
         return super.getXls(endpoint);
     }

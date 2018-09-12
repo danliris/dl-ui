@@ -113,12 +113,13 @@ export class List {
     loader = (info) => {
 
         this.info = {};
-       
+       var dateFrom = this.dateFrom?  moment(this.dateFrom).format("DD MMM YYYY HH:mm")  :null
+       var dateTo = this.dateTo?  moment(this.dateTo).format("DD MMM YYYY HH:mm")  :null
         return this.listDataFlag ? (
             
-            this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
+            // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
+            this.service.getReport(dateFrom, dateTo, this.Machine, this.Kanban)
                 .then((result) => {
-                    debugger
                     return {
                         data: result
                     }
@@ -168,7 +169,10 @@ export class List {
         //    var htmltable= document.getElementById('myTable');
         //    var html = htmltable.outerHTML;
         //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        this.service.generateExcel(this.dateFrom, this.dateTo, this.Machine, this.Kanban);
+        var dateFrom = this.dateFrom?  moment(this.dateFrom).format("DD MMM YYYY HH:mm")  :null
+        var dateTo = this.dateTo?  moment(this.dateTo).format("DD MMM YYYY HH:mm")  :null
+        
+        this.service.generateExcel(dateFrom, dateTo, this.Machine, this.Kanban);
     }
 
     get machineLoader() {
