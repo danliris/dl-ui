@@ -13,8 +13,6 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable error = {};
-
-    machineCodeFilter = '';
     @bindable productionOrderDetails = [];
 
     @bindable localStartDate;
@@ -75,10 +73,9 @@ export class DataForm {
         delete this.data.MachineEvent;
         if (this.Machine) {
             this.data.Machine = this.Machine;
-            this.machineCodeFilter = this.Machine.Code;
-        }else{
-            this.Machine=null;
-            this.data.Machine={};
+        } else {
+            this.Machine = null;
+            this.data.Machine = {};
         }
     }
 
@@ -117,7 +114,7 @@ export class DataForm {
         else {
             delete this.data.ProductionOrderDetail;
             this.productionOrder = null;
-            this.data.ProductionOrder={};
+            this.data.ProductionOrder = {};
         }
     }
 
@@ -157,7 +154,7 @@ export class DataForm {
     }
 
     get machineEventLoader() {
-        return MachineEventLoader;
+        return this.Machine ? this.Machine.MachineEvents : [];
     }
 
 }
