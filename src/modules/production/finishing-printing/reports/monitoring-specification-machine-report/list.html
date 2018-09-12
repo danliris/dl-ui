@@ -8,14 +8,17 @@
 
     <h1 class="page-header">Laporan Monitoring Spesifikasi Mesin </h1>
     <form class="form-horizontal">
+        
+        <au-autocomplete label="Mesin" value.bind="machine" error.bind="error.machine" loader.bind="machineLoader" placeholder="Cari machine"
+                key="Code" text="Name" >
+            </au-autocomplete>
+        <au-autocomplete label="Nomor Order Produksi" value.bind="productionOrder" loader.bind="productionOrderLoader"
+                placeholder="Cari No Surat Produksi Order" key="OrderNo" text="OrderNo" >
+            </au-autocomplete>
+        
 
-        <machine-auto-suggest label="Mesin" value.bind="machine"></machine-auto-suggest>
-
-        <production-order-auto-suggest label="Nomor Order Produksi" value.bind="productionOrder">
-        </production-order-auto-suggest>
-
-        <datepicker label="Tanggal Awal" value.bind="dateFrom"></datepicker>
-        <datepicker label="Tanggal Akhir" value.bind="dateTo"></datepicker>
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
 
 
         <div class="form-group">
@@ -25,7 +28,7 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
-        <div class="btn-group pull-left" if.bind="data.length > 0">
+        <div class="btn-group pull-left" >
             <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
         </div>
     </form>
@@ -71,10 +74,10 @@
             <tbody>
                 <tr repeat.for="item of data">
                     <td class="text-center">${$index + 1}</td>
-                    <td>${item.machine.name}</td>
-                    <td>${item.date | dateFormat:'DD MMMM YYYY'}</td>
-                    <td>${item.time | dateFormat:'HH:mm'}</td>
-                    <td>${item.productionOrder.orderNo}</td>
+                    <td>${item.machine}</td>
+                    <td>${item.DateTimeInput | dateFormat:'DD MMMM YYYY'}</td>
+                    <td>${item.DateTimeInput | dateFormat:'HH:mm'}</td>
+                    <td>${item.orderNo}</td>
                     <td>${item.cartNumber}</td>
                     <td repeat.for="indicator of item.items">${indicator.value}</td>
                 </tr>

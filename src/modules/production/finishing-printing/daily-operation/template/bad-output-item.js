@@ -12,6 +12,7 @@ export class BadOutputItem {
     async activate(context) {
         this.data = context.data;
         this.error = typeof context.error === 'object' ? context.error : {};
+        console.log(this.error);
         this.options = context.options;
         this.badOutputReason = this.data.BadOutput;
         this.filter = context.context.options.reason;

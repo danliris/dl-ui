@@ -5,11 +5,12 @@ import { Config } from "aurelia-api"
 export class DetailFooter {
   activate(context) {
     this.context = context;
+    console.log(context)
   }
 
   get itemSum() {
     var qty = this.context.items
-      .map((item) => item.data.quantity);
+      .map((item) => item.data.Quantity);
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }

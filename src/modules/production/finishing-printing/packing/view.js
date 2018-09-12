@@ -30,7 +30,7 @@ export class View {
   }
 
   edit(event) {
-    this.router.navigateToRoute('edit', { id: this.data._id });
+    this.router.navigateToRoute('edit', { id: this.data.Id });
   }
 
   delete(event) {
@@ -44,26 +44,29 @@ export class View {
   attached() {
     
             var total = {
-                grade: "Total Jumlah",
-                quantity: 0,
-                weightTotalAmount: 0,
-                weight: 0,
-                lengthTotalAmount: 0,
-                length: 0,
+                Grade: "Total Jumlah",
+                Quantity: 0,
+                WeightTotalAmount: 0,
+                Weight: 0,
+                LengthTotalAmount: 0,
+                Length: 0,
             };
     
-            for (var item of this.data.items) {
+            for (var detail of this.data.PackingDetails) {
     
-                total.quantity += item.quantity;
-                total.availableQuantity += item.availableQuantity;
-                total.weight += item.weight;
-                total.length += item.length;
-                total.weightTotalAmount += item.weight * item.quantity;
-                total.lengthTotalAmount += item.length * item.quantity;
+                total.Quantity += detail.Quantity;
+                total.Weight += detail.Weight;
+                total.Length += detail.Length;
+                total.WeightTotalAmount += detail.Weight * detail.Quantity;
+                total.LengthTotalAmount += detail.Length * detail.Quantity;
             }
 
-            total.length = numeral(total.length).format('0,000.00');
-      
-            this.data.items.push(total);
+            total.Quantity = numeral(total.Quantity).format('0,000');
+            total.Weight = numeral(total.Weight).format('0,000.0000');
+            total.Length = numeral(total.Length).format('0,000.0000');
+            total.WeightTotalAmount = numeral(total.WeightTotalAmount).format('0,000.0000');
+            total.LengthTotalAmount = numeral(total.LengthTotalAmount).format('0,000.0000');
+
+            this.data.PackingDetails.push(total);
         }
 }

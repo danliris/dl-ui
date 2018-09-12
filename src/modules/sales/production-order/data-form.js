@@ -309,16 +309,25 @@ export class DataForm {
       this.data.Uom = {};
       this.data.Uom.Unit = "MTR";
     }
-    if (this.data) {
-      if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
-        this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.SalesContractNo), this.scFields);
-        this.data.FinishingPrintingSalesContract = this.selectedSC;
-        if (this.data.FinishingPrintingSalesContract.RemainingQuantity != undefined) {
-          // this.data.RemainingQuantity = this.data.SalesContract.RemainingQuantity;
-          this.rq = true;
+    if (this.data && this.data.Id) {
+      this.OrderType = this.data.OrderType;
+      this.account = {
+        username: this.data.Account.UserName,
+        profile: {
+          firstname: this.data.Account.FirstName,
+          lastname: this.data.Account.LastName,
         }
-        // this.selectedMaterial = this.data.material;
       }
+      this.data.SalesContractNo = this.data.FinishingPrintingSalesContract.SalesContractNo;
+      // if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
+      //   this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.SalesContractNo), this.scFields);
+      //   this.data.FinishingPrintingSalesContract = this.selectedSC;
+      //   if (this.data.FinishingPrintingSalesContract.RemainingQuantity != undefined) {
+      //     // this.data.RemainingQuantity = this.data.SalesContract.RemainingQuantity;
+      //     this.rq = true;
+      //   }
+      //   // this.selectedMaterial = this.data.material;
+      // }
 
     }
   }
@@ -398,6 +407,10 @@ export class DataForm {
 
   get accountLoader() {
     return AccountLoader;
+  }
+
+  text = (data) => {
+    return `${data.profile.firstname} - ${data.profile.lastname}`
   }
 
 }
