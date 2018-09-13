@@ -121,7 +121,7 @@
           <multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" read-only.bind="readOnly" rows.bind="10"></multiline>
 
           <div class="col-sm-10" style="padding-left:18%">
-            <au-autocomplete value.bind="account" label="Nama Staff Penjualan" error.bind="error.Account" read-only.bind="readOnly"
+            <au-autocomplete value.bind="account" label="Nama Staff Penjualan" text.bind="text" error.bind="error.Account" read-only.bind="readOnly"
               loader.bind="accountLoader">
             </au-autocomplete>
           </div>
