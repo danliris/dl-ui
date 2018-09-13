@@ -37,9 +37,21 @@ export class List {
         },
         { field: "productName", title: "Nama Barang" },
         { field: "uom", title: "UOM" },
-        { field: "before", title: "Before" },
-        { field: "quantity", title: "Kuantiti" },
-        { field: "after", title: "After" },
+        {
+            field: "before", title: "Before", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.0000');
+            }
+        },
+        {
+            field: "quantity", title: "Kuantiti", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.0000');
+            }
+        },
+        {
+            field: "after", title: "After", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.0000');
+            }
+        },
         { field: "type", title: "Status" }
     ]
 
