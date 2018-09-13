@@ -17,18 +17,18 @@ export class List {
         { field: "productName", title: "Nama Barang" },
         {
             field: "quantity", title: "Kuantiti", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+                return numeral(value).format('0,0.0000');
             }
         },
         { field: "uom", title: "UOM" },
         {
             field: "totalLengthMtr", title: "Total Panjang (meter)", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+                return numeral(value).format('0,0.0000');
             }
         },
         {
             field: "totalLengthYds", title: "Total Panjang (yard)", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.0000');
+                return numeral(value).format('0,0.0000');
             }
         }
     ];
