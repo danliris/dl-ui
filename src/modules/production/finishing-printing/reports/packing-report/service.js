@@ -22,7 +22,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        debugger
+        
         var endpoint = `${serviceUri}/downloads/xls`;
         var query = '';
         if (info.code) {

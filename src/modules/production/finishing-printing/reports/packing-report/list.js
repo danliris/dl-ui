@@ -28,7 +28,7 @@ export class List {
     }
 
     searching() {
-        debugger
+        
         if (this.filter) {
             this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.ProductionOrderNo : null;
             this.info.code = this.filter.code ? this.filter.code.Code : null;
@@ -39,7 +39,7 @@ export class List {
         }
         this.service.search(this.info)
             .then(result => {
-                debugger
+                
                 var tempData;
                 this.no = 0;
                 this.newData = [];
