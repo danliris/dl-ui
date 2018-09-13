@@ -232,6 +232,7 @@ export class DataForm {
             return;
         this.selectedFabricGradeTest.AvalLength = this.selectedAvalLength;
         this.computeGrade(this.selectedFabricGradeTest);
+        this.fabricGradeTestTable.refresh();
         this.totalTable.refresh();
     }
     selectedSampleLengthChanged() {
@@ -301,6 +302,7 @@ export class DataForm {
         fabricGradeTest.FinalScore = this.data.PointSystem === 10 ? finalScoreTS.toFixed(2) : finalScoreFS.toFixed(2);
         fabricGradeTest.Grade = grade;
         this.totalTable.refresh();
+        this.fabricGradeTestTable.refresh();
     }
     colChanged(newValue, oldValue) {
         if (!this.selectedFabricGradeTest)
