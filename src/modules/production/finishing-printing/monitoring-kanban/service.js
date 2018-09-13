@@ -37,9 +37,9 @@ export class Service extends RestService {
 		 if (proses && proses !== '') {
              
             if(proses == 'Ya')
-                proses = true
+                proses = true;
             else if(proses == 'Tidak')
-                proses = false
+                proses = false;
 
             if (query === '') query = `proses=${proses}`;
             else query = `${query}&proses=${proses}`;
