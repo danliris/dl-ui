@@ -28,9 +28,10 @@ export class List {
     }
 
     searching() {
+        
         if (this.filter) {
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo._id : null;
-            this.info.code = this.filter.code ? this.filter.code._id : null;
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.ProductionOrderNo : null;
+            this.info.code = this.filter.code ? this.filter.code.Code : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {
@@ -38,34 +39,35 @@ export class List {
         }
         this.service.search(this.info)
             .then(result => {
+                
                 var tempData;
                 this.no = 0;
                 this.newData = [];
 
                 for (var i = 0; i < result.data.length; i++) {
-                    for (var j = 0; j < result.data[i].items.length; j++) {
+                    for (var j = 0; j < result.data[i].PackingDetails.length; j++) {
                         tempData = {};
                         this.no += 1;
                         tempData.no = this.no;
-                        tempData.code = result.data[i].code;
-                        tempData.deliveryType = result.data[i].deliveryType;
-                        tempData.construction = result.data[i].construction;
-                        tempData.buyerName = result.data[i].buyerName;
-                        tempData.productionOrderNo = result.data[i].productionOrderNo;
-                        tempData.orderType = result.data[i].orderType;
-                        tempData.finishedProductType = result.data[i].finishedProductType;
-                        tempData.construction = result.data[i].construction;
-                        tempData.designCode = result.data[i].designCode;
-                        tempData.colorName = result.data[i].colorName;
-                        tempData.date = result.data[i].date;
+                        tempData.code = result.data[i].Code;
+                        tempData.deliveryType = result.data[i].DeliveryType;
+                        tempData.construction = result.data[i].Construction;
+                        tempData.buyerName = result.data[i].BuyerName;
+                        tempData.productionOrderNo = result.data[i].ProductionOrderNo;
+                        tempData.orderType = result.data[i].OrderTypeName;
+                        tempData.finishedProductType = result.data[i].FinishedProductType;
+                        tempData.construction = result.data[i].Construction;
+                        tempData.designCode = result.data[i].DesignCode;
+                        tempData.colorName = result.data[i].ColorName;
+                        tempData.date = result.data[i].Date;
 
-                        tempData.lot = result.data[i].items[j].lot;
-                        tempData.grade = result.data[i].items[j].grade;
-                        tempData.weight = result.data[i].items[j].weight;
-                        tempData.length = result.data[i].items[j].length;
-                        tempData.quantity = result.data[i].items[j].quantity;
-                        tempData.total = (result.data[i].items[j].length)*(result.data[i].items[j].quantity);
-                        tempData.remark = result.data[i].items[j].remark;
+                        tempData.lot = result.data[i].PackingDetails[j].Lot;
+                        tempData.grade = result.data[i].PackingDetails[j].Grade;
+                        tempData.weight = result.data[i].PackingDetails[j].Weight;
+                        tempData.length = result.data[i].PackingDetails[j].Length;
+                        tempData.quantity = result.data[i].PackingDetails[j].Quantity;
+                        tempData.total = (result.data[i].PackingDetails[j].Length)*(result.data[i].PackingDetails[j].Quantity);
+                        tempData.remark = result.data[i].PackingDetails[j].Remark;
                         this.newData.push(tempData);
                     }
                 }
@@ -82,8 +84,8 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo._id : null;
-            this.info.code = this.filter.code ? this.filter.code._id : null;
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.ProductionOrderNo : null;
+            this.info.code = this.filter.code ? this.filter.code.Code : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         }
