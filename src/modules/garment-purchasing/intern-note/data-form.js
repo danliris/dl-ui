@@ -68,6 +68,11 @@ export class DataForm {
 
     async supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
+        if(newValue!=oldValue){
+            this.data.supplier = null;
+            this.data.supplierId = null;
+            this.data.items = [];
+        }
         if (selectedSupplier) {
             this.data.supplier = selectedSupplier;
             this.data.supplierId = selectedSupplier._id;

@@ -10,6 +10,22 @@ export class DataForm {
     constructor(bindingEngine, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
+
+        this.UpoItem = {
+            columns: [
+                { header: "No. PO Eksternal", value: "purchaseOrder.purchaseOrderExternal.no" },
+                { header: "No. PR", value: "purchaseOrder.purchaseRequest.no" },
+                { header: "Barang", value: "product" },
+                { header: "Jumlah", value: "quantity" },
+                { header: "Satuan", value: "uom.unit" },
+                { header: "Harga Satuan", value: "pricePerUnit" },
+                { header: "Harga Total", value: "priceTotal" }
+            ],
+            onRemove: function() {
+                this.bind();
+            }
+            
+        }
     }
 
     @computedFrom("data._id")
@@ -22,6 +38,10 @@ export class DataForm {
             this.flag = true;
         else
             this.flag = false;
+
+        if(!this.readOnly) {
+            this.UpoItem.columns.push({ header: "" });
+        }
     }
 
     unitPaymentOrderChanged(e) {
@@ -52,23 +72,6 @@ export class DataForm {
 
                         if (unitReceiptNoteItem.correction) {
                             if (unitReceiptNoteItem.correction.length > 0) {
-                                // var _qty = 0;
-                                // var _hasQtyCorrection = false;
-                                // for (var correction of unitReceiptNoteItem.correction) {
-                                //     if (correction.correctionRemark === "Koreksi Jumlah") {
-                                //         _qty += correction.correctionQuantity;
-                                //         _hasQtyCorrection = true;
-                                //     }
-                                // }
-                                // if (!_hasQtyCorrection) {
-                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionQuantity;
-                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPriceTotal;
-                                // } else {
-                                //     unitQuantityCorrectionNoteItem.quantity = unitReceiptNoteItem.deliveredQuantity - _qty;
-                                //     unitQuantityCorrectionNoteItem.pricePerUnit = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit;
-                                //     unitQuantityCorrectionNoteItem.priceTotal = unitReceiptNoteItem.correction[unitReceiptNoteItem.correction.length - 1].correctionPricePerUnit * unitQuantityCorrectionNoteItem.quantity;
-                                // }
                                 var _qty = unitReceiptNoteItem.correction
                                     .map((correction) => {
                                         if (correction.correctionRemark === "Koreksi Jumlah") {

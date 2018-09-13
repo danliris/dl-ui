@@ -43,6 +43,8 @@ export class Edit {
             this.cancel();
         }).catch(e => {
             this.error = e;
+            if (e.purchaseRequestId)
+                alert(`${e.purchaseRequestId}`);
         })
     }
 

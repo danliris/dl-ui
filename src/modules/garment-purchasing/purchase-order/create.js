@@ -2,9 +2,11 @@ import { inject, bindable, computedFrom, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
+import { Dialog } from '../../../components/dialog/dialog';
+import { AlertView } from './dialog-template/alert-view';
 import moment from 'moment';
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class Create {
     @bindable data = [];
     dataToBeSaved = [];
@@ -45,9 +47,19 @@ export class Create {
         }
     };
     label = "Periode Tgl. Shipment"
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
+    }
+
+    rowFormatter(data, index) {
+        if (data.double) {
+            return { classes: "danger" }
+        }
+        else {
+            return {}
+        }
     }
 
     cancel(event) {
@@ -65,14 +77,39 @@ export class Create {
             alert(`Purchase Request belum dipilih`);
         }
         else {
-            this.service.create(this.dataToBeSaved)
-                .then(result => {
-                    alert(`${this.dataToBeSaved.length} data berhasil ditambahkan`);
-                    this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                })
-                .catch(e => {
-                    this.error = e;
-                })
+            let duplicateItemCheckedAllList;
+            this.dataToBeSaved.forEach(_purchaseRequest => {
+                const duplicateItemCheckedAll = this.dataToBeSaved.filter(f =>
+                    f.no === _purchaseRequest.no && f.items.id_po === _purchaseRequest.items.id_po
+                );
+                if(duplicateItemCheckedAll.length > 1) {
+                    duplicateItemCheckedAllList = duplicateItemCheckedAllList || {};
+                    duplicateItemCheckedAllList[`${_purchaseRequest.roNo}-${_purchaseRequest.no}-${_purchaseRequest.items.refNo}`] = `Nomor RO : <strong>${_purchaseRequest.roNo}</strong>, Nomor PR : <strong>${_purchaseRequest.no}</strong>, Nomor Ref. PO : <strong>${_purchaseRequest.items.refNo}</strong>`;
+                }
+            });
+            if (duplicateItemCheckedAllList) {
+                let alertMessages = "";
+                for (const m in duplicateItemCheckedAllList) {
+                    if (duplicateItemCheckedAllList.hasOwnProperty(m)) {
+                        const alertMessage = duplicateItemCheckedAllList[m];
+                        alertMessages = alertMessages.concat(alertMessage, "\n");
+                    }
+                }
+                this.dialog.show(AlertView, { title: "Duplicate Selected Purchase Request", message: alertMessages });
+            } else {
+                this.service.create(this.dataToBeSaved)
+                    .then(result => {
+                        alert(`${this.dataToBeSaved.length} data berhasil ditambahkan`);
+                        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                    })
+                    .catch(e => {
+                        this.error = e;
+                        if (e.purchaseRequestId)
+                            alert(`${e.purchaseRequestId}`);
+                        else if(e.no)
+                            alert(`${e.no}`);
+                    });
+            }
         }
     }
 
@@ -83,6 +120,10 @@ export class Create {
                 this.data
                     .map((data) => {
                         data.check = false;
+                        const duplicateItem = result.data.filter(f =>
+                            f.no === data.no && f.items.id_po === data.items.id_po
+                        );
+                        data.double = duplicateItem.length > 1;
                     });
                 this.purchaseRequestTable.data = this.data;
                 this.purchaseRequestTable.refresh();
