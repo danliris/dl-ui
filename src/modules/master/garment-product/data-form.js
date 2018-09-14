@@ -14,16 +14,16 @@ export class DataForm {
         editText: "Ubah",
     }
     
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     bind(context) {
     this.context = context;
     this.data = this.context.data;
-    if (this.data && this.data.uom)
-            this.data.uom.toString = function () {
+    if (this.data && this.data.UOM)
+            this.data.UOM.toString = function () {
                 return this.unit;
             };
     this.error = this.context.error;
@@ -38,7 +38,7 @@ export class DataForm {
     uomChanged(e) {
         var selectedUom = e.detail;
         if (selectedUom)
-            this.data.uomId = selectedUom._id;
+            this.data.UOM = selectedUom.Id;
     }
 
 }
