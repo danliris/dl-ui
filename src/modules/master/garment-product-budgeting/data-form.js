@@ -1,11 +1,12 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework';
 
-var CurrencyLoader = require('../../../loader/currency-loader');
+// var CurrencyLoader = require('../../../loader/currency-loader');
 var UomLoader = require('../../../loader/uom-loader');
 
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable UOM;
     @bindable const;
     @bindable yarn;
     @bindable width;
@@ -18,43 +19,42 @@ export class DataForm {
 
     constructor() { }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
     
 
     bind(context) {
-    this.context = context;
-    this.data = this.context.data;
-    if (this.data && this.data.uom)
-            this.data.uom.toString = function () {
-                return this.unit;
-            };
-    this.error = this.context.error;
+        this.context = context;
+        this.data = this.context.data;
+        if (this.data.Id) {
+            this.Currency = this.data.Currency;
+            this.UOM = this.data.UOM;
+        }
 
-    this.cancelCallback = this.context.cancelCallback;
-    this.deleteCallback = this.context.deleteCallback;
-    this.editCallback = this.context.editCallback;
-    this.saveCallback = this.context.saveCallback;
+        this.error = this.context.error;
+
+        this.cancelCallback = this.context.cancelCallback;
+        this.deleteCallback = this.context.deleteCallback;
+        this.editCallback = this.context.editCallback;
+        this.saveCallback = this.context.saveCallback;
     }
 
-    uomChanged(e) {
-        var selectedUom = e.detail;
-        if (selectedUom)
-            this.data.uomId = selectedUom._id;
-    }
-
-    currencyChanged(e) {
-        var selectedCurrency = e.detail || {};
-        if (selectedCurrency) {
-          this.data.currency = selectedCurrency._id ? selectedCurrency._id : "";
+    UOMChanged() {
+        if (this.UOM) {
+            this.data.UOM = this.UOM
+        } else {
+            this.UOM = {};
         }
     }
 
-    get currencyLoader() {
-      return CurrencyLoader;
-    }
+    // currencyChanged(e) {
+    //     var selectedCurrency = e.detail || {};
+    //     if (selectedCurrency) {
+    //       this.data.currency = selectedCurrency.Id ? selectedCurrency.Id : "";
+    //     }
+    // }
 
     get uomLoader() {
       return UomLoader;
