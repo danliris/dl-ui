@@ -70,20 +70,22 @@ export class List {
     }
 
     searching() {
+        
         if (this.filter) {
-            this.info.code = this.filter.code ? this.filter.code.code : "";
-            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.code : "";
-            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.name : "";
+            this.info.code = this.filter.code ? this.filter.code.Code : "";
+            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.Id : "";
+            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.Name : "";
+            
             this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
-            this.info.select = this.selectedFields;
+            // this.info.select = this.selectedFields;
         } else {
             this.info = {};
         }
         this.service.search(this.info)
             .then(result => {
-                console.log(result)
+                // console.log(result)
                 var tempData, tempDetailData;
                 this.newData = [];
                 this.no = 0;
@@ -93,35 +95,35 @@ export class List {
                     this.detailNo = 0;
 
                     tempData.no = this.no;
-                    tempData.code = result.data[i].code;
-                    tempData.kanbanCode = result.data[i].kanbanCode;
-                    tempData.cartNo = result.data[i].cartNo;
-                    tempData.productionOrderType = result.data[i].productionOrderType;
-                    tempData.productionOrderNo = result.data[i].productionOrderNo;
-                    tempData.dateIm = result.data[i].dateIm;
-                    tempData.shiftIm = result.data[i].shiftIm;
-                    tempData.operatorIm = result.data[i].operatorIm;
-                    tempData.machineNoIm = result.data[i].machineNoIm;
-                    tempData.construction = result.data[i].construction;
-                    tempData.buyer = result.data[i].buyer;
-                    tempData.color = result.data[i].color;
-                    tempData.orderQuantity = result.data[i].orderQuantity;
-                    tempData.packingInstruction = result.data[i].packingInstruction;
+                    tempData.code = result.data[i].Code;
+                    tempData.kanbanCode = result.data[i].KanbanCode;
+                    tempData.cartNo = result.data[i].CartNo;
+                    tempData.productionOrderType = result.data[i].ProductionOrderType;
+                    tempData.productionOrderNo = result.data[i].ProductionOrderNo;
+                    tempData.dateIm = result.data[i].DateIm;
+                    tempData.shiftIm = result.data[i].ShiftIm;
+                    tempData.operatorIm = result.data[i].OperatorIm;
+                    tempData.machineNoIm = result.data[i].MachineNoIm;
+                    tempData.construction = result.data[i].Construction;
+                    tempData.buyer = result.data[i].Buyer;
+                    tempData.color = result.data[i].Color;
+                    tempData.orderQuantity = result.data[i].OrderQuantity;
+                    tempData.packingInstruction = result.data[i].PackingInstruction;
 
                     tempData.details = [];
 
-                    for (var j = 0; j < result.data[i].fabricGradeTests.length; j++) {
+                    for (var j = 0; j < result.data[i].FabricGradeTests.length; j++) {
                         this.detailNo += 1;
                         tempDetailData = {};
 
                         tempDetailData.no = this.detailNo;
-                        tempDetailData.pcsNo = result.data[i].fabricGradeTests[j].pcsNo;
-                        tempDetailData.initLength = result.data[i].fabricGradeTests[j].initLength;
-                        tempDetailData.width = result.data[i].fabricGradeTests[j].width;
-                        tempDetailData.finalScore = result.data[i].fabricGradeTests[j].finalScore.toFixed(2);
-                        tempDetailData.grade = result.data[i].fabricGradeTests[j].grade;
-                        tempDetailData.avalLength = result.data[i].fabricGradeTests[j].avalLength;
-                        tempDetailData.sampleLength = result.data[i].fabricGradeTests[j].sampleLength;
+                        tempDetailData.pcsNo = result.data[i].FabricGradeTests[j].PcsNo;
+                        tempDetailData.initLength = result.data[i].FabricGradeTests[j].InitLength;
+                        tempDetailData.width = result.data[i].FabricGradeTests[j].Width;
+                        tempDetailData.finalScore = result.data[i].FabricGradeTests[j].FinalScore.toFixed(2);
+                        tempDetailData.grade = result.data[i].FabricGradeTests[j].Grade;
+                        tempDetailData.avalLength = result.data[i].FabricGradeTests[j].AvalLength;
+                        tempDetailData.sampleLength = result.data[i].FabricGradeTests[j].SampleLength;
                         tempData.details.push(tempDetailData);
                     }
 
@@ -140,13 +142,14 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
-            this.info.code = this.filter.code ? this.filter.code.code : null;
-            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.code : null;
-            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.name : null;
-            this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : null;
+            this.info.code = this.filter.code ? this.filter.code.Code : "";
+            this.info.kanbanCode = this.filter.kanbanCode ? this.filter.kanbanCode.Id : "";
+            this.info.productionOrderType = this.filter.productionOrderType ? this.filter.productionOrderType.Name : "";
+            
+            this.info.shiftIm = this.filter.shiftIm ? this.filter.shiftIm : "";
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
-            this.info.select = this.selectedFields;
+            // this.info.select = this.selectedFields;
         } else {
             this.info = {};
         }
