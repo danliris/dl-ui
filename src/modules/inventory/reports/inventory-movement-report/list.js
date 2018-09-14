@@ -3,6 +3,8 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require("moment");
 
+var numeral = require('numeral');
+
 var StorageLoader = require('../../../../loader/storage-loader');
 var ProductLoader = require('../../../../loader/product-loader');
 
@@ -37,9 +39,21 @@ export class List {
         },
         { field: "productName", title: "Nama Barang" },
         { field: "uom", title: "UOM" },
-        { field: "before", title: "Before" },
-        { field: "quantity", title: "Kuantiti" },
-        { field: "after", title: "After" },
+        {
+            field: "before", title: "Before", formatter: function (value, data, index) {
+                return numeral(value).format('0,0.0000');
+            }
+        },
+        {
+            field: "quantity", title: "Kuantiti", formatter: function (value, data, index) {
+                return numeral(value).format('0,0.0000');
+            }
+        },
+        {
+            field: "after", title: "After", formatter: function (value, data, index) {
+                return numeral(value).format('0,0.0000');
+            }
+        },
         { field: "type", title: "Status" }
     ]
 
