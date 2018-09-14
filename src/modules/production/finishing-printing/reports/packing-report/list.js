@@ -4,6 +4,7 @@ import {Router} from 'aurelia-router';
 import moment from 'moment';
 
 var PackingLoader = require('../../../../../loader/packing-loader');
+var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 
 @inject(Router, Service)
 export class List {
@@ -30,7 +31,7 @@ export class List {
     searching() {
         
         if (this.filter) {
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.ProductionOrderNo : null;
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.Id : null;
             this.info.code = this.filter.code ? this.filter.code.Code : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -84,7 +85,7 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
-            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.ProductionOrderNo : null;
+            this.info.productionOrderNo = this.filter.productionOrderNo ? this.filter.productionOrderNo.Id : null;
             this.info.code = this.filter.code ? this.filter.code.Code : null;
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
@@ -97,6 +98,10 @@ export class List {
 
     get packingLoader() {
         return PackingLoader;
+    }
+
+    get productionOrderLoader() {
+        return ProductionOrderLoader;
     }
 
     reset() {
