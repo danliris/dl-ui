@@ -178,7 +178,19 @@ export class List {
     // }
 
     detail(data,dateF,dateT) {
-        this.router.navigateToRoute('detail', { id: data.machineId, eventId: data.machineEventId, productionOrderNumber: data.productionOrderOrderNo, date: data.dateStart, time: data.timeInMomentStart,mId: data.mId, Mach: data.Mach, meId:data.meId, MachE: data.MachE, pONOn: data.pONOn, ProdNo: data.ProdNo, dateF: this.dateFrom, dateT: this.dateTo});
+        var info = {};
+        var abc;
+        info.machineId = data.machineId;
+        info.machineEventId = data.machineEventId;
+        info.productionOrderNumber = data.productionOrderOrderNo;
+        info.date = data.dateStart;
+        info.time = data.timeInMomentStart;
+        this.service.getMachine(info).then(adata => {
+            abc = adata;
+            if(abc!=null){
+                this.router.navigateToRoute('detail', { id: data.machineId, eventId: data.machineEventId, productionOrderNumber: data.productionOrderOrderNo, date: data.dateStart, time: data.timeInMomentStart,mId: data.mId, Mach: data.Mach, meId:data.meId, MachE: data.MachE, pONOn: data.pONOn, ProdNo: data.ProdNo, dateF: this.dateFrom, dateT: this.dateTo});
+            }
+        });
     }
 
     get machineLoader() {
