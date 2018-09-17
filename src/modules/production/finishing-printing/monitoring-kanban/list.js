@@ -79,7 +79,7 @@ export class List {
                         "pcs" : a.Cart.Pcs,
                         "uom" : a.Cart.Uom.Unit,
 						  "isReprocess" :hasil,
-                        "isComplete" : a.IsComplete ? "Complete" : a.CurrentStepIndex === a.Instruction.Steps.length ? "Pending" : "Incomplete" ,
+                        "isComplete" : a.IsComplete ? "Complete" : a.CurrentStepIndex === a.Instruction.Steps.length ? "Pending" : a.IsInactive ? "Inactive" : "Incomplete",
                         "currentStepIndex" : `${a.CurrentStepIndex} / ${a.Instruction.Steps.length}`,
                         "step" : a.CurrentStepIndex === 0 ? " - " : a.Instruction.Steps[a.CurrentStepIndex - 1].Process
                     }
