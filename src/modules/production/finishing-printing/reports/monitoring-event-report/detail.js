@@ -38,7 +38,6 @@ export class List {
         this.pONOn = params.pONOn;
         this.ProdNo = params.ProdNo;
         await this.service.getMachine(this.info).then(data => {
-            console.log(data);
             this.data = data;
         })
     }
