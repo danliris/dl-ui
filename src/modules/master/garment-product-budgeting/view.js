@@ -12,6 +12,12 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if(this.data.ProductType=="FABRIC"){
+            this.nameCheck=true;
+        }
+        else{
+            this.nameCheck=false;
+        }
     }
 
     list() {
