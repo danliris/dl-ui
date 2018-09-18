@@ -6,6 +6,15 @@
           with.bind="context"
           options.bind="formOptions">  
 
+          <au-dropdown
+            label="Jenis Produk"
+            value.bind="data.ProductType"
+            error.bind="error.productType"
+            read-only.bind="readOnly"
+            items.bind="ProductTypes"
+            change.delegate="ProductTypeChanged($event)"
+          ></au-dropdown>  
+
           <au-textbox
             label="Kode"
             value.bind="data.Code"
@@ -17,7 +26,7 @@
             label="Nama"
             value.bind="data.Name"
             error.bind="error.name"
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || nameCheck)"
           ></au-textbox>
 
           <au-autocomplete
@@ -31,21 +40,35 @@
           ></au-autocomplete>
 
           <au-textbox
+            label="Komposisi"
+            value.bind="data.Composition"
+            error.bind="error.composition"
+            read-only.bind="readOnly"
+            if.bind="nameCheck"
+          ></au-textbox>
+
+          <au-textbox
             label="Const"
             value.bind="data.Const"
+            error.bind="error.const"
             read-only.bind="readOnly"
+            if.bind="nameCheck"
           ></au-textbox>
 
           <au-textbox
             label="Yarn"
             value.bind="data.Yarn"
+            error.bind="error.yarn"
             read-only.bind="readOnly"
+            if.bind="nameCheck"
           ></au-textbox>
 
           <au-textbox
             label="Width"
             value.bind="data.Width"
+            error.bind="error.width"
             read-only.bind="readOnly"
+            if.bind="nameCheck"
           ></au-textbox>
 
           <!--<au-autocomplete

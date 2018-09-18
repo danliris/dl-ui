@@ -7,6 +7,8 @@ export class DataForm {
     @bindable yarn;
     @bindable width;
 
+    ProductTypes = ['FABRIC', 'NON FABRIC']
+
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -39,6 +41,11 @@ export class DataForm {
         var selectedUom = e.detail;
         if (selectedUom)
             this.data.UOM = selectedUom.Id;
+    }
+    ProductTypeChanged(e) {
+        var selectedProductType = e.srcElement.value;
+        if(selectedProductType="FABRIC")
+            data.Name="FABRIC";
     }
 
 }
