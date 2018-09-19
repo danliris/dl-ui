@@ -10,6 +10,10 @@ export class DataForm {
     @bindable const;
     @bindable yarn;
     @bindable width;
+    @bindable nameCheck;
+
+    ProductTypes = ['FABRIC', 'NON FABRIC']
+
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -31,8 +35,16 @@ export class DataForm {
         if (this.data.Id) {
             this.Currency = this.data.Currency;
             this.UOM = this.data.UOM;
+            if(this.data.ProductType=="FABRIC"){
+                this.data.Name="FABRIC";
+                this.nameCheck=true;
+            } else {
+                this.nameCheck=false;
+            }
+        } else {
+            this.data.Name="FABRIC";
+            this.nameCheck=true;
         }
-
         this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
@@ -58,5 +70,17 @@ export class DataForm {
 
     get uomLoader() {
       return UomLoader;
+    }
+
+    ProductTypeChanged(e) {
+        var selectedProductType = e.srcElement.value;
+        if(selectedProductType=="FABRIC"){
+            this.data.Name="FABRIC";
+            this.nameCheck=true;
+        }
+        else{
+            this.data.Name='';
+            this.nameCheck=false;
+        }
     }
 }

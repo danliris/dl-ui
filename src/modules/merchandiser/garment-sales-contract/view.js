@@ -2,6 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
+
 @inject(Router, Service)
 export class View {
     constructor(router, service) {
@@ -12,31 +13,21 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if(this.data.ProductType=="FABRIC"){
-            this.nameCheck=true;
-        }
-        else{
-            this.nameCheck=false;
-        }
+        this.hasItems=true;
     }
 
     list() {
         this.router.navigateToRoute('list');
     }
 
-    cancelCallback(event)
-    {
-      this.list();
-    }
-
-    editCallback(event) {
+    edit(data) {
         this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
-    deleteCallback(event) {
+    delete() {
         this.service.delete(this.data)
             .then(result => {
-                this.cancelCallback(event);
+                this.list();
             });
     }
 }
