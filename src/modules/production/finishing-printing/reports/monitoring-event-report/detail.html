@@ -5,7 +5,7 @@
         <form class="form-horizontal" if.bind="data">
             <fieldset>
                 <textbox label="Kode" value.bind="data.Code" error.bind="error.Code" read-only="true"></textbox>
-                <datepicker label="Tanggal" value.bind="data.DateTimeInput | dateFormat:'D MMM YYYY'" error.bind="error.DateTimeInput" read-only="true"> </datepicker>
+                <datepicker label="Tanggal" value.bind="data.DateTimeInput" error.bind="error.DateTimeInput" read-only="true"> </datepicker>
                 <textbox label="Jam" value.bind="data.DateTimeInput | dateFormat:'HH:mm'" error.bind="error.DateTimeInput" read-only="true"></textbox>
                 <textbox label="Mesin " value.bind="data.Machine.Name" error.bind="error.Machine.Name" read-only="true"></textbox>
                 <textbox label="No Surat Produksi Order " value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder.OrderNo"
