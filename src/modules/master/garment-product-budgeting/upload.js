@@ -36,7 +36,7 @@ export class Create {
         } else {
             formData.append("fileUpload", fileList[0]);
  
-            var endpoint = 'master/upload-garment-products';
+            var endpoint = 'master/upload-garmentProducts';
             var request = {
                 method: 'POST',
                 headers: {
@@ -54,7 +54,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Barang, Nama Barang, Satuan, Mata Uang, Harga, Tags, Keterangan, Const, Yarn, Width");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Jenis Produk, Kode Barang, Nama Barang, Satuan, Komposisi, Const, Yarn, Width, Tags, Keterangan");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");

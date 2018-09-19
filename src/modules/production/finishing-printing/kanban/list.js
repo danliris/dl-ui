@@ -93,16 +93,16 @@ export class List {
                         for (var kanban of result.data) {
                             kanban.OldKanban = oldKanbanResults.find((oldKanban) => oldKanban.Id == kanban.OldKanbanId);
                             kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail.ColorType ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorType.Name : kanban.SelectedProductionOrderDetail.ColorRequest;
-                            kanban.currentStepIndex = kanban.currentStepIndex || 0; // old kanban data does not have currentStepIndex
-                            kanban.stepIndexPerTotal = `${kanban.currentStepIndex}/${kanban.Instruction.Steps.length}`;
+                            kanban.CurrentStepIndex = kanban.CurrentStepIndex || 0; // old kanban data does not have currentStepIndex
+                            kanban.stepIndexPerTotal = `${kanban.CurrentStepIndex}/${kanban.Instruction.Steps.length}`;
                             kanban.isPending = function () {
-                                return !this.IsComplete && this.currentStepIndex >= this.Instruction.Steps.length; // used for custom sort
+                                return !this.IsComplete && this.CurrentStepIndex >= this.Instruction.Steps.length; // used for custom sort
                             };
                             kanban.isDone = function () {
                                 return this.IsComplete;
                             };
                             kanban.isIncomplete = function () {
-                                return !this.IsComplete && this.currentStepIndex < this.Instruction.Steps.length;
+                                return !this.IsComplete && this.CurrentStepIndex < this.Instruction.Steps.length;
                             }
                         }
 

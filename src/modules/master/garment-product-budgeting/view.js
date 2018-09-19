@@ -12,6 +12,12 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if(this.data.ProductType=="FABRIC"){
+            this.nameCheck=true;
+        }
+        else{
+            this.nameCheck=false;
+        }
     }
 
     list() {
@@ -24,7 +30,7 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     deleteCallback(event) {
