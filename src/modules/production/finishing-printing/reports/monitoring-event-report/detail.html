@@ -1,6 +1,5 @@
 <template>
     <h1 class="page-header">Rincian Spesifikasi Mesin</h1>
-    <block>
         <p style="color:red" if.bind="!data">Rincian spesifikasi mesin tidak ditemukan</p>
         <form class="form-horizontal" if.bind="data">
             <fieldset>
@@ -28,9 +27,8 @@
                     </tr>
                 </tbody>
             </table>
-        <hr/ if.bind="data">
+        <hr/>
         <div class="btn-group pull-right">
             <button click.delegate="list(mId,Mach,meId,MachE,pONOn,ProdNo,dateFrom,dateTo)" class="btn btn-default btn-sm">Kembali</button>
         </div>
-    </block>
 </template>
