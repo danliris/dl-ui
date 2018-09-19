@@ -7,10 +7,12 @@ export class List {
 
     info = {
         machineId: "",
+        // machineEventId: '',
         productionOrderNumber: '',
-        date: "",
-        time: 0
+        date: ""//,
+        // time: 0
     };
+    
     Options = {
         "readOnly": true,
 
@@ -23,12 +25,13 @@ export class List {
     }
 
     async activate(params) {
-        
+        console.log(params);
+        console.log(this.info);
         this.info.machineId = params.id;
-        this.info.machineEventId = params.eventId;
+        // this.info.machineEventId = params.eventId;
         this.info.productionOrderNumber = params.productionOrderNumber;
         this.info.date = params.date;
-        this.info.time = params.time;
+        // this.info.time = params.time;
         this.dateFrom = params.dateF;
         this.dateTo = params.dateT;
         this.mId = params.mId;

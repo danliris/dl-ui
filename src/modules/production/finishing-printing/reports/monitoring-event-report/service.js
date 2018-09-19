@@ -51,15 +51,7 @@ export class Service extends RestService {
     }
 
     getMachine(info) {
-//         var time = info.time.split(":");
-// console.log(info.date);
-//         var date = info.date.toString();
-//         var dateTime = new Date(date);
-//         var a=parseInt(time[0]);
-//         dateTime.setHours(a);
-//         var b=parseInt(time[1])
-//         dateTime.setMinutes(b);
-//         dateTime=moment(dateTime.toString()).format("DD/MM/YYYY HH:mm:ss");
+        console.log(info);
         var query = '';
         query = `id=${info.machineId}&productionOrderNumber=${info.productionOrderNumber}&dateTime=${info.date}`;
 
