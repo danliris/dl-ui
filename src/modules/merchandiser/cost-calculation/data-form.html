@@ -4,11 +4,11 @@
             <div class="col-md-3">
                 <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"
                     read-only.bind="isEdit"></au-textbox>
-                <au-dropdown label="Konveksi" value.bind="selectedConvection" error.bind="error.Convection" read-only.bind="readOnly" placeholder="pilih konveksi"
-                    items.bind="convectionsList" options.bind="length4"></au-dropdown>
-                <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="data.Commodity" error.bind="error.Commodity" loader.one-time="masterPlanComodityLoader"
-                    options.bind="length4" key="name" text="name"></au-autocomplete>
-                <au-multiline placeholder="Deskripsi Komoditi" label="Deskripsi Komoditi" value.bind="data.CommodityDescription" error.bind="error.CommodityDescription"
+                <au-autocomplete     label="Konveksi"      value.bind="selectedUnit"       loader.bind="unitLoader"      text.bind = "unitView"     placeholder="Unit"   options.bind="length4"></au-autocomplete>  
+              
+                    <au-autocomplete     label="Komoditi"   placeholder="Cari Komoditi"   value.bind="selectedComodity"       loader.bind="comodityLoader"      text.bind = " comodityView"     placeholder="Comodity"   options.bind="length4"></au-autocomplete> 
+
+                    <au-multiline placeholder="Deskripsi Komoditi" label="Deskripsi Komoditi" value.bind="data.CommodityDescription" error.bind="error.CommodityDescription"
                     options.bind="length4"></au-multiline>
                 <au-numeric label="Fabric (%)" value.bind="fabricAllowance" error.bind="error.FabricAllowance" options.bind="length4"></au-numeric>
                 <au-numeric label="Accessories (%)" value.bind="accessoriesAllowance" error.bind="error.AccessoriesAllowance" options.bind="length4"></au-numeric>
@@ -21,8 +21,8 @@
                         <au-numeric label="Quantity" format="0" value.bind="quantity" error.bind="error.Quantity" options.bind="length6"></au-numeric>
                     </div>
                     <div class="col-sm-4">
-                        <au-autocomplete label="Satuan" placeholder="Cari Satuan" value.bind="data.UOM" error.bind="error.UOM" loader.one-time="uomLoader"
-                        options.bind="length4" key="unit" text="unit"></au-autocomplete>
+                        <au-autocomplete label="Satuan" placeholder="Cari Satuan" value.bind="data.UOM"     loader.bind="uomLoader"      text.bind = "uomView" 
+                        options.bind="length4"></au-autocomplete>
                     </div>
                 </div>
                 <au-textbox placeholder="Size Range" label="Size Range" value.bind="data.SizeRange" error.bind="error.SizeRange" options.bind="length4"></au-textbox>
@@ -39,9 +39,10 @@
                 <au-numeric label="SMV Total" value.bind="SMV_Total" options.bind="length4" read-only="disabled"></au-numeric>
             </div>
             <div class="col-md-3">
-                <au-autocomplete label="Buyer" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" loader.one-time="buyersLoader"
-                    options.bind="length4" key="code" text="name"></au-autocomplete>
-                <div class="row">
+                <au-autocomplete     label="Buyer"      value.bind="selectedBuyer"       loader.bind="buyerLoader"      text.bind = "buyerView"     placeholder="Buyer"   options.bind="length4"></au-autocomplete> 
+                 <!-- <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="data.Commodity" error.bind="error.Commodity" loader.one-time="masterPlanComodityLoader"
+                    options.bind="length4" key="name" text="name"></au-autocomplete>
+                      <div class="row"> -->
                     <div class="col-md-6">
                         <au-numeric label="Eff (%)" value.bind="data.Efficiency.Value" options.bind="length4" read-only="disabled"></au-numeric>
                     </div>

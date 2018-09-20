@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/garmentProducts';
+const resource = 'master/garment-comodities';
 
 module.exports = function (keyword, filter) {
 
@@ -10,6 +10,6 @@ module.exports = function (keyword, filter) {
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
-            return results.data;
+            return results.data
         });
 }

@@ -13,7 +13,7 @@ const serviceUri = 'cost-calculation-garments';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "merchandiser");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) {
@@ -23,6 +23,7 @@ export class Service extends RestService {
 
     create(data) {
         var endpoint = `${serviceUri}`;
+        console.log(data);
         return super.post(endpoint, data);
     }
 
@@ -71,7 +72,7 @@ export class Service extends RestService {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garment-products';
+        const resource = 'master/garmentProducts';
 
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
@@ -80,10 +81,11 @@ export class Service extends RestService {
     }
 
     getGarmentProductsDistinctDescription(keyword, filter) {
+        console.log(keyword,filter);
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garment-products/read/distinct-product-description';
+        const resource = 'master/garmentProducts/distinct-product-description';
 
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {

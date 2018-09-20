@@ -2,18 +2,17 @@
     <tr>
         <!-- kategori -->
         <td>
-            <au-autocomplete placeholder="Cari Kategori" value.bind="selectedCategory" key="name" text="name" error.bind="error.Category"
-                loader.one-time="garmentCategoryLoader" options.bind="controlOptions">
-            </au-autocomplete>
+            <au-autocomplete      value.bind="selectedCategory"       loader.bind="garmentCategoryLoader"      text.bind = "categoryView"     placeholder="Category"   options.bind="length4"></au-autocomplete> 
+              
         </td>
         <!-- kode barang -->
         <td>
-            <au-textbox value.bind="productCode" options.bind="controlOptions" read-only.bind="true">
+            <au-textbox value.bind="data.Product.Code" options.bind="controlOptions" read-only.bind="true">
             </au-textbox>
         </td>
         <!-- komposisi -->
         <td>
-            <au-autocomplete value.bind="selectedComposition" placeholder="Cari Komposisi" text="description" options.bind="controlOptions" loader.bind="garmentProductDistinctDescriptionLoader" show.bind="categoryIsExist">
+            <au-autocomplete value.bind="selectedComposition" placeholder="Cari Komposisi" text.bind="compositionView" options.bind="controlOptions" loader.bind="garmentProductDistinctDescriptionLoader" show.bind="categoryIsExist">
             </au-autocomplete>
         </td>
         <!-- konstruksi -->
@@ -43,7 +42,7 @@
         <!-- satuan -->
         <td>
             <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
-                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist" read-only.bind="isProcess">
+                options.bind="controlOptions" text.bind=" uomView" show.bind="productCodeIsExist" read-only.bind="isProcess">
             </au-autocomplete>
         </td>
         <!-- price -->
@@ -53,7 +52,7 @@
         <!-- satuan harga -->
         <td>
             <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="uomLoader"
-                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist" read-only.bind="isProcess">
+                options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess">
             </au-autocomplete>
         </td>
         <!-- konversi -->
