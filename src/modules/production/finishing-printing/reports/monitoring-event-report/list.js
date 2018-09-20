@@ -190,8 +190,7 @@ export class List {
         dateTime.setHours(a);
         var b=parseInt(time[1])
         dateTime.setMinutes(b);
-        dateTime=moment(dateTime).format("DD/MM/YYYY HH:mm:ss");
-console.log(dateTime);
+        dateTime=moment(dateTime).format("YYYY/MM/DD HH:mm:ss");
         this.router.navigateToRoute('detail', { id: data.machineId, eventId: data.machineEventId, productionOrderNumber: data.productionOrderOrderNo, date: dateTime, mId: data.mId, Mach: data.Mach, meId:data.meId, MachE: data.MachE, pONOn: data.pONOn, ProdNo: data.ProdNo, dateF: this.dateFrom, dateT: this.dateTo});
     }
 

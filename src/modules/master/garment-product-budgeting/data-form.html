@@ -10,7 +10,7 @@
             label="Jenis Produk"
             value.bind="data.ProductType"
             error.bind="error.productType"
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             items.bind="ProductTypes"
             change.delegate="ProductTypeChanged($event)"
           ></au-dropdown>  
