@@ -52,6 +52,7 @@ export class View {
             this.hasClosePo = false;
             this.hasCancelPo = false;
         }
+        
     }
 
     cancel(event) {
