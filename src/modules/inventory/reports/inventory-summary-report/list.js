@@ -16,9 +16,9 @@ export class List {
         { field: "storageName", title: "Storage" },
         { field: "productName", title: "Nama Barang" },
         {
-            field: "quantity", title: "Kuantiti", formatter: function (value, data, index) {
-                return numeral(value).format('0,000.00');
-            }
+            field: "quantity", title: "Kuantiti", formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        }
         },
         { field: "uom", title: "UOM" }
         // ,{
