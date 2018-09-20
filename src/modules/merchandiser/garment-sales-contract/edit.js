@@ -9,7 +9,7 @@ export class Edit {
         this.router = router;
         this.service = service;
     }
-
+isEdit=true;
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
