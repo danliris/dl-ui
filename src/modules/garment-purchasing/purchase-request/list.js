@@ -5,18 +5,18 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  context = ["Rincian"]
+  // context = ["Rincian"]
 
   columns = [
-    { field: "PRNo", title: "Nomor PR" },
+    { field: "PRNo", title: "No PR" },
     { field: "RONo", title: "Nomor RO" },
+    { field: "Article", title: "Artikel" },
     {
-      field: "ShipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
+      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
     { field: "Buyer.Name", title: "Buyer" },
-    { field: "Unit.Name", title: "Unit" },
   ];
 
   loader = (info) => {
@@ -49,14 +49,14 @@ export class List {
     this.router = router;
   }
 
-  contextClickCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
-    switch (arg.name) {
-      case "Rincian":
-        this.router.navigateToRoute('view', { id: data.Id });
-        break;
-    }
-  }
+  // contextClickCallback(event) {
+  //   var arg = event.detail;
+  //   var data = arg.data;
+  //   switch (arg.name) {
+  //     case "Rincian":
+  //       this.router.navigateToRoute('view', { id: data.Id });
+  //       break;
+  //   }
+  // }
 
 }
