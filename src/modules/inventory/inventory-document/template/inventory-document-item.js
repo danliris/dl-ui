@@ -32,6 +32,7 @@ export class InventoryDocumentItem {
         this.data.selectedProduct = this.selectedProduct;
       } else {
         this.selectedProduct = this.data.selectedProduct;
+
       }
     }
     if (!this.data.uomId) {
@@ -44,6 +45,8 @@ export class InventoryDocumentItem {
         this.selectedUom = this.data.selectedUom;
       }
     }
+    if(this.data.quantity)
+      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 4 });
   }
 
   @bindable selectedProduct;
