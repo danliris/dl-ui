@@ -25,8 +25,6 @@ export class List {
     }
 
     async activate(params) {
-        console.log(params);
-        console.log(this.info);
         this.info.machineId = params.id;
         // this.info.machineEventId = params.eventId;
         this.info.productionOrderNumber = params.productionOrderNumber;
@@ -43,19 +41,10 @@ export class List {
         await this.service.getMachine(this.info).then(data => {
             this.data = data;
             // this.data.DateTimeInput = moment(this.data.DateTimeInput).format("DD/MM/YYYY HH:mm:ss");
-            console.log(this.data);
         })
     }
 
     list(mId,Mach,meId,MachE,pONOn,ProdNo,dateF,dateT) {
-        console.log(this.mId);
-        console.log(this.Mach);
-        console.log(this.meId);
-        console.log(this.MachE);
-        console.log(this.pONOn);
-        console.log(this.ProdNo);
-        console.log(this.dateFrom);
-        console.log(this.dateTo);
         this.router.navigateToRoute('list' , { mId: this.mId, Mach: this.Mach, meId: this.meId, MachE: this.MachE, pONOn: this.pONOn, ProdNo: this.ProdNo, dateF: this.dateFrom, dateT: this.dateTo });
     }
 
