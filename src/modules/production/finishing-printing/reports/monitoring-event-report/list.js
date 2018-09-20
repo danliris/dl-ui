@@ -169,6 +169,11 @@ export class List {
     }
 
     ExportToExcel() {
+        this.info.machineId = this.machineIdFilter?this.machineIdFilter:undefined;
+        this.info.machineEventId = this.machineEv?this.machineEv:undefined;
+        this.info.productionOrderNumber = this.prodOrder?this.prodOrder:undefined;
+        this.info.dateFrom = this.dateFrom;
+        this.info.dateTo = this.dateTo;
         this.service.generateExcel(this.info);
     }
 
@@ -178,7 +183,15 @@ export class List {
     // }
 
     detail(data,dateF,dateT) {
-        this.router.navigateToRoute('detail', { id: data.machineId, eventId: data.machineEventId, productionOrderNumber: data.productionOrderOrderNo, date: data.dateStart, time: data.timeInMomentStart,mId: data.mId, Mach: data.Mach, meId:data.meId, MachE: data.MachE, pONOn: data.pONOn, ProdNo: data.ProdNo, dateF: this.dateFrom, dateT: this.dateTo});
+        var time = data.timeInMomentStart.split(":");
+        var date = data.dateStart.toString();
+        var dateTime = new Date(date);
+        var a=parseInt(time[0]);
+        dateTime.setHours(a);
+        var b=parseInt(time[1])
+        dateTime.setMinutes(b);
+        dateTime=moment(dateTime).format("YYYY/MM/DD HH:mm:ss");
+        this.router.navigateToRoute('detail', { id: data.machineId, eventId: data.machineEventId, productionOrderNumber: data.productionOrderOrderNo, date: dateTime, mId: data.mId, Mach: data.Mach, meId:data.meId, MachE: data.MachE, pONOn: data.pONOn, ProdNo: data.ProdNo, dateF: this.dateFrom, dateT: this.dateTo});
     }
 
     get machineLoader() {

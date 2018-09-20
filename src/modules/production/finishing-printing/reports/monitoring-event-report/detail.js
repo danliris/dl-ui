@@ -1,16 +1,18 @@
 import {inject} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
-
+var moment = require('moment');
 @inject(Router, Service)
 export class List {
 
     info = {
         machineId: "",
+        // machineEventId: '',
         productionOrderNumber: '',
-        date: "",
-        time: 0
+        date: ""//,
+        // time: 0
     };
+    
     Options = {
         "readOnly": true,
 
@@ -23,12 +25,11 @@ export class List {
     }
 
     async activate(params) {
-        
         this.info.machineId = params.id;
-        this.info.machineEventId = params.eventId;
+        // this.info.machineEventId = params.eventId;
         this.info.productionOrderNumber = params.productionOrderNumber;
         this.info.date = params.date;
-        this.info.time = params.time;
+        // this.info.time = params.time;
         this.dateFrom = params.dateF;
         this.dateTo = params.dateT;
         this.mId = params.mId;
@@ -39,6 +40,7 @@ export class List {
         this.ProdNo = params.ProdNo;
         await this.service.getMachine(this.info).then(data => {
             this.data = data;
+            // this.data.DateTimeInput = moment(this.data.DateTimeInput).format("DD/MM/YYYY HH:mm:ss");
         })
     }
 

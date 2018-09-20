@@ -1,11 +1,10 @@
 <template>
     <h1 class="page-header">Rincian Spesifikasi Mesin</h1>
-    <block>
         <p style="color:red" if.bind="!data">Rincian spesifikasi mesin tidak ditemukan</p>
         <form class="form-horizontal" if.bind="data">
             <fieldset>
                 <textbox label="Kode" value.bind="data.Code" error.bind="error.Code" read-only="true"></textbox>
-                <datepicker label="Tanggal" value.bind="data.DateTimeInput | dateFormat:'D MMM YYYY'" error.bind="error.DateTimeInput" read-only="true"> </datepicker>
+                <datepicker label="Tanggal" value.bind="data.DateTimeInput" error.bind="error.DateTimeInput" read-only="true"> </datepicker>
                 <textbox label="Jam" value.bind="data.DateTimeInput | dateFormat:'HH:mm'" error.bind="error.DateTimeInput" read-only="true"></textbox>
                 <textbox label="Mesin " value.bind="data.Machine.Name" error.bind="error.Machine.Name" read-only="true"></textbox>
                 <textbox label="No Surat Produksi Order " value.bind="data.ProductionOrder.OrderNo" error.bind="error.ProductionOrder.OrderNo"
@@ -28,9 +27,8 @@
                     </tr>
                 </tbody>
             </table>
-        <hr/ if.bind="data">
+        <hr/>
         <div class="btn-group pull-right">
-            <a click.delegate="list(mId,Mach,meId,MachE,pONOn,ProdNo,dateFrom,dateTo)" class="btn btn-default btn-sm">Kembali</a>
+            <button click.delegate="list(mId,Mach,meId,MachE,pONOn,ProdNo,dateFrom,dateTo)" class="btn btn-default btn-sm">Kembali</button>
         </div>
-    </block>
 </template>

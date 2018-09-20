@@ -35,9 +35,16 @@ export class DataForm {
         if (this.data.Id) {
             this.Currency = this.data.Currency;
             this.UOM = this.data.UOM;
+            if(this.data.ProductType=="FABRIC"){
+                this.data.Name="FABRIC";
+                this.nameCheck=true;
+            } else {
+                this.nameCheck=false;
+            }
+        } else {
+            this.data.Name="FABRIC";
+            this.nameCheck=true;
         }
-        this.data.Name="FABRIC";
-        this.nameCheck=true;
         this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
@@ -67,7 +74,6 @@ export class DataForm {
 
     ProductTypeChanged(e) {
         var selectedProductType = e.srcElement.value;
-        console.log(selectedProductType);
         if(selectedProductType=="FABRIC"){
             this.data.Name="FABRIC";
             this.nameCheck=true;
