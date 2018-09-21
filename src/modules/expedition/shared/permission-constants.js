@@ -11,7 +11,7 @@ export const CASHIER = {
     label: 'Kasir',
     position: 7, //CASHIER_DIVISION
     positionAutocomplete: 4, //SEND_TO_CASHIER_DIVISION
-    code: 'P3',
+    code: 'B4',
 };
 
 export const ACCOUNTING = {
