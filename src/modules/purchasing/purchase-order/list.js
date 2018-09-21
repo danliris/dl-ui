@@ -7,7 +7,6 @@ import moment from 'moment';
 export class List {
 
     rowFormatter(data, index) {
-        console.log(data);
         if (data.isPosted)
             return { classes: "success" }
         else

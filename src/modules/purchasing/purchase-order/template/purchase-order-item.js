@@ -6,7 +6,6 @@ export class PurchaseOrderItem {
     this.error = context.error;
     this.options = context.options;
     // this.data.ProductRemark = this.data.remark;
-    console.log(this.data);
   }
 
   get productLoader() {
