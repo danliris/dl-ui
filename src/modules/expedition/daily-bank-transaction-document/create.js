@@ -17,10 +17,12 @@ export class Create {
     }
     bind() {
         this.data = {};
+        this.data.Bank = this.data.Bank || null;
         this.error = {};
     }
 
     cancel(event) {
+        this.data = {};
         this.router.navigateToRoute('list');
     }
 
