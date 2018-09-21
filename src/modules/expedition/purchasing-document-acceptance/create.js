@@ -74,7 +74,8 @@ export class Create {
     }
 
     initPermission() {
-        this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+        // this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+        this.roles = [VERIFICATION, CASHIER];
         this.accessCount = 0;
 
         for (let i = this.roles.length - 1; i >= 0; i--) {
