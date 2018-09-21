@@ -10,7 +10,7 @@
 			<au-numeric
 				value.bind="data.deliveredQuantity"
 				read-only.bind="true"
-				format = "0,0.0000">
+				format = "0,0.00">
 			</au-numeric>
 		</td>
 		<td>
@@ -23,14 +23,14 @@
 			<au-numeric
 				value.bind="data.pricePerDealUnit"
 				read-only.bind="true"
-				format="0">
+				format = "0,0.0000">
 			</au-numeric>
 		</td>
 		<td>
 			<au-numeric
 				value.bind="totalPrice"
 				read-only.bind="true"
-				format="0">
+				format = "0,0.0000">
 			</au-numeric>
 		</td>
 	</tr>
