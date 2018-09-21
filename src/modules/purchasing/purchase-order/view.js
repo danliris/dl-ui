@@ -23,6 +23,9 @@ export class View {
             this.hasEdit = true;
             this.hasDelete = true;
         }
+        if (this.data.countPRNo>1){
+            this.hasDelete = false;
+        }
         this.data.purchaseRequest=this.data;
 
         this.data.purchaseRequest.toString = function () {
