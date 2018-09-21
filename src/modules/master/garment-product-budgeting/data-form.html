@@ -28,7 +28,7 @@
             error.bind="error.name"
             read-only.bind="(readOnly || nameCheck)"
           ></au-textbox>
-
+                   
           <au-autocomplete
             label="Satuan"
             value.bind="UOM"
@@ -38,6 +38,13 @@
             key="Unit"
             text="Unit"
           ></au-autocomplete>
+
+          <au-textbox
+            label=" "
+            show.bind="error.combinationerror"
+            error.bind="error.combinationerror"
+            read-only="true">
+          </au-textbox>
 
           <au-textbox
             label="Komposisi"

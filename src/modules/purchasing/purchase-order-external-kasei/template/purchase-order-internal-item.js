@@ -47,13 +47,19 @@ export class PurchaseOrderItem {
               this.data.conversion = 1;
         }
     }
+    if(this.data.priceBeforeTax){
+        this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+      }
+      if(this.data.dealQuantity){
+        this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      }
   }
 
   updatePrice() {
     if (this.data.includePpn) {
-      this.data.pricePerDealUnit = (100 * this.data.priceBeforeTax) / 110;
+      this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / 110;
     } else {
-      this.data.pricePerDealUnit = this.data.priceBeforeTax;
+      this.data.pricePerDealUnit = parseFloat(this.data.priceBeforeTax);
     }
   }
 
