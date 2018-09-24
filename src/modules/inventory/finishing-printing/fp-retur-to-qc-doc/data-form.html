@@ -66,9 +66,9 @@
                 label="Material" 
                 loader.bind="materialLoader"
                 text.bind = "materialView"
-                query.bind="tagsFilter"
+                
                 placeholder="cari material" 
-                key="code" 
+                key="Code" 
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-autocomplete>
@@ -80,7 +80,7 @@
                 loader.bind="constructionLoader"
                 text.bind = "constructionView"
                 placeholder="cari konstruksi" 
-                key="code" 
+                key="Code" 
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-autocomplete>
@@ -100,7 +100,7 @@
             errors.bind="error.items" 
             columns.bind="itemsInfo.columns"
             add.bind="itemsInfo.onAdd"
-            if.bind="filter.material && filter.materialConstructionFinishName && data.materialWidthFinish"
+            if.bind="filter.material && filter.materialConstructionFinishName && filter.materialWidthFinish"
             remove.bind="removeItems"
             view-model.ref="ItemsCollection"
             options.one-way="filter || getFilter"

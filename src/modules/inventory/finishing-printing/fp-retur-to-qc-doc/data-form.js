@@ -49,9 +49,9 @@ export class DataForm {
         }
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     filter={};
@@ -70,6 +70,7 @@ export class DataForm {
     tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
 
     selectedMaterialChanged(newValue) {
+        
         console.log(this.readOnly)
         if(!this.readOnly){
         this.data.items = [];
@@ -81,10 +82,10 @@ export class DataForm {
         }
         }
         var _selectedMaterial = newValue;
-        if (_selectedMaterial && _selectedMaterial._id) {
+        if (_selectedMaterial && _selectedMaterial.Id) {
             this.data.material = _selectedMaterial;
-            this.data.materialName=_selectedMaterial.name;
-            this.data.materialId = _selectedMaterial._id ? _selectedMaterial._id : "";
+            this.data.materialName=_selectedMaterial.Name;
+            this.data.materialId = _selectedMaterial.Id ? _selectedMaterial.Id : "";
         }
         if(!this.readOnly){
             if(this.data.material && this.data.construction){
@@ -99,11 +100,12 @@ export class DataForm {
 
 
     selectedConstructionChanged(newValue) {
+        
         var _selectedConstruction = newValue;
-        if (_selectedConstruction._id) {
+        if (_selectedConstruction.Id) {
             this.data.construction = _selectedConstruction;
-            this.data.materialConstructionName=_selectedConstruction.name;
-            this.data.materialConstructionId = _selectedConstruction._id ? _selectedConstruction._id : "";
+            this.data.materialConstructionName=_selectedConstruction.Name;
+            this.data.materialConstructionId = _selectedConstruction.Id ? _selectedConstruction.Id : "";
         }
         if(!this.readOnly){
             if(this.data.material && this.data.construction ){
@@ -118,6 +120,7 @@ export class DataForm {
 
     materialWidthFinishChanged(e){
         this.data.items = [];
+        
         if (this.error) {
             if (this.error.items) {
                 this.error.items = [];
@@ -150,11 +153,11 @@ export class DataForm {
     }
 
     materialView = (product) => {
-        return `${product.name}`;
+        return `${product.Name}`;
     }
 
     constructionView = (construction) => {
-        return `${construction.name}`;
+        return `${construction.Name}`;
     }
 
     

@@ -42,21 +42,23 @@ export class FPReturToQCItem {
   }
 
   async selectedPackingChanged(newValue) {
+    debugger
     var items=[];
     if(newValue){
-        if (newValue._id) {
+        if (newValue.Id) {
           this.data.packing=newValue;
-          this.data.code=newValue.code;
-          this.data.packingId=newValue._id;
-          this.data.packingCode=newValue.code;
-          this.data.productionOrderId=newValue.productionOrderId;
-          this.data.productionOrderNo=newValue.productionOrderNo;
+          this.data.code=newValue.Code;
+          this.data.packingId=newValue.Id;
+          this.data.packingCode=newValue.Code;
+          this.data.productionOrderId=newValue.ProductionOrderId;
+          this.data.productionOrderNo=newValue.ProductionOrderNo;
 
           var config = Container.instance.get(Config);
-          var endpoint = config.getEndpoint("inventory");
+          var endpoint = config.getEndpoint("inventory-azure");
 
-          await endpoint.find(resource, { filter: JSON.stringify(newValue.productionOrderId)})
+          await endpoint.find(resource, { filter: JSON.stringify(newValue.ProductionOrderId)})
             .then((result) => {
+              debugger
               for(var item of result.info){
                 if(item.inventory.length>0){
                   var data={
@@ -92,8 +94,8 @@ export class FPReturToQCItem {
   }
 
   packingLoaderView = (packing) => {
-    if(packing.code!="" && packing.productionOrderNo!="")
-      return `${packing.code} - ${packing.productionOrderNo}`;
+    if(packing.Code && packing.ProductionOrderNo)
+      return `${packing.Code} - ${packing.ProductionOrderNo}`;
      //return packing.productionOrderNo
   }
 
