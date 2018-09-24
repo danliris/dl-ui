@@ -27,7 +27,7 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
     }
 
-    async bind(context) {
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
