@@ -4,10 +4,10 @@
             <div class="col-md-3">
                 <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"
                     read-only.bind="isEdit"></au-textbox>
-                <au-dropdown label="Konveksi" value.bind="selectedConvection" error.bind="error.Convection" read-only.bind="readOnly" placeholder="pilih konveksi"
-                    items.bind="convectionsList" options.bind="length4"></au-dropdown>
-                <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="data.Commodity" error.bind="error.Commodity" loader.one-time="masterPlanComodityLoader"
-                    options.bind="length4" key="name" text="name"></au-autocomplete>
+               
+                    <au-autocomplete     label="Unit"      value.bind="data.Unit"   error.bind="error.Unit"    loader.bind="unitLoader"       text.bind = "unitView"     placeholder="Unit"   options.bind="length4"></au-autocomplete>  
+                <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="data.Comodity" text.bind="comodityView" error.bind="error.Commodity" loader.one-time="comodityLoader"
+                    options.bind="length4"></au-autocomplete>
                 <au-multiline placeholder="Deskripsi Komoditi" label="Deskripsi Komoditi" value.bind="data.CommodityDescription" error.bind="error.CommodityDescription"
                     options.bind="length4"></au-multiline>
                 <au-numeric label="Fabric (%)" value.bind="fabricAllowance" error.bind="error.FabricAllowance" options.bind="length4"></au-numeric>
@@ -16,15 +16,9 @@
             <div class="col-md-3">
                 <au-dropdown label="Seksi" value.bind="data.Section" read-only.bind="readOnly" placeholder="pilih seksi" items.bind="sectionsList"
                     options.bind="length4"></au-dropdown>
-                <div class="row">
-                    <div class="col-sm-8">
-                        <au-numeric label="Quantity" format="0" value.bind="quantity" error.bind="error.Quantity" options.bind="length6"></au-numeric>
-                    </div>
-                    <div class="col-sm-4">
-                        <au-autocomplete label="Satuan" placeholder="Cari Satuan" value.bind="data.UOM" error.bind="error.UOM" loader.one-time="uomLoader"
-                        options.bind="length4" key="unit" text="unit"></au-autocomplete>
-                    </div>
-                </div>
+                <au-numeric label="Quantity" format="0" value.bind="quantity" error.bind="error.Quantity" options.bind="length4"></au-numeric>
+                <au-autocomplete label="Satuan" placeholder="Cari Satuan" value.bind="data.UOM" error.bind="error.UOM" text.bind="uomView" loader.one-time="uomLoader"
+                    options.bind="length4"></au-autocomplete>
                 <au-textbox placeholder="Size Range" label="Size Range" value.bind="data.SizeRange" error.bind="error.SizeRange" options.bind="length4"></au-textbox>
                 <au-datepicker label="Delivery Date" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" options.bind="length4"></au-datepicker>
                 <au-datepicker label="Confirm Date" value.bind="data.ConfirmDate" error.bind="error.ConfirmDate" options.bind="length4" key="Code"
@@ -39,8 +33,8 @@
                 <au-numeric label="SMV Total" value.bind="SMV_Total" options.bind="length4" read-only="disabled"></au-numeric>
             </div>
             <div class="col-md-3">
-                <au-autocomplete label="Buyer" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" loader.one-time="buyersLoader"
-                    options.bind="length4" key="code" text="name"></au-autocomplete>
+                <au-autocomplete label="Buyer" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" text.bind="buyerView" loader.one-time="buyerLoader"
+                    options.bind="length4" ></au-autocomplete>
                 <div class="row">
                     <div class="col-md-6">
                         <au-numeric label="Eff (%)" value.bind="data.Efficiency.Value" options.bind="length4" read-only="disabled"></au-numeric>
@@ -68,10 +62,10 @@
         <span class="help-block" style="color:#dd4b39;" if.bind="hasError">${error.CostCalculationGarment_MaterialTable}</span>
         <div class="row">
             <div class="col-md-12">
-                <au-collection view-model.ref="itemsCollection" items.bind="data.CostCalculationGarment_Materials" errors.bind="error.CostCalculationGarment_Materials" columns.bind="costCalculationGarment_MaterialsInfo.columns"
-                    add.bind="costCalculationGarment_MaterialsInfo.onAdd" remove.bind="costCalculationGarment_MaterialsInfo.onRemove"
-                    options.bind="costCalculationGarment_MaterialsInfo.options" item-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material"
-                    footer-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material-footer">
+                <au-collection view-model.ref="itemsCollection" items.bind="data.CostCalculationGarment_Materials" errors.bind="error.CostCalculationGarment_Materials"
+                    columns.bind="costCalculationGarment_MaterialsInfo.columns" add.bind="costCalculationGarment_MaterialsInfo.onAdd"
+                    remove.bind="costCalculationGarment_MaterialsInfo.onRemove" options.bind="costCalculationGarment_MaterialsInfo.options"
+                    item-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material" footer-template="modules/merchandiser/cost-calculation/template/data-form/cost-calculation-material-footer">
                 </au-collection>
             </div>
         </div>
