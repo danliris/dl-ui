@@ -55,7 +55,6 @@ export class DataForm {
           this.data.Amount+=item.Price*item.Quantity;
         }
         this.hasItems=true;
-        console.log(this.hasItems)
       }
 
   }
@@ -66,6 +65,7 @@ export class DataForm {
     //this.data.Buyer = newValue;
     if(oldValue)
       if(newValue.RO_Number!=oldValue.RO_Number){
+        this.selectedRO=null;
         this.data.BuyerName= "";
         this.data.BuyerId="";
         this.data.RONumber="";
@@ -77,35 +77,39 @@ export class DataForm {
         this.data.UomId="";
         this.data.UomUnit="";
         this.data.Price=0;
+        this.data.DeliveryDate=null;
         this.data.Items = [];
       }
     if (newValue) {
+      this.selectedRO=newValue;
       this.data.RONumber=newValue.RO_Number;
       if(newValue.Id){
         this.data.BuyerName= newValue.Buyer.Name;
-        this.data.BuyerId=newValue.Buyer._id;
+        this.data.BuyerId=newValue.Buyer.Id;
         this.data.Quantity=newValue.Quantity;
         this.data.Article=newValue.Article;
-        this.data.ComodityId=newValue.Commodity._id;
+        this.data.ComodityId=newValue.Comodity.Id;
         var como=null;
-        if(this.data.ComodityId){
+        if(this.data.ComodityId && this.data.ComodityId!=0){
           como=this.service.getComodityById(this.data.ComodityId);
         }
         if(como!=null){
-          this.data.Comodity=newValue.Commodity.name;
-          this.data.ComodityCode=newValue.Commodity.code;
+          this.data.Comodity=newValue.Comodity.Name;
+          this.data.ComodityCode=newValue.Comodity.Code;
         }
         
         this.data.Uom=newValue.UOM;
-        this.data.UomId=newValue.UOM._id;
-        this.data.UomUnit=newValue.UOM.unit;
+        this.data.UomId=newValue.UOM.Id;
+        this.data.UomUnit=newValue.UOM.Unit;
         this.data.Price=newValue.ConfirmPrice;
+        this.data.DeliveryDate=newValue.DeliveryDate;
         if(this.data.Items.length==0){
           this.data.Amount=this.data.Price*this.data.Quantity;
         }
       }
       
     } else {
+      this.selectedRO=null;
       this.data.BuyerName= "";
       this.data.BuyerId="";
       this.data.RONumber="";
@@ -116,6 +120,7 @@ export class DataForm {
       this.data.Uom=null;
       this.data.UomId="";
       this.data.UomUnit="";
+      this.data.DeliveryDate=null;
       this.data.Price=0;
       this.data.Items = [];
     }
@@ -173,6 +178,12 @@ export class DataForm {
     }
   }
 
+  PriceChanged(e){
+    this.data.Price=parseFloat(e.srcElement.value);
+    this.data.Amount=this.data.Quantity*this.data.Price;
+    
+  }
+
   itemsChanged(e){
     this.hasItems=true;
     this.data.Price=0;
@@ -183,13 +194,20 @@ export class DataForm {
           this.data.Amount+=item.Price*item.Quantity;
         }
       }
+      if(this.data.Items.length==0){
+        this.data.Price= 0;
+        this.data.Amount=this.data.Price*this.data.Quantity;
+        this.hasItems=false;
+      }
     }
+
   }
 
   get removeItems() {
     return (event) => //console.log(event.detail);
     {
         if(this.data.Items){
+          this.data.Amount=0;
           for(var item of this.data.Items){
             if(item.Price && item.Quantity){
               this.data.Amount+=item.Price*item.Quantity;
@@ -197,9 +215,9 @@ export class DataForm {
         }
       }
       if(this.data.Items.length==0){
+        this.data.Price= 0;
         this.data.Amount=this.data.Price*this.data.Quantity;
         this.hasItems=false;
-        console.log(this.hasItems);
       }
     }
   }
