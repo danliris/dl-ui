@@ -7,12 +7,11 @@ import { RateService } from './service-rate';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
-
 var SizeRangeLoader = require('../../../loader/size-range-loader');
 var BuyersLoader = require('../../../loader/garment-buyers-loader');
-var MasterPlanComodityLoader = require('../../../loader/garment-master-plan-comodity-loader');
+var ComodityLoader = require('../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../loader/uom-loader');
-
+var UnitLoader = require('../../../loader/garment-units-loader');
 @inject(Router, BindingEngine, ServiceEffeciency, RateService)
 export class DataForm {
   @bindable title;
@@ -108,6 +107,7 @@ export class DataForm {
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
+   console.log(this.data);
     this.error = this.context.error;
     this.selectedSMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
     this.selectedSMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
@@ -118,9 +118,6 @@ export class DataForm {
     this.data.Risk = this.data.Risk ? this.data.Risk : 5;
     this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "#") : "#";
     this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
-
-    this.selectedConvection = this.data.Convection ? this.data.Convection : "";
-
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
     this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
 
@@ -204,12 +201,57 @@ export class DataForm {
     return SizeRangeLoader;
   }
 
-  get masterPlanComodityLoader() {
-    return MasterPlanComodityLoader;
+  get comodityLoader() {
+    return ComodityLoader;
   }
+  comodityView = (comodity) => {
+    console.log(comodity);
+    return`${comodity.Code} - ${comodity.Name}`
+  }
+
 
   get uomLoader() {
     return UOMLoader;
+  }
+  get unitLoader() {
+    return UnitLoader;
+  }
+  unitView = (unit) => {
+  
+    return `${unit.Code} - ${unit.Name}`
+  }
+  get buyerLoader() {
+    return BuyersLoader;
+  }
+  buyerView = (buyer) => {
+
+    return `${buyer.Name}`
+  }
+
+  uomView =(uom)=>{
+    console.log(uom);
+    return uom?`${uom.Unit}` : '';
+}
+
+
+  @bindable selectedComodity = "";
+  selectedComodityChanged(newVal) {
+    this.data.Comodity = newVal;
+    if (newVal) {
+     this.data.ComodityId=newVal.Id;
+     this.data.ComodityCode=newVal.Code;
+     this.data.ComodityName=newVal.Name;
+    }
+  }
+
+  @bindable selectedBuyer = "";
+  selectedBuyerChanged(newVal) {
+    this.data.Buyer = newVal;
+    if (newVal) {
+     this.data.BuyerId=newVal.Id;
+     this.data.BuyerCode=newVal.Code;
+     this.data.BuyerName=newVal.Name;
+    }
   }
 
   @bindable selectedLeadTime = "";
@@ -328,21 +370,23 @@ export class DataForm {
     }
   }
 
-  @bindable selectedConvection;
-  async selectedConvectionChanged(newVal) {
-    this.data.Convection = newVal;
+ 
+
+  @bindable selectedUnit;
+  async selectedUnitChanged(newVal) {
+    this.data.Unit = newVal;
     if (newVal) {
-      let convection = newVal.substring(0, 2);
+      let UnitCode = newVal.Code;
 
       let promises = [];
-      let OTL1 = this.rateService.search({ keyword: `OTL 1 - ${convection}` }).then((results) => {
+      let OTL1 = this.rateService.search({ keyword: `OTL 1 - ${UnitCode}` }).then((results) => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
         return result;
       });
       promises.push(OTL1);
 
-      let OTL2 = this.rateService.search({ keyword: `OTL 2 - ${convection}` }).then((results) => {
+      let OTL2 = this.rateService.search({ keyword: `OTL 2 - ${UnitCode}` }).then((results) => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
         return result;
@@ -353,8 +397,12 @@ export class DataForm {
 
       this.data.OTL1 = results[0];
       this.data.OTL2 = results[1];
+      this.data.UnitCode=newVal.Code;
+      this.data.UnitId=newVal.Id;
+      this.data.UnitName=newVal.Name;
     }
   }
+
 
   @computedFrom('data.SMV_Cutting', 'data.SMV_Sewing', 'data.SMV_Finishing')
   get SMV_Total() {
