@@ -29,7 +29,9 @@ isEdit=true;
     }
 
     save() {
-        
+        if(this.data.Items.length===0){
+            this.data.Price=this.data.Price?this.data.Price:0;
+        }
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
