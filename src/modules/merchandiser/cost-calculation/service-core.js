@@ -1,6 +1,6 @@
 import { RestService } from '../../../utils/rest-service';
 
-const garmentProductSingleByNameServiceUri = 'master/garment-products/byName';
+const garmentProductSingleByNameServiceUri = 'master/garmentProducts/byName';
 const uomServiceUri = 'master/uoms';
 
 export class ServiceCore extends RestService {

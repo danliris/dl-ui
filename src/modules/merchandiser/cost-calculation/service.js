@@ -39,6 +39,7 @@ export class Service extends RestService {
 
     update(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
+        console.log(data);
         return super.put(endpoint, data);
     }
 
@@ -73,7 +74,7 @@ export class Service extends RestService {
         var endpoint = config.getEndpoint("core");
 
         const resource = 'master/garmentProducts';
-
+console.log(keyword, filter);
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
                 return results.data;

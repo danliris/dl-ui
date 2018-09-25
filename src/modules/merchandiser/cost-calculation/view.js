@@ -67,6 +67,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    console.log(this.data);
     this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
     this.data.AccessoriesAllowance = numeral(
       this.data.AccessoriesAllowance
