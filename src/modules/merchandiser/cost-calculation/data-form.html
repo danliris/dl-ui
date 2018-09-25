@@ -5,7 +5,7 @@
                 <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"
                     read-only.bind="isEdit"></au-textbox>
                
-                    <au-autocomplete     label="Konveksi"      value.bind="data.Unit"   error.bind="error.Unit"    loader.bind="unitLoader"       text.bind = "unitView"     placeholder="Unit"   options.bind="length4"></au-autocomplete>  
+                    <au-autocomplete     label="Unit"      value.bind="data.Unit"   error.bind="error.Unit"    loader.bind="unitLoader"       text.bind = "unitView"     placeholder="Unit"   options.bind="length4"></au-autocomplete>  
                 <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="data.Comodity" text.bind="comodityView" error.bind="error.Commodity" loader.one-time="comodityLoader"
                     options.bind="length4"></au-autocomplete>
                 <au-multiline placeholder="Deskripsi Komoditi" label="Deskripsi Komoditi" value.bind="data.CommodityDescription" error.bind="error.CommodityDescription"
