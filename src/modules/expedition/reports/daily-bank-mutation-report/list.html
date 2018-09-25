@@ -1,96 +1,117 @@
 <template>
-    <h1 class="page-header">Laporan Bukti Pengeluaran Bank DPP + PPN</h1>
+    <h1 class="page-header">Mutasi Bank Harian</h1>
 
     <form class="form-horizontal">
-        <au-autocomplete 
-            value.bind="info.bankExpenditureNote"
-            loader.one-time="bankExpenditureNoteLoader"
-            text="DocumentNo"
-            label="No. Bukti Pengeluaran Bank"
-            options.bind="controlOptions"
-            placeholder="Masukkan No Bukti Pengeluaran Bank">
+        <au-autocomplete value.bind="info.bank"
+                         error.bind="error.bank"
+                         label="Bank"
+                         loader.bind="bankLoader"
+                         text.bind="bankView"
+                         placeholder="cari bank"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-autocomplete 
-            value.bind="info.unitPaymentOrder"
-            loader.one-time="purchasingDocumentExpeditionUPONoLoader"
-            text="UnitPaymentOrderNo"
-            label="No. SPB"
-            query.bind="isPaidFilter"
-            options.bind="controlOptions"
-            placeholder="Masukkan No SPB">
-        </au-autocomplete>
+        <au-textbox label="No. Rekening"
+                    value.bind="info.bank && info.bank.accountNumber ? info.bank.accountNumber : ''"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+        </au-textbox>
 
-        <au-autocomplete 
-            value.bind="info.invoice"
-            loader.one-time="purchasingDocumentExpeditionInvoiceNoLoader"
-            text="InvoiceNo"
-            label="No. Invoice"
-            query.bind="isPaidFilter"
-            options.bind="controlOptions"
-            placeholder="Masukkan No Invoice">
-        </au-autocomplete>
+        <au-textbox label="Currency"
+                    value.bind="info.bank && info.bank.currency && info.bank.currency.code ? info.bank.currency.code : ''"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+        </au-textbox>
 
-        <au-autocomplete 
-            value.bind="info.supplier"
-            loader.one-time="supplierLoader"
-            label="Supplier"
-            text="name"
-            options.bind="controlOptions"
-            placeholder="Masukkan Nama Supplier">
-        </au-autocomplete>
-
-        <au-autocomplete 
-            value.bind="info.division"
-            loader.one-time="divisionLoader"
-            label="Divisi"
-            text="name"
-            options.bind="controlOptions"
-            placeholder="Masukkan Nama Divisi"
-            select.bind="selectDivision">
-        </au-autocomplete>
-
-        <au-dropdown
-            value.bind="info.paymentMethod"
-            label="Metode Pembayaran"
-            options.bind="controlOptions"
-            items.bind="paymentMethodList">
-        </au-dropdown>
-
-        <au-datepicker
-            value.bind="info.dateFrom"
-            label="Tanggal Awal"
-            options.bind="controlOptions"
-            error.bind="error.dateFrom">
+        <au-datepicker value.bind="info.dateFrom"
+                       label="Tanggal Awal"
+                       options.bind="controlOptions"
+                       error.bind="error.dateFrom">
         </au-datepicker>
 
-        <au-datepicker
-            value.bind="info.dateTo"
-            label="Tanggal Akhir"
-            options.bind="controlOptions"
-            error.bind="error.dateTo">
+        <au-datepicker value.bind="info.dateTo"
+                       label="Tanggal Akhir"
+                       options.bind="controlOptions"
+                       error.bind="error.dateTo">
         </au-datepicker>
 
         <div class="form-group">
-            <label for="contact" class="col-sm-5 control-label"></label>
+            <label for="contact"
+                   class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="search()" class='btn btn-success'>Cari</button>
-                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                <button click.delegate="search()"
+                        class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()"
+                        class='btn btn-success'>Reset</button>
             </div>
         </div>
     </form>
 
-    <div id="dpp-ppn-bank-table">
-        <au-table
-            view-model.ref="tableList"
-            data.bind="loader"
-            columns.bind="columns"
-            sortable="true"
-            page-size="25"
-            options.bind="tableOptions">
-            <div slot="toolbar" class="btn-group">
-                <button class="btn btn-primary" click.delegate="excel()">Excel</button>
-            </div>
-        </au-table>
+    <div class="row">
+        <div class="col-md-12">
+            <!--Table-->
+            <table class="table table-bordered">
+                <!--Table head-->
+                <thead>
+                    <tr style="background-color: white; color: black">
+                        <td style="border-right: none"
+                            class="text-right"
+                            colspan="6">Saldo Awal: </td>
+                        <td style="border-left: none"
+                            class="text-right"
+                            colspan="2">${currency} ${initialBalance}</td>
+                    </tr>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Keterangan</th>
+                        <th>Nomor Referensi</th>
+                        <th>Jenis Referensi</th>
+                        <th>Currency</th>
+                        <th>DEBIT</th>
+                        <th>KREDIT</th>
+                        <th>After</th>
+                    </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+                <tbody>
+                    <tr show.bind="isEmpty">
+                        <td colspan="8">
+                            <div class="alert alert-info">Tidak ada data</div>
+                        </td>
+                    </tr>
+                    <tr repeat.for="datum of data">
+                        <td repeat.for="key of datum | keys"
+                            class="${key.toString().toLowerCase() == 'dailytotaltitle' ? 'text-right' : ''}"
+                            colspan="${key.toString().toLowerCase() == 'dailytotaltitle' ? 4 : 1}">${datum[key]}</td>
+                        <!-- <td>${datum['Date']}</td>
+                        <td>${datum.Remark}</td>
+                        <td>${datum.ReferenceNo}</td>
+                        <td>${datum.ReferenceType}</td>
+                        <td>${datum.AccountBankCurrencyCode}</td>
+                        <td>${datum.Debit}</td>
+                        <td>${datum.Kredit}</td>
+                        <td>${datum.AfterNominal}</td> -->
+                    </tr>
+                    <tr style="background-color: white; color: black">
+                        <td style="border-right: none"
+                            class="text-right"
+                            colspan="6">Saldo Akhir: </td>
+                        <td style="border-left: none"
+                            class="text-right"
+                            colspan="2">${currency} ${closingBalance}</td>
+                    </tr>
+                </tbody>
+                <!--Table body-->
+                <div style="margin-bottom: 1%"
+                     slot="toolbar"
+                     class="btn-group">
+                    <button class='btn btn-primary'
+                            click.delegate="excel()">Cetak Excel</button>
+                </div>
+            </table>
+            <!--Table-->
+        </div>
     </div>
 </template>
