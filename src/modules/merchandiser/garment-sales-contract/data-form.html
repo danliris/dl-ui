@@ -50,7 +50,7 @@
         <au-textbox
           label="Packing"
           value.bind="data.Packing"
-          error.bind="error.RONumber"
+          error.bind="error.Packing"
           read-only.bind="readOnly"
           options.bind="controlOptions">
         </au-textbox>
@@ -136,6 +136,7 @@
           error.bind="error.Price"
           read-only.bind="readonly"
           options.bind="controlOptions"
+          change.delegate="PriceChanged($event)"
           if.bind="!hasItems">
         </au-numeric>
         <au-numeric
@@ -151,6 +152,7 @@
           label="Total Amount"
           value.bind="data.Amount"
           read-only="true"
+          format = "0,0.00"
           options.bind="controlOptions">
         </au-numeric>
 

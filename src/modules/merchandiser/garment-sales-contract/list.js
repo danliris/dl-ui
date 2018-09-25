@@ -57,6 +57,14 @@ export class List {
                 break;
         }
     }
+    // contextShowCallback(index, name, data) {
+    //     switch (name) {
+    //         case "Cetak PDF":
+    //             return data.DocPrinted;
+    //         default:
+    //             return true;
+    //     }
+    // }
 
     create() {
         this.router.navigateToRoute('create');
