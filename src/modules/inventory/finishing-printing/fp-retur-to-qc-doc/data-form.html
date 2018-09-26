@@ -100,7 +100,7 @@
             errors.bind="error.items" 
             columns.bind="itemsInfo.columns"
             add.bind="itemsInfo.onAdd"
-            if.bind="filter.material && filter.materialConstructionFinishName && filter.materialWidthFinish"
+            if.bind="filter.materialName && filter.materialConstructionName && filter.materialWidth"
             remove.bind="removeItems"
             view-model.ref="ItemsCollection"
             options.one-way="filter || getFilter"

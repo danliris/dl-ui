@@ -3,6 +3,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 var PackingLoader = require('../../../../../loader/packing-loader');
+var ProductionLoader = require('../../../../../loader/production-order-loader');
 const resource = 'inventory/products-by-production-orders';
 
 export class FPReturToQCItem {
@@ -41,6 +42,10 @@ export class FPReturToQCItem {
     return PackingLoader;
   }
 
+  get productionLoader(){
+    return ProductionLoader;
+  }
+
   async selectedPackingChanged(newValue) {
     debugger
     var items=[];
@@ -55,8 +60,8 @@ export class FPReturToQCItem {
 
           var config = Container.instance.get(Config);
           var endpoint = config.getEndpoint("inventory-azure");
-
-          await endpoint.find(resource, { filter: JSON.stringify(newValue.ProductionOrderId)})
+          
+          await endpoint.find(resource, { filter: JSON.stringify(newValue.Id)})
             .then((result) => {
               debugger
               for(var item of result.info){
@@ -97,6 +102,11 @@ export class FPReturToQCItem {
     if(packing.Code && packing.ProductionOrderNo)
       return `${packing.Code} - ${packing.ProductionOrderNo}`;
      //return packing.productionOrderNo
+  }
+
+  productionLoaderView = (productionOrder) =>{
+    if(productionOrder.OrderNo)
+      return `${productionOrder.OrderNo}`;
   }
 
   controlOptions = {

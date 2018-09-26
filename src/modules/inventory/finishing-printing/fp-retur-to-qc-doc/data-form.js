@@ -17,13 +17,13 @@ export class DataForm {
     destinationOptions = ['Pack I', 'Pack II'];
     
     itemsInfo = {
-        columns: [{ header: "Kode Packing - Nomor Surat Perintah Produksi", value: "productionOrderNo"}],
+        columns: [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo"}],
         onAdd: function () {
             this.context.ItemsCollection.bind();
             this.data.items.push({productionOrderNo: "", code: ""});
         }.bind(this)
     };
-    itemsColumns = [{ header: "Kode Packing - Nomor Surat Perintah Produksi", value: "productionOrderNo"}];
+    itemsColumns = [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo"}];
     materialFields=["name","code"];
     packingFields=["code", "motif", "materialWidthFinish"];
 
@@ -90,9 +90,9 @@ export class DataForm {
         if(!this.readOnly){
             if(this.data.material && this.data.construction){
                 this.filter={
-                    material:this.data.materialName,
-                    materialConstructionFinishName: this.data.materialConstructionName,
-                    materialWidthFinish: this.data.materialWidthFinish
+                    materialName:this.data.materialName,
+                    materialConstructionName: this.data.materialConstructionName,
+                    materialWidth: this.data.materialWidthFinish
                 };
             }
         }
@@ -110,9 +110,9 @@ export class DataForm {
         if(!this.readOnly){
             if(this.data.material && this.data.construction ){
                 this.filter={
-                    material:this.data.materialName,
-                    materialConstructionFinishName: this.data.materialConstructionName,
-                    materialWidthFinish: this.data.materialWidthFinish
+                    materialName:this.data.materialName,
+                    materialConstructionName: this.data.materialConstructionName,
+                    materialWidth: this.data.materialWidthFinish
                 };
             }
         }
@@ -129,9 +129,9 @@ export class DataForm {
         if(!this.readOnly){
             if(this.data.material && this.data.construction){
                 this.filter={
-                    material:this.data.materialName,
-                    materialConstructionFinishName: this.data.materialConstructionName,
-                    materialWidthFinish: this.data.materialWidthFinish
+                    materialName:this.data.materialName,
+                    materialConstructionName: this.data.materialConstructionName,
+                    materialWidth: this.data.materialWidthFinish
                 };
             }
         }
