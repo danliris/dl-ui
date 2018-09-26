@@ -111,20 +111,14 @@ export class CostCalculationMaterial {
             } else if (this.data.Category.name.toUpperCase() === "PROCESS") {
                 //this.data.Product = await this.serviceCore.getByName(newVal.name);
                 let UOM = await this.serviceCore.getUomByUnit("PCS");
-
                 this.data.UOMQuantity = UOM;
                 this.data.UOMPrice = UOM;
-
                 this.isProcess = true;
                 this.data.Quantity = 1;
                 this.data.Conversion = 1;
-
                 this.categoryIsExist = false;
-
                 this.productCode = this.data.Product ? this.data.Product.Code : "";
-
                 this.data.Price = this.calculateProcessPrice();
-
             } else {
                 this.categoryIsExist = false;
                 //this.data.Product = await this.serviceCore.getByName(newVal.name);
@@ -137,16 +131,12 @@ export class CostCalculationMaterial {
     }
 
     calculateProcessPrice() {
-
         let CuttingFee = this.data.Wage.Value * this.data.SMV_Cutting * (100 / 75);
         let SewingFee = this.data.Wage.Value * this.data.SMV_Sewing * (100 / this.data.Efficiency.Value);
         let FinishingFee = this.data.Wage.Value * this.data.SMV_Finishing * (100 / 90);
         let THR = this.data.THR.Value * this.data.SMV_Total;
-
         let result = CuttingFee + SewingFee + FinishingFee + THR;
-
         return numeral(numeral(result).format(rateNumberFormat)).value();
-
     }
 
     @bindable selectedComposition;
@@ -156,8 +146,7 @@ export class CostCalculationMaterial {
         if (newVal) {
             this.selectedConstruction = null;
             this.compositionIsExist = true;
-
-            this.filterProductQuery.Composition = newVal.Composition
+            this.filterProductQuery = newVal.Composition;
         } else if (!newVal) {
             this.selectedConstruction = null;
             this.compositionIsExist = false;
@@ -168,7 +157,6 @@ export class CostCalculationMaterial {
     constructionIsExist = false;
     selectedConstructionChanged(newVal, oldVal) {
         if (newVal) {
-            // this.data
             this.selectedYarn = null;
             this.constructionIsExist = true;
             this.filterProductQuery=newVal.Const;
