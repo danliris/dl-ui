@@ -9,8 +9,10 @@ export class Service extends RestService {
     }
 
     search(info) {
-        let endpoint = `${serviceUri}?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
-        return super.get(endpoint);
+        console.log(info);
+        let endpoint = `${serviceUri}`;
+        // let endpoint = `${serviceUri}?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.list(endpoint, info);
     }
 
     getXls(info) {
