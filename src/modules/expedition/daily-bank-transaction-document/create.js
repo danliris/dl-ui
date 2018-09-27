@@ -13,6 +13,9 @@ export class Create {
         this.service = service;
     }
     activate(params) {
+        this.bank = params.bank;
+        this.status = params.status;
+        this.sourceType = params.sourceType;
     }
 
     bind(params) {
@@ -25,20 +28,22 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    // determineActivationStrategy() {
-    //     return activationStrategy.replace; //replace the viewmodel with a new instance
-    //     // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-    //     // or activationStrategy.noChange to explicitly use the default behavior
-    // }
+    determineActivationStrategy() {
+        return activationStrategy.replace; //replace the viewmodel with a new instance
+        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
+        // or activationStrategy.noChange to explicitly use the default behavior
+    }
 
     save(event) {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                let bank = this.data.Bank;
-                this.data = Object.assign({}, {});
-                this.data.Bank = bank;
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                let params = {
+                    bank: this.data.Bank,
+                    status: "IN",
+                    sourceType: "Operasional"
+                }
+                this.router.navigateToRoute('create', params, { replace: true, trigger: true });
             })
             .catch(error => {
                 this.error = error;

@@ -183,6 +183,7 @@ export class List {
         this.currency = "";
         this.initialBalance = "";
         this.closingBalance = "";
+        this.data = [];
         // this.tableList.refresh();
     }
 

@@ -83,6 +83,7 @@
                     </tr>
                     <tr repeat.for="datum of data">
                         <td repeat.for="key of datum | keys"
+                            style="white-space: pre;"
                             class="${key.toString().toLowerCase() == 'dailytotaltitle' ? 'text-right' : ''}"
                             colspan="${key.toString().toLowerCase() == 'dailytotaltitle' ? 4 : 1}">${datum[key]}</td>
                         <!-- <td>${datum['Date']}</td>
