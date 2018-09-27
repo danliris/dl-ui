@@ -17,7 +17,7 @@ export class DataForm {
       }
       buyerView = (buyer) => {
     
-        return `${buyer.Name}`
+        return `${buyer.Code}-${buyer.Name}`
       }
     constructor() {
     }

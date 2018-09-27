@@ -8,7 +8,7 @@ export class List {
     columns = [
     { field: "Code", title: "Kode Brand" },
     { field: "Name", title: "Nama Brand" },
-    { field: "Buyers.Name", title: "Buyer Agent" },
+    { field: "BuyerName", title: "Buyer Agent" },
     
   ];
 
@@ -22,7 +22,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["Code", "Name","Buyers.Name"],
+      select: ["Code", "Name","BuyerName"],
       order: order
     }
 
@@ -33,6 +33,7 @@ export class List {
           total: result.info.total,
           data: result.data
         }
+        data.BuyerName=result.data.Buyers.Name;
       });
   }
 
