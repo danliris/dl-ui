@@ -26,6 +26,19 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/ro-garment-validation',
+        name: 'ro-garment-validation',
+        moduleId: './modules/merchandiser/ro-garment-validation/index',
+        nav: true,
+        title: 'Validasi RO Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: '/merchandiser/garment-sales-contract',
         name: 'garment-sales-contract',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
