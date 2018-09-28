@@ -48,7 +48,7 @@ export class Service extends RestService {
     getComodityById(id) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `garment-comodities/${id}`;
+        var _serviceUri = `master/garment-comodities/${id}`;
 
         return _endpoint.find(_serviceUri)
             .then(result => {

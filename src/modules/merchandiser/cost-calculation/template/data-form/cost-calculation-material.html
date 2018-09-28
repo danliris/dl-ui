@@ -13,7 +13,7 @@
         </td>
         <!-- komposisi -->
         <td>
-            <au-autocomplete value.bind="selectedComposition" placeholder="Cari Komposisi" text="description" options.bind="controlOptions" loader.bind="garmentProductDistinctDescriptionLoader" show.bind="categoryIsExist">
+            <au-autocomplete value.bind="selectedComposition" placeholder="Cari Komposisi" text="Composition" options.bind="controlOptions" loader.bind="garmentProductDistinctDescriptionLoader" show.bind="categoryIsExist">
             </au-autocomplete>
         </td>
         <!-- konstruksi -->
@@ -43,7 +43,7 @@
         <!-- satuan -->
         <td>
             <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="uomLoader"
-                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist" read-only.bind="isProcess">
+                options.bind="controlOptions" text.bind="uomView" show.bind="productCodeIsExist" read-only.bind="isProcess">
             </au-autocomplete>
         </td>
         <!-- price -->
@@ -53,7 +53,7 @@
         <!-- satuan harga -->
         <td>
             <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMPrice" error.bind="error.UOMPrice" loader.one-time="uomLoader"
-                options.bind="controlOptions" text="unit" show.bind="productCodeIsExist" read-only.bind="isProcess">
+                options.bind="controlOptions" text.bind="uomView"  show.bind="productCodeIsExist" read-only.bind="isProcess">
             </au-autocomplete>
         </td>
         <!-- konversi -->

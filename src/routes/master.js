@@ -91,6 +91,19 @@ module.exports = [
         }
     },
     {
+        route: 'garment-buyer-brands',
+        name: 'garment-buyer-brands',
+        moduleId: './modules/master/garment-buyer-brand/index',
+        nav: true,
+        title: 'Brand Buyer Garment',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "C9": 1, "A2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'garment-categories',
         name: 'garment-categories',
         moduleId: './modules/master/garment-category/index',
