@@ -18,8 +18,8 @@ export class DataForm {
     @bindable step;
     @bindable kanban;
 
-    @bindable localInputDate;
-    @bindable localOutputDate;
+    @bindable localInputDate = undefined;
+    @bindable localOutputDate = undefined;
 
     auInputOptions = {
         label: {
@@ -157,11 +157,18 @@ export class DataForm {
     }
 
     localInputDateChanged(newValue) {
-        this.data.dateInput = this.localInputDate;
+        if (this.localInputDate != null) {
+            this.data.DateInput = this.localInputDate;
+            this.data.TimeInput = this.data.DateInput.getTime();
+        }
+
     }
 
     localOutputDateChanged(newValue) {
-        this.data.dateOutput = this.localOutputDate;
+        if (this.localOutputDate != null) {
+            this.data.DateOutput = this.localOutputDate;
+            this.data.TimeOutput = this.data.DateOutput.getTime();
+        }
     }
 
     get isFilterKanban() {
@@ -335,7 +342,7 @@ export class DataForm {
             this.data.GoodOutput = 0;
             this.localOutputDate = null;
             this.localInputDate = null;
-            
+
             delete this.data.Machine.Id;
             this.filterReason = {};
         }
