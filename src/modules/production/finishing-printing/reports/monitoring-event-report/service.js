@@ -51,17 +51,9 @@ export class Service extends RestService {
     }
 
     getMachine(info) {
-        var time = info.time.split(":");
-
-        var date = info.date.toString();
-        var dateTime = new Date(date);
-        var a=parseInt(time[0]);
-        dateTime.setHours(a-7);
-        dateTime.setMinutes(time[1]);
-        dateTime=moment(dateTime.toString()).format("DD/MM/YYYY hh:mm:ss");
+        console.log(info);
         var query = '';
-       
-        query = `id=${info.machineId}&productionOrderNumber=${info.productionOrderNumber}&dateTime=${dateTime}`;
+        query = `id=${info.machineId}&productionOrderNumber=${info.productionOrderNumber}&dateTime=${info.date}`;
 
         var endpoint = `${serviceUri}/monitoringSpecMachine?${query}`;
         return super.get(endpoint);

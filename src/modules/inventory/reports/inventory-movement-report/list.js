@@ -37,9 +37,15 @@ export class List {
         },
         { field: "productName", title: "Nama Barang" },
         { field: "uomUnit", title: "UOM" },
-        { field: "before", title: "Before" },
-        { field: "quantity", title: "Kuantiti" },
-        { field: "after", title: "After" },
+        { field: "before", title: "Before", formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        }  },
+        { field: "quantity", title: "Kuantiti", formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        } },
+        { field: "after", title: "After" , formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        } },
         { field: "type", title: "Status" }
     ]
 

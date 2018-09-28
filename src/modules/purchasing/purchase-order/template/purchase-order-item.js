@@ -6,7 +6,9 @@ export class PurchaseOrderItem {
     this.error = context.error;
     this.options = context.options;
     // this.data.ProductRemark = this.data.remark;
-    console.log(this.data);
+    if(this.data.quantity){
+      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }
   }
 
   get productLoader() {
@@ -17,7 +19,6 @@ export class PurchaseOrderItem {
     if (this.data.product)
       this.data.productId = this.data.product._id ? this.data.product._id : {};
       // this.data.ProductRemark = this.data.remark;
-      
   }
 
   controlOptions = {

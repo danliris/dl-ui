@@ -8,12 +8,12 @@ export class List {
     // info = { page: 1, keyword: '' };
     context = ["detail"];
     columns = [
-    { field: "code", title: "Kode Barang" },
-    { field: "name", title: "Nama Barang" },
-    { field: "uom.unit", title: "Satuan Default" },
+    { field: "Code", title: "Kode Barang" },
+    { field: "Name", title: "Nama Barang" },
+    { field: "Uom.Unit", title: "Satuan Default" },
     // { field: "currency.code", title: "Mata Uang" },
     // { field: "price", title: "Harga Barang" },
-    { field: "tags", title: "Tags" },
+    { field: "Tags", title: "Tags" },
   ];
 
   loader = (info) => {
@@ -25,12 +25,15 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["code","name","uom.unit","tags"],
+      // select:["Code","Name","Uom.Unit","Tags"],
       order: order
     }
 
     return this.service.search(arg)
       .then(result => {
+        for(var a of result.data){
+          a.UomUnit=a.UOM.Unit;
+        }
         return {
           total: result.info.total,
           data: result.data
@@ -50,7 +53,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }

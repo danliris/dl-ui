@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/garment-products';
+const resource = 'master/garmentProducts';
 
 module.exports = function (keyword, filter) {
 

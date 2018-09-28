@@ -8,11 +8,11 @@ const fabricServiceUri = 'finishing-printing/quality-control/fabrics'
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${fabricServiceUri}/reports`;
         return super.list(endpoint, info);
     }
 
@@ -22,7 +22,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${fabricServiceUri}/reports/downloads/xls`;
         var query = '';
 
         if (info.productionOrderNo) {
@@ -54,7 +54,7 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${endpoint}?${query}`;
 
         return endpoint;
     }

@@ -142,6 +142,7 @@
         </au-textbox>
 
         <au-collection 
+        if.bind="!hasView"    
             items.bind="data.items"         
             error.bind="error.items"        
             read-only.bind="readOnly" 
@@ -149,7 +150,21 @@
             remove.bind="UpoItem.onRemove"
             view-model.ref="ItemsCollection"
             options.one-way="pricePerUnitCorrectionReadOnly"
-            item-template="modules/purchasing/unit-payment-price-correction-note/template/item">
+            item-template="modules/purchasing/unit-payment-price-correction-note/template/item"
+            >
+        </au-collection>
+        
+        <au-collection 
+            if.bind="hasView"
+            items.bind="data.items"         
+            error.bind="error.items"        
+            read-only.bind="readOnly" 
+            columns.bind="UpoItem.columns" 
+            remove.bind="UpoItem.onRemove"
+            view-model.ref="ItemsCollection"
+            options.one-way="pricePerUnitCorrectionReadOnly"
+            item-template="modules/purchasing/unit-payment-price-correction-note/template/itemView"
+            >
         </au-collection>
 
   </form>
