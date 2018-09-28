@@ -92,7 +92,7 @@ export class List {
                         // modify display data
                         for (var kanban of result.data) {
                             kanban.OldKanban = oldKanbanResults.find((oldKanban) => oldKanban.Id == kanban.OldKanbanId);
-                            kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail.ColorType ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorType.Name : kanban.SelectedProductionOrderDetail.ColorRequest;
+                            kanban.SelectedProductionOrderDetail.ColorRequest = kanban.SelectedProductionOrderDetail ? kanban.SelectedProductionOrderDetail.ColorRequest + " - " + kanban.SelectedProductionOrderDetail.ColorTemplate : kanban.SelectedProductionOrderDetail.ColorRequest;
                             kanban.CurrentStepIndex = kanban.CurrentStepIndex || 0; // old kanban data does not have currentStepIndex
                             kanban.stepIndexPerTotal = `${kanban.CurrentStepIndex}/${kanban.Instruction.Steps.length}`;
                             kanban.isPending = function () {
