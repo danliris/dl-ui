@@ -6,6 +6,17 @@ export class UnitPaymentQuantityCorrectionNoteItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options; 
+
+    if(this.data.quantity){
+      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }
+    if(this.data.pricePerDealUnitAfter){
+      this.data.pricePerDealUnitAfter=this.data.pricePerDealUnitAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    }
+    if(this.data.priceTotalAfter){
+      this.data.priceTotalAfter=this.data.priceTotalAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    }
+
   }
     controlOptions = {
     control: {

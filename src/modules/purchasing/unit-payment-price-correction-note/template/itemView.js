@@ -4,6 +4,7 @@ export class UnitReceiptNoteItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
+    console.log(this.data);
     this.error = context.error;
     this.readOnly = context.options.readOnly;
     this.pricePerUnitCorrectionReadOnly = this.context.context.options;
@@ -12,15 +13,15 @@ export class UnitReceiptNoteItem {
     if(this.data.quantity){
       this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     }
-    // if(this.pricePerDealUnitAfter){
-    //   this.pricePerDealUnitAfter=this.pricePerDealUnitAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-    // }
-    // if(this.data.priceTotalAfter){
-    //   this.data.priceTotalAfter=this.data.priceTotalAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-    // }
-    // if(this.totalPrice){
-    //   this.totalPrice=this.totalPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-    // }
+    if(this.pricePerDealUnitAfter){
+      this.pricePerDealUnitAfter=this.pricePerDealUnitAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    }
+    if(this.data.priceTotalAfter){
+      this.data.priceTotalAfter=this.data.priceTotalAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    }
+    if(this.totalPrice){
+      this.totalPrice=this.totalPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    }
 
   }
   
