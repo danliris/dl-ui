@@ -8,7 +8,7 @@ export class List {
     columns = [
         { field: "CostCalculationGarment.RO_Number", title: "No RO" },
         { field: "CostCalculationGarment.Article", title: "Artikel" },
-        { field: "CostCalculationGarment.Convection", title: "Convection" },
+        { field: "CostCalculationGarment.Unit.Name", title: "Unit" },
         { field: "Total", title: "Kuantitas RO" }
     ];
 
@@ -27,6 +27,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+               console.log(result.data);
                 return {
                     total: result.info.total,
                     data: result.data
