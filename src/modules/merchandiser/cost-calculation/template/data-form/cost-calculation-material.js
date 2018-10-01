@@ -45,6 +45,7 @@ export class CostCalculationMaterial {
             if (this.data.Category.name.toUpperCase() == 'PROCESS') {
                 this.isProcess = true;
                 this.data.Price = this.data.Price || this.calculateProcessPrice();
+                this.data.Price=this.data.Price .toLocaleString('en-EN', { minimumFractionDigits: 4});
             }
         }
 
@@ -222,7 +223,96 @@ export class CostCalculationMaterial {
     get garmentCategoryLoader() {
         return GarmentCategoryLoader;
     }
+    get garmentProductConstLoader() {
+        
+            return (keyword) => {
+                var filter = "";
+    
+                if (this.selectedCategory && this.selectedCategory.name) {
+                    if (this.selectedComposition && this.selectedComposition.Composition) {
+                        if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
+                            if (this.selectedYarn && this.selectedYarn.Yarn && this.selectedYarn.Yarn.length > 0) {
+                                filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const, "yarn": this.selectedYarn.Yarn });
+                            } else {
+                                filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const });
+                            }
+                        } else {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition });
+                        }
+                    } else {
+                        if (this.selectedCategory.name.toUpperCase() == 'FABRIC') {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name })
+                        }
+                    }
+                }
+    
+                return this.service.getGarmentProductConsts(keyword, filter)
+                    .then((result) => {
+                       return result;
+                    });
+            }
+      
+    }
+    get garmentProductYarnLoader() {
+        
+        return (keyword) => {
+            var filter = "";
 
+            if (this.selectedCategory && this.selectedCategory.name) {
+                if (this.selectedComposition && this.selectedComposition.Composition) {
+                    if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
+                        if (this.selectedYarn && this.selectedYarn.Yarn && this.selectedYarn.Yarn.length > 0) {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const, "yarn": this.selectedYarn.Yarn });
+                        } else {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const });
+                        }
+                    } else {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition });
+                    }
+                } else {
+                    if (this.selectedCategory.name.toUpperCase() == 'FABRIC') {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name })
+                    }
+                }
+            }
+
+            return this.service.getGarmentProductYarns(keyword, filter)
+                .then((result) => {
+                   return result;
+                });
+        }
+  
+}
+get garmentProductWidthLoader() {
+        
+    return (keyword) => {
+        var filter = "";
+
+        if (this.selectedCategory && this.selectedCategory.name) {
+            if (this.selectedComposition && this.selectedComposition.Composition) {
+                if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
+                    if (this.selectedYarn && this.selectedYarn.Yarn && this.selectedYarn.Yarn.length > 0) {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const, "yarn": this.selectedYarn.Yarn });
+                    } else {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const });
+                    }
+                } else {
+                    filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition });
+                }
+            } else {
+                if (this.selectedCategory.name.toUpperCase() == 'FABRIC') {
+                    filter = JSON.stringify({ "name": this.selectedCategory.name })
+                }
+            }
+        }
+
+        return this.service.getGarmentProductWidths(keyword, filter)
+            .then((result) => {
+               return result;
+            });
+    }
+
+}
     getWidthText = (product) => {
         return product ? `${product.Width}` : '';
     }
@@ -309,7 +399,7 @@ uomView =(uom)=>{
     @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
     get total() {
         let total = this.data.Quantity && this.data.Conversion && this.data.Price ? this.data.Price / this.data.Conversion * this.data.Quantity : 0;
-        total = numeral(total).format();
+        //total = numeral(total).format();
         if (this.data.isFabricCM) {
             this.data.Total = 0;
             this.data.TotalTemp = numeral(total).value();
@@ -320,6 +410,8 @@ uomView =(uom)=>{
             this.data.TotalTemp = numeral(total).value();
             this.data.CM_Price = null;
         }
+        total=total.toLocaleString('en-EN', { minimumFractionDigits: 2});
+   
         return total;
     }
 

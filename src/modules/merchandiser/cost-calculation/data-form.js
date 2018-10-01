@@ -9,6 +9,7 @@ numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
 var SizeRangeLoader = require('../../../loader/size-range-loader');
 var BuyersLoader = require('../../../loader/garment-buyers-loader');
+var BuyerBrandLoader = require('../../../loader/garment-buyer-brand-loader');
 var ComodityLoader = require('../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../loader/uom-loader');
 var UnitLoader = require('../../../loader/garment-units-loader');
@@ -25,8 +26,7 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable SelectedRounding;
-
-  convectionsList = ["", "K2A", "K2B", "K2C", "K1A", "K1B"];
+ 
   sectionsList = ["", "A", "B", "C", "D", "E"];
   leadTimeList = ["", "30 hari", "45 hari"];
 
@@ -54,6 +54,7 @@ export class DataForm {
       length: 8
     }
   }
+
 
   costCalculationGarment_MaterialsInfo = {
     columns: [
@@ -118,9 +119,10 @@ export class DataForm {
     this.data.Risk = this.data.Risk ? this.data.Risk : 5;
     this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "#") : "#";
     this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
+    this.selectedUnit = this.data.Unit?this.data.Unit:"";
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
     this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
-
+    this.data.ConfirmPrice =this.data.ConfirmPrice ? this.data.ConfirmPrice .toLocaleString('en-EN', { minimumFractionDigits: 4}):0 ;
     let promises = [];
 
     let wage;
@@ -128,6 +130,7 @@ export class DataForm {
       wage = new Promise((resolve, reject) => {
         resolve(this.data.Wage);
       });
+      this.data.Wage.Value=this.data.Wage.Value.toLocaleString('en-EN', { minimumFractionDigits: 2 }) ;
     }
     else {
       this.data.Wage = this.defaultRate;
@@ -137,6 +140,7 @@ export class DataForm {
           result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
           return result;
         });
+        this.data.Wage.Value=this.data.Wage.Value.toLocaleString('en-EN', { minimumFractionDigits: 2 }) ;
     }
     promises.push(wage);
 
@@ -151,7 +155,7 @@ export class DataForm {
       THR = this.rateService.search({ keyword: "THR" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
-          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value().toLocaleString('en-EN', { minimumFractionDigits: 2 });
           return result;
         });
     }
@@ -168,7 +172,7 @@ export class DataForm {
       rate = this.rateService.search({ keyword: "USD" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
-          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value().toLocaleString('en-EN', { minimumFractionDigits: 2 });
           return result;
         });
     }
@@ -176,6 +180,7 @@ export class DataForm {
 
     let all = await Promise.all(promises);
     this.data.Wage = all[0];
+    this.data.Wage.Value=this.data.Wage.Value.toLocaleString('en-EN', { minimumFractionDigits: 2 }) ;
     this.data.THR = all[1];
     this.data.Rate = all[2];
 
@@ -226,10 +231,16 @@ export class DataForm {
   buyerView = (buyer) => {
 
     return `${buyer.Name}`
+  } 
+  get buyerBrandLoader() {
+    return BuyerBrandLoader;
+  }
+  buyerBrandView = (buyer) => {
+    return `${buyer.Name}`
   }
 
   uomView =(uom)=>{
-    console.log(uom);
+   
     return uom?`${uom.Unit}` : '';
 }
 
@@ -244,6 +255,15 @@ export class DataForm {
     }
   }
 
+  @computedFrom("data.Buyer")
+  get filterBuyer() {
+    var filter={};
+  
+    if (this.data.Buyer) {
+      filter = JSON.stringify({ "BuyerName": this.data.Buyer.Name })
+    }
+    return filter;
+  }
   @bindable selectedBuyer = "";
   selectedBuyerChanged(newVal) {
     this.data.Buyer = newVal;
@@ -251,17 +271,25 @@ export class DataForm {
      this.data.BuyerId=newVal.Id;
      this.data.BuyerCode=newVal.Code;
      this.data.BuyerName=newVal.Name;
+
     }
   }
 
   @bindable selectedLeadTime = "";
   selectedLeadTimeChanged(newVal) {
-    if (newVal = "30 hari")
+ 
+    if (newVal === "30 hari")
+    {
       this.data.LeadTime = 30;
-    else if (newVal = "45 hari")
+    }
+    else if (newVal === "45 hari")
+    {      
       this.data.LeadTime = 45;
+      
+    }
     else
       this.data.LeadTime = 0;
+     
   }
 
   @bindable imageUpload;
@@ -308,8 +336,9 @@ export class DataForm {
   async quantityChanged(newValue) {
     this.data.Quantity = newValue;
     this.data.Efficiency = await this.efficiencyService.getEffByQty(this.data.Quantity);
-    let index = this.data.Efficiency.Value ? 100 / this.data.Efficiency.Value : 0;
-    this.data.Index = numeral(numeral(index).format()).value();
+    this.data.Efficiency.Value=this.data.Efficiency.Value.toLocaleString('en-EN', { minimumFractionDigits: 2 }) ;
+    let index = this.data.Efficiency.Value ? 100 / this.data.Efficiency.Value.toLocaleString('en-EN', { minimumFractionDigits: 2 }) : 0;
+    this.data.Index = numeral(numeral(index).format()).value().toLocaleString('en-EN', { minimumFractionDigits: 2 });
     if (this.data.CostCalculationGarment_Materials) {
       this.data.CostCalculationGarment_Materials.forEach(item => {
         item.QuantityOrder = this.data.Quantity;
@@ -375,6 +404,9 @@ export class DataForm {
   @bindable selectedUnit;
   async selectedUnitChanged(newVal) {
     this.data.Unit = newVal;
+    this.data.UnitId=newVal.Id;
+    this.data.UnitCode=newVal.Code;
+    this.data.BuyerName=newVal.Name;
     if (newVal) {
       let UnitCode = newVal.Code;
 
@@ -400,6 +432,7 @@ export class DataForm {
       this.data.UnitCode=newVal.Code;
       this.data.UnitId=newVal.Id;
       this.data.UnitName=newVal.Name;
+       console.log(this.data.OTL1);
     }
   }
 

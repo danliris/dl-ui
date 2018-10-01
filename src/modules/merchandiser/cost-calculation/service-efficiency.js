@@ -7,7 +7,7 @@ const serviceUri = "efficiencies";
 export class ServiceEffeciency extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "merchandiser");
+        super(http, aggregator, config, "sales");
     }
 
     getEffByQty(qty) {
