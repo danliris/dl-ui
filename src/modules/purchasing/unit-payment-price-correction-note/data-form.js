@@ -55,6 +55,7 @@ export class DataForm {
     }
 
     bind() {
+        this.hasView=true;
         if (this.data) {
             this.flag = true;
             if (this.data.correctionType == "Harga Satuan")
@@ -67,15 +68,18 @@ export class DataForm {
             }
             this.selectectedUnitPaymentOrder=this.data.uPONo;
         }
-        else
+        else{
             this.flag = false;
+        }
         this.data.invoiceCorrectionDate=moment(this.data.invoiceCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.invoiceCorrectionDate;
         this.data.vatTaxCorrectionDate=moment(this.data.vatTaxCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.vatTaxCorrectionDate;
         this.data.incomeTaxCorrectionDate=moment(this.data.incomeTaxCorrectionDate).format("DD MMM YYYY")=="01 Jan 0001"?null:this.data.incomeTaxCorrectionDate;
         if(!this.readOnly) {
             this.UpoItem.columns.push({ header: "" });
-            
+            this.hasView=false;
         }
+        console.log(this.readOnly);
+        console.log(this.hasView);
     }
 
     setItems(_paymentOrder) {

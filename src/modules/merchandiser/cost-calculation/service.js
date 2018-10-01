@@ -74,7 +74,37 @@ export class Service extends RestService {
         var endpoint = config.getEndpoint("core");
 
         const resource = 'master/garmentProducts';
-console.log(keyword, filter);
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
+
+    getGarmentProductConsts(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garmentProducts/distinct-product-const';
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
+    getGarmentProductWidths(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garmentProducts/distinct-product-width';
+        return endpoint.find(resource, { keyword: keyword, filter: filter })
+            .then(results => {
+                return results.data;
+            });
+    }
+    getGarmentProductYarns(keyword, filter) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+
+        const resource = 'master/garmentProducts/distinct-product-yarn';
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
                 return results.data;

@@ -123,7 +123,6 @@ export class DataForm {
         for (var a = count; a >= 0; a--) {
           this.data.Details.splice((a - 1), 1);
         }
-
       }
       this.data.FinishingPrintingSalesContract = this.SalesContract;
       this.data.Buyer = this.data.FinishingPrintingSalesContract.Buyer;
@@ -164,7 +163,7 @@ export class DataForm {
   OrderTypeChanged() {
     if (this.OrderType) {
       if (!this.readOnly) {
-        this.data.ProcessType = {};
+        // this.data.ProcessType = {};
         this.data.Details.length = 0;
       }
       var code = this.OrderType.Code;
@@ -194,13 +193,14 @@ export class DataForm {
         }
 
       }
+
     }
     else {
       if (!this.readOnly) {
-        this.data.ProcessType = {};
+        // this.data.ProcessType = {};
         this.data.Details = [];
       }
-      var code = this.data.OrderType.Code;
+      var code = this.data.OrderType.Code
       if (this.data.OrderType && code) {
         this.filterOrder = {
           "OrderTypeCode": code
@@ -222,7 +222,6 @@ export class DataForm {
           }
         }
       }
-
     }
   }
 
@@ -318,7 +317,7 @@ export class DataForm {
           lastname: this.data.Account.LastName,
         }
       }
-      this.data.SalesContractNo = this.data.FinishingPrintingSalesContract.SalesContractNo;
+      // this.SalesContract = this.data.FinishingPrintingSalesContract;
       // if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
       //   this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.SalesContractNo), this.scFields);
       //   this.data.FinishingPrintingSalesContract = this.selectedSC;
