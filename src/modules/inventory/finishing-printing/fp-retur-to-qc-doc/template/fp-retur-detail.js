@@ -10,7 +10,7 @@ export class FPReturToQCDetail {
     this.error = context.error;
     this.options = context.options;
     if(this.data){
-      this.data.designName=this.data.designCode + ' - '+ this.data.designNumber;
+      this.data.designName=this.data.DesignCode + ' - '+ this.data.DesignNumber;
     }
   }
 

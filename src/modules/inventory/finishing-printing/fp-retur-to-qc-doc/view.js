@@ -17,16 +17,14 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if (!this.data.isVoid) {
-            this.isVoid = true;
-        }
-        for(var item of this.data.items){
-            item.code=item.packingCode;
+        
+        if (!this.data.IsVoid) {
+            this.IsVoid = true;
         }
         this.filter={
-                material:this.data.materialName,
-                materialConstructionFinishName: this.data.materialConstructionName,
-                materialWidthFinish: this.data.materialWidthFinish
+                materialName:this.data.Material.Name,
+                materialConstructionName: this.data.MaterialConstruction.Name,
+                materialWidth: this.data.MaterialWidthFinish
             };
     }
 

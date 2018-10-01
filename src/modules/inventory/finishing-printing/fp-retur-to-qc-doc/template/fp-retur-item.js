@@ -1,11 +1,13 @@
-import {bindable} from 'aurelia-framework'
+import { bindable, inject } from 'aurelia-framework'
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
+import { Service } from "../service";
 
 var PackingLoader = require('../../../../../loader/packing-loader');
 var ProductionLoader = require('../../../../../loader/production-order-loader');
-const resource = 'inventory/products-by-production-orders';
+const resource = 'master/products';
 
+@inject(Service)
 export class FPReturToQCItem {
   @bindable selectedPacking;
 
@@ -21,16 +23,22 @@ export class FPReturToQCItem {
     { header: "Berat (Kg)", value: "weight" }
   ]
 
+  constructor(service) {
+    this.service = service;
+  }
+
   activate(context) {
+    
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
     this.isShowing = false;
     this.filter = this.context.context.options ? this.context.context.options : {};
+    debugger
     if (this.data) {
       this.selectedPacking = this.data;
-      if (this.data.details) {
+      if (this.data.Details) {
         this.isShowing = true;
       }
     }
@@ -38,60 +46,70 @@ export class FPReturToQCItem {
 
   //packingFilter=this.filter;
 
+
   get packingLoader() {
     return PackingLoader;
   }
 
-  get productionLoader(){
+  get productionLoader() {
     return ProductionLoader;
   }
 
   async selectedPackingChanged(newValue) {
-    debugger
-    var items=[];
-    if(newValue){
-        if (newValue.Id) {
-          this.data.packing=newValue;
-          this.data.code=newValue.Code;
-          this.data.packingId=newValue.Id;
-          this.data.packingCode=newValue.Code;
-          this.data.productionOrderId=newValue.ProductionOrderId;
-          this.data.productionOrderNo=newValue.ProductionOrderNo;
 
-          var config = Container.instance.get(Config);
-          var endpoint = config.getEndpoint("inventory-azure");
-          
-          await endpoint.find(resource, { filter: JSON.stringify(newValue.Id)})
-            .then((result) => {
-              debugger
-              for(var item of result.info){
-                if(item.inventory.length>0){
-                  var data={
-                    productName:item.name,
-                    productId:item._id,
-                    designNumber:item.properties.designNumber,
-                    designCode:item.properties.designCode,
-                    remark:'',
-                    colorWay:item.properties.colorName,
-                    quantityBefore:item.inventory[0].quantity,
-                    returQuantity:0,
-                    uomId:item.uomId,
-                    uom:item.uom.unit ? item.uom.unit : item.uom,
-                    length:0,
-                    weight:0,
-                    storageId:item.inventory[0].storageId
-                  }
-                  items.push(data);
-                }
-              }
-              this.data.details=items;
+    var items = [];
+    if (newValue) {
+      if (newValue.Id) {
+        this.data.ProductionOrder = newValue;
+
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+        var productFilter = {
+          ProductionOrderNo: newValue.OrderNo
+        };
+        await endpoint.find(resource, { filter: JSON.stringify(productFilter) })
+          .then((result) => {
+
+            var productIds = result.data.map(function (v) {
+              return v.Id;
             });
-            this.isShowing = true;
-        }
+            var product = result.data;
+            this.service.getInventoryItemsByProductId({ productIds })
+              .then((result) => {
+                if (result) {
+                  if (result.data) {
+                    for (var item of result.data) {
+                      var newProduct = product.find(function (v) {
+                        return v.Id == item.productId;
+                      });
+                      var data = {
+                        productName: item.productName,
+                        productId: item.productId,
+                        designNumber: newProduct.DesignNumber,
+                        designCode: newProduct.DesignCode,
+                        remark: '',
+                        colorWay: newProduct.ColorName,
+                        quantityBefore: item.quantity,
+                        returQuantity: 0,
+                        uomId: item.uomId,
+                        uom: item.uom,
+                        length: 0,
+                        weight: 0
+                      }
+                      items.push(data);
+                    }
+                    this.data.Details = items;
+                  }
+                }
+              });
+          });
+        this.isShowing = true;
       }
+    }
   }
 
   toggle() {
+    debugger
     if (!this.isShowing)
       this.isShowing = true;
     else
@@ -99,14 +117,18 @@ export class FPReturToQCItem {
   }
 
   packingLoaderView = (packing) => {
-    if(packing.Code && packing.ProductionOrderNo)
+    if (packing.Code && packing.ProductionOrderNo)
       return `${packing.Code} - ${packing.ProductionOrderNo}`;
-     //return packing.productionOrderNo
+    //return packing.productionOrderNo
   }
 
-  productionLoaderView = (productionOrder) =>{
-    if(productionOrder.OrderNo)
+  productionLoaderView = (productionOrder) => {
+    debugger
+    if (productionOrder.OrderNo)
       return `${productionOrder.OrderNo}`;
+    else if(productionOrder.ProductionOrder){
+      return `${productionOrder.ProductionOrder.OrderNo}`
+    }
   }
 
   controlOptions = {

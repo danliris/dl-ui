@@ -23,8 +23,8 @@
     <tr if.bind="selectedPacking">
         <td>
             <au-collection 
-            items.bind="data.details" 
-            errors.bind="error.details" 
+            items.bind="data.Details" 
+            errors.bind="error.Details" 
             columns.bind="itemsColumns"
             read-only.bind="options.readOnly"
             item-template="modules/inventory/finishing-printing/fp-retur-to-qc-doc/template/fp-retur-detail">

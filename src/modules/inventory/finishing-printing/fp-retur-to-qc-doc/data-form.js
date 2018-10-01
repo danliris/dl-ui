@@ -1,4 +1,4 @@
-import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var ProductLoader = require('../../../../loader/product-loader');
 var ConstructionLoader = require('../../../../loader/material-loader');
@@ -15,17 +15,17 @@ export class DataForm {
     @bindable selectedConstruction;
 
     destinationOptions = ['Pack I', 'Pack II'];
-    
+
     itemsInfo = {
-        columns: [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo"}],
+        columns: [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo" }],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.items.push({productionOrderNo: "", code: ""});
+            this.data.Items.push({ productionOrderNo: "", code: "" });
         }.bind(this)
     };
-    itemsColumns = [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo"}];
-    materialFields=["name","code"];
-    packingFields=["code", "motif", "materialWidthFinish"];
+    itemsColumns = [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo" }];
+    materialFields = ["name", "code"];
+    packingFields = ["code", "motif", "materialWidthFinish"];
 
 
     constructor(service, bindingEngine) {
@@ -34,18 +34,19 @@ export class DataForm {
     }
 
     async bind(context) {
+        
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
 
-        if (this.data.materialId) {
-            this.selectedMaterial = await this.service.getProductById(this.data.materialId, this.materialFields);
-            this.data.material =this.selectedMaterial;
-           // this.selectedMaterial = this.data.material;
+        if (this.data.Material) {
+            this.selectedMaterial = this.data.Material;
+            // this.data.material = this.selectedMaterial;
+            // this.selectedMaterial = this.data.material;
         }
-        if (this.data.materialConstructionId) {
-            this.selectedConstruction = await this.service.getConstructionById(this.data.materialConstructionId, this.materialFields);
-            this.data.construction=this.selectedConstruction;
+        if (this.data.MaterialConstruction) {
+            this.selectedConstruction = this.data.MaterialConstruction;
+            // this.data.materialConstruction = this.selectedConstruction;
         }
     }
 
@@ -54,8 +55,8 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    filter={};
-    
+    filter = {};
+
     // @computedFrom("data.material" && "data.construction" && "data.materialWidthFinish")
     // get getFilter(){
     //     filter={
@@ -72,27 +73,27 @@ export class DataForm {
     selectedMaterialChanged(newValue) {
         
         console.log(this.readOnly)
-        if(!this.readOnly){
-        this.data.items = [];
-        console.log(this.error);
-        if (this.error) {
-            if (this.error.items) {
-                this.error.items = [];
+        if (!this.readOnly) {
+            this.data.Items = [];
+            console.log(this.error);
+            if (this.error) {
+                if (this.error.items) {
+                    this.error.items = [];
+                }
             }
-        }
         }
         var _selectedMaterial = newValue;
         if (_selectedMaterial && _selectedMaterial.Id) {
             this.data.material = _selectedMaterial;
-            this.data.materialName=_selectedMaterial.Name;
+            this.data.materialName = _selectedMaterial.Name;
             this.data.materialId = _selectedMaterial.Id ? _selectedMaterial.Id : "";
         }
-        if(!this.readOnly){
-            if(this.data.material && this.data.construction){
-                this.filter={
-                    materialName:this.data.materialName,
+        if (!this.readOnly) {
+            if (this.data.material && this.data.materialConstruction) {
+                this.filter = {
+                    materialName: this.data.materialName,
                     materialConstructionName: this.data.materialConstructionName,
-                    materialWidth: this.data.materialWidthFinish
+                    materialWidth: this.data.MaterialWidthFinish
                 };
             }
         }
@@ -103,35 +104,35 @@ export class DataForm {
         
         var _selectedConstruction = newValue;
         if (_selectedConstruction.Id) {
-            this.data.construction = _selectedConstruction;
-            this.data.materialConstructionName=_selectedConstruction.Name;
+            this.data.materialConstruction = _selectedConstruction;
+            this.data.materialConstructionName = _selectedConstruction.Name;
             this.data.materialConstructionId = _selectedConstruction.Id ? _selectedConstruction.Id : "";
         }
-        if(!this.readOnly){
-            if(this.data.material && this.data.construction ){
-                this.filter={
-                    materialName:this.data.materialName,
+        if (!this.readOnly) {
+            if (this.data.material && this.data.materialConstruction) {
+                this.filter = {
+                    materialName: this.data.materialName,
                     materialConstructionName: this.data.materialConstructionName,
-                    materialWidth: this.data.materialWidthFinish
+                    materialWidth: this.data.MaterialWidthFinish
                 };
             }
         }
     }
 
-    materialWidthFinishChanged(e){
-        this.data.items = [];
+    materialWidthFinishChanged(e) {
+        this.data.Items = [];
         
         if (this.error) {
             if (this.error.items) {
                 this.error.items = [];
             }
         }
-        if(!this.readOnly){
-            if(this.data.material && this.data.construction){
-                this.filter={
-                    materialName:this.data.materialName,
+        if (!this.readOnly) {
+            if (this.data.material && this.data.materialConstruction) {
+                this.filter = {
+                    materialName: this.data.materialName,
                     materialConstructionName: this.data.materialConstructionName,
-                    materialWidth: this.data.materialWidthFinish
+                    materialWidth: this.data.MaterialWidthFinish
                 };
             }
         }
@@ -147,19 +148,22 @@ export class DataForm {
 
 
     get addItems() {
+        debugger
         return (event) => {
-             this.data.items.push({productionOrderNo: "", code: ""});
+            this.data.Items.push({ productionOrderNo: "", code: "" });
         };
     }
 
     materialView = (product) => {
+      
         return `${product.Name}`;
     }
 
     constructionView = (construction) => {
+    
         return `${construction.Name}`;
     }
 
-    
+
 
 } 
