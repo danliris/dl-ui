@@ -222,7 +222,96 @@ export class CostCalculationMaterial {
     get garmentCategoryLoader() {
         return GarmentCategoryLoader;
     }
+    get garmentProductConstLoader() {
+        
+            return (keyword) => {
+                var filter = "";
+    
+                if (this.selectedCategory && this.selectedCategory.name) {
+                    if (this.selectedComposition && this.selectedComposition.Composition) {
+                        if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
+                            if (this.selectedYarn && this.selectedYarn.Yarn && this.selectedYarn.Yarn.length > 0) {
+                                filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const, "yarn": this.selectedYarn.Yarn });
+                            } else {
+                                filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const });
+                            }
+                        } else {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition });
+                        }
+                    } else {
+                        if (this.selectedCategory.name.toUpperCase() == 'FABRIC') {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name })
+                        }
+                    }
+                }
+    
+                return this.service.getGarmentProductConsts(keyword, filter)
+                    .then((result) => {
+                       return result;
+                    });
+            }
+      
+    }
+    get garmentProductYarnLoader() {
+        
+        return (keyword) => {
+            var filter = "";
 
+            if (this.selectedCategory && this.selectedCategory.name) {
+                if (this.selectedComposition && this.selectedComposition.Composition) {
+                    if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
+                        if (this.selectedYarn && this.selectedYarn.Yarn && this.selectedYarn.Yarn.length > 0) {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const, "yarn": this.selectedYarn.Yarn });
+                        } else {
+                            filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const });
+                        }
+                    } else {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition });
+                    }
+                } else {
+                    if (this.selectedCategory.name.toUpperCase() == 'FABRIC') {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name })
+                    }
+                }
+            }
+
+            return this.service.getGarmentProductYarns(keyword, filter)
+                .then((result) => {
+                   return result;
+                });
+        }
+  
+}
+get garmentProductWidthLoader() {
+        
+    return (keyword) => {
+        var filter = "";
+
+        if (this.selectedCategory && this.selectedCategory.name) {
+            if (this.selectedComposition && this.selectedComposition.Composition) {
+                if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
+                    if (this.selectedYarn && this.selectedYarn.Yarn && this.selectedYarn.Yarn.length > 0) {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const, "yarn": this.selectedYarn.Yarn });
+                    } else {
+                        filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition, "const": this.selectedConstruction.Const });
+                    }
+                } else {
+                    filter = JSON.stringify({ "name": this.selectedCategory.name, "Composition": this.selectedComposition.Composition });
+                }
+            } else {
+                if (this.selectedCategory.name.toUpperCase() == 'FABRIC') {
+                    filter = JSON.stringify({ "name": this.selectedCategory.name })
+                }
+            }
+        }
+
+        return this.service.getGarmentProductWidths(keyword, filter)
+            .then((result) => {
+               return result;
+            });
+    }
+
+}
     getWidthText = (product) => {
         return product ? `${product.Width}` : '';
     }

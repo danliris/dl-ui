@@ -5,7 +5,7 @@
                 <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"
                     read-only.bind="isEdit"></au-textbox>
                
-                    <au-autocomplete     label="Unit"      value.bind="data.Unit"   error.bind="error.Unit"    loader.bind="unitLoader"       text.bind = "unitView"     placeholder="Unit"   options.bind="length4"></au-autocomplete>  
+                    <au-autocomplete     label="Unit"      value.bind="selectedUnit"   error.bind="error.Unit"    loader.bind="unitLoader"       text.bind = "unitView"     placeholder="Unit"   options.bind="length4"></au-autocomplete>  
                 <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="data.Comodity" text.bind="comodityView" error.bind="error.Commodity" loader.one-time="comodityLoader"
                     options.bind="length4"></au-autocomplete>
                 <au-multiline placeholder="Deskripsi Komoditi" label="Deskripsi Komoditi" value.bind="data.CommodityDescription" error.bind="error.CommodityDescription"
@@ -33,14 +33,16 @@
                 <au-numeric label="SMV Total" value.bind="SMV_Total" options.bind="length4" read-only="disabled"></au-numeric>
             </div>
             <div class="col-md-3">
-                <au-autocomplete label="Buyer" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" text.bind="buyerView" loader.one-time="buyerLoader"
+                <au-autocomplete label="Buyer Agent" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" text.bind="buyerView" loader.one-time="buyerLoader"
                     options.bind="length4" ></au-autocomplete>
+                <au-autocomplete label="Buyer Brand" placeholder="Cari Brand" value.bind="data.BuyerBrand" error.bind="error.BuyerBrand" text.bind="buyerBrandView" loader.one-time="buyerBrandLoader"
+                    options.bind="length4" query.bind="filterBuyer"></au-autocomplete>
                 <div class="row">
                     <div class="col-md-6">
-                        <au-numeric label="Eff (%)" value.bind="data.Efficiency.Value" options.bind="length4" read-only="disabled"></au-numeric>
+                        <au-numeric label="Eff (%)" value.bind="data.Efficiency.Value" format = "0,0.00" options.bind="length4" read-only="disabled"></au-numeric>
                     </div>
                     <div class="col-md-6">
-                        <au-numeric label="Index" value.bind="data.Index" options.bind="length4" read-only="disabled"></au-numeric>
+                        <au-numeric label="Index" value.bind="data.Index" format = "0,0.00" options.bind="length4" read-only="disabled"></au-numeric>
                     </div>
                 </div>
                 <div class="row">

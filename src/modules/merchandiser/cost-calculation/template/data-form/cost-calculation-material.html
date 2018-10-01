@@ -18,17 +18,17 @@
         </td>
         <!-- konstruksi -->
         <td>
-            <au-autocomplete query.bind="filterProductQuery" placeholder="Cari Konstruksi" text.bind="getConstructionText" value.bind="selectedConstruction" options.bind="controlOptions" loader.bind="garmentProductLoader" show.bind="compositionIsExist">
+            <au-autocomplete query.bind="filterProductQuery" placeholder="Cari Konstruksi" text.bind="getConstructionText" value.bind="selectedConstruction" options.bind="controlOptions" loader.bind="garmentProductConstLoader" show.bind="compositionIsExist">
             </au-autocomplete>
         </td>
         <!-- yarn -->
         <td>
-            <au-autocomplete query.bind="filterProductQuery" placeholder="Cari Yarn" text.bind="getYarnText" value.bind="selectedYarn" options.bind="controlOptions" loader.bind="garmentProductLoader" show.bind="constructionIsExist">
+            <au-autocomplete query.bind="filterProductQuery" placeholder="Cari Yarn" text.bind="getYarnText" value.bind="selectedYarn" options.bind="controlOptions" loader.bind="garmentProductYarnLoader" show.bind="constructionIsExist">
             </au-autocomplete>
         </td>
         <!-- width -->
         <td>
-            <au-autocomplete query.bind="filterProductQuery" placeholder="Cari Width" text.bind="getWidthText" value.bind="selectedWidth" options.bind="controlOptions" loader.bind="garmentProductLoader" show.bind="yarnIsExist">
+            <au-autocomplete query.bind="filterProductQuery" placeholder="Cari Width" text.bind="getWidthText" value.bind="selectedWidth" options.bind="controlOptions" loader.bind="garmentProductWidthLoader" show.bind="yarnIsExist">
             </au-autocomplete>
         </td>
         <!-- deskripsi -->

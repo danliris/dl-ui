@@ -35,7 +35,7 @@ export class View {
       { header: "Kategori", value: "Category" },
       { header: "Kode Barang", value: "Product.code" },
       { header: "Komposisi", value: "Product.composition" },
-      { header: "Konstruksi", value: "Product.construction" },
+      { header: "Konstruksi", value: "Product.const" },
       { header: "Yarn", value: "Product.yarn" },
       { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
@@ -67,7 +67,6 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    console.log(this.data);
     this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
     this.data.AccessoriesAllowance = numeral(
       this.data.AccessoriesAllowance
@@ -92,6 +91,7 @@ export class View {
         CM_Price += Number(item.CM_Price);
       });
     }
+    
     let FOB_Price = this.data.ConfirmPrice + CM_Price;
     this.data.ConfirmPrice = this.isDollar
       ? US + numeral(this.data.ConfirmPrice).format()
@@ -127,6 +127,7 @@ export class View {
     this.data.SMV_Total = numeral(this.data.SMV_Total).format();
 
     this.data.LeadTime = `${this.data.LeadTime} hari`
+    this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
   }
 
   async bind(context) {

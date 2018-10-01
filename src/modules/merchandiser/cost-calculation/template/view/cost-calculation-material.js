@@ -19,5 +19,7 @@ export class CostCalculationMaterial {
         this.data.QuantityInUnit = numeral(this.data.Quantity).format(defaultNumberFormat) + " " + this.data.UOMQuantity.Unit;
         this.data.PricePerUnit = numeral(this.data.Price).format(defaultNumberFormat) + " / " + this.data.UOMPrice.Unit;
         this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
+        this.data.Product.Construction=this.data.Product.Const;
+        console.log(this.data);
     }
 }
