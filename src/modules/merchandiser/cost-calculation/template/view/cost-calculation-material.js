@@ -17,9 +17,9 @@ export class CostCalculationMaterial {
         this.readOnly = true;
         this.data.Category.FullName = this.data.Category.SubCategory ? this.data.Category.Name + " - " + this.data.Category.SubCategory : this.data.Category.Name;
         this.data.QuantityInUnit = numeral(this.data.Quantity).format(defaultNumberFormat) + " " + this.data.UOMQuantity.Unit;
-        this.data.PricePerUnit = numeral(this.data.Price).format(defaultNumberFormat) + " / " + this.data.UOMPrice.Unit;
-        this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
+        this.data.PricePerUnit = this.data.Price.toLocaleString('en-EN', { minimumFractionDigits: 4})+ " / " + this.data.UOMPrice.Unit;
+        this.data.Total = this.data.Total.toLocaleString('en-EN', { minimumFractionDigits: 2});
         this.data.Product.Construction=this.data.Product.Const;
-        console.log(this.data);
+        
     }
 }

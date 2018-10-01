@@ -45,6 +45,7 @@ export class CostCalculationMaterial {
             if (this.data.Category.name.toUpperCase() == 'PROCESS') {
                 this.isProcess = true;
                 this.data.Price = this.data.Price || this.calculateProcessPrice();
+                this.data.Price=this.data.Price .toLocaleString('en-EN', { minimumFractionDigits: 4});
             }
         }
 
@@ -398,7 +399,7 @@ uomView =(uom)=>{
     @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
     get total() {
         let total = this.data.Quantity && this.data.Conversion && this.data.Price ? this.data.Price / this.data.Conversion * this.data.Quantity : 0;
-        total = numeral(total).format();
+        //total = numeral(total).format();
         if (this.data.isFabricCM) {
             this.data.Total = 0;
             this.data.TotalTemp = numeral(total).value();
@@ -409,6 +410,8 @@ uomView =(uom)=>{
             this.data.TotalTemp = numeral(total).value();
             this.data.CM_Price = null;
         }
+        total=total.toLocaleString('en-EN', { minimumFractionDigits: 2});
+   
         return total;
     }
 

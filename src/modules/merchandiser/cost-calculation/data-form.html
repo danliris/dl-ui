@@ -53,7 +53,7 @@
                         <au-numeric label="THR" value.bind="data.THR.Value" error.bind="error.THR" options.bind="length4" read-only="disabled"></au-numeric>
                     </div>
                 </div>
-                <au-numeric label="Confirm Price" value.bind="data.ConfirmPrice" error.bind="error.ConfirmPrice" options.bind="length4"></au-numeric>
+                <au-numeric label="Confirm Price" value.bind="data.ConfirmPrice" error.bind="error.ConfirmPrice" format = "0,0.0000" options.bind="length4"></au-numeric>
                 <div class="row">
                     <div class="col-md-6">
                         <au-textbox label="Rate" value.bind="selectedRate" error.bind="error.Rate" options.bind="length4" read-only.bind="true" options.bind="length4"></au-textbox>
