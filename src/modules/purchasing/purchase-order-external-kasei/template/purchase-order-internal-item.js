@@ -47,11 +47,14 @@ export class PurchaseOrderItem {
               this.data.conversion = 1;
         }
     }
-    if(this.data.priceBeforeTax){
-        this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-      }
+    // if(this.data.priceBeforeTax){
+    //     this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    //   }
       if(this.data.dealQuantity){
         this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      }
+      if(this.data.defaultQuantity){
+        this.data.defaultQuantity=this.data.defaultQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
       }
   }
 

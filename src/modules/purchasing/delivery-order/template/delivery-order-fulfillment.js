@@ -56,9 +56,12 @@ export class DeliveryOrderItem {
 
     if (this.data) {
       this.deliveredQuantity = this.data.deliveredQuantity;
+      this.data.purchaseOrderQuantity=this.data.purchaseOrderQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     } else {
       this.deliveredQuantity = 0;
     }
+    
+    this.deliveredQuantity=this.deliveredQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     this.warning();
   }
 

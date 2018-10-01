@@ -7,6 +7,7 @@ import {Service} from './service';
 export class Edit {
     hasCancel = true;
     hasSave = true;
+    hasView = false;
 
     constructor(router, service) {
         this.router = router;
@@ -27,11 +28,23 @@ export class Edit {
     }
 
     save(event) {
-        this.service.update(this.data).then(result => {
-            this.cancel();
-        }).catch(e => {
-            this.error = e;
-        })
+        var test=false;
+        for(var item of this.data.items){
+            for(var detail of item.details){
+                if(isNaN(detail.pricePerDealUnit)){
+                    test=true;
+                }
+            }
+        }
+        if(test==true){
+            alert("Harga Barang Harus Diisi Dengan Angka");
+        } else {
+            this.service.update(this.data).then(result => {
+                this.cancel();
+            }).catch(e => {
+                this.error = e;
+            })
+        }
     }
 }
 

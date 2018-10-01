@@ -5,7 +5,7 @@ const resource = 'article-colors';
 
 module.exports = function(keyword, filter) {
     let config = Container.instance.get(Config);
-    let endpoint = config.getEndpoint("merchandiser");
+    let endpoint = config.getEndpoint("sales");
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {

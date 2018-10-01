@@ -14,6 +14,11 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        console.log(this.data);
+        // if(this.data.CostCalculationGarment){
+        //     this.data.CostCalculationGarment=await this.service.getCostCalculationGarmentById(this.data.CostCalculationGarment.Id);
+        //     console.log(this.data);
+        // }
     }
 
     list() {

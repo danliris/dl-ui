@@ -1,6 +1,7 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
+import { debug } from 'util';
 
 
 @inject(Router, Service)
@@ -11,6 +12,7 @@ export class Edit {
     }
 
     async activate(params) {
+
         var id = params.id;
         this.data = await this.service.getById(id);
         this.SalesContract = this.data.FinishingPrintingSalesContract;

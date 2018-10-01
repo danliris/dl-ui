@@ -5,12 +5,11 @@
         <div class="col-md-6" style="padding:0">
           <div class="col-sm-10" style="padding-left:18%">
             <au-autocomplete value.bind="SalesContract" label="Nomor Sales Contract" error.bind="error.SalesContractNo" read-only.bind="(readOnly)"
-              loader.bind="fpSalesContractLoader" placeholder="cari nomor sales kontrak " key="SalesContractNo" text="SalesContractNo"
-              change.delegate="SalesContractChanged($event)" if.bind="!readOnly">
+              loader.bind="fpSalesContractLoader" placeholder="cari nomor sales kontrak " key="SalesContractNo" text="SalesContractNo">
             </au-autocomplete>
           </div>
-          <textbox label="No. Sales Contract" value.bind="data.SalesContractNo" error.bind="error.SalesContractNo" read-only.bind="(readOnly || isEdit)"
-            if.bind="readOnly"></textbox>
+          <!-- <textbox label="No. Sales Contract" value.bind="data.SalesContractNo" error.bind="error.SalesContractNo" read-only.bind="(readOnly || isEdit)"
+            if.bind="readOnly"></textbox> -->
           <textbox label="No. Order Produksi" value.bind="data.OrderNo" error.bind="error.orderNo" read-only="true" if.bind="data.OrderNo"></textbox>
           <div class="col-sm-10" style="padding-left:18%">
             <au-autocomplete value.bind="data.Buyer" label="Buyer" error.bind="error.Buyer" read-only="true" text.bind="getBuyerText">
@@ -107,8 +106,8 @@
           <textbox label="Standar Shrinkage" value.bind="data.ShrinkageStandard" error.bind="error.ShrinkageStandard" read-only.bind="(readOnly)"></textbox>
 
           <div class="col-sm-10" style="padding-left:18%">
-            <au-autocomplete loader.bind="standardTests" value.bind="data.StandardTests" label="Standar Test" error.bind="error.StandardTests" read-only.bind="readOnly"
-              text="Name">
+            <au-autocomplete loader.bind="standardTests" value.bind="data.StandardTests" label="Standar Test" error.bind="error.StandardTests"
+              read-only.bind="readOnly" text="Name">
             </au-autocomplete>
           </div>
           <!-- <standard-test-auto-suggest label="Standar Test" value.bind="data.StandardTest" error.bind="error.StandardTest" read-only.bind="readOnly"

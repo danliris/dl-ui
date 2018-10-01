@@ -2,70 +2,86 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 var StorageLoader = require('../../../loader/storage-loader');
 var PackingUnacceptedLoader = require('../../../loader/packing-unaccepted-loader');
+var PackingLoader = require('../../../loader/packing-loader');
 
 export class DataForm {
     @bindable readOnly = false;
     @bindable packingReadOnly = false;
     @bindable data;
     @bindable error;
-    @bindable packing;
+    @bindable Packing;
     @bindable title;
+
+    packingFilter = { DeliveryType: "BARU" };
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
     }
 
     itemsColumns = [
-        { header: "Nama Barang", value: "product" },
-        { header: "Kuantiti Diterima", value: "quantity" },
-        { header: "Kuantiti Saat Ini", value: "availableQuantity" },
-        { header: "Berat", value: "weight" },
-        { header: "Berat Total", value: "weightTotal" },
-        { header: "Panjang", value: "length" },
-        { header: "Panjang Total", value: "lengthTotal" },
-        { header: "Remark", value: "remark" },
-        { header: "Catatan", value: "notes" }
+        { header: "Nama Barang", value: "Product" },
+        { header: "Kuantiti Diterima", value: "Quantity" },
+        { header: "Kuantiti Saat Ini", value: "AvailableQuantity" },
+        { header: "Berat", value: "Weight" },
+        { header: "Berat Total", value: "WeightTotal" },
+        { header: "Panjang", value: "Length" },
+        { header: "Panjang Total", value: "LengthTotal" },
+        { header: "Remark", value: "Remark" },
+        { header: "Catatan", value: "Notes" }
     ]
 
-    get packingUnacceptedLoader() {
-        return PackingUnacceptedLoader;
+    get packingLoader() {
+        return PackingLoader;
     }
 
     get isSolid() {
-        if (this.data.packing && this.data.packing.orderType)
-            return (this.data.packing.orderType || "").toString().toLowerCase() === "solid";
+        if (this.data.Packing) {
+            if (this.data.Packing.OrderTypeName) {
+                console.log((this.data.Packing.OrderTypeName || "").toString().toLowerCase() === "solid")
+                return (this.data.Packing.OrderTypeName || "").toString().toLowerCase() === "solid";
+            }
+        }
     }
 
-    packingChanged(newValue) {
-        this.data.packing = newValue;
-        if (this.data.packing) {
+    PackingChanged(newValue) {
+
+        if (newValue) {
+            this.data.Packing = newValue;
             var _items = [];
-            this.data.packingId = this.data.packing._id;
+            this.data.PackingId = this.data.Packing.Id;
+            this.data.ProductionOrderNo = this.data.Packing.ProductionOrderNo;
+            this.data.OrderType = this.data.Packing.OrderTypeName;
+            this.data.ColorName = this.data.Packing.ColorName;
+            this.data.ColorType = this.data.Packing.ColorType;
+            this.data.Construction = this.data.Packing.Construction;
+            this.data.MaterialWidthFinish = this.data.Packing.MaterialWidthFinish;
+            this.data.PackingUom = this.data.Packing.PackingUom;
+            this.data.Buyer = this.data.Packing.BuyerName;
+            this.data.PackingCode = this.data.Packing.Code;
+            this.data.DesignCode = this.data.Packing.DesignCode;
+            this.data.DesignNumber = this.data.Packing.DesignNumber;
 
-            // this.data.storageName = this.data.packing.orderType.toString().toLowerCase() === "printing" ? "Gudang Jadi Printing" : "Gudang Jadi Finishing";
-
-            this.data.packing.items.map((item) => {
+            this.data.Packing.PackingDetails.map((item) => {
                 var _item = {};
-                _item.product = item.remark !== "" && item.remark !== null ? `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}/${item.remark}` : `${this.data.packing.productionOrderNo}/${this.data.packing.colorName}/${this.data.packing.construction}/${item.lot}/${item.grade}/${item.length}`;
-                _item.quantity = item.quantity;
-                _item.availableQuantity = item.availableQuantity ? item.availableQuantity : item.quantity;
-                _item.length = item.length;
-                _item.weight = item.weight;
-                _item.remark = item.remark;
-                _item.notes = item.notes;
+                _item.Product = item.Remark !== "" && item.Remark !== null ? `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}/${item.Remark}` : `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}`;
+                _item.Quantity = item.Quantity;
+                _item.AvailableQuantity = item.AvailableQuantity ? item.AvailableQuantity : item.Quantity;
+                _item.Length = item.Length;
+                _item.Weight = item.Weight;
+                _item.Remark = item.Remark;
+                _item.Notes = item.Notes;
                 _items.push(_item);
             })
 
-            this.data.items = _items;
+            this.data.Items = _items;
         }
         else {
-            this.data.packing = {};
-            this.data.packingId = {};
-            this.data.items = [];
-            this.data.storageName = "";
+            this.data.Packing = {};
+            this.data.PackingId = {};
+            this.data.Items = [];
+            this.data.StorageName = "";
         }
     }
 
@@ -76,4 +92,8 @@ export class DataForm {
     get storageLoader() {
         return StorageLoader;
     }
+
+    // get packingFilter() {
+    //     return packingFilter = { DeliveryType: "BARU" };
+    // }
 } 
