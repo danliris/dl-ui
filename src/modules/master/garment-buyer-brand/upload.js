@@ -53,7 +53,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Brand, Nama Brand, Kode Buyer, Nama Buyer");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Brand, Nama Brand, Kode Buyer");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");
