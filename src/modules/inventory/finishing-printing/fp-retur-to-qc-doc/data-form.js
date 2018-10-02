@@ -93,7 +93,7 @@ export class DataForm {
                 this.filter = {
                     materialName: this.data.materialName,
                     materialConstructionName: this.data.materialConstructionName,
-                    materialWidth: this.data.MaterialWidthFinish
+                    finishWidth: this.data.MaterialWidthFinish
                 };
             }
         }
@@ -113,7 +113,7 @@ export class DataForm {
                 this.filter = {
                     materialName: this.data.materialName,
                     materialConstructionName: this.data.materialConstructionName,
-                    materialWidth: this.data.MaterialWidthFinish
+                    finishWidth: this.data.MaterialWidthFinish
                 };
             }
         }
@@ -132,7 +132,7 @@ export class DataForm {
                 this.filter = {
                     materialName: this.data.materialName,
                     materialConstructionName: this.data.materialConstructionName,
-                    materialWidth: this.data.MaterialWidthFinish
+                    finishWidth: this.data.MaterialWidthFinish
                 };
             }
         }
@@ -148,7 +148,7 @@ export class DataForm {
 
 
     get addItems() {
-        debugger
+        
         return (event) => {
             this.data.Items.push({ productionOrderNo: "", code: "" });
         };

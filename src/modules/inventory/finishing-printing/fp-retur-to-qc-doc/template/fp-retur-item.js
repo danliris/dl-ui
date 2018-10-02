@@ -28,14 +28,14 @@ export class FPReturToQCItem {
   }
 
   activate(context) {
-    
+
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
     this.isShowing = false;
     this.filter = this.context.context.options ? this.context.context.options : {};
-    debugger
+
     if (this.data) {
       this.selectedPacking = this.data;
       if (this.data.Details) {
@@ -76,30 +76,33 @@ export class FPReturToQCItem {
             var product = result.data;
             this.service.getInventoryItemsByProductId({ productIds })
               .then((result) => {
+                debugger 
                 if (result) {
-                  if (result.data) {
-                    for (var item of result.data) {
-                      var newProduct = product.find(function (v) {
-                        return v.Id == item.productId;
-                      });
-                      var data = {
-                        productName: item.productName,
-                        productId: item.productId,
-                        designNumber: newProduct.DesignNumber,
-                        designCode: newProduct.DesignCode,
-                        remark: '',
-                        colorWay: newProduct.ColorName,
-                        quantityBefore: item.quantity,
-                        returQuantity: 0,
-                        uomId: item.uomId,
-                        uom: item.uom,
-                        length: 0,
-                        weight: 0
-                      }
-                      items.push(data);
+                  for (var item of result) {
+                    var newProduct = product.find(function (v) {
+                      return v.Id == item.productId;
+                    });
+                    var data = {
+                      ProductName: item.productName,
+                      ProductId: item.productId,
+                      ProductCode:  item.productCode,
+                      DesignNumber: newProduct.DesignNumber,
+                      DesignCode: newProduct.DesignCode,
+                      Remark: '',
+                      ColorWay: newProduct.ColorName,
+                      QuantityBefore: item.quantity,
+                      ReturQuantity: 0,
+                      UOMId: item.uomId,
+                      UOMUnit: item.uom,
+                      Length: 0,
+                      Weight: 0,
+                      StorageId:item.storageId,
+                      StorageCode:item.storageCode,
+                      StorageName:item.storageName
                     }
-                    this.data.Details = items;
+                    items.push(data);
                   }
+                  this.data.Details = items;
                 }
               });
           });
@@ -109,7 +112,7 @@ export class FPReturToQCItem {
   }
 
   toggle() {
-    debugger
+
     if (!this.isShowing)
       this.isShowing = true;
     else
@@ -123,10 +126,10 @@ export class FPReturToQCItem {
   }
 
   productionLoaderView = (productionOrder) => {
-    debugger
+
     if (productionOrder.OrderNo)
       return `${productionOrder.OrderNo}`;
-    else if(productionOrder.ProductionOrder){
+    else if (productionOrder.ProductionOrder) {
       return `${productionOrder.ProductionOrder.OrderNo}`
     }
   }

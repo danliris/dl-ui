@@ -7,7 +7,8 @@ import { Service } from './service';
 export class View {
     hasCancel = true;
     hasDelete = true;
-    //hasEdit = true;
+    hasEdit = true;
+    isVoid = true;
 
     constructor(router, service) {
         this.router = router;
@@ -19,12 +20,12 @@ export class View {
         this.data = await this.service.getById(id);
         
         if (!this.data.IsVoid) {
-            this.IsVoid = true;
+            this.isVoid = true;
         }
         this.filter={
                 materialName:this.data.Material.Name,
                 materialConstructionName: this.data.MaterialConstruction.Name,
-                materialWidth: this.data.MaterialWidthFinish
+                finishWidth: this.data.MaterialWidthFinish
             };
     }
 
@@ -33,7 +34,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {
@@ -43,7 +44,7 @@ export class View {
     }
 
     update() {
-        this.data.isVoid = true;
+        this.data.IsVoid = true;
         this.service.update(this.data)
             .then((result) => {
                 this.router.navigateToRoute('list');

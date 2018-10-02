@@ -16,7 +16,7 @@ export class Create {
     }
 
     bind() {
-        this.data = { items: [] };
+        this.data = { Items: [] };
         this.error = {};
     }
 
