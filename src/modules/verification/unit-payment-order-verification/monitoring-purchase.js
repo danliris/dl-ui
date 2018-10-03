@@ -136,7 +136,6 @@ export class List {
         if (_startDate > _endDate || !this.dateTo) {
             this.dateTo = e.srcElement.value;
         }
-
     }
 
     get unitLoader() {

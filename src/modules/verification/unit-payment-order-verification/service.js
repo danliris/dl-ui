@@ -6,7 +6,7 @@ const serviceUri = 'unit-payment-order-verification';
 const serviceUriExpedition = 'expedition/purchasing-document-expeditions';
 const serviceUriUnitPaymenOrder = 'unit-payment-orders';
 const serviceUriPurchaseRequest = 'purchase-requests/by-user';
-const serviceUriPR = 'purchase-orders/monitoring/by-user';
+const serviceUriPR = 'purchase-orders/monitoring';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
