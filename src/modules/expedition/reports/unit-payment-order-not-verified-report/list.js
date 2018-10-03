@@ -62,8 +62,9 @@ export class List {
     }
 
     reset() {
-        this.unit = undefined;
-        this.status = "";
+        this.spb = null;
+        this.supplier = null;
+        this.division=null;
         this.dateTo = undefined;
         this.dateFrom = undefined;
         this.error = {};
@@ -94,9 +95,8 @@ export class List {
                 this.service.search(args)
                     .then(result => {
                         for(var a of result.data){
-                            if(a.isCanceled){
-                                a.status="Dibatalkan";
-                            }
+                            a.TotalPaid=a.TotalPaid.toLocaleString();
+                            
                         }
                         return {
                             total: result.info.total,
@@ -106,25 +106,22 @@ export class List {
             ) : { total: 0, data: [] };
     }
 
-    // xls() {
-    //     this.error = {};
+    xls() {
+        
+            let args = {
+            no: this.spb ? this.spb.UnitPaymentOrderNo : "",
+            supplier: this.supplier ? this.supplier.code : "",
+            division: this.division?this.division.code : "",
+            dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+            dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
-    //     if (Object.getOwnPropertyNames(this.error).length === 0) {
-    //         let args = {
-    //         no: this.spb ? this.spb.UnitPaymentOrderNo : "",
-    //         supplier: this.supplier ? this.supplier.code : "",
-    //         division: this.division?this.division.code : "",
-    //         dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
-    //         dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+        };
 
-    //     };
-
-    //         this.service.getXls(args)
-    //             .catch(e => {
-    //                 alert(e.replace(e, "Error: ", ""));
-    //             });
-    //     }
-    // }
+            this.service.getXls(args);
+                
+                
+        
+    }
 
     get divisionLoader(){
         return DivisionLoader;
