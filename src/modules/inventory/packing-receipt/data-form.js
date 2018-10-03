@@ -70,7 +70,7 @@ export class DataForm {
 
             // this.data.Packing.PackingDetails.map((item) => {
             for (var item of this.data.Packing.PackingDetails) {
-                var productName = this.data.Packing.ProductionOrderNo + "/" + this.data.Packing.ColorName + "/" + this.data.Packing.Construction + "/" + item.Lot + "/" + item.Grade + "/" + item.Length
+                var productName = this.data.Packing.ProductionOrderNo + "/" + this.data.Packing.ColorName + "/" + this.data.Packing.Construction + "/" + item.Lot + "/" + item.Grade + "/" + item.Length + "/" + item.Remark
                 var arg = {
                     filter: JSON.stringify({ Name: productName })
                 };
@@ -83,8 +83,7 @@ export class DataForm {
                 var Uom = await this.serviceProduct.searchUom(uomFilter);
                 var _item = {};
                 _item.Uom = this.data.PackingUom;
-                debugger
-                _item.UomId=Uom.data[0].Id;
+                _item.UomId = Uom.data[0].Id;
                 _item.ProductId = data.data[0].Id;
                 _item.Product = item.Remark !== "" && item.Remark !== null ? `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}/${item.Remark}` : `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}`;
                 _item.Quantity = item.Quantity;
@@ -96,8 +95,7 @@ export class DataForm {
                 _items.push(_item);
             }
             // })
-            debugger
-             this.data.Items = _items;
+            this.data.Items = _items;
         }
         else {
             this.data.Packing = {};
