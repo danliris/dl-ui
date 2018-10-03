@@ -56,6 +56,17 @@ export class Service extends RestService {
             });
     }
 
+    getCostCalById(id) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("sales");
+        var _serviceUri = `cost-calculation-garments/${id}`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
+
     getAccountBankById(id) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
