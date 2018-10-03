@@ -5,18 +5,24 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  // context = ["Rincian"]
+  context = ["Rincian"]
 
   columns = [
-    { field: "PRNo", title: "No PR" },
-    { field: "RONo", title: "Nomor RO" },
-    { field: "Article", title: "Artikel" },
+    { field: "PRNo", title: "Nomor PR" },
     {
-      field: "Date", title: "Tanggal", formatter: function (value, data, index) {
+      field: "Date", title: "Tanggal Validasi", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "Buyer.Name", title: "Buyer" },
+    { field: "RONo", title: "Nomor RO" },
+    { field: "Buyer.Code", title: "Kode Buyer" },
+    { field: "Buyer.Name", title: "Nama Buyer" },
+    { field: "Article", title: "Artikel" },
+    {
+      field: "ShipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      }
+    },
   ];
 
   loader = (info) => {
@@ -27,7 +33,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["PRNo", "RONo", "ShipmentDate", "Buyer.Name", "Unit.Name", "IsPosted"],
+      // select: ["PRNo", "RONo", "ShipmentDate", "Buyer.Name", "Unit.Name", "IsPosted"],
       order: order
     }
 
@@ -49,14 +55,14 @@ export class List {
     this.router = router;
   }
 
-  // contextClickCallback(event) {
-  //   var arg = event.detail;
-  //   var data = arg.data;
-  //   switch (arg.name) {
-  //     case "Rincian":
-  //       this.router.navigateToRoute('view', { id: data.Id });
-  //       break;
-  //   }
-  // }
+  contextClickCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "Rincian":
+        this.router.navigateToRoute('view', { id: data.Id });
+        break;
+    }
+  }
 
 }
