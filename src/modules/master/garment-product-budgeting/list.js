@@ -50,7 +50,7 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "detail":
+      case "Detail":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
     }

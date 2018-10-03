@@ -78,8 +78,7 @@ export class DataForm {
             this.UpoItem.columns.push({ header: "" });
             this.hasView=false;
         }
-        console.log(this.readOnly);
-        console.log(this.hasView);
+        
     }
 
     setItems(_paymentOrder) {

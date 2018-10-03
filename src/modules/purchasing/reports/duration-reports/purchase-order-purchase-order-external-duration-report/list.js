@@ -44,9 +44,13 @@ export class List {
       { field: "category", title: "Kategori", sortable:false},
       { field: "productCode", title: "Kode Barang", sortable:false},
       { field: "productName", title: "Nama Barang", sortable:false},
-      { field: "dealQuantity", title: "Jumlah Barang", sortable:false},
+      { field: "dealQuantity", title: "Jumlah Barang", sortable:false, formatter:(value,data)=>{
+        return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }  },
       { field: "dealUomUnit", title: "Satuan Barang", sortable:false},
-      { field: "pricePerDealUnit", title: "Harga Barang", sortable:false},
+      { field: "pricePerDealUnit", title: "Harga Barang", sortable:false, formatter:(value,data)=>{
+        return value.toLocaleString('en-EN', { maximumFractionDigits: 15 });
+    }  },
       { field: "supplierCode", title: "Kode Supplier", sortable:false},
       { field: "supplierName", title: "Nama Supplier", sortable:false},
       { field: "poDate", title: "Tanggal Terima PO Internal", sortable:false,

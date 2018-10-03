@@ -44,7 +44,9 @@ export class List {
       { field: "category", title: "Kategori", sortable:false},
       { field: "productCode", title: "Kode Barang", sortable:false},
       { field: "productName", title: "Nama Barang", sortable:false},
-      { field: "productQuantity", title: "Jumlah Barang", sortable:false},
+      { field: "productQuantity", title: "Jumlah Barang", sortable:false, formatter:(value,data)=>{
+        return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }  },
       { field: "productUom", title: "Satuan Barang", sortable:false},
       { field: "poDate", title: "Tanggal Terima PO Internal", sortable:false,
         formatter: (value, data) => {
@@ -79,7 +81,6 @@ export class List {
             keyword: info.search,
             order: order
         };
-        console.log(this.arg);
         return this.listDataFlag ? (
             this.fillValues(),
             this.service.search(this.arg)
