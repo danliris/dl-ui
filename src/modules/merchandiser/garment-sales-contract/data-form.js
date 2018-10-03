@@ -39,12 +39,15 @@ export class DataForm {
       this.selectedRO={
         RO_Number:this.data.RONumber
       }
+      this.data.comodity=this.data.ComodityCode + " - " +this.data.ComodityName;
       if(this.data.AccountBankId||this.data.AccountBank.Id){
         var accId=this.data.AccountBankId?this.data.AccountBankId:this.data.AccountBank.Id;
         this.selectedAccountBank=await this.service.getAccountBankById(accId);
       }
       this.data.UomUnit=this.data.Uom.Unit;
+      this.data.buyer=this.data.BuyerBrandCode + " - " +this.data.BuyerBrandName;
     }
+
     this.hasItems=false;
     if(this.data.Items)
       if(this.data.Items.length>0){
@@ -57,72 +60,93 @@ export class DataForm {
         this.hasItems=true;
       }
 
+    if(!this.data.DocPresented || this.data.DocPresented==""){
+      this.data.DocPresented="INVOICE OF COMMERCIAL VALUE \nPACKING LIST \nEXPORT LICENSE \nCERTIFICATE OF ORIGIN / G.S.P FORM A \nINSPECTION CERTIFICATE ";
+    }
+    
   }
 
 
   @bindable selectedRO;
   selectedROChanged(newValue, oldValue) {
     //this.data.Buyer = newValue;
-    if(oldValue)
+    if(oldValue && newValue)
       if(newValue.RO_Number!=oldValue.RO_Number){
         this.selectedRO=null;
-        this.data.BuyerName= "";
-        this.data.BuyerId="";
+        this.data.BuyerBrandName= "";
+        this.data.BuyerBrandCode= "";
+        this.data.BuyerBrandId="";
         this.data.RONumber="";
         this.data.Quantity=0;
         this.data.Article="";
         this.data.ComodityId="";
-        this.data.Comodity="";
+        this.data.ComodityName="";
+        this.data.ComodityCode="";
         this.data.Uom=null;
         this.data.UomId="";
         this.data.UomUnit="";
         this.data.Price=0;
         this.data.DeliveryDate=null;
         this.data.Items = [];
+        this.data.comodity="";
+        this.data.buyer="";
+        this.data.Amount=0;
       }
     if (newValue) {
       this.selectedRO=newValue;
       this.data.RONumber=newValue.RO_Number;
+      console.log(newValue)
       if(newValue.Id){
-        this.data.BuyerName= newValue.Buyer.Name;
-        this.data.BuyerId=newValue.Buyer.Id;
+        this.data.BuyerBrandName= newValue.BuyerBrand.Name;
+        this.data.BuyerBrandId=newValue.BuyerBrand.Id;
+        this.data.BuyerBrandCode=newValue.BuyerBrand.Code;
         this.data.Quantity=newValue.Quantity;
         this.data.Article=newValue.Article;
         this.data.ComodityId=newValue.Comodity.Id;
+        this.data.CostCalculationId=newValue.Id;
         var como=null;
-        if(this.data.ComodityId && this.data.ComodityId!=0){
-          como=this.service.getComodityById(this.data.ComodityId);
-        }
-        if(como!=null){
-          this.data.Comodity=newValue.Comodity.Name;
-          this.data.ComodityCode=newValue.Comodity.Code;
-        }
-        
+        // if(this.data.ComodityId && this.data.ComodityId!=0){
+        //   como=this.service.getComodityById(this.data.ComodityId);
+        //   this.data.comodity= como.code + " - " +como.name;
+        // }
+        // if(como!=null){
+        //   this.data.ComodityName=como.name;
+        //   this.data.ComodityCode=como.code;
+        // }
+        this.data.ComodityName=newValue.Comodity.Name;
+        this.data.ComodityCode=newValue.Comodity.Code;
+        this.data.comodity=this.data.ComodityCode + " - " +this.data.ComodityName;
+        this.data.buyer=this.data.BuyerBrandCode + " - " + this.data.BuyerBrandName;
         this.data.Uom=newValue.UOM;
         this.data.UomId=newValue.UOM.Id;
         this.data.UomUnit=newValue.UOM.Unit;
         this.data.Price=newValue.ConfirmPrice;
         this.data.DeliveryDate=newValue.DeliveryDate;
         if(this.data.Items.length==0){
-          this.data.Amount=this.data.Price*this.data.Quantity;
+          this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
         }
       }
       
     } else {
       this.selectedRO=null;
-      this.data.BuyerName= "";
-      this.data.BuyerId="";
       this.data.RONumber="";
       this.data.Quantity=0;
       this.data.Article="";
       this.data.ComodityId="";
-      this.data.Comodity="";
+      this.data.ComodityName="";
+      this.data.ComodityCode="";
       this.data.Uom=null;
       this.data.UomId="";
       this.data.UomUnit="";
       this.data.DeliveryDate=null;
       this.data.Price=0;
       this.data.Items = [];
+      this.data.comodity="";
+      this.data.buyer="";
+      this.data.BuyerBrandName= "";
+      this.data.BuyerBrandCode= "";
+      this.data.BuyerBrandId="";
+      this.data.Amount=0;
     }
   }
 
@@ -180,11 +204,12 @@ export class DataForm {
 
   PriceChanged(e){
     this.data.Price=parseFloat(e.srcElement.value);
-    this.data.Amount=this.data.Quantity*this.data.Price;
+
+    this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
     
   }
 
-  itemsChanged(e){
+  async itemsChanged(e){
     this.hasItems=true;
     this.data.Price=0;
     this.data.Amount=0;
@@ -194,17 +219,19 @@ export class DataForm {
           this.data.Amount+=item.Price*item.Quantity;
         }
       }
+      this.data.Amount=parseFloat(this.data.Amount).toFixed(2);
       if(this.data.Items.length==0){
-        this.data.Price= 0;
-        this.data.Amount=this.data.Price*this.data.Quantity;
         this.hasItems=false;
+        var price= await this.service.getCostCalById(this.data.CostCalculationId);
+        this.data.Price=price.ConfirmPrice;
+        this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
       }
     }
 
   }
 
-  get removeItems() {
-    return (event) => //console.log(event.detail);
+  get  removeItems() {
+    return async (event) => //console.log(event.detail);
     {
         if(this.data.Items){
           this.data.Amount=0;
@@ -213,11 +240,14 @@ export class DataForm {
               this.data.Amount+=item.Price*item.Quantity;
           }
         }
+        this.data.Amount=parseFloat(this.data.Amount).toFixed(2);
       }
       if(this.data.Items.length==0){
-        this.data.Price= 0;
-        this.data.Amount=this.data.Price*this.data.Quantity;
         this.hasItems=false;
+        var price= await this.service.getCostCalById(this.data.CostCalculationId);
+        this.data.Price=await price.ConfirmPrice;
+        this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
+        this.data.Price=price.ConfirmPrice;
       }
     }
   }
