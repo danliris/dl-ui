@@ -72,9 +72,9 @@ export class List {
                 Category: data.categoryName,
                 Unit: data.unitName,
                 PIB: data.PIBNo || "-",
-                Nilai: (data.amount).toLocaleString()+".00",
-                CurrencyRate: data.rate.toLocaleString()+".00",
-                Total: (data.amountIDR).toLocaleString()+".00",
+                Nilai: (data.amount).toLocaleString("en-EN",{ maximumFractionDigits: 15 }),
+                CurrencyRate: data.rate.toLocaleString("en-EN",{ maximumFractionDigits: 15 }),
+                Total: (data.amountIDR).toLocaleString("en-EN",{ maximumFractionDigits: 15 })
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
@@ -87,11 +87,11 @@ export class List {
           for (var data in dataByCategory) {
             categories.push({
               data: dataByCategory[data],
-              subTotal: subTotalCategory[data].toLocaleString()+".00",
+              subTotal: subTotalCategory[data].toLocaleString("en-EN",{ maximumFractionDigits: 15 }),
             });
             this.total += subTotalCategory[data];
           }
-          this.total = this.total.toLocaleString()+".00";
+          this.total = this.total.toLocaleString("en-EN",{ maximumFractionDigits: 15 });
           this.categories = categories;
 
         });

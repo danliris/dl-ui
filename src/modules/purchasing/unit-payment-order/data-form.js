@@ -49,6 +49,9 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.hasCreate=true;
+        if(this.data)
+            this.hasCreate=false;
     }
 
     @computedFrom("data._id")

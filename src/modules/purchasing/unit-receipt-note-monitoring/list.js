@@ -39,11 +39,17 @@ export class List {
             }
         },
         { field: "urnNo", title: "Nomor Bon Terima" , sortable: false},
-        { field: "dealQuantity", title: "Jumlah Beli", sortable: false },
+        { field: "dealQuantity", title: "Jumlah Beli", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
         { field: "DealUom", title: "Satuan Beli", sortable: false },
-        { field: "receiptQuantity", title: "Jumlah Terima", sortable: false },
+        { field: "receiptQuantity", title: "Jumlah Terima", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
         { field: "receiptUom", title: "Satuan Terima", sortable: false },
-        { field: "quantity", title: "Jumlah (+/-/0)", sortable: false },
+        { field: "quantity", title: "Jumlah (+/-/0)", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
     ];
 
     constructor(router, service) {
@@ -98,7 +104,6 @@ export class List {
             (
                 this.service.search(args)
                     .then(result => {
-                        console.log(this.unitReceiptNote)
                         var index=0;
                         for(var a of result.data){
                             index++;
