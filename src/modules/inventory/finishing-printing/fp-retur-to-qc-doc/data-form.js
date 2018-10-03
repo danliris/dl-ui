@@ -72,10 +72,8 @@ export class DataForm {
 
     selectedMaterialChanged(newValue) {
         
-        console.log(this.readOnly)
         if (!this.readOnly) {
             this.data.Items = [];
-            console.log(this.error);
             if (this.error) {
                 if (this.error.items) {
                     this.error.items = [];

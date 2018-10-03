@@ -76,7 +76,6 @@ export class FPReturToQCItem {
             var product = result.data;
             this.service.getInventoryItemsByProductId({ productIds })
               .then((result) => {
-                debugger 
                 if (result) {
                   for (var item of result) {
                     var newProduct = product.find(function (v) {
