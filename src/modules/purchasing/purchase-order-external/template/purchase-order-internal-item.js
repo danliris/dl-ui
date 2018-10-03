@@ -17,8 +17,8 @@ export class PurchaseOrderItem {
       this.updateItem();
     }
   }
-
-  updateItem() {
+  
+    updateItem() {
     // if (this.data.dealQuantity === 0) {
     //   this.data.dealQuantity = this.data.defaultQuantity;
     // }
@@ -64,11 +64,14 @@ export class PurchaseOrderItem {
         }
     }
     
-      if(this.data.priceBeforeTax){
-        this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-      }
+      // if(this.data.priceBeforeTax){
+      //   this.data.priceBeforeTax=this.data.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+      // }
       if(this.data.dealQuantity){
         this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      }
+      if(this.data.defaultQuantity){
+        this.data.defaultQuantity=this.data.defaultQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
       }
   }
 
@@ -104,7 +107,6 @@ export class PurchaseOrderItem {
   }
 
   useIncomeTaxChanged(e) {
-    console.log(this.data.includePpn)
     this.updatePrice();
   }
 

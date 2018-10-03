@@ -27,6 +27,7 @@
                     <au-numeric 
                     value.bind="data.quantity" 
                     error.bind="error.quantity"
+                    format = "0,0.00"
                     change.delegate="quantityChanged($event)"
                     read-only.bind="options.readOnly" 
                     options.bind="controlOptions">
@@ -44,6 +45,7 @@
                         value.bind="data.pricePerDealUnitAfter" 
                         error.bind="error.pricePerDealUnitAfter"
                         read-only.bind="true" 
+                        format = "0,0.0000"
                         options.bind="controlOptions">
                     </au-numeric>
                 </td>
@@ -52,6 +54,7 @@
                         value.bind="data.priceTotalAfter" 
                         error.bind="error.priceTotalAfter"
                         read-only.bind="true" 
+                        format = "0,0.0000"
                         options.bind="controlOptions">
                     </au-numeric>
                 </td>

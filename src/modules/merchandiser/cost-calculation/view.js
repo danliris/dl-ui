@@ -35,7 +35,7 @@ export class View {
       { header: "Kategori", value: "Category" },
       { header: "Kode Barang", value: "Product.code" },
       { header: "Komposisi", value: "Product.composition" },
-      { header: "Konstruksi", value: "Product.construction" },
+      { header: "Konstruksi", value: "Product.const" },
       { header: "Yarn", value: "Product.yarn" },
       { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
@@ -67,7 +67,6 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    console.log(this.data);
     this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
     this.data.AccessoriesAllowance = numeral(
       this.data.AccessoriesAllowance
@@ -86,16 +85,18 @@ export class View {
     this.data.AfterFreightCost = this.data.AfterRisk + this.data.FreightCost;
     this.data.ConfirmPriceWithRate =
       this.data.ConfirmPrice * this.data.Rate.Value;
+      this.data.ConfirmPriceWithRate=this.data.ConfirmPriceWithRate.toLocaleString('en-EN', { minimumFractionDigits: 4});
     let CM_Price = 0;
     if (this.data.CostCalculationGarment_Materials) {
       this.data.CostCalculationGarment_Materials.forEach(item => {
         CM_Price += Number(item.CM_Price);
       });
     }
+    
     let FOB_Price = this.data.ConfirmPrice + CM_Price;
     this.data.ConfirmPrice = this.isDollar
-      ? US + numeral(this.data.ConfirmPrice).format()
-      : RP + numeral(this.data.ConfirmPrice).format();
+      ? US + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4})//numeral(this.data.ConfirmPrice).format()
+      : RP + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
     this.data.FOB_Price = this.isDollar
       ? US + numeral(FOB_Price).format()
       : RP + numeral(FOB_Price).format();
@@ -127,6 +128,7 @@ export class View {
     this.data.SMV_Total = numeral(this.data.SMV_Total).format();
 
     this.data.LeadTime = `${this.data.LeadTime} hari`
+    this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
   }
 
   async bind(context) {

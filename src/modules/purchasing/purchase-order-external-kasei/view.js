@@ -10,6 +10,7 @@ export class View {
     hasCancelPo = false;
     hasUnpost = false;
     hasClosePo = false;
+    hasView = true;
 
     constructor(router, service) {
         this.router = router;
@@ -31,6 +32,9 @@ export class View {
                 if(b.doQuantity && b.doQuantity>0 && b.doQuantity< b.dealQuantity){
                     canClose=true;
                 }
+                if(b.priceBeforeTax){
+                    b.priceBeforeTax=b.priceBeforeTax.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+                  }
             }
         }
         

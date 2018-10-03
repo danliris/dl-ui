@@ -9,6 +9,19 @@ export class UnitReceiptNoteItem {
     this.pricePerUnitCorrectionReadOnly = this.context.context.options;
     this.totalPrice=this.data.priceTotalAfter;
     this.pricePerDealUnitAfter=this.data.pricePerDealUnitAfter;
+    if(this.data.quantity){
+      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    }
+    // if(this.pricePerDealUnitAfter){
+    //   this.pricePerDealUnitAfter=this.pricePerDealUnitAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    // }
+    // if(this.data.priceTotalAfter){
+    //   this.data.priceTotalAfter=this.data.priceTotalAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    // }
+    // if(this.totalPrice){
+    //   this.totalPrice=this.totalPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    // }
+
   }
   
   get product() {

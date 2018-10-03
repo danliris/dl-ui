@@ -4,11 +4,12 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["detail"];
+    info = { page: 1, keyword: '' };
+    context = ["Detail"];
     columns = [
     { field: "Code", title: "Kode Barang" },
     { field: "Name", title: "Nama Barang" },
-    { field: "UOM.Unit", title: "Satuan Default" },
+    { field: "UomUnit", title: "Satuan Default" },
     // { field: "currency.code", title: "Mata Uang" },
     // { field: "price", title: "Harga Barang" },
     { field: "Tags", title: "Tags" },
@@ -18,17 +19,19 @@ export class List {
     var order = {};
     if (info.sort)
       order[info.sort] = info.order;
-
+      
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["Code","Name","UOM.Unit","Tags"],
+      // select:["Code","Name","UomUnit","Tags"],
       order: order
     }
-
     return this.service.search(arg)
       .then(result => {
+        for(var a of result.data){
+          a.UomUnit=a.UOM.Unit;
+        }
         return {
           total: result.info.total,
           data: result.data

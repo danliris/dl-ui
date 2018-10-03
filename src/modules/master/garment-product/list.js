@@ -25,12 +25,15 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["Code","Name","Uom.Unit","Tags"],
+      // select:["Code","Name","Uom.Unit","Tags"],
       order: order
     }
 
     return this.service.search(arg)
       .then(result => {
+        for(var a of result.data){
+          a.UomUnit=a.UOM.Unit;
+        }
         return {
           total: result.info.total,
           data: result.data
