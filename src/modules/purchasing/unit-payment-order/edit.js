@@ -7,6 +7,7 @@ import moment from 'moment';
 export class Edit {
     hasCancel = true;
     hasSave = true;
+    hasCreate = false;
 
     constructor(router, service) {
         this.router = router;

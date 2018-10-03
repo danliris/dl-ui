@@ -131,7 +131,7 @@
                         <td>${item.budget}</td>
                         <td>${item.productName}</td>
                         <td>${item.productCode}</td>
-                        <td align="right">${item.quantity}</td>
+                        <td align="right">${item.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
                         <td>${item.uom}</td>
                         <td align="right">${item.pricePerDealUnit}</td>
                         <td align="right">${item.priceTotal}</td>

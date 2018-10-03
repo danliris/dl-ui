@@ -98,21 +98,21 @@ searching() {
                  categories.push({
                    data: dataByCategory[data],
                    category: dataByCategory[data][0].Category,
-                   subTotalDPP: (subTotalDPPCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
-                   subTotalPPN: (subTotalPPNCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
-                   subTotal: (subTotalCategory[data]).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                   subTotalDPP: (subTotalDPPCategory[data]).toLocaleString('id-ID', { maximumFractionDigits: 15 }),
+                   subTotalPPN: (subTotalPPNCategory[data]).toLocaleString('id-ID', { maximumFractionDigits: 15 }),
+                   subTotal: (subTotalCategory[data]).toLocaleString('id-ID', { maximumFractionDigits: 15 }),
                  });
                  this.totalDPP += subTotalDPPCategory[data];
                  this.totalPPN += subTotalPPNCategory[data];
                  this.total += subTotalCategory[data];
                }
-               this.totalDPP = this.totalDPP.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+               this.totalDPP = this.totalDPP.toLocaleString('id-ID', { maximumFractionDigits: 15 });
                if(this.totalPPN=='0,00'){
                 this.totalPPN = "-";
                } else {
-                this.totalPPN = this.totalPPN.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+                this.totalPPN = this.totalPPN.toLocaleString('id-ID', { maximumFractionDigits: 15 });
                }
-               this.total = this.total.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+               this.total = this.total.toLocaleString('id-ID', { maximumFractionDigits: 15 });
                this.categories = categories;
                
                for (var data of this.categories){

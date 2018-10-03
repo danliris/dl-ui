@@ -6,7 +6,9 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'finishing-printing/packing-receipt';
 // const packingUnacceptedServiceUri = 'finishing-printing/quality-control/packings-unaccepted';
 // const packingServiceUri = 'finishing-printing/quality-control/packings';
-const packingReceiptUnvoidServiceUri = 'inventory/packing-receipts-unvoid';
+// const packingReceiptUnvoidServiceUri = 'inventory/packing-receipts-unvoid';
+const serviceUriCore = 'master/products';
+const serviceUriCoreUom = 'master/uoms';
 
 export class Service extends RestService {
 
@@ -65,6 +67,24 @@ export class Service extends RestService {
 
     searchUnvoid(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+}
+
+
+export class ServiceProduct extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    searchProduct(info) {
+        var endpoint = `${serviceUriCore}`;
+        return super.list(endpoint, info);
+    }
+
+    searchUom(info) {
+        var endpoint = `${serviceUriCoreUom}`;
         return super.list(endpoint, info);
     }
 }

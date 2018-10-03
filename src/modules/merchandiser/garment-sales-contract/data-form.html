@@ -35,14 +35,14 @@
 
         <au-textbox
           label="Buyer"
-          value.bind="data.BuyerName"
+          value.bind="data.buyer"
           read-only="true"
           options.bind="controlOptions">
         </au-textbox>
 
         <au-textbox
           label="Komoditi"
-          value.bind="data.Comodity"
+          value.bind="data.comodity"
           read-only="true"
           options.bind="controlOptions">
         </au-textbox>
@@ -137,6 +137,7 @@
           read-only.bind="readonly"
           options.bind="controlOptions"
           change.delegate="PriceChanged($event)"
+				  format = "0,0.0000"
           if.bind="!hasItems">
         </au-numeric>
         <au-numeric
@@ -145,6 +146,7 @@
           error.bind="error.Price"
           read-only="true"
           options.bind="controlOptions"
+				  format = "0,0.0000"
           if.bind="hasItems">
         </au-numeric>
 
@@ -280,6 +282,8 @@
       remove.bind="removeItems"
       view-model.ref="SCCollection">
     </au-collection>
+
+    <au-textbox error.bind="error.TotalQuantity" read-only.bind="true"></au-textbox>
 
   </form>
 </template>
