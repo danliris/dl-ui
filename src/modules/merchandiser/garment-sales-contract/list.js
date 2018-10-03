@@ -13,8 +13,12 @@ export class List {
             }
         },
         { field: "RONumber", title: "No RO" },
-        { field: "BuyerName", title: "Buyer" },
-        { field: "Comodity", title: "Komoditi" },
+        { field: "BuyerBrandName", title: "Buyer",formatter: function (value, data, index) {
+                return data.BuyerBrandCode + " - " + data.BuyerBrandName;
+            } },
+        { field: "ComodityName", title: "Komoditi" ,formatter: function (value, data, index) {
+                return data.ComodityCode + " - " + data.ComodityName;
+            }},
         { field: "Article", title: "Artikel" }
     ];
 
