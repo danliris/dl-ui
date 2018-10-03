@@ -1,9 +1,10 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-import { Service } from './service';
+import { Service, ServiceProduct } from './service';
 var StorageLoader = require('../../../loader/storage-loader');
 var PackingUnacceptedLoader = require('../../../loader/packing-unaccepted-loader');
 var PackingLoader = require('../../../loader/packing-loader');
 
+@inject(ServiceProduct, Service)
 export class DataForm {
     @bindable readOnly = false;
     @bindable packingReadOnly = false;
@@ -13,6 +14,10 @@ export class DataForm {
     @bindable title;
 
     packingFilter = { DeliveryType: "BARU" };
+
+    constructor(serviceProduct, service) {
+        this.serviceProduct = serviceProduct;
+    }
 
     bind(context) {
         this.context = context;
@@ -45,7 +50,7 @@ export class DataForm {
         }
     }
 
-    PackingChanged(newValue) {
+    async PackingChanged(newValue) {
 
         if (newValue) {
             this.data.Packing = newValue;
@@ -63,8 +68,24 @@ export class DataForm {
             this.data.DesignCode = this.data.Packing.DesignCode;
             this.data.DesignNumber = this.data.Packing.DesignNumber;
 
-            this.data.Packing.PackingDetails.map((item) => {
+            // this.data.Packing.PackingDetails.map((item) => {
+            for (var item of this.data.Packing.PackingDetails) {
+                var productName = this.data.Packing.ProductionOrderNo + "/" + this.data.Packing.ColorName + "/" + this.data.Packing.Construction + "/" + item.Lot + "/" + item.Grade + "/" + item.Length
+                var arg = {
+                    filter: JSON.stringify({ Name: productName })
+                };
+
+                var uomFilter = {
+                    filter: JSON.stringify({ Unit: this.data.PackingUom })
+                };
+
+                var data = await this.serviceProduct.searchProduct(arg);
+                var Uom = await this.serviceProduct.searchUom(uomFilter);
                 var _item = {};
+                _item.Uom = this.data.PackingUom;
+                debugger
+                _item.UomId=Uom.data[0].Id;
+                _item.ProductId = data.data[0].Id;
                 _item.Product = item.Remark !== "" && item.Remark !== null ? `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}/${item.Remark}` : `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}`;
                 _item.Quantity = item.Quantity;
                 _item.AvailableQuantity = item.AvailableQuantity ? item.AvailableQuantity : item.Quantity;
@@ -73,9 +94,10 @@ export class DataForm {
                 _item.Remark = item.Remark;
                 _item.Notes = item.Notes;
                 _items.push(_item);
-            })
-
-            this.data.Items = _items;
+            }
+            // })
+            debugger
+             this.data.Items = _items;
         }
         else {
             this.data.Packing = {};
