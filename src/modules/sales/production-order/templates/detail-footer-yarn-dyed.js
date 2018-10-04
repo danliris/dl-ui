@@ -5,7 +5,7 @@ import { Config } from "aurelia-api"
 export class DetailFooter {
   activate(context) {
     this.context = context;
-  }
+  }    
 
   get itemSum() {
     var qty = this.context.items

@@ -15,7 +15,6 @@ export class Edit {
 
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.SalesContract = this.data.FinishingPrintingSalesContract;
     }
 
     view(data) {
