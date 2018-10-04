@@ -61,7 +61,9 @@ export class List {
                 return moment(value).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "dealQuantity", title: "Jumlah Deal PO Eksternal", sortable: false },
+        { field: "dealQuantity", title: "Jumlah Deal PO Eksternal", sortable: false, formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
         // { field: "dealQuantity", title: "Jumlah Deal PO Eksternal", sortable: false, formatter:(value,data)=>{
         //     return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
         // }  },

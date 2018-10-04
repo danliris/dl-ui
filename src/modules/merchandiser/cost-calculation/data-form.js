@@ -155,7 +155,7 @@ export class DataForm {
       THR = this.rateService.search({ keyword: "THR" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
-          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value().toLocaleString('en-EN', { minimumFractionDigits: 2 });
+          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
           return result;
         });
     }
@@ -172,7 +172,7 @@ export class DataForm {
       rate = this.rateService.search({ keyword: "USD" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
-          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value().toLocaleString('en-EN', { minimumFractionDigits: 2 });
+          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
           return result;
         });
     }
@@ -271,7 +271,7 @@ export class DataForm {
      this.data.BuyerId=newVal.Id;
      this.data.BuyerCode=newVal.Code;
      this.data.BuyerName=newVal.Name;
-
+     this.data.BuyerBrand=null;
     }
   }
 
@@ -318,7 +318,6 @@ export class DataForm {
   get isEdit() {
     return (this.data.Id || 0) != 0;
   }
-
   @computedFrom("error.CostCalculationGarment_MaterialTable")
   get hasError() {
     return (this.error.CostCalculationGarment_MaterialTable ? this.error.CostCalculationGarment_MaterialTable.length : 0) > 0;
@@ -331,7 +330,7 @@ export class DataForm {
   get buyersLoader() {
     return BuyersLoader;
   }
-
+ 
   @bindable quantity;
   async quantityChanged(newValue) {
     this.data.Quantity = newValue;
@@ -432,7 +431,6 @@ export class DataForm {
       this.data.UnitCode=newVal.Code;
       this.data.UnitId=newVal.Id;
       this.data.UnitName=newVal.Name;
-       console.log(this.data.OTL1);
     }
   }
 
@@ -456,7 +454,7 @@ export class DataForm {
   get commissionRate() {
     let CommissionRate = this.data.CommissionPortion / 100 * (this.data.ConfirmPrice - this.data.Insurance - this.data.Freight) * this.data.Rate.Value;
     CommissionRate = numeral(CommissionRate).format();
-    this.data.CommissionRate = numeral(CommissionRate).value();
+    this.data.CommissionRate=numeral(CommissionRate).value();
     return CommissionRate;
   }
 

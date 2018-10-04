@@ -51,10 +51,16 @@ controlOptions = {
         { field: "correctionType", title: "Jenis Koreksi" , sortable: false},
         { field: "productCode", title: "Kode Barang", sortable: false },
         { field: "productName", title: "Nama Barang", sortable: false },
-        { field: "quantity", title: "Jumlah Koreksi", sortable: false },
+        { field: "quantity", title: "Jumlah Koreksi", sortable: false, formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
         { field: "uom", title: "Satuan Koreksi", sortable: false },
-        { field: "pricePerDealUnitAfter", title: "Harga Satuan Koreksi", sortable: false },
-        { field: "priceTotalAfter", title: "Harga Total Koreksi", sortable: false },
+        { field: "pricePerDealUnitAfter", title: "Harga Satuan Koreksi", sortable: false, formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { maximumFractionDigits: 15 });
+        }  },
+        { field: "priceTotalAfter", title: "Harga Total Koreksi", sortable: false, formatter:(value,data)=>{
+        return value.toLocaleString('en-EN', { maximumFractionDigits: 15 });
+    }  },
         { field: "user", title: "User Input", sortable: false },
     ];
 
