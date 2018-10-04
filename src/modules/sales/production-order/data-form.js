@@ -51,6 +51,39 @@ export class DataForm {
     }
   }
 
+  async bind() {
+    // this.data = this.data || {};
+    if (this.data.Uom) {
+      this.data.Uom.Unit = this.data.Uom.Unit;
+    }
+    else {
+      this.data.Uom = {};
+      this.data.Uom.Unit = "MTR";
+    }
+    if (this.data && this.data.Id) {
+
+      // this.SalesContract = this.data.FinishingPrintingSalesContract.SalesContractNo;
+      this.OrderType = this.data.OrderType;
+
+      this.account = {
+        username: this.data.Account.UserName,
+        profile: {
+          firstname: this.data.Account.FirstName,
+          lastname: this.data.Account.LastName,
+        }
+      }
+      this.data.Details = this.data.Details || [];
+      this.data.LampStandards = this.data.LampStandards || [];
+      this.data.BeforeQuantity = this.data.OrderQuantity;
+
+
+      if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
+        this.SalesContract = await this.service.getSCbyId(this.data.FinishingPrintingSalesContract.Id);
+      }
+
+    }
+  }
+
   @computedFrom("data.Buyer")
   get buyerType() {
     this.ekspor = false;
@@ -115,19 +148,19 @@ export class DataForm {
     return this.run;
   }
 
-  SalesContractChanged(e) {
+  SalesContractChanged() {
     if (this.SalesContract) {
-      if (this.data && this.data.Details && this.data.Details.length > 0) {
-        var count = this.data.Details.length;
+      // if (this.data && this.data.Details && this.data.Details.length > 0) {
+      //   var count = this.data.Details.length;
 
-        for (var a = count; a >= 0; a--) {
-          this.data.Details.splice((a - 1), 1);
-        }
-      }
+      //   for (var a = count; a >= 0; a--) {
+      //     this.data.Details.splice((a - 1), 1);
+      //   }
+      // }
       this.data.FinishingPrintingSalesContract = this.SalesContract;
       this.data.Buyer = this.data.FinishingPrintingSalesContract.Buyer;
       this.data.OrderType = this.data.FinishingPrintingSalesContract.OrderType;
-      this.OrderType = this.data.OrderType;
+
       this.data.Material = this.data.FinishingPrintingSalesContract.Material;
       this.Material = this.data.Material;
       this.data.YarnMaterial = this.data.FinishingPrintingSalesContract.YarnMaterial;
@@ -162,10 +195,11 @@ export class DataForm {
 
   OrderTypeChanged() {
     if (this.OrderType) {
-      if (!this.readOnly) {
-        // this.data.ProcessType = {};
-        this.data.Details.length = 0;
-      }
+      // if (!this.readOnly) {
+      //   // this.data.ProcessType = {};
+      //   this.data.Details.length = 0;
+      // }
+      // this.data.OrderType = this.OrderType;
       var code = this.OrderType.Code;
       if (code) {
         this.filterOrder = {
@@ -196,10 +230,10 @@ export class DataForm {
 
     }
     else {
-      if (!this.readOnly) {
-        // this.data.ProcessType = {};
-        this.data.Details = [];
-      }
+      // if (!this.readOnly) {
+      //   // this.data.ProcessType = {};
+      //   this.data.Details = [];
+      // }
       var code = this.data.OrderType.Code
       if (this.data.OrderType && code) {
         this.filterOrder = {
@@ -294,42 +328,6 @@ export class DataForm {
     }
   }
   // NEW CODE
-
-  scFields = ["salesContractNo"];
-  async bind() {
-    this.data = this.data || {};
-    this.data.LampStandards = this.data.LampStandards || [];
-    this.data.Details = this.data.Details || [];
-    this.data.BeforeQuantity = this.data.OrderQuantity;
-    if (this.data.Uom) {
-      this.data.Uom.Unit = this.data.Uom.Unit;
-    }
-    else {
-      this.data.Uom = {};
-      this.data.Uom.Unit = "MTR";
-    }
-    if (this.data && this.data.Id) {
-      this.OrderType = this.data.OrderType;
-      this.account = {
-        username: this.data.Account.UserName,
-        profile: {
-          firstname: this.data.Account.FirstName,
-          lastname: this.data.Account.LastName,
-        }
-      }
-      // this.SalesContract = this.data.FinishingPrintingSalesContract;
-      // if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
-      //   this.selectedSC = await this.service.getSCbyId(encodeURIComponent(this.data.SalesContractNo), this.scFields);
-      //   this.data.FinishingPrintingSalesContract = this.selectedSC;
-      //   if (this.data.FinishingPrintingSalesContract.RemainingQuantity != undefined) {
-      //     // this.data.RemainingQuantity = this.data.SalesContract.RemainingQuantity;
-      //     this.rq = true;
-      //   }
-      //   // this.selectedMaterial = this.data.material;
-      // }
-
-    }
-  }
 
   get addLamp() {
     return (event) => {

@@ -9,7 +9,7 @@ export class DetailFooter {
 
   get itemSum() {
     var qty = this.context.items
-      .map((item) => item.data.quantity);
+      .map((item) => item.data.Quantity);
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
