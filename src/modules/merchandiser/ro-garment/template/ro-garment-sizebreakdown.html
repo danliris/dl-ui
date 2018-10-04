@@ -5,8 +5,11 @@
                 loader.one-time="colorLoader" text="Name" read-only.bind="readOnly"></au-autocomplete>
         </td>
         <td class="col-md-${readOnly ? 9 : 10}">
-            <au-collection items.bind="data.RO_Garment_SizeBreakdown_Details" columns.bind="RO_Garment_SizeBreakdown_DetailsInfo.columns"
-                add.bind="RO_Garment_SizeBreakdown_DetailsInfo.onAdd" options.bind="RO_Garment_SizeBreakdown_DetailsInfo.options"
+            <au-collection items.bind="data.RO_Garment_SizeBreakdown_Details" 
+                columns.bind="RO_Garment_SizeBreakdown_DetailsInfo.columns"
+                errors.bind="error.SizeBreakdownDetails"
+                add.bind="RO_Garment_SizeBreakdown_DetailsInfo.onAdd" 
+                options.bind="RO_Garment_SizeBreakdown_DetailsInfo.options"
                 item-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown-detail" footer-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown-detail-footer"
                 read-only.bind="readOnly">
             </au-collection>
