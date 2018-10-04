@@ -4,12 +4,12 @@
             <div class="col-sm-11">
                 <au-autocomplete 
                         value.bind="selectedPacking" 
-                        loader.bind="packingLoader"
-                        text.bind="packingLoaderView"
+                        loader.bind="productionLoader"
+                        text.bind="productionLoaderView"
                         placeholder="cari nomor production order" 
-                        error.bind="error.productionOrderNo"
+                        error.bind="error.ProductionOrder"
                         query.bind="filter"
-                        key="code"
+                        key="Code"
                         read-only.bind="options.readOnly"
                         options.bind="controlOptions">
                 </au-autocomplete>
@@ -23,8 +23,8 @@
     <tr if.bind="selectedPacking">
         <td>
             <au-collection 
-            items.bind="data.details" 
-            errors.bind="error.details" 
+            items.bind="data.Details" 
+            errors.bind="error.Details" 
             columns.bind="itemsColumns"
             read-only.bind="options.readOnly"
             item-template="modules/inventory/finishing-printing/fp-retur-to-qc-doc/template/fp-retur-detail">

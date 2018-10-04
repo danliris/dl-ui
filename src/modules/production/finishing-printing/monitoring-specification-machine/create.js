@@ -43,12 +43,12 @@ export class Create {
 
         this.service.create(this.data)
             .then(result => {
-                debugger
+                
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                debugger
+                
                 if (e.statusCode == 500) {
                     alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
                 } else {
