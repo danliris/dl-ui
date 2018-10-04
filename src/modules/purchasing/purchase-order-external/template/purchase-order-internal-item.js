@@ -7,6 +7,7 @@ export class PurchaseOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
+    this.priceBeforeTax=this.data.priceBeforeTax;
     this.error = context.error;
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
@@ -103,7 +104,13 @@ export class PurchaseOrderItem {
   }
 
   priceBeforeTaxChanged(e) {
-    this.updatePrice();
+    this.error={};
+    if((this.data.priceBeforeTax.length<=16 && this.data.priceBeforeTax.indexOf(".")>0) || (this.data.priceBeforeTax.length<=15 && this.data.priceBeforeTax.indexOf(".")<0)){
+      this.updatePrice();
+    }
+    else{
+      this.error.price="Harga tidak boleh lebih dari 15 digit";
+    }
   }
 
   useIncomeTaxChanged(e) {
