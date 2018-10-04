@@ -6,7 +6,6 @@ const GarmentProductLoader = require('../../../../../loader/garment-product-load
 const GarmentCategoryLoader = require('../../../../../loader/garment-category-loader');
 import { Service } from '../../service';
 import { ServiceCore } from '../../service-core';
-var math=require('math'); 
 
 const rateNumberFormat = "0,0.000";
 

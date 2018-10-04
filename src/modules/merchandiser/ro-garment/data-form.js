@@ -119,10 +119,12 @@ export class DataForm {
 
   removeImage(index) {
     this.imagesSrc.splice(index, 1);
+    this.data.ImagesName.splice(index, 1);
     this.imagesSrcChanged(this.imagesSrc);
   }
 
   async bind(context) {
+    console.log(context);
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
@@ -141,12 +143,21 @@ export class DataForm {
       if (!this.isEdit) {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
         this.data.CostCalculationGarment.ImageFile = this.data.CostCalculationGarment.ImageFile || '#';
+        this.data.Total=this.data.CostCalculationGarment.Quantity;
       }
       if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
         this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
         this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
         // this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
       }
+    }
+    else{
+      //this.data.CostCalculationGarment.CostCalculationGarment_Materials=[];
+      this.data.CostCalculationGarment =null;
+      //this.data.CostCalculationGarment.ImageFile = '#';
+      this.CCG_M_Fabric =[];
+      this.CCG_M_Accessories =[];
+      this.data.Total=0;
     }
   }
 
@@ -170,17 +181,17 @@ export class DataForm {
   //   return this.CCG_M_Rate.length !== 0;
   // }
 
-  get total() {
-    this.data.Total = 0;
-    if (this.data.RO_Garment_SizeBreakdowns) {
-      this.data.RO_Garment_SizeBreakdowns.forEach(sb => {
-        if (sb.RO_Garment_SizeBreakdown_Details) {
-          sb.RO_Garment_SizeBreakdown_Details.forEach(sbd => {
-            this.data.Total += sbd.Quantity;
-          })
-        }
-      })
-    }
-    return this.data.Total;
-  }
+  // get total() {
+  //   this.data.Total = 0;
+  //   if (this.data.RO_Garment_SizeBreakdowns) {
+  //     this.data.RO_Garment_SizeBreakdowns.forEach(sb => {
+  //       if (sb.RO_Garment_SizeBreakdown_Details) {
+  //         sb.RO_Garment_SizeBreakdown_Details.forEach(sbd => {
+  //           this.data.Total += sbd.Quantity;
+  //         })
+  //       }
+  //     })
+  //   }
+  //   return this.data.Total;
+  // }
 }
