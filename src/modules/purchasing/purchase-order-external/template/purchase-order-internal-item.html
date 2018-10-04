@@ -64,7 +64,8 @@
                             read-only.bind="options.readOnly" 
                             change.delegate="priceBeforeTaxChanged($event)"
                             format = "0,0.0000"
-                            options.bind="controlOptions">
+                            options.bind="controlOptions"
+                            >
                         </au-numeric>
                     </td>
                     <td if.bind = "!hasView" align="right">
@@ -74,8 +75,9 @@
                             if.bind = "!hasView"
                             read-only.bind="options.readOnly" 
                             change.delegate="priceBeforeTaxChanged($event)"
-                            options.bind="controlOptions">
-                        </au-textbox>
+                            options.bind="controlOptions"
+                            >
+                    </au-textbox>
                     </td>
                     <td if.bind="context.context.options.useVat" align="center">
                         <au-checkbox 

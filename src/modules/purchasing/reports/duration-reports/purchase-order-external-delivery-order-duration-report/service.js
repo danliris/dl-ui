@@ -17,7 +17,6 @@ export class Service extends RestService {
 
     generateExcel(info) {
         var endpoint = this._getEndPoint(info);
-        console.log(endpoint);
         return super.getXls(endpoint);
     }
 

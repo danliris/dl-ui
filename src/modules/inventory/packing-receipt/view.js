@@ -20,7 +20,7 @@ export class View {
         this.Packing = this.data;
         this.Packing.Code = this.data.PackingCode;
         this.data.Packing = this.data;
-        console.log(this.data)
+        this.data.Packing.OrderTypeName = this.data.Packing.OrderType
 
         if (this.data.Items.length > 0) {
             var delivered;

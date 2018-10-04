@@ -56,9 +56,15 @@ export class List {
         { field: "productCode", title: "Kode Barang", sortable: false },
         { field: "productName", title: "Nama Barang", sortable: false },
         { field: "productRemark", title: "Deskripsi Barang", sortable: false },
-        { field: "dealQuantity", title: "Jumlah Yang Diminta", sortable: false },
-        { field: "dOQuantity", title: "Jumlah Yang Datang", sortable: false },
-        { field: "remainingQuantity", title: "Sisa Qty", sortable: false },
+        { field: "dealQuantity", title: "Jumlah Yang Diminta", sortable: false, formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
+        { field: "dOQuantity", title: "Jumlah Yang Datang", sortable: false, formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
+        { field: "remainingQuantity", title: "Sisa Qty", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
         { field: "uomUnit", title: "Satuan", sortable: false },
     ];
 
@@ -108,7 +114,6 @@ export class List {
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
         };
-console.log(args);
         return this.flag ?
             (
                 this.service.search(args)

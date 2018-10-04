@@ -55,28 +55,30 @@ export class CostCalculationMaterial {
                 this.productCodeIsExist = true;
             }
             if (this.data.Product.Composition) {
+                console.log(this.data.Product.Composition);
                 this.data.Product.Composition = this.data.Product.Composition;
                 this.compositionIsExist = true;
-                this.selectedComposition = this.data.Product.Composition;
+                this.selectedComposition = Object.assign({}, this.data.Product);
             }
 
            
             if (this.data.Product.Const) {
                 this.data.Product.Const=(this.data.Product.Const);
                 this.constructionIsExist = true;
-                this.selectedConstruction = this.data.Product.Const;
+                this.selectedConstruction = Object.assign({}, this.data.Product);
 
             }
 
             if (this.data.Product.Yarn) {
                 this.yarnIsExist = true;
-                this.selectedYarn = this.data.Product.Yarn;
+                this.selectedYarn = Object.assign({}, this.data.Product);
             }
 
             if (this.data.Product.Width) {
-                this.selectedWidth = this.data.Product.Width;
+                this.selectedWidth = Object.assign({}, this.data.Product);
             }
         }
+        console.log(this.data);
     }
 
     bind() {
@@ -227,7 +229,6 @@ export class CostCalculationMaterial {
         
             return (keyword) => {
                 var filter = "";
-    
                 if (this.selectedCategory && this.selectedCategory.name) {
                     if (this.selectedComposition && this.selectedComposition.Composition) {
                         if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
@@ -257,7 +258,6 @@ export class CostCalculationMaterial {
         
         return (keyword) => {
             var filter = "";
-
             if (this.selectedCategory && this.selectedCategory.name) {
                 if (this.selectedComposition && this.selectedComposition.Composition) {
                     if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
@@ -287,7 +287,7 @@ get garmentProductWidthLoader() {
         
     return (keyword) => {
         var filter = "";
-
+        console.log(this.selectedCategory,this.selectedComposition,this.selectedConstruction);
         if (this.selectedCategory && this.selectedCategory.name) {
             if (this.selectedComposition && this.selectedComposition.Composition) {
                 if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
@@ -362,6 +362,7 @@ get garmentProductWidthLoader() {
         return (keyword) => {
             var filter = "";
 
+            console.log(this.selectedCategory,this.selectedComposition,this.selectedConstruction);
             if (this.selectedCategory && this.selectedCategory.name) {
                 if (this.selectedComposition && this.selectedComposition.Composition) {
                     if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
@@ -383,6 +384,7 @@ get garmentProductWidthLoader() {
             return this.service.getGarmentProductsDistinctDescription(keyword, filter)
                 .then((result) => {
                     return result;
+                  
                 });
         }
     }
@@ -398,20 +400,20 @@ uomView =(uom)=>{
 
     @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
     get total() {
-        let total = this.data.Quantity && this.data.Conversion && this.data.Price ? this.data.Price / this.data.Conversion * this.data.Quantity : 0;
+        let total = this.data.Quantity && this.data.Conversion && this.data.Price ? (this.data.Price / this.data.Conversion * this.data.Quantity ).toLocaleString('en-EN', { minimumFractionDigits: 2}): 0;
         //total = numeral(total).format();
         if (this.data.isFabricCM) {
             this.data.Total = 0;
-            this.data.TotalTemp = numeral(total).value();
-            this.data.CM_Price = numeral(total).value();
+            this.data.TotalTemp =numeral(total).value();
+            this.data.CM_Price =numeral(total).value();
         }
         else {
-            this.data.Total = numeral(total).value();
-            this.data.TotalTemp = numeral(total).value();
+            this.data.Total =numeral(total).value();
+            this.data.TotalTemp =numeral(total).value();;
             this.data.CM_Price = null;
         }
-        total=total.toLocaleString('en-EN', { minimumFractionDigits: 2});
-   
+        total=parseFloat(total).toFixed(2);
+        
         return total;
     }
 
