@@ -14,7 +14,16 @@
           show.bind="hasCostCalculationGarment"></au-textbox>
       </div>
       <div class="col-md-6">
-        <au-numeric label="Kuantitas RO" value.bind="total" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-numeric>
+        <!--<au-numeric label="Kuantitas RO" value.bind="total" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-numeric>-->
+        <div class="row">
+          <div class="col-md-4">
+            <au-numeric label="Kuantitas RO" value.bind="data.CostCalculationGarment.Quantity" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-numeric>
+          </div>
+          <div class="col-md-4">
+            <au-textbox label="Satuan RO" value.bind="data.CostCalculationGarment.UOM.Unit" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-textbox>
+          </div>
+        </div>
+        
         <au-datepicker label="Delivery Date" value.bind="data.CostCalculationGarment.DeliveryDate" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-datepicker>
       </div>
@@ -67,16 +76,23 @@
     </div>
     <div class="row" if.bind="hasCostCalculationGarment">
       <div class="col-md-12">
-        <au-collection title="Size Breakdown" items.bind="data.RO_Garment_SizeBreakdowns" columns.bind="RO_Garment_SizeBreakdownsInfo.columns"
-          options.bind="RO_Garment_SizeBreakdownsInfo.options" add.bind="RO_Garment_SizeBreakdownsInfo.onAdd" item-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown"
-          footer-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown-footer" read-only.bind="readOnly">
+        <au-textbox error.bind="error.SizeBreakdowns" read-only.bind="true"></au-textbox>
+        <au-collection title="Size Breakdown" 
+          errors.bind="error.SizeBreakdownItems"
+          items.bind="data.RO_Garment_SizeBreakdowns" columns.bind="RO_Garment_SizeBreakdownsInfo.columns"
+          options.bind="RO_Garment_SizeBreakdownsInfo.options" add.bind="RO_Garment_SizeBreakdownsInfo.onAdd" 
+          item-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown"
+          footer-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown-footer" 
+          read-only.bind="readOnly">
         </au-collection>
         <span show.bind="shown">${total}</span>
+        <au-textbox error.bind="error.TotalQuantity" read-only.bind="true"></au-textbox>
       </div>
     </div>
     <div class="row" show.bind="hasCostCalculationGarment">
       <div class="col-md-8">
-        <au-multiline class="large-textarea" label="Instruksi" placeholder="Isi Instruksi" value.bind="data.Instruction" options.bind="length2"
+        <au-multiline class="large-textarea" label="Instruksi" placeholder="Isi Instruksi" value.bind="data.Instruction" 
+        options.bind="length2" error.bind="error.Instruction"
           read-only.bind="readOnly"></au-multiline>
       </div>
     </div>
@@ -93,6 +109,7 @@
             <button type="button" class="btn btn-danger center-block" if.bind="!readOnly" click.delegate="removeImage($index)">Remove</button>
           </div>
         </template>
+        <au-textbox error.bind="error.ImageFile" read-only.bind="true"></au-textbox>
       </div>
     </div>
   </au-input-form>
