@@ -28,7 +28,6 @@ export class FPReturToQCItem {
   }
 
   activate(context) {
-
     this.context = context;
     this.data = context.data;
     this.error = context.error;
@@ -67,7 +66,7 @@ export class FPReturToQCItem {
         var productFilter = {
           ProductionOrderNo: newValue.OrderNo
         };
-        await endpoint.find(resource, { filter: JSON.stringify(productFilter) })
+        await endpoint.find(resource, { keyword: newValue.OrderNo })
           .then((result) => {
 
             var productIds = result.data.map(function (v) {
@@ -77,31 +76,43 @@ export class FPReturToQCItem {
             this.service.getInventoryItemsByProductId({ productIds })
               .then((result) => {
                 if (result) {
-                  for (var item of result) {
-                    var newProduct = product.find(function (v) {
-                      return v.Id == item.productId;
-                    });
-                    var data = {
-                      ProductName: item.productName,
-                      ProductId: item.productId,
-                      ProductCode:  item.productCode,
-                      DesignNumber: newProduct.DesignNumber,
-                      DesignCode: newProduct.DesignCode,
-                      Remark: '',
-                      ColorWay: newProduct.ColorName,
-                      QuantityBefore: item.quantity,
-                      ReturQuantity: 0,
-                      UOMId: item.uomId,
-                      UOMUnit: item.uom,
-                      Length: 0,
-                      Weight: 0,
-                      StorageId:item.storageId,
-                      StorageCode:item.storageCode,
-                      StorageName:item.storageName
+                  if (newValue.OrderType && newValue.OrderType.Name) {
+                    var inventoryData = {};
+                    if (newValue.OrderType.Name.toUpperCase() === 'PRINTING') {
+                      inventoryData = result.filter(function (v) {
+                        return v.storageName && v.storageName.toUpperCase() === 'GUDANG PRINTING';
+                      });
+                    } else {
+                      inventoryData = result.filter(function (v) {
+                        return v.storageName && v.storageName.toUpperCase() !== 'GUDANG PRINTING';
+                      });
                     }
-                    items.push(data);
+                    for (var item of inventoryData) {
+                      var newProduct = product.find(function (v) {
+                        return v.Id == item.productId;
+                      });
+                      var data = {
+                        ProductName: item.productName,
+                        ProductId: item.productId,
+                        ProductCode: item.productCode,
+                        DesignNumber: newProduct.DesignNumber,
+                        DesignCode: newProduct.DesignCode,
+                        Remark: '',
+                        ColorWay: newProduct.ColorName,
+                        QuantityBefore: item.quantity,
+                        ReturQuantity: 0,
+                        UOMId: item.uomId,
+                        UOMUnit: item.uom,
+                        Length: 0,
+                        Weight: 0,
+                        StorageId: item.storageId,
+                        StorageCode: item.storageCode,
+                        StorageName: item.storageName
+                      }
+                      items.push(data);
+                    }
+                    this.data.Details = items;
                   }
-                  this.data.Details = items;
                 }
               });
           });

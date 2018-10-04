@@ -62,7 +62,7 @@
             
             <au-autocomplete 
                 value.bind="selectedMaterial" 
-                error.bind="error.MaterialId"
+                error.bind="error.Material"
                 label="Material" 
                 loader.bind="materialLoader"
                 text.bind = "materialView"
@@ -75,7 +75,7 @@
 
             <au-autocomplete 
                 value.bind="selectedConstruction" 
-                error.bind="error.MaterialConstructionId"
+                error.bind="error.MaterialConstruction"
                 label="Konstruksi Finish" 
                 loader.bind="constructionLoader"
                 text.bind = "constructionView"

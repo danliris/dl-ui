@@ -35,16 +35,15 @@ export class Create {
         this.data.accepted = true;
         //this.data.date = moment().format("YYYY-MM-DD");
         this.service.create(this.data)
-            .then((result) => {
+            .then(result => {
+                
                 alert("Data berhasil dibuat");
+
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch((e) => {
-                if (e.statusCode == 500) {
-                    alert(e.error);
-                } else {
-                    this.error = e;
-                }
+                
+                this.error = e;
             })
     }
 }
