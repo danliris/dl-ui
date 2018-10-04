@@ -18,5 +18,6 @@ export class ROGarmentSizeBreakdownDetail {
         this.columns = this.context.context.columns;
         this.options = this.context.options;
         this.readOnly = this.options.readOnly;
+        this.error = this.context.error;
     }
 }

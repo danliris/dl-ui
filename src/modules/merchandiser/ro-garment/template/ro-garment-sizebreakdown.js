@@ -30,11 +30,13 @@ export class ROGarmentSizeBreakdown {
     }
 
     activate(context) {
+        console.log(context);
         this.context = context;
         this.data = this.context.data;
         this.columns = this.context.context.columns;
         this.options = this.context.options;
         this.readOnly = this.options.readOnly;
+        this.error = this.context.error;
         this.RO_Garment_SizeBreakdown_DetailsInfo.options.readOnly = this.readOnly;
         this.shown = false;
     }

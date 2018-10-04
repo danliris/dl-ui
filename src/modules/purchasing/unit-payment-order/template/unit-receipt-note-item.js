@@ -8,8 +8,11 @@ export class UnitReceiptNoteItem {
     if(this.data.deliveredQuantity){
       this.data.deliveredQuantity=this.data.deliveredQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     }
-    if(this.data.pricePerDealUnit){
+    if(this.data.pricePerDealUnit && this.readOnly==true){
       this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    }
+    if(this.data.PriceTotal && this.readOnly==true){
+      this.data.PriceTotal=this.data.PriceTotal.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     }
   }
   
@@ -17,9 +20,9 @@ export class UnitReceiptNoteItem {
 		return `${this.data.product.code} - ${this.data.product.name}`;
 	}
 
-  get totalPrice(){
-    return (parseFloat(this.data.pricePerDealUnit) * parseFloat(this.data.deliveredQuantity)).toLocaleString('en-EN', { minimumFractionDigits: 4 });
-  }
+  // get totalPrice(){
+  //   return ((this.data.pricePerDealUnit) * (this.data.deliveredQuantity));
+  // }
 
   controlOptions = {
     control: {

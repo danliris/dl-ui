@@ -122,7 +122,6 @@ export class List {
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-        console.log(info)
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
@@ -136,7 +135,6 @@ export class List {
                 var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
-                console.log(data);
                 return data;
             });
 

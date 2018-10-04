@@ -17,15 +17,15 @@ export class List {
   context = ["detail","cetak PDF"]
 
   columns = [
-    { field: "returNo", title: "Nomor Retur" },
+    { field: "ReturNo", title: "Nomor Retur" },
     {
-      field: "date", title: "Tanggal Retur", formatter: function (value, data, index) {
+      field: "Date", title: "Tanggal Retur", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "destination", title: "Tujuan" },
-    { field: "deliveryOrderNo", title: "Nomor DO" },
-    { field: "remark", title: "Keterangan Retur" }
+    { field: "Destination", title: "Tujuan" },
+    { field: "DeliveryOrderNo", title: "Nomor DO" },
+    { field: "Remark", title: "Keterangan Retur" }
   ];
 
   loader = (info) => {
@@ -64,10 +64,10 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
       case "cetak PDF":
-        this.service.getPdfById(data._id);
+        this.service.getPdfById(data.Id);
         break;
     }
   }

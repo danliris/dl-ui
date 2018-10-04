@@ -4,7 +4,6 @@ export class UnitReceiptNoteItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-    console.log(this.data);
     this.error = context.error;
     this.readOnly = context.options.readOnly;
     this.pricePerUnitCorrectionReadOnly = this.context.context.options;

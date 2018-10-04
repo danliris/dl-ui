@@ -1,4 +1,4 @@
-import {inject, bindable, containerless, computedFrom, BindingEngine} from 'aurelia-framework'
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var ProductLoader = require('../../../../loader/product-loader');
 var ConstructionLoader = require('../../../../loader/material-loader');
@@ -15,17 +15,17 @@ export class DataForm {
     @bindable selectedConstruction;
 
     destinationOptions = ['Pack I', 'Pack II'];
-    
+
     itemsInfo = {
-        columns: [{ header: "Kode Packing - Nomor Surat Perintah Produksi", value: "productionOrderNo"}],
+        columns: [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo" }],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.items.push({productionOrderNo: "", code: ""});
+            this.data.Items.push({ productionOrderNo: "", code: "" });
         }.bind(this)
     };
-    itemsColumns = [{ header: "Kode Packing - Nomor Surat Perintah Produksi", value: "productionOrderNo"}];
-    materialFields=["name","code"];
-    packingFields=["code", "motif", "materialWidthFinish"];
+    itemsColumns = [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo" }];
+    materialFields = ["name", "code"];
+    packingFields = ["code", "motif", "materialWidthFinish"];
 
 
     constructor(service, bindingEngine) {
@@ -34,28 +34,28 @@ export class DataForm {
     }
 
     async bind(context) {
+        
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
-        if (this.data.materialId) {
-            this.selectedMaterial = await this.service.getProductById(this.data.materialId, this.materialFields);
-            this.data.material =this.selectedMaterial;
-           // this.selectedMaterial = this.data.material;
+        if (this.data.Material) {
+            this.selectedMaterial = this.data.Material;
+            // this.data.material = this.selectedMaterial;
+            // this.selectedMaterial = this.data.material;
         }
-        if (this.data.materialConstructionId) {
-            this.selectedConstruction = await this.service.getConstructionById(this.data.materialConstructionId, this.materialFields);
-            this.data.construction=this.selectedConstruction;
+        if (this.data.MaterialConstruction) {
+            this.selectedConstruction = this.data.MaterialConstruction;
+            // this.data.materialConstruction = this.selectedConstruction;
         }
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
-    filter={};
-    
+    filter = {};
+
     // @computedFrom("data.material" && "data.construction" && "data.materialWidthFinish")
     // get getFilter(){
     //     filter={
@@ -70,28 +70,27 @@ export class DataForm {
     tagsFilter = { tags: { "$regex": "material", "$options": "i" } };
 
     selectedMaterialChanged(newValue) {
-        console.log(this.readOnly)
-        if(!this.readOnly){
-        this.data.items = [];
-        console.log(this.error);
-        if (this.error) {
-            if (this.error.items) {
-                this.error.items = [];
+        
+        if (!this.readOnly) {
+            this.data.Items = [];
+            if (this.error) {
+                if (this.error.items) {
+                    this.error.items = [];
+                }
             }
         }
-        }
         var _selectedMaterial = newValue;
-        if (_selectedMaterial && _selectedMaterial._id) {
+        if (_selectedMaterial && _selectedMaterial.Id) {
             this.data.material = _selectedMaterial;
-            this.data.materialName=_selectedMaterial.name;
-            this.data.materialId = _selectedMaterial._id ? _selectedMaterial._id : "";
+            this.data.materialName = _selectedMaterial.Name;
+            this.data.materialId = _selectedMaterial.Id ? _selectedMaterial.Id : "";
         }
-        if(!this.readOnly){
-            if(this.data.material && this.data.construction){
-                this.filter={
-                    material:this.data.materialName,
-                    materialConstructionFinishName: this.data.materialConstructionName,
-                    materialWidthFinish: this.data.materialWidthFinish
+        if (!this.readOnly) {
+            if (this.data.material && this.data.materialConstruction) {
+                this.filter = {
+                    materialName: this.data.materialName,
+                    materialConstructionName: this.data.materialConstructionName,
+                    finishWidth: this.data.MaterialWidthFinish
                 };
             }
         }
@@ -99,36 +98,38 @@ export class DataForm {
 
 
     selectedConstructionChanged(newValue) {
+        
         var _selectedConstruction = newValue;
-        if (_selectedConstruction._id) {
-            this.data.construction = _selectedConstruction;
-            this.data.materialConstructionName=_selectedConstruction.name;
-            this.data.materialConstructionId = _selectedConstruction._id ? _selectedConstruction._id : "";
+        if (_selectedConstruction.Id) {
+            this.data.materialConstruction = _selectedConstruction;
+            this.data.materialConstructionName = _selectedConstruction.Name;
+            this.data.materialConstructionId = _selectedConstruction.Id ? _selectedConstruction.Id : "";
         }
-        if(!this.readOnly){
-            if(this.data.material && this.data.construction ){
-                this.filter={
-                    material:this.data.materialName,
-                    materialConstructionFinishName: this.data.materialConstructionName,
-                    materialWidthFinish: this.data.materialWidthFinish
+        if (!this.readOnly) {
+            if (this.data.material && this.data.materialConstruction) {
+                this.filter = {
+                    materialName: this.data.materialName,
+                    materialConstructionName: this.data.materialConstructionName,
+                    finishWidth: this.data.MaterialWidthFinish
                 };
             }
         }
     }
 
-    materialWidthFinishChanged(e){
-        this.data.items = [];
+    materialWidthFinishChanged(e) {
+        this.data.Items = [];
+        
         if (this.error) {
             if (this.error.items) {
                 this.error.items = [];
             }
         }
-        if(!this.readOnly){
-            if(this.data.material && this.data.construction){
-                this.filter={
-                    material:this.data.materialName,
-                    materialConstructionFinishName: this.data.materialConstructionName,
-                    materialWidthFinish: this.data.materialWidthFinish
+        if (!this.readOnly) {
+            if (this.data.material && this.data.materialConstruction) {
+                this.filter = {
+                    materialName: this.data.materialName,
+                    materialConstructionName: this.data.materialConstructionName,
+                    finishWidth: this.data.MaterialWidthFinish
                 };
             }
         }
@@ -144,19 +145,22 @@ export class DataForm {
 
 
     get addItems() {
+        
         return (event) => {
-             this.data.items.push({productionOrderNo: "", code: ""});
+            this.data.Items.push({ productionOrderNo: "", code: "" });
         };
     }
 
     materialView = (product) => {
-        return `${product.name}`;
+      
+        return `${product.Name}`;
     }
 
     constructionView = (construction) => {
-        return `${construction.name}`;
+    
+        return `${construction.Name}`;
     }
 
-    
+
 
 } 

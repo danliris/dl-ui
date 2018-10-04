@@ -8,6 +8,7 @@ export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
+    hasCreate = false;
 
     constructor(router, service, azureService) {
         this.router = router;

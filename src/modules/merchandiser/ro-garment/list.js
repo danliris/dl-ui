@@ -6,10 +6,10 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Rincian", "Cetak PDF"];
     columns = [
-        { field: "CostCalculationGarment.RO_Number", title: "No RO" },
-        { field: "CostCalculationGarment.Article", title: "Artikel" },
-        { field: "CostCalculationGarment.Unit.Name", title: "Unit" },
-        { field: "Total", title: "Kuantitas RO" }
+        { field: "CostCalculationGarment.RO_Number", title: "No RO",sortable:false },
+        { field: "CostCalculationGarment.Article", title: "Artikel" ,sortable:false},
+        { field: "CostCalculationGarment.Unit.Name", title: "Unit",sortable:false },
+        { field: "Total", title: "Kuantitas RO" ,sortable:false}
     ];
 
     loader = (info) => {
