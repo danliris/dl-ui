@@ -12,7 +12,7 @@
         
         <au-textbox 
             label="Nomor RO" 
-            value.bind="data.roNo"
+            value.bind="data.RONo"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -26,28 +26,28 @@
 
         <au-textbox 
             label="Artikel" 
-            value.bind="data.artikel"
+            value.bind="data.Article"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
 
         <au-textbox 
             label="Nomor PR" 
-            value.bind="data.purchaseRequest.no" 
+            value.bind="data.PRNo" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
 
         <au-datepicker 
             label="Tgl. PR" 
-            value.bind="data.date" 
+            value.bind="data.PRDate" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker 
             label="Tgl. Diminta Datang" 
-            value.bind="data.expectedDeliveryDate" 
+            value.bind="data.ExpectedDeliveryDate" 
             read-only.bind="true"
             options.bind="controlOptions">
         </au-datepicker>
@@ -61,7 +61,7 @@
 
         <au-multiline 
             label="Keterangan" 
-            value.bind="data.remark"
+            value.bind="data.Remark"
             placeholder="tambah keterangan" 
             read-only.bind="true"
             options.bind="controlOptions">
@@ -69,12 +69,12 @@
 
 
         <au-collection 
-            items.bind="data.items" 
+            items.bind="data.Items" 
             errors.bind="error.items" 
             columns.bind="itemsColumns" 
             read-only.bind="readOnly" 
             options.bind="options"
-            item-template="modules/garment-purchasing/purchase-order/template/purchase-order-item">
+            item-template="modules/garment-purchasing/purchase-order-internal/template/purchase-order-item">
         </au-collection>
 
   </au-input-form>
