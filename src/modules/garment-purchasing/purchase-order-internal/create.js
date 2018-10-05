@@ -23,21 +23,21 @@ export class Create {
                 return ""
             }
         },
-        { title: "Nomor RO", field: "roNo" },
-        { title: "Nomor PR", field: "no" },
-        { title: "Nomor Ref. PO", field: "items.refNo" },
-        { title: "Buyer", field: "buyer" },
-        { title: "Unit", field: "unit" },
-        { title: "Artikel", field: "artikel" },
-        { title: "K e t e r a n g a n", field: "items.remark" },
+        { title: "Nomor RO", field: "RONo" },
+        { title: "Nomor PR", field: "PRNo" },
+        { title: "Nomor Ref. PO", field: "Items.0.PO_SerialNumber" },
+        { title: "Buyer", field: "Buyer.Name" },
+        { title: "Unit", field: "Unit.Name" },
+        { title: "Artikel", field: "Article" },
+        { title: "K e t e r a n g a n", field: "Items.0.ProductRemark" },
         {
-            title: "Tgl. Shipment", field: "shipmentDate", formatter: function (value, data, index) {
+            title: "Tgl. Shipment", field: "ShipmentDate", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { title: "Nama Barang", field: "items.product" },
-        { title: "Jumlah", field: "items.quantity" },
-        { title: "Satuan", field: "items.uom" }
+        { title: "Nama Barang", field: "Items.0.Product.Name" },
+        { title: "Jumlah", field: "Items.0.Quantity" },
+        { title: "Satuan", field: "Items.0.Uom.Unit" }
     ];
     controlOptions = {
         control: {

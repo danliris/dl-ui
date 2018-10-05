@@ -3,17 +3,17 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 var moment = require('moment');
 
-const serviceUri = 'purchase-orders/by-user';
-const servicePRUri = 'purchase-requests/by-tags';
+const serviceUri = 'garment-internal-purchase-orders';
+const servicePRUri = 'garment-purchase-requests';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/by-user`;
         return super.list(endpoint, info);
     }
 
@@ -43,25 +43,25 @@ export class Service extends RestService {
     }
 
     searchByTags(keyword, shipmentDateFrom, shipmentDateTo) {
-        var endpoint = `${servicePRUri}`;
+        var endpoint = `${servicePRUri}/by-tags`;
         var filter = {};
         if (keyword && shipmentDateFrom && shipmentDateTo) {
             filter = {
                 shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
                 shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
-                tag: keyword
+                tags: keyword
             };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
+            return super.list(endpoint, filter);
         }
         else if (keyword) {
-            filter = { tag: keyword };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
+            filter = { tags: keyword };
+            return super.list(endpoint, filter);
         } else if (shipmentDateFrom && shipmentDateTo) {
             filter = {
                 shipmentDateFrom: moment(shipmentDateFrom).format("YYYY-MM-DD"),
                 shipmentDateTo: moment(shipmentDateTo).format("YYYY-MM-DD"),
             };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
+            return super.list(endpoint, filter);
         } else {
             return super.list(endpoint);
         }
