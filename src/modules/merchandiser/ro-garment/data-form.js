@@ -124,7 +124,6 @@ export class DataForm {
   }
 
   async bind(context) {
-    console.log(context);
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
