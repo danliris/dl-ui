@@ -32,9 +32,9 @@ export class Create {
         { header: "No.", value: "No" },
         { header: "Seksi", value: "Section" },
         { header: "No. PO", value: "PO_SerialNumber" },
-        { header: "Kode", value: "Code" },
+        { header: "Kode", value: "ProductCode" },
         { header: "Item Barang", value: "ProductName" },
-        { header: "Deskripsi Barang", value: "ProductDescription" },
+        { header: "Deskripsi Barang", value: "Description" },
         { header: "Qty", value: "Quantity" },
         { header: "Satuan", value: "UOMQuantityUnit" },
         { header: "Shipment", value: "DeliveryDate" },
@@ -82,8 +82,8 @@ export class Create {
                 this.data.CostCalculationGarment_Materials.map(material => {
                     material.No = ++no;
                     material.Section = this.data.CostCalculationGarment.Section;
-                    material.ProductName = material.Product.Code;
-                    material.ProductDescription = material.Product.Code;
+                    material.ProductCode = material.Product.Code;
+                    material.ProductName = material.Product.Name;
                     material.UOMQuantityUnit = material.UOMQuantity.Unit;
                     material.DeliveryDate = moment(this.data.CostCalculationGarment.DeliveryDate).format("DD MMM YYYY");
                 });
