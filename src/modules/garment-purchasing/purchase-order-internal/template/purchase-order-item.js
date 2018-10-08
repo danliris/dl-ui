@@ -12,11 +12,11 @@ export class PurchaseRequestItem {
   }
 
   get product() {
-    return `${this.data.product.code} - ${this.data.product.name}`;
+    return `${this.data.Product.Code} - ${this.data.Product.Name}`;
   }
 
   get uom() {
-    return `${this.data.defaultUom.unit}`;
+    return `${this.data.Uom.Unit}`;
   }
 
   controlOptions = {

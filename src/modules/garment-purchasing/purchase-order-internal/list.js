@@ -15,21 +15,21 @@ export class List {
     context = ["Rincian"]
 
     columns = [
-        { field: "purchaseRequest.no", title: "Nomor PR" },
-        { field: "purchaseRequest.roNo", title: "Nomor RO" },
+        { field: "PRNo", title: "Nomor PR" },
+        { field: "RONo", title: "Nomor RO" },
         {
-            field: "shipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
+            field: "ShipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "buyer.name", title: "Buyer" },
-        { field: "product", title: "Nama Barang" },
-        { field: "quantity", title: "Jumlah" },
-        { field: "uom", title: "Satuan" },
+        { field: "BuyerName", title: "Buyer" },
+        { field: "Items.ProductName", title: "Nama Barang" },
+        { field: "Items.Quantity", title: "Jumlah" },
+        { field: "Items.UomUnit", title: "Satuan" },
 
-        { field: "_createdBy", title: "Staff Pembelian" },
+        { field: "CreatedBy", title: "Staff Pembelian" },
         {
-            field: "isPosted", title: "Posted",
+            field: "IsPosted", title: "Posted",
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
@@ -44,16 +44,17 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["purchaseRequest.no", "purchaseRequest.roNo", "shipmentDate", "buyer.name","_createdBy", "isPosted", "items.defaultQuantity","items.defaultUom.unit","items.product.name"],
+            // select: ["purchaseRequest.no", "purchaseRequest.roNo", "shipmentDate", "buyer.name","_createdBy", "isPosted", "items.defaultQuantity","items.defaultUom.unit","items.product.name"],
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {
-                    _data.quantity = _data.items[0].defaultQuantity;
-                    _data.uom = _data.items[0].defaultUom.unit;
-                    _data.product = _data.items[0].product.name;
+                    _data.BuyerName = _data.Buyer.Name;
+                    _data.Items.ProductName = _data.Items[0].Product.Name;
+                    _data.Items.Quantity = _data.Items[0].Quantity;
+                    _data.Items.UomUnit = _data.Items[0].Uom.Unit;
                 }
                 return {
                     total: result.info.total,
@@ -72,7 +73,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

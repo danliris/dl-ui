@@ -64,15 +64,15 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     }, {
-        route: '/garment/po',
-        name: 'purchase-order',
-        moduleId: './modules/garment-purchasing/purchase-order/index',
+        route: '/garment/po-internal',
+        name: 'purchase-order-internal',
+        moduleId: './modules/garment-purchasing/purchase-order-internal/index',
         nav: true,
         title: 'Purchase Order Internal',
         auth: true,
         settings: {
             group: "g-purchasing",
-            //permission: { "C9": 1, "PG": 1, },
+            permission: { "C9": 1, "PG": 1, },
             iconClass: 'fa fa-dashboard'
         }
     },
