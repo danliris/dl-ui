@@ -27,7 +27,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-               console.log(result.data);
                 return {
                     total: result.info.total,
                     data: result.data
