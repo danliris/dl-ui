@@ -66,7 +66,7 @@ export class FPReturToQCItem {
         var productFilter = {
           ProductionOrderNo: newValue.OrderNo
         };
-        await endpoint.find(resource, { keyword: newValue.OrderNo })
+        await this.service.getProductByProductionOrderNo(newValue.OrderNo)
           .then((result) => {
 
             var productIds = result.data.map(function (v) {
@@ -76,6 +76,7 @@ export class FPReturToQCItem {
             this.service.getInventoryItemsByProductId({ productIds })
               .then((result) => {
                 if (result) {
+                  
                   if (newValue.OrderType && newValue.OrderType.Name) {
                     var inventoryData = {};
                     if (newValue.OrderType.Name.toUpperCase() === 'PRINTING') {
@@ -95,10 +96,10 @@ export class FPReturToQCItem {
                         ProductName: item.productName,
                         ProductId: item.productId,
                         ProductCode: item.productCode,
-                        DesignNumber: newProduct.DesignNumber,
-                        DesignCode: newProduct.DesignCode,
+                        DesignNumber: newProduct.SPPProperties.DesignNumber,
+                        DesignCode: newProduct.SPPProperties.DesignCode,
                         Remark: '',
-                        ColorWay: newProduct.ColorName,
+                        ColorWay: newProduct.SPPProperties.ColorName,
                         QuantityBefore: item.quantity,
                         ReturQuantity: 0,
                         UOMId: item.uomId,

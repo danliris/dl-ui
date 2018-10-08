@@ -20,7 +20,7 @@ export class DataForm {
         columns: [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo" }],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.Items.push({ productionOrderNo: "", code: "" });
+            this.data.Items.push({});
         }.bind(this)
     };
     itemsColumns = [{ header: "Nomor Surat Perintah Produksi", value: "productionOrderNo" }];
@@ -81,15 +81,13 @@ export class DataForm {
         }
         var _selectedMaterial = newValue;
         if (_selectedMaterial && _selectedMaterial.Id) {
-            this.data.material = _selectedMaterial;
-            this.data.materialName = _selectedMaterial.Name;
-            this.data.materialId = _selectedMaterial.Id ? _selectedMaterial.Id : "";
+            this.data.Material = _selectedMaterial;
         }
         if (!this.readOnly) {
-            if (this.data.material && this.data.materialConstruction) {
+            if (this.data.Material && this.data.MaterialConstruction) {
                 this.filter = {
-                    materialName: this.data.materialName,
-                    materialConstructionName: this.data.materialConstructionName,
+                    materialName: this.data.Material.Name,
+                    materialConstructionName: this.data.MaterialConstruction.Name,
                     finishWidth: this.data.MaterialWidthFinish
                 };
             }
@@ -101,15 +99,13 @@ export class DataForm {
         
         var _selectedConstruction = newValue;
         if (_selectedConstruction.Id) {
-            this.data.materialConstruction = _selectedConstruction;
-            this.data.materialConstructionName = _selectedConstruction.Name;
-            this.data.materialConstructionId = _selectedConstruction.Id ? _selectedConstruction.Id : "";
+            this.data.MaterialConstruction = _selectedConstruction;
         }
         if (!this.readOnly) {
-            if (this.data.material && this.data.materialConstruction) {
+            if (this.data.Material && this.data.MaterialConstruction) {
                 this.filter = {
-                    materialName: this.data.materialName,
-                    materialConstructionName: this.data.materialConstructionName,
+                    materialName: this.data.Material.Name,
+                    materialConstructionName: this.data.MaterialConstruction.Name,
                     finishWidth: this.data.MaterialWidthFinish
                 };
             }
@@ -125,10 +121,10 @@ export class DataForm {
             }
         }
         if (!this.readOnly) {
-            if (this.data.material && this.data.materialConstruction) {
+            if (this.data.Material && this.data.MaterialConstruction) {
                 this.filter = {
-                    materialName: this.data.materialName,
-                    materialConstructionName: this.data.materialConstructionName,
+                    materialName: this.data.Material.Name,
+                    materialConstructionName: this.data.MaterialConstruction.Name,
                     finishWidth: this.data.MaterialWidthFinish
                 };
             }
@@ -143,13 +139,6 @@ export class DataForm {
         return ConstructionLoader;
     }
 
-
-    get addItems() {
-        
-        return (event) => {
-            this.data.Items.push({ productionOrderNo: "", code: "" });
-        };
-    }
 
     materialView = (product) => {
       
