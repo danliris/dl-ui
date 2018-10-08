@@ -67,7 +67,7 @@ export class DataForm {
             this.data.PackingCode = this.data.Packing.Code;
             this.data.DesignCode = this.data.Packing.DesignCode;
             this.data.DesignNumber = this.data.Packing.DesignNumber;
-
+            console.log(newValue);
             // this.data.Packing.PackingDetails.map((item) => {
             for (var item of this.data.Packing.PackingDetails) {
                 var productName = this.data.Packing.ProductionOrderNo + "/" + this.data.Packing.ColorName + "/" + this.data.Packing.Construction + "/" + item.Lot + "/" + item.Grade + "/" + item.Length + "/" + item.Remark
@@ -85,6 +85,7 @@ export class DataForm {
                 _item.Uom = this.data.PackingUom;
                 _item.UomId = Uom.data[0].Id;
                 _item.ProductId = data.data[0].Id;
+                _item.ProductCode = data.data[0].Code;
                 _item.Product = item.Remark !== "" && item.Remark !== null ? `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}/${item.Remark}` : `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}`;
                 _item.Quantity = item.Quantity;
                 _item.AvailableQuantity = item.AvailableQuantity ? item.AvailableQuantity : item.Quantity;
