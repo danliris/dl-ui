@@ -14,7 +14,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        
+
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
@@ -25,7 +25,7 @@ export class Service extends RestService {
     }
 
     create(data) {
-        
+
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
@@ -48,7 +48,7 @@ export class Service extends RestService {
     getProductByKeyword(keyword) {
         var config = Container.instance.get(Config);
         var uri = `${productUri}/${keyword}`;
-        
+
         var endpoint = config.getEndpoint("inventory");
         var _info = Object.assign({}, info);
 
@@ -60,10 +60,21 @@ export class Service extends RestService {
         var promise = endpoint.find(uri, _info);
         this.publish(promise);
         return promise
-        .then((result) => {
-            this.publish(promise);
-            return Promise.resolve(result);
-        });
+            .then((result) => {
+                this.publish(promise);
+                return Promise.resolve(result);
+            });
+    }
+
+    getProductByProductionOrderNo(productionOrderNo) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/products/byProductionOrderNo`;
+
+        return _endpoint.find(_serviceUri, { productionOrderNo: productionOrderNo })
+            .then(result => {
+                return result;
+            });
     }
 
     getProductById(id, select) {
@@ -78,7 +89,7 @@ export class Service extends RestService {
     }
 
     getInventoryItemsByProductId(productIds) {
-        
+
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("inventory-azure");
         var _serviceUri = `inventory/inventory-summary-reports/productIds`;
