@@ -18,7 +18,7 @@ export class Service extends RestService {
     }
 
     getCostCalculationGarmentById(id) {
-        var endpoint = `${costCalculationGarmentServiceUri}/${id}`;
+        var endpoint = `${costCalculationGarmentServiceUri}/ro-garment-validation/${id}`;
         return super.get(endpoint);
     }
 }

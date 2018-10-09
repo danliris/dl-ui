@@ -33,8 +33,8 @@
             <au-textbox label="Satuan" value.bind="data.Packing.PackingUom" read-only.bind="true"></au-textbox>
         </fieldset>
 
-        <au-collection items.bind="data.Items" columns.bind="itemsColumns" read-only.bind="packingReadOnly" item-template="modules/inventory/packing-receipt/template/packing-item"
-            errors.bind="error.items">
+        <au-collection items.bind="data.Items" show.bind="data.PackingId" columns.bind="itemsColumns" read-only.bind="packingReadOnly" item-template="modules/inventory/packing-receipt/template/packing-item"
+            errors.bind="error.Items">
         </au-collection>
 
     </au-input-form>

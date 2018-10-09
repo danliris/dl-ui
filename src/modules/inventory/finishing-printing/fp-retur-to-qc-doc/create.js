@@ -32,7 +32,7 @@ export class Create {
 
     save(event) {
 
-        this.data.accepted = true;
+        // this.data.accepted = true;
         //this.data.date = moment().format("YYYY-MM-DD");
         this.service.create(this.data)
             .then(result => {
