@@ -56,7 +56,8 @@ export class UnitPaymentOrderItem {
          _id: item.uomId,
          unit: item.uom 
         };
-        item.PriceTotal = item.pricePerDealUnit * item.deliveredQuantity;
+        
+        item.PriceTotal = (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('en-EN', { maximumFractionDigits:15 });
         item.PricePerDealUnitCorrection = item.pricePerDealUnit;
         item.PriceTotalCorrection = item.PriceTotal;
         item.QuantityCorrection= item.deliveredQuantity;

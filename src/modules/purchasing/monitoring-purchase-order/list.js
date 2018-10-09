@@ -90,8 +90,8 @@ export class List {
                     item.correctionDate=moment(item.correctionDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.correctionDate).format("DD MMM YYYY");
 
                     item.quantity=item.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-                    item.pricePerDealUnit=item.pricePerDealUnit.toLocaleString();
-                    item.priceTotal=item.priceTotal.toLocaleString();
+                    item.pricePerDealUnit=item.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    item.priceTotal=item.priceTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     item.urnQuantity=item.urnQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
                     item.upoPriceTotal=item.upoPriceTotal.toLocaleString();
                     item.vatValue=item.vatValue.toLocaleString();

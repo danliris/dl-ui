@@ -43,23 +43,12 @@ export class Edit {
                 }
             }
         }
-        var test=false;
-        for(var item of this.data.items){
-            for(var detail of item.details){
-                if(isNaN(detail.pricePerDealUnit)){
-                    test=true;
-                }
-            }
-        }
-        if(test==true){
-            alert("Harga Barang Harus Diisi Dengan Angka");
-        } else {
-           this.service.update(this.data).then(result => {
+
+        this.service.update(this.data).then(result => {
                 this.cancel();
             }).catch(e => {
                 this.error = e;
             })
-        }
     }
 }
 

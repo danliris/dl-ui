@@ -34,7 +34,6 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    console.log(unit);
     return `${unit.Code} - ${unit.Name}`
   }
   get categoryLoader() {
@@ -62,7 +61,6 @@ export class List {
           var subTotalCategory = {};
           for (var data of result) {
             //for (var item of data.items) {
-              console.log(data.receiptDate);
               var Category = data.categoryName;
               if (!dataByCategory[Category]) dataByCategory[Category] = [];
               dataByCategory[Category].push({
@@ -72,9 +70,9 @@ export class List {
                 Category: data.categoryName,
                 Unit: data.unitName,
                 PIB: data.PIBNo || "-",
-                Nilai: (data.amount).toLocaleString("en-EN",{ maximumFractionDigits: 15 }),
-                CurrencyRate: data.rate.toLocaleString("en-EN",{ maximumFractionDigits: 15 }),
-                Total: (data.amountIDR).toLocaleString("en-EN",{ maximumFractionDigits: 15 })
+                Nilai: (data.amount).toLocaleString("en-EN",{ minimumFractionDigits: 2 }),
+                CurrencyRate: data.rate.toLocaleString("en-EN",{ minimumFractionDigits: 2 }),
+                Total: (data.amountIDR).toLocaleString("en-EN",{ minimumFractionDigits: 2 })
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
@@ -87,11 +85,11 @@ export class List {
           for (var data in dataByCategory) {
             categories.push({
               data: dataByCategory[data],
-              subTotal: subTotalCategory[data].toLocaleString("en-EN",{ maximumFractionDigits: 15 }),
+              subTotal: subTotalCategory[data].toLocaleString("en-EN",{ minimumFractionDigits: 2 }),
             });
             this.total += subTotalCategory[data];
           }
-          this.total = this.total.toLocaleString("en-EN",{ maximumFractionDigits: 15 });
+          this.total = this.total.toLocaleString("en-EN",{ minimumFractionDigits: 2 });
           this.categories = categories;
 
         });
