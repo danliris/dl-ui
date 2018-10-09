@@ -15,9 +15,9 @@ export class UnitReceiptNoteItem {
     // if(this.pricePerDealUnitAfter){
     //   this.pricePerDealUnitAfter=this.pricePerDealUnitAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     // }
-    // if(this.data.priceTotalAfter){
-    //   this.data.priceTotalAfter=this.data.priceTotalAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
-    // }
+    if(this.data.priceTotalAfter){
+      this.data.priceTotalAfter=this.data.priceTotalAfter.toLocaleString('en-EN', { maximumFractionDigits: 15 });
+    }
     // if(this.totalPrice){
     //   this.totalPrice=this.totalPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     // }
@@ -35,7 +35,7 @@ export class UnitReceiptNoteItem {
 
   pricePerDealUnitAfterChanged(newValue){
     if(!this.readOnly){
-      this.data.priceTotalAfter=this.data.quantity * newValue;
+      this.data.priceTotalAfter=(this.data.quantity * newValue).toLocaleString('en-EN', { maximumFractionDigits: 15 });;
       this.totalPrice=this.data.priceTotalAfter;
       this.data.pricePerDealUnitAfter=newValue;
     }
