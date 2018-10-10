@@ -82,16 +82,12 @@ export class List {
             .then(data => {
                 this.isVerified(data).then(result => {
                     var dataPR = [];
-                    var temp = {};
                     for (var i of result) {
                         for (var PR of data) {
-                            temp = PR;
                             if (i.UnitPaymentOrderNo == PR["No Nota Intern"]) {
-                                temp.Position = i.Position;
-                            } else {
-                                temp.Position = 0;
-                            }
-                            dataPR.push(temp)
+                                PR.Position = i.Position;
+                                dataPR.push(PR)
+                            } 
                         }
                     }
                     this.data = dataPR
