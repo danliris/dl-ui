@@ -23,6 +23,9 @@ export class DataForm {
     "DivisionName.toUpper()":"GARMENT"
   };
 
+  get filterCostCalculationGarment() {
+    return { "SCGarmentId": null }
+  }
 
   constructor(bindingEngine, service, element) {
     this.bindingEngine = bindingEngine;
@@ -59,7 +62,8 @@ export class DataForm {
         }
         this.hasItems=true;
       }
-      this.data.Amount=this.data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2})
+      if(this.data.Amount)
+        this.data.Amount=this.data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2})
       if(this.data.Price){
         this.data.Price=this.data.Price.toLocaleString('en-EN', { minimumFractionDigits: 4})
       }
@@ -98,7 +102,6 @@ export class DataForm {
     if (newValue) {
       this.selectedRO=newValue;
       this.data.RONumber=newValue.RO_Number;
-      console.log(newValue)
       if(newValue.Id){
         this.data.BuyerBrandName= newValue.BuyerBrand.Name;
         this.data.BuyerBrandId=newValue.BuyerBrand.Id;
