@@ -35,7 +35,7 @@ export class Create {
         { header: "Kode", value: "ProductCode" },
         { header: "Item Barang", value: "ProductName" },
         { header: "Deskripsi Barang", value: "Description" },
-        { header: "Qty", value: "Quantity" },
+        { header: "Qty", value: "QuantityString" },
         { header: "Satuan", value: "UOMQuantityUnit" },
         { header: "Shipment", value: "DeliveryDate" },
     ];
@@ -46,6 +46,10 @@ export class Create {
 
     get buyerLoader() {
         return buyerLoader;
+    }
+
+    get costCalculationGarmentUnpostedFilter() {
+        return { "CostCalculationGarment_Materials.Any(IsPosted == false)" : true };
     }
 
     constructor(router, service) {
@@ -86,11 +90,12 @@ export class Create {
                     material.ProductName = material.Product.Name;
                     material.UOMQuantityUnit = material.UOMQuantity.Unit;
                     material.DeliveryDate = moment(this.data.CostCalculationGarment.DeliveryDate).format("DD MMM YYYY");
+                    material.QuantityString = material.Quantity.toFixed(2);
                 });
             }
         }
         else {
-            this.data.CostCalculationGarment = {};
+            this.clear();
         }
     }
 
@@ -98,7 +103,7 @@ export class Create {
         this.data = {};
         this.error = {};
 
-        this.costCalculationGarment = {};
+        this.costCalculationGarment = null;
         this.validationType = "";
         this.buyer = "";
         this.article = "";
