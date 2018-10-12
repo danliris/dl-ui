@@ -72,7 +72,6 @@ export class List {
                 this.info.total=result.info.total; 
                 this.data = result.data;
                 for (var item of this.data){
-                    console.log(item.correctionQtys);
                     item.prDate=moment(item.prDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.prDate).format("DD MMM YYYY");
                     item.createdDatePR=moment(item.createdDatePR).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.createdDatePR).format("DD MMM YYYY");
                     item.receivedDatePO=moment(item.receivedDatePO).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.receivedDatePO).format("DD MMM YYYY");
