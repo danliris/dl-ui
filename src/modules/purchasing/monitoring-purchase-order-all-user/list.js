@@ -72,6 +72,7 @@ export class List {
                 this.info.total=result.info.total; 
                 this.data = result.data;
                 for (var item of this.data){
+                    console.log(item.correctionQtys);
                     item.prDate=moment(item.prDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.prDate).format("DD MMM YYYY");
                     item.createdDatePR=moment(item.createdDatePR).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.createdDatePR).format("DD MMM YYYY");
                     item.receivedDatePO=moment(item.receivedDatePO).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.receivedDatePO).format("DD MMM YYYY");
@@ -95,9 +96,9 @@ export class List {
                     item.priceTotal=item.priceTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     item.urnQuantity=item.urnQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
                     // this.urnQuantity=this.urnQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-                    item.upoPriceTotal=item.upoPriceTotal.toLocaleString();
-                    item.vatValue=item.vatValue.toLocaleString();
-                    item.incomeTaxValue=item.incomeTaxValue.toLocaleString();
+                    item.upoPriceTotal=item.upoPriceTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    item.vatValue=item.vatValue.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    item.incomeTaxValue=item.incomeTaxValue.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     item.valueCorrection=item.valueCorrection.toLocaleString();
                 }
             })

@@ -34,10 +34,19 @@ export class UnitReceiptNoteItem {
   // }
 
   pricePerDealUnitAfterChanged(newValue){
+    this.error={};
     if(!this.readOnly){
       this.data.priceTotalAfter=(this.data.quantity * newValue).toLocaleString('en-EN', { maximumFractionDigits: 15 });;
       this.totalPrice=this.data.priceTotalAfter;
       this.data.pricePerDealUnitAfter=newValue;
+    }
+    if(this.data.pricePerDealUnitAfter%1>=0){
+      if((this.data.pricePerDealUnitAfter.length>16 && this.data.pricePerDealUnitAfter.indexOf(".")>0) || (this.data.pricePerDealUnitAfter.length>15 && this.data.pricePerDealUnitAfter.indexOf(".")<0)){
+        this.error.pricePerDealUnitAfter="Harga tidak boleh lebih dari 15 digit";
+      }
+    }
+    else {
+      this.error.pricePerDealUnitAfter="Harga Barang Harus Diisi Dengan Angka";
     }
     
   }
