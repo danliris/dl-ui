@@ -26,6 +26,10 @@ export class Create {
             })
     }
 
+    activate(params) {
+
+    }
+
     list() {
         this.router.navigateToRoute('list');
     }
