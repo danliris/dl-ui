@@ -64,7 +64,7 @@ export class Create {
             this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
 
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
-                this.buyer = this.data.CostCalculationGarment.Buyer.Name;
+                this.buyer = `${this.data.CostCalculationGarment.BuyerBrand.Code} - ${this.data.CostCalculationGarment.BuyerBrand.Name}`;
                 this.article = this.data.CostCalculationGarment.Article;
 
                 let isAnyPostedMaterials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.reduce((acc, cur) => {
