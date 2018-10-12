@@ -16,6 +16,7 @@ export class List {
     },
     { field: "code", title: "Mata Uang" },
     { field: "rate", title: "Kurs" },
+    { field: "remark", title: "Keterangan" },
     
   ]
 

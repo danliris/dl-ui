@@ -3,7 +3,7 @@
     <au-input-form options.bind="options">
         <div class="col-sm-6">
             <au-autocomplete label="No. RO" placeholder="Cari RO" value.bind="costCalculationGarment" error.bind="error.RONo"
-                loader.one-time="costCalculationGarmentLoader" options.bind="length" text="RO_Number">
+                loader.one-time="costCalculationGarmentLoader" options.bind="length" text="RO_Number" query.one-time="costCalculationGarmentUnpostedFilter">
             </au-autocomplete>
             <au-textbox label="Janis Validasi" value.bind="validationType" options.bind="length" read-only="true"></au-textbox>
         </div>

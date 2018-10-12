@@ -27,6 +27,9 @@ export class View {
         //     .reduce((prev, curr, index) => {
         //         return prev || curr
         //     }, false) && !hasSource ;
+
+        this.hasSplit = this.data.IsPosted == false;
+        this.hasDelete = this.data.IsPosted == false && this.data.HasDuplicate == false;
     }
 
     cancel(event) {
@@ -34,7 +37,7 @@ export class View {
     }
 
     split(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {

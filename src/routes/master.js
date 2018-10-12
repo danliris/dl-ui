@@ -369,11 +369,24 @@ module.exports = [
         name: 'kurs-currency',
         moduleId: './modules/garment-purchasing/garment-currency/index',
         nav: true,
-        title: 'Kurs Mata Uang',
+        title: 'Nilai Kurs',
         auth: true,
         settings: {
             group: "master",
-            //permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C9": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'budget-currency',
+        name: 'budget-currency',
+        moduleId: './modules/master/budget-currency/index',
+        nav: true,
+        title: 'Kurs Budget',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PG": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

@@ -34,15 +34,18 @@ export class View {
         this.list();
     }
 
-    editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
+    saveCallback(event) {
+        // this.data.deliverySchedule = moment(this.data.deliverySchedule).format("YYYY-MM-DD");
 
-    deleteCallback(event) {
-        this.service.delete(this.data)
+        this.data.rate = Number(this.data.rate).toFixed(4);
+        this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();
-            });
+            })
+            .catch(e => {
+                this.error = e;
+            })
     }
+
 }
 

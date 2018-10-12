@@ -56,7 +56,7 @@ export class Create {
             formData.append("date", moment(this.data.date).format("YYYY-MM-DD"));
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = 'master/upload-garment-currencies';
+            var endpoint = 'master/upload-budget-currencies';
             var request = {
                 method: 'POST',
                 headers: {
@@ -73,7 +73,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: mata uang, kurs");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: mata uang, kurs,keterangan");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");

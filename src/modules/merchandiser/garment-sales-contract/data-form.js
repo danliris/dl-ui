@@ -23,6 +23,9 @@ export class DataForm {
     "DivisionName.toUpper()":"GARMENT"
   };
 
+  get filterCostCalculationGarment() {
+    return { "SCGarmentId": null }
+  }
 
   constructor(bindingEngine, service, element) {
     this.bindingEngine = bindingEngine;
@@ -59,7 +62,11 @@ export class DataForm {
         }
         this.hasItems=true;
       }
-
+      if(this.data.Amount)
+        this.data.Amount=this.data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2})
+      if(this.data.Price){
+        this.data.Price=this.data.Price.toLocaleString('en-EN', { minimumFractionDigits: 4})
+      }
     if(!this.data.DocPresented || this.data.DocPresented==""){
       this.data.DocPresented="INVOICE OF COMMERCIAL VALUE \nPACKING LIST \nEXPORT LICENSE \nCERTIFICATE OF ORIGIN / G.S.P FORM A \nINSPECTION CERTIFICATE ";
     }
@@ -95,7 +102,6 @@ export class DataForm {
     if (newValue) {
       this.selectedRO=newValue;
       this.data.RONumber=newValue.RO_Number;
-      console.log(newValue)
       if(newValue.Id){
         this.data.BuyerBrandName= newValue.BuyerBrand.Name;
         this.data.BuyerBrandId=newValue.BuyerBrand.Id;
@@ -120,10 +126,10 @@ export class DataForm {
         this.data.Uom=newValue.UOM;
         this.data.UomId=newValue.UOM.Id;
         this.data.UomUnit=newValue.UOM.Unit;
-        this.data.Price=newValue.ConfirmPrice;
+        this.data.Price=newValue.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
         this.data.DeliveryDate=newValue.DeliveryDate;
         if(this.data.Items.length==0){
-          this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
+          this.data.Amount=parseFloat(this.data.Quantity*parseFloat(this.data.Price)).toLocaleString('en-EN', { minimumFractionDigits: 2});
         }
       }
       
@@ -203,9 +209,9 @@ export class DataForm {
   }
 
   PriceChanged(e){
-    this.data.Price=parseFloat(e.srcElement.value);
+    this.data.Price=parseFloat(e.srcElement.value).toLocaleString('en-EN', { minimumFractionDigits: 4});
 
-    this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
+    this.data.Amount=parseFloat(this.data.Quantity*parseFloat(this.data.Price)).toLocaleString('en-EN', { minimumFractionDigits: 2});
     
   }
 
@@ -219,12 +225,12 @@ export class DataForm {
           this.data.Amount+=item.Price*item.Quantity;
         }
       }
-      this.data.Amount=parseFloat(this.data.Amount).toFixed(2);
+      this.data.Amount=parseFloat(this.data.Amount).toLocaleString('en-EN', { minimumFractionDigits: 2});
       if(this.data.Items.length==0){
         this.hasItems=false;
         var price= await this.service.getCostCalById(this.data.CostCalculationId);
-        this.data.Price=price.ConfirmPrice;
-        this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
+        this.data.Price=price.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
+        this.data.Amount=parseFloat(this.data.Quantity*parseFloat(this.data.Price)).toLocaleString('en-EN', { minimumFractionDigits: 2});
       }
     }
 
@@ -240,14 +246,14 @@ export class DataForm {
               this.data.Amount+=item.Price*item.Quantity;
           }
         }
-        this.data.Amount=parseFloat(this.data.Amount).toFixed(2);
+        this.data.Amount=parseFloat(this.data.Amount).toLocaleString('en-EN', { minimumFractionDigits: 2});
       }
       if(this.data.Items.length==0){
         this.hasItems=false;
         var price= await this.service.getCostCalById(this.data.CostCalculationId);
         this.data.Price=await price.ConfirmPrice;
-        this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toFixed(2);
-        this.data.Price=price.ConfirmPrice;
+        this.data.Amount=parseFloat(this.data.Quantity*parseFloat(this.data.Price)).toLocaleString('en-EN', { minimumFractionDigits: 2});
+        this.data.Price=price.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
       }
     }
   }

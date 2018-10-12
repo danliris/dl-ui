@@ -88,7 +88,7 @@ export class DataForm {
   }
 
   get filterCostCalculationGarment() {
-    return { "RO_GarmentId": null }
+    return { "RO_GarmentId": null, "IsValidated":true }
   }
 
   constructor(router, service, bindingEngine) {
