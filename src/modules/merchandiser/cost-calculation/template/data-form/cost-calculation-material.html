@@ -2,7 +2,7 @@
     <tr>
         <!-- kategori -->
         <td>
-            <au-autocomplete placeholder="Cari Kategori" value.bind="selectedCategory" key="name" text="name" error.bind="error.Category"
+            <au-autocomplete placeholder="Cari Kategori"  read-only.bind="isReadOnly"  value.bind="selectedCategory" key="name" text="name" error.bind="error.Category"
                 loader.one-time="garmentCategoryLoader" options.bind="controlOptions">
             </au-autocomplete>
         </td>
