@@ -20,14 +20,14 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        var items = this.data.items.filter(function (item) {
-            return !item.isClosed
-        });
-        this.data.items = items
+        // var items = this.data.items.filter(function (item) {
+        //     return !item.isClosed
+        // });
+        // this.data.items = items
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save(event) {
@@ -39,7 +39,7 @@ export class Edit {
     }
 
     split(event) {
-        this.service.split(this.copyForSplit(this.data)).then(result => {
+        this.service.split(this.data).then(result => {
             this.cancel();
         }).catch(e => {
             this.error = e;
@@ -48,10 +48,11 @@ export class Edit {
 
     copyForSplit(purchaseOrder) {
         var newPurchaseOrder = Object.assign({}, purchaseOrder);
-        delete newPurchaseOrder._id;
+        delete newPurchaseOrder.Id;
 
-        newPurchaseOrder.sourcePurchaseOrderId = purchaseOrder._id;
-        newPurchaseOrder.sourcePurchaseOrder = Object.assign({}, purchaseOrder);
+        // newPurchaseOrder.sourcePurchaseOrderId = purchaseOrder._id;
+        // newPurchaseOrder.sourcePurchaseOrder = Object.assign({}, purchaseOrder);
+        console.log(newPurchaseOrder);
         return newPurchaseOrder;
     }
 }

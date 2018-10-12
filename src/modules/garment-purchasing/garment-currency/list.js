@@ -52,13 +52,13 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }
 
   view(data) {
-    this.router.navigateToRoute('view', { id: data._id });
+    this.router.navigateToRoute('view', { id: data.Id });
   }
 
   upload() {

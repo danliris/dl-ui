@@ -35,7 +35,7 @@ export class Create {
         { header: "Kode", value: "ProductCode" },
         { header: "Item Barang", value: "ProductName" },
         { header: "Deskripsi Barang", value: "Description" },
-        { header: "Qty", value: "Quantity" },
+        { header: "Qty", value: "QuantityString" },
         { header: "Satuan", value: "UOMQuantityUnit" },
         { header: "Shipment", value: "DeliveryDate" },
     ];
@@ -48,6 +48,10 @@ export class Create {
         return buyerLoader;
     }
 
+    get costCalculationGarmentUnpostedFilter() {
+        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0": true };
+    }
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -58,9 +62,9 @@ export class Create {
     async costCalculationGarmentChanged(newValue) {
         if (newValue && newValue.Id) {
             this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
-            
+
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
-                this.buyer = this.data.CostCalculationGarment.Buyer.Name;
+                this.buyer = `${this.data.CostCalculationGarment.BuyerBrand.Code} - ${this.data.CostCalculationGarment.BuyerBrand.Name}`;
                 this.article = this.data.CostCalculationGarment.Article;
 
                 let isAnyPostedMaterials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.reduce((acc, cur) => {
@@ -86,11 +90,12 @@ export class Create {
                     material.ProductName = material.Product.Name;
                     material.UOMQuantityUnit = material.UOMQuantity.Unit;
                     material.DeliveryDate = moment(this.data.CostCalculationGarment.DeliveryDate).format("DD MMM YYYY");
+                    material.QuantityString = material.Quantity.toFixed(2);
                 });
             }
         }
         else {
-            this.data.CostCalculationGarment = {};
+            this.clear();
         }
     }
 
@@ -98,7 +103,8 @@ export class Create {
         this.data = {};
         this.error = {};
 
-        this.costCalculationGarment = {};
+        this.costCalculationGarmentVM.editorValue = "";
+        this.costCalculationGarment = null;
         this.validationType = "";
         this.buyer = "";
         this.article = "";
@@ -109,21 +115,23 @@ export class Create {
     }
 
     saveCallback() {
-        var sentData = this.data.CostCalculationGarment || {};
-        sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
-        this.service.create(sentData)
-            .then(result => {
-                alert("Berhasil Validasi RO Garment");
-                this.clear();
-            })
-            .catch(e => {
-                if(e.statusCode === 500) {
-                    this.error = JSON.parse(e.message);
-                }
-                else
-                {
-                    this.error = e;
-                }
-            })
+        if (this.data.CostCalculationGarment) {
+            var sentData = this.data.CostCalculationGarment || {};
+            sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
+            this.service.create(sentData)
+                .then(result => {
+                    alert("Berhasil Validasi RO Garment");
+                    this.clear();
+                })
+                .catch(e => {
+                    if (e.statusCode === 500) {
+                        this.error = JSON.parse(e.message);
+                    } else {
+                        this.error = e;
+                    }
+                });
+        } else {
+            this.error = { RONo: "No. RO harus diisi." };
+        }
     }
 }

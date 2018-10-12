@@ -67,6 +67,11 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    if(this.data.SCGarmentId)
+    {
+      this.editCallback=null;
+      this.deleteCallback=null;
+    }
     this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
     this.data.AccessoriesAllowance = numeral(
       this.data.AccessoriesAllowance
@@ -77,8 +82,10 @@ export class View {
         total += Number(item.Total);
       });
     }
-    total += this.data.ProductionCost;
+    //total += this.data.ProductionCost;
     this.data.Total = total;
+    var _confirmPrice= this.data.ConfirmPrice;
+    var _insurance=this.data.Insurance;
     this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedValue;
     this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedValue;
     this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
@@ -103,10 +110,10 @@ export class View {
     this.data.CMT_Price =
       CM_Price > 0 ? this.data.ConfirmPrice : numeral(0).format();
     this.data.CNF_Price = this.isDollar
-      ? US + numeral(0).format()
+      ? US + numeral(( _confirmPrice +this.data.Freight)).format()
       : RP + numeral(0).format();
     this.data.CIF_Price = this.isDollar
-      ? US + numeral(0).format()
+      ? US + numeral(_confirmPrice +_insurance).format()
       : RP + numeral(0).format();
     this.data.priceInfo = [
       {
@@ -116,6 +123,7 @@ export class View {
         CIF_Price: this.data.CIF_Price
       }
     ];
+   
     this.data.Freight = this.isDollar
       ? US + numeral(this.data.Freight).format()
       : RP + numeral(this.data.Freight).format();
@@ -129,6 +137,7 @@ export class View {
 
     this.data.LeadTime = `${this.data.LeadTime} hari`
     this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
+    
   }
 
   async bind(context) {

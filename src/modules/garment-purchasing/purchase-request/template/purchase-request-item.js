@@ -18,6 +18,10 @@ export class PurchaseRequestItem {
     return `${this.data.Uom.Unit}`;
   }
 
+  get quantity() {
+    return this.data.Quantity.toFixed(2);
+  }
+
   controlOptions = {
     control: {
       length: 12

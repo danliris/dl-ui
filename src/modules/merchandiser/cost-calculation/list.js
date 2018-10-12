@@ -4,7 +4,7 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["Detail", "Cetak PDF", "Cetak Budget"];
+    context = ["Detail", "Cetak Cost Calculation", "Cetak Budget"];
     columns = [
         { field: "RO_Number", title: "No RO" },
         { field: "Article", title: "Artikel" },
@@ -48,7 +48,7 @@ export class List {
             case "Detail":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
-            case "Cetak PDF":
+            case "Cetak Cost Calculation":
                 this.service.getPdfById(data.Id)
                 break;
             case "Cetak Budget":
