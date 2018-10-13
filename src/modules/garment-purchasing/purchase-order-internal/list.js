@@ -23,9 +23,9 @@ export class List {
             }
         },
         { field: "BuyerName", title: "Buyer" },
-        { field: "Items.ProductName", title: "Nama Barang", sortable: false },
-        { field: "Items.Quantity", title: "Jumlah", sortable: false },
-        { field: "Items.UomUnit", title: "Satuan", sortable: false },
+        { field: "Items.ProductName", title: "Nama Barang" },
+        { field: "Items.Quantity", title: "Jumlah" },
+        { field: "Items.UomUnit", title: "Satuan" },
 
         { field: "CreatedBy", title: "Staff Pembelian" },
         {
