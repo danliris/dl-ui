@@ -56,10 +56,10 @@ export class List {
     }
 
     fillValues() {
-        this.arg.returNo = this.filter.retur ? this.filter.retur.returNo : "";
+        this.arg.returNo = this.filter.retur ? this.filter.retur.ReturNo : "";
         this.arg.destination = this.filter.destination ? this.filter.destination : "";
         this.arg.deliveryOrderNo = this.filter.deliveryOrderNo ? this.filter.deliveryOrderNo : "";
-        this.arg.productionOrderNo = this.filter.productionOrder ? this.filter.productionOrder.orderNo : "";
+        this.arg.productionOrderNo = this.filter.productionOrder ? this.filter.productionOrder.OrderNo : "";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         this.arg.offset = new Date().getTimezoneOffset() / 60 * -1;
@@ -85,24 +85,24 @@ export class List {
                     var index=0;
                     var newData=[];
                     for (var retur of result.data) {
-                        for (var item of retur.items) {
-                            for (var detail of item.details) {
+                        for (var item of retur.Items) {
+                            for (var detail of item.Details) {
                                 var data = {};
                                 index += 1;
                                 data.no = index;
-                                data.returNo = retur.returNo ? retur.returNo : '';
-                                data.date = retur.date ? retur.date : '';
-                                data.destination = retur.destination ? retur.destination : '';
-                                data.deliveryOrderNo = retur.deliveryOrderNo ? retur.deliveryOrderNo : '';
-                                data.returDesc = retur.remark ? retur.remark : '';
-                                data.finishedGoodCode =retur.finishedGoodCode ? retur.finishedGoodCode : '';
-                                data.orderNo = item.productionOrderNo ? item.productionOrderNo : '';
-                                data.productName = detail.productName ? detail.productName : '';
-                                data.remark =detail.remark ? detail.remark : '';
-                                data.qty =detail.returQuantity ? detail.returQuantity : '';
-                                data.uom =detail.uom ? detail.uom : '';
-                                data.length =detail.length ? detail.length : '';
-                                data.weight =detail.weight ? detail.weight : '';
+                                data.returNo = retur.ReturNo ? retur.ReturNo : '';
+                                data.date = retur.Date ? retur.Date : '';
+                                data.destination = retur.Destination ? retur.Destination : '';
+                                data.deliveryOrderNo = retur.DeliveryOrderNo ? retur.DeliveryOrderNo : '';
+                                data.returDesc = retur.Remark ? retur.Remark : '';
+                                data.finishedGoodCode =retur.FinishedGoodCode ? retur.FinishedGoodCode : '';
+                                data.orderNo = item.ProductionOrder.OrderNo ? item.ProductionOrder.OrderNo : '';
+                                data.productName = detail.ProductName ? detail.ProductName : '';
+                                data.remark =detail.Remark ? detail.Remark : '';
+                                data.qty =detail.ReturQuantity ? detail.ReturQuantity : '';
+                                data.uom =detail.UOMUnit ? detail.UOMUnit : '';
+                                data.length =detail.Length ? detail.Length : '';
+                                data.weight =detail.Weight ? detail.Weight : '';
 
                                 newData.push(data);
                             }
@@ -138,7 +138,7 @@ export class List {
     }
 
     returView = (retur) => {
-        return `${retur.returNo}`;
+        return `${retur.ReturNo}`;
     }
 
     get productionOrderLoader() {
@@ -146,7 +146,7 @@ export class List {
     }
 
     productionOrderView = (prodOrder) => {
-        return `${prodOrder.orderNo}`;
+        return `${prodOrder.OrderNo}`;
     }
 
     autocomplete_change(e) {

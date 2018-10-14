@@ -49,7 +49,7 @@ export class Create {
     }
 
     get costCalculationGarmentUnpostedFilter() {
-        return { "CostCalculationGarment_Materials.Any(IsPosted == false)" : true };
+        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0": true };
     }
 
     constructor(router, service) {
@@ -62,9 +62,9 @@ export class Create {
     async costCalculationGarmentChanged(newValue) {
         if (newValue && newValue.Id) {
             this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
-            
+
             if (this.data.CostCalculationGarment && this.data.CostCalculationGarment.CostCalculationGarment_Materials) {
-                this.buyer = this.data.CostCalculationGarment.Buyer.Name;
+                this.buyer = `${this.data.CostCalculationGarment.BuyerBrand.Code} - ${this.data.CostCalculationGarment.BuyerBrand.Name}`;
                 this.article = this.data.CostCalculationGarment.Article;
 
                 let isAnyPostedMaterials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.reduce((acc, cur) => {
@@ -103,6 +103,7 @@ export class Create {
         this.data = {};
         this.error = {};
 
+        this.costCalculationGarmentVM.editorValue = "";
         this.costCalculationGarment = null;
         this.validationType = "";
         this.buyer = "";
@@ -114,21 +115,23 @@ export class Create {
     }
 
     saveCallback() {
-        var sentData = this.data.CostCalculationGarment || {};
-        sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
-        this.service.create(sentData)
-            .then(result => {
-                alert("Berhasil Validasi RO Garment");
-                this.clear();
-            })
-            .catch(e => {
-                if(e.statusCode === 500) {
-                    this.error = JSON.parse(e.message);
-                }
-                else
-                {
-                    this.error = e;
-                }
-            })
+        if (this.data.CostCalculationGarment) {
+            var sentData = this.data.CostCalculationGarment || {};
+            sentData.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials;
+            this.service.create(sentData)
+                .then(result => {
+                    alert("Berhasil Validasi RO Garment");
+                    this.clear();
+                })
+                .catch(e => {
+                    if (e.statusCode === 500) {
+                        this.error = JSON.parse(e.message);
+                    } else {
+                        this.error = e;
+                    }
+                });
+        } else {
+            this.error = { RONo: "No. RO harus diisi." };
+        }
     }
 }
