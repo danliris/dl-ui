@@ -67,7 +67,6 @@ export class PurchaseOrderItem {
   }
 
   selectedDealUomChanged(newValue) {
-    console.log(newValue)
     if (newValue._id || newValue.Id ) {
       this.data.dealUom = newValue;
       if (newValue.Unit)
@@ -87,7 +86,20 @@ export class PurchaseOrderItem {
   }
 
   priceBeforeTaxChanged(e) {
-    this.updatePrice();
+    this.error={};
+    
+    if(this.data.priceBeforeTax%1>=0){
+      if((this.data.priceBeforeTax.length<=16 && this.data.priceBeforeTax.indexOf(".")>0) || (this.data.priceBeforeTax.length<=15 && this.data.priceBeforeTax.indexOf(".")<0)){
+        this.updatePrice();
+      }
+      else{
+        this.error.price="Harga tidak boleh lebih dari 15 digit";
+      }
+    }
+    else {
+      this.error.price="Harga Barang Harus Diisi Dengan Angka";
+    }
+    
   }
 
   useIncomeTaxChanged(e) {
