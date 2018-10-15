@@ -3,10 +3,10 @@
         <form class="form-horizontal">
 
             
-            <au-autocomplete  value.bind="filter.retur"  label="No. Retur"  loader.bind="returLoader" text.bind = "returView" placeholder="cari nomor retur" query.bind="filterRetur"></au-autocomplete>
+            <au-autocomplete  value.bind="filter.retur"  label="No. Retur"  loader.bind="returLoader" text.bind = "returView" placeholder="cari nomor retur" read-only.bind="(readOnly)" options.bind="auInputOptions" query.bind="filterRetur"></au-autocomplete>
             <au-dropdown label="Tujuan" value.bind="filter.destination" items.bind="destinationOptions"></au-dropdown>
             <au-textbox label="Nomor DO" value.bind="filter.deliveryOrderNo" ></au-textbox>
-            <au-autocomplete  value.bind="filter.productionOrder"  label="No. Order"  loader.bind="productionOrderLoader" text.bind = "productionOrderView" placeholder="cari nomor order"></au-autocomplete>
+            <au-autocomplete  value.bind="filter.productionOrder"  label="No. Order"  loader.bind="productionOrderLoader" text.bind = "productionOrderView" read-only.bind="(readOnly)" options.bind="auInputOptions" placeholder="cari nomor order"></au-autocomplete>
             <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom"></au-datepicker>
             <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo"></au-datepicker>
 

@@ -15,8 +15,8 @@ export class List {
       }
     },
     { field: "RONo", title: "Nomor RO" },
-    { field: "Buyer.Code", title: "Kode Buyer" },
-    { field: "Buyer.Name", title: "Nama Buyer" },
+    { field: "BuyerCode", title: "Kode Buyer" },
+    { field: "BuyerName", title: "Nama Buyer" },
     { field: "Article", title: "Artikel" },
     {
       field: "ShipmentDate", title: "Tanggal Shipment", formatter: function (value, data, index) {
@@ -39,10 +39,10 @@ export class List {
 
     return this.service.search(arg)
       .then(result => {
-        var data = {}
-        data.total = result.info.total;
-        data.data = result.data;
-        // return data;
+        for (const data of result.data) {
+          data.BuyerCode = data.Buyer.Code;
+          data.BuyerName = data.Buyer.Name;
+        }
         return {
           total: result.info.total,
           data: result.data

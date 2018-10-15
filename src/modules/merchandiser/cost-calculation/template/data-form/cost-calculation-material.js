@@ -78,6 +78,11 @@ export class CostCalculationMaterial {
                 this.selectedWidth = Object.assign({}, this.data.Product);
             }
         }
+        if(this.data.Id)
+        {
+
+            this.isReadOnly=true;
+        }
         console.log(this.data);
     }
 
@@ -131,6 +136,7 @@ export class CostCalculationMaterial {
             this.selectedComposition = null;
             this.categoryIsExist = false;
         }
+         
     }
 
     calculateProcessPrice() {
@@ -400,7 +406,7 @@ uomView =(uom)=>{
 
     @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM')
     get total() {
-        let total = this.data.Quantity && this.data.Conversion && this.data.Price ? (this.data.Price / this.data.Conversion * this.data.Quantity ).toLocaleString('en-EN', { minimumFractionDigits: 2}): 0;
+        let total = this.data.Quantity && this.data.Conversion && parseFloat( this.data.Price) ? (parseFloat(this.data.Price) / this.data.Conversion * this.data.Quantity ): 0;
         //total = numeral(total).format();
         if (this.data.isFabricCM) {
             this.data.Total = 0;
