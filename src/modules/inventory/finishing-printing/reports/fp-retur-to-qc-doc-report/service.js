@@ -40,13 +40,13 @@ export class Service extends RestService {
         }
 
         if (info.dateFrom)
-            query = `${query}&dateFrom=${info.dateFrom}`;
+            query = (query === '') ? `dateFrom=${info.dateFrom}` : `${query}&dateFrom=${info.dateFrom}`;
 
         if (info.dateTo)
-            query = `${query}&dateTo=${info.dateTo}`;
+            query = (query === '') ?  `dateTo=${info.dateTo}` :  `${query}&dateTo=${info.dateTo}`;
 
         if (query !== '') {
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${endpoint}?${query}`;
         }
 
         return endpoint;
