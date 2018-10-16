@@ -35,8 +35,8 @@ export class Create {
         { header: "Kode", value: "ProductCode" },
         { header: "Item Barang", value: "ProductName" },
         { header: "Deskripsi Barang", value: "Description" },
-        { header: "Qty", value: "QuantityString" },
-        { header: "Satuan", value: "UOMQuantityUnit" },
+        { header: "Qty", value: "BudgetQuantityString" },
+        { header: "Satuan", value: "UOMPriceUnit" },
         { header: "Shipment", value: "DeliveryDate" },
     ];
 
@@ -88,9 +88,9 @@ export class Create {
                     material.Section = this.data.CostCalculationGarment.Section;
                     material.ProductCode = material.Product.Code;
                     material.ProductName = material.Product.Name;
-                    material.UOMQuantityUnit = material.UOMQuantity.Unit;
+                    material.UOMPriceUnit = material.UOMPrice.Unit;
                     material.DeliveryDate = moment(this.data.CostCalculationGarment.DeliveryDate).format("DD MMM YYYY");
-                    material.QuantityString = material.Quantity.toFixed(2);
+                    material.BudgetQuantityString = material.BudgetQuantity.toFixed(2);
                 });
             }
         }

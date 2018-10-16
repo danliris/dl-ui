@@ -95,9 +95,9 @@ export class List {
                     item.priceTotal=item.priceTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     item.urnQuantity=item.urnQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
                     // this.urnQuantity=this.urnQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-                    item.upoPriceTotal=item.upoPriceTotal.toLocaleString();
-                    item.vatValue=item.vatValue.toLocaleString();
-                    item.incomeTaxValue=item.incomeTaxValue.toLocaleString();
+                    item.upoPriceTotal=item.upoPriceTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    item.vatValue=item.vatValue.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    item.incomeTaxValue=item.incomeTaxValue.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     item.valueCorrection=item.valueCorrection.toLocaleString();
                 }
             })

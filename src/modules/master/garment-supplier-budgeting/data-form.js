@@ -25,9 +25,9 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     get taxLoader() {

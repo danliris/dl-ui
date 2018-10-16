@@ -70,9 +70,9 @@ export class List {
                 Category: data.categoryName,
                 Unit: data.unitName,
                 PIB: data.PIBNo || "-",
-                Nilai: (data.amount).toLocaleString("en-EN",{ minimumFractionDigits: 2 }),
-                CurrencyRate: data.rate.toLocaleString("en-EN",{ minimumFractionDigits: 2 }),
-                Total: (data.amountIDR).toLocaleString("en-EN",{ minimumFractionDigits: 2 })
+                Nilai: (data.amount).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                CurrencyRate: data.rate.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                Total: (data.amountIDR).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
               });
 
               if (!subTotalCategory[Category]) subTotalCategory[Category] = 0;
@@ -85,11 +85,11 @@ export class List {
           for (var data in dataByCategory) {
             categories.push({
               data: dataByCategory[data],
-              subTotal: subTotalCategory[data].toLocaleString("en-EN",{ minimumFractionDigits: 2 }),
+              subTotal: subTotalCategory[data].toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
             });
             this.total += subTotalCategory[data];
           }
-          this.total = this.total.toLocaleString("en-EN",{ minimumFractionDigits: 2 });
+          this.total = this.total.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           this.categories = categories;
 
         });

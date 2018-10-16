@@ -75,9 +75,9 @@ searching() {
                      SPB: data.invoiceNo || "-",
                      Category: data.categoryName,
                      Unit: data.unitName,
-                     DPP: data.dpp.toLocaleString('id-ID', { minimumFractionDigits: 2 }),
-                     PPN: (data.ppn * checkIncomeTax).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
-                     Total: (data.dpp + (data.ppn * checkIncomeTax)).toLocaleString('id-ID', { minimumFractionDigits: 2 }),
+                     DPP: data.dpp.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                     PPN: (data.ppn * checkIncomeTax).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                     Total: (data.dpp + (data.ppn * checkIncomeTax)).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                    });
                    if (!subTotalCategory[Category]){
                     subTotalDPPCategory[Category] = 0;
@@ -98,21 +98,21 @@ searching() {
                  categories.push({
                    data: dataByCategory[data],
                    category: dataByCategory[data][0].Category,
-                   subTotalDPP: (subTotalDPPCategory[data]).toLocaleString('id-ID', { maximumFractionDigits: 15 }),
-                   subTotalPPN: (subTotalPPNCategory[data]).toLocaleString('id-ID', { maximumFractionDigits: 15 }),
-                   subTotal: (subTotalCategory[data]).toLocaleString('id-ID', { maximumFractionDigits: 15 }),
+                   subTotalDPP: (subTotalDPPCategory[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                   subTotalPPN: (subTotalPPNCategory[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                   subTotal: (subTotalCategory[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                  });
                  this.totalDPP += subTotalDPPCategory[data];
                  this.totalPPN += subTotalPPNCategory[data];
                  this.total += subTotalCategory[data];
                }
-               this.totalDPP = this.totalDPP.toLocaleString('id-ID', { maximumFractionDigits: 15 });
+               this.totalDPP = this.totalDPP.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                if(this.totalPPN=='0,00'){
                 this.totalPPN = "-";
                } else {
-                this.totalPPN = this.totalPPN.toLocaleString('id-ID', { maximumFractionDigits: 15 });
+                this.totalPPN = this.totalPPN.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                }
-               this.total = this.total.toLocaleString('id-ID', { maximumFractionDigits: 15 });
+               this.total = this.total.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                this.categories = categories;
                
                for (var data of this.categories){
