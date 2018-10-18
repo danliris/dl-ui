@@ -100,7 +100,11 @@ export class View {
       });
     }
     
-    let FOB_Price = this.data.ConfirmPrice + CM_Price;
+    let FOB_Price = this.data.ConfirmPrice;
+    if(CM_Price >0)
+    {
+      FOB_Price=0;
+    }
     this.data.ConfirmPrice = this.isDollar
       ? US + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4})//numeral(this.data.ConfirmPrice).format()
       : RP + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
