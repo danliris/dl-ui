@@ -24,10 +24,27 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
     }
+    
 
     @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || '').toString() != '';
+    }
+
+    selectedtaxChanged(newValue) {
+        var _selectedIncomeTax = newValue || {};
+        if (_selectedIncomeTax.Id) {
+            this.data.IncomeTaxes = _selectedIncomeTax ? _selectedIncomeTax : null;
+        }
+        else {
+            this.data.IncomeTaxes = {};
+        }
+        this.resetErrorItems();
+    }
+
+    usetaxChanged(e) {
+        this.selectedTax = "";
+        this.data.IncomeTaxes = null;
     }
 
     get taxLoader() {
