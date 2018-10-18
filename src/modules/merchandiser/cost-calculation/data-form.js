@@ -273,14 +273,17 @@ export class DataForm {
   @bindable selectedBuyer = "";
  
   selectedBuyerChanged(newVal) {
+    console.log(this.data.Buyer,newVal);
+    if(this.data.Buyer != newVal)
+   
+    this.context.buyerBrandAU.editorValue="";
     this.data.Buyer = newVal;
-    console.log(newVal);
+   
     if (newVal) {
      this.data.BuyerId=newVal.Id;
      this.data.BuyerCode=newVal.Code;
      this.data.BuyerName=newVal.Name;
-     if(this.data.Id == 0)
-     this.context.buyerBrandAU.editorValue="";
+    
     }
   }
 
