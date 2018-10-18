@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
 const serviceUri = 'finishing-printing/reports/fabric-quality-control-report';
-const fabricServiceUri = 'finishing-printing/quality-control/fabrics'
+const fabricServiceUri = 'finishing-printing/quality-control/defect'
 
 export class Service extends RestService {
 
@@ -60,12 +60,12 @@ export class Service extends RestService {
     }
 
     getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${fabricServiceUri}/${id}`;
         return super.get(endpoint);
     }
 
     getByCode(code) {
-        var endpoint = `${serviceUri}?keyword=${code}`;
+        var endpoint = `${fabricServiceUri}?keyword=${code}`;
         return super.get(endpoint);
     }
 
