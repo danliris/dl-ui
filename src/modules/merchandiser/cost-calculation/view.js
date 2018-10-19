@@ -40,8 +40,8 @@ export class View {
       { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
       { header: "Kuantitas", value: "Quantity" },
-      { header: "Harga Per Satuan (USD)", value: "PricePerUnit" },
-      { header: "Total (USD)", value: "Total" }
+      { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
+      { header: "Total (Rp)", value: "Total" }
     ]
   };
 
