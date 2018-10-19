@@ -40,8 +40,8 @@ export class View {
       { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
       { header: "Kuantitas", value: "Quantity" },
-      { header: "Harga Per Satuan (USD)", value: "PricePerUnit" },
-      { header: "Total (USD)", value: "Total" }
+      { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
+      { header: "Total (Rp)", value: "Total" }
     ]
   };
 
@@ -101,6 +101,16 @@ export class View {
     }
     
     let FOB_Price = this.data.ConfirmPrice;
+    let CNF_Price=_confirmPrice;
+    let CIF_Price=_confirmPrice;
+    if(this.data.Freight==0)
+      {
+        CNF_Price=0;
+      }
+      if(this.data.Insurance ==0)
+      {
+        CIF_Price=0;
+      }
     if(CM_Price >0)
     {
       FOB_Price=0;
@@ -114,10 +124,10 @@ export class View {
     this.data.CMT_Price =
       CM_Price > 0 ? this.data.ConfirmPrice : numeral(0).format();
     this.data.CNF_Price = this.isDollar
-      ? US + numeral(( _confirmPrice +this.data.Freight)).format()
+      ? US + numeral(( CNF_Price +this.data.Freight)).format()
       : RP + numeral(0).format();
     this.data.CIF_Price = this.isDollar
-      ? US + numeral(_confirmPrice +_insurance).format()
+      ? US + numeral(CIF_Price +_insurance).format()
       : RP + numeral(0).format();
     this.data.priceInfo = [
       {
