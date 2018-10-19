@@ -1,4 +1,4 @@
-import { inject, Lazy } from 'aurelia-framework';
+import { bindable, inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { activationStrategy } from 'aurelia-router';
 import moment from 'moment';
@@ -58,6 +58,10 @@ export class Create {
         },
     };
 
+    @bindable unitPaymentOrder;
+    @bindable supplier;
+    @bindable division;
+
     constructor(router, service, purchasingDocumentExpeditionService, permissionHelper) {
         this.router = router;
         this.service = service;
@@ -93,6 +97,36 @@ export class Create {
             this.selectedItems.splice(0, this.selectedItems.length);
             this.documentData.splice(0, this.documentData.length);
             this.documentTable.refresh();
+        }
+    }
+
+    unitPaymentOrderChanged(newValue, oldValue) {
+        if (newValue) {
+            this.unitPaymentOrder = newValue;
+        } else if (oldValue) {
+            this.unitPaymentOrder == null;
+        }else{
+            this.unitPaymentOrder == null;
+        }
+    }
+
+    supplierChanged(newValue, oldValue){
+        if (newValue) {
+            this.supplier = newValue;
+        } else if (oldValue) {
+            this.supplier == null;
+        }else{
+            this.supplier == null;
+        }
+    }
+
+    divisionChanged(newValue, oldValue){
+        if (newValue) {
+            this.division = newValue;
+        } else if (oldValue) {
+            this.division == null;
+        }else{
+            this.division == null;
         }
     }
 
