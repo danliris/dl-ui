@@ -40,8 +40,8 @@ export class View {
       { header: "Width", value: "Product.width" },
       { header: "Deskripsi", value: "Description" },
       { header: "Kuantitas", value: "Quantity" },
-      { header: "Harga Per Satuan (USD)", value: "PricePerUnit" },
-      { header: "Total (USD)", value: "Total" }
+      { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
+      { header: "Total (Rp)", value: "Total" }
     ]
   };
 
@@ -67,6 +67,11 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    if(this.data.SCGarmentId)
+    {
+      this.editCallback=null;
+      this.deleteCallback=null;
+    }
     this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
     this.data.AccessoriesAllowance = numeral(
       this.data.AccessoriesAllowance
@@ -77,8 +82,10 @@ export class View {
         total += Number(item.Total);
       });
     }
-    total += this.data.ProductionCost;
+    //total += this.data.ProductionCost;
     this.data.Total = total;
+    var _confirmPrice= this.data.ConfirmPrice;
+    var _insurance=this.data.Insurance;
     this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedValue;
     this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedValue;
     this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
@@ -93,7 +100,21 @@ export class View {
       });
     }
     
-    let FOB_Price = this.data.ConfirmPrice + CM_Price;
+    let FOB_Price = this.data.ConfirmPrice;
+    let CNF_Price=_confirmPrice;
+    let CIF_Price=_confirmPrice;
+    if(this.data.Freight==0)
+      {
+        CNF_Price=0;
+      }
+      if(this.data.Insurance ==0)
+      {
+        CIF_Price=0;
+      }
+    if(CM_Price >0)
+    {
+      FOB_Price=0;
+    }
     this.data.ConfirmPrice = this.isDollar
       ? US + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4})//numeral(this.data.ConfirmPrice).format()
       : RP + this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
@@ -103,10 +124,10 @@ export class View {
     this.data.CMT_Price =
       CM_Price > 0 ? this.data.ConfirmPrice : numeral(0).format();
     this.data.CNF_Price = this.isDollar
-      ? US + numeral(0).format()
+      ? US + numeral(( CNF_Price +this.data.Freight)).format()
       : RP + numeral(0).format();
     this.data.CIF_Price = this.isDollar
-      ? US + numeral(0).format()
+      ? US + numeral(CIF_Price +_insurance).format()
       : RP + numeral(0).format();
     this.data.priceInfo = [
       {
@@ -116,6 +137,7 @@ export class View {
         CIF_Price: this.data.CIF_Price
       }
     ];
+   
     this.data.Freight = this.isDollar
       ? US + numeral(this.data.Freight).format()
       : RP + numeral(this.data.Freight).format();
@@ -129,6 +151,7 @@ export class View {
 
     this.data.LeadTime = `${this.data.LeadTime} hari`
     this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
+    
   }
 
   async bind(context) {

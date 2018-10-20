@@ -1,5 +1,5 @@
 import { Router } from "aurelia-router";
-import { inject, bindable, computedFrom, BindingEngine } from "aurelia-framework";
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework';
 import { ServiceEffeciency } from './service-efficiency';
 import { RateService } from './service-rate';
 
@@ -13,7 +13,7 @@ var BuyerBrandLoader = require('../../../loader/garment-buyer-brand-loader');
 var ComodityLoader = require('../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../loader/uom-loader');
 var UnitLoader = require('../../../loader/garment-units-loader');
-@inject(Router, BindingEngine, ServiceEffeciency, RateService)
+@inject(Router, BindingEngine, ServiceEffeciency, RateService,Element)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -30,6 +30,7 @@ export class DataForm {
   sectionsList = ["", "A", "B", "C", "D", "E"];
   leadTimeList = ["", "30 hari", "45 hari"];
 
+  
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
   length0 = {
     label: {
@@ -96,19 +97,19 @@ export class DataForm {
     Rupiah: "Rupiah"
   }
 
-  constructor(router, bindingEngine, serviceEffeciency, rateService) {
+  constructor(router, bindingEngine, serviceEffeciency, rateService,element) {
     this.router = router;
     this.bindingEngine = bindingEngine;
     this.efficiencyService = serviceEffeciency;
     this.rateService = rateService;
-
+    this.element = element; 
     this.selectedRate = "USD"
   }
 
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
-   console.log(this.data);
+  console.log(this.data);
     this.error = this.context.error;
     this.selectedSMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
     this.selectedSMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
@@ -120,6 +121,8 @@ export class DataForm {
     this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "#") : "#";
     this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
     this.selectedUnit = this.data.Unit?this.data.Unit:"";
+    this.selectedBuyer = this.data.Buyer?this.data.Buyer:"";
+    this.selectedBuyerBrand = this.data.BuyerBrand?this.data.BuyerBrand:"";
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
     this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
     this.data.ConfirmPrice =this.data.ConfirmPrice ? this.data.ConfirmPrice .toLocaleString('en-EN', { minimumFractionDigits: 4}):0 ;
@@ -237,6 +240,7 @@ export class DataForm {
   }
   buyerBrandView = (buyer) => {
     return `${buyer.Name}`
+    console.log(buyer);
   }
 
   uomView =(uom)=>{
@@ -260,18 +264,37 @@ export class DataForm {
     var filter={};
   
     if (this.data.Buyer) {
+     
       filter = JSON.stringify({ "BuyerName": this.data.Buyer.Name })
+     
     }
     return filter;
   }
   @bindable selectedBuyer = "";
+ 
   selectedBuyerChanged(newVal) {
+    console.log(this.data.Buyer,newVal);
+    if(this.data.Buyer != newVal)
+   
+    this.context.buyerBrandAU.editorValue="";
     this.data.Buyer = newVal;
+   
     if (newVal) {
      this.data.BuyerId=newVal.Id;
      this.data.BuyerCode=newVal.Code;
      this.data.BuyerName=newVal.Name;
-     this.data.BuyerBrand=null;
+    
+    }
+  }
+
+  @bindable selectedBuyerBrand= "";
+  selectedBuyerBrandChanged(newVal) {
+    this.data.BuyerBrand = newVal;
+    console.log(newVal);
+    if (newVal) {
+     this.data.BuyerBrandId=newVal.Id;
+     this.data.BuyerBrandCode=newVal.Code;
+     this.data.BuyerBrandName=newVal.Name;  
     }
   }
 

@@ -21,7 +21,16 @@ export class List {
       formatter: function (value, row, index) {
         return value ? "YA" : "TIDAK";
       }
-    }
+    },
+    {
+      field: "usetax", title: "Kena PPH",
+      formatter: function (value, row, index) {
+        return value ? "YA" : "TIDAK";
+      }
+    },    
+    { field: "IncomeTaxes", title: "PPH", formatter: function (value, data, index) {
+      return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
+    } },
   ];
 
   loader = (info) => {
@@ -33,7 +42,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["code","name","address","import","NPWP","usevat"],
+      select:["code","name","address","import","NPWP","usevat","usetax","IncomeTaxes"],
       order: order
     }
 
@@ -43,6 +52,7 @@ export class List {
           total: result.info.total,
           data: result.data
         }
+        data.IncomeTaxesName=result.data.IncomeTaxes.name;
       });
   }
 
@@ -56,7 +66,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }

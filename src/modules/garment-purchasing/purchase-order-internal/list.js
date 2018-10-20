@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
     rowFormatter(data, index) {
-        if (data.isPosted)
+        if (data.IsPosted)
             return { classes: "success" }
         else
             return {}

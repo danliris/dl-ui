@@ -2,11 +2,11 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = "inventory/reports/fp-retur-to-qc-docs";
+const serviceUri = "finishing-printing/inventory/fp-retur-to-qc-docs/reports";
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "inventory");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
@@ -20,7 +20,7 @@ export class Service extends RestService {
     }
 
     _getEndPoint(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/downloads/xls`;
         var query = '';
 
         if (info.returNo) {
@@ -40,13 +40,13 @@ export class Service extends RestService {
         }
 
         if (info.dateFrom)
-            query = `${query}&dateFrom=${info.dateFrom}`;
+            query = (query === '') ? `dateFrom=${info.dateFrom}` : `${query}&dateFrom=${info.dateFrom}`;
 
         if (info.dateTo)
-            query = `${query}&dateTo=${info.dateTo}`;
+            query = (query === '') ?  `dateTo=${info.dateTo}` :  `${query}&dateTo=${info.dateTo}`;
 
         if (query !== '') {
-            endpoint = `${serviceUri}?${query}`;
+            endpoint = `${endpoint}?${query}`;
         }
 
         return endpoint;

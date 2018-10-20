@@ -52,18 +52,6 @@ export class Create {
             }
         }
 
-        var test=false;
-        for(var item of this.data.items){
-            for(var detail of item.details){
-                if(isNaN(detail.pricePerDealUnit)){
-                    test=true;
-                }
-            }
-        }
-
-        if(test==true){
-            alert("Harga Barang Harus Diisi Dengan Angka");
-        } else {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -76,6 +64,5 @@ export class Create {
                     this.error = e;
                 }
             })
-        }
     }
 }

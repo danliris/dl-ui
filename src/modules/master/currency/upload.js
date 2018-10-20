@@ -52,7 +52,7 @@ export class Create {
                         alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detail dari error tersebut.");
                         this.list();
                     }
-                    else if (response.status == 404) {
+                    else if (response.status == 500) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode, Simbol, Rate, Keterangan");
                     }
                     else if (response.status == 201) {
