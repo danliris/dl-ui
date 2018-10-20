@@ -4,7 +4,7 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class View {
+export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -13,12 +13,12 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.error = {};
     }
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-        this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
@@ -31,7 +31,7 @@ export class View {
     }
 
     cancelCallback(event) {
-        this.list();
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     saveCallback(event) {
@@ -40,7 +40,7 @@ export class View {
         this.data.rate = Number(this.data.rate).toFixed(4);
         this.service.update(this.data)
             .then(result => {
-                this.cancelCallback();
+                this.router.navigateToRoute('view', { id: this.data.Id });
             })
             .catch(e => {
                 this.error = e;
