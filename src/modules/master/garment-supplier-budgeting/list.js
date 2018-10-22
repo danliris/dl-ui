@@ -27,9 +27,13 @@ export class List {
       formatter: function (value, row, index) {
         return value ? "YA" : "TIDAK";
       }
-    },    
+    },
     { field: "IncomeTaxes", title: "PPH", formatter: function (value, data, index) {
-      return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
+      if(data.IncomeTaxes.name == "" && data.IncomeTaxes.rate == 0){
+        return ""
+      }else{
+        return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
+      }
     } },
   ];
 

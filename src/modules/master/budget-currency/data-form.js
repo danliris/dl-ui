@@ -17,7 +17,7 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = this.context.data;
-    this.error = this.context.error;
+    this.error = {};
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
