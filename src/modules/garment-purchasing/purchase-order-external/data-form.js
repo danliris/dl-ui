@@ -391,16 +391,17 @@ export class DataForm {
         onRemove: function () {
             this.bind();
             if(this.items){
-                console.log("bb")
+                
                 var pr=[];
                 var remaining=[];
                 var items=[];
                 for(var a of this.items){
+                    console.log(a.Initial);
                     if(pr.length==0){
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                         remaining[a.PRNo + a.Product.Id]=a.Initial;
-                        a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
+                        //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
                         remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                     }
                     else{
