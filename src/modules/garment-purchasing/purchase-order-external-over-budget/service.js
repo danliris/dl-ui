@@ -3,59 +3,27 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 import moment from 'moment';
 
+const serviceUri = 'garment-external-purchase-orders';
+
+
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
-        var endpoint = `purchase-orders/externals/not-approved`;
+        var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
 
     getById(id) {
-        var endpoint = `purchase-orders/externals/by-user/${id}`;
+        var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
     }
 
     approve(data) {
-        var endpoint = 'purchase-orders/externals/approve';
+        var endpoint = `${serviceUri}/approve`;
         return super.post(endpoint, data);
-    }
-
-    getListUsedBudget(purchaseRequestNo, purchaseRequestRefNo, productCode, purchaseOrderExternalNo) {
-        var endpoint = 'purchase-orders/externals/get-budget';
-        var filter = {};
-        if (purchaseOrderExternalNo) {
-            filter = {
-                purchaseRequestNo: purchaseRequestNo,
-                purchaseRequestRefNo: purchaseRequestRefNo,
-                productCode: productCode,
-                purchaseOrderExternalNo: purchaseOrderExternalNo
-            };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
-        }
-        else {
-            filter = {
-                purchaseRequestNo: purchaseRequestNo,
-                purchaseRequestRefNo: purchaseRequestRefNo,
-                productCode: productCode
-            };
-            return super.list(endpoint, { filter: JSON.stringify(filter) });
-        }
-    }
-
-    getPRById(id, select) {
-        var endpoint = `purchase-requests/${id}`;
-        var info = { select: select };
-        return super.get(endpoint, null, info);
-    }
-
-    getPoId(id, select) {
-        var endpoint = `purchase-orders/${id}`;
-        //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
-        var info = { select: select };
-        return super.get(endpoint, null, info);
     }
 }
