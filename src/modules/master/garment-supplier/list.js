@@ -37,7 +37,11 @@ export class List {
       }
     },    
     { field: "IncomeTaxes", title: "PPH", formatter: function (value, data, index) {
-      return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
+      if(data.IncomeTaxes.name == "" || data.IncomeTaxes.name == null && data.IncomeTaxes.rate == 0){
+        return "-"
+      }else{
+        return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
+      }
     } },
   ];
 
