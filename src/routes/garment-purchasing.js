@@ -98,7 +98,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            //permission: { "C9": 1, "PG": 1, },
+            permission: { "C9": 1, "PG": 1, },
             conClass: 'fa fa-dashboard'
         }
     },
@@ -124,7 +124,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            //permission: { "C9": 1, "C5": 1 },
+            permission: { "C9": 1, "C5": 1 },
             conClass: 'fa fa-dashboard'
         }
     },
