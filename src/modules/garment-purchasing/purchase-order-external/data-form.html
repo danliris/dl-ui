@@ -103,21 +103,21 @@
                 <numeric 
                     label="Tempo Pembayaran" 
                     value.bind="data.PaymentDueDays" 
-                    error.bind="error.paymentDueDays" 
+                    error.bind="error.PaymentDueDays" 
                     format="0"
                     read-only.bind="true"
                     post-fix="hari" 
-                    if.bind="data.paymentType=='CASH' || data.paymentType=='T/T BEFORE'">
+                    if.bind="data.PaymentType=='CASH' || data.PaymentType=='T/T BEFORE'">
                 </numeric>
         
                 <numeric
                     label="Tempo Pembayaran" 
                     value.bind="data.PaymentDueDays" 
-                    error.bind="error.paymentDueDays" 
+                    error.bind="error.PaymentDueDays" 
                     format="0"
                     read-only.bind="readOnly"
                     post-fix="hari" 
-                    if.bind="data.paymentType =='T/T AFTER'">
+                    if.bind="data.PaymentType =='T/T AFTER'">
                 </numeric>
         
                 <au-autocomplete 
