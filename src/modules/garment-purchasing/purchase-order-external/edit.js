@@ -57,25 +57,26 @@ export class Edit {
                 for(var a of this.data.Items){
                     var filter= a.PRNo + a.Product.Id;
                     a.Initial=initial[a.PRNo + a.Product.Id];
+                    console.log(a.Initial, a.UsedBudget)
                     if(pr.length==0){
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        remaining[a.PRNo + a.Product.Id]=a.Initial;
-                        a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.UsedBudget;
-                        remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
+                        //remaining[a.PRNo + a.Product.Id]=a.Initial;
+                        a.remainingBudget=a.Initial;
+                        remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.UsedBudget;
                     }
                     else{
                         var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id);
                         if(dup){
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.UsedBudget;
-                            remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
+                            a.remainingBudget=remaining[a.PRNo + a.Product.Id];
+                            remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.UsedBudget;
                         }
                         else{
                             pr.push(a);
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.UsedBudget;
-                            remaining[a.PRNo + a.Product.Id]=a.Initial;
+                            a.remainingBudget=a.Initial;
+                            remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.UsedBudget;
                         }
                     }
                 }

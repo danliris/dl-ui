@@ -128,7 +128,7 @@
                     text.bind = "currencyView"
                     placeholder="cari mata uang" 
                     key="code" 
-                    read-only.bind="readOnly"
+                    read-only.bind="(readOnly ||isEdit) "
                     options.bind="controlOptions">
                 </au-autocomplete>
                 
