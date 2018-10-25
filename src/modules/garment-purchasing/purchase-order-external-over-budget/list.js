@@ -33,7 +33,7 @@ export class List {
         },
         { field: "Supplier.Name", title: "Nama Supplier" },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
-        { field: "approveStatus", title: "Status Approve" }
+        { field: "approveStatus", title: "Status Approve",sortable:false }
     ];
 
     loader = (info) => {

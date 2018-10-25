@@ -34,18 +34,18 @@ export class List {
         { field: "Supplier.Name", title: "Nama Supplier" },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
         {
-            field: "IsPosted", title: "Status Post",
+            field: "IsPosted", title: "Status Post",sortable:false,
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
         },
         {
-            field: "IsOverBudget", title: "Over Budget?",
+            field: "IsOverBudget", title: "Over Budget?",sortable:false,
             formatter: function (value, row, index) {
                 return value ? "YA" : "TIDAK";
             }
         },
-        { field: "approveStatus", title: "Status Approve" }
+        { field: "approveStatus", title: "Status Approve",sortable:false }
     ];
 
     loader = (info) => {

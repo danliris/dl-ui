@@ -63,13 +63,13 @@
             </au-textbox>                    
         </td>
         <td>
-            <au-numeric 
+            <numeric 
                 value.bind="data.Conversion"
                 error.bind="error.conversion"
                 read-only.bind="options.readOnly"
                 change.delegate="conversionChanged($event)"
                 options.bind="controlOptions">
-            </au-numeric>
+            </numeric>
         </td>
         <td>
             <au-numeric 
