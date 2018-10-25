@@ -200,13 +200,13 @@ export class DataForm {
     paymentMethodChanged(e) {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
-            this.data.paymentMethod = selectedPayment;
+            this.data.PaymentMethod = selectedPayment;
         }
-        if (this.data.paymentMethod === "CMT") {
+        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
-        else if (this.data.paymentMethod === "FREE FROM BUYER") {
+        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
@@ -232,6 +232,15 @@ export class DataForm {
             this.data.PaymentType = selectedPayment;
             if (this.data.PaymentType == "CASH" || this.data.PaymentType == "T/T BEFORE") {
                 this.data.PaymentDueDays = 0;
+            }
+
+            if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
+                this.options.checkOverBudget = false;
+                this.resetIsOverBudget();
+            }
+            else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
+                this.options.checkOverBudget = false;
+                this.resetIsOverBudget();
             }
         }
     }
