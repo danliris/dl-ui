@@ -242,6 +242,10 @@ export class DataForm {
                 this.options.checkOverBudget = false;
                 this.resetIsOverBudget();
             }
+            else {
+                this.options.resetOverBudget = false;
+                this.options.checkOverBudget = true;
+            }
         }
     }
 
