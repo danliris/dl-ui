@@ -1,0 +1,62 @@
+<template>
+<tr if.bind="!data.isCanceled"> <!-- add data.isCanceled = undefined if not exist -->
+  
+  <!--<td width="5%" text-align="center" if.bind="data.code">
+    <au-checkbox
+    value.bind="data.isConfirmed" 
+    error.bind="error.isConfirmed" 
+    read-only.bind="options.readOnly" 
+    options.bind="controlOption">
+    </au-checkbox>
+  </td>-->
+
+  <td width="20%">
+    <au-autocomplete 
+    value.bind="data.masterPlanComodity" 
+    error.bind="error.masterPlanComodity" 
+    text.bind = "comoView"
+    read-only.bind="options.readOnly" 
+    key="_id" 
+    loader.bind="loader" 
+    options.bind="controlOption" >
+    </au-autocomplete>
+  </td>
+  
+  <td width="15%">
+    <au-numeric 
+    value.bind="data.quantity" 
+    error.bind="error.quantity" 
+    read-only.bind="options.readOnly" 
+    options.bind="controlOption">
+    </au-numeric>
+  </td>
+
+  <td width="15%">
+    <au-datepicker 
+        value.bind="data.deliveryDate" 
+        error.bind="error.deliveryDate" 
+        read-only.bind="options.readOnly" 
+        options.bind="controlOptions">
+    </au-datepicker>
+  </td>
+
+   <td width="15%">
+    <au-datepicker 
+        value.bind="data.confirmDate" 
+        error.bind="error.confirmDate" 
+        read-only="true" 
+        options.bind="controlOptions">
+    </au-datepicker>
+  </td>
+
+  <td width="25%">
+    <au-multiline 
+    value.bind="data.remark" 
+    error.bind="error.remark" 
+    read-only.bind="options.readOnly" 
+    options.bind="controlOption">
+    </au-multiline >
+  </td>
+
+</tr>
+</template>
