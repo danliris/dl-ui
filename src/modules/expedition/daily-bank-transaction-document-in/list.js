@@ -38,6 +38,9 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
+      filter: {
+        Status: "IN"
+      },
       // select: ["date", "code", "referenceNo", "referenceType", "type", "storageName"],
       order: order
     }

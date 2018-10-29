@@ -101,7 +101,7 @@ export class List {
                         c.setHours(0,0,0,0);
                         b.setHours(0,0,0,0);
                         var diff=c.getTime() - b.getTime();
-                        var timeDiff = Math.abs(c.getTime() - b.getTime());
+                        var timeDiff = c.getTime() - b.getTime();
                         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
                         if(diffDays<=45){
                             a.expired="Expired";

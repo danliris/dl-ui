@@ -143,11 +143,24 @@ module.exports = [
         }
     },
     {
-        route: '/expedition/daily-bank-transaction-document',
-        name: 'daily-bank-transaction-document',
-        moduleId: './modules/expedition/daily-bank-transaction-document/index',
+        route: '/expedition/daily-bank-transaction-document-in',
+        name: 'daily-bank-transaction-document-in',
+        moduleId: './modules/expedition/daily-bank-transaction-document-in/index',
         nav: true,
-        title: 'Transaksi Harian Bank',
+        title: 'Transaksi Harian Bank Masuk',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/daily-bank-transaction-document-out',
+        name: 'daily-bank-transaction-document-out',
+        moduleId: './modules/expedition/daily-bank-transaction-document-out/index',
+        nav: true,
+        title: 'Transaksi Harian Bank Keluar',
         auth: true,
         settings: {
             group: "finance",
