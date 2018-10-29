@@ -9,11 +9,11 @@ export class DeliveryOrderItem {
   }
 
   get product() {
-    return `${this.data.product.code} - ${this.data.product.name}`;
+    return `${this.data.product.Code} - ${this.data.product.Name}`;
   }
 
   get totalPrice() {
-    return Number.isInteger(this.data.pricePerDealUnit * this.data.deliveredQuantity) ? this.data.pricePerDealUnit * this.data.deliveredQuantity : Number((this.data.pricePerDealUnit * this.data.deliveredQuantity).toFixed(2))
+    return Number.isInteger(this.data.pricePerDealUnit * this.data.doQuantity) ? this.data.pricePerDealUnit * this.data.doQuantity : Number((this.data.pricePerDealUnit * this.data.doQuantity).toFixed(2))
   }
   
   controlOptions = {

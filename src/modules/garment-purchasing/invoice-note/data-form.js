@@ -58,11 +58,12 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options.readOnly = this.readOnly;
+        console.log(this.data);
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     // async supplierChanged(newValue) {
@@ -130,8 +131,9 @@ export class DataForm {
     currencyChanged(newValue) {
         var selectedCurrency = newValue;
         if (selectedCurrency) {
-            if (selectedCurrency._id) {
+            if (selectedCurrency.Id) {
                 this.data.currency = selectedCurrency;
+                this.options.currencyCode = selectedCurrency.code;
             }
             else {
                 this.data.currency = null;
@@ -146,7 +148,7 @@ export class DataForm {
     vatChanged(newValue) {
         var selectedVat = newValue;
         if (selectedVat) {
-            if (selectedVat._id) {
+            if (selectedVat.Id) {
                 this.data.vat = selectedVat;
             }
             else {
@@ -223,11 +225,12 @@ export class DataForm {
     // }
 
     async supplierChanged(newValue, oldValue) {
+        console.log(newValue);
         var selectedSupplier = newValue;
         if (selectedSupplier) {
-            if (selectedSupplier._id) {
+            if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
+                this.data.supplierId = selectedSupplier.Id;
                 this.options.supplierCode = selectedSupplier.code;
             }
             if (oldValue) {
@@ -240,7 +243,7 @@ export class DataForm {
             this.data.supplierId = null;
             this.data.items = [];
         }
-        this.resetErrorItems();
+        this.resetErrorItems(); 
     }
 
     @computedFrom("data.items.length")

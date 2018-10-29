@@ -20,14 +20,15 @@ export class View {
     }
 
     async activate(params) {
-        var id = params.id;
+        console.log(params);
+       var id = params.id;
         this.data = await this.service.getById(id);
-        this.supplier = this.data.supplier;
-        this.currency = this.data.currency;
-        this.vat = this.data.vat;
+        // this.supplier = this.data.supplier;
+        // this.currency = this.data.currency;
+        // this.vat = this.data.vat;
 
-        this.items = this.data.items;
-        this.totalData = this.items.length;
+        // this.items = this.data.items;
+        // this.totalData = this.items.length;
     }
 
     cancel(event) {
@@ -35,7 +36,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {

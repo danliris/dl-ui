@@ -8,14 +8,14 @@
             <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
         </div>
 
-        <au-textbox label="Nomor Invoice" value.bind="data.no" error.bind="error.no" placeholder="masukan nomor invoice" read-only.bind="readOnly"
+        <au-textbox label="Nomor Invoice" value.bind="data.invoiceNo" error.bind="error.invoiceNo" placeholder="masukan nomor invoice" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-datepicker label="Tgl. Invoice" value.bind="data.date" error.bind="error.date" read-only.bind="readOnly" options.bind="controlOptions">
+        <au-datepicker label="Tgl. Invoice" value.bind="data.invoiceDate" error.bind="error.invoiceDate" read-only.bind="readOnly" options.bind="controlOptions">
         </au-datepicker>
 
-        <au-autocomplete value.bind="supplier" error.bind="error.supplierId" label="Supplier" loader.bind="supplierLoader" text.bind="supplierView"
+        <au-autocomplete value.bind="supplier" error.bind="error.supplier" label="Supplier" loader.bind="supplierLoader" text.bind="supplierView"
             placeholder="cari supplier" key="code" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
@@ -59,7 +59,7 @@
             add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove" view-model.ref="ItemsCollection" remove.bind="itemsInfo.onRemove"
             read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
         </au-collection> -->
-        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.supplier  && !readOnly"
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfo.columns" show.bind="data.supplier && data.currency && !readOnly"
             add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove" read-only.bind="readOnly" options.bind="options" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
         </au-collection>
 
