@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5":1, "C9": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -47,7 +47,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "C5": 1, "B9":1, "C9": 1 },
+            permission: { "C5": 1, "B9": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
     },
@@ -60,7 +60,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "B4": 1,"C5": 1, "C9": 1 },
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
     },
@@ -73,7 +73,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "B4": 1,"C5": 1, "C9": 1 },
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
     },
@@ -86,7 +86,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "B4": 1,"C5": 1, "C9": 1 },
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
     },
@@ -99,7 +99,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "B4": 1,"C5": 1, "C9": 1 },
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -112,7 +112,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5":1, "C9": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
     },
@@ -125,7 +125,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5":1, "C9": 1 },
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -138,7 +138,46 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1},
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/daily-bank-transaction-document-in',
+        name: 'daily-bank-transaction-document-in',
+        moduleId: './modules/expedition/daily-bank-transaction-document-in/index',
+        nav: true,
+        title: 'Transaksi Harian Bank Masuk',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/daily-bank-transaction-document-out',
+        name: 'daily-bank-transaction-document-out',
+        moduleId: './modules/expedition/daily-bank-transaction-document-out/index',
+        nav: true,
+        title: 'Transaksi Harian Bank Keluar',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/reports/daily-bank-mutation-document',
+        name: 'daily-bank-mutation-report',
+        moduleId: './modules/expedition/reports/daily-bank-mutation-report/index',
+        nav: true,
+        title: 'Laporan Mutasi Bank',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

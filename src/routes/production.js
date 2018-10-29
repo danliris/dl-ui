@@ -1,5 +1,31 @@
 module.exports = [
     {
+        route: 'production/finishing-printing/kanban',
+        name: 'kanban',
+        moduleId: './modules/production/finishing-printing/kanban/index',
+        nav: true,
+        title: 'Kanban',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/finishing-printing/bad-output-kanban',
+        name: 'kanban',
+        moduleId: './modules/production/finishing-printing/bad-output-kanban/index',
+        nav: true,
+        title: 'Kanban Pengganti Bad Output',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/winding/winding-quality-sampling',
         name: 'winding-quality-sampling',
         moduleId: './modules/production/spinning/winding/winding-quality-sampling/index',
@@ -132,32 +158,6 @@ module.exports = [
         }
     },
     {
-        route: 'production/finishing-printing/kanban',
-        name: 'kanban',
-        moduleId: './modules/production/finishing-printing/kanban/index',
-        nav: true,
-        title: 'Kanban',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'production/finishing-printing/bad-output-kanban',
-        name: 'kanban',
-        moduleId: './modules/production/finishing-printing/bad-output-kanban/index',
-        nav: true,
-        title: 'Kanban Pengganti Bad Output',
-        auth: true,
-        settings: {
-            group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'production/finishing-printing/kanban-visualization-area',
         name: 'kanban-visualization-area',
         moduleId: './modules/production/finishing-printing/kanban-visualization-area/index',
@@ -218,7 +218,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1  },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -389,7 +389,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1  },
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },

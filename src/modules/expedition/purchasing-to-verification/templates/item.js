@@ -10,10 +10,11 @@ export class Item {
 
     constructor(service) {
         this.service = service;
-        this.queryUPO = { position: 1 }; // PURCHASING_DIVISION
+        this.queryUPO = { position: { $in: [1,6] } }; // PURCHASING_DIVISION
+
         this.selectUPO = [
             'paymentMethod', 'invoceNo', 'division.code', 'division.name',
-            'category.code','category.name','supplier.code', 'supplier.name',
+            'category.code', 'category.name', 'supplier.code', 'supplier.name',
             'currency.code', 'no', 'date', 'dueDate',
             'useVat', 'useIncomeTax', 'vat._id', 'vat.name', 'vat.rate',
             'items.unitReceiptNote.date',
