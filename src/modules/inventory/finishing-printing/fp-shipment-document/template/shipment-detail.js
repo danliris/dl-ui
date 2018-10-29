@@ -84,28 +84,66 @@ export class ShipmentDetail {
                         _item.packingReceiptItems = [];
 
                         //find products
-                        var productNames = packingReceipt.items.map((packingReceiptItem) => packingReceiptItem.product)
-                        var productFilter = {
-                            "name": {
-                                "$in": productNames
-                            }
-                        }
-                        var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields, size: 100 };
-                        var products = await this.service.searchProducts(productInfo);
 
-                        //find summaries
-                        var inventorySummariesFilter = {
-                            "$and": [
-                                {
-                                    "productName": {
+                        let productPromises = [];
+                        let inventorySummaryPromises = [];
+                        let productNames = [];
+                        packingReceipt.items.map((item, index) => {
+                            productNames.push(item.product);
+                            if ((index + 1) % 15 == 0) {
+                                var productFilter = {
+                                    "name": {
                                         "$in": productNames
+                                    }
+                                };
+                                var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields, size: Number.MAX_SAFE_INTEGER };
+                                productPromises.push(this.service.searchProducts(productInfo));
+
+                                var inventorySummariesFilter = {
+                                    "$and": [
+                                        {
+                                            "productName": {
+                                                "$in": productNames
+                                            },
+                                        },
+                                        { "storageCode": this.selectedStorageCode }
+                                    ]
+                                };
+                                var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter), size: Number.MAX_SAFE_INTEGER };
+                                inventorySummaryPromises.push(this.service.searchInventorySummaries(inventorySummariesInfo));
+
+                                productNames = [];
+                            }
+                        })
+
+                        if (productNames.length > 0) {
+                            var productFilter = {
+                                "name": {
+                                    "$in": productNames
+                                }
+                            }
+                            var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields, size: Number.MAX_SAFE_INTEGER };
+                            productPromises.push(this.service.searchProducts(productInfo));
+
+                            var inventorySummariesFilter = {
+                                "$and": [
+                                    {
+                                        "productName": {
+                                            "$in": productNames
+                                        },
                                     },
-                                },
-                                { "storageCode": this.selectedStorageCode }
-                            ]
+                                    { "storageCode": this.selectedStorageCode }
+                                ]
+                            };
+                            var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter), size: Number.MAX_SAFE_INTEGER };
+                            inventorySummaryPromises.push(this.service.searchInventorySummaries(inventorySummariesInfo));
                         }
-                        var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter), size: 100 };
-                        var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
+
+                        var products = await Promise.all(productPromises);
+                        products = [].concat.apply([], products);
+
+                        var inventorySummaries = await Promise.all(inventorySummaryPromises);
+                        inventorySummaries = [].concat.apply([], inventorySummaries);
 
                         for (var packingReceiptItem of packingReceipt.items) {
                             var _packingReceiptItem = {};

@@ -35,6 +35,8 @@ export class Create {
     }
 
     save(event) {
+        //auto assign status out
+        this.data.Status = "OUT";
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
