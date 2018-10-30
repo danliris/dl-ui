@@ -31,9 +31,9 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.Status = this.context.status || this.statusOptions[0];
-        this.data.SourceType = this.context.sourceType || this.sourceTypes[0];
-        this.data.Bank = this.context.bank || this.data.Bank;
+        // this.data.Status = this.context.status || this.data.Status || "IN";
+        this.data.SourceType = this.context.sourceType || this.data.SourceType || this.sourceTypes[0];
+        this.data.Bank = this.context.bank || this.data.Bank || this.data.Bank;
     }
 
     // statusOptions = ["IN", "OUT"];

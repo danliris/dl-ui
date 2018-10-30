@@ -46,7 +46,8 @@ export class List {
     }
 
     initPermission() {
-        this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+        this.roles = [VERIFICATION, CASHIER];
+        // this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
         this.accessCount = 0;
 
         for (let i = this.roles.length - 1; i >= 0; i--) {

@@ -20,6 +20,7 @@ export class Create {
 
     bind(params) {
         this.data = {};
+        this.data.Status = "OUT";
         this.error = {};
     }
 
@@ -36,13 +37,13 @@ export class Create {
 
     save(event) {
         //auto assign status out
-        this.data.Status = "OUT";
+        // this.data.Status = "OUT";
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 let params = {
                     bank: this.data.Bank,
-                    status: "IN",
+                    // status: "IN",
                     sourceType: "Operasional"
                 }
                 this.router.navigateToRoute('create', params, { replace: true, trigger: true });
