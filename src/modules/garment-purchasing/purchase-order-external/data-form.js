@@ -21,7 +21,8 @@ export class DataForm {
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-    typePaymentOptions = ['FREE', 'CASH', 'T/T AFTER', 'T/T BEFORE'];
+    // typePaymentOptions = ['FREE', 'CASH', 'T/T AFTER', 'T/T BEFORE'];
+    typePaymentOptions = ['T/T AFTER', 'T/T BEFORE', 'FREE', 'CASH', ];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
     qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
 
