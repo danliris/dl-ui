@@ -38,9 +38,9 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      filter: {
+      filter: JSON.stringify({
         Status: "IN"
-      },
+      }),
       // select: ["date", "code", "referenceNo", "referenceType", "type", "storageName"],
       order: order
     }
@@ -50,7 +50,7 @@ export class List {
 
         if (result.data && result.data.length > 0) {
           for (let datum of result.data) {
-            datum.bankView = `${datum.AccountBankAccountName} - ${datum.AccountBankName} - ${datum.AccountBankAccountNumber} - ${datum.AccountBankCurrencyCode}`
+            datum.bankView = `${datum.Bank.accountName} - ${datum.Bank.bankName} - ${datum.Bank.accountNumber} - ${datum.Bank.currency.code}`;
           }
         }
         return {

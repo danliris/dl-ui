@@ -43,7 +43,8 @@ export async function configure(aurelia) {
       var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
       var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
-      var merchandiser = "https://com-danliris-service-md-uat.azurewebsites.net/v1/";
+      var merchandiser = "https://com-danliris-service-md-dev.azurewebsites.net/v1/";
+      var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
@@ -59,6 +60,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('int-purchasing', intPurchasing, defaultConfig);
       config.registerEndpoint('customs-report', customsReport, defaultConfig);
       config.registerEndpoint('merchandiser', merchandiser, defaultConfig);
+      config.registerEndpoint('finance', finance, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

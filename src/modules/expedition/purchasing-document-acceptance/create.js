@@ -6,7 +6,7 @@ import numeral from 'numeral';
 import { Service } from './service';
 import PurchasingDocumentExpeditionService from '../shared/purchasing-document-expedition-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
-import { VERIFICATION, CASHIER, ACCOUNTING } from '../shared/permission-constants';
+import { VERIFICATION, CASHIER  } from '../shared/permission-constants';
 const UnitPaymentOrderLoader = require('../../../loader/unit-payment-order-loader');
 const SupplierLoader = require('../../../loader/supplier-loader');
 const DivisionLoader = require('../../../loader/division-loader');
