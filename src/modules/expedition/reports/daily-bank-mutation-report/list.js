@@ -86,6 +86,9 @@ export class List {
                     let dailyTotalDebit = 0;
                     let dailyTotalKredit = 0;
                     let previousDate = '';
+                    this.initialBalance = "";
+                    this.closingBalance = "";
+                    this.currency = "";
                     if (result.data && result.data.length > 0) {
                         previousDate = moment(result.data[0].Date).format("DD-MMM-YYYY");
                         this.currency = result.data[0].AccountBankCurrencyCode;
