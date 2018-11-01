@@ -17,6 +17,9 @@ export class List {
         },
     };
 
+    monthList = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    yearList = [];
+
     tableOptions = {
         showColumns: false,
         search: false,
@@ -33,6 +36,16 @@ export class List {
         this.currency = '';
         this.initialBalance = '';
         this.closingBalance = '';
+
+        let dateNow = new Date();
+        this.monthNow = dateNow.getMonth();
+        this.info.month = this.monthList[this.monthNow];
+
+        this.yearNow = dateNow.getFullYear();
+        this.info.year = this.yearNow;
+        for (var i = this.yearNow - 3; i <= this.yearNow; i++) {
+            this.yearList.push(i);
+        }
     }
 
     bankView = (bank) => {
@@ -61,8 +74,8 @@ export class List {
 
             let params = {
                 bankId: this.info.bankId,
-                dateFrom: this.info.dateFrom ? moment(this.info.dateFrom).format("MM/DD/YYYY") : this.info.dateFrom,
-                dateTo: this.info.dateTo ? moment(this.info.dateTo).format("MM/DD/YYYY") : this.info.dateTo,
+                month: this.monthList.indexOf(this.info.month) + 1,
+                year: this.info.year,
             }
 
             this.data = await this.service.search(params)
@@ -163,8 +176,8 @@ export class List {
 
             let params = {
                 bankId: this.info.bankId,
-                dateFrom: this.info.dateFrom ? moment(this.info.dateFrom).format("MM/DD/YYYY") : this.info.dateFrom,
-                dateTo: this.info.dateTo ? moment(this.info.dateTo).format("MM/DD/YYYY") : this.info.dateTo,
+                month: this.monthList.indexOf(this.info.month) + 1,
+                year: this.info.year
             }
 
             this.service.getXls(params)
@@ -178,8 +191,8 @@ export class List {
         // this.flag = false;
         this.info.bank = undefined;
         this.info.bankId = "";
-        this.info.dateFrom = undefined;
-        this.info.dateTo = undefined;
+        this.info.month = this.monthList[this.monthNow];
+        this.info.year = this.yearNow;
         this.currency = "";
         this.initialBalance = "";
         this.closingBalance = "";
