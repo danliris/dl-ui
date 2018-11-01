@@ -1,11 +1,11 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = 'creditor-account/report';
+const serviceUri = 'creditor-account/reports';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing-azure');
+        super(http, aggregator, config, 'finance');
     }
 
     search(info) {
@@ -16,7 +16,7 @@ export class Service extends RestService {
     }
 
     getXls(info) {
-        let endpoint = `${serviceUri}/download?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        let endpoint = `${serviceUri}/downloads/xls?supplierName=${info.supplierName}&month=${info.month}&year=${info.year}`;
         return super.getXls(endpoint);
     }
 }

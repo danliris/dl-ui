@@ -48,7 +48,7 @@ export class List {
             { text: 'Desember', value: 12 }
         ];
         this.currentYear = moment().format('YYYY');
-        
+
         for (var i = parseInt(this.currentYear); i >= 2018; i--) {
             this.itemYears.push(i.toString());
         }
@@ -59,110 +59,114 @@ export class List {
     }
 
     async search() {
-        if (this.info.supplier && this.info.supplier._id)
-            this.info.supplierId = this.info.supplier._id;
+        if (this.info.supplier && this.info.supplier.name)
+            this.info.name = this.info.supplier.name;
 
         let validationError = false;
 
-        if (this.info && (!this.info.supplier || this.info.supplier._id == null)) {
+        if (this.info && (!this.info.supplier || this.info.supplier.name == null)) {
             this.error.supplier = "Supplier harus diisi";
             validationError = true;
         }
-        debugger
         if (!validationError) {
             this.error = {};
             // this.flag = true;
             // this.tableList.refresh();
 
             let params = {
-                supplierId: this.info.supplierId,
+                supplierName: this.info.name,
                 month: this.info.month.value,
                 year: this.info.year,
             }
+            // this.isEmpty = false;
+            // this.data = [{
+            //     Date : '1-Oct-2018',
+            //     UnitReceiptNoteNo : '1B-111',
+            //     BankExpenditureNoteNo : '',
+            //     MemoNo : '',
+            //     InvoiceNo : 'Inv001',
+            //     DPP : '50000',
+            //     PPN : '5000',
+            //     Total : '55000',
+            //     Mutation : '55000',
+            //     FinalBalance : ''
+            // },
+            // {
+            //     Date : '5-Oct-2018',
+            //     UnitReceiptNoteNo : '',
+            //     BankExpenditureNoteNo : '18A1',
+            //     MemoNo : '',
+            //     InvoiceNo : 'Inv001',
+            //     DPP : '40000',
+            //     PPN : '4000',
+            //     Total : '44000',
+            //     Mutation : '-44000',
+            //     FinalBalance : ''
+            // },
+            // {
+            //     InvoiceHeader : '',
+            //     InvoiceNo : 'Inv001',
+            //     InvoiceValue:'',
+            //     Mutation : '11000',
+            //     FinalBalance : '11000'
+            // },
+            // {
+            //     Date : '2-Oct-2018',
+            //     UnitReceiptNoteNo : '2B-111',
+            //     BankExpenditureNoteNo : '',
+            //     MemoNo : '',
+            //     InvoiceNo : 'Inv002',
+            //     DPP : '50000',
+            //     PPN : '5000',
+            //     Total : '55000',
+            //     Mutation : '55000',
+            //     FinalBalance : ''
+            // },
+            // {
+            //     Date : '6-Oct-2018',
+            //     UnitReceiptNoteNo : '',
+            //     BankExpenditureNoteNo : '18A2',
+            //     MemoNo : '',
+            //     InvoiceNo : 'Inv002',
+            //     DPP : '40000',
+            //     PPN : '4000',
+            //     Total : '44000',
+            //     Mutation : '-44000',
+            //     FinalBalance : ''
+            // },
+            // {
+            //     InvoiceHeader : '',
+            //     InvoiceNo : 'Inv002',
+            //     InvoiceValue:'',
+            //     Mutation : '11000',
+            //     FinalBalance : '11000'
+            // }];
 
+            // this.closingBalance = '22000';
+            // this.mutation = '22000';
+            // this.currency = 'IDR';
             this.data = await this.service.search(params)
                 .then((result) => {
-                    let resultDataSet = [];
+                    if(result.data.length == 0)
+                        this.isEmpty = true;
+                    else
+                        this.isEmpty = false;
 
-                    // let sameDate = true;
-                    let dailyTotalDebit = 0;
-                    let dailyTotalKredit = 0;
-                    let previousDate = '';
-                    if (result.data && result.data.length > 0) {
-                        previousDate = moment(result.data[0].Date).format("DD-MMM-YYYY");
-                        this.currency = result.data[0].AccountBankCurrencyCode;
-                        this.initialBalance = numeral(result.data[0].BeforeNominal).format('0,0.0000');
-                        this.closingBalance = numeral(result.data[result.data.length - 1].AfterNominal).format('0,0.0000');
-                    }
-                    let index = 0;
-                    for (let data of result.data) {
-                        let date = moment(data.Date).format("DD-MMM-YYYY");
-
-                        if (moment(previousDate).diff(moment(date), 'days') != 0 || index == result.data.length) {
-                            let dailyTotalDataSet = {
-                                DailyTotalTitle: "Total Harian",
-                                AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                                Debit: numeral(dailyTotalDebit).format('0,0.0000'),
-                                Kredit: numeral(dailyTotalKredit).format('0,0.0000'),
-                                AfterNominal: ""
-                            }
-
-                            resultDataSet.push(dailyTotalDataSet);
-                            dailyTotalDebit = 0;
-                            dailyTotalKredit = 0;
-                        }
-
-                        if (data.Status.toString().toLowerCase() == "in") {
-                            dailyTotalDebit += data.Nominal;
-                        } else {
-                            dailyTotalKredit += data.Nominal;
-                        }
-
-                        let dataSet = {
-                            Date: date,
-                            Remark: data.Remark,
-                            ReferenceNo: data.ReferenceNo,
-                            ReferenceType: data.ReferenceType,
-                            AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                            Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.Nominal).format('0,0.0000') : '',
-                            Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.Nominal).format('0,0.0000') : '',
-                            AfterNominal: numeral(data.AfterNominal).format('0,0.0000')
-                        }
-
-                        previousDate = date;
-
-                        resultDataSet.push(dataSet);
-
-                        index++;
-                        if (!resultDataSet[resultDataSet.length - 1].DailyTotalTitle && index == result.data.length) {
-                            let dailyTotalDataSet = {
-                                DailyTotalTitle: "Total Harian",
-                                AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                                Debit: numeral(dailyTotalDebit).format('0,0.0000'),
-                                Kredit: numeral(dailyTotalKredit).format('0,0.0000'),
-                                AfterNominal: ""
-                            }
-
-                            resultDataSet.push(dailyTotalDataSet);
-                            dailyTotalDebit = 0;
-                            dailyTotalKredit = 0;
-                        }
-
-                    }
-
-                    this.isEmpty = false;
-                    return resultDataSet;
+                    this.currency = 'IDR';
+                    this.closingBalance = result.finalBalance;
+                    this.mutation = result.finalBalance;
+                    return result.data;
                 })
         }
     }
 
     excel() {
-        if (this.info.supplier && this.info.supplier._id)
-            this.info.supplierId = this.info.supplier._id;
+        if (this.info.supplier && this.info.supplier.name)
+            this.info.supplierName = this.info.supplier.name;
 
         let validationError = false;
 
-        if (this.info && (!this.info.supplier || this.info.supplier._id == null)) {
+        if (this.info && (!this.info.supplier || this.info.supplier.name == null)) {
             this.error.supplier = "Supplier harus diisi";
             validationError = true;
         }
@@ -173,7 +177,7 @@ export class List {
             // this.tableList.refresh();
 
             let params = {
-                supplierId: this.info.supplierId,
+                supplierName: this.info.supplierName,
                 month: this.info.month.value,
                 year: this.info.year,
             }
@@ -188,7 +192,7 @@ export class List {
         this.isEmpty = true;
         // this.flag = false;
         this.info.supplier = undefined;
-        this.info.supplierId = "";
+        this.info.supplierName = "";
         this.currency = 'IDR';
         this.closingBalance = 0;
         this.mutation = 0;
