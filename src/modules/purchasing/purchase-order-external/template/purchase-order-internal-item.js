@@ -6,7 +6,6 @@ export class PurchaseOrderItem {
   @bindable selectedDealUom
   activate(context) {
     this.context = context;
-    console.log(context)
     this.data = context.data;
     this.priceBeforeTax=this.data.priceBeforeTax;
     this.error = {};
