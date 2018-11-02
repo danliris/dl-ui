@@ -8,7 +8,7 @@ export class List {
     columns = [
         { field: "RO_Number", title: "No RO" },
         { field: "Article", title: "Artikel" },
-        { field: "Unit.Name", title: "Unit" },
+        { field: "UnitName", title: "Unit" },
         { field: "Quantity", title: "Kuantitas" },
         { field: "ConfirmPrice", title: "Harga Konfirmasi" }
     ];

@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'finishing-printing/quality-control/fabrics';
+const resource = 'finishing-printing/quality-control/defect';
 
 module.exports = function(keyword, filter) {
 
