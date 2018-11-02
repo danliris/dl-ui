@@ -53,9 +53,7 @@
                     </tr>
                     <tr repeat.for="datum of data">
                         <td repeat.for="key of datum | keys" style="white-space: pre;" 
-                            class="${key.toString().toLowerCase() == 'invoiceheader' ? 'text-right' :  ''}"
-                            colspan="${key.toString().toLowerCase() == 'invoiceheader' ? 4 :
-                                key.toString().toLowerCase() == 'invoicevalue' ? 3 : 1}">${datum[key]}</td>
+                            colspan="${key.toString().toLowerCase() == 'Date' && datum[key] == null ? 4 : 1}">${datum[key]}</td>
 
                     </tr>
                     <tr>
