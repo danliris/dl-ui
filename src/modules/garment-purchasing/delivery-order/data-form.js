@@ -2,6 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 
+@containerless()
 @inject(BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
@@ -9,6 +10,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable supplier;
+    @bindable options = {};
 
     shipmentTypes = ['By Air', 'By Sea']
     controlOptions = {
@@ -16,7 +18,7 @@ export class DataForm {
             length: 4
         },
         control: {
-            length: 5
+            length: 3
         }
     }
     itemsInfo = {
@@ -35,26 +37,42 @@ export class DataForm {
 
     bind(context) {
         this.context = context;
+        console.log(this.context)
         this.data = this.context.data;
+        console.log(this.data)
         this.error = this.context.error;
+        console.log(this.hasView)
+        var hasItems=true;
+        if (this.data.items.length==0)
+            hasItems=false;
+        // if (this.data.totalQuantity)
+        //     this.data.totalQuantity=this.data.totalQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        // if (this.data.totalAmount)
+        //     this.data.totalAmount=this.data.totalAmount.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     @computedFrom("data.supplier")
     get filter() {
         var filter = {
             supplierId: this.data.supplierId || {},
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            hasView: this.context.hasView,
+            hasEdit:this.context.hasEdit,
+            hasCreate:this.context.hasCreate
         }
         return filter;
     }
 
     @computedFrom("data.supplier")
     get supplierType() {
+        if(!this.data.supplier.import)
+        return (this.data.supplier.Import || false) ? "Import" : "Lokal";
+        else
         return (this.data.supplier.import || false) ? "Import" : "Lokal";
     }
 
@@ -70,9 +88,9 @@ export class DataForm {
     supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
-            if (selectedSupplier._id) {
+            if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
+                this.data.supplierId = selectedSupplier.Id;
             }
         } else {
             this.data.supplier = {};
@@ -89,6 +107,9 @@ export class DataForm {
     }
 
     supplierView = (supplier) => {
+        if(!supplier.code)
+        return `${supplier.Code} - ${supplier.Name}`
+        else
         return `${supplier.code} - ${supplier.name}`
     }
 

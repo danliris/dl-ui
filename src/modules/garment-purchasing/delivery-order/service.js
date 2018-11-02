@@ -5,16 +5,17 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'delivery-orders/by-user';
+const serviceUri = 'garment-delivery-orders';
+const serviceUriByUser = 'garment-delivery-orders/by-user';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUriByUser}`;
         return super.list(endpoint, info);
     }
 
@@ -38,14 +39,14 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getPurchaseOrderById(id, select) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-purchasing");
-        var _serviceUri = `purchase-orders/by-user/${id}`;
+    // getPurchaseOrderById(id, select) {
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("garment-purchasing");
+    //     var _serviceUri = `purchase-orders/by-user/${id}`;
 
-        return _endpoint.find(_serviceUri, { "select": select })
-            .then(result => {
-                return result.data;
-            });
-    }
+    //     return _endpoint.find(_serviceUri, { "select": select })
+    //         .then(result => {
+    //             return result.data;
+    //         });
+    // }
 }
