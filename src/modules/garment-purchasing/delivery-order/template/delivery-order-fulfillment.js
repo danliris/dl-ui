@@ -11,29 +11,48 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
+    this.hasView = this.context.context.options.hasView;
+    this.hasEdit = this.context.context.options.hasEdit;
+    this.hasCreate = this.context.context.options.hasCreate;
+    this.hasEdit = this.context.context.options.hasEdit;
+    // this.data.isSave=false;
     this.isEdit = this.context.context.options.isEdit || false;
-
     if (this.data) {
-      this.deliveredQuantity = this.data.deliveredQuantity;
+      if(this.hasEdit){
+        this.data.isSave=true;
+      }
+      if(this.data.doQuantity>=0){
+        this.data.doQuantity = (Number(this.data.dealQuantity) - Number(this.data.doQuantity)).toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      }
+      if(this.data.conversion)
+        this.data.conversion=this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      if(this.data.pricePerDealUnit)
+        this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+      if(this.data.dealQuantity)  
+        this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      
     } else {
-      this.deliveredQuantity = 0;
+      this.data.doQuantity = 0;
     }
-    if (!this.options.readOnly) {
-      if (this.data.remainsQuantity < this.data.deliveredQuantity) {
-        this.isWarning = true
-      }
-      else {
-        this.isWarning = false;
-      }
-    }
+    this.data.priceTotal = this.data.dealQuantity * this.data.pricePerDealUnit;
+    this.data.smallQuantity = this.data.doQuantity * this.data.conversion;
+    
+    // if (!this.options.readOnly) {
+    //   if (this.data.remainsQuantity < this.data.deliveredQuantity) {
+    //     this.isWarning = true
+    //   }
+    //   else {
+    //     this.isWarning = false;
+    //   }
+    // }
   }
 
   get quantityConversion() {
-    return (this.data.deliveredQuantity * this.data.conversion).toFixed(2)
+    return (this.data.doQuantity * this.data.conversion).toLocaleString('en-EN', { minimumFractionDigits: 2 })
   }
 
   get priceTotal() {
-    return parseFloat((this.data.deliveredQuantity * this.data.pricePerDealUnit).toFixed(2));
+    return (this.data.dealQuantity * this.data.pricePerDealUnit).toLocaleString('en-EN', { minimumFractionDigits: 2 });
   }
 
   get productLoader() {
@@ -41,30 +60,28 @@ export class DeliveryOrderItem {
   }
 
   productView = (product) => {
-    return `${product.code} - ${product.name}`
+    return `${product.Code} - ${product.Name}`
   }
 
-  deliveredQuantityChanged(newValue, oldValue) {
-    if (typeof newValue === "number") {
-      this.data.deliveredQuantity = newValue
-      if (!this.options.readOnly) {
-        if (this.data.remainsQuantity < this.data.deliveredQuantity) {
-          this.isWarning = true
-        }
-        else {
-          this.isWarning = false;
-        }
-      }
-    } else {
-      if (this.isWarning) {
-        this.isWarning = false;
-      }
-      if (newValue === null) {
-        this.deliveredQuantity = 0
-      } else {
-        this.deliveredQuantity = this.data.deliveredQuantity;
+  doQuantityChanged(e) {
+    this.error={};
+    if(this.data.dealQuantity-(e.srcElement.value+this.data.doQuantity)<0){
+      this.error.doQuantity="Jumlah diterima lebih besar dari jumlah dipesan";
+    }
+  }
+
+  conversionChanged(e) {
+    this.error={};
+    
+    if(this.data.conversion%1>=0){
+      if(!((this.data.conversion.length<=16 && this.data.conversion.indexOf(".")>0) || (this.data.conversion.length<=15 && this.data.conversion.indexOf(".")<0))){
+        this.error.conversion="Konversi tidak boleh lebih dari 15 digit";
       }
     }
+    else {
+      this.error.conversion="Konversi Harus Diisi Dengan Angka";
+    }
+    
   }
 
   controlOptions = {

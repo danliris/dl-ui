@@ -6,9 +6,10 @@ export class PurchaseOrderItem {
   @bindable selectedDealUom
   activate(context) {
     this.context = context;
+    console.log(context)
     this.data = context.data;
     this.priceBeforeTax=this.data.priceBeforeTax;
-    this.error = context.error;
+    this.error = {};
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
     if(!this.useVat){
@@ -17,6 +18,8 @@ export class PurchaseOrderItem {
     if (this.data) {
       this.updateItem();
     }
+    if(this.options.readOnly!=true && isNaN(this.data.priceBeforeTax%1))
+      this.error.price="Harga Barang Harus Diisi Dengan Angka";
   }
   
     updateItem() {
