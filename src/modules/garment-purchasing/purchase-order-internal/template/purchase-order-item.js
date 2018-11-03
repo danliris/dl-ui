@@ -5,6 +5,10 @@ export class PurchaseRequestItem {
     this.data = context.data;
     this.options = context.options;
     this.error = context.error;
+
+    if (this.options.readOnly) {
+      this.data.QuantityString = (this.data.Quantity || 0).toFixed(2);
+    }
   }
 
   get category() {

@@ -6,8 +6,11 @@ import { Service } from './service';
 @inject(Router, Service)
 export class View {
     hasCancel = true;
+    hasEdit = true;
+    hasDelete = true;
+    hasView = true;
+    hasCreate = false;
     hasEdit = false;
-    hasDelete = false;
 
     constructor(router, service) {
         this.router = router;
@@ -17,23 +20,14 @@ export class View {
 
     async activate(params) {
         var id = params.id;
+        this.isCustomsDisplay = "Ya";
         this.data = await this.service.getById(id);
         this.supplier = this.data.supplier;
-        this.isReceived = this.data.items
-            .map((item) => {
-                var _isReceived = item.fulfillments
-                    .map((fulfillment) => fulfillment.realizationQuantity.length > 0)
-                    .reduce((prev, curr, index) => {
-                        return prev || curr
-                    }, false);
-                return _isReceived
-            })
-            .reduce((prev, curr, index) => {
-                return prev || curr
-            }, false);
-
-        var hasInvoiceBeaCukai = this.data.hasInvoice ? true : this.data.customsId ? true : false;
-        if (!this.isReceived && !hasInvoiceBeaCukai) {
+        // if(this.data.isCustoms==true)
+        //     this.isCustomsDisplay="Ya"
+        // else
+        //     this.isCustomsDisplay="Tidak"
+        if (this.data.customsId==0) {
             this.hasDelete = true;
             this.hasEdit = true;
         }
@@ -44,7 +38,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {

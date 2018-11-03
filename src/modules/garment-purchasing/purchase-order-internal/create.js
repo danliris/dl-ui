@@ -36,7 +36,7 @@ export class Create {
             }
         },
         { title: "Nama Barang", field: "Items.0.Product.Name" },
-        { title: "Jumlah", field: "Items.0.Quantity" },
+        { title: "Jumlah", field: "Items.0.Quantity", formatter: function (value) { return value.toFixed(2) } },
         { title: "Satuan", field: "Items.0.Uom.Unit" }
     ];
     controlOptions = {
