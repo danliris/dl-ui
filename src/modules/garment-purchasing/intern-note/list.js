@@ -6,14 +6,14 @@ var moment = require("moment");
 @inject(Router, Service)
 export class List {
     columns = [
-        { field: "no", title: "No. Surat Perintah Bayar" },
+        { field: "inNo", title: "No. Surat Perintah Bayar" },
         {
-            field: "date", title: "Tanggal Surat Perintah Bayar",
+            field: "inDate", title: "Tanggal Surat Perintah Bayar",
             formatter: (value, data) => {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Supplier" },
+        { field: "supplier.Name", title: "Supplier" },
         { field: "invoiceNoteNo", title: "List No. Invoice" }
     ];
 
@@ -40,7 +40,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "hasUnitReceiptNote", "items.no"],
+            select: ["inDate", "inNo", "supplier.Name", "hasUnitReceiptNote", "items.garmentInvoice.invoiceNo"],
             order: order
         };
 
@@ -48,7 +48,7 @@ export class List {
             .then(result => {
                 for (var _data of result.data) {
                     var invoiceNo = _data.items.map(function (item) {
-                        return `<li>${item.no}</li>`;
+                        return `<li>${items.garmentInvoice.invoiceNo}</li>`;
                     });
                     invoiceNo = invoiceNo.filter(function (elem, index, self) {
                         return index == self.indexOf(elem);

@@ -46,7 +46,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.options = this.options ? this.options : {};
     }
 
     @computedFrom("data._id")
@@ -70,10 +69,10 @@ export class DataForm {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
             this.data.supplier = selectedSupplier;
-            this.data.supplierId = selectedSupplier._id;
-            this.options.supplierCode = selectedSupplier.code;
+            this.data.supplierId = selectedSupplier.Id;
+            this.options.supplierCode = selectedSupplier.Code;
             this.options.currencyCode = this.data.currency.code;
-            // var res = await this.service.getInvoiceNote({supplierId: this.data.supplierId, currency: this.data.currency.code});
+            // var res = await this.service.getInvoiceNote({supplierId: this.data.supplier.Id, currency: this.data.currency.code});
             // var _items = res.data || [];
             // this.data.items = _items;
         }
@@ -107,10 +106,10 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        return currency.Code
     }
 
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`;
     }
-} 
+}

@@ -37,7 +37,7 @@ export class InternNoteItem {
 		this.isShowing = false;
 		this.options = context.context.options;
 
-		if (this.data.no) {
+		if (this.data.invoiceNo) {
 			this.invoice = this.data ? this.data : {};
 			this.getTotal(this.data);
 			this.getDeliveryOrder(this.data);
@@ -58,49 +58,13 @@ export class InternNoteItem {
 
 	get filter() {
 		if (this.options.supplierCode && this.options.currencyCode) {
-			return { "hasInternNote": false, "supplier.code": this.options.supplierCode, "_deleted": false, "currency.code": this.options.currencyCode }
+			return { "hasInternNote": false, "supplier.code": this.options.supplierCode, "_deleted": false, "currency.Code": this.options.currencyCode }
 		}
 	}
 
-	async invoiceChanged(newValue, oldValue) {
-		if (this.invoice) {
-			this.data._id = this.invoice._id;
-			this.data._stamp = this.invoice._stamp;
-			this.data._type = this.invoice._type;
-			this.data._version = this.invoice._version;
-			this.data._active = this.invoice._active;
-			this.data._deleted = this.invoice._deleted;
-			this.data._createdBy = this.invoice._createdBy;
-			this.data._createdDate = this.invoice._createdDate;
-			this.data._createdAgent = this.invoice._createdAgent;
-			this.data._updatedBy = this.invoice._updatedBy;
-			this.data._updatedDate = this.invoice._updatedDate;
-			this.data._updatedAgent = this.invoice._updatedAgent;
-			this.data.refNo = this.invoice.refNo;
-			this.data.supplierId = this.invoice.supplierId;
-			this.data.supplier = this.invoice.supplier;
-			this.data.currency = this.invoice.currency;
-			this.data.incomeTaxNo = this.invoice.incomeTaxNo;
-			this.data.incomeTaxInvoiceNo = this.invoice.incomeTaxInvoiceNo;
-			this.data.incomeTaxDate = this.invoice.incomeTaxDate;
-			this.data.useIncomeTax = this.invoice.useIncomeTax;
-			this.data.vatNo = this.invoice.vatNo;
-			this.data.vatInvoiceNo = this.invoice.vatInvoiceNo;
-			this.data.vatDate = this.invoice.vatDate;
-			this.data.useVat = this.invoice.useVat;
-			this.data.vat = this.invoice.vat;
-			this.data.isPayTax = this.invoice.isPayTax;
-			this.data.remark = this.invoice.remark;
-			this.data.hasInternNote = this.invoice.hasInternNote;
-			this.data.date = this.invoice.date;
-			this.data.no = this.invoice.no;
-			this.data.date = this.invoice.date;
-			this.data.items = this.invoice.items;
-
-			this.getTotal(this.invoice);
-			await this.getDeliveryOrder(this.invoice)
-
-
+	invoiceChanged(newValue, oldValue) {
+		if (newValue) {
+			this.getGarmentInvoiceById(newValue.Id);
 		} else {
 			this.data = {};
 		}
@@ -110,10 +74,11 @@ export class InternNoteItem {
 		this.totalAmount = invoice.items
 			.map(invoiceItem => {
 				var totalItem = invoiceItem.items
-					.map(item => item.deliveredQuantity * item.pricePerDealUnit)
+					.map(item => item.dOQuantity * item.pricePerDealUnit)
 					.reduce(function (prev, curr, index, arr) {
 						return prev + curr;
 					}, 0);
+					
 				return totalItem;
 			})
 			.reduce(function (prev, curr, index, arr) {
@@ -121,12 +86,12 @@ export class InternNoteItem {
 			}, 0);
 	}
 
-	getDeliveryOrder(invoice) {
+	getGarmentInvoice(invoice) {
 		return new Promise((resolve, reject) => {
 			var getDeliveryOrder = invoice.items.map((invoiceItem) => {
 				var listId = invoiceItem.items
 					.map(item => {
-						return this.service.getDeliveryOrderById(invoiceItem.deliveryOrderId)
+						return this.service.getGarmentInvoiceById(invoiceItem.deliveryOrder.Id)
 					})
 				return listId;
 			})
@@ -138,33 +103,33 @@ export class InternNoteItem {
 				.then((deliveryOrders) => {
 					for (var invoiceItem of invoice.items) {
 						for (var item of invoiceItem.items) {
-							var _do = deliveryOrders.find((deliveryOrder) => deliveryOrder.no === invoiceItem.deliveryOrderNo);
-							var _doItem = _do.items.find((_item) => _item.purchaseOrderExternalNo === item.purchaseOrderExternalNo);
-							var _doFulfillment = _doItem.fulfillments.find((_fulfillment) => _fulfillment.product._id === item.product._id && _fulfillment.purchaseOrderNo === item.purchaseOrderNo)
+							var _do = deliveryOrders.find((deliveryOrder) => deliveryOrder.dONo === invoiceItem.doNo);
+							var _doItem = _do.items.find((_item) => _item.ePONo === item.ePONo);
+							var _doFulfillment = _doItem.fulfillments.find((_fulfillment) => _fulfillment.product.Id === item.product.Id && _fulfillment.purchaseOrderNo === item.purchaseOrderNo)
 							item.hasUnitReceiptNote = _doFulfillment ? (_doFulfillment.realizationQuantity.length > 0 ? true : false) : false
 						}
 					}
 					items = invoice.items.map((invoiceItem) => {
 						listInvItem = invoiceItem.items
 							.map(item => {
-								var _do = deliveryOrders.find((deliveryOrder) => deliveryOrder.no === invoiceItem.deliveryOrderNo);
-								var _doItem = _do.items.find((_item) => _item.purchaseOrderExternalNo === item.purchaseOrderExternalNo);
+								var _do = deliveryOrders.find((deliveryOrder) => deliveryOrder.doNo === invoiceItem.doNo);
+								var _doItem = _do.items.find((_item) => _item.ePONo === item.ePONo);
 								var _doFulfillment = _doItem.fulfillments.find((_fulfillment) => _fulfillment.product._id === item.product._id && _fulfillment.purchaseOrderNo === item.purchaseOrderNo)
 
 								var isCreateURN = _doFulfillment ? (_doFulfillment.realizationQuantity.length > 0 ? true : false) : false
-								var dueDays = new Date(invoiceItem.deliveryOrderSupplierDoDate);
+								var dueDays = new Date(invoiceItem.dODate);
 								dueDays.setDate(dueDays.getDate() + item.paymentDueDays);
 								return {
-									deliveryOrderNo: invoiceItem.deliveryOrderNo,
-									purchaseOrderExternalNo: item.purchaseOrderExternalNo,
-									purchaseRequestRefNo: item.purchaseRequestRefNo,
+									doNo: invoiceItem.dodNo,
+									ePONo: item.ePONo,
+									pOSerialNumber: item.pOSerialNumber,
 									roNo: item.roNo,
-									paymentMethod: item.paymentMethod,
+									termOfPayment: item.termOfPayment,
 									paymentType: item.paymentType,
-									dueDays: dueDays,
+									paymentDueDays: dueDays,
 									product: item.product,
-									deliveredQuantity: item.deliveredQuantity,
-									purchaseOrderUom: item.purchaseOrderUom,
+									quantity: item.quantity,
+									uomunit: item.uomunit,
 									pricePerDealUnit: item.pricePerDealUnit,
 									hasUnitReceiptNote: isCreateURN
 								}
@@ -180,5 +145,37 @@ export class InternNoteItem {
 				})
 
 		});
+	}
+
+	getGarmentInvoiceById(id){
+		this.service.getGarmentInvoiceById(id)
+			.then(garmentInvoice => {
+				// console.log(garmentInvoice);
+				this.data = garmentInvoice;
+				this.getTotal(garmentInvoice);
+
+
+				this.items = [];
+				for(var garmentInvoiceItem of garmentInvoice.items){
+					for(var detail of garmentInvoiceItem.items){
+						var item = {
+							ePONo : detail.ePONo,
+							poSerialNumber : garmentInvoiceItem.poSerialNumber,
+							roNo : detail.roNo,
+							termOfPayment : detail.paymentMethod,
+							paymentType : detail.paymentType,
+							pricePerDealUnit : detail.pricePerDealUnit,
+							// paymentDueDays : 30,
+							// paymentDueDate : garmentInvoiceItem.deliveryOrder.doDate + paymentDueDays,
+							deliveryOrder: {
+								doNo: garmentInvoiceItem.deliveryOrder.doNo
+							},
+							product: detail.product,
+							uomunit: detail.uoms,
+						};
+						this.items.push(item);
+					}
+				}
+			});
 	}
 }

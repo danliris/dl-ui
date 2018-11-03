@@ -4,10 +4,11 @@ export class InvoiceNoteItem {
 		this.data = context.data;
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
+		console.log(this.data);
 	}
 
 	get total() {
-		return this.data.deliveredQuantity * this.data.pricePerDealUnit;
+		return this.data.dOQuantity * this.data.pricePerDealUnit;
 	}
 
 	get status() {
@@ -15,6 +16,6 @@ export class InvoiceNoteItem {
 	}
 
 	get product() {
-		return `${this.data.product.code} - ${this.data.product.name}`;
+		return `${this.data.product.Code} - ${this.data.product.Name}`;
 	}
 }

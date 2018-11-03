@@ -2,19 +2,19 @@
 	<tr>
 		<td>
 			<au-textbox
-				value.one-way="data.deliveryOrderNo"
+				value.one-way="data.deliveryOrder.doNo"
 				read-only="true">
 			</au-textbox>
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.purchaseOrderExternalNo"
+				value.one-way="data.ePONo"
 				read-only="true">
 			</au-textbox>
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.purchaseRequestRefNo"
+				value.one-way="data.pOSerialNumber"
 				read-only="true">
 			</au-textbox>
 		</td>
@@ -26,7 +26,7 @@
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.paymentMethod"
+				value.one-way="data.termOfPayment"
 				read-only="true">
 			</au-textbox>
 		</td>
@@ -38,7 +38,7 @@
 		</td>
 		<td>
 			<au-datepicker
-				value.bind="data.dueDays"
+				value.bind="data.paymentDueDays"
 				read-only.bind="true">
 			</au-datepicker>
 		</td>
@@ -51,14 +51,14 @@
 		</td>
 		<td>
 			<au-numeric 
-				value.bind="data.deliveredQuantity" 
+				value.bind="data.quantity" 
 				read-only.bind="true" 
 				format="0">
 			</au-numeric>
 		</td>
         <td>
 			<au-textbox
-				value.one-way="data.purchaseOrderUom.unit"
+				value.one-way="data.uomunit.Unit"
 				read-only="true">
 			</au-textbox>
 		</td>
@@ -71,7 +71,7 @@
 		</td>
 		<td>
 			<au-numeric 
-				value.bind="total" 
+				value.bind="totalAmount" 
 				read-only.bind="true" 
 				format="0">
 			</au-numeric>

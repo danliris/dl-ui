@@ -2,11 +2,11 @@
 	<tr>
 		<td>
 			<au-autocomplete value.bind="invoice" error.bind="error.InvoiceNoteId" loader.bind="invoiceNoteLoader" placeholder="cari nomor invoice"
-			 text="no" key="no" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
+			 text="invoiceNo" key="invoiceNo" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
 		<td>
-			<au-datepicker value.bind="data.date" read-only.bind="true">
+			<au-datepicker value.bind="data.invoiceDate" read-only.bind="true">
 			</au-datepicker>
 		</td>
 		<td>
