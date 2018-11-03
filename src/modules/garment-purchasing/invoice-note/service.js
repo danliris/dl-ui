@@ -33,6 +33,7 @@ export class Service extends RestService {
 
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
+        console.log(data);
         return super.put(endpoint, data);
     }
 
@@ -42,12 +43,12 @@ export class Service extends RestService {
     }
 
     getPdfVatNote(id) {
-        var endpoint = `invoice-notes/pdf/vat/${id}`;
+        var endpoint = `garment-invoices/pdf/vat/${id}`;
         return super.getPdf(endpoint);
     }
 
     getPdfIncomeTaxNote(id) {
-        var endpoint = `invoice-notes/pdf/income-tax/${id}`;
+        var endpoint = `garment-invoices/pdf/income-tax/${id}`;
         return super.getPdf(endpoint);
     }
 

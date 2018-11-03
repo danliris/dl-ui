@@ -66,10 +66,10 @@ export class List {
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak Nota Pajak Pph":
-                this.service.getPdfVatNote(data.Id);
+                this.service.getPdfIncomeTaxNote(data.Id);
                 break;
             case "Cetak Nota Pajak Ppn":
-                this.service.getPdfIncomeTaxNote(data.Id);
+                this.service.getPdfVatNote(data.Id);
                 break;
         }
     }

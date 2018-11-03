@@ -1,5 +1,6 @@
 import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
+import { Currency } from '../../../master/product-budgeting/template/currency';
 var DeliveryOrderLoader = require('../../../../loader/garment-delivery-order-by-supplier-loader')
 
 @containerless()
@@ -29,9 +30,8 @@ export class DeliveryOrderItem {
     this.error = context.error;
     this.isShowing = false;
     this.options = context.context.options;
-   
-    if (this.data) {
-      this.deliveryOrder = { doNo: this.data.doNo }
+    if (this.data.Id) {
+      this.deliveryOrder =  this.data.deliveryOrder.doNo ;
     }
   }
 
@@ -52,8 +52,9 @@ export class DeliveryOrderItem {
   // }
 
   deliveryOrderChanged(newValue, oldValue) {
-    console.log(this.data);
     this.data.details = [];
+    var cur="";
+    console.log(this.data);
     if (this.deliveryOrder && this.deliveryOrder.Id) {
      for(var doItem of newValue.items){
        for(var doFulfillment of doItem.fulfillments)
@@ -65,7 +66,7 @@ export class DeliveryOrderItem {
             //pONo: doItem.pONo,
             pRItemId: doFulfillment.pRItemId,
             pRNo: doFulfillment.pRNo,
-            poSerialNumber: doFulfillment.poSerialNumber,
+            pOSerialNumber: doFulfillment.poSerialNumber,
             roNo: doFulfillment.rONo,
             product: doFulfillment.product,
             //purchaseOrderQuantity: doFulfillment.doQuantity,
@@ -75,11 +76,18 @@ export class DeliveryOrderItem {
             paymentMethod: doItem.paymentMethod,
             paymentType: doItem.paymentType,
             paymentDueDays: doItem.paymentDueDays,
-            useVat:doItem.usevat,
-            useIncomeTax: doItem.useIncomeTax
+            useVat:doItem.useVat,
+            useIncomeTax: doItem.useIncomeTax,
+            
           };
-          this.data.details.push(details);
+          
+            this.data.details.push(details);
         }
+ 
+       
+          cur= doItem.currency.Code;
+      
+      
       }
         // fulfillment = [].concat.apply([], fulfillment);
         // return fulfillment;
@@ -89,12 +97,13 @@ export class DeliveryOrderItem {
 
       // this.data.deliveryOrder = this.deliveryOrder;
       this.data.Id = this.deliveryOrder.Id;
-      this.data.doNo = this.deliveryOrder.doNo;
+     // this.data.doNo = this.deliveryOrder.doNo;
       this.data.doDate = this.deliveryOrder.doDate;
       this.data.arrivalDate = this.deliveryOrder.arrivalDate;
       //this.data.items = items;
       this.data.totalAmount=this.deliveryOrder.totalAmount;
       this.data.deliveryOrder=this.deliveryOrder;
+      this.data.currency=cur;
       // if (oldValue) {
       //   // this.deliveryOrder = {};
       //   this.data.deliveryOrderDate = undefined;
@@ -109,9 +118,11 @@ export class DeliveryOrderItem {
       this.data.arrivalDate = undefined;
       this.data.Id = "";
       this.data.doNo = "";
+      this.data.currency="";
       this.data.doDate = undefined;
       this.data.items = [];
     }
+    console.log(this.data);
   }
 
   get deliveryOrderLoader() { 

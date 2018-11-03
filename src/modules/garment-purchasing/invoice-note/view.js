@@ -8,7 +8,6 @@ export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
-
     totalData = 0;
     size = 5;
     items = [];
@@ -20,15 +19,23 @@ export class View {
     }
 
     async activate(params) {
-        console.log(params);
-       var id = params.id;
+    
+        var id = params.id;
         this.data = await this.service.getById(id);
-        // this.supplier = this.data.supplier;
-        // this.currency = this.data.currency;
-        // this.vat = this.data.vat;
-
-        // this.items = this.data.items;
-        // this.totalData = this.items.length;
+        this.supplier = this.data.supplier;
+        this.currency = this.data.currency;
+        this.vat = this.data.vat;
+        this.items = this.data.items;
+        this.totalData = this.items.length;
+        if(this.data.hasInternNote ===true)
+        {
+            this.hasEdit = false;
+            this.hasDelete = false;
+        }else
+        {
+            this.hasEdit = true;
+            this.hasDelete = true;
+        }
     }
 
     cancel(event) {

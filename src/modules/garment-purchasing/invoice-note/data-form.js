@@ -58,14 +58,12 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options.readOnly = this.readOnly;
-        console.log(this.data);
+        if(this.data.Id)
+        {
+            this.readO=true;
+        }
     }
-
-    @computedFrom("data.Id")
-    get isEdit() {
-        return (this.data.Id || '').toString() != '';
-    }
-
+    
     // async supplierChanged(newValue) {
     //     var selectedSupplier = newValue;
     //     if (selectedSupplier) {
@@ -166,7 +164,13 @@ export class DataForm {
     }
 
     supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`
+        if(this.data.Id)
+        {
+            return `${supplier.Code} - ${supplier.Name}`
+        }else
+        {
+            return `${supplier.code} - ${supplier.name}`
+        }
     }
 
     get currencyLoader() {
@@ -174,7 +178,13 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        if(this.data.Id)
+        {
+            return currency.Code
+        }else
+        {
+            return currency.code
+        }
     }
 
     get vatLoader() {
@@ -193,7 +203,7 @@ export class DataForm {
         }
     }
 
-    useVatChanged(e) {
+    useIncomeTaxChanged(e) {
         var selectedUseVat = e.srcElement.checked || false;
         this.data.vatNo = "";
         this.data.vatDate = "";
@@ -206,10 +216,11 @@ export class DataForm {
         }
     }
 
-    useIncomeTaxChanged(e) {
+    useVatChanged(e) {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = "";
+
         if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
         }
@@ -225,13 +236,16 @@ export class DataForm {
     // }
 
     async supplierChanged(newValue, oldValue) {
-        console.log(newValue);
         var selectedSupplier = newValue;
         if (selectedSupplier) {
             if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
                 this.data.supplierId = selectedSupplier.Id;
                 this.options.supplierCode = selectedSupplier.code;
+                this.data.useVat=selectedSupplier.usevat;
+                this.data.useIncomeTax=selectedSupplier.usetax;
+                this.data.incomeTaxName=selectedSupplier.IncomeTaxes.name;
+                this.data.incomeTaxRate=selectedSupplier.IncomeTaxes.rate;
             }
             if (oldValue) {
                 this.data.supplier = {};

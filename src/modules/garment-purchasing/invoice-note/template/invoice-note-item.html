@@ -4,21 +4,21 @@
             <au-checkbox value.bind="data.check"> </au-checkbox>
         </td> -->
         <td>
-            <au-autocomplete value.bind="deliveryOrder" error.bind="error.Id" loader.bind="deliveryOrderLoader"  placeholder="cari nomor surat jalan"
+            <au-autocomplete value.bind="deliveryOrder" error.bind="error.deliveryOrder" loader.bind="deliveryOrderLoader"  placeholder="cari nomor surat jalan"
                 text.bind="doView"  query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
             </au-autocomplete>
         </td>
         <td>
-            <au-datepicker value.bind="data.doDate" read-only.bind="true" options.bind="controlOptions">
+            <au-datepicker value.bind="data.deliveryOrder.doDate" read-only.bind="true" options.bind="controlOptions">
             </au-datepicker>
         </td>
         <td>
-            <au-datepicker value.bind="data.arrivalDate" read-only.bind="true" options.bind="controlOptions">
+            <au-datepicker value.bind="data.deliveryOrder.arrivalDate" read-only.bind="true" options.bind="controlOptions">
             </au-datepicker>
         </td>
         <td>
             <div class="col-sm-7">
-                <au-numeric value.bind="data.totalAmount" read-only.bind="true" options.bind="controlOptions">
+                <au-numeric value.bind="data.deliveryOrder.totalAmount" read-only.bind="true" options.bind="controlOptions">
                 </au-numeric>
             </div>
             <div class="col-sm-1  pull-right">

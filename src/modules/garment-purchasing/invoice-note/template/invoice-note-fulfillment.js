@@ -9,7 +9,9 @@ export class DeliveryOrderItem {
   }
 
   get product() {
-    return `${this.data.product.Code} - ${this.data.product.Name}`;
+
+        return `${this.data.product.Code} - ${this.data.product.Name}`;
+    
   }
 
   get totalPrice() {
