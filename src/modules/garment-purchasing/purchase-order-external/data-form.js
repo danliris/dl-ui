@@ -1,7 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var CurrencyLoader = require('../../../loader/garment-currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 import moment from 'moment';
 
@@ -23,6 +23,7 @@ export class DataForm {
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['T/T AFTER', 'FREE', 'CASH', 'T/T BEFORE'];
+    typePaymentStorageOptions = ['EX MASTER FREE', 'EX MASTER BELI', 'EX MASTER GUDANG'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
     qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
 
@@ -54,6 +55,8 @@ export class DataForm {
             this.data.OrderDate=new Date().toLocaleDateString();
         }
 
+        
+        
         if (this.data.Category) {
             if (this.data.Category === "FABRIC") {
                 this.isFabric = true;
@@ -74,10 +77,10 @@ export class DataForm {
         if (this.data.useVat) {
             this.options.isUseVat = true;
         }
-        if (this.data.paymentMethod === "CMT") {
+        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
         }
-        else if (this.data.paymentMethod === "FREE FROM BUYER") {
+        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
         }
         else {
@@ -95,6 +98,7 @@ export class DataForm {
         } else {
             this.options.kurs = { Rate: 1 };
         }
+        
     }
 
     @computedFrom("data.Id")
@@ -126,8 +130,21 @@ export class DataForm {
             return false
     }
 
+    @computedFrom("data.SupplierId")
+    get supplierIsStorage() {
+        if (this.data.Supplier) {
+            if (this.data.Supplier.Name.toLowerCase()==="gudang")
+                return true
+            else
+                return false
+        }
+        else
+            return false
+    }
+
     selectedSupplierChanged(newValue) {
         var _selectedSupplier = newValue;
+        console.log(newValue)
         if (_selectedSupplier.Id) {
             this.data.Supplier = _selectedSupplier;
             this.data.Supplier.Import=_selectedSupplier.import;
@@ -154,6 +171,7 @@ export class DataForm {
                 this.data.CurrencyRate = CurrencyRate;
                 //var today=new Date();
                 var kurs = await this.service.getKurs(this.data.Currency.Code, this.data.OrderDate);
+                console.log(kurs);
                 this.kurs=kurs[0];
                 if (Object.getOwnPropertyNames(this.kurs).length <= 0) {
                     alert(`Kurs untuk mata uang ${this.data.Currency.Code} belum ditambahkan.`);
@@ -245,6 +263,7 @@ export class DataForm {
             else {
                 this.options.resetOverBudget = false;
                 this.options.checkOverBudget = true;
+                this.checkOverBudgetAll();
             }
         }
     }
@@ -341,16 +360,16 @@ export class DataForm {
                         Initial:item.RemainingBudget
                     });
 
-                    pr[item.PRNo]=item.RemainingBudget-item.budgetUsed;
+                    pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-item.budgetUsed;
                 }
                 else{
-                    var dup=items.find(a=>a.PRNo==item.PRNo && item.Product.Id==a.Product.Id);
+                    var dup=items.find(a=>a.PRNo==item.PRNo && item.Product.Id==a.Product.Id && a.PO_SerialNumber==item.PO_SerialNumber);
                     if(dup){
-                        item.RemainingBudget=pr[item.PRNo];
-                        pr[item.PRNo]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
+                        item.RemainingBudget=pr[item.PRNo+item.PO_SerialNumber+item.Product.Id];
+                        pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
                     }
                     else{
-                        pr[item.PRNo]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
+                        pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
                         //item.RemainingBudget=pr[item.PRNo];
                     }
 
@@ -388,6 +407,8 @@ export class DataForm {
         this.isItem = true;
     }
 
+
+
     items = {
         columns: [
             "Nomor PR - No. Referensi PR - Article",
@@ -415,25 +436,25 @@ export class DataForm {
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                         a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id]=a.Initial-a.budgetUsed;
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id];
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                         //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
                         //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                     }
                     else{
-                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id);
+                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
                         if(dup){
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id];
-                            remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.budgetUsed;
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id];
+                            a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.budgetUsed;
+                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                         }
                         else{
                             pr.push(a);
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                             a.remainingBudget=a.Initial;
-                            remaining[a.PRNo + a.Product.Id]=a.Initial-a.budgetUsed;
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id];
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                         }
                     }
                     if(a.RemainingBudget<0){
@@ -446,8 +467,8 @@ export class DataForm {
             }
         }
     };
-
-    itemsChanged(e){
+    
+    checkOverBudgetAll(){
         if(this.data.Items){
             
             var pr=[];
@@ -458,25 +479,25 @@ export class DataForm {
                     pr.push(a);
                     //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                     a.remainingBudget=a.Initial;
-                    remaining[a.PRNo + a.Product.Id]=a.Initial-a.budgetUsed;
-                    a.RemainingBudget=remaining[a.PRNo + a.Product.Id];
+                    remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                    a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
                     //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                 }
                 else{
-                    var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id);
+                    var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
                     if(dup){
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=remaining[a.PRNo + a.Product.Id];
-                        remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.budgetUsed;
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id];
+                        a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.budgetUsed;
+                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     }
                     else{
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                         a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id]=a.Initial-a.budgetUsed;
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id];
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     }
                 }
                 if(a.RemainingBudget<0){
@@ -488,6 +509,10 @@ export class DataForm {
                 console.log(a.IsOverBudget);
             }
         }
+    }
+
+    itemsChanged(e){
+        this.checkOverBudgetAll();
     }
 
     

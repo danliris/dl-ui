@@ -45,7 +45,9 @@ export class List {
                 return value ? "YA" : "TIDAK";
             }
         },
-        { field: "approveStatus", title: "Status Approve",sortable:false }
+        { field: "IsApproved", title: "Status Approve" , formatter: function (value, data, index) {
+                return data.approveStatus;}
+        }
     ];
 
     loader = (info) => {

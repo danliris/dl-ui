@@ -129,11 +129,10 @@ export class DataForm {
 
         var item = [];
         for (var data of this.data.Items) {
-
             item.push({
                 poNo: data.PONo,
                 poId: data.POId,
-                prNo: `${this.data.PRNo} - ${this.data.PO_SerialNumber} - ${this.data.Article}` ,
+                prNo: `${data.PRNo} - ${data.PO_SerialNumber} - ${data.Article}` ,
                 prId: data.PRId,
                 prRefNo: data.PO_SerialNumber,
                 roNo: data.RONo,

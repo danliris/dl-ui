@@ -75,6 +75,18 @@
                     read-only.bind="readOnly"
                     items.bind="typePaymentOptions"  
                     change.delegate="paymentTypeChanged($event)"
+                    if.bind="!supplierIsStorage"
+                    options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-dropdown
+                    label="Tipe Pembayaran"
+                    value.bind="data.PaymentType"
+                    error.bind="error.paymentType"
+                    read-only.bind="readOnly"
+                    items.bind="typePaymentStorageOptions"  
+                    change.delegate="paymentTypeChanged($event)"
+                    if.bind="supplierIsStorage"
                     options.bind="controlOptions">
                 </au-dropdown>
         
