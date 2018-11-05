@@ -128,6 +128,7 @@ export class DataForm {
         // this.options.resetOverBudget = false;
 
         var item = [];
+        var totalQty=0;
         for (var data of this.data.Items) {
             item.push({
                 poNo: data.PONo,
@@ -148,13 +149,13 @@ export class DataForm {
                 pricePerDealUnit: Number(data.BudgetPrice).toFixed(4),
                 isOverBudget: data.IsOverBudget,
                 uomConversion: data.SmallUom.Unit,
-                quantityConversion: Number(data.SmallQuantity),
+                quantityConversion: Number(data.SmallQuantity).toFixed(2),
                 conversion: data.Conversion,
                 remark: data.Remark
             });
-            this.total+=data.DefaultQuantity;
+            totalQty+=data.DefaultQuantity;
         }
-
+        this.total=totalQty.toFixed(2);
         this.items = item;
 
 
