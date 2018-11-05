@@ -9,7 +9,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        console.log(info);
+        //console.log(info);
         let endpoint = `${serviceUri}`;
         // let endpoint = `${serviceUri}?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.list(endpoint, info);

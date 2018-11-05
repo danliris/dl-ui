@@ -186,7 +186,7 @@ export class List {
                     
                     return newDatas;
                 });
-            console.log(this.data);
+            //console.log(this.data);
         }
     }
 
