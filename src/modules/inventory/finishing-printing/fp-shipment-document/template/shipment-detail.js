@@ -54,7 +54,7 @@ export class ShipmentDetail {
             this.data.designCode = this.selectedProductionOrder.designCode;
             this.data.designNumber = this.selectedProductionOrder.designNumber;
             this.data.colorType = this.selectedProductionOrder.details[0].colorType;
-
+            debugger
             //get packing receipts by buyer and production order number where stock balance is greater than 0
             if (this.selectedBuyerName && this.selectedProductionOrder) {
 
