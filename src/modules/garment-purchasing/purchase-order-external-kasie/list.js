@@ -61,7 +61,7 @@ export class List {
             //select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
-
+        
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {

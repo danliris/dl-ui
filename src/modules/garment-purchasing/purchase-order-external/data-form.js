@@ -144,7 +144,6 @@ export class DataForm {
 
     selectedSupplierChanged(newValue) {
         var _selectedSupplier = newValue;
-        console.log(newValue)
         if (_selectedSupplier.Id) {
             this.data.Supplier = _selectedSupplier;
             this.data.Supplier.Import=_selectedSupplier.import;
@@ -171,7 +170,6 @@ export class DataForm {
                 this.data.CurrencyRate = CurrencyRate;
                 //var today=new Date();
                 var kurs = await this.service.getKurs(this.data.Currency.Code, this.data.OrderDate);
-                console.log(kurs);
                 this.kurs=kurs[0];
                 if (Object.getOwnPropertyNames(this.kurs).length <= 0) {
                     alert(`Kurs untuk mata uang ${this.data.Currency.Code} belum ditambahkan.`);
