@@ -155,18 +155,29 @@ export class List {
 
                     var newDatas =[];
                     for(var item of result.data){
-                        var newData = {
-                            Date: item.Date ? moment(item.Date).format('DD-MMM-YYYY') : null,
-                            UnitReceiptNoteNo : item.UnitReceiptNoteNo,
-                            BankExpenditureNoteNo : item.BankExpenditureNoteNo,
-                            MemoNo : item.MemoNo,
-                            InvoiceNo : item.InvoiceNo,
-                            DPP : item.DPP ? numeral(item.DPP).format('0,000') : null,
-                            PPN : item.PPN ?  numeral(item.PPN).format('0,000') : null,
-                            Total : item.Total ?  numeral(item.Total).format('0,000') : null,
-                            Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : null,
-                            FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
+                        if(item.Date){
+                            var newData = {
+                                Date: item.Date ? moment(item.Date).format('DD-MMM-YYYY') : null,
+                                UnitReceiptNoteNo : item.UnitReceiptNoteNo,
+                                BankExpenditureNoteNo : item.BankExpenditureNoteNo,
+                                MemoNo : item.MemoNo,
+                                InvoiceNo : item.InvoiceNo,
+                                DPP : item.DPP ? numeral(item.DPP).format('0,000') : 0,
+                                PPN : item.PPN ?  numeral(item.PPN).format('0,000') : 0,
+                                Total : item.Total ?  numeral(item.Total).format('0,000') : 0,
+                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
+                                FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
+                            }
+                        }else{
+                            var newData = {
+                                Date:  null,
+                                InvoiceNo : item.InvoiceNo,
+                                DPP :null,
+                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
+                                FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
+                            }
                         }
+                        
                         newDatas.push(newData);
                     }
                     this.currency = 'IDR';
@@ -174,7 +185,8 @@ export class List {
                     this.mutation = numeral(result.finalBalance).format('0,000');
                     
                     return newDatas;
-                })
+                });
+            console.log(this.data);
         }
     }
 
