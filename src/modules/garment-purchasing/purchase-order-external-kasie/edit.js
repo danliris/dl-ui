@@ -29,7 +29,16 @@ export class Edit {
 
         if(this.data.Supplier){
             this.selectedSupplier=this.data.Supplier;
+            this.data.SupplierId=this.data.Supplier.Id;
+            this.data.Supplier.usevat=this.data.IsUseVat ;
+            if(this.data.IncomeTax){
+                this.data.Supplier.usetax=true;
+            }
+            
         }
+
+        
+    
 
         if(this.data.IncomeTax){
             this.selectedIncomeTax=this.data.IncomeTax;
@@ -47,36 +56,36 @@ export class Edit {
                 for(var item of this.data.Items){
                     var Ipo= listUsedBudget.find(a=>a.Id==item.POId);
                     var po= Ipo.Items[0];
-                    if(!initial[item.PRNo + item.Product.Id]){
-                        initial[item.PRNo + item.Product.Id]=po.RemainingBudget + item.UsedBudget;
+                    if(!initial[item.PRNo + item.Product.Id + item.PO_SerialNumber]){
+                        initial[item.PRNo + item.Product.Id + item.PO_SerialNumber]=po.RemainingBudget + item.UsedBudget;
                     }
                     else{
-                        initial[item.PRNo + item.Product.Id]+= item.UsedBudget;
+                        initial[item.PRNo + item.Product.Id + item.PO_SerialNumber]+= item.UsedBudget;
                     }
+                    console.log(initial)
                 }
                 for(var a of this.data.Items){
                     var filter= a.PRNo + a.Product.Id;
-                    a.Initial=initial[a.PRNo + a.Product.Id];
-                    console.log(a.Initial, a.UsedBudget)
+                    a.Initial=initial[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     if(pr.length==0){
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                         //remaining[a.PRNo + a.Product.Id]=a.Initial;
                         a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.UsedBudget;
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.UsedBudget;
                     }
                     else{
-                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id);
+                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && b.PO_SerialNumber==a.PO_SerialNumber);
                         if(dup){
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id];
-                            remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.UsedBudget;
+                            a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.UsedBudget;
                         }
                         else{
                             pr.push(a);
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                             a.remainingBudget=a.Initial;
-                            remaining[a.PRNo + a.Product.Id]=a.remainingBudget-a.UsedBudget;
+                            remaining[a.PRNo + a.Product.Id+ a.PO_SerialNumber]=a.remainingBudget-a.UsedBudget;
                         }
                     }
                 }

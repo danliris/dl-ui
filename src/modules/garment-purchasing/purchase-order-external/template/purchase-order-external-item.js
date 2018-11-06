@@ -30,6 +30,7 @@ export class PurchaseOrderItem {
     if(this.data.DealUom){
       this.selectedDealUom=this.data.DealUom;
     }
+
     if(!this.data.SmallUom && this.data.Product){
       if(this.data.Product.Id){
         var config = Container.instance.get(Config);
@@ -48,6 +49,8 @@ export class PurchaseOrderItem {
     else{
       this.data.budgetUsed=this.data.UsedBudget;
     }
+    this.data.DefaultQuantity=parseFloat(this.data.DefaultQuantity).toFixed(2);
+    this.data.DealQuantity=parseFloat(this.data.DealQuantity).toFixed(2);
     // if(this.data.Id){
     //   if(this.data.POId){
     //     var config = Container.instance.get(Config);
@@ -116,16 +119,16 @@ export class PurchaseOrderItem {
   }
 
   get quantityConversion() {
-    this.data.SmallQuantity=parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
+    this.data.SmallQuantity=parseFloat(parseFloat(this.data.DealQuantity) * this.data.Conversion).toFixed(2);
     return this.data.SmallQuantity;
   }
 
   conversionChanged(e) {
-    this.data.SmallQuantity = parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
+    this.data.SmallQuantity = parseFloat(parseFloat(this.data.DealQuantity) * this.data.Conversion).toFixed(2);
   }
 
   priceChanged(e) {
-    this.data.budgetUsed=parseFloat(e.srcElement.value)* this.data.DealQuantity * this.kurs.Rate;
+    this.data.budgetUsed=parseFloat(e.srcElement.value)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
     this.checkIsOverBudget();
   }
 
