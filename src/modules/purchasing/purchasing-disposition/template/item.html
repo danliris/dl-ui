@@ -1,0 +1,60 @@
+<template>
+    <tr>
+        <td class="col-sm-3">
+            <au-autocomplete 
+                value.bind="selectedEPO"
+                error.bind="error.Epo"
+                loader.one-time="epoLoader"
+                read-only.bind="readOnly"
+                query.bind="filter"
+                text.bind="epoView">
+            </au-autocomplete>
+        </td>
+        <td class="col-sm-2">
+            <au-textbox 
+                value.bind="data.Unit"
+                show.bind="selectedEPO"
+                read-only="true">
+            </au-textbox>
+        </td>
+        <td class="col-sm-2">
+            <au-checkbox 
+                value.bind="data.IsUseVat"
+                show.bind="selectedEPO"
+                read-only="true">
+            </au-checkbox>
+        </td>
+        <td class="col-sm-2">
+            <au-checkbox 
+                value.bind="data.IsUseIncomeTax"
+                show.bind="selectedEPO"
+                read-only="true">
+            </au-checkbox>
+        </td>
+        <td class="col-sm-2">
+            <au-textbox 
+                value.bind="incomeTax"
+                show.bind="selectedEPO"
+                read-only="true">
+            </au-textbox>
+        </td>
+        <td class="col-sm-1">
+            <button class="btn btn-info" click.delegate="toggle()">i</button> 
+            <button class="btn btn-danger" click.delegate="onremove(data)" if.bind="!readOnly">-</button>
+        </td>
+    </tr>
+    <tr show.bind="isShowing">
+        <td colspan="2">
+            <au-collection
+                items.bind="data.ExternalTransferOrderDetails" 
+                errors.bind="error.ExternalTransferOrderDetails"
+                columns.bind="columns"
+                read-only.bind="readOnly"
+                remove.bind="onRemove"
+                options.bind="options"
+                item-template="modules/int-purchasing/external-transfer-order/template/external-transfer-order-detail"
+                header-template="modules/purchasing/purchasing-disposition/template/detail-header">
+            </au-collection>
+        </td>  
+    </tr>
+</template>

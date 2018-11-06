@@ -1,0 +1,133 @@
+<template>
+    <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
+        </div>
+
+        <au-textbox 
+            label="No" 
+            value.bind="data.no" 
+            error.bind="error.no" 
+            read-only.bind="true"
+            if.bind="(readOnly || isEdit)"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete 
+            value.bind="selectedSupplier" 
+            error.bind="error.Supplier"
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            text.bind = "supplierView"
+            placeholder="cari supplier" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox
+            value.bind="data.Bank"
+            error.bind="error.Bank"
+            placeholder="bank"
+            label="Bank" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.ConfirmationOrderNo"
+            error.bind="error.ConfirmationOrderNo"
+            placeholder="no order confirmation"
+            label="No Order Confirmation" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.InvoiceNo"
+            error.bind="error.InvoiceNo"
+            label="No Invoice" 
+            placeholder="no invoice"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.PaymentMethod"
+            error.bind="error.PaymentMethod"
+            label="Term Pembayaran" 
+            placeholder="term pembayaran"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Tanggal Jatuh Tempo" 
+            value.bind="data.PaymentDueDate" 
+            error.bind="error.PaymentDueDate" 
+            read-only.bind="(readOnly)"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        
+        <au-multiline 
+            label="Perhitungan" 
+            value.bind="data.Calculation"
+            placeholder="perhitungan" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-multiline>
+                
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.Remark"
+            placeholder="tambah keterangan" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <au-textbox
+            value.bind="data.ProformaNo"
+            error.bind="error.ProformaNo"
+            label="No Proforma" 
+            placeholder="no proforma"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            value.bind="data.Investation"
+            error.bind="error.Investation"
+            label="Investasi" 
+            placeholder="investasi"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
+
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
+            columns.bind="itemsColumns" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.one-way="filter"
+            read-only.bind="readOnly"
+            if.bind="selectedSupplier"
+            item-template="modules/purchasing/purchasing-disposition/template/item"
+            >
+        </au-collection>
+  </au-input-form>
+</template>

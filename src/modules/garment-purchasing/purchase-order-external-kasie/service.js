@@ -111,7 +111,7 @@ export class Service extends RestService {
 
 
     cancel(id) {
-        var endpoint = `purchase-orders/externals/cancel/${id}`;
+        var endpoint = `garment-external-purchase-orders/cancel/${id}`;
         return super.put(endpoint);
     }
 
@@ -121,7 +121,7 @@ export class Service extends RestService {
     }
 
     close(id) {
-        var endpoint = `purchase-orders/externals/close/${id}`;
+        var endpoint = `garment-external-purchase-orders/close/${id}`;
         return super.put(endpoint);
     }
 

@@ -128,34 +128,34 @@ export class DataForm {
         // this.options.resetOverBudget = false;
 
         var item = [];
+        var totalQty=0;
         for (var data of this.data.Items) {
-
             item.push({
                 poNo: data.PONo,
                 poId: data.POId,
-                prNo: `${this.data.PRNo} - ${this.data.PO_SerialNumber} - ${this.data.Article}` ,
+                prNo: `${data.PRNo} - ${data.PO_SerialNumber} - ${data.Article}` ,
                 prId: data.PRId,
                 prRefNo: data.PO_SerialNumber,
                 roNo: data.RONo,
                 artikel: data.artikel,
                 productId: data.Product.Id,
                 product: data.Product,
-                defaultQuantity: Number(data.DefaultQuantity),
+                defaultQuantity: Number(data.DefaultQuantity).toFixed(2),
                 defaultUom: data.DefaultUom,
-                dealQuantity: Number(data.DealQuantity),
+                dealQuantity: Number(data.DealQuantity).toFixed(2),
                 dealUom: data.DealUom,
-                budgetPrice: Number(data.BudgetPrice),
-                priceBeforeTax: Number(data.BudgetPrice),
-                pricePerDealUnit: Number(data.BudgetPrice),
+                budgetPrice: Number(data.BudgetPrice).toFixed(4),
+                priceBeforeTax: Number(data.BudgetPrice).toFixed(4),
+                pricePerDealUnit: Number(data.BudgetPrice).toFixed(4),
                 isOverBudget: data.IsOverBudget,
                 uomConversion: data.SmallUom.Unit,
-                quantityConversion: Number(data.SmallQuantity),
+                quantityConversion: Number(data.SmallQuantity).toFixed(2),
                 conversion: data.Conversion,
                 remark: data.Remark
             });
-            this.total+=data.DefaultQuantity;
+            totalQty+=data.DefaultQuantity;
         }
-
+        this.total=totalQty.toFixed(2);
         this.items = item;
 
 
