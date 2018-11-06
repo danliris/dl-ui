@@ -24,7 +24,7 @@ export class List {
         },
         { field: "BuyerName", title: "Buyer" },
         { field: "Items.ProductName", title: "Nama Barang" },
-        { field: "Items.Quantity", title: "Jumlah" },
+        { field: "Items.Quantity", title: "Jumlah", formatter: function (value) { return value.toFixed(2) } },
         { field: "Items.UomUnit", title: "Satuan" },
 
         { field: "CreatedBy", title: "Staff Pembelian" },

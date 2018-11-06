@@ -1,7 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 import moment from 'moment';
 
@@ -23,6 +23,7 @@ export class DataForm {
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typePaymentOptions = ['T/T AFTER', 'FREE', 'CASH', 'T/T BEFORE'];
+    typePaymentStorageOptions = ['EX MASTER FREE', 'EX MASTER BELI', 'EX MASTER GUDANG'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
     qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
 
@@ -49,11 +50,13 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.isItem = false;
-
+        
         if(!this.data.OrderDate){
             this.data.OrderDate=new Date().toLocaleDateString();
         }
 
+        
+        
         if (this.data.Category) {
             if (this.data.Category === "FABRIC") {
                 this.isFabric = true;
@@ -74,10 +77,10 @@ export class DataForm {
         if (this.data.useVat) {
             this.options.isUseVat = true;
         }
-        if (this.data.paymentMethod === "CMT") {
+        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
         }
-        else if (this.data.paymentMethod === "FREE FROM BUYER") {
+        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
         }
         else {
@@ -95,6 +98,7 @@ export class DataForm {
         } else {
             this.options.kurs = { Rate: 1 };
         }
+        
     }
 
     @computedFrom("data.Id")
@@ -126,10 +130,21 @@ export class DataForm {
             return false
     }
 
+    @computedFrom("data.SupplierId")
+    get supplierIsStorage() {
+        if (this.data.Supplier) {
+            if (this.data.Supplier.Name.toLowerCase()==="gudang")
+                return true
+            else
+                return false
+        }
+        else
+            return false
+    }
+
     selectedSupplierChanged(newValue) {
         var _selectedSupplier = newValue;
         if (_selectedSupplier.Id) {
-            console.log(_selectedSupplier);
             this.data.Supplier = _selectedSupplier;
             this.data.Supplier.Import=_selectedSupplier.import;
             this.data.Supplier.Code=_selectedSupplier.code;
@@ -148,8 +163,10 @@ export class DataForm {
         var _selectedCurrency = newValue;
         if (_selectedCurrency) {
             if (_selectedCurrency.Id) {
-                var CurrencyRate = parseInt(_selectedCurrency.Rate ? _selectedCurrency.Rate : 1, 10);
                 this.data.Currency = _selectedCurrency;
+                this.data.Currency.Rate=_selectedCurrency.rate?_selectedCurrency.rate:_selectedCurrency.Rate;
+                var CurrencyRate = parseInt(this.data.Currency.Rate ? this.data.Currency.Rate : 1, 10);
+                this.data.Currency.Code=_selectedCurrency.Code? _selectedCurrency.Code:_selectedCurrency.code;
                 this.data.CurrencyRate = CurrencyRate;
                 //var today=new Date();
                 var kurs = await this.service.getKurs(this.data.Currency.Code, this.data.OrderDate);
@@ -160,7 +177,6 @@ export class DataForm {
                 }
                 this.options.kurs = this.kurs;
 
-                console.log(this.options.kurs);
             }
             else {
                 this.data.Currency = null;
@@ -200,13 +216,13 @@ export class DataForm {
     paymentMethodChanged(e) {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
-            this.data.paymentMethod = selectedPayment;
+            this.data.PaymentMethod = selectedPayment;
         }
-        if (this.data.paymentMethod === "CMT") {
+        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
-        else if (this.data.paymentMethod === "FREE FROM BUYER") {
+        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
@@ -232,6 +248,20 @@ export class DataForm {
             this.data.PaymentType = selectedPayment;
             if (this.data.PaymentType == "CASH" || this.data.PaymentType == "T/T BEFORE") {
                 this.data.PaymentDueDays = 0;
+            }
+
+            if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
+                this.options.checkOverBudget = false;
+                this.resetIsOverBudget();
+            }
+            else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
+                this.options.checkOverBudget = false;
+                this.resetIsOverBudget();
+            }
+            else {
+                this.options.resetOverBudget = false;
+                this.options.checkOverBudget = true;
+                this.checkOverBudgetAll();
             }
         }
     }
@@ -280,7 +310,8 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.Code
+        var code=currency.code? currency.code : currency.Code;
+        return code;
     }
 
     incomeTaxView = (incomeTax) => {
@@ -298,7 +329,6 @@ export class DataForm {
         for(var data of result.data){
             for(var item of data.Items){
                 if(pr.length==0){
-                    pr[item.PRNo]=item.RemainingBudget;
                    // item.RemainingBudget=pr[item.PRNo];
 
                     items.push({
@@ -311,7 +341,7 @@ export class DataForm {
                         RONo: data.RONo,
                         Article: data.Article,
                         Product: item.Product,
-                        DefaultQuantity: Number(item.Quantity),
+                        DefaultQuantity: parseFloat(item.Quantity).toFixed(2),
                         DefaultUom: item.Uom,
                         DealQuantity: Number(item.Quantity),
                         DealUom: item.Uom,
@@ -327,15 +357,17 @@ export class DataForm {
                         Remark: item.ProductRemark,
                         Initial:item.RemainingBudget
                     });
+
+                    pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-item.budgetUsed;
                 }
                 else{
-                    var dup=items.find(a=>a.PRNo==item.PRNo && item.Product.Id==a.Product.Id);
+                    var dup=items.find(a=>a.PRNo==item.PRNo && item.Product.Id==a.Product.Id && a.PO_SerialNumber==item.PO_SerialNumber);
                     if(dup){
-                        item.RemainingBudget=pr[item.PRNo]-(item.BudgetPrice*item.Quantity);
-                        pr[item.PRNo]=item.RemainingBudget;
+                        item.RemainingBudget=pr[item.PRNo+item.PO_SerialNumber+item.Product.Id];
+                        pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
                     }
                     else{
-                        pr[item.PRNo]=item.RemainingBudget;
+                        pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
                         //item.RemainingBudget=pr[item.PRNo];
                     }
 
@@ -348,7 +380,7 @@ export class DataForm {
                         RONo: data.RONo,
                         Article: data.Article,
                         Product: item.Product,
-                        DefaultQuantity: Number(item.Quantity),
+                        DefaultQuantity: parseFloat(item.Quantity).toFixed(2),
                         DefaultUom: item.Uom,
                         DealQuantity: Number(item.Quantity),
                         DealUom: item.Uom,
@@ -373,6 +405,8 @@ export class DataForm {
         this.isItem = true;
     }
 
+
+
     items = {
         columns: [
             "Nomor PR - No. Referensi PR - Article",
@@ -396,29 +430,32 @@ export class DataForm {
                 var remaining=[];
                 var items=[];
                 for(var a of this.items){
-                    console.log(a.Initial);
                     if(pr.length==0){
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        remaining[a.PRNo + a.Product.Id]=a.Initial;
+                        a.remainingBudget=a.Initial;
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                         //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                        remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
+                        //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                     }
                     else{
-                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id);
+                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
                         if(dup){
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                            remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
+                            a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.budgetUsed;
+                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                         }
                         else{
                             pr.push(a);
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                            remaining[a.PRNo + a.Product.Id]=a.Initial;
+                            a.remainingBudget=a.Initial;
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                         }
                     }
-                    if(a.remainingBudget<0){
+                    if(a.RemainingBudget<0){
                         a.IsOverBudget=true;
                     }
                     else{
@@ -428,44 +465,52 @@ export class DataForm {
             }
         }
     };
-
-    itemsChanged(e){
+    
+    checkOverBudgetAll(){
         if(this.data.Items){
+            
             var pr=[];
             var remaining=[];
             var items=[];
             for(var a of this.data.Items){
-                console.log(a);
-                console.log(a.remainingBudget)
                 if(pr.length==0){
                     pr.push(a);
                     //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                    remaining[a.PRNo + a.Product.Id]=a.Initial;
-                    a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                    remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
+                    a.remainingBudget=a.Initial;
+                    remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                    a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                    //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
+                    //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                 }
                 else{
-                    var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id);
+                    var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
                     if(dup){
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                        remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
+                        a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.budgetUsed;
+                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     }
                     else{
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                        remaining[a.PRNo + a.Product.Id]=a.Initial;
+                        a.remainingBudget=a.Initial;
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
+                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                     }
                 }
-                if(a.remainingBudget<0){
+                if(a.RemainingBudget<0){
                     a.IsOverBudget=true;
                 }
                 else{
                     a.IsOverBudget=false;
                 }
+                console.log(a.IsOverBudget);
             }
         }
+    }
+
+    itemsChanged(e){
+        this.checkOverBudgetAll();
     }
 
     

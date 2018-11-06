@@ -16,7 +16,8 @@
             <au-numeric 
                 value.bind="data.DefaultQuantity"
                 read-only.bind="true" 
-                options.bind="controlOptions">
+                options.bind="controlOptions"
+                format="0,000.00">
             </au-numeric>
         </td>
         <td>
@@ -31,6 +32,7 @@
                 value.bind="data.DealQuantity"
                 error.bind="error.DealQuantity"
                 change.delegate="qtyChanged($event)"
+                format="0.00"
                 read-only.bind="options.readOnly"
                 options.bind="controlOptions">
             </au-numeric>
@@ -52,7 +54,8 @@
             <au-numeric 
                 value.bind="quantityConversion"
                 read-only.bind="true" 
-                options.bind="controlOptions">
+                options.bind="controlOptions"
+                format="0.00">
             </au-numeric>
         </td>
         <td>
@@ -63,13 +66,13 @@
             </au-textbox>                    
         </td>
         <td>
-            <au-numeric 
+            <numeric 
                 value.bind="data.Conversion"
                 error.bind="error.conversion"
                 read-only.bind="options.readOnly"
                 change.delegate="conversionChanged($event)"
                 options.bind="controlOptions">
-            </au-numeric>
+            </numeric>
         </td>
         <td>
             <au-numeric 

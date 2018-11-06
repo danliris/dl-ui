@@ -75,6 +75,18 @@
                     read-only.bind="readOnly"
                     items.bind="typePaymentOptions"  
                     change.delegate="paymentTypeChanged($event)"
+                    if.bind="!supplierIsStorage"
+                    options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-dropdown
+                    label="Tipe Pembayaran"
+                    value.bind="data.PaymentType"
+                    error.bind="error.paymentType"
+                    read-only.bind="readOnly"
+                    items.bind="typePaymentStorageOptions"  
+                    change.delegate="paymentTypeChanged($event)"
+                    if.bind="supplierIsStorage"
                     options.bind="controlOptions">
                 </au-dropdown>
         
@@ -103,21 +115,21 @@
                 <numeric 
                     label="Tempo Pembayaran" 
                     value.bind="data.PaymentDueDays" 
-                    error.bind="error.paymentDueDays" 
+                    error.bind="error.PaymentDueDays" 
                     format="0"
                     read-only.bind="true"
                     post-fix="hari" 
-                    if.bind="data.paymentType=='CASH' || data.paymentType=='T/T BEFORE'">
+                    if.bind="data.PaymentType=='CASH' || data.PaymentType=='T/T BEFORE'">
                 </numeric>
         
                 <numeric
                     label="Tempo Pembayaran" 
                     value.bind="data.PaymentDueDays" 
-                    error.bind="error.paymentDueDays" 
+                    error.bind="error.PaymentDueDays" 
                     format="0"
                     read-only.bind="readOnly"
                     post-fix="hari" 
-                    if.bind="data.paymentType =='T/T AFTER'">
+                    if.bind="data.PaymentType =='T/T AFTER'">
                 </numeric>
         
                 <au-autocomplete 
@@ -128,7 +140,7 @@
                     text.bind = "currencyView"
                     placeholder="cari mata uang" 
                     key="code" 
-                    read-only.bind="readOnly"
+                    read-only.bind="(readOnly ||isEdit) "
                     options.bind="controlOptions">
                 </au-autocomplete>
                 

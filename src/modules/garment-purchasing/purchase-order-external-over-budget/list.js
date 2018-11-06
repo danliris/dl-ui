@@ -32,8 +32,10 @@ export class List {
             }
         },
         { field: "Supplier.Name", title: "Nama Supplier" },
-        { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
-        { field: "approveStatus", title: "Status Approve" }
+        { field: "purchaseRequestNo", title: "Nomor Purchase Request" ,sortable:false},
+        { field: "IsApproved", title: "Status Approve" , formatter: function (value, data, index) {
+                return data.approveStatus;}
+        }
     ];
 
     loader = (info) => {
@@ -41,7 +43,7 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
-            filter: JSON.stringify({ "isOverBudget": true, "isApproved": false }),
+            filter: JSON.stringify({ "IsOverBudget": true, "IsPosted": true }),
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
@@ -59,7 +61,7 @@ export class List {
                         return index == self.indexOf(elem);
                     })
                     _data.purchaseRequestNo = `<ul>${prNo.join()}</ul>`;
-                    if (_data.isOverBudget) {
+                    if (_data.IsOverBudget) {
                         if (_data.IsApproved) {
                             _data.approveStatus = "SUDAH";
                         } else {

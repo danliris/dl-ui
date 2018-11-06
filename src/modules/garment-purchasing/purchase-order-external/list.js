@@ -34,18 +34,20 @@ export class List {
         { field: "Supplier.Name", title: "Nama Supplier" },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
         {
-            field: "IsPosted", title: "Status Post",
+            field: "IsPosted", title: "Status Post",sortable:false,
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
         },
         {
-            field: "IsOverBudget", title: "Over Budget?",
+            field: "IsOverBudget", title: "Over Budget?",sortable:false,
             formatter: function (value, row, index) {
                 return value ? "YA" : "TIDAK";
             }
         },
-        { field: "approveStatus", title: "Status Approve" }
+        { field: "IsApproved", title: "Status Approve" , formatter: function (value, data, index) {
+                return data.approveStatus;}
+        }
     ];
 
     loader = (info) => {
@@ -59,7 +61,7 @@ export class List {
             //select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
-
+        
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {
