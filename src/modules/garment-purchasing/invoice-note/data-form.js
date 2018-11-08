@@ -12,7 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable supplier;
     @bindable currency;
-    @bindable vat;
+    @bindable incomeTax;
     @bindable options = { readOnly: false };
 
     controlOptions = {
@@ -54,6 +54,7 @@ export class DataForm {
     }
 
     bind(context) {
+        console.log(context.data);
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -61,6 +62,7 @@ export class DataForm {
         if(this.data.Id)
         {
             this.readO=true;
+            this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
         }
     }
     
@@ -143,18 +145,24 @@ export class DataForm {
         this.resetErrorItems();
     }
 
-    vatChanged(newValue) {
-        var selectedVat = newValue;
-        if (selectedVat) {
-            if (selectedVat.Id) {
-                this.data.vat = selectedVat;
+    incomeTaxChanged(newValue) {
+        console.log(newValue);
+        var selectedIncomeTax = newValue;
+        if (selectedIncomeTax) {
+            if (selectedIncomeTax.Id) {
+                this.data.vat = selectedIncomeTax;
+                this.data.incomeTax = selectedIncomeTax;
+                this.data.incomeTaxId = selectedIncomeTax.Id;
+                this.data.incomeTaxRate=selectedIncomeTax.rate;
+                this.data.incomeTaxName=selectedIncomeTax.name;
+                this.options.incomeTaxId = selectedIncomeTax.Id;
             }
             else {
-                this.data.vat = null;
+                this.data.incomeTax = null;
             }
         }
         else {
-            this.data.vat = null;
+            this.data.incomeTax = null;
         }
         this.resetErrorItems();
     }
@@ -203,11 +211,13 @@ export class DataForm {
         }
     }
 
-    useIncomeTaxChanged(e) {
+    useVatChanged(e) {
         var selectedUseVat = e.srcElement.checked || false;
         this.data.vatNo = "";
         this.data.vatDate = "";
         this.context.vatVM.editorValue = "";
+        
+        this.options.useVat=selectedUseVat;
         if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
         }
@@ -216,11 +226,12 @@ export class DataForm {
         }
     }
 
-    useVatChanged(e) {
+    useIncomeTaxChanged(e) {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = "";
 
+        this.options.useIncomeTax=selectedUseIncomeTax;
         if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
         }
@@ -228,13 +239,7 @@ export class DataForm {
             this.context.error.useIncomeTax = "";
         }
     }
-
-    // onClickAllDataSource($event) {
-    //     for (var item of this.data.items) {
-    //         item.check = $event.detail.target.checked;
-    //     }
-    // }
-
+      
     async supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
@@ -242,10 +247,9 @@ export class DataForm {
                 this.data.supplier = selectedSupplier;
                 this.data.supplierId = selectedSupplier.Id;
                 this.options.supplierCode = selectedSupplier.code;
-                this.data.useVat=selectedSupplier.usevat;
-                this.data.useIncomeTax=selectedSupplier.usetax;
-                this.data.incomeTaxName=selectedSupplier.IncomeTaxes.name;
-                this.data.incomeTaxRate=selectedSupplier.IncomeTaxes.rate;
+                this.options.useVat=selectedSupplier.IncomeTaxes.usevat;
+                this.options.useIncomeTax=selectedSupplier.IncomeTaxes.usetax;
+                
             }
             if (oldValue) {
                 this.data.supplier = {};

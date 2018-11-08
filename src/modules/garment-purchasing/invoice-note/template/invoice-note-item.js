@@ -53,8 +53,7 @@ export class DeliveryOrderItem {
 
   deliveryOrderChanged(newValue, oldValue) {
     this.data.details = [];
-    var cur="";
-    console.log(this.data);
+   
     if (this.deliveryOrder && this.deliveryOrder.Id) {
      for(var doItem of newValue.items){
        for(var doFulfillment of doItem.fulfillments)
@@ -63,36 +62,32 @@ export class DeliveryOrderItem {
             ePOId: doItem.purchaseOrderExternal.Id,
             ePONo: doItem.purchaseOrderExternal.no,
             pOId: doFulfillment.pOId,
-            //pONo: doItem.pONo,
             pRItemId: doFulfillment.pRItemId,
             pRNo: doFulfillment.pRNo,
             pOSerialNumber: doFulfillment.poSerialNumber,
             roNo: doFulfillment.rONo,
             product: doFulfillment.product,
-            //purchaseOrderQuantity: doFulfillment.doQuantity,
             uoms: doFulfillment.smallUom,
             doQuantity: doFulfillment.doQuantity,
-            pricePerDealUnit: doFulfillment.PricePerDealUnit,
+            pricePerDealUnit: doFulfillment.pricePerDealUnit,
+            paymentDueDays: doItem.paymentDueDays,
             paymentMethod: doItem.paymentMethod,
             paymentType: doItem.paymentType,
-            paymentDueDays: doItem.paymentDueDays,
             useVat:doItem.useVat,
             useIncomeTax: doItem.useIncomeTax,
-            
+            dODetailDOId:doFulfillment.Id
           };
           
             this.data.details.push(details);
         }
  
        
-          cur= doItem.currency.Code;
+         // cur= doItem.currency.Code;
       
       
       }
         // fulfillment = [].concat.apply([], fulfillment);
         // return fulfillment;
-     
-     
      //items = [].concat.apply([], items);
 
       // this.data.deliveryOrder = this.deliveryOrder;
@@ -103,7 +98,7 @@ export class DeliveryOrderItem {
       //this.data.items = items;
       this.data.totalAmount=this.deliveryOrder.totalAmount;
       this.data.deliveryOrder=this.deliveryOrder;
-      this.data.currency=cur;
+      //this.data.currency=cur;
       // if (oldValue) {
       //   // this.deliveryOrder = {};
       //   this.data.deliveryOrderDate = undefined;
@@ -132,10 +127,29 @@ export class DeliveryOrderItem {
     return`${dOrder.doNo}`
   }
   get filter() {
-    if (this.options.supplierCode) {
-           return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false}
-    }
-  }
+    
+    if (this.options.supplierCode && this.options.useIncomeTax == false && this.options.useVat== false) {
+     
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode };
+         
+         }
+         else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat== false)
+         { 
+        
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode,"useIncomeTax":this.options.useIncomeTax }
+         }
+         else if(this.options.supplierCode && this.options.useVat && this.options.useIncomeTax ==false)
+         {
+     
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId }
+         }
+         else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat)
+         {
+         
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId,"useIncomeTax":this.options.useIncomeTax  }
+
+         }
+        }
 
   toggle() {
     if (!this.isShowing)
