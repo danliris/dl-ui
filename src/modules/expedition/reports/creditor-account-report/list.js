@@ -30,7 +30,7 @@ export class List {
         this.error = {};
         this.data = [];
         this.isEmpty = true;
-        this.currency = 'IDR';
+        this.currency = '';
         this.mutation = 0;
         this.closingBalance = 0;
         this.itemMonths = [
@@ -78,73 +78,7 @@ export class List {
                 month: this.info.month.value,
                 year: this.info.year,
             }
-            // this.isEmpty = false;
-            // this.data = [{
-            //     Date : '1-Oct-2018',
-            //     UnitReceiptNoteNo : '1B-111',
-            //     BankExpenditureNoteNo : '',
-            //     MemoNo : '',
-            //     InvoiceNo : 'Inv001',
-            //     DPP : '50000',
-            //     PPN : '5000',
-            //     Total : '55000',
-            //     Mutation : '55000',
-            //     FinalBalance : ''
-            // },
-            // {
-            //     Date : '5-Oct-2018',
-            //     UnitReceiptNoteNo : '',
-            //     BankExpenditureNoteNo : '18A1',
-            //     MemoNo : '',
-            //     InvoiceNo : 'Inv001',
-            //     DPP : '40000',
-            //     PPN : '4000',
-            //     Total : '44000',
-            //     Mutation : '-44000',
-            //     FinalBalance : ''
-            // },
-            // {
-            //     InvoiceHeader : '',
-            //     InvoiceNo : 'Inv001',
-            //     InvoiceValue:'',
-            //     Mutation : '11000',
-            //     FinalBalance : '11000'
-            // },
-            // {
-            //     Date : '2-Oct-2018',
-            //     UnitReceiptNoteNo : '2B-111',
-            //     BankExpenditureNoteNo : '',
-            //     MemoNo : '',
-            //     InvoiceNo : 'Inv002',
-            //     DPP : '50000',
-            //     PPN : '5000',
-            //     Total : '55000',
-            //     Mutation : '55000',
-            //     FinalBalance : ''
-            // },
-            // {
-            //     Date : '6-Oct-2018',
-            //     UnitReceiptNoteNo : '',
-            //     BankExpenditureNoteNo : '18A2',
-            //     MemoNo : '',
-            //     InvoiceNo : 'Inv002',
-            //     DPP : '40000',
-            //     PPN : '4000',
-            //     Total : '44000',
-            //     Mutation : '-44000',
-            //     FinalBalance : ''
-            // },
-            // {
-            //     InvoiceHeader : '',
-            //     InvoiceNo : 'Inv002',
-            //     InvoiceValue:'',
-            //     Mutation : '11000',
-            //     FinalBalance : '11000'
-            // }];
-
-            // this.closingBalance = '22000';
-            // this.mutation = '22000';
-            // this.currency = 'IDR';
+            
             this.data = await this.service.search(params)
                 .then((result) => {
                     if(result.data.length == 0)
@@ -152,7 +86,6 @@ export class List {
                     else
                         this.isEmpty = false;
                     
-
                     var newDatas =[];
                     for(var item of result.data){
                         if(item.Date){
@@ -177,10 +110,9 @@ export class List {
                                 FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
                             }
                         }
-                        
+                        this.currency = item.Currency;
                         newDatas.push(newData);
                     }
-                    this.currency = 'IDR';
                     this.closingBalance = numeral(result.finalBalance).format('0,000');
                     this.mutation = numeral(result.finalBalance).format('0,000');
                     
@@ -223,7 +155,7 @@ export class List {
         // this.flag = false;
         this.info.supplier = undefined;
         this.info.supplierName = "";
-        this.currency = 'IDR';
+        this.currency = '';
         this.closingBalance = 0;
         this.mutation = 0;
         this.data = [];
