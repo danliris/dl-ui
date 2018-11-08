@@ -6,6 +6,7 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
+    console.log(this.data);
   }
 
   get product() {

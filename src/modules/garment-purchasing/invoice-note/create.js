@@ -63,6 +63,7 @@ export class Create {
         var errors = []
         
         for (var data of valid.items) {
+            console.log(data);
             var error = {};
             var tempValid;
 
