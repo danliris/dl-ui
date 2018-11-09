@@ -45,7 +45,9 @@ export class List {
                 return value ? "YA" : "TIDAK";
             }
         },
-        { field: "approveStatus", title: "Status Approve",sortable:false }
+        { field: "IsApproved", title: "Status Approve" , formatter: function (value, data, index) {
+                return data.approveStatus;}
+        }
     ];
 
     loader = (info) => {
@@ -59,7 +61,7 @@ export class List {
             //select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
-
+        
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {

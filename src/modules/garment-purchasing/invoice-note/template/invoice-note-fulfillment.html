@@ -2,7 +2,7 @@
     <tr>
         <td>
             <au-textbox 
-                value.bind="data.purchaseOrderExternalNo" 
+                value.bind="data.ePONo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
@@ -16,14 +16,14 @@
         </td>
         <td>
             <au-textbox 
-                value.bind="data.purchaseRequestNo" 
+                value.bind="data.pRNo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.purchaseRequestRefNo" 
+                value.bind="data.pOSerialNumber" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
@@ -37,15 +37,15 @@
 		</td>
         <td>
             <au-numeric 
-                value.bind="data.deliveredQuantity" 
-                error.bind="error.deliveredQuantity" 
-                read-only.bind="options.readOnly"
+                value.bind="data.doQuantity" 
+                error.bind="error.doQuantity" 
+                read-only.bind="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.purchaseOrderUom.unit" 
+                value.bind="data.uoms.Unit" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
