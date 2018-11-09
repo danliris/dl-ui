@@ -14,22 +14,22 @@ export class List {
         {
             field: 'StartBalance', title: 'Saldo Awal', formatter: function (value, data, index) {
                 return value ? numeral(value).format('0,000') : '0';
-            },
+            }
         },
         {
             field: 'Purchase', title: 'Pembelian', formatter: function (value, data, index) {
                 return value ? numeral(value).format('0,000') : '0';
-            },
+            }
         },
         {
             field: 'Payment', title: 'Pembayaran', formatter: function (value, data, index) {
                 return value ? numeral(value).format('0,000') : '0';
-            },
+            }
         },
         {
             field: 'FinalBalance', title: 'Saldo Akhir', formatter: function (value, data, index) {
                 return value ? numeral(value).format('0,000') : '0';
-            },
+            }
         }
     ];
 
