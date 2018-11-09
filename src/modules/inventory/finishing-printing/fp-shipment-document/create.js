@@ -15,12 +15,10 @@ export class Create {
         this.service = service;
     }
 
-    activate() {
-        this.isNewStructure = true;
-    }
+    activate() { }
 
     bind() {
-        this.data = { items: [] };
+        this.data = {};
         this.error = {};
     }
 
@@ -35,13 +33,14 @@ export class Create {
     }
 
     save(event) {
-        this.service.create(this.data)
-            .then((result) => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-            })
-            .catch((e) => {
-                this.error = e;
-            })
+        console.log(this.data);
+        // this.service.create(this.data)
+        //     .then((result) => {
+        //         alert("Data berhasil dibuat");
+        //         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+        //     })
+        //     .catch((e) => {
+        //         this.error = e;
+        //     })
     }
 }
