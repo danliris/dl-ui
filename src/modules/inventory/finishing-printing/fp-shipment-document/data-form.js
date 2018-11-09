@@ -59,11 +59,10 @@ export class DataForm {
     @bindable detailOptions = {};
     @bindable selectedBuyer;
     selectedBuyerChanged(newValue, oldValue) {
-        this.selectedBuyer = newValue;
+        this.data.Buyer = newValue;
         if (newValue) {
-            this.data.Buyer = newValue;
-            this.detailOptions.selectedBuyerName = this.selectedBuyer.Name;
-            this.detailOptions.selectedBuyerId = this.selectedBuyer.Id;
+            this.detailOptions.selectedBuyerName = newValue.Name;
+            this.detailOptions.selectedBuyerId = newValue.Id;
             this.data.Details = [];
             // if (!this.context.buyerReadOnly) {
             //     this.data.details = [];
@@ -78,7 +77,7 @@ export class DataForm {
 
     @bindable selectedStorage;
     selectedStorageChanged(newValue, oldValue) {
-        this.selectedStorage = newValue;
+        this.data.Storage = newValue;
         if (newValue) {
             this.detailOptions.selectedStorageCode = newValue.code;
             this.data.Storage = newValue;

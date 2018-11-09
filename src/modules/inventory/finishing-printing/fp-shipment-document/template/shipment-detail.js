@@ -52,6 +52,14 @@ export class ShipmentDetail {
         if (newVal) {
             this.data.ProductionOrder = newVal;
 
+            this.data.ProductionOrderColorType = newVal.Details && newVal.Details.length > 0 ? newVal.Details[0].Color : "";
+            this.data.ProductionOrderDesignCode = newVal.DesignMotive ? newVal.DesignMotive.Code : "";
+            this.data.ProductionOrderDesignNumber = newVal.DesignMotive ? newVal.DesignMotive.Name : "";
+            this.data.ProductionOrderId = newVal.Id;
+            this.data.ProductionOrderNo = newVal.OrderNo;
+            this.data.ProductionOrderType = newVal.OrderType ? newVal.OrderType.Name : "";
+
+
             //get packing receipts by buyer and production order number where stock balance is greater than 0
 
             var packingReceiptFilter = {
@@ -61,7 +69,6 @@ export class ShipmentDetail {
 
             var info = { filter: JSON.stringify(packingReceiptFilter), size: Number.MAX_SAFE_INTEGER };
             var packingReceipts = await this.service.searchPackingReceipts(info);
-            console.log(packingReceipts);
 
             if (packingReceipts.length > 0) {
 
@@ -132,17 +139,16 @@ export class ShipmentDetail {
                 }
                 // this.data.items = items;
             } else {
-                this.data.items = [];
+                this.data.Items = [];
             }
         } else {
-            this.data.selectedProductionOrder = {};
-            this.data.productionOrderId = {};
-            this.data.productionOrderNo = "";
-            this.data.productionOrderType = "";
-            this.data.designCode = "";
-            this.data.designNumber = "";
-            this.data.colorType = "";
-            this.data.items = [];
+            this.data.ProductionOrderColorType = undefined;
+            this.data.ProductionOrderDesignCode = undefined;
+            this.data.ProductionOrderDesignNumber = undefined;
+            this.data.ProductionOrderId = undefined;
+            this.data.ProductionOrderNo = undefined;
+            this.data.ProductionOrderType = undefined;
+            this.data.Items = [];
         }
     }
 
