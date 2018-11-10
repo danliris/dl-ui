@@ -14,7 +14,7 @@
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.pOSerialNumber"
+				value.one-way="data.poSerialNumber"
 				read-only="true">
 			</au-textbox>
 		</td>
@@ -38,7 +38,7 @@
 		</td>
 		<td>
 			<au-datepicker
-				value.bind="data.paymentDueDays"
+				value.bind="data.paymentDueDate"
 				read-only.bind="true">
 			</au-datepicker>
 		</td>
@@ -71,14 +71,14 @@
 		</td>
 		<td>
 			<au-numeric 
-				value.bind="totalAmount" 
+				value.bind="data.priceTotal" 
 				read-only.bind="true" 
 				format="0">
 			</au-numeric>
 		</td>
         <td>
 			<au-textbox
-				value.one-way="status"
+				value.bind="data.status"
 				read-only="true">
 			</au-textbox>
 		</td>

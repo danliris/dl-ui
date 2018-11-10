@@ -27,9 +27,25 @@
             options.bind="auInputOptions">
         </au-multiline>
 
-        <au-collection items.bind="data.items" show.bind="data.supplierId" options.bind="options" columns.bind="invoiceNoteItem.columns"
-            errors.bind="error.items" read-only.bind="readOnly" add.bind="invoiceNoteItem.onAdd" view-model.ref="ItemsCollection"
+        <au-textbox
+            show.bind="error.itemscount"
+            error.bind="error.itemscount"
+            read-only="true">
+        </au-textbox>
+
+        <au-collection items.bind="data.items"
+            show.bind="data.supplierId" 
+            options.bind="options"
+            columns.bind="invoiceNoteItem.columns"
+            errors.bind="error.items" 
+            read-only.bind="readOnly" 
+            add.bind="invoiceNoteItem.onAdd" 
+            view-model.ref="ItemsCollection"
             item-template="modules/garment-purchasing/intern-note/template/intern-note-item">
+        </au-collection>
+
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="invoiceNoteItemReadOnly.columnsReadOnly" show.bind="data.items.length > 0 && readOnly"
+            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/intern-note/template/intern-note-item">
         </au-collection>
     </au-input-form>
 </template>

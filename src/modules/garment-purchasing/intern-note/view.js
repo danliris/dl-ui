@@ -16,8 +16,10 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        //console.log(this.data);
         this.currency = this.data.currency;
         this.supplier = this.data.supplier;
+        //this.isShowing = true;
     }
 
     cancel(event) {
@@ -32,12 +34,5 @@ export class View {
         this.service.delete(this.data).then(result => {
             this.cancel();
         });
-    }
-
-    showDetail(item) {
-        if (item.showDetails)
-            item.showDetails = false;
-        else
-            item.showDetails = true;
     }
 }

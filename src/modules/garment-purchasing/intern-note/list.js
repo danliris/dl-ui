@@ -14,7 +14,7 @@ export class List {
             }
         },
         { field: "supplier.Name", title: "Supplier" },
-        { field: "invoiceNoteNo", title: "List No. Invoice" }
+        { field: "items", title: "List No. Invoice" }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -40,20 +40,29 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["inDate", "inNo", "supplier.Name", "hasUnitReceiptNote", "items.garmentInvoice.invoiceNo"],
+            select: ["inDate", "inNo", "supplier.Name", "items.garmentInvoice.invoiceNo"],
             order: order
         };
 
         return this.service.search(arg)
             .then(result => {
+                var data = {}
+                data.total = result.info.total;
+                data.data = result.data;
+                data.data.forEach(s => {
+                    s.items.toString = function () {
+                        var str = "<ul>";
+                        for (var item of s.items) {
+                            str += `<li>${item.garmentInvoice.invoiceNo}</li>`;
+                        }
+                        str += "</ul>";
+                        return str;
+                    }
+                });
                 for (var _data of result.data) {
-                    var invoiceNo = _data.items.map(function (item) {
-                        return `<li>${items.garmentInvoice.invoiceNo}</li>`;
-                    });
-                    invoiceNo = invoiceNo.filter(function (elem, index, self) {
-                        return index == self.indexOf(elem);
-                    })
-                    _data.invoiceNoteNo = `<ul>${invoiceNo.join()}</ul>`;
+                    _data.INNo = _data.inNo;
+                    _data.INDate = _data.inDate;
+                    _data.SupplierName = _data.supplier.Name;
                 }
                 return {
                     total: result.info.total,
@@ -75,7 +84,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
                 this.service.getPdfById(data._id);
@@ -86,6 +95,7 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
+            //console.log(data);
                 return data.hasUnitReceiptNote;
             default:
                 return true;
