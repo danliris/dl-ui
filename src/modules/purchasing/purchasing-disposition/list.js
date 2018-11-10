@@ -10,15 +10,21 @@ export class List {
     context = ["Rincian", "Cetak PDF"]
 
     columns = [
-        { field: "DivisionName", title: "Divisi" },
-        { field: "SupplierName", title: "Supplier" },
+        { field: "DispositionNo", title: "Nomor Disposisi Pembelian" },
         {
-            field: "date", title: "Tanggal Surat Perintah Bayar", formatter: function (value, data, index) {
+            field: "CreatedUtc", title: "Tanggal Disposisi", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "UPONo", title: "Nomor Surat Perintah Bayar" },
-        { field: "unitReceiptNoteNo", title: "List Nomor Bon Unit-Nomor Surat Jalan", sortable: false }
+        { field: "Supplier.Name", title: "Supplier" },
+        { field: "Currency.Code", title: "Mata Uang"},
+        {
+            field: "PaymentDueDate", title: "Tanggal Jatuh Tempo", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "externalPurchaseOrderNo", title: "Nomor External Purchase Order", sortable: false },
+        
     ];
 
     loader = (info) => {
@@ -29,21 +35,22 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "division.name", "items.unitReceiptNote.no", "items.unitReceiptNote.deliveryOrder.no", "isPosted"],
             order: order
         }
 
         return this.service.search(arg)
             .then(result => {
                 for (var _data of result.data) {
-                    var btuNo = _data.items.map(function (item) {
-                        return `<li>${item.unitReceiptNote.no} - ${item.unitReceiptNote.deliveryOrder.no} </li>`;
+                    
+                    var EPONo = _data.Items.map(function (item) {
+                        return `<li>${item.EPONo}</li>`;
                     });
-                    _data.unitReceiptNoteNo = `<ul>${btuNo.join()}</ul>`;
-                    _data.UPONo = _data.no;
-                    _data.DivisionName = _data.division.name;
-                    _data.SupplierName = _data.supplier.name;
+                    var uniqueArray = EPONo.filter(function(item, pos) {
+                        return EPONo.indexOf(item) == pos;
+                    })
+                    _data.externalPurchaseOrderNo = `<ul>${uniqueArray.join()}</ul>`;
                 }
+                console.log(result.data)
                 return {
                     total: result.info.total,
                     data: result.data
@@ -61,10 +68,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }

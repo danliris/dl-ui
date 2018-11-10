@@ -1,33 +1,48 @@
-import { inject, BindingEngine, bindable } from 'aurelia-framework';
-const UomLoader = require('../../../../loader/uom-loader');
+import { bindable } from 'aurelia-framework'
 
-@inject(BindingEngine)
 export class PurchasingDispositionDetail {
-    @bindable dataDealQuantity;
+    
+  activate(context) {
+    this.context = context;
+    this.data = context.data;
+    this.error = context.error;
+    this.options = context.options;
+    this.readOnly = context.options.readOnly;
 
-    constructor(bindingEngine) {
-        this.bindingEngine = bindingEngine;
+    if(this.data.Product){
+        this.data.Product.Name=this.data.Product.name || this.data.Product.Name;
+        this.data.Product.Id=this.data.Product._id || this.data.Product.Id;
+        this.data.Product.Code=this.data.Product.code || this.data.Product.Code;
+        
+        this.dataProduct = `${this.data.Product.Code} - ${this.data.Product.Name}`;
     }
-
-    gradeItems = ["", "A", "B", "C"];
-
-    activate(context) {
-        this.context = context;
-        this.data = context.data;
-        this.error = context.error;
-        this.options = context.context.options;
-        this.readOnly = context.options.readOnly;
-
-        this.dataProduct = `${this.data.Product.code} - ${this.data.Product.name}`;
-        this.dataDealQuantity = this.data.DealQuantity;
+    if(this.data.DealUom){
+        this.data.DealUom.Id=this.data.DealUom._id || this.data.DealUom.Id;
+        this.data.DealUom.Unit=this.data.DealUom.unit||this.data.DealUom.Unit;
     }
-
-    get uomLoader() {
-        return UomLoader;
+    if(this.data.Category){
+        this.data.Category.Id=this.data.Category._id || this.data.Category.Id;
+        this.data.Category.Code=this.data.Category.code||this.data.Category.Code;
+        this.data.Category.Name=this.data.Category.name||this.data.Category.Name;
+        this.dataCategory=this.data.Category.Name;
     }
-
-    dataDealQuantityChanged(newValue) {
-        this.data.DealQuantity = newValue;
-        this.data.RemainingQuantity = newValue;
+    this.data.PriceTotal=(parseFloat(this.data.DealQuantity)*parseFloat(this.data.PricePerDealUnit)).toLocaleString('en-EN', { minimumFractionDigits: 4 });
+    if(this.readOnly){
+      this.data.PaidQuantity=this.data.PaidQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      this.data.PaidPrice=this.data.PaidPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     }
+    this.data.DealQuantity=this.data.DealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+    this.data.PricePerDealUnit=this.data.PricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 4 });
 }
+
+  paidChanged(e) {
+    this.data.PaidPrice=parseFloat(e.srcElement.value);
+  }
+
+  controlOptions = {
+    control: {
+      length: 12
+    }
+  };
+}
+

@@ -13,6 +13,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable selectedSupplier;
+    @bindable selectedCurrency;
     
     controlOptions = {
         label: {
@@ -26,7 +27,8 @@ export class DataForm {
                     { header: "Unit"},
                     { header: "Kena PPN"},
                     { header: "Kena PPH"},
-                    { header: "PPH"}];
+                    { header: "PPH"},
+                    { header: ""}];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -41,7 +43,9 @@ export class DataForm {
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
-        
+        if(this.readOnly){
+            this.data.Amount=this.data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        }
     }
 
     @computedFrom("data.Id")
@@ -49,11 +53,15 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    @computedFrom("data.Supplier")
+    @computedFrom("data.Supplier && data.Currency")
     get filter() {
-        var filter = {
-            supplierId: this.data.Supplier.Id || {},
-            supplierCode: this.data.Supplier.Code,
+        var filter={};
+        if(this.data.Supplier && this.data.Currency){
+            filter = {
+                supplierId: this.data.Supplier.Id || {},
+                supplierCode: this.data.Supplier.Code,
+                currencyCode:this.data.Currency.Code
+            }
         }
         return filter;
     }
@@ -69,18 +77,46 @@ export class DataForm {
         }
     }
 
+    selectedCurrencyChanged(newValue){
+        if(newValue.Id){
+            this.data.Currency=newValue;
+        }
+    }
+
     get supplierLoader() {
         return SupplierLoader;
     }
     
+    get currencyLoader() {
+        return CurrencyLoader;
+    }
+
     get addItems() {
         return (event) => {
             this.data.Items.push({ })
         };
     }
 
-    supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`
+    currencyView = (currency) => {
+        return `${currency.Code}`
     }
 
+    supplierView = (supplier) => {
+        var code= supplier.code || supplier.Code;
+        var name= supplier.name || supplier.Name;
+        return `${code} - ${name}`
+    }
+
+    itemsChanged(e){
+        if(this.data.Items){
+            this.data.Amount=0;
+            for(var item of this.data.Items){
+                if(item.Details){
+                    for(var detail of item.Details){
+                        this.data.Amount+=detail.PaidPrice;
+                    }
+                }
+            }
+        }
+    }
 } 

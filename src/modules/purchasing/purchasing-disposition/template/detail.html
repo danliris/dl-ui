@@ -1,55 +1,70 @@
 <template>
-	<tr>
+    <tr>
+        <td>
+			<au-textbox
+				value.bind="data.PRNo"
+				read-only="true">
+			</au-textbox>
+		</td>
 		<td>
 			<au-textbox
-				value.one-way="product"
+				value.bind="data.Category.Name"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.bind="dataProduct"
 				read-only="true">
 			</au-textbox>
 		</td>
 		<td>
 			<au-numeric
-				value.bind="data.deliveredQuantity"
+				value.bind="data.DealQuantity"
 				read-only.bind="true"
 				format = "0,0.00">
 			</au-numeric>
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.deliveredUom.unit"
+				value.one-way="data.DealUom.Unit"
 				read-only="true">
 			</au-textbox>
 		</td>
-		<td if.bind="hasCreate">
-			<au-textbox
-				if.bind="hasCreate"
-				value.bind="data.pricePerDealUnit"
-				read-only.bind="true"
-				>
-			</au-textbox>
-		</td>
-		<td if.bind="!hasCreate">
+		<td>
 			<au-numeric
-				if.bind="!hasCreate"
-				value.bind="data.pricePerDealUnit"
-				read-only.bind="true"
-				format = "0,0.0000">
+				value.bind="data.PaidQuantity"
+				read-only.bind="readOnly"
+				error.bind="error.PaidQuantity"
+				format = "0,0.00">
 			</au-numeric>
 		</td>
-		<td if.bind="hasCreate">
-			<au-textbox
-				if.bind="hasCreate"
-				value.bind="data.PriceTotal"
-				read-only.bind="true"
-				>
-			</au-textbox>
-		</td>
-		<td if.bind="!hasCreate">
+		<td>
 			<au-numeric
-				if.bind="!hasCreate"
+				value.bind="data.PricePerDealUnit"
+				read-only.bind="true"
+				format = "0,0.00">
+			</au-numeric>
+		</td>
+		<td>
+			<au-numeric
 				value.bind="data.PriceTotal"
 				read-only.bind="true"
 				format = "0,0.0000">
 			</au-numeric>
 		</td>
-	</tr>
+		<td>
+			<au-numeric
+				value.bind="data.PaidPrice"
+				read-only.bind="readOnly"
+				error.bind="error.PaidPrice"
+				change.delegate="paidChanged($event)"
+				format = "0,0.0000">
+			</au-numeric>
+		</td>
+        
+		<td if.bind="!readOnly">
+			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
+		</td>
+    </tr>
 </template>
