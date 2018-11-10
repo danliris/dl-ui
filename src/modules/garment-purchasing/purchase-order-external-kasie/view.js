@@ -61,7 +61,16 @@ export class View {
             this.hasClosePo=true;
         }
         
-
+        if(this.data.Supplier){
+            this.selectedSupplier=this.data.Supplier;
+            this.data.SupplierId=this.data.Supplier.Id;
+            this.data.Supplier.usevat=this.data.IsUseVat ;
+           
+            if(this.data.IncomeTax.Id!=0){
+                this.data.Supplier.usetax=true;
+            }
+            
+        }
     }
 
     cancel(event) {

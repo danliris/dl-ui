@@ -38,6 +38,7 @@ export class Create {
         // });
         // var _data = Object.assign({}, this.data);
         // _data.items = itemToBeSaved;
+        console.log(this.data);
         if (validateErrors.length == 0) {
             this.service.create(this.data)
                 .then(result => {
@@ -60,24 +61,27 @@ export class Create {
     validateData(valid) {
         var validateArrTemp = [];
         var errors = []
+        
         for (var data of valid.items) {
+            console.log(data);
             var error = {};
             var tempValid;
 
-            error.deliveryOrderId = "payment method:" + data.items[0].paymentMethod + ", " + "payment type:" + data.items[0].paymentType +" (semua harus sama)";
+            error.deliveryOrderId = "payment method:" + data.details[0].paymentMethod + ", " + "payment type:" + data.details[0].paymentType +" (semua harus sama)";
             errors.push(error);
-
-            tempValid = data.items[0].paymentMethod + data.items[0].paymentType;
+            
+            tempValid = data.details[0].paymentMethod + data.details[0].paymentType;
             if (!(validateArrTemp.find(data => data == tempValid))) {
                 validateArrTemp.push(tempValid);
             }
         }
 
         if (validateArrTemp.length > 1) {
-            this.error.items = errors;
-            return this.error.items;
+            this.error.details = errors;
+            alert(error.deliveryOrderId);
+            return this.error.details;
         } else {
-            return this.error.items = [];
+            return this.error.details = [];
         }
 
     }
