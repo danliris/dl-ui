@@ -37,11 +37,8 @@ export class DataForm {
 
     bind(context) {
         this.context = context;
-        console.log(this.context)
         this.data = this.context.data;
-        console.log(this.data)
         this.error = this.context.error;
-        console.log(this.hasView)
         var hasItems=true;
         if (this.data.items.length==0)
             hasItems=false;
@@ -58,13 +55,29 @@ export class DataForm {
 
     @computedFrom("data.supplier")
     get filter() {
+        if(this.context.hasCreate){
         var filter = {
-            supplierId: this.data.supplierId || {},
+            supplierId: this.data.supplierId || this.data.supplier.Id,
             isEdit: this.isEdit,
             hasView: this.context.hasView,
             hasEdit:this.context.hasEdit,
             hasCreate:this.context.hasCreate
         }
+    } else {
+        var filter = {
+            supplierId: this.data.supplierId || this.data.supplier.Id,
+            paymentType: this.data.paymentType,
+            paymentMethod: this.data.paymentMethod,
+            isUseVat: this.data.useVat,
+            isIncomeTax: this.data.useIncomeTax,
+            incomeTaxName: this.data.incomeTax.Name,
+            incomeTaxRate: this.data.incomeTax.Rate,
+            isEdit: this.isEdit,
+            hasView: this.context.hasView,
+            hasEdit:this.context.hasEdit,
+            hasCreate:this.context.hasCreate
+        }
+    }
         return filter;
     }
 
