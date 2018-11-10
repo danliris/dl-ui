@@ -124,7 +124,6 @@ export class DeliveryOrderItem {
     return DeliveryOrderLoader;
   }
   doView = (dOrder) => {
-    console.log(dOrder);
     return`${dOrder.doNo}`
   }
   get filter() {
