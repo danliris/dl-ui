@@ -68,7 +68,7 @@ export class DeliveryOrderItem {
       this.data.Id = this.deliveryOrder.Id;
       this.data.doDate = this.deliveryOrder.doDate;
       this.data.arrivalDate = this.deliveryOrder.arrivalDate;
-      this.data.totalAmount=this.deliveryOrder.totalAmount;
+      this.data.totalAmount=this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
       this.data.deliveryOrder=this.deliveryOrder;
     }
     else {
@@ -80,7 +80,6 @@ export class DeliveryOrderItem {
       this.data.doDate = undefined;
       this.data.items = [];
     }
-    console.log(this.data);
   }
 
   get deliveryOrderLoader() { 
@@ -93,23 +92,23 @@ export class DeliveryOrderItem {
     
     if (this.options.supplierCode && this.options.useIncomeTax == false && this.options.useVat== false) {
      
-          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode };
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode };
          
          }
          else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat== false)
          { 
         
-          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode,"useIncomeTax":this.options.useIncomeTax }
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useIncomeTax":this.options.useIncomeTax }
          }
          else if(this.options.supplierCode && this.options.useVat && this.options.useIncomeTax ==false)
          {
      
-          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId }
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId }
          }
          else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat)
          {
          
-          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"currencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId,"useIncomeTax":this.options.useIncomeTax  }
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId,"useIncomeTax":this.options.useIncomeTax  }
 
          }
         }
