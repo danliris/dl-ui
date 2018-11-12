@@ -34,24 +34,17 @@ export class InternNoteItem {
 		this.data = context.data;
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
-		this.isShowing = true;
+		this.isShowing = false;
 		this.options = context.context.options;
 
-		if (this.data.invoiceNo) {
-			this.invoice = this.data ? this.data : {};
-			//console.log(this.invoice.items);
-			this.getTotal(this.data);
-			this.getDeliveryOrder(this.data);
-			this.isShowing = false;
-			if (this.invoice.items) {
-				console.log(this.data.items);
-				this.isShowing = true;
-				for(var invoice of this.data.supplier){
-				  invoice.supplier=this.data.supplier;
-				}
-			}
-		}
-		
+		// if (this.data.invoiceNo) {
+		// 	this.invoice = this.data ? this.data : {};
+		// 	this.getTotal(this.data);
+		// 	this.getDeliveryOrder(this.data);
+		// }
+		if (this.data.Id) {
+			this.invoice =  this.data.garmentInvoice.invoiceNo ;
+		  }
 	}
 
 	toggle() {
@@ -75,11 +68,11 @@ export class InternNoteItem {
 		if(newValue == null){
 			this.data.items = {};
 			this.error = {};
-			this.isShowing = false;
+			//this.isShowing = false;
 		}
 		else if (newValue) {
 			this.getGarmentInvoiceById(newValue.Id);
-			this.isShowing = true;
+			//this.isShowing = true;
 		} else {
 			this.data = {};
 		}
@@ -89,8 +82,8 @@ export class InternNoteItem {
 		console.log(invoice);
 		return invoice.items
 			.map(invoiceItem => {
-				var totalItem = invoiceItem.items
-					.map(item => item.dOQuantity * item.pricePerDealUnit)
+				var totalItem = invoiceItem.details
+					.map(item => item.doQuantity * item.pricePerDealUnit)
 					.reduce(function (prev, curr, index, arr) {
 						return prev + curr;
 					}, 0);
@@ -101,57 +94,49 @@ export class InternNoteItem {
 			}, 0);
 	}
 
-	getStatus(items) {
-		for(var deliveryOrderItems of items){
-			for(var deliveryOrderDetail of deliveryOrderItems.fulfillments){
-				var receiptQuantityTotal = deliveryOrderDetail ? (deliveryOrderDetail.receiptQuantity > 0 ? "Sudah" : "Belum") : "Belum";
-				return receiptQuantityTotal;
-			}
-		}
-	}
-
 	getGarmentInvoiceById(id){
 		this.service.getGarmentInvoiceById(id)
 			.then(garmentInvoice => {
 				this.data.garmentInvoice = garmentInvoice;
 				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice);
-				
-				this.items = [];
+				//console.log(garmentInvoice);
+				this.details = [];
 				for(var garmentInvoiceItem of garmentInvoice.items){
-					for(var detail of garmentInvoiceItem.items){
-						var prices = detail.dOQuantity * detail.pricePerDealUnit;
+					for(var detail of garmentInvoiceItem.details){
+						var prices = detail.doQuantity * detail.pricePerDealUnit;
 						var dueDays = new Date(garmentInvoiceItem.deliveryOrder.doDate);
 						dueDays.setDate(dueDays.getDate() + detail.paymentDueDays); 
 						var item = {
 							ePOId : detail.ePOId,
 							ePONo : detail.ePONo,
-							poSerialNumber : detail.poSerialNumber,
+							poSerialNumber : detail.pOSerialNumber,
 							roNo : detail.roNo,
-							termOfPayment : garmentInvoiceItem.paymentMethod,
-							paymentType : garmentInvoiceItem.paymentType,
 							pricePerDealUnit : detail.pricePerDealUnit,
 							paymentDueDate : dueDays,
 							deliveryOrder : {
 								Id : garmentInvoiceItem.deliveryOrder.Id,
-								doNo: garmentInvoiceItem.deliveryOrder.doNo
+								doNo: garmentInvoiceItem.deliveryOrder.doNo,
+								doDate: garmentInvoiceItem.deliveryOrder.doDate,
+								termOfPayment : garmentInvoiceItem.deliveryOrder.paymentMethod,
+								paymentType : garmentInvoiceItem.deliveryOrder.paymentType,
+								items: garmentInvoiceItem.deliveryOrder.items
 							},
-							quantity : detail.dOQuantity,
+							quantity : detail.doQuantity,
 							priceTotal : prices,
 							product : detail.product,
-							uomunit : detail.uoms,
-							status : this.getStatus(garmentInvoiceItem.deliveryOrder.items)
+							uomUnit : detail.uoms,
 						};
-						this.items.push(item);
+						this.details.push(item);
 					}
 				}
-				this.data.details = this.items;
+				this.data.details = this.details;
 			});
 	}
 
-	garmentInvoiceView = (invoices) => {
-		console.log(invoices);
-		return`${invoices.invoiceNo}`
-	}
+	garmentInvoiceView = (gInvoices) => {
+		console.log(gInvoices);
+		return`${gInvoices.invoiceNo}`
+	  }
 
 	removeItems = function () {
 	this.bind();

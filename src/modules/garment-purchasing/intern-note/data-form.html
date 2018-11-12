@@ -33,14 +33,8 @@
             read-only="true">
         </au-textbox>
 
-        <au-collection items.bind="data.items"
-            show.bind="data.supplierId" 
-            options.bind="options"
-            columns.bind="invoiceNoteItem.columns"
-            errors.bind="error.items" 
-            read-only.bind="readOnly" 
-            add.bind="invoiceNoteItem.onAdd" 
-            view-model.ref="ItemsCollection"
+        <au-collection items.bind="data.items" show.bind="data.supplierId && !readOnly" options.bind="options" columns.bind="invoiceNoteItem.columns"
+            errors.bind="error.items" read-only.bind="readOnly" add.bind="invoiceNoteItem.onAdd" view-model.ref="ItemsCollection"
             item-template="modules/garment-purchasing/intern-note/template/intern-note-item">
         </au-collection>
 

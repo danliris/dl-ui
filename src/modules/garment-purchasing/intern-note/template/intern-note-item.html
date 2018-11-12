@@ -1,8 +1,8 @@
 <template>
 	<tr>
 		<td>
-			<au-autocomplete value.bind="invoice" error.bind="error.InvoiceNoteId" loader.bind="invoiceNoteLoader" placeholder="cari nomor invoice"
-			 text.bind="garmentInvoiceView" key="invoiceNo" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
+			<au-autocomplete value.bind="invoice" error.bind="error.invoice" loader.bind="invoiceNoteLoader" placeholder="cari nomor invoice"
+			 text.bind="garmentInvoiceView" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
 		<td>
@@ -15,7 +15,7 @@
 				</au-numeric>
 			</div>
 			<div class="col-sm-1  pull-right">
-				<button class="btn btn-info pull-right" if.bind="data.items" click.delegate="toggle()">i</button>
+				<button class="btn btn-info pull-right" if.bind="data.details" click.delegate="toggle()">i</button>
 			</div>
 		</td>
 		<td if.bind="!readOnly">
@@ -25,7 +25,7 @@
 	<tr show.bind="isShowing">
 		<td colspan="5">
 			<au-collection 
-			items.bind="data.items" 
+			items.bind="data.details" 
 			errors.bind="error.items" 
 			columns.bind="itemsColumns" 
 			remove.bind="removeItems" 

@@ -26,13 +26,13 @@
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.termOfPayment"
+				value.one-way="data.deliveryOrder.termOfPayment"
 				read-only="true">
 			</au-textbox>
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.paymentType"
+				value.one-way="data.deliveryOrder.paymentType"
 				read-only="true">
 			</au-textbox>
 		</td>
@@ -58,7 +58,7 @@
 		</td>
         <td>
 			<au-textbox
-				value.one-way="data.uomunit.Unit"
+				value.one-way="data.uomUnit.Unit"
 				read-only="true">
 			</au-textbox>
 		</td>
@@ -78,7 +78,7 @@
 		</td>
         <td>
 			<au-textbox
-				value.bind="data.status"
+				value.bind="status"
 				read-only="true">
 			</au-textbox>
 		</td>

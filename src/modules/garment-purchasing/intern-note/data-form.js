@@ -52,6 +52,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.options = this.options ? this.options : {};
     }
 
     @computedFrom("data.Id")
@@ -71,27 +72,20 @@ export class DataForm {
             return false
     }
 
-    async supplierChanged(newValue, oldValue) {
+    supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
-            if(selectedSupplier.Id){
-                this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier.Id;
-                this.options.supplierCode = selectedSupplier.code;
-                this.options.currencyCode = this.data.currency.Code;   
-            }
-            if(oldValue){
-                this.data.supplier = null;
-                this.data.supplierId = null;
-                this.data.items = [];
-            }
+            this.data.supplier = selectedSupplier;
+            this.data.supplierId = selectedSupplier.Id;
+            this.options.supplierCode = selectedSupplier.code;
+            this.options.currencyCode = this.data.currency.Code;   
         }
         else {
             this.data.supplier = null;
             this.data.supplierId = null;
             this.data.items = [];
         }
-        this.resetErrorItems();
+        this.context.error.items = [];
     }
 
     currencyChanged(newValue, oldValue) {
