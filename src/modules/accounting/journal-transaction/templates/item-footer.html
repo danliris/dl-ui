@@ -1,0 +1,29 @@
+<template>
+    <tr>
+        <td colspan="3"
+            class="text-right">
+            Total
+        </td>
+        <!--<td class="text-left">
+        <require from="../../../../lib/number-format-value-converter"></require>
+        ${itemSum | numberFormat:"0,000"}
+      </td>-->
+
+        <td colspan="1"
+            class="text-right">
+            <au-numeric value.bind="debitSum"
+                        read-only.bind="true"
+                        format="0,0.0000"
+                        options.bind="controlOption">
+            </au-numeric>
+        </td>
+        <td colspan="1"
+            class="text-right">
+            <au-numeric value.bind="creditSum"
+                        format="0,0.0000"
+                        read-only.bind="true"
+                        options.bind="controlOption">
+            </au-numeric>
+        </td>
+    </tr>
+</template>
