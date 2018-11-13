@@ -88,7 +88,7 @@ export class List {
                     
                     var newDatas =[];
                     for(var item of result.data){
-                        if(item.Date){
+                        if(item.Date && item.Mutation){
                             var newData = {
                                 Date: item.Date ? moment(item.Date).format('DD-MMM-YYYY') : null,
                                 UnitReceiptNoteNo : item.UnitReceiptNoteNo,
@@ -101,12 +101,17 @@ export class List {
                                 Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
                                 FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
                             }
-                        }else{
+                        }else if(!item.Date && item.Mutation){
                             var newData = {
                                 Date:  null,
                                 InvoiceNo : item.InvoiceNo,
                                 DPP :null,
-                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
+                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : null,
+                                FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
+                            }
+                        }else{
+                            var newData = {
+                                Previous:  null,
                                 FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
                             }
                         }

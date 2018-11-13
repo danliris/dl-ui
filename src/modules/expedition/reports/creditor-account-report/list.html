@@ -53,7 +53,7 @@
                     </tr>
                     <tr repeat.for="datum of data">
                         <td repeat.for="key of datum | keys" style="white-space: pre;" 
-                            colspan="${key.toString().toLowerCase() == 'date' && datum[key] === null? 4 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 3 : 1}">${datum[key]}</td>
+                            colspan="${key.toString().toLowerCase() == 'previous' ? 9 : key.toString().toLowerCase() == 'date' && datum[key] === null? 4 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 3 : 1}">${datum[key]}</td>
 
                     </tr>
                     <tr>
