@@ -8,13 +8,12 @@
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
-            <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
         </div>
 
         <au-textbox 
             label="No" 
-            value.bind="data.no" 
-            error.bind="error.no" 
+            value.bind="data.DispositionNo" 
+            error.bind="error.DispositionNo" 
             read-only.bind="true"
             if.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
@@ -27,6 +26,18 @@
             loader.bind="supplierLoader"
             text.bind = "supplierView"
             placeholder="cari supplier" 
+            key="code" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="selectedCurrency" 
+            error.bind="error.Currency"
+            label="Mata Uang" 
+            loader.bind="currencyLoader"
+            text.bind = "currencyView"
+            placeholder="cari mata uang" 
             key="code" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
@@ -110,13 +121,22 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
+        
+        <au-numeric
+            value.bind="data.Amount"
+            label="Amount"
+            read-only.bind="true"
+            format = "0,0.0000"
+            options.bind="controlOptions">>
+        </au-numeric>
 
         <au-textbox
             show.bind="error.itemscount"
             error.bind="error.itemscount"
             read-only="true">
         </au-textbox>
-
+        
+		
         <au-collection 
             items.bind="data.Items" 
             errors.bind="error.Items" 
@@ -125,7 +145,8 @@
             remove.bind="removeItems"
             options.one-way="filter"
             read-only.bind="readOnly"
-            if.bind="selectedSupplier"
+            change.delegate="itemsChanged($event)"
+            if.bind="selectedSupplier && selectedCurrency"
             item-template="modules/purchasing/purchasing-disposition/template/item"
             >
         </au-collection>
