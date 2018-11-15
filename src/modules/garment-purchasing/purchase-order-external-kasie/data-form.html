@@ -165,7 +165,13 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-autocomplete>-->
-
+                <au-checkbox 
+                    label="Apakah kena Pph?" 
+                    value.bind="data.Supplier.usetax"  
+                    read-only.bind="true"
+                     options.bind="controlOptions">
+                </au-checkbox>
+                
                 <au-textbox 
                     label="Pph" 
                     value.bind="data.IncomeTax.Name" 

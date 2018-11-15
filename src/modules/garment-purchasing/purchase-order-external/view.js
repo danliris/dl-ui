@@ -38,7 +38,7 @@ export class View {
             this.data.SupplierId=this.data.Supplier.Id;
             this.data.Supplier.usevat=this.data.IsUseVat ;
            
-            if(this.data.IncomeTax.Id!=0){
+            if(this.data.IsIncomeTax){
                 this.data.Supplier.usetax=true;
             }
             
@@ -54,6 +54,9 @@ export class View {
         }
         if (this.data.IsPosted && !isUsedSJ) {
             this.hasUnpost = true;
+        }
+        if (this.data.IsCanceled || this.data.IsClosed) {
+            this.hasUnpost = false;
         }
 
        

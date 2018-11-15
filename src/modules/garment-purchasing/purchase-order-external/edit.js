@@ -31,14 +31,11 @@ export class Edit {
             this.selectedSupplier=this.data.Supplier;
             this.data.SupplierId=this.data.Supplier.Id;
             this.data.Supplier.usevat=this.data.IsUseVat ;
-            if(this.data.IncomeTax){
+            if(this.data.IsIncomeTax){
                 this.data.Supplier.usetax=true;
             }
             
         }
-
-        
-    
 
         if(this.data.IncomeTax){
             this.selectedIncomeTax=this.data.IncomeTax;

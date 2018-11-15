@@ -63,6 +63,9 @@ export class PurchaseOrderItem {
     //         });
     //   }
     // }
+    if(this.options.readOnly){
+      this.data.PricePerDealUnit=parseFloat(this.data.PricePerDealUnit).toFixed(4);
+    }
     if(!this.options.readOnly)
       this.checkIsOverBudget();
   }
@@ -84,11 +87,18 @@ export class PurchaseOrderItem {
     if(!this.options.readOnly)
       if (this.context.context.options.checkOverBudget) {
         this.data.UsedBudget=this.data.budgetUsed;
-        
+        //this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
+        //var totalDealPrice = ((this.data.DealQuantity * this.price * this.kurs.Rate) + this.data.budgetUsed).toFixed(4);
         var totalDealPrice = (this.data.remainingBudget-this.data.budgetUsed).toFixed(4);
-        
+        //var totalBudget=parseInt(this.data.totalBudget.toFixed(4));
+        //this.data.RemainingBudget=totalDealPrice;
+        // console.log(totalDealPrice);
+        // console.log(this.data.remainingBudget,this.data.budgetUsed);
+        //console.log(this.data.remainingBudget+"-"+this.data.DealQuantity +"*"+ this.data.PricePerDealUnit +"*"+ this.kurs.Rate );
         if (totalDealPrice <0) {
           this.data.IsOverBudget = true;
+          // console.log(totalDealPrice + " >"+totalBudget);
+          // console.log(this.data.dealQuantity +"*"+ this.price +"*"+ this.kurs.rate +"+"+ this.data.budgetUsed);
         } else {
           this.data.IsOverBudget = false;
           this.data.OverBudgetRemark = "";
@@ -97,7 +107,11 @@ export class PurchaseOrderItem {
   }
 
   updatePrice() {
-   
+    // if (this.data.UseIncomeTax) {
+    //   this.data.PricePerDealUnit = (100 * this.price) / 110;
+    // } else {
+    //   this.data.PricePerDealUnit = this.price;
+    // }
     this.checkIsOverBudget();
   }
 
@@ -117,7 +131,11 @@ export class PurchaseOrderItem {
   }
 
   priceChanged(e) {
-    this.data.budgetUsed=parseFloat(e.srcElement.value)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
+    if(e.srcElement)
+      this.data.budgetUsed=parseFloat(e.srcElement.value)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
+    else{
+      this.data.budgetUsed=parseFloat(this.data.PricePerDealUnit)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
+    }
     this.checkIsOverBudget();
   }
 
