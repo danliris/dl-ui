@@ -57,8 +57,28 @@ export class Create {
                 if (response == "ok") {
                     this.service.create(this.data)
                         .then(result => {
-                            alert('Data berhasil dibuat');
-                            this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                            var creditorAccounts = [];
+                            for (var item in this.data.Details) {
+                                var creditorAccount = {
+                                    Id: this.data.Id,
+                                    Mutation: item.TotalPaid,
+                                    Code: this.data.DocumentNo,
+                                    SupplierCode: this.data.Supplier.code,
+                                    SupplierName: this.data.Supplier.name,
+                                    InvoiceNo: item.InvoiceNo,
+                                    Date: this.data.Date
+                                };
+                                creditorAccounts.push(creditorAccount);
+                            }
+                            this.service.createCreditorAccount(creditorAccounts)
+                                .then(result => {
+                                    alert('Data berhasil dibuat');
+                                    this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                                })
+                                .catch(e => {
+                                    this.error = e;
+                                });
+
                         })
                         .catch(e => {
                             this.error = e;
