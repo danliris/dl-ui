@@ -55,7 +55,7 @@ export class Edit {
         let newData = await this.service.searchAllByPosition(arg)
             .then((result) => {
                 let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-                
+
                 return resultData;
             });
 
@@ -70,11 +70,34 @@ export class Edit {
 
     saveCallback(event) {
         this.data.Details = this.UPOResults.filter((detail) => detail.Select);
+        var dataPrep = this.data;
         this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
             .then(response => {
                 if (response == "ok") {
                     this.service.update(this.data).then(result => {
-                        this.cancelCallback();
+                        var creditorAccounts = [];
+
+                        for (var item of dataPrep.Details) {
+                            var creditorAccount = {
+                                Id: this.data.Id,
+                                Mutation: item.TotalPaid,
+                                Code: this.data.DocumentNo,
+                                SupplierCode: this.data.Supplier.code,
+                                SupplierName: this.data.Supplier.name,
+                                InvoiceNo: item.InvoiceNo,
+                                Date: this.data.Date
+                            };
+                            creditorAccounts.push(creditorAccount);
+                        }
+
+                        this.service.updateCreditorAccount(creditorAccounts)
+                            .then(result => {
+                                this.cancelCallback();
+                            })
+                            .catch(e => {
+                                this.error = e;
+                            });
+
                     }).catch(e => {
                         this.error = e;
                     })

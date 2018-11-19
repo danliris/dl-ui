@@ -1,6 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
 
 const serviceUri = 'bank-expenditure-notes';
 
@@ -42,6 +44,20 @@ class Service extends RestService {
     searchAllByPosition(info) {
         let endpoint = `${serviceUri}/no-select/by-position`;
         return super.list(endpoint, info);
+    }
+
+    createCreditorAccount(creditorAccounts) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("finance");
+        const resource = "creditor-account/bank-expenditure-note/list"
+        return endpoint.post(resource, creditorAccounts);
+    }
+
+    updateCreditorAccount(creditorAccounts) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("finance");
+        const resource = "creditor-account/bank-expenditure-note/list"
+        return endpoint.update(resource, null, creditorAccounts);
     }
 }
 
