@@ -121,14 +121,14 @@ export class DataForm {
     
                             correctionNoteItem.Product = detail.product;
     
-                            correctionNoteItem.Quantity = detail.quantityCorrection;
+                            correctionNoteItem.Quantity = parseFloat((detail.quantityCorrection).toFixed(2));
     
                             correctionNoteItem.Uom = detail.purchaseOrderUom;
     
-                            correctionNoteItem.PricePerDealUnitBefore = detail.pricePerDealUnitCorrection;
-                            correctionNoteItem.PricePerDealUnitAfter = detail.pricePerDealUnitCorrection;
-                            correctionNoteItem.PriceTotalBefore = detail.priceTotalCorrection;
-                            correctionNoteItem.PriceTotalAfter = detail.priceTotalCorrection;
+                            correctionNoteItem.PricePerDealUnitBefore = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));
+                            correctionNoteItem.PricePerDealUnitAfter = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));
+                            correctionNoteItem.PriceTotalBefore = parseFloat((detail.priceTotalCorrection).toFixed(2));
+                            correctionNoteItem.PriceTotalAfter = parseFloat((detail.priceTotalCorrection).toFixed(2));
     
                             this.data.Items.push(correctionNoteItem);
                         }
