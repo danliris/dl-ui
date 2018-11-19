@@ -18,7 +18,7 @@ export class Service extends RestService {
     }
 
     searchDeliveryOrder(info) {
-        // info.filter = JSON.stringify({ hasInvoice: true });
+        info.filter = JSON.stringify({ IsInvoice: true });
         var endpoint = `${deliveryOrderServiceUri}`;
         return super.list(endpoint, info);
     }

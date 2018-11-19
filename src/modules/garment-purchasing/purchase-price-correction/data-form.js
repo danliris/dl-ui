@@ -68,7 +68,6 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: "{ IsInvoice: true }"
             };
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
