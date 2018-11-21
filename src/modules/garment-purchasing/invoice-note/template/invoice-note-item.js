@@ -53,7 +53,7 @@ export class DeliveryOrderItem {
 
   deliveryOrderChanged(newValue, oldValue) {
     this.data.details = [];
-   
+    console.log(newValue);
     if (this.deliveryOrder && this.deliveryOrder.Id) {
      for(var doItem of newValue.items){
        for(var doFulfillment of doItem.fulfillments)
@@ -71,14 +71,15 @@ export class DeliveryOrderItem {
             doQuantity: doFulfillment.doQuantity,
             pricePerDealUnit: doFulfillment.pricePerDealUnit,
             paymentDueDays: doItem.paymentDueDays,
-            paymentMethod: doItem.paymentMethod,
-            paymentType: doItem.paymentType,
+            paymentMethod: newValue.paymentMethod,
+            paymentType: newValue.paymentType,
             useVat:doItem.useVat,
             useIncomeTax: doItem.useIncomeTax,
             dODetailDOId:doFulfillment.Id
           };
           
             this.data.details.push(details);
+           
         }
  
        

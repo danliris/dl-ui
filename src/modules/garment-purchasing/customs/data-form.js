@@ -2,7 +2,7 @@ import { bindable, inject, containerless, computedFrom, BindingEngine } from "au
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 
 @containerless()
 @inject(Service, BindingSignaler, BindingEngine)
@@ -73,6 +73,24 @@ export class DataForm {
     valueChange(e){
         console.log(e);
     }
+    currencyView = (currency) => {
+        if(this.data.Id)
+        {
+            return currency.Code
+        }else
+        {
+            return currency.code
+        }
+    }
+    supplierView = (supplier) => {
+        if(this.data.Id)
+        {
+            return `${supplier.Code} - ${supplier.Name}`
+        }else
+        {
+            return `${supplier.code} - ${supplier.name}`
+        }
+    }
 
     supplierChange(e) {
         if (this.data.supplier && this.data.supplier._id){
@@ -90,23 +108,28 @@ export class DataForm {
 
     async currencyChange(e){
         this.data.deliveryOrders = [];
-        console.log(this.data);
-        if (this.data.currency && this.data.currency._id){
-            this.data.currencyId = this.data.currency._id;
+      
+        if (this.data.currency && this.data.currency.Id){
+            this.data.currencyId = this.data.currency.Id;
             if(!this.hasView){
                 var result = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.code}`, "currency" : `${this.data.currency.code}` });
                 var dataDelivery = [];
-                console.log(result.data);
+              
                 for(var a of result.data){
                     var data = a;
                     data["selected"] = false;
+                    data["doNo"]=a.doNo;
+                    data["doId"]=a.Id;
+                    data["doDate"]=a.doDate;
+                    data["arrivalDate"]=a.arrivalDate;
+                    
                     data["isView"] = !this.hasView ? true : false
                     var quantity = 0;
                     var totPrice = 0;
                     for(var b of a.items){
                         for(var c of b.fulfillments){
-                            quantity += c.deliveredQuantity;
-                            var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
+                            quantity += c.doQuantity;
+                            var priceTemp = c.doQuantity * c.pricePerDealUnit;
                             totPrice += priceTemp;
                         }
                     }
