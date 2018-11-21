@@ -71,6 +71,11 @@
                 <numeric label="Rate" value.bind="data.Currency.Rate" error.bind="error.currencyRate" format="0" read-only.bind="true">
                 </numeric>
 
+                
+                <au-checkbox label="Apakah kena Pph?" value.bind="data.IsIncomeTax"  read-only.bind="readOnly"
+                     options.bind="controlOptions">
+                </au-checkbox>
+
                 <au-textbox value.bind="selectedIncomeTax"  label="Pph"  key="" read-only.bind="readOnly" options.bind="controlOptions">
                 </au-textbox>
 

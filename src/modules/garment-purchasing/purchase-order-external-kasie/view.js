@@ -57,16 +57,19 @@ export class View {
             this.hasCancelPo = true;
             this.hasUnpost = true;
         }
-        if (this.data.IsPosted==true && this.data.IsClosed==false && canClose){
+        if (this.data.IsPosted==true && this.data.IsClosed==false && canClose && this.data.IsCanceled==false){
             this.hasClosePo=true;
         }
-        
+        if (this.data.IsCanceled || this.data.IsClosed) {
+            this.hasUnpost = false;
+        }
+
         if(this.data.Supplier){
             this.selectedSupplier=this.data.Supplier;
             this.data.SupplierId=this.data.Supplier.Id;
             this.data.Supplier.usevat=this.data.IsUseVat ;
            
-            if(this.data.IncomeTax.Id!=0){
+            if(this.data.IsIncomeTax){
                 this.data.Supplier.usetax=true;
             }
             

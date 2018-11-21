@@ -14,10 +14,8 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.isUseVat = this.data.useVat;
-        this.isUseIncomeTax = this.data.useIncomeTax;
-        this.correctionType = this.data.correctionType;
-        this.deliveryOrder = this.data.deliveryOrder;
+        this.correctionType = this.data.CorrectionType;
+        this.deliveryOrder = { doNo:this.data.DONo};
     }
 
     cancelCallback(event) {

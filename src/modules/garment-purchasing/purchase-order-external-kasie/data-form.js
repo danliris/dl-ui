@@ -83,6 +83,9 @@ export class DataForm {
         else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
             this.options.checkOverBudget = false;
         }
+        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
+            this.options.checkOverBudget = false;
+        }
         else {
             this.options.checkOverBudget = true;
         }
@@ -151,7 +154,8 @@ export class DataForm {
             this.data.Supplier.Name=_selectedSupplier.name;
             this.data.Supplier.Id=_selectedSupplier.Id;
             this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
-            this.data.IsUseVat = _selectedSupplier.useVat;
+            this.data.IsUseVat = _selectedSupplier.usevat;
+            this.data.IsIncomeTax = _selectedSupplier.usetax;
             this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
             this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
             this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate;
@@ -226,9 +230,14 @@ export class DataForm {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
+        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
+            this.options.checkOverBudget = false;
+            this.resetIsOverBudget();
+        }
         else {
             this.options.resetOverBudget = false;
             this.options.checkOverBudget = true;
+            this.checkOverBudgetAll();
         }
     }
 
@@ -255,6 +264,10 @@ export class DataForm {
                 this.resetIsOverBudget();
             }
             else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
+                this.options.checkOverBudget = false;
+                this.resetIsOverBudget();
+            }
+            else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
                 this.options.checkOverBudget = false;
                 this.resetIsOverBudget();
             }
@@ -513,5 +526,6 @@ export class DataForm {
         this.checkOverBudgetAll();
     }
 
+    
 
 }
