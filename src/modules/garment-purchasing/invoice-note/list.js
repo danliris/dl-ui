@@ -13,7 +13,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "Name", title: "Nama Supplier" },
+        { field: "supplier.Name", title: "Nama Supplier" },
         { field: "items", title: "List Nomor Surat Jalan", sortable: false }
     ];
 
@@ -25,7 +25,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["InvoiceDate", "invoiceNo", "Name", "Items.DeliveryOrderNo", "UseVat", "UseIncomeTax", "IsPayTax"],
+            select: ["InvoiceDate", "invoiceNo", "Supplier.Name", "Items.DeliveryOrderNo", "UseVat", "UseIncomeTax", "IsPayTax"],
             order: order
         }
 

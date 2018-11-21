@@ -30,6 +30,10 @@ export class View {
         this.items = this.data.items;
         this.totalData = this.items.length;
         console.log(this.data);
+        for(var item in this.data.items)
+        { 
+            //this.data.deliveryOrder.totalAmount=item.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+        }
         if(this.data.hasInternNote ===true)
         {
             this.hasEdit = false;
