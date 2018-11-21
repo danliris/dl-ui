@@ -1,7 +1,7 @@
 <template>
 	<tr>
 		<td>
-			<au-autocomplete value.bind="invoice" error.bind="error.invoice" loader.bind="invoiceNoteLoader" placeholder="cari nomor invoice"
+			<au-autocomplete value.bind="invoice" error.bind="error.garmentInvoice" loader.bind="invoiceNoteLoader" placeholder="cari nomor invoice"
 			 text.bind="garmentInvoiceView" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
@@ -24,9 +24,13 @@
 	</tr>
 	<tr show.bind="isShowing">
 		<td colspan="5">
+				<div if.bind="error.detailscount" class="form-group has-error"><span class="text-danger help-block">${error.detailscount}</span></div>
+				<div if.bind="error.usevat" class="form-group has-error"><span class="text-danger help-block">${error.usevat}</span></div>
+				<div if.bind="error.useincometax" class="form-group has-error"><span class="text-danger help-block">${error.useincometax}</span></div>
+
 			<au-collection 
 			items.bind="data.details" 
-			errors.bind="error.items" 
+			errors.bind="error.detailcounts" 
 			columns.bind="itemsColumns" 
 			remove.bind="removeItems" 
 			options.bind="context.context.options"

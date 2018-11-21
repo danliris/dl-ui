@@ -6,9 +6,9 @@ var moment = require("moment");
 @inject(Router, Service)
 export class List {
     columns = [
-        { field: "inNo", title: "No. Surat Perintah Bayar" },
+        { field: "inNo", title: "No. Nota Intern" },
         {
-            field: "inDate", title: "Tanggal Surat Perintah Bayar",
+            field: "inDate", title: "Tanggal Nota Intern",
             formatter: (value, data) => {
                 return moment(value).format("DD MMM YYYY");
             }
@@ -87,16 +87,35 @@ export class List {
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
+
+	checkStatus(items) {
+        var isCetak = true;
+        for(var item of items){
+            for(var detail of item.details){
+                var receiptQuantityTotal = 0;
+                var deliveryOrderItems = detail.deliveryOrder.items || [];
+                for(var deliveryOrderItem of deliveryOrderItems){
+                    for(var deliveryOrderDetail of deliveryOrderItem.fulfillments){
+                        receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                    }
+                }
+                if(receiptQuantityTotal === 0){
+                    isCetak = false;
+                }
+            }
+        }
+		return isCetak;
+	}
 
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
             //console.log(data);
-                return data.hasUnitReceiptNote;
+                return this.checkStatus(data.items);
             default:
                 return true;
         }

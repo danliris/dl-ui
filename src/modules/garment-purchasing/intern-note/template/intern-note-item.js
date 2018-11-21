@@ -5,7 +5,7 @@ var InvoiceNoteLoader = require('../../../../loader/garment-invoice-note-loader'
 @containerless()
 @inject(Service, BindingEngine)
 export class InternNoteItem {
-	@bindable invoice = {};
+	@bindable invoice;
 	@bindable items;
 
 	itemsColumns = [
@@ -36,14 +36,8 @@ export class InternNoteItem {
 		this.readOnly = context.options.readOnly;
 		this.isShowing = false;
 		this.options = context.context.options;
-
-		// if (this.data.invoiceNo) {
-		// 	this.invoice = this.data ? this.data : {};
-		// 	this.getTotal(this.data);
-		// 	this.getDeliveryOrder(this.data);
-		// }
-		if (this.data.Id) {
-			this.invoice =  this.data.garmentInvoice.invoiceNo ;
+		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
+			this.invoice =  this.data.garmentInvoice ;
 		  }
 	}
 
@@ -68,18 +62,15 @@ export class InternNoteItem {
 		if(newValue == null){
 			this.data.items = {};
 			this.error = {};
-			//this.isShowing = false;
 		}
 		else if (newValue) {
 			this.getGarmentInvoiceById(newValue.Id);
-			//this.isShowing = true;
 		} else {
 			this.data = {};
 		}
 	}
 
 	getTotal(invoice) {
-		console.log(invoice);
 		return invoice.items
 			.map(invoiceItem => {
 				var totalItem = invoiceItem.details
@@ -99,7 +90,6 @@ export class InternNoteItem {
 			.then(garmentInvoice => {
 				this.data.garmentInvoice = garmentInvoice;
 				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice);
-				//console.log(garmentInvoice);
 				this.details = [];
 				for(var garmentInvoiceItem of garmentInvoice.items){
 					for(var detail of garmentInvoiceItem.details){
@@ -117,7 +107,7 @@ export class InternNoteItem {
 								Id : garmentInvoiceItem.deliveryOrder.Id,
 								doNo: garmentInvoiceItem.deliveryOrder.doNo,
 								doDate: garmentInvoiceItem.deliveryOrder.doDate,
-								termOfPayment : garmentInvoiceItem.deliveryOrder.paymentMethod,
+								paymentMethod : garmentInvoiceItem.deliveryOrder.paymentMethod,
 								paymentType : garmentInvoiceItem.deliveryOrder.paymentType,
 								items: garmentInvoiceItem.deliveryOrder.items
 							},
@@ -134,7 +124,6 @@ export class InternNoteItem {
 	}
 
 	garmentInvoiceView = (gInvoices) => {
-		console.log(gInvoices);
 		return`${gInvoices.invoiceNo}`
 	  }
 

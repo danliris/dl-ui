@@ -133,7 +133,7 @@ export class DataForm {
         if (selectedCurrency) {
             if (selectedCurrency.Id) {
                 this.data.currency = selectedCurrency;
-                this.options.currencyCode = selectedCurrency.code;
+                this.options.currencyCode = selectedCurrency.Code;
             }
             else {
                 this.data.currency = null;
