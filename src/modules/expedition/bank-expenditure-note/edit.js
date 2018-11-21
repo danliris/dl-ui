@@ -75,29 +75,7 @@ export class Edit {
             .then(response => {
                 if (response == "ok") {
                     this.service.update(this.data).then(result => {
-                        var creditorAccounts = [];
-
-                        for (var item of dataPrep.Details) {
-                            var creditorAccount = {
-                                Id: this.data.Id,
-                                Mutation: item.TotalPaid,
-                                Code: this.data.DocumentNo,
-                                SupplierCode: this.data.Supplier.code,
-                                SupplierName: this.data.Supplier.name,
-                                InvoiceNo: item.InvoiceNo,
-                                Date: this.data.Date
-                            };
-                            creditorAccounts.push(creditorAccount);
-                        }
-
-                        this.service.updateCreditorAccount(creditorAccounts)
-                            .then(result => {
-                                this.cancelCallback();
-                            })
-                            .catch(e => {
-                                this.error = e;
-                            });
-
+                        this.cancelCallback();
                     }).catch(e => {
                         this.error = e;
                     })

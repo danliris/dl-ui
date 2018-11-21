@@ -99,20 +99,20 @@ export class List {
                                 PPN : item.PPN ?  numeral(item.PPN).format('0,000') : 0,
                                 Total : item.Total ?  numeral(item.Total).format('0,000') : 0,
                                 Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
-                                FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
+                                FinalBalance : item.FinalBalance != null ?  numeral(item.FinalBalance).format('0,000') : null
                             }
-                        }else if(!item.Date && item.Mutation){
+                        }else if(!item.Date && item.Mutation != null){
                             var newData = {
                                 Date:  null,
                                 InvoiceNo : item.InvoiceNo,
                                 DPP :null,
-                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : null,
-                                FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
+                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
+                                FinalBalance : item.FinalBalance != null ?  numeral(item.FinalBalance).format('0,000') : null
                             }
                         }else{
                             var newData = {
                                 Previous:  null,
-                                FinalBalance : item.FinalBalance ?  numeral(item.FinalBalance).format('0,000') : null
+                                FinalBalance : item.FinalBalance != null ?  numeral(item.FinalBalance).format('0,000') : null
                             }
                         }
                         this.currency = item.Currency;
