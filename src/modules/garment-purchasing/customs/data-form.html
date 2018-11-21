@@ -12,40 +12,40 @@
 
         <au-textbox 
             label="Nomor Bea Cukai" 
-            value.bind="data.no"
-            error.bind="error.no"
+            value.bind="data.beacukaiNo"
+            error.bind="error.beacukaiNo"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
 
         <au-dropdown
             label="Tipe Bea Cukai"
-            value.bind="data.customsType"
-            error.bind="error.customsType"
+            value.bind="data.customType"
+            error.bind="error.customType"
             read-only.bind="readOnly"
             items.bind="typeCustoms"
             options.bind="controlOptions">
         </au-dropdown>
-
+<!-- 
         <au-textbox 
             label="Asal Bea Cukai" 
             value.bind="data.customsOrigin"
             read-only.bind="readOnly"
             options.bind="controlOptions">
-        </au-textbox>
+        </au-textbox> -->
 
         <au-datepicker  
             label="Tanggal Bea Cukai" 
-            value.bind="data.customsDate"
-            error.bind="error.customsDate" 
+            value.bind="data.beacukaiDate"
+            error.bind="error.beacukaiDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker >
 
         <au-datepicker 
             label="Tanggal Pengesahan" 
-            value.bind="data.validateDate"
-            error.bind="error.validateDate" 
+            value.bind="data.validationDate"
+            error.bind="error.validationDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker >
@@ -66,8 +66,8 @@
             <!--text.bind="textFormatter"-->
         <au-numeric  
             label="Jumlah Kemasan" 
-            value.bind="data.amountOfPackaging"
-            error.bind="error.amountOfPackaging"
+            value.bind="data.packagingQty"
+            error.bind="error.packagingQty"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-numeric>
@@ -119,7 +119,7 @@
             change.delegate="currencyChange($event)"
             key="symbol"
             text="code"
-            if.bind="isSupplier"
+            show.bind="data.supplier"
             options.bind="controlOptions"     
           ></au-autocomplete>
             <!--item-template="modules/garment-purchasing/customs/template/currency"-->

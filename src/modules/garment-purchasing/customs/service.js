@@ -4,18 +4,19 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'customs';
-const deliveryOrderForCustoms = 'delivery-orders';
+const serviceUri = 'garment-beacukai';
+const deliveryOrderForCustoms = 'garment-delivery-orders/forCustoms';
 const serviceUriUnitReceiptNotes = 'unit-receipt-notes/by-user';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config,  "purchasing-azure");
     }
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        console.log(endpoint);
         return super.list(endpoint, info);
     }
 
@@ -46,25 +47,14 @@ export class Service extends RestService {
 
     searchDeliveryOrder(info) {
         var endpoint = `${deliveryOrderForCustoms}`;
+        
         var filter = {
-                    "supplier.code" : info.supplier ? info.supplier : "",
-                    "useCustoms":true,
-                    "items" : {
-                        "$elemMatch" : {
-                            "fulfillments" :
-                            { 
-                                "$elemMatch" : {
-                                    "currency.code" : info.currency ? info.currency : ""
-                                }
-                            }
-                        }
-                    },
-                    "customsId" : { "$type": 10 },
-                    "_deleted" : false
-                };
+                    "suppliercode" : info.supplier ? info.supplier : "",
+                     "docurrencycode" : info.currency ? info.currency : ""
+                    };
         var arc = {
                 filter : JSON.stringify(filter),
-                select : ["no","date","supplierDoDate","items"],
+                select : ["doNo","doDate","arrivalDate","items"],
                 size: 200
             }
         return super.list(endpoint, arc);
