@@ -58,8 +58,7 @@
             placeholder="Cari Supplier" 
             read-only.bind="readOnly" 
             change.delegate="supplierChange($event)" 
-            key="_id" 
-            text="name"
+            text.bind="supplierView"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -117,8 +116,7 @@
             loader.bind="currencyLoader"
             read-only.bind="readOnly"
             change.delegate="currencyChange($event)"
-            key="symbol"
-            text="code"
+            text.bind="currencyView"
             show.bind="data.supplier"
             options.bind="controlOptions"     
           ></au-autocomplete>

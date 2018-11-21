@@ -6,7 +6,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'garment-beacukai';
 const deliveryOrderForCustoms = 'garment-delivery-orders/forCustoms';
-const serviceUriUnitReceiptNotes = 'unit-receipt-notes/by-user';
+const serviceUriUnitReceiptNotes = 'garment-delivery-orders/isReceived';
 
 export class Service extends RestService {
 
@@ -59,9 +59,14 @@ export class Service extends RestService {
             }
         return super.list(endpoint, arc);
     }
-
-    isCreatedOfUnitReceiptNotes(info) {
-        var endpoint = `${serviceUriUnitReceiptNotes}`;
-        return super.list(endpoint, info);
+   
+    isCreatedOfUnitReceiptNotes(Id) {
+        let a = "";
+        for (const i of Id) {
+            a += `Id=${i}&`;
+        }
+        var endpoint = `${serviceUriUnitReceiptNotes}?${a}`;
+        console.log(Id);
+        return super.get(endpoint);
     }
 }

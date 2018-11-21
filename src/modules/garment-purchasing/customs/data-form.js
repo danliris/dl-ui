@@ -73,6 +73,24 @@ export class DataForm {
     valueChange(e){
         console.log(e);
     }
+    currencyView = (currency) => {
+        if(this.data.Id)
+        {
+            return currency.Code
+        }else
+        {
+            return currency.code
+        }
+    }
+    supplierView = (supplier) => {
+        if(this.data.Id)
+        {
+            return `${supplier.Code} - ${supplier.Name}`
+        }else
+        {
+            return `${supplier.code} - ${supplier.name}`
+        }
+    }
 
     supplierChange(e) {
         if (this.data.supplier && this.data.supplier._id){
