@@ -27,26 +27,6 @@ export class Edit {
     }
 
     save() {
-        if (typeof this.data.date === 'object') {
-            this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
-        }
-        var listStatus = this.data.items.map((invoiceNote) => {
-            var invoiceNoteItems = invoiceNote.items.map((invoiceNoteItem) => {
-                var doItems = invoiceNoteItem.items.map((doItem) => {
-                    return doItem.hasUnitReceiptNote
-                })
-                return doItems;
-            })
-            invoiceNoteItems = [].concat.apply([], invoiceNoteItems);
-            return invoiceNoteItems;
-        })
-
-        listStatus = [].concat.apply([], listStatus);
-
-        this.data.hasUnitReceiptNote = listStatus.map((item) => item)
-            .reduce((prev, curr, index) => {
-                return prev && curr
-            }, true);
 
         this.service.update(this.data).then(result => {
             this.cancel();
