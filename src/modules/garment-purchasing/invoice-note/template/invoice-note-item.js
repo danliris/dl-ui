@@ -35,22 +35,6 @@ export class DeliveryOrderItem {
     }
   }
 
-  // get total() {
-  //   if (this.data.items) {
-  //     if (this.data.items.length > 0) {
-  //       var qty = this.data.items
-  //         .map((item) => Number.isInteger(item.pricePerDealUnit * item.deliveredQuantity) ? item.pricePerDealUnit * item.deliveredQuantity : Number((item.pricePerDealUnit * item.deliveredQuantity).toFixed(2)))
-  //        // .map((item) => Number.isInteger(item.totalAmount(2)))
-  //       return qty
-  //         .reduce((prev, curr, index) => { return prev + curr }, 0);
-  //     } else {
-  //       return 0;
-  //     }
-  //   } else {
-  //     return 0;
-  //   }
-  // }
-
   deliveryOrderChanged(newValue, oldValue) {
     this.data.details = [];
     console.log(newValue);
@@ -81,33 +65,12 @@ export class DeliveryOrderItem {
             this.data.details.push(details);
            
         }
- 
-       
-         // cur= doItem.currency.Code;
-      
-      
       }
-        // fulfillment = [].concat.apply([], fulfillment);
-        // return fulfillment;
-     //items = [].concat.apply([], items);
-
-      // this.data.deliveryOrder = this.deliveryOrder;
       this.data.Id = this.deliveryOrder.Id;
-     // this.data.doNo = this.deliveryOrder.doNo;
       this.data.doDate = this.deliveryOrder.doDate;
       this.data.arrivalDate = this.deliveryOrder.arrivalDate;
-
       this.data.totalAmount=this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
       this.data.deliveryOrder=this.deliveryOrder;
-      //this.data.currency=cur;
-      // if (oldValue) {
-      //   // this.deliveryOrder = {};
-      //   this.data.deliveryOrderDate = undefined;
-      //   this.data.deliveryOrderId = "";
-      //   this.data.deliveryOrderNo = "";
-      //   this.data.deliveryOrderSupplierDoDate = undefined;
-      //   this.data.items = [];
-      // }
     }
     else {
 
