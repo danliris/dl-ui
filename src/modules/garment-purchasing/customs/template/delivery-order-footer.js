@@ -5,6 +5,7 @@ import { Config } from "aurelia-api"
 export class DeliveryOrderFooter {
   activate(context) {
     this.context = context;
+   
     var isView = true;
     for(var a of this.context.items){
       if(!a.data.isView)
@@ -32,6 +33,7 @@ export class DeliveryOrderFooter {
   get itemSum() {
     var quantity = 0;
     for(var a of this.context.items){
+      
         if(a.data.selected)
           quantity += Number(a.data.price);
     }

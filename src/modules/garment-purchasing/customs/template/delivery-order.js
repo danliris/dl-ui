@@ -5,7 +5,7 @@ export class DeliveryOrder {
     this.data = context.data;
     this.options = context.options; 
     this.context = context;
-  
+  console.log(this.data);
   }
 
   controlOptions = {
