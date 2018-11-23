@@ -9,20 +9,34 @@
             <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
         </div>
-
+        <au-checkbox label="Apakah BCDL?" value.bind="data.isBCDL" change.delegate="isBCDLChanged($event)" 
+        read-only.bind="readOnly ||isEdit" options.bind="controlOptions">
+    </au-checkbox>
+    <au-autocomplete 
+            value.bind="beacukai" 
+            error.bind="error.beacukaiNo" 
+            label="Data BC" 
+            loader.bind="customsLoader"
+            placeholder="Pilih BC" 
+            read-only.bind="readOnlyNoBCDL" 
+            show.bind="readOnlyBCDL "
+            text.bind="customsView"
+            view-model.ref="beacukaiAU"
+            options.bind="controlOptions">
+        </au-autocomplete>  
         <au-textbox 
             label="Nomor Bea Cukai" 
             value.bind="data.beacukaiNo"
             error.bind="error.beacukaiNo"
-            read-only.bind="readOnly"
+            read-only.bind="readOnlyBCDL "
             options.bind="controlOptions">
         </au-textbox>
-
+        
         <au-dropdown
             label="Tipe Bea Cukai"
             value.bind="data.customType"
             error.bind="error.customType"
-            read-only.bind="readOnly"
+            read-only.bind="readOnlyBCDL "
             items.bind="typeCustoms"
             options.bind="controlOptions">
         </au-dropdown>
@@ -38,7 +52,7 @@
             label="Tanggal Bea Cukai" 
             value.bind="data.beacukaiDate"
             error.bind="error.beacukaiDate" 
-            read-only.bind="readOnly"
+            read-only.bind="readOnlyBCDL "
             options.bind="controlOptions">
         </au-datepicker >
 
@@ -56,7 +70,7 @@
             label="Supplier" 
             loader.bind="supplierLoader"
             placeholder="Cari Supplier" 
-            read-only.bind="readOnly" 
+            read-only.bind="readOnly || isEdit" 
             change.delegate="supplierChange($event)" 
             text.bind="supplierView"
             options.bind="controlOptions">
@@ -114,7 +128,7 @@
             value.bind="data.currency"
             error.bind="error.currency"
             loader.bind="currencyLoader"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             change.delegate="currencyChange($event)"
             text.bind="currencyView"
             show.bind="data.supplier"

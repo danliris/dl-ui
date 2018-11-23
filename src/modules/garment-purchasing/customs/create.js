@@ -55,16 +55,16 @@ export class Create {
             this.item = "";
             for(var a of dataCustoms.deliveryOrders){
                 if(a && a.selected){
-                 
                     var deliveryOrder={};
                     deliveryOrder.doNo=a.doNo;
                     deliveryOrder.Id=a.Id;
                     deliveryOrder.doDate=a.doDate;
                     deliveryOrder.totalAmount=a.totalAmount;
+                    deliveryOrder.arrivalDate=a.arrivalDate;
                     items.push({deliveryOrder : deliveryOrder});
                     isSelectedData = true;
                 }
-                items.totalQty=a.quantity;
+                items.quantity=a.quantity;
             }
             dataCustoms.items = items;
         }
