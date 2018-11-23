@@ -52,6 +52,7 @@ export class Create {
 
     saveCallback(event) {
         this.data.Details = this.UPOResults.filter((detail) => detail.Select);
+        var dataPrep = this.data;
         this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
             .then(response => {
                 if (response == "ok") {

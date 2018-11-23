@@ -440,5 +440,18 @@ module.exports = [
             permission: {"B1": 1, "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'purchasing-disposition',
+        name: 'purchasing-disposition',
+        moduleId: './modules/purchasing/purchasing-disposition/index',
+        nav: true,
+        title: 'Disposisi Pembelian',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission:{"*":1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ]
