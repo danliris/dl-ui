@@ -4,17 +4,24 @@ export class InvoiceNoteItem {
 		this.data = context.data;
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
+		console.log(this.data.deliveryOrder);
 	}
 
 	get total() {
-		return this.data.deliveredQuantity * this.data.pricePerDealUnit;
+		return this.data.dOQuantity * this.data.pricePerDealUnit;
 	}
 
 	get status() {
-		return this.data.hasUnitReceiptNote ? "Sudah" : "Belum";
+		var receiptQuantityTotal = 0;
+		var deliveryOrderItems = this.data.deliveryOrder.items || [];
+		for(var deliveryOrderItem of deliveryOrderItems){
+			for(var deliveryOrderDetail of deliveryOrderItem.fulfillments){
+				receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+			}
+		}
+		return receiptQuantityTotal > 0 ? "Sudah" : "Belum";
 	}
-
 	get product() {
-		return `${this.data.product.code} - ${this.data.product.name}`;
+		return `${this.data.product.Code} - ${this.data.product.Name}`;
 	}
 }
