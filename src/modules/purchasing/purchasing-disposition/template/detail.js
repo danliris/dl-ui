@@ -43,6 +43,10 @@ export class PurchasingDispositionDetail {
     this.data.PaidPrice=parseFloat(e.srcElement.value);
   }
 
+  paidQtyChanged(e){
+    this.data.PaidPrice=parseFloat(e.srcElement.value)*this.data.PricePerDealUnit;
+  }
+
   controlOptions = {
     control: {
       length: 12

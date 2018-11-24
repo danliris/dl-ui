@@ -61,13 +61,11 @@ export class PurchasingDispositionItem {
                 this.data.UseVat= newValue._id ?newValue.useIncomeTax : this.data.UseVat;
                 this.data.UseIncomeTax=newValue._id ? newValue.useVat : this.data.UseIncomeTax;
                 if(this.data.UseIncomeTax){
-                    
                     this.data.IncomeTax=newValue.vat ? newValue.vat : this.data.IncomeTax;
                     this.data.IncomeTax.Name=newValue.vat.name;
                     this.data.IncomeTax.Id=newValue.vat._id;
                     this.data.IncomeTax.Rate=newValue.vat.rate;
                     this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
-                    console.log(this.data.IncomeTax)
                 }
                 else{
                     this.data.IncomeTax={};
@@ -88,7 +86,7 @@ export class PurchasingDispositionItem {
                             for(var DispoData of dataDisposition.data){
                                 for(var dispoItem of DispoData.Items){
                                     for(var dispoDetail of dispoItem.Details){
-                                        if(dispoDetail.Id!=detail.Id && dispoDetail.PRId==item.purchaseRequest._id && dispoDetail.Product._id==detail.product._id){
+                                        if(dispoDetail.PRId==item.purchaseRequest._id && dispoDetail.Product._id==detail.product._id){
                                             qty-=dispoDetail.PaidQuantity;
                                         }
                                     }
@@ -112,7 +110,7 @@ export class PurchasingDispositionItem {
                             Category: item.category,
                             CategoryId:item.categoryId,
                             PricePerDealUnit: detail.pricePerDealUnit,
-                            
+                            PaidQuantity: qty,
                             PaidPrice: detail.pricePerDealUnit*qty
                         })
                     }
