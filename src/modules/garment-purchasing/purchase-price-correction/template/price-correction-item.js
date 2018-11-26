@@ -12,24 +12,24 @@ export class PriceCorrectionItem {
         this.correction = this.contextOptions.correction;
     }
 
-    @computedFrom("data.pricePerUnit")
+    @computedFrom("data.PricePerDealUnitAfter")
     get priceTotal() {
         if(!this.pricePerUnitReadOnly) {
             if(this.correction) {
                 if(!this.pricePerUnitFirst)
-                    this.data.priceTotal = parseFloat((this.data.quantity * this.data.pricePerUnit).toFixed(2));
+                    this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
                 else
                     this.pricePerUnitFirst = false;
             }
             else
-                this.data.priceTotal = parseFloat((this.data.quantity * this.data.pricePerUnit).toFixed(2));
+                this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
         }
         
-        return this.data.priceTotal;
+        return this.data.PriceTotalAfter;
     }
 
     set priceTotal(value) {
-        this.data.priceTotal = value;
-        return this.data.priceTotal;
+        this.data.PriceTotalAfter = value;
+        return this.data.PriceTotalAfter;
     }
 }

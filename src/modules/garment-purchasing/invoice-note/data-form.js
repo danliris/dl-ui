@@ -1,7 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var VatLoader = require('../../../loader/vat-loader');
 
 @inject(BindingEngine, Element, Service)
@@ -12,7 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable supplier;
     @bindable currency;
-    @bindable vat;
+    @bindable incomeTax;
     @bindable options = { readOnly: false };
 
     controlOptions = {
@@ -54,17 +54,18 @@ export class DataForm {
     }
 
     bind(context) {
+        console.log(context.data);
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
         this.options.readOnly = this.readOnly;
+        if(this.data.Id)
+        {
+            this.readO=true;
+            this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+        }
     }
-
-    @computedFrom("data._id")
-    get isEdit() {
-        return (this.data._id || '').toString() != '';
-    }
-
+    
     // async supplierChanged(newValue) {
     //     var selectedSupplier = newValue;
     //     if (selectedSupplier) {
@@ -130,8 +131,9 @@ export class DataForm {
     currencyChanged(newValue) {
         var selectedCurrency = newValue;
         if (selectedCurrency) {
-            if (selectedCurrency._id) {
+            if (selectedCurrency.Id) {
                 this.data.currency = selectedCurrency;
+                this.options.currencyCode = selectedCurrency.Code;
             }
             else {
                 this.data.currency = null;
@@ -143,18 +145,24 @@ export class DataForm {
         this.resetErrorItems();
     }
 
-    vatChanged(newValue) {
-        var selectedVat = newValue;
-        if (selectedVat) {
-            if (selectedVat._id) {
-                this.data.vat = selectedVat;
+    incomeTaxChanged(newValue) {
+        console.log(newValue);
+        var selectedIncomeTax = newValue;
+        if (selectedIncomeTax) {
+            if (selectedIncomeTax.Id) {
+                this.data.vat = selectedIncomeTax;
+                this.data.incomeTax = selectedIncomeTax;
+                this.data.incomeTaxId = selectedIncomeTax.Id;
+                this.data.incomeTaxRate=selectedIncomeTax.rate;
+                this.data.incomeTaxName=selectedIncomeTax.name;
+                this.options.incomeTaxId = selectedIncomeTax.Id;
             }
             else {
-                this.data.vat = null;
+                this.data.incomeTax = null;
             }
         }
         else {
-            this.data.vat = null;
+            this.data.incomeTax = null;
         }
         this.resetErrorItems();
     }
@@ -164,7 +172,13 @@ export class DataForm {
     }
 
     supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`
+        if(this.data.Id)
+        {
+            return `${supplier.Code} - ${supplier.Name}`
+        }else
+        {
+            return `${supplier.code} - ${supplier.name}`
+        }
     }
 
     get currencyLoader() {
@@ -172,7 +186,13 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        if(this.data.Id)
+        {
+            return currency.Code
+        }else
+        {
+            return currency.code
+        }
     }
 
     get vatLoader() {
@@ -196,6 +216,8 @@ export class DataForm {
         this.data.vatNo = "";
         this.data.vatDate = "";
         this.context.vatVM.editorValue = "";
+        
+        this.options.useVat=selectedUseVat;
         if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
         }
@@ -208,6 +230,8 @@ export class DataForm {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = "";
+
+        this.options.useIncomeTax=selectedUseIncomeTax;
         if (!this.data.useIncomeTax && !this.data.useVat) {
             this.data.isPayTax = false
         }
@@ -215,20 +239,17 @@ export class DataForm {
             this.context.error.useIncomeTax = "";
         }
     }
-
-    // onClickAllDataSource($event) {
-    //     for (var item of this.data.items) {
-    //         item.check = $event.detail.target.checked;
-    //     }
-    // }
-
+      
     async supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
-            if (selectedSupplier._id) {
+            if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
+                this.data.supplierId = selectedSupplier.Id;
                 this.options.supplierCode = selectedSupplier.code;
+                this.options.useVat=selectedSupplier.IncomeTaxes.usevat;
+                this.options.useIncomeTax=selectedSupplier.IncomeTaxes.usetax;
+                
             }
             if (oldValue) {
                 this.data.supplier = {};
@@ -240,7 +261,7 @@ export class DataForm {
             this.data.supplierId = null;
             this.data.items = [];
         }
-        this.resetErrorItems();
+        this.resetErrorItems(); 
     }
 
     @computedFrom("data.items.length")

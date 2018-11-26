@@ -18,29 +18,35 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
         this.element = element;
         this.service = service;
-
-        this.auInputOptions = {
-            label: {
-                length: 4,
-                align: "right"
-            },
-            control: {
-                length: 5
-            }
-        };
-
-        this.invoiceNoteItem = {
-            columns: [
-                { header: "Nomor Invoice" },
-                { header: "Tanggal Invoice" },
-                { header: "Total Amount" }
-            ],
-            onAdd: function () {
-                this.context.ItemsCollection.bind();
-                this.data.items.push({ });
-            }.bind(this),
-        };
     }
+    invoiceNoteItem = {
+        columns: [
+            { header: "Nomor Invoice", value: "invoice.invoiceNo"},
+            { header: "Tanggal Invoice" },
+            { header: "Total Amount" }
+        ],
+        onAdd: function () {
+            this.context.ItemsCollection.bind();
+            this.data.items.push({});
+        }.bind(this),
+    };
+
+    invoiceNoteItemReadOnly = {
+        columnsReadOnly: [
+            { header: "Nomor Invoice" },
+            { header: "Tanggal Invoice" },
+            { header: "Total Amount" }]
+    }
+
+    auInputOptions = {
+        label: {
+            length: 4,
+            align: "right"
+        },
+        control: {
+            length: 5
+        }
+    };
 
     bind(context) {
         this.context = context;
@@ -49,9 +55,9 @@ export class DataForm {
         this.options = this.options ? this.options : {};
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     @computedFrom("data.supplier")
@@ -66,16 +72,13 @@ export class DataForm {
             return false
     }
 
-    async supplierChanged(newValue, oldValue) {
+    supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
             this.data.supplier = selectedSupplier;
-            this.data.supplierId = selectedSupplier._id;
+            this.data.supplierId = selectedSupplier.Id;
             this.options.supplierCode = selectedSupplier.code;
-            this.options.currencyCode = this.data.currency.code;
-            // var res = await this.service.getInvoiceNote({supplierId: this.data.supplierId, currency: this.data.currency.code});
-            // var _items = res.data || [];
-            // this.data.items = _items;
+            this.options.currencyCode = this.data.currency.Code;   
         }
         else {
             this.data.supplier = null;
@@ -98,6 +101,14 @@ export class DataForm {
         this.context.error.items = [];
     }
 
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.items) {
+                this.error.items = [];
+            }
+        }
+    }
+
     get currencyLoader() {
         return CurrencyLoader;
     }
@@ -107,10 +118,13 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.code
+        return currency.Code
     }
 
-    supplierView = (supplier) => {
-        return `${supplier.code} - ${supplier.name}`;
+    supplierView = (supplier) => 
+    {
+        var code=supplier.code? supplier.code : supplier.Code;
+        var name=supplier.name? supplier.name : supplier.Name;
+        return `${code} - ${name}`
     }
-} 
+}

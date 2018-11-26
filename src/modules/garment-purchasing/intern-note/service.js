@@ -5,17 +5,17 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'intern-notes/by-user';
-const invoiceNoteUri = 'invoice-notes/no-intern-note';
+const serviceUri = 'garment-intern-notes';
+const invoiceNoteUri = 'garment-invoices/no-intern-note';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/by-user`;
         return super.list(endpoint, info);
     }
 
@@ -40,7 +40,7 @@ export class Service extends RestService {
     }
 
     getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
     }
 
@@ -49,15 +49,8 @@ export class Service extends RestService {
         return super.list(endpoint, { filter: JSON.stringify(filter) });
     }
 
-    getDeliveryOrderById(id) {
-        var select =["no","_id","items.purchaseOrderExternalNo","items.fulfillments.purchaseOrderNo","items.fulfillments.product._id","items.fulfillments.realizationQuantity"]
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("garment-purchasing");
-        var _serviceUri = `delivery-orders/by-user/${id}`;
-
-        return _endpoint.find(_serviceUri, { "select": select })
-            .then(result => {
-                return result.data;
-            });
+    getGarmentInvoiceById(id){
+        var endpoint = `garment-invoices/${id}`;
+        return super.get(endpoint);
     }
 }

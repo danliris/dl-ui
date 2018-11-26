@@ -44,8 +44,8 @@ export class CostCalculationMaterial {
 
             if (this.data.Category.name.toUpperCase() == 'PROCESS') {
                 this.isProcess = true;
-                this.data.Price = this.data.Price || this.calculateProcessPrice();
-                this.data.Price=this.data.Price .toLocaleString('en-EN', { minimumFractionDigits: 4});
+                this.data.Price = this.calculateProcessPrice();
+                
             }
         }
 
@@ -55,7 +55,6 @@ export class CostCalculationMaterial {
                 this.productCodeIsExist = true;
             }
             if (this.data.Product.Composition) {
-                console.log(this.data.Product.Composition);
                 this.data.Product.Composition = this.data.Product.Composition;
                 this.compositionIsExist = true;
                 this.selectedComposition = Object.assign({}, this.data.Product);
@@ -441,8 +440,9 @@ uomView =(uom)=>{
             }
         }
         let budgetQuantity = this.data.Quantity && this.data.Conversion ? this.data.Quantity * this.data.QuantityOrder / this.data.Conversion + allowance * this.data.Quantity * this.data.QuantityOrder / this.data.Conversion : 0;
-        budgetQuantity = numeral(budgetQuantity).format();
-        this.data.BudgetQuantity = numeral(budgetQuantity).value();
+        budgetQuantity = Math.ceil(budgetQuantity);
+        this.data.BudgetQuantity = Math.ceil(budgetQuantity);
+        console.log(Math.ceil(budgetQuantity));
         return budgetQuantity;
     }
 }

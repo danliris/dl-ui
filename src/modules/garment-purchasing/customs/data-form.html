@@ -9,43 +9,57 @@
             <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
         </div>
-
+        <au-checkbox label="Apakah BCDL?" value.bind="data.isBCDL" change.delegate="isBCDLChanged($event)" 
+        read-only.bind="readOnly ||isEdit" options.bind="controlOptions">
+    </au-checkbox>
+    <au-autocomplete 
+            value.bind="beacukai" 
+            error.bind="error.beacukaiNo" 
+            label="Data BC" 
+            loader.bind="customsLoader"
+            placeholder="Pilih BC" 
+            read-only.bind="readOnlyNoBCDL" 
+            show.bind="readOnlyBCDL "
+            text.bind="customsView"
+            view-model.ref="beacukaiAU"
+            options.bind="controlOptions">
+        </au-autocomplete>  
         <au-textbox 
             label="Nomor Bea Cukai" 
-            value.bind="data.no"
-            error.bind="error.no"
-            read-only.bind="readOnly"
+            value.bind="data.beacukaiNo"
+            error.bind="error.beacukaiNo"
+            read-only.bind="readOnlyBCDL "
             options.bind="controlOptions">
         </au-textbox>
-
+        
         <au-dropdown
             label="Tipe Bea Cukai"
-            value.bind="data.customsType"
-            error.bind="error.customsType"
-            read-only.bind="readOnly"
+            value.bind="data.customType"
+            error.bind="error.customType"
+            read-only.bind="readOnlyBCDL "
             items.bind="typeCustoms"
             options.bind="controlOptions">
         </au-dropdown>
-
+<!-- 
         <au-textbox 
             label="Asal Bea Cukai" 
             value.bind="data.customsOrigin"
             read-only.bind="readOnly"
             options.bind="controlOptions">
-        </au-textbox>
+        </au-textbox> -->
 
         <au-datepicker  
             label="Tanggal Bea Cukai" 
-            value.bind="data.customsDate"
-            error.bind="error.customsDate" 
-            read-only.bind="readOnly"
+            value.bind="data.beacukaiDate"
+            error.bind="error.beacukaiDate" 
+            read-only.bind="readOnlyBCDL "
             options.bind="controlOptions">
         </au-datepicker >
 
         <au-datepicker 
             label="Tanggal Pengesahan" 
-            value.bind="data.validateDate"
-            error.bind="error.validateDate" 
+            value.bind="data.validationDate"
+            error.bind="error.validationDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker >
@@ -56,18 +70,17 @@
             label="Supplier" 
             loader.bind="supplierLoader"
             placeholder="Cari Supplier" 
-            read-only.bind="readOnly" 
+            read-only.bind="readOnly || isEdit" 
             change.delegate="supplierChange($event)" 
-            key="_id" 
-            text="name"
+            text.bind="supplierView"
             options.bind="controlOptions">
         </au-autocomplete>
 
             <!--text.bind="textFormatter"-->
         <au-numeric  
             label="Jumlah Kemasan" 
-            value.bind="data.amountOfPackaging"
-            error.bind="error.amountOfPackaging"
+            value.bind="data.packagingQty"
+            error.bind="error.packagingQty"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-numeric>
@@ -115,11 +128,10 @@
             value.bind="data.currency"
             error.bind="error.currency"
             loader.bind="currencyLoader"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             change.delegate="currencyChange($event)"
-            key="symbol"
-            text="code"
-            if.bind="isSupplier"
+            text.bind="currencyView"
+            show.bind="data.supplier"
             options.bind="controlOptions"     
           ></au-autocomplete>
             <!--item-template="modules/garment-purchasing/customs/template/currency"-->

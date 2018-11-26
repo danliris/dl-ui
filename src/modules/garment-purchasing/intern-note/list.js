@@ -6,15 +6,15 @@ var moment = require("moment");
 @inject(Router, Service)
 export class List {
     columns = [
-        { field: "no", title: "No. Surat Perintah Bayar" },
+        { field: "inNo", title: "No. Nota Intern" },
         {
-            field: "date", title: "Tanggal Surat Perintah Bayar",
+            field: "inDate", title: "Tanggal Nota Intern",
             formatter: (value, data) => {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Supplier" },
-        { field: "invoiceNoteNo", title: "List No. Invoice" }
+        { field: "supplier.Name", title: "Supplier" },
+        { field: "items", title: "List No. Invoice" }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -40,20 +40,29 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "no", "supplier.name", "hasUnitReceiptNote", "items.no"],
+            select: ["inDate", "inNo", "supplier.Name", "items.garmentInvoice.invoiceNo"],
             order: order
         };
 
         return this.service.search(arg)
             .then(result => {
+                var data = {}
+                data.total = result.info.total;
+                data.data = result.data;
+                data.data.forEach(s => {
+                    s.items.toString = function () {
+                        var str = "<ul>";
+                        for (var item of s.items) {
+                            str += `<li>${item.garmentInvoice.invoiceNo}</li>`;
+                        }
+                        str += "</ul>";
+                        return str;
+                    }
+                });
                 for (var _data of result.data) {
-                    var invoiceNo = _data.items.map(function (item) {
-                        return `<li>${item.no}</li>`;
-                    });
-                    invoiceNo = invoiceNo.filter(function (elem, index, self) {
-                        return index == self.indexOf(elem);
-                    })
-                    _data.invoiceNoteNo = `<ul>${invoiceNo.join()}</ul>`;
+                    _data.INNo = _data.inNo;
+                    _data.INDate = _data.inDate;
+                    _data.SupplierName = _data.supplier.Name;
                 }
                 return {
                     total: result.info.total,
@@ -75,18 +84,38 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }
 
+	checkStatus(items) {
+        var isCetak = true;
+        for(var item of items){
+            for(var detail of item.details){
+                var receiptQuantityTotal = 0;
+                var deliveryOrderItems = detail.deliveryOrder.items || [];
+                for(var deliveryOrderItem of deliveryOrderItems){
+                    for(var deliveryOrderDetail of deliveryOrderItem.fulfillments){
+                        receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                    }
+                }
+                if(receiptQuantityTotal === 0){
+                    isCetak = false;
+                }
+            }
+        }
+		return isCetak;
+	}
+
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
-                return data.hasUnitReceiptNote;
+            //console.log(data);
+                return this.checkStatus(data.items);
             default:
                 return true;
         }

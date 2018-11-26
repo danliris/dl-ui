@@ -36,30 +36,41 @@ export class Create {
     }
 
     save(event) {
-        if (this.data.customsDate == "undefined") {
-            delete this.data.customsDate;
+        if (this.data.beacukaiDate == "undefined") {
+            delete this.data.beacukaiDate;
         }
-        if (this.data.validateDate == "undefined") {
-            delete this.data.validateDate;
+        if (this.data.validationDate == "undefined") {
+            delete this.data.validationDate;
         }
-        if(this.data.customsDate && this.data.customsDate !== "")
-            this.data.customsDate = moment(this.data.customsDate).format("YYYY-MM-DD");
-        if(this.data.validateDate && this.data.validateDate !== "")
-            this.data.validateDate = moment(this.data.validateDate).format("YYYY-MM-DD");
+        if(this.data.beacukaiDate && this.data.beacukaiDate !== "")
+            this.data.beacukaiDate = moment(this.data.beacukaiDate).format("YYYY-MM-DD");
+        if(this.data.validationDate && this.data.validationDate !== "")
+            this.data.validationDate = moment(this.data.validationDate).format("YYYY-MM-DD");
         var dataCustoms = Object.assign({}, this.data);
         var items = [];
+      
         var isSelectedData = false;
         if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.length > 0){
+        //    console.log(dataCustoms.deliveryOrders);
             this.item = "";
             for(var a of dataCustoms.deliveryOrders){
                 if(a && a.selected){
-                    items.push(a);
+                    var deliveryOrder={};
+                    deliveryOrder.doNo=a.doNo;
+                    deliveryOrder.Id=a.Id;
+                    deliveryOrder.doDate=a.doDate;
+                    deliveryOrder.totalAmount=a.totalAmount;
+                    deliveryOrder.arrivalDate=a.arrivalDate;
+                    items.push({deliveryOrder : deliveryOrder});
                     isSelectedData = true;
                 }
+                items.quantity=a.quantity;
             }
-            dataCustoms.deliveryOrders = items;
+            dataCustoms.items = items;
         }
+   
         if(isSelectedData){
+            console.log(dataCustoms);
             this.service.create(dataCustoms)
                 .then(result => {
                     alert("Data berhasil dibuat");

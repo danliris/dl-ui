@@ -57,8 +57,8 @@ export class Service extends RestService {
 
     searchPackingReceipts(info) {
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("production");
-        var _serviceUri = `inventory/packing-receipts`;
+        var _endpoint = config.getEndpoint("production-azure");
+        var _serviceUri = `finishing-printing/packing-receipt`;
 
         return _endpoint.find(_serviceUri, info)
             .then(result => {
@@ -77,12 +77,12 @@ export class Service extends RestService {
             });
     }
 
-    searchProducts(info) {
+    searchProducts(productIds) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/products`;
+        var _serviceUri = `master/products/byId`;
 
-        return _endpoint.find(_serviceUri, info)
+        return _endpoint.find(_serviceUri, { productIds })
             .then(result => {
                 return result.data;
             });

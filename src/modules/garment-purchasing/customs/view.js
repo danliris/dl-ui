@@ -17,6 +17,7 @@ export class View {
   async activate(params) {
     this.hasView = true;
     var locale = 'id-ID';
+    this.readOnlyBCDL=true;
     var moment = require('moment');
     moment.locale(locale);
     var id = params.id;
@@ -26,44 +27,31 @@ export class View {
     var isCreated = {};
     var unitReceiptNotesDeliveryOrderNo = []; // get DeliveryOrderNo
 
-    for (var data of this.data.deliveryOrders) {
-      unitReceiptNotesDeliveryOrderNo.push(data.no);
+    for (var data of this.data.items) {
+      unitReceiptNotesDeliveryOrderNo.push(data.deliveryOrder.Id);
     }
-
-    var filter = {
-      "deliveryOrderNo": { $in: unitReceiptNotesDeliveryOrderNo }
-    };
-
-    var arg = {
-      select: ["deliveryOrderId", "deliveryOrderNo"],
-      filter: JSON.stringify(filter),
-    }
-
-    isCreated = await this.service.isCreatedOfUnitReceiptNotes(arg); // search
-
-    if (isCreated.data.length > 0) {
-      this.hasEdit = false;
-      this.hasDelete = false;
-    }
-    //
-
-    console.log(this.data);
-    for (var a of this.data.deliveryOrders) {
+    isCreated = await this.service.isCreatedOfUnitReceiptNotes(unitReceiptNotesDeliveryOrderNo); // search
+ 
+    // if (isCreated > 0) {
+    //   this.hasEdit = false;
+    //   this.hasDelete = false;
+    // }
+    
+this.data.deliveryOrders= this.data.items;
+ 
+   
+    for (var a of this.data.items) {
       a["selected"] = true;
-      var quantity = 0;
-      var totPrice = 0;
-      for (var b of a.items) {
-        for (var c of b.fulfillments) {
-          quantity += c.deliveredQuantity;
-          var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
-          totPrice += priceTemp;
-        }
-      }
-      a["quantity"] = quantity;
-      a["price"] = totPrice;
+      a["isView"]=false;
+      a["doNo"]=a.deliveryOrder.doNo;
+      a["doDate"]=a.deliveryOrder.doDate;
+      a["arrivalDate"]=a.deliveryOrder.arrivalDate;
+      a["quantity"] = a.quantity;
+      a["price"] = a.deliveryOrder.totalAmount;
     }
-    this.data.customsDate = moment(this.data.customsDate).format("YYYY-MM-DD");
-    this.data.validateDate = moment(this.data.validateDate).format("YYYY-MM-DD");
+
+    this.data.beacukaiDate = moment(this.data.beacukaiDate).format("YYYY-MM-DD");
+    this.data.validationDate = moment(this.data.validationDate).format("YYYY-MM-DD");
   }
 
   cancel(event) {

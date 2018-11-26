@@ -5,6 +5,7 @@ export class DeliveryOrder {
     this.data = context.data;
     this.options = context.options; 
     this.context = context;
+  console.log(this.data);
   }
 
   controlOptions = {
@@ -20,6 +21,7 @@ export class DeliveryOrder {
       if(selectedData){
         this.context.context.options += this.data.price;
         console.log(this.context.context.options);
+        console.log(this.context);
       }else{
         this.context.context.options -= this.data.price;
         console.log(this.context.context.options);
