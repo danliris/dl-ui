@@ -168,6 +168,7 @@
                 <au-checkbox 
                     label="Apakah kena Pph?" 
                     value.bind="data.Supplier.usetax"  
+                    if.bind="data.Supplier.usetax"
                     read-only.bind="true"
                      options.bind="controlOptions">
                 </au-checkbox>
