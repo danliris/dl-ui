@@ -93,7 +93,7 @@ export class DeliveryOrderItem {
     
     if (this.options.supplierCode && this.options.useIncomeTax == false && this.options.useVat== false) {
      
-          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode };
+          return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":false, "useIncomeTax":false};
          
          }
          else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat== false)
