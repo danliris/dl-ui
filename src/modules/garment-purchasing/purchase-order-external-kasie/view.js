@@ -62,6 +62,7 @@ export class View {
         }
         if (this.data.IsCanceled || this.data.IsClosed) {
             this.hasUnpost = false;
+            this.hasCancelPo = false;
         }
 
         if(this.data.Supplier){

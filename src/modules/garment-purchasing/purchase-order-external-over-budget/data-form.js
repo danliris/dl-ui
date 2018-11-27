@@ -55,6 +55,7 @@ export class DataForm {
         { title: "Jumlah Beli", field: "dealQuantity" },
         { title: "Jumlah Kecil", field: "quantityConversion" },
         { title: "Konversi", field: "quantityConversion" },
+        { title: "Harga Budget", field: "budgetPrice" },
         { title: "Harga Satuan", field: "pricePerDealUnit" },
         // { title: "Include Ppn?", field: "roNo" },
         { title: "Keterangan", field: "remark" },
@@ -147,12 +148,12 @@ export class DataForm {
                     dealUom: data.DealUom,
                     budgetPrice: Number(data.BudgetPrice).toFixed(4),
                     priceBeforeTax: Number(data.BudgetPrice).toFixed(4),
-                    pricePerDealUnit: Number(data.BudgetPrice).toFixed(4),
+                    pricePerDealUnit: Number(data.PricePerDealUnit).toFixed(4),
                     isOverBudget: data.IsOverBudget,
                     uomConversion: data.SmallUom.Unit,
                     quantityConversion: Number(data.SmallQuantity).toFixed(2),
                     conversion: data.Conversion,
-                    remark: data.Remark
+                    remark: data.OverBudgetRemark
                 });
                 totalQty+=data.DefaultQuantity;
             }

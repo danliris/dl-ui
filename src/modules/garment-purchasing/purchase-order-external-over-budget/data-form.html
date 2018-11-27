@@ -76,10 +76,10 @@
                      options.bind="controlOptions">
                 </au-checkbox>
 
-                <au-textbox value.bind="selectedIncomeTax"  label="Pph"  key="" read-only.bind="readOnly" options.bind="controlOptions">
+                <au-textbox value.bind="selectedIncomeTax"  label="Pph" if.bind="data.IsIncomeTax"  key="" read-only.bind="readOnly" options.bind="controlOptions">
                 </au-textbox>
 
-                <numeric label="Rate Pph" value.bind="data.IncomeTax.Rate" format="0" read-only.bind="true" post-fix="%">
+                <numeric label="Rate Pph" value.bind="data.IncomeTax.Rate" if.bind="data.IsIncomeTax" format="0" read-only.bind="true" post-fix="%">
                 </numeric>
 
                 <au-checkbox label="Apakah kena Ppn?" value.bind="data.IsUseVat"  read-only.bind="readOnly"
