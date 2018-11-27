@@ -15,23 +15,10 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.isUseVat = this.data.useVat;
-        this.isUseIncomeTax = this.data.useIncomeTax;
-        if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
-        }
+        this.deliveryOrder = { doNo:this.data.DONo};
     }
 
-    list() {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
-    }
-
-    showDetail(item) {
-        if (item.showDetails)
-            item.showDetails = false;
-        else
-            item.showDetails = true;
     }
 }
