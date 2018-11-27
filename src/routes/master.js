@@ -578,6 +578,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: 'machine-spinning',
+        name: 'machine-spinning',
+        moduleId: './modules/master/machine-spinning/index',
+        nav: true,
+        title: 'Mesin Spinning',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 
 ]
 
