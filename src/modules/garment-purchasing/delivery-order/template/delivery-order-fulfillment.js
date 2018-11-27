@@ -20,7 +20,7 @@ export class DeliveryOrderItem {
     this.hasEdit = this.context.context.options.hasEdit;
     this.hasCreate = this.context.context.options.hasCreate;
     this.hasEdit = this.context.context.options.hasEdit;
-    this.data.isSave=false;
+    // this.data.isSave=false;
     this.isEdit = this.context.context.options.isEdit || false;
     if (this.data) {
       if(this.context.context.options.hasCreate){
@@ -42,8 +42,7 @@ export class DeliveryOrderItem {
         this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN',  { minimumFractionDigits: 4 });}
       if(this.data.dealQuantity){
         this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 10 });}
-
-      this.selectedDealUom = this.data.purchaseOrderUom;
+      // this.selectedDealUom = this.data.purchaseOrderUom;
     
     } else {
       this.data.doQuantity = 0;
@@ -68,37 +67,23 @@ export class DeliveryOrderItem {
     return `${product.Code} - ${product.Name}`
   }
 
-  get uomLoader() {
-    return UomLoader;
-  }
-
-  uomView = (uom) => {
-    return uom.unit ? uom.unit : uom.Unit;
-  }
-
-  selectedDealUomChanged(newValue) {
-    if (newValue._id || newValue.Id ) {
-      if (newValue.Unit)
-        if (this.data.purchaseOrderUom.Unit == newValue.Unit) {
-          this.data.conversion = 1;
-        } else {
-          this.data.conversion = 0;
-        }
-        this.data.purchaseOrderUom=newValue;
-    }
-  }
-
   doQuantityChanged(newValue) {
     if(!this.error){
       this.error={};
     }
     if (typeof newValue === "number" && !this.context.context.options.hasView) {
-      if(this.data.dealQuantity<newValue){
-        this.isWarning=true;
-        this.data.doQuantity=newValue;
-      } else {
+      if(newValue==0){
+        this.error.doQuantity = "DoQuantity harus > 0";
+        this.data.doQuantity = newValue;
         this.isWarning=false;
+      } else {
+        if(this.data.dealQuantity<newValue){
+          this.isWarning=true;
+        } else {
+          this.isWarning=false;
+        }
         this.data.doQuantity=newValue;
+        this.error.doQuantity=null;
       }
     } else {
       if (this.isWarning) {
@@ -109,6 +94,7 @@ export class DeliveryOrderItem {
       } else {
         this.doQuantity = newValue;
       }
+      this.error.doQuantity=null;
     }
   }
 
@@ -117,14 +103,19 @@ export class DeliveryOrderItem {
       this.error={};
     if(!this.context.context.options.hasView){
       if(this.data.conversion%1>=0){
-        if(!((this.data.conversion.length<=16 && this.data.conversion.indexOf(".")>0) || (this.data.conversion.length<=15 && this.data.conversion.indexOf(".")<0))){
-          this.error.conversion="Konversi tidak boleh lebih dari 15 digit";
-        }
-        else if(this.data.conversion==0 || this.data.conversion=='0'){
-          this.error.conversion="Conversion can not 0";
+        if(this.data.purchaseOrderUom.Unit==this.data.smallUom.Unit && this.data.conversion!=1){
+          this.error.conversion="Konversi harus 1";
         }
         else {
-          this.error={};
+          if(!((this.data.conversion.length<=16 && this.data.conversion.indexOf(".")>0) || (this.data.conversion.length<=15 && this.data.conversion.indexOf(".")<0))){
+            this.error.conversion="Konversi tidak boleh lebih dari 15 digit";
+          }
+          else if(this.data.conversion==0 || this.data.conversion=='0'){
+            this.error.conversion="Conversion can not 0";
+          }
+          else {
+            this.error.conversion=null;
+          }
         }
       }
       else {

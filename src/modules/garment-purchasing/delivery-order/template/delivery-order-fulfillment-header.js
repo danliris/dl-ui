@@ -6,10 +6,15 @@ export class DeliveryOrderItemHeader {
     this.data = context.items;
     this.error = context.error;
     this.options = this.context.options;
+    var count = 0;
     this.useVat = this.options.useVat || false;
-    for(var data of this.data){
-      if(data.data.isSave)
-        this.saveAll=true;
+    for(var item of this.context.items){
+      if(item.data.isSave==true){
+        count++;
+      }
+    }
+    if(count>0){
+      this.saveAll=true;
     }
   }
 
