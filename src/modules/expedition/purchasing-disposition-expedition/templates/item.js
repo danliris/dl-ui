@@ -50,8 +50,6 @@ export class Item {
             this.data.incomeTaxVm.name = newValue.Items[0].IncomeTax.name;
             this.data.incomeTaxVm.rate = newValue.Items[0].IncomeTax.rate;
             this.data.incomeTax = newValue.Amount * this.data.incomeTaxVm.rate;
-            this.data.totalAmount = newValue.Amount + this.data.vat;
-            this.data.totalPaid = newValue.Amount;
             this.data.invoiceNo = newValue.InvoiceNo;
             this.data.dispositionId = newValue.Id;
             this.data.dispositionNo = newValue.DispositionNo;
@@ -60,7 +58,10 @@ export class Item {
             this.data.paymentMethod = newValue.PaymentMethod;
             if(this.data.useVat == true){
                 this.data.vat = newValue.Amount * 0.1;
+            } else {
+                this.data.vat = 0;
             }
+            this.data.totalPaid = newValue.Amount + this.data.vat;
             this.data.items= [];
             for (var items of newValue.Items){
                 for (var details of items.Details){
