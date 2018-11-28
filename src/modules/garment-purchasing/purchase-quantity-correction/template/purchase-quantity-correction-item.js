@@ -1,27 +1,24 @@
-import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
-import { BindingSignaler } from 'aurelia-templating-resources';
-import { Service } from './../service';
+import {bindable, computedFrom} from 'aurelia-framework'
 
-
-@inject(Service, BindingEngine, BindingSignaler)
 export class PurchaseQuantityCorrectionItem {
-    constructor(service, bindingSignaler, bindingEngine) {
-        this.service = service;
-        this.signaler = bindingSignaler;
-        this.bindingEngine = bindingEngine;
-    }
-
-    async activate(context) {
+    activate(context) {
         this.data = context.data;
-        this.error = context.error;
         this.options = context.options;
-        this.context = context.context;
-        this.currentQuantity = this.data.quantity;
+        this.error = context.error;
+        this.contextOptions = context.context.options;
+        this.readOnly = this.options.readOnly;
     }
 
-    @bindable currentQuantity;
-    currentQuantityChanged(e) {
-        this.data.quantity = this.currentQuantity;
-        this.data.priceTotal = parseFloat((this.currentQuantity * this.data.pricePerUnit).toFixed(2));
+    @computedFrom("data.Quantity")
+    get priceTotal() {
+                
+        this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
+        
+        return this.data.PriceTotalAfter;
+    }
+
+    set priceTotal(value) {
+        this.data.PriceTotalAfter = value;
+        return this.data.PriceTotalAfter;
     }
 }
