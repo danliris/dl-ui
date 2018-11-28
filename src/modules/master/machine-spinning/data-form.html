@@ -36,6 +36,7 @@
                 value.bind="data.Year"
                 error.bind="error.Year"
                 read-only.bind="readOnly"
+                format="0"
               ></au-numeric>
 
               <au-textbox
@@ -57,13 +58,15 @@
                 value.bind="data.Delivery"
                 error.bind="error.Delivery"
                 read-only.bind="readOnly"
+                format="0,000"
               ></au-numeric>
 
               <au-numeric
-                label="Kapasitas/Jam"
+                label="Kapasitas/Hari"
                 value.bind="data.CapacityPerHour"
                 error.bind="error.CapacityPerHour"
                 read-only.bind="readOnly"
+                format="0,000.00"
               ></au-numeric>
 
               <au-autocomplete 
