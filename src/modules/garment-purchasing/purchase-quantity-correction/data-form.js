@@ -9,8 +9,6 @@ export class DataForm {
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
-    @bindable isUseVat = false;
-    @bindable isUseIncomeTax = false;
 
     constructor(service) {
         this.service = service;
@@ -70,19 +68,6 @@ export class DataForm {
                     return result.data;
                 });
         }
-    }
-
-    @computedFrom("data.Supplier")
-    get supplierIsImport() {
-        if (this.data.Supplier) {
-            console.log(data.Supplier);
-            if (this.data.Supplier.Import)
-                return true
-            else
-                return false
-        }
-        else
-            return false
     }
 
     deliveryOrderChanged(newValue, oldValue) {
