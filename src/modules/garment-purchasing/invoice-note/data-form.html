@@ -33,27 +33,27 @@
             placeholder="masukan nomor Ppn" options.bind="controlOptions">
         </au-textbox>
 
-        <au-datepicker label="Tgl. Ppn" value.bind="data.vatDate" error.bind="error.vatDate" read-only.bind="readOnly" show.bind="data.useVat"
+        <au-datepicker label="Tgl. Ppn" value.bind="data.vatDate" error.bind="error.vatDate" read-only.bind="readOnly || isEdit" show.bind="data.useVat"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-checkbox label="Apakah kena Pph?" value.bind="data.useIncomeTax" error.bind="error.useIncomeTax" change.delegate="useIncomeTaxChanged($event)" 
-            read-only.bind="readOnly" options.bind="controlOptions">
+            read-only.bind="readOnly || isEdit" options.bind="controlOptions">
         </au-checkbox>
-
-        <au-textbox label="Nomor Pph" value.bind="data.incomeTaxNo" error.bind="error.incomeTaxNo" read-only.bind="readOnly" show.bind="data.useIncomeTax"
+        <au-layout error.bind="incometaxno"></au-layout>
+        <au-textbox label="Nomor Pph" value.bind="data.incomeTaxNo" error.bind="error.incomeTaxNo" read-only.bind="readOnly || isEdit" show.bind="data.useIncomeTax"
             placeholder="masukan nomor Pph" options.bind="controlOptions">
         </au-textbox>
-
-        <au-datepicker label="Tgl. Pph" value.bind="data.incomeTaxDate" error.bind="error.incomeTaxDate" read-only.bind="readOnly"
+        <au-layout error.bind="incometaxdate"></au-layout>
+        <au-datepicker label="Tgl. Pph" value.bind="data.incomeTaxDate" error.bind="error.incomeTaxDate" read-only.bind="readOnly || isEdit"
             show.bind="data.useIncomeTax" options.bind="controlOptions">
         </au-datepicker>
-
+       
         <au-autocomplete value.bind="incomeTax" error.bind="error.vat" label="Jenis Pph" loader.bind="vatLoader" text.bind="vatView" placeholder="cari pph" 
-            read-only.bind="readOnly" show.bind="data.useIncomeTax" options.bind="controlOptions" view-model.ref="vatVM">
+            read-only.bind="readOnly || isEdit" show.bind="data.useIncomeTax" options.bind="controlOptions" view-model.ref="vatVM">
         </au-autocomplete>
 
-        <au-checkbox label="Apakah bayar pajak?" value.bind="data.isPayTax" error.bind="error.isPayTax" read-only.bind="readOnly"  
+        <au-checkbox label="Apakah bayar pajak?" value.bind="data.isPayTax" error.bind="error.isPayTax" read-only.bind="readOnly || isEdit"  
             show.bind="data.useVat || data.useIncomeTax" 
             options.bind="controlOptions">
         </au-checkbox>

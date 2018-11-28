@@ -6,15 +6,16 @@ import {activationStrategy} from 'aurelia-router';
 var moment = require('moment');
 
 @inject(Router, Service)
-export class Create {
+export class Edit {
     hasCancel = true;
     hasSave = true;
-
+   
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
     async activate(params) {
+        console.log(this.isEdit);
         var locale = 'id-ID';
         var moment = require('moment');
         this.item = "";
@@ -23,35 +24,42 @@ export class Create {
         this.data = await this.service.getById(id);
         var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.code}`, "currency" : `${this.data.currency.code}` });
         var items = [];
+        this.data.deliveryOrders= this.data.items;
         for(var a of this.data.deliveryOrders){
             a["selected"] = true;
             a["isView"] = true;
-            var quantity = 0;
-            var totPrice = 0;
-            for(var b of a.items){
-                for(var c of b.fulfillments){
-                    quantity += c.deliveredQuantity;
-                    var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
-                    totPrice += priceTemp;
-                }
-            }
-            a["quantity"] = quantity;
-            a["price"] = totPrice;
+            a["doNo"]=a.deliveryOrder.doNo;
+            a["doDate"]=a.deliveryOrder.doDate;
+            a["arrivalDate"]=a.deliveryOrder.arrivalDate;
+            a["quantity"] = a.quantity;
+            a["price"] = a.deliveryOrder.totalAmount;
+            // var quantity = 0;
+            // var totPrice = 0;
+            // for(var b of a.items){
+            //     for(var c of b.fulfillments){
+            //         quantity += c.deliveredQuantity;
+            //         var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
+            //         totPrice += priceTemp;
+            //     }
+            // }
+            // a["quantity"] = quantity;
+            // a["price"] = totPrice;
             items.push(a);
         }
         console.log(dataDelivery);
         for(var a of dataDelivery.data){
             a["selected"] = false;
             a["isView"] = true;
+           
             var quantity = 0;
             var totPrice = 0;
             for(var b of a.items){
-                for(var c of b.fulfillments){
-                    quantity += c.deliveredQuantity;
-                    var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
-                    totPrice += priceTemp;
-                }
-            }
+            //     for(var c of b.fulfillments){
+            //         quantity += c.deliveredQuantity;
+            //         var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
+            //         totPrice += priceTemp;
+            //     }
+             }
             a["quantity"] = quantity;
             a["price"] = totPrice;
             items.push(a);
