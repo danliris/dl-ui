@@ -5,18 +5,17 @@ const serviceUri = 'daily-bank-transactions/mutation/report';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing-azure');
+        super(http, aggregator, config, 'finance');
     }
 
     search(info) {
-        console.log(info);
         let endpoint = `${serviceUri}`;
         // let endpoint = `${serviceUri}?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.list(endpoint, info);
     }
 
     getXls(info) {
-        let endpoint = `${serviceUri}/download?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        let endpoint = `${serviceUri}/download?bankId=${info.bankId}&month=${info.month}&year=${info.year}`;
         return super.getXls(endpoint);
     }
 }

@@ -11,7 +11,7 @@ export class List {
     columns = [
         { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Barang' },
         {
-            field: '_CreatedUTC', title: 'Tanggal', formatter: function (value, data, index) {
+            field: 'CreatedUtc', title: 'Tanggal', formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             },
         },
