@@ -25,7 +25,6 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
-
         this.items = [];
 
         for (let item of this.data.items) {
