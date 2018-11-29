@@ -8,7 +8,7 @@ export const VERIFICATION = {
 
 export const CASHIER = {
     key: 'CASHIER',
-    label: 'Kasir',
+    label: 'Keuangan',
     position: 7, //CASHIER_DIVISION
     positionAutocomplete: 4, //SEND_TO_CASHIER_DIVISION
     code: 'B4',
