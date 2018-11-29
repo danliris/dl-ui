@@ -52,6 +52,7 @@ export class Create {
 
     saveCallback(event) {
         this.data.Details = this.UPOResults.filter((detail) => detail.Select);
+        var dataPrep = this.data;
         this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
             .then(response => {
                 if (response == "ok") {
@@ -89,7 +90,7 @@ export class Create {
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                     .then((result) => {
                         let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-                        
+
                         return resultData;
                     });
             }
@@ -104,15 +105,23 @@ export class Create {
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                     .then((result) => {
                         let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-                        
+
                         return resultData;
                     });
             }
         }
     }
 
+    @computedFrom("selectedBank && selectedSupplier")
+    get isExistBankAndSupplier() {
+        if (this.selectedBank && this.selectedSupplier)
+            return true;
+        else
+            return false;
+    }
+
     @bindable selectedBank;
-    isExistBank = false;
+    // isExistBankAndSupplier = false;
     UPOResults = [];
     currency = "";
     async selectedBankChanged(newVal) {
@@ -128,11 +137,11 @@ export class Create {
             this.UPOResults = await this.service.searchAllByPosition(arg)
                 .then((result) => {
                     let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-                    
+
                     return resultData;
                 });
 
-            this.isExistBank = true;
+            // this.isExistBankAndSupplier = true;
             this.currency = newVal.currency.code;
         } else {
             this.currency = "";

@@ -149,6 +149,6 @@ export class Collection {
   
   checkAllCallBack($event) {
     dispatchCustomEvent("checkall", this.element, $event);
-    console.log($event);
+    //console.log($event);
   }
 }

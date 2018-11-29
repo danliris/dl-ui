@@ -24,7 +24,25 @@
                     options.bind="controlOptions">
         </au-textbox>
 
-        <au-datepicker value.bind="info.dateFrom"
+        <au-dropdown
+            label="Bulan"
+            value.bind="info.month"
+            error.bind="error.month"
+            read-only.bind="readOnly"
+            items.bind="monthList"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown
+            label="Tahun"
+            value.bind="info.year"
+            error.bind="error.year"
+            read-only.bind="readOnly"
+            items.bind="yearList"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <!-- <au-datepicker value.bind="info.dateFrom"
                        label="Tanggal Awal"
                        options.bind="controlOptions"
                        error.bind="error.dateFrom">
@@ -34,7 +52,7 @@
                        label="Tanggal Akhir"
                        options.bind="controlOptions"
                        error.bind="error.dateTo">
-        </au-datepicker>
+        </au-datepicker> -->
 
         <div class="form-group">
             <label for="contact"

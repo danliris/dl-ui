@@ -55,7 +55,7 @@ export class Edit {
         let newData = await this.service.searchAllByPosition(arg)
             .then((result) => {
                 let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-                
+
                 return resultData;
             });
 
@@ -70,6 +70,7 @@ export class Edit {
 
     saveCallback(event) {
         this.data.Details = this.UPOResults.filter((detail) => detail.Select);
+        var dataPrep = this.data;
         this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
             .then(response => {
                 if (response == "ok") {

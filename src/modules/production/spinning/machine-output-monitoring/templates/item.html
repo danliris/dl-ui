@@ -1,0 +1,51 @@
+<template>
+    <tr>
+        <require from="../../../../lib/number-format-value-converter"></require>
+        <td>
+            <au-autocomplete placeholder="pilih akun"
+                             value.bind="data.Machine"
+                             error.bind="error.Machine"
+                             loader.one-time="machineLoader"
+                             text="Code"
+                             read-only.bind="readOnly"
+                             options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td>
+            <au-numeric value.bind="data.Counter"
+                        error.bind="error.Counter"
+                        read-only.bind="readOnly"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.UOM"
+                        error.bind="error.UOM"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>    
+            <au-numeric value.bind="data.Ball"
+                        error.bind="error.Ball"
+                        read-only.bind="true"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.EffPrecentage"
+                        error.bind="error.EffPrecentage"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-1"
+            if.bind="!readOnly">
+            <button class="btn btn-danger pull-right"
+                    click.delegate="onremove(data, $event)">-
+            </button>
+        </td>
+    </tr>
+</template>
