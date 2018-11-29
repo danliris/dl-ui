@@ -450,7 +450,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission:{"*":1 },
+            //permission:{"*":1 },
             iconClass: 'fa fa-dashboard'
         }
     }
