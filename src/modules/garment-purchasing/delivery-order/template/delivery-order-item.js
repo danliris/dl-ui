@@ -118,15 +118,21 @@ export class DeliveryOrderItem {
       this.data.purchaseOrderExternal.Id = newValue.Id;
       this.data.paymentType = newValue.PaymentType;
       this.data.paymentMethod = newValue.PaymentMethod;
+      this.data.paymentDueDays = newValue.PaymentDueDays;
       this.data.currency={};
       this.data.currency.Id = newValue.Currency.Id;
       this.data.currency.Code = newValue.Currency.Code;
       this.data.useVat = newValue.IsUseVat;
       this.data.useIncomeTax = newValue.IsIncomeTax;
       this.data.incomeTax={};
-      this.data.incomeTax.Id = newValue.IncomeTax.Id;
-      this.data.incomeTax.Name = newValue.IncomeTax.Name;
-      this.data.incomeTax.Rate = newValue.IncomeTax.Rate;
+      if(this.data.useIncomeTax==true){
+        this.data.incomeTax.Id = newValue.IncomeTax.Id;
+        this.data.incomeTax.Name = newValue.IncomeTax.Name;
+        this.data.incomeTax.Rate = newValue.IncomeTax.Rate;
+      } else {
+        this.data.incomeTax={};
+      }
+      
       for(var item of newValue.Items){
         var fulfillment = {
           ePOItemId : item.Id,
@@ -146,6 +152,7 @@ export class DeliveryOrderItem {
           product : item.Product,
           smallUom : item.SmallUom,
           purchaseOrderUom : item.DealUom,
+          isSave : false,
         };
         this.data.fulfillments.push(fulfillment);
       }

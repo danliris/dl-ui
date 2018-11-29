@@ -258,8 +258,8 @@ export class DataForm {
                 this.data.supplier = selectedSupplier;
                 this.data.supplierId = selectedSupplier.Id;
                 this.options.supplierCode = selectedSupplier.code;
-                this.options.useVat=selectedSupplier.IncomeTaxes.usevat;
-                this.options.useIncomeTax=selectedSupplier.IncomeTaxes.usetax;
+                this.options.useVat=false;
+                this.options.useIncomeTax=false;
             }
             if (oldValue) {
                 this.data.supplier = {};

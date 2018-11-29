@@ -19,6 +19,7 @@ export class Create {
     bind() {
         this.data = { useIncomeTax: false, useVat: false, items: [] };
         this.error = {};
+        this.incometaxdate="";
     }
 
     cancel(event) {
@@ -40,6 +41,12 @@ export class Create {
         // _data.items = itemToBeSaved;
         console.log(this.data);
         if (validateErrors.length == 0) {
+            if(this.data.useIncomeTax && this.data.incomeTaxDate == "undefined")
+            {
+                this.incometaxdate="Tanggal PPH harus diisi";
+
+            }else
+            {
             this.service.create(this.data)
                 .then(result => {
                     alert("Data berhasil dibuat");
@@ -55,6 +62,7 @@ export class Create {
                 .catch(e => {
                     this.error = e;
                 })
+            }
         }
     }
 
