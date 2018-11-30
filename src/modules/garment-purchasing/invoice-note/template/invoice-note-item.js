@@ -24,20 +24,28 @@ export class DeliveryOrderItem {
     this.service = service;
   }
 
+  @computedFrom("data.Id")
+    get isEdit() {
+        return (this.data.Id || '').toString() != '';
+    }
+
   activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.isShowing = false;
     this.options = context.context.options;
-    console.log(this.options)
+    
+    if(this.data.deliveryOrder){
+      this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+    }
     if (this.data.Id) {
       this.deliveryOrder =  this.data.deliveryOrder.doNo ;
     }
     this.filter={};
     if (this.options.supplierCode && this.options.useIncomeTax == false && this.options.useVat== false) {
      
-      return {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":false, "useIncomeTax":false};
+      this.filter= {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":false, "useIncomeTax":false};
     
     }
     else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat== false)
@@ -62,13 +70,11 @@ export class DeliveryOrderItem {
         this.filter[`doNo == "${Do.data.deliveryOrder.doNo}"`]=false;
 
     }
-    console.log(this.filter);
   }
 
   deliveryOrderChanged(newValue, oldValue) {
     this.data.details = [];
     if (this.deliveryOrder && this.deliveryOrder.Id) {
-    console.log(this.context.context.items )
     
      for(var doItem of newValue.items){
        for(var doFulfillment of doItem.fulfillments)
@@ -82,7 +88,7 @@ export class DeliveryOrderItem {
             pOSerialNumber: doFulfillment.poSerialNumber,
             roNo: doFulfillment.rONo,
             product: doFulfillment.product,
-            uoms: doFulfillment.smallUom,
+            uoms: doFulfillment.purchaseOrderUom,
             doQuantity: doFulfillment.doQuantity,
             pricePerDealUnit: doFulfillment.pricePerDealUnit,
             paymentDueDays: doItem.paymentDueDays,
@@ -97,12 +103,11 @@ export class DeliveryOrderItem {
            
         }
       }
-      console.log(this.filter);
       this.data.Id = this.deliveryOrder.Id;
       this.data.doDate = this.deliveryOrder.doDate;
       this.data.arrivalDate = this.deliveryOrder.arrivalDate;
       this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
-      //console.log(this.data.deliveryOrder.totalAmount)
+      
       this.data.totalAmount=this.deliveryOrder.totalAmount;
       this.data.deliveryOrder=this.deliveryOrder;
     }

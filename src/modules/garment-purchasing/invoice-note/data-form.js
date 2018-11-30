@@ -53,6 +53,11 @@ export class DataForm {
         this.service = service;
     }
 
+    @computedFrom("data.Id")
+    get isEdit() {
+        return (this.data.Id || '').toString() != '';
+    }
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -62,6 +67,14 @@ export class DataForm {
         {
             this.readO=true;
             //this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+        }
+        if(this.data.supplier){
+            this.options.supplierCode = this.data.supplier.Code;      
+        }
+        this.options.useVat=this.data.useIncomeTax;
+        this.options.useIncomeTax=this.data.useVat;
+        if(this.data.currency){
+            this.options.currencyCode = this.data.currency.Code;
         }
     }
     
@@ -233,6 +246,10 @@ export class DataForm {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = "";
+        this.data.incomeTaxName="";
+        this.data.incomeTaxId = 0;
+        this.data.incomeTaxRate=0;
+        //this.incomeTax={};
 
         this.options.useIncomeTax=selectedUseIncomeTax;
         if (!this.data.useIncomeTax && !this.data.useVat) {
@@ -242,12 +259,12 @@ export class DataForm {
             this.context.error.useIncomeTax = "";
         }
             this.data.items.splice(0);
-            this.data.incomeTax={};
-            this.data.incomeTaxNo="";
-            this.data.incomeTaxName="";
-            this.data.incomeTaxId = null;
-            this.data.incomeTaxRate=0;
-            this.options.incomeTaxId = null;
+            // this.data.incomeTax={};
+            // this.data.incomeTaxNo="";
+            // this.data.incomeTaxName="";
+            // this.data.incomeTaxId = 0;
+            // this.data.incomeTaxRate=0;
+            // this.options.incomeTaxId = null;
         
     }
       

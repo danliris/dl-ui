@@ -22,7 +22,11 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
+        this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
         this.vat = this.data.vat;
+
+        
+
         this.data.items.map((items) => {
             items.check = true;
         })

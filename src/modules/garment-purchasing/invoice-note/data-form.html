@@ -28,7 +28,7 @@
         <au-checkbox label="Apakah kena Ppn?" 
             value.bind="data.useVat" error.bind="error.useVat" 
             change.delegate="useVatChanged($event)" 
-            read-only.bind="readOnly" options.bind="controlOptions">
+            read-only.bind="readOnly|| isEdit" options.bind="controlOptions">
         </au-checkbox>
 
         <au-textbox label="Nomor Ppn" 
@@ -45,7 +45,7 @@
 
         <au-checkbox label="Apakah kena Pph?" value.bind="data.useIncomeTax" 
             error.bind="error.useIncomeTax" change.delegate="useIncomeTaxChanged($event)" 
-            read-only.bind="readOnly" options.bind="controlOptions">
+            read-only.bind="readOnly|| isEdit" options.bind="controlOptions">
         </au-checkbox>
 
         <au-textbox label="Nomor Pph" 
@@ -60,9 +60,9 @@
         </au-datepicker>
 
         <au-autocomplete value.bind="incomeTax" 
-            error.bind="error.vat" label="Jenis Pph" 
+            error.bind="error.incomeTax" label="Jenis Pph" 
             loader.bind="vatLoader" text.bind="vatView" placeholder="cari pph" 
-            read-only.bind="readOnly" show.bind="data.useIncomeTax" 
+            read-only.bind="readOnly|| isEdit" show.bind="data.useIncomeTax" 
             options.bind="controlOptions" view-model.ref="vatVM" 
             change.delegate="incomeTaxChanged($event)">
         </au-autocomplete>
