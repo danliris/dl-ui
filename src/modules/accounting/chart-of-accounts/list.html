@@ -29,6 +29,17 @@
   </p> -->
   <h1 class="page-header">Chart of Accounts</h1>
 
+  <div class="btn-group">
+    <button class="btn btn-success"
+            click.delegate="create()">Buat</button>
+    <button class="btn btn-default"
+            click.delegate="upload()">Unggah CSV</button>
+    <button class="btn btn-default"
+            click.delegate="download()">Download Template</button>
+  </div>
+
+  <br></br>
+
   <aubs-accordion close-others.bind="true">
     <aubs-accordion-group repeat.for="item of items">
       <template replace-part="header">
