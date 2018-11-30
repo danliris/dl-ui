@@ -5,7 +5,7 @@
         </td> -->
         <td>
             <au-autocomplete value.bind="deliveryOrder" error.bind="error.deliveryOrder" loader.bind="deliveryOrderLoader"  placeholder="cari nomor surat jalan"
-                text.bind="doView"  query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
+                text.bind="doView"  query.bind="filter" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
             </au-autocomplete>
         </td>
         <td>
@@ -18,7 +18,10 @@
         </td>
         <td>
             <div class="col-sm-7">
-                <au-numeric value.bind="data.deliveryOrder.totalAmount" read-only.bind="true" options.bind="controlOptions">
+                <au-numeric value.bind="data.deliveryOrder.totalAmount" 
+                    read-only.bind="true" 
+                    format="0.00"
+                    options.bind="controlOptions">
                 </au-numeric>
             </div>
             <div class="col-sm-1  pull-right">
