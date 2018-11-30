@@ -31,13 +31,6 @@ export class DataForm {
         }.bind(this),
     };
 
-    invoiceNoteItemReadOnly = {
-        columnsReadOnly: [
-            { header: "Nomor Invoice" },
-            { header: "Tanggal Invoice" },
-            { header: "Total Amount" }]
-    }
-
     auInputOptions = {
         label: {
             length: 4,
@@ -53,6 +46,7 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options = this.options ? this.options : {};
+        //console.log(this.data);
     }
 
     @computedFrom("data.Id")

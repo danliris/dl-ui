@@ -1,4 +1,4 @@
-import { inject, bindable, containerless, BindingEngine } from 'aurelia-framework'
+import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
 var InvoiceNoteLoader = require('../../../../loader/garment-invoice-note-loader')
 
@@ -35,6 +35,7 @@ export class InternNoteItem {
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
 		this.isShowing = false;
+		console.log(this.data.garmentInvoice);
 		this.options = context.context.options;
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
@@ -57,6 +58,21 @@ export class InternNoteItem {
 			return { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode }
 		}
 	}
+	
+	@computedFrom("data.garmentInvoice.Id")
+    get isEdit() {
+        if(this.data.garmentInvoice){
+			if((this.data.garmentInvoice.Id || '').toString() != ''){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+    }
 
 	invoiceChanged(newValue, oldValue) {
 		if(newValue == null){
@@ -102,6 +118,7 @@ export class InternNoteItem {
 							poSerialNumber : detail.pOSerialNumber,
 							roNo : detail.roNo,
 							pricePerDealUnit : detail.pricePerDealUnit,
+							paymentDueDays : detail.paymentDueDays,
 							paymentDueDate : dueDays,
 							deliveryOrder : {
 								Id : garmentInvoiceItem.deliveryOrder.Id,

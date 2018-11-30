@@ -2,7 +2,7 @@
 	<tr>
 		<td>
 			<au-autocomplete value.bind="invoice" error.bind="error.garmentInvoice" loader.bind="invoiceNoteLoader" placeholder="cari nomor invoice"
-			 text.bind="garmentInvoiceView" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
+			 text.bind="garmentInvoiceView" query.bind="filter" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
 		<td>
