@@ -39,7 +39,7 @@ export class Create {
         // });
         // var _data = Object.assign({}, this.data);
         // _data.items = itemToBeSaved;
-        console.log(this.data);
+        
         if (validateErrors.length == 0) {
             if(this.data.useIncomeTax && this.data.incomeTaxDate == "undefined")
             {
@@ -71,7 +71,6 @@ export class Create {
         var errors = []
         
         for (var data of valid.items) {
-            console.log(data);
             var error = {};
             var tempValid;
 

@@ -53,8 +53,12 @@ export class DataForm {
         this.service = service;
     }
 
+    @computedFrom("data.Id")
+    get isEdit() {
+        return (this.data.Id || '').toString() != '';
+    }
+
     bind(context) {
-        console.log(context.data);
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -62,7 +66,15 @@ export class DataForm {
         if(this.data.Id)
         {
             this.readO=true;
-            this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+            //this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+        }
+        if(this.data.supplier){
+            this.options.supplierCode = this.data.supplier.Code;      
+        }
+        this.options.useVat=this.data.useIncomeTax;
+        this.options.useIncomeTax=this.data.useVat;
+        if(this.data.currency){
+            this.options.currencyCode = this.data.currency.Code;
         }
     }
     
@@ -128,7 +140,7 @@ export class DataForm {
     //     this.resetErrorItems();
     // }
 
-    currencyChanged(newValue) {
+    currencyChanged(newValue,oldValue) {
         var selectedCurrency = newValue;
         if (selectedCurrency) {
             if (selectedCurrency.Id) {
@@ -142,15 +154,16 @@ export class DataForm {
         else {
             this.data.currency = null;
         }
+        if(newValue!=oldValue)
+            this.data.items.splice(0);
         this.resetErrorItems();
     }
 
-    incomeTaxChanged(newValue) {
-        console.log(newValue);
+    incomeTaxChanged(newValue,oldValue) {
         var selectedIncomeTax = newValue;
         if (selectedIncomeTax) {
             if (selectedIncomeTax.Id) {
-                this.data.vat = selectedIncomeTax;
+                
                 this.data.incomeTax = selectedIncomeTax;
                 this.data.incomeTaxId = selectedIncomeTax.Id;
                 this.data.incomeTaxRate=selectedIncomeTax.rate;
@@ -164,6 +177,8 @@ export class DataForm {
         else {
             this.data.incomeTax = null;
         }
+        if(newValue!=oldValue)
+             this.data.items.splice(0);
         this.resetErrorItems();
     }
 
@@ -224,12 +239,17 @@ export class DataForm {
         if (this.context.error.useVat) {
             this.context.error.useVat = "";
         }
+        this.data.items.splice(0);
     }
 
     useIncomeTaxChanged(e) {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = "";
+        this.data.incomeTaxName="";
+        this.data.incomeTaxId = 0;
+        this.data.incomeTaxRate=0;
+        //this.incomeTax={};
 
         this.options.useIncomeTax=selectedUseIncomeTax;
         if (!this.data.useIncomeTax && !this.data.useVat) {
@@ -238,6 +258,14 @@ export class DataForm {
         if (this.context.error.useIncomeTax) {
             this.context.error.useIncomeTax = "";
         }
+            this.data.items.splice(0);
+            // this.data.incomeTax={};
+            // this.data.incomeTaxNo="";
+            // this.data.incomeTaxName="";
+            // this.data.incomeTaxId = 0;
+            // this.data.incomeTaxRate=0;
+            // this.options.incomeTaxId = null;
+        
     }
       
     async supplierChanged(newValue, oldValue) {
@@ -249,18 +277,19 @@ export class DataForm {
                 this.options.supplierCode = selectedSupplier.code;
                 this.options.useVat=false;
                 this.options.useIncomeTax=false;
-                
             }
             if (oldValue) {
                 this.data.supplier = {};
                 this.data.supplierId = null;
-                this.data.items = [];
+                this.data.items.splice(0);
             }
         } else {
             this.data.supplier = {};
             this.data.supplierId = null;
-            this.data.items = [];
+            this.data.items.splice(0);
         }
+        if(newValue!=oldValue)
+            this.data.items.splice(0);
         this.resetErrorItems(); 
     }
 

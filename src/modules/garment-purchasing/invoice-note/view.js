@@ -24,12 +24,11 @@ export class View {
         this.data = await this.service.getById(id);
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
-        this.incomeTax= {name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+        this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
         
         this.vat = this.data.vat;
         this.items = this.data.items;
         this.totalData = this.items.length;
-        console.log(this.data);
         for(var item in this.data.items)
         { 
             //this.data.deliveryOrder.totalAmount=item.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});

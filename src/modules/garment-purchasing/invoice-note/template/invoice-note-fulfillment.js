@@ -6,7 +6,8 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    console.log(this.data);
+    this.data.pricePerDealUnit=parseFloat(this.data.pricePerDealUnit).toFixed(4).toLocaleString('en-EN', { maximumFractionDigits: 4,minimumFractionDigits:4});
+    this.data.doQuantity=parseFloat(this.data.doQuantity).toFixed(2).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
   }
 
   get product() {
@@ -16,7 +17,7 @@ export class DeliveryOrderItem {
   }
 
   get totalPrice() {
-    return Number.isInteger(this.data.pricePerDealUnit * this.data.doQuantity) ? this.data.pricePerDealUnit * this.data.doQuantity : Number((this.data.pricePerDealUnit * this.data.doQuantity).toFixed(2))
+    return Number((parseFloat(this.data.pricePerDealUnit) * parseFloat(this.data.doQuantity)).toFixed(2)).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
   }
   
   controlOptions = {
