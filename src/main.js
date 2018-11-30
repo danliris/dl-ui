@@ -31,7 +31,7 @@ export async function configure(aurelia) {
       }
 
       var core = "https://dl-core-api-dev.azurewebsites.net/v1/";
-      var coreAzure ="https://com-danliris-service-core-dev.azurewebsites.net/v1/";
+      var coreAzure = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
       var auth = "https://dl-auth-api-dev.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
       var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites.net/v1/";
@@ -49,7 +49,7 @@ export async function configure(aurelia) {
 
 
       config.registerEndpoint('auth', auth);
-      config.registerEndpoint('core', core); 
+      config.registerEndpoint('core', core);
       config.registerEndpoint('core-azure', coreAzure, defaultConfig);
       config.registerEndpoint('production', production, defaultConfig);
       config.registerEndpoint('purchasing', purchasing, defaultConfig);
@@ -84,6 +84,7 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 5;
     })
     .plugin('aurelia-dragula')
+    .plugin('aurelia-bootstrap')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.
