@@ -35,11 +35,39 @@ export class InternNoteItem {
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
 		this.isShowing = false;
-		console.log(this.data.garmentInvoice);
+		//console.log(this.context.context.items);
 		this.options = context.context.options;
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
-		  }
+		}
+
+		this.filter={};
+		if (this.options.supplierCode && this.options.currencyCode) {
+			
+			this.filter= { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode};
+
+		}
+		// else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat== false)
+		// { 
+
+		// 	this.filter= {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useIncomeTax":this.options.useIncomeTax }
+		// }
+		// else if(this.options.supplierCode && this.options.useVat && this.options.useIncomeTax ==false)
+		// {
+
+		// 	this.filter= {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId }
+		// }
+		// else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat)
+		// {
+
+		// 	this.filter= {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId,"useIncomeTax":this.options.useIncomeTax  }
+
+		// }
+
+		// for(var invoicesNo of this.context.context.items){
+		// 	if(invoicesNo.data.garmentInvoice)
+		// 	this.filter[`invoiceNo == "${Do.data.deliveryOrder.invoiceNo}"`]=false;
+		// }
 	}
 
 	toggle() {
@@ -53,25 +81,16 @@ export class InternNoteItem {
 		return InvoiceNoteLoader;
 	}
 
-	get filter() {
-		if (this.options.supplierCode && this.options.currencyCode) {
-			return { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode }
-		}
-	}
+	// get filter() {
+	// 	if (this.options.supplierCode && this.options.currencyCode) {
+	// 		var HasInternNote = false;
+	// 		return { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode }
+	// 	}
+	// }
 	
-	@computedFrom("data.garmentInvoice.Id")
+	@computedFrom("data.Id")
     get isEdit() {
-        if(this.data.garmentInvoice){
-			if((this.data.garmentInvoice.Id || '').toString() != ''){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		else{
-			return false;
-		}
+        return (this.data.Id || '').toString() != '';
     }
 
 	invoiceChanged(newValue, oldValue) {
