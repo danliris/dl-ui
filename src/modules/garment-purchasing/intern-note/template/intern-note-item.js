@@ -6,7 +6,6 @@ var InvoiceNoteLoader = require('../../../../loader/garment-invoice-note-loader'
 @inject(Service, BindingEngine)
 export class InternNoteItem {
 	@bindable invoice;
-	@bindable items;
 
 	itemsColumns = [
 		{ header: "Nomor Surat Jalan" },
@@ -31,11 +30,10 @@ export class InternNoteItem {
 	items = [];
 
 	async activate(context) {
+		this.context = context;
 		this.data = context.data;
 		this.error = context.error;
-		this.readOnly = context.options.readOnly;
 		this.isShowing = false;
-		//console.log(this.context.context.items);
 		this.options = context.context.options;
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
@@ -43,31 +41,12 @@ export class InternNoteItem {
 
 		this.filter={};
 		if (this.options.supplierCode && this.options.currencyCode) {
-			
-			this.filter= { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode};
-
+			this.filter= { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "currencyCode": this.options.currencyCode};
 		}
-		// else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat== false)
-		// { 
-
-		// 	this.filter= {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useIncomeTax":this.options.useIncomeTax }
-		// }
-		// else if(this.options.supplierCode && this.options.useVat && this.options.useIncomeTax ==false)
-		// {
-
-		// 	this.filter= {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId }
-		// }
-		// else if(this.options.supplierCode && this.options.useIncomeTax  && this.options.useVat)
-		// {
-
-		// 	this.filter= {  "IsInvoice": false,  "supplierCode": this.options.supplierCode,"IsDeleted" :false,"DOCurrencyCode":this.options.currencyCode,"useVat":this.options.useVat,"incomeTaxId":this.options.incomeTaxId,"useIncomeTax":this.options.useIncomeTax  }
-
-		// }
-
-		// for(var invoicesNo of this.context.context.items){
-		// 	if(invoicesNo.data.garmentInvoice)
-		// 	this.filter[`invoiceNo == "${Do.data.deliveryOrder.invoiceNo}"`]=false;
-		// }
+		for(var inv of this.context.context.items){
+			if(inv.data.garmentInvoice)
+				this.filter[`invoiceNo == "${inv.data.garmentInvoice.invoiceNo}"`]=false;
+		}
 	}
 
 	toggle() {
@@ -124,7 +103,7 @@ export class InternNoteItem {
 		this.service.getGarmentInvoiceById(id)
 			.then(garmentInvoice => {
 				this.data.garmentInvoice = garmentInvoice;
-				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice);
+				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2});
 				this.details = [];
 				for(var garmentInvoiceItem of garmentInvoice.items){
 					for(var detail of garmentInvoiceItem.details){
@@ -136,7 +115,7 @@ export class InternNoteItem {
 							ePONo : detail.ePONo,
 							poSerialNumber : detail.pOSerialNumber,
 							roNo : detail.roNo,
-							pricePerDealUnit : detail.pricePerDealUnit,
+							pricePerDealUnit : parseFloat((detail.pricePerDealUnit).toFixed(4)).toLocaleString('id-ID', { maximumFractionDigits: 4,minimumFractionDigits:4}),
 							paymentDueDays : detail.paymentDueDays,
 							paymentDueDate : dueDays,
 							deliveryOrder : {
@@ -147,8 +126,8 @@ export class InternNoteItem {
 								paymentType : garmentInvoiceItem.deliveryOrder.paymentType,
 								items: garmentInvoiceItem.deliveryOrder.items
 							},
-							quantity : detail.doQuantity,
-							priceTotal : prices,
+							quantity : parseFloat((detail.doQuantity).toFixed(2)).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2}),
+							priceTotal : parseFloat((prices).toFixed(2)).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2}),
 							product : detail.product,
 							uomUnit : detail.uoms,
 						};

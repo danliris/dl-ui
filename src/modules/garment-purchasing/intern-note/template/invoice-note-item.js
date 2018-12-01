@@ -4,7 +4,6 @@ export class InvoiceNoteItem {
 		this.data = context.data;
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
-		console.log(this.data.deliveryOrder);
 	}
 
 	get total() {

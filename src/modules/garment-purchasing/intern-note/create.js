@@ -13,6 +13,10 @@ export class Create {
         this.data = {};
     }
 
+    activate(params) {
+
+    }
+
     cancel(event) {
         this.router.navigateToRoute('list');
     }
@@ -26,7 +30,6 @@ export class Create {
     }
 
     save() {
-        //console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
