@@ -44,7 +44,7 @@ export class PurchaseOrderItem {
       }
     }
     this.data.SmallQuantity = parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
-    if(!this.data.UsedBudget)
+    if(!this.data.UsedBudget )
       this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
     else{
       this.data.budgetUsed=this.data.UsedBudget;
