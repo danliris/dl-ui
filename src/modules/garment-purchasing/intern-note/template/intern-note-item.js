@@ -37,6 +37,7 @@ export class InternNoteItem {
 		this.options = context.context.options;
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
+			this.data.garmentInvoice.totalAmount = this.data.garmentInvoice.totalAmount.toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2});
 		}
 
 		this.filter={};
@@ -111,6 +112,7 @@ export class InternNoteItem {
 						var dueDays = new Date(garmentInvoiceItem.deliveryOrder.doDate);
 						dueDays.setDate(dueDays.getDate() + detail.paymentDueDays); 
 						var item = {
+							invoiceDetailId: detail.Id,
 							ePOId : detail.ePOId,
 							ePONo : detail.ePONo,
 							poSerialNumber : detail.pOSerialNumber,
