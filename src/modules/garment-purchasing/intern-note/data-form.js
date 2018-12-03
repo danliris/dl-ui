@@ -31,13 +31,6 @@ export class DataForm {
         }.bind(this),
     };
 
-    invoiceNoteItemReadOnly = {
-        columnsReadOnly: [
-            { header: "Nomor Invoice" },
-            { header: "Tanggal Invoice" },
-            { header: "Total Amount" }]
-    }
-
     auInputOptions = {
         label: {
             length: 4,
@@ -53,6 +46,13 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options = this.options ? this.options : {};
+
+        if(this.data.supplier){
+            this.options.supplierCode = this.data.supplier.Code;      
+        }
+        if(this.data.currency){
+            this.options.currencyCode = this.data.currency.Code;
+        }
     }
 
     @computedFrom("data.Id")
@@ -71,6 +71,19 @@ export class DataForm {
         else
             return false
     }
+    
+    currencyChanged(newValue, oldValue) {
+        var selectedCurrency = newValue;
+
+        if (selectedCurrency) {
+            this.data.currency = selectedCurrency;
+        }
+        else {
+            this.data.currency = null;
+        }
+        this.data.items = [];
+        this.context.error.items = [];
+    }
 
     supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
@@ -85,19 +98,6 @@ export class DataForm {
             this.data.supplierId = null;
             this.data.items = [];
         }
-        this.context.error.items = [];
-    }
-
-    currencyChanged(newValue, oldValue) {
-        var selectedCurrency = newValue;
-
-        if (selectedCurrency) {
-            this.data.currency = selectedCurrency;
-        }
-        else {
-            this.data.currency = null;
-        }
-        this.data.items = [];
         this.context.error.items = [];
     }
 
