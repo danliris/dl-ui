@@ -31,7 +31,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result);
                 var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
@@ -77,9 +76,9 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak Nota Pajak Pph":
-                return data.useVat && data.isPayTax;
-            case "Cetak Nota Pajak Ppn":
                 return data.useIncomeTax && data.isPayTax;
+            case "Cetak Nota Pajak Ppn":
+                return data.useVat && data.isPayTax;
             default:
                 return true;
         }
