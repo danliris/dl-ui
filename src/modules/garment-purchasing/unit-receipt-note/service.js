@@ -5,12 +5,12 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'unit-receipt-notes/by-user';
+const serviceUri = 'garment-unit-receipt-notes';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {

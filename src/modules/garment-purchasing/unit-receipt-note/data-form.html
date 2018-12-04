@@ -9,8 +9,7 @@
 
         <au-textbox
             label="No. Bon Unit"
-            value.bind="data.no"
-            error.bind="error.no"
+            value.bind="data.URNNo"
             read-only.bind="true"
             if.bind="readOnly || isEdit"
             options.bind="auInputOptions">
@@ -18,9 +17,8 @@
 
         <au-datepicker
             label="Tgl. Bon Unit"
-            value.bind="data.date"
-            error.bind="error.date"
-            read-only.bind="readOnly"
+            value.bind="data.ReceiptDate"
+            read-only.bind="true"
             if.bind="(readOnly || isEdit)"
             options.bind="auInputOptions">
         </au-datepicker>
@@ -31,7 +29,7 @@
             loader.bind="unitLoader" 
             text.bind="unitView"
             read-only.bind="readOnly"
-            error.bind="error.unit"
+            error.bind="error.Unit"
             placeholder="cari unit"
             options.bind="auInputOptions">
         </au-autocomplete>
@@ -42,7 +40,7 @@
             loader.bind="supplierLoader" 
             text.bind="supplierView"
             read-only.bind="readOnly"
-            error.bind="error.supplier"
+            error.bind="error.Supplier"
             placeholder="cari supplier"
             options.bind="auInputOptions">
         </au-autocomplete>
@@ -50,37 +48,40 @@
         <au-autocomplete 
             value.bind="deliveryOrder"
             label="Surat Jalan" 
-            loader.bind="deliveryOrderBySupplierLoader" 
+            loader.bind="deliveryOrderLoader" 
             read-only.bind="readOnly"
-            error.bind="error.deliveryOrderId"
+            error.bind="error.DeliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
-            show.bind="data.supplierId"
-            text="no"
+            show.bind="data.Supplier && data.Unit"
+            text="doNo"
             placeholder="cari surat jalan"
             view-model.ref="deliveryOrderAU">
         </au-autocomplete>
+
         <au-checkbox 
-                label="Simpan ke gudang?" 
-                value.bind="data.useStorage" 
-                error.bind="error.useStorage" 
-                change.delegate="useStorageChanged($event)"
-                read-only.bind="readOnly"
-                options.bind="auInputOptions">
-            </au-checkbox>
-    
-            <au-autocomplete 
-                label="Storage" 
-                value.bind="storage" 
-                loader.bind="storageLoader"
-                error.bind="error.storage" 
-                read-only.bind="readOnly"
-                query.bind="filterUnit"
-                placeholder="cari nama storage" 
-                text.bind="storageView"
-                show.bind="data.useStorage && data.deliveryOrderId"
-                options.bind="auInputOptions">
-            </au-autocomplete>
+            label="Simpan ke gudang?" 
+            value.bind="data.IsStorage" 
+            error.bind="error.IsStorage" 
+            change.delegate="isStorageChanged($event)"
+            read-only.bind="readOnly"
+            options.bind="auInputOptions">
+        </au-checkbox>
+
+        <au-autocomplete 
+            label="Storage" 
+            value.bind="storage" 
+            loader.bind="storageLoader"
+            error.bind="error.Storage" 
+            read-only.bind="readOnly"
+            query.bind="filterUnit"
+            placeholder="cari nama storage" 
+            text.bind="storageView"
+            show.bind="data.IsStorage && data.DOId"
+            options.bind="auInputOptions"
+            view-model.ref="storageAU">
+        </au-autocomplete>
+
         <au-multiline 
             label="Keterangan"
             value.bind="data.remark"
@@ -90,11 +91,17 @@
             options.bind="auInputOptions">
         </au-multiline>
 
+        <au-textbox
+            read-only.bind="true"
+            if.bind="error.ItemsCount"
+            error.bind="error.ItemsCount">
+        </au-textbox>
+
         <au-collection 
-            items.bind="data.items" 
+            items.bind="data.Items" 
             columns.bind="deliveryOrderItem.columns"
             remove.bind="deliveryOrderItem.onRemove"
-            errors.bind="error.items"
+            errors.bind="error.Items"
             read-only.bind="readOnly"
             item-template="modules/garment-purchasing/unit-receipt-note/template/delivery-order-item"
             show.bind="deliveryOrder">
