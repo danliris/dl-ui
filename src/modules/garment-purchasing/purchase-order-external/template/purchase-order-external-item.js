@@ -131,8 +131,9 @@ export class PurchaseOrderItem {
   }
 
   priceChanged(e) {
-    if(e.srcElement)
-      this.data.budgetUsed=parseFloat(e.srcElement.value)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
+    console.log(e.detail)
+    if(e.detail)
+      this.data.budgetUsed=parseFloat(e.detail)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
     else{
       this.data.budgetUsed=parseFloat(this.data.PricePerDealUnit)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
     }
