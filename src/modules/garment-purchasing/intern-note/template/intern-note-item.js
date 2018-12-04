@@ -1,4 +1,4 @@
-import { inject, bindable, containerless, BindingEngine } from 'aurelia-framework'
+import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
 var InvoiceNoteLoader = require('../../../../loader/garment-invoice-note-loader')
 
@@ -6,7 +6,6 @@ var InvoiceNoteLoader = require('../../../../loader/garment-invoice-note-loader'
 @inject(Service, BindingEngine)
 export class InternNoteItem {
 	@bindable invoice;
-	@bindable items;
 
 	itemsColumns = [
 		{ header: "Nomor Surat Jalan" },
@@ -31,14 +30,24 @@ export class InternNoteItem {
 	items = [];
 
 	async activate(context) {
+		this.context = context;
 		this.data = context.data;
 		this.error = context.error;
-		this.readOnly = context.options.readOnly;
 		this.isShowing = false;
 		this.options = context.context.options;
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
-		  }
+			this.data.garmentInvoice.totalAmount = this.data.garmentInvoice.totalAmount.toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2});
+		}
+
+		this.filter={};
+		if (this.options.supplierCode && this.options.currencyCode) {
+			this.filter= { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "currencyCode": this.options.currencyCode};
+		}
+		for(var inv of this.context.context.items){
+			if(inv.data.garmentInvoice)
+				this.filter[`invoiceNo == "${inv.data.garmentInvoice.invoiceNo}"`]=false;
+		}
 	}
 
 	toggle() {
@@ -52,11 +61,17 @@ export class InternNoteItem {
 		return InvoiceNoteLoader;
 	}
 
-	get filter() {
-		if (this.options.supplierCode && this.options.currencyCode) {
-			return { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode }
-		}
-	}
+	// get filter() {
+	// 	if (this.options.supplierCode && this.options.currencyCode) {
+	// 		var HasInternNote = false;
+	// 		return { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode }
+	// 	}
+	// }
+	
+	@computedFrom("data.Id")
+    get isEdit() {
+        return (this.data.Id || '').toString() != '';
+    }
 
 	invoiceChanged(newValue, oldValue) {
 		if(newValue == null){
@@ -89,7 +104,7 @@ export class InternNoteItem {
 		this.service.getGarmentInvoiceById(id)
 			.then(garmentInvoice => {
 				this.data.garmentInvoice = garmentInvoice;
-				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice);
+				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2});
 				this.details = [];
 				for(var garmentInvoiceItem of garmentInvoice.items){
 					for(var detail of garmentInvoiceItem.details){
@@ -97,11 +112,13 @@ export class InternNoteItem {
 						var dueDays = new Date(garmentInvoiceItem.deliveryOrder.doDate);
 						dueDays.setDate(dueDays.getDate() + detail.paymentDueDays); 
 						var item = {
+							invoiceDetailId: detail.Id,
 							ePOId : detail.ePOId,
 							ePONo : detail.ePONo,
 							poSerialNumber : detail.pOSerialNumber,
 							roNo : detail.roNo,
-							pricePerDealUnit : detail.pricePerDealUnit,
+							pricePerDealUnit : parseFloat((detail.pricePerDealUnit).toFixed(4)).toLocaleString('id-ID', { maximumFractionDigits: 4,minimumFractionDigits:4}),
+							paymentDueDays : detail.paymentDueDays,
 							paymentDueDate : dueDays,
 							deliveryOrder : {
 								Id : garmentInvoiceItem.deliveryOrder.Id,
@@ -111,8 +128,8 @@ export class InternNoteItem {
 								paymentType : garmentInvoiceItem.deliveryOrder.paymentType,
 								items: garmentInvoiceItem.deliveryOrder.items
 							},
-							quantity : detail.doQuantity,
-							priceTotal : prices,
+							quantity : parseFloat((detail.doQuantity).toFixed(2)).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2}),
+							priceTotal : parseFloat((prices).toFixed(2)).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2}),
 							product : detail.product,
 							uomUnit : detail.uoms,
 						};

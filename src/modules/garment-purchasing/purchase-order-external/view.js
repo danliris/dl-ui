@@ -8,6 +8,7 @@ export class View {
     hasEdit = false;
     hasDelete = false;
     hasUnpost = false;
+    hasView=true;
 
     constructor(router, service) {
         this.router = router;

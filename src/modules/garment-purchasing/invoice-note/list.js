@@ -9,7 +9,7 @@ export class List {
     columns = [
         { field: "invoiceNo", title: "Nomor Invoice" },
         {
-            field: "InvoiceDate", title: "Tanggal Invoice", formatter: function (value, data, index) {
+            field: "invoiceDate", title: "Tanggal Invoice", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

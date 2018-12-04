@@ -26,8 +26,7 @@ export class Create {
     }
 
     save() {
-        if (typeof this.data.date === 'object')
-            this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
+        this.data.ReceiptDate = new Date(new Date().setHours(0, 0, 0, 0));
 
         this.service.create(this.data)
             .then(result => {

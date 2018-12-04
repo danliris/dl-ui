@@ -75,14 +75,14 @@
             </numeric>
         </td>
         <td>
-            <au-numeric 
+            <numeric 
                 value.bind="data.PricePerDealUnit" 
                 error.bind="error.PricePerDealUnit"
                 change.delegate="priceChanged($event)"
                 read-only.bind="options.readOnly" 
                 options.bind="controlOptions"
-                format="0.00000">
-            </au-numeric>
+                >
+            </numeric>
         </td>
         <td show.bind="context.context.options.checkOverBudget" align="center">
             <au-checkbox 
