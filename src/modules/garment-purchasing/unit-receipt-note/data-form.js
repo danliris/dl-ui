@@ -111,8 +111,8 @@ export class DataForm {
                 this.context.error.Storage = null;
             }
         }
-        this.context.deliveryOrderAU.editorValue = "";
         this.context.storageAU.editorValue = "";
+        this.context.deliveryOrderAU.editorValue = "";
         this.data.DOId = null;
         this.storage = null;
         this.data.IsStorage = false;
@@ -139,8 +139,8 @@ export class DataForm {
                 this.context.error.Storage = null;
             }
         }
-        this.context.deliveryOrderAU.editorValue = "";
         this.context.storageAU.editorValue = "";
+        this.context.deliveryOrderAU.editorValue = "";
         this.data.DOId = null;
         this.storage = null;
         this.data.Storage = null;
