@@ -23,9 +23,9 @@ export class View {
             })
         }
 
-        this.unit = this.data.unit;
-        this.supplier = this.data.supplier;
-        this.deliveryOrder = { "_id": this.data.deliveryOrderId, "no": this.data.deliveryOrderNo };
+        this.unit = this.data.Unit;
+        this.supplier = {Id: this.data.Supplier.Id, code: this.data.Supplier.Code, name: this.data.Supplier.Name};
+        this.deliveryOrder = { Id: this.data.DOId, doNo: this.data.DONo };
     }
 
     cancel(event) {
