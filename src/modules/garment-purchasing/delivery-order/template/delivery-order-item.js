@@ -1,20 +1,13 @@
-import { inject, bindable, containerless, BindingEngine } from 'aurelia-framework'
+import { inject, bindable, containerless, BindingEngine, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
 var PurchaseOrderExternalLoader = require('../../../../loader/garment-purchase-order-external-by-supplier-loader');
 
 @containerless()
-@inject(Service, BindingEngine)
+@inject(BindingEngine, Service)
 export class DeliveryOrderItem {
   @bindable selectedPurchaseOrderExternal;
 
   itemsColumns = [
-    // {
-    //   field: "isSaving", checkbox: true, sortable: false,
-    //   formatter: function (value, data, index) {
-    //       this.checkboxEnabled = !this.isSave;
-    //       return ""
-    //   }
-    // },
     { header: " "},
     { header: "Nomor PR" },
     { header: "Nomor Referensi PR" },
@@ -31,16 +24,23 @@ export class DeliveryOrderItem {
     { header: "Catatan" }
   ]
 
-  constructor(service, bindingEngine) {
-    this.service = service;
+  constructor(bindingEngine, service) {
     this.bindingEngine = bindingEngine;
+    this.service = service;
   }
 
+  @computedFrom("data.purchaseOrderExternal.no")
+    get isEdit() {
+        return (this.data.purchaseOrderExternal.no || '').toString() != '';
+    }
+
   activate(context) {
+    
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
+    
     if(this.data && this.context.context.options.hasCreate){
       if(this.context.context.items[0].data.purchaseOrderExternal.no!=""){
           this.filter = 
@@ -90,36 +90,44 @@ export class DeliveryOrderItem {
       }
     }
     
-    this.isEdit = this.context.options.isEdit || false;
     this.isShowing = false;
     this.isSave = false;
-    if (this.data) {
-      this.selectedPurchaseOrderExternal = this.data.purchaseOrderExternal.no;
-      if (this.data.fulfillments) {
+    if (this.data){
+      if(this.context.context.options.hasCreate){
+        if (this.data.fulfillments) {
+          this.isShowing = true;
+        }
+      } else if(this.context.context.options.hasEdit || this.context.context.options.hasView){
         this.isShowing = true;
-        for(var fulfillments of this.data.fulfillments){
-          fulfillments.currency=this.data.currency;
+        if (this.data.fulfillments) {
+          for(var fulfillments of this.data.fulfillments){
+            fulfillments.currency=this.data.currency;
+          }
         }
       }
+      this.selectedPurchaseOrderExternal = this.data.purchaseOrderExternal;
     }
+    this.context.filter = this.filter;
   }
 
   get purchaseOrderExternalLoader() {
     return PurchaseOrderExternalLoader;
   }
 
-  async selectedPurchaseOrderExternalChanged(newValue) {
-    if (newValue === null) {
+  selectedPurchaseOrderExternalChanged(newValue) {
+    if (newValue == null) {
       this.data.fulfillments = [];
       this.error = {};
       this.isShowing = false;
     } else if (newValue && this.context.context.options.hasCreate) {
+      this.data.fulfillments = [];
+      this.data.purchaseOrderExternal = newValue;
       this.data.purchaseOrderExternal.no = newValue.EPONo;
       this.data.purchaseOrderExternal.Id = newValue.Id;
       this.data.paymentType = newValue.PaymentType;
       this.data.paymentMethod = newValue.PaymentMethod;
       this.data.paymentDueDays = newValue.PaymentDueDays;
-      this.data.currency={};
+      this.data.currency = {};
       this.data.currency.Id = newValue.Currency.Id;
       this.data.currency.Code = newValue.Currency.Code;
       this.data.useVat = newValue.IsUseVat;
@@ -195,7 +203,12 @@ export class DeliveryOrderItem {
   }
 
   purchaseOrderExternalView = (purchaseOrderExternal) => {
-    return purchaseOrderExternal.EPONo
+    if(purchaseOrderExternal.EPONo){
+      return purchaseOrderExternal.EPONo;
+    } else {
+      return purchaseOrderExternal.no;
+    }
+    
   }
 
   removeItems = function () {

@@ -20,30 +20,22 @@ export class DeliveryOrderItem {
     this.hasEdit = this.context.context.options.hasEdit;
     this.hasCreate = this.context.context.options.hasCreate;
     this.hasEdit = this.context.context.options.hasEdit;
-    // this.data.isSave=false;
+    this.data.isSave=false;
     this.isEdit = this.context.context.options.isEdit || false;
     if (this.data) {
-      if(this.context.context.options.hasCreate){
-        if(this.data.doQuantity>=0){
-          this.data.doQuantity = Number(this.data.dealQuantity)-Number(this.data.doQuantity);
-          this.doQuantity=this.data.doQuantity;
-        }
-      } else if(!this.context.context.options.hasCreate){
-        if(this.hasEdit){
+        if(this.hasEdit || this.hasView){
           this.data.isSave=true;
         }
-        if(this.data.doQuantity>=0){
-          this.doQuantity=this.data.doQuantity;
+        if(this.error){
+          this.data.isSave=true;
         }
-      }
+      this.doQuantity=this.data.doQuantity;
       if(this.data.conversion){
         this.data.conversion=this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 10 });}
       if(this.data.pricePerDealUnit){
         this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN',  { minimumFractionDigits: 4 });}
       if(this.data.dealQuantity){
         this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 10 });}
-      // this.selectedDealUom = this.data.purchaseOrderUom;
-    
     } else {
       this.data.doQuantity = 0;
     }
@@ -103,7 +95,7 @@ export class DeliveryOrderItem {
       this.error={};
     if(!this.context.context.options.hasView){
       if(this.data.conversion%1>=0){
-        if(this.data.purchaseOrderUom.Unit==this.data.smallUom.Unit && this.data.conversion!=1){
+        if(this.data.purchaseOrderUom.Unit==this.data.smallUom.Unit && Number(this.data.conversion)!=1){
           this.error.conversion="Konversi harus 1";
         }
         else {
@@ -123,7 +115,6 @@ export class DeliveryOrderItem {
       }
       this.data.conversion=e.srcElement.value;
     }
-    // this.data.priceTotal=this.doQuantity*this.conversion;
   }
 
   controlOptions = {
