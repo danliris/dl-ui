@@ -6,8 +6,8 @@ import { Service } from './service';
 @inject(Router, Service)
 export class View {
     hasCancel = true;
-    hasEdit = true;
-    hasDelete = true;
+    hasEdit = false;
+    hasDelete = false;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -26,6 +26,11 @@ export class View {
         this.unit = this.data.Unit;
         this.supplier = {Id: this.data.Supplier.Id, code: this.data.Supplier.Code, name: this.data.Supplier.Name};
         this.deliveryOrder = { Id: this.data.DOId, doNo: this.data.DONo };
+
+        let totalOrderQuantity = this.data.Items.reduce((acc, cur) => acc + cur.OrderQuantity, 0);
+        if (!this.data.IsCorrection || totalOrderQuantity === 0) {
+            this.hasEdit = true;
+        }
     }
 
     cancel(event) {

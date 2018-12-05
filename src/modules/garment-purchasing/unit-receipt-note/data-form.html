@@ -28,7 +28,7 @@
             label="Unit" 
             loader.bind="unitLoader" 
             text.bind="unitView"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             error.bind="error.Unit"
             placeholder="cari unit"
             options.bind="auInputOptions">
@@ -39,7 +39,7 @@
             label="Supplier" 
             loader.bind="supplierLoader" 
             text.bind="supplierView"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             error.bind="error.Supplier"
             placeholder="cari supplier"
             options.bind="auInputOptions">
@@ -49,7 +49,7 @@
             value.bind="deliveryOrder"
             label="Surat Jalan" 
             loader.bind="deliveryOrderLoader" 
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             error.bind="error.DeliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
@@ -102,7 +102,7 @@
             columns.bind="deliveryOrderItem.columns"
             remove.bind="deliveryOrderItem.onRemove"
             errors.bind="error.Items"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             item-template="modules/garment-purchasing/unit-receipt-note/template/delivery-order-item"
             show.bind="deliveryOrder">
         </au-collection>
