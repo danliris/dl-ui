@@ -232,5 +232,18 @@ module.exports = [
             permission: { "B4": 1, "B9": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
+    },
+    {
+        route: '/verification/disposition-verification',
+        name: 'disposition-verification',
+        moduleId: './modules/verification/disposition-verification/index',
+        nav: true,
+        title: 'Verifikasi Disposisi',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "C5": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
     }
 ];
