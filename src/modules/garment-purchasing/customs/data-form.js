@@ -94,6 +94,7 @@ export class DataForm {
         this.error = this.context.error;
         this.hasView = this.context.hasView ? this.context.hasView : false;
         this.deliveryOrderColumns = this.hasView ? [
+            
             { header: "No Surat Jalan", value: "no" },
             { header: "Tanggal Surat Jalan", value: "supplierDate" },
             { header: "Tanggal Datang Barang", value: "date" },
@@ -111,14 +112,33 @@ export class DataForm {
         if(this.data.Id)
         {
            
-            if(this.data.billNo == null)
+            var a;
+            for(var i of this.data.deliveryOrders)
             {
+                a=i.isView;break;
+            }
+            console.log(a);
+            if(a===true)
+            {
+                this.options.hasView=true;
+            }else
+            {
+
+                this.options.hasView=false;
+            }
+            if(this.data.billNo != "")
+            {
+                this.showCustoms=false;
                 this.readOnlyBCDL=false;
                 this.data.isBCDL=true; 
-            }else
+            }
+            else 
             {
                 this.readOnlyBCDL=true;
             }
+        }else
+        {
+            this.options.hasView=true;
         }
     }
     @computedFrom("data.Id")
