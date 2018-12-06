@@ -88,7 +88,7 @@ export class DataForm {
                     this.data.UseVat = deliveryOrder.useVat;
                     this.data.UseIncomeTax = deliveryOrder.useIncomeTax;
                     this.data.IncomeTax = deliveryOrder.incomeTax;
-                    console.log(this.data.IncomeTax);
+                    
                     this.data.IncomeTax.toString = function () {
                         return [this.Name, this.Rate]
                             .filter((item, index) => {
