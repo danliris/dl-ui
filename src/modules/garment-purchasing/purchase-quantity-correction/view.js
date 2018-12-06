@@ -16,6 +16,12 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.deliveryOrder = { doNo:this.data.DONo};
+        this.data.IncomeTax.toString = function () {
+            return [this.Name, this.Rate]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
+        }
     }
 
     cancelCallback(event) {
