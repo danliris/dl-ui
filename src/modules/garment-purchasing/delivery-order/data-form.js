@@ -70,8 +70,8 @@ export class DataForm {
             paymentMethod: this.data.paymentMethod,
             isUseVat: this.data.useVat,
             isIncomeTax: this.data.useIncomeTax,
-            incomeTaxName: this.data.incomeTax.Name,
-            incomeTaxRate: this.data.incomeTax.Rate,
+            incomeTaxName: this.data.incomeTax.Name || undefined,
+            incomeTaxRate: this.data.incomeTax.Rate || undefined,
             isEdit: this.isEdit,
             hasView: this.context.hasView,
             hasEdit:this.context.hasEdit,
@@ -83,10 +83,15 @@ export class DataForm {
 
     @computedFrom("data.supplier")
     get supplierType() {
-        if(!this.data.supplier.import)
-        return (this.data.supplier.Import || false) ? "Import" : "Lokal";
-        else
-        return (this.data.supplier.import || false) ? "Import" : "Lokal";
+        if(this.context.hasCreate){
+            if(!this.data.supplier.import)
+            return (this.data.supplier.Import || false) ? "Import" : "Lokal";
+            else
+            return (this.data.supplier.import || false) ? "Import" : "Lokal";
+        } else {
+            return (this.data.shipmentNo || '') ? "Import" : "Lokal";
+        }
+        
     }
 
     @computedFrom("data.supplier")

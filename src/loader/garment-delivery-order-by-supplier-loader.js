@@ -15,7 +15,6 @@ module.exports = function(keyword, filter) {
                             return `${this.doNo}`;
                         }
                         return deliveryOrder;
-                        console.log(deliveryOrder);
                     });
                 });
 }
