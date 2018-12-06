@@ -59,10 +59,9 @@
 
         <au-textbox
             label="Jenis PPH"
-            value.bind="data.IncomeTax.Name"
+            value.bind="data.IncomeTax"
             options.bind="controlOptions"
-            read-only="readOnly"
-            show.bind="data.IncomeTax"
+            read-only="true"
             if.bind="data.UseIncomeTax">
         </au-textbox>
 
