@@ -60,20 +60,24 @@ export class DataForm {
 
     @computedFrom("data.Supplier", "data.Unit")
     get filter() {
-        var filter = {
-            SupplierId: this.data.SupplierId,
-            UnitId: this.data.UnitId
-        };
+        var filter = {};
+        if (this.data.Supplier) {
+            filter.SupplierId = this.data.Supplier.Id;
+        }
+        if (this.data.Unit) {
+            filter.UnitId = this.data.Unit.Id;
+        }
+            
         return filter;
     }
 
     @computedFrom("data.Unit")
     get filterUnit() {
         var storageFilter = {}
-        if (this.data.Unit)
-            var storageFilter = {
-                "UnitName": this.data.Unit.Name,
-            }
+        if (this.data.Unit) {
+            storageFilter.UnitName = this.data.Unit.Name;
+        }
+
         return storageFilter;
     }
 
@@ -96,11 +100,9 @@ export class DataForm {
 
         if (selectedSupplier) {
             this.data.Supplier = selectedSupplier;
-            this.data.SupplierId = selectedSupplier.Id;
         }
         else {
             this.data.Supplier = null;
-            this.data.SupplierId = null;
         }
 
         if (this.context.error) {
@@ -124,11 +126,9 @@ export class DataForm {
 
         if (selectedUnit) {
             this.data.Unit = selectedUnit;
-            this.data.UnitId = selectedUnit.Id;
         }
         else {
             this.data.Unit = null;
-            this.data.UnitId = null;
         }
 
         if (this.context.error) {
@@ -178,9 +178,11 @@ export class DataForm {
 
                     _item.ReceiptQuantity = fulfillment.doQuantity - fulfillment.receiptQuantity;
 
+                    _item.ReceiptCorrection = _item.ReceiptQuantity;
+
                     _item.Uom = fulfillment.purchaseOrderUom;
 
-                    _item.PricePerDealUnit = fulfillment.pricePerDealUnitCorrection;
+                    _item.PricePerDealUnit = fulfillment.pricePerDealUnit;
                     _item.IsCorrection = fulfillment.pricePerDealUnitCorrection != fulfillment.pricePerDealUnit;
 
                     _item.Conversion = fulfillment.conversion;
