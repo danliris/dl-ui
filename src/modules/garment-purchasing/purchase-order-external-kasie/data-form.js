@@ -517,7 +517,7 @@ export class DataForm {
                 else{
                     a.IsOverBudget=false;
                 }
-                console.log(a.IsOverBudget);
+                a.UsedBudget=a.budgetUsed;
             }
         }
     }
@@ -525,7 +525,5 @@ export class DataForm {
     itemsChanged(e){
         this.checkOverBudgetAll();
     }
-
-    
 
 }

@@ -5,24 +5,20 @@ export class DeliveryOrderItem {
 		this.data = context.data;
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
-		if (!this.data.buyer) {
-			this.data.buyer = { name: "" }
+		if (!this.data.Buyer) {
+			this.data.Buyer = { Name: "" }
 		}
 	}
 
 	get product() {
-		return `${this.data.product.code} - ${this.data.product.name}`;
+		return `${this.data.Product.Code} - ${this.data.Product.Name}`;
 	}
 
-	get buyer() {
-		return this.data.buyer.name;
-	}
-
-	get quantityConversion() {
-		return parseFloat((this.data.deliveredQuantity * this.data.conversion).toFixed(2));
+	get SmallQuantity() {
+		return parseFloat((this.data.ReceiptQuantity * this.data.Conversion).toFixed(2));
 	}
 
 	conversionChanged(e) {
-		this.data.quantityConversion = parseFloat((this.data.deliveredQuantity * this.data.conversion).toFixed(2));
+		this.data.SmallQuantity = parseFloat((this.data.ReceiptQuantity * this.data.Conversion).toFixed(2));
 	}
 }

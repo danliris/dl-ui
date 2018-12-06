@@ -18,9 +18,9 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.unit = this.data.unit;
-        this.supplier = this.data.supplier;
-        this.deliveryOrder = { "_id": this.data.deliveryOrderId, "no": this.data.deliveryOrderNo };
+        this.unit = this.data.Unit;
+        this.supplier = {Id: this.data.Supplier.Id, code: this.data.Supplier.Code, name: this.data.Supplier.Name};
+        this.deliveryOrder = { "Id": this.data.DOId, "doNo": this.data.DONo };
     }
 
     cancel(event) {
@@ -28,9 +28,6 @@ export class Edit {
     }
 
     save() {
-        if (typeof this.data.date === 'object')
-            this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
-
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

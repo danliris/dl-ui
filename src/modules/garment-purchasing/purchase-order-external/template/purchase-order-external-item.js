@@ -44,7 +44,7 @@ export class PurchaseOrderItem {
       }
     }
     this.data.SmallQuantity = parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
-    if(!this.data.UsedBudget)
+    if(!this.data.UsedBudget )
       this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
     else{
       this.data.budgetUsed=this.data.UsedBudget;
@@ -131,8 +131,9 @@ export class PurchaseOrderItem {
   }
 
   priceChanged(e) {
-    if(e.srcElement)
-      this.data.budgetUsed=parseFloat(e.srcElement.value)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
+    console.log(e.detail)
+    if(e.detail)
+      this.data.budgetUsed=parseFloat(e.detail)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
     else{
       this.data.budgetUsed=parseFloat(this.data.PricePerDealUnit)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
     }
