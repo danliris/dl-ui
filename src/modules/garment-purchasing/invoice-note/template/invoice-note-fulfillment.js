@@ -6,7 +6,8 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.data.pricePerDealUnit=parseFloat(this.data.pricePerDealUnit).toFixed(4).toLocaleString('en-EN', { maximumFractionDigits: 4,minimumFractionDigits:4});
+   
+    this.data.pricePerDealUnit=(this.data.pricePerDealUnit).toLocaleString('en-EN', { maximumFractionDigits: 4,minimumFractionDigits:4});
     this.data.doQuantity=parseFloat(this.data.doQuantity).toFixed(2).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
   }
 
