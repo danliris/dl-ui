@@ -5,8 +5,8 @@
                 <au-textbox label="Kode" value.bind="data.code" error.bind="error.code" read-only.bind="(readOnly || isEdit)"></au-textbox>
                 <au-textbox label="Nama" value.bind="data.name" error.bind="error.name" read-only.bind="readOnly"></au-textbox>
                 <au-checkbox label="Import" value.bind="data.import" error.bind="error.import" read-only.bind="readOnly"></au-checkbox>
-                <au-checkbox label="Apakah kena PPN ?" value.bind="data.usevat" error.bind="error.usevat" read-only.bind="readOnly"></au-checkbox>
-                <au-checkbox label="Apakah kena PPH ?" value.bind="data.usetax" error.bind="error.usetax" change.delegate="usetaxChanged($event)" read-only.bind="readOnly"></au-checkbox>
+                <au-checkbox label="Apakah kena PPN ?" value.bind="data.usevat" error.bind="error.usevat" read-only.bind="readOnly || isEdit"></au-checkbox>
+                <au-checkbox label="Apakah kena PPH ?" value.bind="data.usetax" error.bind="error.usetax" change.delegate="usetaxChanged($event)" read-only.bind="readOnly || isEdit"></au-checkbox>
                 <au-autocomplete 
                     value.bind="data.IncomeTaxes" 
                     error.bind="error.incometax"
@@ -16,7 +16,7 @@
                     placeholder="cari pph" 
                     key=""
                     if.bind="data.usetax"
-                    read-only.bind="readOnly">
+                    read-only.bind="readOnly || isEdit">
                 </au-autocomplete>
                 <fieldset>
                     <legend>Legal</legend>

@@ -37,7 +37,7 @@ export class InternNoteItem {
 		this.options = context.context.options;
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
-			this.data.garmentInvoice.totalAmount = this.data.garmentInvoice.totalAmount.toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2});
+			this.data.garmentInvoice.totalAmount = this.data.garmentInvoice.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
 		}
 
 		this.filter={};
@@ -60,13 +60,6 @@ export class InternNoteItem {
 	get invoiceNoteLoader() {
 		return InvoiceNoteLoader;
 	}
-
-	// get filter() {
-	// 	if (this.options.supplierCode && this.options.currencyCode) {
-	// 		var HasInternNote = false;
-	// 		return { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "CurrencyCode": this.options.currencyCode }
-	// 	}
-	// }
 	
 	@computedFrom("data.Id")
     get isEdit() {
@@ -104,22 +97,24 @@ export class InternNoteItem {
 		this.service.getGarmentInvoiceById(id)
 			.then(garmentInvoice => {
 				this.data.garmentInvoice = garmentInvoice;
-				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2});
+				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
 				this.details = [];
 				for(var garmentInvoiceItem of garmentInvoice.items){
 					for(var detail of garmentInvoiceItem.details){
 						var prices = detail.doQuantity * detail.pricePerDealUnit;
 						var dueDays = new Date(garmentInvoiceItem.deliveryOrder.doDate);
-						dueDays.setDate(dueDays.getDate() + detail.paymentDueDays); 
-						var item = {
-							invoiceDetailId: detail.Id,
+						dueDays.setDate(dueDays.getDate() + (detail.paymentDueDays - 1)); 
+						var Details = {
 							ePOId : detail.ePOId,
 							ePONo : detail.ePONo,
 							poSerialNumber : detail.pOSerialNumber,
 							roNo : detail.roNo,
-							pricePerDealUnit : parseFloat((detail.pricePerDealUnit).toFixed(4)).toLocaleString('id-ID', { maximumFractionDigits: 4,minimumFractionDigits:4}),
+							pricePerDealUnit : detail.pricePerDealUnit.toLocaleString('en-EN', { maximumFractionDigits: 4,minimumFractionDigits:4}),
+							priceTotal : prices.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2}),
 							paymentDueDays : detail.paymentDueDays,
-							paymentDueDate : dueDays,
+							quantity : detail.doQuantity.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2}),
+							invoiceDetailId: detail.Id,
+							paymentDueDate : new Date(dueDays),
 							deliveryOrder : {
 								Id : garmentInvoiceItem.deliveryOrder.Id,
 								doNo: garmentInvoiceItem.deliveryOrder.doNo,
@@ -128,12 +123,10 @@ export class InternNoteItem {
 								paymentType : garmentInvoiceItem.deliveryOrder.paymentType,
 								items: garmentInvoiceItem.deliveryOrder.items
 							},
-							quantity : parseFloat((detail.doQuantity).toFixed(2)).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2}),
-							priceTotal : parseFloat((prices).toFixed(2)).toLocaleString('id-ID', { maximumFractionDigits: 2,minimumFractionDigits:2}),
 							product : detail.product,
 							uomUnit : detail.uoms,
 						};
-						this.details.push(item);
+						this.details.push(Details);
 					}
 				}
 				this.data.details = this.details;
