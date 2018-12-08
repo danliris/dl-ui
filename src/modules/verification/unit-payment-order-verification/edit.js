@@ -74,7 +74,7 @@ export class Edit {
 
     Submit(context) {
         var Data = this.data;
-
+        Data.UnitPaymentOrderNo = this.data.no;
         this.submitContext.verifiedAlert = context == "VerifiedAlert" ? true : false;
         this.submitContext.position = this.dataExpedition.Position;
 
