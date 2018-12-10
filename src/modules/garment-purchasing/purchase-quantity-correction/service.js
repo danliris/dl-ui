@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-correction-quantity-notes';
-const deliveryOrderServiceUri = 'garment-delivery-orders';
+const deliveryOrderServiceUri = 'garment-delivery-orders/correction-note-quantity';
 const purchaseOrderExternalServiceUri = 'purchase-orders/externals/by-user';
 
 export class Service extends RestService {
@@ -18,7 +18,6 @@ export class Service extends RestService {
     }
 
     searchDeliveryOrder(info) {
-        info.filter = "{ \"BillNo != null\" : true , IsInvoice : true }";
         var endpoint = `${deliveryOrderServiceUri}`;
         return super.list(endpoint, info);
     }
