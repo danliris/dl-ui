@@ -89,6 +89,7 @@ export class DataForm {
        }
     }
     bind(context) {
+        console.log(this.data.billNo);
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -126,16 +127,16 @@ export class DataForm {
 
                 this.options.hasView=false;
             }
-            if(this.data.billNo != "")
+            if(this.data.billNo.includes("BP"))
+            { this.data.isBCDL=false;
+                this.readOnlyBCDL=true;
+                
+            }
+            else
             {
                 this.showCustoms=false;
                 this.readOnlyBCDL=false;
                 this.data.isBCDL=true; 
-            }
-            else 
-            {
-                this.data.isBCDL=true;
-                this.readOnlyBCDL=true;
             }
         }else
         {

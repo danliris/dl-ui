@@ -15,7 +15,7 @@ export class Edit {
         this.service = service;
     }
     async activate(params) {
-        console.log(this.isEdit);
+        
         var locale = 'id-ID';
         var moment = require('moment');
         this.item = "";
