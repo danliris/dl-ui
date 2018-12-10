@@ -9,14 +9,14 @@ export class PurchaseQuantityCorrectionItem {
         this.readOnly = this.options.readOnly;
         this.isFirst = false;
     }
-
+    
     @computedFrom("data.Quantity")
     get priceTotal() {
             if(this.isFirst == true){
                 this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
             }
             else
-           {
+            {
                 this.isFirst = true;
             }
         return this.data.PriceTotalAfter;
