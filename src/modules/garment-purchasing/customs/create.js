@@ -67,8 +67,14 @@ export class Create {
                 items.quantity=a.quantity;
             }
             dataCustoms.items = items;
+        }if(this.data.billNo.includes("BP"))
+        {
+            dataCustoms.billNo=this.data.billNo;
+        }else
+        {
+            dataCustoms.billNo="";
         }
-         dataCustoms.billNo="";
+        
         if(isSelectedData){
             console.log(dataCustoms);
             this.service.create(dataCustoms)
