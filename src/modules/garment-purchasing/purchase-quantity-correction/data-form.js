@@ -71,10 +71,15 @@ export class DataForm {
     }
 
     deliveryOrderChanged(newValue, oldValue) {
+        this.collectionOptions.correction = false;
+
         if (newValue && newValue.Id) {
             this.service.getdeliveryOrderById(newValue.Id)
                 .then(deliveryOrder => {
-                    this.data.CorrectionType = "Jumlah",
+                    this.data.CorrectionType = "Jumlah";
+                    if(deliveryOrder.isCorrection){
+                        this.collectionOptions.correction = true;
+                    }
 
                     this.data.CorrectionDate = new Date(new Date().setHours(0, 0, 0, 0));
 
@@ -116,7 +121,7 @@ export class DataForm {
     
                             correctionNoteItem.Product = detail.product;
     
-                            correctionNoteItem.Quantity = parseFloat((detail.quantityCorrection - detail.receiptQuantity).toFixed(2));
+                            correctionNoteItem.Quantity = parseFloat((detail.quantityCorrection).toFixed(2));
     
                             correctionNoteItem.Uom = detail.purchaseOrderUom;
     
