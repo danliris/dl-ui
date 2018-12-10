@@ -155,7 +155,7 @@ export class List {
             this.service.getReport(arg)
                 .then(result => {
                     return {
-                        total: result.info.count,
+                        total: result.info.Count,
                         data: result.data
                     };
                 })
