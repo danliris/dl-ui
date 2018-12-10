@@ -75,17 +75,17 @@ export class DataForm {
             this.beacukai={};
             this.readOnlyBCDL=false;
             this.readOnlyNoBCDL=true;
-            this.data.beacukaiDate = null;
-            this.data.beacukaiNo = null;
-            this.data.customType=null;
+            this.data.beacukaiDate = undefined;
+            this.data.beacukaiNo = undefined;
+            this.data.customType=undefined;
        }else
        {
-            this.beacukai=null;
+            this.beacukai={};
             this.readOnlyBCDL=true;
             this.readOnlyNoBCDL=false;
-            this.data.beacukaiDate = null;
-            this.data.beacukaiNo = null;
-            this.data.customType=null;
+            this.data.beacukaiDate = undefined;
+            this.data.beacukaiNo = undefined;
+            this.data.customType=undefined;
        }
     }
     bind(context) {
@@ -94,6 +94,7 @@ export class DataForm {
         this.error = this.context.error;
         this.hasView = this.context.hasView ? this.context.hasView : false;
         this.deliveryOrderColumns = this.hasView ? [
+            
             { header: "No Surat Jalan", value: "no" },
             { header: "Tanggal Surat Jalan", value: "supplierDate" },
             { header: "Tanggal Datang Barang", value: "date" },
@@ -111,14 +112,35 @@ export class DataForm {
         if(this.data.Id)
         {
            
-            if(this.data.billNo == null)
+            var a;
+            for(var i of this.data.deliveryOrders)
             {
-                this.readOnlyBCDL=false;
-                this.data.isBCDL=true; 
+                a=i.isView;break;
+            }
+           
+            if(a===true)
+            {
+                this.options.hasView=true;
             }else
             {
+
+                this.options.hasView=false;
+            }
+            if(this.data.billNo != "")
+            {
+                this.showCustoms=false;
+                this.readOnlyBCDL=false;
+                this.data.isBCDL=true; 
+            }
+            else 
+            {
+                this.data.isBCDL=true;
                 this.readOnlyBCDL=true;
             }
+        }else
+        {
+            this.options.hasView=true;
+            this.showCustoms=true;
         }
     }
     @computedFrom("data.Id")

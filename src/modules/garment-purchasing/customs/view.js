@@ -48,6 +48,26 @@ this.data.deliveryOrders= this.data.items;
       a["arrivalDate"]=a.deliveryOrder.arrivalDate;
       a["quantity"] = a.quantity;
       a["price"] = a.deliveryOrder.totalAmount;
+     
+      var isReceipt;
+       
+      for(var item of a.deliveryOrder.items)
+      {
+          for(var detail of item.fulfillments)
+          {
+            if(detail.receiptQuantity >0)
+            {
+              isReceipt =true;
+              break;
+            }
+          }
+      } 
+      if(a.deliveryOrder.isInvoice === true || isReceipt === true)
+      {
+        this.hasEdit = false;
+        this.hasDelete = false;
+      }
+       
     }
 
     this.data.beacukaiDate = moment(this.data.beacukaiDate).format("YYYY-MM-DD");

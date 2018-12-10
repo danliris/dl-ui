@@ -19,7 +19,7 @@
             loader.bind="customsLoader"
             placeholder="Pilih BC" 
             read-only.bind="readOnlyNoBCDL" 
-            show.bind="readOnlyBCDL "
+            show.bind="showCustoms"
             text.bind="customsView"
             view-model.ref="beacukaiAU"
             options.bind="controlOptions">
@@ -149,11 +149,11 @@
             items.bind="data.deliveryOrders"
             errors.bind="error.deliveryOrders" 
             columns.bind="deliveryOrderColumns"
-            options.bind="amount"
+            options.bind="options"
             read-only.bind="true" 
             item-template="modules/garment-purchasing/customs/template/delivery-order"
+            header-template="modules/garment-purchasing/customs/template/delivery-order-header"
             footer-template="modules/garment-purchasing/customs/template/delivery-order-footer">
         </au-collection>
-
   </au-input-form>
 </template>

@@ -169,6 +169,7 @@ export class DataForm {
                 this.data.incomeTaxRate=selectedIncomeTax.rate;
                 this.data.incomeTaxName=selectedIncomeTax.name;
                 this.options.incomeTaxId = selectedIncomeTax.Id;
+                this.options.incomeTaxName=selectedIncomeTax.name;
             }
             else {
                 this.data.incomeTax = null;
