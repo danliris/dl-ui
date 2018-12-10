@@ -61,7 +61,8 @@ this.data.deliveryOrders= this.data.items;
               break;
             }
           }
-      } if(a.deliveryOrder.isInvoice=== true || isReceipt === true)
+      } 
+      if(a.deliveryOrder.isInvoice === true || isReceipt === true)
       {
         this.hasEdit = false;
         this.hasDelete = false;

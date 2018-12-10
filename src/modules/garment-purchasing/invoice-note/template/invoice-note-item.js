@@ -38,9 +38,13 @@ export class DeliveryOrderItem {
     
     if(this.data.deliveryOrder){
       this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+  
     }
+   
     if (this.data.Id) {
+      console.log(this.data);
       this.deliveryOrder =  this.data.deliveryOrder.doNo ;
+       this.data.deliveryOrder.totalAmount= this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
     }
     this.filter={};
     if (this.options.supplierCode && this.options.currencyCode && !this.options.useIncomeTax) {
@@ -54,6 +58,11 @@ export class DeliveryOrderItem {
       };
     }
     else if(this.options.supplierCode && this.options.currencyCode && this.options.useIncomeTax ){
+      if(this.options.incomeTaxId==undefined)
+      {
+        this.options.incomeTaxId ="";
+        this.options.incomeTaxName="";
+      }
       this.filter= {  
         "IsInvoice": false,  
         "supplierCode": this.options.supplierCode,
@@ -61,8 +70,10 @@ export class DeliveryOrderItem {
         "DOCurrencyCode":this.options.currencyCode,
         "useVat":this.options.useVat,
         "incomeTaxId":this.options.incomeTaxId,
-        "useIncomeTax":this.options.useIncomeTax  
+        "useIncomeTax":this.options.useIncomeTax  ,
+        "incomeTaxName":this.options.incomeTaxName
       }
+      console.log(this.filter);
     }
     // if (this.options.supplierCode && this.options.useIncomeTax == false && this.options.useVat== false) {
      
@@ -94,7 +105,7 @@ export class DeliveryOrderItem {
   }
 
   deliveryOrderChanged(newValue, oldValue) {
-    this.data.details = [];
+    this.data.details = []; 
     if (this.deliveryOrder && this.deliveryOrder.Id) {
     
      for(var doItem of newValue.items){
@@ -127,8 +138,8 @@ export class DeliveryOrderItem {
       this.data.Id = this.deliveryOrder.Id;
       this.data.doDate = this.deliveryOrder.doDate;
       this.data.arrivalDate = this.deliveryOrder.arrivalDate;
-      this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
-      
+      this.deliveryOrder.totalAmount=  this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+     
       this.data.totalAmount=this.deliveryOrder.totalAmount;
       this.data.deliveryOrder=this.deliveryOrder;
     }
