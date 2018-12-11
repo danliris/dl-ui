@@ -45,6 +45,7 @@ export class DataForm {
     }
     async beacukaiChanged(newValue, oldValue) {
         var selectedBeacukai = newValue;
+       
         if (selectedBeacukai) {
             if (selectedBeacukai.BonNo) {
                 this.data.beacukaiNo = selectedBeacukai.BCNo;
@@ -52,23 +53,32 @@ export class DataForm {
                 this.data.customType = selectedBeacukai.BCType;
                 this.data.billNo=selectedBeacukai.BonNo;
                 this.context.beacukaiAU.editorValue="";
-            }
-            if (oldValue) {
+                console.log(selectedBeacukai);
+            }else {
                 this.data.beacukaiDate = null;
                 this.data.beacukaiNo = null;
                 this.data.customType=null;
                 this.data.billNo="";
+                console.log("dsdsds");
             }
-        } else {
-            this.data.beacukaiDate = null;
-            this.data.beacukaiNo = null;
-            this.data.customType=null;
-            this.data.billNo="";
+        //     if (oldValue) {
+        //         this.data.beacukaiDate = null;
+        //         this.data.beacukaiNo = null;
+        //         this.data.customType=null;
+        //         this.data.billNo="";
+        //         console.log(oldValue);
+        //     }
+        // } else {
+        //     this.data.beacukaiDate = null;
+        //     this.data.beacukaiNo = null;
+        //     this.data.customType=null;
+        //     this.data.billNo="";
+        //     console.log("dsdsds");
         }
     }
     isBCDLChanged(e) {
         var selectedisBCDL = e.srcElement.checked || false;
-     
+      
        if(selectedisBCDL == true)
        {
          
