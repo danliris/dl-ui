@@ -29,6 +29,9 @@ export class DeliveryOrderItem {
         if(this.error){
           this.data.isSave=true;
         }
+        if(this.data.purchaseOrderUom){
+          this.selectedDealUom=this.data.purchaseOrderUom;
+        }
       this.doQuantity=this.data.doQuantity;
       if(this.data.conversion){
         this.data.conversion=this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 10 });}
@@ -115,6 +118,20 @@ export class DeliveryOrderItem {
       }
       this.data.conversion=e.srcElement.value;
     }
+  }
+
+  selectedDealUomChanged(newValue) {
+    if (newValue.Id) {
+      this.data.purchaseOrderUom = newValue;
+    }
+  }
+
+  get uomLoader() {
+    return UomLoader;
+  }
+
+  uomView = (uom) => {
+    return uom.Unit
   }
 
   controlOptions = {
