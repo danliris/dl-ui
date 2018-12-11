@@ -44,6 +44,7 @@
         </td>
         <td>
             <au-numeric 
+                format = "0.[00000000000000000000]"
                 value.bind="data.PricePerDealUnitAfter"
                 read-only.bind="readOnly || pricePerUnitReadOnly"
                 error.bind="error.PricePerDealUnit">
@@ -52,9 +53,14 @@
         <td>
             <au-numeric 
                 value.bind="priceTotal"
-                read-only.bind="readOnly || !pricePerUnitReadOnly"
+                show.bind="!readOnly && pricePerUnitReadOnly"
                 error.bind="error.PriceTotal">
             </au-numeric>
+            <au-textbox 
+                value.bind="priceTotal.toFixed(2)"
+                show.bind="readOnly || !pricePerUnitReadOnly"
+                read-only="true">
+            </au-textbox>
         </td>
         <td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>

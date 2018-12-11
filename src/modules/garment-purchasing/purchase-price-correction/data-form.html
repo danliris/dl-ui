@@ -66,9 +66,18 @@
             show.bind="data.Supplier">
         </au-checkbox>
 
+        <au-textbox
+            label="Supplier"
+            value.bind="data.IncomeTax.Name + ' - ' + data.IncomeTax.Rate"
+            options.bind="controlOptions"
+            read-only="true"
+            show.bind="data.Supplier && data.UseIncomeTax">
+        </au-textbox>
+
         <au-multiline
             label="Keterangan"
             value.bind="data.Remark"
+            error.bind="error.Remark"
             options.bind="controlOptions"
             read-only.bind="readOnly"
             placeholder=" ">
