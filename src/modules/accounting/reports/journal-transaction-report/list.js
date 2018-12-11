@@ -8,26 +8,6 @@ const SupplierLoader = require('../../../../loader/supplier-loader');
 @inject(Service)
 export class List {
     itemYears = [];
-    columns = [
-        {
-            field: 'Date', title: 'Tanggal', formatter: function (value, data, index) {
-                return value ? moment(value).format('DD MMM YYYY') : '-';
-            },
-        },
-        { field: 'COAName', title: 'Nama Akun' },
-        { field: 'COACode', title: 'No Akun' },
-        { field: 'Remark', title: 'Keterangan' },
-        {
-            field: 'Debit', title: 'Debit', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,0.0000') : '0';
-            }
-        },
-        {
-            field: 'Credit', title: 'Kredit', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,0.0000') : '0';
-            }
-        }
-    ];
 
     controlOptions = {
         label: {
@@ -36,20 +16,17 @@ export class List {
         control: {
             length: 4,
         },
-    };
-
-    tableOptions = {
-        showColumns: false,
-        search: false,
-        showToggle: false,
-        sortable: false
-    };
+    }
 
     constructor(service) {
         this.service = service;
         this.info = {};
         this.error = {};
         this.data = [];
+
+        this.isEmpty = true;
+        this.totalCredit = 0;
+        this.totalDebit = 0;
 
         this.itemMonths = [
             { text: 'January', value: 1 },
@@ -73,38 +50,40 @@ export class List {
     }
 
 
-    loader = (info) => {
-        let order = {};
-        if (info.sort)
-            order[info.sort] = info.order;
-
+    async search() {
+        
         let arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit
-        };
+            month : this.info.month.value,
+            year : this.info.year
+        }
 
-        if (this.info.month.value)
-            arg.month = this.info.month.value;
+        this.data = await this.service.search(arg)
+            .then((result) => {
+                if (result.data.length == 0)
+                    this.isEmpty = true;
+                else
+                    this.isEmpty = false;
 
-        if (this.info.year)
-            arg.year = this.info.year;
+                var newData = [];
+                for (var item of result.data) {
+                    var newVM = {
+                        Date: item.Date ? moment(item.Date).format('DD MMM YYYY') : "-",
+                        COAName: item.COAName ? item.COAName : "-",
+                        COACode: item.COACode ? item.COACode : "-",
+                        Remark: item.Remark ? item.Remark : "-",
+                        Debit: item.Debit ? numeral(item.Debit).format('0,0.0000') : '0',
+                        Credit: item.Credit ? numeral(item.Credit).format('0,0.0000') : '0'
+                    }
+                    newData.push(newVM);
+                }
 
-        return this.flag ? (
-            this.service.search(arg)
-                .then((result) => {
+                this.totalCredit = numeral(result.info.TotalCredit).format('0,0.0000');
+                this.totalDebit = numeral(result.info.TotalDebit).format('0,0.0000');
 
-                    return {
-                        total: result.info.Count,
-                        data: result.data
-                    };
-                })
-        ) : { total: 0, data: [] };
-    }
+                return newData;
+            });
+        //console.log(this.data);
 
-    search() {
-        this.error = {};
-        this.flag = true;
-        this.tableList.refresh();
     }
 
     excel() {
@@ -124,12 +103,20 @@ export class List {
     }
 
     reset() {
-        this.flag = false;
-        this.info.supplier = undefined;
         this.error = {};
         this.info.year = moment().format("YYYY");
         this.info.month = { text: 'January', value: 1 };
-        this.tableList.refresh();
-    }
 
+        this.isEmpty = true;
+        // this.flag = false;
+        this.totalCredit = 0;
+        this.totalDebit = 0;
+        this.data = [];
+        // this.tableList.refresh();
+    }
+}
+export class KeysValueConverter {
+    toView(obj) {
+        return Reflect.ownKeys(obj);
+    }
 }
