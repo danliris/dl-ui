@@ -178,12 +178,9 @@ export class DataForm {
 
                     _item.ReceiptQuantity = fulfillment.doQuantity - fulfillment.receiptQuantity;
 
-                    _item.ReceiptCorrection = _item.ReceiptQuantity;
-
                     _item.Uom = fulfillment.purchaseOrderUom;
 
                     _item.PricePerDealUnit = fulfillment.pricePerDealUnit;
-                    _item.IsCorrection = fulfillment.pricePerDealUnitCorrection != fulfillment.pricePerDealUnit;
 
                     _item.Conversion = fulfillment.conversion;
 
