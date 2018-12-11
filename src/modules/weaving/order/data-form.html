@@ -1,0 +1,66 @@
+<template>
+
+    <div class="row">
+        <div class="col-md-6">
+          <au-input-form 
+            title.bind="title"
+            with.bind="context"
+            options.bind="formOptions">
+  
+          <!-- <au-textbox 
+            label="Kode"
+            value.bind=""
+            error.bind=""
+            read-only.bind="(readOnly || isEdit)"
+          ></au-textbox> -->
+  
+          <au-textbox 
+            label="No SOP"
+            value.bind=""
+            error.bind=""
+            read-only.bind="readOnly">
+          </au-textbox>
+  
+          <au-multiline 
+            label="Tanggal SOP"
+            value.bind=""
+            error.bind=""
+            read-only.bind="readOnly">
+          </au-multiline>
+  
+          <au-textbox 
+            label="Unit"
+            value.bind=""
+            error.bind=""
+            read-only.bind="readOnly">
+          </au-textbox>
+  
+          <au-dropdown
+            label="Mesin"
+            value.bind=""
+            error.bind=""
+            read-only.bind="readOnly"
+            items.bind="countries">
+          </au-dropdown>
+  
+          <au-textbox 
+            label="Konstruksi"
+            value.bind=""
+            error.bind=""
+            read-only.bind="readOnly">
+          </au-textbox>
+  
+          <au-numeric
+            label="Blended (%)"
+            value.bind=""
+            error.bind=""
+            read-only.bind="readOnly">
+          </au-numeric>
+          
+          <template replaceable part="actions"></template>
+          </au-input-form>
+        </div>
+    </div>
+      
+  </template>
+  
