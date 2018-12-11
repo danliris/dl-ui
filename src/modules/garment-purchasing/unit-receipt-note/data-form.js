@@ -86,7 +86,7 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        if (!this.readOnly) {
+        if (!this.readOnly && !this.isEdit) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
 
