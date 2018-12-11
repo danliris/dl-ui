@@ -108,7 +108,7 @@ export class DeliveryOrderItem {
             paymentType: newValue.paymentType,
             useVat:doItem.useVat,
             useIncomeTax: doItem.useIncomeTax,
-            dODetailDOId:doFulfillment.Id
+            dODetailId:doFulfillment.Id
           };
           
             this.data.details.push(details);
