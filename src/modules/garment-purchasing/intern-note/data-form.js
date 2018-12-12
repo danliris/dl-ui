@@ -1,6 +1,6 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currency-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var moment = require('moment');
 
@@ -91,7 +91,7 @@ export class DataForm {
             this.data.supplier = selectedSupplier;
             this.data.supplierId = selectedSupplier.Id;
             this.options.supplierCode = selectedSupplier.code;
-            this.options.currencyCode = this.data.currency.Code;   
+            this.options.currencyCode = this.data.currency.code;   
         }
         else {
             this.data.supplier = null;
@@ -118,7 +118,8 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.Code
+        var code=currency.code? currency.code : currency.Code;
+        return `${code}`
     }
 
     supplierView = (supplier) => 
