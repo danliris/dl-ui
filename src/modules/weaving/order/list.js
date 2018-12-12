@@ -35,7 +35,8 @@ export class List{
         }
 
         return {
-            total: result.info.total,
+            total: 0,
+            // total: result.info.total,
             data: []
           }
     

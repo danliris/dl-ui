@@ -15,14 +15,17 @@ export class Create {
 
     }
 
+    //Dipanggil ketika tombol "Kembali" ditekan
     list() {
         this.router.navigateToRoute('list');
     }
 
+    //Tombol "Kembali", panggil list()
     cancelCallback(event) {
       this.list();
     }
 
+    //Tombol "Simpan", menyimpan nilai masukan
     saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
@@ -31,5 +34,8 @@ export class Create {
             .catch(e => {
                 this.error = e;
             })
+
+        // console.log(this.data);
+        // this.data.orderNo = "test";
     }
 }
