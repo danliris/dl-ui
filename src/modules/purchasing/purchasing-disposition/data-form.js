@@ -25,8 +25,10 @@ export class DataForm {
     }
     itemsColumns = [{ header: "Nomor External PO"},
                     { header: "Kena PPN"},
+                    { header: "Nominal PPN"},
                     { header: "Kena PPH"},
                     { header: "PPH"},
+                    { header: "Nominal PPH"},
                     { header: ""}];
 
     constructor(service, bindingEngine) {
@@ -57,8 +59,8 @@ export class DataForm {
         var filter={};
         if(this.data.Supplier && this.data.Currency){
             filter = {
-                supplierId: this.data.Supplier.Id || {},
-                currencyId:this.data.Currency.Id|| {}
+                supplierId: this.data.Supplier.Id || this.data.Supplier._id,
+                currencyId:this.data.Currency.Id||  this.data.Currency._id
             }
         }
         return filter;
@@ -114,7 +116,39 @@ export class DataForm {
             for(var item of this.data.Items){
                 if(item.Details){
                     for(var detail of item.Details){
-                        this.data.Amount+=detail.PaidPrice;
+                        var pph=0;
+                        var ppn=0;
+                        if(item.UseIncomeTax){
+                            pph=detail.PaidPrice*item.IncomeTax.Rate;
+                        }
+                        if(item.UseVat){
+                            ppn=detail.PaidPrice*0.01;
+                        }
+                        this.data.Amount+=detail.PaidPrice+ppn-pph;
+                    }
+                }
+            }
+        }
+    }
+
+    get removeItems() {
+        return (event) => //console.log(event.detail);
+        {
+            if(this.data.Items){
+                this.data.Amount=0;
+                for(var item of this.data.Items){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            var pph=0;
+                            var ppn=0;
+                            if(item.UseIncomeTax){
+                                pph=detail.PaidPrice*item.IncomeTax.Rate;
+                            }
+                            if(item.UseVat){
+                                ppn=detail.PaidPrice*0.01;
+                            }
+                            this.data.Amount+=detail.PaidPrice+ppn-pph;
+                        }
                     }
                 }
             }
