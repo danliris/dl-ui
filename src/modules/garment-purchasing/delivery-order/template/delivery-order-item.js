@@ -168,7 +168,10 @@ export class DeliveryOrderItem {
     } else if (newValue && (this.context.context.options.hasView || this.context.context.options.hasEdit)) {
       this.data.purchaseOrderExternal.no = newValue.EPONo;
       this.data.purchaseOrderExternal.Id = newValue.Id;
-      
+      this.data.paymentDueDays = newValue.PaymentDueDays;
+      this.data.currency = {};
+      this.data.currency.Id = newValue.Currency.Id;
+      this.data.currency.Code = newValue.Currency.Code;
       for(var item of newValue.Items){
         var fulfillment = {
           ePOItemId : item.Id,
@@ -184,7 +187,7 @@ export class DeliveryOrderItem {
           smallQuantity : item.SmallQuantity,
           pricePerDealUnit : item.PricePerDealUnit,
           rONo : item.RONo,
-          currency : newValue.currency,
+          currency : newValue.Currency,
           product : item.Product,
           smallUom : item.SmallUom,
           purchaseOrderUom : item.DealUom,
