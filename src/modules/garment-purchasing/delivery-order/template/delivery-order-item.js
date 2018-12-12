@@ -92,6 +92,12 @@ export class DeliveryOrderItem {
     
     this.isShowing = false;
     this.isSave = false;
+    
+    this.errorCount = 0;
+    if(this.error){
+      this.errorCount += 1;
+    }
+    
     if (this.data){
       if(this.context.context.options.hasCreate){
         if (this.data.fulfillments) {
@@ -102,6 +108,7 @@ export class DeliveryOrderItem {
         if (this.data.fulfillments) {
           for(var fulfillments of this.data.fulfillments){
             fulfillments.currency=this.data.currency;
+            fulfillments.errorCount=this.errorCount;
           }
         }
       }
