@@ -83,7 +83,9 @@ export class List {
                 var deliveryOrderItems = detail.deliveryOrder.items || [];
                 for(var deliveryOrderItem of deliveryOrderItems){
                     for(var deliveryOrderDetail of deliveryOrderItem.fulfillments){
-                        receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                        if(deliveryOrderDetail.Id == detail.dODetailId){
+                            receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                        }
                     }
                 }
                 if(receiptQuantityTotal === 0){
@@ -97,7 +99,6 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
-            //console.log(data);
                 return this.checkStatus(data.items);
             default:
                 return true;

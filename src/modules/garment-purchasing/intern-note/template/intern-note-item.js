@@ -125,6 +125,7 @@ export class InternNoteItem {
 							},
 							product : detail.product,
 							uomUnit : detail.uoms,
+							dODetailId : detail.dODetailId
 						};
 						this.details.push(Details);
 					}
