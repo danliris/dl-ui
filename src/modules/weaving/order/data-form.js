@@ -45,6 +45,8 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
+        
+        // console.log(this.data);
         this.error = this.context.error;
 
         this.cancelCallback = this.context.cancelCallback;
