@@ -116,6 +116,8 @@ export class DataForm {
                     correctionNoteItem.Product = detail.product;
 
                     correctionNoteItem.Quantity = parseFloat((detail.receiptCorrection - detail.quantityCorrection).toFixed(2));
+                    
+                    correctionNoteItem.Quantities = parseFloat((detail.receiptCorrection - detail.quantityCorrection).toFixed(2));
 
                     correctionNoteItem.Uom = detail.purchaseOrderUom;
 
@@ -128,6 +130,9 @@ export class DataForm {
                 }
             }
             this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
+            console.log(this.error);
+        }else{
+            this.data.Items = [];
         }
     }
 
