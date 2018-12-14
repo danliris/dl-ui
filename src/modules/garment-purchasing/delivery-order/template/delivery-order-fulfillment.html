@@ -70,11 +70,16 @@
             </div>
         </td>
         <td>
-            <au-textbox 
-                value.bind="data.purchaseOrderUom.Unit" 
-                read-only.bind="true"
+            <au-autocomplete 
+                value.bind="selectedDealUom" 
+                error.bind="error.purchaseOrderUom"
+                loader.bind="uomLoader"
+                text.bind="uomView"
+                placeholder="cari satuan" 
+                key="unit"
+                read-only.bind="options.readOnly"
                 options.bind="controlOptions">
-            </au-textbox>                   
+            </au-autocomplete>                 
         </td>
         <td if.bind = "hasView">
             <au-numeric 

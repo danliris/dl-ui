@@ -6,6 +6,7 @@ import { Service } from './service';
 export class Edit {
     hasCancel = true;
     hasSave = true;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -16,6 +17,10 @@ export class Edit {
         this.data = await this.service.getById(id);
         this.currency = this.data.currency;
         this.supplier = this.data.supplier;
+        // console.log(this.supplier);
+        this.data.items.map((items) => {
+            items.check = true;
+        });
     }
 
     bind() {
@@ -23,11 +28,10 @@ export class Edit {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save() {
-
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

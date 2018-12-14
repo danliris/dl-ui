@@ -31,10 +31,11 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox 
+            <au-numeric 
                 value.bind="data.Quantity"
-                read-only.bind="readOnly">
-            </au-textbox>
+                read-only.bind="readOnly"
+                error.bind="error.Quantity">
+            </au-numeric>
         </td>
         <td>
             <au-textbox 

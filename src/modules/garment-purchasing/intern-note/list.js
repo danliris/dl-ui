@@ -8,31 +8,18 @@ export class List {
     columns = [
         { field: "inNo", title: "No. Nota Intern" },
         {
-            field: "inDate", title: "Tanggal Nota Intern",
-            formatter: (value, data) => {
+            field: "inDate", title: "Tanggal Nota Intern", formatter: function (value, data, index){
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "supplier.Name", title: "Supplier" },
-        { field: "items", title: "List No. Invoice" }
+        { field: "items", title: "List No. Invoice", sortable: false }
     ];
-
+    
     context = ["Rincian", "Cetak PDF"];
-
-    today = new Date();
-
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
-    }
-
-    async activate() {
-
-    }
 
     loader = (info) => {
         var order = {};
-
         if (info.sort)
             order[info.sort] = info.order;
 
@@ -59,11 +46,6 @@ export class List {
                         return str;
                     }
                 });
-                for (var _data of result.data) {
-                    _data.INNo = _data.inNo;
-                    _data.INDate = _data.inDate;
-                    _data.SupplierName = _data.supplier.Name;
-                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -71,8 +53,9 @@ export class List {
             });
     }
 
-    back() {
-        this.router.navigateToRoute('list');
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
     }
 
     create() {
@@ -100,7 +83,9 @@ export class List {
                 var deliveryOrderItems = detail.deliveryOrder.items || [];
                 for(var deliveryOrderItem of deliveryOrderItems){
                     for(var deliveryOrderDetail of deliveryOrderItem.fulfillments){
-                        receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                        if(deliveryOrderDetail.Id == detail.dODetailId){
+                            receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                        }
                     }
                 }
                 if(receiptQuantityTotal === 0){
@@ -114,7 +99,6 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
-            //console.log(data);
                 return this.checkStatus(data.items);
             default:
                 return true;

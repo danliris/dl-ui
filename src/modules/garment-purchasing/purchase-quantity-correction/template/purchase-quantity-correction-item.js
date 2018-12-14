@@ -7,13 +7,18 @@ export class PurchaseQuantityCorrectionItem {
         this.error = context.error;
         this.contextOptions = context.context.options;
         this.readOnly = this.options.readOnly;
+        this.isFirst = false;
     }
-
+    
     @computedFrom("data.Quantity")
     get priceTotal() {
-                
-        this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
-        
+            if(this.isFirst == true){
+                this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
+            }
+            else
+            {
+                this.isFirst = true;
+            }
         return this.data.PriceTotalAfter;
     }
 

@@ -23,15 +23,15 @@ export class List {
 
     setColumns() {
         this.columns = [
-            { field: "customType", title: "Jenis Bea Cukai" },            
+            { field: "customsType", title: "Jenis Bea Cukai" },            
             { field: "beacukaiNo", title: "No Bea Cukai" },
             {
                 field: "beacukaiDate", title: "Tanggal Bea Cukai", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "supplier", title: "Supplier" },
-            { field: "deliveryOrder", title: "List Nomor Surat Jalan" }
+            { field: "suppliername", title: "Supplier" },
+            { field: "deliveryOrder", title: "List Nomor Surat Jalan", sortable: false  }
         ];
     }
 
@@ -46,7 +46,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            select: ["beacukaiNo", "beacukaiDate", "customType", "supplier", "items"]
+            select: ["beacukaiNo", "beacukaiDate", "customsType", "suppliername", "items"]
         }
 
         return this.service.search(arg)
@@ -63,9 +63,9 @@ export class List {
                     var data = {
                         _id : a.Id,
                         beacukaiNo : a.beacukaiNo,
-                        customType : a.customType,
+                        customsType : a.customType,
                         beacukaiDate : a.beacukaiDate,
-                        supplier : a.supplier.Name,
+                        suppliername : a.supplier.Name,
                         deliveryOrder : dOrder
                     }
                     items.push(data);

@@ -16,10 +16,8 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        //console.log(this.data);
         this.currency = this.data.currency;
         this.supplier = this.data.supplier;
-        //this.isShowing = true;
     }
 
     cancel(event) {
@@ -27,7 +25,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {

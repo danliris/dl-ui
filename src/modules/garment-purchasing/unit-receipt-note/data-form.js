@@ -3,7 +3,7 @@ import { Service } from "./service";
 var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var StorageLoader = require('../../../loader/storage-loader');
-var DeliveryOrderBySupplierLoader = require('../../../loader/garment-delivery-order-by-supplier-loader');
+var DeliveryOrderLoader = require('../../../loader/garment-delivery-order-for-unit-receipt-note-loader');
 var moment = require('moment');
 
 @inject(Service, BindingEngine, Element)
@@ -44,7 +44,8 @@ export class DataForm {
                 { header: "Satuan Kecil" },
                 { header: "Buyer" },
                 { header: "Artikel" },
-                { header: "Keterangan" }
+                { header: "Keterangan" },
+                { header: "Design/Color" },
             ],
             onRemove: function () {
                 this.bind();
@@ -52,39 +53,45 @@ export class DataForm {
         };
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
-    @computedFrom("data.supplier")
+    @computedFrom("data.Supplier", "data.Unit")
     get filter() {
-        var filter = {
-            supplierId: this.data.supplierId
-        };
+        var filter = {};
+        if (this.data.Supplier) {
+            filter.SupplierId = this.data.Supplier.Id;
+        }
+        if (this.data.Unit) {
+            filter.UnitId = this.data.Unit.Id;
+        }
+            
         return filter;
     }
-    @computedFrom("data.unit")
+
+    @computedFrom("data.Unit")
     get filterUnit() {
         var storageFilter = {}
-        if (this.data.unit)
-            var storageFilter = {
-                "unit.name": this.data.unit.name,
-                "unit.division.name": this.data.unit.division.name
-            }
+        if (this.data.Unit) {
+            storageFilter.UnitName = this.data.Unit.Name;
+        }
+
         return storageFilter;
     }
-    storageFields = ["name", "code"];
-    async bind(context) {
+
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
 
-        if (!this.readOnly) {
+        if (!this.readOnly && !this.isEdit) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
-        if (this.data.useStorage) {
-            this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
+
+        if (this.data.IsStorage) {
+            this.storage = this.data.Storage;
         }
     }
 
@@ -92,162 +99,147 @@ export class DataForm {
         var selectedSupplier = newValue;
 
         if (selectedSupplier) {
-            this.data.supplier = selectedSupplier;
-            this.data.supplierId = selectedSupplier._id;
+            this.data.Supplier = selectedSupplier;
         }
         else {
-            this.data.supplier = null;
-            this.data.supplierId = null;
+            this.data.Supplier = null;
         }
 
         if (this.context.error) {
-            if (this.context.error.deliveryOrderId) {
-                this.context.error.deliveryOrderId = null;
+            if (this.context.error.DeliveryOrder) {
+                this.context.error.DeliveryOrder = null;
+            }
+            if (this.context.error.Storage) {
+                this.context.error.Storage = null;
             }
         }
+        this.context.storageAU.editorValue = "";
         this.context.deliveryOrderAU.editorValue = "";
-        this.data.deliveryOrderId = null;
+        this.data.DOId = null;
         this.storage = null;
-        this.data.useStorage = false;
-        this.data.storageId = null;
+        this.data.IsStorage = false;
+        this.data.Storage = null;
     }
 
     unitChanged(newValue, oldValue) {
         var selectedUnit = newValue;
 
         if (selectedUnit) {
-            this.data.unit = selectedUnit;
-            this.data.unitId = selectedUnit._id;
+            this.data.Unit = selectedUnit;
         }
         else {
-            this.data.unit = null;
-            this.data.unitId = null;
+            this.data.Unit = null;
         }
+
+        if (this.context.error) {
+            if (this.context.error.DeliveryOrder) {
+                this.context.error.DeliveryOrder = null;
+            }
+            if (this.context.error.Storage) {
+                this.context.error.Storage = null;
+            }
+        }
+        this.context.storageAU.editorValue = "";
+        this.context.deliveryOrderAU.editorValue = "";
+        this.data.DOId = null;
         this.storage = null;
-        this.data.storageId = null;
-        this.data.useStorage = false;
+        this.data.Storage = null;
+        this.data.IsStorage = false;
     }
 
-    async deliveryOrderChanged(newValue, oldValue) {
+    deliveryOrderChanged(newValue, oldValue) {
         var selectedDo = newValue;
 
         if (selectedDo) {
-            this.data.deliveryOrder = selectedDo;
-            this.data.deliveryOrderId = selectedDo._id;
-            var selectedItem = selectedDo.items || []
-            var listPurchaseRequestId = selectedDo.items.map((doItem) => {
-                return doItem.fulfillments.map((fulfillment) => {
-                    return fulfillment.purchaseRequestId
-                })
-            })
-            listPurchaseRequestId = [].concat.apply([], listPurchaseRequestId);
-            listPurchaseRequestId = listPurchaseRequestId.filter(function (elem, index, self) {
-                return index == self.indexOf(elem);
-            })
+            this.data.DOId = selectedDo.Id;
+            this.data.DONo = selectedDo.doNo;
+            var selectedItem = selectedDo.items || [];
 
-            var jobs = [];
-            for (var prId of listPurchaseRequestId) {
-                jobs.push(this.service.getPurchaseRequestById(prId, ["artikel", "buyer", "no", "_id", "items"]))
+            var _items = [];
+            for (var item of selectedItem) {
+                for (var fulfillment of item.fulfillments) {
+                    var _item = {};
+
+                    _item.DODetailId = fulfillment.Id;
+
+                    _item.EPOItemId = fulfillment.ePOItemId;
+
+                    _item.PRId = fulfillment.pRId;
+                    _item.PRNo = fulfillment.pRNo;
+                    _item.PRItemId = fulfillment.pRItemId;
+
+                    _item.POId = fulfillment.pOId;
+                    _item.POItemId = fulfillment.pOItemId;
+                    _item.POSerialNumber = fulfillment.poSerialNumber;
+
+                    _item.Product = fulfillment.product;
+
+                    _item.RONo = fulfillment.rONo;
+
+                    _item.ReceiptQuantity = fulfillment.doQuantity - fulfillment.receiptQuantity;
+
+                    _item.Uom = fulfillment.purchaseOrderUom;
+
+                    _item.PricePerDealUnit = fulfillment.pricePerDealUnit;
+
+                    _item.Conversion = fulfillment.conversion;
+
+                    _item.SmallUom = fulfillment.smallUom;
+
+                    _item.Article = fulfillment.article;
+
+                    _item.Buyer =  { Name : fulfillment.buyer.name };
+
+                    if (_item.ReceiptQuantity > 0)
+                        _items.push(_item);
+                }
             }
-
-            Promise.all(jobs)
-                .then(purchaseRequests => {
-                    var _items = [];
-                    for (var item of selectedItem) {
-                        for (var fulfillment of item.fulfillments) {
-                            var _item = {};
-                            var pr = purchaseRequests.find((purchaseRequest) => purchaseRequest._id.toString() === fulfillment.purchaseRequestId.toString());
-                            if (pr) {
-                                _item.artikel = pr.artikel;
-                                _item.buyer = pr.buyer;
-                                _item.buyerId = pr.buyer._id;
-                                var remark = [];
-                                for (var prr of pr.items){
-                                    if (prr.refNo==fulfillment.purchaseRequestRefNo)
-                                    remark.push(prr.remark) ;
-                                }
-                                _item.remark = remark.toString();
-                            }
-
-                            _item.product = fulfillment.product;
-                            _item.deliveredUom = fulfillment.purchaseOrderUom;
-                            _item.purchaseOrderNo = fulfillment.purchaseOrderNo;
-                            _item.purchaseOrderId = fulfillment.purchaseOrderId;
-                            _item.purchaseRequestNo = fulfillment.purchaseRequestNo;
-                            _item.roNo = fulfillment.roNo;
-                            _item.purchaseRequestId = fulfillment.purchaseRequestId;
-                            _item.purchaseRequestRefNo = fulfillment.purchaseRequestRefNo;
-                            _item.purchaseOrderQuantity = fulfillment.purchaseOrderQuantity;
-                            _item.currency = fulfillment.currency;
-                            _item.pricePerDealUnit = fulfillment.pricePerDealUnit;
-                            _item.uomConversion = fulfillment.uomConversion;
-                            _item.quantityConversion = fulfillment.quantityConversion;
-                            _item.conversion = fulfillment.conversion;
-
-                            // _item.uomConversion = fulfillment.purchaseOrderUom;
-                            // _item.quantityConversion = fulfillment.purchaseOrderQuantity;
-                            // _item.conversion = 1;
-
-                            var total = fulfillment.realizationQuantity
-                                .map(qty => qty.deliveredQuantity)
-                                .reduce((prev, curr, index) => {
-                                    return prev + curr;
-                                }, 0);
-
-                            _item.deliveredQuantity = fulfillment.deliveredQuantity - total;
-
-                            if (_item.deliveredQuantity > 0)
-                                _items.push(_item);
-                        }
-                    }
-                    this.data.items = _items;
-                })
-                .catch(e => {
-                    this.data.items = [];
-                })
+            this.data.Items = _items;
         }
         else {
-            this.data.items = [];
+            this.data.Items = [];
         }
 
         this.resetErrorItems();
-        this.data.storageId = null;
+        this.data.Storage = null;
         this.storage = null;
-        this.data.useStorage = false;
+        this.data.IsStorage = false;
     }
+
     storageChanged(newValue) {
         var selectedStorage = newValue;
         if (selectedStorage) {
             if (selectedStorage._id) {
-                this.storage = selectedStorage;
-                this.data.storageId = selectedStorage._id;
+                this.data.Storage = selectedStorage;
             }
             else {
                 this.storage = null;
-                this.data.storageId = null;
+                this.data.Storage = null;
             }
         }
         else {
             this.storage = null;
-            this.data.storageId = undefined;
+            this.data.Storage = undefined;
         }
         this.resetErrorItems();
     }
 
-
-    useStorageChanged(e) {
-        var selectedUseStorage = e.srcElement.checked || false;
-        this.data.unitId;
-        if (this.context.error.useStorage) {
-            this.context.error.useStorage = "";
+    isStorageChanged(e) {
+        this.data.UnitId;
+        if (this.context.error.IsStorage) {
+            this.context.error.IsStorage = "";
         }
         this.storage = null;
-        this.data.storageId = null;
+        this.data.Storage = null;
     }
+
     resetErrorItems() {
         if (this.error) {
-            if (this.error.items) {
-                this.error.items = [];
+            if (this.error.Items) {
+                this.error.Items = [];
+            }
+            if (this.error.Storage) {
+                this.error.Storage = null;
             }
         }
     }
@@ -260,8 +252,8 @@ export class DataForm {
         return SupplierLoader;
     }
 
-    get deliveryOrderBySupplierLoader() {
-        return DeliveryOrderBySupplierLoader;
+    get deliveryOrderLoader() {
+        return DeliveryOrderLoader;
     }
 
     get storageLoader() {
@@ -269,10 +261,15 @@ export class DataForm {
     }
 
     storageView = (storage) => {
-        return `${storage.unit.name} - ${storage.name}`;
+        if (storage.unit) {
+            return `${storage.unit.name} - ${storage.name}`;
+        } else {
+            return `${storage.name}`;
+        }
     }
+
     unitView = (unit) => {
-        return `${unit.division.name} - ${unit.name}`;
+        return `${unit.Code} - ${unit.Name}`;
     }
 
     supplierView = (supplier) => {

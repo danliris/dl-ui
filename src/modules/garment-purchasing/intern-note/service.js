@@ -15,7 +15,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}/by-user`;
+        var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
 
@@ -30,12 +30,12 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 

@@ -9,21 +9,23 @@ var moment = require('moment');
 export class Edit {
     hasCancel = true;
     hasSave = true;
-   
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
     async activate(params) {
-        console.log(this.isEdit);
+        
         var locale = 'id-ID';
         var moment = require('moment');
         this.item = "";
         moment.locale(locale);
         var id = params.id;
+       
         this.data = await this.service.getById(id);
         var dataDelivery = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.code}`, "currency" : `${this.data.currency.code}` });
         var items = [];
+       
         this.data.deliveryOrders= this.data.items;
         for(var a of this.data.deliveryOrders){
             a["selected"] = true;
@@ -33,17 +35,7 @@ export class Edit {
             a["arrivalDate"]=a.deliveryOrder.arrivalDate;
             a["quantity"] = a.quantity;
             a["price"] = a.deliveryOrder.totalAmount;
-            // var quantity = 0;
-            // var totPrice = 0;
-            // for(var b of a.items){
-            //     for(var c of b.fulfillments){
-            //         quantity += c.deliveredQuantity;
-            //         var priceTemp = c.deliveredQuantity * c.pricePerDealUnit;
-            //         totPrice += priceTemp;
-            //     }
-            // }
-            // a["quantity"] = quantity;
-            // a["price"] = totPrice;
+           
             items.push(a);
         }
         console.log(dataDelivery);
@@ -110,6 +102,7 @@ export class Edit {
             dataCustoms.deliveryOrders = items;
         }
         if(isSelectedData){
+            console.log(dataCustoms);
             this.service.update(dataCustoms)
                 .then(result => {
                     alert("Data berhasil diubah");

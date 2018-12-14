@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = 'garment-correction-notes';
+const serviceUri = 'garment-correction-notes/price';
 const deliveryOrderServiceUri = 'garment-delivery-orders';
 const purchaseOrderExternalServiceUri = 'purchase-orders/externals/by-user';
 
@@ -18,7 +18,7 @@ export class Service extends RestService {
     }
 
     searchDeliveryOrder(info) {
-        info.filter = JSON.stringify({ IsInvoice: true });
+        info.filter = JSON.stringify({ IsInvoice: true, "BillNo != null": true });
         var endpoint = `${deliveryOrderServiceUri}`;
         return super.list(endpoint, info);
     }

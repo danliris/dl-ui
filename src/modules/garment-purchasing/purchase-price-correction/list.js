@@ -43,9 +43,9 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF Return Note PPn":
-                return data.UseIncomeTax;
-            case "Cetak PDF Return Note PPh":
                 return data.UseVat;
+            case "Cetak PDF Return Note PPh":
+                return data.UseIncomeTax;
             default:
                 return true;
         }

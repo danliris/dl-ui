@@ -63,6 +63,7 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options.readOnly = this.readOnly;
+        console.log(this.data);
         if(this.data.Id)
         {
             this.readO=true;
@@ -71,11 +72,17 @@ export class DataForm {
         if(this.data.supplier){
             this.options.supplierCode = this.data.supplier.Code;      
         }
-        this.options.useVat=this.data.useIncomeTax;
-        this.options.useIncomeTax=this.data.useVat;
+        this.options.useVat=this.data.useVat;
+        this.options.useIncomeTax=this.data.useIncomeTax;
+        if(this.data.useIncomeTax === true)
+        {
+            this.options.incomeTaxName=this.data.incomeTaxName;
+            this.options.incomeTaxId=this.data.incomeTaxId;
+        }
         if(this.data.currency){
             this.options.currencyCode = this.data.currency.Code;
         }
+      
     }
     
     // async supplierChanged(newValue) {
@@ -169,6 +176,7 @@ export class DataForm {
                 this.data.incomeTaxRate=selectedIncomeTax.rate;
                 this.data.incomeTaxName=selectedIncomeTax.name;
                 this.options.incomeTaxId = selectedIncomeTax.Id;
+                this.options.incomeTaxName=selectedIncomeTax.name;
             }
             else {
                 this.data.incomeTax = null;

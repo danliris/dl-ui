@@ -9,7 +9,7 @@ var moment = require('moment');
 export class Create {
     hasCancel = true;
     hasSave = true;
-
+   
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -67,8 +67,14 @@ export class Create {
                 items.quantity=a.quantity;
             }
             dataCustoms.items = items;
+        }if(this.data.billNo.includes("BP"))
+        {
+            dataCustoms.billNo=this.data.billNo;
+        }else
+        {
+            dataCustoms.billNo="";
         }
-   
+        
         if(isSelectedData){
             console.log(dataCustoms);
             this.service.create(dataCustoms)
@@ -94,4 +100,31 @@ export class Create {
             this.item = "Surat Jalan Harus dipilih";
         }
     }
+
+    // validateData(valid) {
+    //     var validateArrTemp = [];
+    //     var errors = []
+        
+    //     for (var data of valid.items) {
+    //         var error = {};
+    //         var tempValid;
+
+    //         error.deliveryOrderId = "payment method:" + data.details[0].paymentMethod + ", " + "payment type:" + data.details[0].paymentType +" (semua harus sama)";
+    //         errors.push(error);
+            
+    //         tempValid = data.details[0].paymentMethod + data.details[0].paymentType;
+    //         if (!(validateArrTemp.find(data => data == tempValid))) {
+    //             validateArrTemp.push(tempValid);
+    //         }
+    //     }
+
+    //     if (validateArrTemp.length > 1) {
+    //         this.error.details = errors;
+    //         alert(error.deliveryOrderId);
+    //         return this.error.details;
+    //     } else {
+    //         return this.error.details = [];
+    //     }
+
+    // }
 }

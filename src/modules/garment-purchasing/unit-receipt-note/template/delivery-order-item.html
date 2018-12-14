@@ -2,13 +2,13 @@
 	<tr>
 		<td>
 			<au-textbox
-				value.one-way="data.purchaseRequestRefNo"
+				value.one-way="data.POSerialNumber"
 				read-only="true">
 			</au-textbox>
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.roNo"
+				value.one-way="data.PRNo"
 				read-only="true">
 			</au-textbox>
 		</td>
@@ -20,58 +20,65 @@
 		</td>
 		<td>
 			<au-numeric
-				value.bind="data.deliveredQuantity"
+				value.bind="data.ReceiptQuantity"
 				read-only.bind="readOnly"
-				error.bind="error.deliveredQuantity">
+				error.bind="error.ReceiptQuantity">
 			</au-numeric>
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.deliveredUom.unit"
+				value.one-way="data.Uom.Unit"
 				read-only="true">
 			</au-textbox>
 		</td>
 		
         <td>
             <au-numeric 
-                value.bind="data.conversion"
-                error.bind="error.conversion"
+                value.bind="data.Conversion"
+                error.bind="error.Conversion"
                 read-only.bind="readOnly"
-                change.delegate="conversionChanged($event)"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
             <au-numeric 
-                value.bind="quantityConversion"
+                value.bind="SmallQuantity"
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
             <au-autocomplete 
-                value.bind="data.uomConversion.unit" 
+                value.bind="data.SmallUom.Unit" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-autocomplete>                   
         </td>
 		<td>
 			<au-textbox
-				value.one-way="buyer"
+				value.one-way="data.Buyer.Name"
 				read-only="true">
 			</au-textbox>
 		</td>
 		<td>
 			<au-textbox
-				value.one-way="data.artikel"
+				value.one-way="data.Article"
 				read-only="true">
 			</au-textbox>
 		</td>
 		<td>
-			<au-textbox
-				value.bind="data.remark"
+			<au-multiline
+				value.bind="data.Product.Remark"
+				error.bind="error.ProductRemark"
 				read-only.bind="readOnly">
-			</au-textbox>
+			</au-multiline>
+		</td>
+		<td>
+			<au-multiline
+				value.bind="data.DesignColor"
+				error.bind="error.DesignColor"
+				read-only.bind="readOnly">
+			</au-multiline>
 		</td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>

@@ -10,7 +10,7 @@
                         placeholder="cari nomor purchase order external" 
                         key="no"
                         query.bind="filter"
-                        read-only.bind="options.readOnly"
+                        read-only.bind="options.readOnly || isEdit"
                         options.bind="controlOptions">
                 </au-autocomplete>
             </div>

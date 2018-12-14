@@ -6,15 +6,15 @@ var moment = require("moment");
 @inject(Router, Service)
 export class List {
     columns = [
-        { field: "no", title: "No. Bon Unit" },
+        { field: "URNNo", title: "No. Bon Unit" },
         {
-            field: "date", title: "Tanggal Bon Unit",
+            field: "ReceiptDate", title: "Tanggal Bon Unit",
             formatter: (value, data) => {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "supplier.name", title: "Supplier" },
-        { field: "deliveryOrderNo", title: "No. Surat Jalan" }
+        { field: "SupplierName", title: "Supplier" },
+        { field: "DONo", title: "No. Surat Jalan" }
     ];
 
     context = ["Rincian", "Cetak PDF"];
@@ -46,6 +46,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 result.data.map((data) => {
+                    data.SupplierName = data.Supplier.Name;
                     return data;
                 });
 
@@ -69,10 +70,10 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":
-                this.service.getPdfById(data._id);
+                this.service.getPdfById(data.Id);
                 break;
         }
     }

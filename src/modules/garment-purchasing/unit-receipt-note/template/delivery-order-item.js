@@ -1,28 +1,21 @@
-import { bindable } from 'aurelia-framework'
+import { computedFrom } from 'aurelia-framework'
 export class DeliveryOrderItem {
-	@bindable selectedUomConversion;
 	activate(context) {
 		this.data = context.data;
 		this.error = context.error;
 		this.readOnly = context.options.readOnly;
-		if (!this.data.buyer) {
-			this.data.buyer = { name: "" }
+		if (!this.data.Buyer) {
+			this.data.Buyer = { Name: "" }
 		}
 	}
 
 	get product() {
-		return `${this.data.product.code} - ${this.data.product.name}`;
+		return `${this.data.Product.Code} - ${this.data.Product.Name}`;
 	}
 
-	get buyer() {
-		return this.data.buyer.name;
-	}
-
-	get quantityConversion() {
-		return parseFloat((this.data.deliveredQuantity * this.data.conversion).toFixed(2));
-	}
-
-	conversionChanged(e) {
-		this.data.quantityConversion = parseFloat((this.data.deliveredQuantity * this.data.conversion).toFixed(2));
-	}
+    @computedFrom("data.ReceiptQuantity", "data.Conversion")
+    get SmallQuantity() {
+		this.data.SmallQuantity = parseFloat((this.data.ReceiptQuantity * this.data.Conversion).toFixed(2));
+        return this.data.SmallQuantity;
+    }
 }

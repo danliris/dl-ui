@@ -1,6 +1,6 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/garment-currency-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var moment = require('moment');
 
@@ -31,13 +31,6 @@ export class DataForm {
         }.bind(this),
     };
 
-    invoiceNoteItemReadOnly = {
-        columnsReadOnly: [
-            { header: "Nomor Invoice" },
-            { header: "Tanggal Invoice" },
-            { header: "Total Amount" }]
-    }
-
     auInputOptions = {
         label: {
             length: 4,
@@ -53,6 +46,13 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.options = this.options ? this.options : {};
+
+        if(this.data.supplier){
+            this.options.supplierCode = this.data.supplier.Code;      
+        }
+        if(this.data.currency){
+            this.options.currencyCode = this.data.currency.Code;
+        }
     }
 
     @computedFrom("data.Id")
@@ -71,23 +71,7 @@ export class DataForm {
         else
             return false
     }
-
-    supplierChanged(newValue, oldValue) {
-        var selectedSupplier = newValue;
-        if (selectedSupplier) {
-            this.data.supplier = selectedSupplier;
-            this.data.supplierId = selectedSupplier.Id;
-            this.options.supplierCode = selectedSupplier.code;
-            this.options.currencyCode = this.data.currency.Code;   
-        }
-        else {
-            this.data.supplier = null;
-            this.data.supplierId = null;
-            this.data.items = [];
-        }
-        this.context.error.items = [];
-    }
-
+    
     currencyChanged(newValue, oldValue) {
         var selectedCurrency = newValue;
 
@@ -98,6 +82,22 @@ export class DataForm {
             this.data.currency = null;
         }
         this.data.items = [];
+        this.context.error.items = [];
+    }
+
+    supplierChanged(newValue, oldValue) {
+        var selectedSupplier = newValue;
+        if (selectedSupplier) {
+            this.data.supplier = selectedSupplier;
+            this.data.supplierId = selectedSupplier.Id;
+            this.options.supplierCode = selectedSupplier.code;
+            this.options.currencyCode = this.data.currency.code;   
+        }
+        else {
+            this.data.supplier = null;
+            this.data.supplierId = null;
+            this.data.items = [];
+        }
         this.context.error.items = [];
     }
 
@@ -118,7 +118,8 @@ export class DataForm {
     }
 
     currencyView = (currency) => {
-        return currency.Code
+        var code=currency.code? currency.code : currency.Code;
+        return `${code}`
     }
 
     supplierView = (supplier) => 
