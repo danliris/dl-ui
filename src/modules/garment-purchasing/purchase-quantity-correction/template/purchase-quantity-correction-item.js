@@ -8,6 +8,9 @@ export class PurchaseQuantityCorrectionItem {
         this.contextOptions = context.context.options;
         this.readOnly = this.options.readOnly;
         this.isFirst = false;
+        if(this.data.Quantity == 0){
+            this.readOnly = true;
+        }
     }
     
     @computedFrom("data.Quantity")

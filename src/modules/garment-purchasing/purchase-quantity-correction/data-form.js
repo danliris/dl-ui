@@ -71,13 +71,9 @@ export class DataForm {
     }
 
     deliveryOrderChanged(newValue, oldValue) {
-        this.collectionOptions.correction = false;
         if (newValue) {
             var deliveryOrder = newValue;
             this.data.CorrectionType = "Jumlah";
-            if(deliveryOrder.isCorrection){
-                this.collectionOptions.correction = true;
-            }
 
             this.data.CorrectionDate = new Date(new Date().setHours(0, 0, 0, 0));
 

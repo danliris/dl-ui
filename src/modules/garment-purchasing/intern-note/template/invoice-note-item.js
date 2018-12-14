@@ -1,4 +1,3 @@
-
 export class InvoiceNoteItem {
 	
 	activate(context) {
