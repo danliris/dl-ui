@@ -12,15 +12,15 @@
                 options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-textbox 
-                label="Nomor PR" 
+            <!-- <au-textbox 
+                label="Nomor PO Eksternal" 
                 value.bind="pr"
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-textbox> -->
 
             <au-textbox  
-                value.bind="purchaseRequestRefNo"
+                value.bind="poRefPR"
                 label="Nomor Ref. PR"
                 placeholder="masukkan nomor referensi PR"  >
             </au-textbox>
@@ -32,7 +32,7 @@
             </au-textbox>
 
             <au-textbox  
-                value.bind="deliveryorderNo"
+                value.bind="doNo"
                 label="Nomor SJ"
                 placeholder="masukkan nomor SJ"  >
             </au-textbox>
@@ -43,7 +43,7 @@
                 loader.bind="unitLoader"
                 placeholder="Cari Unit"
                 read-only.bind="readOnly" 
-                text="name"
+                text.bind = "unitView" 
                 options.bind="controlOptions">
             </au-autocomplete>
             <au-autocomplete 
@@ -85,7 +85,7 @@
                         <td>Unit</td>
                         <td>Supplier</td>
                         <td>Surat Jalan</td>
-                        <td>No PR</td>
+                        <td>No PO Eksternal</td>
                         <td>No Ref PR</td>
                         <td>No RO</td>
                         <td>Artikel</td>
@@ -95,6 +95,7 @@
                         <td>Satuan</td>
                         <td>Keterangan</td>
                         <td>User</td>
+                        <td>Nota Intern</td>
                      
                     </tr>
                 </thead>
@@ -102,20 +103,21 @@
                  
                     <tr repeat.for="item of data">
                         <td class="text-left">${item.no}</td>
-                        <td class="text-left">${item.date | dateFormat:'DD MMMM YYYY'}</td>
+                        <td class="text-left">${item.dateBon | dateFormat:'DD MMMM YYYY'}</td>
                         <td class="text-left">${item.unit}</td>
                          <td class="text-left">${item.supplier}</td>
-                        <td class="text-left">${item.deliveryorderNo}</td>
-                        <td class="text-left">${item.purchaseRequestNo}</td>
-                        <td class="text-left">${item.purchaseRequestRefNo}</td>
+                        <td class="text-left">${item.doNo}</td>
+                        <td class="text-left">${item.poEksternalNo}</td>
+                        <td class="text-left">${item.poRefPR}</td>
                         <td class="text-left">${item.roNo}</td>
-                        <td class="text-left">${item.artikel}</td>
+                        <td class="text-left">${item.article}</td>
                         <td class="text-left">${item.productCode}</td>
                         <td class="text-left">${item.productName}</td>
-                        <td class="text-right">${item.quantity}</td>
-                        <td class="text-left">${item.unitCode}</td>
+                        <td class="text-right">${item.qty}</td>
+                        <td class="text-left">${item.uom}</td>
                         <td class="text-left">${item.remark}</td>
-                        <td class="text-left">${item.createdBy}</td>
+                        <td class="text-left">${item.user}</td>
+                        <td class="text-left">${item.internNote}</td>
                        
                     </tr>
                 </tbody>
