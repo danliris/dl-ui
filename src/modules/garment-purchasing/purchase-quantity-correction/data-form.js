@@ -58,6 +58,14 @@ export class DataForm {
         }
     }
 
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.Items) {
+                this.error.Items = [];
+            }
+        }
+    }
+
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
             var info = {
@@ -130,10 +138,12 @@ export class DataForm {
                 }
             }
             this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
-            console.log(this.error);
         }else{
-            this.data.Items = [];
+            console.log(this.error);
+            //this.data.deliveryOrder = [];
+        this.resetErrorItems(); 
         }
+        //this.data.Items.splice(0);
     }
 
     @computedFrom("data.DOId")
