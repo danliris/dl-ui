@@ -14,7 +14,7 @@ export class Service extends RestService {
     }
 
     getXls(info) {
-        var query = `?month=${info.month}&year=${info.year}`;
+        var query = `?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
 
         let endpoint = `${serviceUri}/downloads/xls${query}`;
         return super.getXls(endpoint);
