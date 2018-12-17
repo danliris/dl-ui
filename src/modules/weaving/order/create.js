@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -22,7 +22,7 @@ export class Create {
 
     //Tombol "Kembali", panggil list()
     cancelCallback(event) {
-      this.list();
+        this.list();
     }
 
     //Tombol "Simpan", menyimpan nilai masukan

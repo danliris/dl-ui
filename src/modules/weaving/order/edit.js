@@ -17,33 +17,25 @@ export class Edit {
         this.data = {
             sopNo: "1",
             tglsp: new Date(),
-            periode: {
-                bulan: "Januari",
-                tahun: "2018"
-            },
+            periodebulan: "Januari",
+            periodetahun: 2018,
             unit: "Weaving 1",
-            konstruksi: {
-                jenis: "CD 133",
-                tipe: "72",
-                lusi: "63",
-                pakan: "Rf Rf",
-                lebar: "B B",
-            },
-            kodebenang: {
-                jenislusi: "AC",
-                asallusi: "A",
-                jenispakan: "BC",
-                asalpakan: "B"
-            },
-            blended: {
-                poly: "60%",
-                cotton: "30%",
-                lainnya: "10%"
-            },
+            konstruksijenis: "CD",
+            konstruksitipe: "AYM",
+            konstruksilusi: 133,
+            konstruksipakan: 72,
+            konstruksilebar: 63,
+            jenislusi: "RfRf",
+            asallusi: "Rf",
+            jenispakan: "BC",
+            asalpakan: "B",
+            blendedpoly: 60,
+            blendedcotton: 30,
+            blendedlainnya: 10,
             delivery: new Date(),
             jenismesin: "AJL",
-            jenisbenang: "CT",
-            allgrade: "AG"
+            jenisbenang: "Benang A",
+            allgrade: 3500
         }
     }
 

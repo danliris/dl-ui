@@ -18,13 +18,13 @@
           </au-dropdown>
         </div>
         <div class="col-md-3" style="padding-left: 0px;">
-          <au-textbox placeholder="Tahun" value.bind="data.periodetahun" error.bind="error.periodetahun" read-only.bind="readOnly"></au-textbox>
+          <au-numeric placeholder="Tahun" value.bind="data.periodetahun" error.bind="error.periodetahun" read-only.bind="readOnly"></au-numeric>
         </div>
       </div>
 
       <!-- UNIT -->
-      <au-textbox label="Unit" placeholder="Cari Unit" value.bind="data.unit" error.bind="error.unit" read-only.bind="readOnly"
-        options.bind="customOptions"></au-textbox>
+      <!-- <au-textbox label="Unit" placeholder="Cari Unit" value.bind="data.unit" error.bind="error.unit" read-only.bind="readOnly"
+        options.bind="customOptions"></au-textbox> -->
 
       <!-- KONSTRUKSI -->
       <div class="row">
@@ -33,26 +33,24 @@
         </div>
         <div class="col-md-9">
           <div class="col-md-3" style="padding-left: 0px; padding-right: 0px;">
-            <au-dropdown value.bind="data.konstruksibulan" error.bind="error.konstruksibulan"
-              read-only.bind="readOnly">
-            </au-dropdown>
+            <au-autocomplete value.bind="data.konstruksijenis" error.bind="error.konstruksibulan" read-only.bind="readOnly">
+            </au-autocomplete>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox placeholder="Tipe" value.bind="data.konstruksitipe" error.bind="error.konstruksitipe"
-              read-only.bind="readOnly">
-              </au-dropdown>
-          </div>
-          <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Lusi" value.bind="data.konstruksilusi" error.bind="error.konstruksilusi"
               read-only.bind="readOnly"></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Pakan" value.bind="data.konstruksipakan" error.bind="error.konstruksipakan"
-              read-only.bind="readOnly"></au-textbox>
+            <au-numeric placeholder="Lusi" value.bind="data.konstruksilusi" error.bind="error.konstruksilusi"
+              read-only.bind="readOnly"></au-numeric>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Lebar" value.bind="data.konstruksilebar" error.bind="error.konstruksilebar"
-              read-only.bind="readOnly"></au-textbox>
+            <au-numeric placeholder="Pakan" value.bind="data.konstruksipakan" error.bind="error.konstruksipakan"
+              read-only.bind="readOnly"></au-numeric>
+          </div>
+          <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
+            <au-numeric placeholder="Lebar" value.bind="data.konstruksilebar" error.bind="error.konstruksilebar"
+              read-only.bind="readOnly"></au-numeric>
           </div>
         </div>
       </div>
@@ -64,17 +62,14 @@
         </div>
         <div class="col-md-9">
           <div class="col-md-3" style="padding-left: 0px; padding-right: 0px;">
-            <au-textbox placeholder="Jenis Lusi" value.bind="data.jnslusi" error.bind="error.jnslusi"
-              read-only.bind="readOnly">
+            <au-textbox placeholder="Jenis Lusi" value.bind="data.jenislusi" error.bind="error.jnslusi" read-only.bind="readOnly">
             </au-textbox>
           </div>
           <div class="col-md-3" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Asal Lusi" value.bind="data.asallusi" error.bind="error.asallusi"
-              read-only.bind="readOnly">
-              </au-dropdown>
+            <au-textbox placeholder="Asal Lusi" value.bind="data.asallusi" error.bind="error.asallusi" read-only.bind="readOnly"></au-textbox>
           </div>
           <div class="col-md-3" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Jenis Pakan" value.bind="data.jnspakan" error.bind="error.jnspakan"
+            <au-textbox placeholder="Jenis Pakan" value.bind="data.jenispakan" error.bind="error.jnspakan"
               read-only.bind="readOnly"></au-textbox>
           </div>
           <div class="col-md-3" style="padding-right: 0px; padding-left: 4px;">
@@ -93,34 +88,41 @@
         </div>
         <div class="col-md-9">
           <div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
-            <au-textbox placeholder="Poly" value.bind="data.blendedpoly" error.bind="error.blendedpoly"
+            <au-numeric placeholder="Poly" options.bind="customCenterOptions" value.bind="data.blendedpoly" error.bind="error.blendedpoly"
               read-only.bind="readOnly">
-            </au-textbox>
+            </au-numeric>
           </div>
           <div class="col-md-4" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Cotton" value.bind="data.blendedcotton" error.bind="error.blendedcotton"
-              read-only.bind="readOnly">
-              </au-dropdown>
+            <au-numeric placeholder="Cotton" options.bind="customCenterOptions" value.bind="data.blendedcotton"
+              error.bind="error.blendedcotton" read-only.bind="readOnly"></au-numeric>
           </div>
           <div class="col-md-4" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox placeholder="Lainnya" value.bind="data.blendedlainnya" error.bind="error.blendedlainnya"
-              read-only.bind="readOnly"></au-textbox>
+            <au-numeric placeholder="Lainnya" options.bind="customCenterOptions" value.bind="data.blendedlainnya"
+              error.bind="error.blendedlainnya" read-only.bind="readOnly"></au-numeric>
           </div>
         </div>
       </div>
 
       <!-- DELIVERY -->
-      <au-datepicker style="padding-right: 0px;" label="Delivery" value.bind="data.delivery" error.bind="error.delivery"
+      <!-- <au-datepicker style="padding-right: 0px;" label="Delivery" value.bind="data.delivery" error.bind="error.delivery"
         read-only.bind="readOnly" options.bind="customOptions"></au-datepicker>
 
-      <au-textbox label="Jenis Mesin" placeholder="Jenis Mesin" value.bind="data.jnsmesin" error.bind="error.jnsmesin"
+      <au-textbox label="Jenis Mesin" placeholder="Jenis Mesin" value.bind="data.jenismesin" error.bind="error.jnsmesin"
         read-only.bind="readOnly" options.bind="customOptions"></au-textbox>
 
-      <au-textbox label="Jenis Benang" placeholder="Jenis Benang" value.bind="data.jnsbenang" error.bind="error.jnsbenang"
+      <au-textbox label="Jenis Benang" placeholder="Jenis Benang" value.bind="data.jenisbenang" error.bind="error.jnsbenang"
         read-only.bind="readOnly" options.bind="customOptions"></au-textbox>
 
       <au-textbox label="All Grade" placeholder="All Grade" value.bind="data.allgrade" error.bind="error.allgrade"
+        read-only.bind="readOnly" options.bind="customOptions"></au-textbox> -->
+      <au-textbox label="Jenis Benang" placeholder="Jenis Benang" value.bind="data.jenisbenang" error.bind="error.jenisbenang"
         read-only.bind="readOnly" options.bind="customOptions"></au-textbox>
+
+      <au-numeric label="All Grade" placeholder="All Grade" value.bind="data.allgrade" error.bind="error.allgrade"
+        read-only.bind="readOnly" options.bind="customOptions"></au-numeric>
+
+      <au-autocomplete label="Unit" placeholder="Cari Unit" value.bind="data.unit" error.bind="error.unit"
+        read-only.bind="readOnly" options.bind="customOptions"></au-autocomplete>
     </div>
   </au-input-form>
 </template>

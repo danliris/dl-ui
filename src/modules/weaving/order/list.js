@@ -15,9 +15,13 @@ export class List {
       }
     },
     { field: "unit", title: "Unit" },
-    { field: "jenismesin", title: "Mesin" },
-    { field: "konstruksi.jenis", title: "Konstruksi" },
-    { field: "blended.poly", title: "Blended (%)" }
+    // { field: "jenismesin", title: "Mesin" },
+    { field: "konstruksi", title: "Konstruksi" },
+    {
+      field: "blended", title: "Blended (%)", formatter: function (value, data, index) {
+        return value.poly + " " + value.cotton + " " + value.lainnya;
+      }
+    }
 
   ];
 
@@ -35,68 +39,56 @@ export class List {
     }
 
     return {
-      total: 1,
+      total: 2,
       // total: result.info.total,
       data: [{
         sopNo: "1",
         tglsp: new Date(),
-            periode: {
-                bulan: "Januari",
-                tahun: "2018"
-            },
-            unit: "Weaving 1",
-            konstruksi: {
-                jenis: "CD 133",
-                tipe: "72",
-                lusi: "63",
-                pakan: "Rf Rf",
-                lebar: "B B",
-            },
-            kodebenang: {
-                jenislusi: "AC",
-                asallusi: "A",
-                jenispakan: "BC",
-                asalpakan: "B"
-            },
-            blended: {
-                poly: "60%",
-                cotton: "30%",
-                lainnya: "10%"
-            },
-            delivery: new Date(),
-            jenismesin: "AJL",
-            jenisbenang: "CT",
-            allgrade: "AG"
+        periode: {
+          bulan: "Januari",
+          tahun: "2018"
+        },
+        unit: "Weaving 1",
+        konstruksi: "CD 133 73 63 RfRf Rf AB B",
+        kodebenang: {
+          jenislusi: "AC",
+          asallusi: "A",
+          jenispakan: "BC",
+          asalpakan: "B"
+        },
+        blended: {
+          poly: "60%",
+          cotton: "30%",
+          lainnya: "10%"
+        },
+        delivery: new Date(),
+        jenismesin: "AJL",
+        jenisbenang: "CT",
+        allgrade: "AG"
       }, {
         sopNo: "2",
         tglsp: new Date(),
-            periode: {
-                bulan: "Januari",
-                tahun: "2018"
-            },
-            unit: "Weaving 1",
-            konstruksi: {
-                jenis: "CD 133",
-                tipe: "72",
-                lusi: "63",
-                pakan: "Rf Rf",
-                lebar: "B B",
-            },
-            kodebenang: {
-                jenislusi: "AC",
-                asallusi: "A",
-                jenispakan: "BC",
-                asalpakan: "B"
-            },
-            blended: {
-                poly: "60%",
-                cotton: "30%",
-                lainnya: "10%"
-            },
-            delivery: new Date(),
-            jenismesin: "AJL",
-            jenisbenang: "CT",
-            allgrade: "AG"
+        periode: {
+          bulan: "Januari",
+          tahun: "2018"
+        },
+        unit: "Weaving 2",
+        konstruksi: "CD 133 73 63 RfRf Rf AB B",
+        kodebenang: {
+          jenislusi: "AC",
+          asallusi: "A",
+          jenispakan: "BC",
+          asalpakan: "B"
+        },
+        blended: {
+          poly: "60%",
+          cotton: "30%",
+          lainnya: "10%"
+        },
+        delivery: new Date(),
+        jenismesin: "AJL",
+        jenisbenang: "CT",
+        allgrade: "AG"
       }]
     }
 
@@ -125,7 +117,7 @@ export class List {
         this.router.navigateToRoute('view', { id: data.sopNo });
         // this.router.navigateToRoute('view', { id: data._id });
         break;
-      }
+    }
   }
 
   create() {
