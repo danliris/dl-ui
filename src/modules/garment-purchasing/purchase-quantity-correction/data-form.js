@@ -79,8 +79,8 @@ export class DataForm {
     }
 
     deliveryOrderChanged(newValue, oldValue) {
-        if (newValue) {
-            var deliveryOrder = newValue;
+        var deliveryOrder = newValue;
+        if (deliveryOrder) {
             this.data.CorrectionType = "Jumlah";
 
             this.data.CorrectionDate = new Date(new Date().setHours(0, 0, 0, 0));
@@ -140,10 +140,10 @@ export class DataForm {
             this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
         }else{
             console.log(this.error);
-            //this.data.deliveryOrder = [];
-        this.resetErrorItems(); 
+            this.data.Items = [];
+            this.error = null;
         }
-        //this.data.Items.splice(0);
+            this.resetErrorItems();
     }
 
     @computedFrom("data.DOId")

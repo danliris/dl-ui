@@ -12,9 +12,9 @@ export class PurchaseQuantityCorrectionItem {
         if(this.data.Quantities === 0){
             this.quantitiesReadonly = true;
         }
-        // if(this.context.error.Quantity){
-        //     this.context.error.Quantity = "";
-        // }
+        if(!this.error){
+            this.error = "";
+        }
     }
     
     @computedFrom("data.Quantity")
