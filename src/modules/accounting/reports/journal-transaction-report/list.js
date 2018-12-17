@@ -28,33 +28,14 @@ export class List {
         this.totalCredit = 0;
         this.totalDebit = 0;
 
-        this.itemMonths = [
-            { text: 'January', value: 1 },
-            { text: 'February', value: 2 },
-            { text: 'March', value: 3 },
-            { text: 'April', value: 4 },
-            { text: 'May', value: 5 },
-            { text: 'June', value: 6 },
-            { text: 'July', value: 7 },
-            { text: 'August', value: 8 },
-            { text: 'September', value: 9 },
-            { text: 'October', value: 10 },
-            { text: 'November', value: 11 },
-            { text: 'Desember', value: 12 }
-        ];
-        this.currentYear = moment().format('YYYY');
-
-        for (var i = parseInt(this.currentYear); i >= 2018; i--) {
-            this.itemYears.push(i.toString());
-        }
     }
 
 
     async search() {
         
         let arg = {
-            month : this.info.month.value,
-            year : this.info.year
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null
         }
 
         this.data = await this.service.search(arg)
@@ -91,22 +72,20 @@ export class List {
         // this.flag = true;
         // this.tableList.refresh();
 
-        let params = {
-            supplierName: this.info.supplierName,
-            month: this.info.month.value,
-            year: this.info.year,
+        let arg = {
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null
         }
 
-        this.service.getXls(params)
+        this.service.getXls(arg)
 
         // this.getExcelData();
     }
 
     reset() {
         this.error = {};
-        this.info.year = moment().format("YYYY");
-        this.info.month = { text: 'January', value: 1 };
-
+        this.dateFrom = undefined;
+        this.dateTo = undefined;
         this.isEmpty = true;
         // this.flag = false;
         this.totalCredit = 0;

@@ -34,6 +34,7 @@ export class PurchasingDispositionDetail {
     if(this.readOnly){
       this.data.PaidQuantity=this.data.PaidQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
       this.data.PaidPrice=this.data.PaidPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+      this.data.TotalPaidPrice=this.data.TotalPaidPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     }
     this.data.DealQuantity=this.data.DealQuantity;//.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     this.data.PricePerDealUnit=this.data.PricePerDealUnit;//.toLocaleString('en-EN', { minimumFractionDigits: 4 });
