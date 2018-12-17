@@ -5,9 +5,13 @@ export class PurchaseQuantityCorrectionItem {
         this.data = context.data;
         this.options = context.options;
         this.error = context.error;
+        console.log(this.error);
         this.contextOptions = context.context.options;
         this.readOnly = this.options.readOnly;
         this.isFirst = false;
+        if(this.data.Quantities === 0){
+            this.readOnly = true;
+        }
     }
     
     @computedFrom("data.Quantity")
