@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from './service';
 import { debug } from 'util';
 
-var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
+//var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
 // var moment = require('moment');
 @inject(Service)
