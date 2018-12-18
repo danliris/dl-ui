@@ -3,7 +3,7 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var UnitLoader = require('../../../loader/unit-loader');
+var UnitLoader = require('../../../loader/garment-units-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var UnitReceiptLoader = require('../../../loader/garment-unit-receipt-note-loader');
 
@@ -17,6 +17,10 @@ export class List {
     get unitLoader(){
         return UnitLoader;
     }
+    unitView = (unit) => {
+      
+        return `${unit.Code} - ${unit.Name}`
+      }
     get supplierLoader(){
         return SupplierLoader;
     }
@@ -24,21 +28,22 @@ export class List {
         return UnitReceiptLoader;
      
     }
-  
+   
+     
   searching() {
         var info = {
             
             no : this.no ? this.no : "",
-            pr : this.pr ? this.pr : "",
-            purchaseRequestRefNo : this.purchaseRequestRefNo ? this.purchaseRequestRefNo : "",
+            poRefPR : this.poRefPR ? this.poRefPR : "",
             roNo : this.roNo ? this.roNo : "",
-            deliveryorderNo : this.deliveryorderNo ? this.deliveryorderNo : "",
+            doNo : this.doNo ? this.doNo : "",
             supplier : this.supplier ? this.supplier.code : "",
-            unit : this.unit ? this.unit.code : "",
+            unit : this.unit ? this.unit.Code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        this.service.search(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.roNo,info.deliveryorderNo,info.dateFrom,info.dateTo)
+       
+        this.service.search(info.no,  info.poRefPR,  info.roNo,  info.doNo,  info.unit,  info.supplier, info.dateFrom, info.dateTo)
             .then(result => {
                this.data=result;
             });
@@ -47,26 +52,24 @@ export class List {
      ExportToExcel() {
         var info = {
             no : this.no ? this.no : "",
-            pr : this.pr ? this.pr : "",
-            purchaseRequestRefNo : this.purchaseRequestRefNo ? this.purchaseRequestRefNo : "",
+            poRefPR : this.poRefPR ? this.poRefPR : "",
             roNo : this.roNo ? this.roNo : "",
-            deliveryorderNo : this.deliveryorderNo ? this.deliveryorderNo : "",
+            doNo : this.doNo ? this.doNo : "",
             supplier : this.supplier ? this.supplier.code : "",
-            unit : this.unit ? this.unit.code : "",
+            unit : this.unit ? this.unit.Code : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
-        this.service.generateXls(info.no,info.pr,info.unit,info.supplier,info.purchaseRequestRefNo,info.roNo,info.deliveryorderNo,info.dateFrom,info.dateTo)
+        this.service.generateXls(info.no,  info.poRefPR,  info.roNo,  info.doNo,  info.unit,  info.supplier, info.dateFrom, info.dateTo)
     }
   
 
     reset() {
        
         this.no = "";
-        this.pr="";
-        this.purchaseRequestRefNo="";
+        this.poRefPR="";
         this.roNo="";
-        this.deliveryorderNo="";
+        this.doNo="";
         this.unit = "";
         this.dateFrom = "";
         this.dateTo = "";
