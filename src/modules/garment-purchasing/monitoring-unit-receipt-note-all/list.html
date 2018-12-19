@@ -1,9 +1,17 @@
 <template>
-  
-        <h1 class="page-header">Monitoring Bon Terima Unit All</h1>
-        <form class="form-horizontal">
+    <au-input-form title.bind="title">
+        <style>
+            table>tbody>tr>td {
+                white-space: pre;
+            }
+        </style>
 
-            <au-autocomplete 
+        <h1 class="page-header">Monitoring PO External Garment Over Budget</h1>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                
+                <au-autocomplete 
                 value.bind="no" 
                 label="No Bon Terima Unit" 
                 loader.bind="unitReceiptLoader"
@@ -12,14 +20,7 @@
                 options.bind="controlOptions">
             </au-autocomplete>
 
-            <!-- <au-textbox 
-                label="Nomor PO Eksternal" 
-                value.bind="pr"
-                read-only.bind="readOnly"
-                options.bind="controlOptions">
-            </au-textbox> -->
-
-            <au-textbox  
+             <au-textbox  
                 value.bind="poRefPR"
                 label="Nomor Ref. PR"
                 placeholder="masukkan nomor referensi PR"  >
@@ -57,76 +58,39 @@
                 options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
-            <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+                <au-datepicker 
+                    label="Tanggal Awal" 
+                    value.bind="dateFrom">
+                </au-datepicker>
 
-            <div class="form-group">
-                <label for="contact" class="col-sm-6 control-label"></label>
-                <div class="col-sm-3">
-                    <button click.delegate="searching()" class='btn btn-success'>Cari</button>
-                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                <au-datepicker 
+                    label="Tanggal Akhir" 
+                    value.bind="dateTo">
+                </au-datepicker>
+
+                <div class="form-group">
+                    <label for="contact" class="col-sm-6 control-label"></label>
+                    <div class="col-sm-3">
+                        <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                        <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="btn-group pull-left">
-                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
-            </div>
-        </form>
-
-        <br>
-        </br>
-
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="myTable">
-                <thead align="center">
-                    <tr>
-                        <td>Nomor Bon Terima Unit</td>
-                        <td>Tanggal Bon Terima Unit</td>
-                        <td>Unit</td>
-                        <td>Supplier</td>
-                        <td>Surat Jalan</td>
-                        <td>No PO Eksternal</td>
-                        <td>No Ref PR</td>
-                        <td>No RO</td>
-                        <td>Artikel</td>
-                        <td>Kode Barang</td>
-                        <td>Nama Barang</td>
-                        <td>Jumlah</td>
-                        <td>Satuan</td>
-                        <td>Keterangan</td>
-                        <td>User</td>
-                        <td>Nota Intern</td>
-                     
-                    </tr>
-                </thead>
-                <tbody>
-                 
-                    <tr repeat.for="item of data">
-                        <td class="text-left">${item.no}</td>
-                        <td class="text-left">${item.dateBon | dateFormat:'DD MMMM YYYY'}</td>
-                        <td class="text-left">${item.unit}</td>
-                         <td class="text-left">${item.supplier}</td>
-                        <td class="text-left">${item.doNo}</td>
-                        <td class="text-left">${item.poEksternalNo}</td>
-                        <td class="text-left">${item.poRefPR}</td>
-                        <td class="text-left">${item.roNo}</td>
-                        <td class="text-left">${item.article}</td>
-                        <td class="text-left">${item.productCode}</td>
-                        <td class="text-left">${item.productName}</td>
-                        <td class="text-right">${item.qty}</td>
-                        <td class="text-left">${item.uom}</td>
-                        <td class="text-left">${item.remark}</td>
-                        <td class="text-left">${item.user}</td>
-                        <td class="text-left">${item.internNote}</td>
-                       
-                    </tr>
-                </tbody>
-            </table>
         </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-            Tidak ada data.
+        <br></br>
+        <div class="table-responsive">
+            <au-table 
+                view-model.ref="table" 
+                data.bind="loader" 
+                columns.bind="columns" 
+                sortable.bind="true" 
+                page-size="25" 
+                options.bind="tableOptions" >
+                <div slot="toolbar" class="btn-group">
+                    <button class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+                </div>
+            </au-table>
         </div>
         <hr/>
-        </form>
     </au-input-form>
 </template>
