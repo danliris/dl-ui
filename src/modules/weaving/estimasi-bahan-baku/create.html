@@ -1,0 +1,33 @@
+<template>
+  <h1 class="page-header">Buat Permintaan Bahan Baku</h1>
+  <div slot="toolbar" class="col-md-12">
+    <div class="row">
+      <div class="col-md-2">
+        <textbox label="Periode" read-only="true"></textbox>
+        <p>:</p>
+      </div>
+      <div class="col-md-2">
+        <au-dropdown value.bind="data.bulan" error.bind="error.bulan" read-only.bind="readOnly" items.bind="months">
+        </au-dropdown>
+      </div>
+      <div class="col-md-2">
+        <au-numeric placeholder="Tahun" value.bind="data.tahun" error.bind="error.tahun" read-only.bind="readOnly"></au-numeric>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <textbox label="Unit" read-only="true"></textbox>
+        <p>:</p>
+      </div>
+      <div class="col-md-2">
+        <au-numeric placeholder="Unit" value.bind="data.unit" error.bind="error.unit" read-only.bind="readOnly"></au-numeric>
+      </div>
+    </div>
+  </div>
+  <au-table data.bind="loader" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context"
+    context-click.delegate="contextCallback($event)">
+    <!-- <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="create()">Buat</button>
+      </div> -->
+  </au-table>
+</template>
