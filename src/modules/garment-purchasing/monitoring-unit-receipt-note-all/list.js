@@ -59,11 +59,12 @@ export class List {
         this.arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         this.arg.no = this.no ? this.no.URNNo : "";
-        this.arg.poRefPR = this.poRefPR ? this.poRefPR : "";
+        this.arg.refNo = this.poRefPR ? this.poRefPR : "";
         this.arg.roNo = this.roNo ? this.roNo : "";
         this.arg.doNo =this.doNo ? this.doNo : "";
         this.arg.supplier =  this.supplier ? this.supplier.code : "";
         this.arg.unit = this.unit ? this.unit.Code : "";
+        console.log(this.arg);
     }
     
     listDataFlag = false;
