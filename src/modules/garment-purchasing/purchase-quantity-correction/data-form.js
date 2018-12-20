@@ -6,6 +6,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isView = false;
     @bindable data = {};
+    @bindable error = {};
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
@@ -58,13 +59,7 @@ export class DataForm {
         }
     }
 
-    resetErrorItems() {
-        if (this.error) {
-            if (this.error.Items) {
-                this.error.Items = [];
-            }
-        }
-    }
+    
 
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
@@ -139,9 +134,8 @@ export class DataForm {
             }
             this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
         }else{
-            console.log(this.error);
             this.data.Items = [];
-            this.error = null;
+            this.data.DONo=null
         }
             this.resetErrorItems();
     }
@@ -149,5 +143,13 @@ export class DataForm {
     @computedFrom("data.DOId")
     get hasItems() {
         return this.data.Items ? this.data.Items.length > 0 : false;
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.Items) {
+                this.error.Items = null;
+            }
+        }
     }
 }
