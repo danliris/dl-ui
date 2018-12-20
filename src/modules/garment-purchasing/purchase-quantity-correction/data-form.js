@@ -45,8 +45,6 @@ export class DataForm {
         };
 
         this.collectionOptions = {};
-
-        this.itemsTemp = [];
     }
 
     bind(context) {
@@ -99,7 +97,6 @@ export class DataForm {
             }
 
             this.data.Items = [];
-            this.itemsTemp = [];
             for(let item of deliveryOrder.items) {
                 for (let detail of item.fulfillments) {
                     let correctionNoteItem = {};
@@ -138,6 +135,7 @@ export class DataForm {
             this.data.DONo=null
         }
             this.resetErrorItems();
+            this.resetErrorDeliveryOrder()
     }
 
     @computedFrom("data.DOId")
@@ -149,6 +147,13 @@ export class DataForm {
         if (this.error) {
             if (this.error.Items) {
                 this.error.Items = null;
+            }
+        }
+    }
+    resetErrorDeliveryOrder() {
+        if (this.error) {
+            if (this.error.DONo) {
+                this.error.DONo = null;
             }
         }
     }
