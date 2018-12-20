@@ -101,8 +101,8 @@ export class List {
         var info = {
             status :  this.isApproved ? this.isApproved.name  : "",
             epono : this.epono ? this.epono.EPONo : "",
-            supplier : this.supplier ? this.supplier.code : "",
-            unit : this.unit ? this.unit.Code : "",
+            supplier : this.supplier ? this.supplier.Id : "",
+            unit : this.unit ? this.unit.Id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -130,7 +130,7 @@ export class List {
     reset() {
         this.unit = ""; 
         this.supplier = "";
-        this.epoNo = "";
+        this.epono = "";
         this.dateFrom = null;
         this.dateTo = null;
         this.isApproved = this.statusApprove[0];
