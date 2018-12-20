@@ -6,6 +6,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isView = false;
     @bindable data = {};
+    @bindable error = {};
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
@@ -44,8 +45,6 @@ export class DataForm {
         };
 
         this.collectionOptions = {};
-
-        this.itemsTemp = [];
     }
 
     bind(context) {
@@ -58,13 +57,7 @@ export class DataForm {
         }
     }
 
-    resetErrorItems() {
-        if (this.error) {
-            if (this.error.Items) {
-                this.error.Items = [];
-            }
-        }
-    }
+    
 
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
@@ -104,7 +97,6 @@ export class DataForm {
             }
 
             this.data.Items = [];
-            this.itemsTemp = [];
             for(let item of deliveryOrder.items) {
                 for (let detail of item.fulfillments) {
                     let correctionNoteItem = {};
@@ -139,15 +131,30 @@ export class DataForm {
             }
             this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
         }else{
-            console.log(this.error);
             this.data.Items = [];
-            this.error = null;
+            this.data.DONo=null
         }
             this.resetErrorItems();
+            this.resetErrorDeliveryOrder()
     }
 
     @computedFrom("data.DOId")
     get hasItems() {
         return this.data.Items ? this.data.Items.length > 0 : false;
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.Items) {
+                this.error.Items = null;
+            }
+        }
+    }
+    resetErrorDeliveryOrder() {
+        if (this.error) {
+            if (this.error.DONo) {
+                this.error.DONo = null;
+            }
+        }
     }
 }
