@@ -6,6 +6,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isView = false;
     @bindable data = {};
+    @bindable error = {};
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
@@ -134,7 +135,26 @@ export class DataForm {
                         }
                     }
                     this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
+
+                    if (this.error) {
+                        if(this.error.ItemsCount)
+                            this.error.ItemsCount = null;
+                        if(this.error.Items)
+                            this.error.Items = null;
+                    }
                 });
+        }
+        else {
+            this.data.DOId = null;
+            this.data.Items = [];
+            this.itemsTemp = [];
+
+            if (this.error) {
+                if(this.error.ItemsCount)
+                    this.error.ItemsCount = null;
+                if(this.error.Items)
+                    this.error.Items = null;
+            }
         }
     }
 
@@ -149,6 +169,13 @@ export class DataForm {
             this.collectionOptions.pricePerUnitReadOnly = true;
 
         this.data.Items = JSON.parse(JSON.stringify(this.itemsTemp));
+
+        if (this.error) {
+            if(this.error.ItemsCount)
+                this.error.ItemsCount = null;
+            if(this.error.Items)
+                this.error.Items = null;
+        }
     }
 
     @computedFrom("data.DOId")
