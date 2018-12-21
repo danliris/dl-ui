@@ -105,14 +105,7 @@ export class DataForm {
             this.data.Supplier = null;
         }
 
-        if (this.context.error) {
-            if (this.context.error.DeliveryOrder) {
-                this.context.error.DeliveryOrder = null;
-            }
-            if (this.context.error.Storage) {
-                this.context.error.Storage = null;
-            }
-        }
+        this.resetErrorDeliveryOrder();
         this.context.storageAU.editorValue = "";
         this.context.deliveryOrderAU.editorValue = "";
         this.data.DOId = null;
@@ -131,14 +124,7 @@ export class DataForm {
             this.data.Unit = null;
         }
 
-        if (this.context.error) {
-            if (this.context.error.DeliveryOrder) {
-                this.context.error.DeliveryOrder = null;
-            }
-            if (this.context.error.Storage) {
-                this.context.error.Storage = null;
-            }
-        }
+        this.resetErrorDeliveryOrder();
         this.context.storageAU.editorValue = "";
         this.context.deliveryOrderAU.editorValue = "";
         this.data.DOId = null;
@@ -173,6 +159,7 @@ export class DataForm {
                     _item.POSerialNumber = fulfillment.poSerialNumber;
 
                     _item.Product = fulfillment.product;
+                    _item.Product.Remark = fulfillment.productRemark;
 
                     _item.RONo = fulfillment.rONo;
 
@@ -197,9 +184,11 @@ export class DataForm {
             this.data.Items = _items;
         }
         else {
+            this.data.DOId = null;
             this.data.Items = [];
         }
 
+        this.context.storageAU.editorValue = "";
         this.resetErrorItems();
         this.data.Storage = null;
         this.storage = null;
@@ -221,25 +210,38 @@ export class DataForm {
             this.storage = null;
             this.data.Storage = undefined;
         }
-        this.resetErrorItems();
     }
 
     isStorageChanged(e) {
+        this.context.storageAU.editorValue = "";
         this.data.UnitId;
-        if (this.context.error.IsStorage) {
-            this.context.error.IsStorage = "";
+        if (this.error) {
+            if (this.error.Storage) {
+                this.error.Storage = null;
+            }
         }
         this.storage = null;
         this.data.Storage = null;
     }
 
-    resetErrorItems() {
+    resetErrorDeliveryOrder() {
         if (this.error) {
-            if (this.error.Items) {
-                this.error.Items = [];
+            if (this.error.DeliveryOrder) {
+                this.error.DeliveryOrder = null;
             }
             if (this.error.Storage) {
                 this.error.Storage = null;
+            }
+        }
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.Storage) {
+                this.error.Storage = null;
+            }
+            if (this.error.Items) {
+                this.error.Items = null;
             }
         }
     }

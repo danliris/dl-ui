@@ -81,10 +81,15 @@ export class List {
             for(var detail of item.details){
                 var receiptQuantityTotal = 0;
                 var deliveryOrderItems = detail.deliveryOrder.items || [];
+                var invoiceItems = item.garmentInvoice.items || [];
                 for(var deliveryOrderItem of deliveryOrderItems){
                     for(var deliveryOrderDetail of deliveryOrderItem.fulfillments){
-                        if(deliveryOrderDetail.Id == detail.dODetailId){
-                            receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                        for(var invoiceItem of invoiceItems){
+                            for(var invDetail of invoiceItem.details){
+                                if(deliveryOrderDetail.Id === invDetail.dODetailId){
+                                    receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                                }
+                            }
                         }
                     }
                 }
