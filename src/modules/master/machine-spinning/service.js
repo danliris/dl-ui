@@ -34,4 +34,9 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
+
+  getMachineTypes(){
+    var endpoint = `${serviceUri}/machine/types`;
+    return super.list(endpoint);
+  }
 }

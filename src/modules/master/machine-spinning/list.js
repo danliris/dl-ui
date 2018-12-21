@@ -53,4 +53,18 @@ export class List {
         this.router.navigateToRoute('create');
     }
 
+    upload() {
+        this.router.navigateToRoute('upload');
+    }
+
+    download() {
+        var endpoint = 'machine-spinnings/download';
+        var request = {
+            method: 'GET'
+        };
+
+        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+        this.service._downloadFile(getRequest);
+        this.service.publish(getRequest);
+    }
 }
