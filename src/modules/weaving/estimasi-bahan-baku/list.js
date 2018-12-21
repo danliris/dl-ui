@@ -1,10 +1,10 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
-import { activationStrategy } from "aurelia-router";
+import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { Service } from './service';
+import { Router } from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
-export class Create {
+export class List {
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -13,9 +13,21 @@ export class Create {
 
   activate(params) {}
 
-  list() {
-    this.router.navigateToRoute("list");
-  }
+  months = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "Desember"
+  ];
 
   determineActivationStrategy() {
     return activationStrategy.replace;
