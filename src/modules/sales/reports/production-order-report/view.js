@@ -13,16 +13,16 @@ export class View {
 
     listSPPColumns = [
         { value: "index", header: "No." },
-        { value: "_id", header: "Nomor Order" },
+        { value: "orderNo", header: "Nomor Order" },
         { value: "orderQuantity", header: "Jumlah Order" },
         { value: "uom", header: "Satuan" }
     ];
 
     listQCColumns = [
         { value: "index", header: "No." },
-        { value: "productionOrderNo", header: "Nomor Order" },
-        { value: "_id", header: "Grade" },
-        { value: "qty", header: "Panjang" }
+        { value: "orderNo", header: "Nomor Order" },
+        { value: "grade", header: "Grade" },
+        { value: "orderQuantity", header: "Panjang" }
     ];
 
     listDOColumns = [
@@ -32,19 +32,20 @@ export class View {
         { value: "machine", header: "Mesin" },
         { value: "step", header: "Step" },
         { value: "area", header: "Area" },
-        { value: "qty", header: "Input" }
+        { value: "orderQuantity", header: "Input" }
     ];
 
     orderNo = "";
     dailyOperations = [];
     productionOrders = [];
     async activate(params) {
-        this.orderNo = params.id ? decodeURIComponent(params.id) : "-";
+        this.orderNo = params.id ? decodeURIComponent(params.id) : 0;
         // this.orderNo = params.id;
         this.data = await this.service.getDetailReport(params.id);
-        this.productionOrders = this.data.productionOrders;
-        this.dailyOperations = this.data.dailyOperations;
-        this.qualityControls = this.data.qualityControls;
+        console.log(this.data)
+        this.productionOrders = this.data.SPPList;
+        this.dailyOperations = this.data.DailyOPList;
+        this.qualityControls = this.data.QCList;
 
     }
 

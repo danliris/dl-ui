@@ -68,7 +68,7 @@ export class List {
 
     fillValues() {
         this.arg.unitId = this.filter.unit ? this.filter.unit.Id : "";
-        this.arg.duration = this.filter.duration ? this.filter.duration : "< 8 hari";
+        this.arg.duration = this.filter.duration ? this.filter.duration : "0-7 hari";
         this.arg.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
         this.arg.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         this.arg.offset = new Date().getTimezoneOffset() / 60 * -1;
