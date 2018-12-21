@@ -27,8 +27,6 @@ export class List {
         var filter = {
             "_IsDeleted": false
         }
-        filter[`CodeRequirement == "BB"`]=false;
-        filter[`CodeRequirement == "BP"`]=false;
         var info = { filter: JSON.stringify(filter), size: Number.MAX_SAFE_INTEGER };
         var categoryProduct = await this.service.searchGarmentCategory(info);    
         var productCode = [];
