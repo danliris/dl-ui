@@ -4,7 +4,6 @@ import {RestService} from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-
 const serviceUri = 'garment-delivery-orders/arrivalReport';
 const serviceUriDetail = 'garment-delivery-orders/arrivalReportDetail';
 
@@ -15,11 +14,9 @@ export class Service extends RestService {
     }
 
     search(info) { 
-        console.log(info)
         var endpoint = `${serviceUri}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;
         return super.get(endpoint);
     }
- 
 
     getDetail(info) {
         var endpoint = `${serviceUriDetail}?supplier=${info.supplierCode}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;

@@ -25,10 +25,6 @@ export class List {
     attached() {
     }
 
-    // bind(context) {
-    //     this.context = context;
-    //     console.log(this.context)
-    // }
     async bind(){
         if(this.category==""){
             this.catBb="BB";
@@ -38,7 +34,6 @@ export class List {
             }
             filter[`CodeRequirement == "${this.catBb}" || CodeRequirement == "${this.catBp}"`]=true;
             var info = { filter: JSON.stringify(filter), size: Number.MAX_SAFE_INTEGER };
-            console.log(info)
             var categoryProduct = await this.service.searchGarmentCategory(info);    
         }
         var productCode = [];
@@ -47,41 +42,45 @@ export class List {
             garmentCategory.push(data);
             productCode.push(data.code);
         }
-        this.garmentCategory = JSON.stringify(garmentCategory)
+        this.garmentCategory = JSON.stringify(garmentCategory);
         this.productCode = JSON.stringify(productCode);
     }
 
 
     activate(params) {
-        // this.context = context;
-        // this.data = context.data;
-        // this.options = context.options;
-        console.log(params);
-        if (this.dateFrom != null || params.dateTo != null || params.category != null) {
+        if ( params.dateTo != null || params.category != null) {
             this.dateFrom = params.dateFrom;
             this.dateTo = params.dateTo;
             this.category = params.category;
-            var uri = "";
-     
-            uri = this.service.search(this.dateFrom, this.dateTo, this.category);
-                
-            uri.then(result => {
-                this.data = [];
-                console.log(result);
-                
-                for (var _data of result) {
-                _data.supplier =_data.supplier ? _data.supplier : "-";
-                this.data.push(_data);
-                this.tjumcount+=_data.jumlah;
-                this.tperOk+=_data.percentOk_notOk;
-                }
-            })
+            var info = {
+                dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
+                dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
+                category : this.category ? this.category: "",
+                garmentCategory : params.garmentCategory ? params.garmentCategory: "",
+                productCode : params.productCode ? params.productCode: ""
+            }
+            this.tjumcount = 0;
+            this.tperOkCount = 0;
+            this.tperOk = 0;
+            this.service.search(info)
+                .then(result => {
+                    this.data = [];
+                    for (var _data of result) {
+                    _data.supplier =_data.supplier ? _data.supplier : "-";
+                    this.data.push(_data);
+                    if(_data.ok_notOk="OK"){
+                        this.tperOkCount += 1 ;
+                    }
+                    this.tjumcount +=_data.jumlah;
+                    }
+                    this.tperOk = Math.floor(this.tperOkCount/this.tjumcount *100);
+            });
         } else {
         this.dateFrom='';
         this.dateTo='';
         this.category='';
+            }
     }
-}
 
     get prLoader(){
         return PRLoader;
@@ -128,7 +127,7 @@ export class List {
             productCode.push(data.code);
         }
         this.garmentCategory = JSON.stringify(garmentCategory)
-        this.garmentCategory = JSON.stringify(productCode);
+        this.productCode = JSON.stringify(productCode);
     }
 
     search() {
@@ -140,19 +139,21 @@ export class List {
             productCode : this.productCode ? this.productCode: ""
         }
         this.tjumcount = 0;
+        this.tperOkCount = 0;
         this.tperOk = 0;
         this.service.search(info)
             .then(result => {
                 this.data = [];
-                console.log(result);
-                
                 for (var _data of result) {
                 _data.supplier =_data.supplier ? _data.supplier : "-";
                 this.data.push(_data);
-                this.tjumcount +=_data.jumlah;
-                this.tperOk += _data.percentOk_notOk;
+                if(_data.ok_notOk="OK"){
+                    this.tperOkCount += 1 ;
                 }
-        })
+                this.tjumcount +=_data.jumlah;
+                }
+                this.tperOk = Math.floor(this.tperOkCount/this.tjumcount *100);
+        });
     }
     reset() {
   
@@ -183,19 +184,17 @@ export class List {
             garmentCategory : this.garmentCategory ? this.garmentCategory: "",
             productCode : this.productCode ? this.productCode: ""
         }
-        console.log(info)
         this.service.generateExcel(info)
-      //  this.service.generateExcel(this.unit ? this.unit._id : "", this.category ? this.category._id : "", this.buyer ? this.buyer._id : "", this.purchaseRequest ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo, this.prState.value);
     }
 
-    // dateFromChanged(e) {
-    //     var _startDate = new Date(e.srcElement.value);
-    //     var _endDate = new Date(this.dateTo);
+    dateFromChanged(e) {
+        var _startDate = new Date(e.srcElement.value);
+        var _endDate = new Date(this.dateTo);
 
 
-    //     if (_startDate > _endDate)
-    //         this.dateTo = e.srcElement.value;
+        if (_startDate > _endDate)
+            this.dateTo = e.srcElement.value;
 
-    // }
+    }
 
 }
