@@ -122,7 +122,7 @@ export class DataForm {
                     correctionNoteItem.Uom = detail.purchaseOrderUom;
 
                     correctionNoteItem.PricePerDealUnitBefore = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));
-                    correctionNoteItem.PricePerDealUnitAfter = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));
+                    correctionNoteItem.PricePerDealUnitAfter = detail.pricePerDealUnitCorrection;
                     correctionNoteItem.PriceTotalBefore = parseFloat((detail.priceTotalCorrection).toFixed(2));
                     correctionNoteItem.PriceTotalAfter = parseFloat((detail.priceTotalCorrection).toFixed(2));
 
