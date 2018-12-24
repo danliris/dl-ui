@@ -311,6 +311,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/unit-delivery-order',
+        name: 'unit-receipt-note',
+        moduleId: './modules/garment-purchasing/unit-delivery-order/index',
+        nav: true,
+        title: 'Unit Delivery Order',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            //permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/monitoring-unit-receipt-note',
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/monitoring-unit-receipt-note/index',
