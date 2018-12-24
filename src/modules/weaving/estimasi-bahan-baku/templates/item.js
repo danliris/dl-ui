@@ -1,6 +1,6 @@
 import { inject, BindingEngine } from 'aurelia-framework';
 
-var EBBLoader = require('../../../../loader/ebb-loader');
+// var EBBLoader = require('../../../../loader/ebb-loader');
 
 @inject(BindingEngine)
 export class Item {
@@ -52,9 +52,9 @@ export class Item {
     //     return EBBLoader;
     // }
 
-    get addItems() {
-        return (event) => {
-            this.data.Items.push({})
-        };
-    }
+    // get addItems() {
+    //     return (event) => {
+    //         this.data.Items.push({})
+    //     };
+    // }
 }

@@ -1,0 +1,51 @@
+<template>
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+  >
+    <div class="row">
+      <div class="col-md-3">
+        <au-dropdown
+          label="Periode"
+          value.bind="data.bulan"
+          error.bind="error.bulan"
+          read-only.bind="readOnly"
+          items.bind="months"
+          options.bind="customOptions"
+        >
+        </au-dropdown>
+      </div>
+      <div class="col-md-2">
+        <au-numeric
+          placeholder="Tahun"
+          value.bind="data.tahun"
+          error.bind="error.tahun"
+          read-only.bind="readOnly"
+        ></au-numeric>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <au-numeric
+          label="Unit"
+          placeholder="Unit"
+          value.bind="data.unit"
+          error.bind="error.unit"
+          read-only.bind="readOnly"
+          options.bind="customOptions"
+        ></au-numeric>
+      </div>
+    </div>
+    <au-collection
+      items.bind="data.Items"
+      errors.bind="error.Items"
+      columns.bind="columns"
+      add.bind="addItems"
+      remove.bind="onremove"
+      read-only.bind="readOnly"
+      item-template="modules/weaving/estimasi-bahan-baku/templates/item"
+    >
+    </au-collection>
+  </au-input-form>
+</template>
