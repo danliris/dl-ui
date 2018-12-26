@@ -1,11 +1,16 @@
+<!-- <style>
+th,td {
+  border: 1px solid black;
+}
+</style> -->
 <template>
   <tr>
     <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
     <td>
-      <au-textbox value.bind="data.sopNoEBB" read-only="true"> </au-textbox>
+      <au-textbox value.bind="data.sopNoEBB" read-only.bind="true"> </au-textbox>
     </td>
     <td>
-      <au-textbox value.bind="data.noKonstruksi" read-only="true"> </au-textbox>
+      <au-textbox value.bind="data.noKonstruksi" read-only.bind="true"> </au-textbox>
     </td>
     <td>
       <au-numeric

@@ -1,4 +1,9 @@
 <template>
+  <style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+  </style>
   <au-input-form
     title.bind="title"
     with.bind="context"
@@ -37,15 +42,18 @@
         ></au-numeric>
       </div>
     </div>
-    <au-collection
-      items.bind="data.Items"
-      errors.bind="error.Items"
-      columns.bind="columns"
-      add.bind="addItems"
-      remove.bind="onremove"
-      read-only.bind="readOnly"
-      item-template="modules/weaving/estimasi-bahan-baku/templates/item"
-    >
-    </au-collection>
+    <div style="overflow-x:scroll;white-space: nowrap;">
+      <au-collection
+        items.bind="data"
+        errors.bind="error"
+        columns.bind="columns"
+        add.bind="addItems"
+        remove.bind="onremove"
+        read-only.bind="readOnly"
+        options.bind="customPanelBody"
+        item-template="modules/weaving/estimasi-bahan-baku/templates/item"
+      >
+      </au-collection>
+    </div>
   </au-input-form>
 </template>
