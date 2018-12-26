@@ -8,6 +8,8 @@ var moment = require('moment');
 @inject(Service)
 export class PurchasingDispositionItem {
     @bindable selectedEPO;
+    @bindable vatValue;
+    @bindable incomeTaxValue;
 
     //itemsColumns = ["PRNo", "Category", "Product", "DealQuantity", "DealUom", "PaidQuantity", "PricePerDealUnit", "PriceTotal", "PaidPrice"];
     itemsColumns = {
@@ -40,6 +42,7 @@ export class PurchasingDispositionItem {
         if(this.data.UseIncomeTax){
             this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
         }
+        this.GetTax();
     }
     // @computedFrom("data.EPONo")
     // get incomeTax() {
@@ -66,6 +69,7 @@ export class PurchasingDispositionItem {
                     this.data.IncomeTax.Id=newValue.vat._id;
                     this.data.IncomeTax.Rate=newValue.vat.rate;
                     this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
+                    
                 }
                 else{
                     this.data.IncomeTax={};
@@ -114,6 +118,19 @@ export class PurchasingDispositionItem {
                             PaidPrice: detail.pricePerDealUnit*qty
                         })
                     }
+                    // if(this.data.UseIncomeTax){
+                    //     this.incomeTaxValue+=
+                    // }
+                    var ppn=0;
+                    var pph=0;
+                    if(this.data.UseIncomeTax){
+                        pph= detail.pricePerDealUnit*qty*this.data.IncomeTax.Rate;
+                    }
+                    if(this.data.UseVat){
+                        ppn= detail.pricePerDealUnit*qty*0.01;
+                    }
+                    this.incomeTaxValue+=pph;
+                    this.vatValue+=ppn;
                 }
                 this.data.Details=details;
             }
@@ -136,5 +153,30 @@ export class PurchasingDispositionItem {
     epoView = (epo) => {
         var no= epo.no || this.data.EPONo;
         return `${no}`;
+    }
+
+    GetTax(){
+        console.log(this.data)
+        this.incomeTaxValue=0;
+        this.vatValue=0;
+        if(this.data.Details){
+            for(var detail of this.data.Details){
+                var ppn=0;
+                var pph=0;
+                if(this.data.UseIncomeTax){
+                    pph= detail.PaidPrice*this.data.IncomeTax.rate;
+                }
+                if(this.data.UseVat){
+                    ppn= detail.PaidPrice*0.01;
+                }
+                this.incomeTaxValue+=pph;
+                this.vatValue+=ppn;
+            }
+
+        }
+    }
+
+    detailChanged(e){
+        this.GetTax();
     }
 }
