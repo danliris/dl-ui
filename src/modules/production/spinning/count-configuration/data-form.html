@@ -1,33 +1,79 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-autocomplete label="Count" value.bind="selectedLotConfiguration" error.bind="error.lotConfiguration" loader.bind="lotConfigurationLoader"
-        key="yarnType" text.bind="lotConfigurationView" read-only.bind="readOnly" query.bind="spinningFilter" options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-numeric label="Grain" value.bind="data.grain" read-only.bind="readOnly" error.bind="error.grain" 
-        options.bind="controlOptions" read-only.bind="readOnly"></au-numeric>
-
-        <au-numeric label="Ne" value.bind="data.ne" read-only.bind="readOnly" 
-        error.bind="error.ne" options.bind="controlOptions"></au-numeric>
-
-        <au-numeric label="Standard" value.bind="data.standard" read-only.bind="readOnly"
-        error.bind="error.standard" options.bind="controlOptions"></au-numeric>
-
-        <au-numeric label="EffSpin" value.bind="data.effSpin" read-only.bind="readOnly" 
-        error.bind="error.effSpin" options.bind="controlOptions"></au-numeric>
-
-        <au-numeric label="ProdSpin" value.bind="data.prodSpin" read-only.bind="readOnly" 
-        error.bind="error.prodSpin" options.bind="controlOptions"></au-numeric>
         
-        <au-numeric label="Rpm" value.bind="data.rpm" read-only.bind="readOnly" 
-        error.bind="error.rpm" options.bind="controlOptions"></au-numeric>
+        <au-dropdown label="Jenis Proses"
+                     value.bind="data.processType"
+                     error.bind="error.processType"
+                     read-only.bind="readOnly"
+                     items.bind="processTypeList"
+                     options.bind="controlOptions">
+        </au-dropdown>
 
-        <au-numeric label="Konstan" value.bind="data.constant" read-only.bind="readOnly" 
-        error.bind="error.constant" options.bind="controlOptions"></au-numeric>
+        <au-dropdown label="Jenis Benang"
+            value.bind="data.yarnType"
+            error.bind="error.yarnType"
+            read-only.bind="readOnly"
+            items.bind="yarnTypeList"
+            options.bind="controlOptions">
+        </au-dropdown>
 
+        <au-dropdown label="Jenis Benang Polyester"
+            value.bind="data.yarnType"
+            error.bind="error.yarnType"
+            read-only.bind="readOnly"
+            items.bind="yarnTypeList"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown label="Jenis Benang Cotton"
+            value.bind="data.yarnType"
+            error.bind="error.yarnType"
+            read-only.bind="readOnly"
+            items.bind="yarnTypeList"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <!-- <au-autocomplete label="Count" value.bind="selectedLotConfiguration" error.bind="error.lotConfiguration" loader.bind="lotConfigurationLoader"
+        key="yarnType" text.bind="lotConfigurationView" read-only.bind="readOnly" query.bind="spinningFilter" options.bind="controlOptions">
+        </au-autocomplete> -->
+
+        <au-textbox value.bind="data.count"
+                    error.bind="error.count"
+                    read-only.bind="readOnly"
+                    label="Count"
+                    options.bind="controlOptions">
+        </au-textbox>
+        
         <au-textbox label="No Lot" value.bind="lot" view.bind="lotView" read-only.bind="true"
         options.bind="controlOptions"></au-textbox>
+        
+        <div>
+            <au-numeric label="Grain" value.bind="data.grain" read-only.bind="readOnly" error.bind="error.grain" 
+            options.bind="controlOptions" read-only.bind="readOnly"></au-numeric>
+    
+            <au-numeric label="Ne" value.bind="data.ne" read-only.bind="readOnly" 
+            error.bind="error.ne" options.bind="controlOptions"></au-numeric>
+    
+            <au-numeric label="Standard" value.bind="data.standard" read-only.bind="readOnly"
+            error.bind="error.standard" options.bind="controlOptions"></au-numeric>
+    
+            <au-numeric label="EffSpin" value.bind="data.effSpin" read-only.bind="readOnly" 
+            error.bind="error.effSpin" options.bind="controlOptions"></au-numeric>
+        </div>
+        <div>
+            <au-numeric label="ProdSpin" value.bind="data.prodSpin" read-only.bind="readOnly" 
+            error.bind="error.prodSpin" options.bind="controlOptions"></au-numeric>
+            
+            <au-numeric label="Rpm" value.bind="data.rpm" read-only.bind="readOnly" 
+            error.bind="error.rpm" options.bind="controlOptions"></au-numeric>
+    
+            <au-numeric label="Konstan" value.bind="data.constant" read-only.bind="readOnly" 
+            error.bind="error.constant" options.bind="controlOptions"></au-numeric>
+        </div>
+        
+
+        
 
         <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="inputInfo.columns" 
         read-only.bind="readOnly" show.bind="isItem" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
