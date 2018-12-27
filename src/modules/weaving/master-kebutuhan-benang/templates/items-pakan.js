@@ -21,10 +21,4 @@ export class Item {
   // get mkbLoader() {
   //     return MKBLoader;
   // }
-
-  get addItems() {
-      return (event) => {
-          this.data.Items.push({})
-      };
-  }
 }

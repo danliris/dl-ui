@@ -3,6 +3,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable onCreated;
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
@@ -44,4 +45,10 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
+
+  get addItems() {
+    return (event) => {
+        this.data.Items.push({})
+    };
+}
 }

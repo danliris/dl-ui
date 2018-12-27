@@ -15,16 +15,9 @@ export class Item {
     this.readOnly = context.options.readOnly;
   }
 
-
   // -------------------------------- //
 
   // get mkbLoader() {
   //     return MKBLoader;
   // }
-
-  get addItems() {
-    return (event) => {
-        this.data.Items.push({})
-    };
-}
 }

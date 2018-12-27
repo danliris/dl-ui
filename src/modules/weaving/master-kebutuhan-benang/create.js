@@ -5,6 +5,7 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class Create {
+    onCreated=false;
     constructor(router, service) {
         this.router = router;
         this.service = service;
