@@ -20,7 +20,7 @@ export class DeliveryOrderItem {
     this.hasEdit = this.context.context.options.hasEdit;
     this.hasCreate = this.context.context.options.hasCreate;
     this.hasEdit = this.context.context.options.hasEdit;
-    this.data.isSave=false;
+    // this.data.isSave=false;
     this.isEdit = this.context.context.options.isEdit || false;
     if (this.data) {
         if((this.hasEdit || this.hasView) && this.data.errorCount<1){
