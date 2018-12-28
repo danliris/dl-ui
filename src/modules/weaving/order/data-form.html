@@ -25,20 +25,28 @@
           <textbox label="Periode" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-dropdown
+         <au-dropdown
             value.bind="data.periodebulan"
             error.bind="error.periodebulan"
             read-only.bind="readOnly"
+            items.bind="months"
           >
           </au-dropdown>
         </div>
         <div class="col-md-3" style="padding-left: 0px;">
-          <au-numeric
+          <!-- <au-datepicker
             placeholder="Tahun"
             value.bind="data.periodetahun"
             error.bind="error.periodetahun"
             read-only.bind="readOnly"
-          ></au-numeric>
+          ></au-datepicker> -->
+          <au-dropdown
+            value.bind="data.periodetahun"
+            error.bind="error.periodetahun"
+            read-only.bind="readOnly"
+            items.bind="years"
+          >
+          </au-dropdown>
         </div>
       </div>
 
