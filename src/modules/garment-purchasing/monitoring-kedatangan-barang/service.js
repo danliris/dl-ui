@@ -43,9 +43,17 @@ export class Service extends RestService {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
         var _serviceUri = `master/garment-categories`;
+        var resultTemp = [];
         return _endpoint.find(_serviceUri, info)
             .then(result => {
-                return result.data;
+                for(var data of result.data){
+                    var dataTemp = {
+                        code : data.code,
+                        codeRequirement : data.codeRequirement
+                    }
+                resultTemp.push(dataTemp);
+                }
+                return resultTemp;
             });
     }
 }
