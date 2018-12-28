@@ -27,7 +27,8 @@ export class List {
         var filter = {
             "_IsDeleted": false
         }
-        var info = { filter: JSON.stringify(filter), size: Number.MAX_SAFE_INTEGER };
+        var info = { filter: JSON.stringify(filter), size: 2147483647 };
+        console.log()
         var categoryProduct = await this.service.searchGarmentCategory(info);    
         var productCode = [];
         var garmentCategory = [];

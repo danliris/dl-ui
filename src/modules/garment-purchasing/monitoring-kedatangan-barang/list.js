@@ -33,7 +33,7 @@ export class List {
                 "_IsDeleted": false
             }
             filter[`CodeRequirement == "${this.catBb}" || CodeRequirement == "${this.catBp}"`]=true;
-            var info = { filter: JSON.stringify(filter), size: Number.MAX_SAFE_INTEGER };
+            var info = { filter: JSON.stringify(filter), size: 2147483647 };
             var categoryProduct = await this.service.searchGarmentCategory(info);    
         }
         var productCode = [];
@@ -105,7 +105,7 @@ export class List {
                 "_IsDeleted": false
             }
             filter[`CodeRequirement == "${this.catBb}" || CodeRequirement == "${this.catBp}"`]=true;
-            var info = { filter: JSON.stringify(filter), size: Number.MAX_SAFE_INTEGER };
+            var info = { filter: JSON.stringify(filter), size: 2147483647 };
             var categoryProduct = await this.service.searchGarmentCategory(info);    
         } else {
             if(this.category=="Bahan Baku"){
@@ -117,7 +117,7 @@ export class List {
                 "CodeRequirement": this.cat,
                 "_IsDeleted": false
             }
-            var info = { filter: JSON.stringify(filter), size: Number.MAX_SAFE_INTEGER };
+            var info = { filter: JSON.stringify(filter), size: 2147483647 };
             var categoryProduct = await this.service.searchGarmentCategory(info);
         }
         var productCode = [];
