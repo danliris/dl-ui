@@ -31,7 +31,7 @@ export class List {
         Code: "asc"
       }
     }
-    let ledgerDataPromise = this.service.search(ledgerArg)
+    let ledgerDataPromise = this.service.searchAll(ledgerArg)
       .then(result => {
         return result.data;
       });
@@ -86,7 +86,7 @@ export class List {
       order: order
     }
 
-    return this.service.search(arg)
+    return this.service.searchAll(arg)
       .then(result => {
         return {
           total: result.info.total,
