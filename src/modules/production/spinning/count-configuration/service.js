@@ -1,7 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
-var moment = require('moment');
+// import { Container } from 'aurelia-dependency-injection';
+// import { Config } from "aurelia-api";
 
 const serviceUri = 'count-configuration';
 const lotYarnServiceUri = "LotYarn"

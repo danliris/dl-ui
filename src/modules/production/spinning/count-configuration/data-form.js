@@ -36,6 +36,28 @@ export class DataForm {
 
     // spinningFilter = { "division.name": { "$regex": "SPINNING", "$options": "i" } };
     // shift = ["Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
+    processTypeList = [
+        "",
+        "Blowing",
+        "Carding",
+        "Pre-Drawing",
+        "Finish-Drawing",
+        "Flying",
+        "Ring Spinning",
+        "Winding"
+    ];
+    yarnTypeList = [
+        "",
+        "PCP",
+        "CMP",
+        "CD",
+        "CVC",
+        "PE",
+        "TENCEL",
+        "CUPRO",
+        "PC-P 45"
+    ];
+
 
     constructor(service) {
         this.service = service;
@@ -49,6 +71,7 @@ export class DataForm {
         this.data.Input = this.data.Input || [];
         this.Lot = {}
         this.isItem = false;
+        this.processType = false;
 
         if (this.data.Lot) {
             this.Lot = this.data.Lot;
@@ -71,6 +94,19 @@ export class DataForm {
             this.data.yarnType = newValue.yarnType
         }
     }
+
+    processTypeChanged(e) {
+        var selectedProcess = e.srcElement.value;
+        if(selectedProcess){
+            this.data.processType = selectedProcess;
+            if(this.data.processType=="Finish-Drawing")
+            {
+                this.processType = true;
+            }
+        }
+    }
+
+
 
     // async yarnChanged(newValue, oldValue) {
     //     if (this.yarn && this.yarn.Id) {
