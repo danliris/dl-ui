@@ -77,7 +77,7 @@ export class List {
             tahun: "2018"
           },
           unit: "Weaving 2",
-          konstruksi: "CD 133 73 63 RfRf Rf AB B",
+          konstruksi: "CD 132 73 63 RfRf Rf A B",
           kodebenang: {
             jenislusi: "AC",
             asallusi: "A",

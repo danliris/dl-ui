@@ -28,7 +28,7 @@ export class DataForm {
     this.service = service;
   }
 
-  construction = ["", "AD", "BD", "CD"];
+  // construction = ["", "AD", "BD", "CD"];
 
   // @computedFrom("data._id")
   // get isEdit() {

@@ -81,10 +81,11 @@
         <div class="col-md-6">
           <au-autocomplete
             placeholder="Konstruksi"
-            value.bind="data.jenislusi"
-            error.bind="error.jnslusi"
+            value.bind="data.konstruksi"
+            error.bind="error.konstruksi"
             options.bind="customLeftOptions"
             read-only.bind="readOnly"
+            loader.bind="constructionsNumber"
           >
           </au-autocomplete>
         </div>
