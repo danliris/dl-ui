@@ -2,11 +2,11 @@
     <tr>
         <td>
             <au-autocomplete value.bind="prduct" error.bind="error.Product" loader.one-time="productLoader" 
-                text="Name" placeholder="cari kapas" key="Code" read-only.bind="readOnly" 
+                text="Name" key="Code" read-only.bind="readOnly" 
                 options.bind="controlOptions"></au-autocomplete>
         </td>
         <td>
-            <au-numeric value.bind="data.Composition" read-only.bind="options.readOnly" 
+            <au-numeric value.bind="data.Composition" read-only.bind="readOnly" 
             options.bind="controlOptions"></au-numeric>
         </td>
     </tr>

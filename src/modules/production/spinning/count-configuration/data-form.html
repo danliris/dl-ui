@@ -1,18 +1,19 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        
         <au-dropdown label="Jenis Proses"
-                     value.bind="data.processType"
+                     value.bind="processType"
                      error.bind="error.processType"
                      read-only.bind="readOnly"
                      items.bind="processTypeList"
+                     change.delegate="processTypeChanged($event)"
                      options.bind="controlOptions">
         </au-dropdown>
 
         <au-dropdown label="Jenis Benang"
             value.bind="data.yarnType"
             error.bind="error.yarnType"
+            show.bind="data.processType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList"
             options.bind="controlOptions">
@@ -21,16 +22,18 @@
         <au-dropdown label="Jenis Benang Polyester"
             value.bind="data.yarnType"
             error.bind="error.yarnType"
+            show.bind="data.processType!='Finish-Drawing' && processType"
             read-only.bind="readOnly"
-            items.bind="yarnTypeList"
+            items.bind="yarnTypeList2"
             options.bind="controlOptions">
         </au-dropdown>
 
         <au-dropdown label="Jenis Benang Cotton"
             value.bind="data.yarnType"
             error.bind="error.yarnType"
+            show.bind="data.processType!='Finish-Drawing' && processType"
             read-only.bind="readOnly"
-            items.bind="yarnTypeList"
+            items.bind="yarnTypeList2"
             options.bind="controlOptions">
         </au-dropdown>
 
@@ -45,35 +48,47 @@
                     options.bind="controlOptions">
         </au-textbox>
         
-        <au-textbox label="No Lot" value.bind="lot" view.bind="lotView" read-only.bind="true"
-        options.bind="controlOptions"></au-textbox>
-        
-        <div>
-            <au-numeric label="Grain" value.bind="data.grain" read-only.bind="readOnly" error.bind="error.grain" 
-            options.bind="controlOptions" read-only.bind="readOnly"></au-numeric>
-    
-            <au-numeric label="Ne" value.bind="data.ne" read-only.bind="readOnly" 
-            error.bind="error.ne" options.bind="controlOptions"></au-numeric>
-    
-            <au-numeric label="Standard" value.bind="data.standard" read-only.bind="readOnly"
-            error.bind="error.standard" options.bind="controlOptions"></au-numeric>
-    
-            <au-numeric label="EffSpin" value.bind="data.effSpin" read-only.bind="readOnly" 
-            error.bind="error.effSpin" options.bind="controlOptions"></au-numeric>
+        <div class="col-lg-12">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2" style="margin-left:30px">
+                <au-numeric label="Grain" value.bind="data.grain" read-only.bind="readOnly" error.bind="error.grain" 
+                options.bind="controlOptions" read-only.bind="readOnly"></au-numeric>
+            </div>
+            <div class="col-lg-2">
+                <au-numeric label="Ne" value.bind="data.ne" read-only.bind="readOnly" 
+                error.bind="error.ne" options.bind="controlOptions"></au-numeric>
+            </div>
+            <div class="col-lg-2">
+                <au-numeric label="Standard" value.bind="data.standard" read-only.bind="readOnly"
+                error.bind="error.standard" options.bind="controlOptions"></au-numeric>
+            </div>
+            <div class="col-lg-2">
+                <au-numeric label="EffSpin" value.bind="data.effSpin" read-only.bind="readOnly" 
+                error.bind="error.effSpin" options.bind="controlOptions"></au-numeric>
+            </div>
         </div>
-        <div>
-            <au-numeric label="ProdSpin" value.bind="data.prodSpin" read-only.bind="readOnly" 
-            error.bind="error.prodSpin" options.bind="controlOptions"></au-numeric>
-            
-            <au-numeric label="Rpm" value.bind="data.rpm" read-only.bind="readOnly" 
-            error.bind="error.rpm" options.bind="controlOptions"></au-numeric>
-    
-            <au-numeric label="Konstan" value.bind="data.constant" read-only.bind="readOnly" 
-            error.bind="error.constant" options.bind="controlOptions"></au-numeric>
+        <div class="col-lg-12">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2" style="margin-left:30px">
+                <au-numeric label="ProdSpin" value.bind="data.prodSpin" read-only.bind="readOnly" 
+                error.bind="error.prodSpin" options.bind="controlOptions"></au-numeric>
+            </div>
+            <div class="col-lg-2">
+                <au-numeric label="Rpm" value.bind="data.rpm" read-only.bind="readOnly" 
+                error.bind="error.rpm" options.bind="controlOptions"></au-numeric>
+            </div>
+            <div class="col-lg-2">
+                <au-numeric label="Konstan" value.bind="data.constant" read-only.bind="readOnly" 
+                error.bind="error.constant" options.bind="controlOptions"></au-numeric>
+            </div>
         </div>
-        
 
-        
+        <au-textbox label="No Lot"
+            value.bind="lot" 
+            view.bind="lotView" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
 
         <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="inputInfo.columns" 
         read-only.bind="readOnly" show.bind="isItem" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
