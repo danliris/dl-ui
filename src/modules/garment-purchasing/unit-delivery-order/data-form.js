@@ -2,6 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 var StorageLoader = require('../../../loader/storage-loader');
 var UnitLoader = require('../../../loader/garment-units-loader');
+var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-basic-loader');
 import moment from 'moment';
 
 @containerless()
@@ -11,14 +12,11 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable title;
-    @bindable selectedUnit;
-    @bindable options = { isUseIncomeTax: false };
+    @bindable options = { };
     @bindable kurs = {};
+    @bindable unitReceiptNote;
 
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'RETUR', 'SAMPLE'];
-
-    label = "Periode Tgl. Shipment"
-    freightCostByOptions = ['Penjual', 'Pembeli'];
     controlOptions = {
         label: {
             align : "left",
@@ -29,7 +27,6 @@ export class DataForm {
             align: "right"
         }
     }
-    
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -41,13 +38,6 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.isItem = false;
-        
-        if(!this.data.OrderDate){
-            this.data.OrderDate=new Date().toLocaleDateString();
-        }
-
-        
-        
         if (this.data.UnitDOType) {
             if (this.data.UnitDOType === "PROSES") {
                 this.isProses = true;
@@ -59,12 +49,7 @@ export class DataForm {
         else {
             this.isProses = true;
         }
-        if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "RETUR" || this.data.UnitDOType === "SAMPLE"){
-            this.UnitRequest = this.UnitSender;
-            this.readOnlySender = true;
-        }else{
-            this.readOnlySender = this.options.readOnly;
-        }
+        
         if(this.data.Items)
             if (this.data.Items.length > 0) {
                 this.isItem = true;
@@ -81,6 +66,16 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
+    @computedFrom("data.UnitSender")
+    get filterUnit() {
+        var storageFilter = {}
+        if (this.data.UnitSender) {
+            storageFilter.UnitName = this.data.UnitSender.Name;
+        }
+
+        return storageFilter;
+    }
+
     unitDOTypeChanged(e) {
         var selectedCategory = e.srcElement.value;
         if (selectedCategory) {
@@ -93,37 +88,40 @@ export class DataForm {
             this.data.Quantity = '';
             this.data.UomUnit = '';
 
+            if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "RETUR" || this.data.UnitDOType === "SAMPLE"){
+                this.data.UnitSender = this.data.UnitRequest;
+                this.readOnlySender = true;
+            }else{
+                this.data.UnitSender = null;
+                this.readOnlySender = this.options.readOnly;
+            }
             if (this.data.UnitDOType === "PROSES") {
                 this.isProses = true;
             }
             else {
                 this.isProses = false;
             }
-            if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "RETUR" || this.data.UnitDOType === "SAMPLE"){
-                this.data.UnitSender = this.data.UnitRequest;
-                this.readOnlySender = true;
-            }else{
-                this.data.UnitSender = this.data.UnitSender;
-                this.readOnlySender = this.options.readOnly;
-            }
             this.data.Items = [];
         }
+        this.data.UnitRequest = null;
+        this.data.UnitSender = null;
+        this.Storage = null;
     }
 
-    selectedUnitChanged(newValue,oldValue){
+    unitRequestChanged(newValue){
         var selectedUnit = newValue;
-        if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "RETUR" || this.data.UnitDOType === "SAMPLE" || selectedUnit){
-            this.data.UnitSender = selectedUnit;
-            this.data.UnitRequest = selectedUnit;
-        }else if(this.data.UnitDOType === "TRANSFER"){
-            this.data.UnitSender = [];
+        if(selectedUnit){
+            this.UnitRequest = selectedUnit;
+            this.UnitSender = selectedUnit;
         }
         else{
-            this.data.UnitRequest = null;
-            this.data.UnitSender = null;
+            this.UnitRequest = null;
+            this.UnitSender = null;
         }
-        this.data.items = [];
-        this.context.error.items = [];
+        this.UnitRequest = null;
+        this.UnitSender = null;
+        this.Storage = null;
+        this.data.Storage = null;
     }
 
     get storageLoader() {
@@ -136,11 +134,28 @@ export class DataForm {
         return `${code} - ${name}`
     }
 
-    get unitLoader() {
+    get unitSenderLoader() {
         return UnitLoader;
     }
 
-    unitView = (unit) => {
+    unitSenderView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`
+    }
+
+    get unitReceiptNoteLoader() {
+        return UnitReceiptNoteLoader;
+    }
+
+    unitReceiptNoteView = (unit) => {
+        console.log(unit);
+        return `${unit.Items.RONo}`
+    }
+    
+    get unitRequestLoader() {
+        return UnitLoader;
+    }
+
+    unitRequestView = (unit) => {
         return `${unit.Code} - ${unit.Name}`
     }
 
@@ -238,47 +253,5 @@ export class DataForm {
             "Jumlah",
             "Satuan",
             "Tipe Fabric"],
-        onRemove: function () {
-            this.bind();
-            if(this.items){
-                
-                var pr=[];
-                var remaining=[];
-                var items=[];
-                for(var a of this.items){
-                    if(pr.length==0){
-                        pr.push(a);
-                        //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                        //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
-                    }
-                    else{
-                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
-                        if(dup){
-                            //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.budgetUsed;
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        }
-                        else{
-                            pr.push(a);
-                            //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=a.Initial;
-                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        }
-                    }
-                    if(a.RemainingBudget<0){
-                        a.IsOverBudget=true;
-                    }
-                    else{
-                        a.IsOverBudget=false;
-                    }
-                }
-            }
-        }
     };
 }

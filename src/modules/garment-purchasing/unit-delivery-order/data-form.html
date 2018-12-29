@@ -48,41 +48,48 @@
         
                 <au-autocomplete 
                     label="Unit yang meminta" 
-                    value.bind="selectedUnit" 
+                    value.bind="UnitRequest" 
                     error.bind="error.UnitRequest" 
                     read-only.bind="readOnly"
-                    loader.bind="unitLoader"
-                    text.bind = "unitView"
+                    loader.bind="unitRequestLoader"
+                    text.bind = "unitRequestView"
+                    placeholder = "Cari Unit"
                     options.bind="controlOptions">
                 </au-autocomplete>
                 
                 <au-autocomplete
                     label="Unit yang mengirim"
-                    value.bind="data.UnitSender"
+                    value.bind="UnitSender"
                     error.bind="error.UnitSender"
                     read-only.bind="readOnlySender"
-                    loader.bind="unitLoader"
-                    text.bind = "unitView"
+                    loader.bind="unitSenderLoader"
+                    text.bind = "unitSenderView"
+                    placeholder = "Cari Unit"
                     options.bind="controlOptions">
                 </au-autocomplete>
         
                 <au-autocomplete
                     label="Gudang yang mengirim"
-                    value.bind="data.Storage"
+                    value.bind="Storage"
                     error.bind="error.Storage"
                     read-only.bind="readOnly"
                     loader.bind="storageLoader"
                     text.bind = "storageView"
+                    placeholder = "Cari Gudang"
+                    query.bind = "filterUnit"
                     options.bind="controlOptions">
                 </au-autocomplete>
-
-                <au-textbox
-                    label="No. RO"
-                    value.bind="data.RONo"
-                    error.bind="error.RONo"
-                    read-only.bind="readOnly"
+                <!-- UnitReceiptNoteLoader -->
+                <au-autocomplete
+                    label = "No. RO"
+                    value.bind = "data.RONo"
+                    error.bind = "error.RONo"
+                    read-only.bind= "readOnly"
+                    loader.bind = "unitReceiptNoteLoader"
+                    text.bind = "unitReceiptNoteView"
+                    placeholder = "Cari Nomor RO"
                     options.bind="controlOptions">
-                </au-textbox>
+                </au-autocomplete>
         
                 <au-textbox
                     label="Artikel"
@@ -99,6 +106,7 @@
                     value.bind="data.RONo"
                     error.bind="error.RONo"
                     read-only.bind="readOnly"
+                    placeholder = "Cari Nomor RO"
                     options.bind="controlOptions">
                 </au-textbox>
 
@@ -106,8 +114,7 @@
                     label="Nama Barang" 
                     value.bind="data.ProductName" 
                     error.bind="error.ProductName" 
-                    placeholder="tambahkan shrinkage test"
-                    read-only.bind="readOnly"
+                    read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
 
@@ -115,8 +122,7 @@
                     label="Kode Barang" 
                     value.bind="data.ProductCode" 
                     error.bind="error.ProductCode" 
-                    placeholder="tambahkan wet rubbing test" 
-                    read-only.bind="readOnly"
+                    read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
 
@@ -124,8 +130,7 @@
                     label="Keterangan Barang" 
                     value.bind="data.ProductRemark" 
                     error.bind="error.ProductRemark" 
-                    placeholder="tambahkan dry rubbing test"
-                    read-only.bind="readOnly"
+                    read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
 
@@ -133,7 +138,6 @@
                     label="No. RO Asal" 
                     value.bind="data.RONo" 
                     error.bind="error.RONo" 
-                    placeholder="tambahkan washing test" 
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
@@ -142,8 +146,7 @@
                     label="Jumlah Barang" 
                     value.bind="data.Quantity" 
                     error.bind="error.Quantity" 
-                    placeholder="tambahkan dark perspiration test" 
-                    read-only.bind="readOnly"
+                    read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
 
@@ -151,8 +154,7 @@
                     label="Satuan Barang" 
                     value.bind="data.UomUnit" 
                     error.bind="error.UomUnit" 
-                    placeholder="tambahkan light perspiration test" 
-                    read-only.bind="readOnly"
+                    read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
                 <button class="btn btn-success" click.delegate="search()" options.bind = "controlOptions">Tambah Barang</button>
