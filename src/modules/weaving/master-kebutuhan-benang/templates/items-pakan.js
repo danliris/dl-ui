@@ -3,7 +3,7 @@ import { inject, BindingEngine } from "aurelia-framework";
 // var MKBLoader = require('../../../../loader/mkb-loader');
 
 @inject(BindingEngine)
-export class Item {
+export class ItemPakan {
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }
@@ -14,7 +14,6 @@ export class Item {
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
-
 
   // -------------------------------- //
 

@@ -25,7 +25,6 @@
             value.bind="data.nokonstruksi"
             error.bind="error.nokonstruksi"
             read-only.bind="readOnly"
-            items.bind="construction"
             show.bind="onCreated"
           >
           </au-textbox>
@@ -42,6 +41,7 @@
               value.bind="data.konstruksijenis"
               error.bind="error.konstruksibulan"
               read-only.bind="readOnly"
+              items.bind="construction"
             >
             </au-dropdown>
           </div>
@@ -120,10 +120,10 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <au-collection
-              items.bind="data.items"
-              errors.bind="error.items"
+              items.bind="data.ItemsLusi"
+              errors.bind="error.ItemsLusi"
               columns.bind="lusiColumns"
-              add.bind="addItems"
+              add.bind="addItemsLusi"
               remove.bind="onremove"
               read-only.bind="readOnly"
               item-template="modules/weaving/master-kebutuhan-benang/templates/items-lusi"
@@ -132,10 +132,10 @@
           </div>
           <div class="col-md-6">
             <au-collection
-              items.bind="data.items"
-              errors.bind="error.items"
+              items.bind="data.ItemsPakan"
+              errors.bind="error.ItemsPakan"
               columns.bind="pakanColumns"
-              add.bind="addItems"
+              add.bind="addItemsPakan"
               remove.bind="onremove"
               read-only.bind="readOnly"
               item-template="modules/weaving/master-kebutuhan-benang/templates/items-pakan"

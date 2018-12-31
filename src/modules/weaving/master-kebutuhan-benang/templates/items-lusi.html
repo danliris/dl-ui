@@ -27,8 +27,15 @@ th,td {
       </au-numeric>
     </td>
     <td>
-      <au-textbox value.bind="data.ktrLusi" read-only.bind="true">
-      </au-textbox>
+      <au-textbox value.bind="data.ktrLusi" read-only.bind="true"> </au-textbox>
+    </td>
+    <td class="col-sm-1" if.bind="!readOnly">
+      <button
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(dataLusi, $event)"
+      >
+        -
+      </button>
     </td>
   </tr>
 </template>
