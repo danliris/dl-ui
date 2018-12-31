@@ -38,22 +38,4 @@ export class Service extends RestService {
         var endpoint = `${serviceUriDetail}/download?supplier=${info.supplierCode}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;
         return super.getXls(endpoint);
     }
-
-    searchGarmentCategory(info) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/garment-categories`;
-        var resultTemp = [];
-        return _endpoint.find(_serviceUri, info)
-            .then(result => {
-                for(var data of result.data){
-                    var dataTemp = {
-                        code : data.code,
-                        codeRequirement : data.codeRequirement
-                    }
-                resultTemp.push(dataTemp);
-                }
-                return resultTemp;
-            });
-    }
 }
