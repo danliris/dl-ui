@@ -23,20 +23,6 @@ export class List {
     attached() {
     }
 
-    async bind(){
-        var filter = {
-            "_IsDeleted": false
-        }
-        var info = { filter: JSON.stringify(filter), size: 2147483647 };
-        var categoryProduct = await this.service.searchGarmentCategory(info);    
-        var productCode = [];
-        var garmentCategory = [];
-        for(var data of categoryProduct){
-            productCode.push(data.code);
-        }
-        this.productCode = JSON.stringify(productCode);
-    }
-
     activate(params) {
         if ( params.dateTo != null || params.category != null) {
             this.dateFrom = params.dateFrom;
@@ -44,23 +30,22 @@ export class List {
             var info = {
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
-                productCode : params.productCode ? params.productCode: ""
             }
             this.tjumcount = 0;
             this.tperOkCount = 0;
             this.tperOk = 0;
+            this.tjumOk = 0;
             this.service.search(info)
                 .then(result => {
                     this.data = [];
                     for (var _data of result) {
                     _data.supplier =_data.supplier ? _data.supplier : "-";
                     this.data.push(_data);
-                    if(_data.ok_notOk="OK"){
-                        this.tperOkCount += 1 ;
-                    }
+
+                    this.tjumOk += _data.jumlahOk;
                     this.tjumcount +=_data.jumlah;
                     }
-                    this.tperOk = Math.floor(this.tperOkCount/this.tjumcount *100);
+                    this.tperOk = Math.floor(this.tjumOk/this.tjumcount *100);
             });
         } else {
         this.dateFrom='';
@@ -73,23 +58,22 @@ export class List {
         var info = {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
-            productCode : this.productCode ? this.productCode: ""
         }
         this.tjumcount = 0;
         this.tperOkCount = 0;
         this.tperOk = 0;
+        this.tjumOk = 0;
         this.service.search(info)
             .then(result => {
                 this.data = [];
                 for (var _data of result) {
                 _data.supplier =_data.supplier ? _data.supplier : "-";
                 this.data.push(_data);
-                if(_data.ok_notOk="OK"){
-                    this.tperOkCount += 1 ;
-                }
+
+                this.tjumOk += _data.jumlahOk;
                 this.tjumcount +=_data.jumlah;
                 }
-                this.tperOk = Math.floor(this.tperOkCount/this.tjumcount *100);
+                this.tperOk = Math.floor(this.tjumOk/this.tjumcount *100);
         });
     }
     reset() {
@@ -105,7 +89,6 @@ export class List {
         supplierCode : data.supplier.Code ? data.supplier.Code: "",
         dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
         dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
-        productCode : this.productCode ? this.productCode: ""
     }
        this.router.navigateToRoute('view', { id: data.supplier.Code,supplierCode: data.supplier.Code,info: info});
     }
@@ -114,7 +97,6 @@ export class List {
      var info = {
         dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
         dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
-        productCode : this.productCode ? this.productCode: ""
     }
     this.service.generateExcel(info)
     }
