@@ -6,23 +6,18 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
-    }
-
-    context = ["detail"];
+    context = ["detail"]
     columns = [
-        // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
-        // { field: "Yarn.Name", title: "Yarn Name" },
-        // { field: "Unit.name", title: "Unit Name" },
-        // {
-        //     field: "Date", title: "Date", formatter: function (value, data, index) {
-        //         return moment(value).format("DD MMM YYYY");
-        //     }
-        // },
-        // { field: "Lot", title: "Lot" },
-    ]
+        { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
+        { field: "Yarn.Name", title: "Yarn Name" },
+        { field: "Unit.name", title: "Unit Name" },
+        {
+            field: "Date", title: "Date", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "Lot", title: "Lot" },
+    ];
 
     loader = (info) => {
         var order = {};
@@ -45,6 +40,11 @@ export class List {
             });
     }
 
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
+    }
+
     create() {
         this.router.navigateToRoute('create');
     }
@@ -58,6 +58,4 @@ export class List {
                 break;
         }
     }
-
 }
-
