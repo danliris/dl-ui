@@ -5,14 +5,14 @@ npm run build:prod
 git config --global user.email $GIT_EMAIL
 git config --global user.name $GIT_NAME
 
-if [ "$BRANCH" == "dev" ]; then
+if [ "$BRANCH" == "prdMigration" ]; then
+    git clone $GIT_URL_MIGRATION out
+elif [ "$BRANCH" == "dev" ]; then
     git clone $GIT_URL_DEV out
 elif [ "$BRANCH" == "uat" ]; then
     git clone $GIT_URL_UAT out
 elif [ "$BRANCH" == "master" ]; then
     git clone $GIT_URL_MASTER out
-elif [ "$BRANCH" == "prdMigration" ]; then
-    git clone $GIT_URL_MIGRATION out
 else
     git clone $GIT_URL out
 fi
