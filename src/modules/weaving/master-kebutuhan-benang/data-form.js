@@ -18,7 +18,19 @@ export class DataForm {
 
   bind(context) {
     this.context = context;
-    this.data = this.context.data;
+    this.data = {
+      noMKB: 2,
+      konstruksi: "CD 133 72 63 Rf Rf B B",
+      kdBenang: "Rf RcRf",
+      kdLusi: "CD01",
+      jnsLusi: "CD17",
+      qtyLusi: 75.98293,
+      kdPakan: "CD03",
+      jnsPakan: "CD17",
+      qtyPakan: 65.98293,
+      totalKebutuhan: 220.7084,
+      ketMKB: ""
+    };
     this.error = this.context.error;
 
     this.cancelCallback = this.context.cancelCallback;

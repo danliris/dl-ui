@@ -22,8 +22,8 @@
         <div class="col-md-2">
           <au-textbox
             placeholder="No. Konstruksi"
-            value.bind="data.nokonstruksi"
-            error.bind="error.nokonstruksi"
+            value.bind="data.noMKB"
+            error.bind="error.noMKB"
             read-only.bind="readOnly"
             show.bind="onCreated"
           >
@@ -38,8 +38,8 @@
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
             <au-dropdown
-              value.bind="data.konstruksijenis"
-              error.bind="error.konstruksibulan"
+              value.bind="data.konstruksiJenis"
+              error.bind="error.konstruksiJenis"
               read-only.bind="readOnly"
               items.bind="construction"
             >
@@ -48,32 +48,32 @@
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Tipe"
-              value.bind="data.konstruksitipe"
-              error.bind="error.konstruksitipe"
+              value.bind="data.konstruksiTipe"
+              error.bind="error.konstruksiTipe"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Jumlah Lusi"
-              value.bind="data.konstruksilusi"
-              error.bind="error.konstruksilusi"
+              value.bind="data.konstruksiLusi"
+              error.bind="error.konstruksiLusi"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Jumlah Pakan"
-              value.bind="data.konstruksipakan"
-              error.bind="error.konstruksipakan"
+              value.bind="data.konstruksiPakan"
+              error.bind="error.konstruksiPakan"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Lebar"
-              value.bind="data.konstruksilebar"
-              error.bind="error.konstruksilebar"
+              value.bind="data.konstruksiLebar"
+              error.bind="error.konstruksiLebar"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
@@ -87,16 +87,16 @@
         <div class="col-md-2" style="padding-right: 4px;">
           <au-textbox
             placeholder="Jenis Lusi"
-            value.bind="data.konstruksipakan"
-            error.bind="error.konstruksipakan"
+            value.bind="data.jnsLusi"
+            error.bind="error.jnsLusi"
             read-only.bind="readOnly"
           ></au-textbox>
         </div>
         <div class="col-md-2" style="padding-left: 0px;">
           <au-textbox
             placeholder="Jenis Pakan"
-            value.bind="data.konstruksipakan"
-            error.bind="error.konstruksipakan"
+            value.bind="data.jnsPakan"
+            error.bind="error.jnsPakan"
             read-only.bind="readOnly"
           ></au-textbox>
         </div>
@@ -109,8 +109,8 @@
         <div class="col-md-2">
           <au-textbox
             placeholder="Total Benang"
-            value.bind="data.totalbenang"
-            error.bind="error.totalbenang"
+            value.bind="data.totalBenang"
+            error.bind="error.totalBenang"
             read-only.bind="readOnly"
           ></au-textbox>
         </div>
