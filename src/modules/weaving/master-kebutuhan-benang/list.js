@@ -8,17 +8,20 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "noMKB", title: "No Konstruksi" },
+    // { field: "noMKB", title: "No Konstruksi" },
+    // { field: "konstruksi", title: "Konstruksi" },
+    // { field: "kdBenang", title: "Kode Benang" },
+    // { field: "kdLusi", title: "Kode Lusi" },
+    // { field: "jnsLusi", title: "Jenis Lusi" },
+    // { field: "qtyLusi", title: "Qty(Gr/Mtr)" },
+    // { field: "kdPakan", title: "Kode Pakan" },
+    // { field: "jnsPakan", title: "Jenis Pakan" },
+    // { field: "qtyPakan", title: "Qty(Gr/Mtr)" },
+    // { field: "totalBenang", title: "Total(Gr)" },
+    // { field: "ketMKB", title: "Keterangan" }
+    { field: "date", title: "Date" },
     { field: "konstruksi", title: "Konstruksi" },
-    { field: "kdBenang", title: "Kode Benang" },
-    { field: "kdLusi", title: "Kode Lusi" },
-    { field: "jnsLusi", title: "Jenis Lusi" },
-    { field: "qtyLusi", title: "Qty(Gr/Mtr)" },
-    { field: "kdPakan", title: "Kode Pakan" },
-    { field: "jnsPakan", title: "Jenis Pakan" },
-    { field: "qtyPakan", title: "Qty(Gr/Mtr)" },
-    { field: "totalBenang", title: "Total(Gr)" },
-    { field: "ketMKB", title: "Keterangan" }
+    { field: "totalGr", title: "Total Gr" },
   ];
 
   loader = info => {
@@ -38,30 +41,36 @@ export class List {
       // total: result.info.total,
       data: [
         {
-            noMKB: 1,
-            konstruksi: "CD 133 72 63 Rf Rf B B",
-            kdBenang: "Rf RcRf",
-            kdLusi: "CD01",
-            jnsLusi: "CD17",
-            qtyLusi: 75.98293,
-            kdPakan: "CD03",
-            jnsPakan: "CD17",
-            qtyPakan: 65.98293,
-            totalBenang: 220.7084,
-            ketMKB: ""
+            // noMKB: 1,
+            // konstruksi: "CD 133 72 63 Rf Rf B B",
+            // kdBenang: "Rf RcRf",
+            // kdLusi: "CD01",
+            // jnsLusi: "CD17",
+            // qtyLusi: 75.98293,
+            // kdPakan: "CD03",
+            // jnsPakan: "CD17",
+            // qtyPakan: 65.98293,
+            // totalBenang: 220.7084,
+            // ketMKB: ""
+            date: "02/01/2018",
+            konstruksi: "000002 CD 133 72 63 Rf Rf B B",
+            totalGr: "220.7084"
         },
         {
-            noMKB: 2,
-            konstruksi: "CD 133 71 64 Rf Rf A A",
-            kdBenang: "Rf RcRf",
-            kdLusi: "CD01",
-            jnsLusi: "CD17",
-            qtyLusi: 75.98293,
-            kdPakan: "CD03",
-            jnsPakan: "CD17",
-            qtyPakan: 65.98293,
-            totalBenang: 220.7084,
-            ketMKB: ""
+            // noMKB: 2,
+            // konstruksi: "CD 133 71 64 Rf Rf A A",
+            // kdBenang: "Rf RcRf",
+            // kdLusi: "CD01",
+            // jnsLusi: "CD17",
+            // qtyLusi: 75.98293,
+            // kdPakan: "CD03",
+            // jnsPakan: "CD17",
+            // qtyPakan: 65.98293,
+            // totalBenang: 220.7084,
+            // ketMKB: ""
+            date: "02/02/2018",
+            konstruksi: "000003 CD 133 71 64 Rf Rf A A",
+            totalGr: "220.7084"
         }
       ]
     };
