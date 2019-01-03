@@ -48,11 +48,11 @@
         
                 <au-autocomplete 
                     label="Unit yang meminta" 
-                    value.bind="data.UnitRequest" 
+                    value.bind="unit" 
                     error.bind="error.UnitRequest" 
                     read-only.bind="readOnly"
                     loader.bind="unitLoader"
-                    text.bind = "unitView"
+                    text.bind = "unitRequestView"
                     placeholder = "Cari Unit"
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -63,7 +63,7 @@
                     error.bind="error.UnitSender"
                     read-only.bind="readOnlySender"
                     loader.bind="unitLoader"
-                    text.bind = "unitView"
+                    text.bind = "unitSenderView"
                     placeholder = "Cari Unit"
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -81,23 +81,27 @@
                 </au-autocomplete>
 
                 <div class="row">
-                    <div class = "col-lg-6">
+                    <div class = "col-md-4" style ="white-space: nowrap">
+                        <textbox
+                            label = "No RO"
+                            read-only.bind = "true"
+                        ></textbox>
+                    </div>
+                    <div class = "col-lg-5">
                     <au-autocomplete
-                        label = "No. RO"
                         value.bind = "RONo"
                         error.bind = "error.RONo"
                         read-only.bind = "readOnly"
                         loader.bind = "unitReceiptNoteLoader"
                         text = "RONo"
                         placeholder = "Cari Nomor RO"
-                        query.bind = "filterUnits"
-                        options.bind="RONoOptions">
+                        query.bind = "filterUnits">
                     </au-autocomplete>
                     
                 </div>
                 
                 <div class ="col-md-auto offset-md-6">
-                    <button class="btn btn-success">Cari</button>
+                    <button class="btn btn-success" click.delegate="search()">Cari</button>
                 </div>
             </div>
                     <au-textbox
@@ -176,17 +180,14 @@
 
         <au-collection 
             items.bind="data.Items" 
-            errors.bind="error.Items" 
-            title="Pilih PO Internal"
+            errors.bind="error.Items"
             columns.bind="items.columns"
-            remove.bind="items.onRemove"
+            show.bind = "data.RONo"
             options.bind="options"
             read-only.bind="readOnly" 
             change.delegate="itemsChanged($event)"
             show.bind="isItem"
-            view-model.ref="DetailsCollection"
-            header-template="modules/garment-purchasing/purchase-order-external/template/purchase-order-external-item-header"
-            item-template="modules/garment-purchasing/purchase-order-external/template/purchase-order-external-item">
+            item-template="modules/garment-purchasing/unit-delivery-order/template/unit-delivery-order-item">
         </au-collection>
   </au-input-form>
 </template>

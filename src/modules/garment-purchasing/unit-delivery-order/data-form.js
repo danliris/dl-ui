@@ -35,7 +35,7 @@ export class DataForm {
         },
         control: {
             length: 8,
-            align: "right"
+            align: "left"
         }
     }
 
@@ -142,7 +142,8 @@ export class DataForm {
         if(selectedUnit){
             this.data.UnitRequest = selectedUnit;
             this.data.UnitSender = selectedUnit;
-        }else if(this.data.UnitDOType === "TRANSFER"){
+        }
+        else if(this.data.UnitDOType === "TRANSFER"){
             this.data.UnitSender = null;
             this.data.UnitRequest = null;
         }
@@ -152,45 +153,68 @@ export class DataForm {
         }
     }
 
-    // RONoChanged(newValue){
-    //     var selectedro = newValue;
-    //     console.log(selectedro);
-    //     this.data.RONo = selectedro.RONo;
-    //     //this.data.
+    RONoChanged(newValue){
+        var selectedro = newValue;
+        if(newValue == null){
+            this.data.Items = null;
+            this.error = null;
+        }
+        else if(newValue){
+            this.data.RONo = selectedro.RONo;
+            this.data.Items = [];
+            for(var item of selectedro.Items){
+                var Items = {};
+                Items.Article = item.Article;
+                Items.ProductId = item.ProductId;
+                Items.ProductCode = item.ProductCode;
+                Items.ProductName = item.ProductName;
+                Items.ProductRemark = item.ProductRemark;
+                Items.RONOItem = item.RONo;
+                Items.UomId =  item.UomId;
+                Items.UomUnit = item.UomUnit;
+                Items.Quantity = (item.ReceiptQuantity - item.OrderQuantity);
 
-    // }
+                this.data.Items.push(Items);
+            }
+        }
+        else{
+            this.data = null;
+        }
+    }
 
     get unitLoader() {
         return UnitLoader;
     }
 
     roNoView = (rono) => {
-        console.log(rono);
+        // console.log(rono);
         return `${rono.RONo} - ${rono.Items.Product.Name} - ${rono.Items.Product.Code}`
     }
 
-    unitView = (unit) => {
-        console.log(unit);
-        return `${unit.Code} - ${unit.Name}`
+    unitRequestView = (unitRequest) => {
+        return `${unitRequest.Code} - ${unitRequest.Name}`
+    }
+
+    unitSenderView = (unitSender) => {
+        return `${unitSender.Code} - ${unitSender.Name}`
     }
 
     get unitReceiptNoteLoader() {
         return UnitReceiptNoteLoader;
     }
 
-    unitReceiptNoteView = (unit) => {
-        console.log(unit);
+    unitReceiptNoteView = (unitReceiptNote) => {
         var coba = unit[0].RONo;
         return `${coba}`;
     }
 
     async search() {
+
         var items=[];
         var index=0;
         for(var data of result.data){
             for(var item of data.Items){
                 if(pr.length==0){
-                   // item.RemainingBudget=pr[item.PRNo];
 
                     items.push({
                         index:index++,
