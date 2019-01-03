@@ -14,7 +14,8 @@ export class DataForm {
     @bindable title;
     @bindable options = { };
     @bindable kurs = {};
-    @bindable unitReceiptNote;
+    @bindable unitRequest;
+    @bindable RONo
 
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'RETUR', 'SAMPLE'];
     controlOptions = {
@@ -24,6 +25,16 @@ export class DataForm {
         },
         control: {
             length: 5,
+            align: "right"
+        }
+    }
+    RONoOptions = {
+        label: {
+            align : "left",
+            length: 4
+        },
+        control: {
+            length: 8,
             align: "right"
         }
     }
@@ -76,6 +87,15 @@ export class DataForm {
         return storageFilter;
     }
 
+    @computedFrom("data.UnitSender")
+    get filterUnits() {
+        var rONoFilter = {}
+        if (this.data.UnitSender) {
+            rONoFilter.UnitId = this.data.UnitSender.Id;
+        }
+        return rONoFilter;
+    }
+
     unitDOTypeChanged(e) {
         var selectedCategory = e.srcElement.value;
         if (selectedCategory) {
@@ -87,11 +107,10 @@ export class DataForm {
             this.data.ProductRemark = '';
             this.data.Quantity = '';
             this.data.UomUnit = '';
-
             if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "RETUR" || this.data.UnitDOType === "SAMPLE"){
-                this.data.UnitSender = this.data.UnitRequest;
                 this.readOnlySender = true;
-            }else{
+            }
+            else{
                 this.data.UnitSender = null;
                 this.readOnlySender = this.options.readOnly;
             }
@@ -108,22 +127,6 @@ export class DataForm {
         this.Storage = null;
     }
 
-    unitRequestChanged(newValue){
-        var selectedUnit = newValue;
-        if(selectedUnit){
-            this.UnitRequest = selectedUnit;
-            this.UnitSender = selectedUnit;
-        }
-        else{
-            this.UnitRequest = null;
-            this.UnitSender = null;
-        }
-        this.UnitRequest = null;
-        this.UnitSender = null;
-        this.Storage = null;
-        this.data.Storage = null;
-    }
-
     get storageLoader() {
         return StorageLoader;
     }
@@ -134,11 +137,40 @@ export class DataForm {
         return `${code} - ${name}`
     }
 
-    get unitSenderLoader() {
+    unitChanged(newValue){
+        var selectedUnit = newValue;
+        if(selectedUnit){
+            this.data.UnitRequest = selectedUnit;
+            this.data.UnitSender = selectedUnit;
+        }else if(this.data.UnitDOType === "TRANSFER"){
+            this.data.UnitSender = null;
+            this.data.UnitRequest = null;
+        }
+        else{
+            this.data.UnitRequest = null;
+            this.data.UnitSender = null;
+        }
+    }
+
+    // RONoChanged(newValue){
+    //     var selectedro = newValue;
+    //     console.log(selectedro);
+    //     this.data.RONo = selectedro.RONo;
+    //     //this.data.
+
+    // }
+
+    get unitLoader() {
         return UnitLoader;
     }
 
-    unitSenderView = (unit) => {
+    roNoView = (rono) => {
+        console.log(rono);
+        return `${rono.RONo} - ${rono.Items.Product.Name} - ${rono.Items.Product.Code}`
+    }
+
+    unitView = (unit) => {
+        console.log(unit);
         return `${unit.Code} - ${unit.Name}`
     }
 
@@ -148,20 +180,12 @@ export class DataForm {
 
     unitReceiptNoteView = (unit) => {
         console.log(unit);
-        return `${unit.Items.RONo}`
-    }
-    
-    get unitRequestLoader() {
-        return UnitLoader;
-    }
-
-    unitRequestView = (unit) => {
-        return `${unit.Code} - ${unit.Name}`
+        var coba = unit[0].RONo;
+        return `${coba}`;
     }
 
     async search() {
         var items=[];
-        var pr=[];
         var index=0;
         for(var data of result.data){
             for(var item of data.Items){

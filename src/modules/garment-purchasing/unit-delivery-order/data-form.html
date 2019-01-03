@@ -20,7 +20,7 @@
                 </au-textbox>
                 
                 <au-textbox 
-                    label="Nomor Delivery Order" 
+                    label="Nomor Unit Delivery Order" 
                     value.bind="data.UnitDONo" 
                     error.bind="error.UnitDONo" 
                     read-only.bind="true"
@@ -29,7 +29,7 @@
                 </au-textbox>
                 
                 <au-dropdown 
-                    label="Jenis Delivery Order" 
+                    label="Jenis Unit Delivery Order" 
                     value.bind="data.UnitDOType" 
                     error.bind="error.UnitDOType" 
                     read-only.bind="readOnly || isEdit"
@@ -48,22 +48,22 @@
         
                 <au-autocomplete 
                     label="Unit yang meminta" 
-                    value.bind="UnitRequest" 
+                    value.bind="data.UnitRequest" 
                     error.bind="error.UnitRequest" 
                     read-only.bind="readOnly"
-                    loader.bind="unitRequestLoader"
-                    text.bind = "unitRequestView"
+                    loader.bind="unitLoader"
+                    text.bind = "unitView"
                     placeholder = "Cari Unit"
                     options.bind="controlOptions">
                 </au-autocomplete>
                 
                 <au-autocomplete
                     label="Unit yang mengirim"
-                    value.bind="UnitSender"
+                    value.bind = "data.UnitSender"
                     error.bind="error.UnitSender"
                     read-only.bind="readOnlySender"
-                    loader.bind="unitSenderLoader"
-                    text.bind = "unitSenderView"
+                    loader.bind="unitLoader"
+                    text.bind = "unitView"
                     placeholder = "Cari Unit"
                     options.bind="controlOptions">
                 </au-autocomplete>
@@ -79,19 +79,28 @@
                     query.bind = "filterUnit"
                     options.bind="controlOptions">
                 </au-autocomplete>
-                <!-- UnitReceiptNoteLoader -->
-                <au-autocomplete
-                    label = "No. RO"
-                    value.bind = "data.RONo"
-                    error.bind = "error.RONo"
-                    read-only.bind= "readOnly"
-                    loader.bind = "unitReceiptNoteLoader"
-                    text.bind = "unitReceiptNoteView"
-                    placeholder = "Cari Nomor RO"
-                    options.bind="controlOptions">
-                </au-autocomplete>
-        
-                <au-textbox
+
+                <div class="row">
+                    <div class = "col-lg-6">
+                    <au-autocomplete
+                        label = "No. RO"
+                        value.bind = "RONo"
+                        error.bind = "error.RONo"
+                        read-only.bind = "readOnly"
+                        loader.bind = "unitReceiptNoteLoader"
+                        text = "RONo"
+                        placeholder = "Cari Nomor RO"
+                        query.bind = "filterUnits"
+                        options.bind="RONoOptions">
+                    </au-autocomplete>
+                    
+                </div>
+                
+                <div class ="col-md-auto offset-md-6">
+                    <button class="btn btn-success">Cari</button>
+                </div>
+            </div>
+                    <au-textbox
                     label="Artikel"
                     value.bind="data.Article"
                     error.bind="error.Article"
@@ -99,6 +108,7 @@
                     options.bind="controlOptions">
                 </au-textbox>
             </div>
+            
             <div class="col-md-6" show.bind="isProses">
                     <h4>Tambah Data Barang</h4>
                 <au-textbox
