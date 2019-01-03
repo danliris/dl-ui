@@ -39,6 +39,13 @@
 		</td>
 		<td>
 			<au-numeric
+				value.bind="data.PriceTotal"
+				read-only.bind="true"
+				format = "0,0.0000">
+			</au-numeric>
+		</td>
+		<td>
+			<au-numeric
 				value.bind="data.PaidQuantity"
 				read-only.bind="readOnly"
 				error.bind="error.PaidQuantity"
@@ -51,13 +58,6 @@
 				value.bind="data.PricePerDealUnit"
 				read-only.bind="true"
 				format = "0,0.00">
-			</au-numeric>
-		</td>
-		<td>
-			<au-numeric
-				value.bind="data.PriceTotal"
-				read-only.bind="true"
-				format = "0,0.0000">
 			</au-numeric>
 		</td>
 		<td>

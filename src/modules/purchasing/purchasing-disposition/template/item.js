@@ -13,7 +13,7 @@ export class PurchasingDispositionItem {
 
     //itemsColumns = ["PRNo", "Category", "Product", "DealQuantity", "DealUom", "PaidQuantity", "PricePerDealUnit", "PriceTotal", "PaidPrice"];
     itemsColumns = {
-        columns: ["PRNo", "Unit", "Kategori", "Barang", "Jumlah Dipesan", "Satuan", "Jumlah Dibayar", "Harga Satuan", "Harga Total", "Harga Dibayar"],
+        columns: ["PRNo", "Unit", "Kategori", "Barang", "Jumlah Dipesan", "Satuan","Harga Total", "Jumlah Dibayar", "Harga Satuan",  "Harga Dibayar"],
         onRemove: function () {
             this.bind();
         }
@@ -156,7 +156,6 @@ export class PurchasingDispositionItem {
     }
 
     GetTax(){
-        console.log(this.data)
         this.incomeTaxValue=0;
         this.vatValue=0;
         if(this.data.Details){
