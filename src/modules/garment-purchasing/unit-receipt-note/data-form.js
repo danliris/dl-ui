@@ -135,7 +135,7 @@ export class DataForm {
 
     deliveryOrderChanged(newValue, oldValue) {
         var selectedDo = newValue;
-
+        console.log(newValue);
         if (selectedDo) {
             this.data.DOId = selectedDo.Id;
             this.data.DONo = selectedDo.doNo;
@@ -151,7 +151,7 @@ export class DataForm {
                     _item.EPOItemId = fulfillment.ePOItemId;
 
                     _item.PRId = fulfillment.pRId;
-                    _item.PRNo = fulfillment.pRNo;
+                    _item.PRNo = fulfillment.rONo;
                     _item.PRItemId = fulfillment.pRItemId;
 
                     _item.POId = fulfillment.pOId;
