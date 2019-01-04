@@ -123,7 +123,7 @@ export class DataForm {
                         var ppn=0;
                         if(item.UseIncomeTax){
                             var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-                            pph=detail.PaidPrice*parseFloat(rate);
+                            pph=detail.PaidPrice*(parseFloat(rate)/100);
                         }
                         if(item.UseVat){
                             ppn=detail.PaidPrice*0.01;
