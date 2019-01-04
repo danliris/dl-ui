@@ -121,7 +121,7 @@ export class DeliveryOrderItem {
     return PurchaseOrderExternalLoader;
   }
 
-  selectedPurchaseOrderExternalChanged(newValue) {
+  async selectedPurchaseOrderExternalChanged(newValue) {
     if (newValue == null) {
       this.data.fulfillments = [];
       this.error = {};
@@ -147,8 +147,19 @@ export class DeliveryOrderItem {
       } else {
         this.data.incomeTax={};
       }
-      
+
       for(var item of newValue.Items){
+        var filterGarmentCategory = {
+          "_IsDeleted": false,
+          "Name": item.Product.Name,
+        }
+        var info = { filter: JSON.stringify(filterGarmentCategory), size: 2147483647 };
+        var categoryProduct = await this.service.searchGarmentCategory(info);
+        var codeRequirmentTemp = "";
+        for (var data of categoryProduct){
+          codeRequirmentTemp = data.codeRequirment;
+        }
+
         var fulfillment = {
           ePOItemId : item.Id,
           pOId : item.POId,
@@ -165,6 +176,7 @@ export class DeliveryOrderItem {
           rONo : item.RONo,
           currency : newValue.Currency,
           product : item.Product,
+          codeRequirment : codeRequirmentTemp,
           smallUom : item.SmallUom,
           purchaseOrderUom : item.DealUom,
           isSave : false,
@@ -172,14 +184,27 @@ export class DeliveryOrderItem {
         this.data.fulfillments.push(fulfillment);
       }
         this.isShowing = true;
-    } else if (newValue && (this.context.context.options.hasView || this.context.context.options.hasEdit)) {
+        
+    } else if (newValue.EPONo && (this.context.context.options.hasView || this.context.context.options.hasEdit)) {
       this.data.purchaseOrderExternal.no = newValue.EPONo;
       this.data.purchaseOrderExternal.Id = newValue.Id;
       this.data.paymentDueDays = newValue.PaymentDueDays;
       this.data.currency = {};
       this.data.currency.Id = newValue.Currency.Id;
       this.data.currency.Code = newValue.Currency.Code;
+
       for(var item of newValue.Items){
+        var filterGarmentCategory = {
+          "_IsDeleted": false,
+          "Name": item.Product.Name,
+        }
+        var info = { filter: JSON.stringify(filterGarmentCategory), size: 2147483647 };
+        var categoryProduct = await this.service.searchGarmentCategory(info);
+        var codeRequirmentTemp = "";
+        for (var data of categoryProduct){
+          codeRequirmentTemp = data.codeRequirement;
+        }
+
         var fulfillment = {
           ePOItemId : item.Id,
           pOId : item.POId,
@@ -196,6 +221,7 @@ export class DeliveryOrderItem {
           rONo : item.RONo,
           currency : newValue.Currency,
           product : item.Product,
+          codeRequirment : codeRequirmentTemp,
           smallUom : item.SmallUom,
           purchaseOrderUom : item.DealUom,
         };
@@ -203,6 +229,7 @@ export class DeliveryOrderItem {
       }
         this.isShowing = true;
     }
+    this.activate(this.context);
   }
 
   toggle() {

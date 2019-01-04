@@ -23,14 +23,12 @@ async activate(params) {
             supplierCode : this.info.supplierCode ? this.info.supplierCode: "",
             dateFrom : this.info.dateFrom ? moment(this.info.dateFrom).format("YYYY-MM-DD"): "",
             dateTo : this.info.dateTo ? moment(this.info.dateTo).format("YYYY-MM-DD"): "",
-            productCode : this.info.productCode ? this.info.productCode: ""
         }
         this.service.generateExcel2(info)
     }
 
     list() {
-        this.router.navigateToRoute('list', { dateFrom: this.info.dateFrom, dateTo: this.info.dateTo, 
-            productCode: this.info.productCode});
+        this.router.navigateToRoute('list', { dateFrom: this.info.dateFrom, dateTo: this.info.dateTo});
     }
 
 }

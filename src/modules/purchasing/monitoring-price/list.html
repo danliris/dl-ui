@@ -1,89 +1,95 @@
+
 <template>
-
-    <style>
-        table > tbody > tr > td {
-            white-space:pre;
-        }
-    </style>
-
-<h1 class="page-header">Monitoring Harga Barang</h1>
-<form class="form-horizontal">
-    <div class="form-group">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6">
- 
-            <au-autocomplete 
-                value.bind="productName" 
-                label="Nama barang" 
-                loader.bind="productLoaderName"
-                placeholder="nama barang" 
-                key="code">
-            </au-autocomplete>
+  
+        <h1 class="page-header">Monitoring Harga Produk</h1>
+        <form class="form-horizontal">
+            <au-autocomplete value.bind="product" error.bind="error.product" label="Nama Barang" loader.bind="productLoader" options.bind="controlOptions"
+                             placeholder="Cari Nama Barang" key="code"></au-autocomplete>
 
             <au-datepicker 
-                label="Tanggal Awal" 
-                value.bind="dateFrom"
-                change.delegate="dateFromChanged($event)" >
+                  label="Tanggal Awal" 
+                  value.bind="dateFrom" error.bind="error.dateFrom"
+                  options.bind="controlOptions">
             </au-datepicker>
 
             <au-datepicker 
-                label="Tanggal Akhir" 
-                value.bind="dateTo"
-                min.bind="dateMin">
+                  label="Tanggal Akhir" 
+                  value.bind="dateTo" error.bind="error.dateTo"
+                  options.bind="controlOptions">
             </au-datepicker>
 
-            <label for="contact" class="col-sm-9 control-label"></label>
-            <div class="col-sm-3">
-                <button click.delegate="search()" class='btn btn-success'>Cari</button>
-                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            <div class="form-group">
+                <label for="contact" class="col-sm-6 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
             </div>
-        </div>
-    </div>
-    <div>
-        <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
-    </div>
-    <div class="table-responsive">
+             <div class="btn-group pull-left">
+                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Export To Excel</a>
+            </div>
+        </form>
+           <br>
+        </br>
+
+            <div class="table-responsive">
         <table class="table table-bordered table-hover" border="1" id="poReport">
             <thead align="center">
                 <tr>
                     <td rowspan="3">NO</td>
-                    <td colspan="2">PO Ekstern</td>
-                    <td rowspan="3">SUPPLIER</td>
-                    <td colspan="2">INVOICE</td>
-                     
-                    <td rowspan="3">JUMLAH</td>
-                    <td rowspan="3">SATUAN</td>
-                    <td colspan="2">HARGA</td>
+                    <td rowspan="3">UNIT YG MENGAJUKAN</td>
+                    <td rowspan="3">NO PURCHASE REQUEST</td>
+                    <td colspan="2">PO EKSTERNAL</td>
+                    <td colspan="2">SUPPLIER</td>
+                    <td colspan="2">INVOICE</td>                     
+                    <td colspan="4">BARANG</td>
+                    <td colspan="4">HARGA</td>
                 </tr>                         
                 <tr>
                     <td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>
+                    <td rowspan="2">KODE</td>
+                    <td rowspan="2">NAMA</td>                    
                     <td rowspan="2">TANGGAL</td>
                     <td rowspan="2">NOMOR</td>
-                    <td rowspan="2">NILAI</td>
+                    <td rowspan="2">KODE</td>
+                    <td rowspan="2">NAMA</td>
+                    <td rowspan="2">JUMLAH</td>
+                    <td rowspan="2">SATUAN</td>
                     <td rowspan="2">MATA UANG</td>
+                    <td rowspan="2">RATE</td>
+                    <td rowspan="2">HARGA</td>
+                    <td rowspan="2">N I L A I</td>
                 </tr>
             </thead>
             <tbody>
-                <tr repeat.for="PO of data">
-                    <td>${PO['No']}</td>
-                    <td>${PO['Tanggal Terima PO Eksternal']}</td>
-                    <td>${PO['No PO Eksternal']}</td>
-                    <td>${PO['Nama Supplier']}</td>
-                    <td>${PO['Tanggal Invoice']}</td>
-                    <td>${PO['No Invoice']}</td>
-                    <td align="right">${(PO['Jumlah Barang']).toLocaleString()}</td>
-                    <td>${PO['Satuan Barang']}</td>
-                    <td align="right">${(PO['Harga Barang']).toLocaleString()}</td>
-                    <td>${PO['Mata Uang']}</td>
-                    
+                <tr repeat.for="item of data">
+                    <td class="text-left">${$index + 1}</td>
+                    <td class="text-left">${item.UnitName}</td>
+                    <td class="text-left">${item.PRNo}</td>
+                    <td class="text-left">${item.EPODate | dateFormat:'D MMM YYYY'}</td>
+                    <td class="text-left">${item.EPONo}</td>
+                    <td class="text-left">${item.SupplierCode}</td>
+                    <td class="text-left">${item.SupplierName}</td>
+                    <td class="text-left">${item.InvoiceDate}</td>
+                    <td class="text-left">${item.InvoiceNo}</td>
+
+                    <td class="text-left">${item.ProductCode}</td>
+                    <td class="text-left">${item.ProductName}</td>
+                    <td class="text-right">${item.Quantity}</td>
+                    <td class="text-left">${item.UOMUnit}</td>
+
+                    <td class="text-left">${item.CurrencyCode}</td>
+                    <td class="text-right">${item.CurrencyRate}</td>
+                    <td class="text-right">${item.PricePerDeal}</td>
+                    <td class="text-right">${item.Amount}</td>                    
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        Tidak ada data ditemukan.
-    </div>
-    <hr/>
-</form>
+        
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            ~ * ~ * ~ * ~ * ~ * ~ Tidak Ada Data Yang Ditemukan ~ * ~ * ~ * ~ * ~ * ~
+        </div>
+    </au-input-form> 
 </template>
