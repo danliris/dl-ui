@@ -184,7 +184,8 @@ export class DeliveryOrderItem {
         this.data.fulfillments.push(fulfillment);
       }
         this.isShowing = true;
-    } else if (newValue && (this.context.context.options.hasView || this.context.context.options.hasEdit)) {
+        
+    } else if (newValue.EPONo && (this.context.context.options.hasView || this.context.context.options.hasEdit)) {
       this.data.purchaseOrderExternal.no = newValue.EPONo;
       this.data.purchaseOrderExternal.Id = newValue.Id;
       this.data.paymentDueDays = newValue.PaymentDueDays;
@@ -228,6 +229,7 @@ export class DeliveryOrderItem {
       }
         this.isShowing = true;
     }
+    this.activate(this.context);
   }
 
   toggle() {
