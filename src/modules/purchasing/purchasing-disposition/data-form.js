@@ -23,6 +23,9 @@ export class DataForm {
             length: 5
         }
     }
+
+    IncomeTaxByOptions=["Supplier","Dan Liris"];
+
     itemsColumns = [{ header: "Nomor External PO"},
                     { header: "Kena PPN"},
                     { header: "Nominal PPN"},
@@ -119,11 +122,13 @@ export class DataForm {
                         var pph=0;
                         var ppn=0;
                         if(item.UseIncomeTax){
-                            pph=detail.PaidPrice*item.IncomeTax.Rate;
+                            var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
+                            pph=detail.PaidPrice*(parseFloat(rate)/100);
                         }
                         if(item.UseVat){
                             ppn=detail.PaidPrice*0.01;
                         }
+
                         this.data.Amount+=detail.PaidPrice+ppn-pph;
                     }
                 }
