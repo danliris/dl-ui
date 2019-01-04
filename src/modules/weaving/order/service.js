@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'weaving/order';
+const serviceUri = 'weaving/orders';
 
 export class Service extends RestService {
 
@@ -11,11 +11,9 @@ export class Service extends RestService {
         super(http, aggregator, config, "weaving");
     }
 
-
     search(info) {
-        // debugger;
         var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
+        return super.get(endpoint);
     }
 
     getById(id) {

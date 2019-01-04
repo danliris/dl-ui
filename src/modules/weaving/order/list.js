@@ -8,22 +8,33 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "sopNo", title: "No SOP" },
+    { field: "orderNumber", title: "No SOP" },
     {
-      field: "tglsp",
+      field: "dateOrdered",
       title: "Tanggal SOP",
       formatter: function(value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "unit", title: "Unit" },
-    // { field: "jenismesin", title: "Mesin" },
-    { field: "konstruksi", title: "Konstruksi" },
     {
-      field: "blended",
+      field: "weavingUnit",
+      title: "Unit",
+      formatter: function(value, data, index) {
+        return value.name;
+      }
+    },
+    { field: "fabricSpecificationId", title: "Konstruksi" },
+    {
+      field: "composition",
       title: "Blended (%)",
       formatter: function(value, data, index) {
-        return value.poly + " " + value.cotton + " " + value.lainnya;
+        return (
+          value.compositionOfPoly +
+          " " +
+          value.compositionOfCotton +
+          " " +
+          value.otherComposition
+        );
       }
     }
   ];
@@ -36,66 +47,51 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      // select: ["", "", "", "", "", ""],
+      select: [
+        "orderNumber",
+        "dateOrdered",
+        "weavingUnit",
+        "fabricSpecificationId",
+        "composition"
+      ],
       order: order
     };
 
-    return {
-      total: 2,
-      // total: result.info.total,
-      data: [
-        {
-          sopNo: "1",
-          tglsp: new Date(),
-          periode: {
-            bulan: "Januari",
-            tahun: "2018"
-          },
-          unit: "Weaving 1",
-          konstruksi: "CD 133 73 63 RfRf Rf AB B",
-          kodebenang: {
-            jenislusi: "AC",
-            asallusi: "A",
-            jenispakan: "BC",
-            asalpakan: "B"
-          },
-          blended: {
-            poly: "60%",
-            cotton: "30%",
-            lainnya: "10%"
-          },
-          delivery: new Date(),
-          jenismesin: "AJL",
-          jenisbenang: "CT",
-          allgrade: "AG"
-        },
-        {
-          sopNo: "2",
-          tglsp: new Date(),
-          periode: {
-            bulan: "Januari",
-            tahun: "2018"
-          },
-          unit: "Weaving 2",
-          konstruksi: "CD 132 73 63 RfRf Rf A B",
-          kodebenang: {
-            jenislusi: "AC",
-            asallusi: "A",
-            jenispakan: "BC",
-            asalpakan: "B"
-          },
-          blended: {
-            poly: "60%",
-            cotton: "30%",
-            lainnya: "10%"
-          },
-          delivery: new Date(),
-          jenismesin: "AJL",
-          jenisbenang: "CT",
-          allgrade: "AG"
-        }
-      ]
-    };
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+    });
+
+    // return {
+    //   total: 2,
+    //   // total: result.info.total,
+    //   data: [
+    //     {
+    //       sopNo: "1",
+    //       tglsp: new Date(),
+    //       unit: "Weaving 1",
+    //       konstruksi: "CD 133 73 63 RfRf Rf AB B",
+    //       blended: {
+    //         poly: "60%",
+    //         cotton: "30%",
+    //         lainnya: "10%"
+    //       }
+    //     },
+    //     {
+    //       sopNo: "2",
+    //       tglsp: new Date(),
+    //       unit: "Weaving 2",
+    //       konstruksi: "CD 132 73 63 RfRf Rf A B",
+    //       blended: {
+    //         poly: "60%",
+    //         cotton: "30%",
+    //         lainnya: "10%"
+    //       }
+    //     }
+    //   ]
+    // };
 
     // return this.service.search(arg)
     //   .then(result => {
@@ -107,11 +103,13 @@ export class List {
     //     //     console.log(error);
     //     // })
     //   });
-  };
+  }
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    // this.orderId = "";
+    // this.orders = [];
   }
 
   contextCallback(event) {
@@ -119,8 +117,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.sopNo });
-        // this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute("view", { id: data._id });
         break;
     }
   }
