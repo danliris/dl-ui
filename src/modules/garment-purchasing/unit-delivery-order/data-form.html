@@ -70,7 +70,7 @@
         
                 <au-autocomplete
                     label="Gudang yang mengirim"
-                    value.bind="Storage"
+                    value.bind="storage"
                     error.bind="error.Storage"
                     read-only.bind="readOnly"
                     loader.bind="storageLoader"
@@ -185,7 +185,6 @@
             show.bind = "data.RONo"
             options.bind="options"
             read-only.bind="readOnly" 
-            change.delegate="itemsChanged($event)"
             show.bind="isItem"
             item-template="modules/garment-purchasing/unit-delivery-order/template/unit-delivery-order-item">
         </au-collection>

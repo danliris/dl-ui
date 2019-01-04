@@ -16,10 +16,6 @@ export class UnitDeliveryOrderItem {
     this.error = context.error;
     this.options = context.options;
 
-    
-    if(this.options.readOnly){
-      this.data.PricePerDealUnit=parseFloat(this.data.PricePerDealUnit).toFixed(4);
-    }
   }
 
   bind() {

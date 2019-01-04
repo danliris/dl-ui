@@ -37,13 +37,14 @@ export class List {
         
         return this.service.search(arg)
             .then(result => {
-                var data = {}
+                var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
+                console.log(data.data);
                 data.data.forEach(s => {
-                    s.Items.toString = function () {
+                    s.toString = function () {
                         var str = "<ul>";
-                        for (var item of s.items) {
+                        for (var item of s.Items) {
                             str += `<li>${item.RONo}</li>`;
                         }
                         str += "</ul>";
