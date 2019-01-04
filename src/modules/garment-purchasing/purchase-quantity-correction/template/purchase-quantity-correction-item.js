@@ -15,6 +15,7 @@ export class PurchaseQuantityCorrectionItem {
         if(!this.error){
             this.error = "";
         }
+        this.data.PricePerDealUnitAfter = this.data.PricePerDealUnitAfter;
     }
     
     @computedFrom("data.Quantity")

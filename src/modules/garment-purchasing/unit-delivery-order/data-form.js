@@ -1,8 +1,8 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
-var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+var StorageLoader = require('../../../loader/storage-loader');
+var UnitLoader = require('../../../loader/garment-units-loader');
+var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-basic-loader');
 import moment from 'moment';
 
 @containerless()
@@ -12,32 +12,32 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable title;
-    @bindable selectedSupplier;
-    @bindable selectedCurrency;
-    @bindable selectedIncomeTax;
-    @bindable options = { isUseIncomeTax: false };
+    @bindable options = { };
     @bindable kurs = {};
+    @bindable unitRequest;
+    @bindable RONo
 
-
-    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'RETUR', 'SAMPLE'];
-    typePaymentStorageOptions = ['EX MASTER FREE', 'EX MASTER BELI', 'EX MASTER GUDANG'];
-    categoryOptions = ['FABRIC', 'ACCESSORIES']
-    qualityStandardTypeOptions = ['JIS', 'AATCC', 'ISO']
-
-    label = "Periode Tgl. Shipment"
-    freightCostByOptions = ['Penjual', 'Pembeli'];
     controlOptions = {
         label: {
+            align : "left",
             length: 4
         },
         control: {
-            length: 5
+            length: 5,
+            align: "right"
         }
     }
-
-    
+    RONoOptions = {
+        label: {
+            align : "left",
+            length: 4
+        },
+        control: {
+            length: 8,
+            align: "left"
+        }
+    }
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -49,57 +49,26 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.isItem = false;
-        
-        if(!this.data.OrderDate){
-            this.data.OrderDate=new Date().toLocaleDateString();
-        }
-
-        
-        
-        if (this.data.Category) {
-            if (this.data.Category === "FABRIC") {
-                this.isFabric = true;
+        if (this.data.UnitDOType) {
+            if (this.data.UnitDOType === "PROSES") {
+                this.isProses = true;
             }
             else {
-                this.isFabric = false;
+                this.isProses= false;
             }
         }
         else {
-            this.isFabric = true;
+            this.isProses = true;
         }
+        
         if(this.data.Items)
             if (this.data.Items.length > 0) {
                 this.isItem = true;
             }
 
         this.options.readOnly = this.readOnly;
-        if (this.data.useVat) {
-            this.options.isUseVat = true;
-        }
-        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
-            this.options.checkOverBudget = false;
-        }
-        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
-            this.options.checkOverBudget = false;
-        }
-        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
-            this.options.checkOverBudget = false;
-        }
-        else {
-            this.options.checkOverBudget = true;
-        }
-        this.options.resetOverBudget = false;
-
-        if(this.data.Currency){
-            this.data.CurrencyRate=this.data.Currency.Rate;
-        }
-        //var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
-        //this.kurs=kurs[0];
-        if (Object.getOwnPropertyNames(this.kurs).length > 0) {
-            this.options.kurs = this.kurs;
-        } else {
-            this.options.kurs = { Rate: 1 };
-        }
+        
+        this.readOnlySender = true;
         
     }
 
@@ -108,240 +77,144 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    @computedFrom("data.SupplierId")
-    get supplierType() {
-        if (this.data.Supplier) {
-            if (this.data.Supplier.Import)
-                return "Import"
-            else
-                return "Lokal"
+    @computedFrom("data.UnitSender")
+    get filterUnit() {
+        var storageFilter = {}
+        if (this.data.UnitSender) {
+            storageFilter.UnitName = this.data.UnitSender.Name;
         }
-        else
-            return "Lokal"
+
+        return storageFilter;
     }
 
-    @computedFrom("data.SupplierId")
-    get supplierIsImport() {
-        if (this.data.Supplier) {
-            if (this.data.Supplier.Import)
-                return true
-            else
-                return false
+    @computedFrom("data.UnitSender")
+    get filterUnits() {
+        var rONoFilter = {}
+        if (this.data.UnitSender) {
+            rONoFilter.UnitId = this.data.UnitSender.Id;
         }
-        else
-            return false
+        return rONoFilter;
     }
 
-    @computedFrom("data.SupplierId")
-    get supplierIsStorage() {
-        if (this.data.Supplier) {
-            if (this.data.Supplier.Name.toLowerCase()==="gudang")
-                return true
-            else
-                return false
-        }
-        else
-            return false
-    }
-
-    selectedSupplierChanged(newValue) {
-        var _selectedSupplier = newValue;
-        if (_selectedSupplier.Id) {
-            this.data.Supplier = _selectedSupplier;
-            this.data.Supplier.Import=_selectedSupplier.import;
-            this.data.Supplier.Code=_selectedSupplier.code;
-            this.data.Supplier.Name=_selectedSupplier.name;
-            this.data.Supplier.Id=_selectedSupplier.Id;
-            this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
-            this.data.IsUseVat = _selectedSupplier.usevat;
-            this.data.IsIncomeTax = _selectedSupplier.usetax;
-            this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
-            this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
-            this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate;
-        }
-    }
-
-    async selectedCurrencyChanged(newValue) {
-        this.data.Items=[];
-        var _selectedCurrency = newValue;
-        if (_selectedCurrency) {
-            if (_selectedCurrency.Id) {
-                this.data.Currency = _selectedCurrency;
-                this.data.Currency.Rate=_selectedCurrency.rate?_selectedCurrency.rate:_selectedCurrency.Rate;
-                var CurrencyRate = parseInt(this.data.Currency.Rate ? this.data.Currency.Rate : 1, 10);
-                this.data.Currency.Code=_selectedCurrency.Code? _selectedCurrency.Code:_selectedCurrency.code;
-                this.data.CurrencyRate = CurrencyRate;
-                //var today=new Date();
-                var kurs = await this.service.getKurs(this.data.Currency.Code, this.data.OrderDate);
-                this.kurs=kurs[0];
-                if (Object.getOwnPropertyNames(this.kurs).length <= 0) {
-                    alert(`Kurs untuk mata uang ${this.data.Currency.Code} belum ditambahkan.`);
-                    this.selectedCurrency = null;
-                }
-                this.options.kurs = this.kurs;
-
-            }
-            else {
-                this.data.Currency = null;
-                this.data.CurrencyRate = 0;
-            }
-        }
-        else {
-            this.data.Currency = null;
-            this.data.CurrencyRate = 0;
-        }
-    }
-
-    categoryChanged(e) {
+    unitDOTypeChanged(e) {
         var selectedCategory = e.srcElement.value;
         if (selectedCategory) {
-            this.data.Category = selectedCategory;
+            this.data.UnitDOType = selectedCategory;
 
-            this.data.Shrinkage = '';
-            this.data.WetRubbing = '';
-            this.data.DryRubbing = '';
-            this.data.Washing = '';
-            this.data.DarkPrespiration = '';
-            this.data.LightMedPrespiration = '';
-            this.data.PieceLength = '';
-            this.data.QualityStandardType = 'JIS';
-
-            if (this.data.Category === "FABRIC") {
-                this.isFabric = true;
+            this.data.RONo = '';
+            this.data.ProductName = '';
+            this.data.ProductCode = '';
+            this.data.ProductRemark = '';
+            this.data.Quantity = '';
+            this.data.UomUnit = '';
+            if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "RETUR" || this.data.UnitDOType === "SAMPLE"){
+                this.readOnlySender = true;
+            }
+            else{
+                this.data.UnitSender = null;
+                this.readOnlySender = this.options.readOnly;
+            }
+            if (this.data.UnitDOType === "PROSES") {
+                this.isProses = true;
             }
             else {
-                this.isFabric = false;
+                this.isProses = false;
             }
             this.data.Items = [];
         }
+        this.data.UnitRequest = null;
+        this.data.UnitSender = null;
+        this.Storage = null;
     }
 
-    paymentMethodChanged(e) {
-        var selectedPayment = e.srcElement.value;
-        if (selectedPayment) {
-            this.data.PaymentMethod = selectedPayment;
-        }
-        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
-            this.options.checkOverBudget = false;
-            this.resetIsOverBudget();
-        }
-        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
-            this.options.checkOverBudget = false;
-            this.resetIsOverBudget();
-        }
-        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
-            this.options.checkOverBudget = false;
-            this.resetIsOverBudget();
-        }
-        else {
-            this.options.resetOverBudget = false;
-            this.options.checkOverBudget = true;
-            this.checkOverBudgetAll();
-        }
+    get storageLoader() {
+        return StorageLoader;
     }
 
-    resetIsOverBudget() {
-        if (this.data.Items) {
-            this.data.Items.map(items => {
-                items.IsOverBudget = false;
-                items.OverBudgetRemark = "";
-            })
-            this.options.resetOverBudget = true;
-            this.context.DetailsCollection.bind();
-        }
-    }
-    paymentTypeChanged(e) {
-        var selectedPayment = e.srcElement.value;
-        if (selectedPayment) {
-            this.data.PaymentType = selectedPayment;
-            if (this.data.PaymentType == "CASH" || this.data.PaymentType == "T/T BEFORE") {
-                this.data.PaymentDueDays = 0;
-            }
-
-            if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
-                this.options.checkOverBudget = false;
-                this.resetIsOverBudget();
-            }
-            else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
-                this.options.checkOverBudget = false;
-                this.resetIsOverBudget();
-            }
-            else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
-                this.options.checkOverBudget = false;
-                this.resetIsOverBudget();
-            }
-            else {
-                this.options.resetOverBudget = false;
-                this.options.checkOverBudget = true;
-                this.checkOverBudgetAll();
-            }
-        }
-    }
-
-    selectedIncomeTaxChanged(newValue) {
-        var _selectedIncomeTax = newValue;
-        if (!_selectedIncomeTax) {
-            this.data.IncomeTaxRate = 0;
-            this.data.UseIncomeTax = false;
-            this.data.IncomeTax = {};
-        } else if (_selectedIncomeTax.Id) {
-            this.data.IncomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
-            this.data.UseIncomeTax = true;
-            this.data.IncomeTax = _selectedIncomeTax;
-        }
-    }
-
-    useVatChanged(e) {
-        var selectedUseVat = e.srcElement.checked || false;
-        if (!selectedUseVat) {
-            this.options.isUseVat = false;
-            for (var poItem of this.data.Items) {
-                poItem.UseVat = false;
-            }
-        } else {
-            this.options.isUseVat = true;
-        }
-    }
-
-    get supplierLoader() {
-        return SupplierLoader;
-    }
-
-    get currencyLoader() {
-        return CurrencyLoader;
-    }
-
-    get incomeTaxLoader() {
-        return IncomeTaxLoader;
-    }
-
-    supplierView = (supplier) => {
-        var code=supplier.code? supplier.code : supplier.Code;
-        var name=supplier.name? supplier.name : supplier.Name;
+    storageView = (storage) => {
+        var code=storage.code? storage.code : storage.Code;
+        var name=storage.name? storage.name : storage.Name;
         return `${code} - ${name}`
     }
 
-    currencyView = (currency) => {
-        var code=currency.code? currency.code : currency.Code;
-        return code;
+    unitChanged(newValue){
+        var selectedUnit = newValue;
+        if(selectedUnit){
+            this.data.UnitRequest = selectedUnit;
+            this.data.UnitSender = selectedUnit;
+        }
+        else if(this.data.UnitDOType === "TRANSFER"){
+            this.data.UnitSender = null;
+            this.data.UnitRequest = null;
+        }
+        else{
+            this.data.UnitRequest = null;
+            this.data.UnitSender = null;
+        }
     }
 
-    incomeTaxView = (incomeTax) => {
-        var rate=incomeTax.rate? incomeTax.rate : incomeTax.Rate;
-        var name=incomeTax.name? incomeTax.name : incomeTax.Name;
-        return `${name} - ${rate}`
+    RONoChanged(newValue){
+        var selectedro = newValue;
+        if(newValue == null){
+            this.data.Items = null;
+            this.error = null;
+        }
+        else if(newValue){
+            this.data.RONo = selectedro.RONo;
+            this.data.Items = [];
+            for(var item of selectedro.Items){
+                var Items = {};
+                Items.Article = item.Article;
+                Items.ProductId = item.ProductId;
+                Items.ProductCode = item.ProductCode;
+                Items.ProductName = item.ProductName;
+                Items.ProductRemark = item.ProductRemark;
+                Items.RONOItem = item.RONo;
+                Items.UomId =  item.UomId;
+                Items.UomUnit = item.UomUnit;
+                Items.Quantity = (item.ReceiptQuantity - item.OrderQuantity);
+
+                this.data.Items.push(Items);
+            }
+        }
+        else{
+            this.data = null;
+        }
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    roNoView = (rono) => {
+        // console.log(rono);
+        return `${rono.RONo} - ${rono.Items.Product.Name} - ${rono.Items.Product.Code}`
+    }
+
+    unitRequestView = (unitRequest) => {
+        return `${unitRequest.Code} - ${unitRequest.Name}`
+    }
+
+    unitSenderView = (unitSender) => {
+        return `${unitSender.Code} - ${unitSender.Name}`
+    }
+
+    get unitReceiptNoteLoader() {
+        return UnitReceiptNoteLoader;
+    }
+
+    unitReceiptNoteView = (unitReceiptNote) => {
+        var coba = unit[0].RONo;
+        return `${coba}`;
     }
 
     async search() {
-        var result = await this.service.searchByTags(this.keywords, this.data.Category, this.context.shipmentDateFrom, this.context.shipmentDateTo);
 
         var items=[];
-        var pr=[];
         var index=0;
         for(var data of result.data){
             for(var item of data.Items){
                 if(pr.length==0){
-                   // item.RemainingBudget=pr[item.PRNo];
 
                     items.push({
                         index:index++,
@@ -421,111 +294,12 @@ export class DataForm {
 
     items = {
         columns: [
-            "Nomor PR - No. Referensi PR - Article",
-            "Nomor RO",
-            "Barang",
-            "Jumlah Diminta",
-            "Satuan Diminta",
-            "Jumlah Beli",
-            "Satuan Beli",
-            "Jumlah Kecil",
-            "Satuan Kecil",
-            "Konversi",
-            "Harga Satuan",
-            "Include Ppn?",
-            "Keterangan"],
-        onRemove: function () {
-            this.bind();
-            if(this.items){
-                
-                var pr=[];
-                var remaining=[];
-                var items=[];
-                for(var a of this.items){
-                    if(pr.length==0){
-                        pr.push(a);
-                        //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                        //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
-                    }
-                    else{
-                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
-                        if(dup){
-                            //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.budgetUsed;
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        }
-                        else{
-                            pr.push(a);
-                            //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=a.Initial;
-                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        }
-                    }
-                    if(a.RemainingBudget<0){
-                        a.IsOverBudget=true;
-                    }
-                    else{
-                        a.IsOverBudget=false;
-                    }
-                }
-            }
-        }
+            "Kode Barang",
+            "Nama Barang",
+            "Keterangan Barang",
+            "RO Asal",
+            "Jumlah",
+            "Satuan",
+            "Tipe Fabric"],
     };
-    
-    checkOverBudgetAll(){
-        if(this.data.Items){
-            
-            var pr=[];
-            var remaining=[];
-            var items=[];
-            for(var a of this.data.Items){
-                if(pr.length==0){
-                    pr.push(a);
-                    //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                    a.remainingBudget=a.Initial;
-                    remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
-                    a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                    //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
-                    //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
-                }
-                else{
-                    var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
-                    if(dup){
-                        //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-a.budgetUsed;
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                    }
-                    else{
-                        pr.push(a);
-                        //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-a.budgetUsed;
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                    }
-                }
-                if(a.RemainingBudget<0){
-                    a.IsOverBudget=true;
-                }
-                else{
-                    a.IsOverBudget=false;
-                }
-                a.UsedBudget=a.budgetUsed;
-                console.log(a.IsOverBudget);
-            }
-        }
-    }
-
-    itemsChanged(e){
-        this.checkOverBudgetAll();
-    }
-
-    
-
 }

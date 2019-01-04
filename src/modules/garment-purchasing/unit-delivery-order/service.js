@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 import moment from 'moment';
 
 const serviceUri = 'garment-unit-delivery-orders';
+const unitReceiptNoteUri = 'garment-unit-receipt-notes/unit-delivery-order';
 
 
 export class Service extends RestService {
@@ -44,37 +45,8 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
-    cancel(id) {
-        var endpoint = `garment-external-purchase-orders/cancel/${id}`;
-        return super.put(endpoint);
-    }
-
-    getPoId(id) {
-        var endpoint = `garment-internal-purchase-orders/${id}`;
-        //"productionOrder.orderNo","productionOrder.orderType.name", "productionOrder.material", "productionOrder.materialConstruction", "productionOrder.materialWidth"
-        //var info = { select: select };
-        return super.get(endpoint);
-    }
-
-    getKurs(code, date) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
-
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
-    }
-
-    SmallUom(id) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/garmentProducts/${id}`;
-
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
+    searchUnitReceiptNote(info) {
+        var endpoint = `${unitReceiptNoteUri}`;
+        return super.list(endpoint, info);
     }
 }

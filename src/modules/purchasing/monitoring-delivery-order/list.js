@@ -162,7 +162,7 @@ export class List {
 
     // }
 
-    get supplierLoader(){
+    get supplier(){
         return SupplierLoader;
     }
     get dOLoader(){
