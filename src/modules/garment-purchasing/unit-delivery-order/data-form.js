@@ -1,10 +1,10 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var StorageLoader = require('../../../loader/storage-loader');
-var UnitLoader = require('../../../loader/garment-units-loader');
-// var UnitSenderLoader = require('../../../loader/garment-units-loader');
-// var UnitRequestLoader = require('../../../loader/garment-units-loader');
-var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-basic-loader');
+//var UnitLoader = require('../../../loader/garment-units-loader');
+var UnitSenderLoader = require('../../../loader/garment-units-loader');
+var UnitRequestLoader = require('../../../loader/garment-units-loader');
+var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader');
 import moment from 'moment';
 
 @containerless()
@@ -16,7 +16,10 @@ export class DataForm {
     @bindable title;
     @bindable options = { };
     @bindable unitRequest;
+    @bindable unitSender;
+    @bindable storage;
     @bindable RONo;
+    @bindable RONoHeader;
 
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE'];
     controlOptions = {
@@ -110,9 +113,11 @@ export class DataForm {
             this.data.UomUnit = '';
             if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "SAMPLE"){
                 this.readOnlySender = true;
+                this.data.UnitSender = this.data.UnitRequest;
             }
             else{
-                this.data.UnitSender = null;
+                this.unitSender = null;
+                this.unitRequest = null;
                 this.readOnlySender = this.options.readOnly;
             }
             if (this.data.UnitDOType === "PROSES") {
@@ -123,13 +128,27 @@ export class DataForm {
             }
             this.data.Items = [];
         }
-        this.data.UnitRequest = null;
-        this.data.UnitSender = null;
-        this.Storage = null;
+        this.unitRequest = null;
+        this.unitSender = null;
+        this.storage = null;
+        this.RONo = null;
+        this.data.Article = null;
     }
 
     get storageLoader() {
         return StorageLoader;
+    }
+
+    get garmentUnitReceiptNoteHeaderLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+            };
+            return this.service.searchUnitReceiptNote(info)
+                .then((result) => {
+                    return result.data;
+                });
+        }
     }
 
     storageView = (storage) => {
@@ -138,15 +157,34 @@ export class DataForm {
         return `${code} - ${name}`
     }
 
-    unitChanged(newValue){
+    unitRequestChanged(newValue){
         var selectedUnit = newValue;
         if(selectedUnit){
             this.data.UnitRequest = selectedUnit;
-            this.data.UnitSender = this.data.unitRequest;
+            this.data.UnitRequest.Id = selectedUnit.Id;
+            this.data.UnitRequest.Code = selectedUnit.Code;
+            this.data.UnitRequest.Name = selectedUnit.Name;
+            this.unitSender = selectedUnit;
         }
-        else if(this.data.UnitDOType === "TRANSFER"){
-            this.data.UnitSender = null;
+        else{
             this.data.UnitRequest = null;
+            this.data.UnitSender = null;
+        }
+    }
+
+    unitSenderChanged(newValue){
+        var selectedUnit = newValue;
+        if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "SAMPLE"){
+            this.data.UnitSender = this.data.UnitRequest;
+        } else{
+            this.data.UnitSender = null;
+        }
+        if(selectedUnit){
+
+            this.data.UnitSender = selectedUnit;
+            this.data.UnitSender.Id = selectedUnit.Id;
+            this.data.UnitSender.Code = selectedUnit.Code;
+            this.data.UnitSender.Name = selectedUnit.Name;
         }
         else{
             this.data.UnitRequest = null;
@@ -158,6 +196,9 @@ export class DataForm {
         var selectedStorage = newValue;
         if(selectedStorage){
             this.data.Storage = selectedStorage;
+            this.data.Storage.Id = selectedStorage.Id;
+            this.data.Storage.Code = selectedStorage.Code;
+            this.data.Storage.Name = selectedStorage.Name;
         }
         else{
             this.data.Storage = null;
@@ -184,6 +225,7 @@ export class DataForm {
                 Items.POItemId = item.POItemId;
                 Items.EPOItemId = item.EPOItemId;
                 Items.PRItemId = item.PRItemId;
+                Items.RONo = item.RONo;
                 Items.Article = item.Article;
                 Items.POSerialNumber = item.POSerialNumber;
                 Items.ProductId = item.ProductId;
@@ -191,10 +233,10 @@ export class DataForm {
                 Items.ProductName = item.ProductName;
                 Items.ProductRemark = item.ProductRemark;
                 Items.RONOItem = item.RONo;
-                Items.UomId =  item.UomId;
-                Items.UomUnit = item.UomUnit;
+                Items.UomId =  item.SmallUomId;
+                Items.UomUnit = item.SmallUomUnit;
                 Items.PricePerDealUnit = item.PricePerDealUnit;
-                Items.Quantity = (item.ReceiptQuantity - item.OrderQuantity);
+                Items.Quantity = (item.SmallQuantity - item.OrderQuantity);
 
                 this.data.Items.push(Items);
             }
@@ -204,13 +246,38 @@ export class DataForm {
         }
     }
 
-    get unitLoader() {
-        return UnitLoader;
+    RONoHeaderChanged(newValue){
+        var selectedROHeader = newValue;
+        console.log(newValue);
+        if(selectedROHeader == null){
+            this.data.Items = null;
+            this.error = null;
+        }
+        else if(selectedROHeader){
+            this.data.ProductId = selectedROHeader.Id;
+            this.data.ProductCode = selectedROHeader.ProductCode;
+            this.data.ProductName = selectedROHeader.ProductName;
+            this.data.ProductRemark = selectedROHeader.ProductRemark;
+
+            this.data.RONoAsal = selectedROHeader.RONo;
+            this.data.UomId = selectedROHeader.UomId;
+            this.data.UomUnit = selectedROHeader.UomUnit;
+            this.data.QuantityHeader = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
+        }
+
     }
 
+    get unitRequestLoader() {
+        return UnitRequestLoader;
+    }
+
+    get unitSenderLoader() {
+        return UnitSenderLoader;
+    }
+
+
     roNoView = (rono) => {
-        // console.log(rono);
-        return `${rono.RONo} - ${rono.Items.Product.Name} - ${rono.Items.Product.Code}`
+        return `${rono.RONo} - ${rono.ProductName} - ${rono.ProductRemark}`
     }
 
     unitRequestView = (unitRequest) => {
@@ -225,76 +292,18 @@ export class DataForm {
         return UnitReceiptNoteLoader;
     }
 
-    unitReceiptNoteView = (unitReceiptNote) => {
-        var coba = unit[0].RONo;
-        return `${coba}`;
+    async searchRONo() {
+        this.data.Items.push(this.RONo);
+        this.isItem = true;
     }
 
-    // async search() {
-    //     var items=[];
-    //     var index=0;
-    //     for(var data of result.data){
-    //         for(var item of data.Items){
-    //             if(pr.length==0){
+    // async searchProduct(){
 
-    //                 items.push({
-    //                     index:index++,
-    //                     URNItemId = item.Id,
-    //                     URNNo = item.URNNo,
-    //                     DODetailId = item.DODetailId,
-    //                     URNId = item.URNId,
-    //                     POItemId = item.POItemId,
-    //                     EPOItemId = item.EPOItemId,
-    //                     PRItemId = item.PRItemId,
-    //                     Article = item.Article,
-    //                     POSerialNumber = item.POSerialNumber,
-    //                     ProductId = item.ProductId,
-    //                     ProductCode = item.ProductCode,
-    //                     ProductName = item.ProductName,
-    //                     ProductRemark = item.ProductRemark,
-    //                     RONOItem = item.RONo,
-    //                     UomId =  item.UomId,
-    //                     UomUnit = item.UomUnit,
-    //                     PricePerDealUnit = item.PricePerDealUnit,
-    //                     Quantity = (item.ReceiptQuantity - item.OrderQuantity)
-    //                 });
-    //             }
-    //             else{
-
-    //                 items.push({
-    //                     URNItemId = item.Id,
-    //                     URNNo = item.URNNo,
-    //                     DODetailId = item.DODetailId,
-    //                     URNId = item.URNId,
-    //                     POItemId = item.POItemId,
-    //                     EPOItemId = item.EPOItemId,
-    //                     PRItemId = item.PRItemId,
-    //                     Article = item.Article,
-    //                     POSerialNumber = item.POSerialNumber,
-    //                     ProductId = item.ProductId,
-    //                     ProductCode = item.ProductCode,
-    //                     ProductName = item.ProductName,
-    //                     ProductRemark = item.ProductRemark,
-    //                     RONOItem = item.RONo,
-    //                     UomId =  item.UomId,
-    //                     UomUnit = item.UomUnit,
-    //                     PricePerDealUnit = item.PricePerDealUnit,
-    //                     Quantity = (item.ReceiptQuantity - item.OrderQuantity)
-    //                 });
-    //             }
-
-    //         }
-
-    //     }
-    //     items = [].concat.apply([], items);
-    //     this.data.Items=items;
-    //     this.isItem = true;
     // }
-
-
 
     items = {
         columns: [
+            "",
             "Kode Barang",
             "Nama Barang",
             "Keterangan Barang",

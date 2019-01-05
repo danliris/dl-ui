@@ -6,7 +6,7 @@ import { Config } from "aurelia-api";
 import moment from 'moment';
 
 const serviceUri = 'garment-unit-delivery-orders';
-const unitReceiptNoteUri = 'garment-unit-receipt-notes/unit-delivery-order';
+const unitReceiptNoteUri = 'garment-unit-receipt-notes/unit-delivery-order-header';
 
 
 export class Service extends RestService {
@@ -17,6 +17,11 @@ export class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    searchUnitReceiptNote(info) {
+        var endpoint = `${unitReceiptNoteUri}`;
         return super.list(endpoint, info);
     }
 

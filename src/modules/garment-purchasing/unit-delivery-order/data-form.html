@@ -48,10 +48,10 @@
         
                 <au-autocomplete 
                     label="Unit yang meminta" 
-                    value.bind="unit" 
+                    value.bind="unitRequest" 
                     error.bind="error.UnitRequest" 
                     read-only.bind="readOnly"
-                    loader.bind="unitLoader"
+                    loader.bind="unitRequestLoader"
                     text.bind = "unitRequestView"
                     placeholder = "Cari Unit"
                     options.bind="controlOptions">
@@ -59,10 +59,10 @@
                 
                 <au-autocomplete
                     label="Unit yang mengirim"
-                    value.bind = "data.UnitSender"
+                    value.bind = "unitSender"
                     error.bind="error.UnitSender"
                     read-only.bind="readOnlySender"
-                    loader.bind="unitLoader"
+                    loader.bind="unitSenderLoader"
                     text.bind = "unitSenderView"
                     placeholder = "Cari Unit"
                     options.bind="controlOptions">
@@ -101,7 +101,7 @@
                 </div>
                 
                 <div class ="col-md-auto offset-md-6">
-                    <button class="btn btn-success" click.delegate="search()">Cari</button>
+                    <button class="btn btn-success" click.delegate="searchRONo()">Cari</button>
                 </div>
             </div>
                     <au-textbox
@@ -115,14 +115,17 @@
             
             <div class="col-md-6" show.bind="isProses">
                     <h4>Tambah Data Barang</h4>
-                <au-textbox
+                <au-autocomplete
                     label="No RO"
-                    value.bind="data.RONo"
-                    error.bind="error.RONo"
+                    value.bind="RONoHeader"
+                    error.bind="error.RONoHeader"
                     read-only.bind="readOnly"
+                    loader.bind = "garmentUnitReceiptNoteHeaderLoader"
                     placeholder = "Cari Nomor RO"
+                    text.bind = "roNoView"
+                    query.bind = "filterUnits"
                     options.bind="controlOptions">
-                </au-textbox>
+                </au-autocomplete>
 
                 <au-textbox 
                     label="Nama Barang" 
@@ -150,7 +153,7 @@
 
                 <au-textbox 
                     label="No. RO Asal" 
-                    value.bind="data.RONo" 
+                    value.bind="data.RONoAsal" 
                     error.bind="error.RONo" 
                     read-only.bind="true"
                     options.bind="controlOptions">
@@ -171,7 +174,7 @@
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
-                <button class="btn btn-success" click.delegate="search()" options.bind = "controlOptions">Tambah Barang</button>
+                <button class="btn btn-success" click.delegate="searchProduct()" options.bind = "controlOptions">Tambah Barang</button>
 
         </div>
     </div>
@@ -182,7 +185,6 @@
             items.bind="data.Items" 
             errors.bind="error.Items"
             columns.bind="items.columns"
-            show.bind = "data.RONo"
             options.bind="options"
             read-only.bind="readOnly" 
             show.bind="isItem"

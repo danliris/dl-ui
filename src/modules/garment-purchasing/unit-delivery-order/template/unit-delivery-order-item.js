@@ -22,16 +22,33 @@ export class UnitDeliveryOrderItem {
     
   }
 
+  fabricChanged(e){
+    var selectedFabric = e.srcElement.value;
+    if(selectedFabric){
+      this.data.FabricType = selectedFabric;
+    }else{
+      this.data.FabricType = null;;
+    }
+  }
+
+  productChanged(newValue){
+    var selectedProduct = newValue;
+    if(selectedProduct){
+      this.data.Product.Id = selectedProduct.ProductId;
+      this.data.Product.Name = selectedProduct.ProductName;
+      this.data.Product.Code = selectedProduct.ProductCode;
+      this.data.Product.Remark = selectedProduct.ProductRemark;
+    }else{
+      this.data.Product = null;
+    }
+  }
+
   get uomLoader() {
     return UomLoader;
   }
 
   uomView = (uom) => {
     return uom.Unit
-  }
-
-  get prNo() {
-    return `${this.data.PRNo} - ${this.data.PO_SerialNumber} - ${this.data.Article}`;
   }
 
   get product() {
