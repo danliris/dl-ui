@@ -117,20 +117,21 @@ export class PurchasingDispositionItem {
                             PaidQuantity: qty,
                             PaidPrice: detail.pricePerDealUnit*qty
                         })
+                        var ppn=0;
+                        var pph=0;
+                        if(this.data.UseIncomeTax){
+                            pph= detail.pricePerDealUnit*qty*(this.data.IncomeTax.rate/100);
+                        }
+                        if(this.data.UseVat){
+                            ppn= detail.pricePerDealUnit*qty*0.1;
+                        }
+                        this.incomeTaxValue+=pph;
+                        this.vatValue+=ppn;
                     }
                     // if(this.data.UseIncomeTax){
                     //     this.incomeTaxValue+=
                     // }
-                    var ppn=0;
-                    var pph=0;
-                    if(this.data.UseIncomeTax){
-                        pph= detail.pricePerDealUnit*qty*this.data.IncomeTax.Rate;
-                    }
-                    if(this.data.UseVat){
-                        ppn= detail.pricePerDealUnit*qty*0.01;
-                    }
-                    this.incomeTaxValue+=pph;
-                    this.vatValue+=ppn;
+                    
                 }
                 this.data.Details=details;
             }
@@ -163,11 +164,12 @@ export class PurchasingDispositionItem {
                 var ppn=0;
                 var pph=0;
                 if(this.data.UseIncomeTax){
-                    pph= detail.PaidPrice*this.data.IncomeTax.rate;
+                    pph= detail.PaidPrice*(this.data.IncomeTax.rate/100);
                 }
                 if(this.data.UseVat){
-                    ppn= detail.PaidPrice*0.01;
+                    ppn= detail.PaidPrice*0.1;
                 }
+                console.log(pph,ppn)
                 this.incomeTaxValue+=pph;
                 this.vatValue+=ppn;
             }
