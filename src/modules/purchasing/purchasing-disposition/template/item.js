@@ -169,7 +169,6 @@ export class PurchasingDispositionItem {
                 if(this.data.UseVat){
                     ppn= detail.PaidPrice*0.1;
                 }
-                console.log(pph,ppn)
                 this.incomeTaxValue+=pph;
                 this.vatValue+=ppn;
             }
