@@ -161,7 +161,7 @@
 
                 <au-textbox 
                     label="Jumlah Barang" 
-                    value.bind="data.Quantity" 
+                    value.bind="data.QuantityHeader" 
                     error.bind="error.Quantity" 
                     read-only.bind="true"
                     options.bind="controlOptions">
@@ -174,7 +174,7 @@
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
-                <button class="btn btn-success" click.delegate="searchProduct()" options.bind = "controlOptions">Tambah Barang</button>
+                <button class="btn btn-success" click.delegate="searchProduct()">Tambah Barang</button>
 
         </div>
     </div>
@@ -188,6 +188,8 @@
             options.bind="options"
             read-only.bind="readOnly" 
             show.bind="isItem"
+            add.bind="items.onAdd"
+            view-model.ref="ItemsCollection"
             item-template="modules/garment-purchasing/unit-delivery-order/template/unit-delivery-order-item">
         </au-collection>
   </au-input-form>

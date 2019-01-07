@@ -254,15 +254,18 @@ export class DataForm {
             this.error = null;
         }
         else if(selectedROHeader){
+            
             this.data.ProductId = selectedROHeader.Id;
             this.data.ProductCode = selectedROHeader.ProductCode;
             this.data.ProductName = selectedROHeader.ProductName;
             this.data.ProductRemark = selectedROHeader.ProductRemark;
 
             this.data.RONoAsal = selectedROHeader.RONo;
-            this.data.UomId = selectedROHeader.UomId;
-            this.data.UomUnit = selectedROHeader.UomUnit;
+            this.data.UomId = selectedROHeader.SmallUomId;
+            this.data.UomUnit = selectedROHeader.SmallUomUnit;
             this.data.QuantityHeader = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
+
+            this.data.Items.push(selectedROHeader);
         }
 
     }
@@ -297,9 +300,10 @@ export class DataForm {
         this.isItem = true;
     }
 
-    // async searchProduct(){
-
-    // }
+    async searchProduct(){
+        this.data.Items.push(this.RONoHeader);
+        this.context.ItemsCollection.bind();
+    }
 
     items = {
         columns: [
@@ -311,5 +315,9 @@ export class DataForm {
             "Jumlah",
             "Satuan",
             "Tipe Fabric"],
+            onAdd: function () {
+                this.context.ItemsCollection.bind();
+                this.data.items.push({});
+            }.bind(this),
     };
 }

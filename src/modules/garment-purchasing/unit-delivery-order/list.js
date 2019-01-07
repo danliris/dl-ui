@@ -12,15 +12,15 @@ export class List {
         
         { field: "UnitDONo", title: "No. Delivery Order" },
         { field: "RONo", title: "No. RO" },
-        { field: "Artcle", title: "Artikel" },
+        { field: "Article", title: "Artikel" },
         {
             field: "UnitDODate", title: "Tanggal DeliveryOrder", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "UnitDOType", title: "Jenis Delivery Order" },
-        { field: "UnitRequest.Name", title: "Unit Yang Meminta" },
-        { field: "Storage.Name", title: "Gudang Yang Mengirim" },
+        { field: "Name", title: "Unit Yang Meminta" },
+        { field: "name", title: "Gudang Yang Mengirim" },
     ];
 
     loader = (info) => {
@@ -31,7 +31,6 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            //select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
         
