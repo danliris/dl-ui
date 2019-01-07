@@ -103,7 +103,7 @@ export class InternNoteItem {
 					for(var detail of garmentInvoiceItem.details){
 						var prices = detail.doQuantity * detail.pricePerDealUnit;
 						var dueDays = new Date(garmentInvoiceItem.deliveryOrder.doDate);
-						dueDays.setDate(dueDays.getDate() + (detail.paymentDueDays - 1)); 
+						dueDays.setDate(dueDays.getDate() + detail.paymentDueDays); 
 						var Details = {
 							ePOId : detail.ePOId,
 							ePONo : detail.ePONo,

@@ -16,16 +16,18 @@ export class PriceCorrectionItem {
     get priceTotal() {
         if(!this.pricePerUnitReadOnly) {
             if(this.correction) {
-                if(!this.pricePerUnitFirst)
+                if(!this.pricePerUnitFirst){
                     this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
-                else
+                }
+                else{
                     this.pricePerUnitFirst = false;
+                }
             }
             else
                 this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
         }
         
-        return this.data.PriceTotalAfter;
+        return this.data.PriceTotalAfter.toFixed(2);
     }
 
     set priceTotal(value) {

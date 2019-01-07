@@ -6,6 +6,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable isView = false;
     @bindable data = {};
+    @bindable error = {};
     @bindable title;
     @bindable deliveryOrder;
     @bindable correctionType;
@@ -44,8 +45,6 @@ export class DataForm {
         };
 
         this.collectionOptions = {};
-
-        this.itemsTemp = [];
     }
 
     bind(context) {
@@ -57,6 +56,8 @@ export class DataForm {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
     }
+
+    
 
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
@@ -71,8 +72,8 @@ export class DataForm {
     }
 
     deliveryOrderChanged(newValue, oldValue) {
-        if (newValue) {
-            var deliveryOrder = newValue;
+        var deliveryOrder = newValue;
+        if (deliveryOrder) {
             this.data.CorrectionType = "Jumlah";
 
             this.data.CorrectionDate = new Date(new Date().setHours(0, 0, 0, 0));
@@ -96,7 +97,6 @@ export class DataForm {
             }
 
             this.data.Items = [];
-            this.itemsTemp = [];
             for(let item of deliveryOrder.items) {
                 for (let detail of item.fulfillments) {
                     let correctionNoteItem = {};
@@ -122,7 +122,7 @@ export class DataForm {
                     correctionNoteItem.Uom = detail.purchaseOrderUom;
 
                     correctionNoteItem.PricePerDealUnitBefore = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));
-                    correctionNoteItem.PricePerDealUnitAfter = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));
+                    correctionNoteItem.PricePerDealUnitAfter = detail.pricePerDealUnitCorrection;
                     correctionNoteItem.PriceTotalBefore = parseFloat((detail.priceTotalCorrection).toFixed(2));
                     correctionNoteItem.PriceTotalAfter = parseFloat((detail.priceTotalCorrection).toFixed(2));
 
@@ -130,14 +130,31 @@ export class DataForm {
                 }
             }
             this.itemsTemp = JSON.parse(JSON.stringify(this.data.Items)); /* Clone Array */
-            console.log(this.error);
         }else{
             this.data.Items = [];
+            this.data.DONo=null
         }
+            this.resetErrorItems();
+            this.resetErrorDeliveryOrder()
     }
 
     @computedFrom("data.DOId")
     get hasItems() {
         return this.data.Items ? this.data.Items.length > 0 : false;
+    }
+
+    resetErrorItems() {
+        if (this.error) {
+            if (this.error.Items) {
+                this.error.Items = null;
+            }
+        }
+    }
+    resetErrorDeliveryOrder() {
+        if (this.error) {
+            if (this.error.DONo) {
+                this.error.DONo = null;
+            }
+        }
     }
 }
