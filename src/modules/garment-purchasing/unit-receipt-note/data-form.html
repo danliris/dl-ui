@@ -59,14 +59,14 @@
             view-model.ref="deliveryOrderAU">
         </au-autocomplete>
 
-        <au-checkbox 
+        <!-- <au-checkbox 
             label="Simpan ke gudang?" 
             value.bind="data.IsStorage" 
             error.bind="error.IsStorage" 
             change.delegate="isStorageChanged($event)"
             read-only.bind="readOnly"
             options.bind="auInputOptions">
-        </au-checkbox>
+        </au-checkbox> -->
 
         <au-autocomplete 
             label="Storage" 
@@ -77,9 +77,8 @@
             query.bind="filterUnit"
             placeholder="cari nama storage" 
             text.bind="storageView"
-            show.bind="data.IsStorage && data.DOId"
-            options.bind="auInputOptions"
-            view-model.ref="storageAU">
+            show.bind="data.DOId"
+            options.bind="auInputOptions">
         </au-autocomplete>
 
         <au-multiline 
