@@ -1,0 +1,174 @@
+<!-- <style>
+
+</style> -->
+<template>
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+    replaceable
+    part="actions"
+  >
+    <div class="col-md-6">
+      <!-- TANGGAL SP -->
+      <au-datepicker
+        label="Tanggal SP"
+        value.bind="data.dateOrdered"
+        error.bind="error.dateOrdered"
+        read-only.bind="readOnly"
+        options.bind="customOptions"
+      ></au-datepicker>
+
+      <!-- PERIODE -->
+      <div class="row">
+        <div class="col-md-3">
+          <textbox label="Periode" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-dropdown
+            value.bind="data.period.month"
+            error.bind="error.period.month"
+            read-only.bind="readOnly"
+            items.bind="months"
+          >
+          </au-dropdown>
+        </div>
+        <div class="col-md-3" style="padding-left: 0px;">
+          <au-dropdown
+            value.bind="data.period.year"
+            error.bind="error.period.year"
+            read-only.bind="readOnly"
+            items.bind="years"
+          >
+          </au-dropdown>
+        </div>
+      </div>
+
+      <!-- UNIT -->
+      <div class="row">
+        <div class="col-md-3">
+          <textbox label="Konstruksi" read-only="true"></textbox>
+        </div>
+        <div class="col-md-6">
+          <au-autocomplete
+            placeholder="Konstruksi"
+            value.bind="data.fabricSpecification.constructionNumber"
+            error.bind="error.fabricSpecification.constructionNumber"
+            options.bind="customLeftOptions"
+            read-only.bind="readOnly"
+            loader.bind="constructionsNumber"
+          >
+          </au-autocomplete>
+        </div>
+      </div>
+
+      <!-- KODE BENANG -->
+      <div class="row">
+        <div class="col-md-3" style="white-space: nowrap">
+          <textbox label="Kode Benang" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3" style="padding-right: 4px;">
+          <au-textbox
+            placeholder="Asal Lusi"
+            value.bind="data.warpOrigin"
+            error.bind="error.warpOrigin"
+            read-only.bind="readOnly"
+          ></au-textbox>
+        </div>
+        <div class="col-md-3" style="padding-left: 4px;">
+          <au-textbox
+            placeholder="Asal Pakan"
+            value.bind="data.weftOrigin"
+            error.bind="error.weftOrigin"
+            read-only.bind="readOnly"
+          ></au-textbox>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLENDED(%) -->
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-3">
+          <textbox label="Blended(%)" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3" style="padding-right: 4px;">
+          <au-textbox
+            placeholder="Poly"
+            options.bind="customCenterOptions"
+            value.bind="data.composition.compositionOfPoly"
+            error.bind="error.composition.compositionOfPoly"
+            read-only.bind="readOnly"
+          >
+          </au-textbox>
+        </div>
+        <div class="col-md-3" style="padding-right: 4px;">
+          <au-textbox
+            placeholder="Cotton"
+            options.bind="customCenterOptions"
+            value.bind="data.composition.compositionOfCotton"
+            error.bind="error.composition.compositionOfCotton"
+            read-only.bind="readOnly"
+          ></au-textbox>
+        </div>
+        <div class="col-md-3" style="padding-right: 4px;">
+          <au-textbox
+            placeholder="Lainnya"
+            options.bind="customCenterOptions"
+            value.bind="data.composition.otherComposition"
+            error.bind="error.composition.otherComposition"
+            read-only.bind="readOnly"
+          ></au-textbox>
+        </div>
+      </div>
+
+      <!-- JENIS BENANG -->
+      <div class="row">
+        <div class="col-md-3" style="white-space: nowrap">
+          <textbox label="Jenis Benang" read-only="true"></textbox>
+        </div>
+        <div class="col-md-9">
+          <au-textbox
+            placeholder="Jenis Benang"
+            value.bind="data.yarnType"
+            error.bind="error.yarnType"
+            read-only.bind="readOnly"
+            options.bind="customOptions"
+          ></au-textbox>
+        </div>
+      </div>
+
+      <!-- ALL GRADE -->
+      <div class="row">
+        <div class="col-md-3" style="white-space: nowrap">
+          <textbox label="All Grade" read-only="true"></textbox>
+        </div>
+        <div class="col-md-9">
+          <au-textbox
+            placeholder="All Grade"
+            value.bind="data.wholeGrade"
+            error.bind="error.wholeGrade"
+            read-only.bind="readOnly"
+            options.bind="customOptions"
+          ></au-textbox>
+        </div>
+      </div>
+
+      <!-- UNIT -->
+      <div class="row">
+        <div class="col-md-3">
+          <textbox label="Unit" read-only="true"></textbox>
+        </div>
+        <div class="col-md-9">
+          <au-autocomplete
+            placeholder="Cari Unit"
+            value.bind="data.weavingUnit.name"
+            error.bind="error.weavingUnit.name"
+            read-only.bind="readOnly"
+            options.bind="customOptions"
+          ></au-autocomplete>
+        </div>
+      </div>
+    </div>
+  </au-input-form>
+</template>

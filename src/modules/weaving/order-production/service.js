@@ -13,7 +13,7 @@ export class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
-        return super.get(endpoint);
+        return super.list(endpoint);
     }
 
     getById(id) {

@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
 var StorageLoader = require("../../../loader/storage-loader");
+// var WeavingLoader = require("../../../loader/weaving-loader");
 var moment = require('moment');
 
 export class DataForm {
@@ -49,9 +50,8 @@ export class DataForm {
     }
   };
 
-  months = [
-    "",
-    "Januari",
+  months = ["",
+    "January",
     "Februari",
     "Maret",
     "April",

@@ -1,0 +1,55 @@
+<!-- <style>
+th,td {
+  border: 1px solid black;
+}
+</style> -->
+<template>
+  <tr>
+    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
+    <td>
+      <au-textbox value.bind="data.dateOrdered" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.orderNumber" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.constructionNumber" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.amountTotal" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.orderTotal" read-only.bind="true">
+      </au-textbox>
+    </td>
+
+    <td>
+      <au-textbox value.bind="data.gradeA" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.gradeB" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.gradeC" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.gradeD" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" if.bind="!readOnly">
+      <button
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(dataLusi, $event)"
+      >
+        -
+      </button>
+    </td>
+  </tr>
+</template>

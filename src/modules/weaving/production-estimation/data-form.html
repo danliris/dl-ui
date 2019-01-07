@@ -1,0 +1,99 @@
+<template>
+  <style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+  </style>
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+    part="actions"
+    ><div class="col-md-12">
+      <!-- PRODUCTION ESTIMATION NUMBER -->
+      <div class="row">
+        <div class="col-md-2" style="white-space: nowrap;">
+          <textbox
+            label="No. Estimasi Produksi"
+            read-only="true"
+            show.bind="onCreated"
+            options.bind="customOptions"
+          ></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox
+            placeholder="No. Estimasi Produksi"
+            value.bind="data.productionEstimationNumber"
+            error.bind="error.productionEstimationNumber"
+            read-only.bind="readOnly"
+            show.bind="onCreated"
+          >
+          </au-textbox>
+        </div>
+      </div>
+
+      <!-- PERIOD -->
+      <div class="row">
+        <div class="col-md-2">
+          <textbox
+            label="Periode"
+            read-only="true"
+            options.bind="customOptions"
+          ></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown
+            value.bind="data.monthPeriod"
+            error.bind="error.monthPeriod"
+            read-only.bind="readOnly"
+            items.bind="months"
+          >
+          </au-dropdown>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown
+            value.bind="data.yearPeriod"
+            error.bind="error.yearPeriod"
+            read-only.bind="readOnly"
+            items.bind="years"
+          >
+          </au-dropdown>
+        </div>
+      </div>
+
+      <!-- UNIT -->
+      <div class="row">
+        <div class="col-md-2">
+          <textbox
+            label="Unit"
+            read-only="true"
+            options.bind="customOptions"
+          ></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-dropdown
+            value.bind="data.unit"
+            error.bind="error.unit"
+            read-only.bind="readOnly"
+            items.bind="construction"
+          >
+          </au-dropdown>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- <div class="col-md-12"> -->
+        <au-collection
+          items.bind="data.Items"
+          errors.bind="error.Items"
+          columns.bind="columns"
+          remove.bind="onremove"
+          read-only.bind="readOnly"
+          item-template="modules/weaving/production-estimation/templates/items"
+        >
+        </au-collection>
+        <!-- </div> -->
+      </div>
+    </div>
+  </au-input-form>
+</template>

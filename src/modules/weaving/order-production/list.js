@@ -23,7 +23,13 @@ export class List {
         return value.name;
       }
     },
-    { field: "fabricSpecificationId", title: "Konstruksi" },
+    {
+      field: "fabricSpecification",
+      title: "Konstruksi",
+      formatter: function(value, data, index) {
+        return value.constructionNumber;
+      }
+    },
     {
       field: "composition",
       title: "Blended (%)",
@@ -51,59 +57,20 @@ export class List {
         "orderNumber",
         "dateOrdered",
         "weavingUnit",
-        "fabricSpecificationId",
+        "fabricSpecification",
         "composition"
       ],
       order: order
     };
 
     return this.service.search(arg).then(result => {
+      console.log(result);
       return {
-        total: result.info.total,
+        total: result.info.count,
         data: result.data
       };
     });
-
-    // return {
-    //   total: 2,
-    //   // total: result.info.total,
-    //   data: [
-    //     {
-    //       sopNo: "1",
-    //       tglsp: new Date(),
-    //       unit: "Weaving 1",
-    //       konstruksi: "CD 133 73 63 RfRf Rf AB B",
-    //       blended: {
-    //         poly: "60%",
-    //         cotton: "30%",
-    //         lainnya: "10%"
-    //       }
-    //     },
-    //     {
-    //       sopNo: "2",
-    //       tglsp: new Date(),
-    //       unit: "Weaving 2",
-    //       konstruksi: "CD 132 73 63 RfRf Rf A B",
-    //       blended: {
-    //         poly: "60%",
-    //         cotton: "30%",
-    //         lainnya: "10%"
-    //       }
-    //     }
-    //   ]
-    // };
-
-    // return this.service.search(arg)
-    //   .then(result => {
-    //     return {
-    //       total: result.info.total,
-    //       data: result.data
-    //     }
-    //     // .catch(error=>{
-    //     //     console.log(error);
-    //     // })
-    //   });
-  }
+  };
 
   constructor(router, service) {
     this.service = service;
@@ -117,7 +84,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data._id });
+        this.router.navigateToRoute("view", { id: data.id });
         break;
     }
   }

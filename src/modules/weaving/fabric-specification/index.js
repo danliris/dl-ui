@@ -20,7 +20,7 @@ export class Index {
         moduleId: "./view",
         name: "view",
         nav: false,
-        title: "View:  Master Kebutuhan Benang"
+        title: "View: Master Kebutuhan Benang"
       },
       {
         route: "edit/:id",

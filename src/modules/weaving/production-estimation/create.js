@@ -4,6 +4,7 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
+  onCreated = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -17,23 +18,31 @@ export class Create {
     this.router.navigateToRoute("list");
   }
 
+  determineActivationStrategy() {
+    return activationStrategy.replace;
+  }
+
   //Tombol "Kembali", panggil list()
   cancelCallback(event) {
     this.list();
   }
 
-  //Tombol "Simpan", menyimpan nilai masukan
+  //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
     this.service
       .create(this.data)
       .then(result => {
-        this.list();
+        alert("Data berhasil dibuat");
+        this.router.navigateToRoute(
+          "create",
+          {},
+          { replace: true, trigger: true }
+        );
       })
       .catch(e => {
         this.error = e;
       });
-
-    // console.log(this.data);
-    // this.data.orderNo = "test";
   }
+
+  deleteCallback(event) {}
 }
