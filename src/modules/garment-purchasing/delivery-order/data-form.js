@@ -96,10 +96,8 @@ export class DataForm {
 
     @computedFrom("data.supplier")
     get isImport() {
-        if (this.data.supplier && !this.context.hasEdit) {
+        if (this.data.supplier) {
             return (this.data.supplier.import || false);
-        }else if(this.data.shipmentType!="" && this.context.hasEdit){
-            return true
         } else {
             return false
         }
@@ -116,10 +114,8 @@ export class DataForm {
             this.data.supplier = {};
             this.data.supplierId = undefined;
         }
-        if(newValue.import!=true){
-            this.data.shipmentType = "";
-            this.data.shipmentNo = "";
-        }
+        this.data.shipmentType = "";
+        this.data.shipmentNo = "";
         this.data.items = [];
         this.resetErrorItems();
     }
