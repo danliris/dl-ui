@@ -32,6 +32,7 @@ export class Create {
     }
 
     save(event) {
+
         if(!this.data.IsIncomeTax){
             this.data.IncomeTax.Name=null;
             this.data.IncomeTax.Rate=0;
