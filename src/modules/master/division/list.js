@@ -8,7 +8,7 @@ export class List {
   // info = { page: 1, keyword: '' };
   context = ["detail"];
   columns = [
-    { field: "name", title: "Divisi" },
+    { field: "Name", title: "Divisi" },
   ]
 
   loader = (info) => {
@@ -46,7 +46,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }
