@@ -23,5 +23,4 @@ cd out
 git add .
 git commit -m "Automated Deployment"
 
-git branch -r
 git push origin master
