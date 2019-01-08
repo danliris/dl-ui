@@ -26,9 +26,9 @@ module.exports = [
     }
   },
   {
-    route: "weaving/production-estimation",
-    name: "production-estimation",
-    moduleId: "./modules/weaving/production-estimation/index",
+    route: "weaving/estimated-production",
+    name: "estimated-production",
+    moduleId: "./modules/weaving/estimated-production/index",
     nav: true,
     title: "Estimasi Produksi",
     auth: true,

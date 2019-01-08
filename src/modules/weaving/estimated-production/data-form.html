@@ -13,12 +13,12 @@
       <!-- PRODUCTION ESTIMATION NUMBER -->
       <div class="row">
         <div class="col-md-2" style="white-space: nowrap;">
-          <textbox
+          <au-textbox
             label="No. Estimasi Produksi"
             read-only="true"
-            show.bind="onCreated"
+            show.bind="ePNumberVisibility"
             options.bind="customOptions"
-          ></textbox>
+          ></au-textbox>
         </div>
         <div class="col-md-3">
           <au-textbox
@@ -26,7 +26,8 @@
             value.bind="data.productionEstimationNumber"
             error.bind="error.productionEstimationNumber"
             read-only.bind="readOnly"
-            show.bind="onCreated"
+            show.bind="ePNumberVisibility"
+            options.bind="customEstimatedControlOptions"
           >
           </au-textbox>
         </div>
@@ -35,11 +36,11 @@
       <!-- PERIOD -->
       <div class="row">
         <div class="col-md-2">
-          <textbox
+          <au-textbox
             label="Periode"
             read-only="true"
             options.bind="customOptions"
-          ></textbox>
+          ></au-textbox>
         </div>
         <div class="col-md-2">
           <au-dropdown
@@ -47,6 +48,7 @@
             error.bind="error.monthPeriod"
             read-only.bind="readOnly"
             items.bind="months"
+            options.bind="customPUControlOptions"
           >
           </au-dropdown>
         </div>
@@ -64,20 +66,47 @@
       <!-- UNIT -->
       <div class="row">
         <div class="col-md-2">
-          <textbox
+          <au-textbox
             label="Unit"
             read-only="true"
             options.bind="customOptions"
-          ></textbox>
+          ></au-textbox>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <au-dropdown
             value.bind="data.unit"
             error.bind="error.unit"
             read-only.bind="readOnly"
-            items.bind="construction"
+            items.bind="weaving"
+            options.bind="customPUControlOptions"
           >
           </au-dropdown>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1">
+            <button
+              class="btn btn-success btn-block"
+              click.delegate="search()"
+              style="margin-bottom: 16px;"
+              show.bind="searchButton"
+            >
+              Cari
+            </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+            <button
+              class="btn btn-success btn-block"
+              click.delegate="addItems()"
+              style="margin-bottom: 16px;"
+              show.bind="addButton"
+            >
+              Tambah SOP
+            </button>
         </div>
       </div>
 
@@ -88,8 +117,8 @@
           errors.bind="error.Items"
           columns.bind="columns"
           remove.bind="onremove"
-          read-only.bind="readOnly"
-          item-template="modules/weaving/production-estimation/templates/items"
+          read-only.bind="readOnlyCollection"
+          item-template="modules/weaving/estimated-production/templates/items"
         >
         </au-collection>
         <!-- </div> -->

@@ -14,21 +14,21 @@ export class Index {
           name: "create",
           nav: false,
           title: "Create: Estimasi Produksi"
+        },
+        {
+          route: "view/:id",
+          moduleId: "./view",
+          name: "view",
+          nav: false,
+          title: "View: Estimasi Produksi"
+        },
+        {
+          route: "edit/:id",
+          moduleId: "./edit",
+          name: "edit",
+          nav: false,
+          title: "Edit: Estimasi Produksi"
         }
-        // {
-        //   route: "view/:id",
-        //   moduleId: "./view",
-        //   name: "view",
-        //   nav: false,
-        //   title: "View: Estimasi Produksi"
-        // },
-        // {
-        //   route: "edit/:id",
-        //   moduleId: "./edit",
-        //   name: "edit",
-        //   nav: false,
-        //   title: "Edit: Estimasi Produksi"
-        // }
       ]);
   
       this.router = router;

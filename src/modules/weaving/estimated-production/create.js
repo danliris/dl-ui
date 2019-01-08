@@ -4,7 +4,9 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  onCreated = true;
+  ePNumberVisibility = false;
+  searchButton = true;
+  addButton = false;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -18,9 +20,9 @@ export class Create {
     this.router.navigateToRoute("list");
   }
 
-  determineActivationStrategy() {
-    return activationStrategy.replace;
-  }
+  // determineActivationStrategy() {
+  //   return activationStrategy.replace;
+  // }
 
   //Tombol "Kembali", panggil list()
   cancelCallback(event) {
@@ -43,6 +45,4 @@ export class Create {
         this.error = e;
       });
   }
-
-  deleteCallback(event) {}
 }
