@@ -31,7 +31,7 @@ export async function configure(aurelia) {
       }
 
       var core = "https://dl-core-api.azurewebsites.net/v1/";
-      var coreAzure ="https://com-danliris-service-core-uat.azurewebsites.net/v1/";
+      var coreAzure ="https://com-dl-service-core.azurewebsites.net/v1/";
       var auth = "https://dl-auth-api.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi.azurewebsites.net/v1/";
       var purchasing = "https://dl-purchasing-webapi.azurewebsites.net/v1/";
