@@ -126,7 +126,7 @@ export class DataForm {
                             pph=detail.PaidPrice*(parseFloat(rate)/100);
                         }
                         if(item.UseVat){
-                            ppn=detail.PaidPrice*0.01;
+                            ppn=detail.PaidPrice*0.1;
                         }
 
                         this.data.Amount+=detail.PaidPrice+ppn+pph;
@@ -151,7 +151,7 @@ export class DataForm {
                                 pph=detail.PaidPrice*(parseFloat(rate)/100);
                             }
                             if(item.UseVat){
-                                ppn=detail.PaidPrice*0.01;
+                                ppn=detail.PaidPrice*0.1;
                             }
                             this.data.Amount+=detail.PaidPrice+ppn+pph;
                         }
