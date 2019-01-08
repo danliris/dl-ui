@@ -1,12 +1,12 @@
-<template>
+<template replace-part="CottonComposition">
     <tr>
         <td>
             <au-autocomplete 
-                value.bind="prduct" 
-                error.bind="error.Product" 
+                value.bind="product" 
+                error.bind="error.product" 
                 loader.one-time="productLoader" 
                 text="Name" placeholder="cari kapas"
-                key="Code" read-only.bind="readOnly"  
+                key="Id" read-only.bind="readOnly"  
                 options.bind="controlOptions">
         </au-autocomplete>
         </td>
