@@ -53,10 +53,24 @@ export class DataForm {
 
   weaving = ["Weaving 1", "Weaving 2", "Weaving 3", ]
 
+  getYears(){
+    var year = moment(new Date());
+    this.years.push(year.year());
+    // var lastYear = year.add(-1, 'years');
+    // this.years.push(lastYear.year());
+    var nextYear = year.add(1,'years');
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1,'years');
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1,'years');
+    this.years.push(nextYear.year());
+  }
+
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.getYears();
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -82,8 +96,12 @@ export class DataForm {
   // }
 
   get addItems() {
-    return event => {
-      this.data.Items.push({});
-    };
+    document.getElementById('button').addEventListener("click", function() {
+      document.querySelector('.bg-modal').style.display = "flex";
+    });
+    
+    document.querySelector('.close').addEventListener("click", function() {
+      document.querySelector('.bg-modal').style.display = "none";
+    });
   }
 }

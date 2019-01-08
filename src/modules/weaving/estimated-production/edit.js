@@ -7,6 +7,7 @@ export class Edit {
   ePNumberVisibility=true;
   searchButton=false;
   addButton=true;
+  readOnly=true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
