@@ -3,13 +3,14 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 var moment = require('moment');
 
-const serviceUri = 'SpinningInputProduction';
+// const serviceUri = 'SpinningInputProduction';
+const serviceUri = 'lot/configuration'
 const lotYarnServiceUri = "LotYarn"
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "spinning");
+        super(http, aggregator, config, "spinningMoonlay");
     }
 
     search(info) {
@@ -23,7 +24,7 @@ export class Service extends RestService {
     }
 
     create(data) {
-        var endpoint = `${serviceUri}/create`;
+        var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
 
