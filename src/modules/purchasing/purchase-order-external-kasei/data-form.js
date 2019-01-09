@@ -73,7 +73,7 @@ export class DataForm {
         }
     }
 
-   selectedUnitChanged(newValue) {
+    selectedUnitChanged(newValue) {
         var _selectedUnit = newValue;
         if(this.data.unit && this.data.unit!=newValue){
             if(this.data && this.data.items && this.data.items.length > 0){
@@ -132,14 +132,17 @@ export class DataForm {
 
     selectedIncomeTaxChanged(newValue) {
         var _selectedIncomeTax = newValue;
+        
         if (!_selectedIncomeTax) {
             this.data.incomeTaxRate = 0;
             this.data.useIncomeTax = false;
             this.data.incomeTax = {};
-        } else if (_selectedIncomeTax._id) {
+            
+        } else if (_selectedIncomeTax._id || _selectedIncomeTax.Id) {
             this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
             this.data.useIncomeTax = true;
             this.data.incomeTax = _selectedIncomeTax;
+            this.data.incomeTax._id=_selectedIncomeTax.Id || _selectedIncomeTax._id ;
         }
     }
 
@@ -161,6 +164,7 @@ export class DataForm {
                         }
                 }
             }
+            
         } else {
             this.options.useVat = true;
         }
@@ -194,7 +198,7 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return unit.division ?`${unit.division.name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`
+        return unit.division ?`${unit.division.name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`;
     }
 
     currencyView = (currency) => {
