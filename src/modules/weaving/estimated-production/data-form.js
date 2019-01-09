@@ -1,9 +1,14 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
+import { Dialog } from "../../../au-components/dialog/dialog";
+import { EpSopQuantityEditor } from "./dialogs/ep-sop-quantity-editor";
 
+@inject(Dialog)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  isModalShown = false;
+  modalLabel = true;
 
   yearFormat = "YYYY";
   years = [];
@@ -18,59 +23,34 @@ export class DataForm {
       align: "left"
     }
   };
-  
+
   customPUControlOptions = {
-    control:{
+    control: {
       length: 12
     }
-  }
+  };
 
   customEstimatedControlOptions = {
-    control:{
+    control: {
       length: 9
     }
-  }
+  };
 
-  constructor(service) {
-    this.service = service;
-  }
+  constructor(dialog) {
+    // this.service = service;
+    this.dialog = dialog;
 
-  months = [
-    "",
-    "January",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember"
-  ];
-
-  weaving = ["Weaving 1", "Weaving 2", "Weaving 3", ]
-
-  getYears(){
-    var year = moment(new Date());
-    this.years.push(year.year());
-    // var lastYear = year.add(-1, 'years');
-    // this.years.push(lastYear.year());
-    var nextYear = year.add(1,'years');
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1,'years');
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1,'years');
-    this.years.push(nextYear.year());
+    // function __openModal() {
+      // console.log(this.dialog);
+      // console.log("test");
+      // this.dialog.show(AddSOPEditor);
+    // }
   }
 
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    this.getYears();
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -78,7 +58,7 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  columns = [
+  columnsView = [
     { header: "Tanggal", value: "dateOrdered" },
     { header: "No. SOP", value: "orderNumber" },
     { header: "No. Konstruksi", value: "constructionNumber" },
@@ -87,7 +67,7 @@ export class DataForm {
     { header: "Grade A (%)", value: "gradeA" },
     { header: "Grade B (%)", value: "gradeB" },
     { header: "Grade C (%)", value: "gradeC" },
-    { header: "Grade D (%)", value: "gradeC" }
+    { header: "Grade D (%)", value: "gradeD" }
   ];
 
   // @computedFrom("data._id")
@@ -95,13 +75,19 @@ export class DataForm {
   //     return (this.data._id || '').toString() != '';
   // }
 
-  get addItems() {
-    document.getElementById('button').addEventListener("click", function() {
-      document.querySelector('.bg-modal').style.display = "flex";
-    });
-    
-    document.querySelector('.close').addEventListener("click", function() {
-      document.querySelector('.bg-modal').style.display = "none";
-    });
+  // get openModal() {
+  //   this.isModalShown = true;
+  // }
+
+  // get closeModal() {
+  //   this.isModalShown = false;
+  // }
+
+  __openModal(){
+    this.ShowAddSOPEditorDialog();
+  }
+
+  ShowAddSOPEditorDialog(){
+    this.dialog.show(EpSopQuantityEditor);
   }
 }

@@ -3,7 +3,7 @@ import { inject, BindingEngine } from "aurelia-framework";
 // var MKBLoader = require('../../../../loader/mkb-loader');
 
 @inject(BindingEngine)
-export class Item {
+export class ItemModal {
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }

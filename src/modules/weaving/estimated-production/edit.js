@@ -6,7 +6,7 @@ import { Service } from "./service";
 export class Edit {
   ePNumberVisibility=true;
   searchButton=false;
-  addButton=true;
+  addSOPOnEdit=true;
   readOnly=true;
   constructor(router, service) {
     this.router = router;

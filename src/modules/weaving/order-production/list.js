@@ -24,7 +24,7 @@ export class List {
       }
     },
     {
-      field: "fabricSpecification",
+      field: "fabricConstructionDocument",
       title: "Konstruksi",
       formatter: function(value, data, index) {
         return value.constructionNumber;
@@ -57,7 +57,7 @@ export class List {
         "orderNumber",
         "dateOrdered",
         "weavingUnit",
-        "fabricSpecification",
+        "fabricConstructionDocument",
         "composition"
       ],
       order: order
