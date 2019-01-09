@@ -17,7 +17,7 @@ export class List {
         // { field: "Yarn.Name", title: "Yarn Name" },
         { field: "UnitDepartment.Name", title: "Unit Name" },
         {
-            field: "lLotDate", title: "Date", formatter: function (value, data, index) {
+            field: "LotDate", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
