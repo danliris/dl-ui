@@ -1,0 +1,51 @@
+<template>
+    <au-input-form title.bind="title"
+                   with.bind="context"
+                   options.bind="formOptions">
+
+        <au-textbox value.bind="data.bankName"
+                    error.bind="error.bankName"
+                    read-only.bind="readOnly"
+                    label="Nama Bank"
+                    options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox value.bind="data.accountName"
+                    error.bind="error.accountName"
+                    read-only.bind="readOnly"
+                    label="Nama Akun"
+                    options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox value.bind="data.accountNumber"
+                    error.bind="error.accountNumber"
+                    read-only.bind="readOnly"
+                    label="Nomor Akun"
+                    options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox value.bind="data.bankCode"
+                    error.bind="error.bankCode"
+                    read-only.bind="readOnly"
+                    label="Kode Bank"
+                    options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete placeholder="pilih mata uang"
+                         value.bind="data.currency"
+                         loader.one-time="currencyLoader"
+                         text="code"
+                         label="Mata Uang"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox value.bind="data.accountCOA"
+                    error.bind="error.accountCOA"
+                    read-only.bind="readOnly"
+                    label="Nomor COA"
+                    options.bind="controlOptions">
+        </au-textbox>
+
+    </au-input-form>
+</template>
