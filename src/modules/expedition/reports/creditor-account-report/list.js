@@ -31,7 +31,8 @@ export class List {
         this.data = [];
         this.isEmpty = true;
         this.currency = '';
-        this.mutation = 0;
+        this.purchase = 0;
+        this.payment = 0;
         this.closingBalance = 0;
         this.itemMonths = [
             { text: 'January', value: 1 },
@@ -59,6 +60,9 @@ export class List {
     }
 
     async search() {
+        this.payment = 0;
+        this.purchase = 0;
+
         if (this.info.supplier && this.info.supplier.name)
             this.info.name = this.info.supplier.name;
 
@@ -78,49 +82,76 @@ export class List {
                 month: this.info.month.value,
                 year: this.info.year,
             }
-            
+
             this.data = await this.service.search(params)
                 .then((result) => {
-                    if(result.data.length == 0)
+                    if (result.data.length == 0)
                         this.isEmpty = true;
                     else
                         this.isEmpty = false;
-                    
-                    var newDatas =[];
-                    for(var item of result.data){
-                        if(item.Date && item.Mutation){
+
+                    var newDatas = [];
+                    let subTotalPurchase = 0;
+                    let subTotalPayment = 0;
+                    for (var item of result.data) {
+                        if (item.Date && item.Mutation) {
+                            if (item.Mutation > 0) {
+                                subTotalPurchase += item.Mutation;
+                                this.purchase += item.Mutation
+                            }
+                            else {
+                                subTotalPayment += item.Mutation;
+                                this.payment += item.Mutation;
+                            }
+
                             var newData = {
                                 Date: item.Date ? moment(item.Date).format('DD-MMM-YYYY') : null,
-                                UnitReceiptNoteNo : item.UnitReceiptNoteNo,
-                                BankExpenditureNoteNo : item.BankExpenditureNoteNo,
-                                MemoNo : item.MemoNo,
-                                InvoiceNo : item.InvoiceNo,
-                                DPP : item.DPP ? numeral(item.DPP).format('0,000') : 0,
-                                PPN : item.PPN ?  numeral(item.PPN).format('0,000') : 0,
-                                Total : item.Total ?  numeral(item.Total).format('0,000') : 0,
-                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
-                                FinalBalance : item.FinalBalance != null ?  numeral(item.FinalBalance).format('0,000') : null
+                                Products: item.Products,
+                                UnitReceiptNoteNo: item.UnitReceiptNoteNo,
+                                BankExpenditureNoteNo: item.BankExpenditureNoteNo,
+                                MemoNo: item.MemoNo,
+                                InvoiceNo: item.InvoiceNo,
+                                DPP: item.DPP ? numeral(item.DPP).format('0,000.000') : 0,
+                                PPN: item.PPN ? numeral(item.PPN).format('0,000.000') : 0,
+                                Total: item.Total ? numeral(item.Total).format('0,000.000') : 0,
+                                Purchase: item.Mutation ? numeral(item.Mutation > 0 ? item.Mutation : 0).format('0,000.000') : 0,
+                                Payment: item.Mutation ? numeral(item.Mutation < 0 ? item.Mutation : 0).format('0,000.000') : 0,
+                                FinalBalance: numeral(this.purchase + this.payment).format('0,000.000')
                             }
-                        }else if(!item.Date && item.Mutation != null){
+
+
+                        } else if (!item.Date && item.Mutation != null) {
+                            continue;
                             var newData = {
-                                Date:  null,
-                                InvoiceNo : item.InvoiceNo,
-                                DPP :null,
-                                Mutation : item.Mutation ?  numeral(item.Mutation).format('0,000') : 0,
-                                FinalBalance : item.FinalBalance != null ?  numeral(item.FinalBalance).format('0,000') : null
+                                Date: null,
+                                InvoiceNo: item.InvoiceNo,
+                                DPP: "null",
+                                Purchase: numeral(subTotalPurchase).format('0,000.000'),
+                                Payment: numeral(subTotalPayment).format('0,000.000'),
+                                FinalBalance: numeral(this.purchase + this.payment).format('0,000.000')
                             }
-                        }else{
+
+                            subTotalPurchase = 0;
+                            subTotalPayment = 0;
+                        } else {
                             var newData = {
-                                Previous:  null,
-                                FinalBalance : item.FinalBalance != null ?  numeral(item.FinalBalance).format('0,000') : null
+                                Previous: null,
+                                FinalBalance: item.FinalBalance != null ? numeral(item.FinalBalance).format('0,000.000') : null
                             }
+
+                            subTotalPurchase = 0;
+                            subTotalPayment = 0;
                         }
-                        this.currency = item.Currency;
+
+                        if (item.Currency)
+                            this.currency = item.Currency;
                         newDatas.push(newData);
                     }
-                    this.closingBalance = numeral(result.finalBalance).format('0,000');
-                    this.mutation = numeral(result.finalBalance).format('0,000');
-                    
+                    this.closingBalance = numeral(result.finalBalance).format('0,000.000');
+                    this.payment = numeral(this.payment).format('0,000.000');
+                    this.purchase = numeral(this.purchase).format('0,000.000');
+                    // this.mutation = numeral(result.finalBalance).format('0,000');
+
                     return newDatas;
                 });
             //console.log(this.data);
@@ -162,7 +193,8 @@ export class List {
         this.info.supplierName = "";
         this.currency = '';
         this.closingBalance = 0;
-        this.mutation = 0;
+        this.purchase = 0;
+        this.payment = 0;
         this.data = [];
         // this.tableList.refresh();
         this.info.year = moment().format("YYYY");
