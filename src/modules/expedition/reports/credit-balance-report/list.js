@@ -10,6 +10,7 @@ export class List {
     itemYears = [];
     columns = [
         { field: 'Currency', title: 'Mata Uang' },
+        { field: 'Products', title: 'Nama Barang' },
         { field: 'SupplierName', title: 'Supplier' },
         {
             field: 'StartBalance', title: 'Saldo Awal', formatter: function (value, data, index) {
@@ -118,6 +119,7 @@ export class List {
 
                                 result.data[i].Currency = undefined;
                             }
+                            result.data[i].Products = result.data[i].Products || "";
                         }
                     }
                     setTimeout(() => {
