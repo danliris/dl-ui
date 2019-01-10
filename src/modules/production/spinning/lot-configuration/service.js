@@ -3,7 +3,8 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 var moment = require('moment');
 
-const serviceUri = 'SpinningInputProduction';
+// const serviceUri = 'SpinningInputProduction';
+const serviceUri = 'lot/configuration'
 const lotYarnServiceUri = "LotYarn"
 
 export class Service extends RestService {
@@ -23,7 +24,7 @@ export class Service extends RestService {
     }
 
     create(data) {
-        var endpoint = `${serviceUri}/create`;
+        var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
 

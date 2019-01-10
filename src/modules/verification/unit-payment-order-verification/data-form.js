@@ -64,19 +64,20 @@ export class DataForm {
 
     columns = [
         { field: "productName", title: "Nama Barang" },
-        { 
+        {
             field: "deliveredQuantity", title: "Jumlah", formatter: (value, data) => {
                 return numeral(value).format('(0,0)');
-            }  
+            }
         },
-        { 
+        {
             field: "pricePerDealUnit", title: "Harga Satuan", formatter: (value, data) => {
                 return numeral(value).format('(0,0.00)');
-            }  
+            }
         },
-        {   field: "totalPrice", title: "Harga Total", formatter: (value, data) => {
+        {
+            field: "totalPrice", title: "Harga Total", formatter: (value, data) => {
                 return numeral(value).format('(0,0.00)');
-            } 
+            }
         },
         { field: "currency", title: "Mata Uang" },
         { field: "no", title: "No Bon Terima Unit" },
@@ -127,9 +128,16 @@ export class DataForm {
 
             this.context.tableItems.refresh();
 
-            this.data.useIncomeTax = this.data.useVat ? parseFloat(((this.data.vatRate * this.totalPaid) / 100).toFixed(2)) : 0;
-            this.data.useVat = this.data.useIncomeTax ? parseFloat((0.1 * this.totalPaid).toFixed(2)) : 0;
-            this.data.remark = parseFloat((this.totalPaid + this.data.useVat).toFixed(2)); //this is "Total Paid"    
+            //this is "Nominal PPH"
+            var useIncomeTax = this.data.useVat ? parseFloat(((this.data.vatRate * this.totalPaid) / 100).toFixed(2)) : 0;
+
+            //this is "Nominal PPN"
+            var useVat = this.data.useIncomeTax ? parseFloat((0.1 * this.totalPaid).toFixed(2)) : 0;
+
+            this.data.useVat = useVat;
+            this.data.useIncomeTax = useIncomeTax;
+
+            this.data.remark = parseFloat((this.totalPaid + useVat - useIncomeTax).toFixed(2)); //this is "Total Paid"    
 
             this.data.UnitPaymentOrderNo = this.SPB.no;
 
