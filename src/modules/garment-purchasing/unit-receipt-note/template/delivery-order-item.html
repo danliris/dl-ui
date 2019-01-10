@@ -33,12 +33,13 @@
 		</td>
 		
         <td>
-            <au-numeric 
+            <au-textbox 
                 value.bind="data.Conversion"
-                error.bind="error.Conversion"
+				error.bind="error.Conversion"
+				change.delegate="conversionChanged($event)"
                 read-only.bind="readOnly"
                 options.bind="controlOptions">
-            </au-numeric>
+            </au-textbox>
         </td>
         <td>
             <au-numeric 
