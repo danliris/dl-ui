@@ -56,7 +56,7 @@ module.exports = [
         name: 'pph-bank-expenditure-note',
         moduleId: './modules/expedition/pph-bank-expenditure-note/index',
         nav: true,
-        title: 'Bukti Pengeluaran Bank PPH',
+        title: 'Pengajuan Pembayaran PPH',
         auth: true,
         settings: {
             group: "finance",
