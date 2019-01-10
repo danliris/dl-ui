@@ -1,0 +1,269 @@
+<template>
+
+    <style>
+        table > tbody > tr > td {
+            white-space: pre;
+        }
+    </style>
+
+    <h1 class="page-header">Monitoring Pembelian Garment</h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <au-autocomplete 
+                    value.bind="unit" 
+                    label="Unit Yang Mengajukan" 
+                    loader.bind="unitLoader"
+                    placeholder="Cari Unit"
+                    read-only.bind="readOnly" 
+                     
+                    options.bind="controlOptions">
+                </au-autocomplete>
+                <au-autocomplete 
+                    value.bind="category" 
+                    label="Kategory" 
+                    loader.bind="categoryLoader"
+                    placeholder="Cari Kategori"
+                    read-only.bind="readOnly" 
+                    text.bind = "categoryView" 
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-textbox value.bind="epoNo" label="Nomor External PO" placeholder="No PO External">
+                </au-textbox>
+
+                <au-textbox value.bind="roNo" label="Nomor RO" placeholder="Nomor RO">
+                </au-textbox>
+
+                <au-textbox value.bind="prNo" label="Nomor Ref PO" placeholder="Nomor Ref PO">
+                </au-textbox>
+              
+                <au-textbox value.bind="doNo" label="Nomor Surat Jalan" placeholder="Nomor Surat Jalan">
+                </au-textbox>
+
+                <au-autocomplete 
+                    value.bind="supplier" 
+                    label="Supplier" 
+                    loader.bind="supplierLoader"
+                    placeholder="Cari Supplier"
+                    read-only.bind="readOnly"                    
+                    options.bind="controlOptions">
+                </au-autocomplete>
+                <au-autocomplete value.bind="staff"
+                    label="Nama Staff Pembelian"
+                    loader.bind="accountLoader"
+                    placeholder="Nama Staff Pembelian"
+                    key="username" text.bind = "accountView">
+                </au-autocomplete>
+
+                <!--<au-datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
+                </au-datepicker>
+
+                <au-datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateMin">
+                </au-datepicker>-->
+
+                <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
+                <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+
+
+                <au-dropdown label="Status" value.bind="poState" items.bind="poStates">
+                </au-dropdown>
+
+                <label for="contact" class="col-sm-9 control-label"></label>
+                <div class="col-sm-3">
+                    <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center">
+                    <tr>
+                        <td rowspan="3">NO</td>
+                        <td colspan="2">PURCHASE REQUEST</td>
+                        <td rowspan="3">UNIT</td>
+                        <td rowspan="3">NO REF PO</td>
+                        <td rowspan="3">DIBUAT PO INTERNAL</td>
+                        <td rowspan="3">NO RO</td>
+                        <td rowspan="3">ARTIKEL</td>
+                        <td colspan="2">B U Y E R</td>
+                        <td rowspan="3">TANGGAL SHIPMENT</td>
+                        <td rowspan="3">KATEGORI</td>
+                        <td rowspan="3">KODE BARANG</td>
+                        <td rowspan="3">NAMA BARANG</td>
+                        <td rowspan="3">KETERANGAN BARANG</td>                        
+                        <td rowspan="3">JUMLAH</td>
+                        <td rowspan="3">SATUAN</td>
+                        <td colspan="6">HARGA</td>
+                        <td colspan="2">SUPPLIER</td>
+                        <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
+                        <td colspan="6">PO EXTERN</td>
+                        <td colspan="7">SURAT JALAN</td>
+                        <td colspan="2">BEA CUKAI</td>
+                        <td colspan="4">BON PENERIMAAN</td>
+                        <td colspan="10">I N V O I C E</td>
+
+                        <td colspan="4">NOTA INTERN</td>
+                        <td colspan="4">CATATAN KOREKSI</td>
+
+                        <td rowspan="3">STATUS</td>
+                        <td rowspan="3">STAFF PEMBELIAN</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">NOMOR</td>
+                        <td rowspan="2">TANGGAL</td>
+                      
+                        <td rowspan="2">KODE</td>
+                        <td rowspan="2">NAMA</td>
+
+                        <td rowspan="2">BUDGET</td>
+                        <td rowspan="2">SATUAN</td>
+                        <td rowspan="2">TOTAL</td>
+                        <td rowspan="2">MT UANG</td>
+                        <td rowspan="2">KURS</td>
+                        <td rowspan="2">TOTAL RP</td>
+                        
+
+                        <td rowspan="2">KODE</td>
+                        <td rowspan="2">NAMA</td>
+                        
+                        
+                        <td rowspan="2">NOMOR</td>
+                        <td rowspan="2">TANGGAL</td>
+                        <td rowspan="2">TARGET DATANG</td>
+                        <td rowspan="2">KENA PPN</td>
+                        <td rowspan="2">KENA PPH</td>
+                        <td rowspan="2">PPH</td>
+                      
+                        <td rowspan="2">NOMOR</td>
+                        <td rowspan="2">TANGGAL</td>
+                        <td rowspan="2">DATANG BARANG</td>
+                        <td rowspan="2">KENA BC</td>
+                        <td rowspan="2">JUMLAH</td>
+                        <td rowspan="2">SATUAN</td>
+                        <td rowspan="2">JML SISA</td>
+                       
+                        <td rowspan="2">NOMOR</td>
+                        <td rowspan="2">TANGGAL</td>
+
+                        <td rowspan="2">NOMOR</td>
+                        <td rowspan="2">TANGGAL</td>
+                        <td rowspan="2">JUMLAH</td>
+                        <td rowspan="2">SATUAN</td>
+                        
+                        <td rowspan="2">NOMOR</td>                       
+                        <td rowspan="2">TANGGAL</td>
+                        <td rowspan="2">NO PPN</td>
+                        <td rowspan="2">TANGGAL PPN</td>
+                        <td rowspan="2">NILAI PPN</td>
+                        <td rowspan="2">JENIS PPH</td>
+                        <td rowspan="2">RATE PPH</td>
+                        <td rowspan="2">NO PPH</td>
+                        <td rowspan="2">TANGGAL PPH</td>
+                        <td rowspan="2">NILAI PPH</td>
+
+                        <td rowspan="2">NOMOR</td>
+                        <td rowspan="2">TANGGAL</td>                        
+                        <td rowspan="2">NILAI NI</td>
+                        <td rowspan="2">JATUH TEMPO</td>
+
+                        <td rowspan="2">NOMOR</td>
+                        <td rowspan="2">TANGGAL</td>
+                        <td rowspan="2">NILAI</td>
+                        <td rowspan="2">KETERANGAN</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td>${$index + 1}</td>
+                        <td>${item.prNo}</td>
+                        <td>${item.prDate}</td>
+                        <td>${item.unitName}</td>
+                        <td>${item.refPo}</td>
+                        <td>${item.useInternalPO}</td>
+                        <td>${item.RO_Number}</td>
+                        <td>${item.Article}</td>
+                        <td>${item.BuyerCode}</td>
+                        <td>${item.BuyerName}</td>
+                        <td>${item.ShipmentDate | dateFormat:'DD MMM YYYY'}</td>
+                        <td>${item.category}</td>
+
+                        <td>${item.productCode}</td>
+                        <td>${item.productName}</td>
+                        <td>${item.remark}</td>
+                        <td align="right">${item.quantity}</td>
+                        <td>${item.uom}</td>
+
+                        <td align="right">${item.budgetprice}</td>
+                        <td align="right">${item.pricePerDealUnit}</td>
+                        <td align="right">${item.priceTotal}</td>
+                        <td>${item.kurs}</td>
+                        <td align="right">${item.rate}</td>
+                        <td align="right">${item.priceTotalIDR}</td>              
+                        <td>${item.supplierCode}</td>
+                        <td>${item.supplierName}</td>
+                        <td>${item.receivedDatePO}</td>
+
+                        <td>${item.epoNo}</td>
+                        <td>${item.epoDate}</td>
+                        <td>${item.epoExpectedDeliveryDate}</td>
+                        <td>${item.useVat}</td>
+                        <td>${item.useIncomeTax}</td>
+                        <td>${item.IncomeTaxDesc}</td>
+                       
+                        <td>${item.doNo}</td>
+                        <td>${item.doDate}</td>
+                        <td>${item.doDeliveryDate}</td>
+                        <td>${item.useCustoms}</td>
+                        <td align="right">${item.doQuantity}</td>
+                        <td>${item.doUom}</td>
+                        <td align="right">${item.remainingQuantity}</td>
+                                            
+                        <td>${item.customsNo}</td>
+                        <td>${item.customsDate}</td>
+                       
+                        <td>${item.urnNo}</td>
+                        <td>${item.urnDate}</td>                     
+                        <td align="right">${item.urnQuantity}</td>
+                        <td>${item.urnUom}</td>
+
+                        <td>${item.invoiceNo}</td>
+                        <td>${item.invoiceDate}</td>
+                        <td>${item.vatNo}</td>
+                        <td>${item.vatDate}</td>
+                        <td align="right">${item.vatValue}</td>
+
+                        <td>${item.incomeTaxName}</td>
+                        <td align="right">${item.incomeTaxRate}</td>
+                        <td>${item.incomeTaxNo}</td>
+                        <td>${item.incomeTaxDate}</td>
+                        <td align="right">${item.incomeTaxValue}</td>
+                       
+                        <td>${item.upoNo}</td>
+                        <td>${item.upoDate}</td>
+                        <td align="right">${item.upoPriceTotal}</td>
+                        <td>${item.dueDate}</td>
+                       
+                        <td>${item.correctionNo}</td>
+                        <td>${item.correctionDate}</td>
+                        <td>${item.correctionQtys}</td>
+                        <td>${item.correctionType}</td>
+
+                        <td>${item.status}</td>
+                        <td>${item.staff}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
+        </div>
+        <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)" id="pager"></pagination>
+        <hr/>
+    </form>
+</template>
