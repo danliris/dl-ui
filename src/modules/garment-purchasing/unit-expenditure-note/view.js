@@ -7,7 +7,6 @@ export class View {
     hasCancel = true;
     hasEdit = false;
     hasDelete = false;
-    hasUnpost = false;
     hasView=true;
 
     constructor(router, service) {
@@ -15,52 +14,40 @@ export class View {
         this.service = service;
     }
     async activate(params) {
-        var isVoid = false;
-        var isArriving = false;
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
-        var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
-        this.kurs=kurs[0];
-
-        var isUsedSJ=false;
-        for(var item of this.data.Items){
-            if(item.DOQuantity>0){
-                isUsedSJ=true;break;
-            }
+        console.log(this.data);
+        this.unitDeliveryOrder = { UnitDONo:this.data.UnitDONo};
+        this.data.Storage.toString = function () {
+            return [this.code, this.name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         }
 
-        if(this.data.Currency){
-            this.selectedCurrency=this.data.Currency;
+        this.data.StorageRequest.toString = function () {
+            return [this.code, this.name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         }
 
-        if(this.data.Supplier){
-            this.selectedSupplier=this.data.Supplier;
-            this.data.SupplierId=this.data.Supplier.Id;
-            this.data.Supplier.usevat=this.data.IsUseVat ;
-           
-            if(this.data.IsIncomeTax){
-                this.data.Supplier.usetax=true;
-            }
-            
+        this.data.UnitRequest.toString = function () {
+            return [this.Code, this.Name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         }
 
-        if(this.data.IncomeTax){
-            this.selectedIncomeTax=this.data.IncomeTax;
+        this.data.UnitSender.toString = function () {
+            return [this.Code, this.Name]
+                .filter((item, index) => {
+                    return item && item.toString().trim().length > 0;
+                }).join(" - ");
         }
 
-        // if (!this.data.IsPosted && !isUsedSJ) {
-        //     this.hasDelete = true;
-        //     this.hasEdit = true;
-        // }
-        // if (this.data.IsPosted && !isUsedSJ) {
-        //     this.hasUnpost = true;
-        // }
-        if (this.data.IsCanceled || this.data.IsClosed) {
-            this.hasUnpost = false;
-        }
-
-       
+        // this.
     }
 
     cancel(event) {
@@ -75,30 +62,6 @@ export class View {
         this.service.delete(this.data).then(result => {
             this.cancel();
         });
-    }
-
-    cancelPO(e) {
-        this.service.cancel(this.poExId).then(result => {
-            this.cancel();
-        }).catch(e => {
-            this.error = e;
-        })
-    }
-
-    unpostPO(e) {
-        this.service.unpost(this.poExId).then(result => {
-            this.cancel();
-        }).catch(e => {
-            this.error = e;
-        })
-    }
-
-    closePO(e) {
-        this.service.close(this.poExId).then(result => {
-            this.cancel();
-        }).catch(e => {
-            this.error = e;
-        })
     }
 
 }
