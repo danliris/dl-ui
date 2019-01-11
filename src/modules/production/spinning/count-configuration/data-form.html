@@ -91,13 +91,11 @@
             </div>
         </div>
 
-        <!-- <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="inputInfo.columns" 
-        read-only.bind="readOnly" show.bind="isItem" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
-        </au-collection> -->
+       
 
-        <au-collection columns.bind="itemColumns" items.bind="data.CottonCompositions" errors.one-way="error.CottonCompositions" add.bind="addItemCallback"
-        read-only.bind="readOnly" item-template="modules/production/spinning/lot-configuration/template/item">
-    </au-collection>
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="inputInfo.columns" 
+        read-only.bind="readOnly" show.bind="isItem" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
+        </au-collection>
 
     </au-input-form>
 </template>

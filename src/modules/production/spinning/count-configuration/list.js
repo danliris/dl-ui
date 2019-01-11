@@ -8,14 +8,15 @@ export class List {
 
     context = ["detail"]
     columns = [
-        { field: "ProccessType", title: "Nomor Input Produksi" },
-        { field: "LotNo", title: "Lot" },
-        // { field: "Unit.name", title: "Unit Name" },
+        { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
+        { field: "Yarn.Name", title: "Yarn Name" },
+        { field: "Unit.name", title: "Unit Name" },
         {
-            field: "CreatedDate", title: "Date", formatter: function (value, data, index) {
+            field: "Date", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "Lot", title: "Lot" },
     ];
 
     loader = (info) => {
