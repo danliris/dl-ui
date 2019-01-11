@@ -1,27 +1,32 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-autocomplete label="Unit" value.bind="unit" error.bind="error.unitDepartmentId" loader.bind="unitLoader" placeholder="Cari unit spinning"
-            key="Id" text="Name" read-only.bind="readOnly" query.bind="spinningFilter" options.bind="controlOptions">
+        <au-autocomplete label="Unit" value.bind="unit" error.bind="UnitDepartmentId" loader.bind="unitLoader"
+            placeholder="Cari unit spinning" key="Id" text="Name" read-only.bind="readOnly" query.bind="spinningFilter"
+            options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-datepicker label="Tanggal" value.bind="data.LotDate" error.bind="error.date" read-only.bind="readOnly"
+        <au-datepicker label="Tanggal" value.bind="data.LotDate" error.bind="LotDate" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
 
-        <au-textbox label="Lot" value.bind="data.LotNo" error.bind="error.lotNo" read-only.bind="readOnly" options.bind="controlOptions">
+        <au-textbox label="Lot" value.bind="data.LotNo" error.bind="LotNo" read-only.bind="readOnly" options.bind="controlOptions">
         </au-textbox>
 
-        <au-autocomplete value.bind="yarn" label="Tipe Benang" error.bind="error.yarnId" loader.one-time="yarnLoader"
-            text="Name" placeholder="cari tipe benang" key="Id" read-only.bind="readOnly" options.bind="controlOptions">
-        </au-autocomplete>
+        <au-dropdown label="Tipe Benang" value.bind="data.YarnType" error.bind="error.YarnType" read-only.bind="readOnly"
+            items.bind="yarnTypeList" options.bind="controlOptions">
+        </au-dropdown>
+
+        <!-- <au-autocomplete value.bind="yarn" label="Tipe Benang" error.bind="YarnId" loader.one-time="yarnLoader" text="Name"
+            placeholder="cari tipe benang" key="Id" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-autocomplete> -->
 
         <!-- <au-collection items.bind="data.Details" errors.bind="error.Details" add.bind="inputInfo.onAdd" remove.bind="inputInfo.onRemove"
             columns.bind="inputInfo.columns" read-only.bind="readOnly" item-template="modules/production/spinning/lot-configuration/template/item">
         </au-collection> -->
 
-        <au-collection columns.bind="itemColumns" items.bind="data.CottonCompositions" errors.one-way="error.CottonCompositions" add.bind="addItemCallback"
-            read-only.bind="readOnly" item-template="modules/production/spinning/lot-configuration/template/item">
+        <au-collection columns.bind="itemColumns" items.bind="data.CottonCompositions" errors.one-way="CottonCompositions"
+            add.bind="addItemCallback" read-only.bind="readOnly" item-template="modules/production/spinning/lot-configuration/template/item">
         </au-collection>
 
     </au-input-form>
