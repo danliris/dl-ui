@@ -1,49 +1,55 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../utils/rest-service';
+import { inject, Lazy } from "aurelia-framework";
+import { HttpClient } from "aurelia-fetch-client";
+import { RestService } from "../../../utils/rest-service";
 
-
-const serviceUri = 'weaving/orders';
+const serviceUri = "weaving/orders";
 
 export class Service extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "weaving");
+  }
 
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "weaving");
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getById(id) {
+    var endpoint = `${serviceUri}/${id}`;
+    return super.get(endpoint);
+  }
+
+  create(data) {
+    var unit = data.weavingUnit.name;
+    data.orderNumber = "";
+    data.weavingUnit = { id: "", name: "" };
+    data.weavingUnit.id = unit._id;
+    data.weavingUnit.name = unit.name;
+    if (data.yarnType == undefined || data.yarnType == null) {
+      data.yarnType = " ";
     }
+    console.log(data);
+    var endpoint = `${serviceUri}`;
+    return super.post(endpoint, data);
+  }
 
-    search(info) {
-        var endpoint = `${serviceUri}`;
-        return super.list(endpoint);
-    }
+  update(data) {
+    var endpoint = `${serviceUri}/${data.id}`;
+    return super.put(endpoint, data);
+  }
 
-    getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
-        return super.get(endpoint);
-    }
+  delete(data) {
+    var endpoint = `${serviceUri}/${data.id}`;
+    return super.delete(endpoint, data);
+  }
 
-    create(data) {
-        var endpoint = `${serviceUri}`;
-        return super.post(endpoint, data);
-    }
+  getByCode(code) {
+    var endpoint = `${serviceUri}?keyword=${code}`;
+    return super.get(endpoint);
+  }
 
-    update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
-        return super.put(endpoint, data);
-    }
-
-    delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
-        return super.delete(endpoint, data);
-    }
-
-    getByCode(code) {
-        var endpoint = `${serviceUri}?keyword=${code}`;
-        return super.get(endpoint);
-    }
-    
-    // getPdfById(id) {
-    //     var endpoint = `${serviceUri}/${id}`;
-    //     return super.getPdf(endpoint);
-    // }
-
+  // getPdfById(id) {
+  //     var endpoint = `${serviceUri}/${id}`;
+  //     return super.getPdf(endpoint);
+  // }
 }

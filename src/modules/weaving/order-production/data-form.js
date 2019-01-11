@@ -1,7 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
-var StorageLoader = require("../../../loader/storage-loader");
-// var WeavingLoader = require("../../../loader/weaving-loader");
+var UnitLoader = require("../../../loader/unit-loader");
 var moment = require('moment');
 
 export class DataForm {
@@ -51,7 +50,7 @@ export class DataForm {
   };
 
   months = ["",
-    "January",
+    "Januari",
     "Februari",
     "Maret",
     "April",
@@ -71,14 +70,12 @@ export class DataForm {
   // }
 
   get constructionsNumber() {
-    return StorageLoader;
+    return UnitLoader;
   }
 
   getYears(){
     var year = moment(new Date());
     this.years.push(year.year());
-    // var lastYear = year.add(-1, 'years');
-    // this.years.push(lastYear.year());
     var nextYear = year.add(1,'years');
     this.years.push(nextYear.year());
     var nextYear = year.add(1,'years');

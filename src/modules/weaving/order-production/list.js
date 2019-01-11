@@ -24,11 +24,11 @@ export class List {
       }
     },
     {
-      field: "fabricConstructionDocument",
+      field: "constructionNumber",
       title: "Konstruksi",
-      formatter: function(value, data, index) {
-        return value.constructionNumber;
-      }
+      // formatter: function(value, data, index) {
+      //   return value.constructionNumber;
+      // }
     },
     {
       field: "composition",
@@ -50,16 +50,16 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
+      page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
-      select: [
-        "orderNumber",
-        "dateOrdered",
-        "weavingUnit",
-        "fabricConstructionDocument",
-        "composition"
-      ],
+      // select: [
+      //   "orderNumber",
+      //   "dateOrdered",
+      //   "Unit",
+      //   "ConstructionDocument",
+      //   "Composition"
+      // ],
       order: order
     };
 

@@ -4,6 +4,7 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
+  createOnly=false;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -24,9 +25,11 @@ export class Create {
 
   //Tombol "Simpan", menyimpan nilai masukan
   saveCallback(event) {
+    this.data.fabricConstructionDocument.id="4b782240-1593-11e9-ab14-d663bd873d93";
     this.service
       .create(this.data)
       .then(result => {
+        debugger
         this.list();
       })
       .catch(e => {
