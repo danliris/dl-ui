@@ -2,32 +2,30 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
+import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
-
-    context = ["detail"]
+    context = ["Rincian"];
     columns = [
-        { field: "ProcessType", title: "Jenis Proses" },
-        { field: "LotNo", title: "Lot" },
-        {
-            field: "CreatedDate", title: "Date", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
+        { field: "bankName", title: "Nama Bank" },
+        { field: "bankCode", title: "Kode Bank" },
+        { field: "accountName", title: "Nama Akun" },
+        { field: "accountNumber", title: "Nomor Akun" },
+        { field: "currency.code", title: "Mata Uang" }
     ];
 
     loader = (info) => {
-        var order = {};
+        let order = {};
         if (info.sort)
             order[info.sort] = info.order;
 
-        var arg = {
+        let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order
-        }
+        };
 
         return this.service.search(arg)
             .then(result => {
@@ -43,17 +41,17 @@ export class List {
         this.router = router;
     }
 
-    create() {
-        this.router.navigateToRoute('create');
-    }
-
     contextCallback(event) {
-        var arg = event.detail;
-        var data = arg.data;
+        let arg = event.detail;
+        let data = arg.data;
         switch (arg.name) {
-            case "detail":
-                this.router.navigateToRoute('view', { id: data.Id });
+            case "Rincian":
+                this.router.navigateToRoute('view', { id: data._id });
                 break;
         }
+    }
+
+    create() {
+        this.router.navigateToRoute('create');
     }
 }

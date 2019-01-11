@@ -36,17 +36,24 @@ export class DataForm {
   }
 
   UomChanged(newValue) {
-    if (newValue._id) {
+    if (newValue &&newValue._id) {
       this.data.UomId = newValue._id;
       this.data.UomUnit = newValue.unit;
+    }else{
+      this.data.UomId = 0;
+      this.data.UomUnit = null;
     }
   }
 
   UnitChanged(newValue) {
-    if (newValue._id) {
+    if (newValue && newValue._id) {
       this.data.UnitId = newValue._id;
       this.data.UnitName = newValue.name;
       this.data.UnitCode = newValue.code;
+    }else{
+      this.data.UnitId = 0;
+      this.data.UnitName = null;
+      this.data.UnitCode = null;
     }
   }
 
