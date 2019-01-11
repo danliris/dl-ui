@@ -86,9 +86,13 @@ export class View {
     }
 
     delete(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
-        });
+        var r = confirm("Apakah Anda yakin akan menghapus data ini?");
+        if (r == true) {
+            this.service.delete(this.data).then(result => {
+                this.cancel();
+            });
+        } 
+        
     }
 
     cancelPO(e) {
