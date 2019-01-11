@@ -11,17 +11,18 @@
         </au-dropdown>
 
         <au-dropdown label="Jenis Benang"
-            value.bind="data.yarnType"
-            error.bind="error.yarnType"
+            value.bind="data.cottonYarn"
+            error.bind="error.cottonYarn"
             show.bind="data.processType!='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList"
+            change.delegate="cottonYarnChanged($event)"
             options.bind="controlOptions">
         </au-dropdown>
 
         <au-dropdown label="Jenis Benang Polyester"
-            value.bind="data.yarnType"
-            error.bind="error.yarnType"
+            value.bind="data.polyesterYarn"
+            error.bind="error.polyesterYarn"
             show.bind="data.processType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList2"
@@ -29,8 +30,8 @@
         </au-dropdown>
 
         <au-dropdown label="Jenis Benang Cotton"
-            value.bind="data.yarnType"
-            error.bind="error.yarnType"
+            value.bind="data.cottonYarn"
+            error.bind="error.cottonYarn"
             show.bind="data.processType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList2"

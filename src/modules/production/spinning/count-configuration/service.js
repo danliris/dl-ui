@@ -4,7 +4,7 @@ import { RestService } from '../../../../utils/rest-service';
 // import { Container } from 'aurelia-dependency-injection';
 // import { Config } from "aurelia-api";
 
-const serviceUri = 'count-configuration';
+const serviceUri = 'count-configurations';
 const lotYarnServiceUri = "LotYarn"
 
 export class Service extends RestService {
@@ -38,13 +38,25 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    // getLotYarn(info) {
-    //     var spinning = info.spinning ? info.spinning : " ";
-    //     var machine = info.machine ? info.machine : " ";
-    //     var yarn = info.yarn ? info.yarn : " ";
-    //     var endpoint = `${lotYarnServiceUri}/${spinning}/${machine}/${yarn}`;
+    // getLot(keyword, filter) {
+    //     var config = Container.instance.get(Config);
+    //     var endpoint = config.getEndpoint("core-azure");
 
-    //     return super.get(endpoint);
+    //     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), order: JSON.stringify({ "name": "asc" }) })
+    //         .then(results => {
+    //             return results.data;
+    //         });
+    // }
+
+    // getYarn(yarnType) {
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("core");
+    //     var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
+
+    //     return _endpoint.find(_serviceUri)
+    //         .then(result => {
+    //             return result.data;
+    //         });
     // }
 
 }
