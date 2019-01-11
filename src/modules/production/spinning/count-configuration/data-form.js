@@ -56,7 +56,6 @@ export class DataForm {
         "Winding"
     ];
     yarnTypeList = [
-        "",
         "PCP",
         "CMP",
         "CD",
@@ -82,6 +81,22 @@ export class DataForm {
         this.isItem = false;
         this.processType = false;
 
+        if(this.data.ProcessType){
+            this.processType = this.data.ProcessType;
+        }
+
+        if(this.data.LotNo && this.data.ProcessType != "Finish-Drawing"){
+            this.service.getLotByYarnType(this.data.YarnType).then(result => {
+                if(result){
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.LotNo = result.LotNo;
+                }
+            });
+        }
+        if(this.data.YarnType){
+            this.yarnType = this.data.YarnType;
+        }
         if (this.data.Lot) {
             this.Lot = this.data.Lot;
             this.isItem = true;
@@ -109,21 +124,36 @@ export class DataForm {
 
     processTypeChanged(e) {
         var selectedProcess = e.srcElement.value;
-        if(selectedProcess){
+        if (selectedProcess) {
             this.data.processType = selectedProcess;
-            if(this.data.processType=="Finish-Drawing")
-            {
+            if (this.data.processType == "Finish-Drawing") {
                 this.processType = true;
             }
         }
     }
 
-    yarnChanged(newValue, oldValue){
+    yarnTypeChanged(e) {
+        var selectedProcess = e.srcElement.value;
+        if(selectedProcess){
+            if (this.data.processType != "Finish-Drawing") {
+                this.data.YarnType = selectedProcess;
+                this.service.getLotByYarnType(this.data.YarnType).then(result => {
+                    if(result){
+                        this.isItem = true;
+                        this.data.items = result.CottonCompositions;
+                        this.data.LotNo = result.LotNo;
+                    }
+                });
+            }
+        }
+        
+    }
+    yarnChanged(newValue, oldValue) {
         if (this.yarn && this.yarn.Id) {
             this.data.YarnId = this.yarn.Id;
         }
     }
-    
+
     get yarnLoader() {
         return ProductLoader;
     }

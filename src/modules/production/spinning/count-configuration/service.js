@@ -5,7 +5,7 @@ import { RestService } from '../../../../utils/rest-service';
 // import { Config } from "aurelia-api";
 
 const serviceUri = 'count-configurations';
-const lotYarnServiceUri = "LotYarn"
+const lotYarnServiceUri = "lot/configuration"
 
 export class Service extends RestService {
 
@@ -24,7 +24,7 @@ export class Service extends RestService {
     }
 
     create(data) {
-        var endpoint = `${serviceUri}/create`;
+        var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
 
@@ -36,6 +36,11 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
+    }
+
+    getLotByYarnType(yarnType){
+        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}`;
+        return super.get(endpoint);
     }
 
     // getLot(keyword, filter) {
