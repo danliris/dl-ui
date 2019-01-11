@@ -3,6 +3,8 @@ import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 var UnitLoader = require('../../../loader/unit-loader');
+var DivisionLoader = require('../../../loader/division-loader');
+var CategoryLoader = require('../../../loader/category-loader');
 //var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 
 @containerless()
@@ -57,16 +59,40 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    @computedFrom("data.Supplier && data.Currency")
+    @computedFrom("data.Supplier && data.Currency && data.Category && data.Division")
     get filter() {
         var filter={};
         if(this.data.Supplier && this.data.Currency){
             filter = {
                 supplierId: this.data.Supplier.Id || this.data.Supplier._id,
-                currencyId:this.data.Currency.Id||  this.data.Currency._id
+                currencyId:this.data.Currency.Id||  this.data.Currency._id,
+                categoryId:this.data.Category.Id || this.data.Category._id,
+                divisionId:this.data.Division.Id || this.data.Division._id
             }
         }
         return filter;
+    }
+
+    selectedCategoryChanged(newValue) {
+        var _selectedCategory = newValue;
+        if (_selectedCategory._id) {
+            this.data.Category = _selectedCategory;
+            this.data.categoryId = _selectedCategory._id ? _selectedCategory._id : "";
+            this.data.Category.Name = _selectedCategory.name;
+            this.data.Category.Id = _selectedCategory._id;
+            this.data.Category.Code = _selectedCategory.code;
+        }
+    }
+
+    selectedDivisionChanged(newValue) {
+        var _selectedDivision = newValue;
+        if (_selectedDivision._id) {
+            this.data.Division = _selectedDivision;
+            this.data.divisionId = _selectedDivision._id ? _selectedDivision._id : "";
+            this.data.Division.Name = _selectedDivision.name;
+            this.data.Division.Id = _selectedDivision._id;
+            this.data.Division.Code = _selectedDivision.code;
+        }
     }
 
     selectedSupplierChanged(newValue) {
@@ -160,4 +186,21 @@ export class DataForm {
             }
         }
     }
+
+    divisionView = (division) => {
+        return division.name
+    }
+
+    categoryView = (category) => {
+        return `${category.code} - ${category.name}`
+    }
+
+     get divisionLoader() {
+        return DivisionLoader;
+    }
+
+    get categoryLoader() {
+        return CategoryLoader;
+    }
+
 } 
