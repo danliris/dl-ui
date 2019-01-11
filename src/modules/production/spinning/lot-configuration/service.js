@@ -10,7 +10,7 @@ const lotYarnServiceUri = "LotYarn"
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "spinningMoonlay");
+        super(http, aggregator, config, "spinning");
     }
 
     search(info) {
