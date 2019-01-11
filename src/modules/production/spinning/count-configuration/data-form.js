@@ -3,7 +3,7 @@ import { Service } from './service';
 import { debug } from 'util';
 
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
-
+var ProductLoader = require('../../../../loader/product-azure-loader');
 // var moment = require('moment');
 @inject(Service)
 export class DataForm {
@@ -15,6 +15,7 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable lotConfiguration;
+    @bindable yarn;
     @bindable Input = [];
 
     formOptions = {
@@ -27,10 +28,18 @@ export class DataForm {
 
     controlOptions = {
         label: {
-            length: 4
+            length: 3
         },
         control: {
             length: 5
+        }
+    }
+    controlOptions2 = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 7
         }
     }
 
@@ -78,6 +87,9 @@ export class DataForm {
             this.isItem = true;
         }
 
+        if (this.data.Yarn && this.data.Yarn.Id) {
+            this.yarn = this.data.Yarn;
+        }
     }
 
     inputInfo = {
@@ -106,7 +118,15 @@ export class DataForm {
         }
     }
 
-
+    yarnChanged(newValue, oldValue){
+        if (this.yarn && this.yarn.Id) {
+            this.data.YarnId = this.yarn.Id;
+        }
+    }
+    
+    get yarnLoader() {
+        return ProductLoader;
+    }
 
     // async yarnChanged(newValue, oldValue) {
     //     if (this.yarn && this.yarn.Id) {
@@ -155,8 +175,4 @@ export class DataForm {
     // get unitLoader() {
     //     return UnitLoader;
     // }
-
-    get yarnLoader() {
-        return YarnLoader;
-    }
 } 
