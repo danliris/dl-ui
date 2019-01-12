@@ -1,0 +1,28 @@
+<template>
+  <ai-dialog style="width:500px;">
+    <ai-dialog-header>Tambah SOP</ai-dialog-header>
+
+    <ai-dialog-body>
+      <au-table
+        data.bind="data.sop"
+        columns.bind="sopColumns"
+        options.bind="customTableFeatureOptions"
+        selectable.bind="true"
+        selections.bind="additionalSOP"
+      >
+      </au-table>
+    </ai-dialog-body>
+
+    <ai-dialog-footer>
+      <button
+        class="btn btn-default"
+        click.delegate="dialogController.cancel()"
+      >
+        Kembali
+      </button>
+      <button class="btn btn-success" click.delegate="saveCallback()">
+        Tambah
+      </button>
+    </ai-dialog-footer>
+  </ai-dialog>
+</template>

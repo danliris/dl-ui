@@ -1,0 +1,222 @@
+<template>
+  <!-- CSS Styling -->
+  <style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+    .bg-modal {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      background-size: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-contents {
+      width: 60%;
+      height: 50%;
+      background-color: white;
+      border-radius: 4px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 16px;
+    }
+    input {
+      width: 50%;
+      display: black;
+      margin: 16px auto;
+    }
+    .close {
+      position: relative;
+      top: -12px;
+      right: -4px;
+      font-size: 36px;
+      color: #333;
+      transform: rotate(45deg);
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .add-sop {
+      position: relative;
+      right: -24px;
+    }
+    #add-sop-label {
+      padding-top: 28px;
+      padding-left: 2px;
+      padding-bottom: 6px;
+      text-align: left;
+      font-size: 22px;
+      font-weight: bold;
+    }
+  </style>
+
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+    part="actions"
+  >
+    <div class="col-md-12">
+      <!-- PRODUCTION ESTIMATION NUMBER -->
+      <div class="row">
+        <div class="col-md-2" style="white-space: nowrap;">
+          <au-textbox
+            label="No. Estimasi Produksi"
+            read-only="true"
+            show.bind="ePNumberVisibility"
+            options.bind="customOptions"
+          ></au-textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox
+            placeholder="No. Estimasi Produksi"
+            value.bind="data.productionEstimationNumber"
+            error.bind="error.productionEstimationNumber"
+            read-only.bind="readOnly"
+            show.bind="ePNumberVisibility"
+            options.bind="customEstimatedControlOptions"
+          >
+          </au-textbox>
+        </div>
+      </div>
+
+      <!-- PERIOD -->
+      <div class="row">
+        <div class="col-md-2">
+          <au-textbox
+            label="Periode"
+            read-only="true"
+            options.bind="customOptions"
+          ></au-textbox>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown
+            value.bind="data.monthPeriod"
+            error.bind="error.monthPeriod"
+            read-only.bind="readOnly"
+            items.bind="months"
+            options.bind="customPUControlOptions"
+          >
+          </au-dropdown>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown
+            value.bind="data.yearPeriod"
+            error.bind="error.yearPeriod"
+            read-only.bind="readOnly"
+            items.bind="years"
+          >
+          </au-dropdown>
+        </div>
+      </div>
+
+      <!-- UNIT -->
+      <div class="row">
+        <div class="col-md-2">
+          <au-textbox
+            label="Unit"
+            read-only="true"
+            options.bind="customOptions"
+          ></au-textbox>
+        </div>
+        <div class="col-md-2">
+          <au-dropdown
+            value.bind="data.unit"
+            error.bind="error.unit"
+            read-only.bind="readOnly"
+            items.bind="weaving"
+            options.bind="customPUControlOptions"
+          >
+          </au-dropdown>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1">
+          <button
+            class="btn btn-success btn-block"
+            click.delegate="search"
+            style="margin-bottom: 16px;"
+            show.bind="searchButton"
+          >
+            Cari
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <button
+            class="btn btn-success btn-block"
+            click.delegate="__openModal()"
+            style="margin-bottom: 16px;"
+            show.bind="addSOPOnEdit"
+          >
+            Tambah SOP
+          </button>
+          <!-- <button
+            slot="toolbar"
+            class="btn btn-success"
+            click.delegate="__fabricGradeTestCreateCallback()"
+            if.bind="selectedKanban && !readOnly"
+          >
+            Tambah Kain
+          </button> -->
+        </div>
+      </div>
+
+      <div class="row">
+        <au-collection
+          items.bind="data.ItemsView"
+          errors.bind="error.ItemsView"
+          columns.bind="columnsView"
+          remove.bind="onremove"
+          read-only.bind="readOnlyCollection"
+          item-template="modules/weaving/estimated-production/templates/items-view"
+        >
+        </au-collection>
+      </div>
+    </div>
+  </au-input-form>
+
+  <!-- MODAL -->
+  <!-- <div class="bg-modal" show.bind="isModalShown">
+    <div class="modal-contents">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="close" click.delegate="closeModal">+</div>
+        </div>
+        <div class="row"><p id="add-sop-label">Tambah SOP</p></div>
+        <div class="row">
+          <au-collection
+            items.bind="data.ItemsModal"
+            errors.bind="error.ItemsModal"
+            columns.bind="columnsModal"
+            remove.bind="onremove"
+            read-only.bind="readOnly"
+            checkall.delegate="onClickAllDataSource($event)"
+            item-template="modules/weaving/estimated-production/templates/items-modal"
+          >
+          </au-collection>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-10 col-md-2">
+            <button
+              class="btn btn-success add-sop"
+              click.delegate="addItemsModal"
+            >
+              Tambah
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</template>

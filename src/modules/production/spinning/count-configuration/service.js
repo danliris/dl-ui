@@ -5,7 +5,7 @@ import { RestService } from '../../../../utils/rest-service';
 // import { Config } from "aurelia-api";
 
 const serviceUri = 'count-configurations';
-const lotYarnServiceUri = "LotYarn"
+const lotYarnServiceUri = "lot/configuration"
 
 export class Service extends RestService {
 
@@ -24,7 +24,7 @@ export class Service extends RestService {
     }
 
     create(data) {
-        var endpoint = `${serviceUri}/create`;
+        var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
 
@@ -38,26 +38,30 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getLot(yarnId) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("spinning");
-        var _serviceUri = `lot/configuration/getLotByYarn/${yarnId}`;
-
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
+    getLotByYarnType(yarnType){
+        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}`;
+        return super.get(endpoint);
     }
 
-    getYarn(yarnType) {
-        var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/yarns/by-type?type=${yarnType}`;
+    // getLot(keyword, filter) {
+    //     var config = Container.instance.get(Config);
+    //     var endpoint = config.getEndpoint("core-azure");
 
-        return _endpoint.find(_serviceUri)
-            .then(result => {
-                return result.data;
-            });
-    }
+    //     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), order: JSON.stringify({ "name": "asc" }) })
+    //         .then(results => {
+    //             return results.data;
+    //         });
+    // }
+
+    // getYarn(yarnType) {
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("core");
+    //     var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
+
+    //     return _endpoint.find(_serviceUri)
+    //         .then(result => {
+    //             return result.data;
+    //         });
+    // }
 
 }

@@ -18,7 +18,6 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable unit;
-    @bindable yarn;
 
     formOptions = {
         cancelText: "Kembali",
@@ -27,6 +26,16 @@ export class DataForm {
         deleteText: "Hapus",
     };
 
+    yarnTypeList = [
+        "PCP",
+        "CMP",
+        "CD",
+        "CVC",
+        "PE",
+        "TENCEL",
+        "CUPRO",
+        "PC-P 45"
+    ];
 
     controlOptions = {
         label: {
@@ -101,11 +110,7 @@ export class DataForm {
         }
     }
 
-    yarnChanged(n, o){
-        if (this.yarn && this.yarn.Id) {
-            this.data.YarnId = this.yarn.Id;
-        }
-    }
+
 
     get unitLoader() {
         return UnitLoader;
