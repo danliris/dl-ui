@@ -25,6 +25,7 @@ export class Service extends RestService {
 
     create(data) {
         var endpoint = `${serviceUri}`;
+        console.log(data)
         return super.post(endpoint, data);
     }
 
@@ -38,8 +39,9 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getLotByYarnType(yarnType){
-        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}`;
+    getLotByYarnType(yarnType,finishingDrawing){
+        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${finishingDrawing}`;
+        console.log(endpoint)
         return super.get(endpoint);
     }
 
