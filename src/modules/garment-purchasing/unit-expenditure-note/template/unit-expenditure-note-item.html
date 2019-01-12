@@ -1,8 +1,9 @@
 <template >
     <tr>
-        <td >
+        <td if.bind="!hasView">
             <au-checkbox 
-                value.bind="data.isSave" 
+                value.bind="data.IsSave"
+                if.bind="!hasView"
                 options.bind="controlOptions">
             </au-checkbox>
         </td>
@@ -28,7 +29,6 @@
         <td>
             <au-textbox 
                 value.bind="data.DesignColor"
-                error.bind = "error.Quantity"
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>                    
@@ -37,13 +37,13 @@
             <au-numeric 
                 value.bind="data.Quantity"
                 read-only.bind="options.readOnly"
+                error.bind="error.Quantity"                
                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
             <au-textbox 
                 value.bind="data.UomUnit"
-                error.bind = "error.Quantity"
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>                    
@@ -51,9 +51,7 @@
         <td>
             <au-dropdown 
                 value.bind="data.FabricType" 
-                error.bind="error.FabricType"
                 read-only.bind="true"
-                items.bind = "fabricOptions"
                 options.bind="controlOptions">
             </au-dropdown>
         </td>

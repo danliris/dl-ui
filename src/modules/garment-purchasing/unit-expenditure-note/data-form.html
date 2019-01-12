@@ -8,7 +8,6 @@
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
-            <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
         </div>
 
         <div class="row">
@@ -32,7 +31,7 @@
                     label="Tgl. Pengeluaran" 
                     value.bind="data.ExpenditureDate" 
                     error.bind="error.ExpenditureDate" 
-                    read-only.bind="readOnly"
+                    read-only.bind="readOnly || isEdit"
                     options.bind="controlOptions">
                 </au-datepicker>
                 
@@ -57,8 +56,8 @@
                 <au-autocomplete 
                     label="No. Delivery Order" 
                     value.bind="unitDeliveryOrder" 
-                    error.bind="error.UnitDeliveryOrder" 
-                    read-only.bind="readOnly"
+                    error.bind="error.UnitDONo" 
+                    read-only.bind="readOnly || isEdit"
                     query.bind = "filterUnitDeliveryOrder"
                     loader.bind="unitDeliveryOrderLoader"
                     text = "UnitDONo"
@@ -71,6 +70,7 @@
                     value.bind = "data.UnitSender"
                     error.bind="error.UnitSender"
                     read-only.bind="true"
+                    placeholder = "Cari Unit Delivery ORder"
                     options.bind="controlOptions">
                 </au-textbox>
         
@@ -110,6 +110,7 @@
             options.bind="options"
             read-only.bind="readOnly" 
             show.bind="isItem"
+            header-template="modules/garment-purchasing/unit-expenditure-note/template/unit-expenditure-note-item-header"
             item-template="modules/garment-purchasing/unit-expenditure-note/template/unit-expenditure-note-item">
         </au-collection>
   </au-input-form>

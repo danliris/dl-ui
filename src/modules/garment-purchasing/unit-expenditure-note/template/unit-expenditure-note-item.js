@@ -1,35 +1,28 @@
 import { bindable, computedFrom } from 'aurelia-framework'
-import { factories } from 'powerbi-client';
-import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api";
-
-var UomLoader = require('../../../../loader/uom-loader');
-
-const resource = 'master/garmentProducts';
-const POresource= 'garment-internal-purchase-orders';
+import { Service } from "../service";
 export class UnitDeliveryOrderItem {
 
-  fabricOptions = ['NON FABRIC', 'MAIN FABRIC', 'CONTRASS', 'INTERLINING', 'LINING', 'SPINING', 'PIPING', 'SLEEK', 'FRONTING', 'FELT', 'RIB'];
   async activate(context) {
     this.context = context;
     this.data = context.data;
-    this.error = context.error;
-    this.options = context.options;
+    this.error = this.context.error;		
+    this.readOnly = context.options.readOnly;
 
-  }
-
-  bind() {
-    
-  }
-
-  fabricChanged(e){
-    var selectedFabric = e.srcElement.value;
-    if(selectedFabric){
-      this.data.FabricType = selectedFabric;
-    }else{
-      this.data.FabricType = null;;
+    console.log(this.context);
+    this.options = this.context.options;
+    this.hasView = this.context.context.options.hasView;
+    this.hasEdit = this.context.context.options.hasEdit;
+    this.hasCreate = this.context.context.options.hasCreate;
+    // console.log(this.hasView);
+    if(this.hasEdit || this.hasView){
+      this.data.IsSave=true;
     }
   }
+
+  @computedFrom("data.Id")
+    get isEdit() {
+        return (this.data.Id || '').toString() != '';
+    }
 
   productChanged(newValue){
     var selectedProduct = newValue;
@@ -41,18 +34,6 @@ export class UnitDeliveryOrderItem {
     }else{
       this.data.Product = null;
     }
-  }
-
-  get uomLoader() {
-    return UomLoader;
-  }
-
-  uomView = (uom) => {
-    return uom.Unit
-  }
-
-  get product() {
-    return this.data.Product.Name;
   }
 
   controlOptions = {

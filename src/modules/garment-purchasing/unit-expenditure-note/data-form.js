@@ -37,6 +37,7 @@ export class DataForm {
         this.error = this.context.error;
         this.isTransfer = false;
         this.isItem = false;
+        this.IsSave = false;
         
 
         if(this.data.ExpenditureType === "TRANSFER"){
@@ -96,11 +97,13 @@ export class DataForm {
         }
         this.unitDeliveryOrder = null;
         this.data.UnitRequest = null;
+        this.data.Items = null;
         this.data.UnitSender = null;
         this.data.Storage = null;
         this.isItem = false;
         this.data.StorageRequest = null;
         this.error = null;
+        // console.log(this.error);
     }
 
     get unitDeliveryOrderLoader() {
@@ -117,6 +120,7 @@ export class DataForm {
             this.data.UnitSender = null;
             this.data.Storage = null;
             this.data.StorageRequest = null;
+            this.isItem = false;
         }
         else if(selectedUnitDeliveryOrder){
             this.data.UnitDOId = selectedUnitDeliveryOrder.Id;
@@ -172,7 +176,8 @@ export class DataForm {
                 Items.BuyerId = item.Buyer.Id;
                 Items.BuyerCode = item.Buyer.Code;
                 Items.DesignColor = item.DesignColor;
-                Items.FabricType = item.FabricType
+                Items.FabricType = item.FabricType;
+                Items.IsSave = false;
 
                 this.data.Items.push(Items);
             }

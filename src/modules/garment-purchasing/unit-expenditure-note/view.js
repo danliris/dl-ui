@@ -5,8 +5,8 @@ import { Service } from './service';
 @inject(Router, Service)
 export class View {
     hasCancel = true;
-    hasEdit = false;
-    hasDelete = false;
+    hasEdit = true;
+    hasDelete = true;
     hasView=true;
 
     constructor(router, service) {
@@ -15,7 +15,6 @@ export class View {
     }
     async activate(params) {
         var id = params.id;
-        this.poExId = id;
         this.data = await this.service.getById(id);
         console.log(this.data);
         this.unitDeliveryOrder = { UnitDONo:this.data.UnitDONo};
