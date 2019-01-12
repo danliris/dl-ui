@@ -38,6 +38,7 @@ export class DataForm {
         this.isTransfer = false;
         this.isItem = false;
         this.IsSave = false;
+        this.data.ExpenditureTo = "PROSES";
         
 
         if(this.data.ExpenditureType === "TRANSFER"){
@@ -66,6 +67,9 @@ export class DataForm {
         if (this.data.ExpenditureType) {
             unitDeliveryOrderFilter.UnitDOType = this.data.ExpenditureType;
             unitDeliveryOrderFilter.IsUsed = false;
+            // hasView = this.context.hasView;
+            // hasEdit = this.context.hasEdit;
+            // hasCreate = this.context.hasCreate;
             if(this.data.ExpenditureType === "EXTERNAL"){
                 unitDeliveryOrderFilter.UnitDOType = "RETUR";
                 unitDeliveryOrderFilter.IsUsed = false;
