@@ -38,25 +38,26 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    // getLot(keyword, filter) {
-    //     var config = Container.instance.get(Config);
-    //     var endpoint = config.getEndpoint("core-azure");
+    getLot(yarnId) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("spinning");
+        var _serviceUri = `lot/configuration/getLotByYarn/${yarnId}`;
 
-    //     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), order: JSON.stringify({ "name": "asc" }) })
-    //         .then(results => {
-    //             return results.data;
-    //         });
-    // }
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
 
-    // getYarn(yarnType) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("core");
-    //     var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
+    getYarn(yarnType) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/yarns/by-type?type=${yarnType}`;
 
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-    // }
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
 
 }
