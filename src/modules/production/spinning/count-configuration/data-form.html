@@ -12,29 +12,31 @@
 
         <au-dropdown label="Jenis Benang"
             value.bind="yarnType"
-            error.bind="error.yarnType"
+            error.bind="error.YarnType"
             show.bind="data.processType!='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList"
-            change.delegate="yarnTypeChanged($event)"
+            change.delegate="cottonYarnTypeChanged($event)"
             options.bind="controlOptions">
         </au-dropdown>
 
         <au-dropdown label="Jenis Benang Polyester"
-            value.bind="data.polyesterYarn"
+            value.bind="polyesterYarn"
             error.bind="error.polyesterYarn"
             show.bind="data.processType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList2"
+            change.delegate="polyesterYarnTypeChanged($event)"
             options.bind="controlOptions">
         </au-dropdown>
 
         <au-dropdown label="Jenis Benang Cotton"
-            value.bind="data.cottonYarn"
+            value.bind="cottonYarn"
             error.bind="error.cottonYarn"
             show.bind="data.processType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList2"
+            change.delegate="cottonYarnTypeChanged($event)"
             options.bind="controlOptions">
         </au-dropdown>
 
@@ -91,9 +93,7 @@
                 error.bind="error.constant" options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
-
-       
-
+        <br/><br/><br/><br/><br/>
         <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="inputInfo.columns" 
         read-only.bind="readOnly" show.bind="isItem" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
         </au-collection>
