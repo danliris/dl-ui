@@ -13,7 +13,7 @@
         <au-dropdown label="Jenis Benang"
             value.bind="yarnType"
             error.bind="error.YarnType"
-            show.bind="data.processType!='Finish-Drawing' && processType"
+            show.bind="data.ProcessType!='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList"
             change.delegate="cottonYarnTypeChanged($event)"
@@ -23,7 +23,7 @@
         <au-dropdown label="Jenis Benang Polyester"
             value.bind="polyesterYarn"
             error.bind="error.polyesterYarn"
-            show.bind="data.processType=='Finish-Drawing' && processType"
+            show.bind="data.ProcessType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList2"
             change.delegate="polyesterYarnTypeChanged($event)"
@@ -33,7 +33,7 @@
         <au-dropdown label="Jenis Benang Cotton"
             value.bind="cottonYarn"
             error.bind="error.cottonYarn"
-            show.bind="data.processType=='Finish-Drawing' && processType"
+            show.bind="data.ProcessType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList2"
             change.delegate="cottonYarnTypeChanged($event)"
@@ -54,7 +54,7 @@
         <au-textbox label="No Lot"
             value.bind="lot" 
             view.bind="lotView" 
-            show.bind="data.processType=='Finish-Drawing' && processType"
+            show.bind="data.ProcessType=='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
@@ -94,9 +94,35 @@
             </div>
         </div>
         <br/><br/><br/><br/><br/>
-        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="inputInfo.columns" 
-        read-only.bind="readOnly" show.bind="isItem" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
-        </au-collection>
+        
+        <div show.bind="isItem && data.ProcessType!='Finish-Drawing' && processType">
+            <au-textbox label="No Lot"
+                value.bind="cottonLot"
+                read-only.bind="true"
+                options.bind="controlOptions3">
+            </au-textbox>
+           
+        </div>
 
+        <div show.bind="isItem && data.PolyesterYarn && data.ProcessType=='Finish-Drawing' && processType">
+            <au-textbox label="No Lot Polyester"
+                value.bind="polyesterLot"
+                read-only.bind="true"
+                options.bind="controlOptions3">
+            </au-textbox>
+            
+        </div>
+
+        <div show.bind="isItem && data.CottonYarn && data.ProcessType=='Finish-Drawing' && processType">
+            <au-textbox label="No Lot Cotton"
+                value.bind="cottonLot"
+                read-only.bind="true"
+                options.bind="controlOptions3">
+            </au-textbox>
+        </div>
+
+        <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="inputInfo.columns" 
+            read-only.bind="readOnly" show.bind="isItem" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
+        </au-collection>
     </au-input-form>
 </template>
