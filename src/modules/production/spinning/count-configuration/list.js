@@ -22,7 +22,7 @@ export class List {
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-
+console.log(order)
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,

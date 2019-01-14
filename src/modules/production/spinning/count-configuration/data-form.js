@@ -33,6 +33,14 @@ export class DataForm {
             length: 5
         }
     }
+    controlOptions3 = {
+        label: {
+            length: 1
+        },
+        control: {
+            length: 5
+        }
+    }
     controlOptions2 = {
         label: {
             length: 4
@@ -75,42 +83,77 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
+        console.log(this.data)
         this.error = this.context.error;
         this.data.Input = this.data.Input || [];
-        this.Lot = {}
         this.isItem = false;
         this.processType = false;
+        this.cottonLot ="";
+        this.polyesterLot ="";
 
         if(this.data.ProcessType){
             this.processType = this.data.ProcessType;
         }
-
-        if(this.data.LotNo && this.data.ProcessType != "Finish-Drawing"){
-                this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
-                    if(result){
-                        console.log(result)
-                        this.error= {};
-                        this.isItem = true;
-                        this.data.items = result.CottonCompositions;
-                        this.data.CottonCompositions = result.CottonCompositions
-                        this.data.LotId = result.LotId;
-                        this.data.LotNo = result.LotNo;
-                    } else{
-                        this.error.YarnType = "Lot tidak ditemukan";
-                        this.isItem = false;
-                        this.data.items = null;
-                        this.data.CottonCompositions = null;
-                        this.data.LotId = null;
-                        this.data.LotNo = null;
-                    }
-                });
+        if (this.data.ProcessType == "Blowing" || 
+                this.data.ProcessType == "Carding" || 
+                this.data.ProcessType == "Pre-Drawing" || 
+                this.data.ProcessType == "Finishing-Drawing")  {
+                    this.finishingDrawing = false;
+        } else {
+            this.finishingDrawing = true;
         }
-        if(this.data.YarnType){
-            this.yarnType = this.data.YarnType;
-        }
-        if (this.data.Lot) {
-            this.Lot = this.data.Lot;
+       
+        if (this.data.LotId) {
             this.isItem = true;
+        }
+
+        if(!this.yarnType){
+            this.yarnType=this.data.CottonYarn;
+        }
+
+        if(this.data.PolyesterYarn){
+            this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.polyesterLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.polyesterLot = null;
+                }
+            });
+        }
+        if(this.data.CottonYarn){
+            this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.cottonLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.cottonLot = null;
+                }
+            });
         }
 
     }
@@ -134,14 +177,14 @@ export class DataForm {
         var selectedProcess = e.srcElement.value;
         this.error=this.context.error;
         if (selectedProcess) {
-            this.data.processType = selectedProcess;
-            if (this.data.processType == "Finish-Drawing") {
-                this.processType = true;
+            this.data.ProcessType = selectedProcess;
+            if (this.data.ProcessType == "Finish-Drawing") {
+                this.ProcessType = true;
             }
-            if (this.data.processType == "Blowing" || 
-                this.data.processType == "Carding" || 
-                this.data.processType == "Pre-Drawing" || 
-                this.data.processType == "Finishing-Drawing")  {
+            if (this.data.ProcessType == "Blowing" || 
+                this.data.ProcessType == "Carding" || 
+                this.data.ProcessType == "Pre-Drawing" || 
+                this.data.ProcessType == "Finishing-Drawing")  {
                     this.finishingDrawing = false;
             } else {
                 this.finishingDrawing = true;
@@ -155,28 +198,29 @@ export class DataForm {
             this.error={};
         }
         if(selectedProcess){
-            if (this.data.processType != "Finish-Drawing") {
-                this.data.CottonYarn = selectedProcess;
-                this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
-                    if(result){
-                        console.log(result)
-                        this.error= {};
-                        this.isItem = true;
-                        this.data.items = result.CottonCompositions;
-                        this.data.CottonCompositions = result.CottonCompositions
-                        this.data.LotId = result.Id;
-                        this.data.LotNo = result.LotNo;
-                    } else{
-                        this.error.YarnType = "Lot tidak ditemukan";
-                        this.isItem = false;
-                        this.data.items = null;
-                        this.data.CottonCompositions = null;
-                        this.data.LotId = null;
-                        this.data.LotNo = null;
-                    }
-                });
-            }
+            this.data.CottonYarn = selectedProcess;
+            this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.cottonLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.cottonLot = null;
+                }
+            });
         }
+        console.log(this.cottonLot)
     }
 
     polyesterYarnTypeChanged(e) {
@@ -185,27 +229,27 @@ export class DataForm {
             this.error={};
         }
         if(selectedProcess){
-            if (this.data.processType != "Finish-Drawing") {
-                this.data.PolyesterYarn = selectedProcess;
-                this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
-                    if(result){
-                        console.log(result)
-                        this.error= {};
-                        this.isItem = true;
-                        this.data.items = result.CottonCompositions;
-                        this.data.CottonCompositions = result.CottonCompositions
-                        this.data.LotId = result.Id;
-                        this.data.LotNo = result.LotNo;
-                    } else{
-                        this.error.YarnType = "Lot tidak ditemukan";
-                        this.isItem = false;
-                        this.data.items = null;
-                        this.data.CottonCompositions = null;
-                        this.data.LotId = null;
-                        this.data.LotNo = null;
-                    }
-                });
-            }
+            this.data.PolyesterYarn = selectedProcess;
+            this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.polyesterLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.polyesterLot = null;
+                }
+            });
         }
     }
     // yarnChanged(newValue, oldValue) {
@@ -268,8 +312,4 @@ export class DataForm {
     // get unitLoader() {
     //     return UnitLoader;
     // }
-
-    get yarnLoader() {
-        return YarnLoader;
-    }
 } 
