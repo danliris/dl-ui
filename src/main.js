@@ -51,6 +51,7 @@ export async function configure(aurelia) {
       var weaving = "https://com-danliris-service-weaving-dev.azurewebsites.net/";
 
 
+
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('core-azure', coreAzure, defaultConfig);
