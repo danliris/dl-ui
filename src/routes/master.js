@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: 'account-banks',
+        name: 'account-banks',
+        moduleId: './modules/master/account-bank/index',
+        nav: true,
+        title: 'Rekening Bank',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'buyers',
         name: 'buyers',
         moduleId: './modules/master/buyer/index',

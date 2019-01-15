@@ -1,0 +1,42 @@
+<!-- <style>
+th,td {
+  border: 1px solid black;
+}
+</style> -->
+<template>
+  <tr>
+    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
+    <td>
+      <au-textbox value.bind="data.kodePakan" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-autocomplete
+        value.bind="data.jnsPakan"
+        error.bind="error.jnsPakan"
+        read-only.bind="readOnly"
+      >
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-numeric
+        value.bind="data.qtyPakan"
+        error.bind="error.qtyPakan"
+        read-only.bind="readOnly"
+      >
+      </au-numeric>
+    </td>
+    <td>
+      <au-textbox value.bind="data.ktrPakan" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" if.bind="!readOnly">
+      <button
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(dataPakan, $event)"
+      >
+        -
+      </button>
+    </td>
+  </tr>
+</template>

@@ -30,6 +30,7 @@ export async function configure(aurelia) {
         }
       }
 
+
       var core = "https://dl-core-api.azurewebsites.net/v1/";
       var coreAzure ="https://com-dl-service-core.azurewebsites.net/v1/";
       var auth = "https://dl-auth-api.azurewebsites.net/v1/";
@@ -45,11 +46,13 @@ export async function configure(aurelia) {
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
       var customsReport = "https://com-danliris-service-support.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md-dev.azurewebsites.net/v1/";
-      var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
+      var finance = "https://com-danliris-service-finance-accounting.azurewebsites.net/v1/";
+      var weaving = "";
+
 
 
       config.registerEndpoint('auth', auth);
-      config.registerEndpoint('core', core); 
+      config.registerEndpoint('core', core);
       config.registerEndpoint('core-azure', coreAzure, defaultConfig);
       config.registerEndpoint('production', production, defaultConfig);
       config.registerEndpoint('purchasing', purchasing, defaultConfig);
@@ -64,6 +67,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('customs-report', customsReport, defaultConfig);
       config.registerEndpoint('merchandiser', merchandiser, defaultConfig);
       config.registerEndpoint('finance', finance, defaultConfig);
+      config.registerEndpoint('weaving', weaving, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
@@ -84,6 +88,7 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 5;
     })
     .plugin('aurelia-dragula')
+    .plugin('aurelia-bootstrap')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.

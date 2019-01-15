@@ -43,14 +43,14 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-textbox
+        <au-multiline
             value.bind="data.Bank"
             error.bind="error.Bank"
             placeholder="bank"
             label="Bank Tujuan" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
-        </au-textbox>
+        </au-multiline>
 
         <au-textbox
             value.bind="data.ConfirmationOrderNo"
@@ -61,14 +61,14 @@
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox
+        <!--<au-textbox
             value.bind="data.InvoiceNo"
             error.bind="error.InvoiceNo"
             label="No Invoice" 
             placeholder="no invoice"
             read-only.bind="readOnly"
             options.bind="controlOptions">
-        </au-textbox>
+        </au-textbox>-->
 
         <au-textbox
             value.bind="data.PaymentMethod"
@@ -107,21 +107,29 @@
         <au-textbox
             value.bind="data.ProformaNo"
             error.bind="error.ProformaNo"
-            label="No Proforma" 
+            label="No Proforma / Invoice" 
             placeholder="no proforma"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox
+        <!--<au-textbox
             value.bind="data.Investation"
             error.bind="error.Investation"
             label="Investasi" 
             placeholder="investasi"
             read-only.bind="readOnly"
             options.bind="controlOptions">
-        </au-textbox>
-        
+        </au-textbox>-->
+        <au-dropdown
+            label="PPH Ditanggung oleh"
+            value.bind="data.IncomeTaxBy"
+            error.bind="error.IncomeTaxBy"
+            read-only.bind="readOnly"
+            items.bind="IncomeTaxByOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+
         <au-numeric
             value.bind="data.Amount"
             label="Amount"
