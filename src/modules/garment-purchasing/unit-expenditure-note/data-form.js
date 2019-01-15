@@ -67,9 +67,7 @@ export class DataForm {
         if (this.data.ExpenditureType) {
             unitDeliveryOrderFilter.UnitDOType = this.data.ExpenditureType;
             unitDeliveryOrderFilter.IsUsed = false;
-            // hasView = this.context.hasView;
-            // hasEdit = this.context.hasEdit;
-            // hasCreate = this.context.hasCreate;
+            // unitDeliveryOrderFilter.hasView = this.context.hasView;
             if(this.data.ExpenditureType === "EXTERNAL"){
                 unitDeliveryOrderFilter.UnitDOType = "RETUR";
                 unitDeliveryOrderFilter.IsUsed = false;

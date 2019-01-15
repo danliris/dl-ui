@@ -7,6 +7,9 @@ import { Service } from './service';
 export class Edit {
     hasCancel = true;
     hasSave = true;
+    hasView = false;
+    hasEdit = true;
+    hasCreate = false;
 
     constructor(router, service) {
         this.router = router;
@@ -49,6 +52,7 @@ export class Edit {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
+        this.data.IsSave = true;
     }
 
     cancel(event) {

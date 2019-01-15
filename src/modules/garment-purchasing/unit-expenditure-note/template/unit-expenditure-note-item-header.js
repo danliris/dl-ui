@@ -6,6 +6,7 @@ export class UnitDeliveryOrderItemHeader {
     // this.error = context.error;
     this.saveAll=false;
     this.options = context.options;
+    console.log(this.options);
     var count = 0;
     this.readOnly = (this.options.readOnly === 'true')
     this.isUseIncomeTax = this.options.isUseIncomeTax || false;

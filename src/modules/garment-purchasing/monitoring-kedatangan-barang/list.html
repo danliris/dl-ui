@@ -2,7 +2,7 @@
     <h1 class="page-header">Monitoring Ketepatan Kedatangan Barang</h1>
     <form class="form-horizontal">
         
-        <au-dropdown label="Kategori" value.bind="category" items.bind="reprosesOption" change.delegate="categoryChanged($event)"></au-dropdown>
+        <au-dropdown label="Kategori" value.bind="category" items.bind="reprosesOption"></au-dropdown>
           <au-datepicker  label="Tgl Datang Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)" ></au-datepicker>
         <au-datepicker  label="Tgl Datang Akhir" value.bind="dateTo" min.bind="dateFrom"></au-datepicker>
         <div class="form-group">

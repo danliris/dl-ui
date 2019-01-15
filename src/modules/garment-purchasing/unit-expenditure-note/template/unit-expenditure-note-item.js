@@ -7,15 +7,19 @@ export class UnitDeliveryOrderItem {
     this.data = context.data;
     this.error = this.context.error;		
     this.readOnly = context.options.readOnly;
-
-    console.log(this.context);
     this.options = this.context.options;
+
+    // console.log(this.options);
     this.hasView = this.context.context.options.hasView;
     this.hasEdit = this.context.context.options.hasEdit;
     this.hasCreate = this.context.context.options.hasCreate;
+    this.hasEdit = this.context.context.options.hasEdit;
+    console.log(this.context.context.options);
     // console.log(this.hasView);
-    if(this.hasEdit || this.hasView){
-      this.data.IsSave=true;
+    if(this.data){
+      if(this.hasView || this.hasEdit){
+        this.data.IsSave=true;
+      }
     }
   }
 
