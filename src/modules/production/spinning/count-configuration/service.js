@@ -41,7 +41,6 @@ export class Service extends RestService {
 
     getLotByYarnType(yarnType,finishingDrawing){
         var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${finishingDrawing}`;
-        console.log(endpoint)
         return super.get(endpoint);
     }
 
