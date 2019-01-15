@@ -51,6 +51,7 @@ export async function configure(aurelia) {
       var weaving = "";
 
 
+
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('core-azure', coreAzure, defaultConfig);

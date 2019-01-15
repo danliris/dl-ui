@@ -10,7 +10,7 @@ export class List {
     context = ["Rincian", "Cetak PDF"]
 
     columns = [
-        { field: "DispositionNo", title: "Nomor Disposisi Pembelian" },
+        { field: "DispositionNo", title: "Nomor Disposisi Pembayaran" },
         {
             field: "CreatedUtc", title: "Tanggal Disposisi", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");

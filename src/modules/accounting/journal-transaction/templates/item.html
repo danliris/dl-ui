@@ -17,12 +17,12 @@
             </au-textbox>
         </td>
         <td>
-            <au-textbox placeholder="isi keterangan"
+            <au-multiline placeholder="isi keterangan"
                         value.bind="data.Remark"
                         error.bind="error.Remark"
                         read-only.bind="readOnly"
                         options.bind="controlOptions">
-            </au-textbox>
+            </au-multiline>
         </td>
         <td>
             <au-numeric value.bind="data.Debit"

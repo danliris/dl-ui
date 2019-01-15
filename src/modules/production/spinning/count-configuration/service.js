@@ -1,10 +1,11 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
-var moment = require('moment');
+// import { Container } from 'aurelia-dependency-injection';
+// import { Config } from "aurelia-api";
 
-const serviceUri = 'count-configuration';
-const lotYarnServiceUri = "LotYarn"
+const serviceUri = 'count-configurations';
+const lotYarnServiceUri = "lot/configuration"
 
 export class Service extends RestService {
 
@@ -23,7 +24,8 @@ export class Service extends RestService {
     }
 
     create(data) {
-        var endpoint = `${serviceUri}/create`;
+        var endpoint = `${serviceUri}`;
+        console.log(data)
         return super.post(endpoint, data);
     }
 
@@ -37,13 +39,31 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    // getLotYarn(info) {
-    //     var spinning = info.spinning ? info.spinning : " ";
-    //     var machine = info.machine ? info.machine : " ";
-    //     var yarn = info.yarn ? info.yarn : " ";
-    //     var endpoint = `${lotYarnServiceUri}/${spinning}/${machine}/${yarn}`;
+    getLotByYarnType(yarnType,finishingDrawing){
+        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${finishingDrawing}`;
+        console.log(endpoint)
+        return super.get(endpoint);
+    }
 
-    //     return super.get(endpoint);
+    // getLot(keyword, filter) {
+    //     var config = Container.instance.get(Config);
+    //     var endpoint = config.getEndpoint("core-azure");
+
+    //     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), order: JSON.stringify({ "name": "asc" }) })
+    //         .then(results => {
+    //             return results.data;
+    //         });
+    // }
+
+    // getYarn(yarnType) {
+    //     var config = Container.instance.get(Config);
+    //     var _endpoint = config.getEndpoint("core");
+    //     var _serviceUri = `master/budget-currencies/by-code?code=${code}&date=${date}`;
+
+    //     return _endpoint.find(_serviceUri)
+    //         .then(result => {
+    //             return result.data;
+    //         });
     // }
 
 }

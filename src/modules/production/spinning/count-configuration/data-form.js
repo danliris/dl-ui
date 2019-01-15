@@ -27,15 +27,53 @@ export class DataForm {
 
     controlOptions = {
         label: {
-            length: 4
+            length: 3
         },
         control: {
             length: 5
         }
     }
+    controlOptions3 = {
+        label: {
+            length: 1
+        },
+        control: {
+            length: 5
+        }
+    }
+    controlOptions2 = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 7
+        }
+    }
 
     // spinningFilter = { "division.name": { "$regex": "SPINNING", "$options": "i" } };
     // shift = ["Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
+    processTypeList = [
+        "",
+        "Blowing",
+        "Carding",
+        "Pre-Drawing",
+        "Finish-Drawing",
+        "Flying",
+        "Ring Spinning",
+        "Winding"
+    ];
+    yarnTypeList = [
+        "",
+        "PCP",
+        "CMP",
+        "CD",
+        "CVC",
+        "PE",
+        "TENCEL",
+        "CUPRO",
+        "PC-P 45"
+    ];
+
 
     constructor(service) {
         this.service = service;
@@ -45,14 +83,77 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
+        console.log(this.data)
         this.error = this.context.error;
         this.data.Input = this.data.Input || [];
-        this.Lot = {}
         this.isItem = false;
+        this.processType = false;
+        this.cottonLot ="";
+        this.polyesterLot ="";
 
-        if (this.data.Lot) {
-            this.Lot = this.data.Lot;
+        if(this.data.ProcessType){
+            this.processType = this.data.ProcessType;
+        }
+        if (this.data.ProcessType == "Blowing" || 
+                this.data.ProcessType == "Carding" || 
+                this.data.ProcessType == "Pre-Drawing" || 
+                this.data.ProcessType == "Finishing-Drawing")  {
+                    this.finishingDrawing = false;
+        } else {
+            this.finishingDrawing = true;
+        }
+       
+        if (this.data.LotId) {
             this.isItem = true;
+        }
+
+        if(!this.yarnType){
+            this.yarnType=this.data.CottonYarn;
+        }
+
+        if(this.data.PolyesterYarn){
+            this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.polyesterLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.polyesterLot = null;
+                }
+            });
+        }
+        if(this.data.CottonYarn){
+            this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.cottonLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.cottonLot = null;
+                }
+            });
         }
 
     }
@@ -64,13 +165,105 @@ export class DataForm {
         ],
     };
 
-    selectedLotConfigurationChanged(newValue) {
-        if (newValue.Id) {
-            this.data.lot.Id = newValue.lotId;
-            this.data.lot.no = newValue.lotNo;
-            this.data.yarnType = newValue.yarnType
+    // selectedLotConfigurationChanged(newValue) {
+    //     if (newValue.Id) {
+    //         this.data.lot.Id = newValue.lotId;
+    //         this.data.lot.no = newValue.lotNo;
+    //         this.data.YarnType = newValue.YarnType
+    //     }
+    // }
+
+    processTypeChanged(e) {
+        var selectedProcess = e.srcElement.value;
+        this.error=this.context.error;
+        if (selectedProcess) {
+            this.data.ProcessType = selectedProcess;
+            if (this.data.ProcessType == "Finish-Drawing") {
+                this.ProcessType = true;
+            }
+            if (this.data.ProcessType == "Blowing" || 
+                this.data.ProcessType == "Carding" || 
+                this.data.ProcessType == "Pre-Drawing" || 
+                this.data.ProcessType == "Finishing-Drawing")  {
+                    this.finishingDrawing = false;
+            } else {
+                this.finishingDrawing = true;
+            }
         }
     }
+
+    cottonYarnTypeChanged(e) {
+        var selectedProcess = e.srcElement.value;
+        if(!this.error){
+            this.error={};
+        }
+        if(selectedProcess){
+            this.data.CottonYarn = selectedProcess;
+            this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.cottonLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.cottonLot = null;
+                }
+            });
+        }
+        console.log(this.cottonLot)
+    }
+
+    polyesterYarnTypeChanged(e) {
+        var selectedProcess = e.srcElement.value;
+        if(!this.error){
+            this.error={};
+        }
+        if(selectedProcess){
+            this.data.PolyesterYarn = selectedProcess;
+            this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
+                if(result){
+                    console.log(result)
+                    this.error= {};
+                    this.isItem = true;
+                    this.data.items = result.CottonCompositions;
+                    this.data.CottonCompositions = result.CottonCompositions
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                    this.polyesterLot = result.LotNo;
+                } else{
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.isItem = false;
+                    this.data.items = null;
+                    this.data.CottonCompositions = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.polyesterLot = null;
+                }
+            });
+        }
+    }
+    // yarnChanged(newValue, oldValue) {
+    //     console.o
+    //     if (this.yarn && this.yarn.Id) {
+    //         this.data.YarnId = this.yarn.Id;
+    //     }
+    // }
+
+    get yarnLoader() {
+        return ProductLoader;
+    }
+
+
 
     // async yarnChanged(newValue, oldValue) {
     //     if (this.yarn && this.yarn.Id) {
@@ -119,8 +312,4 @@ export class DataForm {
     // get unitLoader() {
     //     return UnitLoader;
     // }
-
-    get yarnLoader() {
-        return YarnLoader;
-    }
 } 

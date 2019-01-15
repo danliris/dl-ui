@@ -14,13 +14,10 @@ export class DataForm {
     @bindable isEdit = false;
     @bindable isView = false;
     @bindable readOnly;
-    @bindable data = {};
+    @bindable data;
     @bindable error;
     @bindable title;
     @bindable unit;
-    @bindable machine;
-    @bindable yarn;
-    @bindable Input = [];
 
     formOptions = {
         cancelText: "Kembali",
@@ -29,6 +26,16 @@ export class DataForm {
         deleteText: "Hapus",
     };
 
+    yarnTypeList = [
+        "PCP",
+        "CMP",
+        "CD",
+        "CVC",
+        "PE",
+        "TENCEL",
+        "CUPRO",
+        "PC-P 45"
+    ];
 
     controlOptions = {
         label: {
@@ -38,7 +45,7 @@ export class DataForm {
             length: 5
         }
     }
-
+    itemColumns = ["Nama Kapas", "Komposisi"];
     spinningFilter = {"DivisionName.toUpper()":"SPINNING"};
     shift = ["Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
 
@@ -51,26 +58,15 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.Input = this.data.Input || [];
         this.Lot = {}
 
-        if (this.data.Unit && this.data.Unit._id) {
-            this.unit = this.data.Unit;
+        if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
+            this.unit = this.data.UnitDepartment;
         }
         if (this.data.Yarn && this.data.Yarn.Id) {
             this.yarn = this.data.Yarn;
         }
-        if (this.data.Machine && this.data.Machine._id) {
-            this.machine = this.data.Machine;
-        }
-
-        if (this.data.Counter && this.data.Hank) {
-            var inputData = {
-                Counter: this.data.Counter,
-                Hank: this.data.Hank
-            };
-            this.data.Input.push(inputData)
-        }
+        
 
         if (this.data.Lot) {
             this.Lot = this.data.Lot;
@@ -80,7 +76,7 @@ export class DataForm {
 
     inputInfo = {
         columns: [
-            { header: "Nama Kapas", value: "ProductName" },
+            { header: "Nama Kapas", value: "Product" },
             { header: "Komposisi", value: "Composition" },
         ],
         onAdd: function () {
@@ -90,9 +86,18 @@ export class DataForm {
         }.bind(this)
     };
 
+    addItemCallback = (e) => {
+        this.data.CottonCompositions = this.data.CottonCompositions || [];
+        this.data.CottonCompositions.push({})
+    };
+
+    removeItemCallback(item, event) {
+        this.data.CottonCompositions.splice(item.context.CottonCompositions.indexOf(CottonCompositions.data), 1);
+    }
+
     unitChanged(newValue, oldValue) {
-        if (this.unit && this.unit._id) {
-            this.data.Unit = this.unit
+        if (this.unit && this.unit.Id) {
+            this.data.UnitDepartmentId = this.unit.Id;
             if (oldValue) {
                 this.machine = null;
                 this.yarn = null;
