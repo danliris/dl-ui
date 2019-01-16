@@ -37,6 +37,19 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/yarn",
+    name: "yarn",
+    moduleId: "./modules/weaving/yarn/index",
+    nav: true,
+    title: "Master Benang",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
   // {
   //     route: 'weaving/estimasi-bahan-baku',
