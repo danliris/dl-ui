@@ -11,37 +11,49 @@
             </au-autocomplete>
         </td>
         <td class="col-sm-2">
-            <au-textbox 
-                value.bind="data.Unit.Name"
-                show.bind="selectedEPO"
-                read-only="true">
-            </au-textbox>
-        </td>
-        <td class="col-sm-2">
             <au-checkbox 
-                value.bind="data.IsUseVat"
+                value.bind="data.UseVat"
                 show.bind="selectedEPO"
-                read-only="true">
+                read-only="true"
+                error.bind="error.incomeTax">
             </au-checkbox>
         </td>
         <td class="col-sm-2">
-            <au-checkbox 
-                value.bind="data.IsUseIncomeTax"
+            <au-numeric 
+                value.bind="vatValue"
                 show.bind="selectedEPO"
-                read-only="true">
+                read-only="true"
+                error.bind="error.incomeTax">
+            </au-numeric>
+        </td>
+        <td class="col-sm-2">
+            <au-checkbox 
+                value.bind="data.UseIncomeTax"
+                show.bind="selectedEPO"
+                read-only="true"
+                error.bind="error.incomeTax">
             </au-checkbox>
         </td>
         <td class="col-sm-2">
             <au-textbox 
                 value.bind="incomeTax"
                 show.bind="selectedEPO"
-                read-only="true">
+                read-only="true"
+                error.bind="error.incomeTax">
             </au-textbox>
+        </td>
+        <td class="col-sm-2">
+            <au-numeric 
+                value.bind="incomeTaxValue"
+                show.bind="selectedEPO"
+                read-only="true"
+                error.bind="error.incomeTax">
+            </au-numeric>
         </td>
         <td class="col-sm-1">
             <button class="btn btn-info" click.delegate="toggle()">i</button> 
         </td>
-        <td class="col-sm-1">
+        <td class="col-sm-1" show.bind="!readOnly">
             <button class="btn btn-danger" click.delegate="onremove(data)" if.bind="!readOnly">-</button>
         </td>
     </tr>
@@ -52,8 +64,9 @@
                 errors.bind="error.Details"
                 columns.bind="itemsColumns.columns"
                 remove.bind="itemsColumns.onRemove"
-                options.bind="options"
+                options.bind="context"
                 read-only.bind="options.readOnly"
+                change.delegate="detailChanged($event)"
                 item-template="modules/purchasing/purchasing-disposition/template/detail">
             </au-collection>
             
