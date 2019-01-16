@@ -83,7 +83,6 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-        console.log(this.data)
         this.error = this.context.error;
         this.data.Input = this.data.Input || [];
         this.isItem = false;
@@ -114,7 +113,6 @@ export class DataForm {
         if(this.data.PolyesterYarn){
             this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    console.log(result)
                     this.error= {};
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
@@ -136,7 +134,6 @@ export class DataForm {
         if(this.data.CottonYarn){
             this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    console.log(result)
                     this.error= {};
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
@@ -201,7 +198,6 @@ export class DataForm {
             this.data.CottonYarn = selectedProcess;
             this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    console.log(result)
                     this.error= {};
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
@@ -220,7 +216,6 @@ export class DataForm {
                 }
             });
         }
-        console.log(this.cottonLot)
     }
 
     polyesterYarnTypeChanged(e) {
@@ -232,7 +227,6 @@ export class DataForm {
             this.data.PolyesterYarn = selectedProcess;
             this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    console.log(result)
                     this.error= {};
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
