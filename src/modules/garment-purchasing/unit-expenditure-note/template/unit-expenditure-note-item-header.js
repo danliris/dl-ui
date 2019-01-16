@@ -29,10 +29,4 @@ export class UnitDeliveryOrderItemHeader {
         a.data.IsSave=false;
     }
   }
-
-  controlOptions = {
-    control: {
-      length: 12
-    }
-  };
 }

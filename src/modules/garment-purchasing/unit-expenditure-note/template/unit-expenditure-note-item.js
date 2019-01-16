@@ -27,22 +27,4 @@ export class UnitDeliveryOrderItem {
     get isEdit() {
         return (this.data.Id || '').toString() != '';
     }
-
-  productChanged(newValue){
-    var selectedProduct = newValue;
-    if(selectedProduct){
-      this.data.Product.Id = selectedProduct.ProductId;
-      this.data.Product.Name = selectedProduct.ProductName;
-      this.data.Product.Code = selectedProduct.ProductCode;
-      this.data.Product.Remark = selectedProduct.ProductRemark;
-    }else{
-      this.data.Product = null;
-    }
-  }
-
-  controlOptions = {
-    control: {
-      length: 12
-    }
-  };
 }
