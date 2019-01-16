@@ -4,20 +4,22 @@
     <div class="col-md-6">
 
       <au-input-form with.bind="context" title.bind="title" options.bind="formOptions">
+          <au-textbox label="Nomor Mesin" value.bind="data.No" error.bind="error.No" read-only.bind="readOnly"></au-textbox>
+
         <au-autocomplete label="Unit" value.bind="Unit" error.bind="error.Unit" loader.bind="unitLoader" text.bind="unitView"
           read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-textbox label="Merk Mesin" value.bind="data.Brand" error.bind="error.Brand" read-only.bind="readOnly"></au-textbox>
+        <au-textbox label="Line" value.bind="data.Line" error.bind="error.Line" read-only.bind="readOnly"></au-textbox>
 
-        <au-textbox label="Nama" value.bind="data.Name" error.bind="error.Name" read-only.bind="readOnly"></au-textbox>
+        <au-textbox label="Merk Mesin" value.bind="data.Name" error.bind="error.Name" read-only.bind="readOnly"></au-textbox>
 
-        <au-dropdown label="Jenis Mesin" value.bind="data.Type" error.bind="error.Type" read-only.bind="readOnly"
+        <au-textbox label="Type Mesin" value.bind="data.Brand" error.bind="error.Brand" read-only.bind="readOnly"></au-textbox>
+
+        <au-dropdown label="Jenis Proses" value.bind="data.Type" error.bind="error.Type" read-only.bind="readOnly"
           items.bind="typeOptions" options.bind="controlOptions">
         </au-dropdown>
         
-        <au-textbox label="Line" value.bind="data.Line" error.bind="error.Line" read-only.bind="readOnly"></au-textbox>
-
         <au-numeric label="Tahun Mesin" value.bind="data.Year" error.bind="error.Year" read-only.bind="readOnly" format="0"></au-numeric>
 
         <au-textbox label="Kondisi Mesin" value.bind="data.Condition" error.bind="error.Condition" read-only.bind="readOnly"></au-textbox>
