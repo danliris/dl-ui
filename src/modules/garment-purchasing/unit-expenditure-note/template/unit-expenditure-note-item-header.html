@@ -1,0 +1,18 @@
+<template >
+    <tr>
+        <th width="5%" if.bind="!options.hasView" >
+            <au-checkbox 
+                value.bind="saveAll"
+                change.delegate="saveAllChanged($event)">
+            </au-checkbox>
+        </th>
+        <th width="5%">Kode Buyer</th>
+        <th width="5%">Kode Barang</th>
+        <th width="8%">Nama Barang</th>
+        <th width="10%">Keterangan Barang</th>
+        <th width="5%">Design / Color</th>
+        <th width="7%">Jumlah Keluar</th>
+        <th width="4%">Satuan</th>
+        <th width="4%">Tipe Fabric</th>
+    </tr>
+</template>
