@@ -16,6 +16,7 @@ export class PurchaseQuantityCorrectionItem {
             this.error = "";
         }
         this.data.PricePerDealUnitAfter = this.data.PricePerDealUnitAfter;
+        this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));    
     }
     
     @computedFrom("data.Quantity")
@@ -26,6 +27,7 @@ export class PurchaseQuantityCorrectionItem {
             else
             {
                 this.isFirst = true;
+                // this.data.PriceTotalAfter = -this.data.PriceTotalAfter;
             }
         return this.data.PriceTotalAfter;
     }
