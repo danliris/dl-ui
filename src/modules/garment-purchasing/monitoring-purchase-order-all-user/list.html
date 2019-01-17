@@ -21,7 +21,7 @@
                      
                     options.bind="controlOptions">
                 </au-autocomplete>
-                <au-autocomplete 
+                <!-- <au-autocomplete 
                     value.bind="category" 
                     label="Kategori" 
                     loader.bind="categoryLoader"
@@ -29,7 +29,7 @@
                     read-only.bind="readOnly" 
                     text.bind = "categoryView" 
                     options.bind="controlOptions">
-                </au-autocomplete>
+                </au-autocomplete> -->
 
                 <au-textbox value.bind="epoNo" label="Nomor External PO" placeholder="No PO External">
                 </au-textbox>
@@ -112,7 +112,7 @@
                        
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
                        
-                        <td colspan="6">SURAT JALAN</td>
+                        <td colspan="5">SURAT JALAN</td>
                         <td colspan="2">BEA CUKAI</td>
                         <td colspan="4">BON PENERIMAAN</td>
                         <td colspan="10">I N V O I C E</td>
@@ -153,8 +153,7 @@
                         
                         <td rowspan="2">QTY DATANG</td>
                         <td rowspan="2">SATUAN</td>
-                        <td rowspan="2">QTY SISA</td>
-                       
+
                         <td rowspan="2">NOMOR</td>
                         <td rowspan="2">TGL</td>
 
@@ -197,7 +196,7 @@
                         <td>${item.article}</td>
                         <td>${item.buyerCode}</td>
                         <td>${item.buyerName}</td>
-                        <td>${item.ShipmentDate | dateFormat:'DD MMM YYYY'}</td>
+                        <td>${item.shipmentDate}</td>
                        
                         <td>${item.poextNo}</td>
                         <td>${item.poExtDate}</td>
@@ -228,7 +227,6 @@
                         <td>${item.arrivalDate}</td>
                         <td align="right">${item.doQty}</td>
                         <td>${item.doUomUnit}</td>
-                        <td align="right">${item.remainingDOQty}</td>
                         <td>${item.bcNo}</td>
                         <td>${item.bcDate}</td>
                         <td>${item.receiptNo}</td>
@@ -239,18 +237,18 @@
                         <td>${item.invoiceDate}</td>
                         <td>${item.vatNo}</td>
                         <td>${item.vatDate}</td>
-                        <td>${item.valValue}</td>
+                        <td align="right">${item.vatValue}</td>
                        
                         <td>${item.incomeTaxType}</td>
                         <td>${item.incomeTaxtRate}</td>
                         <td>${item.incomeTaxNo}</td>
                         <td>${item.incomeTaxDate}</td>
-                        <td>${item.incomeTaxValue}</td>
+                        <td align="right">${item.incomeTaxtValue}</td>
 						 
 					
                         <td>${item.internNo}</td>
                         <td>${item.internDate}</td>
-                        <td align="right">${item.totalIntern}</td>
+                        <td align="right">${item.internTotal}</td>
                         <td>${item.maturityDate}</td>
                         <td>${item.correctionNoteNo}</td>
                         <td>${item.correctionDate}</td>
