@@ -1,32 +1,25 @@
-import {inject} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    info = { page: 1, keyword: '' };
 
     context = ["Rincian", "Cetak PDF"]
 
     columns = [
-        { field: "DispositionNo", title: "Nomor Disposisi Pembayaran" },
-        {
-            field: "CreatedUtc", title: "Tanggal Disposisi", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "Division.name", title: "Divisi"},
-        { field: "Category.name", title: "Kategori"},
-        { field: "Supplier.name", title: "Supplier" },
-        { field: "Currency.code", title: "Mata Uang"},
-        {
-            field: "PaymentDueDate", title: "Tanggal Jatuh Tempo", formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
-            }
-        },
-        { field: "externalPurchaseOrderNo", title: "Nomor External Purchase Order", sortable: false },
         
+        { field: "UENNo", title: "No. Bon Pengeluaran Unit" },
+        { field: "UnitDONo", title: "No. Delivery Order" },
+        {
+            field: "ExpenditureDate", title: "Tanggal Pengeluaran", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
+        { field: "ExpenditureType", title: "Jenis Pengeluaran" },
+        { field: "ExpenditureTo", title: "Tujuan Barang" },
+        { field: "CreatedAgent", title: "User" },
     ];
 
     loader = (info) => {
@@ -39,19 +32,22 @@ export class List {
             keyword: info.search,
             order: order
         }
-
+        
         return this.service.search(arg)
             .then(result => {
-                for (var _data of result.data) {
-                    
-                    var EPONo = _data.Items.map(function (item) {
-                        return `<li>${item.EPONo}</li>`;
-                    });
-                    var uniqueArray = EPONo.filter(function(item, pos) {
-                        return EPONo.indexOf(item) == pos;
-                    })
-                    _data.externalPurchaseOrderNo = `<ul>${uniqueArray.join()}</ul>`;
-                }
+                var data = {};
+                data.total = result.info.total;
+                data.data = result.data;
+                data.data.forEach(s => {
+                    s.toString = function () {
+                        var str = "<ul>";
+                        for (var item of s.Items) {
+                            str += `<li>${item.RONo}</li>`;
+                        }
+                        str += "</ul>";
+                        return str;
+                    }
+                });
                 return {
                     total: result.info.total,
                     data: result.data
@@ -80,7 +76,7 @@ export class List {
     contextShowCallback(index, name, data) {
         switch (name) {
             case "Cetak PDF":
-                return true;
+                return data.Id;
             default:
                 return true;
         }

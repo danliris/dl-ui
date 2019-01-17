@@ -324,6 +324,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/unit-expenditure-note',
+        name: 'unit-expenditure-note',
+        moduleId: './modules/garment-purchasing/unit-expenditure-note/index',
+        nav: true,
+        title: 'Bon Pengeluaran Unit',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            //permission: { "C9": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/monitoring-unit-receipt-note',
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/monitoring-unit-receipt-note/index',

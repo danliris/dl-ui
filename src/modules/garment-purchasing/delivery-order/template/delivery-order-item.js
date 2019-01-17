@@ -126,7 +126,7 @@ export class DeliveryOrderItem {
       this.data.fulfillments = [];
       this.error = {};
       this.isShowing = false;
-    } else if (newValue && this.context.context.options.hasCreate) {
+    } else if (newValue.EPONo && this.context.context.options.hasCreate) {
       this.data.fulfillments = [];
       this.data.purchaseOrderExternal = newValue;
       this.data.purchaseOrderExternal.no = newValue.EPONo;
@@ -157,7 +157,7 @@ export class DeliveryOrderItem {
         var categoryProduct = await this.service.searchGarmentCategory(info);
         var codeRequirmentTemp = "";
         for (var data of categoryProduct){
-          codeRequirmentTemp = data.codeRequirment;
+          codeRequirmentTemp = data.codeRequirement;
         }
 
         var fulfillment = {

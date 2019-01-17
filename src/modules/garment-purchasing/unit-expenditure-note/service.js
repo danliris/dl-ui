@@ -1,10 +1,13 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
+import moment from 'moment';
 
+const serviceUri = 'garment-unit-expenditure-notes';
+const unitDeliveryOrder = 'garment-unit-receipt-notes/unit-delivery-order-header';
 
-// const serviceUri = 'purchase-requests/by-user';
-const serviceUri = 'purchasing-dispositions';
 
 export class Service extends RestService {
 
@@ -13,9 +16,14 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}/by-user`;
+        var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
+
+    // searchUnitReceiptNote(info) {
+    //     var endpoint = `${unitReceiptNoteUri}`;
+    //     return super.list(endpoint, info);
+    // }
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
@@ -37,13 +45,13 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getDispositions(info) {
-        var endpoint = `${serviceUri}/disposition`;
-        return super.list(endpoint, info);
-    }
-
     getPdfById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
-    } 
-} 
+    }
+
+    searchUnitReceiptNote(info) {
+        var endpoint = `${unitReceiptNoteUri}`;
+        return super.list(endpoint, info);
+    }
+}
