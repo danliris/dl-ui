@@ -64,13 +64,19 @@ export class Create {
                 incomeTax : data.incomeTax,
                 vat : data.vat,
                 totalPaid : data.totalPaid,
-                invoiceNo : data.invoiceNo,
+                proformaNo : data.proformaNo,
                 dispositionId : data.dispositionId,
                 dispositionNo : data.dispositionNo,
                 useIncomeTax : data.useIncomeTax,
                 useVat : data.useVat,
                 paymentMethod : data.paymentMethod,
+                category: data.category,
+                division: data.division,
+                incomeTaxValue: data.incomeTaxValue,
+                vatValue: data.vatValue,
+                dpp:data.dpp,
                 items : data.items,
+                
             };
             this.datatemp.push(datatemp)
         }
