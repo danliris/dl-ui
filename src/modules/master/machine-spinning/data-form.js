@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-var UOMLoader = require('../../../loader/uom-loader');
-var UnitLoader = require('../../../loader/unit-loader');
+var UOMLoader = require('../../../loader/uom-azure-loader');
+var UnitLoader = require('../../../loader/unit-azure-loader');
 
 export class DataForm {
   @bindable title;
@@ -28,17 +28,17 @@ export class DataForm {
   }
 
   uomView = (uom) => {
-    return `${uom.unit}`
+    return `${uom.Unit}`
   }
 
   unitView = (unit) => {
-    return `${unit.name}`
+    return `${unit.Name}`
   }
 
   UomChanged(newValue) {
-    if (newValue &&newValue._id) {
-      this.data.UomId = newValue._id;
-      this.data.UomUnit = newValue.unit;
+    if (newValue &&newValue.Id) {
+      this.data.UomId = newValue.Id;
+      this.data.UomUnit = newValue.Unit;
     }else{
       this.data.UomId = 0;
       this.data.UomUnit = null;
@@ -46,10 +46,10 @@ export class DataForm {
   }
 
   UnitChanged(newValue) {
-    if (newValue && newValue._id) {
-      this.data.UnitId = newValue._id;
-      this.data.UnitName = newValue.name;
-      this.data.UnitCode = newValue.code;
+    if (newValue && newValue.Id) {
+      this.data.UnitId = newValue.Id;
+      this.data.UnitName = newValue.Name;
+      this.data.UnitCode = newValue.Code;
     }else{
       this.data.UnitId = 0;
       this.data.UnitName = null;
@@ -69,15 +69,15 @@ export class DataForm {
 
     if (this.data.UomId) {
       this.Uom = {};
-      this.Uom._id = this.data.UomId;
-      this.Uom.unit = this.data.UomUnit;
+      this.Uom.Id = this.data.UomId;
+      this.Uom.Unit = this.data.UomUnit;
     }
 
     if (this.data.UnitId) {
       this.Unit = {};
-      this.Unit._id = this.data.UnitId;
-      this.Unit.name = this.data.UnitName;
-      this.Unit.code = this.data.UnitCode;
+      this.Unit.Id = this.data.UnitId;
+      this.Unit.Name = this.data.UnitName;
+      this.Unit.Code = this.data.UnitCode;
     }
   }
 } 

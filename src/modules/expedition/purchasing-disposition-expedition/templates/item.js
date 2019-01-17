@@ -42,20 +42,32 @@ export class Item {
             this.data.currency._id = newValue.Currency._id;
             this.data.currency.code = newValue.Currency.code;
             this.data.supplier = {};
+            this.data.supplier._id = newValue.Supplier._id;
             this.data.supplier.code = newValue.Supplier.code;
             this.data.supplier.name = newValue.Supplier.name;
+            this.data.division = {};
+            this.data.division._id = newValue.Division._id;
+            this.data.division.code = newValue.Division.code;
+            this.data.division.name = newValue.Division.name;
+            this.data.category = {};
+            this.data.category._id = newValue.Category._id;
+            this.data.category.code = newValue.Category.code;
+            this.data.category.name = newValue.Category.name;
             this.data.paymentDueDate = newValue.PaymentDueDate;
             this.data.incomeTaxVm = {};
             this.data.incomeTaxVm._id = newValue.Items[0].IncomeTax._id;
             this.data.incomeTaxVm.name = newValue.Items[0].IncomeTax.name;
             this.data.incomeTaxVm.rate = newValue.Items[0].IncomeTax.rate;
             this.data.incomeTax = newValue.Amount * this.data.incomeTaxVm.rate;
-            this.data.invoiceNo = newValue.InvoiceNo;
+            this.data.proformaNo = newValue.ProformaNo;
             this.data.dispositionId = newValue.Id;
             this.data.dispositionNo = newValue.DispositionNo;
             this.data.useIncomeTax = newValue.Items[0].UseIncomeTax;
             this.data.useVat = newValue.Items[0].UseVat;
             this.data.paymentMethod = newValue.PaymentMethod;
+            this.data.vatValue= newValue.VatValue;
+            this.data.incomeTaxValue= newValue.IncomeTaxValue;
+            this.data.dpp= newValue.DPP;
             if(this.data.useVat == true){
                 this.data.vat = newValue.Amount * 0.1;
             } else {
