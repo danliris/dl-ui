@@ -26,10 +26,12 @@ export class Edit {
     }
 
     saveCallback(event) {
+        this.data.LotDate =  moment(this.data.LotDate).format("DD MMM YYYY HH:mm"); 
         this.service.update(this.data).then(result => {
             this.cancelCallback();
         }).catch(e => {
             this.error = e;
+            alert(this.error);
         })
     }
 }

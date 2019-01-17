@@ -34,6 +34,7 @@ export class CartItem {
 
     productChanged(n, o){
         if (this.product && this.product.Id) {
+            this.data.Product = this.product;
             this.data.ProductId = this.product.Id;
         }
     }

@@ -45,7 +45,7 @@ export class DataForm {
             length: 5
         }
     }
-    itemColumns = ["Nama Kapas", "Komposisi"];
+    itemColumns = ["Nama Serat", "Komposisi"];
     spinningFilter = {"DivisionName.toUpper()":"SPINNING"};
     shift = ["Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
 
@@ -76,7 +76,7 @@ export class DataForm {
 
     inputInfo = {
         columns: [
-            { header: "Nama Kapas", value: "Product" },
+            { header: "Nama Serat", value: "Product" },
             { header: "Komposisi", value: "Composition" },
         ],
         onAdd: function () {
