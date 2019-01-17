@@ -268,7 +268,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finance",
-            //permission: { "B4": 1, "C5": 1, "C9": 1 },
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     }

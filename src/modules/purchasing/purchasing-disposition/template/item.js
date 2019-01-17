@@ -30,7 +30,7 @@ export class PurchasingDispositionItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
-        this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ? { "supplierId": this.options.supplierId, "currencyId":this.options.currencyId, "divisionId": this.options.divisionId, "categoryId": this.options.categoryId} : {};
+        this.filter = this.options.supplierId && this.options.currencyId ? { "supplierId": this.options.supplierId, "currencyId":this.options.currencyId, } : {};
         
         if(this.data.EPONo){
             this.selectedEPO=this.data;

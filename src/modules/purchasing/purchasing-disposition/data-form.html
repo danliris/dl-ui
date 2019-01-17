@@ -20,30 +20,6 @@
         </au-textbox>
 
         <au-autocomplete 
-            value.bind="selectedDivision" 
-            error.bind="error.divisionId"
-            read-only.bind="(readOnly || isEdit)"
-            label="Divisi" 
-            loader.bind="divisionLoader"
-            text.bind = "divisionView"
-            placeholder="cari divisi" 
-            key="code" 
-            options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-autocomplete 
-            value.bind="selectedCategory" 
-            error.bind="error.category"
-            read-only.bind="(readOnly || isEdit)"
-            label="Kategori" 
-            loader.bind="categoryLoader"
-            text.bind = "categoryView"
-            placeholder="cari kategori" 
-            key="code"
-            options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-autocomplete 
             value.bind="selectedSupplier" 
             error.bind="error.Supplier"
             label="Supplier" 
@@ -178,7 +154,7 @@
             options.one-way="filter"
             read-only.bind="readOnly"
             change.delegate="itemsChanged($event)"
-            if.bind="selectedSupplier && selectedCurrency && selectedDivision && selectedCategory"
+            if.bind="selectedSupplier && selectedCurrency"
             item-template="modules/purchasing/purchasing-disposition/template/item"
             >
         </au-collection>
