@@ -8,7 +8,6 @@ import moment from 'moment';
 const serviceUri = 'garment-unit-delivery-orders';
 const unitReceiptNoteUri = 'garment-unit-receipt-notes/unit-delivery-order-header';
 
-
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
