@@ -52,6 +52,7 @@ export class Edit {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
+        // console.log(this.)
         this.data.IsSave = true;
     }
 

@@ -33,6 +33,7 @@ export class DataForm {
 
     async bind(context) {
         this.context = context;
+        console.log(this.context);
         this.data = this.context.data;
         this.error = this.context.error;
         this.isTransfer = false;
@@ -67,11 +68,14 @@ export class DataForm {
         if (this.data.ExpenditureType) {
             unitDeliveryOrderFilter.UnitDOType = this.data.ExpenditureType;
             unitDeliveryOrderFilter.IsUsed = false;
-            // unitDeliveryOrderFilter.hasView = this.context.hasView;
             if(this.data.ExpenditureType === "EXTERNAL"){
                 unitDeliveryOrderFilter.UnitDOType = "RETUR";
                 unitDeliveryOrderFilter.IsUsed = false;
             }
+        }else{
+            this.hasView = this.context.hasView;
+            this.hasEdit = this.context.hasEdit;
+            this.hasCreate = this.context.hasCreate;
         }
         return unitDeliveryOrderFilter;
     }
@@ -105,7 +109,6 @@ export class DataForm {
         this.isItem = false;
         this.data.StorageRequest = null;
         this.error = null;
-        // console.log(this.error);
     }
 
     get unitDeliveryOrderLoader() {
@@ -114,7 +117,6 @@ export class DataForm {
 
     unitDeliveryOrderChanged(newValue){
         var selectedUnitDeliveryOrder = newValue;
-        console.log(selectedUnitDeliveryOrder);
         if(selectedUnitDeliveryOrder == null){
             this.data.Items = null;
             this.error = null;
@@ -125,6 +127,7 @@ export class DataForm {
             this.isItem = false;
         }
         else if(selectedUnitDeliveryOrder){
+            console.log(selectedUnitDeliveryOrder);
             this.data.UnitDOId = selectedUnitDeliveryOrder.Id;
             this.data.UnitDONo = selectedUnitDeliveryOrder.UnitDONo;
             this.data.UnitSender = selectedUnitDeliveryOrder.UnitSender;
@@ -175,6 +178,7 @@ export class DataForm {
                 Items.UomUnit = item.UomUnit;
                 Items.PricePerDealUnit = item.PricePerDealUnit;
                 Items.Quantity = item.Quantity;
+                Items.OldQuantity = item.Quantity;
                 Items.BuyerId = item.Buyer.Id;
                 Items.BuyerCode = item.Buyer.Code;
                 Items.DesignColor = item.DesignColor;
@@ -196,7 +200,7 @@ export class DataForm {
 
     items = {
         columns: [
-            "",
+            " ",
             "Kode Buyer",
             "Kode Barang",
             "Nama Barang",

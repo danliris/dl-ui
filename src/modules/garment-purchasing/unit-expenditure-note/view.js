@@ -18,7 +18,6 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
         this.unitDeliveryOrder = { UnitDONo:this.data.UnitDONo};
         this.data.Storage.toString = function () {
             return [this.code, this.name]
