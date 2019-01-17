@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 const ProductLoader = require('../../../../loader/product-loader');
-const EPOLoader = require('../../../../loader/purchase-order-external-disposition-azure-loader');
+const EPOLoader = require('../../../../loader/purchase-order-external-all-loader');
 
 var moment = require('moment');
 
@@ -57,17 +57,17 @@ export class PurchasingDispositionItem {
     async selectedEPOChanged(newValue) {
         if (newValue) {
             this.selectedEPO=newValue;
-            console.log(newValue)
+            
             if(newValue._id || newValue.EPOId){
                 this.data.EPOId=newValue._id || this.data.EPOId;
                 this.data.EPONo= newValue._id ? newValue.no : this.data.EPONo;
-                this.data.UseVat= newValue._id ?newValue.useVat : this.data.UseVat;
-                this.data.UseIncomeTax=newValue._id ? newValue.useIncomeTax : this.data.UseIncomeTax;
+                this.data.UseVat= newValue._id ?newValue.useIncomeTax : this.data.UseVat;
+                this.data.UseIncomeTax=newValue._id ? newValue.useVat : this.data.UseIncomeTax;
                 if(this.data.UseIncomeTax){
-                    this.data.IncomeTax=newValue.useIncomeTax ? newValue.incomeTax : this.data.IncomeTax;
-                    this.data.IncomeTax.Name=newValue.incomeTax.name;
-                    this.data.IncomeTax.Id=newValue.incomeTax._id;
-                    this.data.IncomeTax.Rate=newValue.incomeTax.rate;
+                    this.data.IncomeTax=newValue.vat ? newValue.vat : this.data.IncomeTax;
+                    this.data.IncomeTax.Name=newValue.vat.name;
+                    this.data.IncomeTax.Id=newValue.vat._id;
+                    this.data.IncomeTax.Rate=newValue.vat.rate;
                     this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
                     
                 }
@@ -81,41 +81,35 @@ export class PurchasingDispositionItem {
                 var arg = {
                     epoId:this.data.EPOId
                 }
-                //var dataDisposition=await this.service.getDispositions(arg);
+                var dataDisposition=await this.service.getDispositions(arg);
                 var details=[];
                 for(var item of newValue.items){
-                    for(var detail of item.details){
-                        var qty=detail.dealQuantity-detail.dispositionQuantity;
-
-                        //===========MONGO==============
-                        // if(dataDisposition.info.count>0){
-                        //     for(var DispoData of dataDisposition.data){
-                        //         for(var dispoItem of DispoData.Items){
-                        //             for(var dispoDetail of dispoItem.Details){
-                        //                 if(dispoDetail.PRId==item.purchaseRequest._id && dispoDetail.Product._id==detail.product._id){
-                        //                     qty-=dispoDetail.PaidQuantity;
-                        //                 }
-                        //             }
-                        //         }
-                        //     }
-                        // }
-
-                        //============================================================
+                    for(var detail of item.items){
+                        var qty=detail.dealQuantity;
+                        if(dataDisposition.info.count>0){
+                            for(var DispoData of dataDisposition.data){
+                                for(var dispoItem of DispoData.Items){
+                                    for(var dispoDetail of dispoItem.Details){
+                                        if(dispoDetail.PRId==item.purchaseRequest._id && dispoDetail.Product._id==detail.product._id){
+                                            qty-=dispoDetail.PaidQuantity;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         //var qty=detail.dealQuantity-detail.dispositionQuantity;
                         // this.data.Unit=newValue.unit;
                         // this.data.Unit.Id=newValue.unit._id;
                         // this.data.Unit.Name=newValue.unit.name;
                         // this.data.Unit.Division=newValue.unit.division;
                         // this.data.Unit.Division.Name=newValue.unit.division.name;
-
-
                         details.push({
-                            PRNo: item.prNo,
-                            UnitId:item.unit._id,
-                            Unit:newValue.unit,
-                            PRId: item.prId,
+                            PRNo: item.purchaseRequest.no,
+                            UnitId:item.unitId,
+                            Unit:item.unit,
+                            PRId: item.purchaseRequest._id,
                             Product:detail.product,
-                            DealQuantity:detail.dealQuantity,
+                            DealQuantity:qty,
                             DealUom:detail.dealUom,
                             Category: item.category,
                             CategoryId:item.categoryId,
