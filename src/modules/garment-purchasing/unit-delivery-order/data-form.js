@@ -60,8 +60,11 @@ export class DataForm {
         }
 
         this.options = {
-            readOnly : this.readOnly
+            readOnly : this.readOnly,
         };
+        if (this.data && this.data.Items) {
+            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+        }
     }
 
     @computedFrom("data.Id")
@@ -303,11 +306,13 @@ export class DataForm {
 
     async searchRONo() {
         this.data.Items = this.dataItems;
+        this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
     }
 
     async addProduct() {
         if (this.newProduct && this.newProduct.ProductId) {
             this.data.Items.push(this.newProduct);
+            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
             this.context.ItemsCollection.bind();
             this.newProduct = {};
             this.RONoHeader = null;

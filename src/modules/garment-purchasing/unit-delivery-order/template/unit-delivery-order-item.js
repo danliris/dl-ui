@@ -37,6 +37,10 @@ export class UnitDeliveryOrderItem {
     }
   }
 
+  changeCheckBox() {
+    this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+  }
+
   productChanged(newValue) {
     var selectedProduct = newValue;
     if (selectedProduct) {

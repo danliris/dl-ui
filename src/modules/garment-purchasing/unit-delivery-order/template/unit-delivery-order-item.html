@@ -3,7 +3,8 @@
         <td>
             <au-checkbox 
                 value.bind="data.IsSave" 
-                disabled.bind="readOnly">
+                disabled.bind="readOnly"
+                change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
         <td>
