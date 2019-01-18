@@ -9,7 +9,7 @@ export class List {
     context = ["Rincian"]
 
     columns = [
-        
+
         { field: "UnitDONo", title: "No. Delivery Order" },
         { field: "RONo", title: "No. RO" },
         { field: "Article", title: "Artikel" },
@@ -19,8 +19,8 @@ export class List {
             }
         },
         { field: "UnitDOType", title: "Jenis Delivery Order" },
-        { field: "Name", title: "Unit Yang Meminta" },
-        { field: "name", title: "Gudang Yang Mengirim" },
+        { field: "UnitRequestName", title: "Unit Yang Meminta" },
+        { field: "StorageName", title: "Gudang Yang Mengirim" },
     ];
 
     loader = (info) => {
@@ -33,13 +33,12 @@ export class List {
             keyword: info.search,
             order: order
         }
-        
+
         return this.service.search(arg)
             .then(result => {
                 var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
-                console.log(data.data);
                 data.data.forEach(s => {
                     s.toString = function () {
                         var str = "<ul>";

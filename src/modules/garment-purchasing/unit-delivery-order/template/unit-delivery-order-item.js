@@ -6,7 +6,7 @@ import { Config } from "aurelia-api";
 var UomLoader = require('../../../../loader/uom-loader');
 
 const resource = 'master/garmentProducts';
-const POresource= 'garment-internal-purchase-orders';
+const POresource = 'garment-internal-purchase-orders';
 export class UnitDeliveryOrderItem {
 
   fabricOptions = ['NON FABRIC', 'MAIN FABRIC', 'CONTRASS', 'INTERLINING', 'LINING', 'SPINING', 'PIPING', 'SLEEK', 'FRONTING', 'FELT', 'RIB'];
@@ -16,29 +16,39 @@ export class UnitDeliveryOrderItem {
     this.error = context.error;
     this.options = context.options;
 
+    this.readOnly = this.options.readOnly || this.data.IsDisabled;
   }
 
   bind() {
-    
+
   }
 
-  fabricChanged(e){
+  @computedFrom("data.Id")
+  get isEdit() {
+    return (this.data.Id || '').toString() != '';
+  }
+
+  fabricChanged(e) {
     var selectedFabric = e.srcElement.value;
-    if(selectedFabric){
+    if (selectedFabric) {
       this.data.FabricType = selectedFabric;
-    }else{
+    } else {
       this.data.FabricType = null;;
     }
   }
 
-  productChanged(newValue){
+  changeCheckBox() {
+    this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+  }
+
+  productChanged(newValue) {
     var selectedProduct = newValue;
-    if(selectedProduct){
+    if (selectedProduct) {
       this.data.Product.Id = selectedProduct.ProductId;
       this.data.Product.Name = selectedProduct.ProductName;
       this.data.Product.Code = selectedProduct.ProductCode;
       this.data.Product.Remark = selectedProduct.ProductRemark;
-    }else{
+    } else {
       this.data.Product = null;
     }
   }
