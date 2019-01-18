@@ -5,62 +5,44 @@ import { Service } from './service';
 @inject(Router, Service)
 export class View {
     hasCancel = true;
-    hasEdit = false;
-    hasDelete = false;
-    hasUnpost = false;
-    hasView=true;
+    hasEdit = true;
+    hasDelete = true;
 
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
+
     async activate(params) {
-        var isVoid = false;
-        var isArriving = false;
         var id = params.id;
-        this.poExId = id;
         this.data = await this.service.getById(id);
-        var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
-        this.kurs=kurs[0];
 
-        var isUsedSJ=false;
-        for(var item of this.data.Items){
-            if(item.DOQuantity>0){
-                isUsedSJ=true;break;
+        if (this.data) {
+            if (this.data.UnitRequest) {
+                this.unitRequest = this.data.UnitRequest;
+            }
+
+            if (this.data.UnitSender) {
+                this.unitSender = this.data.UnitSender;
+            }
+
+            if (this.data.Storage) {
+                this.storage = this.data.Storage;
+            }
+
+            if (this.data.RONo) {
+                this.RONo = {
+                    RONo: this.data.RONo,
+                    Items: []
+                };
+            }
+
+            if (this.data.Items) {
+                for (let item of this.data.Items) {
+                    item.IsSave = true;
+                }
             }
         }
-
-        if(this.data.Currency){
-            this.selectedCurrency=this.data.Currency;
-        }
-
-        if(this.data.Supplier){
-            this.selectedSupplier=this.data.Supplier;
-            this.data.SupplierId=this.data.Supplier.Id;
-            this.data.Supplier.usevat=this.data.IsUseVat ;
-           
-            if(this.data.IsIncomeTax){
-                this.data.Supplier.usetax=true;
-            }
-            
-        }
-
-        if(this.data.IncomeTax){
-            this.selectedIncomeTax=this.data.IncomeTax;
-        }
-
-        // if (!this.data.IsPosted && !isUsedSJ) {
-        //     this.hasDelete = true;
-        //     this.hasEdit = true;
-        // }
-        // if (this.data.IsPosted && !isUsedSJ) {
-        //     this.hasUnpost = true;
-        // }
-        if (this.data.IsCanceled || this.data.IsClosed) {
-            this.hasUnpost = false;
-        }
-
-       
     }
 
     cancel(event) {

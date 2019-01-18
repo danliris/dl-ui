@@ -12,34 +12,32 @@ import moment from 'moment';
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
-    @bindable error = {};
     @bindable title;
-    @bindable options = { };
+    @bindable dataItems = [];
+    @bindable error = {};
+    @bindable options = {};
+    @bindable unitDOType;
     @bindable unitRequest;
     @bindable unitSender;
     @bindable storage;
+    @bindable storageRequest;
     @bindable RONo;
     @bindable RONoHeader;
+    @bindable newProduct = {};
+    @bindable isProses = false;
+    @bindable isTransfer = false;
+    @bindable isSample = false;
 
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE'];
+
     controlOptions = {
         label: {
-            align : "left",
+            align: "left",
             length: 4
         },
         control: {
             length: 5,
             align: "right"
-        }
-    }
-    RONoOptions = {
-        label: {
-            align : "left",
-            length: 4
-        },
-        control: {
-            length: 8,
-            align: "left"
         }
     }
 
@@ -48,32 +46,25 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
     }
 
-    async bind(context) {
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.isItem = false;
-        if (this.data.UnitDOType) {
-            if (this.data.UnitDOType === "PROSES") {
-                this.isProses = true;
-            }
-            else {
-                this.isProses= false;
-            }
+
+        if(this.data.UnitDOType)
+        {
+            this.unitDOType = this.data.UnitDOType;
         }
         else {
-            this.isProses = true;
+            this.unitDOType = this.typeUnitDeliveryOrderOptions[0];
         }
-        
-        if(this.data.Items)
-            if (this.data.Items.length > 0) {
-                this.isItem = true;
-            }
 
-        this.options.readOnly = this.readOnly;
-        
-        this.readOnlySender = true;
-        
+        this.options = {
+            readOnly : this.readOnly,
+        };
+        if (this.data && this.data.Items) {
+            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+        }
     }
 
     @computedFrom("data.Id")
@@ -81,58 +72,59 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    @computedFrom("data.UnitSender")
-    get filterUnit() {
+    @computedFrom("data.UnitRequest")
+    get filterUnitRequest() {
         var storageFilter = {}
-        if (this.data.UnitSender) {
-            storageFilter.UnitName = this.data.UnitSender.Name;
+        if (this.data.UnitRequest) {
+            storageFilter.UnitId = this.data.UnitRequest.Id;
         }
 
         return storageFilter;
     }
 
     @computedFrom("data.UnitSender")
-    get filterUnits() {
+    get filterUnit() {
+        var storageFilter = {}
+        if (this.data.UnitSender) {
+            storageFilter.UnitId = this.data.UnitSender.Id;
+        }
+
+        return storageFilter;
+    }
+
+    @computedFrom("data.UnitSender", "data.UnitDOType")
+    get filterRONoByUnit() {
         var rONoFilter = {}
         if (this.data.UnitSender) {
             rONoFilter.UnitId = this.data.UnitSender.Id;
+            rONoFilter.Type = this.data.UnitDOType;
         }
         return rONoFilter;
     }
 
-    unitDOTypeChanged(e) {
-        var selectedCategory = e.srcElement.value;
+    @computedFrom("data.UnitSender", "data.UnitDOType", "data.RONo")
+    get filterRONoAddProductByUnit() {
+        var rONoFilter = {}
+        if (this.data.UnitSender) {
+            rONoFilter.UnitId = this.data.UnitSender.Id;
+            rONoFilter.Type = this.data.UnitDOType;
+            rONoFilter.RONo = this.data.RONo;
+        }
+        return rONoFilter;
+    }
+
+    unitDOTypeChanged(newValue) {
+        var selectedCategory = newValue;
         if (selectedCategory) {
             this.data.UnitDOType = selectedCategory;
 
-            this.data.RONo = '';
-            this.data.ProductName = '';
-            this.data.ProductCode = '';
-            this.data.ProductRemark = '';
-            this.data.Quantity = '';
-            this.data.UomUnit = '';
-            if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "SAMPLE"){
-                this.readOnlySender = true;
-                this.data.UnitSender = this.data.UnitRequest;
-            }
-            else{
-                this.unitSender = null;
-                this.unitRequest = null;
-                this.readOnlySender = this.options.readOnly;
-            }
-            if (this.data.UnitDOType === "PROSES") {
-                this.isProses = true;
-            }
-            else {
-                this.isProses = false;
-            }
-            this.data.Items = [];
+            this.isProses = this.data.UnitDOType === "PROSES";
+            this.isTransfer = this.data.UnitDOType === "TRANSFER";
+            this.isSample = this.data.UnitDOType === "SAMPLE";
+
+            this.unitRequest = null;
+            this.unitSender = null;
         }
-        this.unitRequest = null;
-        this.unitSender = null;
-        this.storage = null;
-        this.RONo = null;
-        this.data.Article = null;
     }
 
     get storageLoader() {
@@ -140,83 +132,96 @@ export class DataForm {
     }
 
     get garmentUnitReceiptNoteHeaderLoader() {
-        return (keyword) => {
+        return (keyword, filter) => {
             var info = {
-              keyword: keyword,
+                keyword: keyword,
+                filter: JSON.stringify(filter),
             };
             return this.service.searchUnitReceiptNote(info)
                 .then((result) => {
-                    return result.data;
+                    let itemIds = this.data.Items.map(i => i.URNItemId);
+                    return result.data.filter(data => data && itemIds.indexOf(data.Id) < 0);
                 });
         }
     }
 
     storageView = (storage) => {
-        var code=storage.code? storage.code : storage.Code;
-        var name=storage.name? storage.name : storage.Name;
+        var code = storage.code ? storage.code : storage.Code;
+        var name = storage.name ? storage.name : storage.Name;
         return `${code} - ${name}`
     }
 
-    unitRequestChanged(newValue){
+    unitRequestChanged(newValue) {
         var selectedUnit = newValue;
-        if(selectedUnit){
+        if (selectedUnit) {
             this.data.UnitRequest = selectedUnit;
-            this.data.UnitRequest.Id = selectedUnit.Id;
-            this.data.UnitRequest.Code = selectedUnit.Code;
-            this.data.UnitRequest.Name = selectedUnit.Name;
-            this.unitSender = selectedUnit;
+            if (this.isProses || this.isSample) {
+                this.unitSender = selectedUnit;
+            }
         }
-        else{
+        else {
             this.data.UnitRequest = null;
-            this.data.UnitSender = null;
+            if (this.isProses || this.isSample) {
+                this.unitSender = null;
+            }
+            this.context.unitRequestViewModel.editorValue = "";
         }
+        this.storageRequest = null;
     }
 
-    unitSenderChanged(newValue){
+    unitSenderChanged(newValue) {
         var selectedUnit = newValue;
-        if(this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "SAMPLE"){
-            this.data.UnitSender = this.data.UnitRequest;
-        } else{
-            this.data.UnitSender = null;
-        }
-        if(selectedUnit){
-
+        if (selectedUnit) {
             this.data.UnitSender = selectedUnit;
-            this.data.UnitSender.Id = selectedUnit.Id;
-            this.data.UnitSender.Code = selectedUnit.Code;
-            this.data.UnitSender.Name = selectedUnit.Name;
         }
-        else{
-            this.data.UnitRequest = null;
+        else {
             this.data.UnitSender = null;
+            this.context.unitSenderViewModel.editorValue = "";
         }
+        this.storage = null;
+        this.RONo = null;
     }
 
-    storageChanged(newValue){
+    storageRequestChanged(newValue) {
         var selectedStorage = newValue;
-        if(selectedStorage){
-            this.data.Storage = selectedStorage;
-            this.data.Storage.Id = selectedStorage.Id;
-            this.data.Storage.Code = selectedStorage.Code;
-            this.data.Storage.Name = selectedStorage.Name;
+        if (selectedStorage) {
+            this.data.StorageRequest = selectedStorage;
         }
-        else{
-            this.data.Storage = null;
+        else {
+            this.data.StorageRequest = null;
+            this.context.storageRequestViewModel.editorValue = "";
         }
     }
 
-    RONoChanged(newValue){
-        var selectedro = newValue;
-        console.log(selectedro);
-        if(newValue == null){
-            this.data.Items = null;
-            this.error = null;
+    storageChanged(newValue) {
+        var selectedStorage = newValue;
+        if (selectedStorage) {
+            this.data.Storage = selectedStorage;
         }
-        else if(newValue){
+        else {
+            this.data.Storage = null;
+            this.context.storageViewModel.editorValue = "";
+        }
+    }
+
+    RONoChanged(newValue) {
+        var selectedro = newValue;
+        this.dataItems = [];
+        this.data.Items = [];
+        if(this.error && this.error.Items) {
+            this.error.Items = [];
+        }
+
+        if (newValue == null) {
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.context.RONoViewModel.editorValue = "";
+        }
+        else if (newValue) {
             this.data.RONo = selectedro.RONo;
             this.data.Article = selectedro.Article;
-            this.data.Items = [];
-            for(var item of selectedro.Items){
+
+            for (var item of selectedro.Items) {
                 var Items = {};
                 Items.URNItemId = item.Id;
                 Items.URNNo = item.URNNo;
@@ -231,43 +236,48 @@ export class DataForm {
                 Items.ProductId = item.ProductId;
                 Items.ProductCode = item.ProductCode;
                 Items.ProductName = item.ProductName;
-                Items.ProductRemark = item.ProductRemark;
-                Items.RONOItem = item.RONo;
-                Items.UomId =  item.SmallUomId;
+                Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
+                Items.UomId = item.SmallUomId;
                 Items.UomUnit = item.SmallUomUnit;
                 Items.PricePerDealUnit = item.PricePerDealUnit;
-                Items.Quantity = (item.SmallQuantity - item.OrderQuantity);
+                Items.Quantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                Items.IsSave = Items.Quantity > 0;
+                Items.IsDisabled = !(Items.Quantity > 0);
 
-                this.data.Items.push(Items);
+                this.dataItems.push(Items);
             }
         }
-        else{
-            this.data = null;
-        }
+        this.RONoHeader = null;
     }
 
-    RONoHeaderChanged(newValue){
+    RONoHeaderChanged(newValue) {
         var selectedROHeader = newValue;
-        console.log(newValue);
-        if(selectedROHeader == null){
-            this.data.Items = null;
-            this.error = null;
+        this.newProduct = {};
+        if (selectedROHeader == null) {
+            this.context.RONoHeaderViewModel.editorValue = "";
         }
-        else if(selectedROHeader){
-            
-            this.data.ProductId = selectedROHeader.Id;
-            this.data.ProductCode = selectedROHeader.ProductCode;
-            this.data.ProductName = selectedROHeader.ProductName;
-            this.data.ProductRemark = selectedROHeader.ProductRemark;
-
-            this.data.RONoAsal = selectedROHeader.RONo;
-            this.data.UomId = selectedROHeader.SmallUomId;
-            this.data.UomUnit = selectedROHeader.SmallUomUnit;
-            this.data.QuantityHeader = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
-
-            this.data.Items.push(selectedROHeader);
-        }
-
+        else if (selectedROHeader) {
+            this.newProduct.URNItemId = selectedROHeader.Id;
+            this.newProduct.URNNo = selectedROHeader.URNNo;
+            this.newProduct.DODetailId = selectedROHeader.DODetailId;
+            this.newProduct.URNId = selectedROHeader.URNId;
+            this.newProduct.POItemId = selectedROHeader.POItemId;
+            this.newProduct.EPOItemId = selectedROHeader.EPOItemId;
+            this.newProduct.PRItemId = selectedROHeader.PRItemId;
+            this.newProduct.RONo = selectedROHeader.RONo;
+            this.newProduct.Article = selectedROHeader.Article;
+            this.newProduct.POSerialNumber = selectedROHeader.POSerialNumber;
+            this.newProduct.ProductId = selectedROHeader.ProductId;
+            this.newProduct.ProductCode = selectedROHeader.ProductCode;
+            this.newProduct.ProductName = selectedROHeader.ProductName;
+            this.newProduct.ProductRemark = `${selectedROHeader.POSerialNumber}; ${selectedROHeader.Article}; ${selectedROHeader.RONo}; ${selectedROHeader.ProductRemark}`;
+            this.newProduct.UomId = selectedROHeader.SmallUomId;
+            this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
+            this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
+            this.newProduct.Quantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
+            this.newProduct.IsSave = selectedROHeader.Quantity > 0;
+            this.newProduct.IsDisabled = !(selectedROHeader.Quantity > 0);
+    }
     }
 
     get unitRequestLoader() {
@@ -278,9 +288,8 @@ export class DataForm {
         return UnitSenderLoader;
     }
 
-
     roNoView = (rono) => {
-        return `${rono.RONo} - ${rono.ProductName} - ${rono.ProductRemark}`
+        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber}`;
     }
 
     unitRequestView = (unitRequest) => {
@@ -296,28 +305,29 @@ export class DataForm {
     }
 
     async searchRONo() {
-        this.data.Items.push(this.RONo);
-        this.isItem = true;
+        this.data.Items = this.dataItems;
+        this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
     }
 
-    async searchProduct(){
-        this.data.Items.push(this.RONoHeader);
-        this.context.ItemsCollection.bind();
+    async addProduct() {
+        if (this.newProduct && this.newProduct.ProductId) {
+            this.data.Items.push(this.newProduct);
+            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+            this.context.ItemsCollection.bind();
+            this.newProduct = {};
+            this.RONoHeader = null;
+        }
     }
 
     items = {
         columns: [
-            "",
             "Kode Barang",
             "Nama Barang",
             "Keterangan Barang",
             "RO Asal",
             "Jumlah",
             "Satuan",
-            "Tipe Fabric"],
-            onAdd: function () {
-                this.context.ItemsCollection.bind();
-                this.data.items.push({});
-            }.bind(this),
+            "Tipe Fabric"
+        ],
     };
 }
