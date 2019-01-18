@@ -7,6 +7,8 @@ import { Service } from './service';
 import PurchasingDispositionExpeditionService from '../shared/purchasing-disposition-expedition-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
 import { VERIFICATION, CASHIER  } from '../shared/permission-constants';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
 const DispositionLoader = require('../../../loader/purchase-dispositions-loader');
 const SupplierLoader = require('../../../loader/supplier-loader');
 
@@ -26,6 +28,7 @@ export class Create {
             },
         },
         { field: "supplier.name", title: "Supplier" },
+        { field: "proformaNo", title: "No Proforma / Invoice" },
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
@@ -34,6 +37,7 @@ export class Create {
             },
         },
         { field: "currency.code", title: "Mata Uang" },
+        { field: "dispoCreatedby", title: "Nama Pembelian" },
     ];
 
     tableOptions = {
@@ -139,10 +143,35 @@ export class Create {
 
         this.purchasingDispositionExpeditionService.search(arg)
             .then(result => {
-                this.selectedItems.splice(0, this.selectedItems.length);
-                this.documentData.splice(0, this.documentData.length);
-                this.documentData.push(...result.data)
-                this.documentTable.refresh();
+                var dispositions=[];
+                for(var data of result.data){
+                    var config = Container.instance.get(Config);
+                    var _endpoint = config.getEndpoint("purchasing-azure");
+                    const resource = `purchasing-dispositions/${data.dispositionId}`;
+                    var disp=  _endpoint.find(resource);
+                        // .then(result => {
+                        //     var dispoData= result.data;
+                        //     return dispoData.CreatedBy;
+                        // });
+                     dispositions.push(disp);
+                }
+                Promise.all(dispositions).then(dispo=>{
+                    var dataDisposition=[];
+                    for(var dataResult of dispo){
+                        dataDisposition.push(dataResult.data);
+                    }
+                    for(var data of result.data){
+                        var same= dataDisposition.find(a=>a.Id==data.dispositionId);
+                        if(same){
+                            data.dispoCreatedby=same.CreatedBy;
+                        }
+                    }
+                    this.selectedItems.splice(0, this.selectedItems.length);
+                    this.documentData.splice(0, this.documentData.length);
+                    this.documentData.push(...result.data)
+                    this.documentTable.refresh();
+                })
+                
             });
     }
 
