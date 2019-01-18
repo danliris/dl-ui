@@ -23,7 +23,7 @@ export class Edit {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save(event) {
