@@ -37,6 +37,58 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/yarn",
+    name: "yarn",
+    moduleId: "./modules/weaving/yarn/index",
+    nav: true,
+    title: "Master Benang",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/order-production-report",
+    name: "order-production-report",
+    moduleId: "./modules/weaving/order-production-report/index",
+    nav: true,
+    title: "Laporan Surat Order Produksi",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/master-material-type",
+    name: "master-material-type",
+    moduleId: "./modules/weaving/master-material-type/index",
+    nav: true,
+    title: "Master Material",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/master-ring",
+    name: "master-ring",
+    moduleId: "./modules/weaving/master-ring/index",
+    nav: true,
+    title: "Master Ring",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
   // {
   //     route: 'weaving/estimasi-bahan-baku',

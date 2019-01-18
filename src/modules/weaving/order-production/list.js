@@ -8,41 +8,67 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "orderNumber", title: "No SOP" },
-    {
-      field: "dateOrdered",
-      title: "Tanggal SOP",
-      formatter: function(value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+    [
+      { field: "orderNumber", title: "No SOP", rowspan: "2", valign: "top" },
+      {
+        field: "dateOrdered",
+        title: "Tanggal SOP",
+        rowspan: "2",
+        valign: "top",
+        formatter: function(value, data, index) {
+          return moment(value).format("DD MMM YYYY");
+        }
+      },
+      {
+        field: "weavingUnit",
+        title: "Unit",
+        rowspan: "2",
+        valign: "top",
+        formatter: function(value, data, index) {
+          return value.name;
+        }
+      },
+      {
+        field: "constructionNumber",
+        title: "Konstruksi",
+        rowspan: "2",
+        valign: "top"
+        // formatter: function(value, data, index) {
+        //   return value.constructionNumber;
+        // }
+      },
+      {
+        title: "Blended (%)",
+        colspan: "3",
+        valign: "middle"
       }
-    },
-    {
-      field: "weavingUnit",
-      title: "Unit",
-      formatter: function(value, data, index) {
-        return value.name;
+    ],
+    [
+      {
+        field: "composition",
+        title: "Poly",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.compositionOfPoly;
+        }
+      },
+      {
+        field: "composition",
+        title: "Cotton",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.compositionOfCotton;
+        }
+      },
+      {
+        field: "composition",
+        title: "Lainnya",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.otherComposition;
+        }
       }
-    },
-    {
-      field: "constructionNumber",
-      title: "Konstruksi",
-      // formatter: function(value, data, index) {
-      //   return value.constructionNumber;
-      // }
-    },
-    {
-      field: "composition",
-      title: "Blended (%)",
-      formatter: function(value, data, index) {
-        return (
-          value.compositionOfPoly +
-          " " +
-          value.compositionOfCotton +
-          " " +
-          value.otherComposition
-        );
-      }
-    }
+    ]
   ];
 
   loader = info => {

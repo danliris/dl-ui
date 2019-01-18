@@ -1,0 +1,98 @@
+<template>
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions"
+      >
+        <div class="row">
+          <au-textbox
+            label="Kode"
+            value.bind="data.yarnCode"
+            error.bind="error.yarnCode"
+            read-only.bind="readOnlyViewEdit"
+            show.bind="showViewEdit"
+          ></au-textbox>
+        </div>
+
+        <div class="row">
+          <au-dropdown
+            label="Jenis Bahan"
+            value.bind="data.yarnMaterialType"
+            error.bind="error.yarnMaterialType"
+            read-only.bind="readOnly"
+            items.bind="material"
+          ></au-dropdown>
+        </div>
+
+        <div class="row">
+          <au-dropdown
+            label="Ukuran Ring"
+            value.bind="data.yarnRingSize"
+            error.bind="error.yarnRingSize"
+            read-only.bind="readOnly"
+            items.bind="ringsize"
+          ></au-dropdown>
+        </div>
+
+        <div class="row">
+          <au-textbox
+            label="Nama"
+            value.bind="data.yarnName"
+            error.bind="error.yarnName"
+            read-only.bind="readOnlyViewEdit"
+          ></au-textbox>
+        </div>
+
+        <div class="row">
+          <au-autocomplete
+            label="Satuan"
+            value.bind="data.yarnUnit"
+            error.bind="error.yarnUnit"
+            read-only.bind="readOnly"
+          ></au-autocomplete>
+        </div>
+
+        <div class="row">
+          <au-autocomplete
+            label="Mata Uang"
+            value.bind="data.yarnCurrencyCode"
+            error.bind="error.yarnCurrencyCode"
+            read-only.bind="readOnly"
+          ></au-autocomplete>
+        </div>
+
+        <div class="row">
+          <au-numeric
+            label="Harga"
+            value.bind="data.yarnPrice"
+            error.bind="error.yarnPrice"
+            read-only.bind="readOnly"
+          ></au-numeric>
+        </div>
+
+        <div class="row">
+          <au-multiline
+            label="Tags"
+            value.bind="data.tags"
+            error.bind="error.tags"
+            read-only.bind="readOnlyViewEdit"
+            show.bind="showViewEdit"
+          ></au-multiline>
+        </div>
+
+        <div class="row">
+          <au-multiline
+            label="Keterangan"
+            value.bind="data.yarnDescription"
+            error.bind="error.yarnDescription"
+            read-only.bind="readOnly"
+          ></au-multiline>
+        </div>
+
+        <!-- <template replaceable part="actions"></template> -->
+      </au-input-form>
+    </div>
+  </div>
+</template>
