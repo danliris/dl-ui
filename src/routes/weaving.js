@@ -63,6 +63,32 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/master-material-type",
+    name: "master-material-type",
+    moduleId: "./modules/weaving/master-material-type/index",
+    nav: true,
+    title: "Master Material",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/master-ring",
+    name: "master-ring",
+    moduleId: "./modules/weaving/master-ring/index",
+    nav: true,
+    title: "Master Ring",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
   // {
   //     route: 'weaving/estimasi-bahan-baku',
