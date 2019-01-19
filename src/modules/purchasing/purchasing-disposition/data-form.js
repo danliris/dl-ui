@@ -80,7 +80,6 @@ export class DataForm {
         this.data.Category = {};
         if(this.data.Items)
             this.data.Items.splice(0);
-            console.log(newValue)
         var _selectedCategory = newValue;
         if (_selectedCategory.Id || _selectedCategory._id) {
             this.data.Category = _selectedCategory;
@@ -117,7 +116,6 @@ export class DataForm {
         this.data.Supplier = {};
         if(this.data.Items)
             this.data.Items.splice(0);
-            console.log(newValue)
         var _selectedSupplier = newValue;
         if (_selectedSupplier.Id || _selectedSupplier._id) {
             this.data.Supplier = _selectedSupplier;
@@ -133,7 +131,6 @@ export class DataForm {
     }
 
     selectedCurrencyChanged(newValue){
-        console.log(newValue)
         this.data.Currency = {};
         if(this.data.Items)
             this.data.Items.splice(0);
@@ -146,6 +143,17 @@ export class DataForm {
         else{
             this.data.Currency = {};
             this.data.Items.splice(0);
+        }
+    }
+
+    IncomeTaxByChanged(e){
+        if(e.srcElement){
+            if(e.srcElement.value=="Supplier"){
+                this.data.Amount=this.data.DPP + this.data.VatValue;
+            }
+            else{
+                this.data.Amount=this.data.DPP+ this.data.VatValue + this.data.IncomeTaxValue;
+            }
         }
     }
 
@@ -176,9 +184,9 @@ export class DataForm {
     itemsChanged(e){
         if(this.data.Items){
             this.data.Amount=0;
-            this.data.incomeTaxValue=0;
+            this.data.IncomeTaxValue=0;
             this.data.DPP=0;
-            this.data.vatValue=0;
+            this.data.VatValue=0;
             for(var item of this.data.Items){
                 if(item.Details){
                     for(var detail of item.Details){
@@ -191,10 +199,14 @@ export class DataForm {
                         if(item.UseVat){
                             ppn=detail.PaidPrice*0.1;
                         }
-                        this.data.incomeTaxValue+=pph;
-                        this.data.vatValue+=ppn;
+                        this.data.IncomeTaxValue+=pph;
+                        this.data.VatValue+=ppn;
                         this.data.DPP+=detail.PaidPrice;
-                        this.data.Amount+=detail.PaidPrice+ppn+pph;
+                        if(this.data.IncomeTaxBy=="Supplier"){
+                            this.data.Amount+=detail.PaidPrice+ppn;
+                        }
+                        else
+                            this.data.Amount+=detail.PaidPrice+ppn+pph;
                     }
                 }
             }
@@ -224,7 +236,11 @@ export class DataForm {
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
+                            if(this.data.IncomeTaxBy=="Supplier"){
+                                this.data.Amount+=detail.PaidPrice+ppn;
+                            }
+                            else
+                                this.data.Amount+=detail.PaidPrice+ppn+pph;
                         }
                     }
                 }
