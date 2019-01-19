@@ -11,6 +11,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
     @bindable title;
+    @bindable error = {};
     @bindable selectedBuyer;
     @bindable selectedComodity;
 
