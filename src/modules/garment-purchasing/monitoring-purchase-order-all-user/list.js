@@ -5,7 +5,7 @@ var moment = require('moment');
 var UnitLoader = require('../../../loader/garment-units-loader');
 var CategoryLoader = require('../../../loader/garment-category-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var AccountLoader = require('../../../loader/garment-purchase-request-name-loader');
+var AccountLoader = require('../../../loader/garment-internal-purchase-orders-name-loader');
 
 @inject(Router, Service)
 export class List {
@@ -37,7 +37,6 @@ export class List {
             page: this.info.page,
             size: this.info.size,
             unit : this.unit ? this.unit.Id : "",
-            category : this.category ? this.category.Id : "",
             epono : this.epoNo ? this.epoNo : "",
             article : this.article ? this.article : "",
             roNo : this.roNo ? this.roNo : "",
@@ -62,7 +61,7 @@ export class List {
 
     reset() {
     this.unit = "",
-    this.category = "",
+
     this.epoNo = "",
     this.article = "",
     this.roNo = "",
@@ -83,7 +82,6 @@ export class List {
             page: this.info.page,
             size: this.info.size,
             unit : this.unit ? this.unit.Id : "",
-            category : this.category ? this.category.Id : "",
             epono : this.epoNo ? this.epoNo : "",
             article : this.article ? this.article : "",
             roNo : this.roNo ? this.roNo : "",
@@ -97,7 +95,7 @@ export class List {
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         };
         
-        this.service.generateExcel(args.epono, args.unit, args.category, args.roNo, args.article, args.poSerialNumber, args.username, args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo);
+        this.service.generateExcel(args.epono, args.unit, args.roNo, args.article, args.poSerialNumber, args.username, args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo);
     }
 
     dateFromChanged(e) {
