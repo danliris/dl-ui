@@ -36,10 +36,13 @@ export class Edit {
         this.error = {};
     }
 
+    bankView = "";
     UPOResults = [];
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        this.bankView = this.data.Bank.accountName ? `${this.data.Bank.accountName} - A/C : ${this.data.Bank.accountNumber}` : '';
 
         this.UPOResults = this.data.Details.map((detail) => {
             detail.Select = true;
