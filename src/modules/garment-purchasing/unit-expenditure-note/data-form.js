@@ -99,16 +99,18 @@ export class DataForm {
             }else if(this.data.ExpenditureType === "PROSES"){
                 this.data.ExpenditureTo = "PROSES";
             }
-            this.data.Items = [];
         }
         this.unitDeliveryOrder = null;
         this.data.UnitRequest = null;
-        this.data.Items = null;
+        this.data.Items = [];
         this.data.UnitSender = null;
         this.data.Storage = null;
         this.isItem = false;
         this.data.StorageRequest = null;
         this.error = null;
+        this.context.error.Items = [];
+
+        console.log(this.error);
     }
 
     get unitDeliveryOrderLoader() {
@@ -117,8 +119,13 @@ export class DataForm {
 
     unitDeliveryOrderChanged(newValue){
         var selectedUnitDeliveryOrder = newValue;
+        this.dataItems = [];
+        this.data.Items = [];
+        if(this.error && this.error.Items) {
+            this.error.Items = [];
+        }
         if(selectedUnitDeliveryOrder == null){
-            this.data.Items = null;
+            this.data.Items = [];
             this.error = null;
             this.data.UnitRequest = null;
             this.data.UnitSender = null;
@@ -127,7 +134,7 @@ export class DataForm {
             this.isItem = false;
         }
         else if(selectedUnitDeliveryOrder){
-            console.log(selectedUnitDeliveryOrder);
+            //console.log(selectedUnitDeliveryOrder);
             this.data.UnitDOId = selectedUnitDeliveryOrder.Id;
             this.data.UnitDONo = selectedUnitDeliveryOrder.UnitDONo;
             this.data.UnitSender = selectedUnitDeliveryOrder.UnitSender;
@@ -197,7 +204,10 @@ export class DataForm {
             this.data.UnitSender = null;
             this.data.Storage = null;
             this.data.StorageRequest = null;
+            this.data.Items = null;
         }
+        // this.data.Items = [];
+        this.context.error.Items = [];
     }
 
     items = {
