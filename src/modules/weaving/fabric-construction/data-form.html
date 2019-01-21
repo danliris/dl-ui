@@ -37,13 +37,13 @@
         </div>
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
-            <au-dropdown
+            <au-autocomplete
               value.bind="data.konstruksiJenis"
               error.bind="error.konstruksiJenis"
               read-only.bind="readOnly"
               items.bind="construction"
             >
-            </au-dropdown>
+            </au-autocomplete>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox

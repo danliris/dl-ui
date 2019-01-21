@@ -13,12 +13,18 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  // customShortOptions = {
-  //   control: {
-  //     align: "left",
-  //     length: 4
-  //   }
-  // };
+  //   customShortOptions={
+  //       control:{
+  //           length:6
+  //       }
+  //   };
+
+  unit = ["", "Weaving1", "Weaving2", "Weaving3", "Weaving4", "Weaving5", "Weaving6"];
+  machineType = ["", "000001", "000002", "000003", "000004", "000005", "000006"];
+  location = ["", "Place A", "Place B", "Place C", "Place D", "Place E", "Place F"];
+  block = ["", "A", "B", "C", "D", "E", "F"];
+  maintenance = ["", "Maintenance"];
+  operator = ["", "Operator"];
 
   constructor() {}
 
@@ -26,8 +32,6 @@ export class DataForm {
   get isEdit() {
     return (this.data.id || "").toString() != "";
   }
-  material = ["", "Cotton", "Poly"];
-  ringsize = [, 1, 2, 3, 4];
 
   bind(context) {
     this.context = context;
@@ -38,15 +42,9 @@ export class DataForm {
     //         };
     // this.data = {
     //     id: 1,
-    //     yarnCode: "01",
-    //     yarnMaterialType: "Cotton",
-    //     yarnRingSize: "2",
-    //     yarnName: "PC45",
-    //     yarnUnit: "Bale",
-    //     yarnCurrencyCode: "IDR",
-    //     yarnPrice: 70000,
-    //     tags: "weaving-products",
-    //     yarnDescription: "some detail"
+    //     code: "01",
+    //     name: "PC45",
+    //     description: "some detail"
     // };
     this.error = this.context.error;
 

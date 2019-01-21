@@ -4,7 +4,7 @@ import { Router } from "aurelia-router";
 
 @inject(Router, Service)
 export class List {
-  context = ["detail"];
+  context = ["detail","print PDF"];
 
   tableOptions = {
     search: false,
@@ -95,21 +95,21 @@ export class List {
       // data: result.data
       data: [
         {
-            spNumber: "0515/00.2018",
-            spDate: "01-10-18",
-            construction: "PC OX 100 48 63 DhMz B AH",
-            yarnNumber: "TC45XCM16",
-            blendedPoly: "65 %",
-            blendedCotton: "35 %",
-            blendedOthers: "100 %",
-            epGradeA: 42500,
-            epGradeB: 5000,
-            epGradeC: 1500,
-            epOthers: 1000,
-            total: 50000,
-            yarnWeft: 26.9,
-            yarnWarp: 36.97,
-            yarnWhole: 63.87
+          spNumber: "0515/00.2018",
+          spDate: "01-10-18",
+          construction: "PC OX 100 48 63 DhMz B AH",
+          yarnNumber: "TC45XCM16",
+          blendedPoly: "65 %",
+          blendedCotton: "35 %",
+          blendedOthers: "100 %",
+          epGradeA: 42500,
+          epGradeB: 5000,
+          epGradeC: 1500,
+          epOthers: 1000,
+          total: 50000,
+          yarnWeft: 26.9,
+          yarnWarp: 36.97,
+          yarnWhole: 63.87
         }
       ]
     };
@@ -122,15 +122,19 @@ export class List {
     // this.accessories = [];
   }
 
-  //   contextCallback(event) {
-  //     var arg = event.detail;
-  //     var data = arg.data;
-  //     switch (arg.name) {
-  //       case "detail":
-  //         this.router.navigateToRoute("view", { id: data.yarnCode });
-  //         break;
-  //     }
-  //   }
+  contextClickCallback(event) {
+    let arg = event.detail;
+    let data = arg.data;
+
+    switch (arg.name) {
+      case "detail":
+        this.router.navigateToRoute("view", { id: data.Id });
+        break;
+      case "print PDF":
+        this.service.getPdfById(data.Id);
+        break;
+    }
+  }
 
   // upload() {
   //     this.router.navigateToRoute('upload');
