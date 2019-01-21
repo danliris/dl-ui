@@ -23,7 +23,6 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
         this.unitDeliveryOrder = { UnitDONo:this.data.UnitDONo};
         this.data.Storage.toString = function () {
             return [this.code, this.name]
@@ -52,8 +51,14 @@ export class Edit {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
-        // console.log(this.)
-        this.data.IsSave = true;
+
+        if (this.data.Items) {
+            for (let item of this.data.Items) {
+                item.IsSave = true;
+                item.IsDisabled = false;
+            }
+        }
+
     }
 
     cancel(event) {

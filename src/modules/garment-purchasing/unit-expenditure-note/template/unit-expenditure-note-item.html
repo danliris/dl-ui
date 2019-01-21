@@ -1,9 +1,10 @@
 <template >
     <tr>
-        <td if.bind="!hasView">
+        <td>
             <au-checkbox 
                 value.bind="data.IsSave"
-                if.bind="!hasView">
+                disabled.bind="readOnly"
+                change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
         <td>

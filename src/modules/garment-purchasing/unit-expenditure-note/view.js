@@ -47,6 +47,12 @@ export class View {
                 }).join(" - ");
         }
 
+        if (this.data.Items) {
+            for (let item of this.data.Items) {
+                item.IsSave = true;
+            }
+        }
+
         // this.
     }
 
