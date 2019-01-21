@@ -13,12 +13,12 @@ export class Service extends RestService {
 
     search(args) {
         let endpoint = `${serviceUri}`;
-        console.log(args);
+       
         return super.list(endpoint, args);
     }
 
-    generateExcel(epono, unit, category, roNo, article, poSerialNumber, username, doNo, ipoStatus, supplier, status, dateFrom, dateTo) {
-        var endpoint = `${serviceUri}/download?unit=${unit}&category=${category}&article=${article}&poSerialNumber=${poSerialNumber}&ipoStatus=${ipoStatus}&epono=${epono}&roNo=${roNo}&doNo=${doNo}&supplier=${supplier}&username=${username}&dateFrom=${dateFrom}&dateTo=${dateTo}&status=${status}`;
+    generateExcel(epono, unit, roNo, article, poSerialNumber, username, doNo, ipoStatus, supplier, status, dateFrom, dateTo) {
+        var endpoint = `${serviceUri}/download?unit=${unit}&article=${article}&poSerialNumber=${poSerialNumber}&ipoStatus=${ipoStatus}&epono=${epono}&roNo=${roNo}&doNo=${doNo}&supplier=${supplier}&username=${username}&dateFrom=${dateFrom}&dateTo=${dateTo}&status=${status}`;
         return super.getXls(endpoint);
     }
 
