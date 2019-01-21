@@ -162,6 +162,6 @@ export class Create {
     }
 
     bankView(bank) {
-        return bank.accountName ? `${bank.accountName} - ${bank.bankName} - ${bank.accountNumber} - ${bank.currency.code}` : '';
+        return bank.accountName ? `${bank.accountName} - A/C : ${bank.accountNumber}` : '';
     }
 }
