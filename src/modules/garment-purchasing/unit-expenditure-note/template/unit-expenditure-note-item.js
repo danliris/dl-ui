@@ -1,24 +1,22 @@
 import { bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "../service";
-export class UnitDeliveryOrderItem {
+export class UnitExpenditureNoteItem {
 
   async activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = this.context.error;		
-    this.readOnly = context.options.readOnly;
-    this.options = this.context.options;
+    this.options = this.context.options;    
+    this.readOnly = this.options.readOnly || this.data.IsDisabled;
 
-    this.hasView = this.context.context.options.hasView;
-    this.hasEdit = this.context.context.options.hasEdit;
-    this.hasCreate = this.context.context.options.hasCreate;
-    this.hasEdit = this.context.context.options.hasEdit;
-    console.log(this.options);
-    this.data.IsSave = true;
   }
 
   @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || '').toString() != '';
     }
+
+  changeCheckBox() {
+    this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+  }
 }

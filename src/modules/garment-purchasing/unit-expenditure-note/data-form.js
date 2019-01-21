@@ -33,12 +33,10 @@ export class DataForm {
 
     async bind(context) {
         this.context = context;
-        console.log(this.context);
         this.data = this.context.data;
         this.error = this.context.error;
         this.isTransfer = false;
         this.isItem = false;
-        this.IsSave = false;
         this.data.ExpenditureTo = "PROSES";
         
 
@@ -54,7 +52,9 @@ export class DataForm {
         this.options.readOnly = this.readOnly;
         
         this.readOnlySender = true;
-        
+        if (this.data && this.data.Items) {
+            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+        }
     }
 
     @computedFrom("data.Id")
@@ -183,7 +183,8 @@ export class DataForm {
                 Items.BuyerCode = item.Buyer.Code;
                 Items.DesignColor = item.DesignColor;
                 Items.FabricType = item.FabricType;
-                Items.IsSave = false;
+                Items.IsSave = Items.Quantity > 0;
+                Items.IsDisabled = !(Items.Quantity > 0);
 
                 this.data.Items.push(Items);
             }
@@ -191,6 +192,7 @@ export class DataForm {
         }
         else{
             this.data = null;
+            this.selectedUnitDeliveryOrder = null;
             this.data.UnitRequest = null;
             this.data.UnitSender = null;
             this.data.Storage = null;
@@ -200,7 +202,6 @@ export class DataForm {
 
     items = {
         columns: [
-            " ",
             "Kode Buyer",
             "Kode Barang",
             "Nama Barang",
