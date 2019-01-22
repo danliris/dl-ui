@@ -100,7 +100,6 @@ export class DataForm {
             rONoFilter.Type = this.data.UnitDOType;
             rONoFilter.StorageId = this.data.Storage._id;
         }
-        // console.log(rONoFilter);
         return rONoFilter;
     }
 
@@ -126,6 +125,9 @@ export class DataForm {
 
             this.unitRequest = null;
             this.unitSender = null;
+
+            this.context.error.Items = [];
+            this.context.error = [];
         }
     }
 
@@ -169,6 +171,9 @@ export class DataForm {
             this.context.unitRequestViewModel.editorValue = "";
         }
         this.storageRequest = null;
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     unitSenderChanged(newValue) {
@@ -182,6 +187,9 @@ export class DataForm {
         }
         this.storage = null;
         this.RONo = null;
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     storageRequestChanged(newValue) {
@@ -193,6 +201,9 @@ export class DataForm {
             this.data.StorageRequest = null;
             this.context.storageRequestViewModel.editorValue = "";
         }
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     storageChanged(newValue) {
@@ -204,6 +215,9 @@ export class DataForm {
             this.data.Storage = null;
             this.context.storageViewModel.editorValue = "";
         }
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     RONoChanged(newValue) {
@@ -249,6 +263,9 @@ export class DataForm {
                 this.dataItems.push(Items);
             }
         }
+        
+        this.context.error.Items = [];
+        this.context.error = [];
         this.RONoHeader = null;
     }
 
@@ -278,8 +295,10 @@ export class DataForm {
             this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
             this.newProduct.Quantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
             this.newProduct.IsSave = selectedROHeader.Quantity > 0;
-            this.newProduct.IsDisabled = !(selectedROHeader.Quantity > 0);
-    }
+            this.newProduct.IsDisabled = selectedROHeader.Quantity > 0;
+        }
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     get unitRequestLoader() {
