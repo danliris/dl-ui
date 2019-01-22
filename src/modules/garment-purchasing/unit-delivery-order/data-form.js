@@ -110,6 +110,7 @@ export class DataForm {
             rONoFilter.UnitId = this.data.UnitSender.Id;
             rONoFilter.Type = this.data.UnitDOType;
             rONoFilter.RONo = this.data.RONo;
+            rONoFilter.StorageId = this.data.Storage._id;
         }
         return rONoFilter;
     }
@@ -172,8 +173,8 @@ export class DataForm {
         }
         this.storageRequest = null;
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     unitSenderChanged(newValue) {
@@ -188,8 +189,8 @@ export class DataForm {
         this.storage = null;
         this.RONo = null;
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     storageRequestChanged(newValue) {
@@ -202,8 +203,8 @@ export class DataForm {
             this.context.storageRequestViewModel.editorValue = "";
         }
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     storageChanged(newValue) {
@@ -216,8 +217,8 @@ export class DataForm {
             this.context.storageViewModel.editorValue = "";
         }
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     RONoChanged(newValue) {
@@ -256,6 +257,7 @@ export class DataForm {
                 Items.UomId = item.SmallUomId;
                 Items.UomUnit = item.SmallUomUnit;
                 Items.PricePerDealUnit = item.PricePerDealUnit;
+                Items.DesignColor = item.DesignColor;
                 Items.Quantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
                 Items.IsSave = Items.Quantity > 0;
                 Items.IsDisabled = !(Items.Quantity > 0);
@@ -264,8 +266,8 @@ export class DataForm {
             }
         }
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
         this.RONoHeader = null;
     }
 
@@ -293,12 +295,13 @@ export class DataForm {
             this.newProduct.UomId = selectedROHeader.SmallUomId;
             this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
             this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
+            this.newProduct.DesignColor = selectedROHeader.DesignColor;
             this.newProduct.Quantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
             this.newProduct.IsSave = selectedROHeader.Quantity > 0;
             this.newProduct.IsDisabled = selectedROHeader.Quantity > 0;
         }
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     get unitRequestLoader() {
