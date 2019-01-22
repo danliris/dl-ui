@@ -44,8 +44,10 @@ export class PurchaseOrderItem {
       }
     }
     this.data.SmallQuantity = parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
-    if(!this.data.UsedBudget )
+
+    if(!this.data.UsedBudget ){
       this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
+    }
     else{
       this.data.budgetUsed=this.data.UsedBudget;
     }
@@ -92,13 +94,9 @@ export class PurchaseOrderItem {
         var totalDealPrice = (this.data.remainingBudget-parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4);
         //var totalBudget=parseInt(this.data.totalBudget.toFixed(4));
         //this.data.RemainingBudget=totalDealPrice;
-        // console.log(totalDealPrice);
-        // console.log(this.data.remainingBudget,this.data.budgetUsed);
-        //console.log(this.data.remainingBudget+"-"+this.data.DealQuantity +"*"+ this.data.PricePerDealUnit +"*"+ this.kurs.Rate );
+        
         if (totalDealPrice <0) {
           this.data.IsOverBudget = true;
-          // console.log(totalDealPrice + " >"+totalBudget);
-          // console.log(this.data.dealQuantity +"*"+ this.price +"*"+ this.kurs.rate +"+"+ this.data.budgetUsed);
         } else {
           this.data.IsOverBudget = false;
           this.data.OverBudgetRemark = "";
@@ -131,7 +129,7 @@ export class PurchaseOrderItem {
   }
 
   priceChanged(e) {
-    console.log(e.detail)
+
     if(e.detail)
       this.data.budgetUsed=parseFloat(e.detail)* parseFloat(this.data.DealQuantity) * this.kurs.Rate;
     else{

@@ -137,7 +137,7 @@ export class DataForm {
             this.data.incomeTaxRate = 0;
             this.data.useIncomeTax = false;
             this.data.incomeTax = {};
-            
+
         } else if (_selectedIncomeTax._id || _selectedIncomeTax.Id) {
             this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
             this.data.useIncomeTax = true;
