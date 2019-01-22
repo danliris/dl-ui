@@ -163,6 +163,7 @@ export class Create {
                     for(var data of result.data){
                         var same= dataDisposition.find(a=>a.Id==data.dispositionId);
                         if(same){
+                            data.totalPaid=same.Amount;
                             data.dispoCreatedby=same.CreatedBy;
                         }
                     }
