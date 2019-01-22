@@ -86,14 +86,13 @@ export class List {
             poSerialNumber : this.poSerialNumber ? this.poSerialNumber : "",
             doNo : this.doNo ? this.doNo : "",
             supplier : this.supplier ? this.supplier.Id : "",
-            username: this.account ? this.account.CreatedBy : "",
             status: this.poState,
             ipoStatus:this.poIntState,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         };
-        
-        this.service.generateExcel(args.epono, args.unit, args.roNo, args.article, args.poSerialNumber, args.username, args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo);
+        console.log(this.doNo);
+        this.service.generateExcel(args.epono, args.unit, args.roNo, args.article, args.poSerialNumber,  args.doNo, args.ipoStatus, args.supplier, args.status, args.dateFrom, args.dateTo);
     }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
