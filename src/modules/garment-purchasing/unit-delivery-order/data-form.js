@@ -62,9 +62,9 @@ export class DataForm {
         this.options = {
             readOnly : this.readOnly,
         };
-        if (this.data && this.data.Items) {
-            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
-        }
+        // if (this.data && this.data.Items) {
+        //     this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+        // }
     }
 
     @computedFrom("data.Id")
@@ -92,13 +92,15 @@ export class DataForm {
         return storageFilter;
     }
 
-    @computedFrom("data.UnitSender", "data.UnitDOType")
+    @computedFrom("data.UnitSender", "data.UnitDOType", "data.Storage")
     get filterRONoByUnit() {
-        var rONoFilter = {}
+        var rONoFilter = {};
         if (this.data.UnitSender) {
             rONoFilter.UnitId = this.data.UnitSender.Id;
             rONoFilter.Type = this.data.UnitDOType;
+            rONoFilter.StorageId = this.data.Storage._id;
         }
+        // console.log(rONoFilter);
         return rONoFilter;
     }
 
