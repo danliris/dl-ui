@@ -62,9 +62,9 @@ export class DataForm {
         this.options = {
             readOnly : this.readOnly,
         };
-        if (this.data && this.data.Items) {
-            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
-        }
+        // if (this.data && this.data.Items) {
+        //     this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+        // }
     }
 
     @computedFrom("data.Id")
@@ -92,12 +92,13 @@ export class DataForm {
         return storageFilter;
     }
 
-    @computedFrom("data.UnitSender", "data.UnitDOType")
+    @computedFrom("data.UnitSender", "data.UnitDOType", "data.Storage")
     get filterRONoByUnit() {
-        var rONoFilter = {}
+        var rONoFilter = {};
         if (this.data.UnitSender) {
             rONoFilter.UnitId = this.data.UnitSender.Id;
             rONoFilter.Type = this.data.UnitDOType;
+            rONoFilter.StorageId = this.data.Storage._id;
         }
         return rONoFilter;
     }
@@ -124,6 +125,9 @@ export class DataForm {
 
             this.unitRequest = null;
             this.unitSender = null;
+
+            this.context.error.Items = [];
+            this.context.error = [];
         }
     }
 
@@ -167,6 +171,9 @@ export class DataForm {
             this.context.unitRequestViewModel.editorValue = "";
         }
         this.storageRequest = null;
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     unitSenderChanged(newValue) {
@@ -180,6 +187,9 @@ export class DataForm {
         }
         this.storage = null;
         this.RONo = null;
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     storageRequestChanged(newValue) {
@@ -191,6 +201,9 @@ export class DataForm {
             this.data.StorageRequest = null;
             this.context.storageRequestViewModel.editorValue = "";
         }
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     storageChanged(newValue) {
@@ -202,6 +215,9 @@ export class DataForm {
             this.data.Storage = null;
             this.context.storageViewModel.editorValue = "";
         }
+        
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     RONoChanged(newValue) {
@@ -247,6 +263,9 @@ export class DataForm {
                 this.dataItems.push(Items);
             }
         }
+        
+        this.context.error.Items = [];
+        this.context.error = [];
         this.RONoHeader = null;
     }
 
@@ -276,8 +295,10 @@ export class DataForm {
             this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
             this.newProduct.Quantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
             this.newProduct.IsSave = selectedROHeader.Quantity > 0;
-            this.newProduct.IsDisabled = !(selectedROHeader.Quantity > 0);
-    }
+            this.newProduct.IsDisabled = selectedROHeader.Quantity > 0;
+        }
+        this.context.error.Items = [];
+        this.context.error = [];
     }
 
     get unitRequestLoader() {

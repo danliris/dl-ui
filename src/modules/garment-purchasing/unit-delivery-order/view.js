@@ -30,6 +30,10 @@ export class View {
                 this.storage = this.data.Storage;
             }
 
+            if (this.data.StorageRequest) {
+                this.storageRequest = this.data.StorageRequest;
+            }
+
             if (this.data.RONo) {
                 this.RONo = {
                     RONo: this.data.RONo,
