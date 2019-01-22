@@ -73,7 +73,7 @@ export class Item {
             } else {
                 this.data.vat = 0;
             }
-            this.data.totalPaid = newValue.Amount + this.data.vat;
+            this.data.totalPaid = newValue.DPP + this.data.vatValue;
             this.data.items= [];
             for (var items of newValue.Items){
                 for (var details of items.Details){
