@@ -8,7 +8,7 @@ export class PurchaseOrderItem {
     this.context = context;
     this.data = context.data;
     this.priceBeforeTax=this.data.priceBeforeTax;
-    this.error = {};
+    this.error = context.error;
     this.options = context.options;
     this.useVat = this.context.context.options.useVat || false;
     if(!this.useVat){
