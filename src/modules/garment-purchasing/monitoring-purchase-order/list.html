@@ -21,16 +21,7 @@
                      
                     options.bind="controlOptions">
                 </au-autocomplete>
-                <!-- <au-autocomplete 
-                    value.bind="category" 
-                    label="Kategori" 
-                    loader.bind="categoryLoader"
-                    placeholder="Cari Kategori"
-                    read-only.bind="readOnly" 
-                    text.bind = "categoryView" 
-                    options.bind="controlOptions">
-                </au-autocomplete> -->
-
+              
                 <au-textbox value.bind="epoNo" label="Nomor External PO" placeholder="No PO External">
                 </au-textbox>
 
@@ -54,20 +45,7 @@
                     text.bind = "supplierView"                    
                     options.bind="controlOptions">
                 </au-autocomplete>
-                <au-autocomplete  
-                    label="Nama Staff Pembelian"
-                    loader.bind="accountLoader"
-                    value.bind="account" 
-                    placeholder="Nama Staff Pembelian"
-                     text.bind = "accountView">
-                </au-autocomplete>
-
-                <!--<au-datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)">
-                </au-datepicker>
-
-                <au-datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateMin">
-                </au-datepicker>-->
-
+            
                 <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
                 <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
 
@@ -119,7 +97,7 @@
 
                         <td colspan="4">NOTA INTERN</td>
                         <td colspan="4">CATATAN KOREKSI</td>
- 
+                        <td rowspan="3">STAFF PEMBELIAN</td>
                     </tr>
                     <tr>
                         <td rowspan="2">NOMOR</td>
@@ -180,6 +158,7 @@
                         <td rowspan="2">TANGGAL</td>
                         <td rowspan="2">NILAI</td>
                         <td rowspan="2">KETERANGAN</td>
+                         
                     </tr>
                 </thead>
                 <tbody>
@@ -252,7 +231,7 @@
                         <td>${item.correctionDate}</td>
                         <td>${item.valueCorrection}</td>
                         <td>${item.correctionRemark}</td>
-                       
+                        <td>${item.username}</td>
                     </tr>
                 </tbody>
             </table>
