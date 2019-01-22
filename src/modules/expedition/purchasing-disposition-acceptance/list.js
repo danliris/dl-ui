@@ -25,6 +25,7 @@ export class List {
             },
         },
         { field: "supplier.name", title: "Supplier" },
+        { field: "proformaNo", title: "No Proforma / Invoice" },
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
