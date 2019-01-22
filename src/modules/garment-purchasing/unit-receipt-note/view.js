@@ -26,6 +26,7 @@ export class View {
         this.unit = this.data.Unit;
         this.supplier = {Id: this.data.Supplier.Id, code: this.data.Supplier.Code, name: this.data.Supplier.Name};
         this.deliveryOrder = { Id: this.data.DOId, doNo: this.data.DONo };
+        this.storage = this.data.Storage;
 
         let totalOrderQuantity = this.data.Items.reduce((acc, cur) => acc + cur.OrderQuantity, 0);
         if (!this.data.IsCorrection || totalOrderQuantity === 0) {

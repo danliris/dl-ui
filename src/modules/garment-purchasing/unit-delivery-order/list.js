@@ -9,18 +9,18 @@ export class List {
     context = ["Rincian"]
 
     columns = [
-        
+
         { field: "UnitDONo", title: "No. Delivery Order" },
         { field: "RONo", title: "No. RO" },
-        { field: "Artcle", title: "Artikel" },
+        { field: "Article", title: "Artikel" },
         {
             field: "UnitDODate", title: "Tanggal DeliveryOrder", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
         { field: "UnitDOType", title: "Jenis Delivery Order" },
-        { field: "UnitRequest.Name", title: "Unit Yang Meminta" },
-        { field: "Storage.Name", title: "Gudang Yang Mengirim" },
+        { field: "UnitRequestName", title: "Unit Yang Meminta" },
+        { field: "StorageName", title: "Gudang Yang Mengirim" },
     ];
 
     loader = (info) => {
@@ -31,19 +31,18 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            //select: ["date", "no", "supplier.name", "items.prNo", "isPosted", "isApproved", "isOverBudget"],
             order: order
         }
-        
+
         return this.service.search(arg)
             .then(result => {
-                var data = {}
+                var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
                 data.data.forEach(s => {
-                    s.Items.toString = function () {
+                    s.toString = function () {
                         var str = "<ul>";
-                        for (var item of s.items) {
+                        for (var item of s.Items) {
                             str += `<li>${item.RONo}</li>`;
                         }
                         str += "</ul>";

@@ -21,6 +21,7 @@ export class Edit {
         this.unit = this.data.Unit;
         this.supplier = {Id: this.data.Supplier.Id, code: this.data.Supplier.Code, name: this.data.Supplier.Name};
         this.deliveryOrder = { "Id": this.data.DOId, "doNo": this.data.DONo };
+        this.storage = this.data.Storage;
     }
 
     cancel(event) {

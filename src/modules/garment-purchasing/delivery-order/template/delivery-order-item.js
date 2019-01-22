@@ -40,6 +40,7 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
+    
     if(this.data && this.context.context.options.hasCreate){
       if(this.context.context.items[0].data.purchaseOrderExternal.no!=""){
           this.filter = 
@@ -158,6 +159,7 @@ export class DeliveryOrderItem {
         for (var data of categoryProduct){
           codeRequirmentTemp = data.codeRequirement;
         }
+
         var fulfillment = {
           ePOItemId : item.Id,
           pOId : item.POId,
@@ -202,6 +204,7 @@ export class DeliveryOrderItem {
         for (var data of categoryProduct){
           codeRequirmentTemp = data.codeRequirement;
         }
+
         var fulfillment = {
           ePOItemId : item.Id,
           pOId : item.POId,

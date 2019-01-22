@@ -144,26 +144,26 @@ module.exports = [
     {
         route: '/garment/monitoring-purchase',
         name: 'monitoring-purchase',
-        moduleId: './modules/garment-purchasing/monitoring-purchase/index',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-order/index',
         nav: true,
         title: 'Monitoring Purchase',
         auth: true,
         settings: {
             group: "g-purchasing",
-            //permission: { "C9": 1, "PG": 1 },
+           permission: { "C9": 1, "PG": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
     {
         route: '/garment/monitoring-purchase-all-user',
         name: 'monitoring-purchase-all-user',
-        moduleId: './modules/garment-purchasing/monitoring-purchase-all-user/index',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-order-all-user/index',
         nav: true,
         title: 'Monitoring Purchase All User',
         auth: true,
         settings: {
             group: "g-purchasing",
-            //permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1 },
+            permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -319,7 +319,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
-            //permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment/unit-expenditure-note',
+        name: 'unit-expenditure-note',
+        moduleId: './modules/garment-purchasing/unit-expenditure-note/index',
+        nav: true,
+        title: 'Bon Pengeluaran Unit',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "PG": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

@@ -90,9 +90,9 @@ export class DataForm {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
 
-        if (this.data.IsStorage) {
-            this.storage = this.data.Storage;
-        }
+        // if (this.data.IsStorage) {
+        //     this.storage = this.data.Storage;
+        // }
     }
 
     supplierChanged(newValue, oldValue) {
@@ -106,11 +106,10 @@ export class DataForm {
         }
 
         this.resetErrorDeliveryOrder();
-        this.context.storageAU.editorValue = "";
         this.context.deliveryOrderAU.editorValue = "";
         this.data.DOId = null;
         this.storage = null;
-        this.data.IsStorage = false;
+        // this.data.IsStorage = false;
         this.data.Storage = null;
     }
 
@@ -125,12 +124,11 @@ export class DataForm {
         }
 
         this.resetErrorDeliveryOrder();
-        this.context.storageAU.editorValue = "";
         this.context.deliveryOrderAU.editorValue = "";
         this.data.DOId = null;
         this.storage = null;
         this.data.Storage = null;
-        this.data.IsStorage = false;
+        // this.data.IsStorage = false;
     }
 
     deliveryOrderChanged(newValue, oldValue) {
@@ -187,12 +185,10 @@ export class DataForm {
             this.data.DOId = null;
             this.data.Items = [];
         }
-
-        this.context.storageAU.editorValue = "";
         this.resetErrorItems();
         this.data.Storage = null;
         this.storage = null;
-        this.data.IsStorage = false;
+        // this.data.IsStorage = false;
     }
 
     storageChanged(newValue) {
@@ -210,18 +206,6 @@ export class DataForm {
             this.storage = null;
             this.data.Storage = undefined;
         }
-    }
-
-    isStorageChanged(e) {
-        this.context.storageAU.editorValue = "";
-        this.data.UnitId;
-        if (this.error) {
-            if (this.error.Storage) {
-                this.error.Storage = null;
-            }
-        }
-        this.storage = null;
-        this.data.Storage = null;
     }
 
     resetErrorDeliveryOrder() {
@@ -263,6 +247,7 @@ export class DataForm {
     }
 
     storageView = (storage) => {
+        console.log(storage);
         if (storage.unit) {
             return `${storage.unit.name} - ${storage.name}`;
         } else {

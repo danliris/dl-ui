@@ -8,7 +8,7 @@ export class PurchaseQuantityCorrectionItem {
         this.contextOptions = context.context.options;
         this.readOnly = this.options.readOnly;
         this.quantitiesReadonly = this.options.readOnly;
-        this.isFirst = false;
+        //this.isFirst = false;
         if(this.data.Quantities === 0){
             this.quantitiesReadonly = true;
         }
@@ -16,17 +16,18 @@ export class PurchaseQuantityCorrectionItem {
             this.error = "";
         }
         this.data.PricePerDealUnitAfter = this.data.PricePerDealUnitAfter;
+        this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));    
     }
     
     @computedFrom("data.Quantity")
     get priceTotal() {
-            if(this.isFirst == true){
+            // if(this.isFirst == true){
                 this.data.PriceTotalAfter = parseFloat((this.data.Quantity * this.data.PricePerDealUnitAfter).toFixed(2));
-            }
-            else
-            {
-                this.isFirst = true;
-            }
+            // }
+            // else
+            // {
+            //     this.isFirst = true;
+            // }
         return this.data.PriceTotalAfter;
     }
 

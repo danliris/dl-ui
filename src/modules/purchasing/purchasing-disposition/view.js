@@ -13,12 +13,21 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    console.log(this.data)
     if(this.data.Currency){
         this.selectedCurrency=this.data.Currency;
     }
 
     if(this.data.Supplier){
         this.selectedSupplier=this.data.Supplier;
+    }
+
+    if(this.data.Division){
+        this.selectedDivision=this.data.Division;
+    }
+
+    if(this.data.Category){
+        this.selectedCategory=this.data.Category;
     }
   }
 

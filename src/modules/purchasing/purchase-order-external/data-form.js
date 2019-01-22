@@ -132,14 +132,17 @@ export class DataForm {
 
     selectedIncomeTaxChanged(newValue) {
         var _selectedIncomeTax = newValue;
+        
         if (!_selectedIncomeTax) {
             this.data.incomeTaxRate = 0;
             this.data.useIncomeTax = false;
             this.data.incomeTax = {};
+
         } else if (_selectedIncomeTax._id || _selectedIncomeTax.Id) {
             this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
             this.data.useIncomeTax = true;
             this.data.incomeTax = _selectedIncomeTax;
+            this.data.incomeTax._id=_selectedIncomeTax.Id || _selectedIncomeTax._id ;
         }
     }
 

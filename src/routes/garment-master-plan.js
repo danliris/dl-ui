@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "IE": 1,"C9": 1 },
+            permission: { "IE": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1, "IE": 1, "C9": 1 },
+            permission: { "PGA": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,7 +47,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1, "IE": 1, "C9": 1 },
+            permission: { "PGA": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

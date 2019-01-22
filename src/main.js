@@ -30,15 +30,15 @@ export async function configure(aurelia) {
         }
       }
 
-      var core = "https://com-dl-service-core.azurewebsites.net/v1/";
-      var auth = "https://dl-auth-api.azurewebsites.net/v1/";
+      var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
+      var auth = "https://dl-auth-api-dev.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
       var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
       var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites.net/v1/";
-      var purchasingAzure = "https://com-danliris-service-purchasing.azurewebsites.net/v1/";
+      var purchasingAzure = "https://com-danliris-service-purchasing-dev.azurewebsites.net/v1/";
       var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.azurewebsites.net/v1/";
       var inventory = "https://dl-inventory-webapi-dev.azurewebsites.net/v1/";
-      var inventoryAzure = "https://com-danliris-service-inventory-prd.azurewebsites.net/v1/";
+      var inventoryAzure = "https://com-danliris-service-inventory-dev.azurewebsites.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi-dev.azurewebsites.net/v1/";
       var spMasterPlan = "https://dl-sp-master-plan-webapi-dev.mybluemix.net/v1/";
       var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";

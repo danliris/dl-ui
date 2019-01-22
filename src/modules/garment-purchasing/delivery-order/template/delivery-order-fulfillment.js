@@ -12,7 +12,7 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.data.pricePerDealUnit = this.data.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 4 }).replace(",","");
     this.data.dealQuantity = this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
-    this.data.conversion = this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
+    // this.data.conversion = this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     this.data.doQuantity = this.data.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     this.error = context.error;
     this.options = context.options;
@@ -30,8 +30,8 @@ export class DeliveryOrderItem {
           this.selectedDealUom=this.data.purchaseOrderUom;
         }
       this.doQuantity=this.data.doQuantity;
-      if(this.data.conversion){
-        this.data.conversion=this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 10 });}
+      // if(this.data.conversion){
+      //   this.data.conversion=this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 10 });}
       if(this.data.pricePerDealUnit){
         this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN',  { minimumFractionDigits: 4 });}
       if(this.data.dealQuantity){

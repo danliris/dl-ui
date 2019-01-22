@@ -28,6 +28,14 @@ export class Edit {
     if(this.data.Supplier){
         this.selectedSupplier=this.data.Supplier;
     }
+
+    if(this.data.Division){
+        this.selectedDivision=this.data.Division;
+    }
+
+    if(this.data.Category){
+        this.selectedCategory=this.data.Category;
+    }
   }
 
   cancel(event) {

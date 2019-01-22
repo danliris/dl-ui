@@ -10,14 +10,16 @@ export class List {
     context = ["Rincian", "Cetak PDF"]
 
     columns = [
-        { field: "DispositionNo", title: "Nomor Disposisi Pembelian" },
+        { field: "DispositionNo", title: "Nomor Disposisi Pembayaran" },
         {
             field: "CreatedUtc", title: "Tanggal Disposisi", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "Supplier.Name", title: "Supplier" },
-        { field: "Currency.Code", title: "Mata Uang"},
+        { field: "Division.name", title: "Divisi"},
+        { field: "Category.name", title: "Kategori"},
+        { field: "Supplier.name", title: "Supplier" },
+        { field: "Currency.code", title: "Mata Uang"},
         {
             field: "PaymentDueDate", title: "Tanggal Jatuh Tempo", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
@@ -50,7 +52,6 @@ export class List {
                     })
                     _data.externalPurchaseOrderNo = `<ul>${uniqueArray.join()}</ul>`;
                 }
-                console.log(result.data)
                 return {
                     total: result.info.total,
                     data: result.data
