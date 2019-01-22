@@ -57,7 +57,6 @@ export class PurchasingDispositionItem {
     async selectedEPOChanged(newValue) {
         if (newValue) {
             this.selectedEPO=newValue;
-            console.log(newValue)
             if(newValue._id || newValue.EPOId){
                 this.data.EPOId=newValue._id || this.data.EPOId;
                 this.data.EPONo= newValue._id ? newValue.no : this.data.EPONo;
