@@ -26,7 +26,7 @@
         </au-collection> -->
 
         <au-collection columns.bind="itemColumns" items.bind="data.CottonCompositions" errors.one-way="CottonCompositions"
-            add.bind="addItemCallback" read-only.bind="readOnly" item-template="modules/production/spinning/lot-configuration/template/item">
+            add.bind="addItemCallback" remove.bind="onremove" read-only.bind="readOnly" item-template="modules/production/spinning/lot-configuration/template/item">
         </au-collection>
 
     </au-input-form>
