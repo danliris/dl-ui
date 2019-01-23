@@ -30,7 +30,7 @@ export class DataForm {
   construction = ["", "AD", "BD", "CD"];
 
   warpColumns = [
-    { header: "Kode Lusi", value: "yarn.code" },
+    { header: "Kode Lusi", value: "warp.code" },
     { header: "Jenis Lusi", value: "warpType" },
     { header: "Qty(Gram/Meter)", value: "amountOfWarp" },
     { header: "Keterangan", value: "warp.information" }
@@ -49,13 +49,13 @@ export class DataForm {
 
   get addItemsWarp() {
     return event => {
-      this.data.ItemsWarp.push({});
+      this.data.ItemsWarp.push({detail:"WARP"});
     };
   }
 
   get addItemsWeft() {
     return event => {
-      this.data.ItemsWeft.push({});
+      this.data.ItemsWeft.push({detail:"WEFT"});
     };
   }
 }
