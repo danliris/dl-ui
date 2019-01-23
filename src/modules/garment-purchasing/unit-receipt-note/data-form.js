@@ -149,7 +149,7 @@ export class DataForm {
                     _item.EPOItemId = fulfillment.ePOItemId;
 
                     _item.PRId = fulfillment.pRId;
-                    _item.PRNo = fulfillment.rONo;
+                    _item.PRNo = fulfillment.pRNo;
                     _item.PRItemId = fulfillment.pRItemId;
 
                     _item.POId = fulfillment.pOId;
