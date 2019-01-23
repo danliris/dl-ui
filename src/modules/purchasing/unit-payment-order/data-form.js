@@ -121,8 +121,9 @@ export class DataForm {
 
     selectedIncomeTaxChanged(newValue) {
         var _selectedIncomeTax = newValue || {};
-        if (_selectedIncomeTax._id) {
+        if (_selectedIncomeTax.Id) {
             this.data.incomeTax = _selectedIncomeTax;
+            this.data.incomeTax._id = _selectedIncomeTax.Id;
             this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
         }
         else {
