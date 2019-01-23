@@ -1,11 +1,11 @@
 <template>
   <h1 class="page-header">Daftar Laporan Surat Order Produksi</h1>
   <div class="row">
-    <div class="col-md-4" style="position: relative; left:8px;">
+    <div class="col-md-4">
       <au-datepicker
         label="Periode"
-        value.bind="data.sopPeriod"
-        error.bind="error.sopPeriod"
+        value.bind="data"
+        error.bind="error"
         read-only.bind="readOnly"
       ></au-datepicker>
     </div>
@@ -13,9 +13,18 @@
   <div class="row">
     <div class="col-md-1">
       <button
-        class="btn btn-success btn-block"
-        click.delegate="search"
-        style="margin-top:16px; position:relative; left:110px;"
+        class="btn btn-primary"
+        click.delegate="printPdf()"
+        style="margin-top: 20px;"
+      >
+        print PDF
+      </button>
+    </div>
+    <div class="col-md-1" style="margin-left: 6px;">
+      <button
+        class="btn btn-success"
+        click.delegate="search()"
+        style="margin-top: 20px;"
       >
         Cari
       </button>
@@ -32,7 +41,8 @@
       </button>
     </div>
   </div> -->
-  <au-table style="white-space: nowrap;"
+  <au-table
+    style="white-space: nowrap; margin-top: 24px;"
     data.bind="loader"
     columns.bind="columns"
     sortable.bind="true"

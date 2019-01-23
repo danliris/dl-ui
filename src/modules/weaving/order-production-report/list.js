@@ -1,11 +1,13 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
+var moment = require("moment");
 
 @inject(Router, Service)
 export class List {
-  context = ["detail","print PDF"];
+  context = ["print PDF"];
 
+  data = {};
   tableOptions = {
     search: false,
     showToggle: false,
@@ -122,18 +124,33 @@ export class List {
     // this.accessories = [];
   }
 
-  contextClickCallback(event) {
-    let arg = event.detail;
-    let data = arg.data;
+  // contextClickCallback(event) {
+  //   let arg = event.detail;
+  //   let data = arg.data;
 
-    switch (arg.name) {
-      case "detail":
-        this.router.navigateToRoute("view", { id: data.Id });
-        break;
-      case "print PDF":
-        this.service.getPdfById(data.Id);
-        break;
-    }
+  //   switch (arg.name) {
+  //     case "print PDF":
+  //       this.service.getPdfById(data.Id);
+  //       break;
+  //   }
+  // }
+
+  getYear(now) {
+    var year = moment(now).format("YYYY");
+    return year;
+  }
+
+  getMonth(now) {
+    var month = moment(now).format("MMMM");
+    return month;
+  }
+
+  printPdf() {
+    var month = this.getMonth(this.data);
+    // console.log(month);
+    var year = this.getYear(this.data);
+    // console.log(year);
+    this.service.getPdfByPeriod(month, year);
   }
 
   // upload() {

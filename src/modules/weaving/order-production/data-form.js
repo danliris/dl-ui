@@ -50,18 +50,18 @@ export class DataForm {
   };
 
   months = ["",
-    "Januari",
-    "Februari",
-    "Maret",
+    "January",
+    "February",
+    "March",
     "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
+    "May",
+    "June",
+    "July",
+    "August",
     "September",
-    "Oktober",
+    "October",
     "November",
-    "Desember"
+    "December"
   ];
 
   // @computedFrom("data._id")

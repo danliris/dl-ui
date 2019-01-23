@@ -29,7 +29,7 @@ export class Create {
     this.service
       .create(this.data)
       .then(result => {
-        debugger
+        // debugger
         this.list();
       })
       .catch(e => {

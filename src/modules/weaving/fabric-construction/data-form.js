@@ -18,19 +18,7 @@ export class DataForm {
 
   bind(context) {
     this.context = context;
-    this.data = {
-      noMKB: 2,
-      konstruksi: "CD 133 72 63 Rf Rf B B",
-      kdBenang: "Rf RcRf",
-      kdLusi: "CD01",
-      jnsLusi: "CD17",
-      qtyLusi: 75.98293,
-      kdPakan: "CD03",
-      jnsPakan: "CD17",
-      qtyPakan: 65.98293,
-      totalKebutuhan: 220.7084,
-      ketMKB: ""
-    };
+    this.data = this.context.data;
     this.error = this.context.error;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -41,17 +29,17 @@ export class DataForm {
 
   construction = ["", "AD", "BD", "CD"];
 
-  lusiColumns = [
-    { header: "Kode Lusi", value: "kodeLusi" },
-    { header: "Jenis Lusi", value: "jnsLusi" },
-    { header: "Qty(Gram/Meter)", value: "qtyLusi" },
-    { header: "Keterangan", value: "ktrLusi" }
+  warpColumns = [
+    { header: "Kode Lusi", value: "yarn.code" },
+    { header: "Jenis Lusi", value: "warpType" },
+    { header: "Qty(Gram/Meter)", value: "amountOfWarp" },
+    { header: "Keterangan", value: "warp.information" }
   ];
-  pakanColumns = [
-    { header: "Kode Pakan", value: "kodePakan" },
-    { header: "Jenis Pakan", value: "jnsPakan" },
-    { header: "Qty(Gram/Meter)", value: "qtyPakan" },
-    { header: "Keterangan", value: "ktrPakan" }
+  weftColumns = [
+    { header: "Kode Pakan", value: "weft.code" },
+    { header: "Jenis Pakan", value: "weftType" },
+    { header: "Qty(Gram/Meter)", value: "amountOfWeft" },
+    { header: "Keterangan", value: "weft.information" }
   ];
 
   // @computedFrom("data._id")
@@ -59,15 +47,15 @@ export class DataForm {
   //     return (this.data._id || '').toString() != '';
   // }
 
-  get addItemsLusi() {
+  get addItemsWarp() {
     return event => {
-      this.data.ItemsLusi.push({});
+      this.data.ItemsWarp.push({});
     };
   }
 
-  get addItemsPakan() {
+  get addItemsWeft() {
     return event => {
-      this.data.ItemsPakan.push({});
+      this.data.ItemsWeft.push({});
     };
   }
 }

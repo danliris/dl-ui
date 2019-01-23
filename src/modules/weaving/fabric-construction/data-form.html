@@ -22,8 +22,8 @@
         <div class="col-md-2">
           <au-textbox
             placeholder="No. Konstruksi"
-            value.bind="data.noMKB"
-            error.bind="error.noMKB"
+            value.bind="data.constructionNumber"
+            error.bind="error.constructionNumber"
             read-only.bind="readOnly"
             show.bind="onCreated"
           >
@@ -38,8 +38,9 @@
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
             <au-autocomplete
-              value.bind="data.konstruksiJenis"
-              error.bind="error.konstruksiJenis"
+            placeholder='Jenis Material'
+              value.bind="data.materialType"
+              error.bind="error.materialType"
               read-only.bind="readOnly"
               items.bind="construction"
             >
@@ -47,33 +48,33 @@
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
-              placeholder="Tipe"
-              value.bind="data.konstruksiTipe"
-              error.bind="error.konstruksiTipe"
+              placeholder="Jenis Anyaman"
+              value.bind="data.wovenType"
+              error.bind="error.wovenType"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Jumlah Lusi"
-              value.bind="data.konstruksiLusi"
-              error.bind="error.konstruksiLusi"
+              value.bind="data.amountOfWarp"
+              error.bind="error.amountOfWarp"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Jumlah Pakan"
-              value.bind="data.konstruksiPakan"
-              error.bind="error.konstruksiPakan"
+              value.bind="data.amountOfWeft"
+              error.bind="error.amountOfWeft"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Lebar"
-              value.bind="data.konstruksiLebar"
-              error.bind="error.konstruksiLebar"
+              value.bind="data.width"
+              error.bind="error.width"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
@@ -87,16 +88,16 @@
         <div class="col-md-2" style="padding-right: 4px;">
           <au-textbox
             placeholder="Jenis Lusi"
-            value.bind="data.jnsLusi"
-            error.bind="error.jnsLusi"
+            value.bind="data.warpType"
+            error.bind="error.warpType"
             read-only.bind="readOnly"
           ></au-textbox>
         </div>
         <div class="col-md-2" style="padding-left: 0px;">
           <au-textbox
             placeholder="Jenis Pakan"
-            value.bind="data.jnsPakan"
-            error.bind="error.jnsPakan"
+            value.bind="data.weftType"
+            error.bind="error.weftType"
             read-only.bind="readOnly"
           ></au-textbox>
         </div>
@@ -109,8 +110,8 @@
         <div class="col-md-2">
           <au-textbox
             placeholder="Total Benang"
-            value.bind="data.totalBenang"
-            error.bind="error.totalBenang"
+            value.bind="data.totalYarn"
+            error.bind="error.totalYarn"
             read-only.bind="readOnly"
           ></au-textbox>
         </div>
@@ -120,25 +121,25 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <au-collection
-              items.bind="data.ItemsLusi"
-              errors.bind="error.ItemsLusi"
-              columns.bind="lusiColumns"
-              add.bind="addItemsLusi"
+              items.bind="data.ItemsWarp"
+              errors.bind="error.ItemsWarp"
+              columns.bind="warpColumns"
+              add.bind="addItemsWarp"
               remove.bind="onremove"
               read-only.bind="readOnly"
-              item-template="modules/weaving/master-kebutuhan-benang/templates/items-lusi"
+              item-template="modules/weaving/fabric-construction/templates/itemsWarp"
             >
             </au-collection>
           </div>
           <div class="col-md-6">
             <au-collection
-              items.bind="data.ItemsPakan"
-              errors.bind="error.ItemsPakan"
-              columns.bind="pakanColumns"
-              add.bind="addItemsPakan"
+              items.bind="data.ItemsWeft"
+              errors.bind="error.ItemsWeft"
+              columns.bind="weftColumns"
+              add.bind="addItemsWeft"
               remove.bind="onremove"
               read-only.bind="readOnly"
-              item-template="modules/weaving/master-kebutuhan-benang/templates/items-pakan"
+              item-template="modules/weaving/fabric-construction/templates/itemsWeft"
             >
             </au-collection>
           </div>
