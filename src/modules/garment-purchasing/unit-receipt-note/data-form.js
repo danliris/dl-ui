@@ -64,9 +64,9 @@ export class DataForm {
         if (this.data.Supplier) {
             filter.SupplierId = this.data.Supplier.Id;
         }
-        if (this.data.Unit) {
-            filter.UnitId = this.data.Unit.Id;
-        }
+        // if (this.data.Unit) {
+        //     filter.UnitId = this.data.Unit.Id;
+        // }
             
         return filter;
     }
