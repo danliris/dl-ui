@@ -62,9 +62,9 @@ export class DataForm {
         this.options = {
             readOnly : this.readOnly,
         };
-        // if (this.data && this.data.Items) {
-        //     this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
-        // }
+        if (this.data && this.data.Items) {
+            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+        }
     }
 
     @computedFrom("data.Id")
@@ -95,7 +95,7 @@ export class DataForm {
     @computedFrom("data.UnitSender", "data.UnitDOType", "data.Storage")
     get filterRONoByUnit() {
         var rONoFilter = {};
-        if (this.data.UnitSender) {
+        if (this.data.UnitSender && this.data.Storage) {
             rONoFilter.UnitId = this.data.UnitSender.Id;
             rONoFilter.Type = this.data.UnitDOType;
             rONoFilter.StorageId = this.data.Storage._id;
@@ -106,10 +106,11 @@ export class DataForm {
     @computedFrom("data.UnitSender", "data.UnitDOType", "data.RONo")
     get filterRONoAddProductByUnit() {
         var rONoFilter = {}
-        if (this.data.UnitSender) {
+        if (this.data.UnitSender  && this.data.Storage) {
             rONoFilter.UnitId = this.data.UnitSender.Id;
             rONoFilter.Type = this.data.UnitDOType;
             rONoFilter.RONo = this.data.RONo;
+            rONoFilter.StorageId = this.data.Storage._id;
         }
         return rONoFilter;
     }
@@ -172,8 +173,8 @@ export class DataForm {
         }
         this.storageRequest = null;
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     unitSenderChanged(newValue) {
@@ -188,8 +189,8 @@ export class DataForm {
         this.storage = null;
         this.RONo = null;
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     storageRequestChanged(newValue) {
@@ -202,8 +203,8 @@ export class DataForm {
             this.context.storageRequestViewModel.editorValue = "";
         }
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     storageChanged(newValue) {
@@ -216,8 +217,8 @@ export class DataForm {
             this.context.storageViewModel.editorValue = "";
         }
         
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     RONoChanged(newValue) {
@@ -256,6 +257,7 @@ export class DataForm {
                 Items.UomId = item.SmallUomId;
                 Items.UomUnit = item.SmallUomUnit;
                 Items.PricePerDealUnit = item.PricePerDealUnit;
+                Items.DesignColor = item.DesignColor;
                 Items.Quantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
                 Items.IsSave = Items.Quantity > 0;
                 Items.IsDisabled = !(Items.Quantity > 0);
@@ -293,12 +295,13 @@ export class DataForm {
             this.newProduct.UomId = selectedROHeader.SmallUomId;
             this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
             this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
+            this.newProduct.DesignColor = selectedROHeader.DesignColor;
             this.newProduct.Quantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
             this.newProduct.IsSave = selectedROHeader.Quantity > 0;
-            this.newProduct.IsDisabled = selectedROHeader.Quantity > 0;
+            this.newProduct.IsDisabled = (selectedROHeader.Quantity = 0);
         }
-        this.context.error.Items = [];
-        this.context.error = [];
+        // this.context.error.Items = [];
+        // this.context.error = [];
     }
 
     get unitRequestLoader() {
