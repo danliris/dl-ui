@@ -102,7 +102,7 @@
                     <!-- <label for="name" class="au-target col-sm-4 text-left au-layout control-label">No RO</label> -->
                     <div class = "col-sm-5">
                         <au-autocomplete
-                            disabled.bind="!data.UnitSender"
+                            disabled.bind="!(data.UnitSender && data.Storage)"
                             value.bind = "RONo"
                             error.bind = "error.RONo"
                             read-only.bind = "readOnly || isEdit"

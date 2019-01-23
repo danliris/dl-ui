@@ -109,6 +109,7 @@ export class DataForm {
         this.data.StorageRequest = null;
         this.error = null;
         this.context.error.Items = [];
+        this.context.error = [];
 
         console.log(this.error);
     }
@@ -208,6 +209,7 @@ export class DataForm {
         }
         // this.data.Items = [];
         this.context.error.Items = [];
+        this.context.error = [];
     }
 
     items = {

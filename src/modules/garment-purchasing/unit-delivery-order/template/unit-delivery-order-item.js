@@ -4,12 +4,9 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 var UomLoader = require('../../../../loader/uom-loader');
-
-const resource = 'master/garmentProducts';
-const POresource = 'garment-internal-purchase-orders';
 export class UnitDeliveryOrderItem {
 
-  fabricOptions = ['NON FABRIC', 'MAIN FABRIC', 'CONTRASS', 'INTERLINING', 'LINING', 'SPINING', 'PIPING', 'SLEEK', 'FRONTING', 'FELT', 'RIB'];
+  fabricOptions = ['NON FABRIC', 'MAIN FABRIC', 'CONTRASS', 'INTERLINING', 'LINING', 'PIPING', 'SLEEK', 'FRONTING', 'FELT', 'RIB'];
   async activate(context) {
     this.context = context;
     this.data = context.data;
