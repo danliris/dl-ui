@@ -220,7 +220,7 @@ export class DataForm {
         if (this.data.currency && this.data.currency.Id){
             this.data.currencyId = this.data.currency.Id;
             if(!this.hasView){
-                var result = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.code}`, "currency" : `${this.data.currency.code}` });
+                var result = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.Id}`, "currency" : `${this.data.currency.code}` });
                 var dataDelivery = [];
               
                 for(var a of result.data){
