@@ -1,11 +1,11 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-
-// var CurrencyLoader = require('../../../loader/currency-loader');
-// var UomLoader = require('../../../loader/uom-loader');
+import { callbackify } from "util";
+// var MaterialLoader = require('../../../loader/material-loader');
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
@@ -40,6 +40,10 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
+
+  // get materialType() {
+  //   return MaterialLoader;
+  // }
 
   //   uomChanged(e) {
   //     var selectedUom = e.detail;

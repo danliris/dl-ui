@@ -25,7 +25,6 @@ export class Create {
 
   //Tombol "Simpan", menyimpan nilai masukan
   saveCallback(event) {
-    this.data.fabricConstructionDocument.id="4b782240-1593-11e9-ab14-d663bd873d93";
     this.service
       .create(this.data)
       .then(result => {

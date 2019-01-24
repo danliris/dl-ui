@@ -5,7 +5,6 @@ var moment = require("moment");
 
 @inject(Router, Service)
 export class List {
-  context = ["print PDF"];
 
   data = {};
   tableOptions = {
