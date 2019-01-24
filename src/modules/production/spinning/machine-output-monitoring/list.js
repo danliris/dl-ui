@@ -13,32 +13,31 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "DocumentNo", title: "No. Dokumen Jurnal" },
-        { field: "Description", title: "Description" },
-        { field: "ReferenceNo", title: "No. Referensi" }
+        { field: "ProcessType", title: "Jenis Proses" },
+        { field: "CountConfigId", title: "Count" },
+        { field: "LotId", title: "Lot" },
+        { field: "Shift", title: "Shift"},
+        { field: "Group", title: "Group"},
     ];
 
     loader = (info) => {
-        // let order = {};
-        // if (info.sort)
-        //     order[info.sort] = info.order;
+        var order = {};
+        if (info.sort)
+            order[info.sort] = info.order;
+        var arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order
+        }
 
-        // let arg = {
-        //     page: parseInt(info.offset / info.limit, 10) + 1,
-        //     size: info.limit,
-        //     keyword: info.search,
-        //     order: order
-        // };
-
-        // return this.service.search(arg)
-        //     .then(result => {
-        //         return {
-        //             total: result.info.total,
-        //             data: result.data
-        //         }
-        //     });
-
-        return Promise.resolve({ total: 0, data: [] });
+        return this.service.search(arg)
+            .then(result => {
+                return {
+                    total: result.info.total,
+                    data: result.data
+                }
+            });
     }
 
     constructor(router, service) {
@@ -51,8 +50,7 @@ export class List {
         let data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                // this.router.navigateToRoute('view', { id: data.Id });
-                console.log(this.data);
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

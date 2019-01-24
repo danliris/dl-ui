@@ -2,6 +2,9 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
 import moment from 'moment';
 
+var LotLoader = require('../../../../loader/lot-configuration-loader');
+// var MaterialTypeLoader = require('../../../../loader/material-');
+
 @inject(Service)
 export class DataForm {
     @bindable title;
@@ -14,15 +17,22 @@ export class DataForm {
         editText: "Ubah",
     };
 
-    machineTypeList = [
+    processTypeList = [
         "",
         "Blowing",
         "Carding",
-        "Pre Drawing",
+        "Pre-Drawing",
         "Finish Drawing",
         "Flyer",
         "Ring Spinning",
         "Winding"
+    ];
+
+    shiftList = [
+        "",
+        "Shift 1 06:00 - 14:00",
+        "Shift 2 14:00 - 22:00",
+        "Shift 3 22:00 - 06:00"
     ];
 
     controlOptions = {
@@ -43,25 +53,32 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+        this.isItem = false;
+        if(this.data.ProcessType!=""){
+            this.isItem = true;
+        }
+        // this.cancelCallback = this.context.cancelCallback;
+        // this.deleteCallback = this.context.deleteCallback;
+        // this.editCallback = this.context.editCallback;
+        // this.saveCallback = this.context.saveCallback;
     }
 
     columns = [
-        { header: "Nama Mesin", value: "Machine" },
-        { header: "Counter", value: "Counter" },
-        { header: "Satuan", value: "Uom" },
-        { header: "Ball", value: "Ball" },
-        { header: "Eff%", value: "EffPrecentage" }
+        { header: "Nomor Mesin", value: "MachineNo" },
+        { header: "Nama Mesin", value: "MachineName" },
+        { header: "Output (Counter)", value: "Output" },
+        { header: "UOM", value: "Uom.Unit" },
+        { header: "Bale", value: "Bale" },
+        // { header: "Spindle Kosong (Flyer)", value: "Spindle" },
+        // { header: "Bad Cone (Winder)", value: "BadCone" },
+        { header: "Eff%", value: "Eff" }
     ]
 
-    get addItems() {
-        return (event) => {
-            this.data.Items.push({})
-        };
-    }
+    // get addItems() {
+    //     return (event) => {
+    //         this.data.Items.push({})
+    //     };
+    // }
 
     mockLotLoader = (keyword, filter) => {
 
@@ -70,7 +87,11 @@ export class DataForm {
 
     get lotLoader() {
         //return LotLoader;
-        return this.mockLotLoader;
+        return LotLoader;
+    }
+
+    get materialTypeLoader() {
+        return MaterialTypeLoader;
     }
 
     mockProcessLoader = (keyword, filter) => {

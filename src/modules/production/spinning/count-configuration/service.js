@@ -5,7 +5,7 @@ import { RestService } from '../../../../utils/rest-service';
 // import { Config } from "aurelia-api";
 
 const serviceUri = 'count-configurations';
-const lotYarnServiceUri = "lot/configuration"
+const lotYarnServiceUri = "lot/configuration";
 
 export class Service extends RestService {
 

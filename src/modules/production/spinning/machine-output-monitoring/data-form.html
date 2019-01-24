@@ -1,43 +1,44 @@
 <template>
-    <require from="../../../../lib/number-format-value-converter"></require>
+    <require from="../../../../lib/number-format-value-converter"></require>   
     <au-input-form title.bind="title"
                    with.bind="context"
                    options.bind="formOptions">
 
-        <au-dropdown label="Jenis Mesin"
-                     value.bind="data.MachineType"
-                     error.bind="error.MachineType"
-                     read-only.bind="readOnly"
-                     items.bind="machineTypeList"
-                     options.bind="controlOptions">
+        <au-datepicker label="Tanggal" 
+                       value.bind="data.Date"
+                       error.bind="error.Date" 
+                       read-only.bind="readOnly"
+                       options.bind="controlOptions">
+        </au-datepicker>
+
+         <au-dropdown label="Jenis Proses"
+                      value.bind="processType"
+                      error.bind="error.processType"
+                      read-only.bind="readOnly"
+                      items.bind="processTypeList"
+                      change.delegate="processTypeChanged($event)"
+                      options.bind="controlOptions">
         </au-dropdown>
+
+         <au-autocomplete placeholder="cari benang"
+                          label="Nama Benang"
+                          value.bind="data.CountConfigId"
+                          error.bind="error.CountConfigId"
+                          loader.one-time="countLoader"
+                          text="YarnType"
+                          read-only.bind="readOnly"
+                          options.bind="controlOptions">
+        </au-autocomplete>
 
         <au-autocomplete placeholder="pilih lot"
                          label="Lot"
-                         value.bind="data.Lot"
-                         error.bind="error.Lot"
+                         value.bind="data.LotId"
+                         error.bind="error.LotId"
                          loader.one-time="lotLoader"
-                         text="Name"
+                         text="LotNo"
                          read-only.bind="readOnly"
                          options.bind="controlOptions">
         </au-autocomplete>
-
-        <au-autocomplete placeholder="pilih jenis proses"
-                         label="Jenis Proses"
-                         value.bind="data.ProcessType"
-                         error.bind="error.ProcessType"
-                         loader.one-time="processLoader"
-                         text="Name"
-                         read-only.bind="readOnly"
-                         options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-datepicker value.bind="data.Date"
-                       error.bind="error.Date"
-                       read-only.bind="readOnly"
-                       label="Tanggal"
-                       options.bind="controlOptions">
-        </au-datepicker>
 
         <au-dropdown label="Shift"
                      value.bind="data.Shift"
