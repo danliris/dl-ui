@@ -49,7 +49,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-console.log(this.readOnly)
+
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
@@ -272,111 +272,115 @@ console.log(this.readOnly)
     
     
     get dppVal(){
-        if(this.data.Items){
-            this.data.Amount=0;
-            this.data.IncomeTaxValue=0;
-            this.data.DPP=0;
-            this.data.VatValue=0;
-            for(var item of this.data.Items){
-                if(item.Details){
-                    for(var detail of item.Details){
-                        var pph=0;
-                        var ppn=0;
-                        if(item.UseIncomeTax){
-                            var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
+        if(!this.readOnly){
+            if(this.data.Items){
+                this.data.Amount=0;
+                this.data.IncomeTaxValue=0;
+                this.data.DPP=0;
+                this.data.VatValue=0;
+                for(var item of this.data.Items){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            var pph=0;
+                            var ppn=0;
+                            if(item.UseIncomeTax){
+                                var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
 
-                            pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
+                                pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
+                            }
+                            if(item.UseVat){
+                                ppn=detail.PaidPrice*0.1;
+                            }
+                            this.data.IncomeTaxValue+=pph;
+                            this.data.VatValue+=ppn;
+                            this.data.DPP+=detail.PaidPrice;
+                            if(this.data.IncomeTaxBy=="Supplier"){
+                                this.data.Amount+=detail.PaidPrice+ppn;
+                            }
+                            else
+                                this.data.Amount+=detail.PaidPrice+ppn+pph;
                         }
-                        if(item.UseVat){
-                            ppn=detail.PaidPrice*0.1;
-                        }
-                        this.data.IncomeTaxValue+=pph;
-                        this.data.VatValue+=ppn;
-                        this.data.DPP+=detail.PaidPrice;
-                        if(this.data.IncomeTaxBy=="Supplier"){
-                            this.data.Amount+=detail.PaidPrice+ppn;
-                        }
-                        else
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
                     }
                 }
+                return this.data.DPP;
             }
-            return this.data.DPP;
+            else return 0;
         }
-        else return 0;
         
     }
 
     get vatVal(){
+        if(!this.readOnly){
+            if(this.data.Items){
+                this.data.Amount=0;
+                this.data.IncomeTaxValue=0;
+                this.data.DPP=0;
+                this.data.VatValue=0;
+                for(var item of this.data.Items){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            var pph=0;
+                            var ppn=0;
+                            if(item.UseIncomeTax){
+                                var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
 
-        if(this.data.Items){
-            this.data.Amount=0;
-            this.data.IncomeTaxValue=0;
-            this.data.DPP=0;
-            this.data.VatValue=0;
-            for(var item of this.data.Items){
-                if(item.Details){
-                    for(var detail of item.Details){
-                        var pph=0;
-                        var ppn=0;
-                        if(item.UseIncomeTax){
-                            var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-
-                            pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
+                                pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
+                            }
+                            if(item.UseVat){
+                                ppn=detail.PaidPrice*0.1;
+                            }
+                            this.data.IncomeTaxValue+=pph;
+                            this.data.VatValue+=ppn;
+                            this.data.DPP+=detail.PaidPrice;
+                            if(this.data.IncomeTaxBy=="Supplier"){
+                                this.data.Amount+=detail.PaidPrice+ppn;
+                            }
+                            else
+                                this.data.Amount+=detail.PaidPrice+ppn+pph;
                         }
-                        if(item.UseVat){
-                            ppn=detail.PaidPrice*0.1;
-                        }
-                        this.data.IncomeTaxValue+=pph;
-                        this.data.VatValue+=ppn;
-                        this.data.DPP+=detail.PaidPrice;
-                        if(this.data.IncomeTaxBy=="Supplier"){
-                            this.data.Amount+=detail.PaidPrice+ppn;
-                        }
-                        else
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
                     }
                 }
+                return this.data.VatValue;
             }
-            return this.data.VatValue;
+            else return 0;
         }
-        else return 0;
-        
     }
     
     get incomeTaxVal(){
-        if(this.data.Items){
-            this.data.Amount=0;
-            this.data.IncomeTaxValue=0;
-            this.data.DPP=0;
-            this.data.VatValue=0;
-            for(var item of this.data.Items){
-                if(item.Details){
-                    for(var detail of item.Details){
-                        var pph=0;
-                        var ppn=0;
-                        if(item.UseIncomeTax){
-                            var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-                            pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
+        if(!this.readOnly){
+            if(this.data.Items){
+                this.data.Amount=0;
+                this.data.IncomeTaxValue=0;
+                this.data.DPP=0;
+                this.data.VatValue=0;
+                for(var item of this.data.Items){
+                    if(item.Details){
+                        for(var detail of item.Details){
+                            var pph=0;
+                            var ppn=0;
+                            if(item.UseIncomeTax){
+                                var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
+                                pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
+                            }
+                            if(item.UseVat){
+                                ppn=detail.PaidPrice*0.1;
+                            }
+                            this.data.IncomeTaxValue+=pph;
+                            this.data.VatValue+=ppn;
+                            this.data.DPP+=detail.PaidPrice;
+                            if(this.data.IncomeTaxBy=="Supplier"){
+                                this.data.Amount+=detail.PaidPrice+ppn;
+                            }
+                            else
+                                this.data.Amount+=detail.PaidPrice+ppn+pph;
                         }
-                        if(item.UseVat){
-                            ppn=detail.PaidPrice*0.1;
-                        }
-                        this.data.IncomeTaxValue+=pph;
-                        this.data.VatValue+=ppn;
-                        this.data.DPP+=detail.PaidPrice;
-                        if(this.data.IncomeTaxBy=="Supplier"){
-                            this.data.Amount+=detail.PaidPrice+ppn;
-                        }
-                        else
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
                     }
                 }
+                return this.data.IncomeTaxValue;
             }
-            return this.data.IncomeTaxValue;
+            else return 0;
+            
         }
-        else return 0;
-        
     }
 
 } 
