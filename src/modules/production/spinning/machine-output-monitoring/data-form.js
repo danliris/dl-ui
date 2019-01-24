@@ -2,8 +2,8 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
 import moment from 'moment';
 
-var LotLoader = require('../../../../loader/lot-configuration-loader');
-// var MaterialTypeLoader = require('../../../../loader/material-');
+var LotLoader = require('../../../../loader/lot-configuration-for-machine-output-loader');
+var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 
 @inject(Service)
 export class DataForm {
@@ -79,6 +79,25 @@ export class DataForm {
     //         this.data.Items.push({})
     //     };
     // }
+
+    processTypeChanged(e) {
+        var selectedProcess = e.srcElement.value;
+        this.error=this.context.error;
+        // if (selectedProcess) {
+        //     this.data.ProcessType = selectedProcess;
+        //     if (this.data.ProcessType == "Finish-Drawing") {
+        //         this.ProcessType = true;
+        //     }
+        //     if (this.data.ProcessType == "Blowing" || 
+        //         this.data.ProcessType == "Carding" || 
+        //         this.data.ProcessType == "Pre-Drawing" || 
+        //         this.data.ProcessType == "Finishing-Drawing")  {
+        //             this.finishingDrawing = false;
+        //     } else {
+        //         this.finishingDrawing = true;
+        //     }
+        // }
+    }
 
     mockLotLoader = (keyword, filter) => {
 

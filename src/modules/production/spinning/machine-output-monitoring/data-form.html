@@ -22,10 +22,10 @@
 
          <au-autocomplete placeholder="cari benang"
                           label="Nama Benang"
-                          value.bind="data.CountConfigId"
-                          error.bind="error.CountConfigId"
-                          loader.one-time="countLoader"
-                          text="YarnType"
+                          value.bind="data.MaterialTypeId"
+                          error.bind="error.MaterialTypeId"
+                          loader.one-time="materialTypeLoader"
+                          text="Name"
                           read-only.bind="readOnly"
                           options.bind="controlOptions">
         </au-autocomplete>
