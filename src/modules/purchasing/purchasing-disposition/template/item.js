@@ -185,4 +185,13 @@ export class PurchasingDispositionItem {
     detailChanged(e){
         this.GetTax();
     }
+
+    get removeDetails() {
+        return (event) => //console.log(event.detail);
+        {
+            this.data.Details=this.data.Details.splice(this.data.Details.indexOf(event.detail),1);
+            this.GetTax();
+            //this.detailChanged(event);
+        }
+    }
 }

@@ -156,35 +156,32 @@
         </au-dropdown>
 
         <au-numeric
-            value.bind="data.DPP"
+            value.bind="dppVal"
             label="DPP"
             read-only.bind="true"
             format = "0,0.0000"
-            options.bind="controlOptions">>
+            options.bind="controlOptions">
         </au-numeric>
 
         <au-numeric
-            value.bind="data.VatValue"
+            value.bind="vatVal"
             label="PPN"
             read-only.bind="true"
-            format = "0,0.0000"
-            options.bind="controlOptions">>
+            options.bind="controlOptions">
         </au-numeric>
 
         <au-numeric
-            value.bind="data.IncomeTaxValue"
+            value.bind="incomeTaxVal"
             label="PPH"
             read-only.bind="true"
-            format = "0,0.0000"
-            options.bind="controlOptions">>
+            options.bind="controlOptions">
         </au-numeric>
 
         <au-numeric
             value.bind="data.Amount"
             label="Amount"
             read-only.bind="true"
-            format = "0,0.0000"
-            options.bind="controlOptions">>
+            options.bind="controlOptions">
         </au-numeric>
 
         <au-numeric
@@ -192,7 +189,7 @@
             label="Koreksi Pembayaran"
             read-only.bind="readOnly"
             format = "0,0.00"
-            options.bind="controlOptions">>
+            options.bind="controlOptions">
         </au-numeric>
 
         <au-textbox
