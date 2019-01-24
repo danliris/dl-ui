@@ -1,0 +1,26 @@
+<template replace-part="Item">
+    <tr>
+        <td>
+            <au-textbox value.bind="data.MachineSpinningNo" error.bind="error.MachineSpinningNo" read-only.bind="true"
+                options.bind="controlOptions"></au-textbox>
+
+        </td>
+        <td>
+            <au-textbox value.bind="data.MachineSpinningName" error.bind="error.MachineSpinningName" read-only.bind="true"
+                options.bind="controlOptions"></au-textbox>
+
+        </td>
+        <td>
+            <au-numeric value.bind="data.Input" error.bind="error.Input" read-only.bind="options.readOnly" options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.MachineSpinningUOM" error.bind="error.MachineSpinningUOM" read-only.bind="true"
+                options.bind="controlOptions"></au-textbox>
+
+        </td>
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>

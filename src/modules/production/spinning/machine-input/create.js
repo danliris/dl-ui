@@ -24,7 +24,7 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.data.LotDate =  moment(this.data.LotDate).format("DD MMM YYYY");
+        this.data.Date =  this.data.Date ? moment(this.data.Date).format("DD MMM YYYY") : null;
         this.service.create(this.data)
             .then(result => {
                 alert(`create data success`);

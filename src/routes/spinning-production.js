@@ -89,5 +89,18 @@ module.exports = [
             permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: 'production/spinning/machine-input',
+        name: 'machine-input',
+        moduleId: './modules/production/spinning/machine-input/index',
+        nav: true,
+        title: 'Input Produksi Spinning',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
