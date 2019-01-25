@@ -31,53 +31,53 @@ export class List {
       order: order
     };
 
-    return this.service.search(arg).then(result => {
-      return {
-        total: result.info.total,
-        data: result.data
-        // data: [
-        //   {
-        //     id: 1,
-        //     yarnCode: "PC45",
-        //     yarnName: "Cotton",
-        //     yarnUnit: "Bale",
-        //     yarnCurrencyCode: "IDR",
-        //     yarnPrice: 70000
-        //   },
-        //   {
-        //     id: 2,
-        //     yarnCode: "PC21",
-        //     yarnName: "Poly",
-        //     yarnUnit: "Bale",
-        //     yarnCurrencyCode: "IDR",
-        //     yarnPrice: 120000
-        //   }
-        // ]
-      };
-    });
+    // return this.service.search(arg).then(result => {
+    //   return {
+    //     total: result.info.total,
+    //     data: result.data
+    //     // data: [
+    //     //   {
+    //     //     id: 1,
+    //     //     yarnCode: "PC45",
+    //     //     yarnName: "Cotton",
+    //     //     yarnUnit: "Bale",
+    //     //     yarnCurrencyCode: "IDR",
+    //     //     yarnPrice: 70000
+    //     //   },
+    //     //   {
+    //     //     id: 2,
+    //     //     yarnCode: "PC21",
+    //     //     yarnName: "Poly",
+    //     //     yarnUnit: "Bale",
+    //     //     yarnCurrencyCode: "IDR",
+    //     //     yarnPrice: 120000
+    //     //   }
+    //     // ]
+    //   };
+    // });
 
-    // return {
-    //   total: 2,
-    //   // data: result.data
-    //   data: [
-    //     {
-    //       id: 1,
-    //       yarnCode: "01",
-    //       yarnName: "PC45",
-    //       yarnUnit: "Bale",
-    //       yarnCurrencyCode: "IDR",
-    //       yarnPrice: 70000
-    //     },
-    //     {
-    //       id: 2,
-    //       yarnCode: "02",
-    //       yarnName: "PC21",
-    //       yarnUnit: "Bale",
-    //       yarnCurrencyCode: "IDR",
-    //       yarnPrice: 120000
-    //     }
-    //   ]
-    // };
+    return {
+      total: 2,
+      // data: result.data
+      data: [
+        {
+          id: 1,
+          yarnCode: "01",
+          yarnName: "PC45",
+          yarnUnit: "Bale",
+          yarnCurrencyCode: "IDR",
+          yarnPrice: 70000
+        },
+        {
+          id: 2,
+          yarnCode: "02",
+          yarnName: "PC21",
+          yarnUnit: "Bale",
+          yarnCurrencyCode: "IDR",
+          yarnPrice: 120000
+        }
+      ]
+    };
   };
 
   constructor(router, service) {

@@ -13,9 +13,9 @@ module.exports = [
     }
   },
   {
-    route: "weaving/fabric-specification",
-    name: "fabric-specification",
-    moduleId: "./modules/weaving/fabric-specification/index",
+    route: "weaving/fabric-construction",
+    name: "fabric-construction",
+    moduleId: "./modules/weaving/fabric-construction/index",
     nav: true,
     title: "Master Kebutuhan Benang",
     auth: true,
@@ -83,6 +83,18 @@ module.exports = [
     moduleId: "./modules/weaving/master-ring/index",
     nav: true,
     title: "Master Ring",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },{
+    route: "weaving/master-machine",
+    name: "master-machine",
+    moduleId: "./modules/weaving/master-machine/index",
+    nav: true,
+    title: "Master Mesin",
     auth: true,
     settings: {
       group: "weaving",

@@ -7,32 +7,33 @@ th,td {
   <tr>
     <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
     <td>
-      <au-textbox value.bind="data.kodeLusi" read-only.bind="true">
+      <au-textbox value.bind="data.weft.code" read-only.bind="true">
       </au-textbox>
     </td>
     <td>
       <au-autocomplete
-        value.bind="data.jnsLusi"
-        error.bind="error.jnsLusi"
+        value.bind="data.weftType"
+        error.bind="error.weftType"
         read-only.bind="readOnly"
       >
       </au-autocomplete>
     </td>
     <td>
       <au-numeric
-        value.bind="data.qtyLusi"
-        error.bind="error.qtyLusi"
+        value.bind="data.amountOfWeft"
+        error.bind="error.amountOfWeft"
         read-only.bind="readOnly"
       >
       </au-numeric>
     </td>
     <td>
-      <au-textbox value.bind="data.ktrLusi" read-only.bind="true"> </au-textbox>
+      <au-textbox value.bind="data.weft.information" read-only.bind="true">
+      </au-textbox>
     </td>
     <td class="col-sm-1" if.bind="!readOnly">
       <button
         class="btn btn-danger pull-right"
-        click.delegate="onremove(dataLusi, $event)"
+        click.delegate="onremove(weftData, $event)"
       >
         -
       </button>

@@ -1,5 +1,5 @@
 <template>
-  <h1 class="page-header">Daftar Ring</h1>
+  <h1 class="page-header">Daftar Kebutuhan Benang</h1>
   <au-table
     data.bind="loader"
     columns.bind="columns"
@@ -10,7 +10,6 @@
   >
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-success" click.delegate="create()">Buat</button>
-      <!-- <button class="btn btn-default" click.delegate="upload()">Unggah CSV</button> -->
     </div>
   </au-table>
 </template>

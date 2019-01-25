@@ -7,33 +7,32 @@ th,td {
   <tr>
     <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
     <td>
-      <au-textbox value.bind="data.kodePakan" read-only.bind="true">
+      <au-textbox value.bind="data.yarn.code" read-only.bind="true">
       </au-textbox>
     </td>
     <td>
       <au-autocomplete
-        value.bind="data.jnsPakan"
-        error.bind="error.jnsPakan"
+        value.bind="data.warpType"
+        error.bind="error.warpType"
         read-only.bind="readOnly"
       >
       </au-autocomplete>
     </td>
     <td>
       <au-numeric
-        value.bind="data.qtyPakan"
-        error.bind="error.qtyPakan"
+        value.bind="data.amountOfWarp"
+        error.bind="error.amountOfWarp"
         read-only.bind="readOnly"
       >
       </au-numeric>
     </td>
     <td>
-      <au-textbox value.bind="data.ktrPakan" read-only.bind="true">
-      </au-textbox>
+      <au-textbox value.bind="data.warp.information" read-only.bind="true"> </au-textbox>
     </td>
     <td class="col-sm-1" if.bind="!readOnly">
       <button
         class="btn btn-danger pull-right"
-        click.delegate="onremove(dataPakan, $event)"
+        click.delegate="onremove(warpData, $event)"
       >
         -
       </button>
