@@ -16,15 +16,16 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
+      page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
-      select: ["code", "name", "description"],
       order: order
     };
 
     return this.service.search(arg).then(result => {
+      console.log(result.data);
       return {
+        
         total: result.info.total,
         data: result.data
         // data: [
@@ -65,8 +66,6 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.accessoriesId = "";
-    // this.accessories = [];
   }
 
   contextCallback(event) {
@@ -78,10 +77,6 @@ export class List {
         break;
     }
   }
-
-  // upload() {
-  //     this.router.navigateToRoute('upload');
-  // }
 
   create() {
     this.router.navigateToRoute("create");

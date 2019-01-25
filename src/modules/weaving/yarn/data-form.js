@@ -13,6 +13,13 @@ export class DataForm {
     editText: "Ubah"
   };
 
+  // customShortOptions = {
+  //   control: {
+  //     align: "left",
+  //     length: 4
+  //   }
+  // };
+
   constructor() {}
 
   @computedFrom("data.id")
@@ -29,18 +36,18 @@ export class DataForm {
     //         this.data.uom.toString = function () {
     //             return this.unit;
     //         };
-    this.data = {
-        id: 1,
-        yarnCode: "01",
-        yarnMaterialType: "Cotton",
-        yarnRingSize: "2",
-        yarnName: "PC45",
-        yarnUnit: "Bale",
-        yarnCurrencyCode: "IDR",
-        yarnPrice: 70000,
-        tags: "Weaving",
-        yarnDescription: "some detail"
-    };
+    // this.data = {
+    //     id: 1,
+    //     yarnCode: "01",
+    //     yarnMaterialType: "Cotton",
+    //     yarnRingSize: "2",
+    //     yarnName: "PC45",
+    //     yarnUnit: "Bale",
+    //     yarnCurrencyCode: "IDR",
+    //     yarnPrice: 70000,
+    //     tags: "weaving-products",
+    //     yarnDescription: "some detail"
+    // };
     this.error = this.context.error;
 
     this.cancelCallback = this.context.cancelCallback;

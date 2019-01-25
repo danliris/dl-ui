@@ -4,7 +4,6 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Edit {
-  onCreated = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -14,30 +13,30 @@ export class Edit {
     // var id = params.id;
     // this.data = await this.service.getById(id);
     this.data = {
-        noMKB: 1,
-        konstruksi: "CD 133 72 63 Rf Rf B B",
-        konstruksiJenis: "CD",
-        konstruksiTipe: "PL",
-        konstruksiLusi: "133",
-        konstruksiPakan: "72",
-        konstruksiLebar: "63",
-        jnsLusi: "Rf",
-        jnsPakan: "RcRf",
-        totalBenang: 220.7084
+      id: 1,
+      unit: "Weaving1",
+      machineNumber: "000001",
+      machineType: "Type C",
+      rpm: 50000,
+      location: "Place A",
+      block: "a",
+      maintenance: "maintenance",
+      operator: "operator"
     };
+
+    // this.data.currency.toString = function() {
+    //   return this.currency;}
   }
 
   cancelCallback(event) {
-    // this.router.navigateToRoute('view', { id: this.data._id });
-    this.router.navigateToRoute("view", { id: this.data.noMKB });
+    this.router.navigateToRoute("view", { id: this.data.id });
   }
 
   saveCallback(event) {
     this.service
       .update(this.data)
       .then(result => {
-        // this.router.navigateToRoute('view', { id: this.data._id });
-        this.router.navigateToRoute("view", { id: this.data.noMKB });
+        this.router.navigateToRoute("view", { id: this.data.id });
       })
       .catch(e => {
         this.error = e;

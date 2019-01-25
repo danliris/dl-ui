@@ -4,8 +4,6 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class View {
-  showViewEdit = true;
-  readOnlyViewEdit=true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -16,17 +14,14 @@ export class View {
     // this.data = await this.service.getById(id);
     this.data = {
       id: 1,
-      yarnCode: "01",
-      yarnMaterialTypeCode: "R",
-      yarnMaterialTypeName: "CD",
-      yarnRingSizeCode: "f",
-      yarnRingSizeName: 45,
-      yarnName: "CD45",
-      yarnUnit: "Bale",
-      yarnCurrencyCode: "IDR",
-      yarnPrice: 70000,
-      tags: "weaving-products",
-      yarnDescription: "some detail"
+      unit: "Weaving1",
+      machineNumber: "000001",
+      machineType: "Type C",
+      rpm: 50000,
+      location: "Place A",
+      block: "a",
+      maintenance: "maintenance",
+      operator: "operator"
     };
   }
 

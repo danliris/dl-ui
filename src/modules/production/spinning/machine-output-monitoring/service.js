@@ -2,12 +2,12 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = "journal-transactions";
+const serviceUri = "machine-outputs";
 
 export class Service extends RestService {
 
-    constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "finance");
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "spinning");
     }
 
     search(info) {

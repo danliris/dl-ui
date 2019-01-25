@@ -1,17 +1,30 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-import { callbackify } from "util";
-// var MaterialLoader = require('../../../loader/material-loader');
+
+// var CurrencyLoader = require('../../../loader/currency-loader');
+// var UomLoader = require('../../../loader/uom-loader');
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
     deleteText: "Hapus",
     editText: "Ubah"
   };
+
+  //   customShortOptions={
+  //       control:{
+  //           length:6
+  //       }
+  //   };
+
+  unit = ["", "Weaving1", "Weaving2", "Weaving3", "Weaving4", "Weaving5", "Weaving6"];
+  machineType = ["", "000001", "000002", "000003", "000004", "000005", "000006"];
+  location = ["", "Place A", "Place B", "Place C", "Place D", "Place E", "Place F"];
+  block = ["", "A", "B", "C", "D", "E", "F"];
+  maintenance = ["", "Maintenance"];
+  operator = ["", "Operator"];
 
   constructor() {}
 
@@ -40,10 +53,6 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
-
-  // get materialType() {
-  //   return MaterialLoader;
-  // }
 
   //   uomChanged(e) {
   //     var selectedUom = e.detail;
