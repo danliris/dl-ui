@@ -13,13 +13,13 @@ export class Item {
         this.readOnly = context.options.readOnly;
     }
 
-    mockMachineLoader = (keyword, filter) => {
+    // mockMachineLoader = (keyword, filter) => {
 
-        return Promise.resolve([{ Name: "Machine 1" }, { Name: "Machine 2" }]);
-    }
+    //     return Promise.resolve([{ Name: "Machine 1" }, { Name: "Machine 2" }]);
+    // }
 
-    get machineLoader() {
-        //return ProcessLoader;
-        return this.mockMachineLoader;
-    }
+    // get machineLoader() {
+    //     //return ProcessLoader;
+    //     return this.mockMachineLoader;
+    // }
 }
