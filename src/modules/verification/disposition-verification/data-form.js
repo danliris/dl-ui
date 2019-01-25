@@ -45,6 +45,9 @@ export class DataForm {
             'Remark',
             'ProformaNo',
             'Investation',
+            'DPP',
+            'VatValue',
+            'IncomeTaxValue',
             'Amount',
             'Items.EPONo',
             'Items.UseVat',
@@ -95,7 +98,7 @@ export class DataForm {
         if (this.DispositionNo) {
 
             this.data = Object.assign(this.data, this.DispositionNo)
-            debugger
+            console.log(this.data)
             this.supplierName = this.data.Supplier.code + " - " + this.data.Supplier.name;
 
         } else {
