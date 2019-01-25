@@ -1,6 +1,12 @@
-<template replace-part="Item">
+<template>
     <tr>
+        <td show.bind="false">
+            <au-textbox show.bind="false" value.bind="data.MachineSpinningId" error.bind="error.MachineSpinningId"
+                read-only.bind="true" options.bind="controlOptions"></au-textbox>
+
+        </td>
         <td>
+
             <au-textbox value.bind="data.MachineSpinningNo" error.bind="error.MachineSpinningNo" read-only.bind="true"
                 options.bind="controlOptions"></au-textbox>
 

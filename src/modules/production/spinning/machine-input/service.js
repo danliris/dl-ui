@@ -52,4 +52,9 @@ export class CoreService extends RestService {
       var endpoint = `${machineServiceUri}/machine/types`;
       return super.list(endpoint);
     }
+
+    searchMachineSpinning(info) {
+        var endpoint = `${machineServiceUri}`;
+        return super.list(endpoint, info);
+      }
   }

@@ -1,7 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 
-export class CartItem {
-    @bindable product;
+export class Item {
 
     activate(context) {
 

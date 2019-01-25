@@ -1,18 +1,19 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+        
 
         <au-datepicker label="Tanggal" value.bind="data.Date" error.bind="Date" read-only.bind="readOnly" options.bind="controlOptions">
         </au-datepicker>
 
-        <au-dropdown label="Jenis Proses" value.bind="data.ProcessType" error.bind="Type" read-only.bind="readOnly"
+        <au-dropdown label="Jenis Proses" value.bind="processType" error.bind="Type" read-only.bind="readOnly"
             items.bind="typeOptions" options.bind="controlOptions">
         </au-dropdown>
 
-        <au-autocomplete label="Nama Benang" value.bind="yarn" error.bind="YarnMaterialTypeId" loader.bind="yarnLoader"
-            placeholder="Cari nama benang" key="Id" text="Name" read-only.bind="readOnly" options.bind="controlOptions">
+        <au-autocomplete label="Nama Benang" value.bind="yarn" error.bind="YarnMaterialTypeId" loader.bind="materialTypeLoader"
+            placeholder="Cari nama benang" key="id" text="name" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-autocomplete label="Lot" value.bind="lot" error.bind="LotConfigurationId" loader.bind="lotLoader"
+        <au-autocomplete label="Lot" value.bind="lot" error.bind="LotConfigurationId" loader.bind="lotConfigurationLoader"
             placeholder="Cari nomor Lot" key="Id" text="LotNo" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
@@ -29,7 +30,7 @@
         </au-autocomplete>
 
         <au-collection columns.bind="itemColumns" items.bind="data.Items" errors.one-way="Items"
-            remove.bind="onremove" read-only.bind="readOnly" add.bind="false" item-template="modules/production/spinning/lot-configuration/machine-input/template/item">
+            remove.bind="onremove" read-only.bind="readOnly" item-template="modules/production/spinning/machine-input/template/item">
         </au-collection>
 
     </au-input-form>
