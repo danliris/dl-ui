@@ -95,16 +95,17 @@
         </div>
         <br/><br/><br/><br/><br/>
         
-        <div show.bind="isItem && data.ProcessType!='Finish-Drawing' && processType">
+        <!-- <div show.bind="isItem && data.ProcessType!='Finish-Drawing' && processType">
             <au-textbox label="No Lot"
                 value.bind="cottonLot"
                 read-only.bind="true"
                 options.bind="controlOptions3">
             </au-textbox>
            
-        </div>
-
-        <div show.bind="isItem && data.PolyesterYarn && data.ProcessType=='Finish-Drawing' && processType">
+        </div> -->
+        
+    <!-- && data.ProcessType=='Finish-Drawing' && processType-->
+        <div show.bind="isItemPolyster && data.PolyesterYarn">
             <au-textbox label="No Lot Polyester"
                 value.bind="polyesterLot"
                 read-only.bind="true"
@@ -113,7 +114,12 @@
             
         </div>
 
-        <div show.bind="isItem && data.CottonYarn && data.ProcessType=='Finish-Drawing' && processType">
+        <au-collection items.bind="data.itemsPolyster" errors.bind="error.itemsPolyster" columns.bind="inputInfo.columns" 
+            read-only.bind="readOnly" show.bind="isItemPolyster" item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
+        </au-collection>
+
+        <!--&& data.ProcessType=='Finish-Drawing' && processType-->
+        <div show.bind="isItem && data.CottonYarn"> 
             <au-textbox label="No Lot Cotton"
                 value.bind="cottonLot"
                 read-only.bind="true"

@@ -84,8 +84,10 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        console.log(this.error)
         this.data.Input = this.data.Input || [];
         this.isItem = false;
+        this.isItemPolyster = false;
         this.processType = false;
         this.cottonLot ="";
         this.polyesterLot ="";
@@ -113,17 +115,17 @@ export class DataForm {
         if(this.data.PolyesterYarn){
             this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    this.error= {};
-                    this.isItem = true;
-                    this.data.items = result.CottonCompositions;
+                    this.error.YarnType = undefined;
+                    this.isItemPolyster = true;
+                    this.data.itemsPolyster = result.CottonCompositions;
                     this.data.CottonCompositions = result.CottonCompositions
                     this.data.LotId = result.Id;
                     this.data.LotNo = result.LotNo;
                     this.polyesterLot = result.LotNo;
                 } else{
                     this.error.YarnType = "Lot tidak ditemukan";
-                    this.isItem = false;
-                    this.data.items = null;
+                    this.isItemPolyster = false;
+                    this.data.itemsPolyster = null;
                     this.data.CottonCompositions = null;
                     this.data.LotId = null;
                     this.data.LotNo = null;
@@ -134,7 +136,7 @@ export class DataForm {
         if(this.data.CottonYarn){
             this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    this.error= {};
+                    this.error.YarnType = undefined;
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
                     this.data.CottonCompositions = result.CottonCompositions
@@ -172,7 +174,7 @@ export class DataForm {
 
     processTypeChanged(e) {
         var selectedProcess = e.srcElement.value;
-        this.error=this.context.error;
+        // this.error=this.context.error;
         if (selectedProcess) {
             this.data.ProcessType = selectedProcess;
             if (this.data.ProcessType == "Finish-Drawing") {
@@ -191,22 +193,25 @@ export class DataForm {
 
     cottonYarnTypeChanged(e) {
         var selectedProcess = e.srcElement.value;
-        if(!this.error){
-            this.error={};
-        }
+        // if(!this.error.YarnType){
+        //     this.error=this.context.error;
+        // }
         if(selectedProcess){
             this.data.CottonYarn = selectedProcess;
             this.service.getLotByYarnType(this.data.CottonYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    this.error= {};
+                    this.error.YarnType= undefined;
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
-                    this.data.CottonCompositions = result.CottonCompositions
+                    console.log(this.data)
+                    this.data.CottonCompositions = result.CottonCompositions;
                     this.data.LotId = result.Id;
                     this.data.LotNo = result.LotNo;
                     this.cottonLot = result.LotNo;
                 } else{
+                    console.log(1)
                     this.error.YarnType = "Lot tidak ditemukan";
+                    console.log(this.error)
                     this.isItem = false;
                     this.data.items = null;
                     this.data.CottonCompositions = null;
@@ -228,16 +233,16 @@ export class DataForm {
             this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
                 if(result){
                     this.error= {};
-                    this.isItem = true;
-                    this.data.items = result.CottonCompositions;
+                    this.isItemPolyster = true;
+                    this.data.itemsPolyster = result.CottonCompositions;
                     this.data.CottonCompositions = result.CottonCompositions
                     this.data.LotId = result.Id;
                     this.data.LotNo = result.LotNo;
                     this.polyesterLot = result.LotNo;
                 } else{
                     this.error.YarnType = "Lot tidak ditemukan";
-                    this.isItem = false;
-                    this.data.items = null;
+                    this.isItemPolyster = false;
+                    this.data.itemsPolyster = null;
                     this.data.CottonCompositions = null;
                     this.data.LotId = null;
                     this.data.LotNo = null;
