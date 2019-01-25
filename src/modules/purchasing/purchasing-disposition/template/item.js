@@ -189,7 +189,11 @@ export class PurchasingDispositionItem {
     get removeDetails() {
         return (event) => //console.log(event.detail);
         {
-            this.data.Details=this.data.Details.splice(this.data.Details.indexOf(event.detail),1);
+            var details=[];
+            for(var a of this.data.Details){
+                details.push(a);
+            }
+            this.data.Details=details;
             this.GetTax();
             //this.detailChanged(event);
         }
