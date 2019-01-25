@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
-// var MaterialLoader = require('../../../loader/material-loader');
+var MaterialLoader = require('../../../loader/material-loader');
 
 export class DataForm {
   @bindable title;
@@ -41,9 +41,9 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  // get materialType() {
-  //   return MaterialLoader;
-  // }
+  get materialType() {
+    return MaterialLoader;
+  }
 
   //   uomChanged(e) {
   //     var selectedUom = e.detail;

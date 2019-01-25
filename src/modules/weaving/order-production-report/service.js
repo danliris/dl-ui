@@ -19,8 +19,8 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getPdfByPeriod(month, year) {
-    var endpoint = `${serviceUri}/${month}/${year}`;
+  getPdfByPeriod(_id, month, year) {
+    var endpoint = `${serviceUri}/${month}/${year}/${_id}`;
     return super.getPdf(endpoint);
   }
 
