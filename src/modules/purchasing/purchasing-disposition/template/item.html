@@ -63,7 +63,7 @@
                 items.bind="data.Details" 
                 errors.bind="error.Details"
                 columns.bind="itemsColumns.columns"
-                remove.bind="itemsColumns.onRemove"
+                remove.bind="removeDetails"
                 options.bind="context"
                 read-only.bind="options.readOnly"
                 change.delegate="detailChanged($event)"
