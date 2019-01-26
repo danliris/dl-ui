@@ -9,15 +9,22 @@ export class List {
 
   columns = [
     [
-      { field: "orderNumber", title: "No SOP", rowspan: "2", valign: "top" },
+      {
+        field: "orderNumber",
+        title: "No. SP",
+        rowspan: "2",
+        valign: "top",
+        sortable: true
+      },
       {
         field: "dateOrdered",
-        title: "Tanggal SOP",
+        title: "Tanggal SP",
         rowspan: "2",
         valign: "top",
         formatter: function(value, data, index) {
-          return moment(value).format("DD MMM YYYY");
-        }
+          return moment(value).format("DD MMMM YYYY");
+        },
+        sortable: true
       },
       {
         field: "weavingUnit",
@@ -33,9 +40,6 @@ export class List {
         title: "Konstruksi",
         rowspan: "2",
         valign: "top"
-        // formatter: function(value, data, index) {
-        //   return value.constructionNumber;
-        // }
       },
       {
         title: "Blended (%)",
@@ -79,13 +83,6 @@ export class List {
       page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
-      // select: [
-      //   "orderNumber",
-      //   "dateOrdered",
-      //   "Unit",
-      //   "ConstructionDocument",
-      //   "Composition"
-      // ],
       order: order
     };
 
@@ -101,8 +98,6 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.orderId = "";
-    // this.orders = [];
   }
 
   contextCallback(event) {

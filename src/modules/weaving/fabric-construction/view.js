@@ -12,20 +12,8 @@ export class Create {
   }
 
   async activate(params) {
-    // var id = params.id;
-    // this.data = await this.service.getById(id);
-    this.data = {
-      noMKB: 1,
-      konstruksi: "CD 133 72 63 Rf Rf B B",
-      konstruksiJenis: "CD",
-      konstruksiTipe: "PL",
-      konstruksiLusi: "133",
-      konstruksiPakan: "72",
-      konstruksiLebar: "63",
-      jnsLusi: "Rf",
-      jnsPakan: "RcRf",
-      totalBenang: 220.7084
-    };
+    var id = params.id;
+    this.data = await this.service.getById(id);
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan
@@ -40,7 +28,7 @@ export class Create {
 
   //Tombol "Ubah", routing ke 'edit'
   editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data.noMKB });
+    this.router.navigateToRoute("edit", { id: this.data.id });
   }
 
   //Tombol "Hapus", hapus this.data, redirect ke list

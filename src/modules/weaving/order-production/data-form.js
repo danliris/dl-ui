@@ -1,14 +1,16 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
 var UnitLoader = require("../../../loader/unit-loader");
-var moment = require('moment');
+var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
+var YarnLoader = require("../../../loader/weaving-yarns-loader");
+var moment = require("moment");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
 
   yearFormat = "YYYY";
-  years =[];
+  years = [];
 
   formOptions = {
     cancelText: "Kembali",
@@ -49,38 +51,42 @@ export class DataForm {
     }
   };
 
-  months = ["",
-    "Januari",
-    "Februari",
-    "Maret",
+  months = [
+    "",
+    "January",
+    "February",
+    "March",
     "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
+    "May",
+    "June",
+    "July",
+    "August",
     "September",
-    "Oktober",
+    "October",
     "November",
-    "Desember"
+    "December"
   ];
 
-  // @computedFrom("data._id")
-  // get isEdit() {
-  //     return (this.data._id || '').toString() != '';
-  // }
-
-  get constructionsNumber() {
+  get units() {
     return UnitLoader;
   }
 
-  getYears(){
+  get constructions() {
+    return ConstructionLoader;
+  }
+  
+  get yarns() {
+    return YarnLoader;
+  }
+
+  getYears() {
     var year = moment(new Date());
     this.years.push(year.year());
-    var nextYear = year.add(1,'years');
+    var nextYear = year.add(1, "years");
     this.years.push(nextYear.year());
-    var nextYear = year.add(1,'years');
+    var nextYear = year.add(1, "years");
     this.years.push(nextYear.year());
-    var nextYear = year.add(1,'years');
+    var nextYear = year.add(1, "years");
     this.years.push(nextYear.year());
   }
 
