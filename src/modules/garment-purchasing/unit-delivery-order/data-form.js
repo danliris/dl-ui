@@ -172,6 +172,7 @@ export class DataForm {
             this.context.unitRequestViewModel.editorValue = "";
         }
         this.storageRequest = null;
+        this.RONo = null;
         
         // this.context.error.Items = [];
         // this.context.error = [];
@@ -205,6 +206,7 @@ export class DataForm {
         
         // this.context.error.Items = [];
         // this.context.error = [];
+        
     }
 
     storageChanged(newValue) {
@@ -219,6 +221,7 @@ export class DataForm {
         
         // this.context.error.Items = [];
         // this.context.error = [];
+        this.RONo = null;
     }
 
     RONoChanged(newValue) {

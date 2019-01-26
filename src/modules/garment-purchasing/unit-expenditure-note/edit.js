@@ -7,9 +7,6 @@ import { Service } from './service';
 export class Edit {
     hasCancel = true;
     hasSave = true;
-    hasView = false;
-    hasEdit = true;
-    hasCreate = false;
 
     constructor(router, service) {
         this.router = router;
@@ -62,7 +59,7 @@ export class Edit {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save(event) {
