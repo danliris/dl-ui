@@ -16,7 +16,7 @@
             show.bind="data.ProcessType!='Finish-Drawing' && processType"
             read-only.bind="readOnly"
             items.bind="yarnTypeList"
-            change.delegate="cottonYarnTypeChanged($event)"
+            change.delegate="yarnTypeChanged($event)"
             options.bind="controlOptions">
         </au-dropdown>
 
@@ -103,7 +103,7 @@
             </au-textbox>
            
         </div> -->
-        
+
     <!-- && data.ProcessType=='Finish-Drawing' && processType-->
         <div show.bind="isItemPolyster && data.PolyesterYarn">
             <au-textbox label="No Lot Polyester"
