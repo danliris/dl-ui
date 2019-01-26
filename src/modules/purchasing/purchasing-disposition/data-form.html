@@ -22,7 +22,7 @@
         <au-autocomplete 
             value.bind="selectedDivision" 
             error.bind="error.Division"
-            read-only.bind="(readOnly )"
+            read-only.bind="(readOnly || isEdit)"
             label="Divisi" 
             loader.bind="divisionLoader"
             text.bind = "divisionView"
@@ -34,7 +34,7 @@
         <au-autocomplete 
             value.bind="selectedCategory" 
             error.bind="error.Category"
-            read-only.bind="(readOnly)"
+            read-only.bind="(readOnly || isEdit)"
             label="Kategori" 
             loader.bind="categoryLoader"
             text.bind = "categoryView"
@@ -51,7 +51,7 @@
             text.bind = "supplierView"
             placeholder="cari supplier" 
             key="code" 
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -63,7 +63,7 @@
             text.bind = "currencyView"
             placeholder="cari mata uang" 
             key="code" 
-            read-only.bind="readOnly"
+            read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
         </au-autocomplete>
 
