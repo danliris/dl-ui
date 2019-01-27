@@ -5,7 +5,7 @@
                 value.bind="selectedEPO"
                 error.bind="error.Epo"
                 loader.one-time="epoLoader"
-                read-only.bind="readOnly"
+                read-only.bind="(readOnly || isEdit)"
                 query.bind="filter"
                 text.bind="epoView">
             </au-autocomplete>

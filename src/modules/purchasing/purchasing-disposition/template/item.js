@@ -23,6 +23,8 @@ export class PurchasingDispositionItem {
         this.service = service;
     }
 
+    
+
     activate(context) {
         this.context=context;
         this.items = context.context.items;
@@ -31,7 +33,9 @@ export class PurchasingDispositionItem {
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
         this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ? { "supplierId": this.options.supplierId, "currencyId":this.options.currencyId, "divisionId": this.options.divisionId, "categoryId": this.options.categoryId} : {};
-        
+        if(this.data.Id!=0 || this.data.Id!=null){
+            this.isEdit=true;
+        }
         if(this.data.EPONo){
             this.selectedEPO=this.data;
         }
