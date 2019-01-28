@@ -1,18 +1,29 @@
 <template>
     <tr>
         <td show.bind="false">
-            <au-textbox show.bind="false" value.bind="data.MachineSpinningId" error.bind="error.MachineSpinningId"
+            <au-textbox show.bind="false" value.bind="data.Id" error.bind="error.Id" read-only.bind="true"
+                options.bind="controlOptions"></au-textbox>
+
+        </td>
+
+        <td show.bind="false">
+            <au-textbox show.bind="false" value.bind="data.InputMachineHeaderId" error.bind="error.InputMachineHeaderId" read-only.bind="true"
+                options.bind="controlOptions"></au-textbox>
+
+        </td>
+        <td show.bind="false">
+            <au-textbox show.bind="false" value.bind="data.MachineSpinning.Id" error.bind="error.MachineSpinning.Id"
                 read-only.bind="true" options.bind="controlOptions"></au-textbox>
 
         </td>
         <td>
 
-            <au-textbox value.bind="data.MachineSpinningNo" error.bind="error.MachineSpinningNo" read-only.bind="true"
+            <au-textbox value.bind="data.MachineSpinning.No" error.bind="error.MachineSpinning.No" read-only.bind="true"
                 options.bind="controlOptions"></au-textbox>
 
         </td>
         <td>
-            <au-textbox value.bind="data.MachineSpinningName" error.bind="error.MachineSpinningName" read-only.bind="true"
+            <au-textbox value.bind="data.MachineSpinning.Name" error.bind="error.MachineSpinning.Name" read-only.bind="true"
                 options.bind="controlOptions"></au-textbox>
 
         </td>
@@ -21,8 +32,8 @@
             </au-numeric>
         </td>
         <td>
-            <au-textbox value.bind="data.MachineSpinningUOM" error.bind="error.MachineSpinningUOM" read-only.bind="true"
-                options.bind="controlOptions"></au-textbox>
+            <au-textbox value.bind="data.MachineSpinning.UomUnit" error.bind="error.MachineSpinning.UomUnit"
+                read-only.bind="true" options.bind="controlOptions"></au-textbox>
 
         </td>
         <td if.bind="!options.readOnly">

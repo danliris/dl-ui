@@ -69,10 +69,25 @@ export class DataForm {
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
         }
-        if (this.data.Yarn && this.data.Yarn.Id) {
-            this.yarn = this.data.Yarn;
+        if (this.data.LotConfiguration && this.data.LotConfiguration.Id) {
+            this.lot = this.data.LotConfiguration;
+        }
+        if (this.data.ProcessType) {
+            this.processType = this.data.ProcessType;
         }
 
+        if (this.data.YarnMaterialType && this.data.YarnMaterialType.Id) {
+            this.yarn = {};
+            this.yarn.id = this.data.YarnMaterialType.Id;
+            this.yarn.name = this.data.YarnMaterialType.Name;
+        }
+
+        if (this.data.Items) {
+            for (var item of this.data.Items) {
+                item.Identity = item.Id;
+                item.MachineSpinningIdentity = item.MachineSpinning.Id;
+            }
+        }
 
     }
 
@@ -111,20 +126,24 @@ export class DataForm {
                 this.filter.UnitId = this.data.UnitDepartmentId.toString();
                 this.machineSpinningFilter.filter = JSON.stringify(this.filter);
 
-                this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
-                    .then(results => {
-                        var newItems = [];
-                        for (var item of results.data) {
-                            var newData = {};
-                            newData.MachineSpinningNo = item.No;
-                            newData.MachineSpinningName = item.Name;
-                            newData.MachineSpinningUOM = item.UomUnit;
-                            newData.MachineSpinningId = item.Id;
-                            newItems.push(newData);
-                        }
-                        return newItems;
-                    });
+                if (!this.data.Id) {
+                    this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+                        .then(results => {
+                            var newItems = [];
+                            for (var item of results.data) {
+                                var newData = {};
+                                newData.MachineSpinning = {};
+                                newData.MachineSpinning.No = item.No;
+                                newData.MachineSpinning.Name = item.Name;
+                                newData.MachineSpinning.UomUnit = item.UomUnit;
+                                newData.MachineSpinning.Id = item.Id;
+                                newData.MachineSpinningIdentity = item.Id;
+                                newItems.push(newData);
+                            }
+                            return newItems;
+                        });
 
+                }
                 this.items = this.data.Items;
             }
         }
@@ -136,13 +155,13 @@ export class DataForm {
         }
     }
 
-    yarnChanged(n,o){
+    yarnChanged(n, o) {
         if (this.yarn && this.yarn.id) {
             this.data.YarnMaterialTypeId = this.yarn.id;
         }
     }
 
-    async processTypeChanged(n,o){
+    async processTypeChanged(n, o) {
         if (this.processType) {
             this.data.ProcessType = this.processType;
 
@@ -155,20 +174,24 @@ export class DataForm {
                 this.filter.Type = this.data.ProcessType;
                 this.filter.UnitId = this.data.UnitDepartmentId.toString();
                 this.machineSpinningFilter.filter = JSON.stringify(this.filter);
+                if (!this.data.Id) {
+                    this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+                        .then(results => {
+                            var newItems = [];
+                            for (var item of results.data) {
+                                var newData = {};
+                                newData.MachineSpinning = {};
+                                newData.MachineSpinning.No = item.No;
+                                newData.MachineSpinning.Name = item.Name;
+                                newData.MachineSpinning.UomUnit = item.UomUnit;
+                                newData.MachineSpinning.Id = item.Id;
+                                newData.MachineSpinningIdentity = item.Id;
+                                newItems.push(newData);
+                            }
+                            return newItems;
+                        });
+                }
 
-                this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
-                    .then(results => {
-                        var newItems = [];
-                        for (var item of results.data) {
-                            var newData = {};
-                            newData.MachineSpinningNo = item.No;
-                            newData.MachineSpinningName = item.Name;
-                            newData.MachineSpinningUOM = item.UomUnit;
-                            newData.MachineSpinningId = item.Id;
-                            newItems.push(newData);
-                        }
-                        return newItems;
-                    });
 
                 this.items = this.data.Items;
             }

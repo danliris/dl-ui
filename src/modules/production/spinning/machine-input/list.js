@@ -16,7 +16,7 @@ export class List {
         // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
         // { field: "Yarn.Name", title: "Yarn Name" },
         { field: "YarnMaterialType.Name", title: "Nama Benang" },
-        { field: "LotConfiguration.No", title: "No Lot" },
+        { field: "LotConfiguration.LotNo", title: "No Lot" },
         { field: "UnitDepartment.Name", title: "Unit Name" },
         {
             field: "Date", title: "Date", formatter: function (value, data, index) {
@@ -40,7 +40,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 return {
-                    total: result.info.total,
+                    total: result.info.count,
                     data: result.data
                 }
             });
