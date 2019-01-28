@@ -22,10 +22,11 @@
 
          <au-autocomplete placeholder="cari benang"
                           label="Nama Benang"
-                          value.bind="data.MaterialTypeId"
+                          value.bind="materialType"
                           error.bind="error.MaterialTypeId"
                           loader.one-time="materialTypeLoader"
                           text="Name"
+                          change.delegate="materialTypeChanged($event)"
                           read-only.bind="readOnly"
                           options.bind="controlOptions">
         </au-autocomplete>
@@ -54,6 +55,19 @@
                     label="Grup"
                     options.bind="controlOptions">
         </au-textbox>
+
+        <au-autocomplete placeholder="pilih unit"
+                         label="Unit"
+                         value.bind="data.UnitDepartmentId"
+                         error.bind="error.UnitDepartmentId"
+                         loader.one-time="unitLoader"
+                         query.bind="spinningFilter"
+                         key="Id"
+                         text="Name"
+                         show.bind="isMaterial"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
+        </au-autocomplete>
 
         <au-textbox error.bind="error.Item"
                     show.bind="error.Item"
