@@ -26,6 +26,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/master-supplier",
+    name: "master-supplier",
+    moduleId: "./modules/weaving/master-supplier/index",
+    nav: true,
+    title: "Master Supplier",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/master-yarn",
     name: "master-yarn",
     moduleId: "./modules/weaving/master-yarn/index",
