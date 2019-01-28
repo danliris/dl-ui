@@ -6,7 +6,6 @@ var UnitLoader = require("../../../loader/unit-loader");
 
 @inject(Router, Service)
 export class List {
-
   data = {};
   tableOptions = {
     search: false,
@@ -56,13 +55,6 @@ export class List {
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
-      //   select: [
-      //     "yarnCode",
-      //     "yarnName",
-      //     "yarnUnit",
-      //     "yarnCurrencyCode",
-      //     "yarnPrice"
-      //   ],
       order: order
     };
 
@@ -72,37 +64,11 @@ export class List {
         data: result.data
       };
     });
-
-    // return {
-    //   total: 1,
-    //   // data: result.data
-    //   data: [
-    //     {
-    //       spNumber: "0515/00.2018",
-    //       spDate: "01-10-18",
-    //       construction: "PC OX 100 48 63 DhMz B AH",
-    //       yarnNumber: "TC45XCM16",
-    //       blendedPoly: "65 %",
-    //       blendedCotton: "35 %",
-    //       blendedOthers: "100 %",
-    //       epGradeA: 42500,
-    //       epGradeB: 5000,
-    //       epGradeC: 1500,
-    //       epOthers: 1000,
-    //       total: 50000,
-    //       yarnWeft: 26.9,
-    //       yarnWarp: 36.97,
-    //       yarnWhole: 63.87
-    //     }
-    //   ]
-    // };
   };
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.accessoriesId = "";
-    // this.accessories = [];
   }
 
   // contextClickCallback(event) {
@@ -135,14 +101,7 @@ export class List {
     // console.log(month);
     var year = this.getYear(this.data);
     // console.log(year);
+    console.log(this.data);
     this.service.getPdfByPeriod(this.data.unit._id, month, year);
   }
-
-  // upload() {
-  //     this.router.navigateToRoute('upload');
-  // }
-
-  //   create() {
-  //     this.router.navigateToRoute("create");
-  //   }
 }

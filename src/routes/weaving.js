@@ -1,10 +1,10 @@
 module.exports = [
   {
-    route: "weaving/master-yarn",
-    name: "master-yarn",
-    moduleId: "./modules/weaving/master-yarn/index",
+    route: "weaving/master-material-type",
+    name: "master-material-type",
+    moduleId: "./modules/weaving/master-material-type/index",
     nav: true,
-    title: "Master Benang",
+    title: "Master Material",
     auth: true,
     settings: {
       group: "weaving",
@@ -26,11 +26,11 @@ module.exports = [
     }
   },
   {
-    route: "weaving/master-material-type",
-    name: "master-material-type",
-    moduleId: "./modules/weaving/master-material-type/index",
+    route: "weaving/master-yarn",
+    name: "master-yarn",
+    moduleId: "./modules/weaving/master-yarn/index",
     nav: true,
-    title: "Master Material",
+    title: "Master Benang",
     auth: true,
     settings: {
       group: "weaving",
@@ -44,19 +44,6 @@ module.exports = [
     moduleId: "./modules/weaving/master-fabric-construction/index",
     nav: true,
     title: "Master Kebutuhan Benang",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/master-machine",
-    name: "master-machine",
-    moduleId: "./modules/weaving/master-machine/index",
-    nav: true,
-    title: "Master Mesin",
     auth: true,
     settings: {
       group: "weaving",
@@ -96,6 +83,19 @@ module.exports = [
     moduleId: "./modules/weaving/estimated-production/index",
     nav: true,
     title: "Estimasi Produksi",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/master-machine",
+    name: "master-machine",
+    moduleId: "./modules/weaving/master-machine/index",
+    nav: true,
+    title: "Master Mesin",
     auth: true,
     settings: {
       group: "weaving",

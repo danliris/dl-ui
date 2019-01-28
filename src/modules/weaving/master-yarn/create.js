@@ -1,39 +1,39 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-
+import { inject, Lazy } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-    showViewEdit=false;
-    readOnlyViewEdit=true;
-    constructor(router, service) {
-        this.router = router;
-        this.service = service;
-        // this.data = { "import": true };
-        this.data = {};
-        this.data.tags = "weaving-products";
-    }
+  showViewEdit = false;
+  readOnlyViewEdit = true;
+  constructor(router, service) {
+    this.router = router;
+    this.service = service;
+    this.data = {};
+    this.data.tags = "weaving-products";
+  }
 
-    activate(params) {
+  activate(params) {}
 
-    }
+  list() {
+    this.router.navigateToRoute("list");
+  }
 
-    list() {
-        this.router.navigateToRoute('list');
-    }
+  cancelCallback(event) {
+    this.list();
+  }
 
-    cancelCallback(event) {
-      this.list();
+  saveCallback(event) {
+    if (this.data.coreUom.code = undefined || this.data.coreUom.code == null) {
+      this.data.coreUom.code = this.data.coreUom.unit;
     }
-
-    saveCallback(event) {
-        this.service.create(this.data)
-            .then(result => {
-                this.list();
-            })
-            .catch(e => {
-                this.error = e;
-            })
-    }
+    this.service
+      .create(this.data)
+      .then(result => {
+        this.list();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
 }

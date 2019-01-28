@@ -6,11 +6,23 @@ import { Router } from "aurelia-router";
 export class List {
   context = ["detail"];
   columns = [
-    { field: "yarnCode", title: "Kode Barang" },
-    { field: "yarnName", title: "Nama Barang" },
-    { field: "yarnUnit", title: "Satuan Default" },
-    { field: "yarnCurrencyCode", title: "Mata Uang" },
-    { field: "yarnPrice", title: "Harga Barang" }
+    { field: "code", title: "Kode Barang" },
+    { field: "name", title: "Nama Barang" },
+    {
+      field: "coreUom",
+      title: "Satuan Default",
+      formatter: function(value, data, index) {
+        return value.name;
+      }
+    },
+    {
+      field: "coreCurrency",
+      title: "Mata Uang",
+      formatter: function(value, data, index) {
+        return value.name;
+      }
+    },
+    { field: "price", title: "Harga Barang" }
   ];
 
   loader = info => {
@@ -18,73 +30,23 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
+      page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
-      keyword: "yarn-weaving",
-      //   select: [
-      //     "yarnCode",
-      //     "yarnName",
-      //     "yarnUnit",
-      //     "yarnCurrencyCode",
-      //     "yarnPrice"
-      //   ],
+      keyword: "yarns",
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data
-    //     // data: [
-    //     //   {
-    //     //     id: 1,
-    //     //     yarnCode: "PC45",
-    //     //     yarnName: "Cotton",
-    //     //     yarnUnit: "Bale",
-    //     //     yarnCurrencyCode: "IDR",
-    //     //     yarnPrice: 70000
-    //     //   },
-    //     //   {
-    //     //     id: 2,
-    //     //     yarnCode: "PC21",
-    //     //     yarnName: "Poly",
-    //     //     yarnUnit: "Bale",
-    //     //     yarnCurrencyCode: "IDR",
-    //     //     yarnPrice: 120000
-    //     //   }
-    //     // ]
-    //   };
-    // });
-
-    return {
-      total: 2,
-      // data: result.data
-      data: [
-        {
-          id: 1,
-          yarnCode: "01",
-          yarnName: "PC45",
-          yarnUnit: "Bale",
-          yarnCurrencyCode: "IDR",
-          yarnPrice: 70000
-        },
-        {
-          id: 2,
-          yarnCode: "02",
-          yarnName: "PC21",
-          yarnUnit: "Bale",
-          yarnCurrencyCode: "IDR",
-          yarnPrice: 120000
-        }
-      ]
-    };
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+    });
   };
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.accessoriesId = "";
-    // this.accessories = [];
   }
 
   contextCallback(event) {
@@ -92,14 +54,10 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.yarnCode });
+        this.router.navigateToRoute("view", { id: data.id });
         break;
     }
   }
-
-  // upload() {
-  //     this.router.navigateToRoute('upload');
-  // }
 
   create() {
     this.router.navigateToRoute("create");

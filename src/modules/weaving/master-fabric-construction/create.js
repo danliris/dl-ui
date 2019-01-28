@@ -29,20 +29,14 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    this.service
-      .create(this.data)
-      .then(result => {
-        alert("Data berhasil dibuat");
-        this.router.navigateToRoute(
-          "create",
-          {},
-          { replace: true, trigger: true }
-        );
-      })
-      .catch(e => {
-        this.error = e;
-      });
-  }
+    this.service.create(this.data)
+        .then(result => {
+            this.list();
+        })
+        .catch(e => {
+            this.error = e;
+        })
+}
 
   deleteCallback(event) {}
 }
