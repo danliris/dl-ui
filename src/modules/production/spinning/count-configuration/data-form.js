@@ -84,7 +84,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        console.log(this.error)
         this.data.Input = this.data.Input || [];
         this.isItem = false;
         this.isItemPolyster = false;
@@ -103,30 +102,33 @@ export class DataForm {
         } else {
             this.finishingDrawing = true;
         }
-       
-        if (this.data.LotId) {
-            this.isItem = true;
-        }
 
         if(!this.yarnType){
-            this.yarnType=this.data.CottonYarn;
+            if(this.data.CottonYarn){
+                this.yarnType = this.data.CottonYarn;
+            } else {
+                this.yarnType = this.data.PolyesterYarn
+            }
+            
         }
 
         if(this.data.PolyesterYarn){
             this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
                 if(result){
-                    this.error.YarnType = undefined;
+                    if(this.error){
+                        this.error.YarnType = undefined;
+                    }
                     this.isItemPolyster = true;
                     this.data.itemsPolyster = result.CottonCompositions;
-                    this.data.CottonCompositions = result.CottonCompositions
                     this.data.LotId = result.Id;
                     this.data.LotNo = result.LotNo;
                     this.polyesterLot = result.LotNo;
                 } else{
-                    this.error.YarnType = "Lot tidak ditemukan";
+                    if(this.error){
+                        this.error.YarnType = "Lot tidak ditemukan";
+                    }
                     this.isItemPolyster = false;
                     this.data.itemsPolyster = null;
-                    this.data.CottonCompositions = null;
                     this.data.LotId = null;
                     this.data.LotNo = null;
                     this.polyesterLot = null;
@@ -139,7 +141,6 @@ export class DataForm {
                     this.error.YarnType = undefined;
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
-                    this.data.CottonCompositions = result.CottonCompositions
                     this.data.LotId = result.Id;
                     this.data.LotNo = result.LotNo;
                     this.cottonLot = result.LotNo;
@@ -147,7 +148,6 @@ export class DataForm {
                     this.error.YarnType = "Lot tidak ditemukan";
                     this.isItem = false;
                     this.data.items = null;
-                    this.data.CottonCompositions = null;
                     this.data.LotId = null;
                     this.data.LotNo = null;
                     this.cottonLot = null;
@@ -191,6 +191,50 @@ export class DataForm {
         }
     }
 
+    yarnTypeChanged(e) {
+        var selectedProcess = e.srcElement.value;
+        // if(!this.error.YarnType){
+        //     this.error=this.context.error;
+        // }
+        if(selectedProcess){
+            var yarn = selectedProcess;
+            this.service.getLotByYarnType(yarn, this.finishingDrawing).then(result => {
+                if(result){
+                    if(yarn=="PCP"||yarn=="PE"||yarn=="PC-P 45"){
+                        this.data.PolyesterYarn=yarn;
+                        this.data.CottonYarn=null;
+                        this.isItemPolyster=true;
+                        this.isItem=false;
+                        this.polyesterLot = result.LotNo;
+                        this.cottonLot = null;
+                        this.data.itemsPolyster = result.CottonCompositions;
+                    } else {
+                        this.data.CottonYarn=yarn;
+                        this.data.PolyesterYarn=null;
+                        this.isItemPolyster=false;
+                        this.isItem=true;
+                        this.cottonLot = result.LotNo;
+                        this.polyesterLot = null;
+                        this.data.items = result.CottonCompositions;
+                    }
+                    this.error.YarnType= undefined;
+                    this.data.LotId = result.Id;
+                    this.data.LotNo = result.LotNo;
+                } else {
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.data.items = null;
+                    this.data.CottonYarn=null;
+                    this.data.PolyesterYarn=null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.cottonLot = null;
+                    this.isItem=false;
+                    this.isItemPolyster=false;
+                }
+            });
+        }
+    }
+
     cottonYarnTypeChanged(e) {
         var selectedProcess = e.srcElement.value;
         // if(!this.error.YarnType){
@@ -203,15 +247,12 @@ export class DataForm {
                     this.error.YarnType= undefined;
                     this.isItem = true;
                     this.data.items = result.CottonCompositions;
-                    console.log(this.data)
                     this.data.CottonCompositions = result.CottonCompositions;
                     this.data.LotId = result.Id;
                     this.data.LotNo = result.LotNo;
                     this.cottonLot = result.LotNo;
                 } else{
-                    console.log(1)
                     this.error.YarnType = "Lot tidak ditemukan";
-                    console.log(this.error)
                     this.isItem = false;
                     this.data.items = null;
                     this.data.CottonCompositions = null;
