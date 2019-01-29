@@ -7,8 +7,8 @@ export class List {
   context = ["detail"];
   columns = [
     // { field: "coreSupplierId", title: "Id Supplier" },
-    { field: "name", title: "Nama Supplier" },
-    { field: "code", title: "Kode Supplier"}
+    { field: "code", title: "Kode Supplier"},
+    { field: "name", title: "Nama Supplier" }
   ];
 
   loader = info => {

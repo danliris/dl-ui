@@ -10,6 +10,7 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
+    this.error = {};
   }
 
   activate(params) {}
@@ -23,13 +24,29 @@ export class Create {
   }
 
   saveCallback(event) {
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-      });
+    var ringData = {
+      code: this.data.code,
+      name: this.data.number,
+      description: this.data.description
+    };
+    
+    if (ringData.code == null || ringData.code == undefined) {
+      this.error.code = "Kode Ring Tidak Boleh Kosong";
+    }
+    if (ringData.number == null || ringData.number == undefined) {
+      this.error.number = "Ukuran Ring Tidak Boleh Kosong";
+    }
+    if (ringData.description == null || ringData.description == undefined) {
+      this.error.description = "Deskripsi Ring Tidak Boleh Kosong";
+    } else {
+      this.service
+        .create(ringData)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+    }
   }
 }

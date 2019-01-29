@@ -5,7 +5,6 @@ import { Service } from "./service";
 @inject(Router, Service)
 export class View {
   showViewEdit = true;
-  readOnlyViewEdit = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
