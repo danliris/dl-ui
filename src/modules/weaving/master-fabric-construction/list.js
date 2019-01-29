@@ -21,7 +21,7 @@ export class List {
     // { field: "ketMKB", title: "Keterangan" }
     { field: "date", title: "Date" },
     { field: "konstruksi", title: "Konstruksi" },
-    { field: "totalGr", title: "Total Gr" },
+    { field: "totalGr", title: "Total Gr" }
   ];
 
   loader = info => {
@@ -35,16 +35,15 @@ export class List {
       order: order
     };
 
-    return this.service.search(arg)
-      .then(result => {
-        return {
-          total: result.info.total,
-          data: result.data
-        }
-        // .catch(error=>{
-        //     console.log(error);
-        // })
-      });
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+      // .catch(error=>{
+      //     console.log(error);
+      // })
+    });
   };
 
   constructor(router, service) {

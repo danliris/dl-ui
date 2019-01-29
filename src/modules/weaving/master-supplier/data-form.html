@@ -9,10 +9,11 @@
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
+              placeholder="Kode Supplier"
               label="Kode Supplier"
               value.bind="data.code"
               error.bind="error.code"
-              read-only.bind="readOnlyViewEdit"
+              read-only.bind="readOnly"
             ></au-textbox>
           </div>
         </div>
@@ -22,11 +23,10 @@
             <au-autocomplete
               label="Nama Supplier"
               placeholder="Nama Supplier"
-              value.bind="data"
-              error.bind="error"
+              value.bind="supplier"
+              error.bind="error.name"
               read-only.bind="readOnly"
               loader.one-time="supplierLoader"
-              text="name"
             ></au-autocomplete>
           </div>
         </div>

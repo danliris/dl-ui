@@ -5,12 +5,11 @@ import { Service } from "./service";
 @inject(Router, Service)
 export class Create {
   showViewEdit = false;
-  readOnlyViewEdit = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
     this.data = {};
-    this.data.tags = "weaving-products";
+    this.error = {};
   }
 
   activate(params) {}
@@ -24,19 +23,14 @@ export class Create {
   }
 
   saveCallback(event) {
-    // console.log(this.data);
-
-    var completeData = {
-      code: this.data.code,
-      name: this.data.name,
-      coreSupplierId: this.data._id
-    };
-
-    if (completeData.name == null || completeData.name == undefined) {
-      this.error = "Nama Supplier Tidak Boleh Kosong";
+    if (this.data.name == null || this.data.name == undefined) {
+      this.error.name = "Nama Supplier Tidak Boleh Kosong";
+    }
+    if (this.data.code == null || this.data.code == undefined) {
+      this.error.code = "Kode Supplier Tidak Boleh Kosong";
     } else {
       this.service
-        .create(completeData)
+        .create(this.data)
         .then(result => {
           this.list();
         })

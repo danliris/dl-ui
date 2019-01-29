@@ -8,6 +8,11 @@ var UomLoader = require("../../../loader/uom-loader");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable ringDocument;
+  @bindable materialTypeDocument;
+  @bindable uomData;
+  @bindable currencyData;
+
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
@@ -32,39 +37,52 @@ export class DataForm {
     this.uom = this.data.uomSelected;
   }
 
-  @computedFrom("data.materialTypeDocument", "data.ringDocument")
-  get checkMaterialRing() {
-    debugger;
-    switch (this.materialTypeDocument && this.ringDocument) {
-      case this.materialTypeDocument(newValue):
-        this.data.materialTypeDocument.name =
-          newValue && newValue.materialTypeDocument.name
-            ? newValue.materialTypeDocument.name
-            : "";
-        this.data.ringDocument.name =
-          newValue && newValue.ringDocument.name
-            ? newValue.ringDocument.name
-            : "";
-        this.data.name =
-          newValue && newValue.name
-            ? newValue.name
-            : this.data.materialTypeDocument.name + this.data.ringDocument.name;
-        break;
-      case ringDocument(newValue):
-        this.data.materialTypeDocument.name =
-          newValue && newValue.materialTypeDocument.name
-            ? newValue.materialTypeDocument.name
-            : "";
-        this.data.ringDocument.name =
-          newValue && newValue.ringDocument.name
-            ? newValue.ringDocument.name
-            : "";
-        this.data.name =
-          newValue && newValue.name
-            ? newValue.name
-            : this.data.materialTypeDocument.name + this.data.ringDocument.name;
-        break;
+  // Change on Kode Bahan
+  materialTypeDocumentChanged(newValue) {
+    if (!this.data.name) {
+      if (this.data.ringDocument) {
+        this.data.name = newValue.name + this.data.ringDocument.number;
+      }
     }
+
+    if (!this.data.materialTypeDocument) {
+      this.data.materialTypeDocument = {};
+    }
+
+    this.data.materialTypeDocument.code = newValue.code;
+    this.data.materialTypeDocument.name = newValue.name;
+  }
+
+  // Change on Kode Ring
+  ringDocumentChanged(newValue) {
+    if (!this.data.ringDocument) {
+      this.data.ringDocument = {};
+    }
+
+    this.data.ringDocument.code = newValue.code;
+    this.data.ringDocument.number = newValue.number;
+
+    if (this.data.materialTypeDocument) {
+      this.data.name = this.data.materialTypeDocument.name + newValue.number;
+    }
+  }
+
+  uomDataChanged(newValue) {
+    if (!this.data.coreUom) {
+      this.data.coreUom = {};
+    }
+    console.log(newValue);
+    this.data.coreUom.code = newValue.unit;
+    this.data.coreUom.unit = newValue.unit;
+  }
+
+  currencyDataChanged(newValue) {
+    if (!this.data.coreCurrency) {
+      this.data.coreCurrency = {};
+    }
+
+    this.data.coreCurrency.code = newValue.code;
+    this.data.coreCurrency.name = newValue.description;
   }
 
   get materialLoader() {
@@ -81,23 +99,5 @@ export class DataForm {
 
   get uomLoader() {
     return UomLoader;
-  }
-
-  uomChanged(newValue, oldValue) {
-    var dataSelected = newValue;
-    if (dataSelected) {
-      this.data.uom = dataSelected.unit;
-      this.data.uomSelected = dataSelected;
-    } else {
-      this.data.uom = "";
-      this.data.uomSelected = {};
-    }
-  }
-
-  currencyChanged(e) {
-    var selectedCurrency = e.detail || {};
-    if (selectedCurrency) {
-      this.data.currency = selectedCurrency._id ? selectedCurrency._id : "";
-    }
   }
 }

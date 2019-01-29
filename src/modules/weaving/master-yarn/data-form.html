@@ -6,29 +6,16 @@
         with.bind="context"
         options.bind="formOptions"
       >
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <au-textbox
-              label="Kode"
-              value.bind="data.MaterialTypeId"
-              error.bind="error.MaterialTypeId"
-              show.bind="showViewEdit"
-              read-only.bind="readOnlyViewEdit"
-              loader.one-time="materialTypeLoader"
-              text="Name"
-            ></au-textbox>
-          </div>
-        </div> -->
-
+        <!-- MaterialType -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-autocomplete
               label="Kode Bahan"
               placeholder="Kode Bahan"
-              value.bind="data.materialTypeDocument"
+              value.bind="materialTypeDocument"
               error.bind="error.materialTypeDocument"
               read-only.bind="readOnly"
-              loader.one-time="materialLoader"
+              loader.bind="materialLoader"
               text="code"
             ></au-autocomplete>
           </div>
@@ -42,12 +29,13 @@
           </div>
         </div>
 
+        <!-- Ring -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-autocomplete
               label="Kode Ring"
               placeholder="Kode Ring"
-              value.bind="data.ringDocument"
+              value.bind="ringDocument"
               error.bind="error.ringDocument"
               read-only.bind="readOnly"
               loader.bind="ringLoader"
@@ -57,13 +45,14 @@
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               label="Ukuran Ring"
-              value.bind="data.ringDocument.name"
-              error.bind="error.ringDocument.name"
+              value.bind="data.ringDocument.number"
+              error.bind="error.ringDocument.number"
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
           </div>
         </div>
 
+        <!-- Yarn Name -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
@@ -73,14 +62,24 @@
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
           </div>
+
+          <div class="col-md-6" style="white-space: nowrap;">
+            <au-textbox
+              label="Tambahan"
+              placeholder="Nama Benang Tambahan (optional)"
+              value.bind="data.ringDocument.optionalName"
+              error.bind="error.ringDocument.optionalName"
+            ></au-textbox>
+          </div>
         </div>
 
+        <!-- Uom -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-autocomplete
               label="Satuan"
               placeholder="Satuan"
-              value.bind="data.coreUom.unit"
+              value.bind="uomData"
               error.bind="error.coreUom.unit"
               read-only.bind="readOnly"
               loader.bind="uomLoader"
@@ -90,12 +89,13 @@
           </div>
         </div>
 
+        <!-- Currency -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-autocomplete
               label="Mata Uang"
               placeholder="Mata Uang"
-              value.bind="data.code"
+              value.bind="currencyData"
               error.bind="error.code"
               read-only.bind="readOnly"
               loader.bind="currencyLoader"
@@ -105,6 +105,7 @@
           </div>
         </div>
 
+        <!-- Price -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-numeric
@@ -116,6 +117,7 @@
           </div>
         </div>
 
+        <!-- Tags -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-multiline
@@ -127,6 +129,7 @@
           </div>
         </div>
 
+        <!-- Description -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-multiline
