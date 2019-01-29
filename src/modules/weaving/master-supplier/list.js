@@ -18,7 +18,7 @@ export class List {
     var arg = {
       page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
-      keyword: "",
+      keyword: info.search,
       order: order
     };
 

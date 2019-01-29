@@ -6,22 +6,10 @@ import { Router } from "aurelia-router";
 export class List {
   context = ["detail"];
   columns = [
-    { field: "code", title: "Kode Barang" },
-    { field: "name", title: "Nama Barang" },
-    {
-      field: "coreUom",
-      title: "Satuan Default",
-      formatter: function(value, data, index) {
-        return value.name;
-      }
-    },
-    {
-      field: "coreCurrency",
-      title: "Mata Uang",
-      formatter: function(value, data, index) {
-        return value.name;
-      }
-    },
+    { field: "code", title: "Kode Benang" },
+    { field: "name", title: "Nama Benang" },
+    { field: "uom", title: "Satuan Default" },
+    { field: "currency", title: "Mata Uang" },
     { field: "price", title: "Harga Barang" }
   ];
 
@@ -32,7 +20,7 @@ export class List {
     var arg = {
       page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
-      keyword: "yarns",
+      keyword: info.search,
       order: order
     };
 

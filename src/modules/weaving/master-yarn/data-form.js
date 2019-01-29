@@ -37,7 +37,7 @@ export class DataForm {
     this.uom = this.data.uomSelected;
   }
 
-  // Change on Kode Bahan
+  // Change on Kode Bahan, affected when materialTypeDocument change
   materialTypeDocumentChanged(newValue) {
     if (!this.data.name) {
       if (this.data.ringDocument) {
@@ -53,7 +53,7 @@ export class DataForm {
     this.data.materialTypeDocument.name = newValue.name;
   }
 
-  // Change on Kode Ring
+  // Change on Kode Ring, affected when ringDocument change
   ringDocumentChanged(newValue) {
     if (!this.data.ringDocument) {
       this.data.ringDocument = {};
@@ -71,7 +71,6 @@ export class DataForm {
     if (!this.data.coreUom) {
       this.data.coreUom = {};
     }
-    console.log(newValue);
     this.data.coreUom.code = newValue.unit;
     this.data.coreUom.unit = newValue.unit;
   }

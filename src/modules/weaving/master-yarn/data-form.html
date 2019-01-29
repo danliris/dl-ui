@@ -54,6 +54,14 @@
 
         <!-- Yarn Name -->
         <div class="row">
+            <div class="col-md-6" style="white-space: nowrap;">
+                <au-textbox
+                  label="Kode Benang"
+                  placeholder="Kode Benang"
+                  value.bind="data.code"
+                  error.bind="error.code"
+                ></au-textbox>
+              </div>
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               label="Nama Benang"
@@ -62,13 +70,15 @@
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
           </div>
+        </div>
 
+        <!-- Optional Yarn -->
+        <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
-              label="Tambahan"
+              label="Opsional"
               placeholder="Nama Benang Tambahan (optional)"
-              value.bind="data.ringDocument.optionalName"
-              error.bind="error.ringDocument.optionalName"
+              value.bind="optionalName"
             ></au-textbox>
           </div>
         </div>
@@ -110,8 +120,8 @@
           <div class="col-md-6" style="white-space: nowrap;">
             <au-numeric
               label="Harga"
-              value.bind="data.yarnPrice"
-              error.bind="error.yarnPrice"
+              value.bind="data.price"
+              error.bind="error.price"
               read-only.bind="readOnly"
             ></au-numeric>
           </div>
@@ -135,14 +145,12 @@
             <au-multiline
               label="Keterangan"
               placeholder="Keterangan"
-              value.bind="data.yarnDescription"
-              error.bind="error.yarnDescription"
+              value.bind="data.description"
+              error.bind="error.description"
               read-only.bind="readOnly"
             ></au-multiline>
           </div>
         </div>
-
-        <!-- <template replaceable part="actions"></template> -->
       </au-input-form>
     </div>
   </div>
