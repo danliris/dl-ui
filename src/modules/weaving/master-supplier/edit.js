@@ -5,7 +5,6 @@ import { Service } from "./service";
 @inject(Router, Service)
 export class Edit {
   showViewEdit = true;
-  readOnlyViewEdit = true;
   supplierId = null;
   constructor(router, service) {
     this.router = router;
@@ -23,16 +22,26 @@ export class Edit {
   }
 
   saveCallback(event) {
-    var completeData = {
+    // debugger;
+    var supplierData = {
       id: this.supplierId,
       code: this.data.code,
-      name: this.data.name,
-      coreSupplierId: this.data._id
+      name: this.data.name.name ? this.data.name.name : this.data.name,
+      coreSupplierId: this.data.name._id
+        ? this.data.name._id
+        : this.data.coreSupplierId
     };
-    this.service
-      .update(completeData)
-      .then(result => {
-        this.router.navigateToRoute("list", { id: this.data.id });
+
+    if (supplierData.name == null || supplierData.name == undefined) {
+      this.error.name = "Nama Supplier Tidak Boleh Kosong";
+    }
+    if (supplierData.code == null || supplierData.code == undefined) {
+      this.error.code = "Kode Supplier Tidak Boleh Kosong";
+    } else {
+      console.log(this.supplierId);
+      this.service.update(supplierData).then(result => {
+        this.router.navigateToRoute("list", { id: this.supplierId });
       });
+    }
   }
 }
