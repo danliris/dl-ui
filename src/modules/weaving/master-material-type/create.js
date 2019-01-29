@@ -23,14 +23,12 @@ export class Create {
   }
 
   saveCallback(event) {
-    console.log(this.data);
+
     this.service
       .create(this.data)
       .then(result => {
+        console.log(result.Code);
         this.list();
-      })
-      .catch(e => {
-        this.error = e;
       });
   }
 }

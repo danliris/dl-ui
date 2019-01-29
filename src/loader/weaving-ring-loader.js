@@ -1,7 +1,7 @@
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const resource = "weaving/fabric-construction";
+const resource = "weaving/rings";
 
 module.exports = function(keyword, filter) {
   var config = Container.instance.get(Config);
@@ -10,8 +10,6 @@ module.exports = function(keyword, filter) {
   return endpoint
     .find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
     .then(results => {
-      return results.data.map(construction => {
-        return construction;
-      });
+      return results.data;
     });
 };

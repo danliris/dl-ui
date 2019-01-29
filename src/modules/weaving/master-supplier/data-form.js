@@ -1,10 +1,10 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-import { callbackify } from "util";
+
+var SupplierLoader = require("../../../loader/supplier-loader");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
@@ -13,11 +13,6 @@ export class DataForm {
   };
 
   constructor() {}
-
-  @computedFrom("data.id")
-  get isEdit() {
-    return (this.data.id || "").toString() != "";
-  }
 
   bind(context) {
     this.context = context;
@@ -28,5 +23,9 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+  }
+
+  get supplierLoader() {
+    return SupplierLoader;
   }
 }

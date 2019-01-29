@@ -3,27 +3,34 @@ import { Router } from "aurelia-router";
 import { Service } from "./service";
 
 @inject(Router, Service)
-export class Edit {
+export class Create {
+  showViewEdit = false;
+  readOnlyViewEdit = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
+    this.data = {};
+    this.data.tags = "weaving-products";
   }
 
-  async activate(params) {
-    var id = params.id;
-    this.data = await this.service.getById(id);
+  activate(params) {}
+
+  list() {
+    this.router.navigateToRoute("list");
   }
 
   cancelCallback(event) {
-    this.router.navigateToRoute("view", { id: this.data.id });
+    this.list();
   }
 
   saveCallback(event) {
-    console.log(this.data);
+    if (this.data.coreUom.code = undefined || this.data.coreUom.code == null) {
+      this.data.coreUom.code = this.data.coreUom.unit;
+    }
     this.service
-      .update(this.data)
+      .create(this.data)
       .then(result => {
-        this.router.navigateToRoute("view", { id: this.data.id });
+        this.list();
       })
       .catch(e => {
         this.error = e;

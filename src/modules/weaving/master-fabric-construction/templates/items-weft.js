@@ -1,15 +1,19 @@
 import { inject, BindingEngine } from "aurelia-framework";
 
-// var MKBLoader = require('../../../../loader/mkb-loader');
+var YarnLoader = require("../../../../loader/weaving-yarns-loader");
 
 @inject(BindingEngine)
-export class ItemWarp {
+export class ItemsWeft {
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }
+  
+  get yarns() {
+    return YarnLoader;
+  }
 
   activate(context) {
-    this.warpData = context.weftData;
+    this.weftData = context.weftData;
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
