@@ -24,8 +24,10 @@ export class DataForm {
     }
     itemsColumns = [{ header: "Nomor External PO" },
     { header: "Kena PPN" },
+    { header: "Nominal PPN" },
     { header: "Kena PPH" },
     { header: "PPH" },
+    { header: "Nominal PPH" },
     { header: "" }];
 
     constructor(service, bindingEngine) {
@@ -45,6 +47,9 @@ export class DataForm {
             'Remark',
             'ProformaNo',
             'Investation',
+            'DPP',
+            'VatValue',
+            'IncomeTaxValue',
             'Amount',
             'Items.EPONo',
             'Items.UseVat',
@@ -95,7 +100,7 @@ export class DataForm {
         if (this.DispositionNo) {
 
             this.data = Object.assign(this.data, this.DispositionNo)
-            debugger
+            
             this.supplierName = this.data.Supplier.code + " - " + this.data.Supplier.name;
 
         } else {

@@ -1,8 +1,8 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
-var UnitLoader = require("../../../loader/unit-loader");
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var YarnLoader = require("../../../loader/weaving-yarns-loader");
+var UnitLoader = require("../../../loader/unit-loader");
 var moment = require("moment");
 
 export class DataForm {
@@ -67,16 +67,16 @@ export class DataForm {
     "December"
   ];
 
-  get units() {
-    return UnitLoader;
-  }
-
   get constructions() {
     return ConstructionLoader;
   }
   
   get yarns() {
     return YarnLoader;
+  }
+
+  get units() {
+    return UnitLoader;
   }
 
   getYears() {

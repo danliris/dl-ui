@@ -16,10 +16,9 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
+      page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
-      select: ["code", "name", "description"],
       order: order
     };
 
@@ -27,46 +26,13 @@ export class List {
       return {
         total: result.info.total,
         data: result.data
-        // data: [
-        //   {
-        //     id: 1,
-        //     yarnCode: "PC45",
-        //     yarnName: "Cotton",
-        //     yarnUnit: "Bale",
-        //     yarnCurrencyCode: "IDR",
-        //     yarnPrice: 70000
-        //   },
-        //   {
-        //     id: 2,
-        //     yarnCode: "PC21",
-        //     yarnName: "Poly",
-        //     yarnUnit: "Bale",
-        //     yarnCurrencyCode: "IDR",
-        //     yarnPrice: 120000
-        //   }
-        // ]
       };
     });
-
-    // return {
-    //   total: 2,
-    //   // data: result.data
-    //   data: [
-    //     {
-    //       id: 1,
-    //       code: "01",
-    //       name: "PC45",
-    //       description: "some detail"
-    //     }
-    //   ]
-    // };
   };
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.accessoriesId = "";
-    // this.accessories = [];
   }
 
   contextCallback(event) {
@@ -78,10 +44,6 @@ export class List {
         break;
     }
   }
-
-  // upload() {
-  //     this.router.navigateToRoute('upload');
-  // }
 
   create() {
     this.router.navigateToRoute("create");

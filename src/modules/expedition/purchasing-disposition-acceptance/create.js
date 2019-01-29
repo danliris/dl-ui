@@ -9,7 +9,7 @@ import { PermissionHelper } from '../../../utils/permission-helper';
 import { VERIFICATION, CASHIER  } from '../shared/permission-constants';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
-const DispositionLoader = require('../../../loader/purchase-dispositions-loader');
+const DispositionLoader = require('../../../loader/purchase-dispositions-all-loader');
 const SupplierLoader = require('../../../loader/supplier-loader');
 
 @inject(Router, Service, PurchasingDispositionExpeditionService, PermissionHelper)
@@ -46,6 +46,10 @@ export class Create {
         search: false,
         showToggle: false,
     };
+
+    filterQuery={
+        "Position":"2"
+    }
 
     formOptions = {
         cancelText: "Kembali",
@@ -134,7 +138,6 @@ export class Create {
         if (this.supplier)
             filter.SupplierCode = this.supplier.code;
 
-
         let arg = {
             page: 1,
             size: 255,
@@ -163,7 +166,10 @@ export class Create {
                     for(var data of result.data){
                         var same= dataDisposition.find(a=>a.Id==data.dispositionId);
                         if(same){
-                            data.totalPaid=same.Amount;
+                            data.totalPaid=same.DPP+same.VatValue;
+                            if(same.IncomeTaxBy=="Supplier"){
+                                data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
+                            }
                             data.dispoCreatedby=same.CreatedBy;
                         }
                     }

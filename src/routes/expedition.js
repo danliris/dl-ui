@@ -212,7 +212,7 @@ module.exports = [
         name: 'purchasing-disposition-expedition',
         moduleId: './modules/expedition/purchasing-disposition-expedition/index',
         nav: true,
-        title: 'Penyerahan Dokumen Disposisi Pembelian ke Verifikasi',
+        title: 'Penyerahan Dokumen Disposisi Pembayaran ke Verifikasi',
         auth: true,
         settings: {
             group: "finance",
@@ -225,7 +225,7 @@ module.exports = [
         name: 'purchasing-disposition-acceptance',
         moduleId: './modules/expedition/purchasing-disposition-acceptance/index',
         nav: true,
-        title: 'Penerimaan Dokumen Disposisi Pembelian',
+        title: 'Penerimaan Dokumen Disposisi Pembayaran',
         auth: true,
         settings: {
             group: "finance",
@@ -251,7 +251,7 @@ module.exports = [
         name: 'purchasing-disposition-expedition',
         moduleId: './modules/expedition/reports/purchasing-disposition-expedition/index',
         nav: true,
-        title: 'Laporan Ekspedisi Disposisi Pembelian',
+        title: 'Laporan Ekspedisi Disposisi Pembayaran',
         auth: true,
         settings: {
             group: "finance",

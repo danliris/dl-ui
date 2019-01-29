@@ -9,6 +9,16 @@
         read-only.bind="readOnly"
       ></au-datepicker>
     </div>
+  </div><div class="row">
+    <div class="col-md-4">
+      <au-autocomplete
+        label="Unit"
+        value.bind="data.unit"
+        error.bind="error.unit"
+        read-only.bind="readOnly"
+        loader.bind="units"
+      ></au-autocomplete>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-1">

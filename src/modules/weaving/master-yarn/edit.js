@@ -12,23 +12,8 @@ export class Edit {
   }
 
   async activate(params) {
-    // var id = params.id;
-    // this.data = await this.service.getById(id);
-    this.data = {
-      id: 1,
-      yarnCode: "01",
-      yarnMaterialTypeCode: "R",
-      yarnMaterialTypeName: "CD",
-      yarnRingSizeCode: "f",
-      yarnRingSizeName: 45,
-      yarnName: "CD45",
-      yarnUnit: "Bale",
-      yarnCurrencyCode: "IDR",
-      yarnPrice: 70000,
-      tags: "weaving-products",
-      yarnDescription: "some detail"
-    };
-
+    var id = params.id;
+    this.data = await this.service.getById(id);
     // this.data.currency.toString = function() {
     //   return this.currency;}
   }

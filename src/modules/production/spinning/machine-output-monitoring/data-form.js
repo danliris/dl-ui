@@ -4,6 +4,7 @@ import moment from 'moment';
 
 var LotLoader = require('../../../../loader/lot-configuration-for-machine-output-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
+var UnitLoader = require('../../../../loader/unit-azure-loader');
 
 @inject(Service)
 export class DataForm {
@@ -44,6 +45,8 @@ export class DataForm {
         },
     };
 
+    spinningFilter = {"DivisionName.toUpper()":"SPINNING"};
+
     constructor(service) {
         this.service = service;
     }
@@ -56,6 +59,13 @@ export class DataForm {
         this.isItem = false;
         if(this.data.ProcessType!=""){
             this.isItem = true;
+        }
+        this.isMaterial = false;
+        this.data.machine = selectedProcess;
+        if(!selectedProcess || selectedProcess != ""){
+            this.isMaterial = false;
+        } else {
+            this.isMaterial = true;
         }
         // this.cancelCallback = this.context.cancelCallback;
         // this.deleteCallback = this.context.deleteCallback;
@@ -99,6 +109,16 @@ export class DataForm {
         // }
     }
 
+    materialTypeChanged(e){
+        var selectedProcess = e.srcElement.value;
+        this.data.MaterialTypeId = selectedProcess;
+        if(!this.data.MaterialTypeId || this.data.MaterialTypeId != ""){
+            this.isMaterial = false;
+        } else {
+            this.isMaterial = true;
+        }
+    }
+
     mockLotLoader = (keyword, filter) => {
 
         return Promise.resolve([{ Name: "Lot 1" }, { Name: "Lot 2" }]);
@@ -133,4 +153,12 @@ export class DataForm {
         }
         return result;
     }    
+    
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    // unitView = (unit) => {
+    //     return `${unit.Division.Name}`;
+    // }
 }

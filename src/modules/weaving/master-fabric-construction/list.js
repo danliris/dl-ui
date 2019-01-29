@@ -32,48 +32,8 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      // select: ["", "", "", "", "", ""],
       order: order
     };
-
-    // return {
-    //   total: 2,
-    //   // total: result.info.total,
-    //   data: [
-    //     {
-    //         // noMKB: 1,
-    //         // konstruksi: "CD 133 72 63 Rf Rf B B",
-    //         // kdBenang: "Rf RcRf",
-    //         // kdLusi: "CD01",
-    //         // jnsLusi: "CD17",
-    //         // qtyLusi: 75.98293,
-    //         // kdPakan: "CD03",
-    //         // jnsPakan: "CD17",
-    //         // qtyPakan: 65.98293,
-    //         // totalBenang: 220.7084,
-    //         // ketMKB: ""
-    //         date: "02/01/2018",
-    //         konstruksi: "000002 CD 133 72 63 Rf Rf B B",
-    //         totalGr: "220.7084"
-    //     },
-    //     {
-    //         // noMKB: 2,
-    //         // konstruksi: "CD 133 71 64 Rf Rf A A",
-    //         // kdBenang: "Rf RcRf",
-    //         // kdLusi: "CD01",
-    //         // jnsLusi: "CD17",
-    //         // qtyLusi: 75.98293,
-    //         // kdPakan: "CD03",
-    //         // jnsPakan: "CD17",
-    //         // qtyPakan: 65.98293,
-    //         // totalBenang: 220.7084,
-    //         // ketMKB: ""
-    //         date: "02/02/2018",
-    //         konstruksi: "000003 CD 133 71 64 Rf Rf A A",
-    //         totalGr: "220.7084"
-    //     }
-    //   ]
-    // };
 
     return this.service.search(arg)
       .then(result => {
@@ -98,7 +58,6 @@ export class List {
     switch (arg.name) {
       case "detail":
         this.router.navigateToRoute("view", { id: data.id });
-        // this.router.navigateToRoute('view', { id: data._id });
         break;
     }
   }

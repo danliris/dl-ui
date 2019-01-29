@@ -1,9 +1,11 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
+var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable onCreated;
+  readOnlyAll="true";
 
   formOptions = {
     cancelText: "Kembali",
@@ -27,17 +29,15 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  construction = ["", "AD", "BD", "CD"];
-
   warpColumns = [
     { header: "Kode Lusi", value: "warp.code" },
-    { header: "Jenis Lusi", value: "warpType" },
+    { header: "Benang Lusi", value: "warpType" },
     { header: "Qty(Gram/Meter)", value: "amountOfWarp" },
     { header: "Keterangan", value: "warp.information" }
   ];
   weftColumns = [
     { header: "Kode Pakan", value: "weft.code" },
-    { header: "Jenis Pakan", value: "weftType" },
+    { header: "Benang Pakan", value: "weftType" },
     { header: "Qty(Gram/Meter)", value: "amountOfWeft" },
     { header: "Keterangan", value: "weft.information" }
   ];
@@ -46,6 +46,10 @@ export class DataForm {
   // get isEdit() {
   //     return (this.data._id || '').toString() != '';
   // }
+
+  get constructions() {
+    return ConstructionLoader;
+  }
 
   get addItemsWarp() {
     return event => {
