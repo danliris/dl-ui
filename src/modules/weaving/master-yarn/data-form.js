@@ -9,7 +9,7 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable ringDocument;
-  @bindable materialTypeDocument
+  @bindable materialTypeDocument;
   @bindable uomData;
   @bindable currencyData;
 
@@ -37,10 +37,9 @@ export class DataForm {
     this.uom = this.data.uomSelected;
   }
 
+  // Change on Kode Bahan
   materialTypeDocumentChanged(newValue) {
-
     if (!this.data.name) {
-
       if (this.data.ringDocument) {
         this.data.name = newValue.name + this.data.ringDocument.number;
       }
@@ -54,8 +53,8 @@ export class DataForm {
     this.data.materialTypeDocument.name = newValue.name;
   }
 
+  // Change on Kode Ring
   ringDocumentChanged(newValue) {
-
     if (!this.data.ringDocument) {
       this.data.ringDocument = {};
     }
@@ -72,9 +71,9 @@ export class DataForm {
     if (!this.data.coreUom) {
       this.data.coreUom = {};
     }
-    
+    console.log(newValue);
     this.data.coreUom.code = newValue.unit;
-    this.data.coreUom.name = newValue.unit;
+    this.data.coreUom.unit = newValue.unit;
   }
 
   currencyDataChanged(newValue) {

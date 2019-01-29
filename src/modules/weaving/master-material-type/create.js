@@ -30,10 +30,6 @@ export class Create {
       name: this.data.name,
       description: this.data.description
     };
-    console.log(materialData.code);
-    console.log(materialData.name);
-    console.log(materialData.description);
-    // debugger;
     if (materialData.code == null || materialData.code == undefined) {
       this.error.code = "Kode Material Tidak Boleh Kosong";
     }

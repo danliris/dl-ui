@@ -14,8 +14,6 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    // this.data.currency.toString = function() {
-    //   return this.currency;}
   }
 
   cancelCallback(event) {
@@ -23,6 +21,8 @@ export class Edit {
   }
 
   saveCallback(event) {
+    console.log(this.data);
+    debugger;
     this.service
       .update(this.data)
       .then(result => {

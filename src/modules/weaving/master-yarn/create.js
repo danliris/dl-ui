@@ -24,8 +24,9 @@ export class Create {
   }
 
   saveCallback(event) {
-    console.log(this.data);
-    debugger
+    if (this.data.coreUom.code = undefined || this.data.coreUom.code == null) {
+      this.data.coreUom.code = this.data.coreUom.unit;
+    }
     this.service
       .create(this.data)
       .then(result => {

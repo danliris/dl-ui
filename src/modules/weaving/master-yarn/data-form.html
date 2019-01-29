@@ -1,78 +1,144 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
-
+      <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions"
+      >
         <!-- MaterialType -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-autocomplete label="Kode Bahan" placeholder="Kode Bahan" value.bind="materialTypeDocument"
-              error.bind="error.materialTypeDocument" read-only.bind="readOnly" loader.bind="materialLoader" text="code"></au-autocomplete>
+            <au-autocomplete
+              label="Kode Bahan"
+              placeholder="Kode Bahan"
+              value.bind="materialTypeDocument"
+              error.bind="error.materialTypeDocument"
+              read-only.bind="readOnly"
+              loader.bind="materialLoader"
+              text="code"
+            ></au-autocomplete>
           </div>
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-textbox label="Nama Bahan" value.bind="data.materialTypeDocument.name" error.bind="error.materialTypeDocument.name"
-              read-only.bind="readOnlyViewEdit"></au-textbox>
+            <au-textbox
+              label="Nama Bahan"
+              value.bind="data.materialTypeDocument.name"
+              error.bind="error.materialTypeDocument.name"
+              read-only.bind="readOnlyViewEdit"
+            ></au-textbox>
           </div>
         </div>
 
         <!-- Ring -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-autocomplete label="Kode Ring" placeholder="Kode Ring" value.bind="ringDocument" error.bind="error.ringDocument"
-              read-only.bind="readOnly" loader.bind="ringLoader" text="code"></au-autocomplete>
+            <au-autocomplete
+              label="Kode Ring"
+              placeholder="Kode Ring"
+              value.bind="ringDocument"
+              error.bind="error.ringDocument"
+              read-only.bind="readOnly"
+              loader.bind="ringLoader"
+              text="code"
+            ></au-autocomplete>
           </div>
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-textbox label="Ukuran Ring" value.bind="data.ringDocument.number" error.bind="error.ringDocument.number"
-              read-only.bind="readOnlyViewEdit"></au-textbox>
+            <au-textbox
+              label="Ukuran Ring"
+              value.bind="data.ringDocument.number"
+              error.bind="error.ringDocument.number"
+              read-only.bind="readOnlyViewEdit"
+            ></au-textbox>
           </div>
         </div>
 
         <!-- Yarn Name -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-textbox label="Nama Benang" value.bind="data.name" error.bind="error.name" read-only.bind="readOnlyViewEdit"></au-textbox>
+            <au-textbox
+              label="Nama Benang"
+              value.bind="data.name"
+              error.bind="error.name"
+              read-only.bind="readOnlyViewEdit"
+            ></au-textbox>
           </div>
 
-          <div class="col-md-3" style="white-space: nowrap;">
-            <au-textbox placeholder="name (optional)" value.bind="data.ringDocument.optionalName" error.bind="error.ringDocument.optionalName"></au-textbox>
+          <div class="col-md-6" style="white-space: nowrap;">
+            <au-textbox
+              label="Tambahan"
+              placeholder="Nama Benang Tambahan (optional)"
+              value.bind="data.ringDocument.optionalName"
+              error.bind="error.ringDocument.optionalName"
+            ></au-textbox>
           </div>
         </div>
 
         <!-- Uom -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-autocomplete label="Satuan" placeholder="Satuan" value.bind="uomData" error.bind="error.coreUom.unit"
-              read-only.bind="readOnly" loader.bind="uomLoader" key="_id" text="unit"></au-autocomplete>
+            <au-autocomplete
+              label="Satuan"
+              placeholder="Satuan"
+              value.bind="uomData"
+              error.bind="error.coreUom.unit"
+              read-only.bind="readOnly"
+              loader.bind="uomLoader"
+              key="_id"
+              text="unit"
+            ></au-autocomplete>
           </div>
         </div>
 
         <!-- Currency -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-autocomplete label="Mata Uang" placeholder="Mata Uang" value.bind="currencyData" error.bind="error.code"
-              read-only.bind="readOnly" loader.bind="currencyLoader" key="_id" text="code"></au-autocomplete>
+            <au-autocomplete
+              label="Mata Uang"
+              placeholder="Mata Uang"
+              value.bind="currencyData"
+              error.bind="error.code"
+              read-only.bind="readOnly"
+              loader.bind="currencyLoader"
+              key="_id"
+              text="code"
+            ></au-autocomplete>
           </div>
         </div>
 
         <!-- Price -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-numeric label="Harga" value.bind="data.yarnPrice" error.bind="error.yarnPrice" read-only.bind="readOnly"></au-numeric>
+            <au-numeric
+              label="Harga"
+              value.bind="data.yarnPrice"
+              error.bind="error.yarnPrice"
+              read-only.bind="readOnly"
+            ></au-numeric>
           </div>
         </div>
 
         <!-- Tags -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-multiline label="Tags" value.bind="data.tags" error.bind="error.tags" read-only.bind="readOnlyViewEdit"></au-multiline>
+            <au-multiline
+              label="Tags"
+              value.bind="data.tags"
+              error.bind="error.tags"
+              read-only.bind="readOnlyViewEdit"
+            ></au-multiline>
           </div>
         </div>
 
         <!-- Description -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
-            <au-multiline label="Keterangan" placeholder="Keterangan" value.bind="data.yarnDescription" error.bind="error.yarnDescription"
-              read-only.bind="readOnly"></au-multiline>
+            <au-multiline
+              label="Keterangan"
+              placeholder="Keterangan"
+              value.bind="data.yarnDescription"
+              error.bind="error.yarnDescription"
+              read-only.bind="readOnly"
+            ></au-multiline>
           </div>
         </div>
 
