@@ -8,7 +8,7 @@ const serviceUri = 'payment-disposition-note';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing-azure');
+        super(http, aggregator, config, 'finance');
     }
 
     search(info) {
