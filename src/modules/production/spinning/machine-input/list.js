@@ -18,6 +18,7 @@ export class List {
         { field: "YarnMaterialType.Name", title: "Nama Benang" },
         { field: "LotConfiguration.LotNo", title: "No Lot" },
         { field: "UnitDepartment.Name", title: "Unit Name" },
+        { field: "Shift", title: "Shift" },
         {
             field: "Date", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");

@@ -21,6 +21,9 @@ export class DataForm {
     @bindable yarn;
     @bindable lot;
     @bindable processType;
+    @bindable inputDate;
+    @bindable shift;
+    @bindable group;
 
     formOptions = {
         cancelText: "Kembali",
@@ -57,6 +60,7 @@ export class DataForm {
         this.coreService = coreService;
     }
     machineSpinningFilter = {};
+    masterFilter = {};
 
     bind(context) {
         this.context = context;
@@ -82,6 +86,18 @@ export class DataForm {
             this.yarn.name = this.data.YarnMaterialType.Name;
         }
 
+        if (this.data.Date) {
+            this.inputDate = this.data.Date;
+        }
+
+        if (this.data.Shift) {
+            this.shift = this.data.Shift;
+        }
+
+        if (this.data.Group) {
+            this.group = this.data.Group;
+        }
+
         if (this.data.Items) {
             for (var item of this.data.Items) {
                 item.Identity = item.Id;
@@ -100,6 +116,8 @@ export class DataForm {
             this.data.Details.push({ ProductName: {}, Hank: 0 });
         }.bind(this),
         onRemove: function () {
+            this.context.machineCollections.bind();
+
         }.bind(this)
     };
 
@@ -112,91 +130,114 @@ export class DataForm {
         this.data.Items.splice(item.context.Items.indexOf(Items.data), 1);
     }
 
-    async unitChanged(newValue, oldValue) {
+    unitChanged(newValue, oldValue) {
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
 
-            if (this.data.UnitDepartmentId && this.data.ProcessType) {
-                this.machineSpinningFilter.page = 1;
-                this.machineSpinningFilter.size = 2147483647;
-                this.machineSpinningFilter.order = { "No": "asc" }
-                // this.machineSpinningFilter.filter = { "Type": this.data.ProcessType, "UnitId": this.data.UnitDepartmentId }
-                this.filter = {};
-                this.filter.Type = this.data.ProcessType;
-                this.filter.UnitId = this.data.UnitDepartmentId.toString();
-                this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-
-                if (!this.data.Id) {
-                    this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
-                        .then(results => {
-                            var newItems = [];
-                            for (var item of results.data) {
-                                var newData = {};
-                                newData.MachineSpinning = {};
-                                newData.MachineSpinning.No = item.No;
-                                newData.MachineSpinning.Name = item.Name;
-                                newData.MachineSpinning.UomUnit = item.UomUnit;
-                                newData.MachineSpinning.Id = item.Id;
-                                newData.MachineSpinningIdentity = item.Id;
-                                newItems.push(newData);
-                            }
-                            return newItems;
-                        });
-
-                }
-                this.items = this.data.Items;
-            }
+            this.fillItems();
+        } else {
+            this.data.UnitDepartmentId = null;
+            this.data.Items = [];
         }
     }
 
     lotChanged(n, o) {
         if (this.lot && this.lot.Id) {
             this.data.LotConfigurationId = this.lot.Id;
+            this.fillItems();
+        } else {
+            this.data.LotConfigurationId = null;
+            this.data.Items = [];
+        }
+    }
+
+    inputDateChanged(n, o) {
+        if (this.inputDate) {
+            this.data.Date = this.inputDate;
+            this.fillItems();
+        } else {
+            this.data.Date = null;
+            this.data.Items = [];
         }
     }
 
     yarnChanged(n, o) {
         if (this.yarn && this.yarn.id) {
             this.data.YarnMaterialTypeId = this.yarn.id;
+            this.fillItems();
+        } else {
+            this.data.YarnMaterialTypeId = null;
+            this.data.Items = [];
         }
     }
 
-    async processTypeChanged(n, o) {
+    processTypeChanged(n, o) {
         if (this.processType) {
             this.data.ProcessType = this.processType;
 
-            if (this.data.UnitDepartmentId && this.data.ProcessType) {
-                this.machineSpinningFilter.page = 1;
-                this.machineSpinningFilter.size = 2147483647;
-                this.machineSpinningFilter.order = { "No": "asc" }
-                // this.machineSpinningFilter.filter = { "Type": this.data.ProcessType, "UnitId": this.data.UnitDepartmentId }
-                this.filter = {};
-                this.filter.Type = this.data.ProcessType;
-                this.filter.UnitId = this.data.UnitDepartmentId.toString();
-                this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-                if (!this.data.Id) {
-                    this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
-                        .then(results => {
-                            var newItems = [];
-                            for (var item of results.data) {
-                                var newData = {};
-                                newData.MachineSpinning = {};
-                                newData.MachineSpinning.No = item.No;
-                                newData.MachineSpinning.Name = item.Name;
-                                newData.MachineSpinning.UomUnit = item.UomUnit;
-                                newData.MachineSpinning.Id = item.Id;
-                                newData.MachineSpinningIdentity = item.Id;
-                                newItems.push(newData);
-                            }
-                            return newItems;
-                        });
-                }
+            this.fillItems();
+        } else {
+            this.data.ProcessType = null;
+            this.data.Items = [];
+        }
+    }
 
+    shiftChanged(n, o) {
+        if (this.shift) {
+            this.data.Shift = this.shift;
+            this.fillItems();
+        } else {
+            this.data.Shift = null;
+            this.data.Items = [];
+        }
+    }
 
-                this.items = this.data.Items;
+    groupChanged(n, o) {
+        if (this.group && this.group != "") {
+            this.data.Group = this.group;
+            this.fillItems();
+        } else {
+            this.data.group = null;
+            this.data.Items = [];
+        }
+
+    }
+
+    async fillItems() {
+        if (this.data.UnitDepartmentId && this.data.ProcessType && this.data.YarnMaterialTypeId && this.data.LotConfigurationId && this.data.Date && this.data.Shift && this.data.Group) {
+            this.machineSpinningFilter.page = 1;
+            this.machineSpinningFilter.size = 2147483647;
+            this.machineSpinningFilter.order = { "No": "asc" }
+            // this.machineSpinningFilter.filter = { "Type": this.data.ProcessType, "UnitId": this.data.UnitDepartmentId }
+            this.filter = {};
+            this.filter.Type = this.data.ProcessType;
+            this.filter.UnitId = this.data.UnitDepartmentId.toString();
+            this.machineSpinningFilter.filter = JSON.stringify(this.filter);
+            if (!this.data.Id) {
+                this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+                    .then(async results => {
+                        var existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.yarn.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
+                        // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
+                        var newItems = [];
+                        for (var item of results.data) {
+                            var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
+
+                            var newData = {};
+                            newData.MachineSpinning = {};
+                            newData.Input = dbItem ? dbItem.Input : 0;
+                            newData.MachineSpinning.No = item.No;
+                            newData.MachineSpinning.Name = item.Name;
+                            newData.MachineSpinning.UomUnit = item.UomUnit;
+                            newData.MachineSpinning.Id = item.Id;
+                            newData.MachineSpinningIdentity = item.Id;
+                            newItems.push(newData);
+                        }
+                        return newItems;
+                    });
             }
         }
     }
+
 
     get unitLoader() {
         return UnitLoader;

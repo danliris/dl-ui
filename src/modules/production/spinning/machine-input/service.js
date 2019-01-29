@@ -39,22 +39,27 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    
+    getByHeader(date, processType, yarnMaterialId, lotId, shift, group, unitId) {
+        var newDate = moment(date).format("DD MMM YYYY")
+        var endpoint = `${serviceUri}/by-header?date=${newDate}&processType=${processType}&yarnMaterialTypeId=${yarnMaterialId}&lotId=${lotId}&shift=${shift}&group=${group}&unitDepartmentId=${unitId}`;
+        return super.get(endpoint);
+    }
+
 }
 
 export class CoreService extends RestService {
 
     constructor(http, aggregator, config, api) {
-      super(http, aggregator, config, "core-azure");
+        super(http, aggregator, config, "core-azure");
     }
-    
-    getMachineTypes(){
-      var endpoint = `${machineServiceUri}/machine/types`;
-      return super.list(endpoint);
+
+    getMachineTypes() {
+        var endpoint = `${machineServiceUri}/machine/types`;
+        return super.list(endpoint);
     }
 
     searchMachineSpinning(info) {
         var endpoint = `${machineServiceUri}`;
         return super.list(endpoint, info);
-      }
-  }
+    }
+}
