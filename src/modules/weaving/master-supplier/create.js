@@ -24,16 +24,25 @@ export class Create {
   }
 
   saveCallback(event) {
-    if (this.data.coreUom.code = undefined || this.data.coreUom.code == null) {
-      this.data.coreUom.code = this.data.coreUom.unit;
+    // console.log(this.data);
+
+    var completeData = {
+      code: this.data.code,
+      name: this.data.name,
+      coreSupplierId: this.data._id
+    };
+
+    if (completeData.name == null || completeData.name == undefined) {
+      this.error = "Nama Supplier Tidak Boleh Kosong";
+    } else {
+      this.service
+        .create(completeData)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.error = e;
+        });
     }
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-      });
   }
 }

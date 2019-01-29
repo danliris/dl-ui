@@ -25,7 +25,7 @@
             <au-autocomplete
               label="Kode Bahan"
               placeholder="Kode Bahan"
-              value.bind="materialTypeDocument"
+              value.bind="data.materialTypeDocument"
               error.bind="error.materialTypeDocument"
               read-only.bind="readOnly"
               loader.one-time="materialLoader"
@@ -35,7 +35,7 @@
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               label="Nama Bahan"
-              value.bind="materialTypeDocument.name"
+              value.bind="data.materialTypeDocument.name"
               error.bind="error.materialTypeDocument.name"
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
@@ -47,7 +47,7 @@
             <au-autocomplete
               label="Kode Ring"
               placeholder="Kode Ring"
-              value.bind="ringDocument"
+              value.bind="data.ringDocument"
               error.bind="error.ringDocument"
               read-only.bind="readOnly"
               loader.bind="ringLoader"
@@ -57,7 +57,7 @@
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               label="Ukuran Ring"
-              value.bind="ringDocument.name"
+              value.bind="data.ringDocument.name"
               error.bind="error.ringDocument.name"
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>

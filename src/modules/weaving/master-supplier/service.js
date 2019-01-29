@@ -2,7 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
 
-const serviceUri = "/weaving/yarns";
+const serviceUri = "weaving/suppliers";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, api) {
@@ -20,7 +20,7 @@ export class Service extends RestService {
   }
 
   create(data) {
-    data.tags = "weaving-products";
+    // data.tags = "weaving-products";
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }

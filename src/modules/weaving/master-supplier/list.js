@@ -6,7 +6,7 @@ import { Router } from "aurelia-router";
 export class List {
   context = ["detail"];
   columns = [
-    { field: "coreSupplierId", title: "Id Supplier" },
+    // { field: "coreSupplierId", title: "Id Supplier" },
     { field: "name", title: "Nama Supplier" },
     { field: "code", title: "Kode Supplier"}
   ];
@@ -18,7 +18,7 @@ export class List {
     var arg = {
       page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
-      keyword: "yarns",
+      keyword: "",
       order: order
     };
 

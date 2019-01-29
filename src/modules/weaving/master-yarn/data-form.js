@@ -15,7 +15,10 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  constructor() {}
+  constructor(service, bindingEngine) {
+    this.service = service;
+    this.bindingEngine = bindingEngine;
+  }
 
   bind(context) {
     this.context = context;
@@ -29,10 +32,9 @@ export class DataForm {
     this.uom = this.data.uomSelected;
   }
 
-  @bindable materialTypeDocument;
-  @bindable ringDocument;
-  @computedFrom("materialTypeDocument && ringDocument")
+  @computedFrom("data.materialTypeDocument", "data.ringDocument")
   get checkMaterialRing() {
+    debugger;
     switch (this.materialTypeDocument && this.ringDocument) {
       case this.materialTypeDocument(newValue):
         this.data.materialTypeDocument.name =

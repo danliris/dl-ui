@@ -5,7 +5,8 @@ import { Service } from "./service";
 @inject(Router, Service)
 export class Edit {
   showViewEdit = true;
-  readOnlyViewEdit=true;
+  readOnlyViewEdit = true;
+  supplierId = null;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -13,6 +14,7 @@ export class Edit {
 
   async activate(params) {
     var id = params.id;
+    this.supplierId = id;
     this.data = await this.service.getById(id);
   }
 
@@ -21,13 +23,16 @@ export class Edit {
   }
 
   saveCallback(event) {
+    var completeData = {
+      id: this.supplierId,
+      code: this.data.code,
+      name: this.data.name,
+      coreSupplierId: this.data._id
+    };
     this.service
-      .update(this.data)
+      .update(completeData)
       .then(result => {
-        this.router.navigateToRoute("view", { id: this.data.id });
-      })
-      .catch(e => {
-        this.error = e;
+        this.router.navigateToRoute("list", { id: this.data.id });
       });
   }
 }
