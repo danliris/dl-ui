@@ -33,9 +33,8 @@ export class PurchasingDispositionItem {
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
         this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ? { "supplierId": this.options.supplierId, "currencyId":this.options.currencyId, "divisionId": this.options.divisionId, "categoryId": this.options.categoryId} : {};
-        console.log(this.filter)
+        
         if(this.data.Id!=0 && this.data.Id!=null){
-            console.log(this.data.Id)
             this.isEdit=true;
         }
         if(this.data.EPONo){
