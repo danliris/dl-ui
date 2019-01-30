@@ -197,14 +197,14 @@ export class DataForm {
             this.data.Group = this.group;
             this.fillItems();
         } else {
-            this.data.group = null;
+            this.data.Group = null;
             this.data.Items = [];
         }
 
     }
 
     async fillItems() {
-        if (this.data.UnitDepartmentId && this.data.ProcessType && this.data.YarnMaterialTypeId && this.data.LotConfigurationId && this.data.Date && this.data.Shift && this.data.Group) {
+        if (!this.readOnly && this.data.UnitDepartmentId && this.data.ProcessType && this.data.YarnMaterialTypeId && this.data.LotConfigurationId && this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "") {
             this.machineSpinningFilter.page = 1;
             this.machineSpinningFilter.size = 2147483647;
             this.machineSpinningFilter.order = { "No": "asc" }
@@ -213,28 +213,46 @@ export class DataForm {
             this.filter.Type = this.data.ProcessType;
             this.filter.UnitId = this.data.UnitDepartmentId.toString();
             this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-            if (!this.data.Id) {
-                this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
-                    .then(async results => {
-                        var existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.yarn.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
-                        // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
-                        var newItems = [];
-                        for (var item of results.data) {
-                            var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
 
-                            var newData = {};
-                            newData.MachineSpinning = {};
-                            newData.Input = dbItem ? dbItem.Input : 0;
-                            newData.MachineSpinning.No = item.No;
-                            newData.MachineSpinning.Name = item.Name;
-                            newData.MachineSpinning.UomUnit = item.UomUnit;
-                            newData.MachineSpinning.Id = item.Id;
-                            newData.MachineSpinningIdentity = item.Id;
-                            newItems.push(newData);
+            this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+                .then(async results => {
+                    let existedItem = {};
+
+                    if(this.data.Id){
+                        existedItem = this.data;
+                    }else{
+                        existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.yarn.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
+                        if (existedItem.Items && existedItem.Items.length > 0) {
+                            alert("Data already exist with this configuration");
+                            this.inputDate = undefined;
+                            this.processType = this.typeOptions[0];
+                            this.yarn = undefined;
+                            this.lot = undefined;
+                            this.shift = this.shiftOptions[0];
+                            this.group = undefined;
+                            this.unit = undefined;
+                            return [];
                         }
-                        return newItems;
-                    });
-            }
+                    }
+                    // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
+                    
+                    var newItems = [];
+                    for (var item of results.data) {
+                        var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
+
+                        var newData = {};
+                        newData.MachineSpinning = {};
+                        newData.Input = dbItem ? dbItem.Input : 0;
+                        newData.MachineSpinning.No = item.No;
+                        newData.MachineSpinning.Name = item.Name;
+                        newData.MachineSpinning.UomUnit = item.UomUnit;
+                        newData.MachineSpinning.Id = item.Id;
+                        newData.MachineSpinningIdentity = item.Id;
+                        newItems.push(newData);
+                    }
+                    return newItems;
+                });
+
         }
     }
 
