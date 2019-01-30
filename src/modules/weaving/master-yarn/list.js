@@ -7,10 +7,7 @@ export class List {
   context = ["detail"];
   columns = [
     { field: "code", title: "Kode Benang" },
-    { field: "name", title: "Nama Benang" },
-    { field: "uom", title: "Satuan Default" },
-    { field: "currency", title: "Mata Uang" },
-    { field: "price", title: "Harga Barang" }
+    { field: "name", title: "Nama Benang" }
   ];
 
   loader = info => {

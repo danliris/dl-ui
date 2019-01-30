@@ -6,11 +6,13 @@ import { Service } from "./service";
 export class Create {
   showViewEdit = false;
   readOnlyViewEdit = true;
+  createOnly=true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
     this.data = {};
     this.data.tags = "weaving-products";
+    this.error = {};
   }
 
   activate(params) {}
@@ -24,12 +26,12 @@ export class Create {
   }
 
   saveCallback(event) {
-    console.log(this.data);
-
     if (this.data.optionalName) {
       this.data.name = this.data.name + " " + this.data.optionalName;
+    } else {
+      this.data.name = this.data.name;
     }
-
+    console.log(this.data);
     this.service
       .create(this.data)
       .then(result => {
