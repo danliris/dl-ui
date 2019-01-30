@@ -77,9 +77,12 @@ export class DataForm {
 
         if (selectedCurrency) {
             this.data.currency = selectedCurrency;
+            this.options.currencyCode = this.data.currency.code; 
         }
         else {
-            this.data.currency = null;
+            this.currency = null;
+            this.data.items = [];
+            this.supplier = null;
         }
         this.data.items = [];
         this.context.error.items = [];

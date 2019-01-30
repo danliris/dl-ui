@@ -5,13 +5,13 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'booking-orders';
+const serviceUri = 'garment-booking-orders';
 const HourServiceUri = 'standard-hours-by-style';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-master-plan");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) {

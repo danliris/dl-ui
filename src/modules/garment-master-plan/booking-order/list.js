@@ -8,34 +8,24 @@ export class List {
     dataToBePosted = [];
     info = { page: 1, keyword: '' };
 
-    rowFormatter(data, index) {
-        if (data.expired=="Expired")
-            return { classes: "danger" }
-        else if (data.isMasterPlan)
-            return { classes: "success" }
-        
-        else
-            return {}
-    }
-
     context = ["detail"]
 
     columns = [
-        { field: "code", title: "Kode Booking" },
-        { field: "bookingDate", title: "Tanggal Booking", formatter: function (value, data, index) {
+        { field: "BookingOrderNo", title: "Kode Booking" },
+        { field: "BookingOrderDate", title: "Tanggal Booking", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
          },
-         { field: "garmentBuyerName", title: "Buyer" },
-         { field: "orderQuantity", title: "Jumlah Order" },
+         { field: "BuyerName", title: "Buyer" },
+         { field: "OrderQuantity", title: "Jumlah Order" },
         {
-            field: "deliveryDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
+            field: "DeliveryDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "remark", title: "Keterangan" },
+        { field: "Remark", title: "Keterangan" },
         {
-            field: "isMasterPlan", title: "Status Booking Order",
+            field: "IsBookingPlan", title: "Status Booking Order",
             formatter: function (value, data, index) {
                 return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : data.statusBook;
             }
@@ -46,20 +36,13 @@ export class List {
 
     loader = (info) => {
         var order = {};
-        var filter={
-                    orderQuantity:{
-                        $gt:0
-                    }
-        };
         if (info.sort)
             order[info.sort] = info.order;
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-           // select:["isConfirmed", "bookingDate", "garmentBuyerName", "style.code", "standardHour.shSewing", "orderQuantity", "deliveryDate"],
             order: order,
-            filter:JSON.stringify(filter)
         }
 
         return this.service.search(arg)
@@ -80,13 +63,13 @@ export class List {
                         for(var b of a.items){
                             total+=b.quantity;
                         }
-                        if(total>a.orderQuantity){
-                            a.confirmStatus='+' + (total-a.orderQuantity);
+                        if(total>a.OrderQuantity){
+                            a.confirmStatus='+' + (total-a.OrderQuantity);
                         }
-                        else if(total<a.orderQuantity){
-                            a.confirmStatus=(total-a.orderQuantity);
+                        else if(total<a.OrderQuantity){
+                            a.confirmStatus=(total-a.OrderQuantity);
                         }
-                        else if(total===a.orderQuantity){
+                        else if(total===a.OrderQuantity){
                             a.confirmStatus='0';
                         }
                     }
@@ -95,7 +78,7 @@ export class List {
                     }
 
                     //status sisa order
-                    if(a.orderQuantity> total ||  a.items.length==0){
+                    if(a.OrderQuantity> total ||  a.items.length==0){
                         var c = new Date(a.deliveryDate);
                         var b = today;
                         c.setHours(0,0,0,0);
@@ -107,7 +90,7 @@ export class List {
                             a.expired="Expired";
                         }
                     }
-                    if(total>a.orderQuantity || total===a.orderQuantity){
+                    if(total>a.OrderQuantity || total===a.OrderQuantity){
                         a.expired="-";
                     }
                     if(a.isCanceled==true){
@@ -136,16 +119,6 @@ export class List {
                 break;
         }
     }
-
-    // posting() {
-    //     if (this.dataToBePosted.length > 0) {
-    //         this.service.posting(this.dataToBePosted).then(result => {
-    //             this.table.refresh();
-    //         }).catch(e => {
-    //             this.error = e;
-    //         })
-    //     }
-    // }
 
     create() {
         this.router.navigateToRoute('create');

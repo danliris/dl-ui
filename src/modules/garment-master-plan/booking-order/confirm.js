@@ -60,7 +60,7 @@ export class Confirm {
             warning = [];
             break;
           }
-          if (new Date(item.deliveryDate) < new Date(this.data.bookingDate)) {
+          if (new Date(item.deliveryDate) < new Date(this.data.BookingOrderDate)) {
             warning = [];
             break;
           }
