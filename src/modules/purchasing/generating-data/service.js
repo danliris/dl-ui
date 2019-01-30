@@ -69,7 +69,6 @@ export class Service extends RestService {
             var tasks = [];
             tasks.push(this.generatePurchaseRequest(dateFrom, dateTo));
             tasks.push(this.generatePurchaseOrderExternal(dateFrom, dateTo));
-            tasks.push(this.generateDeliveryOrder(dateFrom, dateTo));
             tasks.push(this.generateUnitReceiptNote(dateFrom, dateTo));
             tasks.push(this.generateUnitPaymentOrder(dateFrom, dateTo));
             tasks.push(this.generatePaymentCorrectionNote(dateFrom, dateTo));
