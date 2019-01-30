@@ -160,6 +160,7 @@ export class DataForm {
         var selectedUnit = newValue;
         if (selectedUnit) {
             this.data.UnitRequest = selectedUnit;
+            this.RONoHeader = null;
             if (this.isProses || this.isSample) {
                 this.unitSender = selectedUnit;
             }
@@ -170,9 +171,12 @@ export class DataForm {
                 this.unitSender = null;
             }
             this.context.unitRequestViewModel.editorValue = "";
+            this.RONo = null;
+            this.RONoHeader = null;
         }
         this.storageRequest = null;
         this.RONo = null;
+        // this.RONoHeader = null;
         
         // this.context.error.Items = [];
         // this.context.error = [];
@@ -182,13 +186,17 @@ export class DataForm {
         var selectedUnit = newValue;
         if (selectedUnit) {
             this.data.UnitSender = selectedUnit;
+            this.RONoHeader = null;
         }
         else {
             this.data.UnitSender = null;
             this.context.unitSenderViewModel.editorValue = "";
+            this.RONo = null;
+            this.RONoHeader = null;
         }
         this.storage = null;
         this.RONo = null;
+        this.RONoHeader = null;
         
         // this.context.error.Items = [];
         // this.context.error = [];
@@ -204,6 +212,8 @@ export class DataForm {
             this.context.storageRequestViewModel.editorValue = "";
         }
         
+        this.RONo = null;
+        this.RONoHeader = null;
         // this.context.error.Items = [];
         // this.context.error = [];
         
@@ -222,6 +232,7 @@ export class DataForm {
         // this.context.error.Items = [];
         // this.context.error = [];
         this.RONo = null;
+        this.RONoHeader = null;
     }
 
     RONoChanged(newValue) {
@@ -235,6 +246,7 @@ export class DataForm {
         if (newValue == null) {
             this.data.RONo = null;
             this.data.Article = null;
+            this.RONoHeader = null;
             this.context.RONoViewModel.editorValue = "";
         }
         else if (newValue) {
@@ -279,6 +291,7 @@ export class DataForm {
         this.newProduct = {};
         if (selectedROHeader == null) {
             this.context.RONoHeaderViewModel.editorValue = "";
+            this.data.RONoHeader = null;
         }
         else if (selectedROHeader) {
             this.newProduct.URNItemId = selectedROHeader.Id;

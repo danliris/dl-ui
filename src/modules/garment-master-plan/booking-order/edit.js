@@ -20,10 +20,12 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.selectedSection = { Code:this.data.SectionCode, Name:this.data.SectionName,};
+        this.selectedBuyer = { Code:this.data.BuyerCode, Name:this.data.BuyerName,};
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save(event) {

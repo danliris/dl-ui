@@ -101,6 +101,7 @@ export class DataForm {
             this.data.supplierId = null;
             this.data.items = [];
         }
+        this.data.items = [];
         this.context.error.items = [];
     }
 
