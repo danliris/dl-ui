@@ -11,7 +11,6 @@ module.exports = function(keyword, filter) {
     .find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
     .then(results => {
       return results.data.map(construction => {
-        
         return construction;
       });
     });

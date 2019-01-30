@@ -1,7 +1,7 @@
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const resource = "weaving/fabric-construction";
+const resource = "weaving/material-types";
 
 module.exports = function(keyword, filter) {
   var config = Container.instance.get(Config);
