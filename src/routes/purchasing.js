@@ -333,7 +333,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: {"C9" : 1 },
+            permission: {"C9" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
