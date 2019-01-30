@@ -76,10 +76,12 @@
 
         <au-collection items.bind="data.Items"
                        errors.bind="error.Items"
-                       columns.bind="columns"
+                       columns.bind="items.columns"
                        add.bind="addItems"
-                       remove.bind="onremove"
+                       remove.bind="items.onRemove"
+                       show.bind="isItem"
                        read-only.bind="readOnly"
+                       header-template="modules/production/spinning/machine-output-monitoring/templates/headerItem"
                        item-template="modules/production/spinning/machine-output-monitoring/templates/item">
         </au-collection>
 
@@ -88,6 +90,6 @@
                     read-only.bind="true">
         </au-textbox>
 
-        Total Hasil Produksi : ${grandTotal | numberFormat: '0,0.0000'} Ball
+        <div show.bind="isItem">Total Hasil Produksi : ${grandTotal | numberFormat: '0,0.0000'} Ball</div>
     </au-input-form>
 </template>

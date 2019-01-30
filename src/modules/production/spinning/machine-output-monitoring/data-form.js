@@ -1,4 +1,4 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from './service';
 import moment from 'moment';
 
@@ -6,7 +6,7 @@ var LotLoader = require('../../../../loader/lot-configuration-for-machine-output
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-azure-loader');
 
-@inject(Service)
+@inject(Service, BindingEngine)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -47,8 +47,9 @@ export class DataForm {
 
     spinningFilter = {"DivisionName.toUpper()":"SPINNING"};
 
-    constructor(service) {
+    constructor(service, bindingEngine) {
         this.service = service;
+        this.bindingEngine = bindingEngine
     }
 
     bind(context) {
@@ -57,32 +58,44 @@ export class DataForm {
         this.error = this.context.error;
 
         this.isItem = false;
-        if(this.data.ProcessType!=""){
+        console.log(this.data)
+        this.check=false;
+        if(!this.data.ProcessType || this.data.ProcessType == ""){
+            console.log(this.data.ProcessType)
+            this.isItem = false;
+        } else {
             this.isItem = true;
         }
         this.isMaterial = false;
-        this.data.machine = selectedProcess;
-        if(!selectedProcess || selectedProcess != ""){
+        // this.data.machine = selectedProcess;
+        if(!this.data.machine || this.data.machine == ""){
             this.isMaterial = false;
         } else {
             this.isMaterial = true;
         }
+        console.log(this.isItem)
         // this.cancelCallback = this.context.cancelCallback;
         // this.deleteCallback = this.context.deleteCallback;
         // this.editCallback = this.context.editCallback;
         // this.saveCallback = this.context.saveCallback;
     }
 
-    columns = [
-        { header: "Nomor Mesin", value: "MachineNo" },
-        { header: "Nama Mesin", value: "MachineName" },
-        { header: "Output (Counter)", value: "Output" },
-        { header: "UOM", value: "Uom.Unit" },
-        { header: "Bale", value: "Bale" },
-        // { header: "Spindle Kosong (Flyer)", value: "Spindle" },
-        // { header: "Bad Cone (Winder)", value: "BadCone" },
-        { header: "Eff%", value: "Eff" }
-    ]
+    items ={
+        columns : [
+            "Nomor Mesin",
+            "Nama Mesin",
+            "Output (Counter)",
+            "UOM",
+            "Bale",
+            "Total Delivery",
+            "Spindle Kosong (Flyer)",
+            "Bad Cone (Winder)",
+            "Eff%"],
+        onRemove: function () {
+            this.bind();
+        }
+    };
+    
 
     // get addItems() {
     //     return (event) => {
@@ -93,8 +106,13 @@ export class DataForm {
     processTypeChanged(e) {
         var selectedProcess = e.srcElement.value;
         this.error=this.context.error;
-        // if (selectedProcess) {
-        //     this.data.ProcessType = selectedProcess;
+        this.check=false;
+        this.data.ProcessType = null;
+        if (selectedProcess) {
+            this.check=true;
+            this.data.ProcessType = selectedProcess;
+        }
+        this.data.items = [];
         //     if (this.data.ProcessType == "Finish-Drawing") {
         //         this.ProcessType = true;
         //     }
