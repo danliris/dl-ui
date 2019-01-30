@@ -27,9 +27,36 @@
             </au-textbox>
         </td>
         <td>    
-            <au-numeric value.bind="data.Ball"
-                        error.bind="error.Ball"
+            <au-numeric value.bind="data.Bale"
+                        error.bind="error.Bale"
                         read-only.bind="true"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>    
+            <au-numeric value.bind="data.DeliveryTotal"
+                        error.bind="error.DeliveryTotal"
+                        read-only.bind="true"
+                        show.bind="Flyer"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>    
+            <au-numeric value.bind="data.EmptySpindle"
+                        error.bind="error.EmptySpindle"
+                        read-only.bind="true"
+                        show.bind="Flyer"
+                        format="0,0.0000"
+                        options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td>    
+            <au-numeric value.bind="data.BadCone"
+                        error.bind="error.BadCone"
+                        read-only.bind="true"
+                        show.bind="Winder"
                         format="0,0.0000"
                         options.bind="controlOptions">
             </au-numeric>
@@ -47,5 +74,6 @@
                     click.delegate="onremove(data, $event)">-
             </button>
         </td>
+        <td if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
     </tr>
 </template>

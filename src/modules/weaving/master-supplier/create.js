@@ -9,7 +9,6 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
-    this.data.tags = "weaving-products";
     this.error = {};
   }
 
@@ -24,20 +23,14 @@ export class Create {
   }
 
   saveCallback(event) {
-    var supplierData = {
-      code: this.data.code,
-      name: this.data.name.name,
-      coreSupplierId: this.data.name._id
-    };
-
-    if (supplierData.name == null || supplierData.name == undefined) {
+    if (this.data.name == null || this.data.name == undefined) {
       this.error.name = "Nama Supplier Tidak Boleh Kosong";
     }
-    if (supplierData.code == null || supplierData.code == undefined) {
+    if (this.data.code == null || this.data.code == undefined) {
       this.error.code = "Kode Supplier Tidak Boleh Kosong";
     } else {
       this.service
-        .create(supplierData)
+        .create(this.data)
         .then(result => {
           this.list();
         })

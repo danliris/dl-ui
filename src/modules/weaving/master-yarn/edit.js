@@ -5,7 +5,8 @@ import { Service } from "./service";
 @inject(Router, Service)
 export class Edit {
   showViewEdit = true;
-  readOnlyViewEdit=true;
+  readOnlyViewEdit = true;
+  createOnly = false;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -14,8 +15,6 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    // this.data.currency.toString = function() {
-    //   return this.currency;}
   }
 
   cancelCallback(event) {
@@ -23,6 +22,8 @@ export class Edit {
   }
 
   saveCallback(event) {
+    console.log(this.data);
+    debugger;
     this.service
       .update(this.data)
       .then(result => {
