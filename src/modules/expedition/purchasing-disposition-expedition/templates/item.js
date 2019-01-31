@@ -82,7 +82,7 @@ export class Item {
                         product : details.Product,
                         quantity : details.PaidQuantity,
                         unit : details.Unit,
-                        uom : details.DealUom.unit,
+                        uom : details.DealUom,
                         purchasingDispositionDetailId : details.Id
                     };
                     this.data.items.push(item);

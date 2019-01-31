@@ -32,7 +32,7 @@ export class View {
                 unitName: item.unit.name,
                 productName: item.product.name,
                 quantity: item.quantity,
-                uom: item.uom,
+                uom: item.uom.unit,
                 price: item.price
             });
         }
