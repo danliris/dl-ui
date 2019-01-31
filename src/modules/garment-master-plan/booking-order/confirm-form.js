@@ -38,12 +38,12 @@ export class DataForm {
 
         if (this.data.garmentBuyerId) {
             this.selectedBuyer = await this.service.getBuyerById(this.data.garmentBuyerId, this.buyerFields);
-            this.data.garmentBuyerId =this.selectedBuyer._id;
+            this.data.garmentBuyerId =this.selectedBuyer.Id;
             this.selectedSection = await this.service.getSectionById(this.data.garmentSectionId, this.sectionFields);
-            this.data.garmentSectionId =this.selectedSection._id;
+            this.data.garmentSectionId =this.selectedSection.Id;
         }
 
-        if(this.data._id) {
+        if(this.data.Id) {
           if (this.data.canceledBookingOrder){
             this.data.beginingOrderQuantity=this.data.orderQuantity+this.data.canceledBookingOrder;
           }
@@ -51,16 +51,16 @@ export class DataForm {
 
     }
 
-    @computedFrom("data._id")
+    @computedFrom("data.Id")
     get isEdit() {
-        return (this.data._id || '').toString() != '';
+        return (this.data.Id || '').toString() != '';
     }
 
     selectedBuyerChanged(newValue) {
         var _selectedBuyer = newValue;
         if (_selectedBuyer) {
             this.data.buyer = _selectedBuyer;
-            this.data.garmentBuyerId = _selectedBuyer._id ? _selectedBuyer._id : "";
+            this.data.garmentBuyerId = _selectedBuyer.Id ? _selectedBuyer.Id : "";
             
         }
     }

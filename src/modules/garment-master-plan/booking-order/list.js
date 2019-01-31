@@ -5,8 +5,6 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    dataToBePosted = [];
-    info = { page: 1, keyword: '' };
 
     context = ["detail"]
 
@@ -24,14 +22,38 @@ export class List {
             }
         },
         { field: "Remark", title: "Keterangan" },
-        {
-            field: "IsBookingPlan", title: "Status Booking Order",
-            formatter: function (value, data, index) {
-                return data.isCanceled ? "Dibatalkan" : value ? "Sudah dibuat Master Plan" : data.statusBook;
+        { field: "statusBook", title: "Status Booking Order", formatter: function (value, data, index) {
+            if(data.ConfirmedQuantity == 0){
+                return "Booking";
+            }else if(data.ConfirmedQuantity > 0){
+                return "Confirmed";
+            }else if(data.IsBlockingPlan){
+                return "Sudah Dibuat Master Plan";
             }
-        },
-        { field: "confirmStatus", title: "Status Jumlah Confirm" },
-        { field: "expired", title: "Status Sisa Order" }
+        } },
+        { field: "statusConfirm", title: "Status Jumlah Confirm", formatter: function (value, data, index) {
+            if(data.ConfirmedQuantity === 0){
+                return "Belum Confirm";
+            } else if (data.ConfirmedQuantity > 0 || data.OrderQuantity < data.ConfirmedQuantity){
+                var total = data.OrderQuantity - data.ConfirmedQuantity;
+                return total;
+            } else if(data.OrderQuantity === data.ConfirmedQuantity){
+                return 0;
+            } else if(data.ConfirmedQuantity > data.OrderQuantity){
+                var total = data.ConfirmedQuantity - data.OrderQuantity;
+                return total;
+            }
+        } },
+        { field: "statusOrder", title: "Status Sisa Order", formatter: function (value, data, index) {
+            var today = new Date();
+            if(data.ConfirmedQuantity < data.OrderQuantity && data.DeliveryDate > today.setDate(today.getDate() + 45)){
+                return "On Proses";
+            } else if (data.ConfirmedQuantity >= data.OrderQuantity){
+                return "-";
+            } else if(data.ConfirmedQuantity < data.OrderQuantity && data.DeliveryDate <= today.setDate(today.getDate() + 45)){
+                return "Expired";
+            }
+        } }
     ];
 
     loader = (info) => {
@@ -50,53 +72,6 @@ export class List {
                 var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
-                var today=new Date();
-                for(var a of result.data){
-                    a.confirmStatus='';
-                    a.expired="On Process";
-                    a.statusBook="Booking";
-                    var total=0;
-                    //status jumlah konfirm
-                    if(a.items && a.items.length>0){
-                        a.statusBook="Confirmed";
-
-                        for(var b of a.items){
-                            total+=b.quantity;
-                        }
-                        if(total>a.OrderQuantity){
-                            a.confirmStatus='+' + (total-a.OrderQuantity);
-                        }
-                        else if(total<a.OrderQuantity){
-                            a.confirmStatus=(total-a.OrderQuantity);
-                        }
-                        else if(total===a.OrderQuantity){
-                            a.confirmStatus='0';
-                        }
-                    }
-                    else{
-                        a.confirmStatus='Belum Confirm';
-                    }
-
-                    //status sisa order
-                    if(a.OrderQuantity> total ||  a.items.length==0){
-                        var c = new Date(a.deliveryDate);
-                        var b = today;
-                        c.setHours(0,0,0,0);
-                        b.setHours(0,0,0,0);
-                        var diff=c.getTime() - b.getTime();
-                        var timeDiff = Math.abs(c.getTime() - b.getTime());
-                        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                        if(diffDays<=45){
-                            a.expired="Expired";
-                        }
-                    }
-                    if(total>a.OrderQuantity || total===a.OrderQuantity){
-                        a.expired="-";
-                    }
-                    if(a.isCanceled==true){
-                        a.expired="-";
-                    }
-                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -115,7 +90,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }
