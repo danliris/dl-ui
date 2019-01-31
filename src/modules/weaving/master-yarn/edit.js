@@ -22,6 +22,11 @@ export class Edit {
   }
 
   saveCallback(event) {
+    if (this.data.optionalName) {
+      this.data.name = this.data.name + " " + this.data.optionalName;
+    } else {
+      this.data.name = this.data.name;
+    }
     console.log(this.data);
     debugger;
     this.service
