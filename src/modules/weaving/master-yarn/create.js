@@ -6,7 +6,7 @@ import { Service } from "./service";
 export class Create {
   showViewEdit = false;
   readOnlyViewEdit = true;
-  createOnly=true;
+  createOnly = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -31,15 +31,30 @@ export class Create {
     } else {
       this.data.name = this.data.name;
     }
-    // console.log(this.data);
-    // debugger;
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-      });
+    if (
+      this.materialTypeDocument == null ||
+      this.materialTypeDocument == undefined
+    ) {
+      this.error.materialTypeDocument = "Kode Material Tidak Boleh Kosong";
+    } if (
+      this.ringDocument == null ||
+      this.ringDocument == undefined
+    ) {
+      this.error.ringDocument = "Kode Ring Tidak Boleh Kosong";
+    } if (
+      this.data.code == null ||
+      this.data.code == undefined
+    ) {
+      this.error.code = "Kode Benang Tidak Boleh Kosong";
+    } else {
+      this.service
+        .create(this.data)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+    }
   }
 }

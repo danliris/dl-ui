@@ -10,8 +10,8 @@
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-autocomplete
-              label="Kode Bahan"
-              placeholder="Kode Bahan"
+              label="Kode Material"
+              placeholder="Kode Material"
               value.bind="materialTypeDocument"
               error.bind="error.materialTypeDocument"
               read-only.bind="readOnly"
@@ -21,7 +21,7 @@
           </div>
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
-              label="Nama Bahan"
+              label="Nama Material"
               value.bind="data.materialTypeDocument.name"
               error.bind="error.materialTypeDocument.name"
               read-only.bind="readOnlyViewEdit"
