@@ -26,13 +26,13 @@ export class Create {
   }
 
   saveCallback(event) {
-    if (this.data.optionalName) {
-      this.data.name = this.data.name + " " + this.data.optionalName;
+    if (this.optionalName) {
+      this.data.name = this.data.name + " " + this.optionalName;
     } else {
       this.data.name = this.data.name;
     }
-    console.log(this.data);
-    debugger
+    // console.log(this.data);
+    // debugger;
     this.service
       .create(this.data)
       .then(result => {

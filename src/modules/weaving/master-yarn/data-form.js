@@ -9,6 +9,7 @@ export class DataForm {
   @bindable ringDocument;
   @bindable materialTypeDocument;
   @bindable yarnCode;
+  @bindable optionalName;
 
   formOptions = {
     cancelText: "Kembali",
@@ -27,18 +28,35 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    if(this.data.id) {
+    if (this.data.id) {
       var detectWhitespace = this.data.name.split(" ");
       this.materialTypeDocument = this.data.materialTypeDocument.code;
       this.ringDocument = this.data.ringDocument.code;
       this.data.name = detectWhitespace[0] ? detectWhitespace[0] : " ";
-      this.data.optionalName = detectWhitespace[1] ? detectWhitespace[1] : " ";
+      console.log(this.data);
+      this.optionalName = detectWhitespace[1] ? detectWhitespace[1] : " ";
     }
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+  }
+
+  optionalNameChanged(newValue) {
+    var whitespaceRegex = new RegExp("\\s");
+    if (this.data.materialTypeDocument && this.data.ringDocument) {
+      if (whitespaceRegex.test(newValue)) {
+        this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+      } else {
+        this.data.name =
+          this.data.materialTypeDocument.name + this.data.ringDocument.number;
+        this.data.name = this.data.name + " " + newValue;
+      }
+    } else {
+      this.data.name = "";
+      this.data.name = newValue;
+    }
   }
 
   // Change on Kode Bahan, affected when materialTypeDocument change
@@ -50,7 +68,10 @@ export class DataForm {
       this.data.materialTypeDocument.code = newValue.code;
 
       if (this.data.ringDocument) {
-        this.data.name = newValue.name + this.data.ringDocument.number ? this.data.ringDocument.number : "";
+        this.data.name =
+          newValue.name + this.data.ringDocument.number
+            ? newValue.name + this.data.ringDocument.number
+            : "";
       } else {
         this.data.name = newValue.name;
       }
@@ -59,14 +80,16 @@ export class DataForm {
 
   // Change on Kode Ring, affected when ringDocument change
   ringDocumentChanged(newValue) {
-    if (newValue.name) {
+    if (newValue.number) {
       this.data.name = "";
-      this.ringDocument = {};
+      this.data.ringDocument = {};
       this.data.ringDocument.number = newValue.number;
       this.data.ringDocument.code = newValue.code;
 
       if (this.data.materialTypeDocument) {
-        this.data.name = this.data.materialTypeDocument.name ? this.data.materialTypeDocument.name : "" + newValue.number;
+        this.data.name = this.data.materialTypeDocument.name
+          ? this.data.materialTypeDocument.name + newValue.number
+          : newValue.number;
       } else {
         this.data.name = newValue.number;
       }

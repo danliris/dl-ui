@@ -7,6 +7,7 @@ export class Edit {
   showViewEdit = true;
   readOnlyViewEdit = true;
   createOnly = false;
+  error={};
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -22,8 +23,8 @@ export class Edit {
   }
 
   saveCallback(event) {
-    if (this.data.optionalName) {
-      this.data.name = this.data.name + " " + this.data.optionalName;
+    if (this.optionalName) {
+      this.data.name = this.data.name + " " + this.optionalName;
     } else {
       this.data.name = this.data.name;
     }

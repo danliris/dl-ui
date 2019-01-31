@@ -83,7 +83,8 @@
             <au-textbox
               label="Opsional"
               placeholder="Nama Benang Tambahan (optional)"
-              value.bind="data.optionalName"
+              value.bind="optionalName"
+              error.bind="error.optionalName"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
