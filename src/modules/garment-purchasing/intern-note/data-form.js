@@ -77,9 +77,12 @@ export class DataForm {
 
         if (selectedCurrency) {
             this.data.currency = selectedCurrency;
+            this.options.currencyCode = this.data.currency.code; 
         }
         else {
-            this.data.currency = null;
+            this.currency = null;
+            this.data.items = [];
+            this.supplier = null;
         }
         this.data.items = [];
         this.context.error.items = [];
@@ -98,6 +101,7 @@ export class DataForm {
             this.data.supplierId = null;
             this.data.items = [];
         }
+        this.data.items = [];
         this.context.error.items = [];
     }
 

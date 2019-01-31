@@ -9,7 +9,9 @@ export class View {
     this.router = router;
     this.service = service;
   }
-
+    hasCancel = true;
+    hasEdit = true;
+    hasDelete = true;
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
@@ -29,20 +31,40 @@ export class View {
     if(this.data.Category){
         this.selectedCategory=this.data.Category;
     }
+    if(this.data.Position !=1){
+      this.hasDelete=false;
+    }
+    if(this.data.Position !=1 && this.data.Position !=6){
+      this.hasEdit=false;
+    }
   }
 
-  cancelCallback(event) {
-    this.router.navigateToRoute('list');
-  }
+  // cancelCallback(event) {
+  //   this.router.navigateToRoute('list');
+  // }
 
-  editCallback(event) {
-    this.router.navigateToRoute('edit', { id: this.data.Id });
-  }
+  // editCallback(event) {
+  //   this.router.navigateToRoute('edit', { id: this.data.Id });
+  // }
 
-  deleteCallback(event) {
-    this.service.delete(this.data)
-      .then(result => {
-        this.cancelCallback();
-      });
-  }
+  // deleteCallback(event) {
+  //   this.service.delete(this.data)
+  //     .then(result => {
+  //       this.cancelCallback();
+  //     });
+  // }
+
+  cancel(event) {
+        this.router.navigateToRoute('list');
+    }
+
+    edit(event) {
+        this.router.navigateToRoute('edit', { id: this.data.Id });
+    }
+
+    delete(event) {
+        this.service.delete(this.data).then(result => {
+            this.cancel();
+        });
+    }
 }

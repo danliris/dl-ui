@@ -23,7 +23,7 @@ export class Confirm {
   }
 
   cancel(event) {
-    this.router.navigateToRoute('view', { id: this.data._id });
+    this.router.navigateToRoute('view', { id: this.data.Id });
   }
 
   save(event) {
@@ -60,7 +60,7 @@ export class Confirm {
             warning = [];
             break;
           }
-          if (new Date(item.deliveryDate) < new Date(this.data.bookingDate)) {
+          if (new Date(item.deliveryDate) < new Date(this.data.BookingOrderDate)) {
             warning = [];
             break;
           }

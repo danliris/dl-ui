@@ -20,11 +20,6 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 
-    // searchUnitReceiptNote(info) {
-    //     var endpoint = `${unitReceiptNoteUri}`;
-    //     return super.list(endpoint, info);
-    // }
-
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
@@ -36,12 +31,12 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 

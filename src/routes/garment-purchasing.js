@@ -465,5 +465,19 @@ module.exports = [
             permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'garment-purchase-order/reports/supplier',
+        name: 'garment-purchase-order-reports-by-supplier',
+        moduleId: './modules/garment-purchasing/reports/supplier-report/index',
+        nav: true,
+        title: 'Laporan Total Pembelian per Supplier',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
+
 ]

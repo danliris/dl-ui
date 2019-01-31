@@ -5,7 +5,7 @@
                 value.bind="selectedEPO"
                 error.bind="error.Epo"
                 loader.one-time="epoLoader"
-                read-only.bind="readOnly"
+                read-only.bind="(readOnly || isEdit)"
                 query.bind="filter"
                 text.bind="epoView">
             </au-autocomplete>
@@ -63,7 +63,7 @@
                 items.bind="data.Details" 
                 errors.bind="error.Details"
                 columns.bind="itemsColumns.columns"
-                remove.bind="itemsColumns.onRemove"
+                remove.bind="removeDetails"
                 options.bind="context"
                 read-only.bind="options.readOnly"
                 change.delegate="detailChanged($event)"

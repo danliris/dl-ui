@@ -50,7 +50,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         if(this.data.UnitDOType)
         {
             this.unitDOType = this.data.UnitDOType;
@@ -160,6 +159,8 @@ export class DataForm {
         var selectedUnit = newValue;
         if (selectedUnit) {
             this.data.UnitRequest = selectedUnit;
+            this.RONoHeader = null;
+            this.RONo = null;
             if (this.isProses || this.isSample) {
                 this.unitSender = selectedUnit;
             }
@@ -170,8 +171,14 @@ export class DataForm {
                 this.unitSender = null;
             }
             this.context.unitRequestViewModel.editorValue = "";
+            // this.RONo = null;
+            // this.RONoHeader = null;
         }
         this.storageRequest = null;
+        this.unitSender = null;
+        this.storage = null;
+        // this.RONo = null;
+        // this.RONoHeader = null;
         
         // this.context.error.Items = [];
         // this.context.error = [];
@@ -181,13 +188,18 @@ export class DataForm {
         var selectedUnit = newValue;
         if (selectedUnit) {
             this.data.UnitSender = selectedUnit;
+            this.RONoHeader = null;
         }
         else {
             this.data.UnitSender = null;
             this.context.unitSenderViewModel.editorValue = "";
+            // this.RONo = null;
+            // this.RONoHeader = null;
         }
         this.storage = null;
-        this.RONo = null;
+        this.storageRequest = null;
+        // this.RONo = null;
+        // this.RONoHeader = null;
         
         // this.context.error.Items = [];
         // this.context.error = [];
@@ -203,8 +215,11 @@ export class DataForm {
             this.context.storageRequestViewModel.editorValue = "";
         }
         
+        // this.RONo = null;
+        // this.RONoHeader = null;
         // this.context.error.Items = [];
         // this.context.error = [];
+        
     }
 
     storageChanged(newValue) {
@@ -219,6 +234,8 @@ export class DataForm {
         
         // this.context.error.Items = [];
         // this.context.error = [];
+        // this.RONo = null;
+        // this.RONoHeader = null;
     }
 
     RONoChanged(newValue) {
@@ -232,6 +249,7 @@ export class DataForm {
         if (newValue == null) {
             this.data.RONo = null;
             this.data.Article = null;
+            // this.RONoHeader = null;
             this.context.RONoViewModel.editorValue = "";
         }
         else if (newValue) {
@@ -276,6 +294,7 @@ export class DataForm {
         this.newProduct = {};
         if (selectedROHeader == null) {
             this.context.RONoHeaderViewModel.editorValue = "";
+            this.data.RONoHeader = null;
         }
         else if (selectedROHeader) {
             this.newProduct.URNItemId = selectedROHeader.Id;

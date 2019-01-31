@@ -459,7 +459,7 @@ module.exports = [
         name: 'purchasing-disposition',
         moduleId: './modules/purchasing/purchasing-disposition/index',
         nav: true,
-        title: 'Disposisi Pembelian',
+        title: 'Disposisi Pembayaran',
         auth: true,
         settings: {
             group: "purchasing",
