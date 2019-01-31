@@ -7,11 +7,11 @@
             <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-primary"  click.delegate="context.confirmBooking($event)"     if.one-way="context.hasConfirm">Confirm Booking</button>
+            <!-- <button class="btn btn-primary"  click.delegate="context.confirmBooking($event)"     if.one-way="context.hasConfirm">Confirm Booking</button> -->
             <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
-            <button class="btn btn-danger"  click.delegate="context.cancelBooking($event)"     if.one-way="context.hascancelConfirm">Cancel Sisa</button>
+            <!-- <button class="btn btn-danger"  click.delegate="context.cancelBooking($event)"     if.one-way="context.hascancelConfirm">Cancel Sisa</button>
             <button class="btn btn-success"  click.delegate="context.masterPlan($event)"     if.one-way="context.hasMasterPlan">Detail Blocking Plan Sewing</button>
-            <button class="btn btn-primary"  click.delegate="context.expired($event)"     if.one-way="context.expireBooking">Hapus Sisa</button>
+            <button class="btn btn-primary"  click.delegate="context.expired($event)"     if.one-way="context.expireBooking">Hapus Sisa</button> -->
         </div>
 
         <au-textbox
@@ -78,7 +78,7 @@
             options.bind="controlOptions">
         </au-multiline>
 
-        <label for="Detail Confirm" if.bind="data.BookingOrderNo">Detail Confirm : </label>
+        <!-- <label for="Detail Confirm" if.bind="data.BookingOrderNo">Detail Confirm : </label>
         <au-layout error.bind="error.detail" if.bind="error.detail"></au-layout>
         <au-collection 
             items.bind="data.items" 
@@ -95,7 +95,7 @@
             footer-template="modules/garment-master-plan/booking-order/templates/booking-order-detail-footer" >
         </au-collection>
         
-        <au-layout error.bind="error.totalQuantity" if.bind="error.totalQuantity"></au-layout>
+        <au-layout error.bind="error.totalQuantity" if.bind="error.totalQuantity"></au-layout> -->
         <!--<au-collection 
             items.bind="data.items" 
             errors.bind="error.items" 

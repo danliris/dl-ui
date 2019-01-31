@@ -27,7 +27,6 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["inDate", "inNo", "supplier.Name", "items.garmentInvoice.invoiceNo"],
             order: order
         };
 
