@@ -12,7 +12,7 @@ export class UnitReceiptNoteItem {
     this.qtyTemp=0;
     if(this.data.quantity){
        this.qtyTemp=this.data.quantity;
-      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+      //this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
 
     }
     // if(this.pricePerDealUnitAfter){
