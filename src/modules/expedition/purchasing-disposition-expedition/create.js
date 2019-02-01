@@ -55,6 +55,7 @@ export class Create {
     saveCallback(event) {
         this.datatemp = [];
         for(var data of this.data.PurchaseDisposition){
+            
             var datatemp = {
                 dispositionDate : data.dispositionDate,
                 currency : data.currency,
@@ -75,6 +76,7 @@ export class Create {
                 incomeTaxValue: data.incomeTaxValue,
                 vatValue: data.vatValue,
                 dpp:data.dpp,
+                payToSupplier:data.payToSupplier,
                 items : data.items,
                 
             };
