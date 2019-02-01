@@ -17,7 +17,7 @@ export class View {
         this.purchasingDispositionService = purchasingDispositionService;
     }
     totalPaid=0;
-    
+    canEdit=true;
     selectDispositionNo = [
         'DispositionNo',
         'Supplier.name', 'Supplier.code',
@@ -53,11 +53,37 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.dataExpedition = await this.service.getById(id);
+        let info = {
+            page: 1,
+            size: 255,
+            filter: JSON.stringify({DispositionNo : this.dataExpedition.dispositionNo}),
+        };
 
+        var expeditions= await this.service.search(info);
+        
+        console.log(expeditions.data)
+        var lastExpedition=null;
+        for(var a of expeditions.data){
+            if(lastExpedition==null){
+                lastExpedition=a;
+            }
+            else{
+                if(lastExpedition.LastModifiedUtc<a.LastModifiedUtc){
+                    lastExpedition=a;
+                }
+            }
+            
+        console.log(lastExpedition)
+        }
+        
+        if(this.dataExpedition.Id!=lastExpedition.Id){
+                this.canEdit=false;
+        }
         var arg = {
             filter: JSON.stringify({ DispositionNo : this.dataExpedition.dispositionNo })
         }
         var PurchasingDisposition = await this.purchasingDispositionService.search(arg);
+        
         this.data = PurchasingDisposition.data[0];
         this.data.VerifyDate = this.dataExpedition.verifyDate;
 

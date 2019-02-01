@@ -38,7 +38,7 @@ export class List {
             }
         },
         { 
-            field: "totalPaid", title: "Total Bayar", formatter: (value, data) => {
+            field: "payToSupplier", title: "Total Bayar ke Supplier", formatter: (value, data) => {
                 return numeral(value).format('(0,0.00)');
             } 
         },
@@ -60,6 +60,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                console.log(result.data)
                 return {
                     total: result.info.total,
                     data: result.data,
