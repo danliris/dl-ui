@@ -29,8 +29,6 @@ export class ItemsWeft {
       this.data.weftType.name = newValue.name;
       this.data.weftType.code = newValue.code;
 
-
-
       // if (this.data.ringDocument) {
       //   this.data.name =
       //     newValue.name + this.data.ringDocument.number
