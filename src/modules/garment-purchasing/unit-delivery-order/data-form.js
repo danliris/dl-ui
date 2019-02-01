@@ -171,17 +171,9 @@ export class DataForm {
                 this.unitSender = null;
             }
             this.context.unitRequestViewModel.editorValue = "";
-            // this.RONo = null;
-            // this.RONoHeader = null;
         }
         this.storageRequest = null;
-        this.unitSender = null;
         this.storage = null;
-        // this.RONo = null;
-        // this.RONoHeader = null;
-        
-        // this.context.error.Items = [];
-        // this.context.error = [];
     }
 
     unitSenderChanged(newValue) {
@@ -193,16 +185,9 @@ export class DataForm {
         else {
             this.data.UnitSender = null;
             this.context.unitSenderViewModel.editorValue = "";
-            // this.RONo = null;
-            // this.RONoHeader = null;
         }
         this.storage = null;
         this.storageRequest = null;
-        // this.RONo = null;
-        // this.RONoHeader = null;
-        
-        // this.context.error.Items = [];
-        // this.context.error = [];
     }
 
     storageRequestChanged(newValue) {
@@ -215,11 +200,6 @@ export class DataForm {
             this.context.storageRequestViewModel.editorValue = "";
         }
         
-        // this.RONo = null;
-        // this.RONoHeader = null;
-        // this.context.error.Items = [];
-        // this.context.error = [];
-        
     }
 
     storageChanged(newValue) {
@@ -231,11 +211,6 @@ export class DataForm {
             this.data.Storage = null;
             this.context.storageViewModel.editorValue = "";
         }
-        
-        // this.context.error.Items = [];
-        // this.context.error = [];
-        // this.RONo = null;
-        // this.RONoHeader = null;
     }
 
     RONoChanged(newValue) {
@@ -249,7 +224,6 @@ export class DataForm {
         if (newValue == null) {
             this.data.RONo = null;
             this.data.Article = null;
-            // this.RONoHeader = null;
             this.context.RONoViewModel.editorValue = "";
         }
         else if (newValue) {
