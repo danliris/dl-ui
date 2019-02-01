@@ -1,29 +1,28 @@
-<!-- <style>
-th,td {
-  border: 1px solid black;
-}
-</style> -->
 <template>
   <tr>
-    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
     <td>
-      <au-textbox value.bind="data.yarn.code" read-only.bind="true">
+      <au-textbox
+        value.bind="data.warpType.code"
+        error.bind="error.warpType.code"
+        read-only.bind="true"
+      >
       </au-textbox>
     </td>
     <td>
       <au-autocomplete
-        value.bind="data.warpType"
+        value.bind="warpType"
         error.bind="error.warpType"
         read-only.bind="readOnly"
         placeholder="Benang Lusi"
-        loader.bind="yarns"
+        loader.bind="yarnsWarp"
+        text="name"
       >
       </au-autocomplete>
     </td>
     <td>
       <au-numeric
-        value.bind="data.amountOfWarp"
-        error.bind="error.amountOfWarp"
+        value.bind="data.warp.quantity"
+        error.bind="error.warp.quantity"
         read-only.bind="readOnly"
         placeholder="Kuantitas Lusi"
       >

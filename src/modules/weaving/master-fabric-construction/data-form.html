@@ -36,11 +36,12 @@
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
             <au-autocomplete
-            placeholder='Jenis Material'
-              value.bind="data.materialType"
-              error.bind="error.materialType"
+              placeholder="Jenis Material"
+              value.bind="materialTypeDocument"
+              error.bind="error.materialTypeDocument"
               read-only.bind="readOnly"
-              items.bind="constructions"
+              loader.one-time="materialTypeLoader"
+              text="code"
             >
             </au-autocomplete>
           </div>
@@ -86,16 +87,16 @@
         <div class="col-md-2" style="padding-right: 4px;">
           <au-textbox
             placeholder="Jenis Lusi"
-            value.bind="data.warpType"
-            error.bind="error.warpType"
+            value.bind="data.warpTypeForm"
+            error.bind="error.warpTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
         </div>
         <div class="col-md-2" style="padding-left: 0px;">
           <au-textbox
             placeholder="Jenis Pakan"
-            value.bind="data.weftType"
-            error.bind="error.weftType"
+            value.bind="data.weftTypeForm"
+            error.bind="error.weftTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
         </div>

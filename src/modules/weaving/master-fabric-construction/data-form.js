@@ -1,10 +1,12 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
+var MaterialTypeLoader = require("../../../loader/material-types-loader");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable onCreated;
+  @bindable warpType;
+  @bindable weftType;
   readOnlyAll="true";
 
   formOptions = {
@@ -30,15 +32,15 @@ export class DataForm {
   }
 
   warpColumns = [
-    { header: "Kode Lusi", value: "warp.code" },
+    { header: "Kode Lusi", value: "warpType.code" },
     { header: "Benang Lusi", value: "warpType" },
-    { header: "Qty(Gram/Meter)", value: "amountOfWarp" },
+    { header: "Qty(Gram/Meter)", value: "warp.quantity" },
     { header: "Keterangan", value: "warp.information" }
   ];
   weftColumns = [
-    { header: "Kode Pakan", value: "weft.code" },
+    { header: "Kode Pakan", value: "weftType.code" },
     { header: "Benang Pakan", value: "weftType" },
-    { header: "Qty(Gram/Meter)", value: "amountOfWeft" },
+    { header: "Qty(Gram/Meter)", value: "weft.quantity" },
     { header: "Keterangan", value: "weft.information" }
   ];
 
@@ -47,19 +49,19 @@ export class DataForm {
   //     return (this.data._id || '').toString() != '';
   // }
 
-  get constructions() {
-    return ConstructionLoader;
+  get materialTypeLoader() {
+    return MaterialTypeLoader;
   }
 
   get addItemsWarp() {
     return event => {
-      this.data.ItemsWarp.push({detail:"WARP"});
+      this.data.ItemsWarp.push({});
     };
   }
 
   get addItemsWeft() {
     return event => {
-      this.data.ItemsWeft.push({detail:"WEFT"});
+      this.data.ItemsWeft.push({});
     };
   }
 }
