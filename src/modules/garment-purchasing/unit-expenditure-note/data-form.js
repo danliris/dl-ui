@@ -65,17 +65,11 @@ export class DataForm {
     @computedFrom("data.ExpenditureType")
     get filterUnitDeliveryOrder() {
         var unitDeliveryOrderFilter = {}
-        if (this.data.ExpenditureType) {
-            unitDeliveryOrderFilter.UnitDOType = this.data.ExpenditureType;
+        unitDeliveryOrderFilter.UnitDOType = this.data.ExpenditureType;
+        unitDeliveryOrderFilter.IsUsed = false;
+        if(this.data.ExpenditureType === "EXTERNAL"){
+            unitDeliveryOrderFilter.UnitDOType = "RETUR";
             unitDeliveryOrderFilter.IsUsed = false;
-            if(this.data.ExpenditureType === "EXTERNAL"){
-                unitDeliveryOrderFilter.UnitDOType = "RETUR";
-                unitDeliveryOrderFilter.IsUsed = false;
-            }
-        }else{
-            this.hasView = this.context.hasView;
-            this.hasEdit = this.context.hasEdit;
-            this.hasCreate = this.context.hasCreate;
         }
         return unitDeliveryOrderFilter;
     }
