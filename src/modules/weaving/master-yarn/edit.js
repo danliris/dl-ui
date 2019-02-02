@@ -5,7 +5,9 @@ import { Service } from "./service";
 @inject(Router, Service)
 export class Edit {
   showViewEdit = true;
-  readOnlyViewEdit=true;
+  readOnlyViewEdit = true;
+  createOnly = false;
+  error={};
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -21,6 +23,11 @@ export class Edit {
   }
 
   saveCallback(event) {
+    if (this.optionalName) {
+      this.data.name = this.data.name + " " + this.optionalName;
+    } else {
+      this.data.name = this.data.name;
+    }
     console.log(this.data);
     debugger;
     this.service
