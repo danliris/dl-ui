@@ -77,6 +77,9 @@ export class View {
         if(this.dataExpedition.Id!=lastExpedition.Id){
                 this.canEdit=false;
         }
+        if(this.dataExpedition.isPaid){
+                this.canEdit=false;
+        }
         var arg = {
             filter: JSON.stringify({ DispositionNo : this.dataExpedition.dispositionNo })
         }
