@@ -25,7 +25,8 @@
                           value.bind="materialType"
                           error.bind="error.MaterialTypeId"
                           loader.one-time="materialTypeLoader"
-                          text="Name"
+                          key="id"
+                          text="name"
                           change.delegate="materialTypeChanged($event)"
                           read-only.bind="readOnly"
                           options.bind="controlOptions">
