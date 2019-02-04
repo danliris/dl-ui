@@ -9,8 +9,11 @@ export class UnitReceiptNoteItem {
     this.pricePerUnitCorrectionReadOnly = this.context.context.options;
     this.totalPrice=this.data.priceTotalAfter;
     this.pricePerDealUnitAfter=this.data.pricePerDealUnitAfter;
+    this.qtyTemp=0;
     if(this.data.quantity){
-      this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+       this.qtyTemp=this.data.quantity;
+      //this.data.quantity=this.data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+
     }
     // if(this.pricePerDealUnitAfter){
     //   this.pricePerDealUnitAfter=this.pricePerDealUnitAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
@@ -36,7 +39,8 @@ export class UnitReceiptNoteItem {
   pricePerDealUnitAfterChanged(newValue){
     this.error={};
     if(!this.readOnly){
-      this.data.priceTotalAfter=(this.data.quantity * newValue).toLocaleString('en-EN', { maximumFractionDigits: 15 });;
+      console.log(parseFloat(this.qtyTemp))
+      this.data.priceTotalAfter=(this.qtyTemp * newValue).toLocaleString('en-EN', { maximumFractionDigits: 15 });;
       this.totalPrice=this.data.priceTotalAfter;
       this.data.pricePerDealUnitAfter=newValue;
     }
