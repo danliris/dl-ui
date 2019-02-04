@@ -37,4 +37,25 @@ export class Create {
             })
     }
 
+    // saveCallback(event) {
+    //     this.data.Date =  this.data.Date ? moment(this.data.Date).format("DD MMM YYYY") : null;
+    //     if(this.data.Date==null){   
+    //         this.error.Date="Date Harus Diisi";
+    //         console.log(this.error)
+    //     } else {
+    //         console.log(this.data)
+    //         this.service.create(this.data)
+    //             .then(result => {
+    //                 console.log(result)
+    //                 alert(`create data success`);
+    //                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+    //             })
+    //             .catch(e => {
+    
+    //                 this.error = e;
+    //                 alert(this.error);
+    //             })
+    //     }
+    // }
 }
+
