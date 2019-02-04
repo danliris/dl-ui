@@ -12,10 +12,14 @@
 
         <au-textbox label="Lot" value.bind="data.LotNo" error.bind="LotNo" read-only.bind="readOnly" options.bind="controlOptions">
         </au-textbox>
-
+<!-- 
         <au-dropdown label="Tipe Benang" value.bind="data.YarnType" error.bind="error.YarnType" read-only.bind="readOnly"
             items.bind="yarnTypeList" options.bind="controlOptions">
-        </au-dropdown>
+        </au-dropdown> -->
+
+        <au-autocomplete label="Tipe Benang" value.bind="yarn" error.bind="error.YarnType" loader.bind="materialTypeLoader"
+            placeholder="Cari tipe benang" key="id" text="code" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-autocomplete>
 
         <!-- <au-autocomplete value.bind="yarn" label="Tipe Benang" error.bind="YarnId" loader.one-time="yarnLoader" text="Name"
             placeholder="cari tipe benang" key="Id" read-only.bind="readOnly" options.bind="controlOptions">
