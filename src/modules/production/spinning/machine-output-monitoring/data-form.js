@@ -68,7 +68,7 @@ export class DataForm {
         }
         this.isMaterial = false;
         // this.data.machine = selectedProcess;
-        if(!this.data.machine || this.data.machine == ""){
+        if(!this.data.MaterialTypeId || this.data.MaterialTypeId == ""){
             this.isMaterial = false;
         } else {
             this.isMaterial = true;
@@ -129,12 +129,14 @@ export class DataForm {
 
     materialTypeChanged(e){
         var selectedProcess = e.srcElement.value;
+        console.log(e.srcElement.value)
         this.data.MaterialTypeId = selectedProcess;
-        if(!this.data.MaterialTypeId || this.data.MaterialTypeId != ""){
+        if(!this.data.MaterialTypeId || this.data.MaterialTypeId == ""){
             this.isMaterial = false;
         } else {
             this.isMaterial = true;
         }
+        console.log(this.isMaterial)
     }
 
     mockLotLoader = (keyword, filter) => {
