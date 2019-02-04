@@ -208,8 +208,6 @@ export class DataForm {
                 this.showItemRegular = true;
             } else {
                 this.showItemRegular = false;
-                this.regularItems = [];
-                this.data.Items = [];
             }
             var yarn = selectedProcess;
             var isMixDrawing = this.isMixDrawing;
