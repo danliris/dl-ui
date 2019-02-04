@@ -34,19 +34,23 @@ export class View {
       if(this.data.ConfirmedQuantity === 0 && dates > today){
         this.hasEdit = true;
         this.hasDelete = true;
+        this.expireBooking = false;
       }
       if(this.data.HadConfirmed === 0 && dates > today){
         this.hasEdit = true;
+        this.expireBooking = false;
       }
       if(dates > today){
         this.hasEdit = false;
         this.hasDelete = false;
         this.hasConfirm = true;
+        this.expireBooking = false;
       }
       if(this.data.ConfirmedQuantity < this.data.OrderQuantity && dates > today){
         this.hascancelConfirm = true;
         this.hasEdit = false;
         this.hasDelete = false;
+        this.expireBooking = false;
       }
       if(this.data.ConfirmedQuantity < this.data.OrderQuantity && dates <= today){
         this.expireBooking = true;
