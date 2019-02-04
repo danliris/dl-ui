@@ -1,14 +1,18 @@
 <template>
   <tr>
     <td>
+      <au-checkbox value.bind="data.Select" read-only.bind="readOnly">
+      </au-checkbox>
+    </td>
+    <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.weftType.code"
+        value.bind="data.code"
         error.bind="error.weftType.code"
         read-only.bind="true"
       >
       </au-textbox>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-autocomplete
         value.bind="weftType"
         error.bind="error.weftType"
@@ -19,18 +23,17 @@
       >
       </au-autocomplete>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-numeric
-        value.bind="data.weft.quantity"
+        value.bind="data.quantity"
         error.bind="error.amountOfWeft"
         read-only.bind="readOnly"
-        placeholder="Kuantitas Pakan"
       >
       </au-numeric>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.weft.information"
+        value.bind="data.information"
         read-only.bind="readOnly"
         placeholder="Keterangan"
       >

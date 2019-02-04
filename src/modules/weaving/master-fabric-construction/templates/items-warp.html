@@ -1,14 +1,18 @@
 <template>
   <tr>
     <td>
+      <au-checkbox value.bind="data.Select" read-only.bind="readOnly">
+      </au-checkbox>
+    </td>
+    <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.warpType.code"
+        value.bind="data.code"
         error.bind="error.warpType.code"
         read-only.bind="true"
       >
       </au-textbox>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-autocomplete
         value.bind="warpType"
         error.bind="error.warpType"
@@ -19,18 +23,17 @@
       >
       </au-autocomplete>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-numeric
-        value.bind="data.warp.quantity"
+        value.bind="data.quantity"
         error.bind="error.warp.quantity"
         read-only.bind="readOnly"
-        placeholder="Kuantitas Lusi"
       >
       </au-numeric>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.warp.information"
+        value.bind="data.information"
         read-only.bind="readOnly"
         placeholder="Keterangan"
       >

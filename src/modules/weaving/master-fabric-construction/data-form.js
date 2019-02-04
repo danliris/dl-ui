@@ -7,7 +7,9 @@ export class DataForm {
   @bindable onCreated;
   @bindable warpType;
   @bindable weftType;
-  readOnlyAll="true";
+  @bindable ItemsWarp;
+  @bindable ItemsWeft;
+  readOnlyAll = "true";
 
   formOptions = {
     cancelText: "Kembali",
@@ -32,22 +34,19 @@ export class DataForm {
   }
 
   warpColumns = [
+    { value: "__check" },
     { header: "Kode Lusi", value: "warpType.code" },
     { header: "Benang Lusi", value: "warpType" },
     { header: "Qty(Gram/Meter)", value: "warp.quantity" },
     { header: "Keterangan", value: "warp.information" }
   ];
   weftColumns = [
+    { value: "__check" },
     { header: "Kode Pakan", value: "weftType.code" },
     { header: "Benang Pakan", value: "weftType" },
     { header: "Qty(Gram/Meter)", value: "weft.quantity" },
     { header: "Keterangan", value: "weft.information" }
   ];
-
-  // @computedFrom("data._id")
-  // get isEdit() {
-  //     return (this.data._id || '').toString() != '';
-  // }
 
   get materialTypeLoader() {
     return MaterialTypeLoader;
@@ -55,23 +54,74 @@ export class DataForm {
 
   get addItemsWarp() {
     return event => {
-      this.data.ItemsWarp.push({});
+      this.ItemsWarp.push({});
     };
   }
 
   get addItemsWeft() {
     return event => {
-      this.data.ItemsWeft.push({});
+      this.ItemsWeft.push({});
     };
   }
 
-  // get ItemsWarpListener(){
-  //   if(){
-  //   }
-  // }
+  onCheckWarp(event) {
+    for (var item of this.ItemsWarp) {
+      item.Select = event.detail.target.checked;
+    }
+  }
 
-  // get ItemsWeftListener(){
-  //   if(){
-  //   }
-  // }
+  onCheckWeft(event) {
+    for (var item of this.ItemsWeft) {
+      item.Select = event.detail.target.checked;
+    }
+  }
+
+  get totalYarn() {
+    let result = 0;
+    if (this.ItemsWarp && this.ItemsWeft) {
+      if (this.ItemsWarp.length > 0) {
+        for (let detail of this.ItemsWarp) {
+          if (detail.Select) {
+            result += detail.quantity;
+          }
+        }
+      }
+      if (this.ItemsWeft.length > 0) {
+        for (let detail of this.ItemsWeft) {
+          if (detail.Select) {
+            result += detail.quantity;
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  get warpTypeForm() {
+    let result = "";
+    if (this.ItemsWarp) {
+      if (this.ItemsWarp.length > 0) {
+        for (let detail of this.ItemsWarp) {
+          if (detail.Select) {
+            result = result + detail.materialCode + detail.ringCode;
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  get weftTypeForm() {
+    let result = "";
+    if (this.ItemsWeft) {
+      if (this.ItemsWeft.length > 0) {
+        for (let detail of this.ItemsWeft) {
+          if (detail.Select) {
+            result = result + detail.materialCode + detail.ringCode;
+          }
+        }
+      }
+    }
+    return result;
+  }
 }

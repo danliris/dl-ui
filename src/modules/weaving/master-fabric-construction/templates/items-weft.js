@@ -4,12 +4,12 @@ var YarnLoader = require("../../../../loader/weaving-yarns-loader");
 
 @inject(BindingEngine)
 export class ItemsWeft {
-@bindable weftType;
+  @bindable weftType;
 
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }
-  
+
   get yarnsWeft() {
     return YarnLoader;
   }
@@ -17,6 +17,16 @@ export class ItemsWeft {
   activate(context) {
     this.data = context.data;
     this.error = context.error;
+
+    if (this.data.weftType) {
+      var newValue = this.data.weftType;
+      this.weftType = newValue;
+      this.data.name = newValue.name;
+      this.data.code = newValue.code;
+      this.data.materialCode = newValue.materialTypeDocument.code;
+      this.data.ringCode = newValue.ringDocument.code;
+    }
+    
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
@@ -24,10 +34,11 @@ export class ItemsWeft {
   // Change on Kode Pakan, affected when Benang Pakan change
   weftTypeChanged(newValue) {
     if (newValue.name) {
-      // this.data.name = "";
-      this.data.weftType = {};
-      this.data.weftType.name = newValue.name;
-      this.data.weftType.code = newValue.code;
+      this.data.weftType = newValue;
+      this.data.name = newValue.name;
+      this.data.code = newValue.code;
+      this.data.materialCode = newValue.materialTypeDocument.code;
+      this.data.ringCode = newValue.ringDocument.code;
 
       // if (this.data.ringDocument) {
       //   this.data.name =

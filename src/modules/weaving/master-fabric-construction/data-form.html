@@ -16,6 +16,7 @@
           <textbox
             label="No. Konstruksi"
             read-only.bind="readOnlyAll"
+            show.bind="onViewEdit"
           ></textbox>
         </div>
         <div class="col-md-2">
@@ -24,6 +25,7 @@
             value.bind="data.constructionNumber"
             error.bind="error.constructionNumber"
             read-only.bind="readOnlyAll"
+            show.bind="onViewEdit"
           >
           </au-textbox>
         </div>
@@ -87,7 +89,7 @@
         <div class="col-md-2" style="padding-right: 4px;">
           <au-textbox
             placeholder="Jenis Lusi"
-            value.bind="data.warpTypeForm"
+            value.bind="warpTypeForm"
             error.bind="error.warpTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
@@ -95,7 +97,7 @@
         <div class="col-md-2" style="padding-left: 0px;">
           <au-textbox
             placeholder="Jenis Pakan"
-            value.bind="data.weftTypeForm"
+            value.bind="weftTypeForm"
             error.bind="error.weftTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
@@ -109,7 +111,7 @@
         <div class="col-md-2">
           <au-textbox
             placeholder="Total Benang"
-            value.bind="data.totalYarn"
+            value.bind="totalYarn"
             error.bind="error.totalYarn"
             read-only.bind="readOnlyAll"
           ></au-textbox>
@@ -120,11 +122,12 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <au-collection
-              items.bind="data.ItemsWarp"
+              items.bind="ItemsWarp"
               errors.bind="error.ItemsWarp"
               columns.bind="warpColumns"
               add.bind="addItemsWarp"
               remove.bind="onremove"
+              checkall.delegate="onCheckWarp($event)"
               read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-warp"
             >
@@ -132,11 +135,12 @@
           </div>
           <div class="col-md-6">
             <au-collection
-              items.bind="data.ItemsWeft"
+              items.bind="ItemsWeft"
               errors.bind="error.ItemsWeft"
               columns.bind="weftColumns"
               add.bind="addItemsWeft"
               remove.bind="onremove"
+              checkall.delegate="onCheckWeft($event)"
               read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-weft"
             >

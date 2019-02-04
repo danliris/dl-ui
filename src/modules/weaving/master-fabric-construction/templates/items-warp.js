@@ -4,12 +4,12 @@ var YarnLoader = require("../../../../loader/weaving-yarns-loader");
 
 @inject(BindingEngine)
 export class ItemsWarp {
-@bindable warpType;
+  @bindable warpType;
 
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }
-  
+
   get yarnsWarp() {
     return YarnLoader;
   }
@@ -17,6 +17,17 @@ export class ItemsWarp {
   activate(context) {
     this.data = context.data;
     this.error = context.error;
+    console.log(this.data);
+
+    if (this.data.warpType) {
+      var newValue = this.data.warpType;
+      this.warpType = newValue;
+      this.data.name = newValue.name;
+      this.data.code = newValue.code;
+      this.data.materialCode = newValue.materialTypeDocument.code;
+      this.data.ringCode = newValue.ringDocument.code;
+    }
+
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
@@ -24,21 +35,11 @@ export class ItemsWarp {
   // Change on Kode Lusi, affected when Benang Lusi change
   warpTypeChanged(newValue) {
     if (newValue.name) {
-      // this.data.name = "";
-      this.data.warpType = {};
-      this.data.warpType.name = newValue.name;
-      this.data.warpType.code = newValue.code;
-
-
-
-      // if (this.data.ringDocument) {
-      //   this.data.name =
-      //     newValue.name + this.data.ringDocument.number
-      //       ? newValue.name + this.data.ringDocument.number
-      //       : "";
-      // } else {
-      //   this.data.name = newValue.name;
-      // }
+      this.data.warpType = newValue;
+      this.data.name = newValue.name;
+      this.data.code = newValue.code;
+      this.data.materialCode = newValue.materialTypeDocument.code;
+      this.data.ringCode = newValue.ringDocument.code;
     }
   }
 }

@@ -4,7 +4,7 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  onCreated = true;
+  onViewEdit=true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
