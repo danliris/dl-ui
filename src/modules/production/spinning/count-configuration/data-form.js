@@ -92,6 +92,8 @@ export class DataForm {
             });
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
+        } else {
+
         }
         if (this.data.ProcessType == "Blowing" ||
             this.data.ProcessType == "Carding" ||
@@ -174,16 +176,19 @@ export class DataForm {
         if (selectedProcess) {
             this.data.ProcessType = selectedProcess;
             if (this.data.ProcessType == "Finish Drawing") {
-                this.ProcessType = true;
-            }
-            if (this.data.ProcessType == "Blowing" ||
-                this.data.ProcessType == "Carding" ||
-                this.data.ProcessType == "Pre-Drawing" ||
-                this.data.ProcessType == "Finishing Drawing") {
-                this.finishingDrawing = false;
+                if (this.isMixDrawing == true) {
+                    this.showItemRegular = false;
+                    this.finishingDrawing = true;
+                } else {
+                    this.showItemRegular = true;
+                    this.finishingDrawing = false;
+                }
+
             } else {
-                this.finishingDrawing = true;
+                this.showItemRegular = true;
+                this.finishingDrawing = false;
             }
+
         }
     }
 
