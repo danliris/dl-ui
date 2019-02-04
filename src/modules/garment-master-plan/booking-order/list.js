@@ -23,34 +23,40 @@ export class List {
         },
         { field: "Remark", title: "Keterangan" },
         { field: "statusBook", title: "Status Booking Order", formatter: function (value, data, index) {
-            if(data.ConfirmedQuantity == 0){
-                return "Booking";
-            }else if(data.ConfirmedQuantity > 0){
-                return "Confirmed";
-            }else if(data.IsBlockingPlan){
+            if(data.IsBlockingPlan == true){
                 return "Sudah Dibuat Master Plan";
+            }else{
+                if(data.ConfirmedQuantity == 0){
+                    return "Booking";
+                }else if(data.ConfirmedQuantity > 0){
+                    return "Confirmed";
+                }
+
             }
         } },
         { field: "statusConfirm", title: "Status Jumlah Confirm", formatter: function (value, data, index) {
             if(data.ConfirmedQuantity === 0){
                 return "Belum Confirm";
-            } else if (data.ConfirmedQuantity > 0 || data.OrderQuantity < data.ConfirmedQuantity){
+            } else if (data.ConfirmedQuantity > 0 && (data.OrderQuantity > data.ConfirmedQuantity)){
                 var total = data.OrderQuantity - data.ConfirmedQuantity;
-                return total;
+                return "-"+total;
             } else if(data.OrderQuantity === data.ConfirmedQuantity){
+                console.log(data);
                 return 0;
             } else if(data.ConfirmedQuantity > data.OrderQuantity){
-                var total = data.ConfirmedQuantity - data.OrderQuantity;
-                return total;
+                var total1 = data.ConfirmedQuantity - data.OrderQuantity;
+                return "+"+total1;
             }
         } },
         { field: "statusOrder", title: "Status Sisa Order", formatter: function (value, data, index) {
             var today = new Date();
-            if(data.ConfirmedQuantity < data.OrderQuantity && data.DeliveryDate > today.setDate(today.getDate() + 45)){
+            today.setDate(today.getDate()+45);
+            var dates = new Date(Date.parse(data.DeliveryDate));
+            if(data.ConfirmedQuantity < data.OrderQuantity && dates > today){
                 return "On Proses";
             } else if (data.ConfirmedQuantity >= data.OrderQuantity){
                 return "-";
-            } else if(data.ConfirmedQuantity < data.OrderQuantity && data.DeliveryDate <= today.setDate(today.getDate() + 45)){
+            } else if(data.ConfirmedQuantity < data.OrderQuantity && dates <= today){
                 return "Expired";
             }
         } }
@@ -69,9 +75,10 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                var data = {}
+                var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
+                console.log(data.data);
                 return {
                     total: result.info.total,
                     data: result.data
