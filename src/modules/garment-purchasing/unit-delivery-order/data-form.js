@@ -130,7 +130,7 @@ export class DataForm {
             this.data.Items = null;
             this.RONo = null;
             this.RONoHeader = null;
-            this.data.Items = [];
+            // this.data.Items = [];
             this.data.Article = null;
 
             this.context.error.Items = [];
@@ -208,13 +208,13 @@ export class DataForm {
         }
         else {
             this.data.StorageRequest = null;
-            this.context.storageRequestViewModel.editorValue = "";
+            //this.context.storageRequestViewModel.editorValue = "";
         }
         this.data.Items = [];
         this.RONo = null;
         this.data.Article = null;
         this.storage = null;
-        this.UnitSender = null;
+        this.unitSender = null;
     }
 
     storageChanged(newValue) {
