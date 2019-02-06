@@ -30,32 +30,30 @@ export class View {
       
       var today = new Date();
       today.setDate(today.getDate()+45);
-      var dates = new Date(Date.parse(this.data.DeliveryDate));
-      if(this.data.ConfirmedQuantity === 0 && dates > today){
+      var deliveryDates = new Date(Date.parse(this.data.DeliveryDate));
+      if(this.data.ConfirmedQuantity === 0 && deliveryDates > today && this.data.HadConfirmed === false){
         this.hasEdit = true;
         this.hasDelete = true;
-        this.expireBooking = false;
       }
-      if(this.data.HadConfirmed === 0 && dates > today){
-        this.hasEdit = true;
-        this.expireBooking = false;
-      }
-      if(dates > today){
-        this.hasEdit = false;
-        this.hasDelete = false;
+      if(deliveryDates > today){
         this.hasConfirm = true;
-        this.expireBooking = false;
       }
-      if(this.data.ConfirmedQuantity < this.data.OrderQuantity && dates > today){
+      if(this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates > today && this.data.ConfirmedQuantity != 0){
         this.hascancelConfirm = true;
         this.hasEdit = false;
         this.hasDelete = false;
         this.expireBooking = false;
       }
-      if(this.data.ConfirmedQuantity < this.data.OrderQuantity && dates <= today){
+      if(this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates <= today){
         this.expireBooking = true;
         this.hasEdit = false;
         this.hasDelete = false; 
+      }
+      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity){
+        this.hasEdit = false;
+        this.hasDelete = false;
+        this.hasConfirm = false;
+        this.hasMasterPlan = true;
       }
   }
 

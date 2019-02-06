@@ -31,7 +31,6 @@ export class List {
                 }else if(data.ConfirmedQuantity > 0){
                     return "Confirmed";
                 }
-
             }
         } },
         { field: "statusConfirm", title: "Status Jumlah Confirm", formatter: function (value, data, index) {
@@ -41,7 +40,6 @@ export class List {
                 var total = data.OrderQuantity - data.ConfirmedQuantity;
                 return "-"+total;
             } else if(data.OrderQuantity === data.ConfirmedQuantity){
-                console.log(data);
                 return 0;
             } else if(data.ConfirmedQuantity > data.OrderQuantity){
                 var total1 = data.ConfirmedQuantity - data.OrderQuantity;
@@ -51,12 +49,12 @@ export class List {
         { field: "statusOrder", title: "Status Sisa Order", formatter: function (value, data, index) {
             var today = new Date();
             today.setDate(today.getDate()+45);
-            var dates = new Date(Date.parse(data.DeliveryDate));
-            if(data.ConfirmedQuantity < data.OrderQuantity && dates > today){
+            var deliveryDates = new Date(Date.parse(data.DeliveryDate));
+            if(data.ConfirmedQuantity < data.OrderQuantity && deliveryDates > today){
                 return "On Proses";
             } else if (data.ConfirmedQuantity >= data.OrderQuantity){
                 return "-";
-            } else if(data.ConfirmedQuantity < data.OrderQuantity && dates <= today){
+            } else if(data.ConfirmedQuantity < data.OrderQuantity && deliveryDates <= today){
                 return "Expired";
             }
         } }
