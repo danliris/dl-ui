@@ -1,17 +1,22 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { ServiceAccounting } from './service-accounting';
 
 
-@inject(Router, Service)
+@inject(Router, Service, ServiceAccounting)
 export class View {
-    constructor(router, service) {
+    constructor(router, service, serviceAccounting) {
         this.router = router;
         this.service = service;
+        this.serviceAccounting = serviceAccounting;
     }
 
+    isLocked = false;
     async activate(params) {
         var id = params.id;
+
+        var activeLockingTransaction = await this.serviceAccounting.getLastActiveLockingTransaction();
 
         this.data = await this.service.getById(id);
         if (this.data.items) {
@@ -19,6 +24,10 @@ export class View {
                 item.showDetails = false
             })
         }
+
+        if (this.data.date >= activeLockingTransaction.BeginLockDate && this.data.date <= activeLockingTransaction.EndLockDate)
+            this.isLocked = true;
+
 
         this.unit = this.data.unit;
         this.supplier = this.data.supplier;
