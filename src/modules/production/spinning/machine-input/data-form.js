@@ -65,14 +65,12 @@ export class DataForm {
 
     bind(context) {
         this.context = context;
-        console.log(this.context)
         this.data = this.context.data;
         this.error = this.context.error;
 
         this.coreService.getMachineTypes()
             .then(result => {
                 if(this.data.ProcessType){
-                    console.log(1)
                     this.typeOptions=result;
                 } else {
                     this.typeOptions.push("");
@@ -141,8 +139,6 @@ export class DataForm {
     }
 
     unitChanged(newValue, oldValue) {
-        console.log(newValue)
-        console.log(this.unit)
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
 
@@ -184,7 +180,6 @@ export class DataForm {
     }
 
     processTypeChanged(n, o) {
-        console.log(this.processType)
         if (this.processType) {
             this.data.ProcessType = this.processType;
 
