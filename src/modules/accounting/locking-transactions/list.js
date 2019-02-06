@@ -18,7 +18,8 @@ export class List {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },
-        { field: "Description", title: "Description" },
+        { field: "Type", title: "Tipe" },
+        { field: "Description", title: "Deskripsi" },
         {
             field: "IsActiveStatus", title: "Status",
             formatter: function (value, data, index) {

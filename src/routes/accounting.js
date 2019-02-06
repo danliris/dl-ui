@@ -43,7 +43,7 @@ module.exports = [
         name: 'locking-transactions',
         moduleId: './modules/accounting/locking-transactions/index',
         nav: true,
-        title: 'Locking Transaction',
+        title: 'Penguncian Transaksi',
         auth: true,
         settings: {
             group: "accounting",
