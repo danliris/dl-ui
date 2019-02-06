@@ -61,7 +61,6 @@ export class View {
 
         var expeditions= await this.service.search(info);
         
-        console.log(expeditions.data)
         var lastExpedition=null;
         for(var a of expeditions.data){
             if(lastExpedition==null){
@@ -73,10 +72,12 @@ export class View {
                 }
             }
             
-        console.log(lastExpedition)
         }
         
         if(this.dataExpedition.Id!=lastExpedition.Id){
+                this.canEdit=false;
+        }
+        if(this.dataExpedition.isPaid){
                 this.canEdit=false;
         }
         var arg = {
