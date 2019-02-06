@@ -88,7 +88,13 @@ export class DataForm {
         this.polyesterLot = "";
         this.coreService.getMachineTypes()
             .then(result => {
-                this.processTypeList = result;
+                if(this.data.ProcessType){
+                    this.processTypeList=result;
+                } else {
+                    this.processTypeList.push("");
+                    for(var list of result){    
+                        this.processTypeList.push(list);
+                }}
             });
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
@@ -112,7 +118,6 @@ export class DataForm {
             }
 
         }
-
         if (this.data.PolyesterYarn) {
             this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
                 if (result) {
@@ -216,7 +221,7 @@ export class DataForm {
             }
             var yarn = selectedProcess;
             var isMixDrawing = this.isMixDrawing;
-            this.service.getLotByYarnType(yarn, this.finishingDrawing).then(result => {
+            this.service.getLotByYarrnType(yarn, this.finishingDrawing).then(result => {
                 if (result) {
 
                     if (!isMixDrawing || isMixDrawing == false) {

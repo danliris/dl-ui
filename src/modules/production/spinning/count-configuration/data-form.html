@@ -37,19 +37,22 @@
                     options.bind="controlOptions2"></au-numeric>
             </div>
             <div class="col-lg-2">
-                <au-numeric label="EffSpin" value.bind="data.EffSpin" read-only.bind="readOnly" error.bind="error.effSpin"
+                <au-numeric label="Eff" value.bind="data.EffSpin" read-only.bind="readOnly" error.bind="error.effSpin"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-
+            <div class="col-lg-2" show.bind="processType && data.ProcessType=='Flying'">
+                <au-numeric label="Total Draft" value.bind="data.Draft" read-only.bind="readOnly" error.bind="error.Draft"
+                    options.bind="controlOptions2"></au-numeric>
+            </div>
         </div>
         <div class="col-lg-12">
             <div class="col-lg-2" style="margin-left:27px"></div>
             <div class="col-lg-2">
-                <au-numeric label="ProdSpin" value.bind="data.ProdSpin" read-only.bind="readOnly" error.bind="error.prodSpin"
+                <au-numeric label="Produksi" value.bind="data.ProdSpin" read-only.bind="readOnly" error.bind="error.prodSpin"
                     options.bind="controlOptions2"></au-numeric>
             </div>
             <div class="col-lg-2">
-                <au-numeric label="Rpm" value.bind="data.Rpm" read-only.bind="readOnly" error.bind="error.rpm"
+                <au-numeric label="RPM" value.bind="data.Rpm" read-only.bind="readOnly" error.bind="error.rpm"
                     options.bind="controlOptions2"></au-numeric>
             </div>
             <div class="col-lg-2">
@@ -65,13 +68,13 @@
                     options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
-        <div show.bind="processType && data.ProcessType=='Flying'" class="col-lg-12">
+        <!-- <div show.bind="processType && data.ProcessType=='Flying'" class="col-lg-12">
             <div class="col-lg-2" style="margin-left:27px"></div>
             <div class="col-lg-2">
                 <au-numeric label="Total Draft" value.bind="data.Draft" read-only.bind="readOnly" error.bind="error.draft"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-        </div>
+        </div> -->
         <br><br><br><br>
         <div show.bind="regularItems && regularItems.length > 0 && showItemRegular && data.IsMixDrawing != true " class="col-lg-12">
             <au-textbox label="No Lot" value.bind="lot" read-only.bind="true" options.bind="controlOptions">
