@@ -1,15 +1,24 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from './service';
+import { Service, CoreService } from './service';
 import moment from 'moment';
 
-var LotLoader = require('../../../../loader/lot-configuration-for-machine-output-loader');
+var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-azure-loader');
 
-@inject(Service, BindingEngine)
+@inject(Service, CoreService, BindingEngine)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable processType;
+    @bindable inputDate;
+    @bindable materialType;
+    @bindable lot;
+    @bindable shift;
+    @bindable group;
+    @bindable unit;
+    @bindable isItem;
+    @bindable detailOptions;
 
     formOptions = {
         cancelText: "Kembali",
@@ -17,7 +26,7 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     };
-
+    typeOptions = []
     processTypeList = [
         "",
         "Blowing",
@@ -35,7 +44,10 @@ export class DataForm {
         "Shift 2 14:00 - 22:00",
         "Shift 3 22:00 - 06:00"
     ];
-
+    detailOptions = {};
+    itemsColumnsHeader = [];
+    machineSpinningFilter = {};
+    masterFilter = {};
     controlOptions = {
         label: {
             length: 4,
@@ -44,11 +56,12 @@ export class DataForm {
             length: 4,
         },
     };
+    items = [];
+    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
 
-    spinningFilter = {"DivisionName.toUpper()":"SPINNING"};
-
-    constructor(service, bindingEngine) {
+    constructor(service, coreService, bindingEngine) {
         this.service = service;
+        this.coreService = coreService;
         this.bindingEngine = bindingEngine
     }
 
@@ -56,32 +69,59 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         this.isItem = false;
-        console.log(this.data)
-        this.check=false;
-        if(!this.data.ProcessType || this.data.ProcessType == ""){
-            console.log(this.data.ProcessType)
-            this.isItem = false;
-        } else {
-            this.isItem = true;
+        this.coreService.getMachineTypes()
+            .then(result => {
+                if (this.data.ProcessType) {
+                    console.log(1)
+                    this.typeOptions = result;
+                } else {
+                    this.typeOptions.push("");
+                    for (var list of result) {
+                        this.typeOptions.push(list);
+                    }
+                }
+            });
+
+        if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
+            this.unit = this.data.UnitDepartment;
         }
-        this.isMaterial = false;
-        // this.data.machine = selectedProcess;
-        if(!this.data.MaterialTypeId || this.data.MaterialTypeId == ""){
-            this.isMaterial = false;
-        } else {
-            this.isMaterial = true;
+        if (this.data.Lot && this.data.Lot.Id) {
+            this.lot = this.data.Lot;
         }
-        console.log(this.isItem)
-        // this.cancelCallback = this.context.cancelCallback;
-        // this.deleteCallback = this.context.deleteCallback;
-        // this.editCallback = this.context.editCallback;
-        // this.saveCallback = this.context.saveCallback;
+        if (this.data.ProcessType) {
+            this.processType = this.data.ProcessType;
+        }
+
+        if (this.data.MaterialType && this.data.MaterialType.Id) {
+            this.yarn = {};
+            this.yarn.id = this.data.MaterialType.Id;
+            this.yarn.name = this.data.MaterialType.Name;
+            this.yarn.code = this.data.MaterialType.Code;
+        }
+
+        if (this.data.Date) {
+            this.inputDate = this.data.Date;
+        }
+
+        if (this.data.Shift) {
+            this.shift = this.data.Shift;
+        }
+
+        if (this.data.Group) {
+            this.group = this.data.Group;
+        }
+
+        if (this.data.Items) {
+            for (var item of this.data.Items) {
+                item.Identity = item.Id;
+                item.MachineSpinningIdentity = item.MachineSpinning.Id;
+            }
+        }
     }
 
-    items ={
-        columns : [
+    items = {
+        columns: [
             "Nomor Mesin",
             "Nama Mesin",
             "Output (Counter)",
@@ -92,56 +132,189 @@ export class DataForm {
             "Bad Cone (Winder)",
             "Eff%"],
         onRemove: function () {
-            this.bind();
-        }
+            this.context.machineCollections.bind();
+
+        }.bind(this)
     };
-    
 
-    // get addItems() {
-    //     return (event) => {
-    //         this.data.Items.push({})
-    //     };
-    // }
 
-    processTypeChanged(e) {
-        var selectedProcess = e.srcElement.value;
-        this.error=this.context.error;
-        this.check=false;
-        this.data.ProcessType = null;
-        if (selectedProcess) {
-            this.check=true;
-            this.data.ProcessType = selectedProcess;
+    async fillItems() {
+        if (!this.readOnly && this.data.UnitDepartmentId && this.data.ProcessType && this.data.MaterialTypeId && this.data.LotId && this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != "") {
+            this.machineSpinningFilter.page = 1;
+            this.machineSpinningFilter.size = 2147483647;
+            this.machineSpinningFilter.order = { "No": "asc" }
+            // this.machineSpinningFilter.filter = { "Type": this.data.ProcessType, "UnitId": this.data.UnitDepartmentId }
+            this.filter = {};
+            this.filter.Type = this.data.ProcessType;
+            this.filter.UnitId = this.data.UnitDepartmentId.toString();
+            this.machineSpinningFilter.filter = JSON.stringify(this.filter);
+
+            this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+                .then(async results => {
+                    let existedItem = {};
+
+                    if (this.data.Id) {
+                        existedItem = this.data;
+                    } else {
+                        existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
+                        if (existedItem.Items && existedItem.Items.length > 0) {
+                            alert("Data already exist with this configuration");
+                            this.inputDate = undefined;
+                            this.processType = this.typeOptions[0];
+                            this.yarn = undefined;
+                            this.lot = undefined;
+                            this.shift = this.shiftOptions[0];
+                            this.group = undefined;
+                            this.unit = undefined;
+                            return [];
+                        }
+                    }
+                    // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
+
+                    var newItems = [];
+                    for (var item of results.data) {
+                        var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
+
+                        var newData = {};
+                        newData.MachineSpinning = {};
+                        newData.Input = dbItem ? dbItem.Input : 0;
+                        newData.MachineSpinning.No = item.No;
+                        newData.MachineSpinning.Name = item.Name;
+                        newData.MachineSpinning.UomUnit = item.UomUnit;
+                        newData.MachineSpinning.Id = item.Id;
+                        newData.MachineSpinningIdentity = item.Id;
+                        newItems.push(newData);
+                    }
+                    return newItems;
+                });
+
         }
-        this.data.items = [];
-        //     if (this.data.ProcessType == "Finish Drawing") {
-        //         this.ProcessType = true;
-        //     }
-        //     if (this.data.ProcessType == "Blowing" || 
-        //         this.data.ProcessType == "Carding" || 
-        //         this.data.ProcessType == "Pre-Drawing" || 
-        //         this.data.ProcessType == "Finishing-Drawing")  {
-        //             this.finishingDrawing = false;
-        //     } else {
-        //         this.finishingDrawing = true;
-        //     }
-        // }
     }
 
-    materialTypeChanged(e){
-        var selectedProcess = e.srcElement.value;
-        console.log(e.srcElement.value)
-        this.data.MaterialTypeId = selectedProcess;
-        if(!this.data.MaterialTypeId || this.data.MaterialTypeId == ""){
-            this.isMaterial = false;
+    processTypeChanged(n, o) {
+        if (this.processType && this.processType != "") {
+            this.data.ProcessType = this.processType;
+            this.detailOptions.ProcessType = this.processType;
+            if (this.processType == "Blowing") {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Bad Output",
+                    "Eff%"
+                ];
+
+            } else if (this.processType == "Flying") {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Total Delivery",
+                    "Spindle Kosong",
+                    "Eff%"
+                ];
+            } else if (this.processType == "Winding") {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Waste",
+                    "Total Drum",
+                    "Eff%"
+                ];
+            } else {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Eff%"
+                ];
+            }
+            this.isItem = true;
+            this.fillItems();
         } else {
-            this.isMaterial = true;
+            this.data.ProcessType = null;
+            this.data.Items = [];
+            this.itemsColumnsHeader = [
+                "Nomor Mesin",
+                "Merk Mesin",
+                "Output (Counter)",
+                "UOM",
+                "Bale",
+                "Eff%"
+            ];
+            this.isItem = false;
         }
-        console.log(this.isMaterial)
     }
 
-    mockLotLoader = (keyword, filter) => {
+    inputDateChanged(n, o) {
+        if (this.inputDate) {
+            this.data.Date = this.inputDate;
+            this.fillItems();
+        } else {
+            this.data.Date = null;
+            this.data.Items = [];
+        }
+    }
 
-        return Promise.resolve([{ Name: "Lot 1" }, { Name: "Lot 2" }]);
+    materialTypeChanged(n, o) {
+        if (this.materialType && this.materialType.id) {
+            this.data.MaterialTypeId = this.materialType.id;
+            this.fillItems();
+        } else {
+            this.data.MaterialTypeId = null;
+            this.data.Items = [];
+        }
+    }
+
+    lotChanged(n, o) {
+        if (this.lot && this.lot.Id) {
+            this.data.LotId = this.lot.Id;
+            this.fillItems();
+        } else {
+            this.data.LotId = null;
+            this.data.Items = [];
+        }
+    }
+
+    shiftChanged(n, o) {
+        if (this.shift && this.shift != "") {
+            this.data.Shift = this.shift;
+            this.fillItems();
+        } else {
+            this.data.Shift = null;
+            this.data.Items = [];
+        }
+    }
+
+    groupChanged(n, o) {
+        if (this.group && this.group != "") {
+            this.data.Group = this.group;
+            this.fillItems();
+        } else {
+            this.data.Group = null;
+            this.data.Items = [];
+        }
+
+    }
+
+    unitChanged(newValue, oldValue) {
+
+        if (this.unit && this.unit.Id) {
+            this.data.UnitDepartmentId = this.unit.Id;
+            this.fillItems();
+        } else {
+            this.data.UnitDepartmentId = null;
+            this.data.Items = [];
+        }
     }
 
     get lotLoader() {
@@ -153,16 +326,6 @@ export class DataForm {
         return MaterialTypeLoader;
     }
 
-    mockProcessLoader = (keyword, filter) => {
-
-        return Promise.resolve([{ Name: "Process Type 1" }, { Name: "Process Type 2" }]);
-    }
-
-    get processLoader() {
-        //return ProcessLoader;
-        return this.mockProcessLoader;
-    }
-
     get grandTotal() {
         let result = 0;
         if (this.data.Items && this.data.Items.length > 0) {
@@ -172,13 +335,9 @@ export class DataForm {
             }
         }
         return result;
-    }    
-    
+    }
+
     get unitLoader() {
         return UnitLoader;
     }
-
-    // unitView = (unit) => {
-    //     return `${unit.Division.Name}`;
-    // }
 }
