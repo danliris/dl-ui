@@ -9,6 +9,7 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
+    this.collection={};
   }
 
   activate(params) {}
@@ -29,6 +30,8 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
+    console.log(this.data);
+    // debugger;
     this.service.create(this.data)
         .then(result => {
             this.list();

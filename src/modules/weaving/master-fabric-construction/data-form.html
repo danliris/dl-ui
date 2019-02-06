@@ -16,16 +16,14 @@
           <textbox
             label="No. Konstruksi"
             read-only.bind="readOnlyAll"
-            show.bind="onViewEdit"
           ></textbox>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-10">
           <au-textbox
             placeholder="No. Konstruksi"
-            value.bind="data.constructionNumber"
+            value.bind="constructionNumber"
             error.bind="error.constructionNumber"
             read-only.bind="readOnlyAll"
-            show.bind="onViewEdit"
           >
           </au-textbox>
         </div>

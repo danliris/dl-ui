@@ -1,12 +1,14 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
+import { Service } from "../service";
 
 var YarnLoader = require("../../../../loader/weaving-yarns-loader");
 
-@inject(BindingEngine)
+@inject(BindingEngine, Service)
 export class ItemsWeft {
-  @bindable weftType;
+  @bindable yarn;
 
-  constructor(bindingEngine) {
+  constructor(bindingEngine, service) {
+    this.service = service;
     this.bindingEngine = bindingEngine;
   }
 
@@ -18,9 +20,9 @@ export class ItemsWeft {
     this.data = context.data;
     this.error = context.error;
 
-    if (this.data.weftType) {
-      var newValue = this.data.weftType;
-      this.weftType = newValue;
+    if (this.data.yarn) {
+      var newValue = this.data.yarn;
+      this.yarn = newValue;
       this.data.name = newValue.name;
       this.data.code = newValue.code;
       this.data.materialCode = newValue.materialTypeDocument.code;
@@ -34,7 +36,7 @@ export class ItemsWeft {
   // Change on Kode Pakan, affected when Benang Pakan change
   weftTypeChanged(newValue) {
     if (newValue.name) {
-      this.data.weftType = newValue;
+      this.data.yarn = newValue;
       this.data.name = newValue.name;
       this.data.code = newValue.code;
       this.data.materialCode = newValue.materialTypeDocument.code;
