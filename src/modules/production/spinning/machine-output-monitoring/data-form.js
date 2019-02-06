@@ -113,7 +113,7 @@ export class DataForm {
             this.data.ProcessType = selectedProcess;
         }
         this.data.items = [];
-        //     if (this.data.ProcessType == "Finish-Drawing") {
+        //     if (this.data.ProcessType == "Finish Drawing") {
         //         this.ProcessType = true;
         //     }
         //     if (this.data.ProcessType == "Blowing" || 
