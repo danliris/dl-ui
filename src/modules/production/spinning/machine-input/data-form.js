@@ -94,6 +94,7 @@ export class DataForm {
             this.yarn = {};
             this.yarn.id = this.data.YarnMaterialType.Id;
             this.yarn.name = this.data.YarnMaterialType.Name;
+            this.yarn.code = this.data.YarnMaterialType.Code;
         }
 
         if (this.data.Date) {

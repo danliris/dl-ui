@@ -15,7 +15,7 @@ export class List {
     columns = [
         // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
         // { field: "Yarn.Name", title: "Yarn Name" },
-        { field: "YarnMaterialType.Name", title: "Nama Benang" },
+        { field: "YarnMaterialType.Code", title: "Kode Benang" },
         { field: "LotConfiguration.LotNo", title: "No Lot" },
         { field: "UnitDepartment.Name", title: "Unit Name" },
         { field: "Shift", title: "Shift" },
