@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td>
+        <td show.bind="!readOnly">
             <au-checkbox 
                 value.bind="data.Select"
                 read-only.bind="readOnly">
@@ -32,7 +32,7 @@
         </td>
         <td>
             <au-textbox
-                value.bind="data.supplier.name"
+                value.bind="data.SupplierName"
                 read-only.bind="true">
             </au-textbox>
         </td>
@@ -51,6 +51,7 @@
         <td>
             <au-numeric
                 value.bind="data.vatValue"
+                format="0,000.0000"
                 read-only.bind="true">
             </au-numeric>
         </td>
@@ -63,7 +64,7 @@
         </td>
         <td>
             <au-textbox
-                value.bind="data.currency.code"
+                value.bind="data.Currency"
                 read-only.bind="true">
             </au-textbox>
         </td>
@@ -76,7 +77,7 @@
             <au-collection
                 items.bind="data.Details" 
                 columns.bind="columns"
-                item-template="modules/expedition/payment-disposition-note/templates/detail">
+                item-template="modules/expedition/payment-disposition-note/templates/detail-view">
             </au-collection>
         </td>  
     </tr>

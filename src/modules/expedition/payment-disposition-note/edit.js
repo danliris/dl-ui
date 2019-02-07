@@ -28,7 +28,7 @@ export class Edit {
         this.dialog = dialog;
 
         this.collection = {
-            columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang', ''],
+            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
         };
     }
 
@@ -36,32 +36,36 @@ export class Edit {
         this.error = {};
     }
 
-    UPOResults = [];
+    Items = [];
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        this.UPOResults = this.data.Details.map((detail) => {
-            detail.Select = true;
-            return detail;
+        this.Items = this.data.Items.map((item) => {
+            item.Select = true;
+            return item;
         });
-
-        let arg = {
-            page: 1,
-            size: Number.MAX_SAFE_INTEGER,
-            filter: this.data.Supplier && this.data.Supplier.code ? JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "IsPaid": false }) //CASHIER DIVISION
-        };
-
-        let newData = await this.service.searchAllByPosition(arg)
-            .then((result) => {
-                let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-
-                return resultData;
-            });
-
-        if (newData.length > 0) {
-            this.UPOResults = this.UPOResults.concat(newData);
+        for(var a of this.data.Items){
+            a.SupplierName=this.data.Supplier.Name;
+            a.Currency=this.data.AccountBank.Currency.Code;
         }
+
+        // let arg = {
+        //     page: 1,
+        //     size: Number.MAX_SAFE_INTEGER,
+        //     filter: this.data.Supplier && this.data.Supplier.code ? JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "SupplierCode": this.data.Supplier.code, "IsPaid": false }) : JSON.stringify({ "Position": 7, "Currency": this.data.Bank.currency.code, "IsPaid": false }) //CASHIER DIVISION
+        // };
+
+        // let newData = await this.service.searchAllByPosition(arg)
+        //     .then((result) => {
+        //         let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+
+        //         return resultData;
+        //     });
+
+        // if (newData.length > 0) {
+        //     this.UPOResults = this.UPOResults.concat(newData);
+        // }
     }
 
     cancelCallback(event) {
@@ -69,7 +73,7 @@ export class Edit {
     }
 
     saveCallback(event) {
-        this.data.Details = this.UPOResults.filter((detail) => detail.Select);
+        this.data.Items = this.Items.filter((item) => item.Select);
         var dataPrep = this.data;
         this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
             .then(response => {
@@ -85,18 +89,18 @@ export class Edit {
 
     get grandTotal() {
         let result = 0;
-        if (this.UPOResults && this.UPOResults.length > 0) {
-            for (let detail of this.UPOResults) {
+        if (this.data.Items && this.data.Items.length > 0) {
+            for (let detail of this.data.Items) {
                 if (detail.Select)
-                    result += detail.TotalPaid;
+                    result += detail.payToSupplier;
             }
         }
-        this.data.GrandTotal = result;
+        this.data.Amount = result;
         return result;
     }
 
     onCheckAll(event) {
-        for (var item of this.UPOResults) {
+        for (var item of this.Items) {
             item.Select = event.detail.target.checked;
         }
     }
