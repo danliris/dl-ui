@@ -36,8 +36,18 @@ export class PurchasingDispositionItem {
         if(this.data.Details){
             this.isShowing=true;
         }
+        if(this.data.UseVat){
+            this.vatValue=0;
+            for(var detail of this.data.Details){
+                this.vatValue+=detail.PaidPrice*10/100;
+            }
+        }
         if(this.data.UseIncomeTax){
             this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
+            this.incomeTaxValue=0;
+            for(var detail of this.data.Details){
+                this.incomeTaxValue+=detail.PaidPrice*this.data.IncomeTax.rate/100;
+            }
         }
     }
     // @computedFrom("data.EPONo")

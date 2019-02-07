@@ -49,7 +49,7 @@ export class Edit {
 
                             var budgetUsed = 0;
                             if (listUsedBudget.length > 0) {
-                                var prevAmount = listUsedBudget.find((budget) => budget.prNo == item.prNo && budget.refNo == item.refNo && budget.product == item.product.code);
+                                var prevAmount = listUsedBudget.find((budget) => budget.prNo == item.prNo && budget.prRefNo == item.prRefNo && budget.product == item.product.code);
                                 if (prevAmount) {
                                     budgetUsed = budgetUsed + prevAmount.totalAmount;
                                 }

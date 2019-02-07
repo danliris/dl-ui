@@ -29,7 +29,7 @@ export class List {
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
-            field: "totalPaid", title: "Total Bayar", formatter: function (value, data, index) {
+            field: "payToSupplier", title: "Total Bayar ke Supplier", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.0000');
             },
         },

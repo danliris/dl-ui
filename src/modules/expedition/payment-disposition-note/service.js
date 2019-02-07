@@ -4,11 +4,11 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const serviceUri = 'bank-expenditure-notes';
+const serviceUri = 'payment-disposition-note';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing-azure');
+        super(http, aggregator, config, 'finance');
     }
 
     search(info) {

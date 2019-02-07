@@ -1,0 +1,45 @@
+<!-- <style>
+th,td {
+  border: 1px solid black;
+}
+</style> -->
+<template>
+  <tr>
+    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
+    <td>
+      <au-textbox value.bind="data.weft.code" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td>
+      <au-autocomplete
+        value.bind="data.weftType"
+        error.bind="error.weftType"
+        read-only.bind="readOnly"
+        placeholder="Benang Pakan"
+        loader.bind="yarns"
+      >
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-numeric
+        value.bind="data.amountOfWeft"
+        error.bind="error.amountOfWeft"
+        read-only.bind="readOnly"
+        placeholder="Kuantitas Pakan"
+      >
+      </au-numeric>
+    </td>
+    <td>
+      <au-textbox value.bind="data.weft.information" read-only.bind="readOnly" placeholder="Keterangan">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" if.bind="!readOnly">
+      <button
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(weftData, $event)"
+      >
+        -
+      </button>
+    </td>
+  </tr>
+</template>

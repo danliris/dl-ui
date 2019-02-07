@@ -12,12 +12,6 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    // this.data = {
-    //   id: 1,
-    //   code: "01",
-    //   name: "PC45",
-    //   description: "some detail"
-    // };
   }
 
   list() {

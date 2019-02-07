@@ -11,7 +11,7 @@
             <au-textbox value.bind="data.quantity" read-only="true"></au-textbox>
         </td>
         <td>
-            <au-textbox value.bind="data.uom" read-only="true"></au-textbox>
+            <au-textbox value.bind="data.uom.unit" read-only="true"></au-textbox>
         </td>
         <td>
             <au-textbox value.bind="data.price | numberFormat: '0,000.0000'" read-only="true"></au-textbox>

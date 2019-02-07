@@ -39,11 +39,11 @@ module.exports = [
         }
     },
     {
-        route: '/accounting/reports/sub-ledger',
-        name: 'sub-ledger-report',
-        moduleId: './modules/accounting/reports/sub-ledger-report/index',
+        route: '/accounting/locking-transactions',
+        name: 'locking-transactions',
+        moduleId: './modules/accounting/locking-transactions/index',
         nav: true,
-        title: 'Laporan Sub Ledger',
+        title: 'Penguncian Transaksi',
         auth: true,
         settings: {
             group: "accounting",

@@ -12,15 +12,6 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    // this.data = {
-    //   id: 1,
-    //   code: "01",
-    //   name: "PC45",
-    //   description: "some detail"
-    // };
-
-    // this.data.currency.toString = function() {
-    //   return this.currency;}
   }
 
   cancelCallback(event) {

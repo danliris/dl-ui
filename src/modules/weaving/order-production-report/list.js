@@ -1,11 +1,12 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
+var moment = require("moment");
+var UnitLoader = require("../../../loader/unit-loader");
 
 @inject(Router, Service)
 export class List {
-  context = ["detail"];
-
+  data = {};
   tableOptions = {
     search: false,
     showToggle: false,
@@ -54,89 +55,53 @@ export class List {
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
-      //   select: [
-      //     "yarnCode",
-      //     "yarnName",
-      //     "yarnUnit",
-      //     "yarnCurrencyCode",
-      //     "yarnPrice"
-      //   ],
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     // data: result.data
-    //     data: [
-    //       {
-    //         spNumber: "0515/00.2018",
-    //         spDate: "01-10-18",
-    //         construction: "PC OX 100 48 63 DhMz B AH",
-    //         yarnNumber: "TC45XCM16",
-    //         blendedPoly: "65 %",
-    //         blendedCotton: "35 %",
-    //         blendedOthers: "100 %",
-    //         epGradeA: 42500,
-    //         epGradeB: 5000,
-    //         epGradeC: 1500,
-    //         epOthers: 1000,
-    //         total: 50000,
-    //         yarnWeft: 26.9,
-    //         yarnWarp: 36.97,
-    //         yarnWhole: 63.87
-    //       }
-    //     ]
-    //   };
-    // });
-
-    return {
-      total: 1,
-      // data: result.data
-      data: [
-        {
-            spNumber: "0515/00.2018",
-            spDate: "01-10-18",
-            construction: "PC OX 100 48 63 DhMz B AH",
-            yarnNumber: "TC45XCM16",
-            blendedPoly: "65 %",
-            blendedCotton: "35 %",
-            blendedOthers: "100 %",
-            epGradeA: 42500,
-            epGradeB: 5000,
-            epGradeC: 1500,
-            epOthers: 1000,
-            total: 50000,
-            yarnWeft: 26.9,
-            yarnWarp: 36.97,
-            yarnWhole: 63.87
-        }
-      ]
-    };
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+    });
   };
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.accessoriesId = "";
-    // this.accessories = [];
   }
 
-  //   contextCallback(event) {
-  //     var arg = event.detail;
-  //     var data = arg.data;
-  //     switch (arg.name) {
-  //       case "detail":
-  //         this.router.navigateToRoute("view", { id: data.yarnCode });
-  //         break;
-  //     }
-  //   }
+  // contextClickCallback(event) {
+  //   let arg = event.detail;
+  //   let data = arg.data;
 
-  // upload() {
-  //     this.router.navigateToRoute('upload');
+  //   switch (arg.name) {
+  //     case "print PDF":
+  //       this.service.getPdfById(data.Id);
+  //       break;
+  //   }
   // }
 
-  //   create() {
-  //     this.router.navigateToRoute("create");
-  //   }
+  getYear(now) {
+    var year = moment(now).format("YYYY");
+    return year;
+  }
+
+  getMonth(now) {
+    var month = moment(now).format("MMMM");
+    return month;
+  }
+
+  get units() {
+    return UnitLoader;
+  }
+
+  printPdf() {
+    var month = this.getMonth(this.data);
+    // console.log(month);
+    var year = this.getYear(this.data);
+    // console.log(year);
+    console.log(this.data);
+    this.service.getPdfByPeriod(this.data.unit._id, month, year);
+  }
 }

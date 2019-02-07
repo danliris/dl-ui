@@ -5,8 +5,9 @@ import { RestService } from '../../../../utils/rest-service';
 // import { Config } from "aurelia-api";
 
 const serviceUri = 'count-configurations';
-const lotYarnServiceUri = "lot/configuration"
+const lotYarnServiceUri = "lot/configuration";
 
+const machineServiceUri = "machine-spinnings";
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -65,4 +66,21 @@ export class Service extends RestService {
     //         });
     // }
 
+}
+
+export class CoreService extends RestService {
+
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "core-azure");
+    }
+
+    getMachineTypes() {
+        var endpoint = `${machineServiceUri}/machine/types`;
+        return super.list(endpoint);
+    }
+
+    searchMachineSpinning(info) {
+        var endpoint = `${machineServiceUri}`;
+        return super.list(endpoint, info);
+    }
 }
