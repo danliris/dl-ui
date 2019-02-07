@@ -9,25 +9,26 @@ export class List {
     context = ['Rincian', 'Cetak PDF'];
 
     columns = [
-        { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Barang' },
+        { field: 'PaymentDispositionNo', title: 'No Bukti Pembayaran Disposisi' },
         {
-            field: 'CreatedUtc', title: 'Tanggal', formatter: function (value, data, index) {
+            field: 'PaymentDate', title: 'Tanggal Pembayaran', formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
             },
         },
+        { field: 'dispositions', title: 'No Disposisi Pembayaran' },
+        { field: 'SupplierName', title: 'Supplier' },
         {
             field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
-                return data ? `${data.BankAccountName} ${data.BankCurrencyCode}` : '';
+                return data ? `${data.AccountBank.BankName}` : '';
             }
         },
+        { field: 'AccountBank.Currency.Code', title: 'Mata Uang' },
         {
-            field: 'GrandTotal', title: 'Total DPP+PPN', formatter: function (value, data, index) {
+            field: 'Amount', title: 'Amount', formatter: function (value, data, index) {
                 return numeral(value).format('0,000.00');
             },
         },
-        { field: 'BankCurrencyCode', title: 'Mata Uang' },
-        { field: 'suppliers', title: 'Supplier' },
-        { field: 'unitPaymentOrders', title: 'Nomor SPB' }
+        { field: 'paymentDueDates', title: 'Tanggal Jatuh Tempo'}
     ];
 
     constructor(router, service) {
@@ -48,31 +49,31 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-
-                // let distinctData =
+                console.log(result.data)
                 if (result.data && result.data.length > 0) {
                     result.data = result.data.map((datum) => {
-                        let listSupplier = [];
-                        let listUnitPaymentOrderNo = [];
+                        let listDispo = [];
+                        let listDueDate = [];
 
-                        for (let detail of datum.Details) {
-                            let existSupplier = listSupplier.find((supplier) => supplier == '- ' + detail.SupplierName);
-                            if (!existSupplier) {
-                                listSupplier.push('- ' + detail.SupplierName);
+                        for (let item of datum.Items) {
+                            let existDispo = listDispo.find((disposisi) => disposisi == '- ' + item.dispositionNo);
+                            if (!existDispo) {
+                                listDispo.push('- ' + item.dispositionNo);
                             }
 
-                            let existUnitPaymentOrderNo = listUnitPaymentOrderNo.find((unitPaymentOrderNo) => unitPaymentOrderNo == '- ' + detail.UnitPaymentOrderNo);
-                            if (!existUnitPaymentOrderNo) {
-                                listUnitPaymentOrderNo.push('- ' + detail.UnitPaymentOrderNo);
+                            let existDueDate = listDueDate.find((dueDate) => dueDate == '- ' + moment(item.paymentDueDate).format('DD MMM YYYY'));
+                            if (!existDueDate) {
+                                listDueDate.push('- ' + moment(item.paymentDueDate).format('DD MMM YYYY'));
                             }
                         }
 
-                        datum.suppliers = listSupplier.join('\n');
-                        datum.unitPaymentOrders = listUnitPaymentOrderNo.join('\n');
+                        datum.dispositions = listDispo.join('\n');
+                        datum.paymentDueDates = listDueDate.join('\n');
 
                         return datum;
                     })
                 }
+                
 
                 return {
                     total: result.total,

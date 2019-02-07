@@ -27,13 +27,17 @@ export class View {
         this.dialog = dialog;
 
         this.collection = {
-            columns: ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang', ''],
+            columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
         };
     }
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        for(var a of this.data.Items){
+            a.SupplierName=this.data.Supplier.Name;
+            a.Currency=this.data.AccountBank.Currency.Code;
+        }
     }
 
     cancelCallback(event) {
