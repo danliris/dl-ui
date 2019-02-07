@@ -5,8 +5,7 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable onCreated;
-  @bindable warpType;
-  @bindable weftType;
+  @bindable yarn;
   @bindable ItemsWarp;
   @bindable ItemsWeft;
   @bindable materialTypeDocument;
@@ -23,23 +22,7 @@ export class DataForm {
     this.service = service;
   }
 
-  bind(context) {
-    this.context = context;
-    this.data = this.context.data;
-    this.error = this.context.error;
-    console.log(this.data);
-    // if (this.data.ItemsWarp) {
-    //   this.ItemsWarp = this.data.ItemsWarp;
-    // }
-    // if (this.data.ItemsWeft) {
-    //   this.ItemsWeft = this.data.ItemsWeft;
-    // }
-    this.cancelCallback = this.context.cancelCallback;
-    this.deleteCallback = this.context.deleteCallback;
-    this.editCallback = this.context.editCallback;
-    this.saveCallback = this.context.saveCallback;
-  }
-
+  //Collections Columns
   warpColumns = [
     { value: "__check" },
     { header: "Kode Lusi", value: "warpType.code" },
@@ -55,42 +38,109 @@ export class DataForm {
     { header: "Keterangan", value: "weft.information" }
   ];
 
+  bind(context) {
+    this.context = context;
+    this.data = this.context.data;
+    this.error = this.context.error;
+
+    // console.log(this.data);
+    if (this.data.id) {
+      this.materialTypeDocument = this.data.materialTypeDocument;
+
+      this.ItemsWarp = this.data.itemsWarp;
+      this.ItemsWarpOptions = {};
+      this.ItemsWarpOptions.code = "";
+      this.ItemsWarpOptions.yarn = "";
+      this.ItemsWarpOptions.quantity = "";
+      this.ItemsWarpOptions.information = "";
+
+      this.ItemsWeft = this.data.itemsWeft;
+      this.ItemsWeftOptions = {};
+      this.ItemsWeftOptions.code = "";
+      this.ItemsWeftOptions.yarn = "";
+      this.ItemsWeftOptions.quantity = "";
+      this.ItemsWeftOptions.information = "";
+    }
+    if (this.readOnly) {
+      //Collections Columns on readOnly state
+      this.warpColumns = [
+        { header: "Kode Lusi", value: "warpType.code" },
+        { header: "Benang Lusi", value: "warpType" },
+        { header: "Qty(Gram/Meter)", value: "warp.quantity" },
+        { header: "Keterangan", value: "warp.information" }
+      ];
+
+      this.weftColumns = [
+        { header: "Kode Pakan", value: "weftType.code" },
+        { header: "Benang Pakan", value: "weftType" },
+        { header: "Qty(Gram/Meter)", value: "weft.quantity" },
+        { header: "Keterangan", value: "weft.information" }
+      ];
+    } else {
+      this.warpColumns = [
+        { value: "__check" },
+        { header: "Kode Lusi", value: "warpType.code" },
+        { header: "Benang Lusi", value: "warpType" },
+        { header: "Qty(Gram/Meter)", value: "warp.quantity" },
+        { header: "Keterangan", value: "warp.information" }
+      ];
+
+      this.weftColumns = [
+        { value: "__check" },
+        { header: "Kode Pakan", value: "weftType.code" },
+        { header: "Benang Pakan", value: "weftType" },
+        { header: "Qty(Gram/Meter)", value: "weft.quantity" },
+        { header: "Keterangan", value: "weft.information" }
+      ];
+    }
+
+    this.cancelCallback = this.context.cancelCallback;
+    this.deleteCallback = this.context.deleteCallback;
+    this.editCallback = this.context.editCallback;
+    this.saveCallback = this.context.saveCallback;
+  }
+
+  //Material Type Loader
   get materialTypeLoader() {
     return MaterialTypeLoader;
   }
 
+  //Triggered when  "+" on Warp Collections Clicked
   get addItemsWarp() {
     return event => {
       this.ItemsWarp.push({});
     };
   }
 
+  //Triggered when  "+" on Weft Collections Clicked
   get addItemsWeft() {
     return event => {
       this.ItemsWeft.push({});
     };
   }
 
+  // Triggered when "check" on Warp Collections checked
   onCheckWarp(event) {
     for (var item of this.ItemsWarp) {
       item.Select = event.detail.target.checked;
     }
   }
 
+  // Triggered when "check" on Weft Collections checked
   onCheckWeft(event) {
     for (var item of this.ItemsWeft) {
       item.Select = event.detail.target.checked;
     }
   }
 
-  //
+  //Concatenated some properties for create constructionNumber on Form
   get constructionNumber() {
     var result = "";
     if (this.materialTypeDocument) {
       //API Properties vs Form Properties
       this.data.materialTypeDocument = {};
       this.data.materialTypeDocument.id = this.materialTypeDocument.id;
-      this.data.materialTypeDocument.name = this.materialTypeId.name;
+      this.data.materialTypeDocument.code = this.materialTypeDocument.code;
       var code = this.materialTypeDocument.code
         ? this.materialTypeDocument.code
         : "";
@@ -122,17 +172,11 @@ export class DataForm {
     detail.quantity = data.quantity;
     detail.information = data.information;
 
-    if (data.warpType) {
-      yarn.id = data.warpType.id;
-      yarn.code = data.warpType.code;
-      yarn.name = data.warpType.name;
+    if (data.yarn) {
+      yarn.id = data.yarn.id;
+      yarn.code = data.yarn.code;
+      yarn.name = data.yarn.name;
     }
-    if (data.weftType) {
-      yarn.id = data.weftType.id;
-      yarn.code = data.weftType.code;
-      yarn.name = data.weftType.name;
-    }
-
     if (yarn.id) {
       detail.yarn = yarn;
       this.data.constructionNumber = this.constructionNumber;
@@ -140,6 +184,7 @@ export class DataForm {
     return detail;
   }
 
+  //Sumed Up Yarn Quantity
   get totalYarn() {
     let result = 0;
     if (this.ItemsWarp && this.ItemsWeft) {
@@ -169,6 +214,8 @@ export class DataForm {
     return result;
   }
 
+  //Capture "Jenis Lusi" on Data Form, and show it on "Jenis Lusi dan Pakan"
+  //The result used on constructionNumber as an element of ConstructionNumber
   get warpTypeForm() {
     let result = "";
     if (this.ItemsWarp) {
@@ -184,6 +231,8 @@ export class DataForm {
     return result;
   }
 
+  //Capture "Jenis Pakan" on Data Form, and show it on "Jenis Lusi dan Pakan"
+  //The result used on constructionNumber as an element of ConstructionNumber
   get weftTypeForm() {
     let result = "";
     if (this.ItemsWeft) {

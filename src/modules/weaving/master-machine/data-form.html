@@ -67,6 +67,16 @@
 
         <div class="row">
           <au-dropdown
+            label="Blok Kaizen"
+            value.bind="data.blockKaizen"
+            error.bind="error.blockKaizen"
+            read-only.bind="readOnly"
+            items.bind="block"
+          ></au-dropdown>
+        </div>
+
+        <div class="row">
+          <au-dropdown
             label="Maintenance"
             value.bind="data.maintenance"
             error.bind="error.maintenance"

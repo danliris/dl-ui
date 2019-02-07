@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>
+    <td show.bind="!readOnly">
       <au-checkbox value.bind="data.Select" read-only.bind="readOnly">
       </au-checkbox>
     </td>
@@ -26,7 +26,7 @@
     <td style="white-space: nowrap;">
       <au-numeric
         value.bind="data.quantity"
-        error.bind="error.amountOfWeft"
+        error.bind="error.weft.quantity"
         read-only.bind="readOnly"
       >
       </au-numeric>
