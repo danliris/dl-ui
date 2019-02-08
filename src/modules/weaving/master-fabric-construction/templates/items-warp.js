@@ -20,13 +20,14 @@ export class ItemsWarp {
     this.data = context.data;
     this.error = context.error;
 
+    // console.log(this.data);
     if (this.data.yarn) {
       var newValue = this.data.yarn;
       this.yarn = newValue;
       this.data.name = newValue.name;
       this.data.code = newValue.code;
-      // this.data.materialCode = newValue.materialTypeDocument.code;
-      // this.data.ringCode = newValue.ringDocument.code;
+      this.data.materialCode = newValue.materialCode;
+      this.data.ringCode = newValue.ringCode;
     }
 
     if (this.data.id) {
@@ -38,12 +39,19 @@ export class ItemsWarp {
 
   // Change on Kode Lusi, affected when Benang Lusi change
   yarnChanged(newValue) {
+    // this.data = {};
     if (newValue.name) {
-      this.data.yarn = newValue;
-      this.data.name = newValue.name;
-      this.data.code = newValue.code;
-      this.data.materialCode = newValue.materialTypeDocument.code;
-      this.data.ringCode = newValue.ringDocument.code;
+      this.data.yarn = newValue ? newValue : "";
+      this.data.name = newValue.name ? newValue.name : "";
+      this.data.code = newValue.code ? newValue.code : "";
+      this.data.materialCode = newValue.materialTypeDocument.code
+        ? newValue.materialTypeDocument.code
+        : "";
+      this.data.ringCode = newValue.ringDocument.code
+        ? newValue.ringDocument.code
+        : "";
+      this.data.quantity = "";
+      this.data.information = "";
     }
   }
 }
