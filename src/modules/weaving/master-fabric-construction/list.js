@@ -19,9 +19,9 @@ export class List {
     // { field: "qtyPakan", title: "Qty(Gr/Mtr)" },
     // { field: "totalBenang", title: "Total(Gr)" },
     // { field: "ketMKB", title: "Keterangan" }
-    { field: "date", title: "Date" },
-    { field: "konstruksi", title: "Konstruksi" },
-    { field: "totalGr", title: "Total Gr" }
+    { field: "date", title: "Tanggal Dibuat" },
+    { field: "constructionNumber", title: "Konstruksi" },
+    { field: "totalYarn", title: "Total(Gr)" }
   ];
 
   loader = info => {
@@ -29,7 +29,7 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
+      page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
       order: order

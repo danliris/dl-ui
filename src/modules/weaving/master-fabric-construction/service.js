@@ -4,6 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 
 
 const serviceUri = 'weaving/fabric-constructions';
+const serviceUriYarns = '/weaving/yarns';
 
 export class Service extends RestService {
 
@@ -21,18 +22,23 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getYarnById(id){
+        var endpoint = `${serviceUriYarns}/${id}`;
+        return super.get(endpoint);
+    }
+
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.id}`;
         return super.delete(endpoint, data);
     }
 

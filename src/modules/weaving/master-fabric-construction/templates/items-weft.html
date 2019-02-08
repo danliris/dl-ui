@@ -1,36 +1,42 @@
-<!-- <style>
-th,td {
-  border: 1px solid black;
-}
-</style> -->
 <template>
   <tr>
-    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
-    <td>
-      <au-textbox value.bind="data.weft.code" read-only.bind="true">
+    <td show.bind="!readOnly">
+      <au-checkbox value.bind="data.Select" read-only.bind="readOnly">
+      </au-checkbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.code"
+        error.bind="error.weftType.code"
+        read-only.bind="true"
+      >
       </au-textbox>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-autocomplete
-        value.bind="data.weftType"
+        value.bind="yarn"
         error.bind="error.weftType"
         read-only.bind="readOnly"
         placeholder="Benang Pakan"
-        loader.bind="yarns"
+        loader.bind="yarnsWeft"
+        text="name"
       >
       </au-autocomplete>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-numeric
-        value.bind="data.amountOfWeft"
-        error.bind="error.amountOfWeft"
+        value.bind="data.quantity"
+        error.bind="error.weft.quantity"
         read-only.bind="readOnly"
-        placeholder="Kuantitas Pakan"
       >
       </au-numeric>
     </td>
-    <td>
-      <au-textbox value.bind="data.weft.information" read-only.bind="readOnly" placeholder="Keterangan">
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.information"
+        read-only.bind="readOnly"
+        placeholder="Keterangan"
+      >
       </au-textbox>
     </td>
     <td class="col-sm-1" if.bind="!readOnly">

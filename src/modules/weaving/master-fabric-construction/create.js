@@ -4,11 +4,12 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  onCreated = false;
+  onViewEdit = false;
   constructor(router, service) {
     this.router = router;
     this.service = service;
     this.data = {};
+    // this.collection = {};
   }
 
   activate(params) {}
@@ -29,14 +30,15 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    this.service.create(this.data)
-        .then(result => {
-            this.list();
-        })
-        .catch(e => {
-            this.error = e;
-        })
-}
-
-  deleteCallback(event) {}
+    // console.log(this.data);
+    // debugger;
+    this.service
+      .create(this.data)
+      .then(result => {
+        this.list();
+      })
+      .catch(e => {
+        this.error = e;
+      });
+  }
 }
