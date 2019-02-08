@@ -6,7 +6,11 @@ export class Item {
     @bindable isWinding;
     @bindable isFlying;
     @bindable output;
+    @bindable data;
+    @bindable readOnly;
 
+    CountConfig = {};
+    MachineSpinnings = {};
     activate(context) {
         this.context = context;
         this.data = context.data;
@@ -14,6 +18,13 @@ export class Item {
         this.options = context.options;
         this.readOnly = context.options.readOnly;
         this.processType = context.context.options.ProcessType;
+        this.CountConfig = context.context.options.CountConfig;
+        this.MachineSpinnings = context.context.options.MachineSpinnings;
+
+
+        if (this.data.Output) {
+            this.output = this.data.Output;
+        }
 
         if (this.processType == "Blowing") {
             this.isBlowing = true;
@@ -38,10 +49,86 @@ export class Item {
     outputChanged(n, o) {
         if (this.output) {
             this.data.Output = this.output;
-            this.data.Bale = this.output;
-            this.data.Eff = this.output;
+            if (n != o) {
+                var MachineSpinning = this.MachineSpinnings.find(x => x.Id == this.data.MachineSpinning.Id);
+                if (this.processType == "Blowing") {
+                    this.blowingFormula(MachineSpinning);
+                } else if (this.processType == "Carding") {
+                    this.cardingFormula(MachineSpinning);
+                } else if (this.processType == "Flying") {
+                    this.flyingFormula(MachineSpinning);
+                } else if (this.processType == "Ring Spinning") {
+                    this.ringFormula(MachineSpinning);
+                } else if (this.processType == "Winding") {
+                    this.windingFormula(MachineSpinning);
+                } else if (this.processType == "Pre-Drawing" || "Finish Drawing") {
+                    this.drawingFormula(MachineSpinning);
+                }
+            }
         }
     }
+
+    blowingFormula(MachineSpinning) {
+        this.data.Bale = this.data.Output;
+        this.data.Eff = 100;
+    }
+
+    cardingFormula(MachineSpinning) {
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
+            this.data.Bale = this.data.Output / 181.44;
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
+            this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
+
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "MTR") {
+            this.data.Bale = this.CountConfig.Constant * (this.data.Output / 0.914 * this.CountConfig.Grain);
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 24 * MachineSpinning.Delivery) / 181.44) / 3);
+    }
+
+    drawingFormula(MachineSpinning) {
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
+            this.data.Bale = this.data.Output / 181.44;
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+
+        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 768 * 400)) / 3);
+    }
+
+    ringFormula(MachineSpinning) {
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
+            this.data.Bale = this.data.Output * MachineSpinning.Delivery / ((this.CountConfig.Ne * 1000) / 400);
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 36 * 840 * 400 * this.CountConfig.TPI)) / 3);
+
+    }
+
+    windingFormula(MachineSpinning) {
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "CONE") {
+            this.data.Bale = this.data.Output / (181.44 / this.CountConfig.ConeWeight);
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * this.data.DrumTotal) / (this.CountConfig.Ne * 768 * 400)) / 3)
+        
+    }
+
+    flyingFormula(MachineSpinning) {
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
+            this.data.Bale = this.data.Output / 181.44;
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
+            this.data.Bale = 28.5 * 3.14 * this.CountConfig.TotalDraft * (this.data.DeliveryTotal - this.data.Spindle) / 1000 * 768 * this.CountConfig.Ne * 400;
+
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * (this.data.DeliveryTotal - this.data.Spindle)) / (this.CountConfig.Ne * 36 * 840 * 400 * this.CountConfig.TPI)) / 3)
+    }
+
     controlOptions = {
         control: {
             length: 12

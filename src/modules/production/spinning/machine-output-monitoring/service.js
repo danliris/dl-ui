@@ -5,6 +5,7 @@ var moment = require('moment');
 
 const serviceUri = "machine-outputs";
 const machineServiceUri = "machine-spinnings";
+const countUri = "count-configurations"
 
 export class Service extends RestService {
 
@@ -45,6 +46,11 @@ export class Service extends RestService {
     getByHeader(date, processType, yarnMaterialId, lotId, shift, group, unitId) {
         var newDate = moment(date).format("DD MMM YYYY")
         var endpoint = `${serviceUri}/by-header?date=${newDate}&processType=${processType}&yarnMaterialTypeId=${yarnMaterialId}&lotId=${lotId}&shift=${shift}&group=${group}&unitDepartmentId=${unitId}`;
+        return super.get(endpoint);
+    }
+
+    getCountByProcessAndYarn(processType, yarnId){
+        var endpoint = `${countUri}/by-process-yarn?processType=${processType}&yarnId=${yarnId}`;
         return super.get(endpoint);
     }
 }

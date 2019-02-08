@@ -94,10 +94,10 @@ export class DataForm {
         }
 
         if (this.data.MaterialType && this.data.MaterialType.Id) {
-            this.yarn = {};
-            this.yarn.id = this.data.MaterialType.Id;
-            this.yarn.name = this.data.MaterialType.Name;
-            this.yarn.code = this.data.MaterialType.Code;
+            this.materialType = {};
+            this.materialType.id = this.data.MaterialType.Id;
+            this.materialType.name = this.data.MaterialType.Name;
+            this.materialType.code = this.data.MaterialType.Code;
         }
 
         if (this.data.Date) {
@@ -148,11 +148,11 @@ export class DataForm {
             this.filter.Type = this.data.ProcessType;
             this.filter.UnitId = this.data.UnitDepartmentId.toString();
             this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-
             this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
                 .then(async results => {
                     let existedItem = {};
-
+                    this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
+                    this.detailOptions.MachineSpinnings = results.data;
                     if (this.data.Id) {
                         existedItem = this.data;
                     } else {
@@ -161,7 +161,7 @@ export class DataForm {
                             alert("Data already exist with this configuration");
                             this.inputDate = undefined;
                             this.processType = this.typeOptions[0];
-                            this.yarn = undefined;
+                            this.materialType = undefined;
                             this.lot = undefined;
                             this.shift = this.shiftOptions[0];
                             this.group = undefined;
@@ -177,12 +177,19 @@ export class DataForm {
 
                         var newData = {};
                         newData.MachineSpinning = {};
-                        newData.Input = dbItem ? dbItem.Input : 0;
+                        newData.Output = dbItem ? dbItem.Output : 0;
                         newData.MachineSpinning.No = item.No;
                         newData.MachineSpinning.Name = item.Name;
                         newData.MachineSpinning.UomUnit = item.UomUnit;
                         newData.MachineSpinning.Id = item.Id;
                         newData.MachineSpinningIdentity = item.Id;
+                        newData.Bale = dbItem ? dbItem.Bale : 0;
+                        newData.Eff = dbItem ? dbItem.Eff : 0;
+                        newData.BadOutput = dbItem ? dbItem.BadOutput : 0;
+                        newData.DeliveryTotal = dbItem ? dbItem.DeliveryTotal : 0;
+                        newData.Spindle = dbItem ? dbItem.Spindle : 0;
+                        newData.Waste = dbItem ? dbItem.Waste : 0;
+                        newData.DrumTotal = dbItem ? dbItem.DrumTotal : 0;
                         newItems.push(newData);
                     }
                     return newItems;
@@ -330,7 +337,7 @@ export class DataForm {
         let result = 0;
         if (this.data.Items && this.data.Items.length > 0) {
             for (let item of this.data.Items) {
-                if (item.Ball)
+                if (item.Bale)
                     result += item.Ball;
             }
         }
