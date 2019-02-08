@@ -1,4 +1,6 @@
 import { inject, BindingEngine, bindable } from 'aurelia-framework';
+import { isNullOrUndefined } from 'util';
+
 
 @inject(BindingEngine)
 export class Item {
@@ -8,6 +10,11 @@ export class Item {
     @bindable output;
     @bindable data;
     @bindable readOnly;
+    @bindable badOutput;
+    @bindable deliveryTotal;
+    @bindable spindle;
+    @bindable waste;
+    @bindable drumTotal;
 
     CountConfig = {};
     MachineSpinnings = {};
@@ -47,24 +54,73 @@ export class Item {
     }
 
     outputChanged(n, o) {
-        if (this.output) {
+        if (!isNullOrUndefined(this.output)) {
             this.data.Output = this.output;
             if (n != o) {
-                var MachineSpinning = this.MachineSpinnings.find(x => x.Id == this.data.MachineSpinning.Id);
-                if (this.processType == "Blowing") {
-                    this.blowingFormula(MachineSpinning);
-                } else if (this.processType == "Carding") {
-                    this.cardingFormula(MachineSpinning);
-                } else if (this.processType == "Flying") {
-                    this.flyingFormula(MachineSpinning);
-                } else if (this.processType == "Ring Spinning") {
-                    this.ringFormula(MachineSpinning);
-                } else if (this.processType == "Winding") {
-                    this.windingFormula(MachineSpinning);
-                } else if (this.processType == "Pre-Drawing" || "Finish Drawing") {
-                    this.drawingFormula(MachineSpinning);
-                }
+                this.baseMathFormula();
             }
+        }
+    }
+
+    badOutputChanged(n, o) {
+        if (!isNullOrUndefined(this.badOutput)) {
+            this.data.BadOutput = this.badOutput;
+            if (n != o) {
+                this.baseMathFormula();
+            }
+        }
+    }
+
+    deliveryTotalChanged(n, o) {
+        if (!isNullOrUndefined(this.deliveryTotal)) {
+            this.data.DeliveryTotal = this.deliveryTotal;
+            if (n != o) {
+                this.baseMathFormula();
+            }
+        }
+    }
+
+    spindleChanged(n, o) {
+        if (!isNullOrUndefined(this.spindle)) {
+            this.data.Spindle = this.spindle;
+            if (n != o) {
+                this.baseMathFormula();
+            }
+        }
+    }
+
+    wasteChanged(n, o) {
+        if (!isNullOrUndefined(this.waste)) {
+            this.data.Waste = this.waste;
+            if (n != o) {
+                this.baseMathFormula();
+            }
+        }
+    }
+
+    drumTotalChanged(n, o) {
+        if (!isNullOrUndefined(this.drumTotal)) {
+            this.data.DrumTotal = this.drumTotal;
+            if (n != o) {
+                this.baseMathFormula();
+            }
+        }
+    }
+
+    baseMathFormula() {
+        var MachineSpinning = this.MachineSpinnings.find(x => x.Id == this.data.MachineSpinning.Id);
+        if (this.processType == "Blowing") {
+            this.blowingFormula(MachineSpinning);
+        } else if (this.processType == "Carding") {
+            this.cardingFormula(MachineSpinning);
+        } else if (this.processType == "Flying") {
+            this.flyingFormula(MachineSpinning);
+        } else if (this.processType == "Ring Spinning") {
+            this.ringFormula(MachineSpinning);
+        } else if (this.processType == "Winding") {
+            this.windingFormula(MachineSpinning);
+        } else if (this.processType == "Pre-Drawing" || "Finish Drawing") {
+            this.drawingFormula(MachineSpinning);
         }
     }
 
@@ -114,7 +170,7 @@ export class Item {
             this.data.Bale = this.data.Output;
         }
         this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * this.data.DrumTotal) / (this.CountConfig.Ne * 768 * 400)) / 3)
-        
+
     }
 
     flyingFormula(MachineSpinning) {

@@ -338,7 +338,7 @@ export class DataForm {
         if (this.data.Items && this.data.Items.length > 0) {
             for (let item of this.data.Items) {
                 if (item.Bale)
-                    result += item.Ball;
+                    result += item.Bale;
             }
         }
         return result;
