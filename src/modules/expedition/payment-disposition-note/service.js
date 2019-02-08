@@ -5,6 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
 const serviceUri = 'payment-disposition-note';
+const ExpeditionServiceUri = 'purchasing-disposition-expeditions';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -41,24 +42,24 @@ class Service extends RestService {
         return super.put(endpoint, data);
     }
 
-    searchAllByPosition(info) {
-        let endpoint = `${serviceUri}/no-select/by-position`;
+    searchDispoEx(info) {
+        let endpoint = `${ExpeditionServiceUri}`;
         return super.list(endpoint, info);
     }
 
-    createCreditorAccount(creditorAccounts) {
-        var config = Container.instance.get(Config);
-        var endpoint = config.getEndpoint("finance");
-        const resource = "creditor-account/bank-expenditure-note/list"
-        return endpoint.post(resource, creditorAccounts);
-    }
+    // createCreditorAccount(creditorAccounts) {
+    //     var config = Container.instance.get(Config);
+    //     var endpoint = config.getEndpoint("finance");
+    //     const resource = "creditor-account/bank-expenditure-note/list"
+    //     return endpoint.post(resource, creditorAccounts);
+    // }
 
-    updateCreditorAccount(creditorAccounts) {
-        var config = Container.instance.get(Config);
-        var endpoint = config.getEndpoint("finance");
-        const resource = "creditor-account/bank-expenditure-note/list"
-        return endpoint.update(resource, null, creditorAccounts);
-    }
+    // updateCreditorAccount(creditorAccounts) {
+    //     var config = Container.instance.get(Config);
+    //     var endpoint = config.getEndpoint("finance");
+    //     const resource = "creditor-account/bank-expenditure-note/list"
+    //     return endpoint.update(resource, null, creditorAccounts);
+    // }
 }
 
 export default Service;

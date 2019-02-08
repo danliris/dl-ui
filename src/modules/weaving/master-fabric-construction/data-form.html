@@ -18,10 +18,10 @@
             read-only.bind="readOnlyAll"
           ></textbox>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-10">
           <au-textbox
             placeholder="No. Konstruksi"
-            value.bind="data.constructionNumber"
+            value.bind="constructionNumber"
             error.bind="error.constructionNumber"
             read-only.bind="readOnlyAll"
           >
@@ -36,11 +36,12 @@
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
             <au-autocomplete
-            placeholder='Jenis Material'
-              value.bind="data.materialType"
-              error.bind="error.materialType"
+              placeholder="Jenis Material"
+              value.bind="materialTypeDocument"
+              error.bind="error.materialTypeDocument"
               read-only.bind="readOnly"
-              items.bind="constructions"
+              loader.one-time="materialTypeLoader"
+              text="code"
             >
             </au-autocomplete>
           </div>
@@ -86,16 +87,16 @@
         <div class="col-md-2" style="padding-right: 4px;">
           <au-textbox
             placeholder="Jenis Lusi"
-            value.bind="data.warpType"
-            error.bind="error.warpType"
+            value.bind="warpTypeForm"
+            error.bind="error.warpTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
         </div>
         <div class="col-md-2" style="padding-left: 0px;">
           <au-textbox
             placeholder="Jenis Pakan"
-            value.bind="data.weftType"
-            error.bind="error.weftType"
+            value.bind="weftTypeForm"
+            error.bind="error.weftTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
         </div>
@@ -108,7 +109,7 @@
         <div class="col-md-2">
           <au-textbox
             placeholder="Total Benang"
-            value.bind="data.totalYarn"
+            value.bind="totalYarn"
             error.bind="error.totalYarn"
             read-only.bind="readOnlyAll"
           ></au-textbox>
@@ -119,11 +120,13 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <au-collection
-              items.bind="data.ItemsWarp"
+              items.bind="ItemsWarp"
               errors.bind="error.ItemsWarp"
               columns.bind="warpColumns"
               add.bind="addItemsWarp"
+              options.bind="ItemsWarpOptions"
               remove.bind="onremove"
+              checkall.delegate="onCheckWarp($event)"
               read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-warp"
             >
@@ -131,11 +134,13 @@
           </div>
           <div class="col-md-6">
             <au-collection
-              items.bind="data.ItemsWeft"
+              items.bind="ItemsWeft"
               errors.bind="error.ItemsWeft"
               columns.bind="weftColumns"
               add.bind="addItemsWeft"
+              options.bind="ItemsWeftOptions"
               remove.bind="onremove"
+              checkall.delegate="onCheckWeft($event)"
               read-only.bind="readOnly"
               item-template="modules/weaving/master-fabric-construction/templates/items-weft"
             >
