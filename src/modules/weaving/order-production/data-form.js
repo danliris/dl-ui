@@ -8,6 +8,7 @@ var moment = require("moment");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable constructionNumber;
 
   yearFormat = "YYYY";
   years = [];
@@ -77,6 +78,14 @@ export class DataForm {
 
   get units() {
     return UnitLoader;
+  }
+
+  constructionNumberChanged(newValue){
+    console.log(newValue);
+    this.constructionNumber = newValue;
+    this.data.fabricConstructionDocument = {};
+    this.data.fabricConstructionDocument.id = newValue.id;
+    this.data.fabricConstructionDocument.constuctionNumber = newValue.constructionNumber;
   }
 
   getYears() {
