@@ -36,7 +36,18 @@
                     loader.one-time="dispositionLoader"
                     query.bind="filterQuery"
                     text.bind="dispositionView"
-                    select.bind="selectDisposition">
+                    select.bind="selectDisposition"
+                    if.bind="activeRole.position == 3">
+                </au-autocomplete>
+
+                <au-autocomplete
+                    label="No Disposisi"
+                    value.bind="disposition"
+                    loader.one-time="dispositionLoader"
+                    query.bind="filterQueryVerified"
+                    text.bind="dispositionView"
+                    select.bind="selectDisposition"
+                    if.bind="activeRole.position != 3">
                 </au-autocomplete>
             </div>
 
