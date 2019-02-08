@@ -77,7 +77,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Position: this.activeRole.position }), // VERIFICATION_DIVISION
+            filter: JSON.stringify({ Position: this.activeRole.position, IsPaid:false }), // VERIFICATION_DIVISION
         };
 
         if (this.activeRole.key === 'CASHIER') {
@@ -117,6 +117,6 @@ export class List {
     }
 
     create() {
-        this.router.navigateToRoute('create');
+        this.router.navigateToRoute('create',{role:this.activeRole});
     }
 }
