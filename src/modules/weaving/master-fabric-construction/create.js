@@ -30,58 +30,56 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    // console.log(this.data);
-    // debugger;
-    // var isEmpty;
-    // var emptyFieldName = "Terdapat Field yang Belum Diisi";
-    // if (
-    //   this.data.materialTypeDocument == null ||
-    //   this.data.materialTypeDocument == null
-    // ) {
-    //   this.isEmpty = true;
-    // } else {
-    //   this.isEmpty = false;
-    // }
-
-    // if (this.data.wovenType == null || this.data.wovenType == null) {
-    //   this.isEmpty = true;
-    // } else {
-    //   this.isEmpty = false;
-    // }
-
-    // if (this.data.amountOfWarp == null || this.data.amountOfWarp == null) {
-    //   this.isEmpty = true;
-    // } else {
-    //   this.isEmpty = false;
-    // }
-
-    // if (this.data.amountOfWeft == null || this.data.amountOfWeft == null) {
-    //   this.isEmpty = true;
-    // } else {
-    //   this.isEmpty = false;
-    // }
-
-    // if (this.data.width == null || this.data.width == null) {
-    //   this.isEmpty = true;
-    // } else {
-    //   this.isEmpty = false;
-    // }
-
-    // if (this.data.warpTypeForm == null || this.data.warpTypeForm == null) {
-    //   this.isEmpty = true;
-    // } else {
-    //   this.isEmpty = false;
-    // }
-
-    // if (this.data.weftTypeForm == null || this.data.weftTypeForm == null) {
-    //   this.isEmpty = true;
-    // } else {
-    //   this.isEmpty = false;
-    // }
-
-    // if ((this.isEmpty = true)) {
-    //   window.alert(emptyFieldName);
-    // } else {
+    var isEmpty;
+    var emptyFieldName = "Terdapat Field yang Belum Diisi\nPilih Minimal Satu Lusi\nPilih Minimal Satu Pakan";
+    if (
+      this.data.materialTypeDocument == null ||
+      this.data.materialTypeDocument == undefined
+    ) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.wovenType == null || this.data.wovenType == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.amountOfWarp == null || this.data.amountOfWarp == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.amountOfWeft == null || this.data.amountOfWeft == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.width == null || this.data.width == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.warpTypeForm == null || this.warpTypeForm == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.weftTypeForm == null || this.weftTypeForm == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.isEmpty == true) {
+      window.alert(emptyFieldName);
+    } else {
       this.service
         .create(this.data)
         .then(result => {
@@ -90,6 +88,6 @@ export class Create {
         .catch(e => {
           this.error = e;
         });
-    // }
+    }
   }
 }
