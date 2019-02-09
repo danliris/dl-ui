@@ -52,9 +52,11 @@ export class List {
             var deliveryDates = new Date(Date.parse(data.DeliveryDate));
             if(data.ConfirmedQuantity < data.OrderQuantity && deliveryDates > today){
                 return "On Proses";
-            } else if (data.ConfirmedQuantity >= data.OrderQuantity){
+            } 
+            else if (data.ConfirmedQuantity >= data.OrderQuantity){
                 return "-";
-            } else if(data.ConfirmedQuantity < data.OrderQuantity && deliveryDates <= today){
+            } 
+            else if(data.ConfirmedQuantity < data.OrderQuantity && deliveryDates <= today){
                 return "Expired";
             }
         } }

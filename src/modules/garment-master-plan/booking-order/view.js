@@ -35,6 +35,11 @@ export class View {
         this.hasEdit = true;
         this.hasDelete = true;
       }
+      else if(this.data.HadConfirmed === true && this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates > today){
+        this.hasEdit = false;
+        this.hasDelete = true;
+        this.hascancelConfirm = true;
+      }
       if(deliveryDates > today){
         this.hasConfirm = true;
       }
@@ -43,17 +48,27 @@ export class View {
         this.hasEdit = false;
         this.hasDelete = false;
         this.expireBooking = false;
+        this.hasConfirm = false;
       }
       if(this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates <= today){
         this.expireBooking = true;
         this.hasEdit = false;
         this.hasDelete = false; 
+        if(this.data.IsBlockingPlan === true){
+          this.hasMasterPlan = true;
+        }
       }
-      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity){
+      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === true){
         this.hasEdit = false;
         this.hasDelete = false;
         this.hasConfirm = false;
         this.hasMasterPlan = true;
+      }
+      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === false){
+        this.hasCancel = true;
+        this.hasDelete = false;
+        this.hasEdit = false;
+        this.hasConfirm = false;
       }
   }
 

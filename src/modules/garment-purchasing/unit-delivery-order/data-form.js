@@ -127,16 +127,13 @@ export class DataForm {
             this.unitSender = null;
             this.storage = null;
             this.storageRequest = null;
-            //this.data.Items = null;
             this.RONo = null;
             this.RONoHeader = null;
-            // this.data.Items = [];
             this.data.Article = null;
 
             this.context.error.Items = [];
             this.context.error = [];
         }
-        this.data.Items = [];
     }
 
     get storageLoader() {
