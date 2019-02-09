@@ -31,7 +31,7 @@ export class Create {
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
     var isEmpty;
-    var emptyFieldName = "Terdapat Field yang Belum Diisi\nPilih Minimal Satu Lusi\nPilih Minimal Satu Pakan";
+    var emptyFieldName = "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
     if (
       this.data.materialTypeDocument == null ||
       this.data.materialTypeDocument == undefined

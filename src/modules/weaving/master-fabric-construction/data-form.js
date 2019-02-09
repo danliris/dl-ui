@@ -43,7 +43,6 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    // console.log(this.data);
     if (this.data.id) {
       this.materialTypeDocument = this.data.materialTypeDocument;
 

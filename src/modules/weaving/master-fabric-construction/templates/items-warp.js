@@ -39,7 +39,6 @@ export class ItemsWarp {
 
   // Change on Kode Lusi, affected when Benang Lusi change
   yarnChanged(newValue) {
-    // this.data = {};
     if (newValue.name) {
       this.data.yarn = newValue ? newValue : "";
       this.data.name = newValue.name ? newValue.name : "";

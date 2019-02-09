@@ -15,11 +15,6 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    // this.constructionNumber = this.data.constructionNumber;
-    // this.warpTypeForm = this.data.warpTypeForm;
-    // this.weftTypeForm = this.data.weftTypeForm;
-    // this.totalYarn = this.data.totalYarn;
-    // console.log(this.data);
   }
 
   cancelCallback(event) {
@@ -29,7 +24,7 @@ export class Edit {
   saveCallback(event) {
     var isEmpty;
     var emptyFieldName =
-      "Terdapat Field yang Belum Diisi\nPilih Minimal Satu Lusi\nPilih Minimal Satu Pakan";
+      "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
     if (
       this.data.materialTypeDocument == null ||
       this.data.materialTypeDocument == undefined
