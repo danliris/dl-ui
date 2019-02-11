@@ -14,8 +14,8 @@ export class List {
             },
         },
         { field: "ProcessType", title: "Jenis Proses" },
-        { field: "CountConfigId", title: "Count" },
-        { field: "LotId", title: "Lot" },
+        { field: "MaterialType.Code", title: "Jenis Material" },
+        { field: "Lot.LotNo", title: "Lot" },
         { field: "Shift", title: "Shift"},
         { field: "Group", title: "Group"},
     ];
