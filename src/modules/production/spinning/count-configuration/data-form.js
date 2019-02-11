@@ -176,7 +176,7 @@ export class DataForm {
                 }
 
             } else {
-                if(this.data.ProcessType == 'Winding')
+                if(this.data.ProcessType == 'Winder')
                     this.data.Cone = 1.89;
 
                 this.showItemRegular = true;

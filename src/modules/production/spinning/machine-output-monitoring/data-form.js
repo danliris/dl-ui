@@ -35,7 +35,7 @@ export class DataForm {
         "Finish Drawing",
         "Flyer",
         "Ring Spinning",
-        "Winding"
+        "Winder"
     ];
 
     shiftList = [
@@ -213,7 +213,7 @@ export class DataForm {
                     "Eff%"
                 ];
 
-            } else if (this.processType == "Flying") {
+            } else if (this.processType == "Flyer") {
                 this.itemsColumnsHeader = [
                     "Nomor Mesin",
                     "Merk Mesin",
@@ -224,7 +224,7 @@ export class DataForm {
                     "Spindle Kosong",
                     "Eff%"
                 ];
-            } else if (this.processType == "Winding") {
+            } else if (this.processType == "Winder") {
                 this.itemsColumnsHeader = [
                     "Nomor Mesin",
                     "Merk Mesin",

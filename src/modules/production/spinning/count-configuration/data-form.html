@@ -43,7 +43,7 @@
                 <au-numeric label="Eff" value.bind="data.EffSpin" read-only.bind="readOnly" error.bind="error.effSpin"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-            <div class="col-lg-2" show.bind="processType && data.ProcessType=='Flying'">
+            <div class="col-lg-2" show.bind="processType && data.ProcessType=='Flyer'">
                 <au-numeric label="Total Draft" value.bind="data.Draft" read-only.bind="readOnly" error.bind="error.Draft"
                     options.bind="controlOptions2"></au-numeric>
             </div>
@@ -61,16 +61,16 @@
                 <au-numeric label="Konstan" value.bind="data.Constant" read-only.bind="readOnly" error.bind="error.constant"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-            <div show.bind="processType && data.ProcessType=='Winding'" class="col-lg-2">
+            <div show.bind="processType && data.ProcessType=='Winder'" class="col-lg-2">
                 <au-numeric label="Berat Cone" value.bind="data.Cone" read-only.bind="readOnly" error.bind="error.cone"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-            <div show.bind="processType && (data.ProcessType=='Flying' || data.ProcessType=='Ring Spinning')" class="col-lg-2">
+            <div show.bind="processType && (data.ProcessType=='Flyer' || data.ProcessType=='Ring Spinning')" class="col-lg-2">
                 <au-numeric label="TPI" value.bind="data.Tpi" read-only.bind="readOnly" error.bind="error.tpi"
                     options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
-        <!-- <div show.bind="processType && data.ProcessType=='Flying'" class="col-lg-12">
+        <!-- <div show.bind="processType && data.ProcessType=='Flyer'" class="col-lg-12">
             <div class="col-lg-2" style="margin-left:27px"></div>
             <div class="col-lg-2">
                 <au-numeric label="Total Draft" value.bind="data.Draft" read-only.bind="readOnly" error.bind="error.draft"
