@@ -43,7 +43,6 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    // console.log(this.data);
     if (this.data.id) {
       this.materialTypeDocument = this.data.materialTypeDocument;
 
@@ -195,6 +194,9 @@ export class DataForm {
           if (detail.Select) {
             this.data.ItemsWarp.push(this.constructionDetail(detail));
             result += detail.quantity;
+          } else {
+            var itemWarpsIndex = this.data.ItemsWarp.indexOf(detail);
+            this.data.ItemsWarp.splice(itemWarpsIndex, 1);
           }
         }
       }
@@ -205,6 +207,9 @@ export class DataForm {
           if (detail.Select) {
             this.data.ItemsWeft.push(this.constructionDetail(detail));
             result += detail.quantity;
+          } else {
+            var itemWeftsIndex = this.data.ItemsWeft.indexOf(detail);
+            this.data.ItemsWeft.splice(itemWeftsIndex, 1);
           }
         }
       }

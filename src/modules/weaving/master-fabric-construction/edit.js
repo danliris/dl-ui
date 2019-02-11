@@ -15,11 +15,6 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.constructionNumber = this.data.constructionNumber;
-    this.warpTypeForm = this.data.warpTypeForm;
-    this.weftTypeForm = this.data.weftTypeForm;
-    this.totalYarn = this.data.totalYarn;
-    // console.log(this.data);
   }
 
   cancelCallback(event) {
@@ -27,26 +22,65 @@ export class Edit {
   }
 
   saveCallback(event) {
-    // debugger;
-    // var notChecked = 0;
-    // this.data.itemsWarp.forEach(warp => {
-    //   console.log(warp);
-    //   if (warp.Select == false) {
-    //     notChecked++;
-    //   }
-    // });
-    // if(notChecked == 0){
-      // debugger;
+    var isEmpty;
+    var emptyFieldName =
+      "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
+    if (
+      this.data.materialTypeDocument == null ||
+      this.data.materialTypeDocument == undefined
+    ) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
+    if (this.data.wovenType == null || this.data.wovenType == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
+    if (this.data.amountOfWarp == null || this.data.amountOfWarp == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
+    if (this.data.amountOfWeft == null || this.data.amountOfWeft == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
+    if (this.data.width == null || this.data.width == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
+    if (this.warpTypeForm == null || this.warpTypeForm == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
+    if (this.weftTypeForm == null || this.weftTypeForm == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
+    if (this.isEmpty == true) {
+      window.alert(emptyFieldName);
+    } else {
       this.service
-      .update(this.data)
-      .then(result => {
-        this.router.navigateToRoute("view", { id: this.data.id });
-      })
-      .catch(e => {
-        this.error = e;
-      });
-    // } else {
-    //   this.error.ItemsWarp = "Ada Benang yang Belum Dipilih";
-    // }
+        .update(this.data)
+        .then(result => {
+          this.router.navigateToRoute("view", { id: this.data.id });
+        })
+        .catch(e => {
+          this.error = e;
+        });
+    }
   }
 }

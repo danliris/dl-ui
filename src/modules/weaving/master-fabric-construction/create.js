@@ -30,15 +30,64 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    // console.log(this.data);
-    // debugger;
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-      });
+    var isEmpty;
+    var emptyFieldName = "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
+    if (
+      this.data.materialTypeDocument == null ||
+      this.data.materialTypeDocument == undefined
+    ) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.wovenType == null || this.data.wovenType == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.amountOfWarp == null || this.data.amountOfWarp == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.amountOfWeft == null || this.data.amountOfWeft == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.data.width == null || this.data.width == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.warpTypeForm == null || this.warpTypeForm == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.weftTypeForm == null || this.weftTypeForm == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+    
+    if (this.isEmpty == true) {
+      window.alert(emptyFieldName);
+    } else {
+      this.service
+        .create(this.data)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+    }
   }
 }

@@ -68,11 +68,12 @@
             <div class="col-md-6">
               <au-autocomplete
                 placeholder="Konstruksi"
-                value.bind="data.fabricConstructionDocument.constructionNumber"
+                value.bind="constructionNumber"
                 error.bind="error.fabricConstructionDocument.constructionNumber"
                 options.bind="customLeftOptions"
                 read-only.bind="readOnly"
-                loader.bind="constructions"
+                loader.one-time="constructions"
+                text="constructionNumber"
               >
               </au-autocomplete>
             </div>
@@ -151,6 +152,7 @@
                 read-only.bind="readOnly"
                 options.bind="customOptions"
                 loader.bind="yarns"
+                text="name"
               ></au-autocomplete>
             </div>
           </div>
