@@ -69,10 +69,11 @@
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
+              placeholder="Nama Benang"
               label="Nama Benang"
               value.bind="data.name"
               error.bind="error.name"
-              read-only.bind="readOnlyViewEdit"
+              read-only.bind="readOnly"
             ></au-textbox>
           </div>
         </div>
