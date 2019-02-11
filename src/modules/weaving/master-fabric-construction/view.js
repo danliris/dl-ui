@@ -14,7 +14,6 @@ export class Create {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    // console.log(this.data);
     this.constructionNumber = this.data.constructionNumber;
     this.warpTypeForm = this.data.warpTypeForm;
     this.weftTypeForm = this.data.weftTypeForm;

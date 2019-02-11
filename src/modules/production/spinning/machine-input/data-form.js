@@ -72,11 +72,13 @@ export class DataForm {
             .then(result => {
                 if(this.data.ProcessType){
                     this.typeOptions=result;
+
                 } else {
                     this.typeOptions.push("");
-                    for(var list of result){    
+                    for (var list of result) {
                         this.typeOptions.push(list);
-                }}
+                    }
+                }
             });
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
@@ -227,9 +229,9 @@ export class DataForm {
                 .then(async results => {
                     let existedItem = {};
 
-                    if(this.data.Id){
+                    if (this.data.Id) {
                         existedItem = this.data;
-                    }else{
+                    } else {
                         existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.yarn.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
                         if (existedItem.Items && existedItem.Items.length > 0) {
                             alert("Data already exist with this configuration");
@@ -244,7 +246,7 @@ export class DataForm {
                         }
                     }
                     // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
-                    
+
                     var newItems = [];
                     for (var item of results.data) {
                         var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);

@@ -19,14 +19,15 @@ export class ItemsWeft {
   activate(context) {
     this.data = context.data;
     this.error = context.error;
-    
+
     if (this.data.yarn) {
+      console.log(this.data.yarn);
       var newValue = this.data.yarn;
       this.yarn = newValue;
       this.data.name = newValue.name;
       this.data.code = newValue.code;
-      // this.data.materialCode = newValue.materialTypeDocument.code;
-      // this.data.ringCode = newValue.ringDocument.code;
+      this.data.materialCode = newValue.materialCode;
+      this.data.ringCode = newValue.ringCode;
     }
 
     if (this.data.id) {
@@ -39,11 +40,17 @@ export class ItemsWeft {
   // Change on Kode Pakan, affected when Benang Pakan change
   yarnChanged(newValue) {
     if (newValue.name) {
-      this.data.yarn = newValue;
-      this.data.name = newValue.name;
-      this.data.code = newValue.code;
-      this.data.materialCode = newValue.materialTypeDocument.code;
-      this.data.ringCode = newValue.ringDocument.code;
+      this.data.yarn = newValue ? newValue : "";
+      this.data.name = newValue.name ? newValue.name : "";
+      this.data.code = newValue.code ? newValue.code : "";
+      this.data.materialCode = newValue.materialTypeDocument.code
+        ? newValue.materialTypeDocument.code
+        : "";
+      this.data.ringCode = newValue.ringDocument.code
+        ? newValue.ringDocument.code
+        : "";
+      this.data.quantity = "";
+      this.data.information = "";
     }
   }
 }
