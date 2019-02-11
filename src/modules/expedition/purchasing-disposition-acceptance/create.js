@@ -51,6 +51,11 @@ export class Create {
         "Position":"2"
     }
 
+    filterQueryVerified={
+        "Position":"4"
+    }
+
+
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -67,6 +72,13 @@ export class Create {
 
     @bindable disposition;
     @bindable supplier;
+
+    async activate(params) {
+        params.role.position=parseInt(params.role.position);
+        params.role.hasPermission=true;
+        params.role.positionAutocomplete=parseInt(params.role.positionAutocomplete);
+        this.activeRole = params.role;
+    }
 
     constructor(router, service, purchasingDispositionExpeditionService, permissionHelper) {
         this.router = router;
@@ -194,7 +206,7 @@ export class Create {
                 PurchasingDocumentExpedition: [],
             };
         */
-
+        
         let data = {
             Role: this.activeRole.key,
             PurchasingDispositionExpedition: [],
@@ -210,7 +222,7 @@ export class Create {
         this.service.create(data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {role:this.activeRole}, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;

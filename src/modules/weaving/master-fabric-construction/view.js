@@ -1,10 +1,10 @@
-import { inject, Lazy } from "aurelia-framework";
+import { inject, Lazy, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  onCreated = true;
+  onViewEdit = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -14,6 +14,11 @@ export class Create {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    // console.log(this.data);
+    this.constructionNumber = this.data.constructionNumber;
+    this.warpTypeForm = this.data.warpTypeForm;
+    this.weftTypeForm = this.data.weftTypeForm;
+    this.totalYarn = this.data.totalYarn;
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan

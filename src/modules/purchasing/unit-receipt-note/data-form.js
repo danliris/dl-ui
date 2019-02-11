@@ -15,6 +15,7 @@ export class DataForm {
     @bindable supplier;
     @bindable deliveryOrder;
     @bindable storage;
+    @bindable isLocked = false;
 
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
