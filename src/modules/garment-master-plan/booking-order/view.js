@@ -87,9 +87,9 @@ export class View {
   //       });
   //   }
 
-  // confirmBooking(event) {
-  //   this.router.navigateToRoute('confirm', { id: this.data.Id });
-  // }  
+  confirmBooking(event) {
+    this.router.navigateToRoute('confirm', { id: this.data.Id });
+  }  
 
   // masterPlan(event) {
   //   this.router.navigateToRoute('detail', { id: this.data.code });
@@ -109,23 +109,23 @@ export class View {
         });
   }  
 
-  // onitemchange(event) {
-  //   var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
+  onitemchange(event) {
+    var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
     
-  //   if(indexCanceledItem > -1) {
-  //     this.service.update(this.data)
-  //       .then(result => {
-  //         alert("Confirm Canceled");
-  //         this.hasEdit = true;
-  //         this.hasDelete = true;
-  //         this.hascancelConfirm = true;
-  //         this.hasConfirm = true;
-  //         this.activate(this.params);
-  //       })
-  //       .catch(e => {
-  //         this.error = e;
-  //         this.activate(this.params);
-  //       });
-  //   }
-  // }
+    if(indexCanceledItem > -1) {
+      this.service.update(this.data)
+        .then(result => {
+          alert("Confirm Canceled");
+          this.hasEdit = true;
+          this.hasDelete = true;
+          this.hascancelConfirm = true;
+          this.hasConfirm = true;
+          this.activate(this.params);
+        })
+        .catch(e => {
+          this.error = e;
+          this.activate(this.params);
+        });
+    }
+  }
 }

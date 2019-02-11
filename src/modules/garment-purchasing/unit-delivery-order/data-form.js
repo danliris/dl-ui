@@ -180,6 +180,10 @@ export class DataForm {
         this.RONoHeader = null;
         this.RONo = null;
         this.data.Article = null;
+        this.context.RONoHeaderViewModel.editorValue = "";
+        this.context.storageViewModel.editorValue = "";
+        this.context.RONoViewModel.editorValue = "";
+        this.context.storageRequestViewModel.editorValue = "";
         this.data.Items = [];
     }
 
@@ -196,6 +200,8 @@ export class DataForm {
         this.RONoHeader = null;
         this.RONo = null;
         this.data.Items = [];
+        this.context.RONoHeaderViewModel.editorValue = "";
+        this.context.RONoViewModel.editorValue = "";
         this.data.Article = null;
     }
 
@@ -206,12 +212,13 @@ export class DataForm {
         }
         else {
             this.data.StorageRequest = null;
-            //this.context.storageRequestViewModel.editorValue = "";
+            // this.context.storageRequestViewModel.editorValue = "";
         }
         this.data.Items = [];
         this.RONo = null;
         this.data.Article = null;
         this.storage = null;
+        this.context.RONoViewModel.editorValue = "";
         this.unitSender = null;
     }
 
@@ -227,6 +234,8 @@ export class DataForm {
         this.data.Items = [];
         this.RONo = null;
         this.data.Article = null;
+        this.context.RONoHeaderViewModel.editorValue = "";
+        this.context.RONoViewModel.editorValue = "";
         this.RONoHeader = null;
     }
 
@@ -281,6 +290,7 @@ export class DataForm {
     }
 
     RONoHeaderChanged(newValue) {
+        console.log(newValue);
         var selectedROHeader = newValue;
         this.newProduct = {};
         if (selectedROHeader == null) {
