@@ -1,37 +1,39 @@
-<!-- <style>
-th,td {
-  border: 1px solid black;
-}
-</style> -->
 <template>
   <tr>
-    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
-    <td>
-      <au-textbox value.bind="data.yarn.code" read-only.bind="true">
+    <td show.bind="!readOnly">
+      <au-checkbox value.bind="data.Select" read-only.bind="readOnly">
+      </au-checkbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.code"
+        error.bind="error.warpType.code"
+        read-only.bind="true"
+      >
       </au-textbox>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-autocomplete
-        value.bind="data.warpType"
+        value.bind="yarn"
         error.bind="error.warpType"
         read-only.bind="readOnly"
         placeholder="Benang Lusi"
-        loader.bind="yarns"
+        loader.bind="yarnsWarp"
+        text="name"
       >
       </au-autocomplete>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-numeric
-        value.bind="data.amountOfWarp"
-        error.bind="error.amountOfWarp"
+        value.bind="data.quantity"
+        error.bind="error.warp.quantity"
         read-only.bind="readOnly"
-        placeholder="Kuantitas Lusi"
       >
       </au-numeric>
     </td>
-    <td>
+    <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.warp.information"
+        value.bind="data.information"
         read-only.bind="readOnly"
         placeholder="Keterangan"
       >

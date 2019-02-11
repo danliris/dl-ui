@@ -28,8 +28,8 @@ export class Edit {
     } else {
       this.data.name = this.data.name;
     }
-    console.log(this.data);
-    debugger;
+    // console.log(this.data);
+    // debugger;
     this.service
       .update(this.data)
       .then(result => {

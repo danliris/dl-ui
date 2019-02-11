@@ -12,6 +12,7 @@ export class List {
     { field: "rpm", title: "RPM" },
     { field: "location", title: "Lokasi" },
     { field: "block", title: "Blok" },
+    { field: "blockKaizen", title: "Blok Kaizen" },
     { field: "maintenance", title: "Maintenance" },
     { field: "operator", title: "Operator" }
   ];
@@ -59,6 +60,7 @@ export class List {
           rpm: 50000,
           location: "Place A",
           block: "a",
+          blockKaizen: "K1",
           maintenance: "maintenance",
           operator: "operator"
         }

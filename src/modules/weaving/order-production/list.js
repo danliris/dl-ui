@@ -87,7 +87,6 @@ export class List {
     };
 
     return this.service.search(arg).then(result => {
-      console.log(result);
       return {
         total: result.info.count,
         data: result.data

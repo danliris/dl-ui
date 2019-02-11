@@ -24,7 +24,7 @@ export class Create {
   }
 
   saveCallback(event) {
-    // console.log(this.data.name);
+    // console.log(this.data);s
     var materialData = {
       code: this.data.code,
       name: this.data.name,

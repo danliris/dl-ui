@@ -1,27 +1,56 @@
-import { inject, BindingEngine } from "aurelia-framework";
+import { inject, bindable, BindingEngine } from "aurelia-framework";
+import { Service } from "../service";
 
 var YarnLoader = require("../../../../loader/weaving-yarns-loader");
 
-@inject(BindingEngine)
+@inject(BindingEngine, Service)
 export class ItemsWarp {
-  constructor(bindingEngine) {
+  @bindable yarn;
+
+  constructor(bindingEngine, service) {
+    this.service = service;
     this.bindingEngine = bindingEngine;
   }
-  
-  get yarns() {
+
+  get yarnsWarp() {
     return YarnLoader;
   }
 
   activate(context) {
-    this.warpData = context.weftData;
+    this.data = context.data;
     this.error = context.error;
+
+    // console.log(this.data);
+    if (this.data.yarn) {
+      var newValue = this.data.yarn;
+      this.yarn = newValue;
+      this.data.name = newValue.name;
+      this.data.code = newValue.code;
+      this.data.materialCode = newValue.materialCode;
+      this.data.ringCode = newValue.ringCode;
+    }
+
+    if (this.data.id) {
+      this.data.Select = true;
+    }
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
 
-  // -------------------------------- //
-
-  // get mkbLoader() {
-  //     return MKBLoader;
-  // }
+  // Change on Kode Lusi, affected when Benang Lusi change
+  yarnChanged(newValue) {
+    if (newValue.name) {
+      this.data.yarn = newValue ? newValue : "";
+      this.data.name = newValue.name ? newValue.name : "";
+      this.data.code = newValue.code ? newValue.code : "";
+      this.data.materialCode = newValue.materialTypeDocument.code
+        ? newValue.materialTypeDocument.code
+        : "";
+      this.data.ringCode = newValue.ringDocument.code
+        ? newValue.ringDocument.code
+        : "";
+      this.data.quantity = "";
+      this.data.information = "";
+    }
+  }
 }
