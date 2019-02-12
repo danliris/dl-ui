@@ -10,7 +10,6 @@ export class List {
     columns = [
         { field: "ProcessType", title: "Jenis Proses" },
         { field: "Count", title: "Count" },
-        { field: "LotNo", title: "Lot" },
         {
             field: "CreatedDate", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");

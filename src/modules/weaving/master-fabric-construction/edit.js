@@ -22,6 +22,8 @@ export class Edit {
   }
 
   saveCallback(event) {
+    debugger;
+    console.log(this.data);
     var isEmpty;
     var emptyFieldName =
       "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";

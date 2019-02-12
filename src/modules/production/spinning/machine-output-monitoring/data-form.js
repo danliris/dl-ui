@@ -38,12 +38,7 @@ export class DataForm {
         "Winder"
     ];
 
-    shiftList = [
-        "",
-        "Shift 1 06:00 - 14:00",
-        "Shift 2 14:00 - 22:00",
-        "Shift 3 22:00 - 06:00"
-    ];
+    shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
     detailOptions = {};
     itemsColumnsHeader = [];
     machineSpinningFilter = {};

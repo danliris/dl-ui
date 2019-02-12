@@ -43,7 +43,7 @@ export async function configure(aurelia) {
       var inventoryAzure = "https://com-danliris-service-inventory-dev.azurewebsites.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi-dev.azurewebsites.net/v1/";
       var spMasterPlan = "https://dl-sp-master-plan-webapi-dev.azurewebsites.net/v1/";
-      var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/";
+      var spinning = "http://localhost:57914/";
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
       var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md-dev.azurewebsites.net/v1/";
