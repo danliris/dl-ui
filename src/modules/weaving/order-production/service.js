@@ -22,13 +22,15 @@ export class Service extends RestService {
   create(data) {
     var unit = data.weavingUnit.name;
     data.orderNumber = "";
-    data.weavingUnit = { id: "", name: "" };
-    data.weavingUnit.id = unit._id;
+    data.weavingUnit = {};
+    data.weavingUnit._id = unit._id;
     data.weavingUnit.name = unit.name;
+    data.weavingUnit.code = unit.code;
     if (data.yarnType == undefined || data.yarnType == null) {
       data.yarnType = " ";
     }
     console.log(data);
+    debugger;
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }

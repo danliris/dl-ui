@@ -30,53 +30,80 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
+    // debugger;
+    console.log(this.data);
     var isEmpty;
-    var emptyFieldName = "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
-    if (
-      this.data.materialTypeDocument == null ||
-      this.data.materialTypeDocument == undefined
-    ) {
-      this.isEmpty = true;
+    var emptyFieldName =
+      "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
+
+    //Cek Jenis Material
+    if (this.data.materialTypeDocument) {
+      if (this.data.materialTypeDocument.id) {
+        this.isEmpty = false;
+      } else {
+        this.isEmpty = true;
+      }
     } else {
-      this.isEmpty = false;
+      this.isEmpty = true;
     }
-    
+
+    //Cek Jenis Anyaman
     if (this.data.wovenType == null || this.data.wovenType == undefined) {
       this.isEmpty = true;
     } else {
       this.isEmpty = false;
     }
-    
+
+    //Cek Jumlah Lusi
     if (this.data.amountOfWarp == null || this.data.amountOfWarp == undefined) {
       this.isEmpty = true;
     } else {
       this.isEmpty = false;
     }
-    
+
+    //Cek Jumlah Pakan
     if (this.data.amountOfWeft == null || this.data.amountOfWeft == undefined) {
       this.isEmpty = true;
     } else {
       this.isEmpty = false;
     }
-    
+
+    //Cek Lebar
     if (this.data.width == null || this.data.width == undefined) {
       this.isEmpty = true;
     } else {
       this.isEmpty = false;
     }
-    
-    if (this.warpTypeForm == null || this.warpTypeForm == undefined) {
+
+    //Cek Jenis Lusi
+    if (
+      this.data.warpTypeForm == null ||
+      this.data.warpTypeForm == undefined ||
+      this.data.warpTypeForm == ""
+    ) {
       this.isEmpty = true;
     } else {
       this.isEmpty = false;
     }
-    
-    if (this.weftTypeForm == null || this.weftTypeForm == undefined) {
+
+    //Cek Jenis Pakan
+    if (
+      this.data.weftTypeForm == null ||
+      this.data.weftTypeForm == undefined ||
+      this.data.weftTypeForm == ""
+    ) {
       this.isEmpty = true;
     } else {
       this.isEmpty = false;
     }
-    
+
+    //Cek Total Benang
+    if (this.data.totalYarn == null || this.data.totalYarn == undefined) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+    }
+
     if (this.isEmpty == true) {
       window.alert(emptyFieldName);
     } else {

@@ -28,7 +28,7 @@
         <div class="col-md-6">
           <!-- TANGGAL SP -->
           <au-datepicker
-            label="Tanggal EP"
+            label="Tanggal SPP"
             value.bind="data.dateOrdered"
             error.bind="error.dateOrdered"
             read-only.bind="readOnly"
@@ -145,15 +145,13 @@
               <textbox label="Jenis Benang" read-only="true"></textbox>
             </div>
             <div class="col-md-9">
-              <au-autocomplete
+              <au-textbox
                 placeholder="Jenis Benang"
                 value.bind="data.yarnType"
                 error.bind="error.yarnType"
                 read-only.bind="readOnly"
                 options.bind="customOptions"
-                loader.bind="yarns"
-                text="name"
-              ></au-autocomplete>
+              ></au-textbox>
             </div>
           </div>
 
