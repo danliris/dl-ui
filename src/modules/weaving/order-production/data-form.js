@@ -11,6 +11,7 @@ export class DataForm {
 
   yearFormat = "YYYY";
   years = [];
+  monthFormat = "MMMM";
 
   formOptions = {
     cancelText: "Kembali",
@@ -72,6 +73,10 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     this.getYears();
+
+    var currentDate = moment(new Date());
+    var currentMonth = currentDate.month().format('MMMM');
+    console.log(currentMonth);
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
