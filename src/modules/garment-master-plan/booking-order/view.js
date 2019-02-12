@@ -35,6 +35,11 @@ export class View {
         this.hasEdit = true;
         this.hasDelete = true;
       }
+      else if(this.data.HadConfirmed === true && this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates > today){
+        this.hasEdit = false;
+        this.hasDelete = true;
+        this.hascancelConfirm = true;
+      }
       if(deliveryDates > today){
         this.hasConfirm = true;
       }
@@ -43,17 +48,27 @@ export class View {
         this.hasEdit = false;
         this.hasDelete = false;
         this.expireBooking = false;
+        this.hasConfirm = false;
       }
       if(this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates <= today){
         this.expireBooking = true;
         this.hasEdit = false;
         this.hasDelete = false; 
+        if(this.data.IsBlockingPlan === true){
+          this.hasMasterPlan = true;
+        }
       }
-      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity){
+      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === true){
         this.hasEdit = false;
         this.hasDelete = false;
         this.hasConfirm = false;
         this.hasMasterPlan = true;
+      }
+      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === false){
+        this.hasCancel = true;
+        this.hasDelete = false;
+        this.hasEdit = false;
+        this.hasConfirm = false;
       }
   }
 
@@ -72,9 +87,9 @@ export class View {
   //       });
   //   }
 
-  // confirmBooking(event) {
-  //   this.router.navigateToRoute('confirm', { id: this.data.Id });
-  // }  
+  confirmBooking(event) {
+    this.router.navigateToRoute('confirm', { id: this.data.Id });
+  }  
 
   // masterPlan(event) {
   //   this.router.navigateToRoute('detail', { id: this.data.code });
@@ -94,23 +109,23 @@ export class View {
         });
   }  
 
-  // onitemchange(event) {
-  //   var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
+  onitemchange(event) {
+    var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
     
-  //   if(indexCanceledItem > -1) {
-  //     this.service.update(this.data)
-  //       .then(result => {
-  //         alert("Confirm Canceled");
-  //         this.hasEdit = true;
-  //         this.hasDelete = true;
-  //         this.hascancelConfirm = true;
-  //         this.hasConfirm = true;
-  //         this.activate(this.params);
-  //       })
-  //       .catch(e => {
-  //         this.error = e;
-  //         this.activate(this.params);
-  //       });
-  //   }
-  // }
+    if(indexCanceledItem > -1) {
+      this.service.update(this.data)
+        .then(result => {
+          alert("Confirm Canceled");
+          this.hasEdit = true;
+          this.hasDelete = true;
+          this.hascancelConfirm = true;
+          this.hasConfirm = true;
+          this.activate(this.params);
+        })
+        .catch(e => {
+          this.error = e;
+          this.activate(this.params);
+        });
+    }
+  }
 }

@@ -44,20 +44,20 @@ export class Service extends RestService {
 //         return super.get(endpoint);
 //     }
 
-//     cancelBooking(data) {
-//         var endpoint = 'booking-orders-cancel';
-//         return super.post(endpoint, data);
-//     }
+    cancelBooking(data) {
+        var endpoint = 'booking-orders-cancel';
+        return super.post(endpoint, data);
+    }
 
-//     expiredBooking(data) {
-//         var endpoint = 'booking-orders-expired';
-//         return super.post(endpoint, data);
-//     }
+    expiredBooking(data) {
+        var endpoint = 'booking-orders-expired';
+        return super.post(endpoint, data);
+    }
 
-//     confirmBooking(data) {
-//         var endpoint = 'booking-orders-confirm';
-//         return super.post(endpoint, data);
-//     }
+    // confirmBooking(data) {
+    //     var endpoint = 'booking-orders-confirm';
+    //     return super.post(endpoint, data);
+    // }
 
 //     getBuyerById(id, select) {
 //         var config = Container.instance.get(Config);

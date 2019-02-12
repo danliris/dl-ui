@@ -78,9 +78,9 @@ export class DataForm {
         return (event) => {
             var newDetail=   {
                 BookingOrderNo:this.data.BookingOrderNo,
-                masterPlanComodity: this.data.masterPlanComodity,
-                quantity: 0,
-                remark: ''
+                ComodityName: this.data.ComodityName,
+                ConfirmQuantity: 0,
+                Remark: ''
             };
             this.data.items.push(newDetail);
         };
