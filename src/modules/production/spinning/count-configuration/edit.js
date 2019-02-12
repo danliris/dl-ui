@@ -26,10 +26,31 @@ export class Edit {
     }
 
     saveCallback(event) {
-        this.service.update(this.data).then(result => {
-            this.cancelCallback();
-        }).catch(e => {
-            this.error = e;
-        })
+        this.error = {};
+        var errorCount=0;
+        if(this.data.ProcessType==null){
+            this.error.ProcessType="Jenis Proses tidak boleh kosong";
+            errorCount++;
+        }
+        if(!this.data.YarnType && this.data.IsMixDrawing!=true){
+            this.error.YarnType="Jenis Benang tidak boleh kosong";
+            errorCount++;
+        }
+        if(!this.data.Count){
+            this.error.Count="Count tidak boleh kosong";
+            errorCount++;
+        }
+        if(this.data.ProcessType == "Finish Drawing" && this.data.IsMixDrawing==true && this.data.Items){
+            this.error.Items="Item tidak boleh kosong";
+            errorCount++;
+        }
+
+        if(errorCount==0){
+            this.service.update(this.data).then(result => {
+                this.cancelCallback();
+            }).catch(e => {
+                this.error = e;
+            })
+        }
     }
 }

@@ -132,7 +132,7 @@ export class DataForm {
                 }
             } else {
                 this.error.YarnType = "Lot tidak ditemukan";
-                this.data.items = null;
+                this.data.Items = null;
                 this.data.LotId = null;
                 this.data.LotNo = null;
                 this.cottonLot = null;
@@ -155,21 +155,20 @@ export class DataForm {
         ],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.items.push({ yarnName: "", lotNo:"", composition: 0});
+            this.data.Items.push({ yarnName: "", lotNo:"", composition: 0});
         }.bind(this)
     };
 
 
     processTypeChanged(n, o) {
         var selectedProcess = this.processType;
-        // this.error=this.context.error;
+        this.data.ProcessType = selectedProcess;
         if (selectedProcess) {
-            this.data.ProcessType = selectedProcess;
             if (this.data.ProcessType == "Finish Drawing") {
                 if (this.isMixDrawing == true) {
                     this.showItemRegular = false;
                     this.finishingDrawing = true;
-                    this.data.items=[];
+                    this.data.Items=[];
                 } else {
                     this.showItemRegular = true;
                     this.finishingDrawing = false;
@@ -181,6 +180,8 @@ export class DataForm {
 
                 this.showItemRegular = true;
                 this.finishingDrawing = false;
+                this.isMixDrawing = false;
+                this.data.IsMixDrawing = false;
             }
 
         }
@@ -192,7 +193,7 @@ export class DataForm {
             this.showItemRegular = false;
             this.regularItems = [];
             this.lot = undefined;
-            this.data.items = [];
+            this.data.Items = [];
         } else {
             this.data.IsMixDrawing = false;
             this.showItemRegular = true;
@@ -200,7 +201,7 @@ export class DataForm {
     }
     yarnTypeChanged(n, o) {
         var selectedProcess = this.yarnType;
-        
+        this.data.YarnType=selectedProcess;
         if (selectedProcess) {
             if (selectedProcess != "") {
                 this.showItemRegular = true;
@@ -224,7 +225,7 @@ export class DataForm {
                     }
                 } else {
                     this.error.YarnType = "Lot tidak ditemukan";
-                    this.data.items = null;
+                    this.data.Items = null;
                     this.data.LotId = null;
                     this.data.LotNo = null;
                     this.cottonLot = null;
@@ -235,6 +236,7 @@ export class DataForm {
 
     countChanged(n, o) {
         var selectedCount = this.count;
+        this.data.Count = selectedCount;
         // if(selectedCount){
         //     this.service.getLotByYarnType(selectedCount, this.finishingDrawing).then(result => {
         //         if(result){
