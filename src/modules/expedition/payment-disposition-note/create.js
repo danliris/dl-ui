@@ -45,7 +45,7 @@ export class Create {
     }
 
     onCheckAll(event) {
-        for (var item of this.data.Items) {
+        for (var item of this.Items) {
             item.Select = event.detail.target.checked;
         }
     }
