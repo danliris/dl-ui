@@ -102,42 +102,51 @@ export class DataForm {
             });
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
-        } else {
-
-        }
-        if (this.data.ProcessType == "Blowing" ||
-            this.data.ProcessType == "Carding" ||
-            this.data.ProcessType == "Pre-Drawing" ||
-            this.data.ProcessType == "Finishing-Drawing") {
-            this.finishingDrawing = false;
-        } else {
-            this.finishingDrawing = true;
-        }
-
-        if (!this.yarnType)
-            this.yarnType=this.data.YarnType;
-            
-        this.service.getLotByYarnType(this.data.PolyesterYarn, this.finishingDrawing).then(result => {
-            if (result) {
-                if (!isMixDrawing || isMixDrawing == false) {
-                    this.regularItems = result.CottonCompositions;
-                    this.lot = result.LotNo;
-                    this.data.LotId = result.Id;
-                    this.data.LotNo = result.LotNo;
-                } else {
-                    this.data.Items = result.CottonCompositions;
-                    this.lot = result.LotNo;
-                    this.data.LotId = result.Id;
-                    this.data.LotNo = result.LotNo;
-                }
+        } 
+        if (this.data.ProcessType == "Finish Drawing") {
+            if (this.isMixDrawing == true) {
+                this.showItemRegular = false;
+                this.finishingDrawing = true;
+                this.data.Items=[];
             } else {
-                this.error.YarnType = "Lot tidak ditemukan";
-                this.data.Items = null;
-                this.data.LotId = null;
-                this.data.LotNo = null;
-                this.cottonLot = null;
+                this.showItemRegular = true;
+                this.finishingDrawing = false;
             }
-        });
+
+        } else {
+            if(this.data.ProcessType == 'Winding')
+                this.data.Cone = 1.89;
+
+            this.showItemRegular = true;
+            this.finishingDrawing = false;
+            this.isMixDrawing = false;
+            this.data.IsMixDrawing = false;
+        }
+
+        if (this.data.YarnType){
+            this.yarnType=this.data.YarnType;
+            this.service.getLotByYarnType(this.yarnType, this.finishingDrawing).then(result => {
+                if (result) {
+                    if (!isMixDrawing || isMixDrawing == false) {
+                        this.regularItems = result.CottonCompositions;
+                        this.lot = result.LotNo;
+                        this.data.LotId = result.Id;
+                        this.data.LotNo = result.LotNo;
+                    } else {
+                        this.data.Items = result.CottonCompositions;
+                        this.lot = result.LotNo;
+                        this.data.LotId = result.Id;
+                        this.data.LotNo = result.LotNo;
+                    }
+                } else {
+                    this.error.YarnType = "Lot tidak ditemukan";
+                    this.data.Items = null;
+                    this.data.LotId = null;
+                    this.data.LotNo = null;
+                    this.cottonLot = null;
+                }
+            });
+        }
     }
 
     inputInfo = {
