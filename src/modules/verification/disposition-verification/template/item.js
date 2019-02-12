@@ -1,36 +1,45 @@
 import { inject, bindable } from 'aurelia-framework';
-import { Service } from '../service';
+import { Service,PurchasingDispositionService } from '../service';
 const ProductLoader = require('../../../../loader/product-loader');
 const EPOLoader = require('../../../../loader/purchase-order-external-all-loader');
 
 var moment = require('moment');
 
-@inject(Service)
+@inject(Service,PurchasingDispositionService)
 export class PurchasingDispositionItem {
     @bindable selectedEPO;
 
     //itemsColumns = ["PRNo", "Category", "Product", "DealQuantity", "DealUom", "PaidQuantity", "PricePerDealUnit", "PriceTotal", "PaidPrice"];
     itemsColumns = {
-        columns: ["PRNo", "Unit", "Kategori", "Barang", "Jumlah Dipesan", "Satuan", "Jumlah Dibayar", "Harga Satuan", "Harga Total", "Harga Dibayar", "Harga yang Sudah Dibayar"],
+        columns: ["PRNo", "Unit", "Kategori", "Barang", "Jumlah Dipesan", "Satuan", "Jumlah Dibayar", "Harga Satuan", "Harga Total", "Harga Dibayar"],
         onRemove: function () {
             this.bind();
         }
     };
     
-    constructor(service) {
+    constructor(service,purchasingDispositionService) {
         this.service = service;
+        this.purchasingDispositionService=purchasingDispositionService;
     }
 
-    activate(context) {
+    async activate(context) {
         this.context=context;
         this.items = context.context.items;
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
-       
+       console.log(this.data)
         if(this.data.EPONo){
             this.selectedEPO=this.data;
+
+            var EPOPrice= await this.service.searchPaymentDispo(this.data.EPOId);
+            
+            this.TotalPaidPrice=0;
+            for(var a of EPOPrice){
+                this.TotalPaidPrice+=a.price;
+            }
+            
         }
 
         if(this.data.Details){

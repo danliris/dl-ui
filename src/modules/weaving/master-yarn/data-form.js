@@ -33,7 +33,6 @@ export class DataForm {
       this.materialTypeDocument = this.data.materialTypeDocument.code;
       this.ringDocument = this.data.ringDocument.code;
       this.data.name = detectWhitespace[0] ? detectWhitespace[0] : " ";
-      console.log(this.data);
       this.optionalName = detectWhitespace[1] ? detectWhitespace[1] : " ";
     }
 
