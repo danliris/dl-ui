@@ -32,45 +32,46 @@ export class Confirm {
         var warning = [];
         var warning_confirm = [];
         var total_item = 0;
-        // for (var item of this.data.Items) {
-        //   var today = new Date();
-        //   today.setDate(today.getDate()+45);
-        //   var deliveryDates = new Date(Date.parse(data.DeliveryDate));
+        for (var item of this.data.Items) {
+          var today = new Date();
+          // today.setDate(today.getDate()+45);
+          // var deliveryDates = new Date(Date.parse(data.DeliveryDate));
 
-        //   var a = new Date(item.DeliveryDate);
-        //   var b = today;
-        //   a.setHours(0, 0, 0, 0);
-        //   b.setHours(0, 0, 0, 0);
-        //   var diff = a.getTime() - b.getTime();
-        //   var timeDiff = Math.abs(a.getTime() - b.getTime());
-        //   var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        //   total_item = total_item + item.ConfirmQuantity;
+          // this.data.ConfirmedQuantity = this.itemSum;
+          var a = new Date(item.DeliveryDate);
+          var b = today;
+          a.setHours(0, 0, 0, 0);
+          b.setHours(0, 0, 0, 0);
+          var diff = a.getTime() - b.getTime();
+          var timeDiff = Math.abs(a.getTime() - b.getTime());
+          var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          total_item = total_item + item.ConfirmQuantity;
 
-        //   if (diff >= 0) {
-        //     if (diffDays >= 0 && diffDays <= 45) {
-        //         warning.push('Comodity ' + item.ComodityName + ' (Jumlah Confirm = ' + item.ConfirmQuantity + ') kurang ' + diffDays + ' hari dari Tanggal Pengiriman\n');
-        //     }
-        //   }
-        //   else {
-        //     warning = [];
-        //     break;
-        //   }
-        //   if (new Date(item.DeliveryDate) < new Date(this.data.BookingOrderDate)) {
-        //     warning = [];
-        //     break;
-        //   }
-        //   else if (new Date(item.DeliveryDate) > new Date(this.data.DeliveryDate)) {
-        //     warning = [];
-        //     break;
-        //   }
+          if (diff >= 0) {
+            if (diffDays >= 0 && diffDays <= 45) {
+                warning.push('Comodity ' + item.ComodityName + ' (Jumlah Confirm = ' + item.ConfirmQuantity + ') kurang ' + diffDays + ' hari dari Tanggal Pengiriman\n');
+            }
+          }
+          else {
+            warning = [];
+            break;
+          }
+          if (new Date(item.DeliveryDate) < new Date(this.data.BookingOrderDate)) {
+            warning = [];
+            break;
+          }
+          else if (new Date(item.DeliveryDate) > new Date(this.data.DeliveryDate)) {
+            warning = [];
+            break;
+          }
 
-        // }
+        }
         var total = total_item - this.data.OrderQuantity;
         if (total > 0)
           warning_confirm.push('Total jumlah confirm lebih dari jumlah booking order\n');
 
         if (warning.length > 0 && warning_confirm.length <= 0) {
-          if (confirm('Tanggal Confirm <= 45 hari \n' /*+ warning.toString().replace(/,/g, "") */ + 'Tetap Confirm?')) {
+          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g, "") + 'Tetap Confirm?')) {
             this.service.update(this.data)
               .then(result => {
                 alert("Data Confirmed");
@@ -127,5 +128,13 @@ export class Confirm {
     }
 
   }
+
+  // get itemSum() {
+  //   var qty = this.context.Items
+  //     .filter(item => !item.data.IsCanceled) // for false and undefined
+  //     .map((item) => item.data.ConfirmQuantity);
+  //   return qty
+  //     .reduce((prev, curr, index) => { return prev + curr }, 0);
+  // }
 
 }

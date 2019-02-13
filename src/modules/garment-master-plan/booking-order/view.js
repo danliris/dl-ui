@@ -20,7 +20,6 @@ export class View {
   }
 
   async activate(params) {
-      // this.params = params;
       var id = params.id;
       this.data = await this.service.getById(id);
       
@@ -48,7 +47,7 @@ export class View {
         this.hasEdit = false;
         this.hasDelete = false;
         this.expireBooking = false;
-        this.hasConfirm = false;
+        this.hasConfirm = true;
       }
       if(this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates <= today){
         this.expireBooking = true;
@@ -110,7 +109,7 @@ export class View {
   }  
 
   onitemchange(event) {
-    var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
+    var indexCanceledItem = this.data.Items.findIndex(item => item.IsCanceled);
     
     if(indexCanceledItem > -1) {
       this.service.update(this.data)

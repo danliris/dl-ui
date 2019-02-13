@@ -78,7 +78,6 @@ export class List {
                 var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
-                console.log(data.data);
                 return {
                     total: result.info.total,
                     data: result.data
