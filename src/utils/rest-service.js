@@ -28,6 +28,8 @@ export class RestService {
     }
     else if (result.error) {
       return Promise.reject(result.error);
+    } else if (!result.data) {
+      return Promise.reject(result);
     }
     else {
       return Promise.resolve(result.data)
@@ -68,6 +70,8 @@ export class RestService {
       .catch(e => {
         return e.json().then(result => {
           if (result.error)
+            return Promise.resolve(result);
+          else if(result && !result.data)
             return Promise.resolve(result);
         });
       })
