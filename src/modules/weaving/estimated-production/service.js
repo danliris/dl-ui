@@ -3,7 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 
-const serviceUri = 'weaving/orders';
+const serviceUri = 'weaving/estimation-productions';
 
 export class Service extends RestService {
 
@@ -40,10 +40,4 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}?keyword=${code}`;
         return super.get(endpoint);
     }
-    
-    // getPdfById(id) {
-    //     var endpoint = `${serviceUri}/${id}`;
-    //     return super.getPdf(endpoint);
-    // }
-
 }

@@ -2,6 +2,8 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
 import { Dialog } from "../../../au-components/dialog/dialog";
 import { EpSopQuantityEditor } from "./dialogs/ep-sop-quantity-editor";
+// import { Service } from "../order-production/service";
+var UnitLoader = require("../../../loader/unit-loader");
 
 @inject(Dialog)
 export class DataForm {
@@ -36,14 +38,30 @@ export class DataForm {
     }
   };
 
+  months = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
   constructor(dialog) {
     // this.service = service;
     this.dialog = dialog;
 
     // function __openModal() {
-      // console.log(this.dialog);
-      // console.log("test");
-      // this.dialog.show(AddSOPEditor);
+    // console.log(this.dialog);
+    // console.log("test");
+    // this.dialog.show(AddSOPEditor);
     // }
   }
 
@@ -51,6 +69,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.getYears();
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -82,12 +101,26 @@ export class DataForm {
   // get closeModal() {
   //   this.isModalShown = false;
   // }
+  get units() {
+    return UnitLoader;
+  }
 
-  __openModal(){
+  __openModal() {
     this.ShowAddSOPEditorDialog();
   }
 
-  ShowAddSOPEditorDialog(){
+  ShowAddSOPEditorDialog() {
     this.dialog.show(EpSopQuantityEditor);
+  }
+
+  getYears() {
+    var year = moment(new Date());
+    this.years.push(year.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
   }
 }

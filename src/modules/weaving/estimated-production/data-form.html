@@ -96,17 +96,16 @@
             options.bind="customOptions"
           ></au-textbox>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <au-dropdown
             value.bind="data.monthPeriod"
             error.bind="error.monthPeriod"
             read-only.bind="readOnly"
             items.bind="months"
-            options.bind="customPUControlOptions"
           >
           </au-dropdown>
-        </div>
-        <div class="col-md-2">
+          </div>
+          <div class="col-md-3">
           <au-dropdown
             value.bind="data.yearPeriod"
             error.bind="error.yearPeriod"
@@ -126,15 +125,15 @@
             options.bind="customOptions"
           ></au-textbox>
         </div>
-        <div class="col-md-2">
-          <au-dropdown
+        <div class="col-md-3">
+          <au-autocomplete
             value.bind="data.unit"
             error.bind="error.unit"
             read-only.bind="readOnly"
             items.bind="weaving"
-            options.bind="customPUControlOptions"
+            loader.bind="units"
           >
-          </au-dropdown>
+          </au-autocomplete>
         </div>
       </div>
 

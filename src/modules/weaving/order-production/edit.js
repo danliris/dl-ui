@@ -22,8 +22,6 @@ export class Edit {
   }
 
   saveCallback(event) {
-    console.log(this.data);
-    debugger;
     this.error = {};
     var numberOnly = new RegExp("[0-9]");
     var index = 0;
