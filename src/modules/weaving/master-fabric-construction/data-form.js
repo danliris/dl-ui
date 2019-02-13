@@ -140,6 +140,7 @@ export class DataForm {
       this.data.materialTypeDocument = {};
       this.data.materialTypeDocument.id = this.materialTypeDocument.id;
       this.data.materialTypeDocument.code = this.materialTypeDocument.code;
+      this.data.materialTypeDocument.name = this.materialTypeDocument.name;
       var code = this.materialTypeDocument.code
         ? this.materialTypeDocument.code
         : "";
