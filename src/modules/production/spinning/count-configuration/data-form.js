@@ -124,8 +124,8 @@ export class DataForm {
             this.finishingDrawing = false;
         }
 
-        if (this.data.YarnType){
-            this.yarnType=this.data.YarnType;
+        if (this.data.YarnMaterialTypeId){
+            this.yarnType=this.data.YarnMaterialTypeId;
             this.service.getLotByYarnType(this.yarnType, this.finishingDrawing).then(result => {
                 if (result) {
                     this.lot = result.LotNo;

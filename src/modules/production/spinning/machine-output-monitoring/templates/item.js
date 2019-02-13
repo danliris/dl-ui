@@ -37,11 +37,11 @@ export class Item {
             this.isBlowing = true;
             this.isWinding = false;
             this.isFlying = false;
-        } else if (this.processType == "Winding") {
+        } else if (this.processType == "Winder") {
             this.isBlowing = false;
             this.isWinding = true;
             this.isFlying = false;
-        } else if (this.processType == "Flying") {
+        } else if (this.processType == "Flyer") {
             this.isBlowing = false;
             this.isWinding = false;
             this.isFlying = true;
@@ -113,11 +113,11 @@ export class Item {
             this.blowingFormula(MachineSpinning);
         } else if (this.processType == "Carding") {
             this.cardingFormula(MachineSpinning);
-        } else if (this.processType == "Flying") {
+        } else if (this.processType == "Flyer") {
             this.flyingFormula(MachineSpinning);
         } else if (this.processType == "Ring Spinning") {
             this.ringFormula(MachineSpinning);
-        } else if (this.processType == "Winding") {
+        } else if (this.processType == "Winder") {
             this.windingFormula(MachineSpinning);
         } else if (this.processType == "Pre-Drawing" || "Finish Drawing") {
             this.drawingFormula(MachineSpinning);
