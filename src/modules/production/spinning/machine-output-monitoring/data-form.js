@@ -43,6 +43,7 @@ export class DataForm {
     itemsColumnsHeader = [];
     machineSpinningFilter = {};
     masterFilter = {};
+    lotFilter = {};
     controlOptions = {
         label: {
             length: 4,
@@ -68,7 +69,6 @@ export class DataForm {
         this.coreService.getMachineTypes()
             .then(result => {
                 if (this.data.ProcessType) {
-                    console.log(1)
                     this.typeOptions = result;
                 } else {
                     this.typeOptions.push("");
@@ -271,6 +271,7 @@ export class DataForm {
         if (this.materialType && this.materialType.id) {
             this.lotFilter = { "YarnTypeIdentity": this.materialType.id };
             this.data.MaterialTypeId = this.materialType.id;
+            this.lotFilter.YarnTypeIdentity=this.data.MaterialTypeId;
             this.fillItems();
         } else {
             this.data.MaterialTypeId = null;

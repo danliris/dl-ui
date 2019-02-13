@@ -6,7 +6,7 @@
             options.bind="controlOptions">
         </au-datepicker>
 
-        <au-dropdown label="Jenis Proses" value.bind="processType" error.bind="Type" read-only.bind="readOnly"
+        <au-dropdown label="Jenis Proses" value.bind="processType" error.bind="error.ProcessType" read-only.bind="readOnly"
             items.bind="typeOptions" options.bind="controlOptions">
         </au-dropdown>
 
@@ -18,14 +18,14 @@
             key="Id" text="LotNo" query.bind = "lotFilter" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-dropdown label="Shift" value.bind="shift" error.bind="Shift" read-only.bind="readOnly" items.bind="shiftList"
+        <au-dropdown label="Shift" value.bind="shift" error.bind="error.Shift" read-only.bind="readOnly" items.bind="shiftList"
             options.bind="controlOptions">
         </au-dropdown>
 
         <au-textbox label="Group" value.bind="group" error.bind="Group" read-only.bind="readOnly" options.bind="controlOptions">
         </au-textbox>
 
-        <au-autocomplete label="Unit" value.bind="unit" error.bind="UnitDepartmentId" loader.bind="unitLoader"
+        <au-autocomplete label="Unit" value.bind="unit" error.bind="error.UnitDepartmentId" loader.bind="unitLoader"
             placeholder="Cari unit spinning" key="Id" text="Name" read-only.bind="readOnly" query.bind="spinningFilter"
             options.bind="controlOptions">
         </au-autocomplete>
