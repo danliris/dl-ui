@@ -26,26 +26,33 @@ export class Create {
   }
 
   saveCallback(event) {
+    this.error = {};
+    var index = 0;
+    var emptyFieldName = "Semua Field Harus Diisi";
+
     if (this.optionalName) {
       this.data.name = this.data.name + " " + this.optionalName;
     } else {
       this.data.name = this.data.name;
     }
+
     if (
-      this.materialTypeDocument == null ||
-      this.materialTypeDocument == undefined
+      this.data.materialTypeDocument == null ||
+      this.data.materialTypeDocument == undefined
     ) {
       this.error.materialTypeDocument = "Kode Material Tidak Boleh Kosong";
-    } if (
-      this.ringDocument == null ||
-      this.ringDocument == undefined
-    ) {
+      index++;
+    }
+    if (this.data.ringDocument == null || this.data.ringDocument == undefined) {
       this.error.ringDocument = "Kode Ring Tidak Boleh Kosong";
-    } if (
-      this.data.code == null ||
-      this.data.code == undefined
-    ) {
+      index++;
+    }
+    if (this.data.code == null || this.data.code == undefined) {
       this.error.code = "Kode Benang Tidak Boleh Kosong";
+      index++;
+    }
+    if (index > 0) {
+      window.alert(emptyFieldName);
     } else {
       this.service
         .create(this.data)

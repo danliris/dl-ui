@@ -21,8 +21,6 @@ export class Edit {
   }
 
   saveCallback(event) {
-    console.log(this.data);
-    debugger;
     var numberOnly = new RegExp("[0-9]");
     var regExNotMatchOrEmptyField;
     var alert =

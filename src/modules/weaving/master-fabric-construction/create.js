@@ -9,6 +9,7 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
+    this.error = {};
     // this.collection = {};
   }
 
@@ -30,81 +31,76 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    // debugger;
-    console.log(this.data);
-    var isEmpty;
+    this.error = {};
+    var index = 0;
     var emptyFieldName =
-      "- Terdapat Field yang Belum Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
+    "- Semua Field Harus Diisi\n- Pilih Minimal Satu Lusi\n- Pilih Minimal Satu Pakan";
 
     //Cek Jenis Material
-    if (this.data.materialTypeDocument) {
-      if (this.data.materialTypeDocument.id) {
-        this.isEmpty = false;
-      } else {
-        this.isEmpty = true;
-      }
-    } else {
-      this.isEmpty = true;
+    if (
+      this.data.materialTypeDocument == null ||
+      this.data.materialTypeDocument == undefined
+    ) {
+      this.error.materialTypeDocument = "Jenis Material Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek Jenis Anyaman
     if (this.data.wovenType == null || this.data.wovenType == undefined) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+      this.error.wovenType = "Jenis Anyaman Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek Jumlah Lusi
     if (this.data.amountOfWarp == null || this.data.amountOfWarp == undefined) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+      this.error.amountOfWarp = "Jumlah Lusi Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek Jumlah Pakan
+    console.log(this.data.amountOfWeft);
     if (this.data.amountOfWeft == null || this.data.amountOfWeft == undefined) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+      this.error.amountOfWeft = "Jumlah Pakan Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek Lebar
     if (this.data.width == null || this.data.width == undefined) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+      this.error.width = "Lebar Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek Jenis Lusi
     if (
-      this.data.warpTypeForm == null ||
-      this.data.warpTypeForm == undefined ||
-      this.data.warpTypeForm == ""
+      this.data.warpTypeForm === "" ||
+      this.data.warpTypeForm === null ||
+      this.data.warpTypeForm === undefined
     ) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+      this.error.warpTypeForm = "Pilih Minimal Satu Lusi";
+      index++;
     }
 
     //Cek Jenis Pakan
     if (
-      this.data.weftTypeForm == null ||
-      this.data.weftTypeForm == undefined ||
-      this.data.weftTypeForm == ""
+      this.data.weftTypeForm === "" ||
+      this.data.weftTypeForm === null ||
+      this.data.weftTypeForm === undefined
     ) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+      this.error.weftTypeForm = "Pilih Minimal Satu Lusi";
+      index++;
     }
 
     //Cek Total Benang
-    if (this.data.totalYarn == null || this.data.totalYarn == undefined) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+    if (
+      this.data.totalYarn == null ||
+      this.data.totalYarn == undefined ||
+      this.data.totalYarn == 0
+    ) {
+      this.error.totalYarn = "Kuantitas Lusi & Pakan Harus Diisi";
+      index++;
     }
 
-    if (this.isEmpty == true) {
+    if (index > 0) {
       window.alert(emptyFieldName);
     } else {
       this.service
