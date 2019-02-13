@@ -73,10 +73,11 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     this.getYears();
+    this.getMonth();
 
-    var currentDate = moment(new Date());
-    var currentMonth = currentDate.month().format('MMMM');
-    console.log(currentMonth);
+    // var currentDate = moment(new Date());
+    // var currentMonth = currentDate.month().format('MMMM');
+    // console.log(currentMonth);
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -121,5 +122,9 @@ export class DataForm {
     this.years.push(nextYear.year());
     var nextYear = year.add(1, "years");
     this.years.push(nextYear.year());
+  }
+
+  getMonth() {
+    return new Date().getMonth()+1;
   }
 }

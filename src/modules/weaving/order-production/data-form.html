@@ -43,7 +43,7 @@
             <div class="col-md-3">
               <au-dropdown
                 value.bind="data.period.month"
-                error.bind="error.period.month"
+                error.bind="error.periodmonth"
                 read-only.bind="readOnly"
                 items.bind="months"
               >
@@ -52,7 +52,7 @@
             <div class="col-md-3" style="padding-left: 0px;">
               <au-dropdown
                 value.bind="data.period.year"
-                error.bind="error.period.year"
+                error.bind="error.periodyear"
                 read-only.bind="readOnly"
                 items.bind="years"
               >
@@ -69,7 +69,7 @@
               <au-autocomplete
                 placeholder="Konstruksi"
                 value.bind="constructionNumber"
-                error.bind="error.fabricConstructionDocument.constructionNumber"
+                error.bind="error.constructionNumber"
                 options.bind="customLeftOptions"
                 read-only.bind="readOnly"
                 loader.one-time="constructions"
@@ -107,14 +107,17 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col-md-3">
-              <textbox label="Blended(%)" read-only="true"></textbox>
+              <textbox
+                label="Komposisi(%)"
+                read-only="true"
+              ></textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
               <au-textbox
                 placeholder="Poly"
                 options.bind="customCenterOptions"
                 value.bind="data.composition.compositionOfPoly"
-                error.bind="error.composition.compositionOfPoly"
+                error.bind="error.compositionOfPoly"
                 read-only.bind="readOnly"
               >
               </au-textbox>
@@ -124,7 +127,7 @@
                 placeholder="Cotton"
                 options.bind="customCenterOptions"
                 value.bind="data.composition.compositionOfCotton"
-                error.bind="error.composition.compositionOfCotton"
+                error.bind="error.compositionOfCotton"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
@@ -133,7 +136,7 @@
                 placeholder="Lainnya"
                 options.bind="customCenterOptions"
                 value.bind="data.composition.otherComposition"
-                error.bind="error.composition.otherComposition"
+                error.bind="error.otherComposition"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
@@ -180,7 +183,7 @@
               <au-autocomplete
                 placeholder="Cari Unit"
                 value.bind="data.weavingUnit.name"
-                error.bind="error.weavingUnit.name"
+                error.bind="error.weavingUnitName"
                 read-only.bind="readOnly"
                 options.bind="customOptions"
                 loader.bind="units"

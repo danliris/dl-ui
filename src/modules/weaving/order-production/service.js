@@ -29,8 +29,8 @@ export class Service extends RestService {
     if (data.yarnType == undefined || data.yarnType == null) {
       data.yarnType = " ";
     }
-    console.log(data);
-    debugger;
+    // console.log(data);
+    // debugger;
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
