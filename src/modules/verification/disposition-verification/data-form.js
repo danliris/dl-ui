@@ -52,6 +52,8 @@ export class DataForm {
             'VatValue',
             'IncomeTaxValue',
             'Amount',
+            'IncomeTaxBy',
+            'PaymentCorrection',
             'Items.EPOId',
             'Items.EPONo',
             'Items.UseVat',
@@ -71,7 +73,7 @@ export class DataForm {
         ];
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -113,6 +115,12 @@ export class DataForm {
             
             this.supplierName = this.data.Supplier.code + " - " + this.data.Supplier.name;
 
+            console.log(this.data)
+            this.data.PayToSupplier=this.data.DPP+this.data.VatValue+ this.data.PaymentCorrection;
+            if(this.data.IncomeTaxBy=="Supplier"){
+                this.data.PayToSupplier=this.data.DPP+this.data.VatValue+ this.data.PaymentCorrection-this.data.IncomeTaxValue;
+            }
+            console.log(this.data.PayToSupplier)
             if(this.data.Items){
                 for(var a of this.data.Items){
                     if(a.Details){

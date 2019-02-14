@@ -29,7 +29,6 @@ export class PurchasingDispositionItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
-       console.log(this.data)
         if(this.data.EPONo){
             this.selectedEPO=this.data;
 
