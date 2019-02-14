@@ -64,6 +64,7 @@ export class Edit {
         var PurchasingDisposition = await this.purchasingDispositionService.search(arg);
         this.data = PurchasingDisposition.data[0];
         this.data.VerifyDate = moment(new Date()).format("DD-MMM-YYYY");
+        this.data.PayToSupplier=this.dataExpedition.payToSupplier;
         this.data.Id = id;
         this.DispositionNo = this.data;
     }

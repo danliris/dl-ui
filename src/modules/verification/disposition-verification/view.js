@@ -87,6 +87,7 @@ export class View {
         
         this.data = PurchasingDisposition.data[0];
         this.data.VerifyDate = this.dataExpedition.verifyDate;
+        this.data.PayToSupplier=this.dataExpedition.payToSupplier;
 
         this.DispositionNo = this.data;
     }

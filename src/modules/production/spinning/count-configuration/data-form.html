@@ -2,27 +2,32 @@
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
         <div class="col-lg-12" style="padding-left:0px">
 
-            <au-dropdown label="Jenis Proses" value.bind="processType" error.bind="error.processType" read-only.bind="readOnly"
+            <au-dropdown label="Jenis Proses" value.bind="processType" error.bind="error.ProcessType" read-only.bind="readOnly"
                 items.bind="processTypeList" options.bind="controlOptions">
             </au-dropdown>
 
-            <au-checkbox label="Mix Drawing?" show.bind="processType && data.ProcessType=='Finish Drawing'" value.bind="isMixDrawing"
+            <!-- <au-checkbox label="Mix Drawing?" show.bind="processType && data.ProcessType=='Finish Drawing'" value.bind="isMixDrawing"
                 read-only.bind="readOnly" options.bind="controlOptions">
-            </au-checkbox>
+            </au-checkbox> -->
 
-            <au-dropdown label="Jenis Benang" value.bind="yarnType" error.bind="error.YarnType" show.bind="data.IsMixDrawing != true"
+            <!-- <au-dropdown label="Jenis Benang" value.bind="yarnType" error.bind="error.YarnType" show.bind="data.ProcessType != 'Mix Drawing'"
                 read-only.bind="readOnly" items.bind="yarnTypeList" options.bind="controlOptions">
-            </au-dropdown>
+            </au-dropdown> -->
 
-            <au-autocomplete label="Count" value.bind="count" error.bind="error.count" loader.bind="yarnLoader"
-                key="Id" text="Name" read-only.bind="readOnly" options.bind="controlOptions">
+            <au-autocomplete label="Jenis Benang" value.bind="yarnType" error.bind="error.YarnId" 
+                show.bind="data.ProcessType != 'Mix Drawing'" loader.bind="materialTypeLoader" 
+                placeholder="Cari jenis benang" key="id" text="code" read-only.bind="readOnly" options.bind="controlOptions">
             </au-autocomplete>
 
-            <!-- <au-textbox value.bind="data.Count" error.bind="error.Count" read-only.bind="readOnly" label="Count"
-                options.bind="controlOptions">
-            </au-textbox> -->
+            <!-- <au-autocomplete label="Count" value.bind="count" error.bind="error.Count" loader.bind="yarnLoader"
+                key="Id" text="Name" read-only.bind="readOnly" options.bind="controlOptions">
+            </au-autocomplete> -->
 
-            <au-textbox label="No Lot" value.bind="lot" show.bind="data.IsMixDrawing == true" read-only.bind="readOnly"
+            <au-textbox value.bind="data.Count" error.bind="error.Count" read-only.bind="readOnly" label="Count"
+                options.bind="controlOptions">
+            </au-textbox>
+
+            <au-textbox label="No Lot" value.bind="lot" show.bind="data.ProcessType == 'Mix Drawing'" read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-textbox>
         </div>
@@ -43,7 +48,7 @@
                 <au-numeric label="Eff" value.bind="data.EffSpin" read-only.bind="readOnly" error.bind="error.effSpin"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-            <div class="col-lg-2" show.bind="processType && data.ProcessType=='Flying'">
+            <div class="col-lg-2" show.bind="processType && data.ProcessType=='Flyer'">
                 <au-numeric label="Total Draft" value.bind="data.Draft" read-only.bind="readOnly" error.bind="error.Draft"
                     options.bind="controlOptions2"></au-numeric>
             </div>
@@ -61,11 +66,11 @@
                 <au-numeric label="Konstan" value.bind="data.Constant" read-only.bind="readOnly" error.bind="error.constant"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-            <div show.bind="processType && data.ProcessType=='Winding'" class="col-lg-2">
+            <div show.bind="processType && data.ProcessType=='Winder'" class="col-lg-2">
                 <au-numeric label="Berat Cone" value.bind="data.Cone" read-only.bind="readOnly" error.bind="error.cone"
                     options.bind="controlOptions2"></au-numeric>
             </div>
-            <div show.bind="processType && (data.ProcessType=='Flying' || data.ProcessType=='Ring Spinning')" class="col-lg-2">
+            <div show.bind="processType && (data.ProcessType=='Flyer' || data.ProcessType=='Ring Spinning')" class="col-lg-2">
                 <au-numeric label="TPI" value.bind="data.Tpi" read-only.bind="readOnly" error.bind="error.tpi"
                     options.bind="controlOptions2"></au-numeric>
             </div>
@@ -78,16 +83,16 @@
             </div>
         </div> -->
         <br><br><br><br>
-        <div show.bind="regularItems && regularItems.length > 0 && showItemRegular && data.IsMixDrawing != true">
+        <div show.bind="regularItems && regularItems.length > 0 && showItemRegular && data.ProcessType != 'Mix Drawing'">
             <au-textbox label="No Lot" value.bind="lot" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
         </div>
         <div class="col-lg-12">
-            <au-collection show.bind="showItemRegular && isMixDrawing != true" items.bind="regularItems"
-                errors.bind="error.items" columns.bind="inputInfo.columns" read-only.bind="readOnly" item-template="modules/production/spinning/count-configuration/template/count-configuration-detail">
+            <au-collection show.bind="showItemRegular && data.ProcessType != 'Mix Drawing'" items.bind="regularItems"
+                errors.bind="error.Items" columns.bind="inputInfo.columns" read-only.bind="readOnly" item-template="modules/production/spinning/count-configuration/template/count-configuration-detail">
             </au-collection>
 
-            <au-collection show.bind="data.IsMixDrawing == true" items.bind="data.items" errors.bind="error.items"
+            <au-collection show.bind="data.ProcessType == 'Mix Drawing'" items.bind="data.Items" errors.bind="error.MaterialComposition"
                 add.bind="mixDrawingColumns.onAdd" remove.bind="removeItems" columns.bind="mixDrawingColumns.columns" 
                 read-only.bind="readOnly" view-model.ref="ItemsCollection"
                 item-template="modules/production/spinning/count-configuration/template/count-configuration-item">

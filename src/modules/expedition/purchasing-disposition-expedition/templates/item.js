@@ -40,7 +40,7 @@ export class Item {
             console.log(newValue)
             var paytoSupp=newValue.DPP+ newValue.VatValue;
             if(newValue.IncomeTaxBy=="Supplier"){
-                var paytoSupp=newValue.DPP+ newValue.VatValue-newValue.IncomeTaxValue;
+                var paytoSupp=newValue.DPP+ newValue.VatValue-newValue.IncomeTaxValue+newValue.PaymentCorrection;
             }
             this.data.dispositionDate = newValue.CreatedUtc;
             this.data.currency = {};
@@ -89,7 +89,8 @@ export class Item {
                         quantity : details.PaidQuantity,
                         unit : details.Unit,
                         uom : details.DealUom,
-                        purchasingDispositionDetailId : details.Id
+                        purchasingDispositionDetailId : details.Id,
+                        epoId:items.EPOId
                     };
                     this.data.items.push(item);
                 }

@@ -45,7 +45,7 @@ export class Create {
     }
 
     onCheckAll(event) {
-        for (var item of this.data.Items) {
+        for (var item of this.Items) {
             item.Select = event.detail.target.checked;
         }
     }
@@ -99,32 +99,9 @@ export class Create {
                     size: Number.MAX_SAFE_INTEGER,
                     filter: JSON.stringify({ "CurrencyCode": this.selectedBank.Currency.Code, "SupplierCode": newVal.code, "IsPaid": false , "Position":"7"}) //CASHIER DIVISION
                 };
-
-                // this.data.Items = await this.service.searchDispoEx(arg)
-                //     .then((result) => {
-                //         let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-                //         console.log(result)
-                //         return result.data;
-                //     });
                 await this.DispositionData(arg);
             }
         }
-        // } else {
-        //     if (this.selectedBank && this.selectedBank.Currency.Code) {
-        //         let arg = {
-        //             page: 1,
-        //             size: Number.MAX_SAFE_INTEGER,
-        //             filter: JSON.stringify({ "CurrencyCode": this.selectedBank.Currency.Code, "IsPaid": false, "Position":"7" }) //CASHIER DIVISION
-        //         };
-        //         await this.DispositionData(arg);
-        //         // this.data.Items = await this.service.searchDispoEx(arg)
-        //         //     .then((result) => {
-        //         //         let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-
-        //         //         return result.data;
-        //         //     });
-        //     }
-        // }
     }
 
     @computedFrom("selectedBank && selectedSupplier")
@@ -148,15 +125,15 @@ export class Create {
                     }
                     expeditionDatas.push(ex);
                 }
-                console.log(expeditionDatas)
                 return expeditionDatas;
             });
     }
 
-    @bindable selectedBank;
+    
     // isExistBankAndSupplier = false;
-    //data.Items = [];
+    Items = [];
     currency = "";
+    @bindable selectedBank;
     async selectedBankChanged(newVal) {
         this.data.AccountBank = newVal;
         if (newVal) {
@@ -164,7 +141,7 @@ export class Create {
                 let arg = {
                     page: 1,
                     size: Number.MAX_SAFE_INTEGER,
-                    filter: JSON.stringify({"CurrencyCode": this.selectedBank.Currency.Code, "SupplierCode": selectedSupplier.code, "IsPaid": false, "Position":"7" }) 
+                    filter: JSON.stringify({"CurrencyCode": this.selectedBank.Currency.Code, "SupplierCode": this.selectedSupplier.code, "IsPaid": false, "Position":"7" }) 
                 };
                 await this.DispositionData(arg);
             }
@@ -172,14 +149,14 @@ export class Create {
             this.currency = newVal.Currency.Code;
         } else {
             this.currency = "";
-            this.data.Items = [];
+            this.Items = [];
         }
     }
 
     get grandTotal() {
         let result = 0;
-        if (this.data.Items && this.data.Items.length > 0) {
-            for (let detail of this.data.Items) {
+        if (this.Items && this.Items.length > 0) {
+            for (let detail of this.Items) {
                 if (detail.Select)
                     result += detail.payToSupplier;
             }

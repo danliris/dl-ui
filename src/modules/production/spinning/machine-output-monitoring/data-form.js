@@ -35,19 +35,15 @@ export class DataForm {
         "Finish Drawing",
         "Flyer",
         "Ring Spinning",
-        "Winding"
+        "Winder"
     ];
 
-    shiftList = [
-        "",
-        "Shift 1 06:00 - 14:00",
-        "Shift 2 14:00 - 22:00",
-        "Shift 3 22:00 - 06:00"
-    ];
+    shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
     detailOptions = {};
     itemsColumnsHeader = [];
     machineSpinningFilter = {};
     masterFilter = {};
+    lotFilter = {};
     controlOptions = {
         label: {
             length: 4,
@@ -58,7 +54,6 @@ export class DataForm {
     };
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
-
     constructor(service, coreService, bindingEngine) {
         this.service = service;
         this.coreService = coreService;
@@ -73,7 +68,6 @@ export class DataForm {
         this.coreService.getMachineTypes()
             .then(result => {
                 if (this.data.ProcessType) {
-                    console.log(1)
                     this.typeOptions = result;
                 } else {
                     this.typeOptions.push("");
@@ -213,7 +207,7 @@ export class DataForm {
                     "Eff%"
                 ];
 
-            } else if (this.processType == "Flying") {
+            } else if (this.processType == "Flyer") {
                 this.itemsColumnsHeader = [
                     "Nomor Mesin",
                     "Merk Mesin",
@@ -224,7 +218,7 @@ export class DataForm {
                     "Spindle Kosong",
                     "Eff%"
                 ];
-            } else if (this.processType == "Winding") {
+            } else if (this.processType == "Winder") {
                 this.itemsColumnsHeader = [
                     "Nomor Mesin",
                     "Merk Mesin",
@@ -274,6 +268,7 @@ export class DataForm {
 
     materialTypeChanged(n, o) {
         if (this.materialType && this.materialType.id) {
+            this.lotFilter = { "YarnTypeIdentity": this.materialType.id };
             this.data.MaterialTypeId = this.materialType.id;
             this.fillItems();
         } else {

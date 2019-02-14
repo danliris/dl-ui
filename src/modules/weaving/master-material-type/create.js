@@ -24,20 +24,20 @@ export class Create {
   }
 
   saveCallback(event) {
-    // console.log(this.data);s
-    var materialData = {
-      code: this.data.code,
-      name: this.data.name,
-      description: this.data.description
-    };
-    if (materialData.code == null || materialData.code == undefined) {
+    this.error = {};
+    var index = 0;
+    var emptyFieldName = "Semua Field Harus Diisi";
+
+    if (this.data.code == null || this.data.code == undefined) {
       this.error.code = "Kode Material Tidak Boleh Kosong";
+      index++;
     }
-    if (materialData.name == null || materialData.name == undefined) {
+    if (this.data.name == null || this.data.name == undefined) {
       this.error.name = "Nama Material Tidak Boleh Kosong";
+      index++;
     }
-    if (materialData.description == null || materialData.description == undefined) {
-      this.error.description = "Deskripsi Material Tidak Boleh Kosong";
+    if (index > 0) {
+      window.alert(emptyFieldName);
     } else {
       this.service
         .create(materialData)

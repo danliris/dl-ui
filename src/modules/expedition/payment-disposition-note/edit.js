@@ -89,8 +89,8 @@ export class Edit {
 
     get grandTotal() {
         let result = 0;
-        if (this.data.Items && this.data.Items.length > 0) {
-            for (let detail of this.data.Items) {
+        if (this.Items && this.Items.length > 0) {
+            for (let detail of this.Items) {
                 if (detail.Select)
                     result += detail.payToSupplier;
             }

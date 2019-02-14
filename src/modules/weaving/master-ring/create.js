@@ -24,21 +24,21 @@ export class Create {
   }
 
   saveCallback(event) {
-    // var ringData = {
-    //   code: this.data.code,
-    //   number: this.data.number,
-    //   description: this.data.description
-    // };
-    
-    // if (ringData.code == null || ringData.code == undefined) {
-    //   this.error.code = "Kode Ring Tidak Boleh Kosong";
-    // }
-    // if (ringData.number == null || ringData.number == undefined) {
-    //   this.error.number = "Ukuran Ring Tidak Boleh Kosong";
-    // }
-    // if (ringData.description == null || ringData.description == undefined) {
-    //   this.error.description = "Deskripsi Ring Tidak Boleh Kosong";
-    // } else {
+    this.error = {};
+    var index = 0;
+    var emptyFieldName = "Semua Field Harus Diisi";
+
+    if (this.data.code == null || this.data.code == undefined) {
+      this.error.code = "Kode Ring Tidak Boleh Kosong";
+      index++;
+    }
+    if (this.data.number == null || this.data.number == undefined) {
+      this.error.number = "Ukuran Ring Tidak Boleh Kosong";
+      index++;
+    }
+    if (index > 0) {
+      window.alert(emptyFieldName);
+    } else {
       this.service
         .create(this.data)
         .then(result => {
@@ -47,6 +47,6 @@ export class Create {
         .catch(e => {
           this.error = e;
         });
-    // }
+    }
   }
 }

@@ -1,7 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-// var YarnLoader = require("../../../loader/weaving-yarns-loader");
 var UnitLoader = require("../../../loader/unit-loader");
 var moment = require("moment");
 
@@ -12,6 +11,7 @@ export class DataForm {
 
   yearFormat = "YYYY";
   years = [];
+  monthFormat = "MMMM";
 
   formOptions = {
     cancelText: "Kembali",
@@ -74,6 +74,10 @@ export class DataForm {
     this.error = this.context.error;
     this.getYears();
 
+    var currentDate = moment(new Date());
+    var currentMonth = currentDate.month().format('MMMM');
+    console.log(currentMonth);
+
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
@@ -84,10 +88,6 @@ export class DataForm {
     this.constructionNumber = {};
     return ConstructionLoader;
   }
-
-  // get yarns() {
-  //   return YarnLoader;
-  // }
 
   get units() {
     return UnitLoader;

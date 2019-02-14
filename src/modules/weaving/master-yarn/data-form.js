@@ -63,6 +63,7 @@ export class DataForm {
     if (newValue.name) {
       this.data.name = "";
       this.data.materialTypeDocument = {};
+      this.data.materialTypeDocument.id = newValue.id;
       this.data.materialTypeDocument.name = newValue.name;
       this.data.materialTypeDocument.code = newValue.code;
 

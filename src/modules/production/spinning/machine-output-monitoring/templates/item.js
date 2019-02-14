@@ -5,8 +5,8 @@ import { isNullOrUndefined } from 'util';
 @inject(BindingEngine)
 export class Item {
     @bindable isBlowing;
-    @bindable isWinding;
-    @bindable isFlying;
+    @bindable isWinder;
+    @bindable isFlyer;
     @bindable output;
     @bindable data;
     @bindable readOnly;
@@ -35,20 +35,20 @@ export class Item {
 
         if (this.processType == "Blowing") {
             this.isBlowing = true;
-            this.isWinding = false;
-            this.isFlying = false;
-        } else if (this.processType == "Winding") {
+            this.isWinder = false;
+            this.isFlyer = false;
+        } else if (this.processType == "Winder") {
             this.isBlowing = false;
-            this.isWinding = true;
-            this.isFlying = false;
-        } else if (this.processType == "Flying") {
+            this.isWinder = true;
+            this.isFlyer = false;
+        } else if (this.processType == "Flyer") {
             this.isBlowing = false;
-            this.isWinding = false;
-            this.isFlying = true;
+            this.isWinder = false;
+            this.isFlyer = true;
         } else {
             this.isBlowing = false;
-            this.isWinding = false;
-            this.isFlying = false;
+            this.isWinder = false;
+            this.isFlyer = false;
         }
 
     }
@@ -113,12 +113,12 @@ export class Item {
             this.blowingFormula(MachineSpinning);
         } else if (this.processType == "Carding") {
             this.cardingFormula(MachineSpinning);
-        } else if (this.processType == "Flying") {
-            this.flyingFormula(MachineSpinning);
+        } else if (this.processType == "Flyer") {
+            this.flyerFormula(MachineSpinning);
         } else if (this.processType == "Ring Spinning") {
             this.ringFormula(MachineSpinning);
-        } else if (this.processType == "Winding") {
-            this.windingFormula(MachineSpinning);
+        } else if (this.processType == "Winder") {
+            this.winderFormula(MachineSpinning);
         } else if (this.processType == "Pre-Drawing" || "Finish Drawing") {
             this.drawingFormula(MachineSpinning);
         }
@@ -163,7 +163,7 @@ export class Item {
 
     }
 
-    windingFormula(MachineSpinning) {
+    winderFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "CONE") {
             this.data.Bale = this.data.Output / (181.44 / this.CountConfig.ConeWeight);
         } else {
@@ -173,7 +173,7 @@ export class Item {
 
     }
 
-    flyingFormula(MachineSpinning) {
+    flyerFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
             this.data.Bale = this.data.Output / 181.44;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {

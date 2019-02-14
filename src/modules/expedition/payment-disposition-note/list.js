@@ -16,7 +16,7 @@ export class List {
             },
         },
         { field: 'dispositions', title: 'No Disposisi Pembayaran' },
-        { field: 'SupplierName', title: 'Supplier' },
+        { field: 'Supplier.Name', title: 'Supplier' },
         {
             field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
                 return data ? `${data.AccountBank.BankName}` : '';
