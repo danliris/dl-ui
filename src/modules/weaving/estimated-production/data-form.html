@@ -153,9 +153,8 @@
 
       <div class="row" style="margin-bottom: 24px;">
         <au-collection
-          with.bind="_this"
-          view-model.ref="tableGue"
-          items.bind="Items"
+          view-model.ref="orderProductionsItems"
+          items.bind="data.Items"
           error.bind="error.orderProductionsDocument"
           columns.bind="orderProductionsColumns"
           options.bind="orderProductionsTableOptions"

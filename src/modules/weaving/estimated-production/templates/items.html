@@ -43,13 +43,5 @@ th,td {
         <au-textbox value.bind="data.gradeD" read-only.bind="true">
         </au-textbox>
       </td>
-      <td class="col-sm-1" if.bind="!readOnly">
-        <button
-          class="btn btn-danger pull-right"
-          click.delegate="onremove(data, $event)"
-        >
-          -
-        </button>
-      </td>
     </tr>
   </template>

@@ -69,7 +69,10 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+
     this.getYears();
+    this.data.Items = [];
+    this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -80,7 +83,10 @@ export class DataForm {
   orderProductionsColumns = [
     { header: "Tanggal", value: "dateOrdered" },
     { header: "No. SOP", value: "orderNumber" },
-    { header: "No. Konstruksi", value: "fabricConstructionDocument.constructionNumber" },
+    {
+      header: "No. Konstruksi",
+      value: "fabricConstructionDocument.constructionNumber"
+    },
     { header: "Total Gram", value: "amountTotal" },
     { header: "Jumlah Order (Gr)", value: "wholeGrade" },
     { header: "Grade A (%)", value: "gradeA" },
@@ -104,25 +110,12 @@ export class DataForm {
     this.years.push(nextYear.year());
   }
 
-  Values() {}
-
-  tableGue;
   async searchOrderProductions() {
-    // console.log(this.data);
-    // console.log(this.data.period.month);
-    // console.log(this.data.period.year);
-    // console.log(this.data.unit.code);
-    // debugger;
     this.error = {};
-    // this.data = {};
-    // var monthParam;
-    // var yearParam;
-    // var unitCodeParam;
     var index = 0;
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    // console.log(this.data.period.month);
     if (this.data.period) {
       if (
         this.data.period.month == null ||
@@ -131,11 +124,8 @@ export class DataForm {
       ) {
         this.error.periodMonth = "Periode Bulan Tidak Boleh Kosong";
         index++;
-      // } else {
-      //   this.monthParam = this.data.period.month;
       }
 
-      // console.log(this.data.period.year);
       if (
         this.data.period.year == null ||
         this.data.period.year == undefined ||
@@ -143,12 +133,9 @@ export class DataForm {
       ) {
         this.error.periodYear = "Periode Tahun Tidak Boleh Kosong";
         index++;
-      // } else {
-      //   this.yearParam = this.data.period.year;
       }
     }
 
-    // console.log(this.data.unit.code);
     if (this.data.unit) {
       if (
         this.data.unit == null ||
@@ -157,25 +144,25 @@ export class DataForm {
       ) {
         this.error.unit = "Unit Tidak Boleh Kosong";
         index++;
-      // } else {
-      //   this.unitCodeParam = this.data.unit.code;
       }
     }
-
-    console.log(this.data)
 
     if (index > 0) {
       window.alert(emptyFieldName);
     } else {
       await this.service
-        .search(this.data.period.month, this.data.period.year, this.data.unit.code)
+        .search(
+          this.data.period.month,
+          this.data.period.year,
+          this.data.unit.code
+        )
         .then(result => {
-          // return {
-            this.Items = result.data;
-          // };
+          result.data.forEach(datum => {
+            this.data.Items.push(datum);
+          });
+          this.context.orderProductionsItems.bind(this);
         });
     }
-    console.log(this.Items);
-    // debugger;
+    console.log(this.data.Items);
   }
 }
