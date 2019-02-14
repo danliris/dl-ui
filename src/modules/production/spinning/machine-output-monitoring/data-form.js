@@ -35,15 +35,10 @@ export class DataForm {
         "Finish Drawing",
         "Flyer",
         "Ring Spinning",
-        "Winding"
+        "Winder"
     ];
 
-    shiftList = [
-        "",
-        "Shift 1 06:00 - 14:00",
-        "Shift 2 14:00 - 22:00",
-        "Shift 3 22:00 - 06:00"
-    ];
+    shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
     detailOptions = {};
     itemsColumnsHeader = [];
     machineSpinningFilter = {};
@@ -59,7 +54,6 @@ export class DataForm {
     };
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
-
     constructor(service, coreService, bindingEngine) {
         this.service = service;
         this.coreService = coreService;
@@ -274,8 +268,8 @@ export class DataForm {
 
     materialTypeChanged(n, o) {
         if (this.materialType && this.materialType.id) {
+            this.lotFilter = { "YarnTypeIdentity": this.materialType.id };
             this.data.MaterialTypeId = this.materialType.id;
-            this.lotFilter.YarnTypeIdentity=this.data.MaterialTypeId;
             this.fillItems();
         } else {
             this.data.MaterialTypeId = null;

@@ -14,7 +14,7 @@
                 read-only.bind="readOnly" items.bind="yarnTypeList" options.bind="controlOptions">
             </au-dropdown> -->
 
-            <au-autocomplete label="Jenis Benang" value.bind="yarnType" error.bind="error.YarnMaterialTypeId" 
+            <au-autocomplete label="Jenis Benang" value.bind="yarnType" error.bind="error.YarnId" 
                 show.bind="data.ProcessType != 'Mix Drawing'" loader.bind="materialTypeLoader" 
                 placeholder="Cari jenis benang" key="id" text="code" read-only.bind="readOnly" options.bind="controlOptions">
             </au-autocomplete>
@@ -92,7 +92,7 @@
                 errors.bind="error.Items" columns.bind="inputInfo.columns" read-only.bind="readOnly" item-template="modules/production/spinning/count-configuration/template/count-configuration-detail">
             </au-collection>
 
-            <au-collection show.bind="data.ProcessType == 'Mix Drawing'" items.bind="data.Items" errors.bind="error.Items"
+            <au-collection show.bind="data.ProcessType == 'Mix Drawing'" items.bind="data.Items" errors.bind="error.MaterialComposition"
                 add.bind="mixDrawingColumns.onAdd" remove.bind="removeItems" columns.bind="mixDrawingColumns.columns" 
                 read-only.bind="readOnly" view-model.ref="ItemsCollection"
                 item-template="modules/production/spinning/count-configuration/template/count-configuration-item">
