@@ -34,10 +34,6 @@ export class Confirm {
         var total_item = 0;
         for (var item of this.data.Items) {
           var today = new Date();
-          // today.setDate(today.getDate()+45);
-          // var deliveryDates = new Date(Date.parse(data.DeliveryDate));
-
-          // this.data.ConfirmedQuantity = this.itemSum;
           var a = new Date(item.DeliveryDate);
           var b = today;
           a.setHours(0, 0, 0, 0);
@@ -128,13 +124,5 @@ export class Confirm {
     }
 
   }
-
-  // get itemSum() {
-  //   var qty = this.context.Items
-  //     .filter(item => !item.data.IsCanceled) // for false and undefined
-  //     .map((item) => item.data.ConfirmQuantity);
-  //   return qty
-  //     .reduce((prev, curr, index) => { return prev + curr }, 0);
-  // }
 
 }

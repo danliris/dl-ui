@@ -33,7 +33,6 @@ export class DataForm {
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
-        // console.log(this.data);
         this.error = this.context.error;
 
         if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
@@ -48,36 +47,6 @@ export class DataForm {
     get isEdit() {
         return (this.data.Id || '').toString() != '';
     }
-
-    // selectedBuyerChanged(newValue) {
-    //     var _selectedBuyer = newValue;
-    //     console.log(_selectedBuyer);
-    //     if (_selectedBuyer) {
-    //         this.data.Buyer = _selectedBuyer;
-    //         this.data.BuyerId = _selectedBuyer.Id ? _selectedBuyer.Id : "";
-    //         this.data.BuyerCode = _selectedBuyer.Code;
-    //         this.data.BuyerName = _selectedBuyer.Name;
-    //     }
-    // }
-
-    // selectedSectionChanged(newValue) {
-    //     var _selectedSection = newValue;
-    //     console.log(_selectedSection);
-    //     if (_selectedSection) {
-    //         this.data.section = _selectedSection;
-    //         this.data.SectionId = _selectedSection.Id ? _selectedSection.Id : "";
-    //         this.data.SectionCode = _selectedSection.Code;
-    //         this.data.SectionName = _selectedSection.Name;            
-    //     }
-    // }
-
-    // get buyerLoader() {
-    //     return BuyerLoader;
-    // }
-
-    // get sectionLoader() {
-    //     return SectionLoader;
-    // }
 
     get addItems() {
         return (event) => {

@@ -79,12 +79,12 @@ export class View {
     this.router.navigateToRoute('edit', { id: this.data.Id });
   }   
 
-  // cancelBooking() {
-  //       this.service.cancelBooking(this.data)
-  //       .then(result => {
-  //         this.cancel();
-  //       });
-  //   }
+  cancelBooking() {
+        this.service.cancelBooking(this.data)
+        .then(result => {
+          this.cancel();
+        });
+    }
 
   confirmBooking(event) {
     this.router.navigateToRoute('confirm', { id: this.data.Id });
@@ -94,12 +94,12 @@ export class View {
   //   this.router.navigateToRoute('detail', { id: this.data.code });
   // }
 
-  // expired() {
-  //       this.service.expiredBooking(this.data)
-  //       .then(result => {
-  //         this.cancel();
-  //       });
-  //   }
+  expired() {
+        this.service.expiredBooking(this.data)
+        .then(result => {
+          this.cancel();
+        });
+    }
    
   delete(event) {
     this.service.delete(this.data)
