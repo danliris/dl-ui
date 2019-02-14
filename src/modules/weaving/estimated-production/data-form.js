@@ -1,16 +1,15 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
 import { Dialog } from "../../../au-components/dialog/dialog";
-import { EpSopQuantityEditor } from "./dialogs/ep-sop-quantity-editor";
-// import { Service } from "../order-production/service";
 var UnitLoader = require("../../../loader/unit-loader");
+import { Service } from "./service";
 
-@inject(Dialog)
+@inject(Dialog, Service)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  isModalShown = false;
-  modalLabel = true;
+  // isModalShown = false;
+  // modalLabel = true;
 
   yearFormat = "YYYY";
   years = [];
@@ -38,6 +37,13 @@ export class DataForm {
     }
   };
 
+  orderProductionsTableOptions = {
+    pagination: false,
+    search: false,
+    showColumns: false,
+    showToggle: false
+  };
+
   months = [
     "",
     "January",
@@ -54,15 +60,9 @@ export class DataForm {
     "December"
   ];
 
-  constructor(dialog) {
-    // this.service = service;
+  constructor(dialog, service) {
+    this.service = service;
     this.dialog = dialog;
-
-    // function __openModal() {
-    // console.log(this.dialog);
-    // console.log("test");
-    // this.dialog.show(AddSOPEditor);
-    // }
   }
 
   bind(context) {
@@ -77,40 +77,20 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  columnsView = [
-    { header: "Tanggal", value: "dateOrdered" },
-    { header: "No. SOP", value: "orderNumber" },
-    { header: "No. Konstruksi", value: "constructionNumber" },
-    { header: "Total Gram", value: "amountTotal" },
-    { header: "Jumlah Order (Gr)", value: "orderTotal" },
-    { header: "Grade A (%)", value: "gradeA" },
-    { header: "Grade B (%)", value: "gradeB" },
-    { header: "Grade C (%)", value: "gradeC" },
-    { header: "Grade D (%)", value: "gradeD" }
+  orderProductionsColumns = [
+    { title: "Tanggal", field: "dateOrdered" },
+    { title: "No. SOP", field: "orderNumber" },
+    { title: "No. Konstruksi", field: "constructionNumber" },
+    { title: "Total Gram", field: "amountTotal" },
+    { title: "Jumlah Order (Gr)", field: "orderTotal" },
+    { title: "Grade A (%)", field: "gradeA" },
+    { title: "Grade B (%)", field: "gradeB" },
+    { title: "Grade C (%)", field: "gradeC" },
+    { title: "Grade D (%)", field: "gradeD" }
   ];
 
-  // @computedFrom("data._id")
-  // get isEdit() {
-  //     return (this.data._id || '').toString() != '';
-  // }
-
-  // get openModal() {
-  //   this.isModalShown = true;
-  // }
-
-  // get closeModal() {
-  //   this.isModalShown = false;
-  // }
   get units() {
     return UnitLoader;
-  }
-
-  __openModal() {
-    this.ShowAddSOPEditorDialog();
-  }
-
-  ShowAddSOPEditorDialog() {
-    this.dialog.show(EpSopQuantityEditor);
   }
 
   getYears() {
@@ -122,5 +102,76 @@ export class DataForm {
     this.years.push(nextYear.year());
     var nextYear = year.add(1, "years");
     this.years.push(nextYear.year());
+  }
+
+  Values() {}
+
+  searchOrderProductions() {
+    console.log(this.data);
+    // console.log(this.data.period.month);
+    // console.log(this.data.period.year);
+    // console.log(this.data.unit.code);
+    debugger;
+    this.error = {};
+    var monthParam;
+    var yearParam;
+    var unitCodeParam;
+    var index = 0;
+    var emptyFieldName =
+      "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
+
+    console.log(this.data.period.month);
+    if (this.data.period) {
+      if (
+        this.data.period.month == null ||
+        this.data.period.month == undefined ||
+        this.data.period.month == ""
+      ) {
+        this.error.periodMonth = "Periode Bulan Tidak Boleh Kosong";
+        index++;
+      } else {
+        this.monthParam = this.data.period.month;
+      }
+
+      console.log(this.data.period.year);
+      if (
+        this.data.period.year == null ||
+        this.data.period.year == undefined ||
+        this.data.period.year == ""
+      ) {
+        this.error.periodYear = "Periode Tahun Tidak Boleh Kosong";
+        index++;
+      } else {
+        this.yearParam = this.data.period.year;
+      }
+    }
+
+    console.log(this.data.unit.code);
+    if (this.data.unit) {
+      if (
+        this.data.unit == null ||
+        this.data.unit == undefined ||
+        this.data.unit == ""
+      ) {
+        this.error.unit = "Unit Tidak Boleh Kosong";
+        index++;
+      } else {
+        this.unitCodeParam = this.data.unit.code;
+      }
+    }
+
+    if (index > 0) {
+      window.alert(emptyFieldName);
+    } else {
+      this.service
+        .search(this.monthParam, this.yearParam, this.unitCodeParam)
+        .then(result => {
+          return {
+            data: result.data
+          };
+        });
+    }
+    console.log(this.data);
+    debugger;
   }
 }

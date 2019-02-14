@@ -35,17 +35,6 @@ export class List {
       keyword: info.search,
       order: order
     };
-
-    // return{
-    //     total:1,
-    //     data:[{
-    //         orderNumber:1,
-    //         dateOrdered:new Date(),
-    //         orderTotal: {
-    //             name: 3500
-    //         }
-    //     }]
-    // };
   };
 
   constructor(router, service) {
