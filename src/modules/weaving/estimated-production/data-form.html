@@ -152,13 +152,16 @@
       </div>
 
       <div class="row" style="margin-bottom: 24px;">
-        <au-table
-          data.bind="data.orderProductionsDocument"
+        <au-collection
+          with.bind="_this"
+          view-model.ref="tableGue"
+          items.bind="Items"
+          error.bind="error.orderProductionsDocument"
           columns.bind="orderProductionsColumns"
-          sortable.bind="true"
           options.bind="orderProductionsTableOptions"
+          item-template="modules/weaving/estimated-production/templates/items"
         >
-        </au-table>
+        </au-collection>
       </div>
     </div>
   </au-input-form>

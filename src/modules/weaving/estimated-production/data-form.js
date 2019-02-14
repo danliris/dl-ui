@@ -78,15 +78,15 @@ export class DataForm {
   }
 
   orderProductionsColumns = [
-    { title: "Tanggal", field: "dateOrdered" },
-    { title: "No. SOP", field: "orderNumber" },
-    { title: "No. Konstruksi", field: "constructionNumber" },
-    { title: "Total Gram", field: "amountTotal" },
-    { title: "Jumlah Order (Gr)", field: "orderTotal" },
-    { title: "Grade A (%)", field: "gradeA" },
-    { title: "Grade B (%)", field: "gradeB" },
-    { title: "Grade C (%)", field: "gradeC" },
-    { title: "Grade D (%)", field: "gradeD" }
+    { header: "Tanggal", value: "dateOrdered" },
+    { header: "No. SOP", value: "orderNumber" },
+    { header: "No. Konstruksi", value: "fabricConstructionDocument.constructionNumber" },
+    { header: "Total Gram", value: "amountTotal" },
+    { header: "Jumlah Order (Gr)", value: "wholeGrade" },
+    { header: "Grade A (%)", value: "gradeA" },
+    { header: "Grade B (%)", value: "gradeB" },
+    { header: "Grade C (%)", value: "gradeC" },
+    { header: "Grade D (%)", value: "gradeD" }
   ];
 
   get units() {
@@ -106,21 +106,23 @@ export class DataForm {
 
   Values() {}
 
-  searchOrderProductions() {
-    console.log(this.data);
+  tableGue;
+  async searchOrderProductions() {
+    // console.log(this.data);
     // console.log(this.data.period.month);
     // console.log(this.data.period.year);
     // console.log(this.data.unit.code);
-    debugger;
+    // debugger;
     this.error = {};
-    var monthParam;
-    var yearParam;
-    var unitCodeParam;
+    // this.data = {};
+    // var monthParam;
+    // var yearParam;
+    // var unitCodeParam;
     var index = 0;
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    console.log(this.data.period.month);
+    // console.log(this.data.period.month);
     if (this.data.period) {
       if (
         this.data.period.month == null ||
@@ -129,11 +131,11 @@ export class DataForm {
       ) {
         this.error.periodMonth = "Periode Bulan Tidak Boleh Kosong";
         index++;
-      } else {
-        this.monthParam = this.data.period.month;
+      // } else {
+      //   this.monthParam = this.data.period.month;
       }
 
-      console.log(this.data.period.year);
+      // console.log(this.data.period.year);
       if (
         this.data.period.year == null ||
         this.data.period.year == undefined ||
@@ -141,12 +143,12 @@ export class DataForm {
       ) {
         this.error.periodYear = "Periode Tahun Tidak Boleh Kosong";
         index++;
-      } else {
-        this.yearParam = this.data.period.year;
+      // } else {
+      //   this.yearParam = this.data.period.year;
       }
     }
 
-    console.log(this.data.unit.code);
+    // console.log(this.data.unit.code);
     if (this.data.unit) {
       if (
         this.data.unit == null ||
@@ -155,23 +157,25 @@ export class DataForm {
       ) {
         this.error.unit = "Unit Tidak Boleh Kosong";
         index++;
-      } else {
-        this.unitCodeParam = this.data.unit.code;
+      // } else {
+      //   this.unitCodeParam = this.data.unit.code;
       }
     }
+
+    console.log(this.data)
 
     if (index > 0) {
       window.alert(emptyFieldName);
     } else {
-      this.service
-        .search(this.monthParam, this.yearParam, this.unitCodeParam)
+      await this.service
+        .search(this.data.period.month, this.data.period.year, this.data.unit.code)
         .then(result => {
-          return {
-            data: result.data
-          };
+          // return {
+            this.Items = result.data;
+          // };
         });
     }
-    console.log(this.data);
-    debugger;
+    console.log(this.Items);
+    // debugger;
   }
 }
