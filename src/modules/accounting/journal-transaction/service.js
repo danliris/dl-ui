@@ -39,4 +39,9 @@ export class Service extends RestService {
         let endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
+
+    posting(data) {
+        let endpoint = `${serviceUri}/posting-transaction/${data.Id}`;
+        return super.put(endpoint);
+    }
 }

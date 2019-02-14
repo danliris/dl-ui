@@ -15,7 +15,8 @@ export class List {
         },
         { field: "DocumentNo", title: "No. Dokumen Jurnal" },
         { field: "Description", title: "Description" },
-        { field: "ReferenceNo", title: "No. Referensi" }
+        { field: "ReferenceNo", title: "No. Referensi" },
+        { field: "Status", title: "Status" }
     ];
 
     loader = (info) => {
