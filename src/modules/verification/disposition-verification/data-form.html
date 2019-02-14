@@ -58,7 +58,7 @@
             <au-numeric value.bind="data.IncomeTaxValue" label="PPH" read-only.bind="true" format="0,0.0000" options.bind="controlOptions">>
             </au-numeric>
 
-            <au-numeric value.bind="data.Amount" label="Amount" read-only.bind="true" format="0,0.0000" options.bind="controlOptions">>
+            <au-numeric value.bind="data.PayToSupplier" label="Amount" read-only.bind="true" format="0,0.0000" options.bind="controlOptions">>
             </au-numeric>
 
             <au-collection  items.bind="data.Items" columns.bind="itemsColumns" read-only.bind="readOnly" item-template="modules/verification/disposition-verification/template/item">

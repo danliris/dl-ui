@@ -32,7 +32,7 @@ export class Create {
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
-            field: "totalPaid", title: "Total Bayar", formatter: function (value, data, index) {
+            field: "payToSupplier", title: "Total Bayar", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.0000');
             },
         },
@@ -178,10 +178,10 @@ export class Create {
                     for(var data of result.data){
                         var same= dataDisposition.find(a=>a.Id==data.dispositionId);
                         if(same){
-                            data.totalPaid=same.DPP+same.VatValue;
-                            if(same.IncomeTaxBy=="Supplier"){
-                                data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
-                            }
+                            // data.totalPaid=same.DPP+same.VatValue;
+                            // if(same.IncomeTaxBy=="Supplier"){
+                            //     data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
+                            // }
                             data.dispoCreatedby=same.CreatedBy;
                         }
                     }

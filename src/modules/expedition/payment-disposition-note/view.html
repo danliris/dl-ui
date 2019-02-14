@@ -57,6 +57,6 @@
             options.bind="controlOptions">
         </au-numeric> -->
 
-        TOTAL BAYAR DPP + PPN ${data.Amount | numberFormat: '0,000.0000'} ${data.AccountBank.Currency.Code}
+        TOTAL BAYAR ${data.Amount | numberFormat: '0,000.0000'} ${data.AccountBank.Currency.Code}
     </au-input-form>
 </template>
