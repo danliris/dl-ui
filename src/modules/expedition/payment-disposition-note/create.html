@@ -71,6 +71,6 @@
             item-template="modules/expedition/payment-disposition-note/templates/item">
         </au-collection>
 
-        TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${data.AccountBank.Currency.Code}
+        TOTAL BAYAR ${grandTotal | numberFormat: '0,000.0000'} ${data.AccountBank.Currency.Code}
     </au-input-form>
 </template>
