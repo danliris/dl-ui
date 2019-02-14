@@ -46,7 +46,7 @@ export class Edit {
         // }
 
         // if(errorCount==0){
-        this.data.Date = this.data.Date ? moment(this.data.Date).format("DD MMM YYYY") : null;
+        
         this.service.update(this.data).then(result => {
             this.cancelCallback();
         }).catch(e => {
