@@ -1,10 +1,10 @@
 <template>
-<tr if.bind="!data.isCanceled"> <!-- add data.isCanceled = undefined if not exist -->
+<tr if.bind="!data.IsCanceled"> <!-- add data.isCanceled = undefined if not exist -->
   
   <td width="20%">
     <au-autocomplete 
     value.bind="selectedComodity" 
-    error.bind="error.masterPlanComodity" 
+    error.bind="error.Comodity" 
     text.bind = "comoView"
     read-only.bind="options.readOnly" 
     loader.bind="comodityLoader"

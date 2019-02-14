@@ -181,9 +181,7 @@ export class DataForm {
         this.RONo = null;
         this.data.Article = null;
         this.context.RONoHeaderViewModel.editorValue = "";
-        this.context.storageViewModel.editorValue = "";
         this.context.RONoViewModel.editorValue = "";
-        this.context.storageRequestViewModel.editorValue = "";
         this.data.Items = [];
     }
 
@@ -212,7 +210,9 @@ export class DataForm {
         }
         else {
             this.data.StorageRequest = null;
-            // this.context.storageRequestViewModel.editorValue = "";
+            if (this.isTransfer) {
+                this.context.storageRequestViewModel.editorValue = "";
+            }
         }
         this.data.Items = [];
         this.RONo = null;

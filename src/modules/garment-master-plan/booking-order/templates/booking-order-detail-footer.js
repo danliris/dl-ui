@@ -5,8 +5,6 @@ import { Config } from "aurelia-api"
 export class DetailFooter {
   activate(context) {
     this.context = context;
-    //this.error = context.items[0].error;
-    //console.log(this.context);
   }
 
   get itemSum() {
