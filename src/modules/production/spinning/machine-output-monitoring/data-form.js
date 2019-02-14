@@ -54,7 +54,6 @@ export class DataForm {
     };
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
-    lotFilter = {};
     constructor(service, coreService, bindingEngine) {
         this.service = service;
         this.coreService = coreService;
@@ -271,7 +270,6 @@ export class DataForm {
         if (this.materialType && this.materialType.id) {
             this.lotFilter = { "YarnTypeIdentity": this.materialType.id };
             this.data.MaterialTypeId = this.materialType.id;
-            this.lotFilter.YarnTypeIdentity=this.data.MaterialTypeId;
             this.fillItems();
         } else {
             this.data.MaterialTypeId = null;

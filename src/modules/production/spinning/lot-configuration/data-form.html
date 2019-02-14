@@ -1,7 +1,7 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-autocomplete label="Unit" value.bind="unit" error.bind="error.UnitDepartmentId[0]" loader.bind="unitLoader"
+        <au-autocomplete label="Unit" value.bind="unit" error.bind="error.UnitDepartmentId" loader.bind="unitLoader"
             placeholder="Cari unit spinning" key="Id" text="Name" read-only.bind="readOnly" query.bind="spinningFilter"
             options.bind="controlOptions">
         </au-autocomplete>
@@ -10,7 +10,7 @@
             options.bind="controlOptions">
         </au-datepicker>
 
-        <au-textbox label="Lot" value.bind="data.LotNo" error.bind="error.LotNo[0]" read-only.bind="readOnly"
+        <au-textbox label="Lot" value.bind="data.LotNo" error.bind="error.LotNo" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
         <!-- 
@@ -18,7 +18,7 @@
             items.bind="yarnTypeList" options.bind="controlOptions">
         </au-dropdown> -->
 
-        <au-autocomplete label="Tipe Benang" value.bind="yarn" error.bind="error.YarnTypeIdentity[0]"
+        <au-autocomplete label="Tipe Benang" value.bind="yarn" error.bind="error.YarnTypeIdentity"
             loader.bind="materialTypeLoader" placeholder="Cari tipe benang" key="id" text="code"
             read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
@@ -32,7 +32,7 @@
         </au-collection> -->
 
         <au-collection columns.bind="itemColumns" items.bind="data.CottonCompositions"
-            errors.one-way="error.CottonCompositions[0]" add.bind="addItemCallback" remove.bind="onremove"
+            errors.one-way="error.CottonCompositions" add.bind="addItemCallback" remove.bind="onremove"
             read-only.bind="readOnly" item-template="modules/production/spinning/lot-configuration/template/item">
         </au-collection>
 
