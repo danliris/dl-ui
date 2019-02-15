@@ -24,35 +24,41 @@ export class Edit {
     // context = ["Rincian Purchase Request"];
 
     selectDispositionNo = [
-        'DispositionNo',
-        'Supplier.name', 'Supplier.code',
-        'Currency.code',
-        'Bank',
-        'ConfirmationOrderNo',
-        'InvoiceNo',
-        'PaymentMethod',
-        'PaymentDueDate',
-        'Calculation',
-        'Remark',
-        'ProformaNo',
-        'Investation',
-        'Amount',
-        'Items.EPONo',
-        'Items.UseVat',
-        'Items.UseIncomeTax',
-        'Items.IncomeTax.name',
-        'Items.IncomeTax.rate',
-        'Items.Details.PRNo',
-        'Items.Details.Category.name',
-        'Items.Details.Product.name', 'Items.Details.Product.code',
-        'Items.Details.DealQuantity',
-        'Items.Details.DealUom.unit',
-        'Items.Details.PaidQuantity',
-        'Items.Details.PricePerDealUnit',
-        'Items.Details.PriceTotal',
-        'Items.Details.PaidPrice',
-        'Items.Details.Unit.name',
-    ];
+            'DispositionNo',
+            'Supplier.name', 'Supplier.code',
+            'Currency.code',
+            'Bank',
+            'ConfirmationOrderNo',
+            'InvoiceNo',
+            'PaymentMethod',
+            'PaymentDueDate',
+            'Calculation',
+            'Remark',
+            'ProformaNo',
+            'Investation',
+            'DPP',
+            'VatValue',
+            'IncomeTaxValue',
+            'Amount',
+            'IncomeTaxBy',
+            'PaymentCorrection',
+            'Items.EPOId',
+            'Items.EPONo',
+            'Items.UseVat',
+            'Items.UseIncomeTax',
+            'Items.IncomeTax.name',
+            'Items.IncomeTax.rate',
+            'Items.Details.PRNo',
+            'Items.Details.Category.name',
+            'Items.Details.Product.name', 'Items.Details.Product.code',
+            'Items.Details.DealQuantity',
+            'Items.Details.DealUom.unit',
+            'Items.Details.PaidQuantity',
+            'Items.Details.PricePerDealUnit',
+            'Items.Details.PriceTotal',
+            'Items.Details.PaidPrice',
+            'Items.Details.Unit.name',
+        ];
 
     async activate(params) {
         var id = params.id;
@@ -67,6 +73,7 @@ export class Edit {
         this.data.PayToSupplier=this.dataExpedition.payToSupplier;
         this.data.Id = id;
         this.DispositionNo = this.data;
+        console.log(this.data)
     }
 
     cancel(event) {
