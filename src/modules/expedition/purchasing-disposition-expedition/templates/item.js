@@ -38,7 +38,7 @@ export class Item {
             this.error = {};
         } else if(newValue){
             console.log(newValue)
-            var paytoSupp=newValue.DPP+ newValue.VatValue;
+            var paytoSupp=newValue.DPP+ newValue.VatValue+newValue.PaymentCorrection;
             if(newValue.IncomeTaxBy=="Supplier"){
                 var paytoSupp=newValue.DPP+ newValue.VatValue-newValue.IncomeTaxValue+newValue.PaymentCorrection;
             }
