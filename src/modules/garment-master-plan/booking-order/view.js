@@ -9,9 +9,9 @@ export class View {
   hasCancel = true;
   hasEdit = true;
   hasDelete = true;
-  hascancelConfirm = true;
-  hasConfirm = true;
-  hasMasterPlan = true;
+  hascancelConfirm = false;
+  hasConfirm = false;
+  hasMasterPlan = false;
   expireBooking=false;
 
   constructor(router, service) {
@@ -20,59 +20,54 @@ export class View {
   }
 
   async activate(params) {
-      this.params = params;
       var id = params.id;
       this.data = await this.service.getById(id);
-      var conf=false;
-      if(this.data.items){
-         if(this.data.items.length>0){
-           conf=true;
-         }
+      
+      
+      this.selectedSection = { Code:this.data.SectionCode, Name:this.data.SectionName,};
+      this.selectedBuyer = { Code:this.data.BuyerCode, Name:this.data.BuyerName,};
+      
+      var today = new Date();
+      today.setDate(today.getDate()+45);
+      var deliveryDates = new Date(Date.parse(this.data.DeliveryDate));
+      if(this.data.ConfirmedQuantity === 0 && deliveryDates > today && this.data.HadConfirmed === false){
+        this.hasEdit = true;
+        this.hasDelete = true;
+      }
+      else if(this.data.HadConfirmed === true && this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates > today){
+        this.hasEdit = false;
+        this.hasDelete = true;
+        this.hascancelConfirm = true;
+      }
+      if(deliveryDates > today){
+        this.hasConfirm = true;
+      }
+      if(this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates > today && this.data.ConfirmedQuantity != 0){
+        this.hascancelConfirm = true;
+        this.hasEdit = false;
+        this.hasDelete = false;
+        this.expireBooking = false;
+        this.hasConfirm = true;
+      }
+      if(this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates <= today){
+        this.expireBooking = true;
+        this.hasEdit = false;
+        this.hasDelete = false; 
+        if(this.data.IsBlockingPlan === true){
+          this.hasMasterPlan = true;
         }
-      if(!this.data.isMasterPlan){
-        this.hasMasterPlan=false;
       }
-      if(this.data.isCanceled){
+      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === true){
         this.hasEdit = false;
-        this.hascancelConfirm = false;
         this.hasDelete = false;
         this.hasConfirm = false;
-        //this.hasMasterPlan = false;
+        this.hasMasterPlan = true;
       }
-      // else if(this.data.isMasterPlan){
-      //   this.hasDelete = false;
-      //   //this.hasConfirm = false;
-      // }
-      else if(conf){
+      if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === false){
+        this.hasCancel = true;
         this.hasDelete = false;
         this.hasEdit = false;
-        //this.hasConfirm = false;
-      }
-      var total=0;
-      for(var b of this.data.items){
-          total+=b.quantity;
-      }
-      var c = new Date(this.data.deliveryDate);
-      var b = new Date();
-      c.setHours(0,0,0,0);
-      b.setHours(0,0,0,0);
-      var diff=c.getTime() - b.getTime();
-      var timeDiff = Math.abs(c.getTime() - b.getTime());
-      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      if(diffDays<=45){
         this.hasConfirm = false;
-        this.hasEdit = false;
-        this.expireBooking=true;
-        this.hascancelConfirm = false;
-        this.hasDelete = false;
-      }
-      if(this.data.orderQuantity<=total){
-        this.expireBooking=false;
-        this.hascancelConfirm = false;
-      }
-
-      if(this.data.canceledItems && this.data.canceledItems.length > 0) {
-        this.hasEdit = false;
       }
   }
 
@@ -81,7 +76,7 @@ export class View {
   }
 
   edit(event) {
-    this.router.navigateToRoute('edit', { id: this.data._id });
+    this.router.navigateToRoute('edit', { id: this.data.Id });
   }   
 
   cancelBooking() {
@@ -92,12 +87,12 @@ export class View {
     }
 
   confirmBooking(event) {
-    this.router.navigateToRoute('confirm', { id: this.data._id });
+    this.router.navigateToRoute('confirm', { id: this.data.Id });
   }  
 
-  masterPlan(event) {
-    this.router.navigateToRoute('detail', { id: this.data.code });
-  }
+  // masterPlan(event) {
+  //   this.router.navigateToRoute('detail', { id: this.data.code });
+  // }
 
   expired() {
         this.service.expiredBooking(this.data)
@@ -105,32 +100,6 @@ export class View {
           this.cancel();
         });
     }
-
-  // confirmBooking() {
-  //     var today=new Date();
-  //     var a = new Date(this.data.deliveryDate);
-  //     var b = today;
-  //     var timeDiff = Math.abs(a.getTime() - b.getTime());
-  //     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  //     if(diffDays<=45){
-  //         if (confirm('Tanggal Confirm <= 45 hari ('+diffDays+' hari) dari Tanggal Pengiriman. Tetap Confirm?')) {
-  //             this.service.confirmBooking(this.data)
-  //               .then(result => {
-  //                 alert("Data Confirmed");
-  //                 this.cancel();
-  //               });
-  //         } else {
-  //             this.cancel();
-  //         }
-  //     }
-  //     else{
-  //         this.service.confirmBooking(this.data)
-  //               .then(result => {
-  //                 alert("Data Confirmed");
-  //                 this.cancel();
-  //               });
-  //     }
-  // }
    
   delete(event) {
     this.service.delete(this.data)
@@ -140,7 +109,7 @@ export class View {
   }  
 
   onitemchange(event) {
-    var indexCanceledItem = this.data.items.findIndex(item => item.isCanceled);
+    var indexCanceledItem = this.data.Items.findIndex(item => item.IsCanceled);
     
     if(indexCanceledItem > -1) {
       this.service.update(this.data)

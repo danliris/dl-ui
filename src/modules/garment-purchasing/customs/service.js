@@ -50,7 +50,7 @@ export class Service extends RestService {
         var endpoint = `${deliveryOrderForCustoms}`;
         
         var filter = {
-                    "suppliercode" : info.supplier ? info.supplier : "",
+                    "supplierId" : info.supplier ? info.supplier : "",
                      "docurrencycode" : info.currency ? info.currency : ""
                     };
         var arc = {

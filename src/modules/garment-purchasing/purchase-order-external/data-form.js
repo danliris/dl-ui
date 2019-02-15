@@ -518,7 +518,6 @@ export class DataForm {
                     a.IsOverBudget=false;
                 }
                 a.UsedBudget=parseFloat(a.budgetUsed.toFixed(4));
-                console.log(a.IsOverBudget);
             }
         }
     }

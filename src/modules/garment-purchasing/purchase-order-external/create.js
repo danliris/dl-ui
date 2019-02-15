@@ -32,11 +32,7 @@ export class Create {
     }
 
     save(event) {
-        if(!this.data.IsIncomeTax){
-            this.data.IncomeTax.Name=null;
-            this.data.IncomeTax.Rate=0;
-            this.data.IncomeTax.rate=0;
-        }
+        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

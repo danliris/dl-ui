@@ -34,13 +34,13 @@ export class List {
         { field: "Supplier.Name", title: "Nama Supplier" },
         { field: "purchaseRequestNo", title: "Nomor Purchase Request" },
         {
-            field: "IsPosted", title: "Status Post",sortable:false,
+            field: "IsPosted", title: "Status Post",
             formatter: function (value, row, index) {
                 return value ? "SUDAH" : "BELUM";
             }
         },
         {
-            field: "IsOverBudget", title: "Over Budget?",sortable:false,
+            field: "IsOverBudget", title: "Over Budget?",
             formatter: function (value, row, index) {
                 return value ? "YA" : "TIDAK";
             }

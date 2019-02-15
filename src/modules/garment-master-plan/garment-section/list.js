@@ -7,8 +7,8 @@ import moment from 'moment';
 export class List {
     context = ["Rincian"];
     columns = [
-        { field: "code", title: "Kode Seksi" },
-        { field: "name", title: "Nama Seksi", }
+        { field: "Code", title: "Kode Seksi" },
+        { field: "Name", title: "Nama Seksi", }
     ];
 
     loader = (info) => {
@@ -46,7 +46,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Rincian":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

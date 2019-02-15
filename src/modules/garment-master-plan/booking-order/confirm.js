@@ -23,57 +23,48 @@ export class Confirm {
   }
 
   cancel(event) {
-    this.router.navigateToRoute('view', { id: this.data._id });
+    this.router.navigateToRoute('view', { id: this.data.Id });
   }
 
   save(event) {
-    var conf = [];
-    this.data.type = 'confirm';
-    var warn = '';
-    if (this.data.items) {
-      if (this.data.items.length > 0) {
+    if (this.data.Items) {
+      if (this.data.Items.length > 0) {
         var warning = [];
         var warning_confirm = [];
         var total_item = 0;
-        for (var item of this.data.items) {
+        for (var item of this.data.Items) {
           var today = new Date();
-          item._createdDate = item._createdDate ? new Date(item._createdDate) : '';
-          if (item._createdDate != '' && item._createdDate.getFullYear() > 1900) {
-            today = new Date(item._createdDate);
-          }
-          var a = new Date(item.deliveryDate);
+          var a = new Date(item.DeliveryDate);
           var b = today;
           a.setHours(0, 0, 0, 0);
           b.setHours(0, 0, 0, 0);
           var diff = a.getTime() - b.getTime();
           var timeDiff = Math.abs(a.getTime() - b.getTime());
           var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-          total_item = total_item + item.quantity;
+          total_item = total_item + item.ConfirmQuantity;
 
           if (diff >= 0) {
             if (diffDays >= 0 && diffDays <= 45) {
-              if (item.masterPlanComodity)
-                warning.push('Comodity ' + item.masterPlanComodity.name + ' (Jumlah Confirm = ' + item.quantity + ') kurang ' + diffDays + ' hari dari Tanggal Pengiriman\n');
+                warning.push('Comodity ' + item.ComodityName + ' (Jumlah Confirm = ' + item.ConfirmQuantity + ') kurang ' + diffDays + ' hari dari Tanggal Pengiriman\n');
             }
           }
           else {
             warning = [];
             break;
           }
-          if (new Date(item.deliveryDate) < new Date(this.data.bookingDate)) {
+          if (new Date(item.DeliveryDate) < new Date(this.data.BookingOrderDate)) {
             warning = [];
             break;
           }
-          else if (new Date(item.deliveryDate) > new Date(this.data.deliveryDate)) {
+          else if (new Date(item.DeliveryDate) > new Date(this.data.DeliveryDate)) {
             warning = [];
             break;
           }
 
         }
-        var total = total_item - this.data.orderQuantity;
+        var total = total_item - this.data.OrderQuantity;
         if (total > 0)
           warning_confirm.push('Total jumlah confirm lebih dari jumlah booking order\n');
-
 
         if (warning.length > 0 && warning_confirm.length <= 0) {
           if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g, "") + 'Tetap Confirm?')) {

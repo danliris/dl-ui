@@ -4,7 +4,6 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-correction-quantity-notes';
 const deliveryOrderServiceUri = 'garment-delivery-orders/correction-note-quantity';
-const purchaseOrderExternalServiceUri = 'purchase-orders/externals/by-user';
 
 export class Service extends RestService {
 

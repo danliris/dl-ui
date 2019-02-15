@@ -16,6 +16,9 @@ export class View {
   async activate(params) {
       var id = params.id;
       this.data = await this.service.getById(id);
+      
+      this.selectedComodity = { Code:this.data.ComodityCode, Name:this.data.ComodityName,};
+      this.selectedBuyer = { Code:this.data.BuyerCode, Name:this.data.BuyerName,};
   }
 
   cancel(event) {
