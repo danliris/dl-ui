@@ -33,6 +33,7 @@ export class View {
       if(this.data.ConfirmedQuantity === 0 && deliveryDates > today && this.data.HadConfirmed === false){
         this.hasEdit = true;
         this.hasDelete = true;
+        this.hascancelConfirm = true;
       }
       else if(this.data.HadConfirmed === true && this.data.ConfirmedQuantity < this.data.OrderQuantity && deliveryDates > today){
         this.hasEdit = false;
