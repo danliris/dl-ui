@@ -33,6 +33,25 @@ export class Item {
             this.output = this.data.Output;
         }
 
+        if (this.data.BadOutput) {
+            this.badOutput = this.data.BadOutput;
+        }
+
+        if (this.data.DeliveryTotal) {
+            this.deliveryTotal = this.data.DeliveryTotal;
+        }
+
+        if(this.data.Spindle){
+            this.spindle = this.data.Spindle;
+        }
+
+        if(this.data.Waste){
+            this.waste = this.data.Waste;
+        }
+
+        if(this.data.DrumTotal){
+            this.drumTotal = this.data.DrumTotal;
+        }
         if (this.processType == "Blowing") {
             this.isBlowing = true;
             this.isWinder = false;
@@ -65,7 +84,7 @@ export class Item {
     badOutputChanged(n, o) {
         if (!isNullOrUndefined(this.badOutput)) {
             this.data.BadOutput = this.badOutput;
-            if (n != o) {
+            if (this.isBlowing) {
                 this.baseMathFormula();
             }
         }
@@ -74,7 +93,7 @@ export class Item {
     deliveryTotalChanged(n, o) {
         if (!isNullOrUndefined(this.deliveryTotal)) {
             this.data.DeliveryTotal = this.deliveryTotal;
-            if (n != o) {
+            if (this.isFlyer) {
                 this.baseMathFormula();
             }
         }
@@ -83,7 +102,7 @@ export class Item {
     spindleChanged(n, o) {
         if (!isNullOrUndefined(this.spindle)) {
             this.data.Spindle = this.spindle;
-            if (n != o) {
+            if (this.isFlyer) {
                 this.baseMathFormula();
             }
         }
@@ -92,7 +111,7 @@ export class Item {
     wasteChanged(n, o) {
         if (!isNullOrUndefined(this.waste)) {
             this.data.Waste = this.waste;
-            if (n != o) {
+            if (this.isWinder) {
                 this.baseMathFormula();
             }
         }
@@ -101,7 +120,7 @@ export class Item {
     drumTotalChanged(n, o) {
         if (!isNullOrUndefined(this.drumTotal)) {
             this.data.DrumTotal = this.drumTotal;
-            if (n != o) {
+            if (this.isWinder) {
                 this.baseMathFormula();
             }
         }
