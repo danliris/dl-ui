@@ -100,7 +100,7 @@ export class DataForm {
             for(let item of deliveryOrder.items) {
                 for (let detail of item.fulfillments) {
                     let correctionNoteItem = {};
-
+console.log(detail)
                     correctionNoteItem.DODetailId = detail.Id;
 
                     correctionNoteItem.EPOId = item.purchaseOrderExternal.Id;
@@ -115,10 +115,12 @@ export class DataForm {
 
                     correctionNoteItem.Product = detail.product;
 
-                    correctionNoteItem.Quantity = parseFloat((detail.receiptCorrection - detail.returQuantity).toFixed(2));
+                    correctionNoteItem.Quantity = parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
                     
-                    correctionNoteItem.Quantities = parseFloat((detail.receiptCorrection - detail.returQuantity).toFixed(2));
+                    correctionNoteItem.Quantities = parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
 
+                    correctionNoteItem.QuantityCheck=parseFloat((detail.doQuantity - detail.returQuantity).toFixed(2));
+                    
                     correctionNoteItem.Uom = detail.purchaseOrderUom;
 
                     correctionNoteItem.PricePerDealUnitBefore = parseFloat((detail.pricePerDealUnitCorrection).toFixed(2));

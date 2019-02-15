@@ -22,6 +22,12 @@ export class View {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
+
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                item.Quantity=item.Quantity*(-1);
+            }
+        }
     }
 
     cancelCallback(event) {
