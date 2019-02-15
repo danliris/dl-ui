@@ -41,15 +41,15 @@ export class Item {
             this.deliveryTotal = this.data.DeliveryTotal;
         }
 
-        if(this.data.Spindle){
+        if (this.data.Spindle) {
             this.spindle = this.data.Spindle;
         }
 
-        if(this.data.Waste){
+        if (this.data.Waste) {
             this.waste = this.data.Waste;
         }
 
-        if(this.data.DrumTotal){
+        if (this.data.DrumTotal) {
             this.drumTotal = this.data.DrumTotal;
         }
         if (this.processType == "Blowing") {

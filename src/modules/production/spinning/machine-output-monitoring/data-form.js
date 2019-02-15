@@ -19,6 +19,7 @@ export class DataForm {
     @bindable unit;
     @bindable isItem;
     @bindable detailOptions;
+    @bindable error;
 
     formOptions = {
         cancelText: "Kembali",
@@ -277,10 +278,19 @@ export class DataForm {
         }
     }
 
-    lotChanged(n, o) {
+    async lotChanged(n, o) {
+
         if (this.lot && this.lot.Id) {
-            this.data.LotId = this.lot.Id;
-            this.fillItems();
+
+            let check = await this.service.validateLotInCount(this.lot.Id);
+            if (check) {
+                this.error.LotId = undefined;
+                this.data.LotId = this.lot.Id;
+                this.fillItems();
+            } else {
+                this.error.LotId = "Count is not created with this Lot";
+            }
+
         } else {
             this.data.LotId = null;
             this.data.Items = [];
