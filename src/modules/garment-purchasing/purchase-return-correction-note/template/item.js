@@ -16,6 +16,9 @@ export class PurchaseQuantityCorrectionItem {
             this.error = "";
         }
         this.data.PricePerDealUnitAfter = this.data.PricePerDealUnitAfter;
+        if(this.readOnly){
+            this.data.Quantity=this.data.Quantity*(-1);
+        }
     }
     
     @computedFrom("data.Quantity")
@@ -27,11 +30,18 @@ export class PurchaseQuantityCorrectionItem {
             {
                 this.isFirst = true;
             }
+        if(this.readOnly){
+            this.data.PriceTotalAfter =this.data.PriceTotalAfter *(-1);
+        }
+            
         return this.data.PriceTotalAfter;
     }
 
     set priceTotal(value) {
         this.data.PriceTotalAfter = value;
+        if(this.readOnly){
+            this.data.PriceTotalAfter =this.data.PriceTotalAfter *(-1);
+        }
         return this.data.PriceTotalAfter;
     }
 }
