@@ -28,7 +28,7 @@ export class RestService {
     }
     else if (result.error) {
       return Promise.reject(result.error);
-    } else if (!result.data) {
+    } else if (!result.statusCode) {
       return Promise.reject(result);
     }
     else {
@@ -71,7 +71,7 @@ export class RestService {
         return e.json().then(result => {
           if (result.error)
             return Promise.resolve(result);
-          else if(result && !result.data)
+          else if (result && !result.statusCode)
             return Promise.resolve(result);
         });
       })
@@ -91,6 +91,8 @@ export class RestService {
       .catch(e => {
         return e.json().then(result => {
           if (result.error)
+            return Promise.resolve(result);
+          else if (result && !result.statusCode)
             return Promise.resolve(result);
         });
       })
