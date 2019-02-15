@@ -14,6 +14,15 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.getById(id);
+
+        if (this.data.Status == "POSTED") {
+            this.hasPosting = false;
+            this.editCallback = false;
+            this.deleteCallback = false;
+        } else {
+            this.hasPosting = true;
+        }
+
     }
 
     list() {
@@ -28,8 +37,20 @@ export class View {
         this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
+    postingCallback(event) {
+        this.dialog.prompt('Transaksi yang sudah di POSTING tidak dapat diubah dan dihapus. Apakah anda yakin?', 'Posting Jurnal Transaksi')
+            .then(response => {
+                if (response.ok) {
+                    this.service.posting(this.data)
+                        .then(result => {
+                            this.list();
+                        });
+                }
+            });
+    }
+
     deleteCallback(event) {
-        this.dialog.prompt('Apakah anda yakin mau menghapus data ini?', 'Hapus Data Jurnal Transaksi')
+        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Jurnal Transaksi')
             .then(response => {
                 if (response.ok) {
                     this.service.delete(this.data)

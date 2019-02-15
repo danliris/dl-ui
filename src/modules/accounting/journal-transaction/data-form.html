@@ -24,10 +24,9 @@
                     options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox
-            error.bind="error.Item"
-            show.bind="error.Item"
-            read-only.bind="true">
+        <au-textbox error.bind="error.Item"
+                    show.bind="error.Item"
+                    read-only.bind="true">
         </au-textbox>
 
         <au-collection items.bind="data.Items"
@@ -40,11 +39,16 @@
                        item-template="modules/accounting/journal-transaction/templates/item">
         </au-collection>
 
-        <au-textbox
-            error.bind="error.Differences"
-            show.bind="error.Differences"
-            read-only.bind="true">
+        <au-textbox error.bind="error.Differences"
+                    show.bind="error.Differences"
+                    read-only.bind="true">
         </au-textbox>
+
+        <div class="btn-group pull-right">
+            <button class="btn btn-success"
+                    click.delegate="postingCallback($event)"
+                    if.one-way="hasPosting">Posting</button>
+        </div>
 
     </au-input-form>
 </template>
