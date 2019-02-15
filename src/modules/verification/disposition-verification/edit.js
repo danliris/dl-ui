@@ -73,7 +73,6 @@ export class Edit {
         this.data.PayToSupplier=this.dataExpedition.payToSupplier;
         this.data.Id = id;
         this.DispositionNo = this.data;
-        console.log(this.data)
     }
 
     cancel(event) {

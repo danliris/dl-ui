@@ -58,7 +58,6 @@ export class PurchasingDispositionItem {
             }
         }
         
-        console.log(this.data)
     }
     // @computedFrom("data.EPONo")
     // get incomeTax() {
