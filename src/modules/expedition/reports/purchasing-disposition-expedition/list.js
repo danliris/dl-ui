@@ -44,7 +44,8 @@ export class List {
                 rowspan: 2,
             },
             { title: 'Verifikasi', colspan: 3 },
-            { title: 'Kasir', colspan: 5 }
+            { title: 'Kasir', colspan: 5 },
+            { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
         ], [
             {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
