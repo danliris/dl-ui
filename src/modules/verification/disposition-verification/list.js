@@ -16,7 +16,8 @@ export class List {
     context = ["Rincian"];
     columns = [
         {
-            field: "VerifyDate", title: "Tanggal Cek", formatter: (value, data) => {
+            field: "verifyDate", title: "Tanggal Cek", formatter: (value, data) => {
+                
                 return moment(value).format("DD-MMM-YYYY");
             }
         },
