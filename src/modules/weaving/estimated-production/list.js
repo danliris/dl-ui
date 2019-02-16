@@ -35,6 +35,16 @@ export class List {
       keyword: info.search,
       order: order
     };
+
+    return this.service.searchEP(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+      // .catch(error=>{
+      //     console.log(error);
+      // })
+    });
   };
 
   constructor(router, service) {

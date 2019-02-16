@@ -89,10 +89,10 @@ export class DataForm {
     },
     { header: "Total Gram", value: "amountTotal" },
     { header: "Jumlah Order (Gr)", value: "wholeGrade" },
-    { header: "Grade A (%)", value: "gradeA" },
-    { header: "Grade B (%)", value: "gradeB" },
-    { header: "Grade C (%)", value: "gradeC" },
-    { header: "Grade D (%)", value: "gradeD" }
+    { header: "Grade A(%)", value: "gradeA" },
+    { header: "Grade B(%)", value: "gradeB" },
+    { header: "Grade C(%)", value: "gradeC" },
+    { header: "Grade D(%)", value: "gradeD" }
   ];
 
   get units() {
@@ -151,18 +151,20 @@ export class DataForm {
       window.alert(emptyFieldName);
     } else {
       await this.service
-        .search(
+        .searchSOP(
           this.data.period.month,
           this.data.period.year,
           this.data.unit.code
         )
         .then(result => {
+          //Print each datum on orderProductions Data and push to Items Collections
           result.data.forEach(datum => {
+            // console.log(datum);
             this.data.Items.push(datum);
           });
+          //Bind "Items" reference
           this.context.orderProductionsItems.bind(this);
         });
     }
-    console.log(this.data.Items);
   }
 }

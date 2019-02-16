@@ -7,9 +7,12 @@ export class ItemView {
   }
 
   activate(context) {
-      console.log(context);
     this.data = context.data;
     this.error = context.error;
+
+    this.data.amountTotal =
+      this.data.wholeGrade * this.data.fabricConstructionDocument.totalYarn;
+
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }

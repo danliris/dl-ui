@@ -27,6 +27,7 @@ export class Edit {
     var index = 0;
     var emptyFieldName =
       "- Semua Field Harus Diisi\n- Blended(%) Harus Berupa Angka\n- All Grade Harus Berupa Angka";
+      console.log(this.data);
 
     //Periksa Field Kosong atau Terisi
     //Cek Tanggal SPP

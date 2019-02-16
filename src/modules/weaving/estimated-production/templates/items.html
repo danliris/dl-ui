@@ -1,47 +1,66 @@
 <!-- <style>
-th,td {
-  border: 1px solid black;
+td {
+  white-space: nowrap;
 }
 </style> -->
 <template>
-    <tr>
-      <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
-      <td>
-        <au-textbox value.bind="data.dateOrdered" read-only.bind="true">
-        </au-textbox>
-      </td>
-      <td>
-        <au-textbox value.bind="data.orderNumber" read-only.bind="true">
-        </au-textbox>
-      </td>
-      <td>
-        <au-textbox value.bind="data.fabricConstructionDocument.constructionNumber" read-only.bind="true">
-        </au-textbox>
-      </td>
-      <td>
-        <au-textbox value.bind="data.amountTotal" read-only.bind="true">
-        </au-textbox>
-      </td>
-      <td>
-        <au-textbox value.bind="data.orderTotal" read-only.bind="true">
-        </au-textbox>
-      </td>
-  
-      <td>
-        <au-textbox value.bind="data.gradeA" read-only.bind="true">
-        </au-textbox>
-      </td>
-      <td>
-        <au-textbox value.bind="data.gradeB" read-only.bind="true">
-        </au-textbox>
-      </td>
-      <td>
-        <au-textbox value.bind="data.gradeC" read-only.bind="true">
-        </au-textbox>
-      </td>
-      <td>
-        <au-textbox value.bind="data.gradeD" read-only.bind="true">
-        </au-textbox>
-      </td>
-    </tr>
-  </template>
+  <tr>
+    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.dateOrdered" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.orderNumber" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.fabricConstructionDocument.constructionNumber"
+        read-only.bind="true"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.amountTotal" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.wholeGrade" read-only.bind="true">
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeA"
+        read-only.bind="readOnly"
+        placeholder="Grade A(%)"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeB"
+        read-only.bind="readOnly"
+        placeholder="Grade B(%)"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeC"
+        read-only.bind="readOnly"
+        placeholder="Grade C(%)"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeD"
+        read-only.bind="readOnly"
+        placeholder="Grade D(%)"
+      >
+      </au-textbox>
+    </td>
+  </tr>
+</template>

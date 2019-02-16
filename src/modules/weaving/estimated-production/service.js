@@ -11,8 +11,13 @@ export class Service extends RestService {
         super(http, aggregator, config, "weaving");
     }
 
-    search(month, year, unitCode) {
+    searchSOP(month, year, unitCode) {
         var endpoint = `${serviceUriOrderDocument}/${month}/${year}/unit/${unitCode}`;
+        return super.list(endpoint);
+    }
+
+    searchEP(info) {
+        var endpoint = `${serviceUriEstimatedProduction}`;
         return super.list(endpoint);
     }
 
