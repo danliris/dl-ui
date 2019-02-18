@@ -1,9 +1,7 @@
 import { inject, BindingEngine } from "aurelia-framework";
 
-// var MKBLoader = require('../../../../loader/mkb-loader');
-
 @inject(BindingEngine)
-export class ItemModal {
+export class ItemView {
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }
@@ -11,13 +9,11 @@ export class ItemModal {
   activate(context) {
     this.data = context.data;
     this.error = context.error;
+    this.data.constructionNumber = this.data.fabricConstructionDocument.constructionNumber;
+    (parseFloat(this.data.totalGramEstimation =
+      this.data.wholeGrade * this.data.fabricConstructionDocument.totalYarn));
+    this.data.totalYarn = parseFloat(this.data.fabricConstructionDocument.totalYarn);
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
-
-  // -------------------------------- //
-
-  // get mkbLoader() {
-  //     return MKBLoader;
-  // }
 }
