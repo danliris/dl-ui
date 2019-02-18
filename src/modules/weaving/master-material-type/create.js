@@ -48,5 +48,7 @@ export class Create {
           this.error = e;
         });
     }
+    console.log(this.data);
+    debugger;
   }
 }
