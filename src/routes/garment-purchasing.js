@@ -491,6 +491,6 @@ module.exports = [
             permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
-    }
+    } 
 
 ]
