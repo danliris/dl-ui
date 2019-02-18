@@ -10,6 +10,7 @@ export class Item {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
+        this.isEdit = this.context.context.options.isEdit;
     }
 
 
