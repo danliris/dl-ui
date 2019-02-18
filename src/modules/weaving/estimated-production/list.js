@@ -8,19 +8,12 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "orderNumber", title: "No Estimasi Produksi" },
+    { field: "estimationNumber", title: "No Estimasi Produksi" },
     {
-      field: "dateOrdered",
+      field: "dateEstimated",
       title: "Tanggal Estimasi Produksi",
       formatter: function(value, data, index) {
         return moment(value).format("DD MMM YYYY");
-      }
-    },
-    {
-      field: "totalEstimationOrder",
-      title: "Jumlah Order (Gr)",
-      formatter: function(value, data, index) {
-        return value.name;
       }
     }
   ];
@@ -37,6 +30,7 @@ export class List {
     };
 
     return this.service.searchEP(arg).then(result => {
+      console.log(result);
       return {
         total: result.info.total,
         data: result.data
@@ -57,7 +51,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.orderNumber });
+        this.router.navigateToRoute("view", { id: data.id });
         break;
     }
   }
