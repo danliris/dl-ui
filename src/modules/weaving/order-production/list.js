@@ -8,41 +8,71 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "orderNumber", title: "No SOP" },
-    {
-      field: "dateOrdered",
-      title: "Tanggal SOP",
-      formatter: function(value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+    [
+      {
+        field: "orderNumber",
+        title: "No. SP",
+        rowspan: "2",
+        valign: "top",
+        sortable: true
+      },
+      {
+        field: "dateOrdered",
+        title: "Tanggal SP",
+        rowspan: "2",
+        valign: "top",
+        formatter: function(value, data, index) {
+          return moment(value).format("DD MMMM YYYY");
+        },
+        sortable: true
+      },
+      {
+        field: "weavingUnit",
+        title: "Unit",
+        rowspan: "2",
+        valign: "top",
+        formatter: function(value, data, index) {
+          return value.name;
+        }
+      },
+      {
+        field: "constructionNumber",
+        title: "Konstruksi",
+        rowspan: "2",
+        valign: "top"
+      },
+      {
+        title: "Blended (%)",
+        colspan: "3",
+        valign: "middle"
       }
-    },
-    {
-      field: "weavingUnit",
-      title: "Unit",
-      formatter: function(value, data, index) {
-        return value.name;
+    ],
+    [
+      {
+        field: "composition",
+        title: "Poly",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.compositionOfPoly;
+        }
+      },
+      {
+        field: "composition",
+        title: "Cotton",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.compositionOfCotton;
+        }
+      },
+      {
+        field: "composition",
+        title: "Lainnya",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.otherComposition;
+        }
       }
-    },
-    {
-      field: "constructionNumber",
-      title: "Konstruksi",
-      // formatter: function(value, data, index) {
-      //   return value.constructionNumber;
-      // }
-    },
-    {
-      field: "composition",
-      title: "Blended (%)",
-      formatter: function(value, data, index) {
-        return (
-          value.compositionOfPoly +
-          " " +
-          value.compositionOfCotton +
-          " " +
-          value.otherComposition
-        );
-      }
-    }
+    ]
   ];
 
   loader = info => {
@@ -53,18 +83,10 @@ export class List {
       page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
-      // select: [
-      //   "orderNumber",
-      //   "dateOrdered",
-      //   "Unit",
-      //   "ConstructionDocument",
-      //   "Composition"
-      // ],
       order: order
     };
 
     return this.service.search(arg).then(result => {
-      console.log(result);
       return {
         total: result.info.count,
         data: result.data
@@ -75,8 +97,6 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.orderId = "";
-    // this.orders = [];
   }
 
   contextCallback(event) {

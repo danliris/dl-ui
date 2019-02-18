@@ -1,11 +1,25 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service } from './service';
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
+import { Service, CoreService } from './service';
 import moment from 'moment';
 
-@inject(Service)
+var LotLoader = require('../../../../loader/lot-configuration-loader');
+var MaterialTypeLoader = require('../../../../loader/material-types-loader');
+var UnitLoader = require('../../../../loader/unit-azure-loader');
+
+@inject(Service, CoreService, BindingEngine)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable processType;
+    @bindable inputDate;
+    @bindable materialType;
+    @bindable lot;
+    @bindable shift;
+    @bindable group;
+    @bindable unit;
+    @bindable isItem;
+    @bindable detailOptions;
+    @bindable error;
 
     formOptions = {
         cancelText: "Kembali",
@@ -13,18 +27,24 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     };
-
-    machineTypeList = [
+    typeOptions = []
+    processTypeList = [
         "",
         "Blowing",
         "Carding",
-        "Pre Drawing",
+        "Pre-Drawing",
         "Finish Drawing",
         "Flyer",
         "Ring Spinning",
-        "Winding"
+        "Winder"
     ];
 
+    shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
+    detailOptions = {};
+    itemsColumnsHeader = [];
+    machineSpinningFilter = {};
+    masterFilter = {};
+    lotFilter = {};
     controlOptions = {
         label: {
             length: 4,
@@ -33,64 +53,303 @@ export class DataForm {
             length: 4,
         },
     };
-
-    constructor(service) {
+    items = [];
+    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    constructor(service, coreService, bindingEngine) {
         this.service = service;
+        this.coreService = coreService;
+        this.bindingEngine = bindingEngine
     }
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.isItem = false;
+        this.coreService.getMachineTypes()
+            .then(result => {
+                if (this.data.ProcessType) {
+                    this.typeOptions = result;
+                } else {
+                    this.typeOptions.push("");
+                    for (var list of result) {
+                        this.typeOptions.push(list);
+                    }
+                }
+            });
 
-        this.cancelCallback = this.context.cancelCallback;
-        this.deleteCallback = this.context.deleteCallback;
-        this.editCallback = this.context.editCallback;
-        this.saveCallback = this.context.saveCallback;
+        if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
+            this.unit = this.data.UnitDepartment;
+        }
+        if (this.data.Lot && this.data.Lot.Id) {
+            this.lot = this.data.Lot;
+        }
+        if (this.data.ProcessType) {
+            this.processType = this.data.ProcessType;
+        }
+
+        if (this.data.MaterialType && this.data.MaterialType.Id) {
+            this.materialType = {};
+            this.materialType.id = this.data.MaterialType.Id;
+            this.materialType.name = this.data.MaterialType.Name;
+            this.materialType.code = this.data.MaterialType.Code;
+        }
+
+        if (this.data.Date) {
+            this.inputDate = this.data.Date;
+        }
+
+        if (this.data.Shift) {
+            this.shift = this.data.Shift;
+        }
+
+        if (this.data.Group) {
+            this.group = this.data.Group;
+        }
+
+        if (this.data.Items) {
+            for (var item of this.data.Items) {
+                item.Identity = item.Id;
+                item.MachineSpinningIdentity = item.MachineSpinning.Id;
+            }
+        }
     }
 
-    columns = [
-        { header: "Nama Mesin", value: "Machine" },
-        { header: "Counter", value: "Counter" },
-        { header: "Satuan", value: "Uom" },
-        { header: "Ball", value: "Ball" },
-        { header: "Eff%", value: "EffPrecentage" }
-    ]
+    items = {
+        columns: [
+            "Nomor Mesin",
+            "Nama Mesin",
+            "Output (Counter)",
+            "UOM",
+            "Bale",
+            "Total Delivery",
+            "Spindle Kosong (Flyer)",
+            "Bad Cone (Winder)",
+            "Eff%"],
+        onRemove: function () {
+            this.context.machineCollections.bind();
 
-    get addItems() {
-        return (event) => {
-            this.data.Items.push({})
-        };
+        }.bind(this)
+    };
+
+
+    async fillItems() {
+        if (!this.readOnly && this.data.UnitDepartmentId && this.data.ProcessType && this.data.MaterialTypeId && this.data.LotId && this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != "") {
+            this.machineSpinningFilter.page = 1;
+            this.machineSpinningFilter.size = 2147483647;
+            this.machineSpinningFilter.order = { "No": "asc" }
+            // this.machineSpinningFilter.filter = { "Type": this.data.ProcessType, "UnitId": this.data.UnitDepartmentId }
+            this.filter = {};
+            this.filter.Type = this.data.ProcessType;
+            this.filter.UnitId = this.data.UnitDepartmentId.toString();
+            this.machineSpinningFilter.filter = JSON.stringify(this.filter);
+            this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+                .then(async results => {
+                    let existedItem = {};
+                    this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
+                    this.detailOptions.MachineSpinnings = results.data;
+                    if (this.data.Id) {
+                        existedItem = this.data;
+                    } else {
+                        existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
+                        if (existedItem.Items && existedItem.Items.length > 0) {
+                            alert("Data already exist with this configuration");
+                            this.inputDate = undefined;
+                            this.processType = this.typeOptions[0];
+                            this.materialType = undefined;
+                            this.lot = undefined;
+                            this.shift = this.shiftOptions[0];
+                            this.group = undefined;
+                            this.unit = undefined;
+                            return [];
+                        }
+                    }
+                    // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
+
+                    var newItems = [];
+                    for (var item of results.data) {
+                        var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
+
+                        var newData = {};
+                        newData.MachineSpinning = {};
+                        newData.Output = dbItem ? dbItem.Output : 0;
+                        newData.MachineSpinning.No = item.No;
+                        newData.MachineSpinning.Name = item.Name;
+                        newData.MachineSpinning.UomUnit = item.UomUnit;
+                        newData.MachineSpinning.Id = item.Id;
+                        newData.MachineSpinningIdentity = item.Id;
+                        newData.Bale = dbItem ? dbItem.Bale : 0;
+                        newData.Eff = dbItem ? dbItem.Eff : 0;
+                        newData.BadOutput = dbItem ? dbItem.BadOutput : 0;
+                        newData.DeliveryTotal = dbItem ? dbItem.DeliveryTotal : 0;
+                        newData.Spindle = dbItem ? dbItem.Spindle : 0;
+                        newData.Waste = dbItem ? dbItem.Waste : 0;
+                        newData.DrumTotal = dbItem ? dbItem.DrumTotal : 0;
+                        newItems.push(newData);
+                    }
+                    return newItems;
+                });
+
+        }
     }
 
-    mockLotLoader = (keyword, filter) => {
+    processTypeChanged(n, o) {
+        if (this.processType && this.processType != "") {
+            this.data.ProcessType = this.processType;
+            this.detailOptions.ProcessType = this.processType;
+            if (this.processType == "Blowing") {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Bad Output",
+                    "Eff%"
+                ];
 
-        return Promise.resolve([{ Name: "Lot 1" }, { Name: "Lot 2" }]);
+            } else if (this.processType == "Flyer") {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Total Delivery",
+                    "Spindle Kosong",
+                    "Eff%"
+                ];
+            } else if (this.processType == "Winder") {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Waste",
+                    "Total Drum",
+                    "Eff%"
+                ];
+            } else {
+                this.itemsColumnsHeader = [
+                    "Nomor Mesin",
+                    "Merk Mesin",
+                    "Output (Counter)",
+                    "UOM",
+                    "Bale",
+                    "Eff%"
+                ];
+            }
+            this.isItem = true;
+            this.fillItems();
+        } else {
+            this.data.ProcessType = null;
+            this.data.Items = [];
+            this.itemsColumnsHeader = [
+                "Nomor Mesin",
+                "Merk Mesin",
+                "Output (Counter)",
+                "UOM",
+                "Bale",
+                "Eff%"
+            ];
+            this.isItem = false;
+        }
+    }
+
+    inputDateChanged(n, o) {
+        if (this.inputDate) {
+            this.data.Date = this.inputDate;
+            this.fillItems();
+        } else {
+            this.data.Date = null;
+            this.data.Items = [];
+        }
+    }
+
+    materialTypeChanged(n, o) {
+        if (this.materialType && this.materialType.id) {
+            this.lotFilter = { "YarnTypeIdentity": this.materialType.id };
+            this.data.MaterialTypeId = this.materialType.id;
+            this.fillItems();
+        } else {
+            this.data.MaterialTypeId = null;
+            this.data.Items = [];
+        }
+    }
+
+    async lotChanged(n, o) {
+
+        if (this.lot && this.lot.Id) {
+
+            let check = await this.service.validateLotInCount(this.lot.Id);
+            if (check) {
+                this.error.LotId = undefined;
+                this.data.LotId = this.lot.Id;
+                this.fillItems();
+            } else {
+                this.error.LotId = "Count is not created with this Lot";
+            }
+
+        } else {
+            this.data.LotId = null;
+            this.data.Items = [];
+        }
+    }
+
+    shiftChanged(n, o) {
+        if (this.shift && this.shift != "") {
+            this.data.Shift = this.shift;
+            this.fillItems();
+        } else {
+            this.data.Shift = null;
+            this.data.Items = [];
+        }
+    }
+
+    groupChanged(n, o) {
+        if (this.group && this.group != "") {
+            this.data.Group = this.group;
+            this.fillItems();
+        } else {
+            this.data.Group = null;
+            this.data.Items = [];
+        }
+
+    }
+
+    unitChanged(newValue, oldValue) {
+
+        if (this.unit && this.unit.Id) {
+            this.data.UnitDepartmentId = this.unit.Id;
+            this.fillItems();
+        } else {
+            this.data.UnitDepartmentId = null;
+            this.data.Items = [];
+        }
     }
 
     get lotLoader() {
         //return LotLoader;
-        return this.mockLotLoader;
+        return LotLoader;
     }
 
-    mockProcessLoader = (keyword, filter) => {
-
-        return Promise.resolve([{ Name: "Process Type 1" }, { Name: "Process Type 2" }]);
-    }
-
-    get processLoader() {
-        //return ProcessLoader;
-        return this.mockProcessLoader;
+    get materialTypeLoader() {
+        return MaterialTypeLoader;
     }
 
     get grandTotal() {
         let result = 0;
         if (this.data.Items && this.data.Items.length > 0) {
             for (let item of this.data.Items) {
-                if (item.Ball)
-                    result += item.Ball;
+                if (item.Bale)
+                    result += item.Bale;
             }
         }
         return result;
-    }    
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
 }

@@ -25,10 +25,11 @@ export class List {
             },
         },
         { field: "supplier.name", title: "Supplier" },
+        { field: "proformaNo", title: "No Proforma / Invoice" },
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
-            field: "totalPaid", title: "Total Bayar", formatter: function (value, data, index) {
+            field: "payToSupplier", title: "Total Bayar ke Supplier", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.0000');
             },
         },
@@ -76,7 +77,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ Position: this.activeRole.position }), // VERIFICATION_DIVISION
+            filter: JSON.stringify({ Position: this.activeRole.position, IsPaid:false }), // VERIFICATION_DIVISION
         };
 
         if (this.activeRole.key === 'CASHIER') {
@@ -116,6 +117,6 @@ export class List {
     }
 
     create() {
-        this.router.navigateToRoute('create');
+        this.router.navigateToRoute('create',{role:this.activeRole});
     }
 }

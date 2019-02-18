@@ -53,12 +53,14 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Buyer, Nama, Alamat, Negara, Kontak, Tempo");
+                        alert("Urutan format kolom CSV tidak sesuai.\n . Format kolom: Nomor Mesin, Unit, Line, Merk Mesin, Type Mesin, Jenis Proses, Tahun, Kondisi Mesin, Kondisi Counter, Jumlah Delivery, Kapasitas/hari, Satuan");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");
                         this.list();
 
+                    }else if(response.status == 500){
+                        alert("Tahun, Delivery atau Kapasitas diisi huruf");
                     }
                 })
         }

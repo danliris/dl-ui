@@ -1,78 +1,46 @@
 <template>
     <require from="../../../../lib/number-format-value-converter"></require>
-    <au-input-form title.bind="title"
-                   with.bind="context"
-                   options.bind="formOptions">
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-dropdown label="Jenis Mesin"
-                     value.bind="data.MachineType"
-                     error.bind="error.MachineType"
-                     read-only.bind="readOnly"
-                     items.bind="machineTypeList"
-                     options.bind="controlOptions">
-        </au-dropdown>
-
-        <au-autocomplete placeholder="pilih lot"
-                         label="Lot"
-                         value.bind="data.Lot"
-                         error.bind="error.Lot"
-                         loader.one-time="lotLoader"
-                         text="Name"
-                         read-only.bind="readOnly"
-                         options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-autocomplete placeholder="pilih jenis proses"
-                         label="Jenis Proses"
-                         value.bind="data.ProcessType"
-                         error.bind="error.ProcessType"
-                         loader.one-time="processLoader"
-                         text="Name"
-                         read-only.bind="readOnly"
-                         options.bind="controlOptions">
-        </au-autocomplete>
-
-        <au-datepicker value.bind="data.Date"
-                       error.bind="error.Date"
-                       read-only.bind="readOnly"
-                       label="Tanggal"
-                       options.bind="controlOptions">
+        <au-datepicker label="Tanggal" value.bind="inputDate" error.bind="error.Date" read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-datepicker>
 
-        <au-dropdown label="Shift"
-                     value.bind="data.Shift"
-                     error.bind="error.Shift"
-                     read-only.bind="readOnly"
-                     items.bind="shiftList"
-                     options.bind="controlOptions">
+        <au-dropdown label="Jenis Proses" value.bind="processType" error.bind="error.ProcessType" read-only.bind="readOnly"
+            items.bind="typeOptions" options.bind="controlOptions">
         </au-dropdown>
 
-        <au-textbox value.bind="data.Group"
-                    error.bind="error.Group"
-                    read-only.bind="readOnly"
-                    label="Grup"
-                    options.bind="controlOptions">
+        <au-autocomplete label="Nama Benang" value.bind="materialType" error.bind="error.MaterialTypeId" loader.bind="materialTypeLoader"
+            placeholder="Cari nama benang" key="id" text="code" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-autocomplete label="Lot" value.bind="lot" error.bind="error.LotId" loader.bind="lotLoader" placeholder="Cari nomor Lot"
+            key="Id" text="LotNo" query.bind = "lotFilter" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-dropdown label="Shift" value.bind="shift" error.bind="error.Shift" read-only.bind="readOnly" items.bind="shiftList"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox label="Group" value.bind="group" error.bind="error.Group" read-only.bind="readOnly" options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox error.bind="error.Item"
-                    show.bind="error.Item"
-                    read-only.bind="true">
+        <au-autocomplete label="Unit" value.bind="unit" error.bind="error.UnitDepartmentId" loader.bind="unitLoader"
+            placeholder="Cari unit spinning" key="Id" text="Name" read-only.bind="readOnly" query.bind="spinningFilter"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox error.bind="error.Item" show.bind="error.Item" read-only.bind="true">
         </au-textbox>
 
-        <au-collection items.bind="data.Items"
-                       errors.bind="error.Items"
-                       columns.bind="columns"
-                       add.bind="addItems"
-                       remove.bind="onremove"
-                       read-only.bind="readOnly"
-                       item-template="modules/production/spinning/machine-output-monitoring/templates/item">
+        <au-collection show.bind="isItem" view-model.ref="machineCollections" items.bind="data.Items" errors.bind="error.Items"
+            columns.bind="itemsColumnsHeader" remove.bind="items.onRemove" read-only.bind="readOnly" options.bind="detailOptions"
+            item-template="modules/production/spinning/machine-output-monitoring/templates/item">
         </au-collection>
 
-        <au-textbox error.bind="error.Differences"
-                    show.bind="error.Differences"
-                    read-only.bind="true">
+        <au-textbox error.bind="error.Differences" show.bind="error.Differences" read-only.bind="true">
         </au-textbox>
 
-        Total Hasil Produksi : ${grandTotal | numberFormat: '0,0.0000'} Ball
+        <div show.bind="isItem">Total Hasil Produksi : ${grandTotal | numberFormat: '0,0.0000'} Ball</div>
     </au-input-form>
 </template>

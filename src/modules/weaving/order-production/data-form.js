@@ -1,14 +1,17 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { callbackify } from "util";
+var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var UnitLoader = require("../../../loader/unit-loader");
-var moment = require('moment');
+var moment = require("moment");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable constructionNumber;
 
   yearFormat = "YYYY";
-  years =[];
+  years = [];
+  monthFormat = "MMMM";
 
   formOptions = {
     cancelText: "Kembali",
@@ -49,40 +52,21 @@ export class DataForm {
     }
   };
 
-  months = ["",
-    "Januari",
-    "Februari",
-    "Maret",
+  months = [
+    "",
+    "January",
+    "February",
+    "March",
     "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
+    "May",
+    "June",
+    "July",
+    "August",
     "September",
-    "Oktober",
+    "October",
     "November",
-    "Desember"
+    "December"
   ];
-
-  // @computedFrom("data._id")
-  // get isEdit() {
-  //     return (this.data._id || '').toString() != '';
-  // }
-
-  get constructionsNumber() {
-    return UnitLoader;
-  }
-
-  getYears(){
-    var year = moment(new Date());
-    this.years.push(year.year());
-    var nextYear = year.add(1,'years');
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1,'years');
-    this.years.push(nextYear.year());
-    var nextYear = year.add(1,'years');
-    this.years.push(nextYear.year());
-  }
 
   bind(context) {
     this.context = context;
@@ -90,9 +74,52 @@ export class DataForm {
     this.error = this.context.error;
     this.getYears();
 
+    var currentDate = moment(new Date());
+    var currentMonth = currentDate.month().format('MMMM');
+    console.log(currentMonth);
+
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+  }
+
+  get constructions() {
+    this.constructionNumber = {};
+    return ConstructionLoader;
+  }
+
+  get units() {
+    return UnitLoader;
+  }
+
+  constructionNumberChanged(newValue) {
+    if (newValue) {
+      if (newValue.yarnType) {
+        this.data.yarnType = newValue.yarnType;
+      } else {
+        newValue = this.data.fabricConstructionDocument;
+      }
+
+      this.constructionNumber = newValue;
+      this.data.fabricConstructionDocument = {};
+
+      if (newValue) {
+        this.data.fabricConstructionDocument.id = newValue.id;
+        this.data.fabricConstructionDocument.constructionNumber =
+          newValue.constructionNumber;
+      }
+    }
+  }
+
+  getYears() {
+    var year = moment(new Date());
+    this.years.push(year.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
   }
 }

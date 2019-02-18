@@ -1,0 +1,64 @@
+<template>
+  <h1 class="page-header">Daftar Laporan Surat Order Produksi</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <au-datepicker
+        label="Periode"
+        value.bind="data"
+        error.bind="error"
+        read-only.bind="readOnly"
+      ></au-datepicker>
+    </div>
+  </div><div class="row">
+    <div class="col-md-4">
+      <au-autocomplete
+        label="Unit"
+        value.bind="data.unit"
+        error.bind="error.unit"
+        read-only.bind="readOnly"
+        loader.bind="units"
+      ></au-autocomplete>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1">
+      <button
+        class="btn btn-primary"
+        click.delegate="printPdf()"
+        style="margin-top: 20px;"
+      >
+        print PDF
+      </button>
+    </div>
+    <div class="col-md-1" style="margin-left: 6px;">
+      <button
+        class="btn btn-success"
+        click.delegate="search()"
+        style="margin-top: 20px;"
+      >
+        Cari
+      </button>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-md-1">
+      <button
+        class="btn btn-primary btn-block"
+        click.delegate="download"
+        style="margin-top:16px; margin-bottom: -8px;"
+      >
+        Pdf
+      </button>
+    </div>
+  </div> -->
+  <au-table
+    style="white-space: nowrap; margin-top: 24px;"
+    data.bind="loader"
+    columns.bind="columns"
+    sortable.bind="true"
+    page-size="25"
+    options.bind="tableOptions"
+    context.bind="context"
+  >
+  </au-table>
+</template>
