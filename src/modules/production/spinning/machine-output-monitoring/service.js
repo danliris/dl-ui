@@ -5,7 +5,7 @@ var moment = require('moment');
 
 const serviceUri = "machine-outputs";
 const machineServiceUri = "machine-spinnings";
-const countUri = "count-configurations"
+const countUri = "count-configurations";
 
 export class Service extends RestService {
 
@@ -51,6 +51,11 @@ export class Service extends RestService {
 
     getCountByProcessAndYarn(processType, yarnId){
         var endpoint = `${countUri}/by-process-yarn?processType=${processType}&yarnId=${yarnId}`;
+        return super.get(endpoint);
+    }
+
+    validateLotInCount(lotId){
+        var endpoint = `${countUri}/validate-lot?lotId=${lotId}`;
         return super.get(endpoint);
     }
 }
