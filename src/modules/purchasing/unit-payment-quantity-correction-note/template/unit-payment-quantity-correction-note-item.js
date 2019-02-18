@@ -13,7 +13,7 @@ export class UnitPaymentQuantityCorrectionNoteItem {
     // if(this.data.pricePerDealUnitAfter){
     //   this.data.pricePerDealUnitAfter=this.data.pricePerDealUnitAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     // }
-
+    
     if(this.data.priceTotalAfter){
       this.data.priceTotalAfter=this.data.priceTotalAfter.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     }

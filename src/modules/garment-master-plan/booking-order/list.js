@@ -23,40 +23,34 @@ export class List {
         },
         { field: "Remark", title: "Keterangan" },
         { field: "statusBook", title: "Status Booking Order", formatter: function (value, data, index) {
-            if(data.IsBlockingPlan == true){
+            if(data.ConfirmedQuantity == 0){
+                return "Booking";
+            }else if(data.ConfirmedQuantity > 0){
+                return "Confirmed";
+            }else if(data.IsBlockingPlan){
                 return "Sudah Dibuat Master Plan";
-            }else{
-                if(data.ConfirmedQuantity == 0){
-                    return "Booking";
-                }else if(data.ConfirmedQuantity > 0){
-                    return "Confirmed";
-                }
             }
         } },
         { field: "statusConfirm", title: "Status Jumlah Confirm", formatter: function (value, data, index) {
             if(data.ConfirmedQuantity === 0){
                 return "Belum Confirm";
-            } else if (data.ConfirmedQuantity > 0 && (data.OrderQuantity > data.ConfirmedQuantity)){
+            } else if (data.ConfirmedQuantity > 0 || data.OrderQuantity < data.ConfirmedQuantity){
                 var total = data.OrderQuantity - data.ConfirmedQuantity;
-                return "-"+total;
+                return total;
             } else if(data.OrderQuantity === data.ConfirmedQuantity){
                 return 0;
             } else if(data.ConfirmedQuantity > data.OrderQuantity){
-                var total1 = data.ConfirmedQuantity - data.OrderQuantity;
-                return "+"+total1;
+                var total = data.ConfirmedQuantity - data.OrderQuantity;
+                return total;
             }
         } },
         { field: "statusOrder", title: "Status Sisa Order", formatter: function (value, data, index) {
             var today = new Date();
-            today.setDate(today.getDate()+45);
-            var deliveryDates = new Date(Date.parse(data.DeliveryDate));
-            if(data.ConfirmedQuantity < data.OrderQuantity && deliveryDates > today){
+            if(data.ConfirmedQuantity < data.OrderQuantity && data.DeliveryDate > today.setDate(today.getDate() + 45)){
                 return "On Proses";
-            } 
-            else if (data.ConfirmedQuantity >= data.OrderQuantity){
+            } else if (data.ConfirmedQuantity >= data.OrderQuantity){
                 return "-";
-            } 
-            else if(data.ConfirmedQuantity < data.OrderQuantity && deliveryDates <= today){
+            } else if(data.ConfirmedQuantity < data.OrderQuantity && data.DeliveryDate <= today.setDate(today.getDate() + 45)){
                 return "Expired";
             }
         } }
@@ -75,7 +69,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                var data = {};
+                var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
                 return {

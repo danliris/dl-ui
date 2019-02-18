@@ -18,29 +18,29 @@ export class Item {
   };
  
   get dataAhTotal() {
-    this.data.AHTotal = this.data.Operator * this.data.WorkingHours;
-    return this.data.AHTotal;
+    this.data.ahTotal = this.data.operator * this.data.workingHours;
+    return this.data.ahTotal;
   }
 
   set dataAhTotal(value) {
-    this.data.AHTotal = value;
+    this.data.ahTotal = value;
   }
 
   get dataEhTotal() {
-    this.data.EHTotal = Math.round(this.data.AHTotal * this.data.Efficiency / 100);
-    return this.data.EHTotal;
+    this.data.ehTotal = Math.round(this.data.ahTotal * this.data.efficiency / 100);
+    return this.data.ehTotal;
   }
 
   set dataEhTotal(value) {
-    this.data.EHTotal = value;
+    this.data.ehTotal = value;
   }
 
   get dataRemainingEH() {
-    this.data.RemainingEH = this.data.EHTotal - this.data.UsedEH;
-    return this.data.RemainingEH;
+    this.data.remainingEH = this.data.ehTotal - this.data.usedEH;
+    return this.data.remainingEH;
   }
 
   set dataRemainingEH(value) {
-    this.data.RemainingEH = value;
+    this.data.remainingEH = value;
   }
 }

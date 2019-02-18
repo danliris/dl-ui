@@ -44,24 +44,24 @@ export class DataForm {
         // }
 
         this.itemColumns = [
-            { header: "Minggu ke-", value: "WeekNumber" },
-            { header: "Tanggal Mulai", value: "StartDate" },
-            { header: "Tanggal Selesai", value: "EndDate" },
-            { header: "Bulan", value: "MonthName" },
-            { header: "Efisiensi %", value: "Efficiency" },
-            { header: "Total Operator", value: "Operator" },
-            { header: "Working Hours", value: "WorkingHours" },
-            { header: "Total AH", value: "AHTotal" },
-            { header: "Total EH", value: "EHTotal" },
-            { header: "Used EH", value: "UsedEH" },
-            { header: "Remaining EH", value: "RemainingEH" },
+            { header: "Minggu ke-", value: "weekNumber" },
+            { header: "Tanggal Mulai", value: "startDate" },
+            { header: "Tanggal Selesai", value: "endDate" },
+            { header: "Bulan", value: "monthName" },
+            { header: "Efisiensi %", value: "efficiency" },
+            { header: "Total Operator", value: "operator" },
+            { header: "Working Hours", value: "workingHours" },
+            { header: "Total AH", value: "ahTotal" },
+            { header: "Total EH", value: "ehTotal" },
+            { header: "Used EH", value: "usedEH" },
+            { header: "Remaining EH", value: "remainingEH" },
         ];
-        if (this.data && this.data.Id && this.data.Unit.Id) {
-            for (var item of this.data.Items) {
-                item["MonthName"] = this.getMonthName(item.Month);
+        if (this.data && this.data._id && this.data.unitId) {
+            for (var item of this.data.items) {
+                item["monthName"] = this.getMonthName(item.month);
             }
-            this.selectedUnit = this.data.Unit;
-            this.yearSelected = this.data.Year;
+            this.selectedUnit = this.data.unit;
+            this.yearSelected = this.data.year;
 
             // yearColumns = [];
             // yearColumns.push(this.data.year);
@@ -73,7 +73,7 @@ export class DataForm {
     get isYear() {
         var current_year = (new Date()).getFullYear() + 10;
         var last_year = (new Date()).getFullYear() - 10;
-        return this.data && this.data.Year && this.data.Year >= last_year && this.data.Year <= current_year;
+        return this.data && this.data.year && this.data.year >= last_year && this.data.year <= current_year;
     }
 
     getMonthName(month) {
@@ -159,31 +159,31 @@ export class DataForm {
 
     yearSelected = 0;
     get dataDetail() {
-        this.data.Items = this.data.Items || [];
+        this.data.items = this.data.items || [];
 
         // batas maksimal tahun
         var max_year = (new Date()).getFullYear() + 10;
         // batas minimal tahun
         var min_year = (new Date()).getFullYear() - 10;
 
-        if (this.data && this.data.Year && this.data.Year > 0 && this.data.Year >= min_year && this.data.Year <= max_year) {
+        if (this.data && this.data.year && this.data.year > 0 && this.data.year >= min_year && this.data.year <= max_year) {
 
             // hapus error jikan ada error out of range year sebellum di submit
             if (this.error)
-                this.error.Year = null;
+                this.error.year = null;
 
-            if (this.yearSelected !== this.data.Year) {
-                this.yearSelected = this.data.Year;
-                if (this.data && this.data.Items && this.data.Items.length > 0) {
-                    var count = this.data.Items.length;
+            if (this.yearSelected !== this.data.year) {
+                this.yearSelected = this.data.year;
+                if (this.data && this.data.items && this.data.items.length > 0) {
+                    var count = this.data.items.length;
                     for (var a = count; a >= 0; a--) {
-                        this.data.Items.splice((a - 1), 1);
+                        this.data.items.splice((a - 1), 1);
                     }
                 }
 
-                var startDateOfYear = new Date(`${this.data.Year}-01-01`);
-                var endDateOfYear = new Date(`${this.data.Year}-12-31`);
-                var isSameYear = (moment().year(this.data.Year).day("Monday").week(1).toDate()).getFullYear() === this.data.Year ? true : false;
+                var startDateOfYear = new Date(`${this.data.year}-01-01`);
+                var endDateOfYear = new Date(`${this.data.year}-12-31`);
+                var isSameYear = (moment().year(this.data.year).day("Monday").week(1).toDate()).getFullYear() === this.data.year ? true : false;
                 var totalWeek = Math.ceil((((endDateOfYear - startDateOfYear) / 86400000) + 1) / 7);
                 // if(!isSameYear)
                 //     totalWeek -= 1;
@@ -191,21 +191,21 @@ export class DataForm {
                     //var startDate = moment().year(this.data.year).day("Monday").week(isSameYear ? i : (i+1)).toDate();
                     /// var endDate = moment().year(this.data.year).day("Friday").week(isSameYear ? i : (i+1)).toDate();
 
-                    var startDate = i == 1 ? new Date(`${this.data.Year}-01-01`) : moment().year(this.data.Year).day("Monday").week((i)).toDate();
-                    var endDate = i == totalWeek ? new Date(`${this.data.Year}-12-31`) : moment().year(this.data.Year).day("Friday").week((i)).toDate();
-                    this.data.Items.push({
-                        WeekNumber: i,
-                        StartDate: startDate,
-                        EndDate: endDate,
-                        Month: startDate.getMonth(),
-                        MonthName: this.getMonthName(startDate.getMonth()),
-                        Efficiency : 0,
-                        Operator: 0,
-                        WorkingHours: 0,
-                        AhTotal: 0,
-                        EhTotal: 0,
-                        UsedEH: 0,
-                        RemainingEH: 0,
+                    var startDate = i == 1 ? new Date(`${this.data.year}-01-01`) : moment().year(this.data.year).day("Monday").week((i)).toDate();
+                    var endDate = i == totalWeek ? new Date(`${this.data.year}-12-31`) : moment().year(this.data.year).day("Friday").week((i)).toDate();
+                    this.data.items.push({
+                        weekNumber: i,
+                        startDate: startDate,
+                        endDate: endDate,
+                        month: startDate.getMonth(),
+                        monthName: this.getMonthName(startDate.getMonth()),
+                        efficiency : 0,
+                        operator: 0,
+                        workingHours: 0,
+                        ahTotal: 0,
+                        ehTotal: 0,
+                        usedEH: 0,
+                        remainingEH: 0,
                     })
                 }
             // } else {
@@ -224,33 +224,33 @@ export class DataForm {
             }
         } else {
             this.yearSelected = 0;
-            if (this.data && this.data.Year && this.data.Year < min_year) {
-                this.error.Year = "Year is out of range year";
+            if (this.data && this.data.year && this.data.year < min_year) {
+                this.error.year = "Year is out of range year";
             }
-            if (this.data && this.data.Year && this.data.Year > max_year) {
-                this.error.Year = "Year is out of range year";
+            if (this.data && this.data.year && this.data.year > max_year) {
+                this.error.year = "Year is out of range year";
             }
-            if (this.data && this.data.Items && this.data.Items.length > 0) {
-                var count = this.data.Items.length;
+            if (this.data && this.data.items && this.data.items.length > 0) {
+                var count = this.data.items.length;
                 for (var a = count; a >= 0; a--) {
-                    this.data.Items.splice((a - 1), 1);
+                    this.data.items.splice((a - 1), 1);
                 }
             }
         }
-        return this.data.Items;
+        return this.data.items;
     }
 
     selectedUnitChanged(newValue) {
         if (newValue) {
-            this.data.Unit = newValue;
+            this.data.unitId = newValue._id;
         }
         else {
-            this.data.Unit = null;
+            this.data.unitId = null;
         }
     }
 
     unitView = (unit) => {
-        return `${unit.Code} - ${unit.Name}`
+        return `${unit.code} - ${unit.name}`
     }
 
     get unitLoader() {
@@ -264,10 +264,10 @@ export class DataForm {
         var columnName = this.itemColumns[column].value;
         var row = event.path[trPath].rowIndex; // start from 1
 
-        for (var i = row; i < this.data.Items.length; i++) {
+        for (var i = row; i < this.data.items.length; i++) {
              
             // if (this.data.items[i].usedEH == 0)
-                 this.data.Items[i][columnName] = Number(event.target.value);
+                 this.data.items[i][columnName] = Number(event.target.value);
         }
     }
 }

@@ -38,6 +38,7 @@ export class Create {
             })
             .catch(e => {
                 this.error = e;
+                console.log(this.error);
             })
     }
 }

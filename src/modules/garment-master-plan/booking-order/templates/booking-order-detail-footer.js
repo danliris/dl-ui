@@ -5,12 +5,14 @@ import { Config } from "aurelia-api"
 export class DetailFooter {
   activate(context) {
     this.context = context;
+    //this.error = context.items[0].error;
+    //console.log(this.context);
   }
 
   get itemSum() {
     var qty = this.context.items
-      .filter(item => !item.data.IsCanceled) // for false and undefined
-      .map((item) => item.data.ConfirmQuantity);
+      .filter(item => !item.data.isCanceled) // for false and undefined
+      .map((item) => item.data.quantity);
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
