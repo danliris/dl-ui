@@ -265,9 +265,11 @@ export class DataForm {
                         newData.MachineSpinning.Id = item.Id;
                         newData.MachineSpinningIdentity = item.Id;
                         newData.ExistedItem = false;
-                        for (var itemsTemp of this.itemTemp){
-                            if(itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id){
-                                newData.ExistedItem = true;
+                        if(this.itemTemp){
+                            for (var itemsTemp of this.itemTemp){
+                                if(itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id){
+                                    newData.ExistedItem = true;
+                                }
                             }
                         }
                         newItems.push(newData);
