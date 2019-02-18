@@ -1,21 +1,31 @@
 <template>
-<tr if.bind="!data.IsCanceled"> <!-- add data.isCanceled = undefined if not exist -->
+<tr if.bind="!data.isCanceled"> <!-- add data.isCanceled = undefined if not exist -->
   
+  <!--<td width="5%" text-align="center" if.bind="data.code">
+    <au-checkbox
+    value.bind="data.isConfirmed" 
+    error.bind="error.isConfirmed" 
+    read-only.bind="options.readOnly" 
+    options.bind="controlOption">
+    </au-checkbox>
+  </td>-->
+
   <td width="20%">
     <au-autocomplete 
-    value.bind="selectedComodity" 
-    error.bind="error.Comodity" 
+    value.bind="data.masterPlanComodity" 
+    error.bind="error.masterPlanComodity" 
     text.bind = "comoView"
     read-only.bind="options.readOnly" 
-    loader.bind="comodityLoader"
+    key="Id" 
+    loader.bind="loader" 
     options.bind="controlOption" >
     </au-autocomplete>
   </td>
   
   <td width="15%">
     <au-numeric 
-    value.bind="data.ConfirmQuantity" 
-    error.bind="error.ConfirmQuantity" 
+    value.bind="data.quantity" 
+    error.bind="error.quantity" 
     read-only.bind="options.readOnly" 
     options.bind="controlOption">
     </au-numeric>
@@ -23,8 +33,8 @@
 
   <td width="15%">
     <au-datepicker 
-        value.bind="data.DeliveryDate" 
-        error.bind="error.DeliveryDate" 
+        value.bind="data.deliveryDate" 
+        error.bind="error.deliveryDate" 
         read-only.bind="options.readOnly" 
         options.bind="controlOptions">
     </au-datepicker>
@@ -32,8 +42,8 @@
 
    <td width="15%">
     <au-datepicker 
-        value.bind="data.ConfirmDate" 
-        error.bind="error.ConfirmDate" 
+        value.bind="data.confirmDate" 
+        error.bind="error.confirmDate" 
         read-only="true" 
         options.bind="controlOptions">
     </au-datepicker>
@@ -41,8 +51,8 @@
 
   <td width="25%">
     <au-multiline 
-    value.bind="data.Remark" 
-    error.bind="error.Remark" 
+    value.bind="data.remark" 
+    error.bind="error.remark" 
     read-only.bind="options.readOnly" 
     options.bind="controlOption">
     </au-multiline >

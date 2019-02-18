@@ -402,19 +402,6 @@ module.exports = [
         }
     },
     {
-        route: '/garment/purchase-return-correction-note',
-        name: 'purchase-return-correction-note',
-        moduleId: './modules/garment-purchasing/purchase-return-correction-note/index',
-        nav: true,
-        title: 'Nota Koreksi - Retur',
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            permission: { "C9": 1, "PG": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: '/garment/monitoring-purchase-price-correction',
         name: 'monitoring-purchase-price-correction',
         moduleId: './modules/garment-purchasing/monitoring-purchase-price-correction/index',

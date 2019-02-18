@@ -17,11 +17,11 @@ export class View {
   async activate(params) {
       var id = params.id;
       this.data = await this.service.getById(id);
-      var totalUsedEH = this.data.Items.reduce(
-        (acc, cur) => acc + cur.UsedEH
+      var totalUsedEH = this.data.items.reduce(
+        (acc, cur) => acc + cur.usedEH
         ,0
       );
-      this.hasDelete = totalUsedEH == 0;
+      this.hasDelete = totalUsedEH > 0 ? false : this.totalUsedEH;
   }
 
   cancel(event) {
@@ -29,7 +29,7 @@ export class View {
   }
 
   edit(event) {
-    this.router.navigateToRoute('edit', { id: this.data.Id });
+    this.router.navigateToRoute('edit', { id: this.data._id });
   }   
    
   delete(event) {

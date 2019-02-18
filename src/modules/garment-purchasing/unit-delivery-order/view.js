@@ -63,4 +63,28 @@ export class View {
         });
     }
 
+    cancelPO(e) {
+        this.service.cancel(this.poExId).then(result => {
+            this.cancel();
+        }).catch(e => {
+            this.error = e;
+        })
+    }
+
+    unpostPO(e) {
+        this.service.unpost(this.poExId).then(result => {
+            this.cancel();
+        }).catch(e => {
+            this.error = e;
+        })
+    }
+
+    closePO(e) {
+        this.service.close(this.poExId).then(result => {
+            this.cancel();
+        }).catch(e => {
+            this.error = e;
+        })
+    }
+
 }

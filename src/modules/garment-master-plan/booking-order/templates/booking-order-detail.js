@@ -1,29 +1,22 @@
-import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
+import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 import { Dialog } from '../../../../components/dialog/dialog';
 import moment from 'moment';
-var ComodityLoader = require('../../../../loader/garment-comodities-loader');
+var comodityLoader = require('../../../../loader/garment-master-plan-comodity-loader');
 
-@inject(Dialog, BindingEngine)
+@inject(Dialog)
 export class DetailItem {
-  @bindable selectedComodity;
-
-  constructor(dialog, bindingengine) {
+  constructor(dialog) {
     this.dialog = dialog;
-    this.bindingengine = bindingengine;
   }
 
   activate(item) {
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;
-    
-    if (this.data != null) {
-      this.data.ConfirmDate = this.data._createdDate ? this.data._createdDate : new Date();
-    }
-    if(this.data.ComodityName && this.data.ComodityCode){
-      this.selectedComodity = { Code:this.data.ComodityCode, Name:this.data.ComodityName,};
+    if (this.data) {
+      this.data.confirmDate = this.data._createdDate ? this.data._createdDate : new Date();
     }
   }
 
@@ -33,32 +26,19 @@ export class DetailItem {
     }
   }
 
-  selectedComodityChanged(newValue) {
-      var _selectedComodity = newValue;
-      if (_selectedComodity) {
-          this.data.Comodity = _selectedComodity;
-          this.data.ComodityId = _selectedComodity.Id ? _selectedComodity.Id : "";
-          this.data.ComodityCode = _selectedComodity.Code;
-          this.data.ComodityName = _selectedComodity.Name;            
-      }else{
-        this.selectedComodity = null;
-      }
-
-  }
-
-  get comodityLoader() {
-      return ComodityLoader;
+  get loader() {
+    return comodityLoader;
   }
 
   comoView = (comodity) => {
-    return `${comodity.Code} - ${comodity.Name}`
+    return `${comodity.code} - ${comodity.name}`
   }
 
   oncancel(data) {
-    this.dialog.prompt("Cancel Confirm Comodity " + this.data.ComodityName + " (Jumlah : " + this.data.ConfirmQuantity + "). Lanjutkan?", "Cancel Confirm")
+    this.dialog.prompt("Cancel Confirm Comodity " + this.data.masterPlanComodity.name + " (Jumlah : " + this.data.quantity + "). Lanjutkan?", "Cancel Confirm")
       .then(response => {
         if (response == "ok") {
-          this.data.IsCanceled = true;
+          this.data.isCanceled = true;
         }
       });
   }

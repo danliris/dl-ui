@@ -5,12 +5,12 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = 'garment-master-plan/weekly-plans';
+const serviceUri = 'weekly-plans';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "sales");
+        super(http, aggregator, config, "garment-master-plan");
     }
 
     search(info) {
@@ -29,12 +29,12 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/${data._id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
+        var endpoint = `${serviceUri}/${data._id}`;
         return super.delete(endpoint, data);
     }
 
