@@ -3,6 +3,7 @@ var ProductLoader = require('../../../../../loader/product-azure-loader');
 var LotConfigurationLoader = require('../../../../../loader/lot-configuration-loader');
 export class CountConfigurationItem {
     @bindable lotItem;
+    @bindable yarnItem;
 
     activate(context) {
         this.context = context;
@@ -12,7 +13,6 @@ export class CountConfigurationItem {
             this.lotItem = this.data.lotNoItem;
             this.yarnItem = this.data.yarnItem.Name;
         }
-        this.Input = context.data;
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
@@ -52,16 +52,24 @@ export class CountConfigurationItem {
         var selectedLot = this.lotItem;
         if (selectedLot) {
             this.data.yarnItem = selectedLot.YarnType;
-            this.yarnItem = selectedLot.YarnType.Name;
+            this.yarnItem = selectedLot.YarnType.Code;
             this.data.lotNoItem = selectedLot.LotNo;
             this.data.CottonCompositions = selectedLot.CottonCompositions;
             this.isShowing = true;
+            this.data.LotId = selectedLot.Id;
+            this.data.LotNo = selectedLot.LotNo;
+            this.data.YarnId = selectedLot.YarnType.Id;
+            this.data.YarnCode = selectedLot.YarnType.Code;
         } else {
             this.error.lotItem = "Lot tidak ditemukan";
             this.data.yarnItem = null;
             this.yarnItem = null;
             this.data.lotNoItem = null;
             this.data.CottonCompositions = null;
+            this.data.LotId = null;
+            this.data.LotNo = null;
+            this.data.YarnId = null;
+            this.data.YarnCode = null;
         }
     }
     // yarnItemChanged(n, o) {
