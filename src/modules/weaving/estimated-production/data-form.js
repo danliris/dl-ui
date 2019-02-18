@@ -71,7 +71,7 @@ export class DataForm {
     this.error = this.context.error;
 
     this.getYears();
-    this.data.Items = [];
+    this.data.estimationProducts = [];
     this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -160,7 +160,7 @@ export class DataForm {
           //Print each datum on orderProductions Data and push to Items Collections
           result.data.forEach(datum => {
             // console.log(datum);
-            this.data.Items.push(datum);
+            this.data.estimationProducts.push(datum);
           });
           //Bind "Items" reference
           this.context.orderProductionsItems.bind(this);

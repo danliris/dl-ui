@@ -26,7 +26,7 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    // console.log(this.data.Items);
+    console.log(this.data.estimationProducts);
     debugger;
 
     var index = 0;
@@ -37,7 +37,7 @@ export class Create {
 
     var summedUpGrade = 0;
     // console.log(this.data);
-    this.data.Items.forEach(datum => {
+    this.data.estimationProducts.forEach(datum => {
       // console.log(datum);
       var gradeANum = parseInt(datum.gradeA) ? parseInt(datum.gradeA) : 0;
       var gradeBNum = parseInt(datum.gradeB) ? parseInt(datum.gradeB) : 0;
@@ -46,11 +46,11 @@ export class Create {
 
       summedUpGrade =
         summedUpGrade + gradeANum + gradeBNum + gradeCNum + gradeDNum;
-      // console.log(gradeANum);
-      // console.log(gradeBNum);
-      // console.log(gradeCNum);
-      // console.log(gradeDNum);
-      // console.log(summedUpGrade);
+      console.log("gradeANum : ", gradeANum);
+      console.log("gradeANum : ", gradeBNum);
+      console.log("gradeANum : ", gradeCNum);
+      console.log("gradeANum : ", gradeDNum);
+      console.log("summedUpGrade : ", summedUpGrade);
       if (
         datum.gradeA == undefined ||
         datum.gradeA == null ||
@@ -58,7 +58,7 @@ export class Create {
       ) {
         index++;
       }
-      console.log(index);
+      console.log("Index on datum.gradeA : ", index);
       if (
         datum.gradeB == undefined ||
         datum.gradeB == null ||
@@ -66,7 +66,7 @@ export class Create {
       ) {
         index++;
       }
-      console.log(index);
+      console.log("Index on datum.gradeB : ", index);
       if (
         datum.gradeC == undefined ||
         datum.gradeC == null ||
@@ -74,7 +74,7 @@ export class Create {
       ) {
         index++;
       }
-      console.log(index);
+      console.log("Index on datum.gradeC : ", index);
     });
     if (index > 0) {
       window.alert(emptyFieldName);
@@ -84,6 +84,8 @@ export class Create {
         window.alert(summedUpGradeAlert);
       } else {
         console.log(this.data);
+        console.log(this.data.estimationProducts);
+        debugger;
         this.service
           .create(this.data)
           .then(result => {
@@ -99,6 +101,6 @@ export class Create {
           });
       }
     }
-    debugger;
+    // debugger;
   }
 }
