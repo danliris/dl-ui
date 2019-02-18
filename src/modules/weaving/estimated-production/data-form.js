@@ -159,7 +159,7 @@ export class DataForm {
         .then(result => {
           //Print each datum on orderProductions Data and push to Items Collections
           result.data.forEach(datum => {
-            // console.log(datum);
+            console.log(datum);
             this.data.estimationProducts.push(datum);
           });
           //Bind "Items" reference

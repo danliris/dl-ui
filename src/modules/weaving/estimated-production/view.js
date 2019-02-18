@@ -29,6 +29,13 @@ export class View {
 
   //Tombol "Ubah", routing ke 'edit'
   editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data.ePNumber });
+    this.router.navigateToRoute("edit", { id: this.data.id });
+  }
+
+  //Tombol "Hapus", hapus this.data, redirect ke list
+  deleteCallback(event) {
+    this.service.delete(this.data).then(result => {
+      this.list();
+    });
   }
 }

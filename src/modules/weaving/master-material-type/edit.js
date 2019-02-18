@@ -33,11 +33,11 @@ export class Edit {
       index++;
     }
     if (
-      this.data.number == null ||
-      this.data.number == undefined ||
-      this.data.number == ""
+      this.data.name == null ||
+      this.data.name == undefined ||
+      this.data.name == ""
     ) {
-      this.error.number = "Nama Material Tidak Boleh Kosong";
+      this.error.name = "Nama Material Tidak Boleh Kosong";
       index++;
     }
     if (index > 0) {
