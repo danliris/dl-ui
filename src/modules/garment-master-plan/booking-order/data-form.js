@@ -31,7 +31,7 @@ export class DataForm {
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
-        console.log(this.data);
+        // console.log(this.data);
         this.error = this.context.error;
 
         if (!this.data.BookingOrderDate) {
@@ -46,7 +46,6 @@ export class DataForm {
 
     selectedBuyerChanged(newValue) {
         var _selectedBuyer = newValue;
-        console.log(_selectedBuyer);
         if (_selectedBuyer) {
             this.data.Buyer = _selectedBuyer;
             this.data.BuyerId = _selectedBuyer.Id ? _selectedBuyer.Id : "";
@@ -57,7 +56,6 @@ export class DataForm {
 
     selectedSectionChanged(newValue) {
         var _selectedSection = newValue;
-        console.log(_selectedSection);
         if (_selectedSection) {
             this.data.section = _selectedSection;
             this.data.SectionId = _selectedSection.Id ? _selectedSection.Id : "";
@@ -78,11 +76,11 @@ export class DataForm {
         return (event) => {
             var newDetail=   {
                 BookingOrderNo:this.data.BookingOrderNo,
-                masterPlanComodity: this.data.masterPlanComodity,
-                quantity: 0,
-                remark: ''
+                ComodityName: this.data.ComodityName,
+                ConfirmQuantity: 0,
+                Remark: ''
             };
-            this.data.items.push(newDetail);
+            this.data.Items.push(newDetail);
         };
     }
 

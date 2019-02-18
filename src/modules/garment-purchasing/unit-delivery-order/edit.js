@@ -48,14 +48,13 @@ export class Edit {
             if (this.data.Items) {
                 for (let item of this.data.Items) {
                     item.IsSave = true;
-                    item.IsDisabled = false;
                 }
             }
         }
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save(event) {
