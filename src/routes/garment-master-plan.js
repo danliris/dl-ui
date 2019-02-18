@@ -125,7 +125,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "B7": 1,"C9": 1 },
+            permission: { "B7": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

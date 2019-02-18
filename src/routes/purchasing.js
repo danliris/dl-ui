@@ -262,7 +262,7 @@ module.exports = [
      {
         route: 'po/monitoring/spb',
         name: 'surat-perintah-bayar-monitoring',
-        moduleId: './modules/purchasing/monitoring-surat-perintah-bayar/index',
+        moduleId: './modules/purchasing/monitoring-surat-perintah-bayar-new/index',
         nav: true,
         title: 'Monitoring Surat Perintah Bayar',
         auth: true,
