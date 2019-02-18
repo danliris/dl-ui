@@ -44,6 +44,10 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "CreatedUtc", title: "Tanggal Kirim dari Pembelian", sortable: false, formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
         { field: "SupplierName", title: "Supplier", sortable: false },
         { field: "DivisionName", title: "Divisi", sortable: false },
         { field: "PayToSupplier", title: "Total Bayar", sortable: false },
