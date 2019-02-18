@@ -44,6 +44,14 @@ export class DataForm {
         "PC-P 45"
     ];
 
+    get filters() {
+        var filters = {
+            isEdit:this.context.isEdit,
+        }
+        return filters;
+    }
+
+
     controlOptions = {
         label: {
             length: 4
@@ -67,7 +75,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         this.coreService.getMachineTypes()
             .then(result => {
                 if(this.data.ProcessType){
@@ -114,8 +121,8 @@ export class DataForm {
                 item.Identity = item.Id;
                 item.MachineSpinningIdentity = item.MachineSpinning.Id;
             }
+            this.itemTemp = this.data.Items
         }
-
     }
 
     inputInfo = {
@@ -224,11 +231,10 @@ export class DataForm {
             this.filter.Type = this.data.ProcessType;
             this.filter.UnitId = this.data.UnitDepartmentId.toString();
             this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-
+            
             this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
                 .then(async results => {
                     let existedItem = {};
-
                     if (this.data.Id) {
                         existedItem = this.data;
                     } else {
@@ -246,11 +252,10 @@ export class DataForm {
                         }
                     }
                     // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
-
                     var newItems = [];
+                    
                     for (var item of results.data) {
                         var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
-
                         var newData = {};
                         newData.MachineSpinning = {};
                         newData.Input = dbItem ? dbItem.Input : 0;
@@ -259,6 +264,12 @@ export class DataForm {
                         newData.MachineSpinning.UomUnit = item.UomUnit;
                         newData.MachineSpinning.Id = item.Id;
                         newData.MachineSpinningIdentity = item.Id;
+                        newData.ExistedItem = false;
+                        for (var itemsTemp of this.itemTemp){
+                            if(itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id){
+                                newData.ExistedItem = true;
+                            }
+                        }
                         newItems.push(newData);
                     }
                     return newItems;

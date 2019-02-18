@@ -29,8 +29,9 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-collection view-model.ref="machineCollections" remove.bind ="inputInfo.onRemove" columns.bind="itemColumns" items.bind="data.Items" errors.bind="error.Items"
-             read-only.bind="readOnly" item-template="modules/production/spinning/machine-input/template/item">
+        <au-collection view-model.ref="machineCollections" remove.bind ="inputInfo.onRemove" columns.bind="itemColumns" items.bind="data.Items" 
+            errors.bind="error.Items" options.one-way="filters" read-only.bind="readOnly" 
+            item-template="modules/production/spinning/machine-input/template/item">
         </au-collection>
 
     </au-input-form>
