@@ -478,6 +478,18 @@ module.exports = [
             permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/garment/purchase-return-correction-note',
+        name: 'purchase-return-correction-note',
+        moduleId: './modules/garment-purchasing/purchase-return-correction-note/index',
+        nav: true,
+        title: 'Nota Koreksi - Retur',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "PG": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
-
 ]
