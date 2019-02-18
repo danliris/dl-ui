@@ -15,14 +15,14 @@
         </au-autocomplete>
 
         <au-autocomplete label="Lot" value.bind="lot" error.bind="error.LotId" loader.bind="lotLoader" placeholder="Cari nomor Lot"
-            key="Id" text="LotNo" read-only.bind="readOnly" options.bind="controlOptions" query.bind="lotFilter">
+            key="Id" text="LotNo" query.bind = "lotFilter" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
         <au-dropdown label="Shift" value.bind="shift" error.bind="error.Shift" read-only.bind="readOnly" items.bind="shiftList"
             options.bind="controlOptions">
         </au-dropdown>
 
-        <au-textbox label="Group" value.bind="group" error.bind="Group" read-only.bind="readOnly" options.bind="controlOptions">
+        <au-textbox label="Group" value.bind="group" error.bind="error.Group" read-only.bind="readOnly" options.bind="controlOptions">
         </au-textbox>
 
         <au-autocomplete label="Unit" value.bind="unit" error.bind="error.UnitDepartmentId" loader.bind="unitLoader"

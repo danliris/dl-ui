@@ -26,7 +26,7 @@ export class List {
                 rowspan: 2,
                 sortable: true,
             },
-            { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
+            { field: 'InvoiceNo', title: 'Nomor Proforma', rowspan: 2, sortable: true },
             { field: 'SupplierName', title: 'Supplier', rowspan: 2, sortable: true },
             
             {
@@ -44,7 +44,8 @@ export class List {
                 rowspan: 2,
             },
             { title: 'Verifikasi', colspan: 3 },
-            { title: 'Kasir', colspan: 5 }
+            { title: 'Kasir', colspan: 3 },
+            { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
         ], [
             {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
@@ -74,14 +75,14 @@ export class List {
             {
                 field: 'BankExpenditureNoteNo', title: 'No Kuitansi'
             },
-            {
-                field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'BankExpenditureNotePPHNo', title: 'No Kuitansi PPH'
-            },
+            // {
+            //     field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
+            //         return value ? moment(value).format('DD MMM YYYY') : '-';
+            //     },
+            // },
+            // {
+            //     field: 'BankExpenditureNotePPHNo', title: 'No Kuitansi PPH'
+            // },
         ]
     ];
 
@@ -112,11 +113,11 @@ export class List {
             { text: 'Bag. Pembelian', value: 1 },
             { text: 'Dikirim ke Bag. Verifikasi', value: 2 },
             { text: 'Bag. Verifikasi', value: 3 },
-            { text: 'Dikirim ke Bag. Kasir', value: 4 },
-            { text: 'Dikirim ke Bag. Keuangan', value: 5 },
+            { text: 'Dikirim ke Bag. Keuangan', value: 4 },
+            //{ text: 'Dikirim ke Bag. Keuangan', value: 5 },
             { text: 'Dikirim ke Bag. Pembelian', value: 6 },
-            { text: 'Bag. Kasir', value: 7 },
-            { text: 'Bag. Keuangan', value: 8 },
+            { text: 'Bag. Keuangan', value: 7 },
+           // { text: 'Bag. Keuangan', value: 8 },
         ];
     }
 

@@ -5,8 +5,8 @@ import { isNullOrUndefined } from 'util';
 @inject(BindingEngine)
 export class Item {
     @bindable isBlowing;
-    @bindable isWinding;
-    @bindable isFlying;
+    @bindable isWinder;
+    @bindable isFlyer;
     @bindable output;
     @bindable data;
     @bindable readOnly;
@@ -33,22 +33,41 @@ export class Item {
             this.output = this.data.Output;
         }
 
+        if (this.data.BadOutput) {
+            this.badOutput = this.data.BadOutput;
+        }
+
+        if (this.data.DeliveryTotal) {
+            this.deliveryTotal = this.data.DeliveryTotal;
+        }
+
+        if (this.data.Spindle) {
+            this.spindle = this.data.Spindle;
+        }
+
+        if (this.data.Waste) {
+            this.waste = this.data.Waste;
+        }
+
+        if (this.data.DrumTotal) {
+            this.drumTotal = this.data.DrumTotal;
+        }
         if (this.processType == "Blowing") {
             this.isBlowing = true;
-            this.isWinding = false;
-            this.isFlying = false;
+            this.isWinder = false;
+            this.isFlyer = false;
         } else if (this.processType == "Winder") {
             this.isBlowing = false;
-            this.isWinding = true;
-            this.isFlying = false;
+            this.isWinder = true;
+            this.isFlyer = false;
         } else if (this.processType == "Flyer") {
             this.isBlowing = false;
-            this.isWinding = false;
-            this.isFlying = true;
+            this.isWinder = false;
+            this.isFlyer = true;
         } else {
             this.isBlowing = false;
-            this.isWinding = false;
-            this.isFlying = false;
+            this.isWinder = false;
+            this.isFlyer = false;
         }
 
     }
@@ -65,7 +84,7 @@ export class Item {
     badOutputChanged(n, o) {
         if (!isNullOrUndefined(this.badOutput)) {
             this.data.BadOutput = this.badOutput;
-            if (n != o) {
+            if (this.isBlowing) {
                 this.baseMathFormula();
             }
         }
@@ -74,7 +93,7 @@ export class Item {
     deliveryTotalChanged(n, o) {
         if (!isNullOrUndefined(this.deliveryTotal)) {
             this.data.DeliveryTotal = this.deliveryTotal;
-            if (n != o) {
+            if (this.isFlyer) {
                 this.baseMathFormula();
             }
         }
@@ -83,7 +102,7 @@ export class Item {
     spindleChanged(n, o) {
         if (!isNullOrUndefined(this.spindle)) {
             this.data.Spindle = this.spindle;
-            if (n != o) {
+            if (this.isFlyer) {
                 this.baseMathFormula();
             }
         }
@@ -92,7 +111,7 @@ export class Item {
     wasteChanged(n, o) {
         if (!isNullOrUndefined(this.waste)) {
             this.data.Waste = this.waste;
-            if (n != o) {
+            if (this.isWinder) {
                 this.baseMathFormula();
             }
         }
@@ -101,7 +120,7 @@ export class Item {
     drumTotalChanged(n, o) {
         if (!isNullOrUndefined(this.drumTotal)) {
             this.data.DrumTotal = this.drumTotal;
-            if (n != o) {
+            if (this.isWinder) {
                 this.baseMathFormula();
             }
         }
@@ -114,11 +133,11 @@ export class Item {
         } else if (this.processType == "Carding") {
             this.cardingFormula(MachineSpinning);
         } else if (this.processType == "Flyer") {
-            this.flyingFormula(MachineSpinning);
+            this.flyerFormula(MachineSpinning);
         } else if (this.processType == "Ring Spinning") {
             this.ringFormula(MachineSpinning);
         } else if (this.processType == "Winder") {
-            this.windingFormula(MachineSpinning);
+            this.winderFormula(MachineSpinning);
         } else if (this.processType == "Pre-Drawing" || "Finish Drawing") {
             this.drawingFormula(MachineSpinning);
         }
@@ -163,7 +182,7 @@ export class Item {
 
     }
 
-    windingFormula(MachineSpinning) {
+    winderFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "CONE") {
             this.data.Bale = this.data.Output / (181.44 / this.CountConfig.ConeWeight);
         } else {
@@ -173,7 +192,7 @@ export class Item {
 
     }
 
-    flyingFormula(MachineSpinning) {
+    flyerFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
             this.data.Bale = this.data.Output / 181.44;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {

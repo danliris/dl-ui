@@ -29,7 +29,6 @@ export class PurchasingDispositionItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
-       console.log(this.data)
         if(this.data.EPONo){
             this.selectedEPO=this.data;
 
@@ -55,9 +54,10 @@ export class PurchasingDispositionItem {
             this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
             this.incomeTaxValue=0;
             for(var detail of this.data.Details){
-                this.incomeTaxValue+=detail.PaidPrice*this.data.IncomeTax.rate/100;
+                this.incomeTaxValue+=detail.PaidPrice*parseFloat(this.data.IncomeTax.rate)/100;
             }
         }
+        
     }
     // @computedFrom("data.EPONo")
     // get incomeTax() {

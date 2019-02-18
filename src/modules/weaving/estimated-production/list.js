@@ -17,7 +17,7 @@ export class List {
       }
     },
     {
-      field: "orderTotal",
+      field: "totalEstimationOrder",
       title: "Jumlah Order (Gr)",
       formatter: function(value, data, index) {
         return value.name;
@@ -30,44 +30,26 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
+      page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
-    //   select: [
-    //     "",
-    //     "",
-    //     "",
-    //     "",
-    //     ""
-    //   ],
       order: order
     };
 
-    return{
-        total:1,
-        data:[{
-            orderNumber:1,
-            dateOrdered:new Date(),
-            orderTotal: {
-                name: 3500
-            }
-        }]
-    };
-
-    // return this.service.search(arg).then(result => {
-    //   console.log(result);
-    //   return {
-    //     total: result.info.count,
-    //     data: result.data
-    //   };
-    // });
+    return this.service.searchEP(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+      // .catch(error=>{
+      //     console.log(error);
+      // })
+    });
   };
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    // this.orderId = "";
-    // this.orders = [];
   }
 
   contextCallback(event) {

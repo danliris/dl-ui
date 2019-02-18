@@ -96,20 +96,19 @@
             options.bind="customOptions"
           ></au-textbox>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <au-dropdown
-            value.bind="data.monthPeriod"
-            error.bind="error.monthPeriod"
+            value.bind="data.period.month"
+            error.bind="error.periodMonth"
             read-only.bind="readOnly"
             items.bind="months"
-            options.bind="customPUControlOptions"
           >
           </au-dropdown>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <au-dropdown
-            value.bind="data.yearPeriod"
-            error.bind="error.yearPeriod"
+            value.bind="data.period.year"
+            error.bind="error.periodYear"
             read-only.bind="readOnly"
             items.bind="years"
           >
@@ -126,15 +125,16 @@
             options.bind="customOptions"
           ></au-textbox>
         </div>
-        <div class="col-md-2">
-          <au-dropdown
+        <div class="col-md-3">
+          <au-autocomplete
             value.bind="data.unit"
             error.bind="error.unit"
             read-only.bind="readOnly"
             items.bind="weaving"
-            options.bind="customPUControlOptions"
+            loader.bind="units"
+            text="name"
           >
-          </au-dropdown>
+          </au-autocomplete>
         </div>
       </div>
 
@@ -142,7 +142,7 @@
         <div class="col-md-1">
           <button
             class="btn btn-success btn-block"
-            click.delegate="search"
+            click.delegate="searchOrderProductions()"
             style="margin-bottom: 16px;"
             show.bind="searchButton"
           >
@@ -151,72 +151,17 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-2">
-          <button
-            class="btn btn-success btn-block"
-            click.delegate="__openModal()"
-            style="margin-bottom: 16px;"
-            show.bind="addSOPOnEdit"
-          >
-            Tambah SOP
-          </button>
-          <!-- <button
-            slot="toolbar"
-            class="btn btn-success"
-            click.delegate="__fabricGradeTestCreateCallback()"
-            if.bind="selectedKanban && !readOnly"
-          >
-            Tambah Kain
-          </button> -->
-        </div>
-      </div>
-
-      <div class="row">
+      <div class="row" style="margin-bottom: 24px;">
         <au-collection
-          items.bind="data.ItemsView"
-          errors.bind="error.ItemsView"
-          columns.bind="columnsView"
-          remove.bind="onremove"
-          read-only.bind="readOnlyCollection"
-          item-template="modules/weaving/estimated-production/templates/items-view"
+          view-model.ref="orderProductionsItems"
+          items.bind="data.estimationProducts"
+          error.bind="error.orderProductionsDocument"
+          columns.bind="orderProductionsColumns"
+          options.bind="orderProductionsTableOptions"
+          item-template="modules/weaving/estimated-production/templates/items"
         >
         </au-collection>
       </div>
     </div>
   </au-input-form>
-
-  <!-- MODAL -->
-  <!-- <div class="bg-modal" show.bind="isModalShown">
-    <div class="modal-contents">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="close" click.delegate="closeModal">+</div>
-        </div>
-        <div class="row"><p id="add-sop-label">Tambah SOP</p></div>
-        <div class="row">
-          <au-collection
-            items.bind="data.ItemsModal"
-            errors.bind="error.ItemsModal"
-            columns.bind="columnsModal"
-            remove.bind="onremove"
-            read-only.bind="readOnly"
-            checkall.delegate="onClickAllDataSource($event)"
-            item-template="modules/weaving/estimated-production/templates/items-modal"
-          >
-          </au-collection>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-10 col-md-2">
-            <button
-              class="btn btn-success add-sop"
-              click.delegate="addItemsModal"
-            >
-              Tambah
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>

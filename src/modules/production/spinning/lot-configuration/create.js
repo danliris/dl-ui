@@ -24,43 +24,43 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.error={};
-        var errorCount = 0;
-        if(this.data.LotNo==null){
-            this.error.LotNo="Lot tidak boleh kosong";
-            errorCount++;
-        } 
-        if(this.data.LotDate==null){ 
-            this.error.LotDate="Tanggal tidak boleh kosong";
-            errorCount++;
-        }
-        if(!this.data.UnitDepartmentId){ 
-            this.error.UnitDepartmentId="Tanggal tidak boleh kosong";
-            errorCount++;
-        }
-        if(!this.data.YarnTypeIdentity){
-            this.error.YarnTypeIdentity="Tipe benang tidak boleh kosong";
-            errorCount++;
-        }
-        if(this.data.CottonCompositions==null){
-            this.error.CottonCompositions="Detail tidak boleh kosong";
-            errorCount++;
-        }
-        console.log(this.error)
-        if(errorCount==0){
-            this.data.LotDate =  moment(this.data.LotDate).format("DD MMM YYYY");
-            this.service.create(this.data)
+        // this.service.create(this.data)
+        // this.error={};
+        // if(this.data.LotNo==null){
+        //     this.error.LotNo="Lot tidak boleh kosong";
+        //     errorCount++;
+        // } 
+        // if(this.data.LotDate==null){ 
+        //     this.error.LotDate="Tanggal tidak boleh kosong";
+        //     errorCount++;
+        // }
+        // if(!this.data.UnitDepartmentId){ 
+        //     this.error.UnitDepartmentId="Tanggal tidak boleh kosong";
+        //     errorCount++;
+        // }
+        // if(!this.data.YarnTypeIdentity){
+        //     this.error.YarnTypeIdentity="Tipe benang tidak boleh kosong";
+        //     errorCount++;
+        // }
+        // if(this.data.CottonCompositions==null){
+        //     this.error.CottonCompositions="Detail tidak boleh kosong";
+        //     errorCount++;
+        // }
+        // console.log(this.error)
+        // if(errorCount==0){
+        this.data.LotDate = this.data.LotDate ? moment(this.data.LotDate).format("DD MMM YYYY") : null;
+        this.service.create(this.data)
             .then(result => {
                 alert(`create data success`);
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create',{}, { replace: true, trigger: true }); 
             })
             .catch(e => {
 
                 this.error = e;
-                alert(this.error);
+                alert("Missing Some Data");
             })
-        }
-        
+        // }
+
     }
 
 }
