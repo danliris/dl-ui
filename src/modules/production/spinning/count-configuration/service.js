@@ -35,7 +35,7 @@ export class Service extends RestService {
 
                             item.cottonCompositions = lot.CottonCompositions;
                             return Promise.resolve(item);
-                        })
+                        });
 
                     // return Promise.resolve(item);
                 });

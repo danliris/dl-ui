@@ -6,7 +6,7 @@ export class CountConfigurationItem {
     @bindable yarnItem;
     @bindable cottonCompositions;
 
-    async activate(context) {
+    activate(context) {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -17,7 +17,7 @@ export class CountConfigurationItem {
             this.lotItem.LotNo = this.data.LotNo;
             this.lotItem.Id = this.data.LotId;
             this.yarnItem = this.data.YarnCode;
-            
+
         }
     }
 
