@@ -24,6 +24,6 @@ export class ItemView {
 
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
-    console.log(this.options);
+    // console.log(this.options);
   }
 }
