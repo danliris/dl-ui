@@ -19,13 +19,14 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable lotConfiguration;
-    @bindable Input = [];
     @bindable processType;
     @bindable yarnType;
     @bindable count;
     @bindable showItemRegular;
     @bindable regularItems;
     @bindable lot;
+    @bindable mixDrawingLot;
+    @bindable detailOptions;
 
     formOptions = {
         cancelText: "Kembali",
@@ -62,50 +63,43 @@ export class DataForm {
     mixDrawing = false;
     processTypeList = [
     ];
-    yarnTypeList = [
-        "",
-        "PCP",
-        "CMP",
-        "CD",
-        "CVC",
-        "PE",
-        "TENCEL",
-        "CUPRO",
-        "PC-P 45"
-    ];
-
-
+    
+    detailOptions = {};
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
+        this.detailOptions.service = service;
+        this.detailOptions.coreService = coreService;
     }
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.isItemPolyster = false;
         this.processType = false;
-        this.cottonLot = "";
-        this.polyesterLot = "";
-        this.coreService.getMachineTypes()
-            .then(result => {
-                if (this.data.ProcessType) {
-                    this.processTypeList = result;
-                } else {
-                    this.processTypeList.push("");
-                    for (var list of result) {
-                        this.processTypeList.push(list);
+        if (!this.readOnly)
+            this.coreService.getMachineTypes()
+                .then(result => {
+                    if (this.data.ProcessType) {
+                        this.processTypeList = result;
+                    } else {
+                        this.processTypeList.push("");
+                        for (var list of result) {
+                            this.processTypeList.push(list);
+                        }
                     }
-                }
-            });
+                });
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
         }
+
         if (this.data.ProcessType == "Mix Drawing") {
             this.showItemRegular = false;
             this.mixDrawing = true;
-
+            if (this.data.MixDrawingLotNo) {
+                this.mixDrawingLot = this.data.MixDrawingLotNo;
+            }
+            
         } else {
             this.showItemRegular = true;
             this.mixDrawing = false;
@@ -117,18 +111,9 @@ export class DataForm {
                 this.data.YarnMaterialTypeCode = this.yarnType.code;
                 if (this.yarnType.id) {
                     this.yarnTypeId = this.yarnType.id;
-                    this.service.getLotByYarnType(this.yarnTypeId, this.mixDrawing).then(result => {
-                        if (result) {
-                            this.lot = result.LotNo;
-                            this.data.LotId = result.Id;
-                            this.data.LotNo = result.LotNo;
-
-                            if (this.data.ProcessType != "Mix Drawing") {
-
-                                this.regularItems = result.CottonCompositions;
-                            }
-                        }
-                    });
+                    this.lot = this.data.LotNo;
+                    this.regularItems = this.data.regularItems;
+                    
                 }
             }
 
@@ -144,19 +129,14 @@ export class DataForm {
 
     mixDrawingColumns = {
         columns: [
-            { header: "Jenis Material", value: "yarnItem" },
-            { header: "Nomor Lot", value: "lotNoItem" },
-            { header: "Komposisi(%)", value: "Composition" },
+            "Jenis Material",
+            "Nomor Lot",
+            "Komposisi(%)"
         ],
         onAdd: function () {
             this.context.ItemsCollection.bind();
             this.data.MaterialComposition.push({});
         }.bind(this)
-    };
-
-    addItemCallback = (e) => {
-        this.data.MaterialComposition = this.data.MaterialComposition || [];
-        this.data.MaterialComposition.push({})
     };
 
     processTypeChanged(n, o) {
@@ -168,7 +148,7 @@ export class DataForm {
                 this.mixDrawing = true;
                 this.lot = undefined;
                 this.regularItems = [];
-                this.data.MaterialComposition = [];
+
 
             } else {
                 if (this.data.ProcessType == 'Winder')
@@ -183,16 +163,20 @@ export class DataForm {
         }
     }
 
+    mixDrawingLotChanged(n, o) {
+        if (this.mixDrawingLot) {
+            this.data.mixDrawingLot = this.mixDrawingLot;
+            this.data.MixDrawingLotNo = this.mixDrawingLot;
+        }
+    }
+
     yarnTypeChanged(n, o) {
         var selectedProcess = this.yarnType;
-        this.data.YarnMaterialTypeId = selectedProcess.id;
-        this.data.YarnMaterialTypeCode = selectedProcess.code;
+
         if (selectedProcess) {
-            // if (selectedProcess != "") {
-            //     this.showItemRegular = true;
-            // } else {
-            //     this.showItemRegular = false;
-            // }
+            
+            this.data.YarnMaterialTypeId = selectedProcess.id;
+            this.data.YarnMaterialTypeCode = selectedProcess.code;
             var yarn = selectedProcess.id;
             if (yarn) {
                 this.service.getLotByYarnType(yarn, this.mixDrawing).then(result => {
@@ -204,8 +188,7 @@ export class DataForm {
                             this.error.YarnId = null;
                         }
                         if (this.data.ProcessType != "Mix Drawing") {
-                            //     this.data.Items = result.CottonCompositions;
-                            // } else {
+                            
                             this.regularItems = result.CottonCompositions;
                         }
                     } else {

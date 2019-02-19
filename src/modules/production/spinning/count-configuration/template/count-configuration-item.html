@@ -13,9 +13,6 @@
             <au-numeric value.bind="data.Composition" read-only.bind="readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
-        <!-- <td if.bind="!options.readOnly">
-            <button class="btn btn-danger pull-right" click.delegate="onremove($event)">-</button>
-        </td> -->
         <td>
             <button class="btn btn-danger pull-left" click.delegate="onremove(data, $event)" if.bind="!options.readOnly">-</button>            
             <button class="btn btn-info pull-right" if.bind= "data" click.delegate="toggle()">i</button>
@@ -24,7 +21,7 @@
     <tr if.bind="isShowing">
         <td colspan="4">
             <au-collection 
-                items.bind="data.CottonCompositions" 
+                items.bind="data.cottonCompositions" 
                 errors.bind="error.CottonCompositions"
                 columns.bind="itemsColumns.columns" 
                 options.bind="context.context.options"
