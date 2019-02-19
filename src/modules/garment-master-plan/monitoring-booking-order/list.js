@@ -5,7 +5,7 @@ import moment from 'moment';
 
 var BuyerLoader=require('../../../loader/garment-buyers-loader');
 var BookingOrderLoader=require('../../../loader/garment-booking-order-loader');
-var ComodityLoader=require('../../../loader/garment-master-plan-comodity-loader');
+var ComodityLoader=require('../../../loader/garment-comodities-loader');
 var SectionLoader=require('../../../loader/garment-sections-loader');
 
 @inject(Router, Service)
@@ -20,31 +20,32 @@ export class List {
     get bookingOrderLoader(){
         return BookingOrderLoader;
     }
-     get comodityLoader(){
+    get comodityLoader(){
         return ComodityLoader;
     }
-     get sectionLoader(){
+    get sectionLoader(){
         return SectionLoader;
-     }
+    }
     
      
     confirmStateOption = ["","Belum Dikonfirmasi","Sudah Dikonfirmasi"];
     bookingOrderStateOption = ["","Booking","Confirmed","Sudah Dibuat Master Plan"];//,"Booking Dibatalkan"];
- searching() {
+
+    searching() {
      
     var info = {
             
-            section : this.section ? this.section.code.code : "",
-            code : this.code ? this.code.code : "",
-            buyer : this.buyer ? this.buyer.name : "",
-            comodity : this.comodity ? this.comodity.name : "",
+            section : this.section ? this.SectionName : "",
+            code : this.BookingOrderNo ? this.BookingOrderNo : "",
+            buyer : this.buyer ? this.BuyerName : "",
+            comodity : this.comodity ? this.ComodityName : "",
             confirmState : this.confirmState ? this.confirmState : "",
             bookingOrderState : this.bookingOrderState ? this.bookingOrderState : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
 
-        this.service.search(info)
+        this.service.search(this.no ? this.unit._id : "", this.category ? this.category._id : "", this.buyer ? this.buyer._id : "", this.purchaseRequest ? this.purchaseRequest.no : "", this.dateFrom, this.dateTo)
      
             .then(result => {
                this.data=result;
@@ -69,7 +70,7 @@ export class List {
                for (var pr of result) {
                   var _data = {};
                   
-                      _data.code=  pr.bookingCode;
+                      _data.BookingOrderNo=  pr.bookingCode;
                       _data.bookingDate =pr.bookingDate ? moment(pr.bookingDate).format("DD MMMM YYYY") : "";;
                       _data.buyer = pr.buyer;
                       _data.totalOrderQty = pr.totalOrderQty;
@@ -88,7 +89,6 @@ export class List {
                       var diff=a.getTime() - b.getTime();
                       var timeDiff = a.getTime() - b.getTime();
                       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                    //   console.log(pr.items);
                       
                       if(diffDays>0 && diffDays<=45){
                         _data.diffDeliveryDateBooking = diffDays;
@@ -103,11 +103,7 @@ export class List {
                       {
                         _data.confirmState="Sudah Dikonfirmasi";
                       }
-                    //   if(pr.isCanceled==true)
-                    //   {
-                    //     _data.bookingOrderState="Booking Dibatalkan";
-                    //   }
-                    //   else 
+
                       if(pr.isMasterPlan ==true)
                       {
                         _data.bookingOrderState="Sudah Dibuat Master Plan";   
@@ -167,7 +163,6 @@ export class List {
                  }
                 //  console.log(this.data)                 
             });
-            
     }
     ExportToExcel() {
         var info = {
@@ -184,7 +179,7 @@ export class List {
     }
 
 
-      reset() {
+    reset() {
         this.section = "";
         this.code = "";
         this.buyer="";
@@ -197,18 +192,18 @@ export class List {
     }
 
     sectionView = (section) => {
-        return `${section.code} - ${section.name}`
+        return `${section.Code} - ${section.Name}`
     }
     
     buyerView = (buyer) => {
-        return `${buyer.name} `
+        return `${buyer.Name} `
     }
 
     bookingOrderView = (bookingOrder) => {
-        return `${bookingOrder.code} `
+        return `${bookingOrder.BookingOrderNo} `
     }
     comodityView = (comodity) => {
-        return `${comodity.code}-${comodity.name} `
+        return `${comodity.Code}-${comodity.Name} `
     }
 
     bookingOrderStateChanged(e){
