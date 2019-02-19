@@ -6,6 +6,7 @@ import { Service } from "./service";
 export class View {
   ePNumberVisibility = true;
   searchButton = false;
+  readonly=true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
