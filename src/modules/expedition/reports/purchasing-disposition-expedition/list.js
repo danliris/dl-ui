@@ -207,6 +207,7 @@ export class List {
 
     reset() {
         this.flag = false;
+        this.disposition=null;
         this.unitPaymentOrder = undefined;
         this.supplier = undefined;
         this.division = undefined;

@@ -29,8 +29,6 @@ export class Service extends RestService {
     if (data.yarnType == undefined || data.yarnType == null) {
       data.yarnType = " ";
     }
-    console.log(data);
-    debugger;
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
@@ -49,9 +47,4 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
   }
-
-  // getPdfById(id) {
-  //     var endpoint = `${serviceUri}/${id}`;
-  //     return super.getPdf(endpoint);
-  // }
 }
