@@ -9,9 +9,17 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     }
+
+  controlOptions = {
+      control: {
+        length: 6,
+        align: "left"
+      }
+    }    
+
   @computedFrom("data._id")
   get isEdit() {
-    return (this.data._id || '').toString() != '';
+    return (this.data.Id || '').toString() != '';
   }
 
   bind(context) {
