@@ -77,9 +77,9 @@
         <div class="col-md-3">
           <au-textbox
             placeholder="No. Estimasi Produksi"
-            value.bind="data.productionEstimationNumber"
-            error.bind="error.productionEstimationNumber"
-            read-only.bind="readOnly"
+            value.bind="data.estimatedNumber"
+            error.bind="error.estimatedNumber"
+            read-only.bind="true"
             show.bind="ePNumberVisibility"
             options.bind="customEstimatedControlOptions"
           >

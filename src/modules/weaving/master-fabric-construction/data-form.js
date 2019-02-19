@@ -141,15 +141,15 @@ export class DataForm {
       this.data.materialTypeDocument.id = this.materialTypeDocument.id;
       this.data.materialTypeDocument.code = this.materialTypeDocument.code;
       this.data.materialTypeDocument.name = this.materialTypeDocument.name;
-      var code = this.materialTypeDocument.code
-        ? this.materialTypeDocument.code
+      var name = this.materialTypeDocument.code
+        ? this.materialTypeDocument.name
         : "";
       var woven = this.data.wovenType ? this.data.wovenType : "";
       var warp = this.data.amountOfWarp ? this.data.amountOfWarp : "";
       var weft = this.data.amountOfWeft ? this.data.amountOfWeft : "";
       var width = this.data.width ? this.data.width : "";
       result =
-        code +
+        name +
         " " +
         woven +
         " " +

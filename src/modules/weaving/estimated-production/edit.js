@@ -10,6 +10,8 @@ export class Edit {
   constructor(router, service) {
     this.router = router;
     this.service = service;
+    this.data = {};
+    this.error = {};
   }
 
   async activate(params) {
@@ -22,8 +24,6 @@ export class Edit {
   }
 
   saveCallback(event) {
-    // console.log(this.data);
-    // debugger;
     this.service
       .update(this.data)
       .then(result => {

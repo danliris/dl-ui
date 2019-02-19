@@ -8,8 +8,6 @@ import { Service } from "./service";
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  // isModalShown = false;
-  // modalLabel = true;
 
   yearFormat = "YYYY";
   years = [];
@@ -37,13 +35,6 @@ export class DataForm {
     }
   };
 
-  orderProductionsTableOptions = {
-    pagination: false,
-    search: false,
-    showColumns: false,
-    showToggle: false
-  };
-
   months = [
     "",
     "January",
@@ -65,13 +56,18 @@ export class DataForm {
     this.dialog = dialog;
   }
 
+  orderProductionsItems;
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    // context.options.readOnly = this.readOnly;
+
+    if (this.data.estimatedNumber) {
+      this.orderProductionsTableOptions = {};
+    }
 
     this.getYears();
-    this.data.estimationProducts = [];
     this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -160,7 +156,20 @@ export class DataForm {
           //Print each datum on orderProductions Data and push to Items Collections
           result.data.forEach(datum => {
             console.log(datum);
-            this.data.estimationProducts.push(datum);
+            // debugger;
+            this.data.estimationProducts = [];
+            if (
+              datum.orderStatus == "OPEN-ORDER" &&
+              this.data.estimatedNumber === ""
+            ) {
+              this.data.estimationProducts.push(datum);
+            } else {
+              if (this.data.estimationProducts) {
+                this.data.estimationProducts.push(datum);
+              } else {
+                this.data.estimationProducts.push([]);
+              }
+            }
           });
           //Bind "Items" reference
           this.context.orderProductionsItems.bind(this);
