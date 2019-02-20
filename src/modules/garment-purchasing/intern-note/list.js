@@ -79,20 +79,25 @@ export class List {
         for(var item of items){
             for(var detail of item.details){
                 var receiptQuantityTotal = 0;
+                var InvreceiptQuantityTotal = 0;
                 var deliveryOrderItems = detail.deliveryOrder.items || [];
                 var invoiceItems = item.garmentInvoice.items || [];
-                for(var deliveryOrderItem of deliveryOrderItems){
-                    for(var deliveryOrderDetail of deliveryOrderItem.fulfillments){
-                        for(var invoiceItem of invoiceItems){
-                            for(var invDetail of invoiceItem.details){
-                                if(deliveryOrderDetail.Id === invDetail.dODetailId){
-                                    receiptQuantityTotal += deliveryOrderDetail.receiptQuantity;
+                
+                for(var invoiceItem of invoiceItems){
+                    for(var detail of invoiceItem.details){
+                        for(let coba of deliveryOrderItems){
+                            for(let deliveryOrderDetail of coba.fulfillments){
+                                receiptQuantityTotal+= deliveryOrderDetail.receiptQuantity;
+                                if(deliveryOrderDetail.Id == detail.dODetailId){
+                                    
+                                     InvreceiptQuantityTotal  += deliveryOrderDetail.receiptQuantity;
                                 }
                             }
                         }
                     }
                 }
-                if(receiptQuantityTotal === 0){
+                
+                if(receiptQuantityTotal != InvreceiptQuantityTotal){
                     isCetak = false;
                 }
             }
