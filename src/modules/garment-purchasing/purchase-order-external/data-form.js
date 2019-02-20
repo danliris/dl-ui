@@ -448,7 +448,7 @@ export class DataForm {
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                         a.remainingBudget=a.Initial;
                         remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                        a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                         //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
                         //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                     }
@@ -458,14 +458,14 @@ export class DataForm {
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                             a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                             remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-parseFloat(a.budgetUsed.toFixed(4));
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                            a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                         }
                         else{
                             pr.push(a);
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                             a.remainingBudget=a.Initial;
                             remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                            a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                            a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                         }
                     }
                     if(a.RemainingBudget<0){
@@ -491,7 +491,7 @@ export class DataForm {
                     //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                     a.remainingBudget=a.Initial;
                     remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                    a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                    a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                     //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
                     //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                 }
@@ -501,14 +501,14 @@ export class DataForm {
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                         a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
                         remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-parseFloat(a.budgetUsed.toFixed(4));
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                        a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                     }
                     else{
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
                         a.remainingBudget=a.Initial;
                         remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                        a.RemainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                        a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                     }
                 }
                 if(a.RemainingBudget<0){
