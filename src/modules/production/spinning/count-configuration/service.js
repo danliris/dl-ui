@@ -21,7 +21,41 @@ export class Service extends RestService {
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
-        return super.get(endpoint);
+
+        return super.get(endpoint).then((data) => {
+
+            if (data.ProcessType == "Mix Drawing") {
+                var setItem = data.MaterialComposition.map((item) => {
+                    // this.service.getLotById(item.LotId).then((lotResult) =>{
+                    //     item.CottonCompositions = lotResult.CottonCompositions;
+                    // });
+
+                    return this.getLotById(item.LotId)
+                        .then((lot) => {
+
+                            item.cottonCompositions = lot.CottonCompositions;
+                            return Promise.resolve(item);
+                        });
+
+                    // return Promise.resolve(item);
+                });
+
+                return Promise.all(setItem).then((setItemResult) => {
+                    data.MaterialComposition = setItemResult;
+                    return Promise.resolve(data);
+                });
+            } else {
+                return this.getLotByYarnType(data.MaterialComposition[0].YarnId, false).then(result => {
+                    if (result) {
+                        data.LotId = result.Id;
+                        data.LotNo = result.LotNo;
+                        data.regularItems = result.CottonCompositions;
+                    }
+                    return Promise.resolve(data);
+                });
+            }
+
+        });
     }
 
     create(data) {
@@ -39,8 +73,13 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getLotByYarnType(yarnType,finishingDrawing){
+    getLotByYarnType(yarnType, finishingDrawing) {
         var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${finishingDrawing}`;
+        return super.get(endpoint);
+    }
+
+    getLotById(id) {
+        var endpoint = `${lotYarnServiceUri}/${id}`;
         return super.get(endpoint);
     }
 
