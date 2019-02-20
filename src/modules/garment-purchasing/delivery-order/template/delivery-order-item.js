@@ -100,11 +100,11 @@ export class DeliveryOrderItem {
     
     if (this.data){
       if(this.context.context.options.hasCreate){
-        if (this.data.fulfillments) {
-          this.isShowing = true;
-        }
+        // if (this.data.fulfillments) {
+        //   this.isShowing = true;
+        // }
       } else if(this.context.context.options.hasEdit || this.context.context.options.hasView){
-        this.isShowing = true;
+        //this.isShowing = true;
         if (this.data.fulfillments) {
           for(var fulfillments of this.data.fulfillments){
             fulfillments.currency=this.data.currency;
