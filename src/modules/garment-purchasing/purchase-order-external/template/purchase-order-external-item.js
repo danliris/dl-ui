@@ -87,7 +87,6 @@ export class PurchaseOrderItem {
   checkIsOverBudget() {
     if(!this.options.readOnly)
       if (this.context.context.options.checkOverBudget) {
-        console.log(this.data.remainingBudget, )
         this.data.UsedBudget=parseFloat(this.data.budgetUsed.toFixed(4));
         //this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
         //var totalDealPrice = ((this.data.DealQuantity * this.price * this.kurs.Rate) + this.data.budgetUsed).toFixed(4);
