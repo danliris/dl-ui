@@ -6,15 +6,26 @@
                 read-only.bind="readOnly" items.bind="processTypeList" options.bind="controlOptions">
             </au-dropdown>
 
+            <au-autocomplete label="Unit" value.bind="unit" error.bind="error.UnitDepartmentId" loader.bind="unitLoader"
+                placeholder="Cari unit spinning" key="Id" text="Name" read-only.bind="readOnly"
+                query.bind="spinningFilter" options.bind="controlOptions">
+            </au-autocomplete>
+
             <au-autocomplete label="Jenis Benang" value.bind="yarnType" error.bind="error.YarnId"
-                show.bind="data.ProcessType != 'Mix Drawing'" loader.bind="materialTypeLoader"
+                show.bind="unit && data.ProcessType != 'Mix Drawing'" loader.bind="materialTypeLoader"
                 placeholder="Cari jenis benang" key="id" text="code" read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-textbox value.bind="data.Count" error.bind="error.Count" read-only.bind="readOnly" label="Count"
-                options.bind="controlOptions">
+            <au-textbox show.bind="data.ProcessType != 'Mix Drawing'" value.bind="data.Count" error.bind="error.Count"
+                read-only.bind="readOnly" label="Count" options.bind="controlOptions">
             </au-textbox>
+
+            <au-autocomplete label="Count" value.bind="count" error.bind="error.Count"
+                show.bind="data.ProcessType == 'Mix Drawing'" loader.bind="materialTypeLoader"
+                placeholder="Cari jenis benang" key="id" text="code" read-only.bind="readOnly"
+                options.bind="controlOptions">
+            </au-autocomplete>
 
             <au-textbox label="No Lot" value.bind="mixDrawingLot" show.bind="data.ProcessType == 'Mix Drawing'"
                 read-only.bind="readOnly" options.bind="controlOptions">

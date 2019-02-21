@@ -19,9 +19,10 @@ export class CountConfigurationItem {
             this.yarnItem = this.data.YarnCode;
 
         }
+        this.lotFilter = { "UnitDepartmentId": this.contextOptions.UnitDepartmentId};
     }
 
-
+    lotFilter = {};
     controlOptions = {
         control: {
             length: 12

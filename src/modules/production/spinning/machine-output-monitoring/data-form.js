@@ -134,7 +134,7 @@ export class DataForm {
 
 
     async fillItems() {
-        if (!this.readOnly && this.data.UnitDepartmentId && this.data.ProcessType && this.data.MaterialTypeId && this.data.LotId && this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != "") {
+        if (!this.readOnly && this.data.UnitDepartmentId && this.data.ProcessType && this.data.MaterialTypeId && this.data.LotId) {
             this.machineSpinningFilter.page = 1;
             this.machineSpinningFilter.size = 2147483647;
             this.machineSpinningFilter.order = { "No": "asc" }
@@ -150,19 +150,26 @@ export class DataForm {
                     this.detailOptions.MachineSpinnings = results.data;
                     if (this.data.Id) {
                         existedItem = this.data;
-                    } else {
-                        existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
-                        if (existedItem.Items && existedItem.Items.length > 0) {
-                            alert("Data already exist with this configuration");
-                            this.inputDate = undefined;
-                            this.processType = this.typeOptions[0];
-                            this.materialType = undefined;
-                            this.lot = undefined;
-                            this.shift = this.shiftOptions[0];
-                            this.group = undefined;
-                            this.unit = undefined;
-                            return [];
-                        }
+                    }
+                    else {
+                        // if(this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != ""){
+                        //     existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
+                        //     if (existedItem.Items && existedItem.Items.length > 0) {
+                        //         alert("Data already exist with this configuration");
+                        //         this.inputDate = undefined;
+                        //         this.processType = this.typeOptions[0];
+                        //         this.materialType = undefined;
+                        //         this.lot = undefined;
+                        //         this.shift = this.shiftOptions[0];
+                        //         this.group = undefined;
+                        //         this.unit = undefined;
+                        //         return [];
+                        //     }
+                        // }else{
+                        existedItem = {};
+                        existedItem.Items = [];
+                        // }
+
                     }
                     // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
 
@@ -260,7 +267,7 @@ export class DataForm {
     inputDateChanged(n, o) {
         if (this.inputDate) {
             this.data.Date = this.inputDate;
-            this.fillItems();
+            // this.fillItems();
         } else {
             this.data.Date = null;
             this.data.Items = [];
@@ -284,7 +291,10 @@ export class DataForm {
 
             let check = await this.service.validateLotInCount(this.lot.Id);
             if (check) {
-                this.error.LotId = undefined;
+                if (this.error) {
+                    this.error.LotId = undefined;
+                }
+
                 this.data.LotId = this.lot.Id;
                 this.fillItems();
             } else {
@@ -300,7 +310,7 @@ export class DataForm {
     shiftChanged(n, o) {
         if (this.shift && this.shift != "") {
             this.data.Shift = this.shift;
-            this.fillItems();
+            // this.fillItems();
         } else {
             this.data.Shift = null;
             this.data.Items = [];
@@ -310,7 +320,7 @@ export class DataForm {
     groupChanged(n, o) {
         if (this.group && this.group != "") {
             this.data.Group = this.group;
-            this.fillItems();
+            // this.fillItems();
         } else {
             this.data.Group = null;
             this.data.Items = [];

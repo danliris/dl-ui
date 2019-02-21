@@ -6,7 +6,7 @@ import { debug } from 'util';
 
 var moment = require('moment');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
-
+var UnitLoader = require('../../../../loader/unit-azure-loader');
 var ProductLoader = require('../../../../loader/product-azure-loader');
 
 @inject(Service, CoreService)
@@ -27,6 +27,7 @@ export class DataForm {
     @bindable lot;
     @bindable mixDrawingLot;
     @bindable detailOptions;
+    @bindable unit;
 
     formOptions = {
         cancelText: "Kembali",
@@ -63,7 +64,7 @@ export class DataForm {
     mixDrawing = false;
     processTypeList = [
     ];
-    
+
     detailOptions = {};
     constructor(service, coreService) {
         this.service = service;
@@ -93,13 +94,22 @@ export class DataForm {
             this.processType = this.data.ProcessType;
         }
 
+        if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
+            this.unit = this.data.UnitDepartment;
+        }
+
         if (this.data.ProcessType == "Mix Drawing") {
             this.showItemRegular = false;
             this.mixDrawing = true;
             if (this.data.MixDrawingLotNo) {
                 this.mixDrawingLot = this.data.MixDrawingLotNo;
             }
-            
+            if(this.data.MixDrawingCountId){
+                this.count = {};
+                this.count.id = this.data.MixDrawingCountId;
+                this.count.code = this.data.Count;
+            }
+
         } else {
             this.showItemRegular = true;
             this.mixDrawing = false;
@@ -113,7 +123,7 @@ export class DataForm {
                     this.yarnTypeId = this.yarnType.id;
                     this.lot = this.data.LotNo;
                     this.regularItems = this.data.regularItems;
-                    
+
                 }
             }
 
@@ -126,7 +136,7 @@ export class DataForm {
             { header: "Komposisi(%)", value: "composition" },
         ],
     };
-
+    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     mixDrawingColumns = {
         columns: [
             "Jenis Material",
@@ -138,6 +148,13 @@ export class DataForm {
             this.data.MaterialComposition.push({});
         }.bind(this)
     };
+
+    unitChanged(newValue, oldValue) {
+        if (this.unit && this.unit.Id) {
+            this.data.UnitDepartmentId = this.unit.Id;
+            this.detailOptions.UnitDepartmentId = this.unit.Id;
+        }
+    }
 
     processTypeChanged(n, o) {
         var selectedProcess = this.processType;
@@ -170,16 +187,23 @@ export class DataForm {
         }
     }
 
+    countChanged(n, o){
+        if(this.count){
+            this.data.Count = this.count.id;
+            
+        }
+    }
+
     yarnTypeChanged(n, o) {
         var selectedProcess = this.yarnType;
 
         if (selectedProcess) {
-            
+
             this.data.YarnMaterialTypeId = selectedProcess.id;
             this.data.YarnMaterialTypeCode = selectedProcess.code;
             var yarn = selectedProcess.id;
             if (yarn) {
-                this.service.getLotByYarnType(yarn, this.mixDrawing).then(result => {
+                this.service.getLotByYarnType(yarn, this.unit.Id, this.mixDrawing).then(result => {
                     if (result) {
                         this.lot = result.LotNo;
                         this.data.LotId = result.Id;
@@ -188,7 +212,7 @@ export class DataForm {
                             this.error.YarnId = null;
                         }
                         if (this.data.ProcessType != "Mix Drawing") {
-                            
+
                             this.regularItems = result.CottonCompositions;
                         }
                     } else {
@@ -214,5 +238,9 @@ export class DataForm {
 
     get materialTypeLoader() {
         return MaterialTypeLoader;
+    }
+
+    get unitLoader() {
+        return UnitLoader;
     }
 } 

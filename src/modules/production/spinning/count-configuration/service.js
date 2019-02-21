@@ -45,7 +45,7 @@ export class Service extends RestService {
                     return Promise.resolve(data);
                 });
             } else {
-                return this.getLotByYarnType(data.MaterialComposition[0].YarnId, false).then(result => {
+                return this.getLotByYarnType(data.MaterialComposition[0].YarnId, data.UnitDepartment.Id, false).then(result => {
                     if (result) {
                         data.LotId = result.Id;
                         data.LotNo = result.LotNo;
@@ -73,8 +73,8 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getLotByYarnType(yarnType, finishingDrawing) {
-        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${finishingDrawing}`;
+    getLotByYarnType(yarnType, unitId, finishingDrawing) {
+        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${unitId}/${finishingDrawing}`;
         return super.get(endpoint);
     }
 
