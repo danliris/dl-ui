@@ -14,7 +14,7 @@
         <div class="col-md-6">
           <!-- NO SOP -->
           <au-textbox
-            label="No. SOP"
+            label="No. SPP"
             value.bind="data.orderNumber"
             error.bind="error.orderNumber"
             read-only.bind="detailEditOnly"
@@ -26,9 +26,9 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <!-- TANGGAL SOP -->
+          <!-- TANGGAL SP -->
           <au-datepicker
-            label="Tanggal SP"
+            label="Tanggal SPP"
             value.bind="data.dateOrdered"
             error.bind="error.dateOrdered"
             read-only.bind="readOnly"
@@ -66,14 +66,16 @@
               <textbox label="Konstruksi" read-only="true"></textbox>
             </div>
             <div class="col-md-6">
-              <au-textbox
+              <au-autocomplete
                 placeholder="Konstruksi"
-                value.bind="data.fabricConstructionDocument.constructionNumber"
+                value.bind="constructionNumber"
                 error.bind="error.fabricConstructionDocument.constructionNumber"
                 options.bind="customLeftOptions"
                 read-only.bind="readOnly"
+                loader.one-time="constructions"
+                text="constructionNumber"
               >
-              </au-textbox>
+              </au-autocomplete>
             </div>
           </div>
 
@@ -178,10 +180,10 @@
               <au-autocomplete
                 placeholder="Cari Unit"
                 value.bind="data.weavingUnit.name"
-                error.bind="error.weavingUnit"
+                error.bind="error.weavingUnit.name"
                 read-only.bind="readOnly"
                 options.bind="customOptions"
-                loader.bind="constructionsNumber"
+                loader.bind="units"
               ></au-autocomplete>
             </div>
           </div>

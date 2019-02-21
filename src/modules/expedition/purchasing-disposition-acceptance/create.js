@@ -7,7 +7,9 @@ import { Service } from './service';
 import PurchasingDispositionExpeditionService from '../shared/purchasing-disposition-expedition-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
 import { VERIFICATION, CASHIER  } from '../shared/permission-constants';
-const DispositionLoader = require('../../../loader/purchase-dispositions-loader');
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+const DispositionLoader = require('../../../loader/purchase-dispositions-all-loader');
 const SupplierLoader = require('../../../loader/supplier-loader');
 
 @inject(Router, Service, PurchasingDispositionExpeditionService, PermissionHelper)
@@ -26,14 +28,16 @@ export class Create {
             },
         },
         { field: "supplier.name", title: "Supplier" },
+        { field: "proformaNo", title: "No Proforma / Invoice" },
         // { field: "IncomeTax", title: "PPH" },
         // { field: "Vat", title: "PPN" },
         {
-            field: "totalPaid", title: "Total Bayar", formatter: function (value, data, index) {
+            field: "payToSupplier", title: "Total Bayar", formatter: function (value, data, index) {
                 return numeral(value).format('0,000.0000');
             },
         },
         { field: "currency.code", title: "Mata Uang" },
+        { field: "dispoCreatedby", title: "Nama Pembelian" },
     ];
 
     tableOptions = {
@@ -42,6 +46,15 @@ export class Create {
         search: false,
         showToggle: false,
     };
+
+    filterQuery={
+        "Position":"2"
+    }
+
+    filterQueryVerified={
+        "Position":"4"
+    }
+
 
     formOptions = {
         cancelText: "Kembali",
@@ -59,6 +72,13 @@ export class Create {
 
     @bindable disposition;
     @bindable supplier;
+
+    async activate(params) {
+        params.role.position=parseInt(params.role.position);
+        params.role.hasPermission=true;
+        params.role.positionAutocomplete=parseInt(params.role.positionAutocomplete);
+        this.activeRole = params.role;
+    }
 
     constructor(router, service, purchasingDispositionExpeditionService, permissionHelper) {
         this.router = router;
@@ -130,7 +150,6 @@ export class Create {
         if (this.supplier)
             filter.SupplierCode = this.supplier.code;
 
-
         let arg = {
             page: 1,
             size: 255,
@@ -139,10 +158,39 @@ export class Create {
 
         this.purchasingDispositionExpeditionService.search(arg)
             .then(result => {
-                this.selectedItems.splice(0, this.selectedItems.length);
-                this.documentData.splice(0, this.documentData.length);
-                this.documentData.push(...result.data)
-                this.documentTable.refresh();
+                var dispositions=[];
+                for(var data of result.data){
+                    var config = Container.instance.get(Config);
+                    var _endpoint = config.getEndpoint("purchasing-azure");
+                    const resource = `purchasing-dispositions/${data.dispositionId}`;
+                    var disp=  _endpoint.find(resource);
+                        // .then(result => {
+                        //     var dispoData= result.data;
+                        //     return dispoData.CreatedBy;
+                        // });
+                     dispositions.push(disp);
+                }
+                Promise.all(dispositions).then(dispo=>{
+                    var dataDisposition=[];
+                    for(var dataResult of dispo){
+                        dataDisposition.push(dataResult.data);
+                    }
+                    for(var data of result.data){
+                        var same= dataDisposition.find(a=>a.Id==data.dispositionId);
+                        if(same){
+                            // data.totalPaid=same.DPP+same.VatValue;
+                            // if(same.IncomeTaxBy=="Supplier"){
+                            //     data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
+                            // }
+                            data.dispoCreatedby=same.CreatedBy;
+                        }
+                    }
+                    this.selectedItems.splice(0, this.selectedItems.length);
+                    this.documentData.splice(0, this.documentData.length);
+                    this.documentData.push(...result.data)
+                    this.documentTable.refresh();
+                })
+                
             });
     }
 
@@ -158,7 +206,7 @@ export class Create {
                 PurchasingDocumentExpedition: [],
             };
         */
-
+        
         let data = {
             Role: this.activeRole.key,
             PurchasingDispositionExpedition: [],
@@ -174,7 +222,7 @@ export class Create {
         this.service.create(data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {role:this.activeRole}, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;

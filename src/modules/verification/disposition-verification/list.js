@@ -16,7 +16,8 @@ export class List {
     context = ["Rincian"];
     columns = [
         {
-            field: "VerifyDate", title: "Tanggal Cek", formatter: (value, data) => {
+            field: "verifyDate", title: "Tanggal Cek", formatter: (value, data) => {
+                
                 return moment(value).format("DD-MMM-YYYY");
             }
         },
@@ -38,7 +39,7 @@ export class List {
             }
         },
         { 
-            field: "totalPaid", title: "Total Bayar", formatter: (value, data) => {
+            field: "payToSupplier", title: "Total Bayar ke Supplier", formatter: (value, data) => {
                 return numeral(value).format('(0,0.00)');
             } 
         },

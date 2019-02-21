@@ -1,0 +1,108 @@
+<template>
+    <require from="../../../../lib/number-format-value-converter"></require>
+    <h1 class="page-header">Laporan Sub Ledger</h1>
+
+    <form class="form-horizontal">
+        <au-dropdown label="Bulan"
+                     value.bind="info.month"
+                     items.bind="monthOptions"
+                     text="MonthName"
+                     options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown label="Tahun"
+                     value.bind="info.year"
+                     items.bind="yearOptions"
+                     options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-autocomplete label="Kode Akun COA"
+                         placeholder="pilih akun"
+                         value.bind="info.COA"
+                         error.bind="error.COA"
+                         loader.one-time="coaLoader"
+                         text="Code"
+                         options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox label="Nama Akun COA"
+                    value.bind="info.COA.Name"
+                    read-only="true"
+                    options.bind="controlOptions">
+        </au-textbox>
+
+        <div class="form-group">
+            <label for="contact"
+                   class="col-sm-5 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()"
+                        class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()"
+                        class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!--Table-->
+            <table class="table table-bordered">
+                <!--Table head-->
+                <thead>
+                    <tr style="background-color: white; color: black">
+                        <td style="border-right: none"
+                            class="text-right"
+                            colspan="6">Saldo Awal: </td>
+                        <td style="border-left: none"
+                            class="text-right"
+                            colspan="2">${initialBalance}</td>
+                    </tr>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>No. Bukti</th>
+                        <th>Bank</th>
+                        <th>CEK/BG</th>
+                        <th>Perkiraan</th>
+                        <th>DEBIT</th>
+                        <th>KREDIT</th>
+                    </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+                <tbody>
+                    <tr show.bind="data.length == 0">
+                        <td colspan="8">
+                            <div class="alert alert-info">Tidak ada data</div>
+                        </td>
+                    </tr>
+                    <tr repeat.for="datum of data">
+                        <td>${datum.Date}</td>
+                        <td>${datum.No}</td>
+                        <td>${datum.BankName}</td>
+                        <td>${datum.BGCheck}</td>
+                        <td>${datum.Remark}</td>
+                        <td>${datum.Debit}</td>
+                        <td>${datum.Credit}</td>
+                    </tr>
+                    <tr style="background-color: white; color: black">
+                        <td style="border-right: none"
+                            class="text-right"
+                            colspan="6">Saldo Akhir: </td>
+                        <td style="border-left: none"
+                            class="text-right"
+                            colspan="2">${closingBalance}</td>
+                    </tr>
+                </tbody>
+                <!--Table body-->
+                <div style="margin-bottom: 1%"
+                     slot="toolbar"
+                     class="btn-group">
+                    <button class='btn btn-primary'
+                            click.delegate="excel()">Cetak Excel</button>
+                </div>
+            </table>
+            <!--Table-->
+        </div>
+    </div>
+
+</template>

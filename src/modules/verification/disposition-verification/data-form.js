@@ -24,8 +24,11 @@ export class DataForm {
     }
     itemsColumns = [{ header: "Nomor External PO" },
     { header: "Kena PPN" },
+    { header: "Nominal PPN" },
     { header: "Kena PPH" },
     { header: "PPH" },
+    { header: "Nominal PPH" },
+    { header: "Harga yang Sudah dibayar" },
     { header: "" }];
 
     constructor(service, bindingEngine) {
@@ -45,7 +48,13 @@ export class DataForm {
             'Remark',
             'ProformaNo',
             'Investation',
+            'DPP',
+            'VatValue',
+            'IncomeTaxValue',
             'Amount',
+            'IncomeTaxBy',
+            'PaymentCorrection',
+            'Items.EPOId',
             'Items.EPONo',
             'Items.UseVat',
             'Items.UseIncomeTax',
@@ -64,11 +73,10 @@ export class DataForm {
         ];
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         if (!this.data || !this.data.Id) {
             this.data.VerifyDate = moment(new Date()).format("DD-MMM-YYYY");
         } else {
@@ -76,6 +84,15 @@ export class DataForm {
         }
         if (this.readOnly) {
             this.data.Amount = this.data.Amount.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+        }
+        if(this.data.Items){
+            for(var a of this.data.Items){
+                if(a.Details){
+                    for(var b of a.Details){
+                        b.Category=this.data.Category;
+                    }
+                }
+            }
         }
     }
     context = ["Rincian Purchase Request"];
@@ -95,9 +112,38 @@ export class DataForm {
         if (this.DispositionNo) {
 
             this.data = Object.assign(this.data, this.DispositionNo)
-            debugger
+            
             this.supplierName = this.data.Supplier.code + " - " + this.data.Supplier.name;
 
+            console.log(this.data)
+            this.data.PayToSupplier=this.data.DPP+this.data.VatValue+ this.data.PaymentCorrection;
+            if(this.data.IncomeTaxBy=="Supplier"){
+                this.data.PayToSupplier=this.data.DPP+this.data.VatValue+ this.data.PaymentCorrection-this.data.IncomeTaxValue;
+            }
+            console.log(this.data.PayToSupplier)
+            if(this.data.Items){
+                for(var a of this.data.Items){
+                    if(a.Details){
+                        for(var b of a.Details){
+                            b.Category=this.data.Category;
+                        }
+                    }
+                }
+            }
+
+            //PERHITUNGAN HARGA dibayar
+            
+            // let arg = {
+            //     page: 1,
+            //     size: Number.MAX_SAFE_INTEGER,
+            //     filter: JSON.stringify({DispositionNo:this.DispositionNo}) 
+            // };
+            // return this.service.searchPaymentDispo(arg)
+            //     .then(result => {
+            //         console.log(result.data)
+            //         return result.data;
+            //     })
+            
         } else {
             this.data = Object.assign(this.data, {})
         }

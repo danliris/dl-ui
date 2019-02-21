@@ -31,9 +31,12 @@ export class View {
         };
     }
 
+    bankView = "";
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        this.bankView = this.data.Bank.accountName ? `${this.data.Bank.accountName} - A/C : ${this.data.Bank.accountNumber}` : '';
     }
 
     cancelCallback(event) {

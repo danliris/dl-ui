@@ -7,6 +7,7 @@ var MachineLoader = require('../../../../loader/machine-loader');
 var UnitLoader = require('../../../../loader/unit-azure-loader');
 var ProductLoader = require('../../../../loader/product-azure-loader');
 
+var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 // var moment = require('moment');
 @inject(Service)
 export class DataForm {
@@ -18,6 +19,7 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable unit;
+    @bindable yarn;
 
     formOptions = {
         cancelText: "Kembali",
@@ -45,8 +47,8 @@ export class DataForm {
             length: 5
         }
     }
-    itemColumns = ["Nama Kapas", "Komposisi"];
-    spinningFilter = {"DivisionName.toUpper()":"SPINNING"};
+    itemColumns = ["Nama Serat", "Komposisi"];
+    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     shift = ["Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
 
     constructor(service) {
@@ -63,10 +65,13 @@ export class DataForm {
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
         }
-        if (this.data.Yarn && this.data.Yarn.Id) {
-            this.yarn = this.data.Yarn;
+        if (this.data.YarnType && this.data.YarnType.Id) {
+            this.yarn = {};
+            this.yarn.id = this.data.YarnType.Id;
+            this.yarn.name = this.data.YarnType.Name;
+            this.yarn.code = this.data.YarnType.Code;
         }
-        
+
 
         if (this.data.Lot) {
             this.Lot = this.data.Lot;
@@ -76,7 +81,7 @@ export class DataForm {
 
     inputInfo = {
         columns: [
-            { header: "Nama Kapas", value: "Product" },
+            { header: "Nama Serat", value: "Product" },
             { header: "Komposisi", value: "Composition" },
         ],
         onAdd: function () {
@@ -110,13 +115,22 @@ export class DataForm {
         }
     }
 
-
-
+    yarnChanged(n, o) {
+        if (this.yarn && this.yarn.id) {
+            this.data.YarnTypeIdentity = this.yarn.id;
+        } else {
+            this.data.YarnTypeIdentity = null;
+        }
+    }
     get unitLoader() {
         return UnitLoader;
     }
 
     get yarnLoader() {
         return ProductLoader;
+    }
+
+    get materialTypeLoader() {
+        return MaterialTypeLoader;
     }
 } 

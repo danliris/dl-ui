@@ -8,6 +8,8 @@ const serviceUriUnitPaymenOrder = 'unit-payment-orders';
 const serviceUriPurchasingDisposition = 'purchasing-dispositions';
 const serviceUriPurchaseRequest = 'purchase-requests/by-user';
 const serviceUriPR = 'purchase-orders/monitoring';
+const serviceUriPaymentDisposition = 'payment-disposition-note';
+const serviceUriDispositionByEPO = 'purchasing-dispositions/disposition';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -29,6 +31,10 @@ class Service extends RestService {
         return super.get(endpoint);
     }
 
+    searchPaymentDispo(epoId) {
+        var endpoint = `${serviceUriPaymentDisposition}/byEpoId/${epoId}`;
+        return super.get(endpoint);
+    }
 }
 
 class PurchasingDispositionService extends RestService{
@@ -38,6 +44,10 @@ class PurchasingDispositionService extends RestService{
 
     search(info) {
         var endpoint = `${serviceUriPurchasingDisposition}`;
+        return super.list(endpoint, info);
+    }
+    searchByEPO(info) {
+        var endpoint = `${serviceUriDispositionByEPO}`;
         return super.list(endpoint, info);
     }
 }

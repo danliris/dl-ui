@@ -9,7 +9,7 @@ export class List {
     context = ['Rincian', 'Cetak PDF'];
 
     columns = [
-        { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Barang' },
+        { field: 'DocumentNo', title: 'No. Bukti Pengeluaran Bank' },
         {
             field: 'CreatedUtc', title: 'Tanggal', formatter: function (value, data, index) {
                 return moment(value).format('DD MMM YYYY');
@@ -17,7 +17,7 @@ export class List {
         },
         {
             field: 'BankName', title: 'Bank', formatter: function (value, data, index) {
-                return data ? `${data.BankAccountName} ${data.BankCurrencyCode}` : '';
+                return data ? `${data.BankAccountName} - A/C : ${data.BankAccountNumber}` : '';
             }
         },
         {
