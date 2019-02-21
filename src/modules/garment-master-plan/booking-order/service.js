@@ -39,13 +39,13 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    // cancelBooking(data) {
-    //     var endpoint = 'booking-orders-cancel';
-    //     return super.post(endpoint, data);
-    // }
+    cancelBooking(data) {
+        var endpoint = `${serviceUri}/BOCancel/${data.id}`;
+        return super.put(endpoint, data);
+    }
 
-    // expiredBooking(data) {
-    //     var endpoint = 'booking-orders-expired';
-    //     return super.post(endpoint, data);
-    // }
+    expiredBooking(data) {
+        var endpoint = `${serviceUri}/BODelete/${data.id}`;
+        return super.put(endpoint, data);
+    }
 }

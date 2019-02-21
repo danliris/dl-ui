@@ -6,6 +6,18 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
+    rowFormatter(data, index) {
+        var today = new Date();
+        today.setDate(today.getDate()+45);
+        var deliveryDates = new Date(Date.parse(data.DeliveryDate));
+        if (data.IsBlockingPlan == true && deliveryDates > today){
+            return { classes: "success" }
+        }else if(deliveryDates< today){
+            return { classes: "danger" }
+        }
+        else
+          return {}
+      }
     context = ["detail"]
 
     columns = [

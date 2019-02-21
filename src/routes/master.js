@@ -199,7 +199,7 @@ module.exports = [
         name: 'currencies',
         moduleId: './modules/master/currency/index',
         nav: true,
-        title: 'Mata Uang',
+        title: 'Mata Uang Tekstil',
         auth: true,
         settings: {
             group: "master",
@@ -369,7 +369,7 @@ module.exports = [
         name: 'kurs-currency',
         moduleId: './modules/garment-purchasing/garment-currency/index',
         nav: true,
-        title: 'Nilai Kurs',
+        title: 'Mata Uang Garment',
         auth: true,
         settings: {
             group: "master",

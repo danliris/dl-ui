@@ -32,9 +32,10 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    return `${unit.code} - ${unit.name}`
+    return `${unit.Code} - ${unit.Name}`
   }
 
+  selectUnit = ["Unit"];
   @computedFrom("year")
   get filterUnit() {
     if (this.year) {
@@ -42,7 +43,7 @@ export class List {
       return { "year": this.year.year }
     }
     else {
-      return { "year": "" }
+      return { "year": 0 }
     }
   }
 
@@ -53,22 +54,24 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.search(info)
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.search(JSON.stringify(info))
         .then(result => {
           this.data = result;
 
           var units = [];
           for (var x = 0; x < this.data.length; x++) {
-            for (var y = 0; y < this.data[x].items.length; y++) {
+            for (var y = 0; y < this.data[x].Items.length; y++) {
               var unit = {
-                code: this.data[x].unit.code,
-                remainingEH: this.data[x].items[y].remainingEH,
+                code: this.data[x].Unit,
+                remainingEH: this.data[x].Items[y].RemainingEH,
                 background: 
-                  this.data[x].items[y].remainingEH > 0 ? "#FFFF00" : // yellow
-                  this.data[x].items[y].remainingEH < 0 ? "#F62C2C" : // red
+                  this.data[x].Items[y].RemainingEH > 0 ? "#FFFF00" : // yellow
+                  this.data[x].Items[y].RemainingEH < 0 ? "#F62C2C" : // red
                   "#52DF46" // green
               };
               var unitsTemp = units[y] ? units[y] : [];
@@ -85,8 +88,8 @@ export class List {
             var headCount = 0;
             var remainingEH=0;
             for (var y = 0; y < units[x].length; y++) {
-              headCount += Number(this.data[y].items[x].operator);
-              remainingEH += Number(this.data[y].items[x].remainingEH);
+              headCount += Number(this.data[y].Items[x].Operator);
+              remainingEH += Number(this.data[y].Items[x].RemainingEH);
 
             }
             var week = {
@@ -107,10 +110,12 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.generateExcel(info);
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.generateExcel(JSON.stringify(info));
     }
   }
 
