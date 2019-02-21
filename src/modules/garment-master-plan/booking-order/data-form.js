@@ -12,6 +12,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedBuyer;
     @bindable selectedSection;
+    @bindable beginingOrderQuantity;
 
     controlOptions = {
         label: {
@@ -36,6 +37,9 @@ export class DataForm {
 
         if (!this.data.BookingOrderDate) {
             this.data.BookingOrderDate = new Date();
+        }
+        if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
+          this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
         }
     }
 

@@ -54,7 +54,7 @@
             label="Jumlah Order Awal"
             value.bind="beginingOrderQuantity"
             error.bind="error.beginingOrderQuantity"
-            if.bind="data.ExpiredBookingQuantity || data.CanceledQuantity"
+            show.bind="data.ExpiredBookingQuantity || data.CanceledQuantity"
             format="0"
             read-only="true">
         </numeric>

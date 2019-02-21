@@ -23,7 +23,9 @@ export class View {
       var id = params.id;
       this.data = await this.service.getById(id);
       
-      
+      if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
+        this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
+      }
       this.selectedSection = { Code:this.data.SectionCode, Name:this.data.SectionName,};
       this.selectedBuyer = { Code:this.data.BuyerCode, Name:this.data.BuyerName,};
       
@@ -68,7 +70,7 @@ export class View {
         this.hasCancel = true;
         this.hasDelete = false;
         this.hasEdit = false;
-        this.hasConfirm = false;
+        this.hasConfirm = true;
       }
   }
 
