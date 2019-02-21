@@ -5,7 +5,7 @@ import moment from 'moment';
 
 var BuyerLoader=require('../../../loader/garment-buyers-loader');
 var BookingOrderLoader=require('../../../loader/garment-booking-order-loader');
-var ComodityLoader=require('../../../loader/garment-master-plan-comodity-loader');
+var ComodityLoader=require('../../../loader/garment-comodities-loader');
 var SectionLoader=require('../../../loader/garment-sections-loader');
 
 @inject(Router, Service)
@@ -20,24 +20,25 @@ export class List {
     get bookingOrderLoader(){
         return BookingOrderLoader;
     }
-     get comodityLoader(){
+    get comodityLoader(){
         return ComodityLoader;
     }
-     get sectionLoader(){
+    get sectionLoader(){
         return SectionLoader;
-     }
+    }
     
      
     confirmStateOption = ["","Belum Dikonfirmasi","Sudah Dikonfirmasi"];
-    bookingOrderStateOption = ["","Booking","Confirmed","Sudah Dibuat Master Plan"];//,"Booking Dibatalkan"];
- searching() {
+    bookingOrderStateOption = ["","Booking","Confirmed","Sudah Dibuat Master Plan"];
+
+    searching() {
      
     var info = {
             
-            section : this.section ? this.section.code.code : "",
-            code : this.code ? this.code.code : "",
-            buyer : this.buyer ? this.buyer.name : "",
-            comodity : this.comodity ? this.comodity.name : "",
+            SectionName : this.section ? this.SectionName : "",
+            BookingOrderNo : this.BookingOrderNo ? this.BookingOrderNo : "",
+            BuyerName : this.buyer ? this.BuyerName : "",
+            ComodityName : this.comodity ? this.ComodityName : "",
             confirmState : this.confirmState ? this.confirmState : "",
             bookingOrderState : this.bookingOrderState ? this.bookingOrderState : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
@@ -50,6 +51,7 @@ export class List {
                this.data=result;
                this.data = [];
                this.row_temp = [];
+               console.log(info);
                var counter = 1;
                var remain=0;
                var temp=result;
@@ -59,8 +61,8 @@ export class List {
                var count=0;
                
             for (var prs of result) {
-                temps.bookingCode=prs.bookingCode;
-                temps.orderQty=prs.orderQty;
+                temps.BookingOrderNo=prs.BookingOrderNo;
+                temps.OrderQuantity=prs.OrderQuantity;
                 this.temp.push(temps);
               
             }
@@ -69,73 +71,66 @@ export class List {
                for (var pr of result) {
                   var _data = {};
                   
-                      _data.code=  pr.bookingCode;
-                      _data.bookingDate =pr.bookingDate ? moment(pr.bookingDate).format("DD MMMM YYYY") : "";;
-                      _data.buyer = pr.buyer;
-                      _data.totalOrderQty = pr.totalOrderQty;
-                      _data.deliveryDateConfirm=  pr.deliveryDateConfirm ? moment(pr.deliveryDateConfirm).format("DD MMMM YYYY") : "";
-                      _data.confirmDate=  pr.confirmDate ? moment(pr.confirmDate).format("DD MMMM YYYY") : "";
-                      _data.comodity =pr.comodity;
-                      _data.orderQty = pr.orderQty;
-                      _data.deliveryDateBooking = pr.deliveryDateBooking ? moment(pr.deliveryDateBooking).format("DD MMMM YYYY") : "";
-                      _data.remark = pr.remark;  
+                        _data.BookingOrderNo=  pr.BookingOrderNo;
+                        _data.BookingOrderDate =pr.BookingOrderDate ? moment(pr.BookingOrderDate).format("DD MMMM YYYY") : "";;
+                        _data.BuyerName = pr.BuyerName;
+                        _data.OrderQuantity = pr.OrderQuantity;
+                        _data.DeliveryDate=  pr.DeliveryDate ? moment(pr.DeliveryDate).format("DD MMMM YYYY") : "";
+                        _data.ConfirmDate=  pr.ConfirmDate ? moment(pr.ConfirmDate).format("DD MMMM YYYY") : "";
+                        _data.ComodityName =pr.ComodityName;
+                        _data.ConfirmQuantity = pr.ConfirmQuantity;
+                        _data.DeliveryDateItems = pr.DeliveryDateItems ? moment(pr.DeliveryDateItems).format("DD MMMM YYYY") : "";
+                        _data.Remark = pr.Remark;  
 
-                      var today=new Date();
-                      var a = new Date(_data.deliveryDateBooking);
-                      var b = today;
-                      a.setHours(0,0,0,0);
-                      b.setHours(0,0,0,0);
-                      var diff=a.getTime() - b.getTime();
-                      var timeDiff = a.getTime() - b.getTime();
-                      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                    //   console.log(pr.items);
-                      
-                      if(diffDays>0 && diffDays<=45){
+                        var today=new Date();
+                        var a = new Date(_data.DeliveryDateItems);
+                        var b = today;
+                        a.setHours(0,0,0,0);
+                        b.setHours(0,0,0,0);
+                        var diff=a.getTime() - b.getTime();
+                        var timeDiff = a.getTime() - b.getTime();
+                        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                        
+                        if(diffDays>0 && diffDays<=45){
                         _data.diffDeliveryDateBooking = diffDays;
-                      } else if(diffDays<=0 || diffDays>45){
+                        } else if(diffDays<=0 || diffDays>45){
                         _data.diffDeliveryDateBooking = '-';
-                      }
+                        }
 
-                      if(pr.deliveryDateConfirm=="")
-                      {
-                        _data.confirmState="Belum Dikonfirmasi";
-                      }else
-                      {
-                        _data.confirmState="Sudah Dikonfirmasi";
-                      }
-                    //   if(pr.isCanceled==true)
-                    //   {
-                    //     _data.bookingOrderState="Booking Dibatalkan";
-                    //   }
-                    //   else 
-                      if(pr.isMasterPlan ==true)
-                      {
-                        _data.bookingOrderState="Sudah Dibuat Master Plan";   
-                      }else if(pr.isMasterPlan == false && pr.isCanceled==false)
-                      {
-                        if(pr.items==undefined){
-                            _data.bookingOrderState="Booking";
-                        } else if(pr.items){
-                            _data.bookingOrderState="Confirmed";
+                        if(pr.DeliveryDateItems=="")
+                        {
+                        _data.StatuConfirm="Belum Dikonfirmasi";
+                        }else
+                        {
+                        _data.StatuConfirm="Sudah Dikonfirmasi";
+                        }
+
+                        if(pr.IsBlockingPlan ==true)
+                        {
+                        _data.StatusBooking="Sudah Dibuat Master Plan";   
+                        }else if(pr.IsBlockingPlan == false && pr.IsCanceled==false)
+                        {
+                        if(pr.Items==undefined){
+                            _data.StatusBooking="Booking";
+                        } else if(pr.Items){
+                            _data.StatusBooking="Confirmed";
                         }  
-                      }
+                        }
                     for(var item of  temp)
                     {
-                        if(pr.bookingCode == item.bookingCode)
+                        if(pr.BookingOrderNo == item.BookingOrderNo)
                         {
-                            remain = remain + item.orderQty;
-                            _data.remaining= remain ? pr.totalOrderQty-remain :pr.totalOrderQty;
+                            remain = remain + item.OrderQuantity;
+                            _data.remaining = remain ? pr.ConfirmQuantity - remain : pr.ConfirmQuantity;
                         }
-                      
                     }
                     
-                    
-                    if(_temp.code == _data.code){
-                        _data.code=null;
-                        _data.bookingDate=null;
-                        _data.buyer=null;
-                        _data.totalOrderQty=null;
-                        _data.deliveryDateBooking=null;
+                    if(_temp.BookingOrderNo == _data.BookingOrderNo){
+                        _data.BookingOrderNo=null;
+                        _data.BookingOrderDate=null;
+                        _data.BuyerName=null;
+                        _data.ConfirmQuantity=null;
+                        _data.DeliveryDateItems=null;
                         _data.confirmState=null;
                         _data.bookingOrderState=null;
                         _data.remaining=null;
@@ -143,8 +138,8 @@ export class List {
                         row_span_count=row_span_count+1;
                         _data.row_count=row_span_count;
                         
-                    } else if(!_temp.code || _temp.code!=pr.bookingCode){
-                        _temp.code=_data.code;
+                    } else if(!_temp.BookingOrderNo || _temp.BookingOrderNo!=pr.bookingCode){
+                        _temp.BookingOrderNo=_data.BookingOrderNo;
                         row_span_count=1;
                         _data.row_count=row_span_count;
                     }
@@ -164,15 +159,14 @@ export class List {
                     
                  count++;    
                  counter ++;
-                 }
-                //  console.log(this.data)                 
+                 }               
             });
-            
     }
+
     ExportToExcel() {
         var info = {
             section : this.section ? this.section.code.code : "",
-            code : this.code ? this.code.code : "",
+            BookingOrderNo : this.BookingOrderNo ? this.BookingOrderNo : "",
             buyer : this.buyer ? this.buyer.name : "",
             comodity : this.comodity ? this.comodity.name : "",
             confirmState : this.confirmState ? this.confirmState : "",
@@ -184,9 +178,9 @@ export class List {
     }
 
 
-      reset() {
+    reset() {
         this.section = "";
-        this.code = "";
+        this.BookingOrderNo = "";
         this.buyer="";
         this.comodity="";
         this.confirmState="";
@@ -197,18 +191,18 @@ export class List {
     }
 
     sectionView = (section) => {
-        return `${section.code} - ${section.name}`
+        return `${section.Code} - ${section.Name}`
     }
     
     buyerView = (buyer) => {
-        return `${buyer.name} `
+        return `${buyer.Name} `
     }
 
     bookingOrderView = (bookingOrder) => {
-        return `${bookingOrder.code} `
+        return `${bookingOrder.BookingOrderNo} `
     }
     comodityView = (comodity) => {
-        return `${comodity.code}-${comodity.name} `
+        return `${comodity.Code}-${comodity.Name} `
     }
 
     bookingOrderStateChanged(e){
@@ -229,7 +223,7 @@ export class List {
         }
     }
 
-      confirmStateChanged(e){
+    confirmStateChanged(e){
         var selectedConfirm= e.srcElement.value;
         this.confirmState="";
         if(selectedConfirm="Belum Dikonfirmasi"){
@@ -242,5 +236,5 @@ export class List {
         {
             this.confirmState="";
         }
-      }
+    }
 }
