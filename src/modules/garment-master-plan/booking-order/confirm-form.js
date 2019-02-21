@@ -34,6 +34,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        console.log(this.data);
 
         if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
             this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
