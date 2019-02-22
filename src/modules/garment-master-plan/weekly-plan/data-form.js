@@ -58,7 +58,7 @@ export class DataForm {
         ];
         if (this.data && this.data.Id && this.data.Unit.Id) {
             for (var item of this.data.Items) {
-                item["MonthName"] = this.getMonthName(item.Month);
+                item["MonthName"] = this.getMonthName(item.Month - 1);
             }
             this.selectedUnit = this.data.Unit;
             this.yearSelected = this.data.Year;
@@ -197,7 +197,7 @@ export class DataForm {
                         WeekNumber: i,
                         StartDate: startDate,
                         EndDate: endDate,
-                        Month: startDate.getMonth(),
+                        Month: startDate.getMonth() + 1,
                         MonthName: this.getMonthName(startDate.getMonth()),
                         Efficiency : 0,
                         Operator: 0,
