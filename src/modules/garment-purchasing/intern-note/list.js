@@ -83,21 +83,29 @@ export class List {
                 var deliveryOrderItems = detail.deliveryOrder.items || [];
                 var invoiceItems = item.garmentInvoice.items || [];
                 
+                var received=[];
+
                 for(var invoiceItem of invoiceItems){
                     for(var detail of invoiceItem.details){
                         for(let coba of deliveryOrderItems){
                             for(let deliveryOrderDetail of coba.fulfillments){
-                                receiptQuantityTotal+= deliveryOrderDetail.receiptQuantity;
                                 if(deliveryOrderDetail.Id == detail.dODetailId){
-                                     InvreceiptQuantityTotal  += deliveryOrderDetail.receiptQuantity;
+                                    if(!received[deliveryOrderDetail.Id]){
+                                        received[deliveryOrderDetail.Id]=deliveryOrderDetail.receiptQuantity;
+                                    }
+                                    else{
+                                        received[deliveryOrderDetail.Id] +=deliveryOrderDetail.receiptQuantity;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                
-                if(receiptQuantityTotal != InvreceiptQuantityTotal){
-                    isCetak = false;
+                for(var flag of received){
+                    if(flag===0){
+                        isCetak = false;
+                        break;
+                    }
                 }
             }
         }
