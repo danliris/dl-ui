@@ -138,14 +138,22 @@ export class Item {
             this.ringFormula(MachineSpinning);
         } else if (this.processType == "Winder") {
             this.winderFormula(MachineSpinning);
-        } else if (this.processType == "Pre-Drawing" || "Finish Drawing") {
+        } else if (this.processType.includes("Drawing")) {
             this.drawingFormula(MachineSpinning);
+        } else if (this.processType == "Lap Former") {
+            this.lapFormerFormula(MachineSpinning);
+        } else if (this.processType == "Combing") {
+            this.combingFormula(MachineSpinning);
         }
     }
 
     blowingFormula(MachineSpinning) {
-        this.data.Bale = this.data.Output;
-        this.data.Eff = 100;
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
+            this.data.Bale = this.data.Output / 181.44;
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+        this.data.Eff = this.data.Bale * 100 / ((this.CountConfig.RPM * 60 * 24 * 0.24 * (22 / 7) * MachineSpinning.Delivery) / (this.CountConfig.Ne * 400 * 768));
     }
 
     cardingFormula(MachineSpinning) {
@@ -155,16 +163,25 @@ export class Item {
             this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
 
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "MTR") {
-            this.data.Bale = this.CountConfig.Constant * (this.data.Output / 0.914 * this.CountConfig.Grain);
+            this.data.Bale = this.CountConfig.Constant * (this.data.Output / 0.914 * this.CountConfig.Grain) / (6 * 7000 * 400);
         } else {
             this.data.Bale = this.data.Output;
         }
         this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 24 * MachineSpinning.Delivery) / 181.44) / 3);
     }
 
+    combingFormula(MachineSpinning) {
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
+            this.data.Bale = ((this.data.Output / (this.CountConfig.Ne / this.CountConfig.Grain)) / 400) * MachineSpinning.Delivery;
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+        this.data.Eff = this.data.Bale * 100 / ((0.025 * (22 / 7) * this.CountConfig.RPM * 24 * 60 * MachineSpinning.Delivery * this.CountConfig.TotalDraft) / (14 * this.CountConfig.Ne * 400 * 768));
+    }
+
     drawingFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
-            this.data.Bale = this.data.Output / 181.44;
+            this.data.Bale = (this.data.Output / 181.44) * MachineSpinning.Delivery;
         } else {
             this.data.Bale = this.data.Output;
         }
@@ -172,10 +189,23 @@ export class Item {
         this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 768 * 400)) / 3);
     }
 
+    lapFormerFormula(MachineSpinning) {
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "YARD") {
+            this.data.Bale = ((this.data.Output / 840) / this.CountConfig.Ne) / 400;
+        } else {
+            this.data.Bale = this.data.Output;
+        }
+        this.data.Eff = this.data.Bale * 100 / ((this.CountConfig.RPM * MachineSpinning.Delivery * 24 * 60) / (((7000 / 840) / this.CountConfig.Grain) * 400 * 768));
+    }
+
     ringFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
-            this.data.Bale = this.data.Output * MachineSpinning.Delivery / ((this.CountConfig.Ne * 1000) / 400);
-        } else {
+            this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / ((this.CountConfig.Ne * 100) / 400));
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "RND") {
+            this.data.Bale = ((this.data.Output / (768 / (((22 / 7) * 2.5) / 100)) / this.CountConfig.Ne) / 400) * MachineSpinning.Delivery;
+            
+        }
+        else {
             this.data.Bale = this.data.Output;
         }
         this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 36 * 840 * 400 * this.CountConfig.TPI)) / 3);
@@ -195,13 +225,17 @@ export class Item {
     flyerFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
             this.data.Bale = this.data.Output / 181.44;
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "RND") {
+            this.data.Bale = this.data.Output * ((28.5 * (22 / 7) * this.CountConfig.TotalDraft * this.CountConfig.Grain * (MachineSpinning.Delivery - this.data.Spindle)) / (1000 * 0.914 * 30 * 15.4321 * 453.6 * 400));
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "MTR") {
+            this.data.Bale = (((MachineSpinning.Delivery - this.data.Spindle) * this.data.Output) / (768 * this.CountConfig.Ne)) / 400;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
-            this.data.Bale = 28.5 * 3.14 * this.CountConfig.TotalDraft * (this.data.DeliveryTotal - this.data.Spindle) / 1000 * 768 * this.CountConfig.Ne * 400;
+            this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
 
         } else {
             this.data.Bale = this.data.Output;
         }
-        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * (this.data.DeliveryTotal - this.data.Spindle)) / (this.CountConfig.Ne * 36 * 840 * 400 * this.CountConfig.TPI)) / 3)
+        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 60 * 24 * (this.data.DeliveryTotal - this.data.Spindle)) / (this.CountConfig.Ne * 36 * 840 * 400 * this.CountConfig.TPI)) / 3);
     }
 
     controlOptions = {
