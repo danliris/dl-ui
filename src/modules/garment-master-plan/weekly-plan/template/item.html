@@ -2,6 +2,7 @@
     <tr>
         <td class="col-sm-1">
             <au-numeric 
+                format="0"
                 value.bind="data.WeekNumber" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
@@ -47,6 +48,7 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000.00"
                 value.bind="data.WorkingHours"
                 error.bind="error.WorkingHours" 
                 read-only.bind="options.readOnly" 
@@ -55,6 +57,7 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000.00"
                 value.bind="dataAhTotal"
                 read-only="true"
                 options.bind="controlOptions">
@@ -62,6 +65,7 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000"
                 value.bind="dataEhTotal"
                 read-only="true"
                 options.bind="controlOptions">
@@ -69,6 +73,7 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000"
                 value.bind="data.UsedEH"
                 read-only="true"
                 options.bind="controlOptions">
@@ -76,6 +81,7 @@
         </td>
         <td class="col-sm-1">
             <au-numeric 
+                format="0,000"
                 value.bind="dataRemainingEH"
                 read-only="true"
                 options.bind="controlOptions">
