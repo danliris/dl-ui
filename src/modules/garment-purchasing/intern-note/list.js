@@ -35,7 +35,6 @@ export class List {
                 var data = {}
                 data.total = result.info.total;
                 data.data = result.data;
-                console.log(result.data)
                 data.data.forEach(s => {
                     s.items.toString = function () {
                         var str = "<ul>";
