@@ -267,7 +267,11 @@ export class DataForm {
         for (var i = row; i < this.data.Items.length; i++) {
              
             // if (this.data.items[i].usedEH == 0)
-                 this.data.Items[i][columnName] = Number(event.target.value);
+            if (columnName == "Operator") {
+                this.data.Items[i][columnName] = parseFloat((Number(event.target.value)).toFixed());
+            } else {
+                this.data.Items[i][columnName] = parseFloat((Number(event.target.value)).toFixed(2));
+            }
         }
     }
 }
