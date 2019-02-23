@@ -4,22 +4,21 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'weekly-plans-monitoring-remaining-eh';
+const serviceUri = 'garment-master-plan/monitoring-remaining-eh';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-master-plan");
+        super(http, aggregator, config, "sales");
     }
 
     search(info) { 
-        var endpoint = `${serviceUri}?year=${info.year}&unit=${info.unit}`;
+        var endpoint = `${serviceUri}?filter=${info}`;
         return super.get(endpoint);
-        
     }
     
     generateExcel(info) {
-        var endpoint = `${serviceUri}?year=${info.year}&unit=${info.unit}`;
+        var endpoint = `${serviceUri}?filter=${info}`;
         return super.getXls(endpoint);
     }
 }

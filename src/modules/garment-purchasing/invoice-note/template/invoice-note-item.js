@@ -65,7 +65,7 @@ export class DeliveryOrderItem {
       }
       this.filter= {  
         "IsInvoice": false,  
-        "supplierCode": this.options.supplierCode,
+        "supplierId": this.options.supplierId,
         "IsDeleted" :false,
         "DOCurrencyCode":this.options.currencyCode,
         "useVat":this.options.useVat,

@@ -90,7 +90,7 @@ export class PurchaseOrderItem {
         this.data.UsedBudget=parseFloat(this.data.budgetUsed.toFixed(4));
         //this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
         //var totalDealPrice = ((this.data.DealQuantity * this.price * this.kurs.Rate) + this.data.budgetUsed).toFixed(4);
-        var totalDealPrice = (this.data.remainingBudget-parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4);
+        var totalDealPrice = parseFloat((this.data.remainingBudget-parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
         //var totalBudget=parseInt(this.data.totalBudget.toFixed(4));
         //this.data.RemainingBudget=totalDealPrice;
         

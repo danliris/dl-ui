@@ -10,6 +10,7 @@ export class List {
     columns = [
       { field: "Code", title: "Kode" },
       { field: "Symbol", title: "Simbol" },
+      { field: "Rate", title: "Rate"},
       { field: "Description", title: "Keterangan" },
     ]
 
@@ -22,7 +23,7 @@ export class List {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
         keyword: info.search,
-        select:["Code","Symbol","Description"],
+        select:["Code","Symbol","Rate","Description"],
         order: order
       }
 

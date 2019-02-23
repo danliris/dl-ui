@@ -368,7 +368,7 @@ export class DataForm {
                         RemainingBudget:item.RemainingBudget,
                         Conversion: 1,
                         Remark: item.ProductRemark,
-                        Initial:item.RemainingBudget
+                        Initial:parseFloat(item.RemainingBudget.toFixed(4))
                     });
 
                     pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-item.budgetUsed;
@@ -406,7 +406,7 @@ export class DataForm {
                         totalBudget: item.BudgetPrice*item.Quantity,
                         Conversion: 1,
                         Remark: item.ProductRemark,
-                        Initial:item.RemainingBudget
+                        Initial:parseFloat(item.RemainingBudget.toFixed(4))
                     });
                 }
 

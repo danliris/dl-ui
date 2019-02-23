@@ -282,7 +282,7 @@ export class DataForm {
             if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
                 this.data.supplierId = selectedSupplier.Id;
-                this.options.supplierCode = selectedSupplier.code;
+                this.options.supplierId = selectedSupplier.Id;
                 this.options.useVat=false;
                 this.options.useIncomeTax=false;
             }
