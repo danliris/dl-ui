@@ -131,7 +131,7 @@ export class DataForm {
             this.RONoHeader = null;
             this.data.Article = null;
 
-            this.context.error.Items = [];
+            //this.context.error.Items = [];
             this.context.error = [];
         }
     }
