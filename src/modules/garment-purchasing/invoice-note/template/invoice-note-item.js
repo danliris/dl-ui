@@ -40,24 +40,24 @@ export class DeliveryOrderItem {
       this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
   
     }
-   
+    console.log(this.data);
     if (this.data.Id) {
       console.log(this.data);
       this.deliveryOrder =  this.data.deliveryOrder.doNo ;
        this.data.deliveryOrder.totalAmount= this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
     }
     this.filter={};
-    if (this.options.supplierCode && this.options.currencyCode && !this.options.useIncomeTax) {
+    if (this.options.supplierId && this.options.currencyCode && !this.options.useIncomeTax) {
       this.filter= {  
         "IsInvoice": false,  
-        "supplierCode": this.options.supplierCode,
+        "supplierId": this.options.supplierId,
         "IsDeleted" :false,
         "DOCurrencyCode":this.options.currencyCode,
         "useVat":this.options.useVat, 
         "useIncomeTax":false
       };
     }
-    else if(this.options.supplierCode && this.options.currencyCode && this.options.useIncomeTax ){
+    else if(this.options.supplierId && this.options.currencyCode && this.options.useIncomeTax ){
       if(this.options.incomeTaxId==undefined)
       {
         this.options.incomeTaxId ="";
