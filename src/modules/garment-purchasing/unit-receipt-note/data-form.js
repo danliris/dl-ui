@@ -133,7 +133,6 @@ export class DataForm {
 
     deliveryOrderChanged(newValue, oldValue) {
         var selectedDo = newValue;
-        console.log(newValue);
         if (selectedDo) {
             this.data.DOId = selectedDo.Id;
             this.data.DONo = selectedDo.doNo;
@@ -247,7 +246,6 @@ export class DataForm {
     }
 
     storageView = (storage) => {
-        console.log(storage);
         if (storage.unit) {
             return `${storage.unit.name} - ${storage.name}`;
         } else {
