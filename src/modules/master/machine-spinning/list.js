@@ -9,6 +9,7 @@ export class List {
         { field: "No", title: "Nomor Mesin" },
         { field: "Brand", title: "Type Mesin" },
         { field: "Name", title: "Merk Mesin" },
+        { field: "MachineCode", title: "Kode Mesin" },
         { field: "Year", title: "Tahun" },
         { field: "Condition", title: "Kondisi Mesin" },
         { field: "CounterCondition", title: "Kondisi Counter" },
