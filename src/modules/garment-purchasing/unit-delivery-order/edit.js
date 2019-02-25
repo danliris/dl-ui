@@ -48,6 +48,7 @@ export class Edit {
             if (this.data.Items) {
                 for (let item of this.data.Items) {
                     item.IsSave = true;
+                    item.IsDisabled = false;
                 }
             }
         }
