@@ -1,0 +1,67 @@
+<!-- <style>
+td {
+  white-space: nowrap;
+}
+</style> -->
+<template>
+  <tr>
+    <!-- <require from="../../../../lib/number-format-value-converter"></require> -->
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.dateOrdered" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.orderNumber" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.constructionNumber" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.totalGramEstimation" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox value.bind="data.wholeGrade" read-only.bind="true">
+      </au-textbox>
+    </td>
+
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeA"
+        read-only.bind="readOnly"
+        error.bind="error.gradeA"
+        placeholder="Grade A(%)"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeB"
+        read-only.bind="readOnly"
+        error.bind="error.gradeB"
+        placeholder="Grade B(%)"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeC"
+        read-only.bind="readOnly"
+        error.bind="error.gradeC"
+        placeholder="Grade C(%)"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap">
+      <au-textbox
+        value.bind="data.gradeD"
+        read-only.bind="readOnly"
+        error.bind="error.gradeD"
+        placeholder="Grade D(%)"
+      >
+      </au-textbox>
+    </td>
+  </tr>
+</template>
