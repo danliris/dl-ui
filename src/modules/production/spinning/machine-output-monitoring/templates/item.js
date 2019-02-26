@@ -1,8 +1,8 @@
-import { inject, BindingEngine, bindable } from 'aurelia-framework';
-import { isNullOrUndefined } from 'util';
+import { bindable } from 'aurelia-framework';
 
 
-@inject(BindingEngine)
+
+// @inject(BindingEngine)
 export class Item {
     @bindable isBlowing;
     @bindable isWinder;
@@ -73,7 +73,7 @@ export class Item {
     }
 
     outputChanged(n, o) {
-        if (!isNullOrUndefined(this.output)) {
+        if (this.output) {
             this.data.Output = this.output;
             if (n != o) {
                 this.baseMathFormula();
@@ -82,7 +82,7 @@ export class Item {
     }
 
     badOutputChanged(n, o) {
-        if (!isNullOrUndefined(this.badOutput)) {
+        if (this.badOutput) {
             this.data.BadOutput = this.badOutput;
             if (this.isBlowing) {
                 this.baseMathFormula();
@@ -91,7 +91,7 @@ export class Item {
     }
 
     deliveryTotalChanged(n, o) {
-        if (!isNullOrUndefined(this.deliveryTotal)) {
+        if (this.deliveryTotal) {
             this.data.DeliveryTotal = this.deliveryTotal;
             if (this.isFlyer) {
                 this.baseMathFormula();
@@ -100,7 +100,7 @@ export class Item {
     }
 
     spindleChanged(n, o) {
-        if (!isNullOrUndefined(this.spindle)) {
+        if (this.spindle) {
             this.data.Spindle = this.spindle;
             if (this.isFlyer) {
                 this.baseMathFormula();
@@ -109,7 +109,7 @@ export class Item {
     }
 
     wasteChanged(n, o) {
-        if (!isNullOrUndefined(this.waste)) {
+        if (this.waste) {
             this.data.Waste = this.waste;
             if (this.isWinder) {
                 this.baseMathFormula();
@@ -118,7 +118,7 @@ export class Item {
     }
 
     drumTotalChanged(n, o) {
-        if (!isNullOrUndefined(this.drumTotal)) {
+        if (this.drumTotal) {
             this.data.DrumTotal = this.drumTotal;
             if (this.isWinder) {
                 this.baseMathFormula();
@@ -203,7 +203,7 @@ export class Item {
             this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / ((this.CountConfig.Ne * 100) / 400));
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "RND") {
             this.data.Bale = ((this.data.Output / (768 / (((22 / 7) * 2.5) / 100)) / this.CountConfig.Ne) / 400) * MachineSpinning.Delivery;
-            
+
         }
         else {
             this.data.Bale = this.data.Output;
@@ -243,13 +243,5 @@ export class Item {
             length: 12
         }
     };
-    // mockMachineLoader = (keyword, filter) => {
 
-    //     return Promise.resolve([{ Name: "Machine 1" }, { Name: "Machine 2" }]);
-    // }
-
-    // get machineLoader() {
-    //     //return ProcessLoader;
-    //     return this.mockMachineLoader;
-    // }
 }

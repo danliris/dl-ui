@@ -21,9 +21,9 @@ export class DataForm {
 
   typeColumns = [
     { header: "Jenis Process", value: "Type" },
-  ]
+  ];
 
-  typeOptions = []
+  typeOptions = [];
 
   get uomLoader() {
     return UOMLoader;
@@ -34,12 +34,12 @@ export class DataForm {
 
   get addType() {
     return (event) => {
-      this.data.Types.push({})
+      this.data.Types.push({});
     };
   }
 
   get removeType() {
-    return (event) => console.log(event);
+    return (event);
   }
 
   uomView = (uom) => {
