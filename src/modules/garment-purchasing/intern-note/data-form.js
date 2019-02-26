@@ -48,7 +48,7 @@ export class DataForm {
         this.options = this.options ? this.options : {};
 
         if(this.data.supplier){
-            this.options.supplierCode = this.data.supplier.Code;      
+            this.options.supplierId = this.data.supplier.Id;      
         }
         if(this.data.currency){
             this.options.currencyCode = this.data.currency.Code;
@@ -93,7 +93,7 @@ export class DataForm {
         if (selectedSupplier) {
             this.data.supplier = selectedSupplier;
             this.data.supplierId = selectedSupplier.Id;
-            this.options.supplierCode = selectedSupplier.code;
+            this.options.supplierId = selectedSupplier.Id;
             this.options.currencyCode = this.data.currency.code;   
         }
         else {
