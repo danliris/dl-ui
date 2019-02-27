@@ -67,7 +67,7 @@ export class Create {
 
                 this.error = e;
                 alert("Missing Some Data");
-            })
+            });
         // }
     }
 }
