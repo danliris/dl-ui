@@ -4,7 +4,7 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 var BuyerLoader=require('../../../loader/garment-buyers-loader');
-var BookingOrderLoader=require('../../../loader/garment-booking-order-loader');
+var BookingOrderLoader=require('../../../loader/garment-booking-order-by-no-loader');
 
 @inject(Router, Service)
 export class List {
@@ -42,7 +42,7 @@ export class List {
             //    this.data=result;
                this.data = [];
                for(var _data of result){
-                   _data.EarlyBooking = _data.OrderQuantity + _data.CanceledQuantity + _data.ExpiredBookingQuantity;
+                   _data.EarlyBooking = _data.TotalBeginningQuantity;
                    _data.BookingOrderDate = _data.BookingOrderDate ? moment(_data.BookingOrderDate).format("DD MMMM YYYY") : "";
                    _data.DeliveryDate = _data.DeliveryDate ? moment(_data.DeliveryDate).format("DD MMMM YYYY") : "";
                    _data.ConfirmDate = _data.ConfirmDate ? moment(_data.ConfirmDate).format("DD MMMM YYYY") : "";
@@ -59,7 +59,7 @@ export class List {
     
     ExportToExcel() {
         var info = {
-            code : this.no ? this.no.BookingOrderNo : "",
+            no : this.no ? this.no.BookingOrderNo : "",
             buyerCode : this.buyerCode ? this.buyerCode.Code : "",
             statusCancel : this.statusCancel ? this.statusCancel : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",

@@ -45,7 +45,6 @@ export class Service extends RestService {
     generateExcel(info) {
         var endpoint = `${serviceUriDownload}`;
         var query = '';
-        
         if (info.no && info.no !== "") {
             if (query === '') query = `no=${info.no}`;
             else query = `${query}&no=${info.no}`;
