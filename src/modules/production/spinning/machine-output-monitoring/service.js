@@ -72,7 +72,7 @@ export class CoreService extends RestService {
     }
 
     searchMachineSpinning(info) {
-        var endpoint = `${machineServiceUri}`;
+        var endpoint = `${machineServiceUri}/spinning-filtered`;
         return super.list(endpoint, info);
     }
 }
