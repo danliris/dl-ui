@@ -43,7 +43,7 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    if (this.data.id) {
+    if (this.data.Id) {
       this.materialTypeDocument = this.data.materialTypeDocument;
 
       this.ItemsWarp = this.data.itemsWarp;
@@ -52,7 +52,6 @@ export class DataForm {
       this.ItemsWarpOptions.yarn = "";
       this.ItemsWarpOptions.quantity = "";
       this.ItemsWarpOptions.information = "";
-      console.log(this.ItemsWarp);
 
       this.ItemsWeft = this.data.itemsWeft;
       this.ItemsWeftOptions = {};
@@ -60,7 +59,6 @@ export class DataForm {
       this.ItemsWeftOptions.yarn = "";
       this.ItemsWeftOptions.quantity = "";
       this.ItemsWeftOptions.information = "";
-      console.log(this.ItemsWeft);
     }
     if (this.readOnly) {
       //Collections Columns on readOnly state
@@ -140,7 +138,7 @@ export class DataForm {
     if (this.materialTypeDocument) {
       //API Properties vs Form Properties
       this.data.materialTypeDocument = {};
-      this.data.materialTypeDocument.id = this.materialTypeDocument.id;
+      this.data.materialTypeDocument.Id = this.materialTypeDocument.Id;
       this.data.materialTypeDocument.code = this.materialTypeDocument.code;
       this.data.materialTypeDocument.name = this.materialTypeDocument.name;
       var name = this.materialTypeDocument.code
@@ -175,11 +173,11 @@ export class DataForm {
     detail.information = data.information;
 
     if (data.yarn) {
-      yarn.id = data.yarn.id;
+      yarn.Id = data.yarn.Id;
       yarn.code = data.yarn.code;
       yarn.name = data.yarn.name;
     }
-    if (yarn.id) {
+    if (yarn.Id) {
       detail.yarn = yarn;
       this.data.constructionNumber = this.constructionNumber;
     }

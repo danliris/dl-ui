@@ -25,15 +25,16 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    console.log(this.data);
-    // this.ringDocuments = this.data.ringDocuments;
-    // if (this.data.id) {
-    //   this.ringDocuments = this.data.ringDocuments;
-    //   this.ringDocumentsOptions = {};
-    //   this.ringDocumentsOptions.code = "";
-    //   this.ringDocumentsOptions.number = "";
-    //   console.log(this.ringDocuments);
-    // }
+    // console.log(this.data);
+    // this.RingDocuments = this.data.RingDocuments;
+    if (this.data.id) {
+      // this.RingDocuments = this.data.RingDocuments;
+      console.log(this.RingDocuments);
+      this.ringDocumentsOptions = {};
+      this.ringDocumentsOptions.Code = "";
+      this.ringDocumentsOptions.Number = "";
+      this.ringDocumentsOptions.RingType = "";
+    }
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;

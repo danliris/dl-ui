@@ -12,18 +12,18 @@
             <au-autocomplete
               label="Kode Material"
               placeholder="Kode Material"
-              value.bind="materialTypeDocument"
-              error.bind="error.materialTypeDocument"
+              value.bind="MaterialTypeDocument"
+              error.bind="error.MaterialTypeDocument"
               read-only.bind="readOnly"
               loader.one-time="materialLoader"
-              text="code"
+              text="Code"
             ></au-autocomplete>
           </div>
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               label="Nama Material"
-              value.bind="data.materialTypeDocument.name"
-              error.bind="error.materialTypeDocument.name"
+              value.bind="data.MaterialTypeDocument.Name"
+              error.bind="error.MaterialTypeDocument.Name"
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
           </div>
@@ -31,48 +31,50 @@
 
         <!-- Ring Code & Name-->
         <div class="row">
-          <div class="col-md-6" style="white-space: nowrap;">
+          <div class="col-md-6">
             <au-autocomplete
               label="Kode Nomor Benang"
               placeholder="Kode Nomor Benang"
-              value.bind="ringDocument"
-              error.bind="error.ringDocument"
+              value.bind="RingDocument"
+              error.bind="error.RingDocument"
               read-only.bind="readOnly"
               loader.one-time="ringLoader"
-              text="code"
+              text="Code"
             ></au-autocomplete>
           </div>
-          <div class="col-md-6" style="white-space: nowrap;">
+          <div class="col-md-6">
             <au-textbox
               label="Ukuran Nomor Benang"
-              value.bind="data.ringDocument.number"
-              error.bind="error.ringDocument.number"
+              value.bind="data.RingDocument.Number"
+              error.bind="error.RingDocument.Number"
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
           </div>
         </div>
 
         <!-- Yarn Code -->
+        <!-- Di Swagger (Yarn) code masih huruf kecil -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               label="Kode Benang"
               placeholder="Kode Benang"
-              value.bind="data.code"
-              error.bind="error.code"
+              value.bind="data.Code"
+              error.bind="error.Code"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
         </div>
 
         <!-- Yarn Name -->
+        <!-- Di Swagger (Yarn) name masih huruf kecil -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               placeholder="Nama Benang"
               label="Nama Benang"
-              value.bind="data.name"
-              error.bind="error.name"
+              value.bind="data.Name"
+              error.bind="error.Name"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>

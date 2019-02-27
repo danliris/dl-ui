@@ -6,8 +6,8 @@ import { Router } from "aurelia-router";
 export class List {
   context = ["detail"];
   columns = [
-    { field: "code", title: "Kode Benang" },
-    { field: "name", title: "Nama Benang" }
+    { field: "Code", title: "Kode Benang" },
+    { field: "Name", title: "Nama Benang" }
   ];
 
   loader = info => {
@@ -39,7 +39,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
+        this.router.navigateToRoute("view", { Id: data.Id });
         break;
     }
   }

@@ -17,7 +17,7 @@ export class List {
         sortable: true
       },
       {
-        field: "dateOrdered",
+        field: "DateOrdered",
         title: "Tanggal SP",
         rowspan: "2",
         valign: "top",
@@ -27,29 +27,37 @@ export class List {
         sortable: true
       },
       {
-        field: "weavingUnit",
+        field: "WeavingUnit",
         title: "Unit",
         rowspan: "2",
         valign: "top",
         formatter: function(value, data, index) {
-          return value.name;
+          return value.Name;
         }
       },
       {
-        field: "constructionNumber",
+        field: "FabricConstructionDocument",
         title: "Konstruksi",
         rowspan: "2",
-        valign: "top"
+        valign: "top",
+        formatter: function(value, data, index) {
+          return value.ConstructionNumber;
+        }
       },
       {
-        title: "Blended (%)",
+        title: "Warp Blended (%)",
+        colspan: "3",
+        valign: "middle"
+      },
+      {
+        title: "Weft Blended (%)",
         colspan: "3",
         valign: "middle"
       }
     ],
     [
       {
-        field: "composition",
+        field: "WarpComposition",
         title: "Poly",
         valign: "middle",
         formatter: function(value, data, index) {
@@ -57,7 +65,7 @@ export class List {
         }
       },
       {
-        field: "composition",
+        field: "WarpComposition",
         title: "Cotton",
         valign: "middle",
         formatter: function(value, data, index) {
@@ -65,7 +73,31 @@ export class List {
         }
       },
       {
-        field: "composition",
+        field: "WarpComposition",
+        title: "Lainnya",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.otherComposition;
+        }
+      },
+      {
+        field: "WeftComposition",
+        title: "Poly",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.compositionOfPoly;
+        }
+      },
+      {
+        field: "WeftComposition",
+        title: "Cotton",
+        valign: "middle",
+        formatter: function(value, data, index) {
+          return value.compositionOfCotton;
+        }
+      },
+      {
+        field: "WeftComposition",
         title: "Lainnya",
         valign: "middle",
         formatter: function(value, data, index) {
@@ -80,7 +112,7 @@ export class List {
     if (info.sort) order[info.sort] = info.order;
 
     var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
+      page: parseInt(info.offset / info.limit, 10),
       size: info.limit,
       keyword: info.search,
       order: order
@@ -104,7 +136,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
+        this.router.navigateToRoute("view", { Id: data.Id });
         break;
     }
   }

@@ -12,8 +12,8 @@ export class Create {
   }
 
   async activate(params) {
-    var id = params.id;
-    this.data = await this.service.getById(id);
+    var Id = params.Id;
+    this.data = await this.service.getById(Id);
     this.constructionNumber = this.data.constructionNumber;
     this.warpTypeForm = this.data.warpTypeForm;
     this.weftTypeForm = this.data.weftTypeForm;
@@ -32,7 +32,7 @@ export class Create {
 
   //Tombol "Ubah", routing ke 'edit'
   editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data.id });
+    this.router.navigateToRoute("edit", { Id: this.data.Id });
   }
 
   //Tombol "Hapus", hapus this.data, redirect ke list

@@ -7,7 +7,9 @@ export class Edit {
   constructor(router, service) {
     this.router = router;
     this.service = service;
+    // this.data = {};
     this.error = {};
+    console.log("Edit Constructor : ", this.data);
   }
 
   async activate(params) {
@@ -20,37 +22,15 @@ export class Edit {
   }
 
   saveCallback(event) {
-    this.error = {};
-    var index = 0;
-    var emptyFieldName = "Semua Field Harus Diisi";
-
-    if (
-      this.data.code == null ||
-      this.data.code == undefined ||
-      this.data.code == ""
-    ) {
-      this.error.code = "Kode Material Tidak Boleh Kosong";
-      index++;
-    }
-    if (
-      this.data.name == null ||
-      this.data.name == undefined ||
-      this.data.name == ""
-    ) {
-      this.error.name = "Nama Material Tidak Boleh Kosong";
-      index++;
-    }
-    if (index > 0) {
-      window.alert(emptyFieldName);
-    } else {
-      this.service
-        .update(this.data)
-        .then(result => {
-          this.router.navigateToRoute("view", { Id: this.data.Id });
-        })
-        .catch(e => {
-          this.error = e;
-        });
-    }
+    console.log("Edit saveButton : ", this.data);
+    // debugger;
+    this.service
+      .update(this.data)
+      .then(result => {
+        this.router.navigateToRoute("view", { Id: this.data.Id });
+      })
+      .catch(e => {
+        this.error = e;
+      });
   }
 }

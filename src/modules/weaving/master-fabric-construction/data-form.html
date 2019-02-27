@@ -21,8 +21,8 @@
         <div class="col-md-10">
           <au-textbox
             placeholder="No. Konstruksi"
-            value.bind="constructionNumber"
-            error.bind="error.constructionNumber"
+            value.bind="ConstructionNumber"
+            error.bind="error.ConstructionNumber"
             read-only.bind="readOnlyAll"
           >
           </au-textbox>
@@ -37,43 +37,43 @@
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
             <au-autocomplete
               placeholder="Jenis Material"
-              value.bind="materialTypeDocument"
-              error.bind="error.materialTypeDocument"
+              value.bind="MaterialTypeDocument"
+              error.bind="error.MaterialTypeDocument"
               read-only.bind="readOnly"
               loader.one-time="materialTypeLoader"
-              text="name"
+              text="Name"
             >
             </au-autocomplete>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Jenis Anyaman"
-              value.bind="data.wovenType"
-              error.bind="error.wovenType"
+              value.bind="data.WovenType"
+              error.bind="error.WovenType"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Jumlah Lusi"
-              value.bind="data.amountOfWarp"
-              error.bind="error.amountOfWarp"
+              value.bind="data.AmountOfWarp"
+              error.bind="error.AmountOfWarp"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Jumlah Pakan"
-              value.bind="data.amountOfWeft"
-              error.bind="error.amountOfWeft"
+              value.bind="data.AmountOfWeft"
+              error.bind="error.AmountOfWeft"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox
               placeholder="Lebar"
-              value.bind="data.width"
-              error.bind="error.width"
+              value.bind="data.Width"
+              error.bind="error.Width"
               read-only.bind="readOnly"
             ></au-textbox>
           </div>
@@ -87,16 +87,16 @@
         <div class="col-md-2" style="padding-right: 4px;">
           <au-textbox
             placeholder="Jenis Lusi"
-            value.bind="warpTypeForm"
-            error.bind="error.warpTypeForm"
+            value.bind="WarpTypeForm"
+            error.bind="error.WarpTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
         </div>
         <div class="col-md-2" style="padding-left: 0px;">
           <au-textbox
             placeholder="Jenis Pakan"
-            value.bind="weftTypeForm"
-            error.bind="error.weftTypeForm"
+            value.bind="WeftTypeForm"
+            error.bind="error.WeftTypeForm"
             read-only.bind="readOnlyAll"
           ></au-textbox>
         </div>
@@ -109,8 +109,8 @@
         <div class="col-md-2">
           <au-textbox
             placeholder="Total Benang"
-            value.bind="totalYarn"
-            error.bind="error.totalYarn"
+            value.bind="TotalYarn"
+            error.bind="error.TotalYarn"
             read-only.bind="readOnlyAll"
           ></au-textbox>
         </div>

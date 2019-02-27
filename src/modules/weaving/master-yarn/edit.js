@@ -15,51 +15,22 @@ export class Edit {
   }
 
   async activate(params) {
-    var id = params.id;
-    this.data = await this.service.getById(id);
+    var Id = params.Id;
+    this.data = await this.service.getById(Id);
   }
 
   cancelCallback(event) {
-    this.router.navigateToRoute("view", { id: this.data.id });
+    this.router.navigateToRoute("view", { Id: this.data.Id });
   }
 
   saveCallback(event) {
-    this.error = {};
-    var index = 0;
-    var emptyFieldName = "Semua Field Harus Diisi";
-
-    if (this.optionalName) {
-      this.data.name = this.data.name + " " + this.optionalName;
-    } else {
-      this.data.name = this.data.name;
-    }
-
-    if (
-      this.data.materialTypeDocument == null ||
-      this.data.materialTypeDocument == undefined
-    ) {
-      this.error.materialTypeDocument = "Kode Material Tidak Boleh Kosong";
-      index++;
-    }
-    if (this.data.ringDocument == null || this.data.ringDocument == undefined) {
-      this.error.ringDocument = "Kode Ring Tidak Boleh Kosong";
-      index++;
-    }
-    if (this.data.code == null || this.data.code == undefined) {
-      this.error.code = "Kode Benang Tidak Boleh Kosong";
-      index++;
-    }
-    if (index > 0) {
-      window.alert(emptyFieldName);
-    } else {
-      this.service
-        .update(this.data)
-        .then(result => {
-          this.router.navigateToRoute("view", { id: this.data.id });
-        })
-        .catch(e => {
-          this.error = e;
-        });
-    }
+    this.service
+      .update(this.data)
+      .then(result => {
+        this.router.navigateToRoute("view", { Id: this.data.Id });
+      })
+      .catch(e => {
+        this.error = e;
+      });
   }
 }

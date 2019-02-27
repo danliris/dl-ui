@@ -7,8 +7,8 @@ export class List {
   context = ["detail"];
   columns = [
     // { field: "coreSupplierId", title: "Id Supplier" },
-    { field: "code", title: "Kode Asal Benang" },
-    { field: "name", title: "Nama Asal Benang" }
+    { field: "Code", title: "Kode Asal Benang" },
+    { field: "Name", title: "Nama Asal Benang" }
   ];
 
   loader = info => {
@@ -40,7 +40,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
+        this.router.navigateToRoute("view", { Id: data.Id });
         break;
     }
   }

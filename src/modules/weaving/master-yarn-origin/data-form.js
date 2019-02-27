@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 
-var SupplierLoader = require("../../../loader/supplier-loader");
+var SupplierLoader = require("../../../loader/weaving-supplier-loader");
 
 export class DataForm {
   @bindable title;
@@ -21,9 +21,9 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    if (this.data.id) {
-      this.supplier = this.data.name;
-    }
+    // if (this.data.Id) {
+    //   this.supplier = this.data.name;
+    // }
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -32,9 +32,9 @@ export class DataForm {
   }
 
   supplierChanged(newValue) {
-    if (newValue._id) {
-      this.data.name = newValue.name;
-      this.data.coreSupplierId = newValue._id;
+    if (newValue.Id) {
+      this.data.Name = newValue.Name;
+      this.data.CoreSupplierId = newValue.Id;
     }
   }
 

@@ -17,16 +17,13 @@ export class Items {
     this.error = context.error;
 
     if(this.data.Code){
-      console.log(this.data);
-      var newValue = this.data;
-      this.Code = newValue.Code;
-      this.data.Number = newValue.Number;
-      this.data.RingType = newValue.RingType;
+      console.log("onItemsCollections Context : ", this.data);
+      // var newValue = this.data;
+      this.Code = this.data;
     }
 
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
-    console.log(this.data);
   }
 
   get rings() {
@@ -34,11 +31,9 @@ export class Items {
   }
 
   CodeChanged(newValue) {
-    if (newValue.Code) {
-      console.log(newValue);
-      this.data.Code = newValue.Code ? newValue.Code : "";
-      this.data.Number = newValue.Number ? newValue.Number : "";
-      this.data.RingType = newValue.RingType ? newValue.RingType : "";
+    if (newValue) {
+      console.log("onItemsCollections CodeChanged : ", newValue);
+      this.data = newValue;
     }
   }
   // Change on Kode Pakan, affected when Benang Pakan change

@@ -32,7 +32,7 @@ export class ItemsWarp {
     }
     // console.log("Warp : ", this.data);
 
-    if (this.data.id) {
+    if (this.data.Id) {
       this.data.Select = true;
     }
     this.options = context.context.options;

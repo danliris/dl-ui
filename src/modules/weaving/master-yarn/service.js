@@ -14,8 +14,8 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getById(id) {
-    var endpoint = `${serviceUri}/${id}`;
+  getById(Id) {
+    var endpoint = `${serviceUri}/${Id}`;
     return super.get(endpoint);
   }
 
@@ -26,12 +26,12 @@ export class Service extends RestService {
   }
 
   update(data) {
-    var endpoint = `${serviceUri}/${data.id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
 
   delete(data) {
-    var endpoint = `${serviceUri}/${data.id}`;
+    var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
   }
 

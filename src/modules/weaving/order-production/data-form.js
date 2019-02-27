@@ -8,7 +8,7 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable constructionNumber;
-  @bindable month;
+  @bindable Month;
 
   yearFormat = "YYYY";
   years = [];
@@ -73,14 +73,14 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    this.month = this.months[this.getMonth()];
+    this.Month = this.months[this.getMonth()];
     this.getYears();
 
-    if (this.data.id) {
-      this.month = this.data.period.month;
+    if (this.data.Id) {
+      this.Month = this.data.Period.Month;
     } else {
-      this.data.period = {};
-      this.data.period.month = this.month;
+      this.data.Period = {};
+      this.data.Period.Month = this.Month;
     }
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -109,7 +109,7 @@ export class DataForm {
       this.data.fabricConstructionDocument = {};
 
       if (newValue) {
-        this.data.fabricConstructionDocument.id = newValue.id;
+        this.data.fabricConstructionDocument.Id = newValue.Id;
         this.data.fabricConstructionDocument.constructionNumber =
           newValue.constructionNumber;
       }
@@ -117,7 +117,7 @@ export class DataForm {
   }
 
   monthChanged(newValue) {
-    this.data.period.month = newValue;
+    this.data.Period.Month = newValue;
     this.getYears();
   }
 
