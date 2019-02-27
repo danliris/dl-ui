@@ -27,6 +27,7 @@ export class Item {
         this.processType = context.context.options.ProcessType;
         this.CountConfig = context.context.options.CountConfig;
         this.MachineSpinnings = context.context.options.MachineSpinnings;
+        this.isEdit = this.context.context.options.isEdit;
 
 
         if (this.data.Output) {
