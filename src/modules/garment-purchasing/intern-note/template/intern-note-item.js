@@ -41,8 +41,8 @@ export class InternNoteItem {
 		}
 
 		this.filter={};
-		if (this.options.supplierCode && this.options.currencyCode) {
-			this.filter= { "HasInternNote": false, "SupplierCode": this.options.supplierCode, "IsDeleted": false, "currencyCode": this.options.currencyCode};
+		if (this.options.supplierId && this.options.currencyCode) {
+			this.filter= { "HasInternNote": false, "supplierId": this.options.supplierId, "IsDeleted": false, "currencyCode": this.options.currencyCode};
 		}
 		for(var inv of this.context.context.items){
 			if(inv.data.garmentInvoice)
