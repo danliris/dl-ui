@@ -23,7 +23,7 @@ export class Edit {
 
   saveCallback(event) {
     console.log("Edit saveButton : ", this.data);
-    // debugger;
+    debugger;
     this.service
       .update(this.data)
       .then(result => {

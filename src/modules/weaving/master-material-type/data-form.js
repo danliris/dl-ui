@@ -16,8 +16,8 @@ export class DataForm {
   constructor() {}
 
   ringDocumentsColumns = [
-    { header: "Kode Nomor Benang", value: "code" },
-    { header: "Nomor Benang", value: "number" }
+    { header: "Kode Nomor Benang", value: "Code" },
+    { header: "Nomor Benang", value: "Number" }
   ];
 
   bind(context) {
@@ -27,13 +27,14 @@ export class DataForm {
 
     // console.log(this.data);
     // this.RingDocuments = this.data.RingDocuments;
-    if (this.data.id) {
+    if (this.data.Id) {
       // this.RingDocuments = this.data.RingDocuments;
-      console.log(this.RingDocuments);
+      console.log(this.data.RingDocuments);
       this.ringDocumentsOptions = {};
       this.ringDocumentsOptions.Code = "";
       this.ringDocumentsOptions.Number = "";
-      this.ringDocumentsOptions.RingType = "";
+      // this.ringDocumentsOptions.RingType = "";
+      // this.context.RingDocuments.bind(this);
     }
 
     this.cancelCallback = this.context.cancelCallback;

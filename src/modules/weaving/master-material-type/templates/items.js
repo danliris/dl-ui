@@ -20,6 +20,7 @@ export class Items {
       console.log("onItemsCollections Context : ", this.data);
       // var newValue = this.data;
       this.Code = this.data;
+      // this.data.Number = this.data.Number;
     }
 
     this.options = context.context.options;
@@ -33,7 +34,9 @@ export class Items {
   CodeChanged(newValue) {
     if (newValue) {
       console.log("onItemsCollections CodeChanged : ", newValue);
-      this.data = newValue;
+      // this.data = newValue;
+      this.data.Code = newValue.Code;
+      this.data.Number = newValue.Number;
     }
   }
   // Change on Kode Pakan, affected when Benang Pakan change
