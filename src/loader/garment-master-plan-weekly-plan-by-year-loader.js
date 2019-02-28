@@ -1,15 +1,21 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'weekly-plans-by-year';
+const resource = 'garment-master-plan/weekly-plans';
 
 module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("garment-master-plan");
+    var endpoint = config.getEndpoint("sales");
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
-            return results.data;
+            var weeks=[];
+            if(results.data.length>0){
+                for(var a of results.data[0].Items){
+                    weeks.push(a);
+                }
+            }
+            return weeks;
         });
 }
