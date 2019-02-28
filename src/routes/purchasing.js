@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1},
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C5": 1, "C9": 1, "B1": 1, "B4": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -112,7 +112,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1},
+            permission: { "P1": 7, "P3": 7, "P4": 7, "P6": 7, "P7": 7, "PI": 7, "PG": 7, "PK": 7, "C9": 1, "B1": 1, "B4": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -138,7 +138,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -151,7 +151,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -164,7 +164,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -177,7 +177,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -268,7 +268,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -294,7 +294,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -314,13 +314,13 @@ module.exports = [
     {
         route: 'correction-quantity',
         name: 'unit-payment-quantity-koreksi',
-        moduleId: './modules/purchasing/monitoring-correction-quantity/index',
+        moduleId: './modules/purchasing/koreksi-jumlah/index',
         nav: true,
         title: 'Monitoring Koreksi Jumlah',
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1},
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1, "B1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -333,7 +333,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            //permission: {"C9" : 1 },
+            permission: {"C9" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -398,7 +398,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1,"W1": 1, "W2": 1 },
+            permission: {"P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1,"W1": 1, "W2": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

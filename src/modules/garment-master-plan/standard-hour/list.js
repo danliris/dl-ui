@@ -15,9 +15,9 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "MinuteCutting", title: "SMV Cutting" },
-        { field: "MinuteSewing", title: "SMV Sewing" },
-        { field: "MinuteFinishing", title: "SMV Finishing" },
+        { field: "SMVCutting", title: "SMV Cutting" },
+        { field: "SMVSewing", title: "SMV Sewing" },
+        { field: "SMVFinishing", title: "SMV Finishing" },
     ];
 
     loader = (info) => {

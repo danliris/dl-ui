@@ -4,7 +4,7 @@
     <h1 class="page-header">Monitoring Canceled Booking Order</h1>
     <form class="form-horizontal">
         <au-autocomplete 
-            value.bind="code" 
+            value.bind="no" 
             label="Kode Booking" 
             loader.bind="bookingOrderLoader"
             text.bind = "bookingOrderView"
@@ -13,7 +13,7 @@
             options.bind="controlOptions">
         </au-autocomplete>
         <au-autocomplete 
-            value.bind="buyer" 
+            value.bind="buyerCode" 
             label="Buyer" 
             loader.bind="buyerLoader"
             text.bind = "buyerView"
@@ -22,7 +22,7 @@
             options.bind="controlOptions">
         </au-autocomplete>
         <au-dropdown label="Status Cancel" 
-            value.bind="cancelState"
+            value.bind="statusCancel"
             items.bind="cancelStateOption" 
             read-only.bind="readOnly" 
             change.delegate="cancelStateChanged($event)">
@@ -68,20 +68,20 @@
             <tbody>
              
                 <tr repeat.for="item of data">
-                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.code}</td>
-                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.bookingDate}</td>
-                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.buyer}</td>
-                        <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.totalOrderBeginning}</td>
-                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.totalOrderEnd}</td>
-                        <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.deliveryDateBooking}</td>
-                        <td class="text-left">${item.comodity}</td>
-                        <td class="text-right">${item.orderQty}</td>
-                        <td class="text-left">${item.cancelConfirmDate}</td>
-                        <td class="text-left">${item.deliveryDateConfirm}</td>
-                        <td class="text-left">${item.remark}</td>
-                        <td class="text-left">${item.cancelItemsDate}</td>
-                        <td class="text-left">${item.canceledQuantity}</td>
-                        <td class="text-right">${item.cancelState}</td>
+                        <td>${item.BookingOrderNo}</td>
+                        <td>${item.BookingOrderDate}</td>
+                        <td>${item.BuyerName}</td>
+                        <td>${item.EarlyBooking}</td>
+                        <td>${item.OrderQuantity}</td>
+                        <td>${item.DeliveryDate}</td>
+                        <td>${item.ComodityName}</td>
+                        <td>${item.ConfirmQuantity}</td>
+                        <td>${item.ConfirmDate}</td>
+                        <td>${item.DeliveryDateItem}</td>
+                        <td>${item.Remark}</td>
+                        <td>${item.CanceledDate}</td>
+                        <td>${item.CanceledQuantity}</td>
+                        <td>${item.CancelStatus}</td>
                 </tr>
             </tbody>
         </table>

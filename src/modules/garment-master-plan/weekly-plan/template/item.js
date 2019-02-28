@@ -18,7 +18,7 @@ export class Item {
   };
  
   get dataAhTotal() {
-    this.data.AHTotal = this.data.Operator * this.data.WorkingHours;
+    this.data.AHTotal = parseFloat((this.data.Operator * this.data.WorkingHours).toFixed(2));
     return this.data.AHTotal;
   }
 

@@ -1,10 +1,9 @@
-
 <template>
   
         <h1 class="page-header">Monitoring Booking Order</h1>
         <form class="form-horizontal">
             <au-autocomplete 
-                value.bind="section.code" 
+                value.bind="section" 
                 label="Seksi" 
                 loader.bind="sectionLoader"
                 text.bind = "sectionView"
@@ -13,7 +12,7 @@
                 options.bind="controlOptions">
             </au-autocomplete>
             <au-autocomplete 
-                value.bind="code" 
+                value.bind="BookingOrderNo" 
                 label="Kode Booking" 
                 loader.bind="bookingOrderLoader"
                 text.bind = "bookingOrderView"
@@ -93,20 +92,20 @@
                 <tbody>
                  
                     <tr repeat.for="item of data">
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.code}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.bookingDate}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.buyer}</td>
-                            <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.totalOrderQty}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.deliveryDateBooking}</td>
-                            <td class="text-left">${item.comodity}</td>
-                            <td class="text-right">${item.orderQty}</td>
-                            <td class="text-left">${item.deliveryDateConfirm}</td>
-                            <td class="text-left">${item.confirmDate}</td>
-                            <td class="text-left">${item.remark}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.confirmState}</td>
-                            <td class="text-left" if.bind="item.code!=null" rowspan="${item.row_count}">${item.bookingOrderState}</td>
-                            <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.remaining}</td>
-                            <td class="text-right" if.bind="item.code!=null" rowspan="${item.row_count}">${item.diffDeliveryDateBooking}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderNo}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderDate}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BuyerName}</td>
+                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.OrderQuantity}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.DeliveryDate}</td>
+                            <td class="text-left">${item.ComodityName}</td>
+                            <td class="text-right">${item.ConfirmQuantity}</td>
+                            <td class="text-left">${item.DeliveryDateItems}</td>
+                            <td class="text-left">${item.ConfirmDate}</td>
+                            <td class="text-left">${item.Remark}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.confirmState}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.bookingOrderState}</td>
+                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.remaining}</td>
+                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.diffDeliveryDateBooking}</td>
                     </tr>
                 </tbody>
             </table>
