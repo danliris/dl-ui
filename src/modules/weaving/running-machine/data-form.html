@@ -1,0 +1,109 @@
+<template
+  ><au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+  >
+    <div class="col-md-12">
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Periode" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-datepicker
+            value.bind="data.runningMachineDateOrdered"
+            error.bind="error.runningMachineDateOrdered"
+            read-only.bind="readOnly"
+          ></au-datepicker>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Unit" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-autocomplete
+            value.bind="data.weavingUnit"
+            error.bind="error.weavingUnit"
+            read-only.bind="readOnly"
+            loader.bind="units"
+          ></au-autocomplete>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Shift" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-autocomplete
+            value.bind="data.shift"
+            error.bind="error.shift"
+            read-only.bind="readOnly"
+          ></au-autocomplete>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="No. Mesin" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-autocomplete
+            value.bind="data.runningMachineNumber"
+            error.bind="error.runningMachineNumber"
+            read-only.bind="readOnly"
+          ></au-autocomplete>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox
+            label="No. Surat Perintah Produksi"
+            read-only="true"
+          ></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-autocomplete
+            value.bind="data.orderProductionNumber"
+            error.bind="error.orderProductionNumber"
+            read-only.bind="readOnly"
+          ></au-autocomplete>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="No. Konstruksi" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-autocomplete
+            value.bind="data.fabricConstructionNumber"
+            error.bind="error.fabricConstructionNumber"
+            read-only.bind="readOnly"
+          ></au-autocomplete>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Asal Lusi" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-autocomplete
+            value.bind="data.warpOrigin"
+            error.bind="error.warpOrigin"
+            read-only.bind="true"
+          ></au-autocomplete>
+        </div>
+      <!-- </div>
+      <div class="row" style="white-space: nowrap;"> -->
+        <div class="col-md-2">
+          <textbox label="Asal Pakan" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-autocomplete
+            value.bind="data.weftOrigin"
+            error.bind="error.weftOrigin"
+            read-only.bind="true"
+          ></au-autocomplete>
+        </div>
+      </div></div
+  ></au-input-form>
+</template>
