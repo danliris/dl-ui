@@ -8,25 +8,24 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "runningMachineOrderDate", title: "Tanggal/ Jam" },
-    { field: "weavingUnit", title: "Unit Weaving" },
     { field: "runningMachineNumber", title: "No. Mesin" },
-    { field: "orderProductionNumber", title: "No. Surat Perintah Produksi" },
-    { field: "constructionNumber", title: "No. Konstruksi" },
-    { field: "warpOrigin", title: "Asal Lusi" },
-    { field: "weftorigin", title: "Asal Pakan" }
+    { field: "area", title: "Area" },
+    { field: "block", title: "Blok" },
+    { field: "kaizenBlock", title: "Blok Kaizen" },
+    { field: "maintenance", title: "Maintenance" },
+    { field: "operator", title: "Operator" }
   ];
 
   loader = info => {
-      var order = {};
-      if (info.sort) order[info.sort] = info.order;
+    var order = {};
+    if (info.sort) order[info.sort] = info.order;
 
-      var arg = {
-        page: parseInt(info.offset / info.limit, 10),
-        size: info.limit,
-        keyword: info.search,
-        order: order
-      };
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10),
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    };
 
     //   return this.service.search(arg).then(result => {
     //     return {
@@ -44,13 +43,12 @@ export class List {
       data: [
         {
           Id: 1,
-          runningMachineOrderDate: "02/02/2019",
-          weavingUnit: "Weaving1",
-          runningMachineNumber: "000001",
-          orderProductionNumber: "002/02-2019",
-          constructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-          warpOrigin: "A",
-          weftorigin: "C"
+          runningMachineNumber: "1/2",
+          area: "Area 1",
+          block: "Blok 2",
+          kaizenBlock: "Blok 4",
+          maintenance: "ABC",
+          operator: "DEF"
         }
       ]
     };

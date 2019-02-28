@@ -16,14 +16,14 @@ export class Index {
           title: "Create: Mesin Jalan"
         },
         {
-          route: "view/:id",
+          route: "view/:Id",
           moduleId: "./view",
           name: "view",
           nav: false,
           title: "View: Mesin Jalan"
         },
         {
-          route: "edit/:id",
+          route: "edit/:Id",
           moduleId: "./edit",
           name: "edit",
           nav: false,

@@ -159,7 +159,7 @@ export class DataForm {
           //Print each datum on orderProductions Data and push to Items Collections
           result.data.forEach((datum, i, data) => {
             // this.data.estimationProducts;
-            if (this.data.estimationProducts.find(esp => esp.id == datum.id)) {
+            if (this.data.estimationProducts.find(esp => esp.Id == datum.Id)) {
               // continue;
             } else {
               this.data.estimationProducts.push(datum);

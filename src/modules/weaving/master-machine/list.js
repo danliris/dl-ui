@@ -8,7 +8,7 @@ export class List {
   columns = [
     { field: "weavingUnit", title: "Unit Weaving" },
     { field: "machineNumber", title: "No. Mesin" },
-    { field: "machineType", title: "Tipe Mesin" },
+    { field: "machineType", title: "Jenis Mesin" },
     { field: "rpm", title: "RPM" },
     { field: "unit", title: "Satuan" },
     { field: "location", title: "Lokasi" }
@@ -49,7 +49,7 @@ export class List {
       // data: result.data
       data: [
         {
-          id: 1,
+          Id: 1,
           weavingUnit: "Weaving1",
           machineNumber: "000001",
           machineType: "Tsudakoma",
@@ -71,7 +71,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
+        this.router.navigateToRoute("view", { Id: data.Id });
         break;
     }
   }

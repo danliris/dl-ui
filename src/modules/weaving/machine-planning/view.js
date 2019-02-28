@@ -16,14 +16,14 @@ export class View {
     // this.data = await this.service.getById(Id);
     this.data = {
       Id: 1,
-      runningMachineOrderDate: "02/02/2019",
       weavingUnit: "Weaving1",
-      shift: "Shift 1",
-      runningMachineNumber: "000001",
-      orderProductionNumber: "002/02-2019",
-      fabricConstructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-      warpOrigin: "A",
-      weftOrigin: "C"
+      location: "Selatan",
+      runningMachineNumber: "1/2",
+      area: "Area 1",
+      block: "Blok 2",
+      kaizenBlock: "Blok 4",
+      maintenance: "ABC",
+      operator: "DEF"
     };
   }
 

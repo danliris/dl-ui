@@ -15,8 +15,8 @@ export class View {
   }
 
   async activate(params) {
-    var id = params.id;
-    this.data = await this.service.getById(id);
+    var Id = params.Id;
+    this.data = await this.service.getById(Id);
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan
@@ -31,7 +31,7 @@ export class View {
 
   //Tombol "Ubah", routing ke 'edit'
   editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data.id });
+    this.router.navigateToRoute("edit", { Id: this.data.Id });
   }
 
   //Tombol "Hapus", hapus this.data, redirect ke list

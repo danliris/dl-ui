@@ -10,18 +10,16 @@ export class Edit {
   }
 
   async activate(params) {
-    // var id = params.id;
-    // this.data = await this.service.getById(id);
+    // var Id = params.Id;
+    // this.data = await this.service.getById(Id);
     this.data = {
-      id: 1,
-      unit: "Weaving1",
+      Id: 1,
+      weavingUnit: "Weaving1",
       machineNumber: "000001",
       machineType: "Type C",
       rpm: 50000,
-      location: "Place A",
-      block: "a",
-      maintenance: "maintenance",
-      operator: "operator"
+      unit: "Cmpx",
+      location: "Place A"
     };
 
     // this.data.currency.toString = function() {
@@ -29,14 +27,14 @@ export class Edit {
   }
 
   cancelCallback(event) {
-    this.router.navigateToRoute("view", { id: this.data.id });
+    this.router.navigateToRoute("view", { Id: this.data.Id });
   }
 
   saveCallback(event) {
     this.service
       .update(this.data)
       .then(result => {
-        this.router.navigateToRoute("view", { id: this.data.id });
+        this.router.navigateToRoute("view", { Id: this.data.Id });
       })
       .catch(e => {
         this.error = e;

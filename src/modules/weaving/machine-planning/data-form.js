@@ -15,35 +15,35 @@ export class DataForm {
 
   constructor() {}
 
-  historyColumns = [
-    { header: "No. Beam", value: "beamNumber" },
-    { header: "Time Stop", value: "timeStop" },
-    { header: "Time Start", value: "timeStart" },
-    { header: "Keterangan", value: "description" }
-  ];
+  //   historyColumns = [
+  //     { header: "No. Beam", value: "beamNumber" },
+  //     { header: "Time Stop", value: "timeStop" },
+  //     { header: "Time Start", value: "timeStart" },
+  //     { header: "Keterangan", value: "description" }
+  //   ];
 
   // @computedFrom("data.id")
   // get isEdit() {
   //   return (this.data.id || "").toString() != "";
   // }
 
-  get units() {
-    return UnitLoader;
-  }
+  //   get units() {
+  //     return UnitLoader;
+  //   }
 
   bind(context) {
     this.context = context;
     // this.data = this.context.data;
     this.data = {
       Id: 1,
-      runningMachineOrderDate: "02/02/2019",
       weavingUnit: "Weaving1",
-      shift: "Shift 1",
-      runningMachineNumber: "000001",
-      orderProductionNumber: "002/02-2019",
-      fabricConstructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-      warpOrigin: "A",
-      weftOrigin: "C"
+      location: "Selatan",
+      runningMachineNumber: "1/2",
+      area: "Area 1",
+      block: "Blok 2",
+      kaizenBlock: "Blok 4",
+      maintenance: "ABC",
+      operator: "DEF"
     };
     this.error = this.context.error;
 
@@ -53,10 +53,10 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  //Triggered when "+" on Items Collections Clicked
-  get addHistory() {
-    return event => {
-      this.data.Items.push({});
-    };
-  }
+  //   //Triggered when "+" on Items Collections Clicked
+  //   get addHistory() {
+  //     return event => {
+  //       this.data.Items.push({});
+  //     };
+  //   }
 }

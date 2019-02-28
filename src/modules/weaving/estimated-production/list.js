@@ -16,6 +16,20 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     }
+    // {
+    //   field: "EstimationProducts",
+    //   title: "No. Estimasi Produksi",
+    //   formatter: function(value, data, index) {
+    //     return value.OrderNumber;
+    //   }
+    // },
+    // {
+    //   field: "EstimationProducts",
+    //   title: "Tanggal Estimasi Produksi",
+    //   formatter: function(value, data, index) {
+    //     return value.DateOrdered;
+    //   }
+    // }
   ];
 
   loader = info => {
@@ -51,7 +65,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
+        this.router.navigateToRoute("view", { Id: data.Id });
         break;
     }
   }

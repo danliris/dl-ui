@@ -15,12 +15,12 @@ export class Edit {
   }
 
   async activate(params) {
-    var id = params.id;
-    this.data = await this.service.getById(id);
+    var Id = params.Id;
+    this.data = await this.service.getById(Id);
   }
 
   cancelCallback(event) {
-    this.router.navigateToRoute("view", { id: this.data.id });
+    this.router.navigateToRoute("view", { Id: this.data.Id });
   }
 
   saveCallback(event) {
@@ -77,7 +77,7 @@ export class Edit {
         this.service
           .update(this.data)
           .then(result => {
-            this.router.navigateToRoute("view", { id: this.data.id });
+            this.router.navigateToRoute("view", { Id: this.data.Id });
           })
           .catch(e => {
             this.error = e;
