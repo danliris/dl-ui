@@ -7,6 +7,8 @@ const SupplierLoader = require('../../../../loader/supplier-loader');
 const DivisionLoader = require('../../../../loader/division-loader');
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 const DispositionLoader = require('../../../../loader/purchase-dispositions-all-loader');
+var AccountLoader = require('../../../../loader/account-loader');
+
 @inject(Service, PurchasingService)
 export class List {
     columns = [
@@ -142,6 +144,9 @@ export class List {
             filter.Position = this.Position.value;
         }
 
+        if (this.staffName) {
+            filter.CreatedBy = this.staffName.username;
+        }
             
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
@@ -224,4 +229,13 @@ export class List {
     get dispositionLoader(){
         return DispositionLoader;
     }
+
+    get accountLoader() {
+        return AccountLoader;
+    }
+
+    stafView= (staff) => {
+      return `${staff.username}`
+  }
+
 }

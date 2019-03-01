@@ -30,6 +30,15 @@
             text="text">
         </au-dropdown>
 
+        <au-autocomplete value.bind="staffName" 
+            label="Nama Staff Pembelian" 
+            loader.bind="accountLoader" 
+            options.bind="controlOptions"
+            placeholder="nama staff pembelian"
+            key="username"
+            text.bind="stafView">
+        </au-autocomplete>
+
         <au-datepicker
             value.bind="dateFrom"
             label="Tanggal Awal"
