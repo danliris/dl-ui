@@ -50,19 +50,12 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        if(this.data.UnitDOType)
-        {
-            this.unitDOType = this.data.UnitDOType;
-        }
-        else {
-            this.unitDOType = this.typeUnitDeliveryOrderOptions[0];
-        }
 
         this.options = {
             readOnly : this.readOnly,
         };
         if (this.data && this.data.Items) {
-            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+            this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
         }
     }
 
@@ -102,7 +95,7 @@ export class DataForm {
         return rONoFilter;
     }
 
-    @computedFrom("data.UnitSender", "data.UnitDOType", "data.RONo")
+    @computedFrom("data.UnitSender", "data.UnitDOType", "data.RONo", "data.Storage")
     get filterRONoAddProductByUnit() {
         var rONoFilter = {}
         if (this.data.UnitSender  && this.data.Storage) {
@@ -176,6 +169,9 @@ export class DataForm {
             this.context.unitRequestViewModel.editorValue = "";
         }
         this.storageRequest = null;
+        if(this.context.storageRequestViewModel && this.context.storageRequestViewModel.editorValue) {
+            this.context.storageRequestViewModel.editorValue = "";
+        }
         this.storage = null;
         this.RONoHeader = null;
         this.RONo = null;
@@ -195,6 +191,7 @@ export class DataForm {
             this.context.unitSenderViewModel.editorValue = "";
         }
         this.storage = null;
+        this.context.storageViewModel.editorValue = "";
         this.RONoHeader = null;
         this.RONo = null;
         this.data.Items = [];
@@ -276,7 +273,8 @@ export class DataForm {
                 Items.UomUnit = item.SmallUomUnit;
                 Items.PricePerDealUnit = item.PricePerDealUnit;
                 Items.DesignColor = item.DesignColor;
-                Items.Quantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                Items.DefaultDOQuantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                Items.Quantity = Items.DefaultDOQuantity;
                 Items.IsSave = Items.Quantity > 0;
                 Items.IsDisabled = !(Items.Quantity > 0);
 
@@ -287,10 +285,10 @@ export class DataForm {
         this.context.error.Items = [];
         this.context.error = [];
         this.RONoHeader = null;
+        this.context.RONoHeaderViewModel.editorValue = "";
     }
 
     RONoHeaderChanged(newValue) {
-        console.log(newValue);
         var selectedROHeader = newValue;
         this.newProduct = {};
         if (selectedROHeader == null) {
@@ -316,9 +314,10 @@ export class DataForm {
             this.newProduct.UomUnit = selectedROHeader.SmallUomUnit;
             this.newProduct.PricePerDealUnit = selectedROHeader.PricePerDealUnit;
             this.newProduct.DesignColor = selectedROHeader.DesignColor;
-            this.newProduct.Quantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
-            this.newProduct.IsSave = selectedROHeader.Quantity > 0;
-            this.newProduct.IsDisabled = (selectedROHeader.Quantity = 0);
+            this.newProduct.DefaultDOQuantity = (selectedROHeader.SmallQuantity - selectedROHeader.OrderQuantity);
+            this.newProduct.Quantity = this.newProduct.DefaultDOQuantity;
+            this.newProduct.IsSave = this.newProduct.Quantity > 0;
+            this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
         }
         // this.context.error.Items = [];
         // this.context.error = [];
@@ -350,13 +349,13 @@ export class DataForm {
 
     async searchRONo() {
         this.data.Items = this.dataItems;
-        this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+        this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
     }
 
     async addProduct() {
         if (this.newProduct && this.newProduct.ProductId) {
             this.data.Items.push(this.newProduct);
-            this.options.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
+            this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
             this.context.ItemsCollection.bind();
             this.newProduct = {};
             this.RONoHeader = null;

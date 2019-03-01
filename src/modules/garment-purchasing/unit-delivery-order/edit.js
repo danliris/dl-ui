@@ -51,6 +51,11 @@ export class Edit {
                     item.IsDisabled = false;
                 }
             }
+
+            if(this.data.UnitDOType)
+            {
+                this.unitDOType = this.data.UnitDOType;
+            }
         }
     }
 
