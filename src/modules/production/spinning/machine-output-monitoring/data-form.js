@@ -8,6 +8,9 @@ var UnitLoader = require('../../../../loader/unit-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
+    @bindable isCreate = false;
+    @bindable isEdit = false;
+    @bindable isView = false;
     @bindable title;
     @bindable readOnly;
     @bindable processType;
@@ -39,6 +42,11 @@ export class DataForm {
         "Winder"
     ];
 
+    get filters() {
+        var filters = {
+            isEdit:this.context.isEdit,
+        }
+
     shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
     detailOptions = {};
     itemsColumnsHeader = [];
@@ -53,6 +61,7 @@ export class DataForm {
             length: 4,
         },
     };
+
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     constructor(service, coreService) {

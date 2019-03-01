@@ -26,6 +26,10 @@
                 options.bind="controlOptions"></au-textbox>
 
         </td>
+        <td class="alert alert-warning" show.bind="data.ExistedItem==true && isEdit">
+            <au-numeric  value.bind="output" error.bind="error.Output" read-only.bind="options.readOnly" options.bind="controlOptions">
+            </au-numeric>
+        </td>
         <td>
             <au-numeric  value.bind="output" error.bind="error.Output" read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
