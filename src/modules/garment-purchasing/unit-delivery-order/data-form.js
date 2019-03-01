@@ -50,13 +50,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        if(this.data.UnitDOType)
-        {
-            this.unitDOType = this.data.UnitDOType;
-        }
-        else {
-            this.unitDOType = this.typeUnitDeliveryOrderOptions[0];
-        }
 
         this.options = {
             readOnly : this.readOnly,
@@ -290,7 +283,6 @@ export class DataForm {
     }
 
     RONoHeaderChanged(newValue) {
-        console.log(newValue);
         var selectedROHeader = newValue;
         this.newProduct = {};
         if (selectedROHeader == null) {
