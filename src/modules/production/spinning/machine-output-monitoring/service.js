@@ -71,8 +71,8 @@ export class CoreService extends RestService {
         return super.list(endpoint);
     }
 
-    searchMachineSpinning(info) {
-        var endpoint = `${machineServiceUri}/spinning-filtered`;
-        return super.list(endpoint, info);
+    searchMachineSpinning(unitId, type) {
+        var endpoint = `${machineServiceUri}/spinning-filtered?unitId=${unitId}&type=${type}`;
+        return super.get(endpoint);
     }
 }

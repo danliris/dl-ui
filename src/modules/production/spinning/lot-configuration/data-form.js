@@ -67,9 +67,9 @@ export class DataForm {
         }
         if (this.data.YarnType && this.data.YarnType.Id) {
             this.yarn = {};
-            this.yarn.id = this.data.YarnType.Id;
-            this.yarn.name = this.data.YarnType.Name;
-            this.yarn.code = this.data.YarnType.Code;
+            this.yarn.Id = this.data.YarnType.Id;
+            this.yarn.Name = this.data.YarnType.Name;
+            this.yarn.Code = this.data.YarnType.Code;
         }
 
 

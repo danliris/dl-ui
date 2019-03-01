@@ -6,7 +6,7 @@ var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-azure-loader');
 
-@inject(Service, CoreService, BindingEngine)
+@inject(Service, CoreService)
 export class DataForm {
     @bindable isCreate = false;
     @bindable isEdit = false;
@@ -65,10 +65,10 @@ export class DataForm {
     };
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
-    constructor(service, coreService, bindingEngine) {
+    constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
-        this.bindingEngine = bindingEngine
+        // this.bindingEngine = bindingEngine
     }
 
     bind(context) {
@@ -100,9 +100,9 @@ export class DataForm {
 
         if (this.data.MaterialType && this.data.MaterialType.Id) {
             this.materialType = {};
-            this.materialType.id = this.data.MaterialType.Id;
-            this.materialType.name = this.data.MaterialType.Name;
-            this.materialType.code = this.data.MaterialType.Code;
+            this.materialType.Id = this.data.MaterialType.Id;
+            this.materialType.Name = this.data.MaterialType.Name;
+            this.materialType.Code = this.data.MaterialType.Code;
         }
 
         if (this.data.Date) {
@@ -153,7 +153,7 @@ export class DataForm {
             this.filter.Type = this.data.ProcessType;
             this.filter.UnitId = this.data.UnitDepartmentId.toString();
             this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-            this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+            this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
                 .then(async results => {
                     let existedItem = {};
                     this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
@@ -163,7 +163,7 @@ export class DataForm {
                     }
                     else {
                         // if(this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != ""){
-                        //     existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
+                        //     existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.Id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
                         //     if (existedItem.Items && existedItem.Items.length > 0) {
                         //         alert("Data already exist with this configuration");
                         //         this.inputDate = undefined;
@@ -285,9 +285,9 @@ export class DataForm {
     }
 
     materialTypeChanged(n, o) {
-        if (this.materialType && this.materialType.id) {
-            this.lotFilter = { "YarnTypeIdentity": this.materialType.id };
-            this.data.MaterialTypeId = this.materialType.id;
+        if (this.materialType && this.materialType.Id) {
+            this.lotFilter = { "YarnTypeIdentity": this.materialType.Id };
+            this.data.MaterialTypeId = this.materialType.Id;
             this.fillItems();
         } else {
             this.data.MaterialTypeId = null;
