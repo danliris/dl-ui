@@ -106,8 +106,8 @@ export class DataForm {
             }
             if(this.data.MixDrawingCountId){
                 this.count = {};
-                this.count.id = this.data.MixDrawingCountId;
-                this.count.code = this.data.Count;
+                this.count.Id = this.data.MixDrawingCountId;
+                this.count.Code = this.data.Count;
             }
 
         } else {
@@ -115,12 +115,12 @@ export class DataForm {
             this.mixDrawing = false;
             this.yarnType = {};
             if (this.data.MaterialComposition) {
-                this.yarnType.id = this.data.MaterialComposition[0].YarnId;
-                this.yarnType.code = this.data.MaterialComposition[0].YarnCode;
-                this.data.YarnMaterialTypeId = this.yarnType.id;
-                this.data.YarnMaterialTypeCode = this.yarnType.code;
-                if (this.yarnType.id) {
-                    this.yarnTypeId = this.yarnType.id;
+                this.yarnType.Id = this.data.MaterialComposition[0].YarnId;
+                this.yarnType.Code = this.data.MaterialComposition[0].YarnCode;
+                this.data.YarnMaterialTypeId = this.yarnType.Id;
+                this.data.YarnMaterialTypeCode = this.yarnType.Code;
+                if (this.yarnType.Id) {
+                    this.yarnTypeId = this.yarnType.Id;
                     this.lot = this.data.LotNo;
                     this.regularItems = this.data.regularItems;
 
@@ -132,7 +132,7 @@ export class DataForm {
 
     inputInfo = {
         columns: [
-            { header: "Nama Kapas", value: "product" },
+            { header: "Nama Serat", value: "product" },
             { header: "Komposisi(%)", value: "composition" },
         ],
     };
@@ -189,7 +189,7 @@ export class DataForm {
 
     countChanged(n, o){
         if(this.count){
-            this.data.Count = this.count.id;
+            this.data.Count = this.count.Id;
             
         }
     }
@@ -199,9 +199,9 @@ export class DataForm {
 
         if (selectedProcess) {
 
-            this.data.YarnMaterialTypeId = selectedProcess.id;
-            this.data.YarnMaterialTypeCode = selectedProcess.code;
-            var yarn = selectedProcess.id;
+            this.data.YarnMaterialTypeId = selectedProcess.Id;
+            this.data.YarnMaterialTypeCode = selectedProcess.Code;
+            var yarn = selectedProcess.Id;
             if (yarn) {
                 this.service.getLotByYarnType(yarn, this.unit.Id, this.mixDrawing).then(result => {
                     if (result) {

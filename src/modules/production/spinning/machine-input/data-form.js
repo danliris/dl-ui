@@ -99,9 +99,9 @@ export class DataForm {
 
         if (this.data.YarnMaterialType && this.data.YarnMaterialType.Id) {
             this.yarn = {};
-            this.yarn.id = this.data.YarnMaterialType.Id;
-            this.yarn.name = this.data.YarnMaterialType.Name;
-            this.yarn.code = this.data.YarnMaterialType.Code;
+            this.yarn.Id = this.data.YarnMaterialType.Id;
+            this.yarn.Name = this.data.YarnMaterialType.Name;
+            this.yarn.Code = this.data.YarnMaterialType.Code;
         }
 
         if (this.data.Date) {
@@ -180,8 +180,8 @@ export class DataForm {
     }
 
     yarnChanged(n, o) {
-        if (this.yarn && this.yarn.id) {
-            this.data.YarnMaterialTypeId = this.yarn.id;
+        if (this.yarn && this.yarn.Id) {
+            this.data.YarnMaterialTypeId = this.yarn.Id;
             this.fillItems();
         } else {
             this.data.YarnMaterialTypeId = null;
@@ -232,13 +232,13 @@ export class DataForm {
             this.filter.UnitId = this.data.UnitDepartmentId.toString();
             this.machineSpinningFilter.filter = JSON.stringify(this.filter);
             
-            this.data.Items = await this.coreService.searchMachineSpinning(this.machineSpinningFilter)
+            this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
                 .then(async results => {
                     let existedItem = {};
                     if (this.data.Id) {
                         existedItem = this.data;
                     } else {
-                        existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.yarn.id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
+                        existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.yarn.Id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
                         if (existedItem.Items && existedItem.Items.length > 0) {
                             alert("Data already exist with this configuration");
                             this.inputDate = undefined;

@@ -31,7 +31,7 @@ export class CountConfigurationItem {
 
     itemsColumns = {
         columns: [
-            { header: "Nama Kapas", value: "product" },
+            { header: "Nama Serat", value: "product" },
             { header: "Komposisi(%)", value: "composition" },
         ],
     };

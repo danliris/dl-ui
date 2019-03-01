@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api"
+import { Config } from "aurelia-api";
 
 export class Type {
   @bindable type;
@@ -23,11 +23,7 @@ export class Type {
       this.data.Type = this.type;
     }
   }
-  autocompleteOption = {
-    control: {
-      length: 12
-    }
-  }
+  
 
   // stepChanged(newValue){
   //   if (newValue){
