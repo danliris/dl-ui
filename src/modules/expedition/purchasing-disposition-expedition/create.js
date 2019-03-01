@@ -19,7 +19,7 @@ export class Create {
         saveText: 'Simpan',
     };
     collection = {
-        columns: ['No Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Supplier', 'PPH', 'PPN', 'Total Bayar (DPP + PPN)', 'Mata Uang'],
+        columns: ['No Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Supplier', 'PPH', 'PPN', 'Total Bayar', 'Mata Uang'],
         onAdd: function() {
             this.data.PurchaseDisposition.push({});
         }.bind(this)
