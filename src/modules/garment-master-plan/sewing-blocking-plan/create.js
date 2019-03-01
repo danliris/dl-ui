@@ -32,6 +32,22 @@ export class Create {
     }
 
     save(event) {
+        // var bookItems=[];
+        // for(var book of this.data.booking){
+        //     var item={
+        //         ComodityId:book.ComodityId,
+        //         ComodityCode:book.ComodityCode,
+        //         ComodityName:book.ComodityName,
+        //         ConfirmQuantity:book.ConfirmQuantity,
+        //         DeliveryDate:book.DeliveryDate,"ConfirmDate":"2019-02-25T01:47:03.047+00:00","Remark":"aa","IsCanceled":false,"CanceledDate":"0001-01-01T00:00:00+00:00",
+        //         "Id":43,
+        //         "IsDeleted":false
+        //     }
+        // }
+        this.data.BookingItems=(JSON.stringify(this.data.booking));
+        if(!this.data.BookingOrderId){
+            this.data.BookingOrderId=0;
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

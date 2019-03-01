@@ -52,7 +52,7 @@ export class Detail {
 //   }
 
   get comodity(){
-      var comodity = this.data && this.data.masterPlanComodity ? `${this.data.masterPlanComodity.code} - ${this.data.masterPlanComodity.name}` : "";
+      var comodity = this.data && this.data.ComodityId ? `${this.data.ComodityCode} - ${this.data.ComodityName}` : "";
       return comodity;
   }
 
