@@ -26,6 +26,8 @@ export class Create {
   }
 
   saveCallback(event) {
+    console.log(this.data);
+    debugger;
     this.service
       .create(this.data)
       .then(result => {

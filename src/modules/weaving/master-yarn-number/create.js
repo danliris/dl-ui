@@ -4,8 +4,6 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  // showViewEdit=false;
-  // readOnlyViewEdit=true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -24,23 +22,6 @@ export class Create {
   }
 
   saveCallback(event) {
-    // this.error = {};
-    // var index = 0;
-    // var emptyFieldName = "Semua Field Harus Diisi";
-
-    // if (this.data.code == null || this.data.code == undefined) {
-    //   this.error.code = "Kode Ring Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (this.data.number == null || this.data.number == undefined) {
-    //   this.error.number = "Ukuran Ring Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (index > 0) {
-    //   window.alert(emptyFieldName);
-    // } else {
-      // console.log(this.data);
-      // debugger;
       this.service
         .create(this.data)
         .then(result => {
@@ -49,6 +30,5 @@ export class Create {
         .catch(e => {
           this.error = e;
         });
-    // }
   }
 }

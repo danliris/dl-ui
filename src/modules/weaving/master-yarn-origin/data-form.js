@@ -5,7 +5,7 @@ var SupplierLoader = require("../../../loader/weaving-supplier-loader");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable supplier;
+  // @bindable Name;
   existingSupplier = null;
   formOptions = {
     cancelText: "Kembali",
@@ -22,7 +22,7 @@ export class DataForm {
     this.error = this.context.error;
 
     // if (this.data.Id) {
-    //   this.supplier = this.data.name;
+    //   this.Name = this.data.Name;
     // }
 
     this.cancelCallback = this.context.cancelCallback;
@@ -31,12 +31,12 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  supplierChanged(newValue) {
-    if (newValue.Id) {
-      this.data.Name = newValue.Name;
-      this.data.CoreSupplierId = newValue.Id;
-    }
-  }
+  // NameChanged(newValue) {
+  //   console.log(newValue);
+  //   // if (newValue._id) {
+  //     this.data.Name = newValue.Name;
+  //   // }
+  // }
 
   get supplierLoader() {
     return SupplierLoader;

@@ -24,17 +24,11 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
-    // console.log(this.data);
-    // this.RingDocuments = this.data.RingDocuments;
+    
     if (this.data.Id) {
-      // this.RingDocuments = this.data.RingDocuments;
-      console.log(this.data.RingDocuments);
       this.ringDocumentsOptions = {};
       this.ringDocumentsOptions.Code = "";
       this.ringDocumentsOptions.Number = "";
-      // this.ringDocumentsOptions.RingType = "";
-      // this.context.RingDocuments.bind(this);
     }
 
     this.cancelCallback = this.context.cancelCallback;

@@ -18,11 +18,6 @@ export class DataForm {
 
   constructor() {}
 
-  // @computedFrom("data.id")
-  // get isEdit() {
-  //   return (this.data.id || "").toString() != "";
-  // }
-
   bind(context) {
     this.context = context;
     this.data = this.context.data;

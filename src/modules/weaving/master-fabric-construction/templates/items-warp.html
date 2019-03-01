@@ -6,16 +6,16 @@
     </td>
     <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.code"
-        error.bind="error.warpType.code"
+        value.bind="Yarn.Code"
+        error.bind="error.Yarn.Code"
         read-only.bind="true"
       >
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
       <au-autocomplete
-        value.bind="yarn"
-        error.bind="error.warpType"
+        value.bind="Yarn"
+        error.bind="error.Yarn.Name"
         read-only.bind="readOnly"
         placeholder="Benang Lusi"
         loader.bind="yarnsWarp"
@@ -25,15 +25,15 @@
     </td>
     <td style="white-space: nowrap;">
       <au-numeric
-        value.bind="data.quantity"
-        error.bind="error.warp.quantity"
+        value.bind="data.Quantity"
+        error.bind="error.Warp.Quantity"
         read-only.bind="readOnly"
       >
       </au-numeric>
     </td>
     <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.information"
+        value.bind="data.Information"
         read-only.bind="readOnly"
         placeholder="Keterangan"
       >

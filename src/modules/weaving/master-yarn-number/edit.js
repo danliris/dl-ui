@@ -20,29 +20,6 @@ export class Edit {
   }
 
   saveCallback(event) {
-    // this.error = {};
-    // var index = 0;
-    // var emptyFieldName = "Semua Field Harus Diisi";
-
-    // if (
-    //   this.data.code == null ||
-    //   this.data.code == undefined ||
-    //   this.data.code == ""
-    // ) {
-    //   this.error.code = "Kode Ring Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (
-    //   this.data.number == null ||
-    //   this.data.number == undefined ||
-    //   this.data.number == ""
-    // ) {
-    //   this.error.number = "Ukuran Ring Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (index > 0) {
-    //   window.alert(emptyFieldName);
-    // } else {
       this.service
         .update(this.data)
         .then(result => {
@@ -51,6 +28,5 @@ export class Edit {
         .catch(e => {
           this.error = e;
         });
-    // }
   }
 }
