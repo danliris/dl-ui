@@ -34,10 +34,11 @@
         </td>
         <td>
             <au-numeric 
-                value.bind="data.Quantity"
+                value.bind="data.DefaultDOQuantity"
                 error.bind = "error.Quantity"
                 read-only.bind="readOnly" 
-                options.bind="controlOptions">
+                options.bind="controlOptions"
+                change.delegate="data.Quantity = $event.target.value">
             </au-numeric>                    
         </td>
         <td>

@@ -35,7 +35,7 @@ export class UnitDeliveryOrderItem {
   }
 
   changeCheckBox() {
-    this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+    this.context.context.options.checkedAll = this.context.context.items.filter(item => item.data.IsDisabled === false).reduce((acc, curr) => acc && curr.data.IsSave, true);
   }
 
   productChanged(newValue) {
