@@ -52,8 +52,22 @@ export class DataForm {
         this.error = this.context.error;
 
         this.options = {
-            readOnly : this.readOnly,
+            readOnly : this.readOnly
         };
+
+        if (this.readOnly || this.isEdit) {
+            this.items.columns =  [
+                "Kode Barang",
+                "Nama Barang",
+                "Keterangan Barang",
+                "RO Asal",
+                "Jumlah DO",
+                "Jumlah Bon Pengeluaran",
+                "Satuan",
+                "Tipe Fabric"
+            ];
+        }
+        
         if (this.data && this.data.Items) {
             this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
         }
@@ -368,7 +382,7 @@ export class DataForm {
             "Nama Barang",
             "Keterangan Barang",
             "RO Asal",
-            "Jumlah",
+            "Jumlah DO",
             "Satuan",
             "Tipe Fabric"
         ],

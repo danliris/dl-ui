@@ -25,6 +25,11 @@ export class UnitDeliveryOrderItem {
     return (this.data.Id || '').toString() != '';
   }
 
+  @computedFrom("options.readOnly", "isEdit")
+  get isDefaultDOAppear() {
+    return this.options.readOnly || this.isEdit;
+  }
+
   fabricChanged(e) {
     var selectedFabric = e.srcElement.value;
     if (selectedFabric) {
