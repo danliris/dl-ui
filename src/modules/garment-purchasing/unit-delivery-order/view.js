@@ -16,7 +16,6 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
         if (this.data) {
             if (this.data.UnitRequest) {
                 this.unitRequest = this.data.UnitRequest;
@@ -49,6 +48,11 @@ export class View {
             if (this.data.IsUsed) {
                 this.hasDelete = false;
                 this.hasEdit = false;
+            }
+
+            if(this.data.UnitDOType)
+            {
+                this.unitDOType = this.data.UnitDOType;
             }
         }
     }

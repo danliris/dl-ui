@@ -43,10 +43,10 @@ export class DataForm {
         "CUPRO",
         "PC-P 45"
     ];
-
+    lotFilter = {};
     get filters() {
         var filters = {
-            isEdit:this.context.isEdit,
+            isEdit: this.context.isEdit,
         }
         return filters;
     }
@@ -77,8 +77,8 @@ export class DataForm {
         this.error = this.context.error;
         this.coreService.getMachineTypes()
             .then(result => {
-                if(this.data.ProcessType){
-                    this.typeOptions=result;
+                if (this.data.ProcessType) {
+                    this.typeOptions = result;
 
                 } else {
                     this.typeOptions.push("");
@@ -182,6 +182,7 @@ export class DataForm {
     yarnChanged(n, o) {
         if (this.yarn && this.yarn.Id) {
             this.data.YarnMaterialTypeId = this.yarn.Id;
+            this.lotFilter = { "YarnTypeIdentity": this.yarn.Id };
             this.fillItems();
         } else {
             this.data.YarnMaterialTypeId = null;
@@ -231,7 +232,7 @@ export class DataForm {
             this.filter.Type = this.data.ProcessType;
             this.filter.UnitId = this.data.UnitDepartmentId.toString();
             this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-            
+
             this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
                 .then(async results => {
                     let existedItem = {};
@@ -253,8 +254,8 @@ export class DataForm {
                     }
                     // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
                     var newItems = [];
-                    
-                    for (var item of results.data) {
+
+                    for (var item of results) {
                         var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
                         var newData = {};
                         newData.MachineSpinning = {};
@@ -265,9 +266,9 @@ export class DataForm {
                         newData.MachineSpinning.Id = item.Id;
                         newData.MachineSpinningIdentity = item.Id;
                         newData.ExistedItem = false;
-                        if(this.itemTemp){
-                            for (var itemsTemp of this.itemTemp){
-                                if(itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id){
+                        if (this.itemTemp) {
+                            for (var itemsTemp of this.itemTemp) {
+                                if (itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id) {
                                     newData.ExistedItem = true;
                                 }
                             }

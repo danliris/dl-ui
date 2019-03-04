@@ -32,12 +32,20 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+        <td if.bind="isDefaultDOAppear">
+            <au-numeric 
+                value.bind="data.DefaultDOQuantity"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-numeric>                    
+        </td>
         <td>
             <au-numeric 
                 value.bind="data.Quantity"
                 error.bind = "error.Quantity"
                 read-only.bind="readOnly" 
-                options.bind="controlOptions">
+                options.bind="controlOptions"
+                change.delegate="data.DefaultDOQuantity = $event.target.value">
             </au-numeric>                    
         </td>
         <td>
