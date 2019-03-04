@@ -73,57 +73,57 @@ export class Item {
     }
 
     outputChanged(n, o) {
-        if (this.output) {
-            this.data.Output = this.output;
-            if (n != o) {
-                this.baseMathFormula();
-            }
+
+        this.data.Output = this.output;
+        if (o != null && o != undefined && n != o) {
+            this.baseMathFormula();
         }
+
     }
 
     badOutputChanged(n, o) {
-        if (this.badOutput) {
-            this.data.BadOutput = this.badOutput;
-            if (this.isBlowing) {
-                this.baseMathFormula();
-            }
+
+        this.data.BadOutput = this.badOutput;
+        if (o != null && o != undefined && n != o && this.isBlowing) {
+            this.baseMathFormula();
         }
+
     }
 
     deliveryTotalChanged(n, o) {
-        if (this.deliveryTotal) {
-            this.data.DeliveryTotal = this.deliveryTotal;
-            if (this.isFlyer) {
-                this.baseMathFormula();
-            }
+
+        this.data.DeliveryTotal = this.deliveryTotal;
+        if (o != null && o != undefined && n != o && this.isFlyer) {
+            this.baseMathFormula();
         }
+
     }
 
     spindleChanged(n, o) {
-        if (this.spindle) {
-            this.data.Spindle = this.spindle;
-            if (this.isFlyer) {
-                this.baseMathFormula();
-            }
+
+        this.data.Spindle = this.spindle;
+        if (o != null && o != undefined && n != o && this.isFlyer) {
+            this.baseMathFormula();
         }
+
     }
 
     wasteChanged(n, o) {
-        if (this.waste) {
-            this.data.Waste = this.waste;
-            if (this.isWinder) {
-                this.baseMathFormula();
-            }
+
+        this.data.Waste = this.waste;
+        if (o != null && o != undefined && n != o && this.isWinder) {
+            this.baseMathFormula();
         }
+
     }
 
     drumTotalChanged(n, o) {
-        if (this.drumTotal) {
-            this.data.DrumTotal = this.drumTotal;
-            if (this.isWinder) {
-                this.baseMathFormula();
-            }
+
+        this.data.DrumTotal = this.drumTotal;
+        if (o != null && o != undefined && n != o && this.isWinder) {
+            this.baseMathFormula();
         }
+
     }
 
     baseMathFormula() {

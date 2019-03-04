@@ -156,6 +156,7 @@ export class DataForm {
                 .then(async results => {
                     let existedItem = {};
                     this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
+                    // console.log(this.detailOptions.CountConfig);
                     this.detailOptions.MachineSpinnings = results;
                     if (this.data.Id) {
                         existedItem = this.data;
