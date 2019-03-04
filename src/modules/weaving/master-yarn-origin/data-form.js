@@ -31,13 +31,6 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  // NameChanged(newValue) {
-  //   console.log(newValue);
-  //   // if (newValue._id) {
-  //     this.data.Name = newValue.Name;
-  //   // }
-  // }
-
   get supplierLoader() {
     return SupplierLoader;
   }

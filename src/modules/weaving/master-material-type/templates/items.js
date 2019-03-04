@@ -29,6 +29,7 @@ export class Items {
   }
 
   CodeChanged(newValue) {
+    console.log(newValue);
     if (newValue) {
       this.data.Code = newValue.Code;
       this.data.Number = newValue.Number;

@@ -20,13 +20,15 @@ export class Edit {
   }
 
   saveCallback(event) {
-      this.service
-        .update(this.data)
-        .then(result => {
-          this.router.navigateToRoute("view", { Id: this.data.Id });
-        })
-        .catch(e => {
-          this.error = e;
-        });
+    console.log(this.data);
+    debugger;
+    this.service
+      .update(this.data)
+      .then(result => {
+        this.router.navigateToRoute("view", { Id: this.data.Id });
+      })
+      .catch(e => {
+        this.error = e;
+      });
   }
 }

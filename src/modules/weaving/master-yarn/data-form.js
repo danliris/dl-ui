@@ -43,15 +43,15 @@ export class DataForm {
   }
 
   optionalNameChanged(newValue) {
-    var whitespaceRegex = new RegExp("\\s");
+    // var whitespaceRegex = new RegExp("\\s");
     if (this.data.MaterialTypeDocument && this.data.RingDocument) {
-      if (whitespaceRegex.test(newValue)) {
-        this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
-      } else {
-        // this.data.Name =
-        //   this.data.MaterialTypeDocument.Name + this.data.RingDocument.Number;
-        this.data.Name = this.data.Name + " " + newValue;
-      }
+      // if (whitespaceRegex.test(newValue)) {
+      //   this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+      // } else {
+      this.data.Name =
+        this.data.MaterialTypeDocument.Name + this.data.RingDocument.Number;
+      this.data.Name = this.data.Name + " " + newValue;
+      // }
     } else {
       this.data.Name = "";
       this.data.Name = newValue;
