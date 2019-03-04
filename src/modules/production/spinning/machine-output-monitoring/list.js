@@ -34,7 +34,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 return {
-                    total: result.info.total,
+                    total: result.info.count,
                     data: result.data
                 }
             });
