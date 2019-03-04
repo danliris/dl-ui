@@ -60,7 +60,7 @@ export class DataForm {
         },
         control: {
             length: 4,
-        },
+        }
     };
 
     items = [];
@@ -157,7 +157,7 @@ export class DataForm {
                 .then(async results => {
                     let existedItem = {};
                     this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
-                    this.detailOptions.MachineSpinnings = results.data;
+                    this.detailOptions.MachineSpinnings = results;
                     if (this.data.Id) {
                         existedItem = this.data;
                     }
@@ -184,7 +184,7 @@ export class DataForm {
                     // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
 
                     var newItems = [];
-                    for (var item of results.data) {
+                    for (var item of results) {
                         var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
 
                         var newData = {};
