@@ -1,0 +1,136 @@
+<template>
+  <style>
+    .collection.panel-body {
+      padding: 0px;
+    }
+  </style>
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+  >
+    <div class="col-md-12">
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Unit Weaving" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-dropdown
+            value.bind="data.weavingUnit"
+            error.bind="error.weavingUnit"
+            read-only.bind="readOnly"
+          ></au-dropdown>
+        </div>
+        <div class="col-md-offset-1 col-md-2">
+          <textbox label="Lokasi" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-textbox
+            placeholder="Lokasi"
+            value.bind="data.location"
+            error.bind="error.location"
+            read-only.bind="readOnly"
+          ></au-textbox>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="No. Mesin" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-textbox
+            placeholder="No. Mesin"
+            value.bind="data.runningMachineNumber"
+            error.bind="error.runningMachineNumber"
+            read-only.bind="readOnly"
+            loader.bind="units"
+          ></au-textbox>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Area" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-dropdown
+            value.bind="data.area"
+            error.bind="error.area"
+            read-only.bind="readOnly"
+          ></au-dropdown>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Blok" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-dropdown
+            value.bind="data.block"
+            error.bind="error.block"
+            read-only.bind="readOnly"
+          ></au-dropdown>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Blok Kaizen" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-dropdown
+            value.bind="data.kaizenBlock"
+            error.bind="error.kaizenBlock"
+            read-only.bind="readOnly"
+          ></au-dropdown>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Maintenance" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-dropdown
+            value.bind="data.maintenance"
+            error.bind="error.maintenance"
+            read-only.bind="readOnly"
+          ></au-dropdown>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Operator" read-only="true"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-dropdown
+            value.bind="data.operator"
+            error.bind="error.operator"
+            read-only.bind="readOnly"
+          ></au-dropdown>
+        </div>
+      </div>
+
+      <!-- <div class="row" show.bind="onViewEdit">
+        <h3>Riwayat</h3>
+        <hr />
+      </div>
+      <div class="row" show.bind="onViewEdit">
+        <au-collection
+          items.bind="data.Items"
+          errors.bind="error.Items"
+          columns.bind="historyColumns"
+          add.bind="addHistory"
+          options.bind="ItemsHistoryOptions"
+          remove.bind="onremove"
+          read-only.bind="readOnly"
+          item-template="modules/weaving/running-machine/templates/items"
+        >
+        </au-collection>
+      </div> -->
+    </div>
+  </au-input-form>
+</template>

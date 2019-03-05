@@ -1,0 +1,226 @@
+<template>
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+    replaceable
+    part="actions"
+  >
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- NO SOP -->
+          <au-textbox
+            label="No. SPP"
+            value.bind="data.orderNumber"
+            error.bind="error.orderNumber"
+            read-only.bind="detailEditOnly"
+            options.bind="customOptions"
+            show.bind="createOnly"
+          >
+          </au-textbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- TANGGAL SP -->
+          <au-datepicker
+            label="Tanggal SPP"
+            value.bind="data.DateOrdered"
+            error.bind="error.DateOrdered"
+            read-only.bind="readOnly"
+            options.bind="customOptions"
+          ></au-datepicker>
+
+          <!-- PERIODE -->
+          <div class="row">
+            <div class="col-md-3">
+              <textbox label="Periode" read-only="true"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-dropdown
+                value.bind="Month"
+                error.bind="error.Period.Month"
+                read-only.bind="readOnly"
+                items.bind="months"
+              >
+              </au-dropdown>
+            </div>
+            <div class="col-md-3" style="padding-left: 0px;">
+              <au-dropdown
+                value.bind="data.Period.Year"
+                error.bind="error.Period.Year"
+                read-only.bind="readOnly"
+                items.bind="years"
+              >
+              </au-dropdown>
+            </div>
+          </div>
+
+          <!-- KONSTRUKSI -->
+          <div class="row">
+            <div class="col-md-3">
+              <textbox label="Konstruksi" read-only="true"></textbox>
+            </div>
+            <div class="col-md-6">
+              <au-autocomplete
+                placeholder="Konstruksi"
+                value.bind="constructionNumber"
+                error.bind="error.constructionNumber"
+                options.bind="customLeftOptions"
+                read-only.bind="readOnly"
+                loader.one-time="constructions"
+                text="constructionNumber"
+              >
+              </au-autocomplete>
+            </div>
+          </div>
+
+          <!-- Asal BENANG -->
+          <div class="row">
+            <div class="col-md-3" style="white-space: nowrap">
+              <textbox label="Asal Benang" read-only="true"></textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Asal Lusi"
+                value.bind="data.warpOrigin"
+                error.bind="error.warpOrigin"
+                read-only.bind="readOnly"
+              ></au-textbox>
+            </div>
+            <div class="col-md-3" style="padding-left: 4px;">
+              <au-textbox
+                placeholder="Asal Pakan"
+                value.bind="data.weftOrigin"
+                error.bind="error.weftOrigin"
+                read-only.bind="readOnly"
+              ></au-textbox>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLENDED(%) -->
+        <div class="col-md-6">
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-3">
+              <textbox label="Komposisi Lusi(%)" read-only="true"></textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Poly"
+                options.bind="customCenterOptions"
+                value.bind="data.composition.compositionOfPoly"
+                error.bind="error.compositionOfPoly"
+                read-only.bind="readOnly"
+              >
+              </au-textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Cotton"
+                options.bind="customCenterOptions"
+                value.bind="data.composition.compositionOfCotton"
+                error.bind="error.compositionOfCotton"
+                read-only.bind="readOnly"
+              ></au-textbox>
+            </div>
+
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Lainnya"
+                options.bind="customCenterOptions"
+                value.bind="data.composition.otherComposition"
+                error.bind="error.otherComposition"
+                read-only.bind="readOnly"
+              ></au-textbox>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-3">
+              <textbox label="Komposisi Pakan(%)" read-only="true"></textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Poly"
+                options.bind="customCenterOptions"
+                value.bind="data.composition.compositionOfPoly"
+                error.bind="error.compositionOfPoly"
+                read-only.bind="readOnly"
+              >
+              </au-textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Cotton"
+                options.bind="customCenterOptions"
+                value.bind="data.composition.compositionOfCotton"
+                error.bind="error.compositionOfCotton"
+                read-only.bind="readOnly"
+              ></au-textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Lainnya"
+                options.bind="customCenterOptions"
+                value.bind="data.composition.otherComposition"
+                error.bind="error.otherComposition"
+                read-only.bind="readOnly"
+              ></au-textbox>
+            </div>
+          </div>
+
+          <!-- JENIS BENANG -->
+          <div class="row">
+            <div class="col-md-3" style="white-space: nowrap">
+              <textbox label="Jenis Benang" read-only="true"></textbox>
+            </div>
+            <div class="col-md-9">
+              <au-textbox
+                placeholder="Jenis Benang"
+                value.bind="data.yarnType"
+                error.bind="error.yarnType"
+                read-only.bind="readOnly"
+                options.bind="customOptions"
+              ></au-textbox>
+            </div>
+          </div>
+
+          <!-- ALL GRADE -->
+          <div class="row">
+            <div class="col-md-3" style="white-space: nowrap">
+              <textbox label="All Grade" read-only="true"></textbox>
+            </div>
+            <div class="col-md-9">
+              <au-textbox
+                placeholder="All Grade"
+                value.bind="data.wholeGrade"
+                error.bind="error.wholeGrade"
+                read-only.bind="readOnly"
+                options.bind="customOptions"
+              ></au-textbox>
+            </div>
+          </div>
+
+          <!-- UNIT -->
+          <div class="row">
+            <div class="col-md-3">
+              <textbox label="Unit" read-only="true"></textbox>
+            </div>
+            <div class="col-md-9">
+              <au-autocomplete
+                placeholder="Cari Unit"
+                value.bind="data.weavingUnit.name"
+                error.bind="error.weavingUnitName"
+                read-only.bind="readOnly"
+                options.bind="customOptions"
+                loader.bind="units"
+              ></au-autocomplete>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </au-input-form>
+</template>
