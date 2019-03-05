@@ -69,7 +69,7 @@ export class PurchasingDispositionItem {
                         if(data.Items){
                             for(var item of data.Items){
                                 for(var detail of item.Details){
-                                    this.createdDisposition+=detail.PaidQuantity;
+                                    this.createdDisposition+=detail.PaidPrice;
                                 }
                             }
                         }
