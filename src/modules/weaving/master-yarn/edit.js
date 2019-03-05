@@ -7,7 +7,7 @@ export class Edit {
   showViewEdit = true;
   readOnlyViewEdit = true;
   createOnly = false;
-  error = {};
+  // error = {};
   constructor(router, service) {
     this.router = router;
     this.service = service;

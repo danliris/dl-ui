@@ -22,9 +22,7 @@ export class Create {
   }
 
   saveCallback(event) {
-    // debugger;
     this.error = {};
-    // var checkNumber = parseInt();
     var CodeRegEx = new RegExp("([1-9])");
     if (this.data.Code) {
       if (
@@ -67,7 +65,6 @@ export class Create {
         this.data.RingType = yarnNumberRing;
       }
     }
-    console.log(this.data);
     this.service
       .create(this.data)
       .then(result => {
