@@ -44,7 +44,7 @@ export class DataForm {
 
     get filters() {
         var filters = {
-            isEdit:this.context.isEdit,
+            isEdit: this.context.isEdit,
         }
     }
 
@@ -87,7 +87,7 @@ export class DataForm {
                     }
                 }
             });
-
+        this.detailOptions.isEdit = this.context.isEdit;
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
         }
@@ -122,6 +122,7 @@ export class DataForm {
                 item.Identity = item.Id;
                 item.MachineSpinningIdentity = item.MachineSpinning.Id;
             }
+            this.itemTemp = this.data.Items
         }
     }
 
@@ -157,6 +158,10 @@ export class DataForm {
                 .then(async results => {
                     let existedItem = {};
                     this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
+                    if (!this.detailOptions.CountConfig) {
+                        alert("Count Configuration is not found");
+                        return [];
+                    }
                     // console.log(this.detailOptions.CountConfig);
                     this.detailOptions.MachineSpinnings = results;
                     if (this.data.Id) {
@@ -203,6 +208,13 @@ export class DataForm {
                         newData.Spindle = dbItem ? dbItem.Spindle : 0;
                         newData.Waste = dbItem ? dbItem.Waste : 0;
                         newData.DrumTotal = dbItem ? dbItem.DrumTotal : 0;
+                        if (this.itemTemp) {
+                            for (var itemsTemp of this.itemTemp) {
+                                if (itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id) {
+                                    newData.ExistedItem = true;
+                                }
+                            }
+                        }
                         newItems.push(newData);
                     }
                     return newItems;

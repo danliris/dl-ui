@@ -58,14 +58,18 @@ export class Edit {
         // }
 
         // if(errorCount==0){
-            this.data.Date = this.data.Date ? moment(this.data.Date).format("DD MMM YYYY") : null;
+        this.data.Date = this.data.Date ? moment(this.data.Date).format("DD MMM YYYY") : null;
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();
             })
             .catch(e => {
                 this.error = e;
-                alert("Missing Some Data");
+                if (typeof (this.error) == "string") {
+                    alert(this.error);
+                } else {
+                    alert("Missing Some Data");
+                }
             });
         // }
     }
