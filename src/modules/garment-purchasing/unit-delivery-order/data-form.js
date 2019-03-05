@@ -164,7 +164,7 @@ export class DataForm {
     storageView = (storage) => {
         var code = storage.code ? storage.code : storage.Code;
         var name = storage.name ? storage.name : storage.Name;
-        return `${code} - ${name}`
+        return `${name}`
     }
 
     unitRequestChanged(newValue) {
