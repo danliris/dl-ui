@@ -41,13 +41,14 @@ export async function configure(aurelia) {
       var inventoryAzure = "https://com-danliris-service-inventory-dev.azurewebsites.net/v1/";
       var garmentMasterPlan = "https://dl-garment-master-plan-webapi-dev.azurewebsites.net/v1/";
       var spMasterPlan = "https://dl-sp-master-plan-webapi-dev.mybluemix.net/v1/";
-      var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/v1/";
+      var spinning = "https://com-danliris-service-spinning-dev.azurewebsites.net/";
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
       var customsReport = "https://com-danliris-service-support-dev.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md.azurewebsites-dev.net/v1/";
       const dealTracking = 'https://com-danliris-service-deal-tracking-dev.azurewebsites.net/v1/';
       const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
       var weaving = "https://com-danliris-service-weaving-dev.azurewebsites.net/";
+      var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
 
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
@@ -66,6 +67,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('deal-tracking', dealTracking, defaultConfig);
       config.registerEndpoint('sales', sales, defaultConfig);
       config.registerEndpoint('weaving', weaving, defaultConfig);
+      config.registerEndpoint('finance', finance, defaultConfig);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
