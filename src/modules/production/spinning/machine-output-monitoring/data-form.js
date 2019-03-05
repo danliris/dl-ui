@@ -159,8 +159,10 @@ export class DataForm {
                     let existedItem = {};
                     this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
                     if (!this.detailOptions.CountConfig) {
-                        alert("Count Configuration is not found");
+                        this.error.LotId = "Count is not created with this Lot";
                         return [];
+                    } else {
+                        this.error.LotId = undefined;
                     }
                     // console.log(this.detailOptions.CountConfig);
                     this.detailOptions.MachineSpinnings = results;

@@ -73,8 +73,8 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getLotByYarnType(yarnType, unitId, mixDrawing) {
-        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${unitId}/${mixDrawing}`;
+    getLotByYarnType(yarnType, unitId) {
+        var endpoint = `${lotYarnServiceUri}/getLotByYarn/${yarnType}/${unitId}`;
         return super.get(endpoint);
     }
 
