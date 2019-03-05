@@ -196,6 +196,10 @@ export class List {
             postedDateFrom = this.dateFrom;
             postedDateTo = this.dateTo;
         }
+
+        if (this.staffName) {
+            filter.CreatedBy = this.staffName.username;
+        }
             
         let arg = {
             filter: JSON.stringify(filter)
@@ -211,6 +215,7 @@ export class List {
     }
 
     reset() {
+        this.staffName=null;
         this.flag = false;
         this.disposition=null;
         this.unitPaymentOrder = undefined;
