@@ -14,7 +14,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        
+
     }
 
     cancelCallback(event) {
@@ -23,10 +23,18 @@ export class View {
 
 
     deleteCallback(event) {
-        this.service.delete(this.data).then(result => {
-            alert(`delete data success`);
-            this.cancelCallback();
-        });
+        this.service.delete(this.data)
+            .then(result => {
+                alert(`delete data success`);
+                this.cancelCallback();
+            })
+            .catch(err => {
+                if (typeof (err) == "string") {
+                    alert(err);
+                } else {
+                    alert("Missing Some Data");
+                }
+            });
     }
 
     editCallback(event) {

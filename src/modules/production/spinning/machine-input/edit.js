@@ -64,7 +64,11 @@ export class Edit {
             this.cancelCallback();
         }).catch(e => {
             this.error = e;
-            alert("Missing Some Data");
+            if (typeof (this.error) == "string") {
+                alert(this.error);
+            } else {
+                alert("Missing Some Data");
+            }
         })
         // }
     }
