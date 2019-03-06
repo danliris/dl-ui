@@ -34,9 +34,8 @@ export class Create {
     ) {
       this.data.MaterialTypeId = "";
     } else {
-      //Masih parsial, MaterialTypeId sama YarnNumberId masih kosong, buat logic disini
       var yarnMaterialId = this.data.MaterialTypeId.Id
-        ? this.data.MaterialTypeId
+        ? this.data.MaterialTypeId.Id
         : "";
       this.data.MaterialTypeId = yarnMaterialId;
     }
@@ -49,7 +48,7 @@ export class Create {
       this.data.YarnNumberId = "";
     } else {
       var yarnNumberId = this.data.YarnNumberId.Id
-        ? this.data.YarnNumberId
+        ? this.data.YarnNumberId.Id
         : "";
       this.data.YarnNumberId = yarnNumberId;
     }

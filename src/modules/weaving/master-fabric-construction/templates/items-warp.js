@@ -16,7 +16,7 @@ export class ItemsWarp {
     return YarnLoader;
   }
 
-  activate(context) {
+  async activate(context) {
     this.data = context.data;
     this.error = context.error;
 
@@ -39,17 +39,17 @@ export class ItemsWarp {
   }
 
   // Change on Kode Lusi, affected when Benang Lusi change
-  YarnChanged(newValue) {
-    console.log(newValue);
+  async YarnChanged(newValue) {
+    var yarnDetail = await this.service.getYarnById(newValue.Id);
+    newValue = yarnDetail;
     if (newValue.Id) {
-      this.data.Yarn = newValue ? newValue : "";
       this.data.Name = newValue.Name ? newValue.Name : "";
       this.data.Code = newValue.Code ? newValue.Code : "";
-      this.data.materialCode = newValue.MaterialTypeDocument.Code
-        ? newValue.MaterialTypeDocument.Code
+      this.data.MaterialTypeId = newValue.MaterialTypeId.Code
+        ? newValue.MaterialTypeId.Code
         : "";
-      this.data.ringCode = newValue.RingDocument.Code
-        ? newValue.RingDocument.Code
+      this.data.YarnNumberId = newValue.YarnNumberId.Code
+        ? newValue.YarnNumberId.Code
         : "";
       this.data.Quantity = "";
       this.data.Information = "";

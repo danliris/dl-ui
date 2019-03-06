@@ -135,7 +135,7 @@ export class DataForm {
   //Concatenated some properties for create ConstructionNumber on Form
   get ConstructionNumber() {
     var result = "";
-    if(this.MaterialTypeDocument) {
+    if (this.MaterialTypeDocument) {
       //API Properties vs Form Properties
       this.data.MaterialTypeDocument = {};
       this.data.MaterialTypeDocument.Id = this.MaterialTypeDocument.Id;
@@ -168,16 +168,17 @@ export class DataForm {
   }
 
   constructionDetail(data) {
+    console.log(data);
     var detail = {};
     var Yarn = {};
     detail.Quantity = data.Quantity;
     detail.Information = data.Information;
 
-    if (data.Yarn) {
-      Yarn.Id = data.Yarn.Id;
-      Yarn.Code = data.Yarn.Code;
-      Yarn.Name = data.Yarn.Name;
-    }
+    // if (data.Yarn) {
+      // Yarn.Id = data.Yarn.Id;
+      Yarn.Code = data.Code;
+      Yarn.Name = data.Name;
+    // }
     if (Yarn.Id) {
       detail.Yarn = Yarn;
       this.data.ConstructionNumber = this.ConstructionNumber;
@@ -193,7 +194,7 @@ export class DataForm {
       if (this.ItemsWarp.length > 0) {
         for (let detail of this.ItemsWarp) {
           if (detail.Select) {
-            result = result + detail.materialCode + detail.ringCode;
+            result = result + detail.MaterialTypeId + detail.YarnNumberId;
           }
         }
       }
@@ -210,7 +211,7 @@ export class DataForm {
       if (this.ItemsWeft.length > 0) {
         for (let detail of this.ItemsWeft) {
           if (detail.Select) {
-            result = result + detail.materialCode + detail.ringCode;
+            result = result + detail.MaterialTypeId + detail.YarnNumberId;
           }
         }
       }

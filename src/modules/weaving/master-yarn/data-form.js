@@ -36,11 +36,74 @@ export class DataForm {
       this.optionalName = detectWhitespace[1] ? detectWhitespace[1] : " ";
     }
 
+    // if (this.data.MaterialTypeId) {
+    //   if (!this.data.MaterialTypeId.Name == "") {
+    //     this.data.MaterialTypeId.Name = this.data.MaterialTypeId.Name;
+    //   }
+    // }
+
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
+
+  // optionalNameChanged(newValue) {
+  //   var whitespaceRegex = new RegExp("\\s");
+  //   if (this.data.MaterialTypeId && this.data.YarnNumberId) {
+  //     if (whitespaceRegex.test(newValue)) {
+  //       this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+  //     } else {
+  //     this.data.Name =
+  //       this.data.MaterialTypeId.Name + this.data.YarnNumberId.Number;
+  //     this.data.Name = this.data.Name + " " + newValue;
+  //     }
+  //   } else {
+  //     this.data.Name = "";
+  //     this.data.Name = newValue;
+  //   }
+  // }
+
+  // // Change on Kode Bahan, affected when MaterialTypeId change
+  // MaterialTypeIdChanged(newValue) {
+  //   if (newValue.Name) {
+  //     this.data.Name = "";
+  //     this.data.MaterialTypeId = {};
+  //     this.data.MaterialTypeId = newValue;
+  //     this.data.MaterialTypeId.Id = newValue.Id;
+  //     this.data.MaterialTypeId.Name = newValue.Name;
+  //     this.data.MaterialTypeId.Code = newValue.Code;
+
+  //     if (this.data.YarnNumberId) {
+  //       this.data.Name =
+  //         this.data.MaterialTypeId.Name + this.data.YarnNumberId.Number
+  //           ? newValue.Name + this.data.YarnNumberId.Number
+  //           : newValue.Name;
+  //     } else {
+  //       this.data.Name = newValue.Name;
+  //     }
+  //   }
+  // }
+
+  // // Change on Kode Ring, affected when YarnNumberId change
+  // YarnNumberIdChanged(newValue) {
+  //   if (newValue.Number) {
+  //     this.data.Name = "";
+  //     this.data.YarnNumberId = {};
+  //     this.data.YarnNumberId = newValue;
+  //     this.data.YarnNumberId.Id = newValue.Id;
+  //     this.data.YarnNumberId.Number = newValue.Number;
+  //     this.data.YarnNumberId.Code = newValue.Code;
+
+  //     if (this.data.MaterialTypeId) {
+  //       this.data.Name = this.data.MaterialTypeId.Name + this.data.YarnNumberId.Number
+  //         ? this.data.MaterialTypeId.Name + newValue.Number
+  //         : newValue.Number;
+  //     } else {
+  //       this.data.Name = newValue.Number;
+  //     }
+  //   }
+  // }
 
   optionalNameChanged(newValue) {
     var whitespaceRegex = new RegExp("\\s");
@@ -48,9 +111,10 @@ export class DataForm {
       if (whitespaceRegex.test(newValue)) {
         this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
       } else {
-      this.data.Name =
-        this.data.MaterialTypeId.Name + this.data.YarnNumberId.Number;
-      this.data.Name = this.data.Name + " " + newValue;
+        var yarnMaterial = this.data.MaterialTypeId.Name;
+        var yarnNumber = this.data.YarnNumberId.Number;
+        this.data.Name = yarnMaterial + yarnNumber;
+        this.data.Name = this.data.Name + " " + newValue;
       }
     } else {
       this.data.Name = "";
