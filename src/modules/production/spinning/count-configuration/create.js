@@ -59,8 +59,12 @@ export class Create {
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                alert("Missing Some Data");
                 this.error = e;
+                if (typeof (this.error) == "string") {
+                    alert(this.error);
+                } else {
+                    alert("Missing Some Data");
+                }
             })
         // }
     }
