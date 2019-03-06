@@ -203,7 +203,7 @@ export class DataForm {
             this.data.YarnMaterialTypeCode = selectedProcess.Code;
             var yarn = selectedProcess.Id;
             if (yarn) {
-                this.service.getLotByYarnType(yarn, this.unit.Id, this.mixDrawing).then(result => {
+                this.service.getLotByYarnType(yarn, this.unit.Id).then(result => {
                     if (result) {
                         this.lot = result.LotNo;
                         this.data.LotId = result.Id;

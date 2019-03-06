@@ -38,6 +38,8 @@ export class DataForm {
                     { header: "Kena PPH"},
                     { header: "PPH"},
                     { header: "Nominal PPH"},
+                    { header: "Disposisi yang sudah dibuat"},
+                    { header: "Disposisi yang sudah dibayar"},
                     { header: ""}];
 
     constructor(service, bindingEngine) {

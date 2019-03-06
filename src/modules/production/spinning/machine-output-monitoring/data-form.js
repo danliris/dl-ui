@@ -44,9 +44,10 @@ export class DataForm {
 
     get filters() {
         var filters = {
-            isEdit:this.context.isEdit,
+            isEdit: this.context.isEdit,
         }
     }
+
     shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
     detailOptions = {};
     itemsColumnsHeader = [];
@@ -86,7 +87,7 @@ export class DataForm {
                     }
                 }
             });
-
+        this.detailOptions.isEdit = this.context.isEdit;
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
         }
@@ -121,6 +122,7 @@ export class DataForm {
                 item.Identity = item.Id;
                 item.MachineSpinningIdentity = item.MachineSpinning.Id;
             }
+            this.itemTemp = this.data.Items
         }
     }
 
@@ -156,6 +158,13 @@ export class DataForm {
                 .then(async results => {
                     let existedItem = {};
                     this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
+                    if (!this.detailOptions.CountConfig) {
+                        this.error.LotId = "Count is not created with this Lot";
+                        return [];
+                    } else {
+                        this.error.LotId = undefined;
+                    }
+                    // console.log(this.detailOptions.CountConfig);
                     this.detailOptions.MachineSpinnings = results;
                     if (this.data.Id) {
                         existedItem = this.data;
@@ -201,6 +210,13 @@ export class DataForm {
                         newData.Spindle = dbItem ? dbItem.Spindle : 0;
                         newData.Waste = dbItem ? dbItem.Waste : 0;
                         newData.DrumTotal = dbItem ? dbItem.DrumTotal : 0;
+                        if (this.itemTemp) {
+                            for (var itemsTemp of this.itemTemp) {
+                                if (itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id) {
+                                    newData.ExistedItem = true;
+                                }
+                            }
+                        }
                         newItems.push(newData);
                     }
                     return newItems;
