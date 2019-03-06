@@ -1,14 +1,13 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
 import { Dialog } from "../../../au-components/dialog/dialog";
-import { EpSopQuantityEditor } from "./dialogs/ep-sop-quantity-editor";
+var UnitLoader = require("../../../loader/unit-loader");
+import { Service } from "./service";
 
-@inject(Dialog)
+@inject(Dialog, Service)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  isModalShown = false;
-  modalLabel = true;
 
   yearFormat = "YYYY";
   years = [];
@@ -36,21 +35,40 @@ export class DataForm {
     }
   };
 
-  constructor(dialog) {
-    // this.service = service;
-    this.dialog = dialog;
+  months = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
 
-    // function __openModal() {
-      // console.log(this.dialog);
-      // console.log("test");
-      // this.dialog.show(AddSOPEditor);
-    // }
+  constructor(dialog, service) {
+    this.service = service;
+    this.dialog = dialog;
   }
 
+  orderProductionsItems;
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    // context.options.readOnly = this.readOnly;
+
+    if (this.data.estimatedNumber) {
+      this.orderProductionsTableOptions = {};
+    }
+
+    this.getYears();
+    this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -58,36 +76,104 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  columnsView = [
+  orderProductionsColumns = [
     { header: "Tanggal", value: "dateOrdered" },
     { header: "No. SOP", value: "orderNumber" },
-    { header: "No. Konstruksi", value: "constructionNumber" },
+    {
+      header: "No. Konstruksi",
+      value: "fabricConstructionDocument.constructionNumber"
+    },
     { header: "Total Gram", value: "amountTotal" },
-    { header: "Jumlah Order (Gr)", value: "orderTotal" },
-    { header: "Grade A (%)", value: "gradeA" },
-    { header: "Grade B (%)", value: "gradeB" },
-    { header: "Grade C (%)", value: "gradeC" },
-    { header: "Grade D (%)", value: "gradeD" }
+    { header: "Jumlah Order (Gr)", value: "wholeGrade" },
+    { header: "Grade A(%)", value: "gradeA" },
+    { header: "Grade B(%)", value: "gradeB" },
+    { header: "Grade C(%)", value: "gradeC" },
+    { header: "Grade D(%)", value: "gradeD" }
   ];
 
-  // @computedFrom("data._id")
-  // get isEdit() {
-  //     return (this.data._id || '').toString() != '';
-  // }
-
-  // get openModal() {
-  //   this.isModalShown = true;
-  // }
-
-  // get closeModal() {
-  //   this.isModalShown = false;
-  // }
-
-  __openModal(){
-    this.ShowAddSOPEditorDialog();
+  get units() {
+    return UnitLoader;
   }
 
-  ShowAddSOPEditorDialog(){
-    this.dialog.show(EpSopQuantityEditor);
+  getYears() {
+    var year = moment(new Date());
+    this.years.push(year.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
+    var nextYear = year.add(1, "years");
+    this.years.push(nextYear.year());
+  }
+
+  async searchOrderProductions() {
+    this.error = {};
+    var index = 0;
+    var emptyFieldName =
+      "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
+
+    if (this.data.period) {
+      if (
+        this.data.period.month == null ||
+        this.data.period.month == undefined ||
+        this.data.period.month == ""
+      ) {
+        this.error.periodMonth = "Periode Bulan Tidak Boleh Kosong";
+        index++;
+      }
+
+      if (
+        this.data.period.year == null ||
+        this.data.period.year == undefined ||
+        this.data.period.year == ""
+      ) {
+        this.error.periodYear = "Periode Tahun Tidak Boleh Kosong";
+        index++;
+      }
+    }
+
+    if (this.data.unit) {
+      if (
+        this.data.unit == null ||
+        this.data.unit == undefined ||
+        this.data.unit == ""
+      ) {
+        this.error.unit = "Unit Tidak Boleh Kosong";
+        index++;
+      }
+    }
+
+    if (index > 0) {
+      window.alert(emptyFieldName);
+    } else {
+      await this.service
+        .searchSOP(
+          this.data.period.month,
+          this.data.period.year,
+          this.data.unit.code
+        )
+        .then(result => {
+          //Print each datum on orderProductions Data and push to Items Collections
+          result.data.forEach(datum => {
+            console.log(datum);
+            // debugger;
+            this.data.estimationProducts = [];
+            if (
+              datum.orderStatus == "OPEN-ORDER" &&
+              this.data.estimatedNumber === ""
+            ) {
+              this.data.estimationProducts.push(datum);
+            } else {
+              if (this.data.estimationProducts) {
+                this.data.estimationProducts.push(datum);
+              } else {
+                this.data.estimationProducts.push([]);
+              }
+            }
+          });
+          //Bind "Items" reference
+          this.context.orderProductionsItems.bind(this);
+        });
+    }
   }
 }

@@ -8,10 +8,10 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable constructionNumber;
+  @bindable month;
 
   yearFormat = "YYYY";
   years = [];
-  monthFormat = "MMMM";
 
   formOptions = {
     cancelText: "Kembali",
@@ -72,12 +72,16 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+
+    this.month = this.months[this.getMonth()];
     this.getYears();
 
-    var currentDate = moment(new Date());
-    var currentMonth = currentDate.month().format('MMMM');
-    console.log(currentMonth);
-
+    if (this.data.id) {
+      this.month = this.data.period.month;
+    } else {
+      this.data.period = {};
+      this.data.period.month = this.month;
+    }
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
@@ -112,6 +116,11 @@ export class DataForm {
     }
   }
 
+  monthChanged(newValue) {
+    this.data.period.month = newValue;
+    this.getYears();
+  }
+
   getYears() {
     var year = moment(new Date());
     this.years.push(year.year());
@@ -121,5 +130,9 @@ export class DataForm {
     this.years.push(nextYear.year());
     var nextYear = year.add(1, "years");
     this.years.push(nextYear.year());
+  }
+
+  getMonth() {
+    return new Date().getMonth() + 1;
   }
 }

@@ -4,38 +4,30 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Edit {
-  ePNumberVisibility=true;
-  searchButton=false;
-  addSOPOnEdit=true;
-  readOnly=true;
+  ePNumberVisibility = true;
+  searchButton = false;
+  // readOnly = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
+    this.data = {};
+    this.error = {};
   }
 
   async activate(params) {
-    // var id = params.id;
-    // this.data = await this.service.getById(id);
-    this.data = {
-      ePNumber: 1,
-      productionEstimationNumber: "0192/00-2018",
-      monthPeriod: "November",
-      yearPeriod: "2018",
-      unit: "Weaving 1"
-    };
+    var id = params.id;
+    this.data = await this.service.getById(id);
   }
 
   cancelCallback(event) {
-    // this.router.navigateToRoute('view', { id: this.data._id });
-    this.router.navigateToRoute("view", { id: this.data.ePNumber });
+    this.router.navigateToRoute("view", { id: this.data.id });
   }
 
   saveCallback(event) {
     this.service
       .update(this.data)
       .then(result => {
-        // this.router.navigateToRoute('view', { id: this.data._id });
-        this.router.navigateToRoute("view", { id: this.data.ePNumber });
+        this.router.navigateToRoute("view", { id: this.data.id });
       })
       .catch(e => {
         this.error = e;

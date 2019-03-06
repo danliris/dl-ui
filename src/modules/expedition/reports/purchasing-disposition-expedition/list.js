@@ -7,6 +7,8 @@ const SupplierLoader = require('../../../../loader/supplier-loader');
 const DivisionLoader = require('../../../../loader/division-loader');
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 const DispositionLoader = require('../../../../loader/purchase-dispositions-all-loader');
+var AccountLoader = require('../../../../loader/account-loader');
+
 @inject(Service, PurchasingService)
 export class List {
     columns = [
@@ -26,7 +28,7 @@ export class List {
                 rowspan: 2,
                 sortable: true,
             },
-            { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
+            { field: 'InvoiceNo', title: 'Nomor Proforma', rowspan: 2, sortable: true },
             { field: 'SupplierName', title: 'Supplier', rowspan: 2, sortable: true },
             
             {
@@ -44,7 +46,8 @@ export class List {
                 rowspan: 2,
             },
             { title: 'Verifikasi', colspan: 3 },
-            { title: 'Kasir', colspan: 5 }
+            { title: 'Kasir', colspan: 3 },
+            { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
         ], [
             {
                 field: 'VerificationDivisionDate', title: 'Tgl Terima', formatter: function (value, data, index) {
@@ -74,14 +77,14 @@ export class List {
             {
                 field: 'BankExpenditureNoteNo', title: 'No Kuitansi'
             },
-            {
-                field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-            },
-            {
-                field: 'BankExpenditureNotePPHNo', title: 'No Kuitansi PPH'
-            },
+            // {
+            //     field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
+            //         return value ? moment(value).format('DD MMM YYYY') : '-';
+            //     },
+            // },
+            // {
+            //     field: 'BankExpenditureNotePPHNo', title: 'No Kuitansi PPH'
+            // },
         ]
     ];
 
@@ -112,11 +115,11 @@ export class List {
             { text: 'Bag. Pembelian', value: 1 },
             { text: 'Dikirim ke Bag. Verifikasi', value: 2 },
             { text: 'Bag. Verifikasi', value: 3 },
-            { text: 'Dikirim ke Bag. Kasir', value: 4 },
-            { text: 'Dikirim ke Bag. Keuangan', value: 5 },
+            { text: 'Dikirim ke Bag. Keuangan', value: 4 },
+            //{ text: 'Dikirim ke Bag. Keuangan', value: 5 },
             { text: 'Dikirim ke Bag. Pembelian', value: 6 },
-            { text: 'Bag. Kasir', value: 7 },
-            { text: 'Bag. Keuangan', value: 8 },
+            { text: 'Bag. Keuangan', value: 7 },
+           // { text: 'Bag. Keuangan', value: 8 },
         ];
     }
 
@@ -141,6 +144,9 @@ export class List {
             filter.Position = this.Position.value;
         }
 
+        if (this.staffName) {
+            filter.CreatedBy = this.staffName.username;
+        }
             
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
@@ -190,6 +196,10 @@ export class List {
             postedDateFrom = this.dateFrom;
             postedDateTo = this.dateTo;
         }
+
+        if (this.staffName) {
+            filter.CreatedBy = this.staffName.username;
+        }
             
         let arg = {
             filter: JSON.stringify(filter)
@@ -205,7 +215,9 @@ export class List {
     }
 
     reset() {
+        this.staffName=null;
         this.flag = false;
+        this.disposition=null;
         this.unitPaymentOrder = undefined;
         this.supplier = undefined;
         this.division = undefined;
@@ -222,4 +234,13 @@ export class List {
     get dispositionLoader(){
         return DispositionLoader;
     }
+
+    get accountLoader() {
+        return AccountLoader;
+    }
+
+    stafView= (staff) => {
+      return `${staff.username}`
+  }
+
 }

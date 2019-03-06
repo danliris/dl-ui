@@ -7,6 +7,7 @@ export class DataForm {
   @bindable readOnly;
   @bindable Uom;
   @bindable Unit;
+  @bindable Types;
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
@@ -18,13 +19,27 @@ export class DataForm {
     return (this.data._id || '').toString() != '';
   }
 
-  typeOptions = []
+  typeColumns = [
+    { header: "Jenis Process", value: "Type" },
+  ];
+
+  typeOptions = [];
 
   get uomLoader() {
     return UOMLoader;
   }
   get unitLoader() {
     return UnitLoader;
+  }
+
+  get addType() {
+    return (event) => {
+      this.data.Types.push({});
+    };
+  }
+
+  get removeType() {
+    return (event);
   }
 
   uomView = (uom) => {
@@ -56,7 +71,8 @@ export class DataForm {
       this.data.UnitCode = null;
     }
   }
-
+  spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+  detailOptions = {};
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
@@ -66,6 +82,9 @@ export class DataForm {
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
+    this.detailOptions.typeItems = this.typeOptions;
+    this.Types.bind();
+
 
     if (this.data.UomId) {
       this.Uom = {};

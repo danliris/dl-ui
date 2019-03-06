@@ -8,17 +8,6 @@ export class List {
   context = ["detail"];
 
   columns = [
-    // { field: "noMKB", title: "No Konstruksi" },
-    // { field: "konstruksi", title: "Konstruksi" },
-    // { field: "kdBenang", title: "Kode Benang" },
-    // { field: "kdLusi", title: "Kode Lusi" },
-    // { field: "jnsLusi", title: "Jenis Lusi" },
-    // { field: "qtyLusi", title: "Qty(Gr/Mtr)" },
-    // { field: "kdPakan", title: "Kode Pakan" },
-    // { field: "jnsPakan", title: "Jenis Pakan" },
-    // { field: "qtyPakan", title: "Qty(Gr/Mtr)" },
-    // { field: "totalBenang", title: "Total(Gr)" },
-    // { field: "ketMKB", title: "Keterangan" }
     { field: "date", title: "Tanggal Dibuat" },
     { field: "constructionNumber", title: "Konstruksi" },
     { field: "totalYarn", title: "Total(Gr)" }
@@ -40,9 +29,6 @@ export class List {
         total: result.info.total,
         data: result.data
       };
-      // .catch(error=>{
-      //     console.log(error);
-      // })
     });
   };
 

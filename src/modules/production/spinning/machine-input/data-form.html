@@ -10,7 +10,7 @@
         </au-dropdown>
 
         <au-autocomplete label="Nama Benang" value.bind="yarn" error.bind="error.YarnMaterialTypeId" loader.bind="materialTypeLoader"
-            placeholder="Cari nama benang" key="id" text="code" read-only.bind="readOnly" options.bind="controlOptions">
+            placeholder="Cari nama benang" key="Id" text="Code" read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
         <au-autocomplete label="Lot" value.bind="lot" error.bind="error.LotConfigurationId" loader.bind="lotConfigurationLoader"
@@ -29,8 +29,9 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-collection view-model.ref="machineCollections" remove.bind ="inputInfo.onRemove" columns.bind="itemColumns" items.bind="data.Items" errors.bind="error.Items"
-             read-only.bind="readOnly" item-template="modules/production/spinning/machine-input/template/item">
+        <au-collection view-model.ref="machineCollections" remove.bind ="inputInfo.onRemove" columns.bind="itemColumns" items.bind="data.Items" 
+            errors.bind="error.Items" options.one-way="filters" read-only.bind="readOnly" 
+            item-template="modules/production/spinning/machine-input/template/item">
         </au-collection>
 
     </au-input-form>

@@ -9,6 +9,7 @@ export class Edit {
   constructor(router, service) {
     this.router = router;
     this.service = service;
+    this.error = {};
   }
 
   async activate(params) {
@@ -21,35 +22,40 @@ export class Edit {
   }
 
   saveCallback(event) {
+    this.error = {};
     var numberOnly = new RegExp("[0-9]");
-    var regExNotMatchOrEmptyField;
-    var alert =
-      "- Terdapat Field yang Belum Diisi\n- Blended Harus Berupa Angka\n- All Grade Harus Berupa Angka";
+    var index = 0;
+    var emptyFieldName =
+      "- Semua Field Harus Diisi\n- Blended(%) Harus Berupa Angka\n- All Grade Harus Berupa Angka";
+      console.log(this.data);
 
     //Periksa Field Kosong atau Terisi
     //Cek Tanggal SPP
     if (this.data.dateOrdered == null || this.data.dateOrdered == undefined) {
-      this.regExNotMatchOrEmptyField = true;
-    } else {
-      this.regExNotMatchOrEmptyField = false;
+      this.error.dateOrdered = "Tanggal SPP Tidak Boleh Kosong";
+      index++;
     }
 
-    //Cek Periode Bulan
-    if (
-      this.data.period.month == null ||
-      this.data.period.month == undefined ||
-      this.data.period.month == ""
-    ) {
-      this.regExNotMatchOrEmptyField = true;
-    } else {
-      this.regExNotMatchOrEmptyField = false;
-    }
+    if (this.data.period) {
+      //Cek Periode Bulan
+      if (
+        this.data.period.month == null ||
+        this.data.period.month == undefined ||
+        this.data.period.month == ""
+      ) {
+        this.error.periodmonth = "Bulan Periode Tidak Boleh Kosong";
+        index++;
+      }
 
-    //Cek Periode Tahun
-    if (this.data.period.year == null || this.data.period.year == undefined) {
-      this.regExNotMatchOrEmptyField = true;
-    } else {
-      this.regExNotMatchOrEmptyField = false;
+      //Cek Periode Tahun
+      if (
+        this.data.period.year == null ||
+        this.data.period.year == undefined ||
+        this.data.period.year == ""
+      ) {
+        this.error.periodyear = "Tahun Periode Tidak Boleh Kosong";
+        index++;
+      }
     }
 
     //Cek Konstruksi
@@ -59,104 +65,112 @@ export class Edit {
         this.data.fabricConstructionDocument.id == undefined ||
         this.data.fabricConstructionDocument.id == ""
       ) {
-        this.regExNotMatchOrEmptyField = true;
-      } else {
-        this.regExNotMatchOrEmptyField = false;
+        this.error.constructionNumber = "Konstruksi Tidak Boleh Kosong";
+        index++;
       }
-    } else {
-      this.regExNotMatchOrEmptyField = true;
     }
 
     //Cek Asal Lusi
-    if (this.data.warpOrigin == null || this.data.warpOrigin == undefined) {
-      this.regExNotMatchOrEmptyField = true;
-    } else {
-      this.regExNotMatchOrEmptyField = false;
+    if (
+      this.data.warpOrigin == null ||
+      this.data.warpOrigin == undefined ||
+      this.data.warpOrigin == ""
+    ) {
+      this.error.warpOrigin = "Asal Lusi Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek Asal Pakan
-    if (this.data.weftOrigin == null || this.data.weftOrigin == undefined) {
-      this.regExNotMatchOrEmptyField = true;
-    } else {
-      this.regExNotMatchOrEmptyField = false;
+    if (
+      this.data.weftOrigin == null ||
+      this.data.weftOrigin == undefined ||
+      this.data.weftOrigin == ""
+    ) {
+      this.error.weftOrigin = "Asal Pakan Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek Komposisi/ Blended(%)
     if (this.data.composition == null || this.data.composition == undefined) {
-      this.regExNotMatchOrEmptyField = true;
+      this.error.compositionOfPoly = "Komposisi Poly Tidak Boleh Kosong";
+      this.error.compositionOfCotton = "Komposisi Cotton Tidak Boleh Kosong";
+      this.error.otherComposition = "Komposisi Lainnya Tidak Boleh Kosong";
+      index++;
     } else {
       //Periksa Properties Komposisi Sesuai dengan RegEx
       //Cek Komposisi Poly sesuai RegEx
       if (
         this.data.composition.compositionOfPoly == null ||
-        this.data.composition.compositionOfPoly == undefined
+        this.data.composition.compositionOfPoly == undefined ||
+        this.data.composition.compositionOfPoly == ""
       ) {
-        this.regExNotMatchOrEmptyField = true;
+        this.error.compositionOfPoly = "Komposisi Poly Tidak Boleh Kosong";
+        index++;
       } else {
         if (!numberOnly.test(this.data.composition.compositionOfPoly)) {
-          this.regExNotMatchOrEmptyField = true;
-        } else {
-          this.regExNotMatchOrEmptyField = false;
+          this.error.compositionOfPoly = "Komposisi Poly Harus Berupa Angka";
+          index++;
         }
       }
 
       //Cek Komposisi Cotton sesuai RegEx
       if (
         this.data.composition.compositionOfCotton == null ||
-        this.data.composition.compositionOfCotton == undefined
+        this.data.composition.compositionOfCotton == undefined ||
+        this.data.composition.compositionOfCotton == ""
       ) {
-        this.regExNotMatchOrEmptyField = true;
+        this.error.compositionOfCotton = "Komposisi Cotton Tidak Boleh Kosong";
+        index++;
       } else {
         if (!numberOnly.test(this.data.composition.compositionOfCotton)) {
-          this.regExNotMatchOrEmptyField = true;
-        } else {
-          this.regExNotMatchOrEmptyField = false;
+          this.error.compositionOfCotton =
+            "Komposisi Cotton Harus Berupa Angka";
+          index++;
         }
       }
 
       //Cek Komposisi Lainnya sesuai RegEx
       if (
         this.data.composition.otherComposition == null ||
-        this.data.composition.otherComposition == undefined
+        this.data.composition.otherComposition == undefined ||
+        this.data.composition.otherComposition == ""
       ) {
-        this.regExNotMatchOrEmptyField = true;
+        this.error.otherComposition = "Komposisi Lainnya Tidak Boleh Kosong";
+        index++;
       } else {
         if (!numberOnly.test(this.data.composition.otherComposition)) {
-          this.regExNotMatchOrEmptyField = true;
-        } else {
-          this.regExNotMatchOrEmptyField = false;
+          this.error.otherComposition = "Komposisi Lainnya Harus Berupa Angka";
+          index++;
         }
       }
     }
 
     //Cek Jenis Benang
     if (this.data.yarnType == null || this.data.yarnType == undefined) {
-      this.regExNotMatchOrEmptyField = true;
-    } else {
-      this.regExNotMatchOrEmptyField = false;
+      this.error.yarnType = "Jenis Benang Tidak Boleh Kosong";
+      index++;
     }
 
     //Cek All Grade
     if (this.data.wholeGrade == null || this.data.wholeGrade == undefined) {
-      this.regExNotMatchOrEmptyField = true;
+      this.error.wholeGrade = "All Grade Tidak Boleh Kosong";
+      index++;
     } else {
       if (!numberOnly.test(this.data.wholeGrade)) {
-        this.regExNotMatchOrEmptyField = true;
-      } else {
-        this.regExNotMatchOrEmptyField = false;
+        this.error.wholeGrade = "All Grade Harus Berupa Angka";
+        index++;
       }
     }
 
     //Cek Weaving Unit
     if (this.data.weavingUnit == null || this.data.weavingUnit == undefined) {
-      this.regExNotMatchOrEmptyField = true;
-    } else {
-      this.regExNotMatchOrEmptyField = false;
+      this.error.weavingUnitName = "Unit Weaving Tidak Boleh Kosong";
+      index++;
     }
 
     //Periksa apakah seluruh kondisi di atas terpenuhi
-    if (this.regExNotMatchOrEmptyField == true) {
-      window.alert(alert);
+    if (index > 0) {
+      window.alert(emptyFieldName);
     } else {
       this.service
         .update(this.data)

@@ -40,7 +40,7 @@ export class Create {
       window.alert(emptyFieldName);
     } else {
       this.service
-        .create(materialData)
+        .create(this.data)
         .then(result => {
           this.list();
         })
@@ -48,5 +48,7 @@ export class Create {
           this.error = e;
         });
     }
+    console.log(this.data);
+    debugger;
   }
 }

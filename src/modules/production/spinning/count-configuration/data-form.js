@@ -6,7 +6,7 @@ import { debug } from 'util';
 
 var moment = require('moment');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
-
+var UnitLoader = require('../../../../loader/unit-azure-loader');
 var ProductLoader = require('../../../../loader/product-azure-loader');
 
 @inject(Service, CoreService)
@@ -19,13 +19,15 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable lotConfiguration;
-    @bindable Input = [];
     @bindable processType;
     @bindable yarnType;
     @bindable count;
     @bindable showItemRegular;
     @bindable regularItems;
     @bindable lot;
+    @bindable mixDrawingLot;
+    @bindable detailOptions;
+    @bindable unit;
 
     formOptions = {
         cancelText: "Kembali",
@@ -59,189 +61,175 @@ export class DataForm {
             length: 7
         }
     }
-
+    mixDrawing = false;
     processTypeList = [
     ];
-    yarnTypeList = [
-        "",
-        "PCP",
-        "CMP",
-        "CD",
-        "CVC",
-        "PE",
-        "TENCEL",
-        "CUPRO",
-        "PC-P 45"
-    ];
 
-
+    detailOptions = {};
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
+        this.detailOptions.service = service;
+        this.detailOptions.coreService = coreService;
     }
 
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.data.Input = this.data.Input || [];
-        this.isItemPolyster = false;
         this.processType = false;
-        this.cottonLot = "";
-        this.polyesterLot = "";
-        this.coreService.getMachineTypes()
-            .then(result => {
-                if(this.data.ProcessType){
-                    this.processTypeList=result;
-                } else {
-                    this.processTypeList.push("");
-                    for(var list of result){    
-                        this.processTypeList.push(list);
-                }}
-            });
+        if (!this.readOnly)
+            this.coreService.getMachineTypes()
+                .then(result => {
+                    if (this.data.ProcessType) {
+                        this.processTypeList = result;
+                    } else {
+                        this.processTypeList.push("");
+                        for (var list of result) {
+                            this.processTypeList.push(list);
+                        }
+                    }
+                });
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
-        } 
-        
-        if (this.data.ProcessType == "Finish Drawing") {
-            this.showItemRegular = true;
-            this.finishingDrawing = true;
-            this.regularItems = [];
-            this.data.Items=[];
-
-        } else if(this.data.ProcessType == "Mix Drawing"){
-            this.showItemRegular = false;
-            this.finishingDrawing = true;
-            this.lot = undefined;
-            this.regularItems = [];
-            this.data.Items=[];
-
-        } else {
-            if(this.data.ProcessType == 'Winder')
-                this.data.Cone = 1.89;
-
-            this.showItemRegular = true;
-            this.finishingDrawing = false;
         }
 
-        if (this.data.YarnMaterialTypeId){
-            this.yarnType=this.data.YarnMaterialTypeId;
-            this.service.getLotByYarnType(this.yarnType, this.finishingDrawing).then(result => {
-                if (result) {
-                    this.lot = result.LotNo;
-                    this.data.LotId = result.Id;
-                    this.data.LotNo = result.LotNo;
+        if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
+            this.unit = this.data.UnitDepartment;
+        }
 
-                    if (this.data.ProcessType=="Mix Drawing") {
-                        this.data.Items = result.CottonCompositions;
-                    } else {
-                        this.regularItems = result.CottonCompositions;
-                    }
-                } else {
-                    this.error.YarnType = "Lot tidak ditemukan";
-                    this.data.Items = null;
-                    this.data.LotId = null;
-                    this.data.LotNo = null;
-                    this.cottonLot = null;
+        if (this.data.ProcessType == "Mix Drawing") {
+            this.showItemRegular = false;
+            this.mixDrawing = true;
+            if (this.data.MixDrawingLotNo) {
+                this.mixDrawingLot = this.data.MixDrawingLotNo;
+            }
+            if(this.data.MixDrawingCountId){
+                this.count = {};
+                this.count.Id = this.data.MixDrawingCountId;
+                this.count.Code = this.data.Count;
+            }
+
+        } else {
+            this.showItemRegular = true;
+            this.mixDrawing = false;
+            this.yarnType = {};
+            if (this.data.MaterialComposition) {
+                this.yarnType.Id = this.data.MaterialComposition[0].YarnId;
+                this.yarnType.Code = this.data.MaterialComposition[0].YarnCode;
+                this.data.YarnMaterialTypeId = this.yarnType.Id;
+                this.data.YarnMaterialTypeCode = this.yarnType.Code;
+                if (this.yarnType.Id) {
+                    this.yarnTypeId = this.yarnType.Id;
+                    this.lot = this.data.LotNo;
+                    this.regularItems = this.data.regularItems;
+
                 }
-            });
+            }
+
         }
     }
 
     inputInfo = {
         columns: [
-            { header: "Nama Kapas", value: "product" },
+            { header: "Nama Serat", value: "product" },
             { header: "Komposisi(%)", value: "composition" },
         ],
     };
-
+    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     mixDrawingColumns = {
         columns: [
-            { header: "Jenis Material", value: "yarnItem" },
-            { header: "Nomor Lot", value: "lotNoItem" },
-            { header: "Komposisi(%)", value: "composition" },
+            "Jenis Material",
+            "Nomor Lot",
+            "Komposisi(%)"
         ],
         onAdd: function () {
             this.context.ItemsCollection.bind();
-            this.data.Items.push({ yarnName: "", lotNo:"", composition: 0});
+            this.data.MaterialComposition.push({});
         }.bind(this)
     };
 
+    unitChanged(newValue, oldValue) {
+        if (this.unit && this.unit.Id) {
+            this.data.UnitDepartmentId = this.unit.Id;
+            this.detailOptions.UnitDepartmentId = this.unit.Id;
+        }
+    }
 
     processTypeChanged(n, o) {
         var selectedProcess = this.processType;
         this.data.ProcessType = selectedProcess;
         if (selectedProcess) {
-            if (this.data.ProcessType == "Finish Drawing") {
-                this.showItemRegular = true;
-                this.finishingDrawing = true;
-                this.regularItems = [];
-                this.data.Items=[];
-
-            } else if(this.data.ProcessType == "Mix Drawing"){
+            if (this.data.ProcessType == "Mix Drawing") {
                 this.showItemRegular = false;
-                this.finishingDrawing = true;
+                this.mixDrawing = true;
                 this.lot = undefined;
                 this.regularItems = [];
-                this.data.Items=[];
+
 
             } else {
-                if(this.data.ProcessType == 'Winder')
-                    this.data.Cone = 1.89;
+                if (this.data.ProcessType == 'Winder')
+                    this.data.ConeWeight = 1.89;
 
+                this.data.MaterialComposition = [];
                 this.showItemRegular = true;
-                this.finishingDrawing = false;
+                this.mixDrawing = false;
+
             }
 
+        }
+    }
+
+    mixDrawingLotChanged(n, o) {
+        if (this.mixDrawingLot) {
+            this.data.mixDrawingLot = this.mixDrawingLot;
+            this.data.MixDrawingLotNo = this.mixDrawingLot;
+        }
+    }
+
+    countChanged(n, o){
+        if(this.count){
+            this.data.Count = this.count.Id;
+            
         }
     }
 
     yarnTypeChanged(n, o) {
-        
         var selectedProcess = this.yarnType;
-        this.data.YarnMaterialTypeId=selectedProcess.id;
-        if (selectedProcess) {
-            if (selectedProcess != "") {
-                this.showItemRegular = true;
-            } else {
-                this.showItemRegular = false;
-            }
-            var yarn = selectedProcess.id;
-            this.service.getLotByYarnType(yarn, this.finishingDrawing).then(result => {
-                if (result) {
-                    this.lot = result.LotNo;
-                    this.data.LotId = result.Id;
-                    this.data.LotNo = result.LotNo;
 
-                    if (this.data.ProcessType!="Mix Drawing") {
-                    //     this.data.Items = result.CottonCompositions;
-                    // } else {
-                        this.regularItems = result.CottonCompositions;
+        if (selectedProcess) {
+
+            this.data.YarnMaterialTypeId = selectedProcess.Id;
+            this.data.YarnMaterialTypeCode = selectedProcess.Code;
+            var yarn = selectedProcess.Id;
+            if (yarn) {
+                this.service.getLotByYarnType(yarn, this.unit.Id, this.mixDrawing).then(result => {
+                    if (result) {
+                        this.lot = result.LotNo;
+                        this.data.LotId = result.Id;
+                        this.data.LotNo = result.LotNo;
+                        if (this.error) {
+                            this.error.YarnId = null;
+                        }
+                        if (this.data.ProcessType != "Mix Drawing") {
+
+                            this.regularItems = result.CottonCompositions;
+                        }
+                    } else {
+                        this.error.YarnId = "Lot tidak ditemukan";
+                        this.data.MaterialComposition = null;
+                        this.data.LotId = null;
+                        this.data.LotNo = null;
+                        this.cottonLot = null;
+                        this.regularItems = null;
+                        this.data.YarnMaterialTypeId = null;
+                        this.data.YarnMaterialTypeCode = null;
                     }
-                } else {
-                    this.error.YarnType = "Lot tidak ditemukan";
-                    this.data.Items = null;
-                    this.data.LotId = null;
-                    this.data.LotNo = null;
-                    this.cottonLot = null;
-                }
-            });
+                });
+            }
+
         }
     }
-
-    // countChanged(n, o) {
-    //     var selectedCount = this.count;
-    //     this.data.Count = selectedCount;
-        // if(selectedCount){
-        //     this.service.getLotByYarnType(selectedCount, this.finishingDrawing).then(result => {
-        //         if(result){
-        //             this.data.items=result;
-        //         } else {
-        //             this.error.count = "Lot tidak ditemukan";
-        //         }
-        //     });
-        // }
-    // }
 
 
     get yarnLoader() {
@@ -250,5 +238,9 @@ export class DataForm {
 
     get materialTypeLoader() {
         return MaterialTypeLoader;
+    }
+
+    get unitLoader() {
+        return UnitLoader;
     }
 } 

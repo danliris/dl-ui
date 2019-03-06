@@ -58,7 +58,6 @@ export class Create {
     }
 
     //Cek Jumlah Pakan
-    console.log(this.data.amountOfWeft);
     if (this.data.amountOfWeft == null || this.data.amountOfWeft == undefined) {
       this.error.amountOfWeft = "Jumlah Pakan Tidak Boleh Kosong";
       index++;
