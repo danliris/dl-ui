@@ -359,7 +359,7 @@ export class DataForm {
             this.data.UnitDepartmentId = this.unit.Id;
             this.fillItems();
         } else {
-            this.data.UnitDepartmentId = null;
+            this.data.UnitDepartmentId = 0;
             this.data.Items = [];
         }
     }
