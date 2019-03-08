@@ -30,8 +30,8 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    console.log(this.data);
-    debugger;
+    // console.log(this.data);
+    // debugger;
     this.service
       .create(this.data)
       .then(result => {
