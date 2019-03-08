@@ -47,6 +47,22 @@ export class PurchasingDispositionItem {
         if(this.data.UseIncomeTax){
             this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
         }
+        
+        this.GetDisposition();
+
+        this.GetTax();
+    }
+    // @computedFrom("data.EPONo")
+    // get incomeTax() {
+    //     if(this.data.UseIncomeTax){
+    //         return `${this.data.IncomeTax.name}-${this.data.IncomeTax.rate}`;
+    //     }
+    //     else{
+    //         return "-";
+    //     }
+    // }
+    
+    async GetDisposition(){
         this.paidDisposition=0;
         this.createdDisposition=0;
         if(this.data.EPOId){
@@ -78,19 +94,8 @@ export class PurchasingDispositionItem {
             });
 
         }
-
-        this.GetTax();
     }
-    // @computedFrom("data.EPONo")
-    // get incomeTax() {
-    //     if(this.data.UseIncomeTax){
-    //         return `${this.data.IncomeTax.name}-${this.data.IncomeTax.rate}`;
-    //     }
-    //     else{
-    //         return "-";
-    //     }
-    // }
-    
+
     async selectedEPOChanged(newValue) {
         if (newValue) {
             this.selectedEPO=newValue;
@@ -177,6 +182,8 @@ export class PurchasingDispositionItem {
                     
                 }
                 this.data.Details=details;
+                
+                this.GetDisposition();
             }
             this.isShowing =true;
         }

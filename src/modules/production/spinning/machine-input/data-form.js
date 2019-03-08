@@ -154,7 +154,7 @@ export class DataForm {
 
             this.fillItems();
         } else {
-            this.data.UnitDepartmentId = null;
+            this.data.UnitDepartmentId = 0;
             this.data.Items = [];
         }
     }
