@@ -71,7 +71,6 @@ export class DataForm {
             unitDeliveryOrderFilter.UnitDOType = "RETUR";
             unitDeliveryOrderFilter.IsUsed = false;
         }
-        console.log(unitDeliveryOrderFilter)
         return unitDeliveryOrderFilter;
     }
 
@@ -95,6 +94,7 @@ export class DataForm {
                 this.data.ExpenditureTo = "PROSES";
             }
         }
+        this.context.DONoViewModel._suggestions=[];
         this.context.DONoViewModel.editorValue = "";
         this.unitDeliveryOrder = null;
         this.data.UnitRequest = null;
@@ -114,7 +114,7 @@ export class DataForm {
     }
 
     unitDeliveryOrderChanged(newValue){
-        var selectedUnitDeliveryOrder = newValue;console.log(selectedUnitDeliveryOrder)
+        var selectedUnitDeliveryOrder = newValue;
         this.dataItems = [];
         this.data.Items = [];
         if(this.error && this.error.Items) {
