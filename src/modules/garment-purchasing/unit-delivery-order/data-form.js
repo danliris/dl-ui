@@ -61,15 +61,21 @@ export class DataForm {
                 "Nama Barang",
                 "Keterangan Barang",
                 "RO Asal",
+                "Jumlah DO Awal",
                 "Jumlah DO",
-                "Jumlah Bon Pengeluaran",
                 "Satuan",
                 "Tipe Fabric"
             ];
         }
         
-        if (this.data && this.data.Items) {
-            this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
+        if (this.data) {
+            if (this.data.Items) {
+                this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
+            }
+
+            this.isProses = this.data.UnitDOType === "PROSES";
+            this.isTransfer = this.data.UnitDOType === "TRANSFER";
+            this.isSample = this.data.UnitDOType === "SAMPLE";
         }
     }
 
@@ -382,7 +388,7 @@ export class DataForm {
             "Nama Barang",
             "Keterangan Barang",
             "RO Asal",
-            "Jumlah DO",
+            "Jumlah DO Awal",
             "Satuan",
             "Tipe Fabric"
         ],
