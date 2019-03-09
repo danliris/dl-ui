@@ -14,15 +14,11 @@ export class UnitDeliveryOrderItem {
     this.options = context.options;
 
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
+    this.isEdit = context.context.options.isEdit;
   }
 
   bind() {
 
-  }
-
-  @computedFrom("data.Id")
-  get isEdit() {
-    return (this.data.Id || '').toString() != '';
   }
 
   @computedFrom("options.readOnly", "isEdit")
