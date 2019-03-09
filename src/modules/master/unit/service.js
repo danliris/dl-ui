@@ -16,8 +16,8 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getById(id) {
-    var endpoint = `${serviceUri}/${id}`;
+  getById(Id) {
+    var endpoint = `${serviceUri}/${Id}`;
     return super.get(endpoint);
   } 
 
