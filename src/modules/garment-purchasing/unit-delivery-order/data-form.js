@@ -52,7 +52,8 @@ export class DataForm {
         this.error = this.context.error;
 
         this.options = {
-            readOnly : this.readOnly
+            readOnly : this.readOnly,
+            isEdit : this.isEdit
         };
 
         if (this.readOnly || this.isEdit) {
