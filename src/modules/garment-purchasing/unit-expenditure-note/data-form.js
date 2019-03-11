@@ -31,7 +31,7 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
     }
 
-    async bind(context) {
+     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -94,6 +94,8 @@ export class DataForm {
                 this.data.ExpenditureTo = "PROSES";
             }
         }
+        this.context.DONoViewModel._suggestions=[];
+        this.context.DONoViewModel.editorValue = "";
         this.unitDeliveryOrder = null;
         this.data.UnitRequest = null;
         this.data.Items = [];
@@ -105,7 +107,6 @@ export class DataForm {
         this.context.error.Items = [];
         this.context.error = [];
 
-        console.log(this.error);
     }
 
     get unitDeliveryOrderLoader() {
@@ -127,6 +128,8 @@ export class DataForm {
             this.data.Storage = null;
             this.data.StorageRequest = null;
             this.isItem = false;
+            this.data.UnitDOId = null;
+            this.data.UnitDONo = "";
         }
         else if(selectedUnitDeliveryOrder){
             //console.log(selectedUnitDeliveryOrder);
@@ -163,32 +166,34 @@ export class DataForm {
             this.data.Items = [];
             for(var item of selectedUnitDeliveryOrder.Items){
                 var Items = {};
-                Items.UnitDOItemId = item.Id;
-                Items.URNItemId = item.URNItemId;
-                Items.DODetailId = item.DODetailId;
-                Items.POItemId = item.POItemId;
-                Items.EPOItemId = item.EPOItemId;
-                Items.PRItemId = item.PRItemId;
-                Items.RONo = item.RONo;
-                Items.POSerialNumber = item.POSerialNumber;
-                Items.ProductId = item.ProductId;
-                Items.ProductCode = item.ProductCode;
-                Items.ProductName = item.ProductName;
-                Items.ProductRemark = item.ProductRemark;
-                Items.RONOItem = item.RONo;
-                Items.UomId =  item.UomId;
-                Items.UomUnit = item.UomUnit;
-                Items.PricePerDealUnit = item.PricePerDealUnit;
-                Items.Quantity = item.Quantity;
-                Items.OldQuantity = item.Quantity;
-                Items.BuyerId = item.Buyer.Id;
-                Items.BuyerCode = item.Buyer.Code;
-                Items.DesignColor = item.DesignColor;
-                Items.FabricType = item.FabricType;
-                Items.IsSave = Items.Quantity > 0;
-                Items.IsDisabled = !(Items.Quantity > 0);
+                if(item.Quantity >0){
+                    Items.UnitDOItemId = item.Id;
+                    Items.URNItemId = item.URNItemId;
+                    Items.DODetailId = item.DODetailId;
+                    Items.POItemId = item.POItemId;
+                    Items.EPOItemId = item.EPOItemId;
+                    Items.PRItemId = item.PRItemId;
+                    Items.RONo = item.RONo;
+                    Items.POSerialNumber = item.POSerialNumber;
+                    Items.ProductId = item.ProductId;
+                    Items.ProductCode = item.ProductCode;
+                    Items.ProductName = item.ProductName;
+                    Items.ProductRemark = item.ProductRemark;
+                    Items.RONOItem = item.RONo;
+                    Items.UomId =  item.UomId;
+                    Items.UomUnit = item.UomUnit;
+                    Items.PricePerDealUnit = item.PricePerDealUnit;
+                    Items.Quantity = item.Quantity;
+                    Items.OldQuantity = item.Quantity;
+                    Items.BuyerId = item.Buyer.Id;
+                    Items.BuyerCode = item.Buyer.Code;
+                    Items.DesignColor = item.DesignColor;
+                    Items.FabricType = item.FabricType;
+                    Items.IsSave = Items.Quantity > 0;
+                    Items.IsDisabled = !(Items.Quantity > 0);
 
-                this.data.Items.push(Items);
+                    this.data.Items.push(Items);
+                }
             }
             this.isItem = true;
         }

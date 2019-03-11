@@ -20,16 +20,19 @@ export class List {
     }    
      
     cancelStateOption = ["","Cancel Confirm","Cancel Sisa","Expired"];
+    args = { page: 1,size:25};
 
     search(){
-        this.info.page = 1;
-        this.info.total=0;
+        this.args.page = 1;
+        this.args.total = 0;
         this.searching();
     }
 
  searching() {
      
-    var info = {
+    let info = {
+            page: this.args.page,
+            size: this.args.size,
             no : this.no ? this.no.BookingOrderNo : "",
             buyerCode : this.buyerCode ? this.buyerCode.Code : "",
             statusCancel : this.statusCancel ? this.statusCancel : "",
@@ -41,7 +44,8 @@ export class List {
             .then(result => {
             //    this.data=result;
                this.data = [];
-               for(var _data of result){
+               this.args.total=result.info.total; 
+               for(var _data of result.data){
                    _data.EarlyBooking = _data.TotalBeginningQuantity;
                    _data.BookingOrderDate = _data.BookingOrderDate ? moment(_data.BookingOrderDate).format("DD MMMM YYYY") : "";
                    _data.DeliveryDate = _data.DeliveryDate ? moment(_data.DeliveryDate).format("DD MMMM YYYY") : "";
@@ -54,8 +58,14 @@ export class List {
             
             });
             
-            
     }
+
+    changePage(e) {
+        var page = e.detail;
+        this.args.page = page;
+        this.searching();
+    }   
+    
     
     ExportToExcel() {
         var info = {

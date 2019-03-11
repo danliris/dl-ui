@@ -25,7 +25,7 @@ export class PurchasingDispositionItem {
 
     
 
-    activate(context) {
+    async activate(context) {
         this.context=context;
         this.items = context.context.items;
         this.data = context.data;
@@ -47,6 +47,9 @@ export class PurchasingDispositionItem {
         if(this.data.UseIncomeTax){
             this.incomeTax=`${this.data.IncomeTax.name} - ${this.data.IncomeTax.rate}`;
         }
+        
+        this.GetDisposition();
+
         this.GetTax();
     }
     // @computedFrom("data.EPONo")
@@ -59,6 +62,40 @@ export class PurchasingDispositionItem {
     //     }
     // }
     
+    async GetDisposition(){
+        this.paidDisposition=0;
+        this.createdDisposition=0;
+        if(this.data.EPOId){
+            var paid= await this.service.searchPaymentDispo(this.data.EPOId);
+            if(paid){
+                for(var pay of paid){
+                    this.paidDisposition+=pay.price;
+                }
+            }
+
+            var filterDispo= {
+                epoId:this.data.EPOId
+            };
+            
+
+        return this.service.getDispositions(filterDispo)
+            .then(result => {
+                if(result.data){
+                    for(var data of result.data){
+                        if(data.Items){
+                            for(var item of data.Items){
+                                for(var detail of item.Details){
+                                    this.createdDisposition+=detail.PaidPrice;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+    }
+
     async selectedEPOChanged(newValue) {
         if (newValue) {
             this.selectedEPO=newValue;
@@ -145,6 +182,8 @@ export class PurchasingDispositionItem {
                     
                 }
                 this.data.Details=details;
+                
+                this.GetDisposition();
             }
             this.isShowing =true;
         }

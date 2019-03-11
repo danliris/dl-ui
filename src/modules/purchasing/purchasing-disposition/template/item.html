@@ -50,6 +50,24 @@
                 error.bind="error.incomeTax">
             </au-numeric>
         </td>
+
+        <td class="col-sm-2">
+            <au-numeric 
+                value.bind="createdDisposition"
+                show.bind="selectedEPO"
+                read-only="true"
+                error.bind="error.incomeTax">
+            </au-numeric>
+        </td>
+
+        <td class="col-sm-2">
+            <au-numeric 
+                value.bind="paidDisposition"
+                show.bind="selectedEPO"
+                read-only="true"
+                error.bind="error.incomeTax">
+            </au-numeric>
+        </td>
         <td class="col-sm-1">
             <button class="btn btn-info" click.delegate="toggle()">i</button> 
         </td>

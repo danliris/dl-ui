@@ -14,15 +14,16 @@ export class UnitDeliveryOrderItem {
     this.options = context.options;
 
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
+    this.isEdit = context.context.options.isEdit;
   }
 
   bind() {
 
   }
 
-  @computedFrom("data.Id")
-  get isEdit() {
-    return (this.data.Id || '').toString() != '';
+  @computedFrom("options.readOnly", "isEdit")
+  get isDefaultDOAppear() {
+    return this.options.readOnly || this.isEdit;
   }
 
   fabricChanged(e) {
@@ -35,7 +36,7 @@ export class UnitDeliveryOrderItem {
   }
 
   changeCheckBox() {
-    this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
+    this.context.context.options.checkedAll = this.context.context.items.filter(item => item.data.IsDisabled === false).reduce((acc, curr) => acc && curr.data.IsSave, true);
   }
 
   productChanged(newValue) {

@@ -11,7 +11,7 @@ export class ItemFooter {
 
   get itemSum() {
     var qty = this.context.items
-      .map((item) => item.data.quantity);
+      .map((item) => item.data.OrderQuantity);
     return qty
       .reduce((prev, curr, index) => { return prev + curr }, 0);
   }
