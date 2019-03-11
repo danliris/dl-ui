@@ -13,7 +13,17 @@ export class View {
 
   async activate(params) {
     var Id = params.Id;
-    this.data = await this.service.getById(Id);
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.WeavingUnit);
+      })
+      .then(unit => {
+        dataResult.WeavingUnit = unit;
+        return dataResult;
+      });
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan

@@ -23,9 +23,9 @@ export class Edit {
   }
 
   saveCallback(event) {
-    // console.log(this.data);
+    console.log(this.data);
     // this.data.MaterialTypeId = this.data.MaterialTypeId.Id;
-    // debugger;
+    debugger;
     this.service
       .update(this.data)
       .then(result => {

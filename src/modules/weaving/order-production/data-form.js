@@ -7,7 +7,7 @@ var moment = require("moment");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable constructionNumber;
+  @bindable FabricConstructionDocument;
   @bindable Month;
 
   yearFormat = "YYYY";
@@ -78,6 +78,7 @@ export class DataForm {
 
     if (this.data.Id) {
       this.Month = this.data.Period.Month;
+      this.FabricConstructionDocument = this.data.FabricConstructionDocument;
     } else {
       this.data.Period = {};
       this.data.Period.Month = this.Month;
@@ -89,7 +90,7 @@ export class DataForm {
   }
 
   get constructions() {
-    this.constructionNumber = {};
+    // this.FabricConstructionDocument = {};
     return ConstructionLoader;
   }
 
@@ -97,21 +98,21 @@ export class DataForm {
     return UnitLoader;
   }
 
-  constructionNumberChanged(newValue) {
+  FabricConstructionDocumentChanged(newValue) {
     if (newValue) {
-      if (newValue.yarnType) {
-        this.data.yarnType = newValue.yarnType;
-      } else {
-        newValue = this.data.fabricConstructionDocument;
+      if (newValue.Id) {
+        //   this.data.yarnType = newValue.yarnType;
+        // } else {
+        this.data.FabricConstructionDocument = newValue;
       }
 
-      this.constructionNumber = newValue;
-      this.data.fabricConstructionDocument = {};
+      this.ConstructionNumber = newValue;
+      this.data.FabricConstructionDocument = {};
 
       if (newValue) {
-        this.data.fabricConstructionDocument.Id = newValue.Id;
-        this.data.fabricConstructionDocument.constructionNumber =
-          newValue.constructionNumber;
+        this.data.FabricConstructionDocument.Id = newValue.Id;
+        this.data.FabricConstructionDocument.ConstructionNumber =
+          newValue.ConstructionNumber;
       }
     }
   }

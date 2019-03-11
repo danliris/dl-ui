@@ -12,8 +12,8 @@
           <!-- NO SOP -->
           <au-textbox
             label="No. SPP"
-            value.bind="data.orderNumber"
-            error.bind="error.orderNumber"
+            value.bind="data.OrderNumber"
+            error.bind="error.OrderNumber"
             read-only.bind="detailEditOnly"
             options.bind="customOptions"
             show.bind="createOnly"
@@ -65,12 +65,12 @@
             <div class="col-md-6">
               <au-autocomplete
                 placeholder="Konstruksi"
-                value.bind="constructionNumber"
-                error.bind="error.constructionNumber"
+                value.bind="FabricConstructionDocument"
+                error.bind="error.FabricConstructionDocument.ConstructionNumber"
                 options.bind="customLeftOptions"
                 read-only.bind="readOnly"
                 loader.one-time="constructions"
-                text="constructionNumber"
+                text="ConstructionNumber"
               >
               </au-autocomplete>
             </div>
@@ -84,16 +84,16 @@
             <div class="col-md-3" style="padding-right: 4px;">
               <au-textbox
                 placeholder="Asal Lusi"
-                value.bind="data.warpOrigin"
-                error.bind="error.warpOrigin"
+                value.bind="data.WarpOrigin"
+                error.bind="error.WarpOrigin"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
             <div class="col-md-3" style="padding-left: 4px;">
               <au-textbox
                 placeholder="Asal Pakan"
-                value.bind="data.weftOrigin"
-                error.bind="error.weftOrigin"
+                value.bind="data.WeftOrigin"
+                error.bind="error.WeftOrigin"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
@@ -110,8 +110,8 @@
               <au-textbox
                 placeholder="Poly"
                 options.bind="customCenterOptions"
-                value.bind="data.composition.compositionOfPoly"
-                error.bind="error.compositionOfPoly"
+                value.bind="data.WarpComposition.CompositionOfPoly"
+                error.bind="error.WarpComposition.CompositionOfPoly"
                 read-only.bind="readOnly"
               >
               </au-textbox>
@@ -120,8 +120,8 @@
               <au-textbox
                 placeholder="Cotton"
                 options.bind="customCenterOptions"
-                value.bind="data.composition.compositionOfCotton"
-                error.bind="error.compositionOfCotton"
+                value.bind="data.WarpComposition.CompositionOfCotton"
+                error.bind="error.WarpComposition.CompositionOfCotton"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
@@ -130,8 +130,8 @@
               <au-textbox
                 placeholder="Lainnya"
                 options.bind="customCenterOptions"
-                value.bind="data.composition.otherComposition"
-                error.bind="error.otherComposition"
+                value.bind="data.WarpComposition.OtherComposition"
+                error.bind="error.WarpComposition.OtherComposition"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
@@ -145,8 +145,8 @@
               <au-textbox
                 placeholder="Poly"
                 options.bind="customCenterOptions"
-                value.bind="data.composition.compositionOfPoly"
-                error.bind="error.compositionOfPoly"
+                value.bind="data.WeftComposition.CompositionOfPoly"
+                error.bind="error.WeftComposition.CompositionOfPoly"
                 read-only.bind="readOnly"
               >
               </au-textbox>
@@ -155,8 +155,8 @@
               <au-textbox
                 placeholder="Cotton"
                 options.bind="customCenterOptions"
-                value.bind="data.composition.compositionOfCotton"
-                error.bind="error.compositionOfCotton"
+                value.bind="data.WeftComposition.CompositionOfCotton"
+                error.bind="error.WeftComposition.CompositionOfCotton"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
@@ -164,8 +164,8 @@
               <au-textbox
                 placeholder="Lainnya"
                 options.bind="customCenterOptions"
-                value.bind="data.composition.otherComposition"
-                error.bind="error.otherComposition"
+                value.bind="data.WeftComposition.OtherComposition"
+                error.bind="error.WeftComposition.OtherComposition"
                 read-only.bind="readOnly"
               ></au-textbox>
             </div>
@@ -179,8 +179,8 @@
             <div class="col-md-9">
               <au-textbox
                 placeholder="Jenis Benang"
-                value.bind="data.yarnType"
-                error.bind="error.yarnType"
+                value.bind="data.YarnType"
+                error.bind="error.YarnType"
                 read-only.bind="readOnly"
                 options.bind="customOptions"
               ></au-textbox>
@@ -195,8 +195,8 @@
             <div class="col-md-9">
               <au-textbox
                 placeholder="All Grade"
-                value.bind="data.wholeGrade"
-                error.bind="error.wholeGrade"
+                value.bind="data.WholeGrade"
+                error.bind="error.WholeGrade"
                 read-only.bind="readOnly"
                 options.bind="customOptions"
               ></au-textbox>
@@ -211,11 +211,12 @@
             <div class="col-md-9">
               <au-autocomplete
                 placeholder="Cari Unit"
-                value.bind="data.weavingUnit.name"
-                error.bind="error.weavingUnitName"
+                value.bind="data.WeavingUnit"
+                error.bind="error.WeavingUnit"
                 read-only.bind="readOnly"
                 options.bind="customOptions"
                 loader.bind="units"
+                text="Name"
               ></au-autocomplete>
             </div>
           </div>

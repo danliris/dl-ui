@@ -10,15 +10,15 @@ export class List {
   columns = [
     [
       {
-        field: "orderNumber",
-        title: "No. SP",
+        field: "OrderNumber",
+        title: "No. SPP",
         rowspan: "2",
         valign: "top",
         sortable: true
       },
       {
         field: "DateOrdered",
-        title: "Tanggal SP",
+        title: "Tanggal SPP",
         rowspan: "2",
         valign: "top",
         formatter: function(value, data, index) {
@@ -36,21 +36,18 @@ export class List {
         }
       },
       {
-        field: "FabricConstructionDocument",
+        field: "ConstructionNumber",
         title: "Konstruksi",
         rowspan: "2",
-        valign: "top",
-        formatter: function(value, data, index) {
-          return value.ConstructionNumber;
-        }
+        valign: "top"
       },
       {
-        title: "Warp Blended (%)",
+        title: "Komposisi Lusi (%)",
         colspan: "3",
         valign: "middle"
       },
       {
-        title: "Weft Blended (%)",
+        title: "Komposisi Pakan (%)",
         colspan: "3",
         valign: "middle"
       }
@@ -61,7 +58,7 @@ export class List {
         title: "Poly",
         valign: "middle",
         formatter: function(value, data, index) {
-          return value.compositionOfPoly;
+          return value.CompositionOfPoly;
         }
       },
       {
@@ -69,7 +66,7 @@ export class List {
         title: "Cotton",
         valign: "middle",
         formatter: function(value, data, index) {
-          return value.compositionOfCotton;
+          return value.CompositionOfCotton;
         }
       },
       {
@@ -77,7 +74,7 @@ export class List {
         title: "Lainnya",
         valign: "middle",
         formatter: function(value, data, index) {
-          return value.otherComposition;
+          return value.OtherComposition;
         }
       },
       {
@@ -85,7 +82,7 @@ export class List {
         title: "Poly",
         valign: "middle",
         formatter: function(value, data, index) {
-          return value.compositionOfPoly;
+          return value.CompositionOfPoly;
         }
       },
       {
@@ -93,7 +90,7 @@ export class List {
         title: "Cotton",
         valign: "middle",
         formatter: function(value, data, index) {
-          return value.compositionOfCotton;
+          return value.CompositionOfCotton;
         }
       },
       {
@@ -101,7 +98,7 @@ export class List {
         title: "Lainnya",
         valign: "middle",
         formatter: function(value, data, index) {
-          return value.otherComposition;
+          return value.OtherComposition;
         }
       }
     ]
@@ -119,10 +116,25 @@ export class List {
     };
 
     return this.service.search(arg).then(result => {
-      return {
-        total: result.info.count,
-        data: result.data
-      };
+      if (result.data && result.data.length > 0) {
+        let getUnitPromises = result.data.map(datum =>
+          this.service.getUnitById(datum.WeavingUnit)
+        );
+
+        return Promise.all(getUnitPromises).then(units => {
+          for (var datum of result.data) {
+            let unit = units.find(
+              unitResult => datum.WeavingUnit == unitResult.Id
+            );
+            datum.WeavingUnit = unit;
+          }
+
+          return {
+            total: result.info.count,
+            data: result.data
+          };
+        });
+      }
     });
   };
 
