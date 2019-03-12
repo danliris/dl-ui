@@ -23,12 +23,6 @@ export class DataForm {
     }
   };
 
-  // customPUControlOptions = {
-  //   control: {
-  //     length: 12
-  //   }
-  // };
-
   //Options untuk No. Estimasi Produksi
   customEstimatedControlOptions = {
     control: {
@@ -62,9 +56,8 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    console.log(this.error);
 
-    if (this.data.estimatedNumber) {
+    if (this.data.EstimatedNumber) {
       this.orderProductionsTableOptions = {};
     }
 
@@ -78,18 +71,18 @@ export class DataForm {
   }
 
   orderProductionsColumns = [
-    { header: "Tanggal", value: "dateOrdered" },
-    { header: "No. SOP", value: "orderNumber" },
+    { header: "Tanggal", value: "DateOrdered" },
+    { header: "No. SOP", value: "OrderNumber" },
     {
       header: "No. Konstruksi",
-      value: "fabricConstructionDocument.constructionNumber"
+      value: "ConstructionNumber"
     },
-    { header: "Total Gram", value: "amountTotal" },
-    { header: "Jumlah Order(Meter)", value: "wholeGrade" },
-    { header: "Grade A(%)", value: "gradeA" },
-    { header: "Grade B(%)", value: "gradeB" },
-    { header: "Grade C(%)", value: "gradeC" },
-    { header: "Grade D(%)", value: "gradeD" }
+    { header: "Total Gram", value: "TotalGramEstimation" },
+    { header: "Jumlah Order(Meter)", value: "WholeGrade" },
+    { header: "Grade A(%)", value: "GradeA" },
+    { header: "Grade B(%)", value: "GradeB" },
+    { header: "Grade C(%)", value: "GradeC" },
+    { header: "Grade D(%)", value: "GradeD" }
   ];
 
   get units() {
@@ -115,60 +108,60 @@ export class DataForm {
 
     if (this.data.period) {
       if (
-        this.data.period.month == null ||
-        this.data.period.month == undefined ||
-        this.data.period.month == ""
+        this.data.Period.Month == null ||
+        this.data.Period.Month == undefined ||
+        this.data.Period.Month == ""
       ) {
-        this.error.periodMonth = "Periode Bulan Tidak Boleh Kosong";
+        this.error.Period.Month = "Periode Bulan Tidak Boleh Kosong";
         index++;
       }
 
       if (
-        this.data.period.year == null ||
-        this.data.period.year == undefined ||
-        this.data.period.year == ""
+        this.data.Period.Year == null ||
+        this.data.Period.Year == undefined ||
+        this.data.Period.Year == ""
       ) {
-        this.error.periodYear = "Periode Tahun Tidak Boleh Kosong";
+        this.error.Period.Year = "Periode Tahun Tidak Boleh Kosong";
         index++;
       }
     }
 
-    if (this.data.unit) {
+    if (this.data.Unit) {
       if (
-        this.data.unit == null ||
-        this.data.unit == undefined ||
-        this.data.unit == ""
+        this.data.Unit == null ||
+        this.data.Unit == undefined ||
+        this.data.Unit == ""
       ) {
-        this.error.unit = "Unit Tidak Boleh Kosong";
+        this.error.Unit = "Unit Tidak Boleh Kosong";
         index++;
       }
     }
-
-    console.log(this.data);
 
     if (index > 0) {
       window.alert(emptyFieldName);
     } else {
-      await this.service
-        .searchSOP(
-          this.data.period.month,
-          this.data.period.year,
-          this.data.unit.code
-        )
-        .then(result => {
-          //Print each datum on orderProductions Data and push to Items Collections
-          result.data.forEach((datum, i, data) => {
-            // this.data.estimationProducts;
-            if (this.data.estimationProducts.find(esp => esp.Id == datum.Id)) {
-              // continue;
-            } else {
-              this.data.estimationProducts.push(datum);
-            }
-          });
+      if (this.data.Id) {
+        await this.service
+          .searchSOP(
+            this.data.Period.Month,
+            this.data.Period.Year,
+            this.data.Unit.Id
+          )
+          .then(result => {
+            //Print each datum on orderProductions Data and push to Items Collections
+            result.data.forEach((datum, i, data) => {
+              if (
+                this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
+              ) {
+              } else {
+                this.data.EstimationProducts.push(datum);
+              }
+            });
 
-          //Bind "Items" reference
-          this.context.orderProductionsItems.bind(this);
-        });
+            //Bind "Items" reference
+            this.context.orderProductionsItems.bind(this);
+          });
+      }
     }
   }
 }

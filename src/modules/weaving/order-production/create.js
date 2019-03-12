@@ -26,163 +26,107 @@ export class Create {
 
   //Tombol "Simpan", menyimpan nilai masukan
   saveCallback(event) {
-    // this.error = {};
-    // var numberOnly = new RegExp("[0-9]");
-    // var index = 0;
-    // var emptyFieldName =
-    //   "- Semua Field Harus Diisi\n- Blended(%) Harus Berupa Angka\n- All Grade Harus Berupa Angka";
+    this.error = {};
+    var CurrentDate = new Date();
+    this.data.DateOrdered = CurrentDate;
 
-    // //Periksa Field Kosong atau Terisi
-    // //Cek Tanggal SPP
-    // if (this.data.dateOrdered == null || this.data.dateOrdered == undefined) {
-    //   this.error.dateOrdered = "Tanggal SPP Tidak Boleh Kosong";
-    //   index++;
+    if (this.data.Period) {
+      if (!this.data.Period.Month) {
+        this.data.Period.Month = "";
+      }
+      if (!this.data.Period.Year) {
+        this.data.Period.Year = "";
+      }
+    } else {
+      this.data.Period = "";
+    }
+
+    if (!this.data.FabricConstructionDocument) {
+      // if (!this.data.FabricConstructionDocument.Id) {
+      this.data.FabricConstructionDocument = {};
+      this.data.FabricConstructionDocument.Id = "";
+      this.data.FabricConstructionDocument.ConstructionNumber = "";
+      // }
+    }
+
+    if (
+      this.data.WarpOrigin == null ||
+      this.data.WarpOrigin == undefined ||
+      this.data.WarpOrigin == ""
+    ) {
+      this.data.WarpOrigin = "";
+    }
+
+    if (
+      this.data.WeftOrigin == null ||
+      this.data.WeftOrigin == undefined ||
+      this.data.WeftOrigin == ""
+    ) {
+      this.data.WeftOrigin = "";
+    }
+
+    // if (!this.data.WarpComposition) {
+    //   this.data.WarpComposition = {};
+    //   // if (!this.data.WarpComposition.CompositionOfPoly) {
+    //   //   this.data.WarpComposition.CompositionOfPoly = 0;
+    //   // }
+    //   // if (!this.data.WarpComposition.CompositionOfCotton) {
+    //   //   this.data.WarpComposition.CompositionOfCotton = 0;
+    //   // }
+    //   // if (!this.data.WarpComposition.OtherComposition) {
+    //   //   this.data.WarpComposition.OtherComposition = 0;
+    //   // }
     // }
 
-    // if (this.data.period) {
-    //   //Cek Periode Bulan
-    //   if (
-    //     this.data.period.month == null ||
-    //     this.data.period.month == undefined ||
-    //     this.data.period.month == ""
-    //   ) {
-    //     this.error.periodmonth = "Bulan Periode Tidak Boleh Kosong";
-    //     index++;
-    //   }
-
-    //   //Cek Periode Tahun
-    //   if (
-    //     this.data.period.year == null ||
-    //     this.data.period.year == undefined ||
-    //     this.data.period.year == ""
-    //   ) {
-    //     this.error.periodyear = "Tahun Periode Tidak Boleh Kosong";
-    //     index++;
-    //   }
+    // if (!this.data.WeftComposition) {
+    //   this.data.WeftComposition = {};
+    //   // if (!this.data.WeftComposition.CompositionOfPoly) {
+    //   //   this.data.WeftComposition.CompositionOfPoly = 0;
+    //   // }
+    //   // if (!this.data.WeftComposition.CompositionOfCotton) {
+    //   //   this.data.WeftComposition.CompositionOfCotton = 0;
+    //   // }
+    //   // if (!this.data.WeftComposition.OtherComposition) {
+    //   //   this.data.WeftComposition.OtherComposition = 0;
+    //   // }
     // }
 
-    // //Cek Konstruksi
-    // if (this.data.fabricConstructionDocument) {
-    //   if (
-    //     this.data.fabricConstructionDocument.Id == null ||
-    //     this.data.fabricConstructionDocument.Id == undefined ||
-    //     this.data.fabricConstructionDocument.Id == ""
-    //   ) {
-    //     this.error.constructionNumber = "Konstruksi Tidak Boleh Kosong";
-    //     index++;
-    //   }
-    // }
+    if (!this.data.YarnType) {
+      this.data.YarnType = "";
+    }
 
-    // //Cek Asal Lusi
-    // if (
-    //   this.data.warpOrigin == null ||
-    //   this.data.warpOrigin == undefined ||
-    //   this.data.warpOrigin == ""
-    // ) {
-    //   this.error.warpOrigin = "Asal Lusi Tidak Boleh Kosong";
-    //   index++;
-    // }
+    if (!this.data.WholeGrade) {
+      this.data.WholeGrade = 0;
+    }
 
-    // //Cek Asal Pakan
-    // if (
-    //   this.data.weftOrigin == null ||
-    //   this.data.weftOrigin == undefined ||
-    //   this.data.weftOrigin == ""
-    // ) {
-    //   this.error.weftOrigin = "Asal Pakan Tidak Boleh Kosong";
-    //   index++;
-    // }
+    if (!this.data.WeavingUnit) {
+      this.data.WeavingUnit = {};
+      this.data.WeavingUnit.Id = 0;
+      this.data.WeavingUnit.Code = "";
+      this.data.WeavingUnit.Name = "";
+    } else {
+      // if (this.data.WeavingUnit.Id) {
+      var Unit = this.data.WeavingUnit;
+      this.data.WeavingUnit = {};
+      this.data.WeavingUnit.Id = Unit.Id;
+      this.data.WeavingUnit.Code = Unit.Code;
+      this.data.WeavingUnit.Name = Unit.Name;
+      // }
+    }
 
-    // //Cek Komposisi/ Blended(%)
-    // if (this.data.composition == null || this.data.composition == undefined) {
-    //   this.error.compositionOfPoly = "Komposisi Poly Tidak Boleh Kosong";
-    //   this.error.compositionOfCotton = "Komposisi Cotton Tidak Boleh Kosong";
-    //   this.error.otherComposition = "Komposisi Lainnya Tidak Boleh Kosong";
-    //   index++;
-    // } else {
-    //   //Periksa Properties Komposisi Sesuai dengan RegEx
-    //   //Cek Komposisi Poly sesuai RegEx
-    //   if (
-    //     this.data.composition.compositionOfPoly == null ||
-    //     this.data.composition.compositionOfPoly == undefined ||
-    //     this.data.composition.compositionOfPoly == ""
-    //   ) {
-    //     this.error.compositionOfPoly = "Komposisi Poly Tidak Boleh Kosong";
-    //     index++;
-    //   } else {
-    //     if (!numberOnly.test(this.data.composition.compositionOfPoly)) {
-    //       this.error.compositionOfPoly = "Komposisi Poly Harus Berupa Angka";
-    //       index++;
-    //     }
-    //   }
+    console.log(this.data);
+    debugger;
 
-    //   //Cek Komposisi Cotton sesuai RegEx
-    //   if (
-    //     this.data.composition.compositionOfCotton == null ||
-    //     this.data.composition.compositionOfCotton == undefined ||
-    //     this.data.composition.compositionOfCotton == ""
-    //   ) {
-    //     this.error.compositionOfCotton = "Komposisi Cotton Tidak Boleh Kosong";
-    //     index++;
-    //   } else {
-    //     if (!numberOnly.test(this.data.composition.compositionOfCotton)) {
-    //       this.error.compositionOfCotton =
-    //         "Komposisi Cotton Harus Berupa Angka";
-    //       index++;
-    //     }
-    //   }
-
-    //   //Cek Komposisi Lainnya sesuai RegEx
-    //   if (
-    //     this.data.composition.otherComposition == null ||
-    //     this.data.composition.otherComposition == undefined ||
-    //     this.data.composition.otherComposition == ""
-    //   ) {
-    //     this.error.otherComposition = "Komposisi Lainnya Tidak Boleh Kosong";
-    //     index++;
-    //   } else {
-    //     if (!numberOnly.test(this.data.composition.otherComposition)) {
-    //       this.error.otherComposition = "Komposisi Lainnya Harus Berupa Angka";
-    //       index++;
-    //     }
-    //   }
-    // }
-
-    // //Cek Jenis Benang
-    // if (this.data.yarnType == null || this.data.yarnType == undefined) {
-    //   this.error.yarnType = "Jenis Benang Tidak Boleh Kosong";
-    //   index++;
-    // }
-
-    // //Cek All Grade
-    // if (this.data.wholeGrade == null || this.data.wholeGrade == undefined) {
-    //   this.error.wholeGrade = "All Grade Tidak Boleh Kosong";
-    //   index++;
-    // } else {
-    //   if (!numberOnly.test(this.data.wholeGrade)) {
-    //     this.error.wholeGrade = "All Grade Harus Berupa Angka";
-    //     index++;
-    //   }
-    // }
-
-    // //Cek Weaving Unit
-    // if (this.data.weavingUnit == null || this.data.weavingUnit == undefined) {
-    //   this.error.weavingUnitName = "Unit Weaving Tidak Boleh Kosong";
-    //   index++;
-    // }
-
-    // //Periksa apakah seluruh kondisi di atas terpenuhi
-    // if (index > 0) {
-    //   window.alert(emptyFieldName);
-    // } else {
-      this.service
-        .create(this.data)
-        .then(result => {
-          this.list();
-        })
-        .catch(e => {
-          this.error = e;
-        });
-    // }
+    this.service
+      .create(this.data)
+      .then(result => {
+        this.list();
+      })
+      .catch(e => {
+        this.error = e;
+        this.error.WeavingUnit = {};
+        this.error.WeavingUnit.Id = e.WeavingUnit.Id;
+        console.log(this.error);
+      });
   }
 }

@@ -6,8 +6,8 @@ var RingLoader = require("../../../loader/weaving-ring-loader");
 export class DataForm {
   @bindable title;
   @bindable readOnly;
-  @bindable RingDocument;
-  @bindable MaterialTypeDocument;
+  @bindable YarnNumberId;
+  @bindable MaterialTypeId;
   @bindable yarnCode;
   @bindable optionalName;
 
@@ -30,11 +30,17 @@ export class DataForm {
 
     if (this.data.Id) {
       var detectWhitespace = this.data.Name.split(" ");
-      this.MaterialTypeDocument = this.data.MaterialTypeDocument.Code;
-      this.RingDocument = this.data.RingDocument.Code;
+      this.MaterialTypeId = this.data.MaterialTypeId.Code;
+      this.YarnNumberId = this.data.YarnNumberId.Code;
       this.data.Name = detectWhitespace[0] ? detectWhitespace[0] : " ";
       this.optionalName = detectWhitespace[1] ? detectWhitespace[1] : " ";
     }
+
+    // if (this.data.MaterialTypeId) {
+    //   if (!this.data.MaterialTypeId.Name == "") {
+    //     this.data.MaterialTypeId.Name = this.data.MaterialTypeId.Name;
+    //   }
+    // }
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -42,35 +48,94 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
+  // optionalNameChanged(newValue) {
+  //   var whitespaceRegex = new RegExp("\\s");
+  //   if (this.data.MaterialTypeId && this.data.YarnNumberId) {
+  //     if (whitespaceRegex.test(newValue)) {
+  //       this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+  //     } else {
+  //     this.data.Name =
+  //       this.data.MaterialTypeId.Name + this.data.YarnNumberId.Number;
+  //     this.data.Name = this.data.Name + " " + newValue;
+  //     }
+  //   } else {
+  //     this.data.Name = "";
+  //     this.data.Name = newValue;
+  //   }
+  // }
+
+  // // Change on Kode Bahan, affected when MaterialTypeId change
+  // MaterialTypeIdChanged(newValue) {
+  //   if (newValue.Name) {
+  //     this.data.Name = "";
+  //     this.data.MaterialTypeId = {};
+  //     this.data.MaterialTypeId = newValue;
+  //     this.data.MaterialTypeId.Id = newValue.Id;
+  //     this.data.MaterialTypeId.Name = newValue.Name;
+  //     this.data.MaterialTypeId.Code = newValue.Code;
+
+  //     if (this.data.YarnNumberId) {
+  //       this.data.Name =
+  //         this.data.MaterialTypeId.Name + this.data.YarnNumberId.Number
+  //           ? newValue.Name + this.data.YarnNumberId.Number
+  //           : newValue.Name;
+  //     } else {
+  //       this.data.Name = newValue.Name;
+  //     }
+  //   }
+  // }
+
+  // // Change on Kode Ring, affected when YarnNumberId change
+  // YarnNumberIdChanged(newValue) {
+  //   if (newValue.Number) {
+  //     this.data.Name = "";
+  //     this.data.YarnNumberId = {};
+  //     this.data.YarnNumberId = newValue;
+  //     this.data.YarnNumberId.Id = newValue.Id;
+  //     this.data.YarnNumberId.Number = newValue.Number;
+  //     this.data.YarnNumberId.Code = newValue.Code;
+
+  //     if (this.data.MaterialTypeId) {
+  //       this.data.Name = this.data.MaterialTypeId.Name + this.data.YarnNumberId.Number
+  //         ? this.data.MaterialTypeId.Name + newValue.Number
+  //         : newValue.Number;
+  //     } else {
+  //       this.data.Name = newValue.Number;
+  //     }
+  //   }
+  // }
+
   optionalNameChanged(newValue) {
-    // var whitespaceRegex = new RegExp("\\s");
-    if (this.data.MaterialTypeDocument && this.data.RingDocument) {
-      // if (whitespaceRegex.test(newValue)) {
-      //   this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
-      // } else {
-      this.data.Name =
-        this.data.MaterialTypeDocument.Name + this.data.RingDocument.Number;
-      this.data.Name = this.data.Name + " " + newValue;
-      // }
+    var whitespaceRegex = new RegExp("\\s");
+    if (this.data.MaterialTypeId && this.data.YarnNumberId) {
+      if (whitespaceRegex.test(newValue)) {
+        this.error.optionalName = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+      } else {
+        var yarnMaterial = this.data.MaterialTypeId.Name;
+        var yarnNumber = this.data.YarnNumberId.Number;
+        this.data.Name = yarnMaterial + yarnNumber;
+        this.data.Name = this.data.Name + " " + newValue;
+      }
     } else {
       this.data.Name = "";
       this.data.Name = newValue;
     }
   }
 
-  // Change on Kode Bahan, affected when materialTypeDocument change
-  MaterialTypeDocumentChanged(newValue) {
+  // Change on Kode Bahan, affected when MaterialTypeId change
+  MaterialTypeIdChanged(newValue) {
     if (newValue.Name) {
       this.data.Name = "";
-      this.data.MaterialTypeDocument = {};
-      this.data.MaterialTypeDocument.Id = newValue.Id;
-      this.data.MaterialTypeDocument.Name = newValue.Name;
-      this.data.MaterialTypeDocument.Code = newValue.Code;
+      this.data.MaterialTypeId = {};
+      this.data.MaterialTypeId = newValue;
+      this.data.MaterialTypeId.Id = newValue.Id;
+      this.data.MaterialTypeId.Name = newValue.Name;
+      this.data.MaterialTypeId.Code = newValue.Code;
 
-      if (this.data.RingDocument) {
+      if (this.data.YarnNumberId) {
         this.data.Name =
-          newValue.Name + this.data.RingDocument.Number
-            ? newValue.Name + this.data.RingDocument.Number
+          newValue.Name + this.data.YarnNumberId.Number
+            ? newValue.Name + this.data.YarnNumberId.Number
             : "";
       } else {
         this.data.Name = newValue.Name;
@@ -78,17 +143,19 @@ export class DataForm {
     }
   }
 
-  // Change on Kode Ring, affected when ringDocument change
-  RingDocumentChanged(newValue) {
+  // Change on Kode Ring, affected when YarnNumberId change
+  YarnNumberIdChanged(newValue) {
     if (newValue.Number) {
       this.data.Name = "";
-      this.data.RingDocument = {};
-      this.data.RingDocument.Number = newValue.Number;
-      this.data.RingDocument.Code = newValue.Code;
+      this.data.YarnNumberId = {};
+      this.data.YarnNumberId = newValue;
+      this.data.YarnNumberId.Id = newValue.Id;
+      this.data.YarnNumberId.Number = newValue.Number;
+      this.data.YarnNumberId.Code = newValue.Code;
 
-      if (this.data.MaterialTypeDocument) {
-        this.data.Name = this.data.MaterialTypeDocument.Name
-          ? this.data.MaterialTypeDocument.Name + newValue.Number
+      if (this.data.MaterialTypeId) {
+        this.data.Name = this.data.MaterialTypeId.Name
+          ? this.data.MaterialTypeId.Name + newValue.Number
           : newValue.Number;
       } else {
         this.data.Name = newValue.Number;

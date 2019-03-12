@@ -8,7 +8,7 @@ export class DataForm {
   @bindable Yarn;
   @bindable ItemsWarp;
   @bindable ItemsWeft;
-  @bindable MaterialTypeDocument;
+  @bindable MaterialTypeId;
   readOnlyAll = "true";
 
   formOptions = {
@@ -44,7 +44,7 @@ export class DataForm {
     this.error = this.context.error;
 
     if (this.data.Id) {
-      this.MaterialTypeDocument = this.data.MaterialTypeDocument;
+      this.MaterialTypeId = this.data.MaterialTypeId;
 
       this.ItemsWarp = this.data.ItemsWarp;
       this.ItemsWarpOptions = {};
@@ -59,6 +59,7 @@ export class DataForm {
       this.ItemsWeftOptions.Yarn = "";
       this.ItemsWeftOptions.Quantity = "";
       this.ItemsWeftOptions.Information = "";
+      // console.log("data-form", this.data);
     }
     if (this.readOnly) {
       //Collections Columns on readOnly state
@@ -135,16 +136,15 @@ export class DataForm {
   //Concatenated some properties for create ConstructionNumber on Form
   get ConstructionNumber() {
     var result = "";
-    if(this.MaterialTypeDocument) {
+    if (this.MaterialTypeId) {
+      // console.log(this.data);
+      // console.log(this.MaterialTypeDocument);
       //API Properties vs Form Properties
-      this.data.MaterialTypeDocument = {};
-      this.data.MaterialTypeDocument.Id = this.MaterialTypeDocument.Id;
-      this.data.MaterialTypeDocument.Code = this.MaterialTypeDocument.Code;
-      this.data.MaterialTypeDocument.Name = this.MaterialTypeDocument.Name;
+      // this.data.MaterialTypeId = {};
+      // this.data.MaterialTypeDocument.Code = this.MaterialTypeDocument.Code;
+      // this.data.MaterialTypeDocument.Name = this.MaterialTypeDocument.Name;
 
-      var Name = this.MaterialTypeDocument.Name
-        ? this.MaterialTypeDocument.Name
-        : "";
+      var Name = this.MaterialTypeId.Name ? this.MaterialTypeId.Name : "";
       var Woven = this.data.WovenType ? this.data.WovenType : "";
       var Warp = this.data.AmountOfWarp ? this.data.AmountOfWarp : "";
       var Weft = this.data.AmountOfWeft ? this.data.AmountOfWeft : "";
@@ -163,23 +163,27 @@ export class DataForm {
         this.WarpTypeForm +
         " " +
         this.WeftTypeForm;
+      this.data.MaterialTypeId = this.MaterialTypeId.Id;
+      this.data.ConstructionNumber = result;
     }
+    // console.log(result);
     return result;
   }
 
   constructionDetail(data) {
+    // console.log(data);
     var detail = {};
-    var Yarn = {};
+    // var Yarn = {};
+    detail.YarnId = data.YarnId;
     detail.Quantity = data.Quantity;
     detail.Information = data.Information;
 
-    if (data.Yarn) {
-      Yarn.Id = data.Yarn.Id;
-      Yarn.Code = data.Yarn.Code;
-      Yarn.Name = data.Yarn.Name;
-    }
-    if (Yarn.Id) {
-      detail.Yarn = Yarn;
+    // if (data.Yarn) {
+    // Yarn.Id = data.Yarn.Id;
+    // Yarn.Code = data.Code;
+    // Yarn.Name = data.Name;
+    // }
+    if (data.Id) {
       this.data.ConstructionNumber = this.ConstructionNumber;
     }
     return detail;
@@ -193,7 +197,7 @@ export class DataForm {
       if (this.ItemsWarp.length > 0) {
         for (let detail of this.ItemsWarp) {
           if (detail.Select) {
-            result = result + detail.materialCode + detail.ringCode;
+            result = result + detail.MaterialTypeId + detail.YarnNumberId;
           }
         }
       }
@@ -210,7 +214,7 @@ export class DataForm {
       if (this.ItemsWeft.length > 0) {
         for (let detail of this.ItemsWeft) {
           if (detail.Select) {
-            result = result + detail.materialCode + detail.ringCode;
+            result = result + detail.MaterialTypeId + detail.YarnNumberId;
           }
         }
       }

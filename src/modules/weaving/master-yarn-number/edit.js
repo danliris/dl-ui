@@ -20,8 +20,6 @@ export class Edit {
   }
 
   saveCallback(event) {
-    console.log(this.data);
-    debugger;
     this.service
       .update(this.data)
       .then(result => {

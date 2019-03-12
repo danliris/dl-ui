@@ -28,7 +28,7 @@ export class Service extends RestService {
   }
 
   update(data) {
-    console.log(data);
+    // console.log(data);
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
@@ -43,10 +43,10 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getCoreSupplierById(id) {
+  getCoreSupplierById(Id) {
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("core");
-    var _serviceUri = `master/suppliers/${id}`;
+    var _serviceUri = `master/suppliers/${Id}`;
 
     return _endpoint.find(_serviceUri).then(result => {
       return result.data;
