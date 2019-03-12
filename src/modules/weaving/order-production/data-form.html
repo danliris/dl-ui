@@ -20,18 +20,21 @@
           >
           </au-textbox>
         </div>
-      </div>
-      <div class="row">
         <div class="col-md-6">
           <!-- TANGGAL SP -->
           <au-datepicker
             label="Tanggal SPP"
             value.bind="data.DateOrdered"
             error.bind="error.DateOrdered"
-            read-only.bind="readOnly"
+            read-only.bind="detailEditOnly"
             options.bind="customOptions"
+            show.bind="createOnly"
           ></au-datepicker>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-md-6">
           <!-- PERIODE -->
           <div class="row">
             <div class="col-md-3">
@@ -48,7 +51,7 @@
             </div>
             <div class="col-md-3" style="padding-left: 0px;">
               <au-dropdown
-                value.bind="data.Period.Year"
+                value.bind="Year"
                 error.bind="error.Period.Year"
                 read-only.bind="readOnly"
                 items.bind="years"
@@ -62,7 +65,7 @@
             <div class="col-md-3">
               <textbox label="Konstruksi" read-only="true"></textbox>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
               <au-autocomplete
                 placeholder="Konstruksi"
                 value.bind="FabricConstructionDocument"
@@ -98,10 +101,8 @@
               ></au-textbox>
             </div>
           </div>
-        </div>
 
-        <!-- BLENDED(%) -->
-        <div class="col-md-6">
+          <!-- KOMPOSISI LUSI -->
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-3">
               <textbox label="Komposisi Lusi(%)" read-only="true"></textbox>
@@ -136,41 +137,9 @@
               ></au-textbox>
             </div>
           </div>
+        </div>
 
-          <div class="row" style="white-space: nowrap;">
-            <div class="col-md-3">
-              <textbox label="Komposisi Pakan(%)" read-only="true"></textbox>
-            </div>
-            <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox
-                placeholder="Poly"
-                options.bind="customCenterOptions"
-                value.bind="data.WeftComposition.CompositionOfPoly"
-                error.bind="error.WeftComposition.CompositionOfPoly"
-                read-only.bind="readOnly"
-              >
-              </au-textbox>
-            </div>
-            <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox
-                placeholder="Cotton"
-                options.bind="customCenterOptions"
-                value.bind="data.WeftComposition.CompositionOfCotton"
-                error.bind="error.WeftComposition.CompositionOfCotton"
-                read-only.bind="readOnly"
-              ></au-textbox>
-            </div>
-            <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox
-                placeholder="Lainnya"
-                options.bind="customCenterOptions"
-                value.bind="data.WeftComposition.OtherComposition"
-                error.bind="error.WeftComposition.OtherComposition"
-                read-only.bind="readOnly"
-              ></au-textbox>
-            </div>
-          </div>
-
+        <div class="col-md-6">
           <!-- JENIS BENANG -->
           <div class="row">
             <div class="col-md-3" style="white-space: nowrap">
@@ -212,12 +181,47 @@
               <au-autocomplete
                 placeholder="Cari Unit"
                 value.bind="data.WeavingUnit"
-                error.bind="error.WeavingUnit"
+                error.bind="error.WeavingUnit.Id"
                 read-only.bind="readOnly"
                 options.bind="customOptions"
                 loader.bind="units"
                 text="Name"
               ></au-autocomplete>
+            </div>
+          </div>
+
+          <!-- KOMPOSISI PAKAN -->
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-3">
+              <textbox label="Komposisi Pakan(%)" read-only="true"></textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Poly"
+                options.bind="customCenterOptions"
+                value.bind="data.WeftComposition.CompositionOfPoly"
+                error.bind="error.WeftComposition.CompositionOfPoly"
+                read-only.bind="readOnly"
+              >
+              </au-textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Cotton"
+                options.bind="customCenterOptions"
+                value.bind="data.WeftComposition.CompositionOfCotton"
+                error.bind="error.WeftComposition.CompositionOfCotton"
+                read-only.bind="readOnly"
+              ></au-textbox>
+            </div>
+            <div class="col-md-3" style="padding-right: 4px;">
+              <au-textbox
+                placeholder="Lainnya"
+                options.bind="customCenterOptions"
+                value.bind="data.WeftComposition.OtherComposition"
+                error.bind="error.WeftComposition.OtherComposition"
+                read-only.bind="readOnly"
+              ></au-textbox>
             </div>
           </div>
         </div>

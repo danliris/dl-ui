@@ -9,6 +9,7 @@ export class DataForm {
   @bindable readOnly;
   @bindable FabricConstructionDocument;
   @bindable Month;
+  @bindable Year;
 
   yearFormat = "YYYY";
   years = [];
@@ -74,15 +75,24 @@ export class DataForm {
     this.error = this.context.error;
 
     this.Month = this.months[this.getMonth()];
-    this.getYears();
 
     if (this.data.Id) {
-      this.Month = this.data.Period.Month;
-      this.FabricConstructionDocument = this.data.FabricConstructionDocument;
+      if (this.readOnly) {
+        this.Month = this.data.Period.Month;
+        this.Year = this.data.Period.Year;
+        this.FabricConstructionDocument = this.data.FabricConstructionDocument;
+      } else {
+        this.Month = this.data.Period.Month;
+        var yearData = this.data.Period.Year;
+        this.Year = this.getYears(yearData);
+        this.FabricConstructionDocument = this.data.FabricConstructionDocument;
+      }
     } else {
       this.data.Period = {};
       this.data.Period.Month = this.Month;
+      this.Year = this.getYears();
     }
+
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
@@ -90,7 +100,6 @@ export class DataForm {
   }
 
   get constructions() {
-    // this.FabricConstructionDocument = {};
     return ConstructionLoader;
   }
 
@@ -117,9 +126,12 @@ export class DataForm {
     }
   }
 
-  monthChanged(newValue) {
+  MonthChanged(newValue) {
     this.data.Period.Month = newValue;
-    this.getYears();
+  }
+
+  YearChanged(newValue) {
+    this.data.Period.Year = newValue;
   }
 
   getYears() {

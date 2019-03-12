@@ -17,10 +17,12 @@ export class View {
     this.data = await this.service
       .getById(Id)
       .then(result => {
+        console.log(result);
         dataResult = result;
         return this.service.getUnitById(result.WeavingUnit);
       })
       .then(unit => {
+        console.log(unit);
         dataResult.WeavingUnit = unit;
         return dataResult;
       });

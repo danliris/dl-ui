@@ -9,16 +9,15 @@ export class Items {
   activate(context) {
     this.data = context.data;
     this.error = context.error;
-    console.log("items", this.error);
 
-    if (this.data.fabricConstructionDocument) {
-      this.data.constructionNumber = this.data.fabricConstructionDocument.constructionNumber;
+    if (this.data.FabricConstructionDocument) {
+      this.data.ConstructionNumber = this.data.FabricConstructionDocument.ConstructionNumber;
       parseFloat(
-        (this.data.totalGramEstimation =
-          this.data.wholeGrade * this.data.fabricConstructionDocument.totalYarn)
+        (this.data.TotalGramEstimation =
+          this.data.WholeGrade * this.data.FabricConstructionDocument.TotalYarn)
       );
-      this.data.totalYarn = parseFloat(
-        this.data.fabricConstructionDocument.totalYarn
+      this.data.TotalYarn = parseFloat(
+        this.data.FabricConstructionDocument.TotalYarn
       );
     }
 

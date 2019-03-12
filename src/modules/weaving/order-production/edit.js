@@ -25,6 +25,9 @@ export class Edit {
         dataResult.WeavingUnit = unit;
         return dataResult;
       });
+    if (typeof this.data.Period.Year === "string") {
+      this.Year = parseInt(this.data.Period.Year);
+    }
   }
 
   cancelCallback(event) {
@@ -37,9 +40,8 @@ export class Edit {
     this.data.WeavingUnit.Id = Unit.Id;
     this.data.WeavingUnit.Code = Unit.Code;
     this.data.WeavingUnit.Name = Unit.Name;
-    this.data.Period.Month = this.Month;
-    console.log(this.data);
-    debugger;
+    var updateYear = this.Year;
+    this.data.Period.Year = updateYear;
     this.service
       .update(this.data)
       .then(result => {

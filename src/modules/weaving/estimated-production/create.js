@@ -13,7 +13,6 @@ export class Create {
     this.router = router;
     this.service = service;
     this.data = {};
-    // this.error = { orderProductionsDocument: [] };
   }
 
   activate(params) {}
@@ -30,60 +29,75 @@ export class Create {
 
   //Tombol "Simpan", membuat data, redirect ke create
   saveCallback(event) {
-    console.log(this.data);
-    // debugger;
-    // var summedUpGradeAlert =
-    //   "- Jumlah Seluruh Grade Tidak Boleh Lebih Dari 100\n- Jumlah Seluruh Grade Tidak Boleh Kurang Dari 100\n- Jumlah Seluruh Grade Harus Tepat 100";
+    var summedUpGradeAlert =
+      "- Jumlah Seluruh Grade Tidak Boleh Lebih Dari 100\n- Jumlah Seluruh Grade Tidak Boleh Kurang Dari 100\n- Jumlah Seluruh Grade Harus Tepat 100";
     var emptyGrade =
       "- GradeA Perintah Produksi Harus Diisi\n- GradeB Perintah Produksi Harus Diisi\n- GradeC Perintah Produksi Harus Diisi";
     var orderProductionsDocumentError = [];
-    this.data.estimationProducts.forEach(datum => {
-      var errorIndex = 0;
+    var summedUpGrade = 0;
+
+    this.data.EstimationProducts.forEach(datum => {
+      var errorEmptyIndex = 0;
       var errorCollection = {};
       if (
-        datum.gradeA == undefined ||
-        datum.gradeA == null ||
-        datum.gradeA == "" ||
-        datum.gradeA == 0
+        datum.GradeA == undefined ||
+        datum.GradeA == null ||
+        datum.GradeA == "" ||
+        datum.GradeA == 0
       ) {
-        errorIndex++;
-        errorCollection.gradeA = "Grade A Harus Diisi";
+        errorEmptyIndex++;
+        errorCollection.GradeA = "Grade A Harus Diisi";
       }
       if (
-        datum.gradeB == undefined ||
-        datum.gradeB == null ||
-        datum.gradeB == "" ||
-        datum.gradeB == 0
+        datum.GradeB == undefined ||
+        datum.GradeB == null ||
+        datum.GradeB == "" ||
+        datum.GradeB == 0
       ) {
-        errorIndex++;
-        errorCollection.gradeB = "Grade B Harus Diisi";
+        errorEmptyIndex++;
+        errorCollection.GradeB = "Grade B Harus Diisi";
       }
       if (
-        datum.gradeC == undefined ||
-        datum.gradeC == null ||
-        datum.gradeC == "" ||
-        datum.gradeC == 0
+        datum.GradeC == undefined ||
+        datum.GradeC == null ||
+        datum.GradeC == "" ||
+        datum.GradeC == 0
       ) {
-        errorIndex++;
-        errorCollection.gradeC = "Grade C Harus Diisi";
+        errorEmptyIndex++;
+        errorCollection.GradeC = "Grade C Harus Diisi";
       }
-      if (errorIndex > 0) {
+      if (errorEmptyIndex > 0) {
         window.alert(emptyGrade);
         orderProductionsDocumentError.push(errorCollection);
       }
     });
-    debugger;
+
+    this.data.EstimationProducts.forEach(datum => {
+      var gradeANum = parseInt(datum.GradeA) ? parseInt(datum.GradeA) : 0;
+      var gradeBNum = parseInt(datum.GradeB) ? parseInt(datum.GradeB) : 0;
+      var gradeCNum = parseInt(datum.GradeC) ? parseInt(datum.GradeC) : 0;
+      var gradeDNum = parseInt(datum.GradeD) ? parseInt(datum.GradeD) : 0;
+      summedUpGrade = 0;
+
+      summedUpGrade =
+        summedUpGrade + gradeANum + gradeBNum + gradeCNum + gradeDNum;
+    });
+
     if (orderProductionsDocumentError.length > 0) {
-      this.error.orderProductionsDocument = orderProductionsDocumentError;
+      this.error.EstimationProducts = orderProductionsDocumentError;
     } else {
-      this.service
-        .create(this.data)
-        .then(result => {
-          this.list();
-        })
-        .catch(e => {
-          this.error = e;
-        });
+      if (summedUpGrade != 100) {
+        window.alert(summedUpGradeAlert);
+      } else {
+        this.service
+          .create(this.data)
+          .then(result => {
+            this.list();
+          })
+          .catch(e => {
+            this.error = e;
+          });
+      }
     }
   }
 }
