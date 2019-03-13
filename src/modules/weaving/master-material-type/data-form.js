@@ -5,6 +5,7 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable ringDocuments;
+  // @bindable Name;
 
   formOptions = {
     cancelText: "Kembali",
@@ -16,8 +17,8 @@ export class DataForm {
   constructor() {}
 
   ringDocumentsColumns = [
-    { header: "Kode Nomor Benang", value: "code" },
-    { header: "Nomor Benang", value: "number" }
+    { header: "Kode Nomor Benang", value: "Code" },
+    { header: "Nomor Benang", value: "Number" }
   ];
 
   bind(context) {
@@ -25,15 +26,10 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    // console.log(this.data);
-    // this.RingDocuments = this.data.RingDocuments;
-    if (this.data.id) {
-      // this.RingDocuments = this.data.RingDocuments;
-      console.log(this.RingDocuments);
+    if (this.data.Id) {
       this.ringDocumentsOptions = {};
       this.ringDocumentsOptions.Code = "";
       this.ringDocumentsOptions.Number = "";
-      this.ringDocumentsOptions.RingType = "";
     }
 
     this.cancelCallback = this.context.cancelCallback;
@@ -41,6 +37,20 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
+
+  // NameChanged(newValue) {
+  //   if (this.Name) {
+  //     var whitespaceRegex = new RegExp("\\s");
+  //     if (whitespaceRegex.test(newValue)) {
+  //       var detectWhitespace = this.Name.split(" ");
+  //       this.error.Name = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+  //       this.Name = detectWhitespace[0] ? detectWhitespace[0] : " ";
+  //     } else {
+  //       this.Name = "";
+  //       this.Name = newValue;
+  //     }
+  //   }
+  // }
 
   //Triggered when "+" on Items Collections Clicked
   get addRingDocuments() {

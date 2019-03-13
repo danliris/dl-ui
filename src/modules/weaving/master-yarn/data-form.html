@@ -12,8 +12,8 @@
             <au-autocomplete
               label="Kode Material"
               placeholder="Kode Material"
-              value.bind="MaterialTypeDocument"
-              error.bind="error.MaterialTypeDocument"
+              value.bind="MaterialTypeId"
+              error.bind="error.MaterialTypeId"
               read-only.bind="readOnly"
               loader.one-time="materialLoader"
               text="Code"
@@ -22,8 +22,8 @@
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
               label="Nama Material"
-              value.bind="data.MaterialTypeDocument.Name"
-              error.bind="error.MaterialTypeDocument.Name"
+              value.bind="data.MaterialTypeId.Name"
+              error.bind="error.MaterialTypeId.Name"
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
           </div>
@@ -35,8 +35,8 @@
             <au-autocomplete
               label="Kode Nomor Benang"
               placeholder="Kode Nomor Benang"
-              value.bind="RingDocument"
-              error.bind="error.RingDocument"
+              value.bind="YarnNumberId"
+              error.bind="error.YarnNumberId"
               read-only.bind="readOnly"
               loader.one-time="ringLoader"
               text="Code"
@@ -45,15 +45,14 @@
           <div class="col-md-6">
             <au-textbox
               label="Ukuran Nomor Benang"
-              value.bind="data.RingDocument.Number"
-              error.bind="error.RingDocument.Number"
+              value.bind="data.YarnNumberId.Number"
+              error.bind="error.YarnNumberId.Number"
               read-only.bind="readOnlyViewEdit"
             ></au-textbox>
           </div>
         </div>
 
         <!-- Yarn Code -->
-        <!-- Di Swagger (Yarn) code masih huruf kecil -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox
@@ -67,7 +66,6 @@
         </div>
 
         <!-- Yarn Name -->
-        <!-- Di Swagger (Yarn) name masih huruf kecil -->
         <div class="row">
           <div class="col-md-6" style="white-space: nowrap;">
             <au-textbox

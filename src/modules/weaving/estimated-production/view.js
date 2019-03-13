@@ -15,8 +15,18 @@ export class View {
   }
 
   async activate(params) {
-    var id = params.id;
-    this.data = await this.service.getById(id);
+    var Id = params.Id;
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.Unit);
+      })
+      .then(unit => {
+        dataResult.Unit = unit;
+        return dataResult;
+      });
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan
@@ -31,12 +41,11 @@ export class View {
 
   //Tombol "Ubah", routing ke 'edit'
   editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data.id });
+    this.router.navigateToRoute("edit", { Id: this.data.Id });
   }
 
   //Tombol "Hapus", hapus this.data, redirect ke list
   deleteCallback(event) {
-    console.log(this.data);
     this.service.delete(this.data).then(result => {
       this.list();
     });

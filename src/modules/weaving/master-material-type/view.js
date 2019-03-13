@@ -12,6 +12,11 @@ export class View {
   async activate(params) {
     var Id = params.Id;
     this.data = await this.service.getById(Id);
+    // if (this.data.Id) {
+    //   this.Name = this.data.Name;
+    //   console.log(this.data);
+    //   debugger;
+    // }
   }
 
   list() {

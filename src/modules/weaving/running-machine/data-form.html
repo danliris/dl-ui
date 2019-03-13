@@ -1,5 +1,9 @@
-<template
-  ><au-input-form
+<template>
+  <style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+  </style><au-input-form
     title.bind="title"
     with.bind="context"
     options.bind="formOptions"
@@ -7,12 +11,12 @@
     <div class="col-md-12">
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2">
-          <textbox label="Periode" read-only="true"></textbox>
+          <textbox label="Tanggal" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
           <au-datepicker
-            value.bind="data.runningMachineDateOrdered"
-            error.bind="error.runningMachineDateOrdered"
+            value.bind="data.runningMachineOrderDate"
+            error.bind="error.runningMachineOrderDate"
             read-only.bind="readOnly"
           ></au-datepicker>
         </div>
@@ -89,11 +93,11 @@
           <au-autocomplete
             value.bind="data.warpOrigin"
             error.bind="error.warpOrigin"
-            read-only.bind="true"
+            read-only.bind="readOnly"
           ></au-autocomplete>
         </div>
-      <!-- </div>
-      <div class="row" style="white-space: nowrap;"> -->
+      </div>
+      <div class="row" style="white-space: nowrap;">
         <div class="col-md-2">
           <textbox label="Asal Pakan" read-only="true"></textbox>
         </div>
@@ -101,9 +105,26 @@
           <au-autocomplete
             value.bind="data.weftOrigin"
             error.bind="error.weftOrigin"
-            read-only.bind="true"
+            read-only.bind="readOnly"
           ></au-autocomplete>
         </div>
+      </div>
+      <div class="row" show.bind="onViewEdit">
+        <h3>Riwayat</h3>
+        <hr />
+      </div>
+      <div class="row" show.bind="onViewEdit">
+        <au-collection
+          items.bind="data.Items"
+          errors.bind="error.Items"
+          columns.bind="historyColumns"
+          add.bind="addHistory"
+          options.bind="ItemsHistoryOptions"
+          remove.bind="onremove"
+          read-only.bind="readOnly"
+          item-template="modules/weaving/running-machine/templates/items"
+        >
+        </au-collection>
       </div></div
   ></au-input-form>
 </template>

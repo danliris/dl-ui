@@ -1,6 +1,8 @@
 import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
+import { Container } from "aurelia-dependency-injection";
+import { Config } from "aurelia-api";
 
 const serviceUri = "weaving/suppliers";
 
@@ -26,7 +28,7 @@ export class Service extends RestService {
   }
 
   update(data) {
-    console.log(data);
+    // console.log(data);
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
   }
@@ -39,5 +41,15 @@ export class Service extends RestService {
   getByCode(code) {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
+  }
+
+  getCoreSupplierById(Id) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/suppliers/${Id}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
   }
 }

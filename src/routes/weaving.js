@@ -117,6 +117,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/machine-planning",
+    name: "machine-planning",
+    moduleId: "./modules/weaving/machine-planning/index",
+    nav: true,
+    title: "Perencanaan Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/running-machine",
     name: "running-machine",
     moduleId: "./modules/weaving/running-machine/index",

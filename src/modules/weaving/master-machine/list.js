@@ -8,7 +8,7 @@ export class List {
   columns = [
     { field: "weavingUnit", title: "Unit Weaving" },
     { field: "machineNumber", title: "No. Mesin" },
-    { field: "machineType", title: "Tipe Mesin" },
+    { field: "machineType", title: "Jenis Mesin" },
     { field: "rpm", title: "RPM" },
     { field: "unit", title: "Satuan" },
     { field: "location", title: "Lokasi" }
@@ -25,40 +25,12 @@ export class List {
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data
-    //     // data: [
-    //     //   {
-    //     //     unit: "Weaving1",
-    //     //     machineNumber: 000001,
-    //     //     machineType: "Type C",
-    //     //     rpm: 50000,
-    //     //     location: "Place A",
-    //     //     block: "a",
-    //     //     maintenance: "maintenance",
-    //     //     operator: "operator"
-    //     //   }
-    //     // ]
-    //   };
-    // });
-
-    return {
-      total: 1,
-      // data: result.data
-      data: [
-        {
-          id: 1,
-          weavingUnit: "Weaving1",
-          machineNumber: "000001",
-          machineType: "Tsudakoma",
-          rpm: 50000,
-          unit: "cmpx",
-          location: "Place A"
-        }
-      ]
-    };
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+    });
   };
 
   constructor(router, service) {
@@ -71,14 +43,10 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
+        this.router.navigateToRoute("view", { Id: data.Id });
         break;
     }
   }
-
-  // upload() {
-  //     this.router.navigateToRoute('upload');
-  // }
 
   create() {
     this.router.navigateToRoute("create");

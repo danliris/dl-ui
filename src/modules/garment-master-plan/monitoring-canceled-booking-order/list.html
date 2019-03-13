@@ -68,12 +68,12 @@
             <tbody>
              
                 <tr repeat.for="item of data">
-                        <td>${item.BookingOrderNo}</td>
-                        <td>${item.BookingOrderDate}</td>
-                        <td>${item.BuyerName}</td>
-                        <td>${item.EarlyBooking}</td>
-                        <td>${item.OrderQuantity}</td>
-                        <td>${item.DeliveryDate}</td>
+                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderNo}</td>
+                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderDate}</td>
+                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BuyerName}</td>
+                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.EarlyBooking}</td>
+                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.OrderQuantity}</td>
+                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.DeliveryDate}</td>
                         <td>${item.ComodityName}</td>
                         <td>${item.ConfirmQuantity}</td>
                         <td>${item.ConfirmDate}</td>
@@ -89,6 +89,7 @@
     <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
         Tidak ada data.
     </div>
+    <pagination if.bind="args.total>args.size" info.bind="args" change.delegate="changePage($event)" id="pager"></pagination>
     <hr/>
     </form>
 </au-input-form> 

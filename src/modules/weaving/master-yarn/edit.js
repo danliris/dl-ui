@@ -7,7 +7,7 @@ export class Edit {
   showViewEdit = true;
   readOnlyViewEdit = true;
   createOnly = false;
-  error = {};
+  // error = {};
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -24,6 +24,47 @@ export class Edit {
   }
 
   saveCallback(event) {
+    this.error = {};
+    if (
+      this.data.MaterialTypeId == undefined ||
+      this.data.MaterialTypeId == null ||
+      this.data.MaterialTypeId == ""
+    ) {
+      this.data.MaterialTypeId = "";
+    } else {
+      var yarnMaterialId = this.data.MaterialTypeId.Id
+        ? this.data.MaterialTypeId.Id
+        : "";
+      this.data.MaterialTypeId = yarnMaterialId;
+    }
+
+    if (
+      this.data.YarnNumberId == undefined ||
+      this.data.YarnNumberId == null ||
+      this.data.YarnNumberId == ""
+    ) {
+      this.data.YarnNumberId = "";
+    } else {
+      var yarnNumberId = this.data.YarnNumberId.Id
+        ? this.data.YarnNumberId.Id
+        : "";
+      this.data.YarnNumberId = yarnNumberId;
+    }
+
+    if (
+      this.data.Code == undefined ||
+      this.data.Code == null ||
+      this.data.Code == ""
+    ) {
+      this.data.Code = "";
+    }
+
+    if (this.data.MaterialTypeId == "" || this.data.YarnNumberId == "") {
+      this.data.Name = "";
+    }
+
+    console.log(this.data);
+    debugger;
     this.service
       .update(this.data)
       .then(result => {

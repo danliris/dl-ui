@@ -77,8 +77,8 @@
         <div class="col-md-3">
           <au-textbox
             placeholder="No. Estimasi Produksi"
-            value.bind="data.estimatedNumber"
-            error.bind="error.estimatedNumber"
+            value.bind="data.EstimatedNumber"
+            error.bind="error.EstimatedNumber"
             read-only.bind="true"
             show.bind="ePNumberVisibility"
             options.bind="customEstimatedControlOptions"
@@ -98,8 +98,8 @@
         </div>
         <div class="col-md-3">
           <au-dropdown
-            value.bind="data.period.month"
-            error.bind="error.periodMonth"
+            value.bind="data.Period.Month"
+            error.bind="error.Period.Month"
             read-only.bind="createOnly"
             items.bind="months"
           >
@@ -107,8 +107,8 @@
         </div>
         <div class="col-md-3">
           <au-dropdown
-            value.bind="data.period.year"
-            error.bind="error.periodYear"
+            value.bind="data.Period.Year"
+            error.bind="error.Period.Year"
             read-only.bind="createOnly"
             items.bind="years"
           >
@@ -127,12 +127,11 @@
         </div>
         <div class="col-md-3">
           <au-autocomplete
-            value.bind="data.unit"
-            error.bind="error.unit"
+            value.bind="data.Unit"
+            error.bind="error.Unit"
             read-only.bind="createOnly"
-            items.bind="weaving"
             loader.bind="units"
-            text="name"
+            text="Name"
           >
           </au-autocomplete>
         </div>
@@ -154,8 +153,8 @@
       <div class="row" style="margin-bottom: 24px;">
         <au-collection
           view-model.ref="orderProductionsItems"
-          items.bind="data.estimationProducts"
-          error.bind="error.orderProductionsDocument"
+          items.bind="data.EstimationProducts"
+          error.bind="error.EstimationProducts"
           columns.bind="orderProductionsColumns"
           options.bind="orderProductionsTableOptions"
           read-only.bind="readOnly"

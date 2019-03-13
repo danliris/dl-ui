@@ -15,69 +15,89 @@ export class Edit {
   }
 
   async activate(params) {
-    var id = params.id;
-    this.data = await this.service.getById(id);
+    var Id = params.Id;
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.Unit);
+      })
+      .then(unit => {
+        dataResult.Unit = unit;
+        return dataResult;
+      });
   }
 
   cancelCallback(event) {
-    this.router.navigateToRoute("view", { id: this.data.id });
+    this.router.navigateToRoute("view", { Id: this.data.Id });
   }
 
   saveCallback(event) {
-    var index = 0;
     var summedUpGradeAlert =
       "- Jumlah Seluruh Grade Tidak Boleh Lebih Dari 100\n- Jumlah Seluruh Grade Tidak Boleh Kurang Dari 100\n- Jumlah Seluruh Grade Harus Tepat 100";
-    var emptyFieldName =
+    var emptyGrade =
       "- GradeA Perintah Produksi Harus Diisi\n- GradeB Perintah Produksi Harus Diisi\n- GradeC Perintah Produksi Harus Diisi";
+    var orderProductionsDocumentError = [];
     var summedUpGrade = 0;
 
-    this.data.estimationProducts.forEach(datum => {
-      var gradeANum = parseInt(datum.gradeA) ? parseInt(datum.gradeA) : 0;
-      var gradeBNum = parseInt(datum.gradeB) ? parseInt(datum.gradeB) : 0;
-      var gradeCNum = parseInt(datum.gradeC) ? parseInt(datum.gradeC) : 0;
-      var gradeDNum = parseInt(datum.gradeD) ? parseInt(datum.gradeD) : 0;
+    this.data.EstimationProducts.forEach(datum => {
+      var errorEmptyIndex = 0;
+      var errorCollection = {};
+      if (
+        datum.GradeA == undefined ||
+        datum.GradeA == null ||
+        datum.GradeA == "" ||
+        datum.GradeA == 0
+      ) {
+        errorEmptyIndex++;
+        errorCollection.GradeA = "Grade A Harus Diisi";
+      }
+      if (
+        datum.GradeB == undefined ||
+        datum.GradeB == null ||
+        datum.GradeB == "" ||
+        datum.GradeB == 0
+      ) {
+        errorEmptyIndex++;
+        errorCollection.GradeB = "Grade B Harus Diisi";
+      }
+      if (
+        datum.GradeC == undefined ||
+        datum.GradeC == null ||
+        datum.GradeC == "" ||
+        datum.GradeC == 0
+      ) {
+        errorEmptyIndex++;
+        errorCollection.GradeC = "Grade C Harus Diisi";
+      }
+      if (errorEmptyIndex > 0) {
+        window.alert(emptyGrade);
+        orderProductionsDocumentError.push(errorCollection);
+      }
+    });
+
+    this.data.EstimationProducts.forEach(datum => {
+      var gradeANum = parseInt(datum.GradeA) ? parseInt(datum.GradeA) : 0;
+      var gradeBNum = parseInt(datum.GradeB) ? parseInt(datum.GradeB) : 0;
+      var gradeCNum = parseInt(datum.GradeC) ? parseInt(datum.GradeC) : 0;
+      var gradeDNum = parseInt(datum.GradeD) ? parseInt(datum.GradeD) : 0;
       summedUpGrade = 0;
 
       summedUpGrade =
         summedUpGrade + gradeANum + gradeBNum + gradeCNum + gradeDNum;
-      if (
-        datum.gradeA == undefined ||
-        datum.gradeA == null ||
-        datum.gradeA == ""
-      ) {
-        index++;
-      }
-      console.log("gradeANum", datum.gradeA);
-      if (
-        datum.gradeB == undefined ||
-        datum.gradeB == null ||
-        datum.gradeB == ""
-      ) {
-        index++;
-      }
-      console.log("gradeANum", datum.gradeB);
-      if (
-        datum.gradeC == undefined ||
-        datum.gradeC == null ||
-        datum.gradeC == ""
-      ) {
-        index++;
-      }
-      console.log("gradeANum", datum.gradeC);
-      console.log("summedUpGrade", summedUpGrade);
     });
-    if (index > 0) {
-      window.alert(emptyFieldName);
+
+    if (orderProductionsDocumentError.length > 0) {
+      this.error.EstimationProducts = orderProductionsDocumentError;
     } else {
       if (summedUpGrade != 100) {
         window.alert(summedUpGradeAlert);
       } else {
-        console.log(this.data);
-        debugger
         this.service
           .update(this.data)
           .then(result => {
-            this.router.navigateToRoute("view", { id: this.data.id });
+            this.router.navigateToRoute("view", { Id: this.data.Id });
           })
           .catch(e => {
             this.error = e;

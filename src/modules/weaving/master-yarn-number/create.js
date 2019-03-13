@@ -4,8 +4,6 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  // showViewEdit=false;
-  // readOnlyViewEdit=true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -24,31 +22,58 @@ export class Create {
   }
 
   saveCallback(event) {
-    // this.error = {};
-    // var index = 0;
-    // var emptyFieldName = "Semua Field Harus Diisi";
+    this.error = {};
+    var CodeRegEx = new RegExp("([1-9])");
+    if (this.data.Code) {
+      if (
+        this.data.Code == undefined ||
+        this.data.Code == null ||
+        this.data.Code == ""
+      ) {
+        var yarnNumberCode = this.data.Code ? this.data.Code : "";
+        this.data.Code = yarnNumberCode;
+      } else {
+        var yarnNumberCode = "";
+        this.data.Code = yarnNumberCode;
+      }
+    }
 
-    // if (this.data.code == null || this.data.code == undefined) {
-    //   this.error.code = "Kode Ring Tidak Boleh Kosong";
-    //   index++;
+    // if (this.data.Number) {
+    if (
+      this.data.Number == undefined ||
+      this.data.Number == null ||
+      this.data.Number == ""
+    ) {
+      this.data.Number = 0;
+    } else {
+      if (!CodeRegEx.test(this.data.Number)) {
+        this.error.Number = "Only Numbers (1-9) Allowed";
+      }
+    }
     // }
-    // if (this.data.number == null || this.data.number == undefined) {
-    //   this.error.number = "Ukuran Ring Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (index > 0) {
-    //   window.alert(emptyFieldName);
-    // } else {
-      // console.log(this.data);
-      // debugger;
-      this.service
-        .create(this.data)
-        .then(result => {
-          this.list();
-        })
-        .catch(e => {
+
+    if (this.data.RingType) {
+      if (
+        this.data.RingType == undefined ||
+        this.data.RingType == null ||
+        this.data.RingType == ""
+      ) {
+        var yarnNumberRing = this.data.RingType ? this.data.RingType : "";
+        this.data.RingType = yarnNumberRing;
+      } else {
+        var yarnNumberRing = "";
+        this.data.RingType = yarnNumberRing;
+      }
+    }
+    this.service
+      .create(this.data)
+      .then(result => {
+        this.list();
+      })
+      .catch(e => {
+        if (!this.error.Number) {
           this.error = e;
-        });
-    // }
+        }
+      });
   }
 }

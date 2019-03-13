@@ -28,30 +28,6 @@ export class Item {
         this.CountConfig = context.context.options.CountConfig;
         this.MachineSpinnings = context.context.options.MachineSpinnings;
         this.isEdit = this.context.context.options.isEdit;
-
-        if (this.data.Output) {
-            this.output = this.data.Output;
-        }
-
-        if (this.data.BadOutput) {
-            this.badOutput = this.data.BadOutput;
-        }
-
-        if (this.data.DeliveryTotal) {
-            this.deliveryTotal = this.data.DeliveryTotal;
-        }
-
-        if (this.data.Spindle) {
-            this.spindle = this.data.Spindle;
-        }
-
-        if (this.data.Waste) {
-            this.waste = this.data.Waste;
-        }
-
-        if (this.data.DrumTotal) {
-            this.drumTotal = this.data.DrumTotal;
-        }
         if (this.processType == "Blowing") {
             this.isBlowing = true;
             this.isWinder = false;
@@ -69,6 +45,36 @@ export class Item {
             this.isWinder = false;
             this.isFlyer = false;
         }
+        if (this.data.Output) {
+            this.output = this.data.Output;
+        }
+
+        if (this.data.BadOutput) {
+            this.badOutput = this.data.BadOutput;
+        }
+
+        if (this.data.DeliveryTotal) {
+            this.deliveryTotal = this.data.DeliveryTotal;
+        } else {
+            if (this.isFlyer) {
+                var MachineSpinning = this.MachineSpinnings.find(x => x.Id == this.data.MachineSpinning.Id);
+                this.deliveryTotal = MachineSpinning.Delivery;
+            }
+
+        }
+
+        if (this.data.Spindle) {
+            this.spindle = this.data.Spindle;
+        }
+
+        if (this.data.Waste) {
+            this.waste = this.data.Waste;
+        }
+
+        if (this.data.DrumTotal) {
+            this.drumTotal = this.data.DrumTotal;
+        }
+
 
     }
 
@@ -149,7 +155,7 @@ export class Item {
 
     blowingFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
-            this.data.Bale = this.data.Output / 181.44;
+            this.data.Bale = (this.data.Output / 181.44) * MachineSpinning.Delivery;
         } else {
             this.data.Bale = this.data.Output;
         }
@@ -158,7 +164,7 @@ export class Item {
 
     cardingFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
-            this.data.Bale = this.data.Output / 181.44;
+            this.data.Bale = (this.data.Output / 181.44) * MachineSpinning.Delivery;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
             this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
 
@@ -200,7 +206,7 @@ export class Item {
 
     ringFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
-            this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / ((this.CountConfig.Ne * 100) / 400));
+            this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / (this.CountConfig.Ne * 100)) / 400;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "RND") {
             this.data.Bale = ((this.data.Output / (768 / (((22 / 7) * 2.5) / 100)) / this.CountConfig.Ne) / 400) * MachineSpinning.Delivery;
 

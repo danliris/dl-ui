@@ -1,6 +1,8 @@
 import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
+import { Container } from "aurelia-dependency-injection";
+import { Config } from "aurelia-api";
 
 const serviceUri = "weaving/orders";
 
@@ -20,15 +22,9 @@ export class Service extends RestService {
   }
 
   create(data) {
-    var unit = data.WeavingUnit.Name;
-    data.orderNumber = "";
-    data.WeavingUnit = {};
-    data.WeavingUnit._id = unit._id;
-    data.WeavingUnit.Name = unit.Name;
-    data.WeavingUnit.Code = unit.Code;
-    if (data.YarnType == undefined || data.YarnType == null) {
-      data.YarnType = " ";
-    }
+    // if (data.YarnType == undefined || data.YarnType == null) {
+    //   data.YarnType = " ";
+    // }
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
@@ -46,5 +42,15 @@ export class Service extends RestService {
   getByCode(code) {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
+  }
+
+  getUnitById(Id) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/units/${Id}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
   }
 }

@@ -23,8 +23,19 @@ export class Create {
   }
 
   saveCallback(event) {
-    console.log(this.data);
-    debugger;
+    if (this.data.Name) {
+      if (this.data.Name.name) {
+        var supplierName = this.data.Name.name ? this.data.Name.name : "";
+        var supplierId = this.data.Name._id ? this.data.Name._id : "";
+        this.data.Name = supplierName;
+        this.data.CoreSupplierId = supplierId;
+      } else {
+        var supplierName = "";
+        var supplierId = "";
+        this.data.Name = supplierName;
+        this.data.CoreSupplierId = supplierId;
+      }
+    }
     this.service
       .create(this.data)
       .then(result => {

@@ -115,18 +115,19 @@ export class View {
     var indexCanceledItem = this.data.Items.findIndex(item => item.IsCanceled);
     
     if(indexCanceledItem > -1) {
+      this.data.cancelConfirm=true;
       this.service.update(this.data)
         .then(result => {
           alert("Confirm Canceled");
-          this.hasEdit = true;
-          this.hasDelete = true;
-          this.hascancelConfirm = true;
-          this.hasConfirm = true;
-          this.activate(this.params);
+          // this.hasEdit = true;
+          // this.hasDelete = true;
+          // this.hascancelConfirm = true;
+          // this.hasConfirm = true;
+          this.activate({id:this.data.Id});
         })
         .catch(e => {
           this.error = e;
-          this.activate(this.params);
+          this.activate({id:this.data.Id});
         });
     }
   }
