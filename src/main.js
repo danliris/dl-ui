@@ -50,7 +50,6 @@ export async function configure(aurelia) {
       var weaving = "https://com-danliris-service-weaving-dev.azurewebsites.net/";
       var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
 
-
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('production', production, defaultConfig);
