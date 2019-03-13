@@ -105,17 +105,12 @@ export class Create {
       this.data.WeavingUnit.Code = "";
       this.data.WeavingUnit.Name = "";
     } else {
-      // if (this.data.WeavingUnit.Id) {
       var Unit = this.data.WeavingUnit;
       this.data.WeavingUnit = {};
       this.data.WeavingUnit.Id = Unit.Id;
       this.data.WeavingUnit.Code = Unit.Code;
       this.data.WeavingUnit.Name = Unit.Name;
-      // }
     }
-
-    console.log(this.data);
-    debugger;
 
     this.service
       .create(this.data)
@@ -124,9 +119,7 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
-        this.error.WeavingUnit = {};
         this.error.WeavingUnit.Id = e.WeavingUnit.Id;
-        console.log(this.error);
       });
   }
 }

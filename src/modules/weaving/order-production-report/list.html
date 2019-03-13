@@ -4,8 +4,8 @@
     <div class="col-md-4">
       <au-datepicker
         label="Periode"
-        value.bind="data"
-        error.bind="error"
+        value.bind="data.Period"
+        error.bind="error.Period"
         read-only.bind="readOnly"
       ></au-datepicker>
     </div>
@@ -14,10 +14,11 @@
     <div class="col-md-4">
       <au-autocomplete
         label="Unit"
-        value.bind="data.unit"
-        error.bind="error.unit"
+        value.bind="data.Unit"
+        error.bind="error.Unit"
         read-only.bind="readOnly"
         loader.bind="units"
+        text="Name"
       ></au-autocomplete>
     </div>
   </div>
@@ -34,7 +35,7 @@
     <div class="col-md-1" style="margin-left: 6px;">
       <button
         class="btn btn-success"
-        click.delegate="search()"
+        click.delegate="searchOrderProductions()"
         style="margin-top: 20px;"
       >
         Cari

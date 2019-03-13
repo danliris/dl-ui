@@ -6,6 +6,7 @@ var UnitLoader = require("../../../loader/unit-loader");
 
 @inject(Router, Service)
 export class List {
+  // @bindable loader;
   data = {};
   tableOptions = {
     search: false,
@@ -16,35 +17,69 @@ export class List {
 
   columns = [
     [
-      { field: "spNumber", title: "No. SP", rowspan: "2", valign: "top" },
-      { field: "spDate", title: "Tanggal SP", rowspan: "2", valign: "top" },
+      { field: "OrderNumber", title: "No. SPP", rowspan: "2", valign: "top" },
       {
-        field: "construction",
+        field: "DateOrdered",
+        title: "Tanggal SP",
+        rowspan: "2",
+        valign: "top"
+      },
+      {
+        field: "ConstructionNumber",
         title: "Konstruksi",
         rowspan: "2",
         valign: "top"
       },
-      { field: "yarnNumber", title: "No. Benang", rowspan: "2", valign: "top" },
-      { title: "Blended (%)", colspan: "3", valign: "middle" },
-      { title: "Estimasi Produksi", colspan: "4", valign: "middle" },
-      { field: "total", title: "Total ALL", rowspan: "2", valign: "top" },
-      { title: "Kebutuhan Benang", colspan: "3", valign: "middle" }
+      // { field: "yarnNumber", title: "No. Benang", rowspan: "2", valign: "top" },
+      { title: "Komposisi Lusi (%)", colspan: "3", valign: "middle" },
+      { title: "Komposisi Pakan (%)", colspan: "3", valign: "middle" },
+      // { title: "Estimasi Produksi", colspan: "4", valign: "middle" },
+      {
+        field: "TotalGramEstimation",
+        title: "Total Gram",
+        rowspan: "2",
+        valign: "top"
+      },
+      // { title: "Kebutuhan Benang", colspan: "3", valign: "middle" }
     ],
     [
       {
-        field: "blendedPoly",
+        field: "WarpComposition.CompositionOfPoly",
         title: "Poly",
         valign: "middle"
       },
-      { field: "blendedCotton", title: "Cotton", valign: "middle" },
-      { field: "blendedOthers", title: "Lainnya", valign: "middle" },
-      { field: "epGradeA", title: "Grade A", valign: "middle" },
-      { field: "epGradeB", title: "Grade B", valign: "middle" },
-      { field: "epGradeC", title: "Grade C", valign: "middle" },
-      { field: "epOthers", title: "Aval", valign: "middle" },
-      { field: "yarnWeft", title: "Lusi", valign: "middle" },
-      { field: "yarnWarp", title: "Pakan", valign: "middle" },
-      { field: "yarnWhole", title: "Total", valign: "middle" }
+      {
+        field: "WarpComposition.CompositionOfCotton",
+        title: "Cotton",
+        valign: "middle"
+      },
+      {
+        field: "WarpComposition.OtherComposition",
+        title: "Lainnya",
+        valign: "middle"
+      },
+      {
+        field: "WeftComposition.CompositionOfPoly",
+        title: "Poly",
+        valign: "middle"
+      },
+      {
+        field: "WeftComposition.CompositionOfCotton",
+        title: "Cotton",
+        valign: "middle"
+      },
+      {
+        field: "WeftComposition.OtherComposition",
+        title: "Lainnya",
+        valign: "middle"
+      },
+      // { field: "epGradeA", title: "Grade A", valign: "middle" },
+      // { field: "epGradeB", title: "Grade B", valign: "middle" },
+      // { field: "epGradeC", title: "Grade C", valign: "middle" },
+      // { field: "epOthers", title: "Aval", valign: "middle" },
+      // { field: "yarnWeft", title: "Lusi", valign: "middle" },
+      // { field: "yarnWarp", title: "Pakan", valign: "middle" },
+      // { field: "yarnWhole", title: "Total", valign: "middle" }
     ]
   ];
 
@@ -97,15 +132,57 @@ export class List {
   }
 
   printPdf() {
-    var month = this.getMonth(this.data);
-    // console.log(month);
-    var year = this.getYear(this.data);
-    // console.log(year);
-    console.log(this.data);
-    this.service.getPdfByPeriod(this.data.unit._id, month, year);
+    var Month = this.getMonth(this.data);
+    // console.log(Month);
+    var Year = this.getYear(this.data);
+    // console.log(Year);
+    var UnitId = this.data.Unit.Id;
+    // console.log(UnitId);
+    this.service.getPdfByPeriod(Month, Year, UnitId);
   }
 
-  searchOrderProductions(){
-    
+  searchOrderProductions() {
+    var Month = this.getMonth(this.data);
+    console.log(Month);
+    var Year = this.getYear(this.data);
+    console.log(Year);
+    var UnitId = this.data.Unit.Id;
+    console.log(UnitId);
+    console.log(this.data);
+    debugger;
+    this.service
+      .searchSOP(
+        Month,
+        Year,
+        UnitId
+      )
+      .then(result => {
+        this.loader = result.data;
+      });
+    // loader = info => {
+    //   var order = {};
+    //   if (info.sort) order[info.sort] = info.order;
+
+    //   var arg = {
+    //     page: parseInt(info.offset / info.limit, 10) + 1,
+    //     size: info.limit,
+    //     keyword: info.search,
+    //     order: order
+    //   };
+
+    //   return this.service
+    //     .searchSOP(
+    //       this.data.Period.Month,
+    //       this.data.Period.Year,
+    //       this.data.Unit.Id
+    //     )
+    //     .then(result => {
+    //       return {
+    //         total: result.info.total,
+    //         data: result.data
+    //       };
+    //     });
+    // };
+    // }
   }
 }

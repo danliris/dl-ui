@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
-var UnitLoader = require("../../../loader/unit-loader");
 import { Service } from "./service";
+var UnitLoader = require("../../../loader/unit-loader");
 
 @inject(Service)
 export class DataForm {
@@ -106,7 +106,7 @@ export class DataForm {
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    if (this.data.period) {
+    if (this.data.Period) {
       if (
         this.data.Period.Month == null ||
         this.data.Period.Month == undefined ||
