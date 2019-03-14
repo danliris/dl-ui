@@ -88,21 +88,21 @@ export class DataForm {
             if (!this.data.Id) {
                 // if(this.data && this.data.details && this.data.details.length > 0){
                 //     for(var detail of this.data.details){
-                //         let cat=detail.Year.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                //         let cat=detail.Year.toString() + detail.unit.code.toString()+detail.WeekNumber.toString();
                 //         let uniq = this.data.details.find(o => {
                 //             if(o.Year && o.unit && o.week){
-                //                 if( o.Year.toString() + o.unit.code.toString() + o.week.weekNumber.toString()  == cat)
+                //                 if( o.Year.toString() + o.unit.code.toString() + o.WeekNumber.toString()  == cat)
                 //                 return o;
                 //             }
                 //         });
                 //         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.unit.code.toString()));
                 //         if(uniq){
                 //             if(item)
-                //                 item[detail.week.weekNumber]=uniq.remainingEH;
+                //                 item[detail.WeekNumber]=uniq.RemainingEH;
                 //             else {
                 //                 let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.unit.code.toString()));
                 //                 if(item1){
-                //                     item1[detail.week.weekNumber]=uniq.remainingEH;
+                //                     item1[detail.WeekNumber]=uniq.RemainingEH;
                 //                 }
                 //             }
                 //         }
@@ -119,6 +119,7 @@ export class DataForm {
                 this.data.booking = _selectedData.Items;
                 this.options.buyerCode = this.data.Buyer.Code;
             }
+            console.log(this.data)
         } else {
             this.data.BookingOrderDate = null;
             this.data.DeliveryDate = null;
@@ -127,13 +128,6 @@ export class DataForm {
             this.data.BookingOrderNo="";
             this.data.BookingOrderId=null;
             this.data.Buyer=null;
-            // delete this.data.BookingOrderNo;
-            // delete this.data.BookingOrderId;
-            // delete this.data.Buyer;
-            // delete this.data.OrderQuantity;
-            // delete this.data.Remark;
-            // delete this.data.BookingOrderDate;
-            // delete this.data.DeliveryDate;
             this.data.booking = [];
         }
     }
@@ -148,15 +142,6 @@ export class DataForm {
             this.bookingCode = `${this.data.BookingOrderNo} - ${this.data.Buyer.Name}`;
             this.options._id = this.data.Id;
             this.remaining=[];
-            // if(this.data.details){
-            //     for(var item of this.data.details){
-
-            //     }
-            // }
-            // this.selectedBookingOrder={
-            //     code:this.data.bookingOrderNo,
-            //     garmentBuyerName:this.data.garmentBuyerName
-            // };
             this.selectedBookingOrder = await this.service.getBookingById(this.data.BookingOrderId);
             
         }
@@ -171,15 +156,9 @@ export class DataForm {
             var yr2 = {
                 Year:year+1
             };
-            //this.previewWeeklyPlan = await this.service.getPreview(2018);
+            
             this.previewWeeklyPlan = await this.service.getWeeklyPlan(yr);
             this.previewWeeklyPlan2 = await this.service.getWeeklyPlan(yr2);
-            
-            // var weeklength=[];
-            // var o=[];
-            
-            
-            // console.log(this.previewWeeklyPlan);
             
             let prev = [];//for preview year now
             let prev1 = []; //for preview next year
@@ -283,6 +262,7 @@ export class DataForm {
             this.previewDataTable1.push(x1);
             this.previewData1.push(x1);
         }
+            this.items=this.data.Items;
     }
 
 
@@ -295,16 +275,16 @@ export class DataForm {
         
         if (this.data.Items) {
             var remEH=[];
-           // console.log(this.data.Items)
             for (let detail of this.data.Items) {
-                if(detail.Year && detail.Unit && detail.WeekNumber){
+                if(detail.Year && detail.Unit.Code && detail.WeekNumber){
                     let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
                     let uniq = this.data.Items.find(o => {
-                        if(o.Year && o.Unit && o.WeekNumber){
+                        if(o.Year && o.Unit.Code && o.WeekNumber){
                             if( o.Year.toString() + o.Unit.Code.toString() + o.WeekNumber.toString()  == cat)
                             return o;
                         }
                     });
+                    console.log(uniq)
                     let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.Unit.Code.toString()));
                     if(item){
                         remEH[cat]=item[detail.WeekNumber];
@@ -323,24 +303,24 @@ export class DataForm {
                         }
                     }
                     if(remEH[cat]){
-                        if(remEH[cat]<uniq.remainingEH){
-                            remEH[cat]=uniq.remainingEH;
+                        if(remEH[cat]<uniq.RemainingEH){
+                            remEH[cat]=uniq.RemainingEH;
                         }
                     }
                     else{
-                        remEH[cat]=uniq.remainingEH;
+                        remEH[cat]=uniq.RemainingEH;
                     }
                 }
                 if(detail.oldVal){
                     if(detail.oldVal.year && detail.oldVal.unitCode && detail.oldVal.weekNumber){
                         let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
                         if(remEH[cat]){
-                            if(remEH[cat]<detail.oldVal.remainingEH){
-                                remEH[cat]=detail.oldVal.remainingEH;
+                            if(remEH[cat]<detail.oldVal.RemainingEH){
+                                remEH[cat]=detail.oldVal.RemainingEH;
                             }
                         }
                         else{
-                            remEH[cat]=detail.oldVal.remainingEH;
+                            remEH[cat]=detail.oldVal.RemainingEH;
                         }
                     }
                 }
@@ -348,7 +328,7 @@ export class DataForm {
                     if(detail.oldVal.year && detail.oldVal.unitCode){
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                         if (item) {
-                            item[detail.oldVal.weekNumber] = detail.oldVal.remainingEH;
+                            item[detail.oldVal.weekNumber] = detail.oldVal.RemainingEH;
                             var total=[];
                             for( var a =0; a<this.previewData.length-1; a++){
                                 if(!total[detail.oldVal.weekNumber]){
@@ -364,7 +344,7 @@ export class DataForm {
                         else{
                             let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                             if (item1) {
-                                item1[detail.oldVal.weekNumber] = detail.oldVal.remainingEH;
+                                item1[detail.oldVal.weekNumber] = detail.oldVal.RemainingEH;
                                 var total1=[];
                                 for( var a =0; a<this.previewData1.length-1; a++){
                                     if(!total1[detail.oldVal.weekNumber]){
@@ -382,13 +362,13 @@ export class DataForm {
                     detail.oldVal={};
                 }
             }
-            //console.log(remEH);
+            console.log(remEH);
             
             for (let detail of this.data.Items) {
-                if(detail.Year && detail.Unit && detail.WeekNumber){
+                if(detail.Year && detail.Unit.Code && detail.WeekNumber){
                     let category = detail.Year.toString() + detail.Unit.Code.toString();
                     let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
-                    //let cat=detail.Year.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                    //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.WeekNumber.toString();
                     // //console.log(category );
                      detail.RemainingEH= remEH[cat];
                      detail.sisaEH=detail.RemainingEH-detail.EHBooking;
@@ -430,7 +410,8 @@ export class DataForm {
             }
             this.tempEH=[];
             for(let eh of this.data.Items){
-                if(eh.Year && eh.Unit && eh.WeekNumber){
+                console.log(eh)
+                if(eh.Year && eh.Unit.Code && eh.WeekNumber){
                     let cat=eh.Year.toString() + eh.Unit.Code.toString()+eh.WeekNumber.toString();
                     if(!this.tempEH[cat]){
                         this.tempEH[cat]=eh.RemainingEH;
@@ -452,7 +433,7 @@ export class DataForm {
 
             if (event.detail) {
                 for (let detail of this.data.Items) {
-                    if(event.detail.Year && event.detail.Unit && event.detail.WeekNumber){
+                    if(event.detail.Year && event.detail.unit && event.detail.week){
                         let remCat=event.detail.Year.toString() + event.detail.Unit.Code.toString() + event.detail.WeekNumber.toString();
                         let category = event.detail.Year.toString() + event.detail.Unit.Code.toString();
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == category);
@@ -491,7 +472,7 @@ export class DataForm {
                 }
                     var remEH=[];
                     for (let detail of this.data.Items) {
-                        if(detail.Year && detail.Unit && detail.WeekNumber && event.detail.Year && event.detail.Unit.Code && event.detail.WeekNumber){
+                        if(detail.Year && detail.unit && detail.week && event.detail.Year && event.detail.Unit.Code && event.detail.WeekNumber){
                             let remCat=event.detail.Year.toString() + event.detail.Unit.Code.toString() + event.detail.WeekNumber.toString();
                             let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
                             let uniq = this.data.Items.find(o => (o.Year.toString() + o.Unit.Code.toString() + o.WeekNumber.toString())  == cat);
@@ -511,10 +492,10 @@ export class DataForm {
                     for (let detail of this.data.Items) {
                         if(detail.Year && detail.unit && detail.week && event.detail.Year && event.detail.Unit.Code && event.detail.WeekNumber){
                             let cat=detail.Year.toString() + detail.Unit.Code.toString()+detail.WeekNumber.toString();
-                            let remCat=event.detail.Year.toString() + event.detail.Unit.code.toString() + event.detail.WeekNumber.toString();
-                            //let cat=detail.Year.toString() + detail.unit.code.toString()+detail.week.weekNumber.toString();
+                            let remCat=event.detail.Year.toString() + event.detail.Unit.Code.toString() + event.detail.WeekNumber.toString();
+                            //let cat=detail.weeklyPlanYear.toString() + detail.unit.code.toString()+detail.WeekNumber.toString();
                             // //console.log(category );
-                            // detail.remainingEH= remEH[cat];
+                            // detail.RemainingEH= remEH[cat];
                             // remEH[cat]-=detail.week.usedEH;
                             if(cat==remCat){
                                 detail.RemainingEH=remEH[cat];
