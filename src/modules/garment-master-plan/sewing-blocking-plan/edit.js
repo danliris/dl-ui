@@ -101,7 +101,18 @@ export class Edit {
         if(!this.data.BookingOrderId){
             this.data.BookingOrderId=0;
         }
-        this.service.update(this.data).then(result => {
+        var dataTemp=this.data;
+        if(this.booking){
+            if(this.booking.BookingDate)
+                dataTemp.BookingDate=this.booking.BookingDate;
+            if(this.booking.OrderQuantity )
+                dataTemp.OrderQuantity=this.booking.OrderQuantity;
+            if(this.booking.DeliveryDate )
+                dataTemp.DeliveryDate=this.booking.DeliveryDate;
+            if(this.booking.Remark )
+                dataTemp.Remark=this.booking.Remark;
+        }
+        this.service.update(dataTemp).then(result => {
             this.cancel();
         }).catch(e => {
             this.error = e;

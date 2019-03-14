@@ -33,7 +33,9 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "Buyer.Name", title: "Buyer" },
+        { field: "BuyerName", title: "Buyer", formatter: function (value, data, index) {
+                return data.Buyer.Name;
+            }},
         { field: "OrderQuantity", title: "Jumlah Order" },
         {
             field: "DeliveryDate", title: "Tanggal Pengiriman", formatter: function (value, data, index) {

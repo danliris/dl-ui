@@ -112,6 +112,8 @@
 
         <label for="Jadwal Pengerjaan" if.bind="data.BookingOrderId">Jadwal Pengerjaan :</label>
         <au-layout error.bind="error.details" if.bind="error.details"></au-layout>
+        
+    <div class="table-responsive">
         <au-collection 
             items.bind="data.Items" 
             errors.bind="error.Items" 
@@ -125,7 +127,8 @@
             item-template="modules/garment-master-plan/sewing-blocking-plan/templates/item"
             footer-template="modules/garment-master-plan/sewing-blocking-plan/templates/item-footer">
         </au-collection>
-        
+    </div>
+    
         <label for="Jadwal Pengerjaan" if.bind="!isView">Preview Remaining EH :</label>
         <au-table 
         view-model.ref="previewTable"
