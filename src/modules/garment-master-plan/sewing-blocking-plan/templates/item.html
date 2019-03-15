@@ -2,7 +2,7 @@
 <tr>
     <td width="5%" text-align="center">
         <au-checkbox
-            value.bind="data.isConfirmed" 
+            value.bind="data.IsConfirm" 
             read-only.bind="options.readOnly" 
             options.bind="controlOption">
         </au-checkbox>
@@ -10,7 +10,7 @@
     <td width="10%">
         <au-autocomplete 
             value.bind="selectedComodity" 
-            error.bind="error.masterPlanComodity" 
+            error.bind="error.Comodity" 
             read-only.bind="options.readOnly" 
             key="Name" 
             text="Name"
