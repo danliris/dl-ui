@@ -63,7 +63,7 @@ export class View {
       if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === true){
         this.hasEdit = false;
         this.hasDelete = false;
-        this.hasConfirm = false;
+        //this.hasConfirm = false;
         this.hasMasterPlan = true;
       }
       if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === false){
@@ -71,6 +71,9 @@ export class View {
         this.hasDelete = false;
         this.hasEdit = false;
         this.hasConfirm = true;
+      }
+      if(deliveryDates <= today){
+        this.hasConfirm = false;
       }
   }
 
