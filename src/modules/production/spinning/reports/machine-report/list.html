@@ -25,7 +25,8 @@
         </au-autocomplete>
 
         <au-autocomplete label="Merk Mesin" value.bind="machineName" error.bind="error.MachineName"
-            loader.bind="machineNameLoader" key="Name" text="Name" read-only.bind="readOnly" options.bind="controlOptions">
+            loader.bind="machineNameLoader" key="Name" text="Name" read-only.bind="readOnly"
+            options.bind="controlOptions">
         </au-autocomplete>
 
         <au-autocomplete label="Tipe Benang" value.bind="materialType" error.bind="error.MaterialTypeId"
@@ -33,8 +34,10 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-datepicker label="Tanggal Awal" value.bind="dateFrom" read-only.bind="readOnly" options.bind="controlOptions"></au-datepicker>
-        <au-datepicker label="Tanggal Akhir" value.bind="dateTo" read-only.bind="readOnly" options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom" read-only.bind="readOnly"
+            options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo" read-only.bind="readOnly"
+            options.bind="controlOptions"></au-datepicker>
 
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -50,8 +53,14 @@
     <br>
 
     <div>
-        <au-table data.bind="loader" columns.bind="columns" options.bind="tableOptions" view-model.ref="dailyTable"
-            context.bind="contextTable" row-formatter.bind="rowFormatter">
+        <au-table data.bind="allLoader" columns.bind="allColumns" options.bind="tableOptions" view-model.ref="allTable"
+            context.bind="contextTable" show.bind="production == 'ALL'">
+        </au-table>
+        <au-table data.bind="outputLoader" columns.bind="outputColumns" options.bind="tableOptions"
+            view-model.ref="outputTable" context.bind="contextTable" show.bind="production == 'OUTPUT'">
+        </au-table>
+        <au-table data.bind="inputLoader" columns.bind="inputColumns" options.bind="tableOptions"
+            view-model.ref="inputTable" context.bind="contextTable" show.bind="production == 'INPUT'">
         </au-table>
     </div>
 

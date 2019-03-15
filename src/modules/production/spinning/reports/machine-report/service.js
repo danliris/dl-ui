@@ -36,13 +36,13 @@ export class Service extends RestService {
             
         }
         if (machineNo) {
-            if (query === '') query = `machineNo=${machineNo}`;
-            else query = `${query}&machineNo=${machineNo}`;
+            if (query === '') query = `machineNo=${machineNo.No}`;
+            else query = `${query}&machineNo=${machineNo.No}`;
             
         }
         if (machineName) {
-            if (query === '') query = `machineName=${machineName}`;
-            else query = `${query}&machineName=${machineName}`;
+            if (query === '') query = `machineName=${machineName.Name}`;
+            else query = `${query}&machineName=${machineName.Name}`;
             
         }
         if (materialType) {
@@ -56,25 +56,45 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    generateExcel(sdate, edate, machine, kanban) {
+    generateExcel(sdate, edate, prodNumber, unit, processType, machineNo, machineName, materialType) {
 
         var endpoint = `${serviceUri}/xls`;
         var query = '';
         if (sdate) {
-            if (query === '') query = `dateFrom=${sdate}`;
-            else query = `${query}&dateFrom=${sdate}`;
+            if (query === '') query = `dateFrom=${(sdate)}`;
+            else query = `${query}&dateFrom=${(sdate)}`;
         }
         if (edate) {
-            if (query === '') query = `dateTo=${edate}`;
-            else query = `${query}&dateTo=${edate}`;
+            if (query === '') query = `dateTo=${(edate)}`;
+            else query = `${query}&dateTo=${(edate)}`;
         }
-        if (machine) {
-            if (query === '') query = `machine=${machine.Id}`;
-            else query = `${query}&machine=${machine.Id}`;
+        if (prodNumber) {
+            if (query === '') query = `production=${prodNumber}`;
+            else query = `${query}&production=${prodNumber}`;
         }
-        if (kanban) {
-            if (query === '') query = `kanban=${kanban.Id}`;
-            else query = `${query}&kanban=${kanban.Id}`;
+        if (unit) {
+            if (query === '') query = `unitId=${unit.Id}`;
+            else query = `${query}&unitId=${unit.Id}`;
+        }
+        if (processType) {
+            if (query === '') query = `processType=${processType}`;
+            else query = `${query}&processType=${processType}`;
+            
+        }
+        if (machineNo) {
+            if (query === '') query = `machineNo=${machineNo.No}`;
+            else query = `${query}&machineNo=${machineNo.No}`;
+            
+        }
+        if (machineName) {
+            if (query === '') query = `machineName=${machineName.Name}`;
+            else query = `${query}&machineName=${machineName.Name}`;
+            
+        }
+        if (materialType) {
+            if (query === '') query = `materialTypeId=${materialType.Id}`;
+            else query = `${query}&materialTypeId=${materialType.Id}`;
+            
         }
         if (query !== '')
             endpoint = `${endpoint}?${query}`;

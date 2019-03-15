@@ -138,16 +138,54 @@ export class List {
     }
 
 
-    loader = (info) => {
+    allLoader = (info) => {
 
         this.info = {};
-        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("DD MMM YYYY HH:mm") : null
-        var dateTo = this.dateTo ? moment(this.dateTo).format("DD MMM YYYY HH:mm") : null
-        var prodNumber = this.production == "INPUT" ? 1 : this.production == "OUTPUT" ? 2 : 0;
+        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("DD MMM YYYY") : null
+        var dateTo = this.dateTo ? moment(this.dateTo).format("DD MMM YYYY") : null
+        // var prodNumber = this.production == "INPUT" ? 1 : this.production == "OUTPUT" ? 2 : 0;
         return this.listDataFlag ? (
 
             // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
-            this.service.getReport(dateFrom, dateTo, prodNumber, this.unit, this.processType,
+            this.service.getReport(dateFrom, dateTo, 0, this.unit, this.processType,
+                this.machineNo, this.machineName, this.materialType)
+                .then((result) => {
+                    return {
+                        data: result
+                    }
+                })
+        ) : { total: 0, data: {} };
+    }
+
+    inputLoader = (info) => {
+
+        this.info = {};
+        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("DD MMM YYYY") : null
+        var dateTo = this.dateTo ? moment(this.dateTo).format("DD MMM YYYY") : null
+        // var prodNumber = this.production == "INPUT" ? 1 : this.production == "OUTPUT" ? 2 : 0;
+        return this.listDataFlag ? (
+
+            // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
+            this.service.getReport(dateFrom, dateTo, 1, this.unit, this.processType,
+                this.machineNo, this.machineName, this.materialType)
+                .then((result) => {
+                    return {
+                        data: result
+                    }
+                })
+        ) : { total: 0, data: {} };
+    }
+
+    outputLoader = (info) => {
+
+        this.info = {};
+        var dateFrom = this.dateFrom ? moment(this.dateFrom).format("DD MMM YYYY") : null
+        var dateTo = this.dateTo ? moment(this.dateTo).format("DD MMM YYYY") : null
+        // var prodNumber = this.production == "INPUT" ? 1 : this.production == "OUTPUT" ? 2 : 0;
+        return this.listDataFlag ? (
+
+            // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
+            this.service.getReport(dateFrom, dateTo, 2, this.unit, this.processType,
                 this.machineNo, this.machineName, this.materialType)
                 .then((result) => {
                     return {
@@ -160,21 +198,22 @@ export class List {
     searching() {
 
         this.listDataFlag = true;
-
-        this.dailyTable.refresh();
+        if (this.production == 'INPUT') {
+            this.inputTable.refresh();
+        } else if (this.production == 'OUTPUT') {
+            this.outputTable.refresh();
+        } else {
+            this.allTable.refresh();
+        }
     }
 
     productionChanged(n, o) {
         if (this.production) {
-            if (this.production == "INPUT") {
-                this.columns = this.inputColumns;
-
-            } else if (this.production == "OUTPUT") {
-                this.columns = this.outputColumns;
-            } else {
-                this.columns = this.allColumns;
-            }
-            this.dailyTable.refresh();
+            this.listDataFlag = false;
+            this.allTable.refresh();
+            this.inputTable.refresh();
+            this.outputTable.refresh();
+            this.error = '';
         }
     }
 
@@ -182,19 +221,25 @@ export class List {
         this.listDataFlag = false;
         this.dateFrom = null;
         this.dateTo = null;
-        this.Machine = null;
-        this.Kanban = null;
-        this.filterKanban = null;
-        this.kanbanId = null;
+        this.production = 'ALL';
+        this.unit = null;
+        this.processType = '';
+        this.machineNo = null;
+        this.machineName = null;
+        this.materialType = null;
+        this.allTable.refresh();
+        this.inputTable.refresh();
+        this.outputTable.refresh();
         this.error = '';
     }
 
     ExportToExcel() {
-
+        var prodNumber = this.production == "INPUT" ? 1 : this.production == "OUTPUT" ? 2 : 0;
         var dateFrom = this.dateFrom ? moment(this.dateFrom).format("DD MMM YYYY HH:mm") : null
         var dateTo = this.dateTo ? moment(this.dateTo).format("DD MMM YYYY HH:mm") : null
 
-        this.service.generateExcel(dateFrom, dateTo, this.Machine, this.Kanban);
+        this.service.generateExcel(dateFrom, dateTo, prodNumber, this.unit, this.processType,
+            this.machineNo, this.machineName, this.materialType);
     }
 
     get machineNoLoader() {
