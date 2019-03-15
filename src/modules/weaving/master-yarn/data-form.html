@@ -9,7 +9,7 @@
               error.bind="error.MaterialTypeId" read-only.bind="readOnly" loader.one-time="materialLoader" text="Code">
             </au-autocomplete>
           </div>
-          <div class="col-md-6" style="white-space: nowrap;">
+          <div class="col-md-4" style="white-space: nowrap;">
             <au-textbox label="Nama Material" value.bind="data.MaterialTypeId.Name"
               error.bind="error.MaterialTypeId.Name" read-only.bind="readOnlyViewEdit"></au-textbox>
           </div>
@@ -22,8 +22,12 @@
               error.bind="error.YarnNumberId" read-only.bind="readOnly" loader.one-time="ringLoader" text="Code">
             </au-autocomplete>
           </div>
-          <div class="col-md-6">
-            <au-textbox label="Ukuran Nomor Benang" value.bind="data.YarnNumberId.Number"
+          <div class="col-md-4">
+            <au-textbox label="Tipe" value.bind="data.YarnNumberId.RingType"
+              error.bind="error.YarnNumberId.RingType" read-only.bind="readOnlyViewEdit"></au-textbox>
+          </div>
+          <div class="col-md-2">
+            <au-textbox label="Nomor" value.bind="data.YarnNumberId.Number"
               error.bind="error.YarnNumberId.Number" read-only.bind="readOnlyViewEdit"></au-textbox>
           </div>
         </div>
