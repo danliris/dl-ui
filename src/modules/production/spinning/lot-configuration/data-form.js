@@ -109,6 +109,7 @@ export class DataForm {
             }
         }
         else {
+            this.data.UnitDepartmentId = 0;
             this.unit = null;
             this.machine = null;
             this.yarn = null;

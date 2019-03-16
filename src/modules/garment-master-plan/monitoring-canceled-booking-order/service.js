@@ -15,31 +15,31 @@ export class Service extends RestService {
 
     search(info) { 
         var endpoint = `${serviceUri}`;
-        var query = '';
+        // var query = '';
         
-        if (info.no && info.no !== "") {
-            if (query === '') query = `no=${info.no}`;
-            else query = `${query}&no=${info.no}`;
-        }
-        if (info.buyerCode && info.buyerCode !== "") {
-            if (query === '') query = `buyerCode=${info.buyerCode}`;
-            else query = `${query}&buyerCode=${info.buyerCode}`;
-        }
-        if (info.statusCancel && info.statusCancel !== "") {
-            if (query === '') query = `statusCancel=${info.statusCancel}`;
-            else query = `${query}&statusCancel=${info.statusCancel}`;
-        }
-        if (info.dateFrom && info.dateFrom !== "") {
-            if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;
-        }
-        if (info.dateTo && info.dateTo !== "") {
-            if (query === '') query = `dateTo=${info.dateTo}`;
-            else query = `${query}&dateTo=${info.dateTo}`;
-        }
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
-        return super.get(endpoint,info);
+        // if (info.no && info.no !== "") {
+        //     if (query === '') query = `no=${info.no}`;
+        //     else query = `${query}&no=${info.no}`;
+        // }
+        // if (info.buyerCode && info.buyerCode !== "") {
+        //     if (query === '') query = `buyerCode=${info.buyerCode}`;
+        //     else query = `${query}&buyerCode=${info.buyerCode}`;
+        // }
+        // if (info.statusCancel && info.statusCancel !== "") {
+        //     if (query === '') query = `statusCancel=${info.statusCancel}`;
+        //     else query = `${query}&statusCancel=${info.statusCancel}`;
+        // }
+        // if (info.dateFrom && info.dateFrom !== "") {
+        //     if (query === '') query = `dateFrom=${info.dateFrom}`;
+        //     else query = `${query}&dateFrom=${info.dateFrom}`;
+        // }
+        // if (info.dateTo && info.dateTo !== "") {
+        //     if (query === '') query = `dateTo=${info.dateTo}`;
+        //     else query = `${query}&dateTo=${info.dateTo}`;
+        // }
+        // if (query !== '')
+        //     endpoint = `${serviceUri}?${query}`;
+        return super.list(endpoint,info);
     }
     
     generateExcel(info) {

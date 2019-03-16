@@ -20,16 +20,19 @@ export class List {
     }    
      
     cancelStateOption = ["","Cancel Confirm","Cancel Sisa","Expired"];
+    args = { page: 1,size:25};
 
     search(){
-        this.info.page = 1;
-        this.info.total=0;
+        this.args.page = 1;
+        this.args.total = 0;
         this.searching();
     }
 
  searching() {
      
-    var info = {
+    let info = {
+            page: this.args.page,
+            size: this.args.size,
             no : this.no ? this.no.BookingOrderNo : "",
             buyerCode : this.buyerCode ? this.buyerCode.Code : "",
             statusCancel : this.statusCancel ? this.statusCancel : "",
@@ -41,7 +44,20 @@ export class List {
             .then(result => {
             //    this.data=result;
                this.data = [];
-               for(var _data of result){
+               this.args.total=result.info.total; 
+               var _temp = {};
+               var row_span_count=1;
+               this.temp=[];
+               var temps={};
+               var count=0;
+
+               for (var prs of result.data) {
+                   temps.bookingCode=prs.BookingOrderNo;
+                   temps.orderQty=prs.OrderQuantity;
+                   this.temp.push(temps);
+                }
+
+               for(var _data of result.data){
                    _data.EarlyBooking = _data.TotalBeginningQuantity;
                    _data.BookingOrderDate = _data.BookingOrderDate ? moment(_data.BookingOrderDate).format("DD MMMM YYYY") : "";
                    _data.DeliveryDate = _data.DeliveryDate ? moment(_data.DeliveryDate).format("DD MMMM YYYY") : "";
@@ -49,13 +65,46 @@ export class List {
                    _data.DeliveryDateItem = _data.DeliveryDateItem ? moment(_data.DeliveryDateItem).format("DD MMMM YYYY") : "";
                    _data.CanceledDate = _data.CanceledDate ? moment(_data.CanceledDate).format("DD MMMM YYYY") : "";
 
+                   if(_temp.code == _data.BookingOrderNo){
+                    _data.BookingOrderNo=null;
+                    _data.BookingOrderDate=null;
+                    _data.BuyerName=null;
+                    _data.OrderQuantity=null;
+                    _data.DeliveryDate=null;
+                    _data.EarlyBooking=null;
+                    row_span_count=row_span_count+1;
+                    _data.row_count=row_span_count;
+                    
+                } else if(!_temp.code || _temp.code!=_data.BookingOrderNo){
+                    _temp.code=_data.BookingOrderNo;
+                    row_span_count=1;
+                    _data.row_count=row_span_count;
+                }
+
                    this.data.push(_data);
+
+                   if (this.data[count].row_count>1){
+
+                    for(var x=_data.row_count;0<x;x--){
+                        var z=count-x;
+                        
+                        this.data[z+1].row_count=this.data[count].row_count;
+                    }    
+                  }
+
+                count++; 
                }
             
             });
             
-            
     }
+
+    changePage(e) {
+        var page = e.detail;
+        this.args.page = page;
+        this.searching();
+    }   
+    
     
     ExportToExcel() {
         var info = {
