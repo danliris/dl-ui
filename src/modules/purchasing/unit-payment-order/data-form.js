@@ -19,6 +19,7 @@ export class DataForm {
     @bindable selectedDivision;
     @bindable selectedCategory;
 
+    IncomeTaxByOptions=["","Supplier","Dan Liris"];
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     controlOptions = {
         label: {
@@ -139,6 +140,7 @@ export class DataForm {
         this.data.incomeTaxRate = 0;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = null;
+        this.data.incomeTaxBy="";
     }
 
     useVatChanged(e) {

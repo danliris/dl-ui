@@ -73,6 +73,7 @@ export class UnitPaymentOrderItem {
 
       this.error = {};
       this.isShowing = true;
+      console.log(newValue)
     }
   }
 
