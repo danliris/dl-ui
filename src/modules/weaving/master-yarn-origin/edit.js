@@ -37,17 +37,7 @@ export class Edit {
         this.data.CoreSupplierId = supplierId;
       }
     }
-    // if (
-    //   this.data.Code == undefined ||
-    //   this.data.Code == null ||
-    //   this.data.Code == ""
-    // ) {
-    //   var supplierCode = "";
-    //   this.data.Code = supplierCode;
-    // } else {
-    //   var supplierCode = this.data.Code ? this.data.Code : "";
-    //   this.data.Code = supplierCode;
-    // }
+    
     this.service
       .update(this.data)
       .then(result => {
