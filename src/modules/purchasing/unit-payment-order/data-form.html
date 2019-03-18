@@ -163,7 +163,8 @@
                     label="PPH Ditanggung oleh"
                     value.bind="data.incomeTaxBy"
                     error.bind="error.incomeTaxBy"
-                    read-only.bind="readOnly"
+                    read-only.bind="(readOnly || isEdit)"
+                    change.delegate="incomeTaxByChanged($event)"
                     show.bind="data.useIncomeTax"
                     items.bind="IncomeTaxByOptions"
                     options.bind="controlOptions">
