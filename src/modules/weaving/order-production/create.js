@@ -107,6 +107,8 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
+        this.error.ConstructionNumber = e["FabricConstructionDocument.ConstructionNumber"];
+        this.error.WeavingUnit = e["WeavingUnit.Id"];
       });
   }
 }

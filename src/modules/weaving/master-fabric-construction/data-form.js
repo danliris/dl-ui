@@ -8,7 +8,6 @@ export class DataForm {
   @bindable Yarn;
   @bindable ItemsWarp;
   @bindable ItemsWeft;
-  @bindable MaterialTypeId;
   readOnlyAll = "true";
 
   formOptions = {
@@ -44,23 +43,21 @@ export class DataForm {
     this.error = this.context.error;
 
     if (this.data.Id) {
-      this.MaterialTypeId = this.data.MaterialTypeId;
 
       this.ItemsWarp = this.data.ItemsWarp;
-      this.ItemsWarpOptions = {};
-      this.ItemsWarpOptions.Code = "";
-      this.ItemsWarpOptions.Yarn = "";
-      this.ItemsWarpOptions.Quantity = "";
-      this.ItemsWarpOptions.Information = "";
-
       this.ItemsWeft = this.data.ItemsWeft;
-      this.ItemsWeftOptions = {};
-      this.ItemsWeftOptions.Code = "";
-      this.ItemsWeftOptions.Yarn = "";
-      this.ItemsWeftOptions.Quantity = "";
-      this.ItemsWeftOptions.Information = "";
-      // console.log("data-form", this.data);
+
+      this.ItemsWarp.forEach(item => {
+
+        item["Select"] = true;
+      });
+
+      this.ItemsWeft.forEach(item => {
+
+        item["Select"] = true;
+      })
     }
+
     if (this.readOnly) {
       //Collections Columns on readOnly state
       this.warpColumns = [
@@ -133,56 +130,113 @@ export class DataForm {
     }
   }
 
+  get MaterialTypeName() {
+    let warpNames = [];
+    let weftNames = [];
+    let weftCompareName = [];
+    var result = "";
+
+    if (this.ItemsWarp) {
+
+      if (this.ItemsWarp.length > 0) {
+
+        this.ItemsWarp.forEach(item => {
+
+          if (item.Select) {
+
+            if (item.Yarn) {
+
+              if (warpNames.indexOf(item.Yarn.Name) < 0) {
+                warpNames.push(item.Yarn.Name)
+              }
+            }
+          }
+        });
+      }
+    }
+
+    if (this.ItemsWeft) {
+      if (this.ItemsWeft.length > 0) {
+
+        this.ItemsWeft.forEach(item => {
+
+          if (item.Select) {
+
+            if (item.Yarn) {
+
+              if (weftNames.indexOf(item.Yarn.Name) < 0) {
+                weftNames.push(item.Yarn.Name);
+              }
+            }
+
+          }
+        });
+      }
+    }
+
+    warpNames.forEach(name => {
+      if (result == "") {
+
+        result = name;
+      } else {
+
+        result = result + " " + name;
+      }
+    });
+
+    weftNames.forEach(name => {
+
+      warpNames.forEach(warpName => {
+
+        if (name != warpName) {
+          weftCompareName.push(name);
+        }
+      });
+    });
+
+    if (weftCompareName.length > 0) {
+      weftCompareName.forEach(name => {
+
+        result = result + " " + name;
+      });
+    }
+
+    this.data.MaterialTypeName = result;
+    return result;
+  }
+
   //Concatenated some properties for create ConstructionNumber on Form
   get ConstructionNumber() {
     var result = "";
-    if (this.MaterialTypeId) {
-      // console.log(this.data);
-      // console.log(this.MaterialTypeDocument);
-      //API Properties vs Form Properties
-      // this.data.MaterialTypeId = {};
-      // this.data.MaterialTypeDocument.Code = this.MaterialTypeDocument.Code;
-      // this.data.MaterialTypeDocument.Name = this.MaterialTypeDocument.Name;
-
-      var Name = this.MaterialTypeId.Name ? this.MaterialTypeId.Name : "";
-      var Woven = this.data.WovenType ? this.data.WovenType : "";
-      var Warp = this.data.AmountOfWarp ? this.data.AmountOfWarp : "";
-      var Weft = this.data.AmountOfWeft ? this.data.AmountOfWeft : "";
-      var Width = this.data.Width ? this.data.Width : "";
-      result =
-        Name +
-        " " +
-        Woven +
-        " " +
-        Warp +
-        " " +
-        Weft +
-        " " +
-        Width +
-        " " +
-        this.WarpTypeForm +
-        " " +
-        this.WeftTypeForm;
-      this.data.MaterialTypeId = this.MaterialTypeId.Id;
-      this.data.ConstructionNumber = result;
-    }
-    // console.log(result);
+    var Name = this.MaterialTypeName ? this.MaterialTypeName : "";
+    var Woven = this.data.WovenType ? this.data.WovenType : "";
+    var Warp = this.data.AmountOfWarp ? this.data.AmountOfWarp : "";
+    var Weft = this.data.AmountOfWeft ? this.data.AmountOfWeft : "";
+    var Width = this.data.Width ? this.data.Width : "";
+    result =
+      Name +
+      " " +
+      Woven +
+      " " +
+      Warp +
+      " " +
+      Weft +
+      " " +
+      Width +
+      " " +
+      this.WarpTypeForm +
+      " " +
+      this.WeftTypeForm;
+    this.data.ConstructionNumber = result;
     return result;
   }
 
   constructionDetail(data) {
-    // console.log(data);
     var detail = {};
-    // var Yarn = {};
     detail.YarnId = data.YarnId;
     detail.Quantity = data.Quantity;
     detail.Information = data.Information;
 
-    // if (data.Yarn) {
-    // Yarn.Id = data.Yarn.Id;
-    // Yarn.Code = data.Code;
-    // Yarn.Name = data.Name;
-    // }
     if (data.Id) {
       this.data.ConstructionNumber = this.ConstructionNumber;
     }
@@ -192,16 +246,26 @@ export class DataForm {
   //Capture "Jenis Lusi" on Data Form, and show it on "Jenis Lusi dan Pakan"
   //The result used on constructionNumber as an element of ConstructionNumber
   get WarpTypeForm() {
+
     let result = "";
+
     if (this.ItemsWarp) {
+
       if (this.ItemsWarp.length > 0) {
+
         for (let detail of this.ItemsWarp) {
           if (detail.Select) {
-            result = result + detail.MaterialTypeId + detail.YarnNumberId;
+
+            if (detail.Yarn) {
+
+              result = result + detail.Yarn.Code;
+            }
+
           }
         }
       }
     }
+
     this.data.WarpTypeForm = result;
     return result;
   }
@@ -209,29 +273,50 @@ export class DataForm {
   //Capture "Jenis Pakan" on Data Form, and show it on "Jenis Lusi dan Pakan"
   //The result used on constructionNumber as an element of ConstructionNumber
   get WeftTypeForm() {
+
     let result = "";
+
     if (this.ItemsWeft) {
+
       if (this.ItemsWeft.length > 0) {
+
         for (let detail of this.ItemsWeft) {
+
           if (detail.Select) {
-            result = result + detail.MaterialTypeId + detail.YarnNumberId;
+
+            if (detail.Yarn) {
+
+              result = result + detail.Yarn.Code;
+            }
+          }
+          else {
+            result = "";
           }
         }
       }
     }
+
     this.data.WeftTypeForm = result;
     return result;
   }
 
   //Sumed Up Yarn Quantity
   get TotalYarn() {
+
     let result = 0;
+
     if (this.ItemsWarp && this.ItemsWeft) {
+
       if (this.ItemsWarp.length > 0) {
+
         this.data.ItemsWarp = [];
         for (let detail of this.ItemsWarp) {
+
           if (detail.Select) {
-            this.data.ItemsWarp.push(this.constructionDetail(detail));
+
+            if (detail.YarnId && detail.Quantity != 0) {
+              this.data.ItemsWarp.push(this.constructionDetail(detail));
+            }
             result += detail.Quantity;
           } else {
             var ItemWarpsIndex = this.data.ItemsWarp.indexOf(detail);
@@ -239,19 +324,27 @@ export class DataForm {
           }
         }
       }
+
       if (this.ItemsWeft.length > 0) {
+
+        this.data.ItemsWeft = [];
         for (let detail of this.ItemsWeft) {
-          this.data.ItemsWeft = [];
+
           if (detail.Select) {
-            this.data.ItemsWeft.push(this.constructionDetail(detail));
+
+            if (detail.YarnId && detail.Quantity != 0) {
+              this.data.ItemsWeft.push(this.constructionDetail(detail));
+            }
             result += detail.Quantity;
           } else {
+
             var ItemWeftsIndex = this.data.ItemsWeft.indexOf(detail);
             this.data.ItemsWeft.splice(ItemWeftsIndex, 1);
           }
         }
       }
     }
+
     this.data.TotalYarn = result;
     return result;
   }
