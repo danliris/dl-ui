@@ -23,9 +23,9 @@
         </div>
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
-            <au-autocomplete placeholder="Jenis Material" value.bind="MaterialTypeName" error.bind="error.MaterialTypeName"
-              read-only.bind="readOnly" loader.one-time="materialTypeLoader" text="Name">
-            </au-autocomplete>
+            <au-textbox placeholder="Jenis Material" value.bind="MaterialTypeName" error.bind="error.MaterialTypeName"
+              read-only.bind="readOnly">
+            </au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
             <au-textbox placeholder="Jenis Anyaman" value.bind="data.WovenType" error.bind="error.WovenType"
