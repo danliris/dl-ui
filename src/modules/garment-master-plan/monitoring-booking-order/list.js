@@ -39,7 +39,7 @@ export class List {
     }
 
     searching() {
-     
+    var locale = 'id-ID';
     var info = {
             page: this.args.page,
             size: this.args.size,
@@ -73,10 +73,10 @@ export class List {
                }
 
                for (var pr of result.data) {
-                  pr.BookingOrderDate =pr.BookingOrderDate ? moment(pr.BookingOrderDate).format("DD MMMM YYYY") : "";;
-                  pr.DeliveryDate=  pr.DeliveryDate ? moment(pr.DeliveryDate).format("DD MMMM YYYY") : "";
-                  pr.ConfirmDate=  pr.ConfirmDate ? moment(pr.ConfirmDate).format("DD MMMM YYYY") : "";
-                  pr.DeliveryDateItems = pr.DeliveryDateItems ? moment(pr.DeliveryDateItems).format("DD MMMM YYYY") : "";
+                  pr.BookingOrderDate =pr.BookingOrderDate ? moment(pr.BookingOrderDate).locale(locale).format("DD MMMM YYYY") : "";;
+                  pr.DeliveryDate=  pr.DeliveryDate ? moment(pr.DeliveryDate).locale(locale).format("DD MMMM YYYY") : "";
+                  pr.ConfirmDate=  pr.ConfirmDate ? moment(pr.ConfirmDate).locale(locale).format("DD MMMM YYYY") : "";
+                  pr.DeliveryDateItems = pr.DeliveryDateItems ? moment(pr.DeliveryDateItems).locale(locale).format("DD MMMM YYYY") : "";
                   if(_temp.code == pr.BookingOrderNo){
                     pr.BookingOrderNo=null;
                     pr.BookingOrderDate=null;

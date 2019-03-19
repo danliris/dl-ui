@@ -14,11 +14,11 @@ export class Create {
   async activate(params) {
     var Id = params.Id;
     this.data = await this.service.getById(Id);
-    // console.log("view", this.data);
-    // this.constructionNumber = this.data.constructionNumber;
-    // this.warpTypeForm = this.data.warpTypeForm;
-    // this.weftTypeForm = this.data.weftTypeForm;
-    // this.totalYarn = this.data.totalYarn;
+    this.MaterialTypeName = this.data.MaterialTypeName;
+    this.ConstructionNumber = this.data.ConstructionNumber;
+    this.WarpTypeForm = this.data.WarpTypeForm;
+    this.WeftTypeForm = this.data.WeftTypeForm;
+    this.TotalYarn = this.data.TotalYarn;
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan

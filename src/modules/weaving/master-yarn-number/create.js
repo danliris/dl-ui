@@ -11,7 +11,7 @@ export class Create {
     this.error = {};
   }
 
-  activate(params) {}
+  activate(params) { }
 
   list() {
     this.router.navigateToRoute("list");
@@ -22,58 +22,37 @@ export class Create {
   }
 
   saveCallback(event) {
+    let errorIndex = 0;
     this.error = {};
     var CodeRegEx = new RegExp("([1-9])");
-    if (this.data.Code) {
-      if (
-        this.data.Code == undefined ||
-        this.data.Code == null ||
-        this.data.Code == ""
-      ) {
-        var yarnNumberCode = this.data.Code ? this.data.Code : "";
-        this.data.Code = yarnNumberCode;
-      } else {
-        var yarnNumberCode = "";
-        this.data.Code = yarnNumberCode;
-      }
+    if (!this.data.Code || this.data.Code === "") {
+      this.data.Code = "";
     }
 
-    // if (this.data.Number) {
-    if (
-      this.data.Number == undefined ||
-      this.data.Number == null ||
-      this.data.Number == ""
-    ) {
+    if (!this.data.Number) {
       this.data.Number = 0;
     } else {
       if (!CodeRegEx.test(this.data.Number)) {
         this.error.Number = "Only Numbers (1-9) Allowed";
+        errorIndex++;
       }
     }
-    // }
 
-    if (this.data.RingType) {
-      if (
-        this.data.RingType == undefined ||
-        this.data.RingType == null ||
-        this.data.RingType == ""
-      ) {
-        var yarnNumberRing = this.data.RingType ? this.data.RingType : "";
-        this.data.RingType = yarnNumberRing;
-      } else {
-        var yarnNumberRing = "";
-        this.data.RingType = yarnNumberRing;
-      }
+    if (!this.data.RingType || this.data.RingType === "") {
+      this.data.RingType = "";
     }
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        if (!this.error.Number) {
-          this.error = e;
-        }
-      });
+
+    if (errorIndex == 0) {
+      this.service
+        .create(this.data)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          if (!this.error.Number) {
+            this.error = e;
+          }
+        });
+    }
   }
 }

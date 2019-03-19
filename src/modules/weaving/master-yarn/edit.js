@@ -63,8 +63,6 @@ export class Edit {
       this.data.Name = "";
     }
 
-    console.log(this.data);
-    debugger;
     this.service
       .update(this.data)
       .then(result => {

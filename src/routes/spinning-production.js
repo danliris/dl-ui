@@ -78,6 +78,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/reports/machine-report',
+        name: 'machine-report',
+        moduleId: './modules/production/spinning/reports/machine-report/index',
+        nav: true,
+        title: 'Laporan Mesin Produksi',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/lot-configuration',
         name: 'lot-configuration',
         moduleId: './modules/production/spinning/lot-configuration/index',

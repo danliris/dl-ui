@@ -11,7 +11,8 @@ module.exports = function(keyword, filter) {
                                     currencyId : filter.currencyId, 
                                     supplierId : filter.supplierId, 
                                     categoryId : filter.categoryId, 
-                                    divisionId : filter.divisionId })
+                                    divisionId : filter.divisionId,
+                                    incomeTaxBy : filter.incomeTaxBy })
         .then(results => {
             return results.data.map(purchaseOrderExternal => {
                 purchaseOrderExternal.toString = function () {

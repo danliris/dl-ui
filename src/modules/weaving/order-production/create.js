@@ -27,6 +27,7 @@ export class Create {
   //Tombol "Simpan", menyimpan nilai masukan
   saveCallback(event) {
     this.error = {};
+    var CodeRegEx = new RegExp("([1-9])");
     var CurrentDate = new Date();
     this.data.DateOrdered = CurrentDate;
 
@@ -42,11 +43,9 @@ export class Create {
     }
 
     if (!this.data.FabricConstructionDocument) {
-      // if (!this.data.FabricConstructionDocument.Id) {
       this.data.FabricConstructionDocument = {};
       this.data.FabricConstructionDocument.Id = "";
       this.data.FabricConstructionDocument.ConstructionNumber = "";
-      // }
     }
 
     if (
@@ -65,31 +64,20 @@ export class Create {
       this.data.WeftOrigin = "";
     }
 
-    // if (!this.data.WarpComposition) {
-    //   this.data.WarpComposition = {};
-    //   // if (!this.data.WarpComposition.CompositionOfPoly) {
-    //   //   this.data.WarpComposition.CompositionOfPoly = 0;
-    //   // }
-    //   // if (!this.data.WarpComposition.CompositionOfCotton) {
-    //   //   this.data.WarpComposition.CompositionOfCotton = 0;
-    //   // }
-    //   // if (!this.data.WarpComposition.OtherComposition) {
-    //   //   this.data.WarpComposition.OtherComposition = 0;
-    //   // }
-    // }
+    if (!this.data.WarpComposition) {
+      this.data.WarpComposition = {};
+      this.data.WarpComposition.CompositionOfPoly = 0;
+      this.data.WarpComposition.CompositionOfCotton = 0;
+      this.data.WarpComposition.OtherComposition = 0;
+    }
 
-    // if (!this.data.WeftComposition) {
-    //   this.data.WeftComposition = {};
-    //   // if (!this.data.WeftComposition.CompositionOfPoly) {
-    //   //   this.data.WeftComposition.CompositionOfPoly = 0;
-    //   // }
-    //   // if (!this.data.WeftComposition.CompositionOfCotton) {
-    //   //   this.data.WeftComposition.CompositionOfCotton = 0;
-    //   // }
-    //   // if (!this.data.WeftComposition.OtherComposition) {
-    //   //   this.data.WeftComposition.OtherComposition = 0;
-    //   // }
-    // }
+    if(!this.data.WeftComposition)
+    {
+      this.data.WeftComposition = {};
+      this.data.WeftComposition.CompositionOfPoly = 0;
+      this.data.WeftComposition.CompositionOfCotton = 0;
+      this.data.WeftComposition.OtherComposition = 0;
+    }
 
     if (!this.data.YarnType) {
       this.data.YarnType = "";
@@ -119,7 +107,8 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
-        this.error.WeavingUnit.Id = e.WeavingUnit.Id;
+        this.error.ConstructionNumber = e["FabricConstructionDocument.ConstructionNumber"];
+        this.error.WeavingUnit = e["WeavingUnit.Id"];
       });
   }
 }

@@ -29,7 +29,7 @@ export class List {
     }
 
  searching() {
-     
+    var locale = 'id-ID';
     let info = {
             page: this.args.page,
             size: this.args.size,
@@ -59,11 +59,11 @@ export class List {
 
                for(var _data of result.data){
                    _data.EarlyBooking = _data.TotalBeginningQuantity;
-                   _data.BookingOrderDate = _data.BookingOrderDate ? moment(_data.BookingOrderDate).format("DD MMMM YYYY") : "";
-                   _data.DeliveryDate = _data.DeliveryDate ? moment(_data.DeliveryDate).format("DD MMMM YYYY") : "";
-                   _data.ConfirmDate = _data.ConfirmDate ? moment(_data.ConfirmDate).format("DD MMMM YYYY") : "";
-                   _data.DeliveryDateItem = _data.DeliveryDateItem ? moment(_data.DeliveryDateItem).format("DD MMMM YYYY") : "";
-                   _data.CanceledDate = _data.CanceledDate ? moment(_data.CanceledDate).format("DD MMMM YYYY") : "";
+                   _data.BookingOrderDate = _data.BookingOrderDate ? moment(_data.BookingOrderDate).locale(locale).format("DD MMMM YYYY") : "";
+                   _data.DeliveryDate = _data.DeliveryDate ? moment(_data.DeliveryDate).locale(locale).format("DD MMMM YYYY") : "";
+                   _data.ConfirmDate = _data.ConfirmDate ? moment(_data.ConfirmDate).locale(locale).format("DD MMMM YYYY") : "";
+                   _data.DeliveryDateItem = _data.DeliveryDateItem ? moment(_data.DeliveryDateItem).locale(locale).format("DD MMMM YYYY") : "";
+                   _data.CanceledDate = _data.CanceledDate ? moment(_data.CanceledDate).locale(locale).format("DD MMMM YYYY") : "";
 
                    if(_temp.code == _data.BookingOrderNo){
                     _data.BookingOrderNo=null;

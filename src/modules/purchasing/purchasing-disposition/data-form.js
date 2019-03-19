@@ -30,7 +30,7 @@ export class DataForm {
         }
     }
 
-    IncomeTaxByOptions=["Supplier","Dan Liris"];
+    IncomeTaxByOptions=["","Supplier","Dan Liris"];
 
     itemsColumns = [{ header: "Nomor External PO"},
                     { header: "Kena PPN"},
@@ -65,15 +65,16 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
-    @computedFrom("data.Supplier && data.Currency && data.Category && data.Division")
+    @computedFrom("data.Supplier && data.Currency && data.Category && data.Division && data.IncomeTaxBy")
     get filter() {
         var filter={};
-        if(this.data.Supplier && this.data.Currency && this.data.Category && this.data.Division){
+        if(this.data.Supplier && this.data.Currency && this.data.Category && this.data.Division && this.data.IncomeTaxBy){
             filter = {
                 supplierId: this.data.Supplier.Id || this.data.Supplier._id,
                 currencyId:this.data.Currency.Id||  this.data.Currency._id,
                 categoryId:this.data.Category.Id || this.data.Category._id,
-                divisionId:this.data.Division.Id || this.data.Division._id
+                divisionId:this.data.Division.Id || this.data.Division._id,
+                incomeTaxBy:this.data.IncomeTaxBy || ""
             }
         }
         return filter;

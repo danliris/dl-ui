@@ -8,6 +8,8 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable error;
+  @bindable Month;
+  @bindable Year;
 
   yearFormat = "YYYY";
   years = [];
@@ -56,12 +58,18 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.Month = this.months[this.getMonth()];
 
     if (this.data.EstimatedNumber) {
       this.orderProductionsTableOptions = {};
     }
 
-    this.getYears();
+    if (!this.data.Period) {
+
+      this.data.Period = {};
+      this.data.Period.Month = this.Month;
+      this.Year = this.getYears();
+    }
     this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -89,6 +97,14 @@ export class DataForm {
     return UnitLoader;
   }
 
+  MonthChanged(newValue) {
+    this.data.Period.Month = newValue;
+  }
+
+  YearChanged(newValue) {
+    this.data.Period.Year = newValue;
+  }
+
   getYears() {
     var year = moment(new Date());
     this.years.push(year.year());
@@ -101,40 +117,34 @@ export class DataForm {
   }
 
   async searchOrderProductions() {
+    
     this.error = {};
     var index = 0;
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    if (this.data.Period) {
-      if (
-        this.data.Period.Month == null ||
-        this.data.Period.Month == undefined ||
-        this.data.Period.Month == ""
-      ) {
-        this.error.Period.Month = "Periode Bulan Tidak Boleh Kosong";
-        index++;
+    if (!this.data.Period) {
+
+      index++;
+    } else {
+
+      if (!this.data.Period.Year) {
+
+        this.error.Year = "Periode Tahun Tidak Boleh Kosong";
       }
 
-      if (
-        this.data.Period.Year == null ||
-        this.data.Period.Year == undefined ||
-        this.data.Period.Year == ""
-      ) {
-        this.error.Period.Year = "Periode Tahun Tidak Boleh Kosong";
-        index++;
+      if (!this.data.Period.Month) {
+
+        this.error.Month = "Periode Bulan Tidak Boleh Kosong";
       }
     }
 
-    if (this.data.Unit) {
-      if (
-        this.data.Unit == null ||
-        this.data.Unit == undefined ||
-        this.data.Unit == ""
-      ) {
-        this.error.Unit = "Unit Tidak Boleh Kosong";
-        index++;
+    if (!this.data.Unit) {
+
+      if(index == 0) {
+        emptyFieldName = "Unit Tidak Boleh Kosong";
       }
+      index++;
     }
 
     if (index > 0) {
@@ -163,5 +173,9 @@ export class DataForm {
           });
       }
     }
+  }
+
+  getMonth() {
+    return new Date().getMonth() + 1;
   }
 }
