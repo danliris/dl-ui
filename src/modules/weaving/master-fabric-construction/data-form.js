@@ -1,5 +1,4 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-var MaterialTypeLoader = require("../../../loader/material-types-loader");
 
 export class DataForm {
   @bindable title;
@@ -97,11 +96,6 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
   }
 
-  //Material Type Loader
-  get materialTypeLoader() {
-    return MaterialTypeLoader;
-  }
-
   //Triggered when "+" on Warp Collections Clicked
   get addItemsWarp() {
     return event => {
@@ -145,9 +139,9 @@ export class DataForm {
           if (item.Select) {
 
             if (item.Yarn) {
-
-              if (warpNames.indexOf(item.Yarn.Name) < 0) {
-                warpNames.push(item.Yarn.Name)
+              console.log(item.Yarn);
+              if (warpNames.indexOf(item.Yarn.MaterialTypeId.Name) < 0) {
+                warpNames.push(item.Yarn.MaterialTypeId.Name)
               }
             }
           }
@@ -164,8 +158,8 @@ export class DataForm {
 
             if (item.Yarn) {
 
-              if (weftNames.indexOf(item.Yarn.Name) < 0) {
-                weftNames.push(item.Yarn.Name);
+              if (weftNames.indexOf(item.Yarn.MaterialTypeId.Name) < 0) {
+                weftNames.push(item.Yarn.MaterialTypeId.Name);
               }
             }
 
