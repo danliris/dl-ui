@@ -65,8 +65,6 @@ export class Create {
       this.data.Name = "";
     }
 
-    console.log(this.data);
-    debugger;
     this.service
       .create(this.data)
       .then(result => {
