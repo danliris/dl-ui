@@ -107,7 +107,7 @@ export class DataForm {
             if(this.data.MixDrawingCountId){
                 this.count = {};
                 this.count.Id = this.data.MixDrawingCountId;
-                this.count.Code = this.data.Count;
+                this.count.Name = this.data.Count;
             }
 
         } else {
@@ -116,9 +116,10 @@ export class DataForm {
             this.yarnType = {};
             if (this.data.MaterialComposition) {
                 this.yarnType.Id = this.data.MaterialComposition[0].YarnId;
-                this.yarnType.Code = this.data.MaterialComposition[0].YarnCode;
+                this.yarnType.Name = this.data.MaterialComposition[0].YarnName;
                 this.data.YarnMaterialTypeId = this.yarnType.Id;
                 this.data.YarnMaterialTypeCode = this.yarnType.Code;
+                this.data.YarnMaterialTypeName = this.yarnType.Name;
                 if (this.yarnType.Id) {
                     this.yarnTypeId = this.yarnType.Id;
                     this.lot = this.data.LotNo;
@@ -198,9 +199,9 @@ export class DataForm {
         var selectedProcess = this.yarnType;
 
         if (selectedProcess) {
-
-            this.data.YarnMaterialTypeId = selectedProcess.Id;
             this.data.YarnMaterialTypeCode = selectedProcess.Code;
+            this.data.YarnMaterialTypeId = selectedProcess.Id;
+            this.data.YarnMaterialTypeName = selectedProcess.Name;
             var yarn = selectedProcess.Id;
             if (yarn) {
                 this.service.getLotByYarnType(yarn, this.unit.Id).then(result => {
@@ -224,6 +225,7 @@ export class DataForm {
                         this.regularItems = null;
                         this.data.YarnMaterialTypeId = null;
                         this.data.YarnMaterialTypeCode = null;
+                        this.data.YarnMaterialTypeName = null;
                     }
                 });
             }

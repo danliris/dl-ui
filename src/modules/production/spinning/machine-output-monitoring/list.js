@@ -14,7 +14,7 @@ export class List {
             },
         },
         { field: "ProcessType", title: "Jenis Proses" },
-        { field: "MaterialType.Code", title: "Jenis Material" },
+        { field: "MaterialType.Name", title: "Jenis Material" },
         { field: "Lot.LotNo", title: "Lot" },
         { field: "Shift", title: "Shift"},
         { field: "Group", title: "Group"},
