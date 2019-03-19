@@ -30,56 +30,84 @@ export class List {
         rowspan: "2",
         valign: "top"
       },
-      // { field: "yarnNumber", title: "No. Benang", rowspan: "2", valign: "top" },
+      { field: "YarnNumber", title: "No. Benang", rowspan: "2", valign: "top" },
       { title: "Komposisi Lusi (%)", colspan: "3", valign: "middle" },
       { title: "Komposisi Pakan (%)", colspan: "3", valign: "middle" },
-      // { title: "Estimasi Produksi", colspan: "4", valign: "middle" },
+      { title: "Estimasi Produksi", colspan: "4", valign: "middle" },
       {
-        field: "TotalGramEstimation",
+        field: "OrderProduction.WholeGrade",
         title: "Total Gram",
         rowspan: "2",
         valign: "top"
       },
-      // { title: "Kebutuhan Benang", colspan: "3", valign: "middle" }
+      { title: "Kebutuhan Benang", colspan: "3", valign: "middle" }
     ],
     [
       {
-        field: "WarpComposition.CompositionOfPoly",
+        field: "OrderProduction.WarpComposition.CompositionOfPoly",
         title: "Poly",
         valign: "middle"
       },
       {
-        field: "WarpComposition.CompositionOfCotton",
+        field: "OrderProduction.WarpComposition.CompositionOfCotton",
         title: "Cotton",
         valign: "middle"
       },
       {
-        field: "WarpComposition.OtherComposition",
+        field: "OrderProduction.WarpComposition.OtherComposition",
         title: "Lainnya",
         valign: "middle"
       },
       {
-        field: "WeftComposition.CompositionOfPoly",
+        field: "OrderProduction.WeftComposition.CompositionOfPoly",
         title: "Poly",
         valign: "middle"
       },
       {
-        field: "WeftComposition.CompositionOfCotton",
+        field: "OrderProduction.WeftComposition.CompositionOfCotton",
         title: "Cotton",
         valign: "middle"
       },
       {
-        field: "WeftComposition.OtherComposition",
+        field: "OrderProduction.WeftComposition.OtherComposition",
         title: "Lainnya",
         valign: "middle"
       },
-      // { field: "epGradeA", title: "Grade A", valign: "middle" },
-      // { field: "epGradeB", title: "Grade B", valign: "middle" },
-      // { field: "epGradeC", title: "Grade C", valign: "middle" },
-      // { field: "epOthers", title: "Aval", valign: "middle" },
-      // { field: "yarnWeft", title: "Lusi", valign: "middle" },
-      // { field: "yarnWarp", title: "Pakan", valign: "middle" },
-      // { field: "yarnWhole", title: "Total", valign: "middle" }
+      {
+        field: "EstimatedProduction.GradeA",
+        title: "Grade A",
+        valign: "middle"
+      },
+      {
+        field: "EstimatedProduction.GradeB",
+        title: "Grade B",
+        valign: "middle"
+      },
+      {
+        field: "EstimatedProduction.GradeC",
+        title: "Grade C",
+        valign: "middle"
+      },
+      {
+        field: "EstimatedProduction.GradeD",
+        title: "Grade D",
+        valign: "middle"
+      },
+      {
+        field: "FabricConstructionDocument.ItemsWarp.Quantity",
+        title: "Lusi",
+        valign: "middle"
+      },
+      {
+        field: "FabricConstructionDocument.ItemsWeft.Quantity",
+        title: "Pakan",
+        valign: "middle"
+      },
+      {
+        field: "FabricConstructionDocument.TotalYarn",
+        title: "Total",
+        valign: "middle"
+      }
     ]
   ];
 
@@ -143,22 +171,11 @@ export class List {
 
   searchOrderProductions() {
     var Month = this.getMonth(this.data);
-    console.log(Month);
     var Year = this.getYear(this.data);
-    console.log(Year);
     var UnitId = this.data.Unit.Id;
-    console.log(UnitId);
-    console.log(this.data);
-    debugger;
-    this.service
-      .searchSOP(
-        Month,
-        Year,
-        UnitId
-      )
-      .then(result => {
-        this.loader = result.data;
-      });
+    this.service.searchSOP(Month, Year, UnitId).then(result => {
+      this.loader = result.data;
+    });
     // loader = info => {
     //   var order = {};
     //   if (info.sort) order[info.sort] = info.order;

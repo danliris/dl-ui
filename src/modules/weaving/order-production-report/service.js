@@ -10,7 +10,8 @@ export class Service extends RestService {
   }
 
   searchSOP(month, year, unitId, info) {
-    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}`;
+    var status = "OPEN-ORDER";
+    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}/status/${status}`;
     return super.list(endpoint, info);
   }
 
@@ -20,9 +21,15 @@ export class Service extends RestService {
   }
 
   getPdfByPeriod(month, year, unitId) {
-    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}`;
+    var status = "ESTIMATED";
+    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}/status/${status}`;
     return super.getPdf(endpoint);
   }
+
+  // getOrders(month, year, unitId){
+  //   var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}`;
+  //   return super.list(endpoint, info);
+  // }
 
   // create(data) {
   //   var endpoint = `${serviceUri}`;
