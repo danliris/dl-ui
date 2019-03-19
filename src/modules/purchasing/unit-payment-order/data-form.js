@@ -19,6 +19,7 @@ export class DataForm {
     @bindable selectedDivision;
     @bindable selectedCategory;
 
+    IncomeTaxByOptions=["","Supplier","Dan Liris"];
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     controlOptions = {
         label: {
@@ -59,7 +60,7 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.useIncomeTax", "data.incomeTax", "data.useVat")
+    @computedFrom("data.division", "data.supplier", "data.category", "data.paymentMethod", "data.currency", "data.useIncomeTax", "data.incomeTax", "data.useVat","data.incomeTaxBy")
     get filter() {
         var filter = {
             DivisionId: this.data.division ? this.data.division._id : this.data.division,
@@ -70,6 +71,7 @@ export class DataForm {
             UseIncomeTax: this.data.useIncomeTax,
             IncomeTaxId: this.data.incomeTax ? this.data.incomeTax._id : null,
             UseVat: this.data.useVat,
+            incomeTaxBy: this.data.incomeTaxBy ? this.data.incomeTaxBy:""
         }
         return filter;
     }
@@ -119,6 +121,10 @@ export class DataForm {
         this.resetErrorItems();
     }
 
+    incomeTaxByChanged(e){
+        this.data.items = [];
+    }
+
     selectedIncomeTaxChanged(newValue) {
         var _selectedIncomeTax = newValue || {};
         if (_selectedIncomeTax.Id) {
@@ -139,6 +145,7 @@ export class DataForm {
         this.data.incomeTaxRate = 0;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = null;
+        this.data.incomeTaxBy="";
     }
 
     useVatChanged(e) {
