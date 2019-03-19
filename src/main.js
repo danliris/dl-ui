@@ -47,7 +47,7 @@ export async function configure(aurelia) {
       var merchandiser = "https://com-danliris-service-md.azurewebsites-dev.net/v1/";
       const dealTracking = 'https://com-danliris-service-deal-tracking-dev.azurewebsites.net/v1/';
       const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
-      var weaving = "https://com-danliris-service-weaving-dev.azurewebsites.net/";
+      var weaving = "http://localhost:57914/";
       var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
 
       config.registerEndpoint('auth', auth);

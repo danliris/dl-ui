@@ -25,7 +25,7 @@ export class List {
         valign: "top"
       },
       {
-        field: "ConstructionNumber",
+        field: "FabricConstructionDocument.ConstructionNumber",
         title: "Konstruksi",
         rowspan: "2",
         valign: "top"
@@ -35,7 +35,7 @@ export class List {
       { title: "Komposisi Pakan (%)", colspan: "3", valign: "middle" },
       { title: "Estimasi Produksi", colspan: "4", valign: "middle" },
       {
-        field: "OrderProduction.WholeGrade",
+        field: "EstimatedProductionDocument.WholeGrade",
         title: "Total Gram",
         rowspan: "2",
         valign: "top"
@@ -44,62 +44,62 @@ export class List {
     ],
     [
       {
-        field: "OrderProduction.WarpComposition.CompositionOfPoly",
+        field: "WarpComposition.CompositionOfPoly",
         title: "Poly",
         valign: "middle"
       },
       {
-        field: "OrderProduction.WarpComposition.CompositionOfCotton",
+        field: "WarpComposition.CompositionOfCotton",
         title: "Cotton",
         valign: "middle"
       },
       {
-        field: "OrderProduction.WarpComposition.OtherComposition",
+        field: "WarpComposition.OtherComposition",
         title: "Lainnya",
         valign: "middle"
       },
       {
-        field: "OrderProduction.WeftComposition.CompositionOfPoly",
+        field: "WeftComposition.CompositionOfPoly",
         title: "Poly",
         valign: "middle"
       },
       {
-        field: "OrderProduction.WeftComposition.CompositionOfCotton",
+        field: "WeftComposition.CompositionOfCotton",
         title: "Cotton",
         valign: "middle"
       },
       {
-        field: "OrderProduction.WeftComposition.OtherComposition",
+        field: "WeftComposition.OtherComposition",
         title: "Lainnya",
         valign: "middle"
       },
       {
-        field: "EstimatedProduction.GradeA",
+        field: "EstimatedProductionDocument.GradeA",
         title: "Grade A",
         valign: "middle"
       },
       {
-        field: "EstimatedProduction.GradeB",
+        field: "EstimatedProductionDocument.GradeB",
         title: "Grade B",
         valign: "middle"
       },
       {
-        field: "EstimatedProduction.GradeC",
+        field: "EstimatedProductionDocument.GradeC",
         title: "Grade C",
         valign: "middle"
       },
       {
-        field: "EstimatedProduction.GradeD",
+        field: "EstimatedProductionDocument.GradeD",
         title: "Grade D",
         valign: "middle"
       },
       {
-        field: "FabricConstructionDocument.ItemsWarp.Quantity",
+        field: "FabricConstructionDocument.AmountOfWarp",
         title: "Lusi",
         valign: "middle"
       },
       {
-        field: "FabricConstructionDocument.ItemsWeft.Quantity",
+        field: "FabricConstructionDocument.AmountOfWeft",
         title: "Pakan",
         valign: "middle"
       },
@@ -111,28 +111,12 @@ export class List {
     ]
   ];
 
-  // loader = info => {
-  //   var order = {};
-  //   if (info.sort) order[info.sort] = info.order;
-
-  //   var arg = {
-  //     page: parseInt(info.offset / info.limit, 10) + 1,
-  //     size: info.limit,
-  //     order: order
-  //   };
-
-  //   return this.service.search(arg).then(result => {
-  //     return {
-  //       total: result.info.total,
-  //       data: result.data
-  //     };
-  //   });
-  // };
-
   constructor(router, service) {
     this.service = service;
     this.router = router;
   }
+
+  // loader;
 
   // contextClickCallback(event) {
   //   let arg = event.detail;
@@ -174,7 +158,10 @@ export class List {
     var Year = this.getYear(this.data);
     var UnitId = this.data.Unit.Id;
     this.service.searchSOP(Month, Year, UnitId).then(result => {
-      this.loader = result.data;
+      this.loader = {
+        data: result.data,
+        total: result.data.length
+      };
     });
     // loader = info => {
     //   var order = {};
@@ -202,4 +189,22 @@ export class List {
     // };
     // }
   }
+
+  // loader = info => {
+  //   var order = {};
+  //   if (info.sort) order[info.sort] = info.order;
+
+  //   var arg = {
+  //     page: parseInt(info.offset / info.limit, 10) + 1,
+  //     size: info.limit,
+  //     order: order
+  //   };
+
+  //   return this.service.search(arg).then(result => {
+  //     return {
+  //       total: result.info.total,
+  //       data: result.data
+  //     };
+  //   });
+  // };
 }

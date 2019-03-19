@@ -9,10 +9,10 @@ export class Service extends RestService {
     super(http, aggregator, config, "weaving");
   }
 
-  searchSOP(month, year, unitId, info) {
-    var status = "OPEN-ORDER";
+  searchSOP(month, year, unitId) {
+    var status = "ALL";
     var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}/status/${status}`;
-    return super.list(endpoint, info);
+    return super.list(endpoint);
   }
 
   getById(id) {
