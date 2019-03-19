@@ -143,28 +143,26 @@ export class DataForm {
     if (index > 0) {
       window.alert(emptyFieldName);
     } else {
-      if (this.data.Id) {
-        await this.service
-          .searchSOP(
-            this.data.Period.Month,
-            this.data.Period.Year,
-            this.data.Unit.Id
-          )
-          .then(result => {
-            //Print each datum on orderProductions Data and push to Items Collections
-            result.data.forEach((datum, i, data) => {
-              if (
-                this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
-              ) {
-              } else {
-                this.data.EstimationProducts.push(datum);
-              }
-            });
-
-            //Bind "Items" reference
-            this.context.orderProductionsItems.bind(this);
+      await this.service
+        .searchSOP(
+          this.data.Period.Month,
+          this.data.Period.Year,
+          this.data.Unit.Id
+        )
+        .then(result => {
+          //Print each datum on orderProductions Data and push to Items Collections
+          result.data.forEach((datum, i, data) => {
+            if (
+              this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
+            ) {
+            } else {
+              this.data.EstimationProducts.push(datum);
+            }
           });
-      }
+
+          //Bind "Items" reference
+          this.context.orderProductionsItems.bind(this);
+        });
     }
   }
 
