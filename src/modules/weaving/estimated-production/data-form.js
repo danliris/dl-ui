@@ -65,7 +65,6 @@ export class DataForm {
     }
 
     if (!this.data.Period) {
-
       this.data.Period = {};
       this.data.Period.Month = this.Month;
       this.Year = this.getYears();
@@ -117,31 +116,25 @@ export class DataForm {
   }
 
   async searchOrderProductions() {
-    
     this.error = {};
     var index = 0;
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
     if (!this.data.Period) {
-
       index++;
     } else {
-
       if (!this.data.Period.Year) {
-
         this.error.Year = "Periode Tahun Tidak Boleh Kosong";
       }
 
       if (!this.data.Period.Month) {
-
         this.error.Month = "Periode Bulan Tidak Boleh Kosong";
       }
     }
 
     if (!this.data.Unit) {
-
-      if(index == 0) {
+      if (index == 0) {
         emptyFieldName = "Unit Tidak Boleh Kosong";
       }
       index++;
