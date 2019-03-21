@@ -161,7 +161,6 @@ export class DataForm {
     }
 
     uomWeightChanged(newValue) {
-        console.log(newValue)
         if (newValue && newValue.Id) {
           this.data.UomWeightIdentity = newValue.Id;
           this.data.UomWeightUnit = newValue.Unit;
