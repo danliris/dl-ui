@@ -65,7 +65,7 @@ export class List {
         { field: "ProcessType", title: "Jenis Proses", valign: "top" },
         { field: "MachineSpinning.No", title: "Nomor Mesin", valign: "top" },
         { field: "MachineSpinning.Name", title: "Merk Mesin", valign: "top" },
-        { field: "MaterialType.Code", title: "Jenis Benang", valign: "top" },
+        { field: "MaterialType.Name", title: "Jenis Benang", valign: "top" },
         { field: "Total", title: "Counter", valign: "top" },
         { field: "MachineSpinning.UomUnit", title: "UOM", valign: "top" },
         { field: "Bale", title: "Bale", valign: "top" }
@@ -87,7 +87,7 @@ export class List {
         { field: "ProcessType", title: "Jenis Proses", valign: "top" },
         { field: "MachineSpinning.No", title: "Nomor Mesin", valign: "top" },
         { field: "MachineSpinning.Name", title: "Merk Mesin", valign: "top" },
-        { field: "MaterialType.Code", title: "Jenis Benang", valign: "top" },
+        { field: "MaterialType.Name", title: "Jenis Benang", valign: "top" },
         { field: "Total", title: "Counter", valign: "top" },
         { field: "MachineSpinning.UomUnit", title: "UOM", valign: "top" }
     ];
@@ -109,7 +109,7 @@ export class List {
         { field: "ProcessType", title: "Jenis Proses", valign: "top" },
         { field: "MachineSpinning.No", title: "Nomor Mesin", valign: "top" },
         { field: "MachineSpinning.Name", title: "Merk Mesin", valign: "top" },
-        { field: "MaterialType.Code", title: "Jenis Benang", valign: "top" },
+        { field: "MaterialType.Name", title: "Jenis Benang", valign: "top" },
         { field: "Total", title: "Counter", valign: "top" },
         { field: "MachineSpinning.UomUnit", title: "UOM", valign: "top" },
         { field: "Remark", title: "Keterangan", valign: "top", show: "false" }

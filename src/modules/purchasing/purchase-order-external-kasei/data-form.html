@@ -150,7 +150,17 @@
             change.delegate="useVatChanged($event)"
             options.bind="controlOptions">
         </au-checkbox>
-                
+            
+        <au-dropdown
+            label="PPH Ditanggung oleh"
+            value.bind="data.incomeTaxBy"
+            error.bind="error.incomeTaxBy"
+            read-only.bind="readOnly"
+            show.bind="data.useIncomeTax"
+            items.bind="IncomeTaxByOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+
         <au-multiline 
             label="Keterangan" 
             value.bind="data.remark"

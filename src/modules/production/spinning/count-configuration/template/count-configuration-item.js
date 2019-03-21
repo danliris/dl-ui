@@ -16,7 +16,7 @@ export class CountConfigurationItem {
             this.lotItem = {};
             this.lotItem.LotNo = this.data.LotNo;
             this.lotItem.Id = this.data.LotId;
-            this.yarnItem = this.data.YarnCode;
+            this.yarnItem = this.data.YarnName;
 
         }
         this.lotFilter = { "UnitDepartmentId": this.contextOptions.UnitDepartmentId};
@@ -56,7 +56,7 @@ export class CountConfigurationItem {
         var selectedLot = this.lotItem;
         if (selectedLot) {
             this.data.yarnItem = selectedLot.YarnType;
-            this.yarnItem = selectedLot.YarnType.Code;
+            this.yarnItem = selectedLot.YarnType.Name;
             this.data.lotNoItem = selectedLot.LotNo;
             this.data.cottonCompositions = selectedLot.CottonCompositions;
             this.isShowing = true;
@@ -64,6 +64,7 @@ export class CountConfigurationItem {
             this.data.LotNo = selectedLot.LotNo;
             this.data.YarnId = selectedLot.YarnType.Id;
             this.data.YarnCode = selectedLot.YarnType.Code;
+            this.data.YarnName = selectedLot.YarnType.Name;
         } else {
             this.error.lotItem = "Lot tidak ditemukan";
             this.data.yarnItem = null;
@@ -74,6 +75,7 @@ export class CountConfigurationItem {
             this.data.LotNo = null;
             this.data.YarnId = null;
             this.data.YarnCode = null;
+            this.data.YarnName = null;
         }
     }
     // yarnItemChanged(n, o) {

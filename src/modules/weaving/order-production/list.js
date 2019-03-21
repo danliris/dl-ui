@@ -130,7 +130,7 @@ export class List {
           }
 
           return {
-            total: result.info.count,
+            total: result.info.total,
             data: result.data
           };
         });
