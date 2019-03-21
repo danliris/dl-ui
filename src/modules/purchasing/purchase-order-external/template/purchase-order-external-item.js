@@ -51,38 +51,39 @@ export class PurchaseOrderItem {
 
   async selectedPurchaseOrderChanged(newValue) {
     this._items=[];
-    if (newValue._id) {
-      Object.assign(this.data, newValue);
-      
-      var productList = this.data.items.map((item) => { return item.product._id });
-      productList = [].concat.apply([], productList);
-      productList = productList.filter(function (elem, index, self) {
-        return index == self.indexOf(elem);
-      })
-      var config = Container.instance.get(Config);
-      var endpoint = config.getEndpoint("core");
-      for(var a of this.data.items){
-        a.defaultUom=a.product.uom;
-        a.defaultQuantity=a.quantity;
-      }
-      await endpoint.find(resource, { productList})
-        .then((result) => {
-          for (var product of result.data) {
+    if(newValue)
+      if (newValue._id) {
+        Object.assign(this.data, newValue);
+        
+        var productList = this.data.items.map((item) => { return item.product._id });
+        productList = [].concat.apply([], productList);
+        productList = productList.filter(function (elem, index, self) {
+          return index == self.indexOf(elem);
+        })
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core");
+        for(var a of this.data.items){
+          a.defaultUom=a.product.uom;
+          a.defaultQuantity=a.quantity;
+        }
+        await endpoint.find(resource, { productList})
+          .then((result) => {
+            for (var product of result.data) {
 
-            var item = this.data.items.find((_item) => _item.product._id.toString() === product.Id.toString())
-            if (item) {
-              item.product.price = product.Price;
-              item.productPrice=product.Price;
-              if(item.quantity>0){
-                this._items.push(item);
+              var item = this.data.items.find((_item) => _item.product._id.toString() === product.Id.toString())
+              if (item) {
+                item.product.price = product.Price;
+                item.productPrice=product.Price;
+                if(item.quantity>0){
+                  this._items.push(item);
+                }
               }
             }
-          }
-        });
-      this.isShowing = true;
-      
-      this.data.details=this._items;
-    }
+          });
+        this.isShowing = true;
+        
+        this.data.details=this._items;
+      }
   }
 
   toggle() {
