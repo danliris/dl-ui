@@ -90,6 +90,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/monitoring-purchase-order-internal',
+        name: 'monitoring-purchase-order-internal',
+        moduleId: './modules/garment-purchasing/monitoring-purchase-order-internal-new/index',
+        nav: true,
+        title: 'Laporan Purchase Order Internal',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "PG": 1, },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/po-external',
         name: 'purchase-order-external',
         moduleId: './modules/garment-purchasing/purchase-order-external/index',

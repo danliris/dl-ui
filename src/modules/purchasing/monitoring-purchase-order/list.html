@@ -64,7 +64,7 @@
                         <td rowspan="3">KODE BARANG</td>
                         <td rowspan="3">JUMLAH</td>
                         <td rowspan="3">SATUAN</td>
-                        <td colspan="2">HARGA</td>
+                        <td colspan="3">HARGA</td>
                         <td colspan="2">SUPPLIER</td>
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
                         <td colspan="5">PO EXTERN</td>
@@ -86,6 +86,7 @@
                         <td rowspan="2">NOMOR</td>
                         <td rowspan="2">SATUAN</td>
                         <td rowspan="2">TOTAL</td>
+                        <td rowspan="2">MATA UANG</td>
                         <td rowspan="2">KODE</td>
                         <td rowspan="2">NAMA</td>
                         <td rowspan="2">TANGGAL</td>
@@ -135,6 +136,7 @@
                         <td>${item.uom}</td>
                         <td align="right">${item.pricePerDealUnit}</td>
                         <td align="right">${item.priceTotal}</td>
+                        <td>${item.currencyCode}</td>
                         <td>${item.supplierCode}</td>
                         <td>${item.supplierName}</td>
                         <td>${item.receivedDatePO}</td>
