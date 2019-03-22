@@ -44,6 +44,7 @@ export class Create {
         // }
         // if(errorCount==0){
         if (this.data.ProcessType != "Mix Drawing") {
+            this.data.IsMixDrawing = false;
             this.data.MaterialComposition = [];
             var itemDetail = {};
             itemDetail.LotId = this.data.LotId;
@@ -53,6 +54,8 @@ export class Create {
             itemDetail.YarnName = this.data.YarnMaterialTypeName;
             itemDetail.Composition = 100;
             this.data.MaterialComposition.push(itemDetail);
+        } else {
+            this.data.IsMixDrawing = true;
         }
         this.service.create(this.data)
             .then(result => {
