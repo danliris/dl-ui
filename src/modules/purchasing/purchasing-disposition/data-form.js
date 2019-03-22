@@ -51,7 +51,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+        this.data.IncomeTaxBy=this.data.IncomeTaxBy||"";
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
@@ -68,7 +68,7 @@ export class DataForm {
     @computedFrom("data.Supplier && data.Currency && data.Category && data.Division && data.IncomeTaxBy")
     get filter() {
         var filter={};
-        if(this.data.Supplier && this.data.Currency && this.data.Category && this.data.Division && this.data.IncomeTaxBy){
+        if(this.data.Supplier && this.data.Currency && this.data.Category && this.data.Division){
             filter = {
                 supplierId: this.data.Supplier.Id || this.data.Supplier._id,
                 currencyId:this.data.Currency.Id||  this.data.Currency._id,
@@ -103,16 +103,18 @@ export class DataForm {
         if(this.data.Items)
             this.data.Items.splice(0);
         var _selectedDivision = newValue;
-        if (_selectedDivision.Id|| _selectedDivision._id) {
-            this.data.Division = _selectedDivision;
-            this.data.divisionId = _selectedDivision.Id || _selectedDivision._id;
-            this.data.Division._id=newValue.Id;
-            this.data.Division.code=newValue.Code;
-            this.data.Division.name=newValue.Name;
-        } 
-        else{
-            this.data.Division = {};
-            this.data.Items.splice(0);
+        if(_selectedDivision){
+            if (_selectedDivision.Id|| _selectedDivision._id) {
+                this.data.Division = _selectedDivision;
+                this.data.divisionId = _selectedDivision.Id || _selectedDivision._id;
+                this.data.Division._id=newValue.Id;
+                this.data.Division.code=newValue.Code;
+                this.data.Division.name=newValue.Name;
+            } 
+            else{
+                this.data.Division = {};
+                this.data.Items.splice(0);
+            }
         }
     }
 
@@ -159,6 +161,7 @@ export class DataForm {
                 this.data.Amount=this.data.DPP+ this.data.VatValue + this.data.IncomeTaxValue;
             }
         }
+        this.data.Items.splice(0);
     }
 
     get supplierLoader() {

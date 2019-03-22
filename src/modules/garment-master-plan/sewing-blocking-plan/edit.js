@@ -25,6 +25,7 @@ export class Edit {
         this.data.booking=JSON.parse(this.data.BookingItems);
         if(this.data && this.data.BookingOrderId){
                 this.booking = {};
+                this.newBookingItem=[];
                 var bookingData = await this.service.getBookingById(this.data.BookingOrderId);
                 if(moment(this.data.BookingDate).format("DD MMM YYYY") !== moment(bookingData.BookingDate).format("DD MMM YYYY"))
                     this.booking["BookingDate"] = bookingData.BookingDate;
@@ -36,6 +37,7 @@ export class Edit {
                     this.booking["Remark"] = bookingData.Remark;
                 var details = [];
                 var bookItems=[];
+                this.newBookingItem=[];
                 var index=0;
                 for(var detail of this.data.booking){
                     var bookingDetail = bookingData.Items.find(item => item.Id === detail.Id);
@@ -51,6 +53,8 @@ export class Edit {
                             detail["bookingRemark"] = bookingDetail.Remark;
                         if(bookingDetail.DeliveryDate && detail.DeliveryDate && moment(bookingDetail.DeliveryDate).format("DD MMM YYYY") !== moment(detail.DeliveryDate).format("DD MMM YYYY"))
                             detail["bookingDeliveryDate"] = moment(bookingDetail.DeliveryDate).format("DD MMM YYYY");//`${(new Date(bookingDetail.deliveryDate)).getDay()} - ${((new Date(bookingDetail.deliveryDate)).getMonth() + 1)} - ${(new Date(bookingDetail.deliveryDate)).getFullYear()}`;
+                    
+                    this.newBookingItem.push(bookingDetail);
                     }else{
                         detail["deletedData"] = "Md telah menghapus detail ini"
                     }
@@ -70,6 +74,7 @@ export class Edit {
                             newData:"Md telah menambah detail ini"
                         }
                         details.push(newDetail);
+                        this.newBookingItem.push(item);
                     }
                 }
                 this.data.booking = details;
@@ -83,8 +88,9 @@ export class Edit {
 
     save(event) {
         var booking=[];
-        if(this.data.booking){
-            for(var item of this.data.booking){
+        if(this.newBookingItem){
+            for(var item of this.newBookingItem){
+                
                 var a={
                     Id:item.Id,
                     ComodityId:item.ComodityId,
@@ -112,6 +118,12 @@ export class Edit {
             if(this.booking.Remark )
                 dataTemp.Remark=this.booking.Remark;
         }
+        for(var dataItem of dataTemp.Items){
+            if(dataItem.LastModifiedUtc==null){
+                dataItem.LastModifiedUtc=new Date();
+            }
+        }
+        //dataTemp.BookingItems=(JSON.stringify(this.newBookingItem));
         this.service.update(dataTemp).then(result => {
             this.cancel();
         }).catch(e => {
