@@ -9,9 +9,9 @@ export class Service extends RestService {
     super(http, aggregator, config, "weaving");
   }
 
-  searchSOP(month, year, unitId) {
+  searchSOP(month, year, unitName, unitId) {
     var status = "ALL";
-    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}/status/${status}`;
+    var endpoint = `${serviceUri}/${month}/${year}/unit-name/${unitName}/unit-id/${unitId}/status/${status}`;
     return super.list(endpoint);
   }
 
@@ -20,9 +20,9 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getPdfByPeriod(month, year, unitId) {
+  getPdfByPeriod(month, year, unitName, unitId) {
     var status = "ESTIMATED";
-    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}/status/${status}`;
+    var endpoint = `${serviceUri}/${month}/${year}/unit-name/${unitName}/unit-id/${unitId}/status/${status}`;
     return super.getPdf(endpoint);
   }
 

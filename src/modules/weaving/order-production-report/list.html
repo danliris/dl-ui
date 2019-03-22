@@ -40,24 +40,22 @@
       >
         Cari
       </button>
-    </div>
-  </div>
-  <!-- <div class="row">
-    <div class="col-md-1">
+    </div><div class="col-md-1" style="margin-left: -26px;">
       <button
-        class="btn btn-primary btn-block"
-        click.delegate="download"
-        style="margin-top:16px; margin-bottom: -8px;"
+        class="btn btn-success"
+        click.delegate="reset()"
+        style="margin-top: 20px;"
       >
-        Pdf
+        Atur Ulang
       </button>
     </div>
-  </div> -->
+  </div>
   <au-table
-    style="white-space: nowrap; margin-top: 24px;"
+    style="white-space: nowrap; margin-top: 26px;"
     data.bind="loader"
     columns.bind="columns"
     sortable.bind="true"
+    view-model.ref="orderProductionsTable"
     page-size="25"
     options.bind="tableOptions"
     context.bind="context"

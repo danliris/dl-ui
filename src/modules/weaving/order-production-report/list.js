@@ -7,7 +7,7 @@ var UnitLoader = require("../../../loader/unit-loader");
 @inject(Router, Service)
 export class List {
   // @bindable loader;
-  data = {};
+
   tableOptions = {
     search: false,
     showToggle: false,
@@ -116,7 +116,7 @@ export class List {
     this.router = router;
   }
 
-  // loader;
+  listDataFlag = false;
 
   // contextClickCallback(event) {
   //   let arg = event.detail;
@@ -145,66 +145,45 @@ export class List {
 
   printPdf() {
     var Month = this.getMonth(this.data);
-    // console.log(Month);
     var Year = this.getYear(this.data);
-    // console.log(Year);
-    var UnitId = this.data.Unit.Id;
-    // console.log(UnitId);
-    this.service.getPdfByPeriod(Month, Year, UnitId);
+    if (this.data) {
+      var UnitName = this.data.Unit.Name;
+      var UnitId = this.data.Unit.Id;
+    }
+    this.service.getPdfByPeriod(Month, Year, UnitName, UnitId);
   }
 
-  searchOrderProductions() {
+  loader = info => {
+    this.info = {};
     var Month = this.getMonth(this.data);
     var Year = this.getYear(this.data);
-    var UnitId = this.data.Unit.Id;
-    this.service.searchSOP(Month, Year, UnitId).then(result => {
-      this.loader = {
-        data: result.data,
-        total: result.data.length
-      };
-    });
-    // loader = info => {
-    //   var order = {};
-    //   if (info.sort) order[info.sort] = info.order;
+    if (this.data) {
+      var UnitName = this.data.Unit.Name;
+      var UnitId = this.data.Unit.Id;
+    }
 
-    //   var arg = {
-    //     page: parseInt(info.offset / info.limit, 10) + 1,
-    //     size: info.limit,
-    //     keyword: info.search,
-    //     order: order
-    //   };
+    return this.listDataFlag
+      ? this.service.searchSOP(Month, Year, UnitName, UnitId).then(result => {
+          return {
+            data: result.data,
+            total: result.data.length
+          };
+        })
+      : { total: 0, data: {} };
+  };
 
-    //   return this.service
-    //     .searchSOP(
-    //       this.data.Period.Month,
-    //       this.data.Period.Year,
-    //       this.data.Unit.Id
-    //     )
-    //     .then(result => {
-    //       return {
-    //         total: result.info.total,
-    //         data: result.data
-    //       };
-    //     });
-    // };
-    // }
+  searchOrderProductions() {
+    this.listDataFlag = true;
+
+    this.orderProductionsTable.refresh();
   }
 
-  // loader = info => {
-  //   var order = {};
-  //   if (info.sort) order[info.sort] = info.order;
-
-  //   var arg = {
-  //     page: parseInt(info.offset / info.limit, 10) + 1,
-  //     size: info.limit,
-  //     order: order
-  //   };
-
-  //   return this.service.search(arg).then(result => {
-  //     return {
-  //       total: result.info.total,
-  //       data: result.data
-  //     };
-  //   });
-  // };
+  reset() {
+    this.listDataFlag = false;
+    this.Month = null;
+    this.Year = null;
+    this.UnitName = null;
+    this.UnitId = null;
+    this.orderProductionsTable.refresh();
+  }
 }
