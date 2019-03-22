@@ -13,7 +13,8 @@ module.exports = function (keyword, filter) {
             var weeks=[];
             if(results.data.length>0){
                 for(var a of results.data[0].Items){
-                    weeks.push(a);
+                    if(a.WeekNumber.toString().indexOf(keyword.toString()) >= 0)
+                        weeks.push(a);
                 }
             }
             return weeks;
