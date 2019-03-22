@@ -33,6 +33,7 @@ export class Edit {
             itemDetail.LotNo = this.data.LotNo;
             itemDetail.YarnId = this.data.YarnMaterialTypeId;
             itemDetail.YarnCode = this.data.YarnMaterialTypeCode;
+            itemDetail.YarnName = this.data.YarnMaterialTypeName;
             itemDetail.Composition = 100;
             this.data.MaterialComposition.push(itemDetail);
         }

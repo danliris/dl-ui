@@ -284,7 +284,6 @@ export class DataForm {
                             return o;
                         }
                     });
-                    console.log(uniq)
                     let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.Unit.Code.toString()));
                     if(item){
                         remEH[cat]=item[detail.WeekNumber];
@@ -311,16 +310,18 @@ export class DataForm {
                         remEH[cat]=uniq.RemainingEH;
                     }
                 }
+                
+                    console.log(detail.oldVal)
                 if(detail.oldVal){
                     if(detail.oldVal.year && detail.oldVal.unitCode && detail.oldVal.weekNumber){
                         let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
                         if(remEH[cat]){
-                            if(remEH[cat]<detail.oldVal.RemainingEH){
-                                remEH[cat]=detail.oldVal.RemainingEH;
+                            if(remEH[cat]<detail.oldVal.remainingEH){
+                                remEH[cat]=detail.oldVal.remainingEH;
                             }
                         }
                         else{
-                            remEH[cat]=detail.oldVal.RemainingEH;
+                            remEH[cat]=detail.oldVal.remainingEH;
                         }
                     }
                 }
@@ -328,7 +329,7 @@ export class DataForm {
                     if(detail.oldVal.year && detail.oldVal.unitCode){
                         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                         if (item) {
-                            item[detail.oldVal.weekNumber] = detail.oldVal.RemainingEH;
+                            item[detail.oldVal.weekNumber] = detail.oldVal.remainingEH;
                             var total=[];
                             for( var a =0; a<this.previewData.length-1; a++){
                                 if(!total[detail.oldVal.weekNumber]){
@@ -344,7 +345,7 @@ export class DataForm {
                         else{
                             let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()));
                             if (item1) {
-                                item1[detail.oldVal.weekNumber] = detail.oldVal.RemainingEH;
+                                item1[detail.oldVal.weekNumber] = detail.oldVal.remainingEH;
                                 var total1=[];
                                 for( var a =0; a<this.previewData1.length-1; a++){
                                     if(!total1[detail.oldVal.weekNumber]){
