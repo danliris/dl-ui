@@ -71,7 +71,8 @@ export class DataForm {
             UseIncomeTax: this.data.useIncomeTax,
             IncomeTaxId: this.data.incomeTax ? this.data.incomeTax._id : null,
             UseVat: this.data.useVat,
-            incomeTaxBy: this.data.incomeTaxBy ? this.data.incomeTaxBy:""
+            incomeTaxBy: this.data.incomeTaxBy ? this.data.incomeTaxBy:"",
+            CategoryCode: this.data.category ? this.data.category.code : this.data.category,
         }
         return filter;
     }
