@@ -21,7 +21,7 @@ export class List {
         title: "Tanggal SPP",
         rowspan: "2",
         valign: "top",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return moment(value).format("DD MMMM YYYY");
         },
         sortable: true
@@ -31,7 +31,7 @@ export class List {
         title: "Unit",
         rowspan: "2",
         valign: "top",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.Name;
         }
       },
@@ -57,7 +57,7 @@ export class List {
         field: "WarpComposition",
         title: "Poly",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfPoly;
         }
       },
@@ -65,7 +65,7 @@ export class List {
         field: "WarpComposition",
         title: "Cotton",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfCotton;
         }
       },
@@ -73,7 +73,7 @@ export class List {
         field: "WarpComposition",
         title: "Lainnya",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.OtherComposition;
         }
       },
@@ -81,7 +81,7 @@ export class List {
         field: "WeftComposition",
         title: "Poly",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfPoly;
         }
       },
@@ -89,7 +89,7 @@ export class List {
         field: "WeftComposition",
         title: "Cotton",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.CompositionOfCotton;
         }
       },
@@ -97,7 +97,7 @@ export class List {
         field: "WeftComposition",
         title: "Lainnya",
         valign: "middle",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.OtherComposition;
         }
       }
@@ -116,6 +116,7 @@ export class List {
     };
 
     return this.service.search(arg).then(result => {
+
       if (result.data && result.data.length > 0) {
         let getUnitPromises = result.data.map(datum =>
           this.service.getUnitById(datum.WeavingUnit)
@@ -123,10 +124,14 @@ export class List {
 
         return Promise.all(getUnitPromises).then(units => {
           for (var datum of result.data) {
-            let unit = units.find(
-              unitResult => datum.WeavingUnit == unitResult.Id
-            );
-            datum.WeavingUnit = unit;
+
+            if (units && units.length > 0) {
+
+              let unit = units.find(
+                unitResult => datum.WeavingUnit == unitResult.Id
+              );
+              datum.WeavingUnit = unit;
+            }
           }
 
           return {
@@ -134,6 +139,12 @@ export class List {
             data: result.data
           };
         });
+      } else {
+        
+        return {
+          total: result.info.total,
+          data: result.data
+        };
       }
     });
   };
