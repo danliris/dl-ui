@@ -15,7 +15,7 @@ export class Edit {
   async activate(params) {
     var Id = params.Id;
     this.data = await this.service.getById(Id);
-    this.MaterialTypeName = this.data.MaterialTypeName;
+    // this.MaterialTypeName = this.data.MaterialTypeName;
   }
 
   cancelCallback(event) {
