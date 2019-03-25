@@ -7,12 +7,7 @@ import moment from 'moment';
 @inject(Router, Service)
 export class View {
   hasCancel = true;
-  hasEdit = true;
-  hasDelete = true;
-  hascancelConfirm = false;
-  hasConfirm = false;
   hasMasterPlan = false;
-  expireBooking=false;
 
   constructor(router, service) {
     this.router = router;
@@ -20,10 +15,10 @@ export class View {
   }
 
   async activate(params) {
-      var id = params.id;
-      this.data = await this.service.getById(id);
-      
-      if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
+    this.params = params;
+    var id = params.id;
+    this.data = await this.service.getById(id);
+    if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
         this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
       }
       this.selectedSection = { Code:this.data.SectionCode, Name:this.data.SectionName,};
@@ -56,6 +51,7 @@ export class View {
         this.expireBooking = true;
         this.hasEdit = false;
         this.hasDelete = false; 
+        
       }
       if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === true){
         this.hasEdit = false;
@@ -80,57 +76,7 @@ export class View {
     this.router.navigateToRoute('list');
   }
 
-  edit(event) {
-    this.router.navigateToRoute('edit', { id: this.data.Id });
-  }   
-
-  cancelBooking() {
-        this.service.cancelBooking(this.data)
-        .then(result => {
-          this.cancel();
-        });
-    }
-
-  confirmBooking(event) {
-    this.router.navigateToRoute('confirm', { id: this.data.Id });
-  }  
-
   masterPlan(event) {
-    this.router.navigateToRoute('detail', { id: this.data.Id });
-  }
-
-  expired() {
-        this.service.expiredBooking(this.data)
-        .then(result => {
-          this.cancel();
-        });
-    }
-   
-  delete(event) {
-    this.service.delete(this.data)
-        .then(result => {
-          this.cancel();
-        });
-  }  
-
-  onitemchange(event) {
-    var indexCanceledItem = this.data.Items.findIndex(item => item.IsCanceled);
-    
-    if(indexCanceledItem > -1) {
-      this.data.cancelConfirm=true;
-      this.service.update(this.data)
-        .then(result => {
-          alert("Confirm Canceled");
-          // this.hasEdit = true;
-          // this.hasDelete = true;
-          // this.hascancelConfirm = true;
-          // this.hasConfirm = true;
-          this.activate({id:this.data.Id});
-        })
-        .catch(e => {
-          this.error = e;
-          this.activate({id:this.data.Id});
-        });
-    }
+      this.router.navigateToRoute('detail', { id: this.data.Id});
   }
 }

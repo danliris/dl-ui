@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 
 
 const serviceUri = 'sales/garment-booking-orders';
+const serviceUriBookingOrderExpired = 'sales/booking-orders-expired';
 const HourServiceUri = 'standard-hours-by-style';
 
 export class Service extends RestService {
@@ -15,38 +16,13 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUriBookingOrderExpired}/Expired`;
         return super.list(endpoint, info);
     }
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
-    }
-
-    create(data) {
-        var endpoint = `${serviceUri}`;
-        return super.post(endpoint, data);
-    }
-
-    update(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
-        return super.put(endpoint, data);
-    }
-
-    delete(data) {
-        var endpoint = `${serviceUri}/${data.Id}`;
-        return super.delete(endpoint, data);
-    }
-
-    cancelBooking(data) {
-        var endpoint = `${serviceUri}/BOCancel/${data.id}`;
-        return super.put(endpoint, data);
-    }
-
-    expiredBooking(data) {
-        var endpoint = `${serviceUri}/BODelete/${data.id}`;
-        return super.put(endpoint, data);
     }
 
     getMasterPlanByBookingOrderId(info) {
@@ -57,5 +33,10 @@ export class Service extends RestService {
             .then(result => {
                 return result.data;
             });
+    }
+
+    deleteRemaining(data) {
+        var endpoint = `${serviceUriBookingOrderExpired}/BOCancel`;
+        return super.post(endpoint, data);
     }
 }
