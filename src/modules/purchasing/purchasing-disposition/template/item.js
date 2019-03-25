@@ -32,7 +32,12 @@ export class PurchasingDispositionItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
-        this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ? { "supplierId": this.options.supplierId, "currencyId":this.options.currencyId, "divisionId": this.options.divisionId, "categoryId": this.options.categoryId} : {};
+        this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ? 
+                      { "supplierId": this.options.supplierId, 
+                        "currencyId":this.options.currencyId, 
+                        "divisionId": this.options.divisionId, 
+                        "categoryId": this.options.categoryId,
+                        "incomeTaxBy" : this.options.incomeTaxBy !=null ? this.options.incomeTaxBy : ""} : {};
         
         if(this.data.Id!=0 && this.data.Id!=null){
             this.isEdit=true;

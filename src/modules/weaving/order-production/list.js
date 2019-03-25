@@ -10,18 +10,18 @@ export class List {
   columns = [
     [
       {
-        field: "orderNumber",
-        title: "No. SP",
+        field: "OrderNumber",
+        title: "No. SPP",
         rowspan: "2",
         valign: "top",
         sortable: true
       },
       {
         field: "DateOrdered",
-        title: "Tanggal SP",
+        title: "Tanggal SPP",
         rowspan: "2",
         valign: "top",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return moment(value).format("DD MMMM YYYY");
         },
         sortable: true
@@ -31,26 +31,23 @@ export class List {
         title: "Unit",
         rowspan: "2",
         valign: "top",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return value.Name;
         }
       },
       {
-        field: "FabricConstructionDocument",
+        field: "ConstructionNumber",
         title: "Konstruksi",
         rowspan: "2",
-        valign: "top",
-        formatter: function(value, data, index) {
-          return value.ConstructionNumber;
-        }
+        valign: "top"
       },
       {
-        title: "Warp Blended (%)",
+        title: "Komposisi Lusi (%)",
         colspan: "3",
         valign: "middle"
       },
       {
-        title: "Weft Blended (%)",
+        title: "Komposisi Pakan (%)",
         colspan: "3",
         valign: "middle"
       }
@@ -60,48 +57,48 @@ export class List {
         field: "WarpComposition",
         title: "Poly",
         valign: "middle",
-        formatter: function(value, data, index) {
-          return value.compositionOfPoly;
+        formatter: function (value, data, index) {
+          return value.CompositionOfPoly;
         }
       },
       {
         field: "WarpComposition",
         title: "Cotton",
         valign: "middle",
-        formatter: function(value, data, index) {
-          return value.compositionOfCotton;
+        formatter: function (value, data, index) {
+          return value.CompositionOfCotton;
         }
       },
       {
         field: "WarpComposition",
         title: "Lainnya",
         valign: "middle",
-        formatter: function(value, data, index) {
-          return value.otherComposition;
+        formatter: function (value, data, index) {
+          return value.OtherComposition;
         }
       },
       {
         field: "WeftComposition",
         title: "Poly",
         valign: "middle",
-        formatter: function(value, data, index) {
-          return value.compositionOfPoly;
+        formatter: function (value, data, index) {
+          return value.CompositionOfPoly;
         }
       },
       {
         field: "WeftComposition",
         title: "Cotton",
         valign: "middle",
-        formatter: function(value, data, index) {
-          return value.compositionOfCotton;
+        formatter: function (value, data, index) {
+          return value.CompositionOfCotton;
         }
       },
       {
         field: "WeftComposition",
         title: "Lainnya",
         valign: "middle",
-        formatter: function(value, data, index) {
-          return value.otherComposition;
+        formatter: function (value, data, index) {
+          return value.OtherComposition;
         }
       }
     ]
@@ -119,10 +116,36 @@ export class List {
     };
 
     return this.service.search(arg).then(result => {
-      return {
-        total: result.info.count,
-        data: result.data
-      };
+
+      if (result.data && result.data.length > 0) {
+        let getUnitPromises = result.data.map(datum =>
+          this.service.getUnitById(datum.WeavingUnit)
+        );
+
+        return Promise.all(getUnitPromises).then(units => {
+          for (var datum of result.data) {
+
+            if (units && units.length > 0) {
+
+              let unit = units.find(
+                unitResult => datum.WeavingUnit == unitResult.Id
+              );
+              datum.WeavingUnit = unit;
+            }
+          }
+
+          return {
+            total: result.info.total,
+            data: result.data
+          };
+        });
+      } else {
+        
+        return {
+          total: result.info.total,
+          data: result.data
+        };
+      }
     });
   };
 

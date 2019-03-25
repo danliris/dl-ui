@@ -5,45 +5,24 @@
       </au-checkbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox
-        value.bind="Yarn.Code"
-        error.bind="error.Yarn.Code"
-        read-only.bind="true"
-      >
+      <au-textbox value.bind="data.Code" error.bind="error.Yarn.Code" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-autocomplete
-        value.bind="Yarn"
-        error.bind="error.Yarn.Name"
-        read-only.bind="readOnly"
-        placeholder="Benang Lusi"
-        loader.bind="yarnsWarp"
-        text="Name"
-      >
+      <au-autocomplete value.bind="Yarn" error.bind="error.Yarn.Name" read-only.bind="readOnly"
+        placeholder="Benang Lusi" loader.bind="yarnsWarp" text="Name">
       </au-autocomplete>
     </td>
     <td style="white-space: nowrap;">
-      <au-numeric
-        value.bind="data.Quantity"
-        error.bind="error.Warp.Quantity"
-        read-only.bind="readOnly"
-      >
+      <au-numeric value.bind="data.Quantity" error.bind="error.Warp.Quantity" read-only.bind="readOnly">
       </au-numeric>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox
-        value.bind="data.Information"
-        read-only.bind="readOnly"
-        placeholder="Keterangan"
-      >
+      <au-textbox value.bind="data.Information" read-only.bind="readOnly" placeholder="Keterangan">
       </au-textbox>
     </td>
     <td class="col-sm-1" if.bind="!readOnly">
-      <button
-        class="btn btn-danger pull-right"
-        click.delegate="onremove(warpData, $event)"
-      >
+      <button class="btn btn-danger pull-right" click.delegate="onremove(warpData, $event)">
         -
       </button>
     </td>

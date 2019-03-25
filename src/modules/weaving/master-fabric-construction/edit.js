@@ -15,6 +15,7 @@ export class Edit {
   async activate(params) {
     var Id = params.Id;
     this.data = await this.service.getById(Id);
+    this.MaterialTypeName = this.data.MaterialTypeName;
   }
 
   cancelCallback(event) {
@@ -22,13 +23,13 @@ export class Edit {
   }
 
   saveCallback(event) {
-      this.service
-        .update(this.data)
-        .then(result => {
-          this.router.navigateToRoute("view", { Id: this.data.Id });
-        })
-        .catch(e => {
-          this.error = e;
-        });
+    this.service
+      .update(this.data)
+      .then(result => {
+        this.router.navigateToRoute("view", { Id: this.data.Id });
+      })
+      .catch(e => {
+        this.error = e;
+      });
   }
 }

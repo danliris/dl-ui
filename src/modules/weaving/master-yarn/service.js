@@ -20,7 +20,6 @@ export class Service extends RestService {
   }
 
   create(data) {
-    data.tags = "weaving-products";
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }

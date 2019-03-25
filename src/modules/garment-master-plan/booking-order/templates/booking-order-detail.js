@@ -20,7 +20,7 @@ export class DetailItem {
     this.options = item.options;
     
     if (this.data != null) {
-      this.data.ConfirmDate = this.data._createdDate ? this.data._createdDate : new Date();
+      this.data.ConfirmDate = this.data.ConfirmDate ? this.data.ConfirmDate : new Date();
     }
     if(this.data.ComodityName && this.data.ComodityCode){
       this.selectedComodity = { Code:this.data.ComodityCode, Name:this.data.ComodityName,};

@@ -25,40 +25,12 @@ export class List {
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data
-    //     // data: [
-    //     //   {
-    //     //     unit: "Weaving1",
-    //     //     machineNumber: 000001,
-    //     //     machineType: "Type C",
-    //     //     rpm: 50000,
-    //     //     location: "Place A",
-    //     //     block: "a",
-    //     //     maintenance: "maintenance",
-    //     //     operator: "operator"
-    //     //   }
-    //     // ]
-    //   };
-    // });
-
-    return {
-      total: 1,
-      // data: result.data
-      data: [
-        {
-          Id: 1,
-          weavingUnit: "Weaving1",
-          machineNumber: "000001",
-          machineType: "Tsudakoma",
-          rpm: 50000,
-          unit: "cmpx",
-          location: "Place A"
-        }
-      ]
-    };
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+    });
   };
 
   constructor(router, service) {
@@ -75,10 +47,6 @@ export class List {
         break;
     }
   }
-
-  // upload() {
-  //     this.router.navigateToRoute('upload');
-  // }
 
   create() {
     this.router.navigateToRoute("create");

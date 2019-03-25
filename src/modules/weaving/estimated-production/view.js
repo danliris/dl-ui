@@ -16,7 +16,17 @@ export class View {
 
   async activate(params) {
     var Id = params.Id;
-    this.data = await this.service.getById(Id);
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.Unit);
+      })
+      .then(unit => {
+        dataResult.Unit = unit;
+        return dataResult;
+      });
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan
@@ -36,7 +46,6 @@ export class View {
 
   //Tombol "Hapus", hapus this.data, redirect ke list
   deleteCallback(event) {
-    console.log(this.data);
     this.service.delete(this.data).then(result => {
       this.list();
     });

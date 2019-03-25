@@ -34,10 +34,6 @@ export class Item {
       this.selectedWeeklyPlan = { Year: this.data.Year.toString() };
     
     if (this.data.WeekNumber) {
-      // if (!this.data.RemainingEH) {
-      //   this.data.RemainingEH = this.data.week.RemainingEH;
-      // }
-      //console.log(this.data.week)
       this.selectedWeek = { 
         WeekNumber : this.data.WeekNumber,
         StartDate:this.data.StartDate,
@@ -46,7 +42,7 @@ export class Item {
         RemainingEH : this.data.RemainingEH,
         Efficiency : this.data.Efficiency
       };
-      //this.selectedWeek = {items:this.data.week};
+
       var config = Container.instance.get(Config);
       var endpoint = config.getEndpoint("sales");
       var filter = {
@@ -54,54 +50,28 @@ export class Item {
         unit: this.data.Unit.Code,
         weekNumber: this.data.WeekNumber
       }
-      if (this.data.Id) {
+
+      if (this.data.LastModifiedUtc) {
         if(this.data.WeeklyPlanItemId){
           var resource = `garment-master-plan/weekly-plans/week/${this.data.WeeklyPlanItemId}`;
-          // var weeklyPlans= await this.service.getWeeklyPlanById(this.data.WeeklyPlanId);
-          // console.log(weeklyPlans)
         
-        await endpoint.find(resource)
-          .then((result) => {
-            this.selectedWeek = result.data;
-            
-            this.data.RemainingEH=this.selectedWeek.RemainingEH;
-          //   this.selectedWeek = result.data[0];
-          //   this.data.week = this.selectedWeek.items;
-          //   this.data.RemainingEH = this.data.week.RemainingEH;
-          //   // + this.data.EHBooking;
-          //   //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-          //   // var uniq= this.items.find(x=>x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
-          //   // if (uniq) {
-          //   //   let y = this.items.lastIndexOf(uniq);
-          //   //   if (y != this.items.length - 1) {
-          //   //     this.data.RemainingEH = this.items[y].sisaEH;
-          //   //   }
-            for (var a = this.items.length-1; a >=0; a--) {
-                if(this.data.Year==this.items[a].Year && this.data.Unit.Code==this.items[a].Unit.Code&& this.data.WeekNumber==this.items[a].WeekNumber){
-                  this.data.RemainingEH+=this.items[a].EHBooking;
-                  if(this.data.Id==this.items[a].Id){
-                      break;
+          await endpoint.find(resource)
+            .then((result) => {
+              this.selectedWeek = result.data;
+              
+              this.data.RemainingEH=this.selectedWeek.RemainingEH;
+              for (var a = this.items.length-1; a >=0; a--) {
+                  if(this.data.Year==this.items[a].Year && this.data.Unit.Code==this.items[a].Unit.Code&& this.data.WeekNumber==this.items[a].WeekNumber){
+                    this.data.RemainingEH+=this.items[a].EHBooking;
+                    if(this.data.Id==this.items[a].Id){
+                        break;
+                    }
                   }
-                }
-             }
-            this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-          //   if (this.data.week) {
-          //     if (!this.data.efficiency) {
-          //       this.data.efficiency = this.data.week.efficiency;
-          //     }
-          //     if (!this.data.EHBooking) {
-          //       this.data.EHBooking = Math.round((this.data.shSewing * this.data.quantity) / 60);
-          //       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-          //     }
-          //     else {
-          //       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-
-          //     }
-          //     this.data.planWorkingHours = Math.round(this.data.EHBooking / this.data.week.operator);
-           // }
-          });
-          this.data._updatedDate=null;
-      }
+              }
+              this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
+            });
+            this.data.LastModifiedUtc=null;
+        }
       }
 
     }
@@ -151,6 +121,7 @@ export class Item {
       this.data.oldVal.weekNumber=this.data.WeekNumber;
       this.data.oldVal.remainingEH=this.data.RemainingEH;
     }
+    console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.Unit = _selectedData;
@@ -159,7 +130,7 @@ export class Item {
       this.selectedWeeklyPlan = {};
       this.selectedWeek = {};
     }
-    // delete this.data.weeklyPlanId;
+    
     this.selectedWeeklyPlan = {};
     this.selectedWeek = {};
     this.data.EHBooking = 0;
@@ -178,6 +149,7 @@ export class Item {
         this.data.oldVal.weekNumber=this.data.WeekNumber;
         this.data.oldVal.remainingEH=this.data.RemainingEH;
       }
+      console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.Year = _selectedData.Year;
@@ -208,14 +180,14 @@ export class Item {
   selectedWeekChanged(newValue,oldValue) {
     if(newValue!=null)
     if(oldValue){
+      console.log(this.data.oldVal)
       if(oldValue){
-        this.data.oldVal.weekNumber=oldValue.WeekNumber;
+        this.data.oldVal.weekNumber=this.data.oldVal.weekNumber ?this.data.oldVal.weekNumber : oldValue.WeekNumber  ;
         this.data.oldVal.year=this.data.oldVal.year? this.data.oldVal.year:this.data.Year;
         this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.Unit.Code;
-        // this.data.oldVal.unitCode=this.data.unit.code;
-        // this.data.oldVal.year=this.data.weeklyPlanYear;
-        this.data.oldVal.remainingEH=this.data.RemainingEH;
+        this.data.oldVal.remainingEH= this.data.oldVal.remainingEH || this.data.RemainingEH;
       }
+      console.log(this.data.oldVal)
     }
     var _selectedData = newValue;
     this.selectedWeek=_selectedData;
@@ -229,60 +201,7 @@ export class Item {
       this.data.Efficiency = _selectedData.Efficiency;
       this.data.EHBooking = Math.round((this.data.SMVSewing * this.data.OrderQuantity) / 60);
       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-      //this.selectedWeek=_selectedData.items;
-      // if (_selectedData) {
-        // var unVal = [];
-        // if (this.items.length > 1) {
-        //   if (this.data.weeklyPlanYear && this.data.unit && this.data.week) {
-        //     for (var x of this.items) {
-        //       if(x.weeklyPlanYear && x.unit && x.week){
-        //         let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-        //         let uniq = x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString();
-                
-        //         if(cat==uniq){
-        //           if(!unVal[cat]){
-        //             unVal[cat]=x.RemainingEH;
-        //           }
-        //           else{
-        //             if(unVal[cat]< x.RemainingEH){
-        //               unVal[cat]=x.RemainingEH;
-        //             }
-        //           }
-        //         }
-        //       }
-        //     }
-        //     //console.log(unVal);
-        //     //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-        //     // let dup=this.items.find(x=> x.weeklyPlanYear.toString() + x.unit.code.toString() + x.week.weekNumber.toString()==cat);
-            
-        //     // dup.RemainingEH=unVal[cat];
-        //     // let dup = unVal.find(o => (o == cat));
-        //     // if (dup) {
-        //     //   let y = unVal.lastIndexOf(dup);
-        //     //   if (y != this.items.length - 1) {
-        //     //     this.data.RemainingEH = this.items[y].sisaEH;
-        //     //   }
-        //     //   else {
-        //     //     this.data.RemainingEH = this.data.week.RemainingEH;
-        //     //   }
-        //     // }
-        //     // else {
-
-        //     //   this.data.RemainingEH = this.data.week.RemainingEH;
-        //     // }
-        //   }
-        // }
-        //let cat = this.data.weeklyPlanYear.toString() + this.data.unit.code.toString() + this.data.week.weekNumber.toString();
-        // if(this.data.code)
-        //   if(unVal){
-        //     if(this.data.RemainingEH< unVal[cat]){
-        //       this.data.RemainingEH= unVal[cat];
-        //     }
-        //   }
-        
-        
-        //this.data.planWorkingHours = Math.round(this.data.EHBooking / this.data.week.operator);
-      //}
+      
     } else {
       //delete this.data.week;
       this.selectedWeek = {};
@@ -300,7 +219,6 @@ export class Item {
     if (this.data.OrderQuantity && this.data.WeekNumber) {
       this.data.EHBooking = Math.round((this.data.SMVSewing * this.data.OrderQuantity) / 60);
       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-     // this.data.planWorkingHours = Math.round(this.data.EHBooking / this.data.week.operator);
     }
   }
 
@@ -308,7 +226,6 @@ export class Item {
     if (this.data.OrderQuantity && this.data.WeekNumber) {
       this.data.EHBooking = Math.round((this.data.SMVSewing * this.data.OrderQuantity) / 60);
       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-     // this.data.planWorkingHours = Math.round(this.data.EHBooking / this.data.week.operator);
     }
   }
 
@@ -316,7 +233,6 @@ export class Item {
     if (this.data.OrderQuantity && this.data.WeekNumber) {
       this.data.EHBooking = Math.round((this.data.SMVSewing * this.data.OrderQuantity) / 60);
       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-     // this.data.planWorkingHours = Math.round(this.data.EHBooking / this.data.week.operator);
     }
   }
 
@@ -324,7 +240,6 @@ export class Item {
     if (this.data.OrderQuantity && this.data.WeekNumber) {
       this.data.EHBooking = Math.round((this.data.SMVSewing * this.data.OrderQuantity) / 60);
       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-     // this.data.planWorkingHours = Math.round(this.data.EHBooking / this.data.week.operator);
     }
   }
 
@@ -345,7 +260,6 @@ export class Item {
             if (this.data.OrderQuantity && this.data.WeekNumber) {
               this.data.EHBooking = Math.round((this.data.SMVSewing * this.data.OrderQuantity) / 60);
               this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
-              //this.data.planWorkingHours = Math.round(this.data.EHBooking / this.data.week.operator);
             }
           }
           else {

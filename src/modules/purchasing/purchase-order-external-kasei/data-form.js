@@ -18,6 +18,7 @@ export class DataForm {
     @bindable selectedUnit;
     @bindable options = { useVat: false };
 
+    IncomeTaxByOptions=["Supplier","Dan Liris"];
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     freightCostByOptions = ['Penjual', 'Pembeli'];
     controlOptions = {
@@ -137,7 +138,7 @@ export class DataForm {
             this.data.incomeTaxRate = 0;
             this.data.useIncomeTax = false;
             this.data.incomeTax = {};
-            
+            this.data.incomeTaxBy="";
         } else if (_selectedIncomeTax._id || _selectedIncomeTax.Id) {
             this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
             this.data.useIncomeTax = true;

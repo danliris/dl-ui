@@ -8,6 +8,8 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable error;
+  @bindable Month;
+  @bindable Year;
 
   yearFormat = "YYYY";
   years = [];
@@ -22,12 +24,6 @@ export class DataForm {
       align: "left"
     }
   };
-
-  // customPUControlOptions = {
-  //   control: {
-  //     length: 12
-  //   }
-  // };
 
   //Options untuk No. Estimasi Produksi
   customEstimatedControlOptions = {
@@ -62,13 +58,18 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    console.log(this.error);
+    this.Month = this.months[this.getMonth()];
 
-    if (this.data.estimatedNumber) {
+    if (this.data.EstimatedNumber) {
       this.orderProductionsTableOptions = {};
     }
 
-    this.getYears();
+    if (!this.data.Period) {
+
+      this.data.Period = {};
+      this.data.Period.Month = this.Month;
+      this.Year = this.getYears();
+    }
     this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -78,22 +79,30 @@ export class DataForm {
   }
 
   orderProductionsColumns = [
-    { header: "Tanggal", value: "dateOrdered" },
-    { header: "No. SOP", value: "orderNumber" },
+    { header: "Tanggal", value: "DateOrdered" },
+    { header: "No. SOP", value: "OrderNumber" },
     {
       header: "No. Konstruksi",
-      value: "fabricConstructionDocument.constructionNumber"
+      value: "ConstructionNumber"
     },
-    { header: "Total Gram", value: "amountTotal" },
-    { header: "Jumlah Order(Meter)", value: "wholeGrade" },
-    { header: "Grade A(%)", value: "gradeA" },
-    { header: "Grade B(%)", value: "gradeB" },
-    { header: "Grade C(%)", value: "gradeC" },
-    { header: "Grade D(%)", value: "gradeD" }
+    { header: "Total Gram", value: "TotalGramEstimation" },
+    { header: "Jumlah Order(Meter)", value: "WholeGrade" },
+    { header: "Grade A(%)", value: "GradeA" },
+    { header: "Grade B(%)", value: "GradeB" },
+    { header: "Grade C(%)", value: "GradeC" },
+    { header: "Grade D(%)", value: "GradeD" }
   ];
 
   get units() {
     return UnitLoader;
+  }
+
+  MonthChanged(newValue) {
+    this.data.Period.Month = newValue;
+  }
+
+  YearChanged(newValue) {
+    this.data.Period.Year = newValue;
   }
 
   getYears() {
@@ -113,56 +122,47 @@ export class DataForm {
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    if (this.data.period) {
-      if (
-        this.data.period.month == null ||
-        this.data.period.month == undefined ||
-        this.data.period.month == ""
-      ) {
-        this.error.periodMonth = "Periode Bulan Tidak Boleh Kosong";
-        index++;
+    if (!this.data.Period) {
+
+      index++;
+    } else {
+
+      if (!this.data.Period.Year) {
+
+        this.error.Year = "Periode Tahun Tidak Boleh Kosong";
       }
 
-      if (
-        this.data.period.year == null ||
-        this.data.period.year == undefined ||
-        this.data.period.year == ""
-      ) {
-        this.error.periodYear = "Periode Tahun Tidak Boleh Kosong";
-        index++;
+      if (!this.data.Period.Month) {
+
+        this.error.Month = "Periode Bulan Tidak Boleh Kosong";
       }
     }
 
-    if (this.data.unit) {
-      if (
-        this.data.unit == null ||
-        this.data.unit == undefined ||
-        this.data.unit == ""
-      ) {
-        this.error.unit = "Unit Tidak Boleh Kosong";
-        index++;
-      }
-    }
+    if (!this.data.Unit) {
 
-    console.log(this.data);
+      if (index == 0) {
+        emptyFieldName = "Unit Tidak Boleh Kosong";
+      }
+      index++;
+    }
 
     if (index > 0) {
       window.alert(emptyFieldName);
     } else {
       await this.service
         .searchSOP(
-          this.data.period.month,
-          this.data.period.year,
-          this.data.unit.code
+          this.data.Period.Month,
+          this.data.Period.Year,
+          this.data.Unit.Id
         )
         .then(result => {
           //Print each datum on orderProductions Data and push to Items Collections
           result.data.forEach((datum, i, data) => {
-            // this.data.estimationProducts;
-            if (this.data.estimationProducts.find(esp => esp.Id == datum.Id)) {
-              // continue;
+            if (
+              this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
+            ) {
             } else {
-              this.data.estimationProducts.push(datum);
+              this.data.EstimationProducts.push(datum);
             }
           });
 
@@ -170,5 +170,9 @@ export class DataForm {
           this.context.orderProductionsItems.bind(this);
         });
     }
+  }
+
+  getMonth() {
+    return new Date().getMonth() + 1;
   }
 }

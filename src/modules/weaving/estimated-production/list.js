@@ -8,28 +8,14 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "estimationNumber", title: "No Estimasi Produksi" },
+    { field: "EstimationNumber", title: "No Estimasi Produksi" },
     {
-      field: "dateEstimated",
+      field: "DateEstimated",
       title: "Tanggal Estimasi Produksi",
       formatter: function(value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     }
-    // {
-    //   field: "EstimationProducts",
-    //   title: "No. Estimasi Produksi",
-    //   formatter: function(value, data, index) {
-    //     return value.OrderNumber;
-    //   }
-    // },
-    // {
-    //   field: "EstimationProducts",
-    //   title: "Tanggal Estimasi Produksi",
-    //   formatter: function(value, data, index) {
-    //     return value.DateOrdered;
-    //   }
-    // }
   ];
 
   loader = info => {
@@ -44,14 +30,10 @@ export class List {
     };
 
     return this.service.searchEP(arg).then(result => {
-      // console.log(result);
       return {
         total: result.info.total,
         data: result.data
       };
-      // .catch(error=>{
-      //     console.log(error);
-      // })
     });
   };
 

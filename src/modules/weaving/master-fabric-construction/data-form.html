@@ -4,27 +4,15 @@
       padding: 0px;
     }
   </style>
-  <au-input-form
-    title.bind="title"
-    with.bind="context"
-    options.bind="formOptions"
-    replaceable
-    part="actions"
-    ><div class="col-md-12">
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" replaceable part="actions">
+    <div class="col-md-12">
       <div class="row">
         <div class="col-md-2" style="white-space: nowrap;">
-          <textbox
-            label="No. Konstruksi"
-            read-only.bind="readOnlyAll"
-          ></textbox>
+          <textbox label="No. Konstruksi" read-only.bind="readOnlyAll"></textbox>
         </div>
         <div class="col-md-10">
-          <au-textbox
-            placeholder="No. Konstruksi"
-            value.bind="ConstructionNumber"
-            error.bind="error.ConstructionNumber"
-            read-only.bind="readOnlyAll"
-          >
+          <au-textbox placeholder="No. Konstruksi" value.bind="ConstructionNumber" error.bind="error.ConstructionNumber"
+            read-only.bind="readOnlyAll">
           </au-textbox>
         </div>
       </div>
@@ -35,47 +23,25 @@
         </div>
         <div class="col-md-9">
           <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
-            <au-autocomplete
-              placeholder="Jenis Material"
-              value.bind="MaterialTypeDocument"
-              error.bind="error.MaterialTypeDocument"
-              read-only.bind="readOnly"
-              loader.one-time="materialTypeLoader"
-              text="Name"
-            >
-            </au-autocomplete>
+            <au-textbox placeholder="Jenis Material" value.bind="MaterialTypeName" error.bind="error.MaterialTypeName"
+              read-only.bind="readOnly">
+            </au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox
-              placeholder="Jenis Anyaman"
-              value.bind="data.WovenType"
-              error.bind="error.WovenType"
-              read-only.bind="readOnly"
-            ></au-textbox>
+            <au-textbox placeholder="Jenis Anyaman" value.bind="data.WovenType" error.bind="error.WovenType"
+              read-only.bind="readOnly"></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox
-              placeholder="Jumlah Lusi"
-              value.bind="data.AmountOfWarp"
-              error.bind="error.AmountOfWarp"
-              read-only.bind="readOnly"
-            ></au-textbox>
+            <au-textbox placeholder="Jumlah Lusi" value.bind="data.AmountOfWarp" error.bind="error.AmountOfWarp"
+              read-only.bind="readOnly"></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox
-              placeholder="Jumlah Pakan"
-              value.bind="data.AmountOfWeft"
-              error.bind="error.AmountOfWeft"
-              read-only.bind="readOnly"
-            ></au-textbox>
+            <au-textbox placeholder="Jumlah Pakan" value.bind="data.AmountOfWeft" error.bind="error.AmountOfWeft"
+              read-only.bind="readOnly"></au-textbox>
           </div>
           <div class="col-md-2" style="padding-right: 0px; padding-left: 4px;">
-            <au-textbox
-              placeholder="Lebar"
-              value.bind="data.Width"
-              error.bind="error.Width"
-              read-only.bind="readOnly"
-            ></au-textbox>
+            <au-textbox placeholder="Lebar" value.bind="data.Width" error.bind="error.Width" read-only.bind="readOnly">
+            </au-textbox>
           </div>
         </div>
       </div>
@@ -85,20 +51,12 @@
           <textbox label="Jenis Lusi dan Pakan" read-only="true"></textbox>
         </div>
         <div class="col-md-2" style="padding-right: 4px;">
-          <au-textbox
-            placeholder="Jenis Lusi"
-            value.bind="WarpTypeForm"
-            error.bind="error.WarpTypeForm"
-            read-only.bind="readOnlyAll"
-          ></au-textbox>
+          <au-textbox placeholder="Jenis Lusi" value.bind="WarpTypeForm" error.bind="error.WarpTypeForm"
+            read-only.bind="readOnlyAll"></au-textbox>
         </div>
         <div class="col-md-2" style="padding-left: 0px;">
-          <au-textbox
-            placeholder="Jenis Pakan"
-            value.bind="WeftTypeForm"
-            error.bind="error.WeftTypeForm"
-            read-only.bind="readOnlyAll"
-          ></au-textbox>
+          <au-textbox placeholder="Jenis Pakan" value.bind="WeftTypeForm" error.bind="error.WeftTypeForm"
+            read-only.bind="readOnlyAll"></au-textbox>
         </div>
       </div>
 
@@ -107,43 +65,25 @@
           <textbox label="Total Benang" read-only="true"></textbox>
         </div>
         <div class="col-md-2">
-          <au-textbox
-            placeholder="Total Benang"
-            value.bind="TotalYarn"
-            error.bind="error.TotalYarn"
-            read-only.bind="readOnlyAll"
-          ></au-textbox>
+          <au-textbox placeholder="Total Benang" value.bind="TotalYarn" error.bind="error.TotalYarn"
+            read-only.bind="readOnlyAll"></au-textbox>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-6">
-            <au-collection
-              items.bind="ItemsWarp"
-              errors.bind="error.ItemsWarp"
-              columns.bind="warpColumns"
-              add.bind="addItemsWarp"
-              options.bind="ItemsWarpOptions"
-              remove.bind="onremove"
-              checkall.delegate="onCheckWarp($event)"
-              read-only.bind="readOnly"
-              item-template="modules/weaving/master-fabric-construction/templates/items-warp"
-            >
+            <au-collection items.bind="ItemsWarp" errors.bind="error.ItemsWarp" columns.bind="warpColumns"
+              add.bind="addItemsWarp" options.bind="ItemsWarpOptions" remove.bind="onremove"
+              checkall.delegate="onCheckWarp($event)" read-only.bind="readOnly"
+              item-template="modules/weaving/master-fabric-construction/templates/items-warp">
             </au-collection>
           </div>
           <div class="col-md-6">
-            <au-collection
-              items.bind="ItemsWeft"
-              errors.bind="error.ItemsWeft"
-              columns.bind="weftColumns"
-              add.bind="addItemsWeft"
-              options.bind="ItemsWeftOptions"
-              remove.bind="onremove"
-              checkall.delegate="onCheckWeft($event)"
-              read-only.bind="readOnly"
-              item-template="modules/weaving/master-fabric-construction/templates/items-weft"
-            >
+            <au-collection items.bind="ItemsWeft" errors.bind="error.ItemsWeft" columns.bind="weftColumns"
+              add.bind="addItemsWeft" options.bind="ItemsWeftOptions" remove.bind="onremove"
+              checkall.delegate="onCheckWeft($event)" read-only.bind="readOnly"
+              item-template="modules/weaving/master-fabric-construction/templates/items-weft">
             </au-collection>
           </div>
         </div>

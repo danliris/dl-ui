@@ -16,42 +16,31 @@ export class ItemsWarp {
     return YarnLoader;
   }
 
-  activate(context) {
+  async activate(context) {
     this.data = context.data;
     this.error = context.error;
 
-    // console.log(this.data);
-    // if (this.data.yarn) {
-    //   console.log(this.data.yarn);
-    //   var newValue = this.data.yarn;
-    //   this.yarn = newValue;
-    //   this.data.name = newValue.name;
-    //   this.data.code = newValue.code;
-    //   this.data.materialCode = newValue.materialCode;
-    //   this.data.ringCode = newValue.ringCode;
-    // }
+    if (this.data.Yarn) {
 
-    if (this.data.Id) {
-      this.data.Select = true;
+      var retrieveValue = this.data.Yarn;
+      this.data.YarnId = retrieveValue.Id;
+      this.Yarn = retrieveValue;
+      this.data.Code = retrieveValue.Code;
     }
+
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
 
   // Change on Kode Lusi, affected when Benang Lusi change
-  YarnChanged(newValue) {
-    console.log(newValue);
-    if (newValue.Id) {
-      this.data.Yarn = newValue ? newValue : "";
-      this.data.Name = newValue.Name ? newValue.Name : "";
+  async YarnChanged(newValue) {
+    
+    if (newValue) {
+      this.data.Yarn = newValue;
+
+      this.data.YarnId = newValue.Id ? newValue.Id : "";
       this.data.Code = newValue.Code ? newValue.Code : "";
-      this.data.materialCode = newValue.MaterialTypeDocument.Code
-        ? newValue.MaterialTypeDocument.Code
-        : "";
-      this.data.ringCode = newValue.RingDocument.Code
-        ? newValue.RingDocument.Code
-        : "";
-      this.data.Quantity = "";
+      this.data.Quantity = 0;
       this.data.Information = "";
     }
   }

@@ -22,13 +22,27 @@ export class Create {
   }
 
   saveCallback(event) {
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-      });
+    this.error = {};
+    if (this.data.Name) {
+      var whitespaceRegex = new RegExp("\\s");
+      var name = this.data.Name;
+      if (whitespaceRegex.test(name)) {
+        this.error.Name = "Kode Tambahan Tidak Boleh Mengandung Spasi";
+      } else {
+        this.data.Name = "";
+        this.data.Name = name;
+      }
+    }
+
+    if (!this.error.Name) {
+      this.service
+        .create(this.data)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.error = e;
+        });
+    }
   }
 }

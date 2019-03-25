@@ -102,10 +102,10 @@
                             <td class="text-left">${item.DeliveryDateItems}</td>
                             <td class="text-left">${item.ConfirmDate}</td>
                             <td class="text-left">${item.Remark}</td>
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.confirmState}</td>
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.bookingOrderState}</td>
-                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.remaining}</td>
-                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.diffDeliveryDateBooking}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.StatusConfirm}</td>
+                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.StatusBooking}</td>
+                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.OrderLeft}</td>
+                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.DateDiff}</td>
                     </tr>
                 </tbody>
             </table>
@@ -113,6 +113,7 @@
         <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
             Tidak ada data.
         </div>
+        <pagination if.bind="args.total>args.size" info.bind="args" change.delegate="changePage($event)" id="pager"></pagination>
         <hr/>
         </form>
     </au-input-form> 
