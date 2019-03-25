@@ -17,7 +17,7 @@ export class List {
         { field: "MaterialType.Name", title: "Jenis Material" },
         { field: "Lot.LotNo", title: "Lot" },
         { field: "Shift", title: "Shift"},
-        { field: "Group", title: "Group"},
+        { field: "UnitDepartment.Name", title: "Unit"},
     ];
 
     loader = (info) => {
