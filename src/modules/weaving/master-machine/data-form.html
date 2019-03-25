@@ -1,21 +1,14 @@
-<template
-  ><au-input-form
-    title.bind="title"
-    with.bind="context"
-    options.bind="formOptions"
-  >
+<template>
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
     <div class="col-md-12">
       <div class="row">
         <div class="col-md-3">
           <p style="white-space: nowrap;">Unit Weaving</p>
         </div>
         <div class="col-md-3">
-          <au-dropdown
-            value.bind="data.weavingUnit"
-            error.bind="error.weavingUnit"
-            read-only.bind="readOnly"
-            items.bind="weavingUnit"
-          ></au-dropdown>
+          <au-autocomplete placeholder="Cari Unit" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
+            read-only.bind="readOnly" options.bind="customOptions" loader.one-time="units" text="Name">
+          </au-autocomplete>
         </div>
       </div>
 
@@ -24,12 +17,8 @@
           <p style="white-space: nowrap;">No. Mesin</p>
         </div>
         <div class="col-md-3">
-          <au-textbox
-            placeholder="No. Mesin"
-            value.bind="data.machineNumber"
-            error.bind="error.machineNumber"
-            read-only.bind="readOnly"
-          ></au-textbox>
+          <au-textbox placeholder="No. Mesin" value.bind="data.MachineNumber" error.bind="error.MachineNumber"
+            read-only.bind="readOnly"></au-textbox>
         </div>
       </div>
 
@@ -38,12 +27,9 @@
           <p style="white-space: nowrap;">Jenis Mesin</p>
         </div>
         <div class="col-md-3">
-          <au-dropdown
-            value.bind="data.machineType"
-            error.bind="error.machineType"
-            read-only.bind="readOnly"
-            items.bind="machineType"
-          ></au-dropdown>
+          <au-autocomplete placeholder="Jenis Mesin" value.bind="WeavingMachineType" error.bind="error.WeavingMachineType"
+            read-only.bind="readOnly" options.bind="customOptions" loader.one-time="machineTypes" text="TypeName">
+          </au-autocomplete>
         </div>
       </div>
 
@@ -52,11 +38,7 @@
           <p style="white-space: nowrap;">RPM Standar</p>
         </div>
         <div class="col-md-3">
-          <au-numeric
-            value.bind="data.rpm"
-            error.bind="error.rpm"
-            read-only.bind="readOnly"
-          ></au-numeric>
+          <au-numeric value.bind="data.Speed" error.bind="error.Speed" read-only.bind="readOnlyValue"></au-numeric>
         </div>
       </div>
 
@@ -65,12 +47,8 @@
           <p style="white-space: nowrap;">Satuan</p>
         </div>
         <div class="col-md-3">
-          <au-dropdown
-            value.bind="data.unit"
-            error.bind="error.unit"
-            read-only.bind="readOnly"
-            items.bind="unit"
-          ></au-dropdown>
+          <au-textbox placeholder="No. Mesin" value.bind="data.MachineUnit" error.bind="error.MachineUnit" read-only.bind="readOnlyValue">
+          </au-textbox>
         </div>
       </div>
 
@@ -79,56 +57,10 @@
           <p style="white-space: nowrap;">Lokasi</p>
         </div>
         <div class="col-md-3">
-          <au-dropdown
-            value.bind="data.location"
-            error.bind="error.location"
-            read-only.bind="readOnly"
-            items.bind="location"
-          ></au-dropdown>
+          <au-dropdown value.bind="data.Location" error.bind="error.Location" read-only.bind="readOnly"
+            items.bind="location"></au-dropdown>
         </div>
       </div>
-
-      <!-- <div class="row">
-          <au-dropdown
-            label="Blok"
-            value.bind="data.block"
-            error.bind="error.block"
-            read-only.bind="readOnly"
-            items.bind="block"
-          ></au-dropdown>
-        </div>
-
-        <div class="row">
-          <au-dropdown
-            label="Blok Kaizen"
-            value.bind="data.blockKaizen"
-            error.bind="error.blockKaizen"
-            read-only.bind="readOnly"
-            items.bind="block"
-          ></au-dropdown>
-        </div>
-
-        <div class="row">
-          <au-dropdown
-            label="Maintenance"
-            value.bind="data.maintenance"
-            error.bind="error.maintenance"
-            read-only.bind="readOnly"
-            items.bind="maintenance"
-          ></au-dropdown>
-        </div>
-
-        <div class="row">
-          <au-dropdown
-            label="Operator"
-            value.bind="data.operator"
-            error.bind="error.operator"
-            read-only.bind="readOnly"
-            items.bind="operator"
-          ></au-dropdown>
-        </div> -->
-
-      <!-- <template replaceable part="actions"></template> -->
-    </div></au-input-form
-  >
+    </div>
+  </au-input-form>
 </template>
