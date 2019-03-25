@@ -78,6 +78,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/estimated-production",
+    name: "estimated-production",
+    moduleId: "./modules/weaving/estimated-production/index",
+    nav: true,
+    title: "Estimasi Produksi",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/order-production-report",
     name: "order-production-report",
     moduleId: "./modules/weaving/order-production-report/index",
@@ -91,11 +104,11 @@ module.exports = [
     }
   },
   {
-    route: "weaving/estimated-production",
-    name: "estimated-production",
-    moduleId: "./modules/weaving/estimated-production/index",
+    route: "weaving/master-machine-type",
+    name: "master-machine-type",
+    moduleId: "./modules/weaving/master-machine-type/index",
     nav: true,
-    title: "Estimasi Produksi",
+    title: "Master Tipe Mesin",
     auth: true,
     settings: {
       group: "weaving",

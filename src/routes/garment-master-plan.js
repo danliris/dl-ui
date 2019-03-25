@@ -104,6 +104,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment-master-plan/booking-order-expired',
+        name: 'booking-order-expired',
+        moduleId: './modules/garment-master-plan/booking-order-expired/index',
+        nav: true,
+        title: 'Booking Order Expired',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1, "B7": 1,"C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-master-plan/monitoring-booking-order',
         name: 'monitoring-booking-order',
         moduleId: './modules/garment-master-plan/monitoring-booking-order/index',
@@ -178,7 +191,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-master-plan",
-            //permission: { "PGA": 1,"B7": 1,"IE": 1,"C9": 1 },
+            permission: { "PGA": 1,"B7": 1,"IE": 1,"C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

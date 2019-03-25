@@ -48,4 +48,14 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/BODelete/${data.id}`;
         return super.put(endpoint, data);
     }
+
+    getMasterPlanByBookingOrderId(info) {
+        var config = Container.instance.get(Config);
+        var _serviceUri = `sewing-blocking-plans`;
+        var _endpoint = config.getEndpoint("sales");
+        return _endpoint.find(_serviceUri, info)
+            .then(result => {
+                return result.data;
+            });
+    }
 }

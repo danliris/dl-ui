@@ -33,17 +33,17 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    return `${unit.code} - ${unit.name}`
+    return `${unit.Code} - ${unit.Name}`
   }
 
   @computedFrom("year")
   get filterUnit() {
     if (this.year) {
       this.unit = "";
-      return { "year": this.year.year }
+      return { "Year": this.year.year }
     }
     else {
-      return { "year": "" }
+      return { "Year": "" }
     }
   }
 
@@ -54,52 +54,54 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      
       var yr = {
-        year: { "$in": [this.year.year] }
-      }
-      console.log(yr);
+          Year:this.year.year
+       };
+       
       this.previewWeeklyPlan = [];
       this.previewWeeklyPlan = await this.service.getWeeklyPlan(yr);
       
-      this.service.search(info)
+      this.service.search(JSON.stringify(info))
         .then(result => {
           this.data = result;
           this.units = [];
           this.weeks = [];
           this.qty = [];
           this.total = [];
-          
-          if(info.unit==''){
+          if(!info.unit){
             for(var item of this.previewWeeklyPlan){
               if(this.units.length<=0){
-               this.units.push(item.unit.code);
+               this.units.push(item.Unit.Code);
               }
-              var u=this.units.find(i=> i==item.unit.code);
+              var u=this.units.find(i=> i==item.Unit.Code);
               if(!u){
-               this.units.push(item.unit.code);
+               this.units.push(item.Unit.Code);
               }
             }
           }
-          else if(info.unit!=''){
+          else if(info.unit){
             this.units.push(info.unit);
           }
 
           for(var weekly of this.previewWeeklyPlan){
-            this.length_week= weekly.items.length;
+            this.length_week= weekly.Items.length;
             break;
           }
           
           var totalqty=[];
           for(var code of this.units){
             for(var z of this.data){
-              if(z._id.unitcode==code){
+              if(z.Unit==code){
                 if(!totalqty[code]){
-                  totalqty[code]=z.qty;
+                  totalqty[code]=z.Quantity;
                 } else {
-                  totalqty[code]+=z.qty; 
+                  totalqty[code]+=z.Quantity; 
                 }
               } 
             }
@@ -118,12 +120,12 @@ export class List {
             this.weeks.push(week);
             for(var y of this.units){
               var unit={};
-              var grup= this.data.find(o=>o._id.unitcode==y && o._id.week == (x+1));
+              var grup= this.data.find(o=>o.Unit==y && o.WeekNumber == (x+1));
               if(grup){
                 unit={
                   code:y,
                   week:x+1,
-                  quantity:grup.qty,
+                  quantity:grup.Quantity,
                 }
               } else {
                 unit={
@@ -149,10 +151,12 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.generateExcel(info);
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.generateExcel(JSON.stringify(info));
     }
   }
 

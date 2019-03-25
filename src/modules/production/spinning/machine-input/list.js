@@ -16,7 +16,7 @@ export class List {
         // { field: "NomorInputProduksi", title: "Nomor Input Produksi" },
         // { field: "Yarn.Name", title: "Yarn Name" },
         { field: "ProcessType", title: "Jenis Proses" },
-        { field: "YarnMaterialType.Code", title: "Kode Benang" },
+        { field: "YarnMaterialType.Name", title: "Kode Benang" },
         { field: "LotConfiguration.LotNo", title: "No Lot" },
         { field: "UnitDepartment.Name", title: "Unit Name" },
         { field: "Shift", title: "Shift" },
