@@ -167,11 +167,13 @@ export class DataForm {
                 this.lot = undefined;
                 this.regularItems = [];
 
-
             } else {
                 if (this.data.ProcessType == 'Winder')
                     this.data.ConeWeight = 1.89;
 
+                if(o == "Mix Drawing" && n != "Mix Drawing"){
+                    this.data.Count = null;
+                }
                 this.data.MaterialComposition = [];
                 this.showItemRegular = true;
                 this.mixDrawing = false;
@@ -218,7 +220,7 @@ export class DataForm {
                         }
                     } else {
                         this.error.YarnId = "Lot tidak ditemukan";
-                        this.data.MaterialComposition = null;
+                        this.data.MaterialComposition = [];
                         this.data.LotId = null;
                         this.data.LotNo = null;
                         this.cottonLot = null;
