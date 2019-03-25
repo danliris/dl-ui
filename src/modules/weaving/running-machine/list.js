@@ -8,13 +8,15 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "runningMachineOrderDate", title: "Tanggal/ Jam" },
-    { field: "weavingUnit", title: "Unit Weaving" },
-    { field: "runningMachineNumber", title: "No. Mesin" },
-    { field: "orderProductionNumber", title: "No. Surat Perintah Produksi" },
-    { field: "constructionNumber", title: "No. Konstruksi" },
-    { field: "warpOrigin", title: "Asal Lusi" },
-    { field: "weftorigin", title: "Asal Pakan" }
+    { field: "DateOrdered", title: "Tanggal/ Jam" },
+    { field: "Shift", title: "Shift" },
+    { field: "WeavingUnit", title: "Unit Weaving" },
+    { field: "MachineNumber", title: "No. Mesin" },
+    { field: "BeamNumber", title: "No. Beam" },
+    { field: "ConstructionNumber", title: "No. Konstruksi" },
+    { field: "OrderProductionNumber", title: "No. Surat Perintah Produksi" },
+    { field: "LoomGroup", title: "Grup Loom" },
+    { field: "SizingGroup", title: "Grup Sizing" },
   ];
 
   loader = info => {
@@ -44,13 +46,15 @@ export class List {
       data: [
         {
           Id: 1,
-          runningMachineOrderDate: "02/02/2019",
-          weavingUnit: "Weaving1",
-          runningMachineNumber: "000001",
-          orderProductionNumber: "002/02-2019",
-          constructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-          warpOrigin: "A",
-          weftorigin: "C"
+          DateOrdered:"02/02/2019",
+          Shift:"Shift 1",
+          WeavingUnit:"Weaving 1",
+          MachineNumber:"2/1",
+          BeamNumber:"TS 108",
+          ConstructionNumber:"PC AB 120 44 55 Tencelaa Puyoaa",
+          OrderProductionNumber:"0002/02-2019",
+          LoomGroup:"D",
+          SizingGroup:"B"
         }
       ]
     };

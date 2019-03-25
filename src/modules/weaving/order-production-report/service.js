@@ -9,9 +9,10 @@ export class Service extends RestService {
     super(http, aggregator, config, "weaving");
   }
 
-  search(month, year, unitCode, info) {
-    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitCode}`;
-    return super.list(endpoint, info);
+  searchSOP(month, year, unitName, unitId) {
+    var status = "ALL";
+    var endpoint = `${serviceUri}/${month}/${year}/unit-name/${unitName}/unit-id/${unitId}/status/${status}`;
+    return super.list(endpoint);
   }
 
   getById(id) {
@@ -19,10 +20,16 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getPdfByPeriod(month, year, unitCode) {
-    var endpoint = `${serviceUri}/${month}/${year}/unit/${unitCode}`;
+  getPdfByPeriod(month, year, unitName, unitId) {
+    var status = "ESTIMATED";
+    var endpoint = `${serviceUri}/${month}/${year}/unit-name/${unitName}/unit-id/${unitId}/status/${status}`;
     return super.getPdf(endpoint);
   }
+
+  // getOrders(month, year, unitId){
+  //   var endpoint = `${serviceUri}/${month}/${year}/unit/${unitId}`;
+  //   return super.list(endpoint, info);
+  // }
 
   // create(data) {
   //   var endpoint = `${serviceUri}`;

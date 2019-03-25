@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
-var UnitLoader = require("../../../loader/unit-loader");
 import { Service } from "./service";
+var UnitLoader = require("../../../loader/unit-loader");
 
 @inject(Service)
 export class DataForm {
@@ -65,7 +65,6 @@ export class DataForm {
     }
 
     if (!this.data.Period) {
-
       this.data.Period = {};
       this.data.Period.Month = this.Month;
       this.Year = this.getYears();
@@ -123,23 +122,18 @@ export class DataForm {
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
     if (!this.data.Period) {
-
       index++;
     } else {
-
       if (!this.data.Period.Year) {
-
         this.error.Year = "Periode Tahun Tidak Boleh Kosong";
       }
 
       if (!this.data.Period.Month) {
-
         this.error.Month = "Periode Bulan Tidak Boleh Kosong";
       }
     }
 
     if (!this.data.Unit) {
-
       if (index == 0) {
         emptyFieldName = "Unit Tidak Boleh Kosong";
       }

@@ -1,17 +1,35 @@
 <template>
-  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" replaceable part="actions">
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+    replaceable
+    part="actions"
+  >
     <div class="col-md-12">
       <div class="row">
         <div class="col-md-6">
           <!-- NO SOP -->
-          <au-textbox label="No. SPP" value.bind="data.OrderNumber" error.bind="error.OrderNumber"
-            read-only.bind="detailEditOnly" options.bind="customOptions" show.bind="createOnly">
+          <au-textbox
+            label="No. SPP"
+            value.bind="data.OrderNumber"
+            error.bind="error.OrderNumber"
+            read-only.bind="detailEditOnly"
+            options.bind="customOptions"
+            show.bind="createOnly"
+          >
           </au-textbox>
         </div>
         <div class="col-md-6">
           <!-- TANGGAL SP -->
-          <au-datepicker label="Tanggal SPP" value.bind="data.DateOrdered" error.bind="error.DateOrdered"
-            read-only.bind="detailEditOnly" options.bind="customOptions" show.bind="createOnly"></au-datepicker>
+          <au-datepicker
+            label="Tanggal SPP"
+            value.bind="data.DateOrdered"
+            error.bind="error.DateOrdered"
+            read-only.bind="detailEditOnly"
+            options.bind="customOptions"
+            show.bind="createOnly"
+          ></au-datepicker>
         </div>
       </div>
 
@@ -23,13 +41,21 @@
               <textbox label="Periode" read-only="true"></textbox>
             </div>
             <div class="col-md-3">
-              <au-dropdown value.bind="Month" error.bind="error.Period.Month" read-only.bind="readOnly"
-                items.bind="months">
+              <au-dropdown
+                value.bind="Month"
+                error.bind="error.Period.Month"
+                read-only.bind="readOnly"
+                items.bind="months"
+              >
               </au-dropdown>
             </div>
             <div class="col-md-3" style="padding-left: 0px;">
-              <au-dropdown value.bind="Year" error.bind="error.Period.Year" read-only.bind="readOnly"
-                items.bind="years">
+              <au-dropdown
+                value.bind="Year"
+                error.bind="error.Period.Year"
+                read-only.bind="readOnly"
+                items.bind="years"
+              >
               </au-dropdown>
             </div>
           </div>
@@ -40,9 +66,15 @@
               <textbox label="Konstruksi" read-only="true"></textbox>
             </div>
             <div class="col-md-7">
-              <au-autocomplete placeholder="Konstruksi" value.bind="FabricConstructionDocument"
-                error.bind="error.ConstructionNumber" options.bind="customLeftOptions"
-                read-only.bind="readOnly" loader.one-time="constructions" text="ConstructionNumber">
+              <au-autocomplete
+                placeholder="Konstruksi"
+                value.bind="FabricConstructionDocument"
+                error.bind="error.ConstructionNumber"
+                options.bind="customLeftOptions"
+                read-only.bind="readOnly"
+                loader.one-time="constructions"
+                text="ConstructionNumber"
+              >
               </au-autocomplete>
             </div>
           </div>
@@ -53,12 +85,20 @@
               <textbox label="Asal Benang" read-only="true"></textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Asal Lusi" value.bind="data.WarpOrigin" error.bind="error.WarpOrigin"
-                read-only.bind="readOnly"></au-textbox>
+              <au-textbox
+                placeholder="Asal Lusi"
+                value.bind="data.WarpOrigin"
+                error.bind="error.WarpOrigin"
+                read-only.bind="readOnly"
+              ></au-textbox>
             </div>
             <div class="col-md-3" style="padding-left: 4px;">
-              <au-textbox placeholder="Asal Pakan" value.bind="data.WeftOrigin" error.bind="error.WeftOrigin"
-                read-only.bind="readOnly"></au-textbox>
+              <au-textbox
+                placeholder="Asal Pakan"
+                value.bind="data.WeftOrigin"
+                error.bind="error.WeftOrigin"
+                read-only.bind="readOnly"
+              ></au-textbox>
             </div>
           </div>
 
@@ -68,21 +108,33 @@
               <textbox label="Komposisi Lusi(%)" read-only="true"></textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Poly" options.bind="customCenterOptions"
-                value.bind="data.WarpComposition.CompositionOfPoly" error.bind="error.WarpComposition.CompositionOfPoly"
-                read-only.bind="readOnly">
+              <au-textbox
+                placeholder="Poly"
+                options.bind="customCenterOptions"
+                value.bind="data.WarpComposition.CompositionOfPoly"
+                error.bind="error.WarpComposition.CompositionOfPoly"
+                read-only.bind="readOnly"
+              >
               </au-textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Cotton" options.bind="customCenterOptions"
+              <au-textbox
+                placeholder="Cotton"
+                options.bind="customCenterOptions"
                 value.bind="data.WarpComposition.CompositionOfCotton"
-                error.bind="error.WarpComposition.CompositionOfCotton" read-only.bind="readOnly"></au-textbox>
+                error.bind="error.WarpComposition.CompositionOfCotton"
+                read-only.bind="readOnly"
+              ></au-textbox>
             </div>
 
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Lainnya" options.bind="customCenterOptions"
-                value.bind="data.WarpComposition.OtherComposition" error.bind="error.WarpComposition.OtherComposition"
-                read-only.bind="readOnly"></au-textbox>
+              <au-textbox
+                placeholder="Lainnya"
+                options.bind="customCenterOptions"
+                value.bind="data.WarpComposition.OtherComposition"
+                error.bind="error.WarpComposition.OtherComposition"
+                read-only.bind="readOnly"
+              ></au-textbox>
             </div>
           </div>
         </div>
@@ -94,8 +146,13 @@
               <textbox label="Jenis Benang" read-only="true"></textbox>
             </div>
             <div class="col-md-9">
-              <au-textbox placeholder="Jenis Benang" value.bind="data.YarnType" error.bind="error.YarnType"
-                read-only.bind="readOnly" options.bind="customOptions"></au-textbox>
+              <au-textbox
+                placeholder="Jenis Benang"
+                value.bind="data.YarnType"
+                error.bind="error.YarnType"
+                read-only.bind="readOnly"
+                options.bind="customOptions"
+              ></au-textbox>
             </div>
           </div>
 
@@ -105,8 +162,13 @@
               <textbox label="All Grade" read-only="true"></textbox>
             </div>
             <div class="col-md-9">
-              <au-textbox placeholder="All Grade" value.bind="data.WholeGrade" error.bind="error.WholeGrade"
-                read-only.bind="readOnly" options.bind="customOptions"></au-textbox>
+              <au-textbox
+                placeholder="All Grade"
+                value.bind="data.WholeGrade"
+                error.bind="error.WholeGrade"
+                read-only.bind="readOnly"
+                options.bind="customOptions"
+              ></au-textbox>
             </div>
           </div>
 
@@ -116,8 +178,15 @@
               <textbox label="Unit" read-only="true"></textbox>
             </div>
             <div class="col-md-9">
-              <au-autocomplete placeholder="Cari Unit" value.bind="data.WeavingUnit" error.bind="error.WeavingUnit"
-                read-only.bind="readOnly" options.bind="customOptions" loader.bind="units" text="Name">
+              <au-autocomplete
+                placeholder="Cari Unit"
+                value.bind="data.WeavingUnit"
+                error.bind="error.WeavingUnit"
+                read-only.bind="readOnly"
+                options.bind="customOptions"
+                loader.bind="units"
+                text="Name"
+              >
               </au-autocomplete>
             </div>
           </div>
@@ -128,20 +197,32 @@
               <textbox label="Komposisi Pakan(%)" read-only="true"></textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Poly" options.bind="customCenterOptions"
-                value.bind="data.WeftComposition.CompositionOfPoly" error.bind="error.WeftComposition.CompositionOfPoly"
-                read-only.bind="readOnly">
+              <au-textbox
+                placeholder="Poly"
+                options.bind="customCenterOptions"
+                value.bind="data.WeftComposition.CompositionOfPoly"
+                error.bind="error.WeftComposition.CompositionOfPoly"
+                read-only.bind="readOnly"
+              >
               </au-textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Cotton" options.bind="customCenterOptions"
+              <au-textbox
+                placeholder="Cotton"
+                options.bind="customCenterOptions"
                 value.bind="data.WeftComposition.CompositionOfCotton"
-                error.bind="error.WeftComposition.CompositionOfCotton" read-only.bind="readOnly"></au-textbox>
+                error.bind="error.WeftComposition.CompositionOfCotton"
+                read-only.bind="readOnly"
+              ></au-textbox>
             </div>
             <div class="col-md-3" style="padding-right: 4px;">
-              <au-textbox placeholder="Lainnya" options.bind="customCenterOptions"
-                value.bind="data.WeftComposition.OtherComposition" error.bind="error.WeftComposition.OtherComposition"
-                read-only.bind="readOnly"></au-textbox>
+              <au-textbox
+                placeholder="Lainnya"
+                options.bind="customCenterOptions"
+                value.bind="data.WeftComposition.OtherComposition"
+                error.bind="error.WeftComposition.OtherComposition"
+                read-only.bind="readOnly"
+              ></au-textbox>
             </div>
           </div>
         </div>
