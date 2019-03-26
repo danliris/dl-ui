@@ -8,27 +8,28 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "DateOrdered", title: "Tanggal/ Jam" },
-    { field: "Shift", title: "Shift" },
-    { field: "WeavingUnit", title: "Unit Weaving" },
     { field: "MachineNumber", title: "No. Mesin" },
-    { field: "BeamNumber", title: "No. Beam" },
-    { field: "ConstructionNumber", title: "No. Konstruksi" },
-    { field: "OrderProductionNumber", title: "No. Surat Perintah Produksi" },
-    { field: "LoomGroup", title: "Grup Loom" },
-    { field: "SizingGroup", title: "Grup Sizing" },
+    { field: "Production", title: "Produksi" },
+    { field: "SCMPX", title: "S/CMPX" },
+    { field: "EFF", title: "EFF" },
+    { field: "RPM", title: "RPM" },
+    { field: "T", title: "T" },
+    { field: "F", title: "F" },
+    { field: "W", title: "W" },
+    { field: "L", title: "L" },
+    { field: "H", title: "H" }
   ];
 
   loader = info => {
-      var order = {};
-      if (info.sort) order[info.sort] = info.order;
+    var order = {};
+    if (info.sort) order[info.sort] = info.order;
 
-      var arg = {
-        page: parseInt(info.offset / info.limit, 10),
-        size: info.limit,
-        keyword: info.search,
-        order: order
-      };
+    var arg = {
+      page: parseInt(info.offset / info.limit, 10),
+      size: info.limit,
+      keyword: info.search,
+      order: order
+    };
 
     //   return this.service.search(arg).then(result => {
     //     return {
@@ -46,15 +47,16 @@ export class List {
       data: [
         {
           Id: 1,
-          DateOrdered:"02/02/2019",
-          Shift:"Shift 1",
-          WeavingUnit:"Weaving 1",
-          MachineNumber:"2/1",
-          BeamNumber:"TS 108",
-          ConstructionNumber:"PC AB 120 44 55 Tencelaa Puyoaa",
-          OrderProductionNumber:"0002/02-2019",
-          LoomGroup:"D",
-          SizingGroup:"B"
+          MachineNumber: "1/2",
+          Production: "165",
+          SCMPX: "124",
+          EFF: "673",
+          RPM: "525",
+          T: "26",
+          F: "6",
+          W: "5",
+          L: "2",
+          H: "8"
         }
       ]
     };

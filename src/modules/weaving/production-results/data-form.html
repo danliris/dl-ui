@@ -25,7 +25,7 @@
         <div class="col-md-2">
           <textbox label="Shift" read-only="true"></textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <au-autocomplete
             value.bind="data.Shift"
             error.bind="error.Shift"
@@ -37,7 +37,7 @@
         <div class="col-md-2">
           <textbox label="Unit Weaving" read-only="true"></textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <au-autocomplete
             value.bind="data.WeavingUnit"
             error.bind="error.WeavingUnit"
@@ -46,17 +46,28 @@
           ></au-autocomplete>
         </div>
       </div>
-      <div class="row" show.bind="onViewEdit">
+      <div class="row">
         <au-collection
           items.bind="data.Items"
           errors.bind="error.Items"
           columns.bind="columns"
-          add.bind="addRunningMachine"
-          options.bind="ItemsRunningMachineOptions"
+          add.bind="addProductionResults"
+          options.bind="ProductionResultsOptions"
           remove.bind="onremove"
           read-only.bind="readOnly"
-          item-template="modules/weaving/running-machine/templates/items"
+          item-template="modules/weaving/production-results/templates/items"
         >
         </au-collection>
+        <!-- <au-table
+          style="white-space: nowrap; margin-top: 26px;"
+          data.bind="loader"
+          columns.bind="columns"
+          sortable.bind="true"
+          view-model.ref="DailyOperationalMachineTable"
+          page-size="25"
+          options.bind="tableOptions"
+          context.bind="context"
+          >
+      </au-table> -->
       </div></au-input-form>
 </template>

@@ -2,16 +2,16 @@ import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
 
-const serviceUri = "weaving/machine-types";
+const serviceUri = "weaving/master-machine";
 
 export class Service extends RestService {
-  constructor(http, aggregator, config, api) {
+  constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "weaving");
   }
 
   search(info) {
     var endpoint = `${serviceUri}`;
-    return super.list(endpoint, info);
+    return super.list(endpoint);
   }
 
   getById(Id) {

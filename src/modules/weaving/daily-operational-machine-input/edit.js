@@ -16,14 +16,22 @@ export class Edit {
     // this.data = await this.service.getById(Id);
     this.data = {
       Id: 1,
-      runningMachineOrderDate: "02/02/2019",
-      weavingUnit: "Weaving1",
-      shift: "Shift 1",
-      runningMachineNumber: "000001",
-      orderProductionNumber: "002/02-2019",
-      fabricConstructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-      warpOrigin: "A",
-      weftOrigin: "C"
+      DateOrdered: "02/02/2019",
+      WeavingUnit: "Weaving1",
+      Shift: "Shift 1",
+      OrderProductionNumber: "PC AB 99 44 55",
+      ConstructionNumber: "0002/02-2019",
+      MachineNumber: "1/1",
+      BeamNumber: "TS 108",
+      WarpOrigin: "B",
+      WeftOrigin: "A",
+      Time: { Pause: "02.30", Resume: "04.30", Difference: "2" },
+      BeamOperator: "Rahayu",
+      LoomGroup: "D",
+      SizingNumber: 2,
+      SizingOperator: "Ahmad",
+      SizingGroup: "B",
+      Information: "Some Info"
     };
   }
 
