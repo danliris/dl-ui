@@ -42,19 +42,16 @@ export class DataForm {
     this.error = this.context.error;
 
     if (this.data.Id) {
-
       this.ItemsWarp = this.data.ItemsWarp;
       this.ItemsWeft = this.data.ItemsWeft;
 
       this.ItemsWarp.forEach(item => {
-
         item["Select"] = true;
       });
 
       this.ItemsWeft.forEach(item => {
-
         item["Select"] = true;
-      })
+      });
     }
 
     if (this.readOnly) {
@@ -131,17 +128,12 @@ export class DataForm {
     var result = "";
 
     if (this.ItemsWarp) {
-
       if (this.ItemsWarp.length > 0) {
-
         this.ItemsWarp.forEach(item => {
-
           if (item.Select) {
-
             if (item.Yarn) {
-              console.log(item.Yarn);
-              if (warpNames.indexOf(item.Yarn.MaterialTypeId.Name) < 0) {
-                warpNames.push(item.Yarn.MaterialTypeId.Name)
+              if (warpNames.indexOf(item.Yarn.Name) < 0) {
+                warpNames.push(item.Yarn.Name);
               }
             }
           }
@@ -151,18 +143,13 @@ export class DataForm {
 
     if (this.ItemsWeft) {
       if (this.ItemsWeft.length > 0) {
-
         this.ItemsWeft.forEach(item => {
-
           if (item.Select) {
-
             if (item.Yarn) {
-
-              if (weftNames.indexOf(item.Yarn.MaterialTypeId.Name) < 0) {
-                weftNames.push(item.Yarn.MaterialTypeId.Name);
+              if (weftNames.indexOf(item.Yarn.Name) < 0) {
+                weftNames.push(item.Yarn.Name);
               }
             }
-
           }
         });
       }
@@ -170,18 +157,14 @@ export class DataForm {
 
     warpNames.forEach(name => {
       if (result == "") {
-
         result = name;
       } else {
-
         result = result + " " + name;
       }
     });
 
     weftNames.forEach(name => {
-
       warpNames.forEach(warpName => {
-
         if (name != warpName) {
           weftCompareName.push(name);
         }
@@ -190,7 +173,6 @@ export class DataForm {
 
     if (weftCompareName.length > 0) {
       weftCompareName.forEach(name => {
-
         result = result + " " + name;
       });
     }
@@ -240,21 +222,15 @@ export class DataForm {
   //Capture "Jenis Lusi" on Data Form, and show it on "Jenis Lusi dan Pakan"
   //The result used on constructionNumber as an element of ConstructionNumber
   get WarpTypeForm() {
-
     let result = "";
 
     if (this.ItemsWarp) {
-
       if (this.ItemsWarp.length > 0) {
-
         for (let detail of this.ItemsWarp) {
           if (detail.Select) {
-
             if (detail.Yarn) {
-
               result = result + detail.Yarn.Code;
             }
-
           }
         }
       }
@@ -267,23 +243,16 @@ export class DataForm {
   //Capture "Jenis Pakan" on Data Form, and show it on "Jenis Lusi dan Pakan"
   //The result used on constructionNumber as an element of ConstructionNumber
   get WeftTypeForm() {
-
     let result = "";
 
     if (this.ItemsWeft) {
-
       if (this.ItemsWeft.length > 0) {
-
         for (let detail of this.ItemsWeft) {
-
           if (detail.Select) {
-
             if (detail.Yarn) {
-
               result = result + detail.Yarn.Code;
             }
-          }
-          else {
+          } else {
             result = "";
           }
         }
@@ -296,18 +265,13 @@ export class DataForm {
 
   //Sumed Up Yarn Quantity
   get TotalYarn() {
-
     let result = 0;
 
     if (this.ItemsWarp && this.ItemsWeft) {
-
       if (this.ItemsWarp.length > 0) {
-
         this.data.ItemsWarp = [];
         for (let detail of this.ItemsWarp) {
-
           if (detail.Select) {
-
             if (detail.YarnId && detail.Quantity != 0) {
               this.data.ItemsWarp.push(this.constructionDetail(detail));
             }
@@ -320,18 +284,14 @@ export class DataForm {
       }
 
       if (this.ItemsWeft.length > 0) {
-
         this.data.ItemsWeft = [];
         for (let detail of this.ItemsWeft) {
-
           if (detail.Select) {
-
             if (detail.YarnId && detail.Quantity != 0) {
               this.data.ItemsWeft.push(this.constructionDetail(detail));
             }
             result += detail.Quantity;
           } else {
-
             var ItemWeftsIndex = this.data.ItemsWeft.indexOf(detail);
             this.data.ItemsWeft.splice(ItemWeftsIndex, 1);
           }
