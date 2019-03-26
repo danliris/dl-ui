@@ -2,8 +2,9 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
 import { Service } from "./service";
 var UnitLoader = require("../../../loader/unit-loader");
+import { Router } from "aurelia-router";
 
-@inject(Service)
+@inject(Service, Router)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -48,8 +49,9 @@ export class DataForm {
     "December"
   ];
 
-  constructor(service) {
+  constructor(service, router) {
     this.service = service;
+    this.router = router;
   }
 
   orderProductionsItems;
@@ -162,6 +164,10 @@ export class DataForm {
 
           //Bind "Items" reference
           this.context.orderProductionsItems.bind(this);
+        }).catch(e => {
+
+          window.alert('Data not found')
+          location.reload();
         });
     }
   }
