@@ -15,7 +15,7 @@ export class Service extends RestService {
   searchSOP(month, year, unitId, status) {
     status = "OPEN-ORDER";
     var endpoint = `${serviceUriOrderDocument}/${month}/${year}/unit/${unitId}/status/${status}`;
-    return super.list(endpoint);
+    return super.get(endpoint);
   }
 
   searchEP(info) {
