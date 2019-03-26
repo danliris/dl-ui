@@ -74,12 +74,14 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.search(info)
-
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.search(JSON.stringify(info))
         .then(result => {
+          console.log(result)
           this.dataTemp = [];
           this.data = [];
           this.weeklyNumbers = 0;
@@ -89,8 +91,6 @@ export class List {
             this.weeklyEndDate = pr._id.weekEndDate.map(value => { return moment(value).format("DD MMM"); });
             break;
           }
-
-
           for (var pr of result) {
             var dataTemp = {};
             dataTemp.backgroundColor = [];
@@ -497,10 +497,12 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.generateExcel(info);
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.generateExcel(JSON.stringify(info));
     }
   }
 
