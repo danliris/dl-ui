@@ -16,7 +16,6 @@ export class Service extends RestService {
 
     search(info) {
         var endpoint = `${serviceUri}`;
-        console.log(endpoint);
         return super.list(endpoint, info);
     }
 
@@ -27,13 +26,11 @@ export class Service extends RestService {
 
     create(data) {
         var endpoint = `${serviceUri}`;
-        console.log(data);
         return super.post(endpoint, data);
     }
 
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
-        console.log(data);
         return super.put(endpoint, data);
     }
 

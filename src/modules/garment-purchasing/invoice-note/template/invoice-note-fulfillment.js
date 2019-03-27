@@ -6,15 +6,12 @@ export class DeliveryOrderItem {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-   
-    this.data.pricePerDealUnit=(this.data.pricePerDealUnit).toLocaleString('en-EN', { maximumFractionDigits: 4,minimumFractionDigits:4});
-    this.data.doQuantity=parseFloat(this.data.doQuantity).toFixed(2).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+    this.pricePerDealUnit=(this.data.pricePerDealUnit).toLocaleString('en-EN', { maximumFractionDigits: 4,minimumFractionDigits:4});
+    this.doQuantity=parseFloat(this.data.doQuantity).toFixed(2).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
   }
 
   get product() {
-
         return `${this.data.product.Code} - ${this.data.product.Name}`;
-    
   }
 
   get totalPrice() {
