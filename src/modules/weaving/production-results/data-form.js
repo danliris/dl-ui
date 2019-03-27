@@ -15,17 +15,40 @@ export class DataForm {
 
   constructor() {}
 
-  historyColumns = [
-    { header: "No. Beam", value: "beamNumber" },
-    { header: "Time Stop", value: "timeStop" },
-    { header: "Time Start", value: "timeStart" },
-    { header: "Keterangan", value: "description" }
-  ];
+  // OperationalMachineOptions = {
 
-  // @computedFrom("data.id")
-  // get isEdit() {
-  //   return (this.data.id || "").toString() != "";
-  // }
+  // };
+
+  columns = [
+    {
+      value: "MachineNumber",
+      header: "No. Mesin"
+    },
+    {
+      value: "Production",
+      header: "Produksi"
+    },
+    {
+      value: "SCMPX",
+      header: "S/CMPX"
+    },
+    { value: "EFF", header: "EFF" },
+    { value: "RPM", header: "RPM" },
+    { value: "T", header: "T" },
+    {
+      value: "F",
+      header: "F"
+    },
+    { value: "W", header: "W" },
+    {
+      value: "L",
+      header: "L"
+    },
+    {
+      value: "H",
+      header: "H"
+    }
+  ];
 
   get units() {
     return UnitLoader;
@@ -36,14 +59,16 @@ export class DataForm {
     // this.data = this.context.data;
     this.data = {
       Id: 1,
-      runningMachineOrderDate: "02/02/2019",
-      weavingUnit: "Weaving1",
-      shift: "Shift 1",
-      runningMachineNumber: "000001",
-      orderProductionNumber: "002/02-2019",
-      fabricConstructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-      warpOrigin: "A",
-      weftOrigin: "C"
+      MachineNumber: "1/2",
+      Production: "165",
+      SCMPX: "124",
+      EFF: "673",
+      RPM: "525",
+      T: "26",
+      F: "6",
+      W: "5",
+      L: "2",
+      H: "8"
     };
     this.error = this.context.error;
 
@@ -54,7 +79,7 @@ export class DataForm {
   }
 
   //Triggered when "+" on Items Collections Clicked
-  get addHistory() {
+  get addProductionResults() {
     return event => {
       this.data.Items.push({});
     };

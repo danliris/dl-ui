@@ -22,7 +22,10 @@ export class List {
         field: "DateOrdered",
         title: "Tanggal SP",
         rowspan: "2",
-        valign: "top"
+        valign: "top",
+        formatter: function(value, data, index) {
+          return moment(value).format("DD-MM-YYYY");
+        }
       },
       {
         field: "FabricConstructionDocument.ConstructionNumber",
@@ -164,6 +167,7 @@ export class List {
 
     return this.listDataFlag
       ? this.service.searchSOP(Month, Year, UnitName, UnitId).then(result => {
+          console.log(result);
           return {
             data: result.data,
             total: result.data.length
