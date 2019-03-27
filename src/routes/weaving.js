@@ -143,11 +143,24 @@ module.exports = [
     }
   },
   {
-    route: "weaving/running-machine",
-    name: "running-machine",
-    moduleId: "./modules/weaving/running-machine/index",
+    route: "weaving/daily-operational-machine-input",
+    name: "daily-operational-machine-input",
+    moduleId: "./modules/weaving/daily-operational-machine-input/index",
     nav: true,
-    title: "Mesin Jalan",
+    title: "Input Mesin Operasional Harian",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/production-results",
+    name: "production-results",
+    moduleId: "./modules/weaving/production-results/index",
+    nav: true,
+    title: "Input Hasil Produksi",
     auth: true,
     settings: {
       group: "weaving",

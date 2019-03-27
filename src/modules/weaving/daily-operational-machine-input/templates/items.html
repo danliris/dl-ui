@@ -1,0 +1,148 @@
+<template>
+  <tr>
+    <td style="white-space: nowrap;">
+      <au-autocomplete
+        value.bind="data.OrderProductionNumber"
+        error.bind="error.OrderProductionNumber"
+        read-only.bind="readOnly"
+        placeholder="No. SPP"
+        loader.bind="SPPLoader"
+      >
+      </au-autocomplete>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.ConstructionNumber"
+        error.bind="error.ConstructionNumber"
+        read-only.bind="readOnly"
+        placeholder="No. Konstruksi"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.MachineNumber"
+        error.bind="error.MachineNumber"
+        read-only.bind="readOnly"
+        placeholder="No. Mesin"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.BeamNumber"
+        error.bind="error.BeamNumber"
+        read-only.bind="readOnly"
+        placeholder="No. Beam"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.WarpOrigin"
+        error.bind="error.WarpOrigin"
+        read-only.bind="readOnly"
+        placeholder="Asal Lusi"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.WeftOrigin"
+        error.bind="error.WeftOrigin"
+        read-only.bind="readOnly"
+        placeholder="Asal Pakan"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.Time.Pause"
+        error.bind="error.Time.Pause"
+        read-only.bind="readOnly"
+        placeholder="Waktu Penggantian"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.Time.Resume"
+        error.bind="error.Time.Resume"
+        read-only.bind="readOnly"
+        placeholder="Waktu Lanjutkan"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.Time.Difference"
+        error.bind="error.Time.Difference"
+        read-only.bind="readOnly"
+        placeholder="Selisih Waktu"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.BeamOperator"
+        error.bind="error.BeamOperator"
+        read-only.bind="readOnly"
+        placeholder="Operator Beam"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.LoomGroup"
+        error.bind="error.LoomGroup"
+        read-only.bind="readOnly"
+        placeholder="Grup Loom"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.SizingNumber"
+        error.bind="error.SizingNumber"
+        read-only.bind="readOnly"
+        placeholder="No. Sizing"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.SizingOperator"
+        error.bind="error.SizingOperator"
+        read-only.bind="readOnly"
+        placeholder="Operator Sizing"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.SizingGroup"
+        error.bind="error.SizingGroup"
+        read-only.bind="readOnly"
+        placeholder="Grup Sizing"
+      >
+      </au-textbox>
+    </td>
+    <td style="white-space: nowrap;">
+      <au-textbox
+        value.bind="data.Information"
+        error.bind="error.Information"
+        read-only.bind="readOnly"
+        placeholder="Keterangan"
+      >
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" if.bind="!readOnly">
+      <button
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(data, $event)"
+      >
+        -
+      </button>
+    </td>
+  </tr>
+</template>
