@@ -152,8 +152,6 @@ export class List {
       UnitName = "";
       UnitId = 0;
     }
-    
-    console.log(Year + " " + Month);
 
     this.service.getPdfByPeriod(Month, Year, UnitName, UnitId);
   }
@@ -179,7 +177,7 @@ export class List {
 
     return this.listDataFlag
       ? this.service.searchSOP(Month, Year, UnitName, UnitId).then(result => {
-        console.log(result);
+        
         return {
           data: result.data,
           total: result.data.length
