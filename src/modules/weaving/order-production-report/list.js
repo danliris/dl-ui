@@ -143,7 +143,7 @@ export class List {
 
     if (this.data) {
       Month = this.getMonth(this.data.Period);
-      Year = this.getYear(this.Period);
+      Year = this.getYear(this.data.Period);
       UnitName = this.data.Unit.Name;
       UnitId = this.data.Unit.Id;
     } else {
@@ -165,7 +165,7 @@ export class List {
 
     if (this.data) {
       Month = this.getMonth(this.data.Period);
-      Year = this.getYear(this.Period);
+      Year = this.getYear(this.data.Period);
       UnitName = this.data.Unit.Name;
       UnitId = this.data.Unit.Id;
     } else {
@@ -177,7 +177,7 @@ export class List {
 
     return this.listDataFlag
       ? this.service.searchSOP(Month, Year, UnitName, UnitId).then(result => {
-        
+
         return {
           data: result.data,
           total: result.data.length
