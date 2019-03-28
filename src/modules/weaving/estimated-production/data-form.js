@@ -149,11 +149,12 @@ export class DataForm {
         .searchSOP(
           this.data.Period.Month,
           this.data.Period.Year,
-          this.data.Unit.Id
+          this.data.Unit
         )
         .then(result => {
           //Print each datum on orderProductions Data and push to Items Collections
-          result.data.forEach((datum, i, data) => {
+          result.forEach((datum, i, data) => {
+
             if (
               this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
             ) {

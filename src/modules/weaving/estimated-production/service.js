@@ -12,9 +12,9 @@ export class Service extends RestService {
     super(http, aggregator, config, "weaving");
   }
 
-  searchSOP(month, year, unitId, status) {
+  searchSOP(month, year, unit, status) {
     status = "OPEN-ORDER";
-    var endpoint = `${serviceUriOrderDocument}/${month}/${year}/unit/${unitId}/status/${status}`;
+    var endpoint =  `${serviceUriOrderDocument}/${month}/${year}/unit-name/${unit.Name}/unit-id/${unit.Id}/status/${status}`;
     return super.get(endpoint);
   }
 
