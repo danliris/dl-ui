@@ -29,7 +29,7 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
-
+      
       var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
       var auth = "https://dl-auth-api-dev.azurewebsites.net/v1/";
       var production = "https://dl-production-webapi.azurewebsites.net/v1/";
