@@ -23,7 +23,7 @@ export class List {
         title: "Tanggal SP",
         rowspan: "2",
         valign: "top",
-        formatter: function(value, data, index) {
+        formatter: function (value, data, index) {
           return moment(value).format("DD-MM-YYYY");
         }
       },
@@ -121,17 +121,6 @@ export class List {
 
   listDataFlag = false;
 
-  // contextClickCallback(event) {
-  //   let arg = event.detail;
-  //   let data = arg.data;
-
-  //   switch (arg.name) {
-  //     case "print PDF":
-  //       this.service.getPdfById(data.Id);
-  //       break;
-  //   }
-  // }
-
   getYear(now) {
     var year = moment(now).format("YYYY");
     return year;
@@ -147,32 +136,53 @@ export class List {
   }
 
   printPdf() {
-    var Month = this.getMonth(this.data);
-    var Year = this.getYear(this.data);
+    var Month;
+    var Year;
+    var UnitName;
+    var UnitId;
+
     if (this.data) {
-      var UnitName = this.data.Unit.Name;
-      var UnitId = this.data.Unit.Id;
+      Month = this.getMonth(this.data.Period);
+      Year = this.getYear(this.data.Period);
+      UnitName = this.data.Unit.Name;
+      UnitId = this.data.Unit.Id;
+    } else {
+      Month = this.getMonth(new Date());
+      Year = this.getYear(new Date());
+      UnitName = "";
+      UnitId = 0;
     }
+
     this.service.getPdfByPeriod(Month, Year, UnitName, UnitId);
   }
 
   loader = info => {
     this.info = {};
-    var Month = this.getMonth(this.data);
-    var Year = this.getYear(this.data);
+    var Month;
+    var Year;
+    var UnitName;
+    var UnitId;
+
     if (this.data) {
-      var UnitName = this.data.Unit.Name;
-      var UnitId = this.data.Unit.Id;
+      Month = this.getMonth(this.data.Period);
+      Year = this.getYear(this.data.Period);
+      UnitName = this.data.Unit.Name;
+      UnitId = this.data.Unit.Id;
+    } else {
+      Month = this.getMonth(new Date());
+      Year = this.getYear(new Date());
+      UnitName = "";
+      UnitId = 0;
     }
 
     return this.listDataFlag
       ? this.service.searchSOP(Month, Year, UnitName, UnitId).then(result => {
-          console.log(result);
-          return {
-            data: result.data,
-            total: result.data.length
-          };
-        })
+
+        return {
+          data: result.data,
+          total: result.data.length
+        };
+      })
       : { total: 0, data: {} };
   };
 
