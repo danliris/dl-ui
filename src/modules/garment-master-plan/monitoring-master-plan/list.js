@@ -53,7 +53,7 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    return `${unit.code} - ${unit.name}`
+    return `${unit.Code} - ${unit.Name}`
   }
 
   @computedFrom("year")
@@ -87,44 +87,45 @@ export class List {
           this.weeklyNumbers = 0;
           this.WeekQuantity = [];
           for (var pr of result) {
-            this.weeklyNumbers = pr._id.weekNumber;
-            this.weeklyEndDate = pr._id.weekEndDate.map(value => { return moment(value).format("DD MMM"); });
+            this.weeklyNumbers = pr.items.map(value => { return value.weekNumber});
+            this.weeklyEndDate = pr.items.map(value => { return moment(value.weekEndDate).format("DD MMM"); });
             break;
           }
           for (var pr of result) {
+            pr.count=1;
             var dataTemp = {};
             dataTemp.backgroundColor = [];
             dataTemp.quantity = [];
             dataTemp.efficiency = [];
             dataTemp.unitBuyerQuantity = [];
             //dataTemp.isConfirmed=[];
-            dataTemp.units = pr._id.unit;
-            dataTemp.buyer = pr._id.buyer;
-            dataTemp.unitBuyer = pr._id.unit + ';' + pr._id.buyer;
-            dataTemp.SMVTotal = pr.SMVTot;
+            dataTemp.units = pr.unit;
+            dataTemp.buyer = pr.buyer;
+            dataTemp.unitBuyer = pr.unit + ';' + pr.buyer;
+            dataTemp.SMVTotal = pr.SMVSewing;
             dataTemp.dataCount = pr.count;
-            dataTemp.operator = pr._id.operator;
-            dataTemp.workingHours = pr._id.workingHoours;
-            dataTemp.AH = pr._id.AHTotal;
-            dataTemp.EH = pr._id.EHTotal;
-            dataTemp.usedEH = pr._id.usedTotal;
-            dataTemp.remainingEH = pr._id.remainingEH;
+            dataTemp.operator = pr.items.map(value => { return value.head});;
+            dataTemp.workingHours = pr.items.map(value => { return value.workingHours});;
+            dataTemp.AH = pr.items.map(value => { return value.AHTotal});;
+            dataTemp.EH = pr.items.map(value => { return value.EHTotal});;
+            dataTemp.usedEH = pr.items.map(value => { return value.usedTotal});;
+            dataTemp.remainingEH = pr.items.map(value => { return value.remainingEH});;
             dataTemp.dataCount = pr.count;
 
-            for (var j = 0; j < pr._id.efficiency.length; j++) {
-              dataTemp.efficiency[j] = pr._id.efficiency[j].toString() + '%';
+            for (var j = 0; j < pr.items.length; j++) {
+              dataTemp.efficiency[j] = pr.items[j].efficiency.toString() + '%';
               dataTemp.backgroundColor[j] = dataTemp.remainingEH[j] > 0 ? "#FFFF00" :
                 dataTemp.remainingEH[j] < 0 ? "#f62c2c" :
                   "#52df46";
             }
-            dataTemp.weekSewingBlocking = pr._id.weekSewingBlocking;
-            dataTemp.SMVSewings = pr.SMVTot / pr.count;
-            dataTemp.SMVSewingWeek = pr._id.weekSewingBlocking;
-            dataTemp.bookingQty = pr._id.bookingQty;
-            dataTemp.isConfirmed = pr._id.isConfirmed ? 1 : 0;
+            dataTemp.weekSewingBlocking = pr.weekSewingBlocking;
+            dataTemp.SMVSewings = pr.SMVSewing / pr.count;
+            dataTemp.SMVSewingWeek = pr.weekSewingBlocking;
+            dataTemp.bookingQty = pr.bookingQty;
+            dataTemp.isConfirmed = pr.isConfirmed ? 1 : 0;
             for (var i = 0; i < this.weeklyNumbers.length; i++) {
-              if (i + 1 === pr._id.weekSewingBlocking) {
-                dataTemp.quantity[i] = pr._id.bookingQty;
+              if (i + 1 === pr.weekSewingBlocking) {
+                dataTemp.quantity[i] = pr.bookingQty;
 
               }
               else {
@@ -132,12 +133,12 @@ export class List {
               }
 
             }
-            dataTemp.bookingOrderItemsLength = pr._id.bookingOrderItems.length;
-            dataTemp.bookingOrdersConfirmQuantity = pr._id.bookingOrderItems.reduce(
-              (acc, cur) => acc + cur.quantity,
+            dataTemp.bookingOrderItemsLength = pr.bookingOrderItems.length;
+            dataTemp.bookingOrdersConfirmQuantity = pr.bookingOrderItems.reduce(
+              (acc, cur) => acc + cur.ConfirmQuantity,
               0
             );
-            dataTemp.bookingOrdersQuantity = pr._id.bookingOrdersQuantity;
+            dataTemp.bookingOrdersQuantity = pr.bookingOrdersQuantity;
           this.dataTemp.push(dataTemp);
           }
           //units
