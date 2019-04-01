@@ -15,6 +15,7 @@ export class List {
     context = ["Rincian"]
 
     columns = [
+        { field: "poNo" , title: "No. PO Internal"},
         { field: "DivisionName", title: "Divisi" },
         { field: "unit.name", title: "Unit" },
         { field: "category.name", title: "Kategori" },
