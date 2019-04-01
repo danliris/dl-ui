@@ -4,17 +4,13 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  // showViewEdit=false;
-  // readOnlyViewEdit=true;
-  onViewEdit = false;
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
     this.data = {};
     this.error = {};
   }
-
-  activate(params) {}
 
   list() {
     this.router.navigateToRoute("list");
@@ -25,21 +21,39 @@ export class Create {
   }
 
   saveCallback(event) {
-    // this.error = {};
-    // var index = 0;
-    // var emptyFieldName = "Semua Field Harus Diisi";
+    this.error = {};
 
-    // if (this.data.code == null || this.data.code == undefined) {
-    //   this.error.code = "Kode Material Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (this.data.name == null || this.data.name == undefined) {
-    //   this.error.name = "Nama Material Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (index > 0) {
-    //   window.alert(emptyFieldName);
-    // } else {
+    if (!this.data.Area) {
+      
+      this.data.Area = "";
+    }
+
+    if (!this.data.Blok) {
+
+      this.data.Blok = "";
+    }
+
+    if (!this.data.BlokKaizen) {
+
+      this.data.BlokKaizen = "";
+    }
+
+    if (!this.data.MachineId) {
+      this.data.MachineId = "00000000-0000-0000-0000-000000000000";
+    }
+
+    if (!this.data.UnitDepartementId) {
+      this.data.UnitDepartementId = 0;
+    }
+
+    if (!this.data.UserMaintenanceId) {
+      this.data.UserMaintenanceId = "";
+    }
+
+    if (!this.data.UserOperatorId) {
+      this.data.UserOperatorId = "";
+    }
+
     this.service
       .create(this.data)
       .then(result => {
@@ -47,9 +61,15 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
+        this.error.WeavingUnit = e['UnitDepartementId'] ? 'Unit must not be empty' : '';
+        this.error.Machine = e['MachineId'] ? 'Machine must not be empty' : '';
+
+        if (this.error.Machine != '')  {
+          this.error.Location = 'Machine must not be empty';
+        }
+
+        this.error.UserMaintenance = e['UserMaintenanceId'] ? 'User must not be empty' : '';
+        this.error.UserOperator = e['UserOperatorId'] ? 'User must not be empty' : '';
       });
-    // }
-    // console.log(this.data);
-    // debugger;
   }
 }
