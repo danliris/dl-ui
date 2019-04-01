@@ -22,9 +22,6 @@ export class Service extends RestService {
   }
 
   create(data) {
-    // if (data.YarnType == undefined || data.YarnType == null) {
-    //   data.YarnType = " ";
-    // }
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
