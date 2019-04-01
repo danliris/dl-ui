@@ -112,6 +112,149 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
+            // permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-blowing',
+        name: 'count-configuration-blowing',
+        moduleId: './modules/production/spinning/count-configuration-blowing/index',
+        nav: true,
+        title: 'Konfigurasi Count Blowing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-carding',
+        name: 'count-configuration-carding',
+        moduleId: './modules/production/spinning/count-configuration-carding/index',
+        nav: true,
+        title: 'Konfigurasi Count Carding',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-predrawing',
+        name: 'count-configuration-predrawing',
+        moduleId: './modules/production/spinning/count-configuration-predrawing/index',
+        nav: true,
+        title: 'Konfigurasi Count Pre-Drawing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-lapformer',
+        name: 'count-configuration-lapformer',
+        moduleId: './modules/production/spinning/count-configuration-lapformer/index',
+        nav: true,
+        title: 'Konfigurasi Count Lap Former',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-combing',
+        name: 'count-configuration-combing',
+        moduleId: './modules/production/spinning/count-configuration-combing/index',
+        nav: true,
+        title: 'Konfigurasi Count Combing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-mixdrawing',
+        name: 'count-configuration-mixdrawing',
+        moduleId: './modules/production/spinning/count-configuration-mixdrawing/index',
+        nav: true,
+        title: 'Konfigurasi Count Mix Drawing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-drawingbreaker',
+        name: 'count-configuration-drawingbreaker',
+        moduleId: './modules/production/spinning/count-configuration-drawingbreaker/index',
+        nav: true,
+        title: 'Konfigurasi Count Drawing Breaker',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-finishdrawing',
+        name: 'count-configuration-finishdrawing',
+        moduleId: './modules/production/spinning/count-configuration-finishdrawing/index',
+        nav: true,
+        title: 'Konfigurasi Count Finish Drawing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-flyer',
+        name: 'count-configuration-flyer',
+        moduleId: './modules/production/spinning/count-configuration-flyer/index',
+        nav: true,
+        title: 'Konfigurasi Count Flyer',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-ringspinning',
+        name: 'count-configuration-ringspinning',
+        moduleId: './modules/production/spinning/count-configuration-ringspinning/index',
+        nav: true,
+        title: 'Konfigurasi Count Ring Spinning',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-winder',
+        name: 'count-configuration-winder',
+        moduleId: './modules/production/spinning/count-configuration-winder/index',
+        nav: true,
+        title: 'Konfigurasi Count Winder',
+        auth: true,
+        settings: {
+            group: "spinning",
             permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -128,5 +271,18 @@ module.exports = [
             permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    // },
+    // {
+    //     route: 'production/spinning/grain-calculation',
+    //     name: 'grain-calculation',
+    //     moduleId: './modules/production/spinning/grain-calculation/index',
+    //     nav: true,
+    //     title: 'Perhitungan Check Grain',
+    //     auth: true,
+    //     settings: {
+    //         group: "spinning",
+    //         permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
     }
 ]
