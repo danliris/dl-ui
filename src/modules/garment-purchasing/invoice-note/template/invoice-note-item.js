@@ -37,14 +37,13 @@ export class DeliveryOrderItem {
     this.options = context.context.options;
     
     if(this.data.deliveryOrder){
-      this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
-  
+      // this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      this.totalAmount = this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
     }
-    console.log(this.data);
     if (this.data.Id) {
-      console.log(this.data);
       this.deliveryOrder =  this.data.deliveryOrder.doNo ;
-       this.data.deliveryOrder.totalAmount= this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      //  this.data.deliveryOrder.totalAmount= this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      this.totalAmount = this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
     }
     this.filter={};
     if (this.options.supplierId && this.options.currencyCode && !this.options.useIncomeTax) {
@@ -73,7 +72,6 @@ export class DeliveryOrderItem {
         "useIncomeTax":this.options.useIncomeTax  ,
         "incomeTaxName":this.options.incomeTaxName
       }
-      console.log(this.filter);
     }
   
     
@@ -118,8 +116,8 @@ export class DeliveryOrderItem {
       this.data.Id = this.deliveryOrder.Id;
       this.data.doDate = this.deliveryOrder.doDate;
       this.data.arrivalDate = this.deliveryOrder.arrivalDate;
-      this.deliveryOrder.totalAmount=  this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
-     
+      // this.deliveryOrder.totalAmount=  this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+      this.totalAmount = this.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
       this.data.totalAmount=this.deliveryOrder.totalAmount;
       this.data.deliveryOrder=this.deliveryOrder;
     }

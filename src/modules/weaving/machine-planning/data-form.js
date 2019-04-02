@@ -1,10 +1,15 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
-import { callbackify } from "util";
-var UnitLoader = require("../../../loader/unit-loader");
+var unitLoader = require("../../../loader/unit-loader");
+var accountLoader = require("../../../loader/account-loader");
+var machineLoader = require("../../../loader/weaving-machine-loader");
 
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable Machine;
+  @bindable WeavingUnit;
+  @bindable UserMaintenance;
+  @bindable UserOperator;
 
   formOptions = {
     cancelText: "Kembali",
@@ -13,50 +18,75 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  constructor() {}
-
-  //   historyColumns = [
-  //     { header: "No. Beam", value: "beamNumber" },
-  //     { header: "Time Stop", value: "timeStop" },
-  //     { header: "Time Start", value: "timeStart" },
-  //     { header: "Keterangan", value: "description" }
-  //   ];
-
-  // @computedFrom("data.id")
-  // get isEdit() {
-  //   return (this.data.id || "").toString() != "";
-  // }
-
-  //   get units() {
-  //     return UnitLoader;
-  //   }
+  constructor() { }
 
   bind(context) {
     this.context = context;
-    // this.data = this.context.data;
-    this.data = {
-      Id: 1,
-      weavingUnit: "Weaving1",
-      location: "Selatan",
-      runningMachineNumber: "1/2",
-      area: "Area 1",
-      block: "Blok 2",
-      kaizenBlock: "Blok 4",
-      maintenance: "ABC",
-      operator: "DEF"
-    };
+    this.data = this.context.data;
     this.error = this.context.error;
 
+    if (this.data.Machine) {
+      this.Machine = this.data.Machine;
+    }
+
+    if (this.data.WeavingUnit) {
+      this.WeavingUnit = this.data.WeavingUnit;
+    }
+
+    if (this.data.UserMaintenance) {
+      this.UserMaintenance = this.data.UserMaintenance;
+    }
+
+    if (this.data.UserOperator) {
+      this.UserOperator = this.data.UserOperator;
+    }
+    
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
   }
 
-  //   //Triggered when "+" on Items Collections Clicked
-  //   get addHistory() {
-  //     return event => {
-  //       this.data.Items.push({});
-  //     };
-  //   }
+  get units() {
+    return unitLoader;
+  }
+
+  get machines() {
+    return machineLoader;
+  }
+
+  get users() {
+    return accountLoader;
+  }
+
+  MachineChanged(newValue) {
+    if (newValue) {
+      
+      this.data.MachineId = newValue.Id;
+      this.data.Location = newValue.Location;
+    }
+  }
+
+  WeavingUnitChanged(newValue) {
+    if (newValue) {
+      
+      this.data.UnitDepartementId = newValue.Id;
+    }
+  }
+
+  UserMaintenanceChanged(newValue) {
+    
+    if (newValue) {
+
+      this.data.UserMaintenanceId = newValue._id;
+    }
+  }
+
+  UserOperatorChanged(newValue) {
+
+    if (newValue) {
+
+      this.data.UserOperatorId = newValue._id;
+    }
+  }
 }

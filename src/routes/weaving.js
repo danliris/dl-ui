@@ -78,6 +78,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/estimated-production",
+    name: "estimated-production",
+    moduleId: "./modules/weaving/estimated-production/index",
+    nav: true,
+    title: "Estimasi Produksi",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/order-production-report",
     name: "order-production-report",
     moduleId: "./modules/weaving/order-production-report/index",
@@ -91,11 +104,11 @@ module.exports = [
     }
   },
   {
-    route: "weaving/estimated-production",
-    name: "estimated-production",
-    moduleId: "./modules/weaving/estimated-production/index",
+    route: "weaving/master-machine-type",
+    name: "master-machine-type",
+    moduleId: "./modules/weaving/master-machine-type/index",
     nav: true,
-    title: "Estimasi Produksi",
+    title: "Master Tipe Mesin",
     auth: true,
     settings: {
       group: "weaving",
@@ -130,11 +143,24 @@ module.exports = [
     }
   },
   {
-    route: "weaving/running-machine",
-    name: "running-machine",
-    moduleId: "./modules/weaving/running-machine/index",
+    route: "weaving/daily-operational-machine-input",
+    name: "daily-operational-machine-input",
+    moduleId: "./modules/weaving/daily-operational-machine-input/index",
     nav: true,
-    title: "Mesin Jalan",
+    title: "Input Mesin Operasional Harian",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/production-results",
+    name: "production-results",
+    moduleId: "./modules/weaving/production-results/index",
+    nav: true,
+    title: "Input Hasil Produksi",
     auth: true,
     settings: {
       group: "weaving",

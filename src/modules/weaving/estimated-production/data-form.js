@@ -1,9 +1,10 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
-var UnitLoader = require("../../../loader/unit-loader");
 import { Service } from "./service";
+var UnitLoader = require("../../../loader/unit-loader");
+import { Router } from "aurelia-router";
 
-@inject(Service)
+@inject(Service, Router)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -48,8 +49,9 @@ export class DataForm {
     "December"
   ];
 
-  constructor(service) {
+  constructor(service, router) {
     this.service = service;
+    this.router = router;
   }
 
   orderProductionsItems;
@@ -65,7 +67,6 @@ export class DataForm {
     }
 
     if (!this.data.Period) {
-
       this.data.Period = {};
       this.data.Period.Month = this.Month;
       this.Year = this.getYears();
@@ -123,23 +124,18 @@ export class DataForm {
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
     if (!this.data.Period) {
-
       index++;
     } else {
-
       if (!this.data.Period.Year) {
-
         this.error.Year = "Periode Tahun Tidak Boleh Kosong";
       }
 
       if (!this.data.Period.Month) {
-
         this.error.Month = "Periode Bulan Tidak Boleh Kosong";
       }
     }
 
     if (!this.data.Unit) {
-
       if (index == 0) {
         emptyFieldName = "Unit Tidak Boleh Kosong";
       }
@@ -153,11 +149,12 @@ export class DataForm {
         .searchSOP(
           this.data.Period.Month,
           this.data.Period.Year,
-          this.data.Unit.Id
+          this.data.Unit
         )
         .then(result => {
           //Print each datum on orderProductions Data and push to Items Collections
-          result.data.forEach((datum, i, data) => {
+          result.forEach((datum, i, data) => {
+
             if (
               this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
             ) {
@@ -168,6 +165,10 @@ export class DataForm {
 
           //Bind "Items" reference
           this.context.orderProductionsItems.bind(this);
+        }).catch(e => {
+
+          window.alert('Data not found')
+          location.reload();
         });
     }
   }

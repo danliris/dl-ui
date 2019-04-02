@@ -4,8 +4,8 @@
     <div class="col-md-4">
       <au-datepicker
         label="Periode"
-        value.bind="data"
-        error.bind="error"
+        value.bind="data.Period"
+        error.bind="error.Period"
         read-only.bind="readOnly"
       ></au-datepicker>
     </div>
@@ -14,10 +14,11 @@
     <div class="col-md-4">
       <au-autocomplete
         label="Unit"
-        value.bind="data.unit"
-        error.bind="error.unit"
+        value.bind="data.Unit"
+        error.bind="error.Unit"
         read-only.bind="readOnly"
         loader.bind="units"
+        text="Name"
       ></au-autocomplete>
     </div>
   </div>
@@ -34,29 +35,28 @@
     <div class="col-md-1" style="margin-left: 6px;">
       <button
         class="btn btn-success"
-        click.delegate="search()"
+        click.delegate="searchOrderProductions()"
         style="margin-top: 20px;"
       >
         Cari
       </button>
     </div>
-  </div>
-  <!-- <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-1" style="margin-left: -26px;">
       <button
-        class="btn btn-primary btn-block"
-        click.delegate="download"
-        style="margin-top:16px; margin-bottom: -8px;"
+        class="btn btn-success"
+        click.delegate="reset()"
+        style="margin-top: 20px;"
       >
-        Pdf
+        Atur Ulang
       </button>
     </div>
-  </div> -->
+  </div>
   <au-table
-    style="white-space: nowrap; margin-top: 24px;"
+    style="white-space: nowrap; margin-top: 26px;"
     data.bind="loader"
     columns.bind="columns"
     sortable.bind="true"
+    view-model.ref="orderProductionsTable"
     page-size="25"
     options.bind="tableOptions"
     context.bind="context"

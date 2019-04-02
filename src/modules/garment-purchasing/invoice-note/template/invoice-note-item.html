@@ -18,11 +18,11 @@
         </td>
         <td>
             <div class="col-sm-7">
-                <au-numeric value.bind="data.deliveryOrder.totalAmount" 
+                <au-textbox value.bind="totalAmount" 
                     read-only.bind="true" 
                     format="0.00"
                     options.bind="controlOptions">
-                </au-numeric>
+                </au-textbox>
             </div>
             <div class="col-sm-1  pull-right">
                 <button class="btn btn-info pull-right" if.bind="data.details" click.delegate="toggle()">i</button>

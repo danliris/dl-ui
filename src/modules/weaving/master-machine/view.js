@@ -10,17 +10,33 @@ export class View {
   }
 
   async activate(params) {
-    // var Id = params.Id;
-    // this.data = await this.service.getById(Id);
-    this.data = {
-      Id: 1,
-      weavingUnit: "Weaving1",
-      machineNumber: "000001",
-      machineType: "Type C",
-      rpm: 50000,
-      unit: "Cmpx",
-      location: "Place A"
-    };
+    
+    var Id = params.Id;
+    var dataResult;
+    var weavingUnit;
+    var weavingMachineUnit;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+
+        dataResult = result;
+
+        return this.service.getUnitById(dataResult.WeavingUnitId);
+      })
+      .then(unit => {
+
+        weavingUnit = unit;
+
+        return this.service.getMachineTypeById(dataResult.MachineTypeId);
+      }).then(machineType => {
+
+        weavingMachineUnit = machineType;
+
+        return dataResult;
+      });
+
+      this.data.WeavingUnit = weavingUnit;
+      this.data.WeavingMachineType = weavingMachineUnit;
   }
 
   list() {
