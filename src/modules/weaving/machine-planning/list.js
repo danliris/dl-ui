@@ -1,19 +1,16 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
-import moment from "moment";
 
 @inject(Router, Service)
 export class List {
   context = ["detail"];
 
   columns = [
-    { field: "runningMachineNumber", title: "No. Mesin" },
-    { field: "area", title: "Area" },
-    { field: "block", title: "Blok" },
-    { field: "kaizenBlock", title: "Blok Kaizen" },
-    { field: "maintenance", title: "Maintenance" },
-    { field: "operator", title: "Operator" }
+    { field: "MachineNumber", title: "No. Mesin" },
+    { field: "Area", title: "Area" },
+    { field: "Blok", title: "Blok" },
+    { field: "BlokKaizen", title: "Blok Kaizen" }
   ];
 
   loader = info => {
@@ -27,31 +24,12 @@ export class List {
       order: order
     };
 
-    //   return this.service.search(arg).then(result => {
-    //     return {
-    //       total: result.info.total,
-    //       data: result.data
-    //     };
-    //     // .catch(error=>{
-    //     //     console.log(error);
-    //     // })
-    //   });
-    // };
-
-    return {
-      total: 1,
-      data: [
-        {
-          Id: 1,
-          runningMachineNumber: "1/2",
-          area: "Area 1",
-          block: "Blok 2",
-          kaizenBlock: "Blok 4",
-          maintenance: "ABC",
-          operator: "DEF"
-        }
-      ]
-    };
+      return this.service.search(arg).then(result => {
+        return {
+          total: result.info.total,
+          data: result.data
+        };
+    });
   };
 
   constructor(router, service) {
