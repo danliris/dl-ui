@@ -98,25 +98,34 @@ export class List {
             dataTemp.quantity = [];
             dataTemp.efficiency = [];
             dataTemp.unitBuyerQuantity = [];
+            dataTemp.backgroundColorWH =[];
             //dataTemp.isConfirmed=[];
             dataTemp.units = pr.unit;
             dataTemp.buyer = pr.buyer;
             dataTemp.unitBuyer = pr.unit + ';' + pr.buyer;
             dataTemp.SMVTotal = pr.SMVSewing;
             dataTemp.dataCount = pr.count;
-            dataTemp.operator = pr.items.map(value => { return value.head});;
-            dataTemp.workingHours = pr.items.map(value => { return value.workingHours});;
-            dataTemp.AH = pr.items.map(value => { return value.AHTotal});;
-            dataTemp.EH = pr.items.map(value => { return value.EHTotal});;
-            dataTemp.usedEH = pr.items.map(value => { return value.usedTotal});;
-            dataTemp.remainingEH = pr.items.map(value => { return value.remainingEH});;
+            dataTemp.operator = pr.items.map(value => { return value.head});
+            dataTemp.workingHours = pr.items.map(value => { return value.workingHours});
+            dataTemp.AH = pr.items.map(value => { return value.AHTotal});
+            dataTemp.EH = pr.items.map(value => { return value.EHTotal});
+            dataTemp.usedEH = pr.items.map(value => { return value.usedTotal});
+            dataTemp.remainingEH = pr.items.map(value => { return value.remainingEH});
             dataTemp.dataCount = pr.count;
-
+            dataTemp.WHBooking= pr.items.map(value => { return value.WHBooking});
+            dataTemp.EHBooking= pr.UsedEH;
             for (var j = 0; j < pr.items.length; j++) {
               dataTemp.efficiency[j] = pr.items[j].efficiency.toString() + '%';
               dataTemp.backgroundColor[j] = dataTemp.remainingEH[j] > 0 ? "#FFFF00" :
                 dataTemp.remainingEH[j] < 0 ? "#f62c2c" :
                   "#52df46";
+            }
+
+            for (var l = 0; l < pr.items.length; l++) {
+              dataTemp.backgroundColorWH[l] = dataTemp.WHBooking[l] <= 45.5 ? "#FFFF00" : 
+                dataTemp.WHBooking[l] < 50.5 && dataTemp.WHBooking[l] > 45.6 ? "#52df46" : 
+                dataTemp.WHBooking[l] < 56.5 && dataTemp.WHBooking[l] > 50.6 ? "#f62c2c" :
+                  "#000000";
             }
             dataTemp.weekSewingBlocking = pr.weekSewingBlocking;
             dataTemp.SMVSewings = pr.SMVSewing / pr.count;
@@ -157,27 +166,6 @@ export class List {
             output2.push({ unit: this.dataTemp[i].units, buyer: this.dataTemp[i].buyer });
 
           }
-          // console.log(output2);
-
-          // //total smvSewing
-          // var arr = this.dataTemp,
-          //   totalSewing = arr.reduce(function (r, o) {
-          //     (r[o.unitBuyer]) ? r[o.unitBuyer] += o.SMVSewings : r[o.unitBuyer] = o.SMVSewings;
-          //     return r;
-          //   }, {});
-          // var totalSewing = Object.keys(totalSewing).map(function (key) {
-          //   return { unitBuyer: key, SMVTotal: totalSewing[key] };
-          // });
-
-          // //Total per Unit
-          // var arr = this.dataTemp,
-          //   totalSMV = arr.reduce(function (r, o) {
-          //     (r[o.units]) ? r[o.units] += o.SMVTotal : r[o.units] = o.SMVTotal;
-          //     return r;
-          //   }, {});
-          // var groups = Object.keys(totalSMV).map(function (key) {
-          //   return { units: key, SMVTotal: totalSMV[key] };
-          // });
 
           let cat = [];
           let category = [];
@@ -224,6 +212,14 @@ export class List {
             else {
               cat[c.units + "TOTAL" + c.weekSewingBlocking] += c.bookingQty;
             }
+            if (!cat[c.units + "WHConfirm" + c.weekSewingBlocking]) {
+              if(c.isConfirmed)
+                cat[c.units + "WHConfirm" + c.weekSewingBlocking] = c.EHBooking;
+            }
+            else {
+              if(c.isConfirmed)
+                cat[c.units + "TOTAL" + c.weekSewingBlocking] += c.EHBooking;
+            }
             if (!cat[c.units + "smv" + c.buyer]) {
               cat[c.units + "smv" + c.buyer] = c.SMVSewings;
             }
@@ -252,16 +248,23 @@ export class List {
             if (!cat[c.units + "usedEH"]) {
               cat[c.units + "usedEH"] = c.usedEH;
             }
+            
             if (!cat[c.units + "workingHours"]) {
               cat[c.units + "workingHours"] = c.workingHours;
             }
             if (!cat[c.units + "remainingEH"]) {
               cat[c.units + "remainingEH"] = c.remainingEH;
             }
+            
+            if (!cat[c.units + "WHBooking"]) {
+              cat[c.units + "WHBooking"] = c.WHBooking;
+            }
             if (!cat[c.units + "background"]) {
               cat[c.units + "background"] = c.backgroundColor;
             }
-
+            if (!cat[c.units + "backgroundColorWH"]) {
+              cat[c.units + "backgroundColorWH"] = c.backgroundColorWH;
+            }
           }
 
           for (var j of output) {
@@ -315,14 +318,22 @@ export class List {
 
             }
             var qty = [];
+            var conf=[];
+            var op=cat[j + "operator"];
+            console.log(cat[j + "operator"])
             for (var y = 0; y < this.weeklyNumbers.length; y++) {
 
               var categ = j + "TOTAL" + (y + 1).toString();
 
               qty[y + 1] = cat[categ] ? cat[categ] : '-';
 
-
               qty[0] = Math.round(smvTot / counts);
+
+              var categwh = j + "WHConfirm" + (y + 1).toString();
+              //var op= cat[i.units + "operator"][y+1];
+              conf[y + 1] = cat[categwh] ? cat[categwh]/op[y+1] : '-';
+
+              conf[0] = "";
 
             }
             data.collection.push({ name: "TOTAL", quantity: qty, fontWeight: "bold" });
@@ -332,8 +343,10 @@ export class List {
             var EH = cat[j + "totalEH"];
             var usedEH = cat[j + "usedEH"];
             var remainingEH = cat[j + "remainingEH"];
+            var WHBooking = cat[j + "WHBooking"];
             var background = cat[j + "background"];
             var workingHours = cat[j + "workingHours"];
+            var backgroundColorWH = cat[j + "backgroundColorWH"];
 
             eff.splice(0, 0, "");
             opp.splice(0, 0, "");
@@ -341,8 +354,10 @@ export class List {
             EH.splice(0, 0, "");
             usedEH.splice(0, 0, "");
             remainingEH.splice(0, 0, "");
+            WHBooking.splice(0, 0, "");
             workingHours.splice(0, 0, "");
             background.splice(0, 0, "");
+            backgroundColorWH.splice(0, 0, "");
             data.collection.push({ name: "Efisiensi", quantity: eff, fontWeight: "bold" });
             data.collection.push({ name: "Total Operator Sewing", quantity: opp, fontWeight: "bold" });
             data.collection.push({ name: "Working Hours", quantity: workingHours, fontWeight: "bold" });
@@ -350,7 +365,8 @@ export class List {
             data.collection.push({ name: "Total EH", quantity: EH, fontWeight: "bold" });
             data.collection.push({ name: "Used EH", quantity: usedEH, fontWeight: "bold" });
             data.collection.push({ name: "Remaining EH", quantity: remainingEH, background: background, fontWeight: "bold" });
-
+            data.collection.push({ name: "WH Booking", quantity: WHBooking, background: backgroundColorWH, fontWeight: "bold" });
+            data.collection.push({ name: "WH Confirm", quantity: conf, fontWeight: "bold" });
 
             this.data.push(data);
           }
