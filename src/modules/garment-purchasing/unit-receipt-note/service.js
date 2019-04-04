@@ -34,8 +34,8 @@ export class Service extends RestService {
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
-        return super.delete(endpoint, data);
+        var endpoint = `${serviceUri}/deleted/${data.Id}`;
+        return super.put(endpoint, data);
     }
 
     getPdfById(id) {
