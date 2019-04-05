@@ -1,26 +1,33 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
+import { Dialog } from '../../../components/dialog/dialog';
+import { AlertView } from './custom-dialog-view/alert-view';
 
-
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
     hasCancel = true;
     hasEdit = false;
     hasDelete = false;
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
 
     async activate(params) {
         var id = params.id;
-
+        var orderQty=0;
         this.data = await this.service.getById(id);
-        if (this.data.items) {
-            this.data.items.forEach(item => {
-                item.showDetails = false
-            })
+        if (this.data.Items) {
+            this.data.Items.forEach(item => {
+                item.showDetails = false;
+                orderQty += item.OrderQuantity;
+            });
+            if (orderQty==0){
+                this.hasDelete=true;
+            }
         }
 
         this.unit = this.data.Unit;
@@ -43,8 +50,13 @@ export class View {
     }
 
     delete() {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
+        this.dialog.show(AlertView,this.data)
+        .then(response => {
+            this.data.DeletedReason = response.output.DeletedRemark;
+
+            this.service.delete(this.data).then(result => {
+                this.cancel();
+            });
         });
     }
 
