@@ -52,7 +52,7 @@ export class View {
     delete() {
         this.dialog.show(AlertView,this.data)
         .then(response => {
-            this.data.DeletedReason = response.output.Remark;
+            this.data.DeletedReason = response.output.DeletedRemark;
 
             this.service.delete(this.data).then(result => {
                 this.cancel();
