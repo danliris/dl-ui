@@ -12,18 +12,18 @@ export class AlertView {
 
         this.data = data;
         this.error = {};
-        this.data.Remark = "";
+        this.data.DeletedRemark = "";
     }
 
     save(context) {
         this.data.context = context;
-        if (this.data.Remark == undefined || this.data.Remark == "") {
-                this.error.Remark = "alasan harus di isi"
+        if (this.data.DeletedRemark == undefined || this.data.DeletedRemark == "") {
+                this.error.DeletedRemark = "alasan harus di isi"
         } else {
             this.error = {};
         }
 
-        if (this.error.Remark == "" || this.error.Remark == undefined) {
+        if (this.error.DeletedRemark == "" || this.error.DeletedRemark == undefined) {
             this.controller.ok(this.data);
         }
     }
