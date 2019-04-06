@@ -12,19 +12,37 @@ export class Edit {
   }
 
   async activate(params) {
-    // var Id = params.Id;
-    // this.data = await this.service.getById(Id);
-    this.data = {
-      Id: 1,
-      weavingUnit: "Weaving1",
-      location: "Selatan",
-      runningMachineNumber: "1/2",
-      area: "Area 1",
-      block: "Blok 2",
-      kaizenBlock: "Blok 4",
-      maintenance: "ABC",
-      operator: "DEF"
-    };
+    var Id = params.Id;
+    var dataResult;
+    this.data = await this.service.getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.UnitDepartementId);
+      })
+      .then(unit => {
+
+        if (unit) {
+          dataResult.WeavingUnit = unit;
+        }
+
+        return this.service.getUserById(dataResult.UserMaintenanceId);
+      })
+      .then(userMaintenance => {
+
+        if (userMaintenance) {
+          dataResult.UserMaintenance = userMaintenance;
+        }
+
+        return this.service.getUserById(dataResult.UserOperatorId);
+      })
+      .then(userOperator => {
+
+        if (userOperator) {
+          dataResult.UserOperator = userOperator;
+        }
+
+        return dataResult;
+      });
   }
 
   cancelCallback(event) {
@@ -32,29 +50,39 @@ export class Edit {
   }
 
   saveCallback(event) {
-    // this.error = {};
-    // var index = 0;
-    // var emptyFieldName = "Semua Field Harus Diisi";
+    this.error = {};
 
-    // if (
-    //   this.data.code == null ||
-    //   this.data.code == undefined ||
-    //   this.data.code == ""
-    // ) {
-    //   this.error.code = "Kode Material Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (
-    //   this.data.name == null ||
-    //   this.data.name == undefined ||
-    //   this.data.name == ""
-    // ) {
-    //   this.error.name = "Nama Material Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (index > 0) {
-    //   window.alert(emptyFieldName);
-    // } else {
+    if (!this.data.Area) {
+      
+      this.data.Area = "";
+    }
+
+    if (!this.data.Blok) {
+
+      this.data.Blok = "";
+    }
+
+    if (!this.data.BlokKaizen) {
+
+      this.data.BlokKaizen = "";
+    }
+
+    if (!this.data.MachineId) {
+      this.data.MachineId = "00000000-0000-0000-0000-000000000000";
+    }
+
+    if (!this.data.UnitDepartementId) {
+      this.data.UnitDepartementId = 0;
+    }
+
+    if (!this.data.UserMaintenanceId) {
+      this.data.UserMaintenanceId = "";
+    }
+
+    if (!this.data.UserOperatorId) {
+      this.data.UserOperatorId = "";
+    }
+
     this.service
       .update(this.data)
       .then(result => {
@@ -62,7 +90,15 @@ export class Edit {
       })
       .catch(e => {
         this.error = e;
+        this.error.WeavingUnit = e['UnitDepartementId'] ? 'Unit must not be empty' : '';
+        this.error.Machine = e['MachineId'] ? 'Machine must not be empty' : '';
+
+        if (this.error.Machine != '')  {
+          this.error.Location = 'Machine must not be empty';
+        }
+
+        this.error.UserMaintenance = e['UserMaintenanceId'] ? 'User must not be empty' : '';
+        this.error.UserOperator = e['UserOperatorId'] ? 'User must not be empty' : '';
       });
-    // }
   }
 }

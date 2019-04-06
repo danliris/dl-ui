@@ -123,17 +123,24 @@ export class List {
 
         return Promise.all(getUnitPromises).then(units => {
           for (var datum of result.data) {
-            let unit = units.find(
-              unitResult => datum.WeavingUnit == unitResult.Id
-            );
-            datum.WeavingUnit = unit;
+            if (units && units.length > 0) {
+              let unit = units.find(
+                unitResult => datum.WeavingUnit == unitResult.Id
+              );
+              datum.WeavingUnit = unit;
+            }
           }
 
           return {
-            total: result.info.count,
+            total: result.info.total,
             data: result.data
           };
         });
+      } else {
+        return {
+          total: result.info.total,
+          data: result.data
+        };
       }
     });
   };

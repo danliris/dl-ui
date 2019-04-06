@@ -71,8 +71,7 @@ export class Create {
       this.data.WarpComposition.OtherComposition = 0;
     }
 
-    if(!this.data.WeftComposition)
-    {
+    if (!this.data.WeftComposition) {
       this.data.WeftComposition = {};
       this.data.WeftComposition.CompositionOfPoly = 0;
       this.data.WeftComposition.CompositionOfCotton = 0;
@@ -107,6 +106,9 @@ export class Create {
       })
       .catch(e => {
         this.error = e;
+        this.error.ConstructionNumber =
+          e["FabricConstructionDocument.ConstructionNumber"];
+        this.error.WeavingUnit = e["WeavingUnit.Id"];
       });
   }
 }

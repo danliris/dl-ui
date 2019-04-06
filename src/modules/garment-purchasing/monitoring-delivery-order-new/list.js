@@ -82,17 +82,17 @@ export class List {
          { field: "doCurrencyCode", title: "Mata Uang", sortable: false },
          { field: "productRemark", title: "Keterangan", sortable: false },
            { field: "createdBy", title: "Staff Pembelian", sortable: false },
-        // { field: "productRemark", title: "Deskripsi Barang", sortable: false },
+         { field: "EPOcreatedBy", title: "Staff Pembelian (P/O)", sortable: false },         
+         { field: "URNNo", title: "Nomor Bon Unit", sortable: false },
+         { field: "URNDate", title: "Tanggal Bon Unit", sortable: false, formatter: function (value, data, index) {             
+             if (moment(value).format("DD MMM YYYY")=="01 Jan 1970")
+                return "-"
+             else    
+                return moment(value).format("DD/MM/YYYY");
+              }
+         },
 
-       // { field: "supplierCode", title: "Kode Supplier" , sortable: false },
-  
-        //{ field: "ePONo", title: "Nomor PO External" , sortable: false},
-    
-      //  { field: "productRemark", title: "Deskripsi Barang", sortable: false },
-       // { field: "remainingQuantity", title: "Sisa Qty", sortable: false,formatter:(value,data)=>{
-        //    return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-       // }  },
-       
+         { field: "UnitName", title: "Nama Unit", sortable: false },
     ];
 
     search() {

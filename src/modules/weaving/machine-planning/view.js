@@ -12,19 +12,37 @@ export class View {
   }
 
   async activate(params) {
-    // var Id = params.Id;
-    // this.data = await this.service.getById(Id);
-    this.data = {
-      Id: 1,
-      weavingUnit: "Weaving1",
-      location: "Selatan",
-      runningMachineNumber: "1/2",
-      area: "Area 1",
-      block: "Blok 2",
-      kaizenBlock: "Blok 4",
-      maintenance: "ABC",
-      operator: "DEF"
-    };
+    var Id = params.Id;
+    var dataResult;
+    this.data = await this.service.getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.UnitDepartementId);
+      })
+      .then(unit => {
+        
+        if(unit) {
+          dataResult.WeavingUnit = unit ;
+        }
+        
+        return this.service.getUserById(dataResult.UserMaintenanceId);
+      })
+      .then(userMaintenance => {
+        
+        if(userMaintenance) {
+          dataResult.UserMaintenance = userMaintenance ;
+        }
+        
+        return this.service.getUserById(dataResult.UserOperatorId);
+      })
+      .then(userOperator => {
+        
+        if(userOperator) {
+          dataResult.UserOperator = userOperator ;
+        }
+        
+        return dataResult;
+      });
   }
 
   list() {

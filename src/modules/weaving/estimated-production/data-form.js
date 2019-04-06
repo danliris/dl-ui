@@ -1,13 +1,16 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import moment from "moment";
-var UnitLoader = require("../../../loader/unit-loader");
 import { Service } from "./service";
+var UnitLoader = require("../../../loader/unit-loader");
+import { Router } from "aurelia-router";
 
-@inject(Service)
+@inject(Service, Router)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable error;
+  @bindable Month;
+  @bindable Year;
 
   yearFormat = "YYYY";
   years = [];
@@ -46,8 +49,9 @@ export class DataForm {
     "December"
   ];
 
-  constructor(service) {
+  constructor(service, router) {
     this.service = service;
+    this.router = router;
   }
 
   orderProductionsItems;
@@ -56,12 +60,17 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.Month = this.months[this.getMonth()];
 
     if (this.data.EstimatedNumber) {
       this.orderProductionsTableOptions = {};
     }
 
-    this.getYears();
+    if (!this.data.Period) {
+      this.data.Period = {};
+      this.data.Period.Month = this.Month;
+      this.Year = this.getYears();
+    }
     this.orderProductionsItems;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -89,6 +98,14 @@ export class DataForm {
     return UnitLoader;
   }
 
+  MonthChanged(newValue) {
+    this.data.Period.Month = newValue;
+  }
+
+  YearChanged(newValue) {
+    this.data.Period.Year = newValue;
+  }
+
   getYears() {
     var year = moment(new Date());
     this.years.push(year.year());
@@ -106,62 +123,57 @@ export class DataForm {
     var emptyFieldName =
       "Isi Semua Field Untuk Mencari Surat Perintah Produksi";
 
-    if (this.data.period) {
-      if (
-        this.data.Period.Month == null ||
-        this.data.Period.Month == undefined ||
-        this.data.Period.Month == ""
-      ) {
-        this.error.Period.Month = "Periode Bulan Tidak Boleh Kosong";
-        index++;
+    if (!this.data.Period) {
+      index++;
+    } else {
+      if (!this.data.Period.Year) {
+        this.error.Year = "Periode Tahun Tidak Boleh Kosong";
       }
 
-      if (
-        this.data.Period.Year == null ||
-        this.data.Period.Year == undefined ||
-        this.data.Period.Year == ""
-      ) {
-        this.error.Period.Year = "Periode Tahun Tidak Boleh Kosong";
-        index++;
+      if (!this.data.Period.Month) {
+        this.error.Month = "Periode Bulan Tidak Boleh Kosong";
       }
     }
 
-    if (this.data.Unit) {
-      if (
-        this.data.Unit == null ||
-        this.data.Unit == undefined ||
-        this.data.Unit == ""
-      ) {
-        this.error.Unit = "Unit Tidak Boleh Kosong";
-        index++;
+    if (!this.data.Unit) {
+      if (index == 0) {
+        emptyFieldName = "Unit Tidak Boleh Kosong";
       }
+      index++;
     }
 
     if (index > 0) {
       window.alert(emptyFieldName);
     } else {
-      if (this.data.Id) {
-        await this.service
-          .searchSOP(
-            this.data.Period.Month,
-            this.data.Period.Year,
-            this.data.Unit.Id
-          )
-          .then(result => {
-            //Print each datum on orderProductions Data and push to Items Collections
-            result.data.forEach((datum, i, data) => {
-              if (
-                this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
-              ) {
-              } else {
-                this.data.EstimationProducts.push(datum);
-              }
-            });
+      await this.service
+        .searchSOP(
+          this.data.Period.Month,
+          this.data.Period.Year,
+          this.data.Unit
+        )
+        .then(result => {
+          //Print each datum on orderProductions Data and push to Items Collections
+          result.forEach((datum, i, data) => {
 
-            //Bind "Items" reference
-            this.context.orderProductionsItems.bind(this);
+            if (
+              this.data.EstimationProducts.find(esp => esp.Id == datum.Id)
+            ) {
+            } else {
+              this.data.EstimationProducts.push(datum);
+            }
           });
-      }
+
+          //Bind "Items" reference
+          this.context.orderProductionsItems.bind(this);
+        }).catch(e => {
+
+          window.alert('Data not found')
+          location.reload();
+        });
     }
+  }
+
+  getMonth() {
+    return new Date().getMonth() + 1;
   }
 }

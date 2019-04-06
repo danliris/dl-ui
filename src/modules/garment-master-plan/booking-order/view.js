@@ -56,15 +56,11 @@ export class View {
         this.expireBooking = true;
         this.hasEdit = false;
         this.hasDelete = false; 
-        if(this.data.IsBlockingPlan === true){
-          this.hasMasterPlan = true;
-        }
       }
       if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === true){
         this.hasEdit = false;
         this.hasDelete = false;
         //this.hasConfirm = false;
-        this.hasMasterPlan = true;
       }
       if(this.data.ConfirmedQuantity >= this.data.OrderQuantity && this.data.IsBlockingPlan === false){
         this.hasCancel = true;
@@ -74,6 +70,9 @@ export class View {
       }
       if(deliveryDates <= today){
         this.hasConfirm = false;
+      }
+      if(this.data.IsBlockingPlan == true){
+        this.hasMasterPlan = true;
       }
   }
 
@@ -96,9 +95,9 @@ export class View {
     this.router.navigateToRoute('confirm', { id: this.data.Id });
   }  
 
-  // masterPlan(event) {
-  //   this.router.navigateToRoute('detail', { id: this.data.code });
-  // }
+  masterPlan(event) {
+    this.router.navigateToRoute('detail', { id: this.data.Id });
+  }
 
   expired() {
         this.service.expiredBooking(this.data)

@@ -15,7 +15,7 @@ export class Edit {
   async activate(params) {
     var Id = params.Id;
     this.data = await this.service.getById(Id);
-    // console.log("edit", this.data);
+    // this.MaterialTypeName = this.data.MaterialTypeName;
   }
 
   cancelCallback(event) {
@@ -23,9 +23,6 @@ export class Edit {
   }
 
   saveCallback(event) {
-    console.log(this.data);
-    // this.data.MaterialTypeId = this.data.MaterialTypeId.Id;
-    debugger;
     this.service
       .update(this.data)
       .then(result => {

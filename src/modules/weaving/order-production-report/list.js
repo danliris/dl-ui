@@ -6,7 +6,8 @@ var UnitLoader = require("../../../loader/unit-loader");
 
 @inject(Router, Service)
 export class List {
-  data = {};
+  // @bindable loader;
+
   tableOptions = {
     search: false,
     showToggle: false,
@@ -16,71 +17,109 @@ export class List {
 
   columns = [
     [
-      { field: "spNumber", title: "No. SP", rowspan: "2", valign: "top" },
-      { field: "spDate", title: "Tanggal SP", rowspan: "2", valign: "top" },
+      { field: "OrderNumber", title: "No. SPP", rowspan: "2", valign: "top" },
       {
-        field: "construction",
+        field: "DateOrdered",
+        title: "Tanggal SP",
+        rowspan: "2",
+        valign: "top",
+        formatter: function (value, data, index) {
+          return moment(value).format("DD-MM-YYYY");
+        }
+      },
+      {
+        field: "FabricConstructionDocument.ConstructionNumber",
         title: "Konstruksi",
         rowspan: "2",
         valign: "top"
       },
-      { field: "yarnNumber", title: "No. Benang", rowspan: "2", valign: "top" },
-      { title: "Blended (%)", colspan: "3", valign: "middle" },
+      { field: "YarnNumber", title: "No. Benang", rowspan: "2", valign: "top" },
+      { title: "Komposisi Lusi (%)", colspan: "3", valign: "middle" },
+      { title: "Komposisi Pakan (%)", colspan: "3", valign: "middle" },
       { title: "Estimasi Produksi", colspan: "4", valign: "middle" },
-      { field: "total", title: "Total ALL", rowspan: "2", valign: "top" },
+      {
+        field: "EstimatedProductionDocument.WholeGrade",
+        title: "Total Gram",
+        rowspan: "2",
+        valign: "top"
+      },
       { title: "Kebutuhan Benang", colspan: "3", valign: "middle" }
     ],
     [
       {
-        field: "blendedPoly",
+        field: "WarpComposition.CompositionOfPoly",
         title: "Poly",
         valign: "middle"
       },
-      { field: "blendedCotton", title: "Cotton", valign: "middle" },
-      { field: "blendedOthers", title: "Lainnya", valign: "middle" },
-      { field: "epGradeA", title: "Grade A", valign: "middle" },
-      { field: "epGradeB", title: "Grade B", valign: "middle" },
-      { field: "epGradeC", title: "Grade C", valign: "middle" },
-      { field: "epOthers", title: "Aval", valign: "middle" },
-      { field: "yarnWeft", title: "Lusi", valign: "middle" },
-      { field: "yarnWarp", title: "Pakan", valign: "middle" },
-      { field: "yarnWhole", title: "Total", valign: "middle" }
+      {
+        field: "WarpComposition.CompositionOfCotton",
+        title: "Cotton",
+        valign: "middle"
+      },
+      {
+        field: "WarpComposition.OtherComposition",
+        title: "Lainnya",
+        valign: "middle"
+      },
+      {
+        field: "WeftComposition.CompositionOfPoly",
+        title: "Poly",
+        valign: "middle"
+      },
+      {
+        field: "WeftComposition.CompositionOfCotton",
+        title: "Cotton",
+        valign: "middle"
+      },
+      {
+        field: "WeftComposition.OtherComposition",
+        title: "Lainnya",
+        valign: "middle"
+      },
+      {
+        field: "EstimatedProductionDocument.GradeA",
+        title: "Grade A",
+        valign: "middle"
+      },
+      {
+        field: "EstimatedProductionDocument.GradeB",
+        title: "Grade B",
+        valign: "middle"
+      },
+      {
+        field: "EstimatedProductionDocument.GradeC",
+        title: "Grade C",
+        valign: "middle"
+      },
+      {
+        field: "EstimatedProductionDocument.GradeD",
+        title: "Grade D",
+        valign: "middle"
+      },
+      {
+        field: "FabricConstructionDocument.AmountOfWarp",
+        title: "Lusi",
+        valign: "middle"
+      },
+      {
+        field: "FabricConstructionDocument.AmountOfWeft",
+        title: "Pakan",
+        valign: "middle"
+      },
+      {
+        field: "FabricConstructionDocument.TotalYarn",
+        title: "Total",
+        valign: "middle"
+      }
     ]
   ];
-
-  // loader = info => {
-  //   var order = {};
-  //   if (info.sort) order[info.sort] = info.order;
-
-  //   var arg = {
-  //     page: parseInt(info.offset / info.limit, 10) + 1,
-  //     size: info.limit,
-  //     order: order
-  //   };
-
-  //   return this.service.search(arg).then(result => {
-  //     return {
-  //       total: result.info.total,
-  //       data: result.data
-  //     };
-  //   });
-  // };
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
   }
 
-  // contextClickCallback(event) {
-  //   let arg = event.detail;
-  //   let data = arg.data;
-
-  //   switch (arg.name) {
-  //     case "print PDF":
-  //       this.service.getPdfById(data.Id);
-  //       break;
-  //   }
-  // }
+  listDataFlag = false;
 
   getYear(now) {
     var year = moment(now).format("YYYY");
@@ -97,15 +136,68 @@ export class List {
   }
 
   printPdf() {
-    var month = this.getMonth(this.data);
-    // console.log(month);
-    var year = this.getYear(this.data);
-    // console.log(year);
-    console.log(this.data);
-    this.service.getPdfByPeriod(this.data.unit._id, month, year);
+    var Month;
+    var Year;
+    var UnitName;
+    var UnitId;
+
+    if (this.data) {
+      Month = this.getMonth(this.data.Period);
+      Year = this.getYear(this.data.Period);
+      UnitName = this.data.Unit.Name;
+      UnitId = this.data.Unit.Id;
+    } else {
+      Month = this.getMonth(new Date());
+      Year = this.getYear(new Date());
+      UnitName = "";
+      UnitId = 0;
+    }
+
+    this.service.getPdfByPeriod(Month, Year, UnitName, UnitId);
   }
 
-  searchOrderProductions(){
-    
+  loader = info => {
+    this.info = {};
+    var Month;
+    var Year;
+    var UnitName;
+    var UnitId;
+
+    if (this.data) {
+      Month = this.getMonth(this.data.Period);
+      Year = this.getYear(this.data.Period);
+      UnitName = this.data.Unit.Name;
+      UnitId = this.data.Unit.Id;
+    } else {
+      Month = this.getMonth(new Date());
+      Year = this.getYear(new Date());
+      UnitName = "";
+      UnitId = 0;
+    }
+
+    return this.listDataFlag
+      ? this.service.searchSOP(Month, Year, UnitName, UnitId).then(result => {
+
+        return {
+          data: result.data,
+          total: result.data.length
+        };
+      })
+      : { total: 0, data: {} };
+  };
+
+  searchOrderProductions() {
+    this.listDataFlag = true;
+
+    this.orderProductionsTable.refresh();
+  }
+
+  reset() {
+    this.listDataFlag = false;
+    this.Month = null;
+    this.Year = null;
+    this.UnitName = null;
+    this.UnitId = null;
+    this.orderProductionsTable.refresh();
   }
 }

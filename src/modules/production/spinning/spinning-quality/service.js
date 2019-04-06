@@ -4,7 +4,7 @@ import { RestService } from '../../../../utils/rest-service';
 var moment = require('moment');
 
 // const serviceUri = 'SpinningInputProduction';
-const serviceUri = 'spinning-quality'
+const serviceUri = 'spinning-qualities'
 const machineServiceUri = "machine-spinnings";
 
 export class Service extends RestService {

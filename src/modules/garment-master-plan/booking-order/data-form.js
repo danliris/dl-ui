@@ -32,7 +32,6 @@ export class DataForm {
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
-        // console.log(this.data);
         this.error = this.context.error;
 
         if (!this.data.BookingOrderDate) {

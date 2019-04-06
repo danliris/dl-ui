@@ -41,6 +41,7 @@ export class Edit {
                             delete detail.Id;
                         }
                 }
+                item.unit=this.data.unit;
             }
         }
 
