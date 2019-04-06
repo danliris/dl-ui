@@ -154,14 +154,14 @@ export class List {
               0
             );
 
-            for(var item of pr.bookingOrderItems){
-              if (!cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm]) {
-                cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm] = item.ConfirmQuantity;
-              }
-              else {
-                cat["GRANDTOTAL"+ "Total Confirm" + item.weekConfirm] += item.ConfirmQuantity;
-              }
-            }
+            // for(var item of pr.bookingOrderItems){
+            //   if (!cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm]) {
+            //     cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm] = item.ConfirmQuantity;
+            //   }
+            //   else {
+            //     cat["GRANDTOTAL"+ "Total Confirm" + item.weekConfirm] += item.ConfirmQuantity;
+            //   }
+            // }
 
             dataTemp.bookingOrdersQuantity = pr.bookingOrdersQuantity;
           this.dataTemp.push(dataTemp);
@@ -291,6 +291,27 @@ console.log(this.dataTemp)
             else{
               cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder] += this.dataTemp[i].bookingOrderQty;
             }
+          }
+
+          var flags = [], bookingConfTot = [], l = this.dataTemp.length, i;
+          for (i = 0; i < l; i++) {
+            if (flags[this.dataTemp[i].bookingId]) continue;
+            flags[this.dataTemp[i].bookingId] = true;
+            // this.dataTemp[i].confirm = this.dataTemp[i].bookingItems.reduce(
+            //   (acc, cur) => acc + cur.ConfirmQuantity,
+            //   0
+            // );
+            for(var item of this.dataTemp[i].bookingItems){
+              if (!cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm]) {
+                cat["GRANDTOTAL" + "Total Confirm" + + item.weekConfirm] = item.ConfirmQuantity;
+              }
+              else {
+                cat["GRANDTOTAL"+ "Total Confirm" + + item.weekConfirm] +=item.ConfirmQuantity;
+              }
+            }
+            //bookingTot.push({ id: this.dataTemp[i].bookingId, week: this.dataTemp[i].weekBookingOrder, qty: this.dataTemp[i].confirm });
+            
+            
           }
 
           var unitCount=output.length;
