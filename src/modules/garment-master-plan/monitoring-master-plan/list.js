@@ -53,7 +53,7 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    return `${unit.code} - ${unit.name}`
+    return `${unit.Code} - ${unit.Name}`
   }
 
   @computedFrom("year")
@@ -74,57 +74,72 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.search(info)
-
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.search(JSON.stringify(info))
         .then(result => {
           this.dataTemp = [];
           this.data = [];
           this.weeklyNumbers = 0;
           this.WeekQuantity = [];
+          let cat = [];
+
           for (var pr of result) {
-            this.weeklyNumbers = pr._id.weekNumber;
-            this.weeklyEndDate = pr._id.weekEndDate.map(value => { return moment(value).format("DD MMM"); });
+            this.weeklyNumbers = pr.items.map(value => { return value.weekNumber});
+            this.weeklyEndDate = pr.items.map(value => { return moment(value.weekEndDate).format("DD MMM"); });
             break;
           }
-
-
           for (var pr of result) {
+            pr.count=1;
             var dataTemp = {};
             dataTemp.backgroundColor = [];
             dataTemp.quantity = [];
             dataTemp.efficiency = [];
             dataTemp.unitBuyerQuantity = [];
+            dataTemp.backgroundColorWH =[];
             //dataTemp.isConfirmed=[];
-            dataTemp.units = pr._id.unit;
-            dataTemp.buyer = pr._id.buyer;
-            dataTemp.unitBuyer = pr._id.unit + ';' + pr._id.buyer;
-            dataTemp.SMVTotal = pr.SMVTot;
+            dataTemp.units = pr.unit;
+            dataTemp.bookingId=pr.bookingId;
+            dataTemp.bookingDate=pr.bookingDate;
+            dataTemp.weekBookingOrder=pr.weekBookingOrder;
+            dataTemp.bookingOrderQty=pr.bookingOrderQty;
+            dataTemp.buyer = pr.buyer;
+            dataTemp.unitBuyer = pr.unit + ';' + pr.buyer;
+            dataTemp.SMVTotal = pr.SMVSewing;
             dataTemp.dataCount = pr.count;
-            dataTemp.operator = pr._id.operator;
-            dataTemp.workingHours = pr._id.workingHoours;
-            dataTemp.AH = pr._id.AHTotal;
-            dataTemp.EH = pr._id.EHTotal;
-            dataTemp.usedEH = pr._id.usedTotal;
-            dataTemp.remainingEH = pr._id.remainingEH;
+            dataTemp.operator = pr.items.map(value => { return value.head});
+            dataTemp.workingHours = pr.items.map(value => { return value.workingHours});
+            dataTemp.AH = pr.items.map(value => { return value.AHTotal});
+            dataTemp.EH = pr.items.map(value => { return value.EHTotal});
+            dataTemp.usedEH = pr.items.map(value => { return value.usedTotal});
+            dataTemp.remainingEH = pr.items.map(value => { return value.remainingEH});
             dataTemp.dataCount = pr.count;
-
-            for (var j = 0; j < pr._id.efficiency.length; j++) {
-              dataTemp.efficiency[j] = pr._id.efficiency[j].toString() + '%';
+            dataTemp.WHBooking= pr.items.map(value => { return parseFloat(value.WHBooking.toFixed(2))});
+            dataTemp.EHBooking= pr.UsedEH;
+            for (var j = 0; j < pr.items.length; j++) {
+              dataTemp.efficiency[j] = pr.items[j].efficiency.toString() + '%';
               dataTemp.backgroundColor[j] = dataTemp.remainingEH[j] > 0 ? "#FFFF00" :
                 dataTemp.remainingEH[j] < 0 ? "#f62c2c" :
                   "#52df46";
             }
-            dataTemp.weekSewingBlocking = pr._id.weekSewingBlocking;
-            dataTemp.SMVSewings = pr.SMVTot / pr.count;
-            dataTemp.SMVSewingWeek = pr._id.weekSewingBlocking;
-            dataTemp.bookingQty = pr._id.bookingQty;
-            dataTemp.isConfirmed = pr._id.isConfirmed ? 1 : 0;
+
+            for (var l = 0; l < pr.items.length; l++) {
+              dataTemp.backgroundColorWH[l] = dataTemp.WHBooking[l] <= 45.5 ? "#FFFF00" : 
+                dataTemp.WHBooking[l] < 50.5 && dataTemp.WHBooking[l] > 45.6 ? "#52df46" : 
+                dataTemp.WHBooking[l] < 56.5 && dataTemp.WHBooking[l] > 50.6 ? "#f62c2c" :
+                  "#797978";
+            }
+            dataTemp.weekSewingBlocking = pr.weekSewingBlocking;
+            dataTemp.SMVSewings = pr.SMVSewing / pr.count;
+            dataTemp.SMVSewingWeek = pr.weekSewingBlocking;
+            dataTemp.bookingQty = pr.bookingQty;
+            dataTemp.isConfirmed = pr.isConfirmed ? 1 : 0;
             for (var i = 0; i < this.weeklyNumbers.length; i++) {
-              if (i + 1 === pr._id.weekSewingBlocking) {
-                dataTemp.quantity[i] = pr._id.bookingQty;
+              if (i + 1 === pr.weekSewingBlocking) {
+                dataTemp.quantity[i] = pr.bookingQty;
 
               }
               else {
@@ -132,12 +147,23 @@ export class List {
               }
 
             }
-            dataTemp.bookingOrderItemsLength = pr._id.bookingOrderItems.length;
-            dataTemp.bookingOrdersConfirmQuantity = pr._id.bookingOrderItems.reduce(
-              (acc, cur) => acc + cur.quantity,
+            dataTemp.bookingOrderItemsLength = pr.bookingOrderItems.length;
+            dataTemp.bookingItems=pr.bookingOrderItems;
+            dataTemp.bookingOrdersConfirmQuantity = pr.bookingOrderItems.reduce(
+              (acc, cur) => acc + cur.ConfirmQuantity,
               0
             );
-            dataTemp.bookingOrdersQuantity = pr._id.bookingOrdersQuantity;
+
+            // for(var item of pr.bookingOrderItems){
+            //   if (!cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm]) {
+            //     cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm] = item.ConfirmQuantity;
+            //   }
+            //   else {
+            //     cat["GRANDTOTAL"+ "Total Confirm" + item.weekConfirm] += item.ConfirmQuantity;
+            //   }
+            // }
+
+            dataTemp.bookingOrdersQuantity = pr.bookingOrdersQuantity;
           this.dataTemp.push(dataTemp);
           }
           //units
@@ -156,29 +182,8 @@ export class List {
             output2.push({ unit: this.dataTemp[i].units, buyer: this.dataTemp[i].buyer });
 
           }
-          // console.log(output2);
+console.log(this.dataTemp)
 
-          // //total smvSewing
-          // var arr = this.dataTemp,
-          //   totalSewing = arr.reduce(function (r, o) {
-          //     (r[o.unitBuyer]) ? r[o.unitBuyer] += o.SMVSewings : r[o.unitBuyer] = o.SMVSewings;
-          //     return r;
-          //   }, {});
-          // var totalSewing = Object.keys(totalSewing).map(function (key) {
-          //   return { unitBuyer: key, SMVTotal: totalSewing[key] };
-          // });
-
-          // //Total per Unit
-          // var arr = this.dataTemp,
-          //   totalSMV = arr.reduce(function (r, o) {
-          //     (r[o.units]) ? r[o.units] += o.SMVTotal : r[o.units] = o.SMVTotal;
-          //     return r;
-          //   }, {});
-          // var groups = Object.keys(totalSMV).map(function (key) {
-          //   return { units: key, SMVTotal: totalSMV[key] };
-          // });
-
-          let cat = [];
           let category = [];
           let len = [];
           let bookingOrderItemsLength = [];
@@ -193,20 +198,7 @@ export class List {
               cat[c.units + c.buyer + c.weekSewingBlocking] += c.bookingQty;
             }
 
-            // if (!category[c.units + c.buyer + c.weekSewingBlocking]) {
-            //   category[c.units + c.buyer + c.weekSewingBlocking] = c.isConfirmed;
-            // }
-            // else {
-            //   category[c.units + c.buyer + c.weekSewingBlocking] += c.isConfirmed;
-            // }
-            // if (!len[c.units + c.buyer + c.weekSewingBlocking]) {
-            //   len[c.units + c.buyer + c.weekSewingBlocking] = 1;
-            // }
-            // else {
-            //   len[c.units + c.buyer + c.weekSewingBlocking] += 1;
-            // }
-            // console.log(c.units + c.buyer + c.weekSewingBlocking, category[c.units + c.buyer + c.weekSewingBlocking], len[c.units + c.buyer + c.weekSewingBlocking]);
-
+            
             if (!bookingOrderItemsLength[c.units + c.buyer + c.weekSewingBlocking]) {
               bookingOrderItemsLength[c.units + c.buyer + c.weekSewingBlocking] = c.bookingOrderItemsLength;
             }
@@ -222,6 +214,14 @@ export class List {
             }
             else {
               cat[c.units + "TOTAL" + c.weekSewingBlocking] += c.bookingQty;
+            }
+            if (!cat[c.units + "WHConfirm" + c.weekSewingBlocking]) {
+              if(c.isConfirmed)
+                cat[c.units + "WHConfirm" + c.weekSewingBlocking] = c.EHBooking;
+            }
+            else {
+              if(c.isConfirmed)
+                cat[c.units + "WHConfirm" + c.weekSewingBlocking] += c.EHBooking;
             }
             if (!cat[c.units + "smv" + c.buyer]) {
               cat[c.units + "smv" + c.buyer] = c.SMVSewings;
@@ -251,17 +251,80 @@ export class List {
             if (!cat[c.units + "usedEH"]) {
               cat[c.units + "usedEH"] = c.usedEH;
             }
+            
             if (!cat[c.units + "workingHours"]) {
               cat[c.units + "workingHours"] = c.workingHours;
             }
             if (!cat[c.units + "remainingEH"]) {
               cat[c.units + "remainingEH"] = c.remainingEH;
             }
+            
+            if (!cat[c.units + "WHBooking"]) {
+              cat[c.units + "WHBooking"] = c.WHBooking;
+            }
             if (!cat[c.units + "background"]) {
               cat[c.units + "background"] = c.backgroundColor;
             }
+            if (!cat[c.units + "backgroundColorWH"]) {
+              cat[c.units + "backgroundColorWH"] = c.backgroundColorWH;
+            }
 
+            if (!cat["GRANDTOTAL" + "TOTAL" + c.weekSewingBlocking]) {
+              cat["GRANDTOTAL" + "TOTAL" + c.weekSewingBlocking] = c.bookingQty;
+            }
+            else{
+              cat["GRANDTOTAL" + "TOTAL" + c.weekSewingBlocking] += c.bookingQty;
+            }
+            
           }
+
+          
+          var flags = [], bookingTot = [], l = this.dataTemp.length, i;
+          for (i = 0; i < l; i++) {
+            if (flags[this.dataTemp[i].bookingId]) continue;
+            flags[this.dataTemp[i].bookingId] = true;
+            bookingTot.push({ id: this.dataTemp[i].bookingId, week: this.dataTemp[i].weekBookingOrder, qty: this.dataTemp[i].bookingOrderQty });
+            
+            if (!cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder]) {
+              cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder] = this.dataTemp[i].bookingOrderQty;
+            }
+            else{
+              cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder] += this.dataTemp[i].bookingOrderQty;
+            }
+          }
+
+          var flags = [], bookingConfTot = [], l = this.dataTemp.length, i;
+          for (i = 0; i < l; i++) {
+            if (flags[this.dataTemp[i].bookingId]) continue;
+            flags[this.dataTemp[i].bookingId] = true;
+            // this.dataTemp[i].confirm = this.dataTemp[i].bookingItems.reduce(
+            //   (acc, cur) => acc + cur.ConfirmQuantity,
+            //   0
+            // );
+            for(var item of this.dataTemp[i].bookingItems){
+              if (!cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm]) {
+                cat["GRANDTOTAL" + "Total Confirm" + + item.weekConfirm] = item.ConfirmQuantity;
+              }
+              else {
+                cat["GRANDTOTAL"+ "Total Confirm" + + item.weekConfirm] +=item.ConfirmQuantity;
+              }
+            }
+            //bookingTot.push({ id: this.dataTemp[i].bookingId, week: this.dataTemp[i].weekBookingOrder, qty: this.dataTemp[i].confirm });
+            
+            
+          }
+
+          var unitCount=output.length;
+          var totalOP=[];
+          var totalAH=[];
+          var totalEH=[];
+          var totalUsedEH=[];
+          var totalremEh=[];
+          var totalEfisiensi=[];
+          var totalworkingHours=[];
+          var totalWHBooking=[];
+          var totalWHConfirm=[];
+          var totalWH=[];
 
           for (var j of output) {
             var data = {};
@@ -289,17 +352,6 @@ export class List {
                     data.quantity[k] = cat[categ] ? cat[categ] : '-';
                   }
 
-                  // if (category[categ] == 0) {
-                  //   background[k] = "#eee860";
-                  // }
-                  // else if (category[categ] == len[categ]) {
-                  //   background[k] = "#ffffff";
-                  // } else {
-                  //   if (category[categ] != undefined) {
-                  //     background[k] = "#F4A919";
-                  //   }
-                  // }
-
                   if (bookingOrderItemsLength[categ] === 0) {
                     background[k] = "#EEE860";
                   } else if (bookingOrderItemsLength[categ] > 0 && bookingOrdersConfirmQuantity[categ] < bookingOrdersQuantity[categ]) {
@@ -314,25 +366,130 @@ export class List {
 
             }
             var qty = [];
+            var conf=[];
+            var op=cat[j + "operator"];
+            var ah=cat[j + "totalAH"];
+            var eh=cat[j + "totalEH"];
+            var UsedEh=cat[j + "usedEH"];
+            var remEh=cat[j + "remainingEH"];
+            var efisiensi=cat[j + "efisiensi"];
+            var whBooking=cat[j + "WHBooking"];
+            var wh=cat[j + "workingHours"];
+
             for (var y = 0; y < this.weeklyNumbers.length; y++) {
 
               var categ = j + "TOTAL" + (y + 1).toString();
 
               qty[y + 1] = cat[categ] ? cat[categ] : '-';
 
-
               qty[0] = Math.round(smvTot / counts);
+              
+              var categwh = j + "WHConfirm" + (y + 1).toString();
+              
+              conf[y + 1] = cat[categwh] ? parseFloat((cat[categwh]/(op[y]*100)).toFixed(2)) : '0';
 
+              var bgc = conf[y + 1] <= 45.5 ? "#FFFF00" : 
+                conf[y + 1] < 50.5 && conf[y + 1] > 45.6 ? "#52df46" : 
+                conf[y + 1] < 56.5 && conf[y + 1] > 50.6 ? "#f62c2c" :
+                  "#797978";
+              if(y==0){
+                cat[j + "backgroundColorWHC"]=["transparent"];
+              }
+              if (!cat[j + "backgroundColorWHC"]) {
+                cat[j + "backgroundColorWHC"] = [bgc];
+              }
+              else{
+                cat[j + "backgroundColorWHC"].push(bgc);
+              }
+
+              conf[0] = "";
+              totalOP[0]="";
+              totalWH[0]="";
+              totalAH[0]="";
+              totalEH[0]="";
+              totalremEh[0]="";
+              totalUsedEH[0]="";
+              totalEfisiensi[0]="";
+              totalWHConfirm[0]="";
+              totalWHBooking[0]="";
+
+              if(!totalWH[y + 1]){
+                totalWH[y + 1]=wh[y];
+              }
+              else{
+                totalWH[y + 1]+=wh[y];
+              }
+
+              if(!totalWHBooking[y + 1]){
+                totalWHBooking[y + 1]=whBooking[y];
+              }
+              else{
+                totalWHBooking[y + 1]+=whBooking[y];
+              }
+
+              if(!totalWHConfirm[y + 1]){
+                totalWHConfirm[y + 1]=parseFloat(conf[y + 1]);
+              }
+              else{
+                totalWHConfirm[y + 1]+=parseFloat(conf[y + 1]);
+              }
+
+              if(!totalOP[y + 1]){
+                totalOP[y + 1]=op[y];
+              }
+              else{
+                totalOP[y + 1]+=op[y];
+              }
+
+              if(!totalAH[y + 1]){
+                totalAH[y + 1]=ah[y];
+              }
+              else{
+                totalAH[y + 1]+=ah[y];
+              }
+
+              if(!totalEH[y + 1]){
+                totalEH[y + 1]=eh[y];
+              }
+              else{
+                totalEH[y + 1]+=eh[y];
+              }
+              
+              if(!totalUsedEH[y + 1]){
+                totalUsedEH[y + 1]=UsedEh[y];
+              }
+              else{
+                totalUsedEH[y + 1]+=UsedEh[y];
+              }
+
+              if(!totalremEh[y + 1]){
+                totalremEh[y + 1]=remEh[y];
+              }
+              else{
+                totalremEh[y + 1]+=remEh[y];
+              }
+              var eff= efisiensi[y].replace('%','');
+              if(!totalEfisiensi[y + 1]){
+                totalEfisiensi[y + 1]=parseInt(eff);
+              }
+              else{
+                totalEfisiensi[y + 1]+=parseInt(eff);
+              }
+              
             }
             data.collection.push({ name: "TOTAL", quantity: qty, fontWeight: "bold" });
+
             var eff = cat[j + "efisiensi"];
             var opp = cat[j + "operator"];
             var AH = cat[j + "totalAH"];
             var EH = cat[j + "totalEH"];
             var usedEH = cat[j + "usedEH"];
             var remainingEH = cat[j + "remainingEH"];
+            var WHBooking = cat[j + "WHBooking"];
             var background = cat[j + "background"];
             var workingHours = cat[j + "workingHours"];
+            var backgroundColorWH = cat[j + "backgroundColorWH"];
+            var backgroundColorWHC=cat[j + "backgroundColorWHC"];
 
             eff.splice(0, 0, "");
             opp.splice(0, 0, "");
@@ -340,8 +497,10 @@ export class List {
             EH.splice(0, 0, "");
             usedEH.splice(0, 0, "");
             remainingEH.splice(0, 0, "");
+            WHBooking.splice(0, 0, "");
             workingHours.splice(0, 0, "");
             background.splice(0, 0, "");
+            backgroundColorWH.splice(0, 0, "");
             data.collection.push({ name: "Efisiensi", quantity: eff, fontWeight: "bold" });
             data.collection.push({ name: "Total Operator Sewing", quantity: opp, fontWeight: "bold" });
             data.collection.push({ name: "Working Hours", quantity: workingHours, fontWeight: "bold" });
@@ -349,15 +508,105 @@ export class List {
             data.collection.push({ name: "Total EH", quantity: EH, fontWeight: "bold" });
             data.collection.push({ name: "Used EH", quantity: usedEH, fontWeight: "bold" });
             data.collection.push({ name: "Remaining EH", quantity: remainingEH, background: background, fontWeight: "bold" });
-
+            data.collection.push({ name: "WH Booking", quantity: WHBooking, background: backgroundColorWH, fontWeight: "bold" });
+            data.collection.push({ name: "WH Confirm", quantity: conf, background: backgroundColorWHC,fontWeight: "bold" });
 
             this.data.push(data);
+
+            
           }
 
-          // console.log(JSON.stringify(this.data));
+          var dataGrand={};
+          dataGrand.collection=[];
+          var qtyTot=[];
+          var BookingqtyTot=[];
+          var confTot=[];
+          var avgConf=[];
+          var avgEff=[];
+          var avgWHConfirm=[];
+          var avgWHBooking=[];
+          var avgWH=[];
+          var bgcWH=[];
+          var bgcWHC=[];
 
+          for (var y = 0; y < this.weeklyNumbers.length; y++) {
+            var ca= "GRANDTOTAL" + "TOTAL" + (y+1).toString();
+            qtyTot[0]="";
+            qtyTot[y+1]= cat[ca] ? cat[ca] : "-";
+
+            var bookingCat= "GRANDTOTAL" + "Total Booking" + (y+1).toString();
+            BookingqtyTot[0]="";
+            BookingqtyTot[y+1]= cat[bookingCat] ? cat[bookingCat] : "-";
+
+            var confCat="GRANDTOTAL" + "Total Confirm" + (y+1).toString();
+            confTot[0]="";
+            confTot[y+1]= cat[confCat] ? cat[confCat] : "-";
+
+            avgConf[0]="";
+            if(BookingqtyTot[y+1]=="-"){
+              if(confTot[y+1]=="-"){
+                avgConf[y+1]="0%";
+              }
+              else{
+                avgConf[y+1]="100%";
+              }
+            }
+            else if(confTot[y+1]=="-"){
+              if(BookingqtyTot[y+1]!="-"){
+                avgConf[y+1]="0%";
+              }
+            }
+            else {
+              var avg=(confTot[y+1]/BookingqtyTot[y+1])*100;
+              avgConf[y+1]=avg.toFixed(2)+"%";
+            }
+
+            avgEff[0]="";
+            avgEff[y+1]=Math.round(totalEfisiensi[y + 1]/unitCount);
+
+            avgWHConfirm[0]="";
+            avgWHConfirm[y+1]=Math.round(totalWHConfirm[y + 1]/unitCount);
+            
+            avgWHBooking[0]="";
+            avgWHBooking[y+1]=parseFloat((totalWHBooking[y + 1]/unitCount).toFixed(2));
+
+            avgWH[0]="";
+            avgWH[y+1]=parseFloat((totalWH[y + 1]/unitCount).toFixed(2));
+
+            bgcWH[y + 1] = avgWHBooking[y + 1] <= 45.5 ? "#FFFF00" : 
+                avgWHBooking[y + 1] < 50.5 && avgWHBooking[y + 1] > 45.6 ? "#52df46" : 
+                avgWHBooking[y + 1] < 56.5 && avgWHBooking[y + 1] > 50.6 ? "#f62c2c" :
+                  "#797978";
+            
+            bgcWH[0]="transparent";
+
+            bgcWHC[y + 1] = avgWHConfirm[y + 1] <= 45.5 ? "#FFFF00" : 
+                avgWHConfirm[y + 1] < 50.5 && avgWHConfirm[y + 1] > 45.6 ? "#52df46" : 
+                avgWHConfirm[y + 1] < 56.5 && avgWHConfirm[y + 1] > 50.6 ? "#f62c2c" :
+                  "#797978";
+            
+            bgcWHC[0]="transparent";
+
+          }
+          dataGrand.units="GRAND TOTAL";
+          dataGrand.collection.push({ name: "TOTAL", quantity: qtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Total Booking", quantity: BookingqtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Total Confirm", quantity: confTot, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Persentase Confirm", quantity: avgConf, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Efisiensi", quantity: avgEff, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Total Operator", quantity: totalOP, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Working Hours", quantity: avgWH, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Total AH", quantity: totalAH, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Total EH", quantity: totalEH, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Remaining EH", quantity: totalremEh, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Used EH", quantity: totalUsedEH, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "WH Booking", quantity: avgWHBooking, background: bgcWH, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "WH Confirm", quantity: avgWHConfirm, background: bgcWHC,units: "GRAND TOTAL", fontWeight: "bold" });
+          
+          this.data.push(dataGrand);
+          console.log(this.data)
+          
           var same = [];
-
           var columns = [
             {
               cellStyle: () => { return { classes: 'fixed' } },
@@ -497,10 +746,12 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.generateExcel(info);
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.generateExcel(JSON.stringify(info));
     }
   }
 
