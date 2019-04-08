@@ -16,7 +16,7 @@ export class DataForm {
   constructor() {}
 
   // OperationalMachineOptions = {
-    
+
   // };
 
   columns = [
@@ -29,8 +29,8 @@ export class DataForm {
       header: "No. Konstruksi"
     },
     {
-      value: "MachineNumber",
-      header: "No. Mesin"
+      value: "Shift",
+      header: "Shift"
     },
     { value: "BeamNumber", header: "No. Beam" },
     { value: "WarpOrigin", header: "Asal Lusi" },

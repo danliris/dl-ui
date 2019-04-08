@@ -18,7 +18,7 @@ export class Items {
       Id: 1,
       OrderProductionNumber: "PC AB 99 44 55",
       ConstructionNumber: "0002/02-2019",
-      MachineNumber: "1/1",
+      Shift: "Rahayu",
       BeamNumber: "TS 108",
       WarpOrigin: "B",
       WeftOrigin: "A",
