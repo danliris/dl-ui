@@ -40,8 +40,7 @@
           <textbox label="Area" read-only="true"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Area" value.bind="data.Area" error.bind="error.Area" read-only.bind="readOnly">
-          </au-textbox>
+          <au-textbox placeholder="Area" value.bind="data.Area" error.bind="error.Area" read-only.bind="readOnly"></au-textbox>
         </div>
       </div>
 
@@ -50,8 +49,7 @@
           <textbox label="Blok" read-only="true"></textbox>
         </div>
         <div class="col-md-4">
-          <au-dropdown value.bind="data.Blok" error.bind="error.Blok" read-only.bind="readOnly" items.bind="bloks">
-          </au-dropdown>
+          <au-textbox placeholder="Blok" value.bind="data.Blok" error.bind="error.Blok" read-only.bind="readOnly"></au-textbox>
         </div>
       </div>
 
@@ -60,9 +58,8 @@
           <textbox label="Blok Kaizen" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-dropdown value.bind="data.BlokKaizen" error.bind="error.BlokKaizen" read-only.bind="readOnly"
-            items.bind="bloks">
-          </au-dropdown>
+          <au-textbox placeholder="Blok Kaizen" value.bind="data.BlokKaizen" error.bind="error.BlokKaizen" read-only.bind="readOnly">
+          </au-textbox>
         </div>
       </div>
 
