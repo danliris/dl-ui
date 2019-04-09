@@ -182,7 +182,6 @@ export class List {
             output2.push({ unit: this.dataTemp[i].units, buyer: this.dataTemp[i].buyer });
 
           }
-console.log(this.dataTemp)
 
           let category = [];
           let len = [];
@@ -297,41 +296,6 @@ console.log(this.dataTemp)
             
           }
 
-          
-          // var flags = [], bookingTot = [], l = this.dataTemp.length, i;
-          // for (i = 0; i < l; i++) {
-          //   if (flags[this.dataTemp[i].bookingId]) continue;
-          //   flags[this.dataTemp[i].bookingId] = true;
-          //   bookingTot.push({ id: this.dataTemp[i].bookingId, week: this.dataTemp[i].weekBookingOrder, qty: this.dataTemp[i].bookingOrderQty });
-            
-          //   if (!cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder]) {
-          //     cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder] = this.dataTemp[i].bookingOrderQty;
-          //   }
-          //   else{
-          //     cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder] += this.dataTemp[i].bookingOrderQty;
-          //   }
-          // }
-
-          // var flags = [], bookingConfTot = [], l = this.dataTemp.length, i;
-          // for (i = 0; i < l; i++) {
-          //   if (flags[this.dataTemp[i].bookingId]) continue;
-          //   flags[this.dataTemp[i].bookingId] = true;
-          //   // this.dataTemp[i].confirm = this.dataTemp[i].bookingItems.reduce(
-          //   //   (acc, cur) => acc + cur.ConfirmQuantity,
-          //   //   0
-          //   // );
-          //   for(var item of this.dataTemp[i].bookingItems){
-          //     if (!cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm]) {
-          //       cat["GRANDTOTAL" + "Total Confirm" + + item.weekConfirm] = item.ConfirmQuantity;
-          //     }
-          //     else {
-          //       cat["GRANDTOTAL"+ "Total Confirm" + + item.weekConfirm] +=item.ConfirmQuantity;
-          //     }
-          //   }
-            //bookingTot.push({ id: this.dataTemp[i].bookingId, week: this.dataTemp[i].weekBookingOrder, qty: this.dataTemp[i].confirm });
-            
-          // }
-console.log(cat);
           var unitCount=output.length;
           var totalOP=[];
           var totalAH=[];
@@ -364,7 +328,7 @@ console.log(cat);
                   if (k == 0) {
                     categ = (j + "smv" + i.buyer);
                     data.quantity[k] = (cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]) ? Math.round((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer])) : '-';
-                    smvTot += Math.round(cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]);
+                    smvTot += parseFloat((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]).toFixed(2));
                     counts += 1;
                   } else {
                     data.quantity[k] = cat[categ] ? cat[categ] : '-';
@@ -401,7 +365,7 @@ console.log(cat);
               var categ = j + "Total Booking" + (y + 1).toString();
 
               qty[y + 1] = cat[categ] ? cat[categ] : '-';
-              qty[0] = Math.round(smvTot / counts);
+              qty[0] = parseFloat((smvTot / counts).toFixed(2));
 
               var categConf = j + "Total Confirm" + (y + 1).toString();
               qtyConf[y + 1] = cat[categConf] ? cat[categConf] : '-';
@@ -650,7 +614,6 @@ console.log(cat);
           dataGrand.collection.push({ name: "WH Confirm", quantity: avgWHConfirm, background: bgcWHC,units: "GRAND TOTAL", fontWeight: "bold" });
           
           this.data.push(dataGrand);
-          console.log(this.data)
           
           var same = [];
           var columns = [
