@@ -41,15 +41,17 @@ export class List {
             this.tjumOk = 0;
             this.service.search(info)
                 .then(result => {
-                    this.data = [];
-                    for (var _data of result) {
-                    _data.supplier =_data.supplier ? _data.supplier : "-";
+                this.data = [];
+                for (var _data of result.ReportHeader) {
+                    // _data.supplier =_data.supplier ? _data.supplier : "-";
                     this.data.push(_data);
 
-                    this.tjumOk += _data.jumlahOk;
-                    this.tjumcount += _data.jumlah;
-                    }
-                    this.tperOk = Math.floor(this.tjumOk/this.tjumcount *100);
+                    this.tjumOk += _data.OKStatusPercentage / 100 * _data.Total;
+                    this.tjumcount +=_data.Total;
+                }
+
+                this.data = this.data.filter(datum => datum.Total > 0);
+                this.tperOk = Math.floor(this.tjumOk/this.tjumcount *100);
             });
         } else {
         this.dateFrom='';
@@ -84,14 +86,16 @@ export class List {
         this.tjumOk = 0;
         this.service.search(info)
             .then(result => {
+                console.log(result);
                 this.data = [];
-                for (var _data of result) {
-                _data.supplier =_data.supplier ? _data.supplier : "-";
+                for (var _data of result.ReportHeader) {
+                // _data.supplier =_data.supplier ? _data.supplier : "-";
                 this.data.push(_data);
 
-                this.tjumOk += _data.jumlahOk;
-                this.tjumcount +=_data.jumlah;
+                this.tjumOk += _data.OKStatusPercentage / 100 * _data.Total;
+                this.tjumcount +=_data.Total;
                 }
+                this.data = this.data.filter(datum => datum.Total > 0);
                 this.tperOk = Math.floor(this.tjumOk/this.tjumcount *100);
         });
     }
@@ -105,12 +109,12 @@ export class List {
 
     view(data, dateFrom, dateTo, category) {
         var info = {
-            supplierCode : data.supplier.Code ? data.supplier.Code: "",
+            supplierCode : data.SupplierCode ? data.SupplierCode: "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
             category : this.category ? this.category: "",
         }
-        this.router.navigateToRoute('view', { id: data.supplier.Code,supplierCode: data.supplier.Code,info: info});
+        this.router.navigateToRoute('view', { id: data.SupplierCode, supplierCode: data.SupplierCode,info: info});
      }
 
     ExportToExcel() {
