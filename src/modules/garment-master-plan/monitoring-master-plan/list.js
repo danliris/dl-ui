@@ -182,7 +182,6 @@ export class List {
             output2.push({ unit: this.dataTemp[i].units, buyer: this.dataTemp[i].buyer });
 
           }
-console.log(this.dataTemp)
 
           let category = [];
           let len = [];
@@ -209,12 +208,22 @@ console.log(this.dataTemp)
               bookingOrdersQuantity[c.units + c.buyer + c.weekSewingBlocking] = c.bookingOrdersQuantity;
             }
 
-            if (!cat[c.units + "TOTAL" + c.weekSewingBlocking]) {
-              cat[c.units + "TOTAL" + c.weekSewingBlocking] = c.bookingQty;
+            if (!cat[c.units + "Total Booking" + c.weekSewingBlocking]) {
+              cat[c.units + "Total Booking" + c.weekSewingBlocking] = c.bookingQty;
             }
             else {
-              cat[c.units + "TOTAL" + c.weekSewingBlocking] += c.bookingQty;
+              cat[c.units + "Total Booking" + c.weekSewingBlocking] += c.bookingQty;
             }
+
+            if (!cat[c.units + "Total Confirm" + c.weekSewingBlocking]) {
+              if(c.isConfirmed)
+                cat[c.units + "Total Confirm" + c.weekSewingBlocking] = c.bookingQty;
+            }
+            else {
+              if(c.isConfirmed)
+                cat[c.units + "Total Confirm" + c.weekSewingBlocking] += c.bookingQty;
+            }
+
             if (!cat[c.units + "WHConfirm" + c.weekSewingBlocking]) {
               if(c.isConfirmed)
                 cat[c.units + "WHConfirm" + c.weekSewingBlocking] = c.EHBooking;
@@ -269,48 +278,21 @@ console.log(this.dataTemp)
               cat[c.units + "backgroundColorWH"] = c.backgroundColorWH;
             }
 
-            if (!cat["GRANDTOTAL" + "TOTAL" + c.weekSewingBlocking]) {
-              cat["GRANDTOTAL" + "TOTAL" + c.weekSewingBlocking] = c.bookingQty;
+            if (!cat["GRANDTOTAL" + "Total Booking" + c.weekSewingBlocking]) {
+              cat["GRANDTOTAL" + "Total Booking" + c.weekSewingBlocking] = c.bookingQty;
             }
             else{
-              cat["GRANDTOTAL" + "TOTAL" + c.weekSewingBlocking] += c.bookingQty;
+              cat["GRANDTOTAL" + "Total Booking" + c.weekSewingBlocking] += c.bookingQty;
             }
-            
-          }
 
-          
-          var flags = [], bookingTot = [], l = this.dataTemp.length, i;
-          for (i = 0; i < l; i++) {
-            if (flags[this.dataTemp[i].bookingId]) continue;
-            flags[this.dataTemp[i].bookingId] = true;
-            bookingTot.push({ id: this.dataTemp[i].bookingId, week: this.dataTemp[i].weekBookingOrder, qty: this.dataTemp[i].bookingOrderQty });
-            
-            if (!cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder]) {
-              cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder] = this.dataTemp[i].bookingOrderQty;
+            if (!cat["GRANDTOTAL" + "Total Confirm" + c.weekSewingBlocking]) {
+              if(c.isConfirmed)
+                cat["GRANDTOTAL" + "Total Confirm" + c.weekSewingBlocking] = c.bookingQty;
             }
             else{
-              cat["GRANDTOTAL" + "Total Booking" + this.dataTemp[i].weekBookingOrder] += this.dataTemp[i].bookingOrderQty;
+              if(c.isConfirmed)
+                cat["GRANDTOTAL" + "Total Confirm" + c.weekSewingBlocking] += c.bookingQty;
             }
-          }
-
-          var flags = [], bookingConfTot = [], l = this.dataTemp.length, i;
-          for (i = 0; i < l; i++) {
-            if (flags[this.dataTemp[i].bookingId]) continue;
-            flags[this.dataTemp[i].bookingId] = true;
-            // this.dataTemp[i].confirm = this.dataTemp[i].bookingItems.reduce(
-            //   (acc, cur) => acc + cur.ConfirmQuantity,
-            //   0
-            // );
-            for(var item of this.dataTemp[i].bookingItems){
-              if (!cat["GRANDTOTAL" + "Total Confirm" + item.weekConfirm]) {
-                cat["GRANDTOTAL" + "Total Confirm" + + item.weekConfirm] = item.ConfirmQuantity;
-              }
-              else {
-                cat["GRANDTOTAL"+ "Total Confirm" + + item.weekConfirm] +=item.ConfirmQuantity;
-              }
-            }
-            //bookingTot.push({ id: this.dataTemp[i].bookingId, week: this.dataTemp[i].weekBookingOrder, qty: this.dataTemp[i].confirm });
-            
             
           }
 
@@ -346,7 +328,7 @@ console.log(this.dataTemp)
                   if (k == 0) {
                     categ = (j + "smv" + i.buyer);
                     data.quantity[k] = (cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]) ? Math.round((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer])) : '-';
-                    smvTot += Math.round(cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]);
+                    smvTot += parseFloat((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]).toFixed(2));
                     counts += 1;
                   } else {
                     data.quantity[k] = cat[categ] ? cat[categ] : '-';
@@ -366,7 +348,9 @@ console.log(this.dataTemp)
 
             }
             var qty = [];
+            var qtyConf = [];
             var conf=[];
+            var confPrs=[];
             var op=cat[j + "operator"];
             var ah=cat[j + "totalAH"];
             var eh=cat[j + "totalEH"];
@@ -378,15 +362,39 @@ console.log(this.dataTemp)
 
             for (var y = 0; y < this.weeklyNumbers.length; y++) {
 
-              var categ = j + "TOTAL" + (y + 1).toString();
+              var categ = j + "Total Booking" + (y + 1).toString();
 
               qty[y + 1] = cat[categ] ? cat[categ] : '-';
+              qty[0] = parseFloat((smvTot / counts).toFixed(2));
 
-              qty[0] = Math.round(smvTot / counts);
+              var categConf = j + "Total Confirm" + (y + 1).toString();
+              qtyConf[y + 1] = cat[categConf] ? cat[categConf] : '-';
+
+              qtyConf[0] = "";
+
+              confPrs[0]="";
+              if(qty[y+1]=="-"){
+                if(qtyConf[y+1]=="-"){
+                  confPrs[y+1]="0%";
+                }
+                else{
+                  confPrs[y+1]="100%";
+                }
+              }
+              else if(qtyConf[y+1]=="-"){
+                if(qty[y+1]!="-"){
+                  confPrs[y+1]="0%";
+                }
+              }
+              else {
+                var avg=(qtyConf[y+1]/qty[y+1])*100;
+                confPrs[y+1]=parseFloat(avg.toFixed(2))+"%";
+              }
               
               var categwh = j + "WHConfirm" + (y + 1).toString();
-              
-              conf[y + 1] = cat[categwh] ? parseFloat((cat[categwh]/(op[y]*100)).toFixed(2)) : '0';
+              var eff= parseFloat(efisiensi[y].replace('%',''));
+
+              conf[y + 1] = cat[categwh] ? parseFloat((cat[categwh]/(op[y]*(eff/100))).toFixed(2)) : '0';
 
               var bgc = conf[y + 1] <= 45.5 ? "#FFFF00" : 
                 conf[y + 1] < 50.5 && conf[y + 1] > 45.6 ? "#52df46" : 
@@ -477,7 +485,9 @@ console.log(this.dataTemp)
               }
               
             }
-            data.collection.push({ name: "TOTAL", quantity: qty, fontWeight: "bold" });
+            data.collection.push({ name: "Total Booking", quantity: qty, fontWeight: "bold" });
+            data.collection.push({ name: "Total Confirm", quantity: qtyConf, fontWeight: "bold" });
+            data.collection.push({ name: "Persentase Confirm", quantity: confPrs, fontWeight: "bold" });
 
             var eff = cat[j + "efisiensi"];
             var opp = cat[j + "operator"];
@@ -530,20 +540,20 @@ console.log(this.dataTemp)
           var bgcWHC=[];
 
           for (var y = 0; y < this.weeklyNumbers.length; y++) {
-            var ca= "GRANDTOTAL" + "TOTAL" + (y+1).toString();
+            var ca= "GRANDTOTAL" + "Total Booking" + (y+1).toString();
             qtyTot[0]="";
             qtyTot[y+1]= cat[ca] ? cat[ca] : "-";
 
-            var bookingCat= "GRANDTOTAL" + "Total Booking" + (y+1).toString();
-            BookingqtyTot[0]="";
-            BookingqtyTot[y+1]= cat[bookingCat] ? cat[bookingCat] : "-";
+            // var bookingCat= "GRANDTOTAL" + "Total Booking" + (y+1).toString();
+            // BookingqtyTot[0]="";
+            // BookingqtyTot[y+1]= cat[bookingCat] ? cat[bookingCat] : "-";
 
             var confCat="GRANDTOTAL" + "Total Confirm" + (y+1).toString();
             confTot[0]="";
             confTot[y+1]= cat[confCat] ? cat[confCat] : "-";
 
             avgConf[0]="";
-            if(BookingqtyTot[y+1]=="-"){
+            if(qtyTot[y+1]=="-"){
               if(confTot[y+1]=="-"){
                 avgConf[y+1]="0%";
               }
@@ -552,20 +562,20 @@ console.log(this.dataTemp)
               }
             }
             else if(confTot[y+1]=="-"){
-              if(BookingqtyTot[y+1]!="-"){
+              if(qtyTot[y+1]!="-"){
                 avgConf[y+1]="0%";
               }
             }
             else {
-              var avg=(confTot[y+1]/BookingqtyTot[y+1])*100;
-              avgConf[y+1]=avg.toFixed(2)+"%";
+              var avg=(confTot[y+1]/qtyTot[y+1])*100;
+              avgConf[y+1]=parseFloat(avg.toFixed(2))+"%";
             }
 
             avgEff[0]="";
-            avgEff[y+1]=Math.round(totalEfisiensi[y + 1]/unitCount);
+            avgEff[y+1]=(Math.round(totalEfisiensi[y + 1]/unitCount))+"%";
 
             avgWHConfirm[0]="";
-            avgWHConfirm[y+1]=Math.round(totalWHConfirm[y + 1]/unitCount);
+            avgWHConfirm[y+1]=parseFloat((totalWHConfirm[y + 1]/unitCount).toFixed(2));
             
             avgWHBooking[0]="";
             avgWHBooking[y+1]=parseFloat((totalWHBooking[y + 1]/unitCount).toFixed(2));
@@ -589,8 +599,8 @@ console.log(this.dataTemp)
 
           }
           dataGrand.units="GRAND TOTAL";
-          dataGrand.collection.push({ name: "TOTAL", quantity: qtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Total Booking", quantity: BookingqtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Total Booking", quantity: qtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
+          //dataGrand.collection.push({ name: "Total Booking", quantity: BookingqtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "Total Confirm", quantity: confTot, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "Persentase Confirm", quantity: avgConf, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "Efisiensi", quantity: avgEff, units: "GRAND TOTAL", fontWeight: "bold" });
@@ -598,13 +608,12 @@ console.log(this.dataTemp)
           dataGrand.collection.push({ name: "Working Hours", quantity: avgWH, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "Total AH", quantity: totalAH, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "Total EH", quantity: totalEH, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Remaining EH", quantity: totalremEh, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "Used EH", quantity: totalUsedEH, units: "GRAND TOTAL", fontWeight: "bold" });
+          dataGrand.collection.push({ name: "Remaining EH", quantity: totalremEh, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "WH Booking", quantity: avgWHBooking, background: bgcWH, units: "GRAND TOTAL", fontWeight: "bold" });
           dataGrand.collection.push({ name: "WH Confirm", quantity: avgWHConfirm, background: bgcWHC,units: "GRAND TOTAL", fontWeight: "bold" });
           
           this.data.push(dataGrand);
-          console.log(this.data)
           
           var same = [];
           var columns = [
@@ -614,14 +623,14 @@ console.log(this.dataTemp)
             },
             {
               field: 'buyer', title: 'BUYER-KOMODITI', cellStyle: (value, row, index, field) => {
-                return (row["buyer"] === "TOTAL" || row["smv"] === "") ?
+                return (row["buyer"] === "Total Booking" || row["smv"] === "") ?
                   { classes: 'fixed', css: { "font-weight": "bold" } } :
                   { classes: 'fixed' };
               }
             },
             {
               field: 'smv', title: 'SMV<br>Sewing', cellStyle: (value, row, index, field) => {
-                return row["buyer"] === "TOTAL" ?
+                return row["buyer"] === "Total Booking" ?
                   { classes: 'fixed', css: { "font-weight": "bold" } } :
                   { classes: 'fixed' };
               }
