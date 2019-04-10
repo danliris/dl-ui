@@ -121,7 +121,6 @@ export class Item {
       this.data.oldVal.weekNumber=this.data.WeekNumber;
       this.data.oldVal.remainingEH=this.data.RemainingEH;
     }
-    console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.Unit = _selectedData;
@@ -149,7 +148,6 @@ export class Item {
         this.data.oldVal.weekNumber=this.data.WeekNumber;
         this.data.oldVal.remainingEH=this.data.RemainingEH;
       }
-      console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.Year = _selectedData.Year;
