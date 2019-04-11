@@ -86,40 +86,21 @@ export class DataForm {
             this.data.Buyer.Code = _selectedData.BuyerCode;
             this.data.Buyer.Id = _selectedData.BuyerId;
             if (!this.data.Id) {
-                // if(this.data && this.data.details && this.data.details.length > 0){
-                //     for(var detail of this.data.details){
-                //         let cat=detail.Year.toString() + detail.unit.code.toString()+detail.WeekNumber.toString();
-                //         let uniq = this.data.details.find(o => {
-                //             if(o.Year && o.unit && o.week){
-                //                 if( o.Year.toString() + o.unit.code.toString() + o.WeekNumber.toString()  == cat)
-                //                 return o;
-                //             }
-                //         });
-                //         let item = this.previewData.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.unit.code.toString()));
-                //         if(uniq){
-                //             if(item)
-                //                 item[detail.WeekNumber]=uniq.RemainingEH;
-                //             else {
-                //                 let item1 = this.previewData1.find(o => (o.year.toString() + o.unitCode.toString()) == (detail.Year.toString() + detail.unit.code.toString()));
-                //                 if(item1){
-                //                     item1[detail.WeekNumber]=uniq.RemainingEH;
-                //                 }
-                //             }
-                //         }
-                //     }
-                //     var count = this.data.details.length;
-                //     for(var a = count; a >= 0; a--){
-                //         this.data.details.splice((a-1), 1);
-                //     }
-                // }
+               
                 this.data.BookingOrderDate = _selectedData.BookingOrderDate;
                 this.data.DeliveryDate = _selectedData.DeliveryDate;
                 this.data.OrderQuantity = _selectedData.OrderQuantity;
                 this.data.Remark = _selectedData.Remark;
-                this.data.booking = _selectedData.Items;
+                this.data.booking = [];
+                if(_selectedData.Items){
+                    for(var bookItem of _selectedData.Items){
+                        if(!bookItem.IsCanceled){
+                            this.data.booking.push(bookItem);
+                        }
+                    }
+                }
                 this.options.buyerCode = this.data.Buyer.Code;
             }
-            console.log(this.data)
         } else {
             this.data.BookingOrderDate = null;
             this.data.DeliveryDate = null;
