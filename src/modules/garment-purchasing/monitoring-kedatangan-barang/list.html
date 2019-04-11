@@ -36,9 +36,9 @@
                 <tbody>
                     <tr repeat.for="pr of data"  click.delegate="view(pr,dateFrom,dateTo,category)" >
                         <td>${$index + 1}</td>
-                        <td>${pr.supplier.Name}</td>
-                          <td>${pr.percentOk_notOk}%</td>
-                        <td>${pr.jumlah}</td>
+                        <td>${pr.SupplierName}</td>
+                          <td>${pr.OKStatusPercentage}%</td>
+                        <td>${pr.Total}</td>
                   
                     </tr>
                 </tbody>
