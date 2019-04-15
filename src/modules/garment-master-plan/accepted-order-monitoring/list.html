@@ -46,12 +46,14 @@
         </thead>
         <tbody>
           <tr repeat.for="week of qty">
-            <td>W${$index + 1}</td>
-            <td repeat.for="unit of week">${unit.quantity}</td>
+            <td show.bind="week[0].month!='total'">${week[0].weeks}</td>
+            <td show.bind="week[0].month=='total'"><b>${week[0].weeks}</b></td>
+            <td show.bind="week[0].month!='total'" repeat.for="unit of week">${unit.quantity}</td>
+            <td show.bind="week[0].month=='total'" repeat.for="unit of week"><b>${unit.quantity}</b></td>
           </tr>
           <tr>
-            <td>TOTAL</td>
-            <td repeat.for="i of total">${i}</td>
+            <td><b>TOTAL</b></td>
+            <td repeat.for="i of total"><b>${i}</b></td>
           </tr>
         </tbody>
       </table>
