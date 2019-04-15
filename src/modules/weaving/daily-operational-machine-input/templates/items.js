@@ -1,11 +1,12 @@
 import { inject, bindable, BindingEngine } from "aurelia-framework";
 import { Service } from "../service";
 
-var RingLoader = require("../../../../loader/weaving-ring-loader");
+var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
 
 @inject(BindingEngine, Service)
 export class Items {
   @bindable Code;
+  @bindable OrderDocument;
 
   constructor(bindingEngine, service) {
     this.service = service;
@@ -40,5 +41,14 @@ export class Items {
 
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+  }
+
+  get orders() {
+    return ConstructionLoader;
+  }
+
+  OrderDocumentChanged(newValue) {
+    console.log(newValue);
+    this.data.ConstructionNumber = newValue.ConstructionNumber;
   }
 }

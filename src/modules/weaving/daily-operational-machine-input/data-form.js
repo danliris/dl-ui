@@ -95,17 +95,6 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = this.context.data;
-    // this.data = {
-    //   Id: 1,
-    //   DateOrdered: "02/02/2019",
-    //   WeavingUnit: "Weaving1",
-    //   Shift: "Shift 1",
-    //   MachineNumber: "000001",
-    //   OrderProductionNumber: "002/02-2019",
-    //   ConstructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-    //   WarpOrigin: "A",
-    //   WeftOrigin: "C"
-    // };
     this.error = this.context.error;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -115,9 +104,9 @@ export class DataForm {
   }
 
   //Triggered when "+" on Items Collections Clicked
-  // get addOperationalMachine() {
-  //   return event => {
-  //     this.data.DailyOperationMachineDetails.push({});
-  //   };
-  // }
+  get start() {
+    return event => {
+      this.data.DailyOperationMachineDetails.push({});
+    };
+  }
 }

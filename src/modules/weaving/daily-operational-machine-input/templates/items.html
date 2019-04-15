@@ -2,11 +2,12 @@
   <tr>
     <td style="white-space: nowrap;">
       <au-autocomplete
-        value.bind="data.OrderProductionNumber"
-        error.bind="error.OrderProductionNumber"
+        value.bind="OrderDocument"
+        error.bind="error.OrderDocument"
         read-only.bind="readOnly"
         placeholder="No. SPP"
-        loader.bind="SPPLoader"
+        loader.bind="orders"
+        
       >
       </au-autocomplete>
     </td>

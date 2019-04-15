@@ -28,7 +28,7 @@
         <div class="col-md-3">
           <au-autocomplete
             value.bind="MachineDocument"
-            error.bind="error.MachineNumber"
+            error.bind="error.MachineDocument"
             read-only.bind="readOnly"
             loader.bind="machines"
             text="MachineNumber"
@@ -42,7 +42,7 @@
         <div class="col-md-3">
           <au-autocomplete
             value.bind="WeavingDocument"
-            error.bind="error.WeavingUnit"
+            error.bind="error.WeavingDocument"
             read-only.bind="readOnly"
             loader.bind="units"
             text="Name"
@@ -50,45 +50,45 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <div class="col-md-2">
+        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+          <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
             <button
               class="btn btn-default"
               click.delegate="shift()"
-              style="margin-bottom: 8px; background-color: #a3a5a8; color:black; white-space: nowrap; width: 64px;">
+              style="margin-bottom: 8px; background-color: #a3a5a8; color:black; white-space: nowrap; width: 62px;">
                 Shift
             </button>
           </div>
           <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
               <button
                 class="btn btn-default"
                 click.delegate="start()"
-                style="margin-bottom: 8px; background-color: #00720f; color:black; white-space: nowrap; width: 64px;">
+                style="margin-bottom: 8px; background-color: #00720f; color:black; white-space: nowrap; width: 62px;">
                   Mulai
               </button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
               <button
                 class="btn btn-default"
                 click.delegate="pause()"
-                style="margin-bottom: 8px; background-color: #0300b7; color:black; white-space: nowrap; width: 64px;">
+                style="margin-bottom: 8px; background-color: #0300b7; color:black; white-space: nowrap; width: 62px;">
                   Jeda
               </button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
               <button
                 class="btn btn-default"
                 click.delegate="resume()"
-                style="margin-bottom: 8px; background-color: #edd904; color:black; white-space: nowrap; width: 64px;">
+                style="margin-bottom: 8px; background-color: #edd904; color:black; white-space: nowrap; width: 62px;">
                   Lanjut
               </button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="padding-left: 0px; padding-right: 0px;">
               <button
                 class="btn btn-default"
                 click.delegate="finish()"
-                style="margin-bottom: 8px; background-color: #bf0000; color:black; white-space: nowrap; width: 64px;">
+                style="margin-bottom: 8px; background-color: #bf0000; color:black; white-space: nowrap; width: 62px;">
                   Akhiri
               </button>
             </div>
@@ -100,12 +100,12 @@
           items.bind="data.DailyOperationMachineDetails"
           errors.bind="error.DailyOperationMachineDetails"
           columns.bind="columns"
+          add.bind="start"
           options.bind="OperationalMachineOptions"
           remove.bind="onremove"
           read-only.bind="readOnly"
           item-template="modules/weaving/daily-operational-machine-input/templates/items"
         >
-        <!-- add.bind="addOperationalMachine" -->
         </au-collection>
         <!-- <au-table
           style="white-space: nowrap; margin-top: 26px;"
