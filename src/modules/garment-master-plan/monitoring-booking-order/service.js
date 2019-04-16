@@ -53,6 +53,14 @@ export class Service extends RestService {
             if (query === '') query = `dateTo=${info.dateTo}`;
             else query = `${query}&dateTo=${info.dateTo}`;
         }
+        if (info.dateDeliveryFrom && info.dateDeliveryFrom !== "") {
+            if (query === '') query = `dateDeliveryFrom=${info.dateDeliveryFrom}`;
+            else query = `${query}&dateDeliveryFrom=${info.dateDeliveryFrom}`;
+        }
+        if (info.dateDeliveryTo && info.dateDeliveryTo !== "") {
+            if (query === '') query = `dateDeliveryTo=${info.dateDeliveryTo}`;
+            else query = `${query}&dateDeliveryTo=${info.dateDeliveryTo}`;
+        }
         if (query !== '')
             endpoint = `${serviceUriDownload}?${query}`;
         return super.getXls(endpoint);

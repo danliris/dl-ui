@@ -50,7 +50,9 @@ export class List {
             statusConfirm : this.confirmState ? this.confirmState : "",
             statusBookingOrder : this.bookingOrderState ? this.bookingOrderState : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            dateDeliveryFrom : this.dateDeliveryFrom ? moment(this.dateDeliveryFrom).format("YYYY-MM-DD") : "",
+            dateDeliveryTo : this.dateDeliveryTo ? moment(this.dateDeliveryTo).format("YYYY-MM-DD") : ""
         }
 
         this.service.search(info)
@@ -127,7 +129,9 @@ export class List {
             statusConfirm : this.confirmState ? this.confirmState : "",
             statusBookingOrder : this.bookingOrderState ? this.bookingOrderState : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            dateDeliveryFrom : this.dateDeliveryFrom ? moment(this.dateDeliveryFrom).format("YYYY-MM-DD") : "",
+            dateDeliveryTo : this.dateDeliveryTo ? moment(this.dateDeliveryTo).format("YYYY-MM-DD") : ""
         }
         this.service.generateExcel(info);
     }
@@ -142,6 +146,8 @@ export class List {
         this.bookingOrderState= "";
         this.dateFrom = "";
         this.dateTo = "";
+        this.dateDeliveryTo = "";
+        this.dateDeliveryFrom = "";
         
     }
 
