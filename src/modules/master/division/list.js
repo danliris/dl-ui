@@ -8,7 +8,7 @@ export class List {
   // info = { page: 1, keyword: '' };
   context = ["detail"];
   columns = [
-    { field: "name", title: "Divisi" },
+    { field: "Name", title: "Divisi" },
   ]
 
   loader = (info) => {
@@ -20,7 +20,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["name"],
+      select: ["Name"],
       order: order
     }
 
@@ -46,7 +46,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }
