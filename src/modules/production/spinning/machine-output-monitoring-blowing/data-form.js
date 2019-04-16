@@ -5,6 +5,7 @@ import moment from 'moment';
 var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
+var MachineSpinningLoader = require('../../../../loader/machine-spinning-for-blowing-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -23,7 +24,9 @@ export class DataForm {
     @bindable isItem = true;
     @bindable detailOptions;
     @bindable error;
-
+    @bindable machineSpinning;
+    @bindable machineName;
+    
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -73,6 +76,7 @@ export class DataForm {
 
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    machineSpinningFilter = { "UnitName" : "Spinning 2" };
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
@@ -87,6 +91,7 @@ export class DataForm {
         // this.isItem = tu;
         this.data.ProcessType = this.processType;
         this.detailOptions.ProcessType = this.processType;
+        this.unit = "Spinning 2";
         this.coreService.getMachineTypes()
             .then(result => {
                 if (this.data.ProcessType) {
@@ -99,9 +104,9 @@ export class DataForm {
                 }
             });
         this.detailOptions.isEdit = this.context.isEdit;
-        if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
-            this.unit = this.data.UnitDepartment;
-        }
+        // if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
+        //     this.unit = this.data.UnitDepartment;
+        // }
         if (this.data.Lot && this.data.Lot.Id) {
             this.lot = this.data.Lot;
         }
@@ -366,16 +371,22 @@ export class DataForm {
 
     }
 
-    unitChanged(newValue, oldValue) {
-
-        if (this.unit && this.unit.Id) {
-            this.data.UnitDepartmentId = this.unit.Id;
-            this.fillItems();
-        } else {
-            this.data.UnitDepartmentId = 0;
-            this.data.Items = [];
+    machineSpinningChanged(n,o){
+        if(this.machineSpinning && this.machineSpinning.Id){
+            this.machineName = this.machineSpinning.Name;
         }
     }
+
+    // unitChanged(newValue, oldValue) {
+
+    //     if (this.unit && this.unit.Id) {
+    //         this.data.UnitDepartmentId = this.unit.Id;
+    //         this.fillItems();
+    //     } else {
+    //         this.data.UnitDepartmentId = 0;
+    //         this.data.Items = [];
+    //     }
+    // }
 
     get lotLoader() {
         //return LotLoader;
@@ -399,5 +410,9 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get machineSpinningLoader(){
+        return MachineSpinningLoader;
     }
 }
