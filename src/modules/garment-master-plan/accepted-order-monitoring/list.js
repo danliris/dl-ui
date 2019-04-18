@@ -47,6 +47,49 @@ export class List {
     }
   }
 
+  getMonthName(month) {
+    var monthName = '';
+    switch (month) {
+        case 0:
+            monthName = "Januari";
+            break;
+        case 1:
+            monthName = "Februari";
+            break;
+        case 2:
+            monthName = "Maret";
+            break;
+        case 3:
+            monthName = "April";
+            break;
+        case 4:
+            monthName = "Mei";
+            break;
+        case 5:
+            monthName = "Juni";
+            break;
+        case 6:
+            monthName = "Juli";
+            break;
+        case 7:
+            monthName = "Agustus";
+            break;
+        case 8:
+            monthName = "September";
+            break;
+        case 9:
+            monthName = "Oktober";
+            break;
+        case 10:
+            monthName = "November";
+            break;
+        case 11:
+            monthName = "Desember";
+            break;
+    }
+    return monthName;
+  }
+
   async searching() {
 
     if (!this.year) {
@@ -63,13 +106,29 @@ export class List {
       var yr = {
           Year:this.year.year
        };
-       
+      
       this.previewWeeklyPlan = [];
       this.previewWeeklyPlan = await this.service.getWeeklyPlan(yr);
-      
+      var monthTotal = "";
+      var val = 0;
+      var obj2=[];
+      var weekStart = 0;
+      var weekEnd = 0;
       this.service.search(JSON.stringify(info))
         .then(result => {
           this.data = result;
+
+          var startDateOfYear = new Date(`${this.year.year}-01-01`);
+          var endDateOfYear = new Date(`${this.year.year}-12-31`);
+          var isSameYear = (moment().year(this.year.year).day("Monday").week(1).toDate()).getFullYear() === this.year.year ? true : false;
+          var totalWeek = Math.ceil((((endDateOfYear - startDateOfYear) / 86400000) + 1) / 7);
+          this.dts = [];
+          for(var i = 1; i <= totalWeek; i++){
+            var startDate = i == 1 ? new Date(`${this.year.year}-01-01`) : moment().year(this.year.year).day("Monday").week((i)).toDate();
+            var endDate = i == totalWeek ? new Date(`${this.year.year}-12-31`) : moment().year(this.year.year).day("Saturday").week((i)).toDate();
+            this.dts.push(this.getMonthName(endDate.getMonth()));
+          }
+
           this.units = [];
           this.weeks = [];
           this.qty = [];
@@ -110,14 +169,12 @@ export class List {
             }
           }
           this.total=Object.values(totalqty);
-
-
+          
           for(var x=0;x<this.length_week;x++){
             var obj=[];
-            var week={
-              weeknumber:'W'+(x+1)
+            var Week={
+              weeknumber:'W'+(x+1)+' - '+this.dts[x]
             }
-            this.weeks.push(week);
             for(var y of this.units){
               var unit={};
               var grup= this.data.find(o=>o.Unit==y && o.WeekNumber == (x+1));
@@ -126,20 +183,93 @@ export class List {
                   code:y,
                   week:x+1,
                   quantity:grup.Quantity,
+                  weeks:Week.weeknumber,
+                  month:this.dts[x],
                 }
               } else {
                 unit={
                   code:y,
                   week:x+1,
-                  quantity:'-'
+                  quantity:'-',
+                  weeks:Week.weeknumber,
+                  month:this.dts[x],
                 }
               }
-              
               obj.push(unit);
-
             }
-            this.qty.push(obj);
-            
+            if(monthTotal==""){
+              monthTotal=this.dts[x]
+            }
+            if(monthTotal==this.dts[x]){
+              this.qty.push(obj);
+              if(weekStart==0){
+                weekStart = x+1;
+              }
+              weekEnd = x+1;
+            }
+            else 
+            if(monthTotal!=this.dts[x]){
+              obj2=[];  
+              for(var k of this.units){
+                val = 0;
+                  var grup= this.data.find(o=>o.Unit==k && o.WeekNumber == weekStart-1);
+                  if(grup){
+                    val += grup.Quantity;
+                  } else {
+                    val += 0;
+                  }
+                for(var ws=weekStart; ws<=weekEnd; ws++){
+                  var grup= this.data.find(o=>o.Unit==k && o.WeekNumber == ws);
+                  if(grup){
+                    val += grup.Quantity;
+                  } else {
+                    val += 0;
+                  }
+                }
+                unit={
+                  code:y,
+                  week:x+1,
+                  quantity:val,
+                  weeks:"TOTAL " + monthTotal.toUpperCase(),
+                  month:"total",
+                };
+                obj2.push(unit);
+              }
+              this.qty.push(obj2);
+              this.qty.push(obj);
+              monthTotal=this.dts[x];
+              weekStart=0;
+              weekEnd=0;
+            }
+            if(x+1==this.length_week){
+              obj2=[];  
+              for(var k of this.units){
+                val = 0;
+                  var grup= this.data.find(o=>o.Unit==k && o.WeekNumber == weekStart-1);
+                  if(grup){
+                    val += grup.Quantity;
+                  } else {
+                    val += 0;
+                  }
+                for(var ws=weekStart; ws<=weekEnd; ws++){
+                  var grup= this.data.find(o=>o.Unit==k && o.WeekNumber == ws);
+                  if(grup){
+                    val += grup.Quantity;
+                  } else {
+                    val += 0;
+                  }
+                }
+                unit={
+                  code:y,
+                  week:x+1,
+                  quantity:val,
+                  weeks:"TOTAL " + monthTotal.toUpperCase(),
+                  month:"total",
+                };
+                obj2.push(unit);
+              }
+              this.qty.push(obj2);
+            }
           }
         });
     }

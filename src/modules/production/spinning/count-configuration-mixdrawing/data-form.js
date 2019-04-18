@@ -93,7 +93,7 @@ export class DataForm {
         // if (this.data.ProcessType) {
         //     this.processType = this.data.ProcessType;
         // }
-        this.processType = "Blowing";
+        this.processType = "Mix Drawing";
 
         if (!this.data.ProcessType) {
             this.data.ProcessType = this.processType;

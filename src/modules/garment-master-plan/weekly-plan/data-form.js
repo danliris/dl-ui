@@ -192,7 +192,7 @@ export class DataForm {
                     /// var endDate = moment().year(this.data.year).day("Friday").week(isSameYear ? i : (i+1)).toDate();
 
                     var startDate = i == 1 ? new Date(`${this.data.Year}-01-01`) : moment().year(this.data.Year).day("Monday").week((i)).toDate();
-                    var endDate = i == totalWeek ? new Date(`${this.data.Year}-12-31`) : moment().year(this.data.Year).day("Friday").week((i)).toDate();
+                    var endDate = i == totalWeek ? new Date(`${this.data.Year}-12-31`) : moment().year(this.data.Year).day("Saturday").week((i)).toDate();
                     this.data.Items.push({
                         WeekNumber: i,
                         StartDate: startDate,
