@@ -1,8 +1,11 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
+// import { Dialog } from '../../../../../components/dialog/dialog';
 import { callbackify } from "util";
+import { Router } from "aurelia-router";
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 
+// @inject(Service, Router)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
