@@ -17,7 +17,7 @@ export class List {
         { field: 'DocumentNo', title: 'No Bukti Pengeluaran Bank' },
         {
             field: 'Date', title: 'Tanggal Bayar DPP + PPN', formatter: function (value, data, index) {
-                return value ? moment(value).format('DD MMM YYYY') : '-';
+                return value ? moment(value).format('DD MMM YYYY') : '';
             },
         },
         { field: 'CategoryName', title: 'Category' },
@@ -25,17 +25,17 @@ export class List {
         { field: 'PaymentMethod', title: 'Cara Pembayaran' },
         {
             field: 'DPP', title: 'DPP', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '-';
+                return value ? numeral(value).format('0,000.0000') : '';
             },
         },
         {
             field: 'VAT', title: 'PPN', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '-';
+                return value ? numeral(value).format('0,000.0000') : '';
             },
         },
         {
             field: 'TotalPaid', title: 'Total Bayar Ke Supplier', formatter: function (value, data, index) {
-                return value ? numeral(value).format('0,000.0000') : '-';
+                return value ? numeral(value).format('0,000.0000') : '';
             },
         },
         { field: 'Currency', title: 'Mata Uang' },
