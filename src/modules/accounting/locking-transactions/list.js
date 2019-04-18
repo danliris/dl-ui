@@ -9,12 +9,7 @@ export class List {
     context = ["Rincian"];
     columns = [
         {
-            field: "BeginLockDate", title: "Tanggal Awal Transaksi", formatter: function (value, data, index) {
-                return moment.utc(value).local().format('DD MMM YYYY');
-            },
-        },
-        {
-            field: "EndLockDate", title: "Tanggal Akhir Transaksi", formatter: function (value, data, index) {
+            field: "LockDate", title: "Tanggal Transaksi Terkunci", formatter: function (value, data, index) {
                 return moment.utc(value).local().format('DD MMM YYYY');
             },
         },

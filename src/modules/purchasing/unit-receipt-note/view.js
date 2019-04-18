@@ -25,7 +25,8 @@ export class View {
             })
         }
 
-        if (this.data.date >= activeLockingTransaction.BeginLockDate && this.data.date <= activeLockingTransaction.EndLockDate)
+        // console.log(activeLockingTransaction);
+        if (this.data.date <= activeLockingTransaction.LockDate)
             this.isLocked = true;
 
 
