@@ -19,7 +19,8 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  constructor() {}
+  constructor() {
+  }
 
   // OperationalMachineOptions = {
 
@@ -100,6 +101,9 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
+    this.showHideStartMenu=false;
+    this.showHideResumeMenu=false;
+
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
@@ -107,9 +111,27 @@ export class DataForm {
   }
 
   //Triggered when "+" on Items Collections Clicked
-  get start() {
-    return event => {
-      this.data.DailyOperationMachineDetails.push({});
-    };
+  // get start() {
+  //   return event => {
+  //     this.data.DailyOperationMachineDetails.push({});
+  //   };
+  // }
+
+  start(){
+    if (this.showHideStartMenu === true) {
+      this.showHideStartMenu = false;
+    } else {
+      this.showHideStartMenu = true;
+      this.showHideResumeMenu = false;
+    }
+  }
+
+  resume(){
+    if (this.showHideResumeMenu === true) {
+      this.showHideResumeMenu = false;
+    } else {
+      this.showHideResumeMenu = true;
+      this.showHideStartMenu = false;
+    }
   }
 }
