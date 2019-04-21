@@ -163,7 +163,7 @@ export class List {
             //   }
             // }
 
-            dataTemp.bookingOrdersQuantity = pr.bookingOrdersQuantity;
+            dataTemp.bookingOrdersQuantity = pr.bookingOrderQty;
           this.dataTemp.push(dataTemp);
           }
           //units
@@ -207,7 +207,7 @@ export class List {
             if (!bookingOrdersQuantity[c.units + c.buyer + c.weekSewingBlocking]) {
               bookingOrdersQuantity[c.units + c.buyer + c.weekSewingBlocking] = c.bookingOrdersQuantity;
             }
-
+console.log(bookingOrdersConfirmQuantity[c.units + c.buyer + c.weekSewingBlocking], bookingOrdersQuantity[c.units + c.buyer + c.weekSewingBlocking])
             if (!cat[c.units + "Total Booking" + c.weekSewingBlocking]) {
               cat[c.units + "Total Booking" + c.weekSewingBlocking] = c.bookingQty;
             }
@@ -327,7 +327,7 @@ export class List {
 
                   if (k == 0) {
                     categ = (j + "smv" + i.buyer);
-                    data.quantity[k] = (cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]) ? Math.round((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer])) : '-';
+                    data.quantity[k] = (cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]) ? parseFloat((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]).toFixed(2)) : '-';
                     smvTot += parseFloat((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]).toFixed(2));
                     counts += 1;
                   } else {
@@ -765,7 +765,7 @@ export class List {
   }
 
   reset() {
-    this.code = "";
+    this.unit = "";
     this.year = "";
 
   }
