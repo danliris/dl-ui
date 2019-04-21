@@ -26,6 +26,10 @@ export class DataForm {
     @bindable error;
     @bindable machineSpinning;
     @bindable machineName;
+    @bindable details1;
+    @bindable details2;
+    @bindable details3;
+    @bindable details4;
     
     formOptions = {
         cancelText: "Kembali",
@@ -52,15 +56,12 @@ export class DataForm {
     }
 
     shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
-    detailOptions = {};
+    detailOptions = {
+        
+    };
     itemsColumnsHeader = [
-        "Nomor Mesin",
-        "Merk Mesin",
         "Output (Counter)",
-        "UOM",
-        "Bale",
-        "Bad Output",
-        "Eff%"
+        "UOM"
     ];
     machineSpinningFilter = {};
     masterFilter = {};
@@ -80,11 +81,12 @@ export class DataForm {
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
-        console.log(this);
+        
         // this.bindingEngine = bindingEngine
     }
 
     bind(context) {
+
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -103,6 +105,17 @@ export class DataForm {
                     }
                 }
             });
+        
+
+        var item = {};
+
+        this.details1 = Array(25).fill(item);
+        this.details2 = Array(25).fill(item);
+        this.details3 = Array(25).fill(item);
+        this.details4 = Array(25).fill(item);
+
+        this.data.BlowingDetails = this.details1.concat(this.details2, this.details3, this.details4);
+
         this.detailOptions.isEdit = this.context.isEdit;
         // if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
         //     this.unit = this.data.UnitDepartment;

@@ -1,4 +1,13 @@
 <template>
+     <style>
+        .collection .panel-body {
+          padding: 0px;
+        }
+        #blowingDetails {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
     <require from="../../../../lib/number-format-value-converter"></require>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
@@ -52,10 +61,36 @@
             read-only.bind="readOnly" options.bind="detailOptions"
             item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/item">
         </au-collection> -->
-        <au-collection items.bind="details1" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
-            read-only.bind="readOnly" options.bind="detailOptions"
-            item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
-        </au-collection>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="blowingDetails" class="col-md-3">
+                  
+                    <au-collection items.bind="details1" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
+                        read-only.bind="readOnly" options.bind="detailOptions"
+                        item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
+                    </au-collection>  
+                </div>
+                <div id="blowingDetails" class="col-md-3">
+                    <au-collection items.bind="details2" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
+                        read-only.bind="readOnly" options.bind="detailOptions"
+                        item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
+                    </au-collection>          
+                </div>
+                <div id="blowingDetails" class="col-md-3">
+                    <au-collection items.bind="details3" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
+                        read-only.bind="readOnly" options.bind="detailOptions"
+                        item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
+                    </au-collection>          
+                </div>
+                <div id="blowingDetails" class="col-md-3">
+                    <au-collection items.bind="details4" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
+                        read-only.bind="readOnly" options.bind="detailOptions"
+                        item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
+                    </au-collection>          
+                </div>  
+            </div>  
+        </div>
+
         <au-textbox error.bind="error.Differences" show.bind="error.Differences" read-only.bind="true">
         </au-textbox>
 
