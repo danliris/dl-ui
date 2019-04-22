@@ -128,8 +128,8 @@ export class List {
 
             for (var l = 0; l < pr.items.length; l++) {
               dataTemp.backgroundColorWH[l] = dataTemp.WHBooking[l] <= 45.5 ? "#FFFF00" : 
-                dataTemp.WHBooking[l] < 50.5 && dataTemp.WHBooking[l] > 45.6 ? "#52df46" : 
-                dataTemp.WHBooking[l] < 56.5 && dataTemp.WHBooking[l] > 50.6 ? "#f62c2c" :
+                dataTemp.WHBooking[l] <= 50.5 && dataTemp.WHBooking[l] > 45.5 ? "#52df46" : 
+                dataTemp.WHBooking[l] <= 56.5 && dataTemp.WHBooking[l] > 50.5 ? "#f62c2c" :
                   "#797978";
             }
             dataTemp.weekSewingBlocking = pr.weekSewingBlocking;
@@ -207,7 +207,6 @@ export class List {
             if (!bookingOrdersQuantity[c.units + c.buyer + c.weekSewingBlocking]) {
               bookingOrdersQuantity[c.units + c.buyer + c.weekSewingBlocking] = c.bookingOrdersQuantity;
             }
-console.log(bookingOrdersConfirmQuantity[c.units + c.buyer + c.weekSewingBlocking], bookingOrdersQuantity[c.units + c.buyer + c.weekSewingBlocking])
             if (!cat[c.units + "Total Booking" + c.weekSewingBlocking]) {
               cat[c.units + "Total Booking" + c.weekSewingBlocking] = c.bookingQty;
             }
@@ -333,7 +332,6 @@ console.log(bookingOrdersConfirmQuantity[c.units + c.buyer + c.weekSewingBlockin
                   } else {
                     data.quantity[k] = cat[categ] ? cat[categ] : '-';
                   }
-
                   if (bookingOrderItemsLength[categ] === 0) {
                     background[k] = "#EEE860";
                   } else if (bookingOrderItemsLength[categ] > 0 && bookingOrdersConfirmQuantity[categ] < bookingOrdersQuantity[categ]) {
@@ -397,8 +395,8 @@ console.log(bookingOrdersConfirmQuantity[c.units + c.buyer + c.weekSewingBlockin
               conf[y + 1] = cat[categwh] ? parseFloat((cat[categwh]/(op[y]*(eff/100))).toFixed(2)) : '0';
 
               var bgc = conf[y + 1] <= 45.5 ? "#FFFF00" : 
-                conf[y + 1] < 50.5 && conf[y + 1] > 45.6 ? "#52df46" : 
-                conf[y + 1] < 56.5 && conf[y + 1] > 50.6 ? "#f62c2c" :
+                conf[y + 1] <= 50.5 && conf[y + 1] > 45.5 ? "#52df46" : 
+                conf[y + 1] <= 56.5 && conf[y + 1] > 50.5 ? "#f62c2c" :
                   "#797978";
               if(y==0){
                 cat[j + "backgroundColorWHC"]=["transparent"];
@@ -584,15 +582,15 @@ console.log(bookingOrdersConfirmQuantity[c.units + c.buyer + c.weekSewingBlockin
             avgWH[y+1]=parseFloat((totalWH[y + 1]/unitCount).toFixed(2));
 
             bgcWH[y + 1] = avgWHBooking[y + 1] <= 45.5 ? "#FFFF00" : 
-                avgWHBooking[y + 1] < 50.5 && avgWHBooking[y + 1] > 45.6 ? "#52df46" : 
-                avgWHBooking[y + 1] < 56.5 && avgWHBooking[y + 1] > 50.6 ? "#f62c2c" :
+                avgWHBooking[y + 1] <= 50.5 && avgWHBooking[y + 1] > 45.5 ? "#52df46" : 
+                avgWHBooking[y + 1] <= 56.5 && avgWHBooking[y + 1] > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWH[0]="transparent";
 
             bgcWHC[y + 1] = avgWHConfirm[y + 1] <= 45.5 ? "#FFFF00" : 
-                avgWHConfirm[y + 1] < 50.5 && avgWHConfirm[y + 1] > 45.6 ? "#52df46" : 
-                avgWHConfirm[y + 1] < 56.5 && avgWHConfirm[y + 1] > 50.6 ? "#f62c2c" :
+                avgWHConfirm[y + 1] <= 50.5 && avgWHConfirm[y + 1] > 45.5 ? "#52df46" : 
+                avgWHConfirm[y + 1] <= 56.5 && avgWHConfirm[y + 1] > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWHC[0]="transparent";
