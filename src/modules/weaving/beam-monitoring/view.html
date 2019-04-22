@@ -1,0 +1,73 @@
+<template>
+    <style>
+      .collection .panel-body {
+        padding: 0px;
+      }
+  
+      ul.timeline {
+        list-style-type: none;
+        position: relative;
+      }
+  
+      ul.timeline:before {
+        content: ' ';
+        background: #d4d9df;
+        display: inline-block;
+        position: absolute;
+        left: 29px;
+        width: 2px;
+        height: 100%;
+        z-index: 400;
+      }
+  
+      ul.timeline>li {
+        margin: 20px 0;
+        padding-left: 20px;
+      }
+  
+      ul.timeline>li:before {
+        content: ' ';
+        background: white;
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid #22c0e8;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        z-index: 400;
+      }
+  
+    </style>
+    <au-input-form title.bind="title" options.bind="formOptions">
+      <div class="col-md-12">
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <textbox label="No. Beam" read-only="true"></textbox>
+          </div>
+          <div class="col-md-3">
+            <au-textbox value.bind="data.BeamNumber" error.bind="error.BeamNumber" read-only.bind="true">
+            </au-textbox>
+          </div>
+        </div>
+        <div class="row" style="white-space: nowrap;">
+          <div class="col-md-2">
+            <textbox label="Status Terakhir" read-only="true"></textbox>
+          </div>
+          <div class="col-md-3">
+            <au-textbox value.bind="data.LatestStatus" error.bind="error.LatestStatus" read-only.bind="true">
+            </au-textbox>
+          </div>
+        </div>
+        <ul class="timeline">
+          <li>
+            <au-textbox value.bind="data.History.BeamDate" error.bind="error.History.BeamDate" read-only.bind="true">
+            </au-textbox>
+            <au-textbox value.bind="data.History.Status" error.bind="error.History.Status" read-only.bind="true">
+            </au-textbox>
+          </li>
+        </ul>
+      </div>
+    </au-input-form>
+  </template>
+  

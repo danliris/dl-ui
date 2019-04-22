@@ -180,5 +180,18 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/beam-monitoring",
+    name: "beam-monitoring",
+    moduleId: "./modules/weaving/beam-monitoring/index",
+    nav: true,
+    title: "Pemantauan Beam",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
 ];
