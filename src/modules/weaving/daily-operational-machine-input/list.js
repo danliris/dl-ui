@@ -30,35 +30,34 @@ export class List {
       order: order
     };
 
-    //   return this.service.search(arg).then(result => {
-    //     return {
-    //       total: result.info.total,
-    //       data: result.data
-    //     };
-    //     // .catch(error=>{
-    //     //     console.log(error);
-    //     // })
-    //   });
-    // };
-
-    return {
-      total: 1,
-      data: [
-        {
-          Id: 1,
-          DateOrdered: "02/02/2019",
-          Shift: "Shift 1",
-          WeavingUnit: "Weaving 1",
-          MachineNumber: "2/1",
-          BeamNumber: "TS 108",
-          ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
-          OrderProductionNumber: "0002/02-2019",
-          LoomGroup: "D",
-          SizingGroup: "B"
-        }
-      ]
-    };
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      }.catch(error => {
+        console.log(error);
+      });
+    });
   };
+
+  //   return {
+  //     total: 1,
+  //     data: [
+  //       {
+  //         Id: 1,
+  //         DateOrdered: "02/02/2019",
+  //         Shift: "Shift 1",
+  //         WeavingUnit: "Weaving 1",
+  //         MachineNumber: "2/1",
+  //         BeamNumber: "TS 108",
+  //         ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
+  //         OrderProductionNumber: "0002/02-2019",
+  //         LoomGroup: "D",
+  //         SizingGroup: "B"
+  //       }
+  //     ]
+  //   };
+  // };
 
   constructor(router, service) {
     this.service = service;

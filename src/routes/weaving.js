@@ -167,5 +167,18 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/weaving-efficiency-report",
+    name: "weaving-efficiency-report",
+    moduleId: "./modules/weaving/weaving-efficiency-report/index",
+    nav: true,
+    title: "Laporan Efisiensi Weaving",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
 ];
