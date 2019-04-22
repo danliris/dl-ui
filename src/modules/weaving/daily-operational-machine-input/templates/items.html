@@ -2,11 +2,12 @@
   <tr>
     <td style="white-space: nowrap;">
       <au-autocomplete
-        value.bind="data.OrderProductionNumber"
-        error.bind="error.OrderProductionNumber"
-        read-only.bind="readOnly"
+        value.bind="OrderDocument"
+        error.bind="error.OrderDocument"
+        read-only.bind="true"
         placeholder="No. SPP"
-        loader.bind="SPPLoader"
+        loader.bind="orders"
+        
       >
       </au-autocomplete>
     </td>
@@ -14,17 +15,17 @@
       <au-textbox
         value.bind="data.ConstructionNumber"
         error.bind="error.ConstructionNumber"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="No. Konstruksi"
       >
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.MachineNumber"
-        error.bind="error.MachineNumber"
-        read-only.bind="readOnly"
-        placeholder="No. Mesin"
+        value.bind="data.Shift"
+        error.bind="error.Shift"
+        read-only.bind="true"
+        placeholder="Shift"
       >
       </au-textbox>
     </td>
@@ -32,7 +33,7 @@
       <au-textbox
         value.bind="data.BeamNumber"
         error.bind="error.BeamNumber"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="No. Beam"
       >
       </au-textbox>
@@ -41,7 +42,7 @@
       <au-textbox
         value.bind="data.WarpOrigin"
         error.bind="error.WarpOrigin"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Asal Lusi"
       >
       </au-textbox>
@@ -50,7 +51,7 @@
       <au-textbox
         value.bind="data.WeftOrigin"
         error.bind="error.WeftOrigin"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Asal Pakan"
       >
       </au-textbox>
@@ -59,7 +60,7 @@
       <au-textbox
         value.bind="data.Time.Pause"
         error.bind="error.Time.Pause"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Waktu Penggantian"
       >
       </au-textbox>
@@ -68,7 +69,7 @@
       <au-textbox
         value.bind="data.Time.Resume"
         error.bind="error.Time.Resume"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Waktu Lanjutkan"
       >
       </au-textbox>
@@ -77,7 +78,7 @@
       <au-textbox
         value.bind="data.Time.Difference"
         error.bind="error.Time.Difference"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Selisih Waktu"
       >
       </au-textbox>
@@ -86,7 +87,7 @@
       <au-textbox
         value.bind="data.BeamOperator"
         error.bind="error.BeamOperator"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Operator Beam"
       >
       </au-textbox>
@@ -95,7 +96,7 @@
       <au-textbox
         value.bind="data.LoomGroup"
         error.bind="error.LoomGroup"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Grup Loom"
       >
       </au-textbox>
@@ -104,7 +105,7 @@
       <au-textbox
         value.bind="data.SizingNumber"
         error.bind="error.SizingNumber"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="No. Sizing"
       >
       </au-textbox>
@@ -113,7 +114,7 @@
       <au-textbox
         value.bind="data.SizingOperator"
         error.bind="error.SizingOperator"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Operator Sizing"
       >
       </au-textbox>
@@ -122,7 +123,7 @@
       <au-textbox
         value.bind="data.SizingGroup"
         error.bind="error.SizingGroup"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Grup Sizing"
       >
       </au-textbox>
@@ -131,18 +132,18 @@
       <au-textbox
         value.bind="data.Information"
         error.bind="error.Information"
-        read-only.bind="readOnly"
+        read-only.bind="true"
         placeholder="Keterangan"
       >
       </au-textbox>
     </td>
-    <td class="col-sm-1" if.bind="!readOnly">
+    <!-- <td class="col-sm-1" if.bind="!readOnly">
       <button
         class="btn btn-danger pull-right"
         click.delegate="onremove(data, $event)"
       >
         -
       </button>
-    </td>
+    </td> -->
   </tr>
 </template>

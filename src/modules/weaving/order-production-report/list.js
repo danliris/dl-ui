@@ -23,7 +23,7 @@ export class List {
         title: "Tanggal SP",
         rowspan: "2",
         valign: "top",
-        formatter: function (value, data, index) {
+        formatter: function(value, data, index) {
           return moment(value).format("DD-MM-YYYY");
         }
       },
@@ -177,12 +177,11 @@ export class List {
 
     return this.listDataFlag
       ? this.service.searchSOP(Month, Year, UnitName, UnitId).then(result => {
-
-        return {
-          data: result.data,
-          total: result.data.length
-        };
-      })
+          return {
+            data: result.data,
+            total: result.data.length
+          };
+        })
       : { total: 0, data: {} };
   };
 

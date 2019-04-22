@@ -1,9 +1,46 @@
 <template>
-  <style>
-    .collection .panel-body {
-      padding: 0px;
-    }
-  </style><au-input-form
+    <style>
+        .collection .panel-body {
+          padding: 0px;
+        }
+        .bg-modal {
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7);
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          margin: 0 auto;
+          justify-content: center;
+          align-items: center;
+        }
+        .modal-contents {
+          width: 448px;
+          height: 272px;
+          background-color: #EEEEEE;
+          border-radius: 4px;
+          margin: 0 auto;
+          text-align: center;
+          padding: 20px;
+        }
+        .close {
+          position: relative;
+          top: -12px;
+          right: -4px;
+          font-size: 36px;
+          color: #333;
+          transform: rotate(45deg);
+          cursor: pointer;
+          margin-bottom: 8px;
+        }
+    </style>
+  <au-input-form
     title.bind="title"
     with.bind="context"
     options.bind="formOptions"
@@ -15,21 +52,23 @@
         </div>
         <div class="col-md-3">
           <au-datepicker
-            value.bind="data.DateOrdered"
-            error.bind="error.DateOrdered"
+            value.bind="data.DateOperated"
+            error.bind="error.DateOperated"
             read-only.bind="readOnly"
           ></au-datepicker>
         </div>
       </div>
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2">
-          <textbox label="Shift" read-only="true"></textbox>
+          <textbox label="No. Mesin" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
           <au-autocomplete
-            value.bind="data.Shift"
-            error.bind="error.Shift"
+            value.bind="MachineDocument"
+            error.bind="error.MachineDocument"
             read-only.bind="readOnly"
+            loader.bind="machines"
+            text="MachineNumber"
           ></au-autocomplete>
         </div>
       </div>
@@ -39,25 +78,213 @@
         </div>
         <div class="col-md-3">
           <au-autocomplete
-            value.bind="data.WeavingUnit"
-            error.bind="error.WeavingUnit"
+            value.bind="WeavingDocument"
+            error.bind="error.WeavingDocument"
             read-only.bind="readOnly"
             loader.bind="units"
+            text="Name"
           ></au-autocomplete>
         </div>
       </div>
       <div class="row">
+        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+          <!-- <div class="row"> -->
+            <!-- <div class="col-md-2" style="padding-left: 0px; padding-left: 16px;"> -->
+              <button
+                class="btn btn-default"
+                click.delegate="start()"
+                style="margin-bottom: 8px; background-color: #01C8A2; color:white; white-space: nowrap; width: 62px; border: 1px solid #777777;">
+                  Mulai
+              </button>
+            <!-- </div>
+            <div class="col-md-2" style="padding-left: 0px; padding-left: 16px;"> -->
+              <button
+                class="btn btn-default"
+                click.delegate="pause()"
+                style="margin-bottom: 8px; background-color: #013cc8; color:white; white-space: nowrap; width: 62px; border: 1px solid #777777;">
+                  Jeda
+              </button>
+            <!-- </div>
+            <div class="col-md-2" style="padding-left: 0px; padding-left: 16px;"> -->
+              <button
+                class="btn btn-default"
+                click.delegate="resume()"
+                style="margin-bottom: 8px; background-color: #e5ee6be1; color:white; white-space: nowrap; width: 62px; border: 1px solid #777777;">
+                  Lanjut
+              </button>
+            <!-- </div>
+            <div class="col-md-2" style="padding-left: 0px; padding-left: 16px;"> -->
+              <button
+                class="btn btn-default"
+                click.delegate="finish()"
+                style="margin-bottom: 8px; background-color: #d65151; color:white; white-space: nowrap; width: 62px; border: 1px solid #777777;">
+                  Akhiri
+              </button>
+            <!-- </div> -->
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="row"id="startMenu" show.bind="showHideStartMenu" >
+          <div class="col-md-5"style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
+        <div class="row" style="margin-top: 16px;">
+          <div class="col-md-4">
+            <textbox label="Shift" read-only="true"></textbox>
+          </div>
+          <div class="col-md-8">
+            <au-autocomplete
+            placeholder="Shift"
+              value.bind="StartShift"
+              error.bind="error.StartShift"
+              read-only.bind="readOnly"
+              loader.bind="shift"
+              text="Name"
+            ></au-autocomplete>
+          </div>
+        </div>
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-4">
+              <textbox label="No. SPP" read-only="true"></textbox>
+            </div>
+            <div class="col-md-8">
+              <au-autocomplete
+              placeholder="No. Surat Perintah Produksi"
+                value.bind="Order"
+                error.bind="error.Order"
+                read-only.bind="readOnly"
+                loader.bind="order"
+                text="Number"
+              ></au-autocomplete>
+            </div>
+          </div>
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-4">
+              <textbox label="No. Beam" read-only="true"></textbox>
+            </div>
+            <div class="col-md-8">
+              <au-autocomplete
+              placeholder="No. Beam"
+                value.bind="BeamNumber"
+                error.bind="error.BeamNumber"
+                read-only.bind="readOnly"
+                loader.bind="beam"
+                text="Number"
+              ></au-autocomplete>
+            </div>
+          </div>
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-12">
+              <button
+              class="btn btn-default"
+              click.delegate="start()"
+              style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap; width: 62px; border: 1px solid #777777;">
+                OK
+            </button>
+          </div></div>
+        </div></div>
+        <div class="row"id="resumeMenu" show.bind="showHideResumeMenu" >
+            <div class="col-md-8"style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
+          <div class="row" style="margin-top: 16px;">
+            <div class="col-md-2">
+              <textbox label="Shift" read-only="true"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-autocomplete
+              placeholder="Shift"
+                value.bind="ResumeShift"
+                error.bind="error.ResumeShift"
+                read-only.bind="readOnly"
+                loader.bind="shift"
+                text="Name"
+              ></au-autocomplete>
+            </div>
+          </div>
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Naik" read-only="true"></textbox>
+                  </div>
+                  <div class="col-md-4">
+                    <!-- <au-autocomplete
+                      value.bind="Install"
+                      error.bind="error.Install"
+                      read-only.bind="readOnly"
+                    ></au-autocomplete> -->
+                    <input value.bind="Install "type="time"
+                    error.bind="error.Install"
+                    read-only.bind="readOnly">
+                  </div>
+                  <div class="col-md-2">
+                      <textbox label="Turun" read-only="true"></textbox>
+                    </div>
+                    <div class="col-md-4">
+                      <!-- <au-autocomplete
+                        value.bind="Uninstall"
+                        error.bind="error.Uninstall"
+                        read-only.bind="readOnly"
+                      ></au-autocomplete> -->
+                      <input value.bind="Uninstall "type="time"
+                    error.bind="error.Uninstall"
+                    read-only.bind="readOnly">
+                    </div>
+            </div>
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Asal Lusi" read-only="true"></textbox>
+                  </div>
+                  <div class="col-md-4">
+                    <au-autocomplete
+                    placeholder="Asal Lusi"
+                      value.bind="WeftOrigin"
+                      error.bind="error.WeftOrigin"
+                      read-only.bind="readOnly"
+                    ></au-autocomplete>
+                  </div>
+                  <div class="col-md-2">
+                      <textbox label="Asal Pakan" read-only="true"></textbox>
+                    </div>
+                    <div class="col-md-4">
+                      <au-autocomplete
+                      placeholder="Asal Pakan"
+                        value.bind="WarpOrigin"
+                        error.bind="error.WarpOrigin"
+                        read-only.bind="readOnly"
+                      ></au-autocomplete>
+                    </div>
+            </div>
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-2">
+                <textbox label="Keterangan" read-only="true"></textbox>
+              </div>
+                <div class="col-md-4">
+                    <au-textbox
+                    placeholder="Keterangan"
+                    value.bind="data.Information" 
+                    error.bind="error.Information" 
+                    read-only.bind="readOnly">
+                </au-textbox>
+              </div>
+            </div>
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-12">
+                <button
+                class="btn btn-default"
+                click.delegate="start()"
+                style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap; width: 62px; border: 1px solid #777777;">
+                  OK
+              </button>
+            </div></div>
+          </div></div>
+      <div class="row" style="white-space: nowrap; overflow: auto;">
         <au-collection
-          items.bind="data.Items"
-          errors.bind="error.Items"
+          items.bind="data.DailyOperationMachineDetails"
+          errors.bind="error.DailyOperationMachineDetails"
           columns.bind="columns"
-          add.bind="addOperationalMachine"
           options.bind="OperationalMachineOptions"
           remove.bind="onremove"
           read-only.bind="readOnly"
           item-template="modules/weaving/daily-operational-machine-input/templates/items"
         >
         </au-collection>
+        <!-- add.bind="start" -->
         <!-- <au-table
           style="white-space: nowrap; margin-top: 26px;"
           data.bind="loader"
@@ -69,5 +296,65 @@
           context.bind="context"
           >
       </au-table> -->
-      </div></au-input-form>
+      </div>
+      <!-- <div id="StartModal">
+          <div class="bg-modal">
+            <div class="modal-contents">
+              <div class="close">+</div>
+              <form action="" style="margin-left:24px;">
+                <div class="row" style="white-space: nowrap; margin-top: 24px;">
+                  <div class="col-md-2">
+                    <textbox label="Shift" read-only="true"></textbox>
+                  </div>
+                  <div class="col-md-8">
+                    <au-autocomplete
+                      value.bind="StartShift"
+                      error.bind="error.StartShift"
+                      read-only.bind="readOnly"
+                      loader.bind="shift"
+                      text="Name"
+                    ></au-autocomplete>
+                  </div>
+                </div>
+                <div class="row" style="white-space: nowrap;">
+                  <div class="col-md-2">
+                    <textbox label="No. SPP" read-only="true"></textbox>
+                  </div>
+                  <div class="col-md-8">
+                    <au-autocomplete
+                      value.bind="StartOrder"
+                      error.bind="error.StartOrder"
+                      read-only.bind="readOnly"
+                      loader.bind="order"
+                      text="Number"
+                    ></au-autocomplete>
+                  </div>
+                </div>
+                <div class="row" style="white-space: nowrap;">
+                  <div class="col-md-2">
+                    <textbox label="No. Beam" read-only="true"></textbox>
+                  </div>
+                  <div class="col-md-8">
+                    <au-autocomplete
+                      value.bind="StartBeam"
+                      error.bind="error.StartBeam"
+                      read-only.bind="readOnly"
+                      loader.bind="beam"
+                      text="Number"
+                    ></au-autocomplete>
+                  </div>
+                </div>
+                <div class="row" style="white-space: nowrap;">
+                    <button
+                    class="btn btn-default"
+                    click.delegate="start()"
+                    style="margin-bottom: 24px; background-color: #01C8A2; color:white; white-space: nowrap; width: 62px; border: 1px solid #777777;">
+                      OK
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div> -->
+    </au-input-form>
 </template>
