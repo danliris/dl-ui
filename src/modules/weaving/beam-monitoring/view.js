@@ -12,6 +12,7 @@ import {
 
 @inject(Router, Service)
 export class View {
+
   formOptions = {
     cancelText: "Kembali",
     saveText: "Simpan",
@@ -23,6 +24,7 @@ export class View {
     this.router = router;
     this.service = service;
     this.data = {};
+    this.historyList = [];
   }
 
   async activate(params) {
@@ -31,16 +33,23 @@ export class View {
     this.data = {
       BeamNumber: "TS 108",
       LatestStatus: "Warping",
-      History: {
+      History: [{
         BeamDate: "21 March, 2014",
         Status: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula...."
-      }
+      }, {
+        BeamDate: "21 March, 2014",
+        Status: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula...."
+      }]
     };
+    this.data.History.forEach(log => {
+      console.log(log);
+      this.historyList.push(log);
+    });
   }
 
-//   list() {
-//     this.router.navigateToRoute("list");
-//   }
+  //   list() {
+  //     this.router.navigateToRoute("list");
+  //   }
 
   cancelCallback(event) {
     this.router.navigateToRoute("list");
