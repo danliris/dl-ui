@@ -56,6 +56,12 @@
         </td>
         <td>
             <au-numeric
+                value.bind="data.IncomeTax"
+                read-only.bind="true">
+            </au-numeric>
+        </td>
+        <td>
+            <au-numeric
                 value.bind="data.TotalPaid"
                 format="0,000.0000"
                 read-only.bind="true">
@@ -72,7 +78,7 @@
         </td>
     </tr>
     <tr show.bind="isShowing">
-        <td colspan="11">
+        <td colspan="12">
             <au-collection
                 items.bind="data.Items" 
                 columns.bind="columns"

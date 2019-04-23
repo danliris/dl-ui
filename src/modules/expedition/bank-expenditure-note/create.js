@@ -32,7 +32,7 @@ export class Create {
         this.data = {};
 
         this.collection = {
-            columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'Total Harga (DPP + PPN)', 'Mata Uang', ''],
+            columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
         };
     }
 
@@ -157,6 +157,7 @@ export class Create {
                     result += detail.TotalPaid;
             }
         }
+        // console.log(result);
         this.data.GrandTotal = result;
         return result;
     }
