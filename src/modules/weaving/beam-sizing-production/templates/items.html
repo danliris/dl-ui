@@ -1,0 +1,95 @@
+<template>
+    <tr>
+      <td style="white-space: nowrap;">
+        <au-autocomplete
+          value.bind="data.BeamNumber"
+          error.bind="error.BeamNumber"
+          read-only.bind="true"
+          placeholder="No. Beam"
+          
+        >
+        </au-autocomplete>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.ConstructionNumber"
+          error.bind="error.ConstructionNumber"
+          read-only.bind="true"
+          placeholder="No. Konstruksi"
+        >
+        </au-textbox>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.PIS"
+          error.bind="error.PIS"
+          read-only.bind="true"
+          placeholder="PIS"
+        >
+        </au-textbox>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.Visco"
+          error.bind="error.Visco"
+          read-only.bind="true"
+          placeholder="Visco"
+        >
+        </au-textbox>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.Time.Start"
+          error.bind="error.Time.Start"
+          read-only.bind="true"
+          placeholder="Start"
+        >
+        </au-textbox>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.Time.Finish"
+          error.bind="error.Time.Finish"
+          read-only.bind="true"
+          placeholder="Finish"
+        >
+        </au-textbox>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.Broke"
+          error.bind="error.Broke"
+          read-only.bind="true"
+          placeholder="Broke"
+        >
+        </au-textbox>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.Counter"
+          error.bind="error.Counter"
+          read-only.bind="true"
+          placeholder="Counter"
+        >
+        </au-textbox>
+      </td>
+      <td style="white-space: nowrap;">
+        <au-textbox
+          value.bind="data.Shift"
+          error.bind="error.Shift"
+          read-only.bind="true"
+          placeholder="Shift"
+        >
+        </au-textbox>
+      </td>
+      <!-- <td class="col-sm-1" if.bind="!readOnly">
+        <button
+          class="btn btn-danger pull-right"
+          click.delegate="onremove(data, $event)"
+        >
+          -
+        </button>
+      </td> -->
+    </tr>
+  </template>
+  

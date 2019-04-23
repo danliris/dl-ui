@@ -182,6 +182,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/beam-sizing-production",
+    name: "beam-sizing-production",
+    moduleId: "./modules/weaving/beam-sizing-production/index",
+    nav: true,
+    title: "Produksi Beam Sizing",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/beam-monitoring",
     name: "beam-monitoring",
     moduleId: "./modules/weaving/beam-monitoring/index",

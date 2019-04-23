@@ -70,8 +70,8 @@
           <textbox label="No. Mesin" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete value.bind="MachineDocument" error.bind="error.MachineDocument" read-only.bind="readOnly"
-            loader.bind="machines" text="MachineNumber"></au-autocomplete>
+          <au-autocomplete value.bind="MachineNumber" error.bind="error.MachineNumber" read-only.bind="readOnly"
+            loader.bind="machines" text="Number"></au-autocomplete>
         </div>
       </div>
       <div class="row" style="white-space: nowrap;">
@@ -79,7 +79,7 @@
           <textbox label="Unit Weaving" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete value.bind="WeavingDocument" error.bind="error.WeavingDocument" read-only.bind="readOnly"
+          <au-autocomplete value.bind="WeavingUnit" error.bind="error.WeavingUnit" read-only.bind="readOnly"
             loader.bind="units" text="Name"></au-autocomplete>
         </div>
       </div>
@@ -255,7 +255,7 @@
                   <textbox label="No. Beam" read-only="true"></textbox>
                 </div>
                 <div class="col-md-8">
-                  <au-autocomplete placeholder="No. SPP" value.bind="StartBeam" error.bind="error.StartBeam"
+                  <au-autocomplete placeholder="No. Beam" value.bind="StartBeam" error.bind="error.StartBeam"
                     read-only.bind="readOnly" loader.bind="beam" text="Number"></au-autocomplete>
                 </div>
               </div>
@@ -275,45 +275,49 @@
           <div class="modal-contents-resume">
             <div class="close" click.delegate="hideMenu()">+</div>
             <form action="" style="margin-left:24px;">
+
               <div class="row" style="white-space: nowrap; margin-top: 24px;">
                 <div class="col-md-2">
                   <textbox label="Shift" read-only="true"></textbox>
                 </div>
                 <div class="col-md-4">
-                  <au-autocomplete placeholder="Shift" value.bind="StartShift" error.bind="error.StartShift"
+                  <au-autocomplete placeholder="Shift" value.bind="ResumeShift" error.bind="error.ResumeShift"
                     read-only.bind="readOnly" loader.bind="shift" text="Name"></au-autocomplete>
                 </div>
               </div>
+
               <div class="row" style="white-space: nowrap;">
                 <div class="col-md-2">
                   <textbox label="Asal Lusi" read-only="true"></textbox>
                 </div>
                 <div class="col-md-4">
-                  <au-autocomplete placeholder="Asal Lusi" value.bind="WeftOrigin" error.bind="error.WeftOrigin"
-                    read-only.bind="readOnly"></au-autocomplete>
-                </div>
-                <div class="col-md-2">
-                  <textbox label="Naik" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                  <input value.bind="Install " type="time" error.bind="error.Install" read-only.bind="readOnly">
-                </div>
-              </div>
-              <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
-                  <textbox label="Asal Pakan" read-only="true"></textbox>
-                </div>
-                <div class="col-md-4">
-                  <au-autocomplete placeholder="Asal Pakan" value.bind="WarpOrigin" error.bind="error.WarpOrigin"
+                  <au-autocomplete placeholder="Asal Lusi" value.bind="data.WeftOrigin" error.bind="error.WeftOrigin"
                     read-only.bind="readOnly"></au-autocomplete>
                 </div>
                 <div class="col-md-2">
                   <textbox label="Turun" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                  <input value.bind="Uninstall " type="time" error.bind="error.Uninstall" read-only.bind="readOnly">
+                  <input value.bind="data.Time.Uninstall " type="time" error.bind="error.Uninstall" read-only.bind="readOnly">
                 </div>
               </div>
+
+              <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                  <textbox label="Asal Pakan" read-only="true"></textbox>
+                </div>
+                <div class="col-md-4">
+                  <au-autocomplete placeholder="Asal Pakan" value.bind="data.WarpOrigin" error.bind="error.WarpOrigin"
+                    read-only.bind="readOnly"></au-autocomplete>
+                </div>
+                <div class="col-md-2">
+                  <textbox label="Naik" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                  <input value.bind="data.Time.Install " type="time" error.bind="error.Install" read-only.bind="readOnly">
+                </div>
+              </div>
+
               <div class="row" style="white-space: nowrap;">
                 <div class="col-md-2">
                   <textbox label="Keterangan" read-only="true"></textbox>
@@ -324,6 +328,7 @@
                   </au-textbox>
                 </div>
               </div>
+
               <div class="row" style="white-space: nowrap;">
                 <div class="col-md-12">
                   <button class="btn btn-default" click.delegate="start()"
@@ -332,6 +337,7 @@
                   </button>
                 </div>
               </div>
+
             </form>
           </div>
         </div>
