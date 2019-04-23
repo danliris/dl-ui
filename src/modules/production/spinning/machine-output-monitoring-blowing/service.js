@@ -49,12 +49,12 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    getCountByProcessAndYarn(processType, yarnId){
+    getCountByProcessAndYarn(processType, yarnId) {
         var endpoint = `${countUri}/by-process-yarn?processType=${processType}&yarnId=${yarnId}`;
         return super.get(endpoint);
     }
 
-    validateLotInCount(lotId, processType){
+    validateLotInCount(lotId, processType) {
         var endpoint = `${countUri}/validate-lot?lotId=${lotId}&processType=${processType}`;
         return super.get(endpoint);
     }
@@ -73,6 +73,11 @@ export class CoreService extends RestService {
 
     searchMachineSpinning(unitId, type) {
         var endpoint = `${machineServiceUri}/spinning-filtered?unitId=${unitId}&type=${type}`;
+        return super.get(endpoint);
+    }
+
+    getMachineSpinningById(id) {
+        var endpoint = `${machineServiceUri}/${id}`;
         return super.get(endpoint);
     }
 }

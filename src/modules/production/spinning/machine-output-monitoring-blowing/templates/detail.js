@@ -8,7 +8,7 @@ export class Item {
     @bindable output;
     @bindable data;
     @bindable readOnly;
-    
+    @bindable uomUnit;
 
     
     activate(context) {
@@ -17,65 +17,22 @@ export class Item {
         this.error = context.error;
         this.options = context.options;
         this.readOnly = context.options.readOnly;
-        this.processType = context.context.options.ProcessType;
-        this.CountConfig = context.context.options.CountConfig;
-        this.MachineSpinnings = context.context.options.MachineSpinnings;
-        this.isEdit = this.context.context.options.isEdit;
-        if (this.processType == "Blowing") {
-            this.isBlowing = true;
-            this.isWinder = false;
-            this.isFlyer = false;
-        } else if (this.processType == "Winder") {
-            this.isBlowing = false;
-            this.isWinder = true;
-            this.isFlyer = false;
-        } else if (this.processType == "Flyer") {
-            this.isBlowing = false;
-            this.isWinder = false;
-            this.isFlyer = true;
-        } else {
-            this.isBlowing = false;
-            this.isWinder = false;
-            this.isFlyer = false;
-        }
+        
+        this.uomUnit =  context.context.options.UomUnit;
+        
         if (this.data.Output) {
             this.output = this.data.Output;
         }
 
-        if (this.data.BadOutput) {
-            this.badOutput = this.data.BadOutput;
-        }
 
-        if (this.data.DeliveryTotal) {
-            this.deliveryTotal = this.data.DeliveryTotal;
-        } else {
-            if (this.isFlyer) {
-                var MachineSpinning = this.MachineSpinnings.find(x => x.Id == this.data.MachineSpinning.Id);
-                this.deliveryTotal = MachineSpinning.Delivery;
-            }
-
-        }
-
-        if (this.data.Spindle) {
-            this.spindle = this.data.Spindle;
-        }
-
-        if (this.data.Waste) {
-            this.waste = this.data.Waste;
-        }
-
-        if (this.data.DrumTotal) {
-            this.drumTotal = this.data.DrumTotal;
-        }
-
-
+        
     }
 
     outputChanged(n, o) {
 
         this.data.Output = this.output;
         if (o != null && o != undefined && n != o) {
-            this.baseMathFormula();
+            // this.baseMathFormula();
         }
 
     }
@@ -126,23 +83,23 @@ export class Item {
     }
 
     baseMathFormula() {
-        var MachineSpinning = this.MachineSpinnings.find(x => x.Id == this.data.MachineSpinning.Id);
+        
         if (this.processType == "Blowing") {
-            this.blowingFormula(MachineSpinning);
+            this.blowingFormula(this.MachineSpinning);
         } else if (this.processType == "Carding") {
-            this.cardingFormula(MachineSpinning);
+            this.cardingFormula(this.MachineSpinning);
         } else if (this.processType == "Flyer") {
-            this.flyerFormula(MachineSpinning);
+            this.flyerFormula(this.MachineSpinning);
         } else if (this.processType == "Ring Spinning") {
-            this.ringFormula(MachineSpinning);
+            this.ringFormula(this.MachineSpinning);
         } else if (this.processType == "Winder") {
-            this.winderFormula(MachineSpinning);
+            this.winderFormula(this.MachineSpinning);
         } else if (this.processType.includes("Drawing")) {
-            this.drawingFormula(MachineSpinning);
+            this.drawingFormula(this.MachineSpinning);
         } else if (this.processType == "Lap Former") {
-            this.lapFormerFormula(MachineSpinning);
+            this.lapFormerFormula(this.MachineSpinning);
         } else if (this.processType == "Combing") {
-            this.combingFormula(MachineSpinning);
+            this.combingFormula(this.MachineSpinning);
         }
     }
 

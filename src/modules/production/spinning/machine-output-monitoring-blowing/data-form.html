@@ -1,8 +1,9 @@
 <template>
-     <style>
+    <style>
         .collection .panel-body {
-          padding: 0px;
+            padding: 0px;
         }
+
         #blowingDetails {
             margin: 0px;
             padding: 0px;
@@ -64,36 +65,38 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="blowingDetails" class="col-md-3">
-                  
+
                     <au-collection items.bind="details1" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
                         read-only.bind="readOnly" options.bind="detailOptions"
                         item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
-                    </au-collection>  
+                    </au-collection>
                 </div>
                 <div id="blowingDetails" class="col-md-3">
                     <au-collection items.bind="details2" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
                         read-only.bind="readOnly" options.bind="detailOptions"
                         item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
-                    </au-collection>          
+                    </au-collection>
                 </div>
                 <div id="blowingDetails" class="col-md-3">
                     <au-collection items.bind="details3" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
                         read-only.bind="readOnly" options.bind="detailOptions"
                         item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
-                    </au-collection>          
+                    </au-collection>
                 </div>
                 <div id="blowingDetails" class="col-md-3">
                     <au-collection items.bind="details4" errors.bind="error.Items" columns.bind="itemsColumnsHeader"
                         read-only.bind="readOnly" options.bind="detailOptions"
                         item-template="modules/production/spinning/machine-output-monitoring-blowing/templates/detail">
-                    </au-collection>          
-                </div>  
-            </div>  
+                    </au-collection>
+                </div>
+            </div>
         </div>
 
         <au-textbox error.bind="error.Differences" show.bind="error.Differences" read-only.bind="true">
         </au-textbox>
 
-        <div show.bind="isItem">Total Hasil Produksi : ${grandTotal | numberFormat: '0,0.0000'} Ball</div>
+        <div>Total Output : ${grandTotal | numberFormat: '0,0.0000'} ${uomUnitDisplay}</div>
+        <div>Total Output : ${grandTotalBale | numberFormat: '0,0.0000'} BALE</div>
+        <div>Eff : ${grandEff | numberFormat: '0,0.0000'} %</div>
     </au-input-form>
 </template>
