@@ -35,6 +35,7 @@ export class DataForm {
     this.error = this.context.error;
 
     this.showStartMenu = false;
+    this.showPauseMenu = false;
     this.showResumeMenu = false;
     this.showDoffMenu = false;
 
@@ -85,6 +86,8 @@ export class DataForm {
     }
   ];
 
+  causes = ["", "Putus Beam", "Mesin Bermasalah"];
+
   //   get units() {
   //     return UnitLoader;
   //   }
@@ -108,6 +111,18 @@ export class DataForm {
       this.showStartMenu = false;
     } else {
       this.showStartMenu = true;
+      this.showPauseMenu = false;
+      this.showResumeMenu = false;
+      this.showDoffMenu = false;
+    }
+  }
+
+  pause() {
+    if (this.showPauseMenu === true) {
+      this.showPauseMenu = false;
+    } else {
+      this.showPauseMenu = true;
+      this.showStartMenu = false;
       this.showResumeMenu = false;
       this.showDoffMenu = false;
     }
@@ -119,6 +134,7 @@ export class DataForm {
     } else {
       this.showResumeMenu = true;
       this.showStartMenu = false;
+      this.showPauseMenu = false;
       this.showDoffMenu = false;
     }
   }
@@ -128,14 +144,16 @@ export class DataForm {
       this.showDoffMenu = false;
     } else {
       this.showDoffMenu = true;
-      this.showResumeMenu = false;
       this.showStartMenu = false;
+      this.showPauseMenu = false;
+      this.showResumeMenu = false;
     }
   }
 
   hideMenu() {
-    if (this.showStartMenu === true || this.showResumeMenu === true || this.showDoffMenu === true) {
+    if (this.showStartMenu === true || this.showResumeMenu === true || this.showDoffMenu === true || this.showPauseMenu === true) {
       this.showStartMenu = false;
+      this.showPauseMenu = false;
       this.showResumeMenu = false;
       this.showDoffMenu = false;
     }
