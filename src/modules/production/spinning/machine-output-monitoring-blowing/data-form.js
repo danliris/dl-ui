@@ -5,6 +5,7 @@ import moment from 'moment';
 var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
+var MachineSpinningLoader = require('../../../../loader/machine-spinning-for-blowing-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -20,9 +21,15 @@ export class DataForm {
     @bindable shift;
     @bindable group;
     @bindable unit;
-    @bindable isItem = true;
+    @bindable isItem = false;
     @bindable detailOptions;
     @bindable error;
+    @bindable machineSpinning;
+    @bindable machineName;
+    @bindable details1 = [];
+    @bindable details2 = [];
+    @bindable details3 = [];
+    @bindable details4 = [];
 
     formOptions = {
         cancelText: "Kembali",
@@ -49,15 +56,12 @@ export class DataForm {
     }
 
     shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
-    detailOptions = {};
+    detailOptions = {
+
+    };
     itemsColumnsHeader = [
-        "Nomor Mesin",
-        "Merk Mesin",
         "Output (Counter)",
-        "UOM",
-        "Bale",
-        "Bad Output",
-        "Eff%"
+        "UOM"
     ];
     machineSpinningFilter = {};
     masterFilter = {};
@@ -73,20 +77,22 @@ export class DataForm {
 
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    machineSpinningFilter = { "UnitName": "Spinning 2" };
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
-        console.log(this);
-        // this.bindingEngine = bindingEngine
+
     }
 
     bind(context) {
+
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        // this.isItem = tu;
+
         this.data.ProcessType = this.processType;
         this.detailOptions.ProcessType = this.processType;
+        this.unit = "Spinning 2";
         this.coreService.getMachineTypes()
             .then(result => {
                 if (this.data.ProcessType) {
@@ -98,10 +104,12 @@ export class DataForm {
                     }
                 }
             });
+
+
+
+
         this.detailOptions.isEdit = this.context.isEdit;
-        if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
-            this.unit = this.data.UnitDepartment;
-        }
+
         if (this.data.Lot && this.data.Lot.Id) {
             this.lot = this.data.Lot;
         }
@@ -129,11 +137,12 @@ export class DataForm {
         }
 
         if (this.data.Items) {
-            for (var item of this.data.Items) {
-                item.Identity = item.Id;
-                item.MachineSpinningIdentity = item.MachineSpinning.Id;
-            }
-            this.itemTemp = this.data.Items
+            this.data.Items[0].Identity = this.data.Items[0].Id;
+            this.data.Items[0].MachineSpinningIdentity = this.data.Items[0].MachineSpinning.Id;
+            this.coreService.getMachineSpinningById(this.data.Items[0].MachineSpinning.Id)
+                .then(result => {
+                    this.machineSpinning = result;
+                });
         }
     }
 
@@ -154,153 +163,80 @@ export class DataForm {
         }.bind(this)
     };
 
-
     async fillItems() {
-        if (!this.readOnly && this.data.UnitDepartmentId && this.data.ProcessType && this.data.MaterialTypeId && this.data.LotId) {
-            this.machineSpinningFilter.page = 1;
-            this.machineSpinningFilter.size = 2147483647;
-            this.machineSpinningFilter.order = { "No": "asc" }
-            // this.machineSpinningFilter.filter = { "Type": this.data.ProcessType, "UnitId": this.data.UnitDepartmentId }
-            this.filter = {};
-            this.filter.Type = this.data.ProcessType;
-            this.filter.UnitId = this.data.UnitDepartmentId.toString();
-            this.machineSpinningFilter.filter = JSON.stringify(this.filter);
-            this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
-                .then(async results => {
-                    let existedItem = {};
-                    this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
-                    if (!this.detailOptions.CountConfig) {
-                        this.error.LotId = "Count is not created with this Lot";
-                        return [];
+        if (this.data.MaterialTypeId && this.data.LotId && this.machineSpinning) {
+            this.isItem = true;
+            this.detailOptions.UomUnit = this.machineSpinning.UomUnit;
+
+            this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
+            if (!this.detailOptions.CountConfig) {
+                if (this.error) {
+                    this.error.LotId = "Count is not created with this Lot";
+                }
+
+            } else {
+                if (this.error) {
+                    this.error.LotId = undefined;
+                }
+            }
+
+            if (this.data.Items) {
+                this.details1 = this.data.Items[0].BlowingDetails.slice(0, 25)
+                this.details2 = this.data.Items[0].BlowingDetails.slice(25, 50);
+                this.details3 = this.data.Items[0].BlowingDetails.slice(50, 75);
+                this.details4 = this.data.Items[0].BlowingDetails.slice(75);
+
+                this.data.Items[0].MachineSpinningIdentity = this.machineSpinning.Id;
+                this.data.Items[0].BlowingDetails = this.details1.concat(this.details2, this.details3, this.details4);
+                this.data.Items[0].Output = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+                if (this.machineSpinning.UomUnit.toUpperCase() == "KG") {
+                    this.data.Items[0].Bale = (this.data.Items[0].Output / 181.44) * this.machineSpinning.Delivery;
+                } else {
+                    this.data.Items[0].Bale = this.data.Items[0].Output;
+                }
+                this.data.Items[0].Eff = this.data.Items[0].Bale * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+                this.data.MachineSpinning = this.machineSpinning;
+                this.data.CountConfig = this.detailOptions.CountConfig
+
+            } else {
+                this.data.Items = [];
+                for (let i = 1; i <= 100; i++) {
+                    let blowDet = {};
+                    blowDet.Number = i;
+                    if (i <= 25) {
+                        this.details1.push(blowDet);
+                    } else if (i > 25 && i <= 50) {
+                        this.details2.push(blowDet);
+                    } else if (i > 50 && i <= 75) {
+                        this.details3.push(blowDet);
                     } else {
-                        this.error.LotId = undefined;
+                        this.details4.push(blowDet);
                     }
-                    // console.log(this.detailOptions.CountConfig);
-                    this.detailOptions.MachineSpinnings = results;
-                    if (this.data.Id) {
-                        existedItem = this.data;
-                    }
-                    else {
-                        // if(this.data.Date && this.data.Shift && this.data.Group && this.data.Group != "" && this.data.Shift != ""){
-                        //     existedItem = await this.service.getByHeader(this.data.Date, this.processType, this.materialType.Id, this.lot.Id, this.data.Shift, this.data.Group, this.unit.Id);
-                        //     if (existedItem.Items && existedItem.Items.length > 0) {
-                        //         alert("Data already exist with this configuration");
-                        //         this.inputDate = undefined;
-                        //         this.processType = this.typeOptions[0];
-                        //         this.materialType = undefined;
-                        //         this.lot = undefined;
-                        //         this.shift = this.shiftOptions[0];
-                        //         this.group = undefined;
-                        //         this.unit = undefined;
-                        //         return [];
-                        //     }
-                        // }else{
-                        existedItem = {};
-                        existedItem.Items = [];
-                        // }
+                }
+                var item = {};
+                item.MachineSpinningIdentity = this.machineSpinning.Id;
+                item.BlowingDetails = this.details1.concat(this.details2, this.details3, this.details4);
+                item.Output = item.BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+                if (this.machineSpinning.UomUnit.toUpperCase() == "KG") {
+                    item.Bale = (item.Output / 181.44) * this.machineSpinning.Delivery;
+                } else {
+                    item.Bale = item.Output;
+                }
+                item.Eff = item.Bale * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+                this.data.MachineSpinning = this.machineSpinning;
+                this.data.CountConfig = this.detailOptions.CountConfig
+                this.data.Items.push(item);
+            }
 
-                    }
-                    // results.data = results.data.filter((el) => !existedItem.Items.some((al) => el.Id == al.MachineSpinning.Id));
 
-                    var newItems = [];
-                    for (var item of results) {
-                        var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
-
-                        var newData = {};
-                        newData.MachineSpinning = {};
-                        newData.Output = dbItem ? dbItem.Output : 0;
-                        newData.MachineSpinning.No = item.No;
-                        newData.MachineSpinning.Name = item.Name;
-                        newData.MachineSpinning.UomUnit = item.UomUnit;
-                        newData.MachineSpinning.Id = item.Id;
-                        newData.MachineSpinningIdentity = item.Id;
-                        newData.Bale = dbItem ? dbItem.Bale : 0;
-                        newData.Eff = dbItem ? dbItem.Eff : 0;
-                        newData.BadOutput = dbItem ? dbItem.BadOutput : 0;
-                        newData.DeliveryTotal = dbItem ? dbItem.DeliveryTotal : 0;
-                        newData.Spindle = dbItem ? dbItem.Spindle : 0;
-                        newData.Waste = dbItem ? dbItem.Waste : 0;
-                        newData.DrumTotal = dbItem ? dbItem.DrumTotal : 0;
-                        if (this.itemTemp) {
-                            for (var itemsTemp of this.itemTemp) {
-                                if (itemsTemp.MachineSpinning.Id == newData.MachineSpinning.Id) {
-                                    newData.ExistedItem = true;
-                                }
-                            }
-                        }
-                        newItems.push(newData);
-                    }
-                    return newItems;
-                });
-
+            // this.detailOptions.MachineSpinning = this.MachineSpinning;
+        } else if (!this.readOnly) {
+            this.isItem = false;
+        } else {
+            this.isItem = true;
         }
     }
 
-    
-
-    // processTypeChanged(n, o) {
-    //     if (this.processType && this.processType != "") {
-    //         this.data.ProcessType = this.processType;
-    //         this.detailOptions.ProcessType = this.processType;
-    //         if (this.processType == "Blowing") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Bad Output",
-    //                 "Eff%"
-    //             ];
-
-    //         } else if (this.processType == "Flyer") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Total Delivery",
-    //                 "Spindle Kosong",
-    //                 "Eff%"
-    //             ];
-    //         } else if (this.processType == "Winder") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Waste",
-    //                 "Total Drum",
-    //                 "Eff%"
-    //             ];
-    //         } else {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Eff%"
-    //             ];
-    //         }
-    //         this.isItem = true;
-    //         this.fillItems();
-    //     } else {
-    //         this.data.ProcessType = null;
-    //         this.data.Items = [];
-    //         this.itemsColumnsHeader = [
-    //             "Nomor Mesin",
-    //             "Merk Mesin",
-    //             "Output (Counter)",
-    //             "UOM",
-    //             "Bale",
-    //             "Eff%"
-    //         ];
-    //         this.isItem = false;
-    //     }
-    // }
 
     inputDateChanged(n, o) {
         if (this.inputDate) {
@@ -308,7 +244,7 @@ export class DataForm {
             // this.fillItems();
         } else {
             this.data.Date = null;
-            this.data.Items = [];
+            // this.data.Items = [];
         }
     }
 
@@ -319,7 +255,7 @@ export class DataForm {
             this.fillItems();
         } else {
             this.data.MaterialTypeId = null;
-            this.data.Items = [];
+            // this.data.Items = [];
         }
     }
 
@@ -341,7 +277,7 @@ export class DataForm {
 
         } else {
             this.data.LotId = null;
-            this.data.Items = [];
+            // this.data.Items = [];
         }
     }
 
@@ -351,7 +287,7 @@ export class DataForm {
             // this.fillItems();
         } else {
             this.data.Shift = null;
-            this.data.Items = [];
+            // this.data.Items = [];
         }
     }
 
@@ -361,20 +297,21 @@ export class DataForm {
             // this.fillItems();
         } else {
             this.data.Group = null;
-            this.data.Items = [];
+            // this.data.Items = [];
         }
 
     }
 
-    unitChanged(newValue, oldValue) {
+    machineSpinningChanged(n, o) {
+        if (this.machineSpinning && this.machineSpinning.Id) {
+            this.machineName = this.machineSpinning.Name;
 
-        if (this.unit && this.unit.Id) {
-            this.data.UnitDepartmentId = this.unit.Id;
-            this.fillItems();
+
         } else {
-            this.data.UnitDepartmentId = 0;
-            this.data.Items = [];
+            this.machineName = null;
         }
+
+        this.fillItems();
     }
 
     get lotLoader() {
@@ -387,17 +324,52 @@ export class DataForm {
     }
 
     get grandTotal() {
-        let result = 0;
-        if (this.data.Items && this.data.Items.length > 0) {
-            for (let item of this.data.Items) {
-                if (item.Bale)
-                    result += item.Bale;
+        if (this.data.Items) {
+            return this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+        }
+    }
+
+    get grandTotalBale() {
+        if (this.data.Items) {
+            let outputDisplay = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+            if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
+
+                return (outputDisplay / 181.44) * this.machineSpinning.Delivery;
+            } else {
+                return outputDisplay;
             }
         }
-        return result;
+    }
+
+    get grandEff() {
+        if (this.data.Items && this.detailOptions.CountConfig && this.machineSpinning) {
+            let baleDisplay = 0;
+            let outputDisplay = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+            if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
+
+                baleDisplay = (outputDisplay / 181.44) * this.machineSpinning.Delivery;
+            } else {
+                baleDisplay = outputDisplay;
+            }
+            return baleDisplay * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+        }
+
+    }
+
+    get uomUnitDisplay() {
+        if (this.machineSpinning) {
+            return this.machineSpinning.UomUnit;
+        }
+        else {
+            return "";
+        }
     }
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get machineSpinningLoader() {
+        return MachineSpinningLoader;
     }
 }
