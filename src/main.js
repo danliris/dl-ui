@@ -45,7 +45,7 @@ export async function configure(aurelia) {
       var intPurchasing = "https://com-danliris-service-internal-transfer-dev.azurewebsites.net/v1/";
       var customsReport = "https://com-danliris-service-support.azurewebsites.net/v1/";
       var merchandiser = "https://com-danliris-service-md.azurewebsites-dev.net/v1/";
-      const dealTracking = 'https://com-danliris-service-deal-tracking-dev.azurewebsites.net/v1/';
+      const dealTracking = 'https://com-danliris-service-deal-tracking.azurewebsites.net/v1/';
       const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
       var weaving = "https://com-danliris-service-weaving.azurewebsites.net/";
       var finance = "https://com-danliris-service-finance-accounting.azurewebsites.net/v1/";
