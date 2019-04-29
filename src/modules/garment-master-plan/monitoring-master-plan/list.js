@@ -110,6 +110,7 @@ export class List {
             dataTemp.unitBuyer = pr.unit + ';' + pr.buyer;
             dataTemp.SMVTotal = pr.SMVSewing;
             dataTemp.dataCount = pr.count;
+            dataTemp.usedEHBlocking=pr.UsedEH;
             dataTemp.operator = pr.items.map(value => { return value.head});
             dataTemp.workingHours = pr.items.map(value => { return value.workingHours});
             dataTemp.AH = pr.items.map(value => { return value.AHTotal});
@@ -259,6 +260,8 @@ export class List {
             if (!cat[c.units + "usedEH"]) {
               cat[c.units + "usedEH"] = c.usedEH;
             }
+
+            
             
             if (!cat[c.units + "workingHours"]) {
               cat[c.units + "workingHours"] = c.workingHours;
@@ -276,12 +279,29 @@ export class List {
             if (!cat[c.units + "backgroundColorWH"]) {
               cat[c.units + "backgroundColorWH"] = c.backgroundColorWH;
             }
+            if (!cat[c.units + "usedEHConfirm"+ c.weekSewingBlocking]) {
+              if(c.isConfirmed)
+                cat[c.units + "usedEHConfirm"+ c.weekSewingBlocking] = c.usedEHBlocking;
+            }
+            else{
+              if(c.isConfirmed)
+                cat[c.units + "usedEHConfirm"+ c.weekSewingBlocking] += c.usedEHBlocking;
+            }
 
             if (!cat["GRANDTOTAL" + "Total Booking" + c.weekSewingBlocking]) {
               cat["GRANDTOTAL" + "Total Booking" + c.weekSewingBlocking] = c.bookingQty;
             }
             else{
               cat["GRANDTOTAL" + "Total Booking" + c.weekSewingBlocking] += c.bookingQty;
+            }
+
+            if (!cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking]) {
+               if(c.isConfirmed)
+                  cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] = c.usedEHBlocking;
+            }
+            else{
+              if(c.isConfirmed)
+                cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] += c.usedEHBlocking;
             }
 
             if (!cat["GRANDTOTAL" + "Total Confirm" + c.weekSewingBlocking]) {
@@ -292,10 +312,50 @@ export class List {
               if(c.isConfirmed)
                 cat["GRANDTOTAL" + "Total Confirm" + c.weekSewingBlocking] += c.bookingQty;
             }
+
+            if (!cat["GRANDTOTALUNIT" + "Total Booking" + c.weekSewingBlocking]) {
+              if(c.units != "SK")
+                cat["GRANDTOTALUNIT" + "Total Booking" + c.weekSewingBlocking] = c.bookingQty;
+            }
+            else{
+              if(c.units != "SK")
+                cat["GRANDTOTALUNIT" + "Total Booking" + c.weekSewingBlocking] += c.bookingQty;
+            }
+
+            if (!cat["GRANDTOTALUNIT" + "Total Confirm" + c.weekSewingBlocking]) {
+              if(c.units != "SK")
+                if(c.isConfirmed)
+                  cat["GRANDTOTALUNIT" + "Total Confirm" + c.weekSewingBlocking] = c.bookingQty;
+            }
+            else{
+              if(c.units != "SK")
+                if(c.isConfirmed)
+                  cat["GRANDTOTALUNIT" + "Total Confirm" + c.weekSewingBlocking] += c.bookingQty;
+            }
+
+            if (!cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking]) {
+              if(c.units != "SK")
+               if(c.isConfirmed)
+                  cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] = c.usedEHBlocking;
+            }
+            else{
+              if(c.units != "SK")
+                if(c.isConfirmed)
+                  cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] += c.usedEHBlocking;
+              }
             
           }
 
+          var flagSK=false;
+          for (var j of output) {
+            if(j=="SK"){
+              flagSK=true;break;
+            }
+          }
+
           var unitCount=output.length;
+          var unitNotSKCount=flagSK? output.length-1 : output.length;
+          
           var totalOP=[];
           var totalAH=[];
           var totalEH=[];
@@ -306,6 +366,17 @@ export class List {
           var totalWHBooking=[];
           var totalWHConfirm=[];
           var totalWH=[];
+
+          var totalOP_Unit=[];
+          var totalAH_Unit=[];
+          var totalEH_Unit=[];
+          var totalUsedEH_Unit=[];
+          var totalremEh_Unit=[];
+          var totalEfisiensi_Unit=[];
+          var totalworkingHours_Unit=[];
+          var totalWHBooking_Unit=[];
+          var totalWHConfirm_Unit=[];
+          var totalWH_Unit=[];
 
           for (var j of output) {
             var data = {};
@@ -347,6 +418,7 @@ export class List {
             }
             var qty = [];
             var qtyConf = [];
+            var ehConf=[];
             var conf=[];
             var confPrs=[];
             var op=cat[j + "operator"];
@@ -364,6 +436,11 @@ export class List {
 
               qty[y + 1] = cat[categ] ? cat[categ] : '-';
               qty[0] = parseFloat((smvTot / counts).toFixed(2));
+
+              var usedEHConf = j + "usedEHConfirm" + (y + 1).toString();
+
+              ehConf[y + 1] = cat[usedEHConf] ? cat[usedEHConf] : 0;
+              ehConf[0] = "";
 
               var categConf = j + "Total Confirm" + (y + 1).toString();
               qtyConf[y + 1] = cat[categConf] ? cat[categConf] : '-';
@@ -481,7 +558,81 @@ export class List {
               else{
                 totalEfisiensi[y + 1]+=parseInt(eff);
               }
-              
+
+              totalOP_Unit[0]="";
+              totalWH_Unit[0]="";
+              totalAH_Unit[0]="";
+              totalEH_Unit[0]="";
+              totalremEh_Unit[0]="";
+              totalUsedEH_Unit[0]="";
+              totalEfisiensi_Unit[0]="";
+              totalWHConfirm_Unit[0]="";
+              totalWHBooking_Unit[0]="";
+
+              if(j!="SK"){
+                if(!totalWH_Unit[y + 1]){
+                  totalWH_Unit[y + 1]=wh[y];
+                }
+                else{
+                  totalWH_Unit[y + 1]+=wh[y];
+                }
+
+                if(!totalWHBooking_Unit[y + 1]){
+                  totalWHBooking_Unit[y + 1]=whBooking[y];
+                }
+                else{
+                  totalWHBooking_Unit[y + 1]+=whBooking[y];
+                }
+
+                if(!totalWHConfirm_Unit[y + 1]){
+                  totalWHConfirm_Unit[y + 1]=parseFloat(conf[y + 1]);
+                }
+                else{
+                  totalWHConfirm_Unit[y + 1]+=parseFloat(conf[y + 1]);
+                }
+
+                if(!totalOP_Unit[y + 1]){
+                  totalOP_Unit[y + 1]=op[y];
+                }
+                else{
+                  totalOP_Unit[y + 1]+=op[y];
+                }
+
+                if(!totalAH_Unit[y + 1]){
+                  totalAH_Unit[y + 1]=ah[y];
+                }
+                else{
+                  totalAH_Unit[y + 1]+=ah[y];
+                }
+
+                if(!totalEH_Unit[y + 1]){
+                  totalEH_Unit[y + 1]=eh[y];
+                }
+                else{
+                  totalEH_Unit[y + 1]+=eh[y];
+                }
+                
+                if(!totalUsedEH_Unit[y + 1]){
+                  totalUsedEH_Unit[y + 1]=UsedEh[y];
+                }
+                else{
+                  totalUsedEH_Unit[y + 1]+=UsedEh[y];
+                }
+
+                if(!totalremEh_Unit[y + 1]){
+                  totalremEh_Unit[y + 1]=remEh[y];
+                }
+                else{
+                  totalremEh_Unit[y + 1]+=remEh[y];
+                }
+                var eff= efisiensi[y].replace('%','');
+                if(!totalEfisiensi_Unit[y + 1]){
+                  totalEfisiensi_Unit[y + 1]=parseInt(eff);
+                }
+                else{
+                  totalEfisiensi_Unit[y + 1]+=parseInt(eff);
+                }
+              }
             }
             data.collection.push({ name: "Total Booking", quantity: qty, fontWeight: "bold" });
             data.collection.push({ name: "Total Confirm", quantity: qtyConf, fontWeight: "bold" });
@@ -514,15 +665,27 @@ export class List {
             data.collection.push({ name: "Working Hours", quantity: workingHours, fontWeight: "bold" });
             data.collection.push({ name: "Total AH", quantity: AH, fontWeight: "bold" });
             data.collection.push({ name: "Total EH", quantity: EH, fontWeight: "bold" });
-            data.collection.push({ name: "Used EH", quantity: usedEH, fontWeight: "bold" });
+            data.collection.push({ name: "Used EH Booking", quantity: usedEH, fontWeight: "bold" });
+            data.collection.push({ name: "Used EH Confirm", quantity: ehConf, fontWeight: "bold" });
             data.collection.push({ name: "Remaining EH", quantity: remainingEH, background: background, fontWeight: "bold" });
             data.collection.push({ name: "WH Booking", quantity: WHBooking, background: backgroundColorWH, fontWeight: "bold" });
             data.collection.push({ name: "WH Confirm", quantity: conf, background: backgroundColorWHC,fontWeight: "bold" });
 
             this.data.push(data);
-
-            
           }
+
+          var dataGrandUnit={};
+          dataGrandUnit.collection=[];
+          var qtyUnitTot=[];
+          var confTotUnit=[];
+          var avgConfUnit=[];
+          var avgEffUnit=[];
+          var avgWHConfirmUnit=[];
+          var avgWHBookingUnit=[];
+          var avgWHUnit=[];
+          var bgcWHUnit=[];
+          var bgcWHCUnit=[];
+          var ehConfUnit=[];
 
           var dataGrand={};
           dataGrand.collection=[];
@@ -536,11 +699,18 @@ export class List {
           var avgWH=[];
           var bgcWH=[];
           var bgcWHC=[];
+          var ehConf=[];
 
           for (var y = 0; y < this.weeklyNumbers.length; y++) {
             var ca= "GRANDTOTAL" + "Total Booking" + (y+1).toString();
             qtyTot[0]="";
             qtyTot[y+1]= cat[ca] ? cat[ca] : "-";
+
+            var caUnit= "GRANDTOTALUNIT" + "Total Booking" + (y+1).toString();
+            qtyUnitTot[0]="";
+            qtyUnitTot[y+1]= cat[caUnit] ? cat[caUnit] : "-";
+
+            
 
             // var bookingCat= "GRANDTOTAL" + "Total Booking" + (y+1).toString();
             // BookingqtyTot[0]="";
@@ -549,6 +719,10 @@ export class List {
             var confCat="GRANDTOTAL" + "Total Confirm" + (y+1).toString();
             confTot[0]="";
             confTot[y+1]= cat[confCat] ? cat[confCat] : "-";
+
+            var confCatUnit="GRANDTOTALUNIT" + "Total Confirm" + (y+1).toString();
+            confTotUnit[0]="";
+            confTotUnit[y+1]= cat[confCatUnit] ? cat[confCatUnit] : "-";
 
             avgConf[0]="";
             if(qtyTot[y+1]=="-"){
@@ -567,6 +741,25 @@ export class List {
             else {
               var avg=(confTot[y+1]/qtyTot[y+1])*100;
               avgConf[y+1]=parseFloat(avg.toFixed(2))+"%";
+            }
+
+            avgConfUnit[0]="";
+            if(qtyUnitTot[y+1]=="-"){
+              if(confTotUnit[y+1]=="-"){
+                avgConfUnit[y+1]="0%";
+              }
+              else{
+                avgConfUnit[y+1]="100%";
+              }
+            }
+            else if(confTotUnit[y+1]=="-"){
+              if(qtyUnitTot[y+1]!="-"){
+                avgConfUnit[y+1]="0%";
+              }
+            }
+            else {
+              var avg=(confTotUnit[y+1]/qtyUnitTot[y+1])*100;
+              avgConfUnit[y+1]=parseFloat(avg.toFixed(2))+"%";
             }
 
             avgEff[0]="";
@@ -595,23 +788,80 @@ export class List {
             
             bgcWHC[0]="transparent";
 
+            avgEffUnit[0]="";
+            avgEffUnit[y+1]=(Math.round(totalEfisiensi_Unit[y + 1]/unitNotSKCount))+"%";
+
+            avgWHConfirmUnit[0]="";
+            avgWHConfirmUnit[y+1]=parseFloat((totalWHConfirm_Unit[y + 1]/unitNotSKCount).toFixed(2));
+            
+            avgWHBookingUnit[0]="";
+            avgWHBookingUnit[y+1]=parseFloat((totalWHBooking_Unit[y + 1]/unitNotSKCount).toFixed(2));
+
+            avgWHUnit[0]="";
+            avgWHUnit[y+1]=parseFloat((totalWH_Unit[y + 1]/unitNotSKCount).toFixed(2));
+
+            bgcWHUnit[y + 1] = avgWHBookingUnit[y + 1] <= 45.5 ? "#FFFF00" : 
+                avgWHBookingUnit[y + 1] <= 50.5 && avgWHBookingUnit[y + 1] > 45.5 ? "#52df46" : 
+                avgWHBookingUnit[y + 1] <= 56.5 && avgWHBookingUnit[y + 1] > 50.5 ? "#f62c2c" :
+                  "#797978";
+            
+            bgcWHUnit[0]="transparent";
+
+            bgcWHCUnit[y + 1] = avgWHConfirmUnit[y + 1] <= 45.5 ? "#FFFF00" : 
+                avgWHConfirmUnit[y + 1] <= 50.5 && avgWHConfirmUnit[y + 1] > 45.5 ? "#52df46" : 
+                avgWHConfirmUnit[y + 1] <= 56.5 && avgWHConfirmUnit[y + 1] > 50.5 ? "#f62c2c" :
+                  "#797978";
+            
+            bgcWHCUnit[0]="transparent";
+
+            var caEHUnit= "GRANDTOTALUNIT" + "usedEHConfirm" + (y+1).toString();
+            ehConfUnit[0]="";
+            ehConfUnit[y+1]= cat[caEHUnit] ? cat[caEHUnit] : 0;
+
+            var caEH= "GRANDTOTAL" + "usedEHConfirm" + (y+1).toString();
+            ehConf[0]="";
+            ehConf[y+1]= cat[caEH] ? cat[caEH] : 0;
+
           }
-          dataGrand.units="GRAND TOTAL";
-          dataGrand.collection.push({ name: "Total Booking", quantity: qtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
-          //dataGrand.collection.push({ name: "Total Booking", quantity: BookingqtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Total Confirm", quantity: confTot, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Persentase Confirm", quantity: avgConf, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Efisiensi", quantity: avgEff, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Total Operator", quantity: totalOP, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Working Hours", quantity: avgWH, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Total AH", quantity: totalAH, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Total EH", quantity: totalEH, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Used EH", quantity: totalUsedEH, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "Remaining EH", quantity: totalremEh, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "WH Booking", quantity: avgWHBooking, background: bgcWH, units: "GRAND TOTAL", fontWeight: "bold" });
-          dataGrand.collection.push({ name: "WH Confirm", quantity: avgWHConfirm, background: bgcWHC,units: "GRAND TOTAL", fontWeight: "bold" });
+
+          dataGrandUnit.units="GRAND TOTAL UNIT";
+          dataGrandUnit.collection.push({ name: "Total Booking", quantity: qtyUnitTot, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Total Confirm", quantity: confTotUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Persentase Confirm", quantity: avgConfUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Efisiensi", quantity: avgEffUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Total Operator", quantity: totalOP_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Working Hours", quantity: avgWHUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Total AH", quantity: totalAH_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Total EH", quantity: totalEH_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Used EH Booking", quantity: totalUsedEH_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Used EH Confirm", quantity: ehConfUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "Remaining EH", quantity: totalremEh_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Booking", quantity: avgWHBookingUnit, background: bgcWH, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Confirm", quantity: avgWHConfirmUnit, background: bgcWHC,units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           
-          this.data.push(dataGrand);
+          this.data.push(dataGrandUnit);
+
+          dataGrand.units="GRAND TOTAL";
+          if(flagSK){
+            dataGrand.collection.push({ name: "Total Booking", quantity: qtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
+            //dataGrand.collection.push({ name: "Total Booking", quantity: BookingqtyTot, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Total Confirm", quantity: confTot, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Persentase Confirm", quantity: avgConf, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Efisiensi", quantity: avgEff, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Total Operator", quantity: totalOP, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Working Hours", quantity: avgWH, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Total AH", quantity: totalAH, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Total EH", quantity: totalEH, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Used EH Booking", quantity: totalUsedEH, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Used EH Confirm", quantity: ehConf, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "Remaining EH", quantity: totalremEh, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "WH Booking", quantity: avgWHBooking, background: bgcWH, units: "GRAND TOTAL", fontWeight: "bold" });
+            dataGrand.collection.push({ name: "WH Confirm", quantity: avgWHConfirm, background: bgcWHC,units: "GRAND TOTAL", fontWeight: "bold" });
+            
+            this.data.push(dataGrand);
+          }
+          
+          
           
           var same = [];
           var columns = [
