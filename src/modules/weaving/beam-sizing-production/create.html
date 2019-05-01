@@ -1,4 +1,173 @@
 <template>
-  <require from="./data-form"></require>
-  <data-form title="Buat Produksi Beam Sizing" error.bind="error" data.bind="data"></data-form>
+  <style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+
+    .bg-modal {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-contents-start {
+      width: 45%;
+      height: 70%;
+      background-color: #EEEEEE;
+      border-radius: 4px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .modal-contents-pause {
+      width: 50%;
+      height: 50%;
+      background-color: #EEEEEE;
+      border-radius: 4px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .modal-contents-resume {
+      width: 65%;
+      height: 70%;
+      background-color: #EEEEEE;
+      border-radius: 4px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .modal-contents-doff {
+      width: 65%;
+      height: 70%;
+      background-color: #EEEEEE;
+      border-radius: 4px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .close {
+      position: relative;
+      top: -12px;
+      right: -4px;
+      font-size: 36px;
+      color: #333;
+      transform: rotate(45deg);
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+
+  </style>
+  <au-input-form title="Create: Produksi Beam Sizing" options.bind="formOptions">
+    <div class="col-md-12">
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Tanggal" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-datepicker value.bind="data.ProductionDate" error.bind="error.ProductionDate" read-only.bind="true">
+          </au-datepicker>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="No. Mesin" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-autocomplete value.bind="MachineDocument" error.bind="error.MachineDocument" read-only.bind="readOnly"
+            loader.bind="machines" text="MachineNumber"></au-autocomplete>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap;">
+        <div class="col-md-2">
+          <textbox label="Unit Weaving" read-only="true"></textbox>
+        </div>
+        <div class="col-md-3">
+          <au-autocomplete value.bind="WeavingDocument" error.bind="error.WeavingDocument" read-only.bind="readOnly"
+            loader.bind="units" text="Name"></au-autocomplete>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+          <button class="btn btn-default" click.delegate="start()"
+            style="margin-bottom: 8px; background-color: #01C8A2; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            Mulai
+          </button>
+        </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap; overflow: auto;">
+        <au-collection items.bind="data.DailyOperationSizingDetails" errors.bind="error.DailyOperationSizingDetails"
+          columns.bind="columns" options.bind="DailyOperationSizingDetailsOptions" remove.bind="onremove"
+          read-only.bind="readOnly" item-template="modules/weaving/beam-sizing-production/templates/items">
+        </au-collection>
+      </div>
+
+      <!-- <div class="startMenu" show.bind="showStartMenu"></div> -->
+
+      <div class="startMenu" show.bind="showStartMenu">
+        <div class="bg-modal">
+          <div class="modal-contents-start">
+            <div class="close" click.delegate="hideMenu()">+</div>
+
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-3">
+                <textbox label="No. Konstruksi" read-only="true"></textbox>
+              </div>
+              <div class="col-md-8">
+                <au-autocomplete placeholder="No. Konstruksi" value.bind="ConstructionDocument"
+                  error.bind="error.ConstructionDocument" read-only.bind="readOnly" loader.bind="constructions"
+                  text="ConstructionNumber" style="margin-top: 4px;">
+                </au-autocomplete>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-3">
+                <textbox label="No. Beam" read-only="true"></textbox>
+              </div>
+              <div class="col-md-8">
+                <au-autocomplete placeholder="No. Beam" value.bind="BeamDocument" error.bind="error.BeamDocument"
+                  read-only.bind="readOnly" loader.bind="beams" text="BeamNumber"></au-autocomplete>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+              <div class="col-md-3">
+                <textbox label="Shift" read-only="true"></textbox>
+              </div>
+              <div class="col-md-8">
+                <au-autocomplete placeholder="Shift" value.bind="ShiftDocument" error.bind="error.ShiftDocument"
+                  read-only.bind="readOnly" loader.bind="shifts" text="Name"></au-autocomplete>
+              </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+              <button class="btn btn-default" click.delegate="save()"
+                style="margin-bottom: 24px; background-color: #01C8A2; color:white; white-space: nowrap; width: 96px; border: 1px solid #777777;">
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </au-input-form>
 </template>

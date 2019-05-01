@@ -1,56 +1,131 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
+import {
+  inject,
+  Lazy
+} from "aurelia-framework";
+import {
+  Router
+} from "aurelia-router";
+import {
+  Service
+} from "./service";
+import moment from 'moment';
+var UnitLoader = require("../../../loader/unit-loader");
+var MachineLoader = require("../../../loader/weaving-machine-loader");
+var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
+var BeamLoader = require("../../../loader/weaving-beam-loader");
+var ShiftLoader = require("../../../loader/weaving-shift-loader");
 
 @inject(Router, Service)
 export class Create {
-  // showViewEdit=false;
-  // readOnlyViewEdit=true;
-  onViewEdit = false;
   constructor(router, service) {
     this.router = router;
     this.service = service;
     this.data = {};
     this.error = {};
+
+    var today = moment(new Date()).format("DD-MMM-YYYY");
+    this.data.ProductionDate = today;
+    this.DailyOperationSizingDetailsOptions = {}
   }
 
-  activate(params) {}
+  formOptions = {
+    cancelText: 'Kembali',
+    saveText: 'Simpan',
+  };
 
-  list() {
-    this.router.navigateToRoute("list");
+  columns = [{
+      value: "BeamNumber",
+      header: "No. Beam"
+    },
+    {
+      value: "ConstructionNumber",
+      header: "No. Konstruksi"
+    }, {
+      value: "PIS",
+      header: "PIS"
+    },
+    {
+      value: "Visco",
+      header: "Visco"
+    },
+    {
+      value: "Time.Start",
+      header: "Mulai"
+    },
+    {
+      value: "Time.Finish",
+      header: "Doff/ Selesai"
+    },
+    {
+      value: "Broke",
+      header: "Putus"
+    },
+    {
+      value: "Counter",
+      header: "Counter"
+    },
+    {
+      value: "Shift",
+      header: "Shift"
+    }
+  ];
+
+  start() {
+    if (this.showStartMenu === true) {
+      this.showStartMenu = false;
+    } else {
+      this.showStartMenu = true;
+    }
+  }
+
+  hideMenu() {
+    // console.log(this.data);
+    if (this.showStartMenu === true) {
+      this.showStartMenu = false;
+    }
+  }
+
+  get machines() {
+    return MachineLoader;
+  }
+
+  get units() {
+    return UnitLoader;
+  }
+
+  get constructions() {
+    return ConstructionLoader;
+  }
+
+  get beams() {
+    return BeamLoader;
+  }
+
+  get shifts() {
+    return ShiftLoader;
+  }
+
+  save() {
+    debugger;
+    this.data.MachineDocumentId = this.MachineDocument.Id;
+    this.data.WeavingUnitId = this.WeavingDocument.Id;
+    this.data.DailyOperationSizingDetails.ConstructionDocumentId = this.ConstructionDocument.Id;
+    // this.data.DailyOperationSizingDetails.BeamDocumentId = this.BeamDocument.Id;
+    this.data.DailyOperationSizingDetails.BeamDocumentId = "f1aef325-df81-45ba-962b-1760f7b94478";
+    // this.data.DailyOperationSizingDetails.ShiftDocumentId = this.ShiftDocument.Id;
+    this.data.DailyOperationSizingDetails.ShiftDocumentId = "44b5ec23-e958-4ded-a00a-7b8905aebcf5";
+    console.log(this.data);
+    this.service
+      .create(this.data)
+      .then(result => {
+        this.router.navigateToRoute('list');
+      })
+      .catch(e => {
+        this.error = e;
+      });
   }
 
   cancelCallback(event) {
-    this.list();
-  }
-
-  saveCallback(event) {
-    console.log(this.data);
-    // this.error = {};
-    // var index = 0;
-    // var emptyFieldName = "Semua Field Harus Diisi";
-
-    // if (this.data.code == null || this.data.code == undefined) {
-    //   this.error.code = "Kode Material Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (this.data.name == null || this.data.name == undefined) {
-    //   this.error.name = "Nama Material Tidak Boleh Kosong";
-    //   index++;
-    // }
-    // if (index > 0) {
-    //   window.alert(emptyFieldName);
-    // } else {
-    // this.service
-    //   .create(this.data)
-    //   .then(result => {
-    //     this.list();
-    //   })
-    //   .catch(e => {
-    //     this.error = e;
-    //   });
-    // }
-    // console.log(this.data);
-    // debugger;
+    this.router.navigateToRoute('list');
   }
 }

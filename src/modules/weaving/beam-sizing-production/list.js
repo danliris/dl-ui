@@ -7,7 +7,7 @@ import {
 import {
   Router
 } from "aurelia-router";
-import moment from "moment";
+// import moment from "moment";
 
 @inject(Router, Service)
 export class List {
@@ -43,6 +43,11 @@ export class List {
     }
   ];
 
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
+
   loader = info => {
     var order = {};
     if (info.sort) order[info.sort] = info.order;
@@ -54,34 +59,29 @@ export class List {
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data
-    //   }.catch(error => {
-    //     console.log(error);
-    //   });
-    // });
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      }.catch(error => {
+        console.log(error);
+      });
+    });
 
-    return {
-      total: 1,
-      data: [{
-        Id: 1,
-        ProductionDate: "02/02/2019",
-        WeavingUnit: "Weaving 1",
-        MachineNumber: "2/1",
-        Shift: "Shift 1",
-        BeamNumber: "TS 108",
-        ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
-        PIS: "16"
-      }]
-    };
+    // return {
+    //   total: 1,
+    //   data: [{
+    //     Id: 1,
+    //     ProductionDate: "02/02/2019",
+    //     WeavingUnit: "Weaving 1",
+    //     MachineNumber: "2/1",
+    //     Shift: "Shift 1",
+    //     BeamNumber: "TS 108",
+    //     ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
+    //     PIS: "16"
+    //   }]
+    // };
   };
-
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
 
   contextCallback(event) {
     var arg = event.detail;

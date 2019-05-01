@@ -2,7 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
 
-// const serviceUri = "weaving/daily-operational-machine";
+const serviceUri = "weaving/daily-operations-sizing";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -24,8 +24,31 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
-  delete(data) {
+  update(data) {
     var endpoint = `${serviceUri}/${data.Id}`;
-    return super.delete(endpoint, data);
+    return super.put(endpoint, data);
   }
+
+  // updatePauseEntry(month, year, unit, status) {
+  //   status = "OPEN-ORDER";
+  //   var endpoint =  `${serviceUriOrderDocument}/${month}/${year}/unit-name/${unit.Name}/unit-id/${unit.Id}/status/${status}`;
+  //   return super.get(endpoint);
+  // }
+
+  // updateResumeEntry(month, year, unit, status) {
+  //   status = "OPEN-ORDER";
+  //   var endpoint =  `${serviceUriOrderDocument}/${month}/${year}/unit-name/${unit.Name}/unit-id/${unit.Id}/status/${status}`;
+  //   return super.get(endpoint);
+  // }
+
+  // updateDoffEntry(month, year, unit, status) {
+  //   status = "OPEN-ORDER";
+  //   var endpoint =  `${serviceUriOrderDocument}/${month}/${year}/unit-name/${unit.Name}/unit-id/${unit.Id}/status/${status}`;
+  //   return super.get(endpoint);
+  // }
+
+  // delete(data) {
+  //   var endpoint = `${serviceUri}/${data.Id}`;
+  //   return super.delete(endpoint, data);
+  // }
 }
