@@ -295,14 +295,6 @@ export class List {
               cat["GRANDTOTAL" + "Total Booking" + c.weekSewingBlocking] += c.bookingQty;
             }
 
-            if (!cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking]) {
-               if(c.isConfirmed)
-                  cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] = c.usedEHBlocking;
-            }
-            else{
-              if(c.isConfirmed)
-                cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] += c.usedEHBlocking;
-            }
 
             if (!cat["GRANDTOTAL" + "Total Confirm" + c.weekSewingBlocking]) {
               if(c.isConfirmed)
@@ -333,19 +325,29 @@ export class List {
                   cat["GRANDTOTALUNIT" + "Total Confirm" + c.weekSewingBlocking] += c.bookingQty;
             }
 
-            if (!cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking]) {
+            
+            if (!cat["GRANDTOTALUNIT" + "usedEHConfirm" + c.weekSewingBlocking]) {
               if(c.units != "SK")
+                if(c.isConfirmed)
+                    cat["GRANDTOTALUNIT" + "usedEHConfirm" + c.weekSewingBlocking] = c.usedEHBlocking;
+            }
+            else{
+              if(c.units != "SK")
+                if(c.isConfirmed)
+                  cat["GRANDTOTALUNIT" + "usedEHConfirm" + c.weekSewingBlocking] += c.usedEHBlocking;
+            }
+
+            if (!cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking]) {
                if(c.isConfirmed)
                   cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] = c.usedEHBlocking;
             }
             else{
-              if(c.units != "SK")
                 if(c.isConfirmed)
                   cat["GRANDTOTAL" + "usedEHConfirm" + c.weekSewingBlocking] += c.usedEHBlocking;
               }
             
           }
-
+          
           var flagSK=false;
           for (var j of output) {
             if(j=="SK"){
@@ -403,9 +405,9 @@ export class List {
                   } else {
                     data.quantity[k] = cat[categ] ? cat[categ] : '-';
                   }
-                  if (bookingOrderItemsLength[categ] === 0) {
+                  if (bookingOrdersConfirmQuantity[categ] === 0) {
                     background[k] = "#EEE860";
-                  } else if (bookingOrderItemsLength[categ] > 0 && bookingOrdersConfirmQuantity[categ] < bookingOrdersQuantity[categ]) {
+                  } else if (bookingOrdersConfirmQuantity[categ] < bookingOrdersQuantity[categ]) {
                     background[k] = "#F4A919";
                   } else {
                     background[k] = "transparent";
@@ -687,6 +689,9 @@ export class List {
           var bgcWHCUnit=[];
           var ehConfUnit=[];
 
+          var effUnit=[];
+          var effAvg=[];
+
           var dataGrand={};
           dataGrand.collection=[];
           var qtyTot=[];
@@ -709,8 +714,6 @@ export class List {
             var caUnit= "GRANDTOTALUNIT" + "Total Booking" + (y+1).toString();
             qtyUnitTot[0]="";
             qtyUnitTot[y+1]= cat[caUnit] ? cat[caUnit] : "-";
-
-            
 
             // var bookingCat= "GRANDTOTAL" + "Total Booking" + (y+1).toString();
             // BookingqtyTot[0]="";
@@ -763,13 +766,35 @@ export class List {
             }
 
             avgEff[0]="";
-            avgEff[y+1]=(Math.round(totalEfisiensi[y + 1]/unitCount))+"%";
+            avgEff[y+1]=parseFloat((totalEfisiensi[y + 1]/unitCount).toFixed(2))+"%";
+            effAvg[y+1]=parseFloat((totalEfisiensi[y + 1]/unitCount).toFixed(2));
 
+
+            avgEffUnit[0]="";
+            avgEffUnit[y+1]=parseFloat((totalEfisiensi_Unit[y + 1]/unitNotSKCount).toFixed(2))+"%";
+
+            effUnit[y+1]=parseFloat((totalEfisiensi_Unit[y + 1]/unitNotSKCount).toFixed(2));
+
+            avgWHUnit[0]="";
+            avgWHUnit[y+1]=parseFloat((totalWH_Unit[y + 1]/unitNotSKCount).toFixed(2));
+
+            
+            var caEHUnit= "GRANDTOTALUNIT" + "usedEHConfirm" + (y+1).toString();
+            ehConfUnit[0]="";
+            ehConfUnit[y+1]= cat[caEHUnit] ? cat[caEHUnit] : 0;
+
+            var caEH= "GRANDTOTAL" + "usedEHConfirm" + (y+1).toString();
+            ehConf[0]="";
+            ehConf[y+1]= cat[caEH] ? cat[caEH] : 0;
+            
+            //WH All
             avgWHConfirm[0]="";
-            avgWHConfirm[y+1]=parseFloat((totalWHConfirm[y + 1]/unitCount).toFixed(2));
+            avgWHConfirm[y+1]=parseFloat((ehConf[y+1]/(totalOP[y+1]*effAvg[y+1]/100)).toFixed(2));
+            //avgWHConfirm[y+1]=parseFloat((totalWHConfirm[y + 1]/unitCount).toFixed(2));
             
             avgWHBooking[0]="";
-            avgWHBooking[y+1]=parseFloat((totalWHBooking[y + 1]/unitCount).toFixed(2));
+            avgWHBooking[y+1]=parseFloat((totalUsedEH[y+1]/(totalOP[y+1]*effAvg[y+1]/100)).toFixed(2));
+            //avgWHBooking[y+1]=parseFloat((totalWHBooking[y + 1]/unitCount).toFixed(2));
 
             avgWH[0]="";
             avgWH[y+1]=parseFloat((totalWH[y + 1]/unitCount).toFixed(2));
@@ -788,17 +813,14 @@ export class List {
             
             bgcWHC[0]="transparent";
 
-            avgEffUnit[0]="";
-            avgEffUnit[y+1]=(Math.round(totalEfisiensi_Unit[y + 1]/unitNotSKCount))+"%";
-
-            avgWHConfirmUnit[0]="";
-            avgWHConfirmUnit[y+1]=parseFloat((totalWHConfirm_Unit[y + 1]/unitNotSKCount).toFixed(2));
+            //WH Unit
+             avgWHConfirmUnit[0]="";
+             avgWHConfirmUnit[y+1]=parseFloat((ehConfUnit[y+1]/(totalOP_Unit[y+1]*effUnit[y+1]/100)).toFixed(2));
+            // avgWHConfirmUnit[y+1]=parseFloat((totalWHConfirm_Unit[y + 1]/unitNotSKCount).toFixed(2));
             
-            avgWHBookingUnit[0]="";
-            avgWHBookingUnit[y+1]=parseFloat((totalWHBooking_Unit[y + 1]/unitNotSKCount).toFixed(2));
-
-            avgWHUnit[0]="";
-            avgWHUnit[y+1]=parseFloat((totalWH_Unit[y + 1]/unitNotSKCount).toFixed(2));
+             avgWHBookingUnit[0]="";
+             avgWHBookingUnit[y+1]=parseFloat((totalUsedEH_Unit[y+1]/(totalOP_Unit[y+1]*effUnit[y+1]/100)).toFixed(2));
+            // avgWHBookingUnit[y+1]=parseFloat((totalWHBooking_Unit[y + 1]/unitNotSKCount).toFixed(2));
 
             bgcWHUnit[y + 1] = avgWHBookingUnit[y + 1] <= 45.5 ? "#FFFF00" : 
                 avgWHBookingUnit[y + 1] <= 50.5 && avgWHBookingUnit[y + 1] > 45.5 ? "#52df46" : 
@@ -813,14 +835,6 @@ export class List {
                   "#797978";
             
             bgcWHCUnit[0]="transparent";
-
-            var caEHUnit= "GRANDTOTALUNIT" + "usedEHConfirm" + (y+1).toString();
-            ehConfUnit[0]="";
-            ehConfUnit[y+1]= cat[caEHUnit] ? cat[caEHUnit] : 0;
-
-            var caEH= "GRANDTOTAL" + "usedEHConfirm" + (y+1).toString();
-            ehConf[0]="";
-            ehConf[y+1]= cat[caEH] ? cat[caEH] : 0;
 
           }
 
