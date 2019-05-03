@@ -55,6 +55,17 @@ export class Create {
 
         // if(errorCount==0){
         this.data.Date = this.data.Date ? moment(this.data.Date).format("DD MMM YYYY") : null;
+        
+        var outputItem = this.data.Items[0];
+        
+        outputItem.Output = outputItem.BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
+            outputItem.Bale = (outputItem.Output / 181.44) * this.data.MachineSpinning.Delivery;
+        } else {
+            outputItem.Bale = outputItem.Output;
+        }
+        outputItem.Eff = outputItem.Bale * 100 / ((this.data.CountConfig.RPM * 345.6 * (22 / 7) * this.data.MachineSpinning.Delivery) / (this.data.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+
         this.service.create(this.data)
             .then(result => {
                 alert('Data berhasil dibuat');

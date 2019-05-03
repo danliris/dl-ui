@@ -121,7 +121,6 @@ export class Item {
       this.data.oldVal.weekNumber=this.data.WeekNumber;
       this.data.oldVal.remainingEH=this.data.RemainingEH;
     }
-    console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.Unit = _selectedData;
@@ -146,10 +145,9 @@ export class Item {
       if(oldValue){
         this.data.oldVal.year=this.data.oldVal.year? this.data.oldVal.year : oldValue.Year;
         this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.Unit.Code;
-        this.data.oldVal.weekNumber=this.data.WeekNumber;
-        this.data.oldVal.remainingEH=this.data.RemainingEH;
+        // this.data.oldVal.weekNumber=this.data.oldVal.weekNumber ?this.data.oldVal.weekNumber: this.data.WeekNumber;
+        // this.data.oldVal.remainingEH=this.data.RemainingEH;
       }
-      console.log(this.data.oldVal)
     var _selectedData = newValue;
     if (_selectedData) {
       this.data.Year = _selectedData.Year;
@@ -178,16 +176,14 @@ export class Item {
   }
 
   selectedWeekChanged(newValue,oldValue) {
-    if(newValue!=null)
+    //if(newValue!=null)
     if(oldValue){
-      console.log(this.data.oldVal)
       if(oldValue){
-        this.data.oldVal.weekNumber=this.data.oldVal.weekNumber ?this.data.oldVal.weekNumber : oldValue.WeekNumber  ;
+        this.data.oldVal.weekNumber=oldValue.WeekNumber  ;
         this.data.oldVal.year=this.data.oldVal.year? this.data.oldVal.year:this.data.Year;
         this.data.oldVal.unitCode=this.data.oldVal.unitCode? this.data.oldVal.unitCode : this.data.Unit.Code;
         this.data.oldVal.remainingEH= this.data.oldVal.remainingEH || this.data.RemainingEH;
       }
-      console.log(this.data.oldVal)
     }
     var _selectedData = newValue;
     this.selectedWeek=_selectedData;

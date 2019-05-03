@@ -25,6 +25,7 @@ export class Create {
   }
 
   saveCallback(event) {
+    console.log(this.data);
     // this.error = {};
     // var index = 0;
     // var emptyFieldName = "Semua Field Harus Diisi";
@@ -40,14 +41,14 @@ export class Create {
     // if (index > 0) {
     //   window.alert(emptyFieldName);
     // } else {
-    this.service
-      .create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.error = e;
-      });
+    // this.service
+    //   .create(this.data)
+    //   .then(result => {
+    //     this.list();
+    //   })
+    //   .catch(e => {
+    //     this.error = e;
+    //   });
     // }
     // console.log(this.data);
     // debugger;

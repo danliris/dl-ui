@@ -1,10 +1,16 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
+// import { Dialog } from '../../../../../components/dialog/dialog';
 import { callbackify } from "util";
+import { Router } from "aurelia-router";
 var UnitLoader = require("../../../loader/unit-loader");
+var MachineLoader = require("../../../loader/weaving-machine-loader");
 
+// @inject(Service, Router)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
+  @bindable MachineDocument;
+  @bindable WeavingDocument;
 
   formOptions = {
     cancelText: "Kembali",
@@ -13,10 +19,11 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  constructor() {}
+  constructor() {
+  }
 
   // OperationalMachineOptions = {
-    
+
   // };
 
   columns = [
@@ -29,8 +36,8 @@ export class DataForm {
       header: "No. Konstruksi"
     },
     {
-      value: "MachineNumber",
-      header: "No. Mesin"
+      value: "Shift",
+      header: "Shift"
     },
     { value: "BeamNumber", header: "No. Beam" },
     { value: "WarpOrigin", header: "Asal Lusi" },
@@ -71,21 +78,31 @@ export class DataForm {
     return UnitLoader;
   }
 
+  get machines() {
+    return MachineLoader;
+  }
+
+  MachineDocumentChanged(newValue) {
+    console.log(newValue);
+    if(newValue){
+      this.data.MachineId = newValue.Id;
+    }
+  }
+
+  WeavingDocumentChanged(newValue){
+    console.log(newValue)
+    if(newValue){
+      this.data.UnitId = newValue.Id;
+    }
+  }
+
   bind(context) {
     this.context = context;
-    // this.data = this.context.data;
-    this.data = {
-      Id: 1,
-      DateOrdered: "02/02/2019",
-      WeavingUnit: "Weaving1",
-      Shift: "Shift 1",
-      MachineNumber: "000001",
-      OrderProductionNumber: "002/02-2019",
-      ConstructionNumber: "PC KIW 99 44 55 Tencelc Hd",
-      WarpOrigin: "A",
-      WeftOrigin: "C"
-    };
+    this.data = this.context.data;
     this.error = this.context.error;
+
+    this.showHideStartMenu=false;
+    this.showHideResumeMenu=false;
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -94,9 +111,27 @@ export class DataForm {
   }
 
   //Triggered when "+" on Items Collections Clicked
-  get addOperationalMachine() {
-    return event => {
-      this.data.Items.push({});
-    };
+  // get start() {
+  //   return event => {
+  //     this.data.DailyOperationMachineDetails.push({});
+  //   };
+  // }
+
+  start(){
+    if (this.showHideStartMenu === true) {
+      this.showHideStartMenu = false;
+    } else {
+      this.showHideStartMenu = true;
+      this.showHideResumeMenu = false;
+    }
+  }
+
+  resume(){
+    if (this.showHideResumeMenu === true) {
+      this.showHideResumeMenu = false;
+    } else {
+      this.showHideResumeMenu = true;
+      this.showHideStartMenu = false;
+    }
   }
 }
