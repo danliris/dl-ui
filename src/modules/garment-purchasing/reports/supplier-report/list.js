@@ -15,23 +15,23 @@ export class List {
    
     unit=null;    
     jnsSpl = false;
-    payMtd = "DAN LIRIS";    
-    category= "FABRIC";
+    payMtd = " ";    
+    category= " ";
     dateFrom = null;
     dateTo = null;
     @bindable JenisSpl;
     @bindable KtgrItem;
          
     SupplierType = ['LOCAL', 'IMPORT'];
-    KategoriItem = ['BAHAN BAKU', 'INTERLINING', 'BAHAN PENDUKUNG'];
+    KategoriItem = ['','BAHAN BAKU', 'INTERLINING', 'BAHAN PENDUKUNG'];
    
-    termPaymentLocal = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE']; 
-    termPaymentImport = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentLocal = ['', 'DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE']; 
+    termPaymentImport = ['','T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
 
     get unitLoader() {
         return UnitLoader;
     }
-    
+
     activate() {
        
     }
@@ -57,37 +57,72 @@ export class List {
     }
 
     searching() {
-        var QtyTotals = 0;
-        var PriceTotals = 0;
-        var PriceIDRTotals = 0;
-        var percentage = [];
-        var percentagetotal = 0;
-        var data = [];
-        var Quantity = [];
-        var Amounts = [];
-        var uri = ""; 
-    
-        this.dateFrom=this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
-        this.dateTo=this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
-        uri = this.service.getDataSpl(this.unit, this.jnsSpl, this.payMtd, this.category, this.dateFrom, this.dateTo);
-      
-        uri.then(data => {
-        
-            this.data = data;
-            for(var item of data)
-            {
-                QtyTotals += item.Quantity;
-                PriceTotals += item.Amount;
-                PriceIDRTotals += item.AmountIDR;
+        {
+            var info = {
+            unit : this.unit ? this.unit.Id : "",
+            jnsSpl : this.jnsSpl ? this.jnsSpl : "",
+            payMtd : this.payMtd ? this.payMtd : "",            
+            category : this.category ? this.category : "",
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+        }
+        this.service.search(info)
+            .then(result => {
+                  console.log(result);
+                  var dataBySupplier = {};
+                  var subTotalSupplier = {};
+                  for (var data of result) {
+                       var Supplier = data.SupplierName;
+                        if (!dataBySupplier[Supplier]) dataBySupplier[Supplier] = [];                 
+                            dataBySupplier[Supplier].push({                            
+                            supplierName : data.SupplierName,
+                            unitName : data.UnitName,
+                            categoryName : data.CategoryName,
+                            paymentMethod : data.PaymentMethod,
+                            quantity : data.Quantity,
+                            uomUnit : data.UOMUnit,
+                            Amount : data.AmountIDR.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                        });
+                        
+                   if (!subTotalSupplier[Supplier]){
+                       subTotalSupplier[Supplier] = 0;
+                   } 
+                       subTotalSupplier[Supplier] += data.AmountIDR;
+                }
+     
+               var suppliers = [];
+               this.AmtTotal = 0;
                 
-                item.Quantity=item.Quantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-                item.Amount=item.Amount.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-                item.AmountIDR=item.AmountIDR.toLocaleString('en-EN', { minimumFractionDigits: 2 });        
-          }
-            this.QtyTotals = QtyTotals.toLocaleString('en-EN', { minimumFractionDigits: 2 });            
-            this.PriceTotals = PriceTotals.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-            this.PriceIDRTotals = PriceIDRTotals.toLocaleString('en-EN', { minimumFractionDigits: 2 });            
-        })
+               for (var data in dataBySupplier) {
+                   suppliers.push({
+                   data: dataBySupplier[data],
+                   supplier: dataBySupplier[data][0].supplierName,
+                   subTotal: (subTotalSupplier[data]).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                 });
+                   this.AmtTotal += subTotalSupplier[data];
+               }
+               this.AmtTotal = this.AmtTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+               this.suppliers = suppliers;
+             });
+        }
+    }
+
+    ExportToExcel() {
+        {
+            var filter = {
+            unit : this.unit ? this.unit.Id : "",
+            jnsSpl : this.jnsSpl ? this.jnsSpl : "",
+            payMtd : this.payMtd ? this.payMtd : "",            
+            category : this.category ? this.category : "",
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+           }
+
+        this.service.generateExcel(filter)
+            .catch(e => {
+                alert(e.replace(e, "Error: ",""))
+            });
+        }
     }
 
     reset() {
@@ -95,19 +130,9 @@ export class List {
         this.dateTo = null;
         this.unit = null;
         this.category = null; 
-        this.data = [];
+        this.suppliers = [];
     }
 
-    ExportToExcel() {
-        this.error = {};
-        if (!this.unit || this.unit == "")            
-            this.error.unit = "Unit Konfeksi Harus Diisi";
-
-        this.dateFrom=this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "";
-        this.dateTo=this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "";
-              
-        this.service.generateExcel(this.unit, this.jnsSpl, this.payMtd, this.category, this.dateFrom, this.dateTo);
-    }
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);
