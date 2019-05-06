@@ -1,7 +1,7 @@
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const resource = "weaving/shifts";
+const resource = "weaving/operators";
 
 module.exports = function(keyword, filter) {
   var config = Container.instance.get(Config);
@@ -10,9 +10,9 @@ module.exports = function(keyword, filter) {
   return endpoint
     .find(resource, { keyword: keyword })
     .then(results => {
-      return results.data.map(shift => {
+      return results.data.map(operator => {
         
-        return shift;
+        return operator;
       });
     });
 };

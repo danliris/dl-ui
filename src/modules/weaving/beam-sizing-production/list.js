@@ -7,7 +7,7 @@ import {
 import {
   Router
 } from "aurelia-router";
-// import moment from "moment";
+import moment from "moment";
 
 @inject(Router, Service)
 export class List {
@@ -15,10 +15,13 @@ export class List {
 
   columns = [{
       field: "ProductionDate",
-      title: "Tanggal"
+      title: "Tanggal",
+      formatter: function (value, data, index) {
+        return moment(value).format("DD MMMM YYYY");
+      }
     },
     {
-      field: "WeavingUnit",
+      field: "WeavingUnitDocumentId",
       title: "Unit Weaving"
     },
     {
@@ -59,13 +62,40 @@ export class List {
       order: order
     };
 
+    // return this.service.search(arg).then(result => {
+    //   return {
+    //     total: result.info.total,
+    //     data: result.data
+    //   };
+    // });
+
     return this.service.search(arg).then(result => {
-      return {
-        total: result.info.total,
-        data: result.data
-      }.catch(error => {
-        console.log(error);
-      });
+      if (result.data && result.data.length > 0) {
+        let getUnitPromises = result.data.map(operation =>
+          this.service.getUnitById(operation.WeavingUnitDocumentId)
+        );
+
+        return Promise.all(getUnitPromises).then(units => {
+          for (var datum of result.data) {
+            if (units && units.length > 0) {
+              let unit = units.find(
+                unitResult => datum.WeavingUnitDocumentId == unitResult.Id
+              );
+              datum.WeavingUnitDocumentId = unit.Name;
+            }
+          }
+
+          return {
+            total: result.info.total,
+            data: result.data
+          };
+        });
+      } else {
+        return {
+          total: result.info.total,
+          data: result.data
+        };
+      }
     });
 
     // return {

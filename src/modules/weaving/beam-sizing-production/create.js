@@ -12,8 +12,7 @@ import moment from 'moment';
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-var BeamLoader = require("../../../loader/weaving-beam-loader");
-var ShiftLoader = require("../../../loader/weaving-shift-loader");
+var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service)
 export class Create {
@@ -23,9 +22,9 @@ export class Create {
     this.data = {};
     this.error = {};
 
-    var today = moment(new Date()).format("DD-MMM-YYYY");
+    var date = new Date();
+    var today = moment(date, "DD/MM/YYYY");
     this.data.ProductionDate = today;
-    this.DailyOperationSizingDetailsOptions = {}
   }
 
   formOptions = {
@@ -34,56 +33,29 @@ export class Create {
   };
 
   columns = [{
-      value: "BeamNumber",
-      header: "No. Beam"
-    },
-    {
-      value: "ConstructionNumber",
-      header: "No. Konstruksi"
-    }, {
-      value: "PIS",
-      header: "PIS"
-    },
-    {
-      value: "Visco",
-      header: "Visco"
-    },
-    {
-      value: "Time.Start",
-      header: "Mulai"
-    },
-    {
-      value: "Time.Finish",
-      header: "Doff/ Selesai"
-    },
-    {
-      value: "Broke",
-      header: "Putus"
-    },
-    {
-      value: "Counter",
-      header: "Counter"
-    },
-    {
-      value: "Shift",
-      header: "Shift"
-    }
-  ];
+    value: "BeamNumber",
+    header: "No. Beam"
+  }, {
+    value: "BeamConstructions",
+    header: "No. Konstruksi Beam"
+  }];
+
+  shifts = ["", "1 - Pagi", "2 - Siang", "3 - Malam"];
 
   start() {
-    if (this.showStartMenu === true) {
-      this.showStartMenu = false;
+    if (this.showHideStartMenu === true) {
+      this.showHideStartMenu = false;
     } else {
-      this.showStartMenu = true;
+      this.showHideStartMenu = true;
     }
   }
 
-  hideMenu() {
-    // console.log(this.data);
-    if (this.showStartMenu === true) {
-      this.showStartMenu = false;
-    }
-  }
+  // hideMenu() {
+  //   // console.log(this.data);
+  //   if (this.showStartMenu === true) {
+  //     this.showStartMenu = false;
+  //   }
+  // }
 
   get machines() {
     return MachineLoader;
@@ -97,24 +69,38 @@ export class Create {
     return ConstructionLoader;
   }
 
-  get beams() {
-    return BeamLoader;
+  get operators() {
+    return OperatorLoader;
   }
 
-  get shifts() {
-    return ShiftLoader;
+  get addBeamsWarping() {
+    return event => {
+      this.BeamsWarping.push({});
+    };
   }
 
   save() {
     debugger;
-    this.data.MachineDocumentId = this.MachineDocument.Id;
-    this.data.WeavingUnitId = this.WeavingDocument.Id;
-    this.data.DailyOperationSizingDetails.ConstructionDocumentId = this.ConstructionDocument.Id;
+    var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.data.ProductionTime.Start = time;
+    console.log(this.data.ProductionTime.Start);
+
+    // this.data = {};
+    // this.data.DailyOperationSizingDetails = {};
+
+    // console.log(this.data.DailyOperationSizingDetails);
+    // console.log(this.data);
+
+    // this.data.ProductionDate = moment(new Date(), "DD/MM/YYYY");
+    // this.data.MachineDocumentId = this.MachineDocument.Id;
+    // this.data.WeavingUnitId = this.WeavingDocument.Id;
+    // this.data.DailyOperationSizingDetails.ConstructionDocumentId = this.ConstructionDocument.Id;
     // this.data.DailyOperationSizingDetails.BeamDocumentId = this.BeamDocument.Id;
-    this.data.DailyOperationSizingDetails.BeamDocumentId = "f1aef325-df81-45ba-962b-1760f7b94478";
     // this.data.DailyOperationSizingDetails.ShiftDocumentId = this.ShiftDocument.Id;
-    this.data.DailyOperationSizingDetails.ShiftDocumentId = "44b5ec23-e958-4ded-a00a-7b8905aebcf5";
-    console.log(this.data);
+
+    // console.log(this.data.DailyOperationSizingDetails);
+    // console.log(this.data);
+
     this.service
       .create(this.data)
       .then(result => {

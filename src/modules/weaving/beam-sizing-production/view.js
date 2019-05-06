@@ -10,7 +10,7 @@ import {
 } from "./service";
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var BeamLoader = require("../../../loader/weaving-beam-loader");
-var ShiftLoader = require("../../../loader/weaving-shift-loader");
+var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service)
 export class View {
@@ -25,60 +25,69 @@ export class View {
     saveText: 'Simpan',
   };
 
-  columns = [{
-      value: "BeamNumber",
-      header: "No. Beam"
-    },
-    {
-      value: "ConstructionNumber",
-      header: "No. Konstruksi"
-    }, {
-      value: "PIS",
-      header: "PIS"
-    },
-    {
-      value: "Visco",
-      header: "Visco"
-    },
-    {
-      value: "Time.Start",
-      header: "Mulai"
-    },
-    {
-      value: "Time.Finish",
-      header: "Doff/ Selesai"
-    },
-    {
-      value: "Broke",
-      header: "Putus"
-    },
-    {
-      value: "Counter",
-      header: "Counter"
-    },
-    {
-      value: "Shift",
-      header: "Shift"
-    }
-  ];
+  beamColumns = [{
+    value: "BeamNumber",
+    header: "No. Beam"
+  }, {
+    value: "BeamConstructions",
+    header: "No. Konstruksi Beam"
+  }];
+
+  logColumns = [{
+    value: "BeamNumber",
+    header: "No. Beam"
+  },
+  {
+    value: "ConstructionNumber",
+    header: "No. Konstruksi"
+  }, {
+    value: "PIS",
+    header: "PIS"
+  },
+  {
+    value: "Visco",
+    header: "Visco"
+  },
+  {
+    value: "Time.Start",
+    header: "Mulai"
+  },
+  {
+    value: "Time.Finish",
+    header: "Doff/ Selesai"
+  },
+  {
+    value: "Broke",
+    header: "Putus"
+  },
+  {
+    value: "Counter",
+    header: "Counter"
+  },
+  {
+    value: "Shift",
+    header: "Shift"
+  }
+];
 
   async activate(params) {
     // var Id = params.Id;
     // this.data = await this.service.getById(Id);
-    this.data = {
-      Id: 1,
-      BeamNumber: "TS 108",
-      ConstructionNumber: "C D 133 68 63 A B",
-      PIS: 16,
-      Visco: "12/12",
-      Time: {
-        Start: "02.30",
-        Finish: "04.30"
-      },
-      Broke: 2,
-      Counter: "Rahayu",
-      Shift: "Rahayu",
-    };
+    
+    // this.data = {
+    //   Id: 1,
+    //   BeamNumber: "TS 108",
+    //   ConstructionNumber: "C D 133 68 63 A B",
+    //   PIS: 16,
+    //   Visco: "12/12",
+    //   Time: {
+    //     Start: "02.30",
+    //     Finish: "04.30"
+    //   },
+    //   Broke: 2,
+    //   Counter: "Rahayu",
+    //   Shift: "Rahayu",
+    // };
   }
 
   causes = ["", "Putus Beam", "Mesin Bermasalah"];
@@ -87,41 +96,41 @@ export class View {
     return ConstructionLoader;
   }
 
+  get operators() {
+    return OperatorLoader;
+  }
+
   get beams() {
     return BeamLoader;
   }
 
-  get shifts() {
-    return ShiftLoader;
-  }
-
   pause() {
-    if (this.showPauseMenu === true) {
-      this.showPauseMenu = false;
+    if (this.showHidePauseMenu === true) {
+      this.showHidePauseMenu = false;
     } else {
-      this.showPauseMenu = true;
-      this.showResumeMenu = false;
-      this.showDoffMenu = false;
+      this.showHidePauseMenu = true;
+      this.showHideResumeMenu = false;
+      this.showHideDoffMenu = false;
     }
   }
 
   resume() {
-    if (this.showResumeMenu === true) {
-      this.showResumeMenu = false;
+    if (this.showHideResumeMenu === true) {
+      this.showHideResumeMenu = false;
     } else {
-      this.showResumeMenu = true;
-      this.showPauseMenu = false;
-      this.showDoffMenu = false;
+      this.showHideResumeMenu = true;
+      this.showHidePauseMenu = false;
+      this.showHideDoffMenu = false;
     }
   }
 
   finish() {
-    if (this.showDoffMenu === true) {
-      this.showDoffMenu = false;
+    if (this.showHideDoffMenu === true) {
+      this.showHideDoffMenu = false;
     } else {
-      this.showDoffMenu = true;
-      this.showPauseMenu = false;
-      this.showResumeMenu = false;
+      this.showHideDoffMenu = true;
+      this.showHidePauseMenu = false;
+      this.showHideResumeMenu = false;
     }
   }
 
