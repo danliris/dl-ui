@@ -68,7 +68,10 @@ export class DataForm {
     get garmentDeliveryOrderLoader() {
         return (keyword) => {
             var info = {
-              keyword: keyword,
+                keyword: keyword,
+                filter: JSON.stringify({ "BillNo != null": true }),
+                select: JSON.stringify({ "doNo": "DONo" }),
+                search: JSON.stringify([ "DONo" ])
             };
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
