@@ -53,7 +53,7 @@ export class List {
     return UnitLoader;
   }
   unitView = (unit) => {
-    return `${unit.code} - ${unit.name}`
+    return `${unit.Code} - ${unit.Name}`
   }
 
   @computedFrom("year")
@@ -74,34 +74,41 @@ export class List {
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.search(info)
-
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.search(JSON.stringify(info))
         .then(result => {
           this.dataTemp = [];
           this.data = [];
           this.weeklyNumbers = 0;
           this.WeekQuantity = [];
+          let cat = [];
+
           for (var pr of result) {
-            this.weeklyNumbers = pr._id.weekNumber;
-            this.weeklyEndDate = pr._id.weekEndDate.map(value => { return moment(value).format("DD MMM"); });
+            this.weeklyNumbers = pr.items.map(value => { return value.weekNumber});
+            this.weeklyEndDate = pr.items.map(value => { return moment(value.weekEndDate).format("DD MMM"); });
             break;
           }
-
-
           for (var pr of result) {
+            pr.count=1;
             var dataTemp = {};
             dataTemp.backgroundColor = [];
             dataTemp.quantity = [];
             dataTemp.efficiency = [];
             dataTemp.unitBuyerQuantity = [];
+            dataTemp.backgroundColorWH =[];
             //dataTemp.isConfirmed=[];
-            dataTemp.units = pr._id.unit;
-            dataTemp.buyer = pr._id.buyer;
-            dataTemp.unitBuyer = pr._id.unit + ';' + pr._id.buyer;
-            dataTemp.SMVTotal = pr.SMVTot;
+            dataTemp.units = pr.unit;
+            dataTemp.bookingId=pr.bookingId;
+            dataTemp.bookingDate=pr.bookingDate;
+            dataTemp.weekBookingOrder=pr.weekBookingOrder;
+            dataTemp.bookingOrderQty=pr.bookingOrderQty;
+            dataTemp.buyer = pr.buyer;
+            dataTemp.unitBuyer = pr.unit + ';' + pr.buyer;
+            dataTemp.SMVTotal = pr.SMVSewing;
             dataTemp.dataCount = pr.count;
             dataTemp.usedEHBlocking=pr.UsedEH;
             dataTemp.operator = pr.items.map(value => { return value.head});
@@ -111,9 +118,10 @@ export class List {
             dataTemp.usedEH = pr.items.map(value => { return value.usedTotal});
             dataTemp.remainingEH = pr.items.map(value => { return value.remainingEH});
             dataTemp.dataCount = pr.count;
-
-            for (var j = 0; j < pr._id.efficiency.length; j++) {
-              dataTemp.efficiency[j] = pr._id.efficiency[j].toString() + '%';
+            dataTemp.WHBooking= pr.items.map(value => { return parseFloat(value.WHBooking.toFixed(2))});
+            dataTemp.EHBooking= pr.UsedEH;
+            for (var j = 0; j < pr.items.length; j++) {
+              dataTemp.efficiency[j] = pr.items[j].efficiency.toString() + '%';
               dataTemp.backgroundColor[j] = dataTemp.remainingEH[j] > 0 ? "#FFFF00" :
                 dataTemp.remainingEH[j] < 0 ? "#f62c2c" :
                   "#52df46";
@@ -131,8 +139,8 @@ export class List {
             dataTemp.bookingQty = pr.bookingQty;
             dataTemp.isConfirmed = pr.isConfirmed ? 1 : 0;
             for (var i = 0; i < this.weeklyNumbers.length; i++) {
-              if (i + 1 === pr._id.weekSewingBlocking) {
-                dataTemp.quantity[i] = pr._id.bookingQty;
+              if (i + 1 === pr.weekSewingBlocking) {
+                dataTemp.quantity[i] = pr.bookingQty;
 
               }
               else {
@@ -140,9 +148,10 @@ export class List {
               }
 
             }
-            dataTemp.bookingOrderItemsLength = pr._id.bookingOrderItems.length;
-            dataTemp.bookingOrdersConfirmQuantity = pr._id.bookingOrderItems.reduce(
-              (acc, cur) => acc + cur.quantity,
+            dataTemp.bookingOrderItemsLength = pr.bookingOrderItems.length;
+            dataTemp.bookingItems=pr.bookingOrderItems;
+            dataTemp.bookingOrdersConfirmQuantity = pr.bookingOrderItems.reduce(
+              (acc, cur) => acc + cur.ConfirmQuantity,
               0
             );
 
@@ -175,7 +184,6 @@ export class List {
 
           }
 
-          let cat = [];
           let category = [];
           let len = [];
           let bookingOrderItemsLength = [];
@@ -273,6 +281,10 @@ export class List {
             }
             if (!cat[c.units + "remainingEH"]) {
               cat[c.units + "remainingEH"] = c.remainingEH;
+            }
+            
+            if (!cat[c.units + "WHBooking"]) {
+              cat[c.units + "WHBooking"] = c.WHBooking;
             }
             if (!cat[c.units + "background"]) {
               cat[c.units + "background"] = c.backgroundColor;
@@ -538,7 +550,19 @@ export class List {
                 totalAH[y + 1]+=ah[y];
               }
 
-              qty[0] = Math.round(smvTot / counts);
+              if(!totalEH[y + 1]){
+                totalEH[y + 1]=eh[y];
+              }
+              else{
+                totalEH[y + 1]+=eh[y];
+              }
+              
+              if(!totalUsedEH[y + 1]){
+                totalUsedEH[y + 1]=UsedEh[y];
+              }
+              else{
+                totalUsedEH[y + 1]+=UsedEh[y];
+              }
 
               if(!totalremEh[y + 1]){
                 totalremEh[y + 1]=remEh[y];
@@ -639,8 +663,11 @@ export class List {
             var EH = cat[j + "totalEH"];
             var usedEH = cat[j + "usedEH"];
             var remainingEH = cat[j + "remainingEH"];
+            var WHBooking = cat[j + "WHBooking"];
             var background = cat[j + "background"];
             var workingHours = cat[j + "workingHours"];
+            var backgroundColorWH = cat[j + "backgroundColorWH"];
+            var backgroundColorWHC=cat[j + "backgroundColorWHC"];
 
             eff.splice(0, 0, "");
             opp.splice(0, 0, "");
@@ -648,8 +675,10 @@ export class List {
             EH.splice(0, 0, "");
             usedEH.splice(0, 0, "");
             remainingEH.splice(0, 0, "");
+            WHBooking.splice(0, 0, "");
             workingHours.splice(0, 0, "");
             background.splice(0, 0, "");
+            backgroundColorWH.splice(0, 0, "");
             data.collection.push({ name: "Efisiensi", quantity: eff, fontWeight: "bold" });
             data.collection.push({ name: "Total Operator Sewing", quantity: opp, fontWeight: "bold" });
             data.collection.push({ name: "Working Hours", quantity: workingHours, fontWeight: "bold" });
@@ -658,6 +687,8 @@ export class List {
             data.collection.push({ name: "Used EH Booking", quantity: usedEH, fontWeight: "bold" });
             data.collection.push({ name: "Used EH Confirm", quantity: ehConf, fontWeight: "bold" });
             data.collection.push({ name: "Remaining EH", quantity: remainingEH, background: background, fontWeight: "bold" });
+            data.collection.push({ name: "WH Booking", quantity: WHBooking, background: backgroundColorWH, fontWeight: "bold" });
+            data.collection.push({ name: "WH Confirm", quantity: conf, background: backgroundColorWHC,fontWeight: "bold" });
 
             this.data.push(data);
           }
@@ -864,7 +895,6 @@ console.log(totalEfisiensi[y + 1], unitCount)
           
           
           var same = [];
-
           var columns = [
             {
               cellStyle: () => { return { classes: 'fixed' } },
@@ -1004,10 +1034,12 @@ console.log(totalEfisiensi[y + 1], unitCount)
     }
     else {
       var info = {
-        year: this.year.year,
-        unit: this.unit ? this.unit.code : "",
+        year: this.year.year
       }
-      this.service.generateExcel(info);
+      if (this.unit) {
+        info.unit = this.unit.Code
+      }
+      this.service.generateExcel(JSON.stringify(info));
     }
   }
 

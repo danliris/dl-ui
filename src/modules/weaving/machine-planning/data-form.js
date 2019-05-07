@@ -18,13 +18,23 @@ export class DataForm {
     editText: "Ubah"
   };
 
+  bloks = [
+    "",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+  ];
+
   constructor() { }
 
   bind(context) {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
+    
     if (this.data.Machine) {
       this.Machine = this.data.Machine;
     }
