@@ -70,7 +70,7 @@ export class DataForm {
             var info = {
                 keyword: keyword,
                 filter: JSON.stringify({ "BillNo != null": true }),
-                select: JSON.stringify({ "doNo": "DONo" }),
+                select: JSON.stringify({ "doNo": "DONo", "Id" : "1" }),
                 search: JSON.stringify([ "DONo" ])
             };
             return this.service.searchDeliveryOrder(info)
