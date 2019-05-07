@@ -198,6 +198,19 @@ export class List {
               cat[c.units + c.buyer + c.weekSewingBlocking] += c.bookingQty;
             }
 
+            if(!cat[c.units + c.buyer + c.weekSewingBlocking+"bgc"]){
+              cat[c.units + c.buyer + c.weekSewingBlocking+"bgc"]=c.bookingOrdersConfirmQuantity==0? "#EEE860":
+              c.bookingOrdersConfirmQuantity<c.bookingOrderQty ? "#F4A919" : "transparent";
+            }
+            else{
+              if(cat[c.units + c.buyer + c.weekSewingBlocking+"bgc"]=="transparent"){
+                cat[c.units + c.buyer + c.weekSewingBlocking+"bgc"]=c.bookingOrdersConfirmQuantity==0? "#EEE860":
+                  c.bookingOrdersConfirmQuantity<c.bookingOrderQty ? "#F4A919" : "transparent";
+              }
+              else if(cat[c.units + c.buyer + c.weekSewingBlocking+"bgc"]=="#F4A919"){
+                cat[c.units + c.buyer + c.weekSewingBlocking+"bgc"]=c.bookingOrdersConfirmQuantity==0? "#EEE860" :"#F4A919";
+              }
+            }
             
             if (!bookingOrderItemsLength[c.units + c.buyer + c.weekSewingBlocking]) {
               bookingOrderItemsLength[c.units + c.buyer + c.weekSewingBlocking] = c.bookingOrderItemsLength;
@@ -405,13 +418,17 @@ export class List {
                   } else {
                     data.quantity[k] = cat[categ] ? cat[categ] : '-';
                   }
-                  if (bookingOrdersConfirmQuantity[categ] === 0) {
-                    background[k] = "#EEE860";
-                  } else if (bookingOrdersConfirmQuantity[categ] < bookingOrdersQuantity[categ]) {
-                    background[k] = "#F4A919";
-                  } else {
-                    background[k] = "transparent";
-                  }
+
+                  var categBG=j + i.buyer + (k).toString()+"bgc";
+
+                  background[k]= cat[categBG] ? cat[categBG] : "transparent";
+                  // if (bookingOrdersConfirmQuantity[categ] === 0) {
+                  //   background[k] = "#EEE860";
+                  // } else if (bookingOrdersConfirmQuantity[categ] < bookingOrdersQuantity[categ]) {
+                  //   background[k] = "#F4A919";
+                  // } else {
+                  //   background[k] = "transparent";
+                  // }
 
                 }
                 data.collection.push({ name: i.buyer, quantity: data.quantity, units: j, background: background, fontWeight: "normal" });
@@ -555,10 +572,10 @@ export class List {
               }
               var eff= efisiensi[y].replace('%','');
               if(!totalEfisiensi[y + 1]){
-                totalEfisiensi[y + 1]=parseInt(eff);
+                totalEfisiensi[y + 1]=parseFloat(eff);
               }
               else{
-                totalEfisiensi[y + 1]+=parseInt(eff);
+                totalEfisiensi[y + 1]+=parseFloat(eff);
               }
 
               totalOP_Unit[0]="";
@@ -629,10 +646,10 @@ export class List {
                 }
                 var eff= efisiensi[y].replace('%','');
                 if(!totalEfisiensi_Unit[y + 1]){
-                  totalEfisiensi_Unit[y + 1]=parseInt(eff);
+                  totalEfisiensi_Unit[y + 1]=parseFloat(eff);
                 }
                 else{
-                  totalEfisiensi_Unit[y + 1]+=parseInt(eff);
+                  totalEfisiensi_Unit[y + 1]+=parseFloat(eff);
                 }
               }
             }
@@ -769,7 +786,7 @@ export class List {
             avgEff[y+1]=parseFloat((totalEfisiensi[y + 1]/unitCount).toFixed(2))+"%";
             effAvg[y+1]=parseFloat((totalEfisiensi[y + 1]/unitCount).toFixed(2));
 
-
+console.log(totalEfisiensi[y + 1], unitCount)
             avgEffUnit[0]="";
             avgEffUnit[y+1]=parseFloat((totalEfisiensi_Unit[y + 1]/unitNotSKCount).toFixed(2))+"%";
 
