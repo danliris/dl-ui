@@ -25,7 +25,7 @@ export class View {
                 item.showDetails = false;
                 orderQty += item.OrderQuantity;
             });
-            if (orderQty==0){
+            if (orderQty==0 && !this.data.IsInvoice){
                 this.hasDelete=true;
             }
         }
