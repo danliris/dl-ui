@@ -74,11 +74,12 @@ export class List {
                         count++;
                     }
                     if(flag===count && dt.Status=="Booking"){
-                        dt.Status="Confirm Full";
+                        dt.status="Confirm Full";
                     }
                     else if(flag>0 && dt.Status=="Booking"){
-                        dt.Status="Confirm Sebagian";
+                        dt.status="Confirm Sebagian";
                     }
+
                 }
                 return {
                     total: result.info.total,

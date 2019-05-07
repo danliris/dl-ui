@@ -8,6 +8,7 @@ import moment from 'moment';
 
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var POEksLoader = require('../../../loader/garment-purchase-order-external-loader');
+var DOLoader = require('../../../loader/garment-delivery-order-loader');
 
 @inject(Service)
 
@@ -198,17 +199,7 @@ export class List {
         return SupplierLoader;
     }
     get dOLoader(){
-        return (keyword) => {
-            var info = {
-                keyword: keyword,
-                select: JSON.stringify({ "doNo": "DONo" }),
-                search: JSON.stringify([ "DONo" ])
-            };
-            return this.service.searchDeliveryOrder(info)
-                .then((result) => {
-                    return result.data;
-                });
-        }
+        return DOLoader;
     }
 
     doView = (tr) => {

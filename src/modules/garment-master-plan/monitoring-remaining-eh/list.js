@@ -87,19 +87,15 @@ export class List {
           for (var x = 0; x < units.length; x++) {
             var headCount = 0;
             var remainingEH=0;
-            var headCountUnit=0;
             for (var y = 0; y < units[x].length; y++) {
-           
               headCount += Number(this.data[y].Items[x].Operator);
-              if(units[x][y].code!="SK")
-                headCountUnit += Number(this.data[y].Items[x].Operator);
               remainingEH += Number(this.data[y].Items[x].RemainingEH);
+
             }
             var week = {
               week: "W" + (x + 1),
               units: units[x],
               headCount: headCount,
-              headCountUnit:headCountUnit,
               eh:remainingEH
             };
             this.weeks.push(week);

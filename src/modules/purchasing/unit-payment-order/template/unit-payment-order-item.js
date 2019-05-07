@@ -50,7 +50,8 @@ export class UnitPaymentOrderItem {
     } else if (newValue._id) {
       var items = [];
       for (var item of newValue.items) {
-        if(item.incomeTaxBy==this.filterUPO.incomeTaxBy && item.categoryCode==this.filterUPO.CategoryCode){
+        var cat= item.prNo.split('-')[3];
+        if(item.incomeTaxBy==this.filterUPO.incomeTaxBy && cat==this.filterUPO.CategoryCode){
           item.URNItemId = item._id;
 
           delete item._id;
