@@ -5,7 +5,34 @@ import { Router } from "aurelia-router";
 
 @Inject(Router, Service)
 export class List {
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
+    }
+
     context = ["update"];
+    columns = [
+        {
+            field: "DateOperated",
+            title: "Tanggal Estimasi Produksi",
+            formatter: function (value, data, index) {
+                return moment(new Date(value)).format("DD MMM YYYY");
+            }
+        },
+        { field: "OrderNumber", title: "No Order Produksi" },
+        {
+            field: "WeavingUnit",
+            title: "Unit",
+            rowspan: "2",
+            valign: "top",
+            formatter: function (value, data, index) {
+                return value.Name;
+            }
+        },
+        { field: "MachineNumber", title: "No Mesin Produksi" },
+        { field: "UnitName", title: "Unit" },
+        { field: "DailyOperationStatus", title: "Status Produksi" }
+    ];
 
     loader = (info) => {
         var order = {};
@@ -19,12 +46,33 @@ export class List {
             order: order
         }
 
-        return this.service.search(arg)
-            .then(result => {
+        return this.service.search(arg).then(result => {
+            if (result.data && result.data.length > 0) {
+                let getUnitPromises = result.data.map(datum =>
+                    this.service.getUnitById(datum.UnitId)
+                );
+
+                return Promise.all(getUnitPromises).then(units => {
+                    for (var datum of result.data) {
+                        if (units && units.length > 0) {
+                            let unit = units.find(
+                                unitResult => datum.WeavingUnit == unitResult.Id
+                            );
+                            datum.WeavingUnit = unit;
+                        }
+                    }
+
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    };
+                });
+            } else {
                 return {
                     total: result.info.total,
-                    data: result.data,
-                }
-            });
+                    data: result.data
+                };
+            }
+        });
     }
 }
