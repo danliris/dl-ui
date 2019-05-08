@@ -110,7 +110,8 @@ export class List {
                   }
 
                 count++;    
-                }               
+                }     
+            console.log(this.data)          
             });
     }
 
