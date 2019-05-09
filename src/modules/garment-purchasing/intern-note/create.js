@@ -30,6 +30,13 @@ export class Create {
     }
 
     save() {
+        for(var item of this.data.items){
+            for(var detail of item.details){
+                for(var doItem of detail.deliveryOrder.items){
+                    doItem.fulfillments=[];
+                }
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
