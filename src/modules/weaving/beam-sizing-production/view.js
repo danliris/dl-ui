@@ -28,9 +28,6 @@ export class View {
   beamColumns = [{
     value: "BeamNumber",
     header: "No. Beam"
-  }, {
-    value: "BeamConstructions",
-    header: "No. Konstruksi Beam"
   }];
 
   logColumns = [{

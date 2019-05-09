@@ -35,12 +35,9 @@ export class Create {
   columns = [{
     value: "BeamNumber",
     header: "No. Beam"
-  }, {
-    value: "BeamConstructions",
-    header: "No. Konstruksi Beam"
   }];
 
-  shifts = ["", "1 - Pagi", "2 - Siang", "3 - Malam"];
+  // shifts = ["", "1 - Pagi", "2 - Siang", "3 - Malam"];
 
   start() {
     if (this.showHideStartMenu === true) {

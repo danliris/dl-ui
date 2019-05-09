@@ -4,45 +4,6 @@
       padding: 0px;
     }
 
-    /* .bg-modal {
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      margin: 0 auto;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-contents-start {
-      width: 45%;
-      height: 70%;
-      background-color: #EEEEEE;
-      border-radius: 4px;
-      margin: 0 auto;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .close {
-      position: relative;
-      top: -12px;
-      right: -4px;
-      font-size: 36px;
-      color: #333;
-      transform: rotate(45deg);
-      cursor: pointer;
-      margin-bottom: 8px;
-    } */
-
   </style>
   <au-input-form title="Create: Produksi Beam Sizing" options.bind="formOptions">
     <div class="col-md-12">
@@ -51,7 +12,8 @@
           <textbox label="Tanggal" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-datepicker placeholder="Tanggal Produksi" value.bind="data.ProductionDate" error.bind="error.ProductionDate" read-only.bind="true">
+          <au-datepicker placeholder="Tanggal Produksi" value.bind="data.ProductionDate"
+            error.bind="error.ProductionDate" read-only.bind="true">
           </au-datepicker>
         </div>
       </div>
@@ -60,8 +22,8 @@
           <textbox label="No. Mesin" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Mesin" value.bind="MachineDocument" error.bind="error.MachineDocument" read-only.bind="readOnly"
-            loader.bind="machines" text="MachineNumber"></au-autocomplete>
+          <au-autocomplete placeholder="No. Mesin" value.bind="MachineDocument" error.bind="error.MachineDocument"
+            read-only.bind="readOnly" loader.bind="machines" text="MachineNumber"></au-autocomplete>
         </div>
       </div>
       <div class="row" style="white-space: nowrap;">
@@ -69,8 +31,8 @@
           <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Unit Weaving" value.bind="WeavingDocument" error.bind="error.WeavingDocument" read-only.bind="readOnly"
-            loader.bind="units" text="Name"></au-autocomplete>
+          <au-autocomplete placeholder="Unit Weaving" value.bind="WeavingDocument" error.bind="error.WeavingDocument"
+            read-only.bind="readOnly" loader.bind="units" text="Name"></au-autocomplete>
         </div>
       </div>
 
@@ -83,13 +45,6 @@
         </div>
       </div>
 
-      <!-- <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="data.BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="columns"
-          remove.bind="onremove" read-only.bind="readOnly"
-          item-template="modules/weaving/beam-sizing-production/templates/beam-items">
-        </au-collection>
-      </div> -->
-
       <div class="row" id="startMenu" show.bind="showHideStartMenu">
         <div class="col-md-12"
           style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
@@ -99,17 +54,9 @@
             </div>
             <div class="col-md-4">
               <au-autocomplete placeholder="No. Konstruksi" value.bind="ConstructionDocument"
-                error.bind="error.ConstructionDocument" read-only.bind="readOnly" loader.bind="constructions" text="ConstructionNumber">
+                error.bind="error.ConstructionDocument" read-only.bind="readOnly" loader.bind="constructions"
+                text="ConstructionNumber">
               </au-autocomplete>
-            </div>
-            <!-- </div>
-          <div class="row" style="white-space: nowrap"> -->
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-2">
-              <au-dropdown placeholder="Shift" value.bind="data.Shift" items.bind="shifts" error.bind="error.Shift" read-only.bind="readOnly">
-              </au-dropdown>
             </div>
           </div>
 
@@ -121,8 +68,6 @@
               <au-autocomplete placeholder="Operator" value.bind="OperatorDocument" error.bind="error.OperatorDocument"
                 read-only.bind="readOnly" loader.bind="operators" text="Name"></au-autocomplete>
             </div>
-            <!-- </div>
-          <div class="row" style="white-space: nowrap;"> -->
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
@@ -137,8 +82,16 @@
               <textbox label="Waktu Mulai" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-                <input value.bind="data.ProductionTime.Start" type="time" error.bind="error.ProductionTime.Start"
-                  read-only.bind="readOnly">
+              <input value.bind="data.ProductionTime.Start" type="time" error.bind="error.ProductionTime.Start"
+                read-only.bind="readOnly">
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-textbox placeholder="Shift" value.bind="data.Shift" error.bind="error.Shift"
+                read-only.bind="true">
+              </au-textbox>
             </div>
           </div>
 
@@ -150,8 +103,6 @@
               <au-numeric placeholder="Counter Awal" value.bind="data.Counter.Start" error.bind="error.Counter.Start"
                 read-only.bind="readOnly"></au-numeric>
             </div>
-            <!-- </div>
-          <div class="row" style="white-space: nowrap;"> -->
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Berat Bersih (Netto)" read-only="true" style="display: inline-block"></textbox>
             </div>
@@ -178,52 +129,5 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="startMenu" show.bind="showStartMenu">
-        <div class="bg-modal">
-          <div class="modal-contents-start">
-            <div class="close" click.delegate="hideMenu()">+</div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-3">
-                <textbox label="No. Konstruksi" read-only="true"></textbox>
-              </div>
-              <div class="col-md-8">
-                <au-autocomplete placeholder="No. Konstruksi" value.bind="ConstructionDocument"
-                  error.bind="error.ConstructionDocument" read-only.bind="readOnly" loader.bind="constructions"
-                  text="ConstructionNumber" style="margin-top: 4px;">
-                </au-autocomplete>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-3">
-                <textbox label="No. Beam" read-only="true"></textbox>
-              </div>
-              <div class="col-md-8">
-                <au-autocomplete placeholder="No. Beam" value.bind="BeamDocument" error.bind="error.BeamDocument"
-                  read-only.bind="readOnly" loader.bind="beams" text="BeamNumber"></au-autocomplete>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <div class="col-md-3">
-                <textbox label="Shift" read-only="true"></textbox>
-              </div>
-              <div class="col-md-8">
-                <au-autocomplete placeholder="Shift" value.bind="ShiftDocument" error.bind="error.ShiftDocument"
-                  read-only.bind="readOnly" loader.bind="shifts" text="Name"></au-autocomplete>
-              </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-              <button class="btn btn-default" click.delegate="save()"
-                style="margin-bottom: 24px; background-color: #01C8A2; color:white; white-space: nowrap; width: 96px; border: 1px solid #777777;">
-                Simpan
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> -->
   </au-input-form>
 </template>
