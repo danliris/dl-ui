@@ -2,7 +2,7 @@
   <tr>
     <td style="white-space: nowrap;">
       <au-autocomplete
-        value.bind="OrderDocument"
+        value.bind="data.OrderDocument"
         error.bind="error.OrderDocument"
         read-only.bind="true"
         placeholder="No. SPP"
@@ -58,8 +58,8 @@
     </td>
     <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.Time.Pause"
-        error.bind="error.Time.Pause"
+        value.bind="data.Time.Uninstall"
+        error.bind="error.Time.Uninstall"
         read-only.bind="true"
         placeholder="Waktu Penggantian"
       >
@@ -67,8 +67,8 @@
     </td>
     <td style="white-space: nowrap;">
       <au-textbox
-        value.bind="data.Time.Resume"
-        error.bind="error.Time.Resume"
+        value.bind="data.Time.Install"
+        error.bind="error.Time.Install"
         read-only.bind="true"
         placeholder="Waktu Lanjutkan"
       >
