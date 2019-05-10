@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -87,7 +87,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -100,7 +100,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -113,7 +113,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -126,7 +126,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
@@ -140,7 +140,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -153,7 +153,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -166,7 +166,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -179,7 +179,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -192,7 +192,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -205,7 +205,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -218,7 +218,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -231,7 +231,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -244,7 +244,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -257,7 +257,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -309,7 +309,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -322,7 +322,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -335,7 +335,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -348,7 +348,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -362,7 +362,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -376,7 +376,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -389,7 +389,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -402,7 +402,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing-printing",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
