@@ -1,7 +1,15 @@
-import { inject, bindable, computedFrom } from "aurelia-framework";
+import {
+  inject,
+  bindable,
+  computedFrom
+} from "aurelia-framework";
 // import { Dialog } from '../../../../../components/dialog/dialog';
-import { callbackify } from "util";
-import { Router } from "aurelia-router";
+import {
+  callbackify
+} from "util";
+import {
+  Router
+} from "aurelia-router";
 var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 
@@ -19,15 +27,13 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  constructor() {
-  }
+  constructor() {}
 
   // OperationalMachineOptions = {
 
   // };
 
-  columns = [
-    {
+  columns = [{
       value: "OrderProductionNumber",
       header: "No. SPP"
     },
@@ -39,9 +45,18 @@ export class DataForm {
       value: "Shift",
       header: "Shift"
     },
-    { value: "BeamNumber", header: "No. Beam" },
-    { value: "WarpOrigin", header: "Asal Lusi" },
-    { value: "WeftOrigin", header: "Asal Pakan" },
+    {
+      value: "BeamNumber",
+      header: "No. Beam"
+    },
+    {
+      value: "WarpOrigin",
+      header: "Asal Lusi"
+    },
+    {
+      value: "WeftOrigin",
+      header: "Asal Pakan"
+    },
     {
       value: "Time.Pause",
       header: "Waktu Penggantian"
@@ -58,7 +73,10 @@ export class DataForm {
       value: "BeamOperator",
       header: "Operator Beam"
     },
-    { value: "LoomGroup", header: "Grup Loom" },
+    {
+      value: "LoomGroup",
+      header: "Grup Loom"
+    },
     {
       value: "SizingNumber",
       header: "No. Sizing"
@@ -71,7 +89,10 @@ export class DataForm {
       value: "SizingGroup",
       header: "Grup Sizing"
     },
-    { value: "Information", header: "Keterangan" }
+    {
+      value: "Information",
+      header: "Keterangan"
+    }
   ];
 
   get units() {
@@ -84,14 +105,14 @@ export class DataForm {
 
   MachineDocumentChanged(newValue) {
     console.log(newValue);
-    if(newValue){
+    if (newValue) {
       this.data.MachineId = newValue.Id;
     }
   }
 
-  WeavingDocumentChanged(newValue){
+  WeavingDocumentChanged(newValue) {
     console.log(newValue)
-    if(newValue){
+    if (newValue) {
       this.data.UnitId = newValue.Id;
     }
   }
@@ -101,8 +122,8 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
 
-    this.showHideStartMenu=false;
-    this.showHideResumeMenu=false;
+    this.showStartMenu = false;
+    this.showResumeMenu = false;
 
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
@@ -117,21 +138,28 @@ export class DataForm {
   //   };
   // }
 
-  start(){
-    if (this.showHideStartMenu === true) {
-      this.showHideStartMenu = false;
+  start() {
+    if (this.showStartMenu === true) {
+      this.showStartMenu = false;
     } else {
-      this.showHideStartMenu = true;
-      this.showHideResumeMenu = false;
+      this.showStartMenu = true;
+      this.showResumeMenu = false;
     }
   }
 
-  resume(){
-    if (this.showHideResumeMenu === true) {
-      this.showHideResumeMenu = false;
+  resume() {
+    if (this.showResumeMenu === true) {
+      this.showResumeMenu = false;
     } else {
-      this.showHideResumeMenu = true;
-      this.showHideStartMenu = false;
+      this.showResumeMenu = true;
+      this.showStartMenu = false;
+    }
+  }
+
+  hideMenu() {
+    if (this.showStartMenu === true || this.showResumeMenu === true) {
+      this.showStartMenu = false;
+      this.showResumeMenu = false;
     }
   }
 }
