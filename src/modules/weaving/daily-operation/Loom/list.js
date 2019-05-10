@@ -1,9 +1,9 @@
-import { Inject } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 // import moment from "moment";
 
-@Inject(Router, Service)
+@inject(Router, Service)
 export class List {
     constructor(router, service) {
         this.service = service;
@@ -14,7 +14,7 @@ export class List {
     columns = [
         {
             field: "DateOperated",
-            title: "Tanggal Estimasi Produksi",
+            title: "Tanggal Produksi",
             formatter: function (value, data, index) {
                 return moment(new Date(value)).format("DD MMM YYYY");
             }
@@ -23,10 +23,13 @@ export class List {
         {
             field: "WeavingUnit",
             title: "Unit",
-            rowspan: "2",
             valign: "top",
             formatter: function (value, data, index) {
-                return value.Name;
+                if(value) {
+                    return value.Name;
+                } else {
+                    return "-";
+                }
             }
         },
         { field: "MachineNumber", title: "No Mesin Produksi" },
@@ -75,4 +78,14 @@ export class List {
             }
         });
     }
+
+    contextCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+          case "detail":
+            this.router.navigateToRoute("view", { Id: data.Id });
+            break;
+        }
+      }
 }
