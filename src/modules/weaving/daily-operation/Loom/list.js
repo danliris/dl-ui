@@ -10,7 +10,7 @@ export class List {
         this.router = router;
     }
 
-    context = ["update"];
+    context = ["Update"];
     columns = [
         {
             field: "DateOperated",
@@ -25,7 +25,7 @@ export class List {
             title: "Unit",
             valign: "top",
             formatter: function (value, data, index) {
-                if(value) {
+                if (value) {
                     return value.Name;
                 } else {
                     return "-";
@@ -83,9 +83,13 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-          case "detail":
-            this.router.navigateToRoute("view", { Id: data.Id });
-            break;
+            case "Update":
+                this.router.navigateToRoute("view", { Id: data.Id });
+                break;
         }
-      }
+    }
+
+    create() {
+        this.router.navigateToRoute("create");
+    }
 }

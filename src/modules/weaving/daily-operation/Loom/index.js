@@ -6,30 +6,29 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List: "
+          title: "List: Perencanaan Mesin"
+        },
+        {
+          route: "create",
+          moduleId: "./create",
+          name: "create",
+          nav: false,
+          title: "Create: Perencanaan Mesin"
+        },
+        {
+          route: "view/:Id",
+          moduleId: "./view",
+          name: "view",
+          nav: false,
+          title: "View: Perencanaan Mesin"
+        },
+        {
+          route: "edit/:Id",
+          moduleId: "./edit",
+          name: "edit",
+          nav: false,
+          title: "Edit: Perencanaan Mesin"
         }
-        // ,
-        // {
-        //   route: "create",
-        //   moduleId: "./create",
-        //   name: "create",
-        //   nav: false,
-        //   title: "Create: Estimasi Produksi"
-        // },
-        // {
-        //   route: "view/:Id",
-        //   moduleId: "./view",
-        //   name: "view",
-        //   nav: false,
-        //   title: "View: Estimasi Produksi"
-        // },
-        // {
-        //   route: "edit/:Id",
-        //   moduleId: "./edit",
-        //   name: "edit",
-        //   nav: false,
-        //   title: "Edit: Estimasi Produksi"
-        // }
       ]);
   
       this.router = router;

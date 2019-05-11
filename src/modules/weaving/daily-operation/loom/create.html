@@ -1,4 +1,8 @@
 <template>
-    <require from="./form/create-form"></require>
-  <data-form title="Buat Operasi Harian Loom" error.bind="error"></data-form>
+    <require from="./template/create-form"></require>
+    <create-form
+      title="Buat Operasional Loom"
+      error.bind="error"
+      data.bind="data"
+    ></create-form>
 </template>

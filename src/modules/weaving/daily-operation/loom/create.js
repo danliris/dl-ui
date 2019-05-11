@@ -4,16 +4,33 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-    constructor(router, service) {
-        this.router = router;
-        this.service = service;
-        this.data = {};
-    }
 
-    cancelCallback(event) {
-        this.list();
-    }
+  constructor(router, service) {
+    this.router = router;
+    this.service = service;
+    this.data = {};
+    this.error = {};
+  }
 
-    saveCallback(event) {
-    }
+  list() {
+    this.router.navigateToRoute("list");
+  }
+
+  cancelCallback(event) {
+    this.list();
+  }
+
+  saveCallback(event) {
+    this.error = {};
+    console.log(this.data);
+
+    // this.service
+    //   .create(this.data)
+    //   .then(result => {
+    //     this.list();
+    //   })
+    //   .catch(e => {
+    //     this.error = e;
+    //   });
+  }
 }
