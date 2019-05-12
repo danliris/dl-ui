@@ -6,28 +6,21 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List: Perencanaan Mesin"
+          title: "List Operasional Loom"
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Perencanaan Mesin"
+          title: "Create: Operasional Loom"
         },
         {
-          route: "view/:Id",
-          moduleId: "./view",
-          name: "view",
+          route: "update/:Id",
+          moduleId: "./update",
+          name: "update",
           nav: false,
-          title: "View: Perencanaan Mesin"
-        },
-        {
-          route: "edit/:Id",
-          moduleId: "./edit",
-          name: "edit",
-          nav: false,
-          title: "Edit: Perencanaan Mesin"
+          title: "update: Operasional Loom"
         }
       ]);
   
