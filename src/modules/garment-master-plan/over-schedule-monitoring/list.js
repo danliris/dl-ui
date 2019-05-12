@@ -107,7 +107,7 @@ export class List {
 
 
       reset() {
-        this.bookingCode = "";
+        this.no = "";
         this.buyerCode="";
         this.section="";
         this.comodity="";
