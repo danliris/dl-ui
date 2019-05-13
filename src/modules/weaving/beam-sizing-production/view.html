@@ -36,6 +36,12 @@
         </div>
       </div>
 
+      <div class="row" style="white-space: nowrap; overflow: auto;">
+        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamColumns"
+          read-only.bind="true" item-template="modules/weaving/beam-sizing-production/templates/beam-items">
+        </au-collection>
+      </div>
+
       <div class="row">
         <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
           <button class="btn btn-default" click.delegate="pause()"
@@ -228,12 +234,6 @@
       <div class="row" style="white-space: nowrap; overflow: auto;">
         <au-collection items.bind="Log" errors.bind="error.Log" columns.bind="logColumns" read-only.bind="true"
           item-template="modules/weaving/beam-sizing-production/templates/log-items">
-        </au-collection>
-      </div>
-
-      <div class="row" style="white-space: nowrap; overflow: auto;">
-        <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamColumns"
-          read-only.bind="true" item-template="modules/weaving/beam-sizing-production/templates/beam-items">
         </au-collection>
       </div>
 
