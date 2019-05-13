@@ -14,7 +14,7 @@ async activate(params) {
         this.info = params.info;
         var uri = this.service.getDetail(this.info);
         uri.then(data => {
-             this.data=data;
+             this.data = data;
         })
     }
 

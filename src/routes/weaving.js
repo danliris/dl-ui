@@ -219,5 +219,31 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/daily-operation-loom",
+    name: "weaving-daily-operation-loom",
+    moduleId: "./modules/weaving/daily-operation/loom/index",
+    nav: true,
+    title: "Operasi Harian Loom",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/machine-shift",
+    name: "weaving-machine-shift",
+    moduleId: "./modules/weaving/master-machine-shift/index",
+    nav: true,
+    title: "Shift Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
 ];
