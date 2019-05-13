@@ -219,5 +219,18 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/machine-shift",
+    name: "weaving-machine-shift",
+    moduleId: "./modules/weaving/master-machine-shift/index",
+    nav: true,
+    title: "Shift Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
 ];
