@@ -208,6 +208,20 @@ module.exports = [
             permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+
+    {
+        route: '/garment-master-plan/over-schedule-monitoring',
+        name: 'over-schedule-monitoring',
+        moduleId: './modules/garment-master-plan/over-schedule-monitoring/index',
+        nav: true,
+        title: 'Monitoring Keterlambatan Jadwal Pengerjaan',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]

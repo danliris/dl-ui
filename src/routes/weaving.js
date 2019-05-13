@@ -180,5 +180,44 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/beam-sizing-production",
+    name: "beam-sizing-production",
+    moduleId: "./modules/weaving/beam-sizing-production/index",
+    nav: true,
+    title: "Produksi Beam Sizing",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/beam-monitoring",
+    name: "beam-monitoring",
+    moduleId: "./modules/weaving/beam-monitoring/index",
+    nav: true,
+    title: "Pemantauan Beam",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/daily-operation-loom",
+    name: "weaving-daily-operation-loom",
+    moduleId: "./modules/weaving/daily-operation/loom/index",
+    nav: true,
+    title: "Operasi Harian Loom",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
 ];
