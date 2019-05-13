@@ -21,16 +21,12 @@ export class List {
       }
     },
     {
-      field: "WeavingUnitDocumentId",
-      title: "Unit Weaving"
-    },
-    {
       field: "MachineNumber",
       title: "No. Mesin"
     },
     {
-      field: "Shift",
-      title: "Shift"
+      field: "WeavingUnitDocumentId",
+      title: "Unit Weaving"
     },
     {
       field: "BeamNumber",
@@ -39,6 +35,10 @@ export class List {
     {
       field: "ConstructionNumber",
       title: "No. Konstruksi"
+    },
+    {
+      field: "Shift",
+      title: "Shift"
     },
     {
       field: "PIS",

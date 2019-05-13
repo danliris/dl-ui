@@ -1,46 +1,43 @@
 <template>
   <tr>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.BeamNumber" error.bind="error.BeamNumber" read-only.bind="true"
-        placeholder="No. Beam">
+      <au-textbox value.bind="data.BeamNumber" error.bind="error.BeamNumber" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.ConstructionNumber" error.bind="error.ConstructionNumber" read-only.bind="true"
-        placeholder="No. Konstruksi">
+      <au-textbox value.bind="data.ConstructionNumber" error.bind="error.ConstructionNumber" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.PIS" error.bind="error.PIS" read-only.bind="true" placeholder="PIS">
+      <au-textbox value.bind="data.Shift" error.bind="error.Shift" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <!-- <td style="white-space: nowrap;">
+      <au-textbox value.bind="data.PIS" error.bind="error.PIS" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Visco" error.bind="error.Visco" read-only.bind="true" placeholder="Visco">
+      <au-textbox value.bind="data.Visco" error.bind="error.Visco" read-only.bind="true">
+      </au-textbox>
+    </td> -->
+    <td style="white-space: nowrap;">
+      <au-textbox value.bind="data.History.MachineTimeStamp" error.bind="error.MachineTimeStamp" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Time.Start" error.bind="error.Time.Start" read-only.bind="true" placeholder="Start">
+      <au-textbox value.bind="data.History.MachineStatus" error.bind="error.MachineStatus" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Time.Finish" error.bind="error.Time.Finish" read-only.bind="true"
-        placeholder="Finish">
+      <au-textbox value.bind="data.Broke" error.bind="error.Broke" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Broke" error.bind="error.Broke" read-only.bind="true" placeholder="Broke">
+      <au-textbox value.bind="data.Counter" error.bind="error.Counter" read-only.bind="true">
       </au-textbox>
     </td>
     <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Counter" error.bind="error.Counter" read-only.bind="true" placeholder="Counter">
-      </au-textbox>
-    </td>
-    <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Shift" error.bind="error.Shift" read-only.bind="true" placeholder="Shift">
-      </au-textbox>
-    </td>
-    <td style="white-space: nowrap;">
-      <au-textbox value.bind="data.Information" error.bind="error.Information" read-only.bind="true" placeholder="Information">
+      <au-textbox value.bind="data.History.Information" error.bind="error.Information" read-only.bind="true">
       </au-textbox>
     </td>
     <!-- <td class="col-sm-1" if.bind="!readOnly">

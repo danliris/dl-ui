@@ -31,46 +31,47 @@ export class View {
   }];
 
   logColumns = [{
-    value: "BeamNumber",
-    header: "No. Beam"
-  },
-  {
-    value: "ConstructionNumber",
-    header: "No. Konstruksi"
-  }, {
-    value: "PIS",
-    header: "PIS"
-  },
-  {
-    value: "Visco",
-    header: "Visco"
-  },
-  {
-    value: "Time.Start",
-    header: "Mulai"
-  },
-  {
-    value: "Time.Finish",
-    header: "Doff/ Selesai"
-  },
-  {
-    value: "Broke",
-    header: "Putus"
-  },
-  {
-    value: "Counter",
-    header: "Counter"
-  },
-  {
-    value: "Shift",
-    header: "Shift"
-  }
-];
+      value: "ConstructionNumber",
+      header: "No. Konstruksi"
+    },
+    // {
+    //   value: "PIS",
+    //   header: "PIS"
+    // },
+    // {
+    //   value: "Visco",
+    //   header: "Visco"
+    // },
+    {
+      value: "Shift",
+      header: "Shift"
+    },
+    {
+      value: "Broke",
+      header: "Putus"
+    },
+    // {
+    //   value: "Counter",
+    //   header: "Counter"
+    // },
+    {
+      value: "History.MachineTimeStamp",
+      header: "Waktu"
+    },
+    {
+      value: "History.Information",
+      header: "Information"
+    },
+    {
+      value: "History.MachineStatus",
+      header: "Status"
+    }
+  ];
 
   async activate(params) {
     // var Id = params.Id;
     // this.data = await this.service.getById(Id);
-    
+
     // this.data = {
     //   Id: 1,
     //   BeamNumber: "TS 108",

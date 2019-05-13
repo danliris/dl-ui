@@ -31,22 +31,22 @@
         <tbody>
                     <tr repeat.for="pr of data"  >
                         <td>${$index + 1}</td>
-                        <td>${pr.supplier.Name}</td>
-                        <td>${pr.poSerialNumber}</td>
-                        <td>${pr.prDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.poDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.epoDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.doNo}</td>
-                        <td>${pr.product.Code}</td>
-                        <td>${pr.product.Name}</td>
-                        <td>${pr.product.Remark}</td>
-                        <td>${pr.article}</td>
-                        <td>${pr.roNo}</td>
-                        <td>${pr.shipmentDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.doDate | dateFormat:'DD-MM-YYYY'}</td>
-                        <td>${pr.ok_notOk}</td>
-                        <td>${pr.staff}</td>
-                        <td>${pr.product.Name}</td>  
+                        <td>${pr.SupplierName}</td>
+                        <td>${pr.POSerialNumber}</td>
+                        <td>${pr.PRDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.DODate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.EPODate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.DONo}</td>
+                        <td>${pr.ProductCode}</td>
+                        <td>${pr.ProductName}</td>
+                        <td>${pr.ProductRemark}</td>
+                        <td>${pr.Article}</td>
+                        <td>${pr.RONo}</td>
+                        <td>${pr.ShipmentDate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.DODate | dateFormat:'DD-MM-YYYY'}</td>
+                        <td>${pr.OKStatus}</td>
+                        <td>${pr.Staff}</td>
+                        <td>${pr.ProductName}</td>  
                     </tr>
                 </tbody>
     </table>
