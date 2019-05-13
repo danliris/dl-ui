@@ -24,7 +24,7 @@ export class Edit {
     }
 
     cancelCallback(event) {
-        this.router.navigateToRoute("view", { Id: this.data.Id });
+        this.router.navigateToRoute("list");
     }
 
     saveCallback(event) {
