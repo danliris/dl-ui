@@ -83,7 +83,7 @@
                 <div class="col-md-2">
                     <au-autocomplete placeholder="Cari No Order Produksi" value.bind="OrderProduction"
                         error.bind="error.OrderProduction" read-only.bind="readOnly" options.bind="customOptions"
-                        loader.bind="OrderProductions" text="Number">
+                        loader.bind="OrderProductions" text="OrderNumber">
                     </au-autocomplete>
                 </div>
 
@@ -91,9 +91,8 @@
                     <textbox label="No Konstruksi" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox placeholder="No Konstruksi" value.bind="FabricConstruction"
-                        error.bind="error.FabricConstruction" read-only.bind="readOnly" options.bind="customOptions"
-                        loader.bind="FabricConstructions" text="Number">
+                    <au-textbox placeholder="No Konstruksi" value.bind="data.OrderProduction.ConstructionNumber"
+                        error.bind="error.FabricConstruction" read-only.bind="readOnly">
                     </au-textbox>
                 </div>
             </div>
@@ -103,16 +102,16 @@
                     <textbox label="Asal Lusi" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox placeholder="Asal Lusi" value.bind="data.WarpOrigin" error.bind="error.WarpOrigin"
-                        read-only.bind="readOnly">
+                    <au-textbox placeholder="Asal Lusi" value.bind="data.OrderProduction.WarpOrigin" error.bind="error.WarpOrigin"
+                        read-only.bind="true">
                     </au-textbox>
                 </div>
                 <div class="col-md-2">
                     <textbox label="Asal Pakan" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox placeholder="Asal Pakan" value.bind="data.WaftOrigin" error.bind="error.WaftOrigin"
-                        read-only.bind="readOnly">
+                    <au-textbox placeholder="Asal Pakan" value.bind="data.OrderProduction.WeftOrigin" error.bind="error.WaftOrigin"
+                        read-only.bind="true">
                     </au-textbox>
                 </div>
             </div>
@@ -135,7 +134,7 @@
                 </div>
                 <div class="col-md-2">
                     <au-autocomplete placeholder="Cari No Mesin" value.bind="Machine" error.bind="error.Machine"
-                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Machines" text="Number">
+                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Machines" text="MachineNumber">
                     </au-autocomplete>
                 </div>
             </div>
