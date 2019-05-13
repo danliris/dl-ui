@@ -66,7 +66,7 @@
             </div>
             <div class="col-md-4">
               <au-autocomplete placeholder="Operator" value.bind="OperatorDocument" error.bind="error.OperatorDocument"
-                read-only.bind="readOnly" loader.bind="operators" text="Name"></au-autocomplete>
+                read-only.bind="readOnly" loader.bind="operators" text="CoreAccount.Name"></au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
@@ -115,7 +115,7 @@
           <div class="row" style="white-space: nowrap; overflow: auto; padding-right: 8px;">
             <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="columns"
               remove.bind="onremove" read-only.bind="readOnly" add.bind="addBeamsWarping"
-              item-template="modules/weaving/beam-sizing-production/templates/beam-items">
+              item-template="modules/weaving/daily-operational-machine-sizing/templates/beam-items">
             </au-collection>
           </div>
 

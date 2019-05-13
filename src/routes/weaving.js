@@ -52,6 +52,45 @@ module.exports = [
     }
   },
   {
+    route: "weaving/master-machine-type",
+    name: "master-machine-type",
+    moduleId: "./modules/weaving/master-machine-type/index",
+    nav: true,
+    title: "Master Tipe Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/master-machine",
+    name: "master-machine",
+    moduleId: "./modules/weaving/master-machine/index",
+    nav: true,
+    title: "Master Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/master-operator",
+    name: "master-operator",
+    moduleId: "./modules/weaving/master-operator/index",
+    nav: true,
+    title: "Master Operator",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/master-fabric-construction",
     name: "master-fabric-construction",
     moduleId: "./modules/weaving/master-fabric-construction/index",
@@ -96,32 +135,6 @@ module.exports = [
     moduleId: "./modules/weaving/order-production-report/index",
     nav: true,
     title: "Laporan Surat Perintah Produksi",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/master-machine-type",
-    name: "master-machine-type",
-    moduleId: "./modules/weaving/master-machine-type/index",
-    nav: true,
-    title: "Master Tipe Mesin",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/master-machine",
-    name: "master-machine",
-    moduleId: "./modules/weaving/master-machine/index",
-    nav: true,
-    title: "Master Mesin",
     auth: true,
     settings: {
       group: "weaving",
@@ -182,11 +195,11 @@ module.exports = [
     }
   },
   {
-    route: "weaving/beam-sizing-production",
-    name: "beam-sizing-production",
-    moduleId: "./modules/weaving/beam-sizing-production/index",
+    route: "weaving/daily-operational-machine-sizing",
+    name: "daily-operational-machine-sizing",
+    moduleId: "./modules/weaving/daily-operational-machine-sizing/index",
     nav: true,
-    title: "Produksi Beam Sizing",
+    title: "Input Mesin Operasional Harian Sizing",
     auth: true,
     settings: {
       group: "weaving",

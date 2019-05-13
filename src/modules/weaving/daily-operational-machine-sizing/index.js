@@ -5,21 +5,21 @@ export class Index {
         moduleId: "./list",
         name: "list",
         nav: false,
-        title: "List: Produksi Beam Sizing"
+        title: "List: Input Mesin Operasional Harian Sizing"
       },
       {
         route: "create",
         moduleId: "./create",
         name: "create",
         nav: false,
-        title: "Create: Produksi Beam Sizing"
+        title: "Create: Input Mesin Operasional Harian Sizing"
       },
       {
         route: "view/:Id",
         moduleId: "./view",
         name: "view",
         nav: false,
-        title: "View: Produksi Beam Sizing"
+        title: "View: Input Mesin Operasional Harian Sizing"
       }
     ]);
 
