@@ -14,7 +14,8 @@ export class DataForm {
 
     formOptions = {
         cancelText: "Kembali",
-        saveText: "Simpan"
+        saveText: "Simpan",
+        deleteText: "Hapus"
     };
 
     bind(context) {

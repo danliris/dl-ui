@@ -1,6 +1,4 @@
 import { RestService } from "../../../utils/rest-service";
-import { Container } from "aurelia-dependency-injection";
-import { Config } from "aurelia-api";
 const serviceUri = 'weaving/shifts';
 
 export class Service extends RestService {
@@ -26,5 +24,10 @@ export class Service extends RestService {
     update(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
+    }
+
+    delete(data) {
+        var endpoint = `${serviceUri}/${data.Id}`;
+        return super.delete(endpoint, data);
     }
 }

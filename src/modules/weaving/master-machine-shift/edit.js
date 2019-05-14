@@ -37,4 +37,10 @@ export class Edit {
                 this.router.navigateToRoute("list");
             });
     }
+
+    deleteCallback(event) {
+        this.service.delete(this.data).then(result => {
+            this.cancelCallback(event);
+        });
+    }
 }
