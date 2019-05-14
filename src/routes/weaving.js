@@ -210,7 +210,7 @@ module.exports = [
   {
     route: "weaving/daily-operation-loom",
     name: "weaving-daily-operation-loom",
-    moduleId: "./modules/weaving/daily-operation/loom/index",
+    moduleId: "./modules/weaving/daily-operation-loom/index",
     nav: true,
     title: "Operasi Harian Loom",
     auth: true,

@@ -1,10 +1,10 @@
 import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "../service";
-var Operator = require("../../../../../loader/weaving-operator-loader");
-var Unit = require("../../../../../loader/unit-loader");
-var WeavingOrder = require("../../../../../loader/weaving-order-loader");
-var Machine = require("../../../../../loader/weaving-machine-loader");
+var Operator = require("../../../../loader/weaving-operator-loader");
+var Unit = require("../../../../loader/unit-loader");
+var WeavingOrder = require("../../../../loader/weaving-order-loader");
+var Machine = require("../../../../loader/weaving-machine-loader");
 
 @inject(Service, Router)
 export class CreateForm {
