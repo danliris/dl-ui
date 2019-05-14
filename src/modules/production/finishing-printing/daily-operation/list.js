@@ -42,7 +42,7 @@ export class List {
     searchList = ["Nomor SPP", "Kereta", "Proses", "Mesin"];
 
     tableOptions = {
-        search: false
+        search: true
     };
 
     context = ["Rincian"];
@@ -57,47 +57,55 @@ export class List {
         this.processVisibility = false;
         this.machineVisibility = false;
 
+        
+
         this.filter = {};
     }
+
+    // async bind() {
+    //     this.selectedSearch = await this.service.getColumnsToSearch();
+    //     console.log(optionResult);
+    // }
 
     activate() {
 
     }
 
-    selectedSearchChanged(newValue, oldValue) {
-        switch (newValue) {
-            case this.searchList[0]: {
-                this.sppVisibility = true;
-                this.cartVisiblity = false;
-                this.processVisibility = false;
-                this.machineVisibility = false;
-                break;
-            }
-            case this.searchList[1]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = true;
-                this.processVisibility = false;
-                this.machineVisibility = false;
-                break
-            }
-            case this.searchList[2]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = false;
-                this.processVisibility = true;
-                this.machineVisibility = false;
-                break;
-            }
-            case this.searchList[3]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = false;
-                this.processVisibility = false;
-                this.machineVisibility = true;
-                break;
-            }
-        }
-    }
+    // selectedSearchChanged(newValue, oldValue) {
+    //     switch (newValue) {
+    //         case this.searchList[0]: {
+    //             this.sppVisibility = true;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = false;
+    //             break;
+    //         }
+    //         case this.searchList[1]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = true;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = false;
+    //             break
+    //         }
+    //         case this.searchList[2]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = true;
+    //             this.machineVisibility = false;
+    //             break;
+    //         }
+    //         case this.searchList[3]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = true;
+    //             break;
+    //         }
+    //     }
+    // }
 
     loader = (info) => {
+        // console.log(this.selectedSearch);
         var order = {};
 
         if (info.sort)
@@ -108,6 +116,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
+            columnToSearch: this.selectedSearch,
             filter: JSON.stringify(this.filter),
             // select: ["machine.name", "step.process", "shift", "kanban.productionOrder.orderNo", "kanban.cart.cartNumber", "dateInput", "input", "dateOutput", "goodOutput", "badOutput", "type"]
         };
