@@ -232,5 +232,18 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
+  },
+  {
+    route: "weaving/beam",
+    name: "weaving-beam",
+    moduleId: "./modules/weaving/master-beam/index",
+    nav: true,
+    title: "Master Beam",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
   }
 ];
