@@ -12,12 +12,14 @@ export class DataForm {
         this.router = router;
     }
 
+    Types = ["-- select type --", "Warping", "Sizing"];
+
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
         deleteText: "Hapus"
     };
-
+    
     bind(context) {
         this.context = context;
         this.data = this.context.data;

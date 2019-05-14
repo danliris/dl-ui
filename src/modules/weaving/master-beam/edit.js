@@ -1,6 +1,8 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import { parse } from "path";
+import { type } from "os";
 
 @inject(Router, Service)
 export class Edit {
@@ -11,6 +13,8 @@ export class Edit {
         this.service = service;
         this.error = {};
     }
+
+    Types = ["-- select type --", "Warping", "Sizing"];
 
     async activate(params) {
 
@@ -30,6 +34,13 @@ export class Edit {
     saveCallback(event) {
         this.error = {};
 
+        if (this.data.Type == this.Types[0]) {
+            this.data.Type = "";
+        }
+
+        this.data.EmptyWeight = parseFloat(this.data.EmptyWeight); 
+
+        console.log(typeof(this.data.EmptyWeight));
         this.service
             .update(this.data)
             .then(result => {
