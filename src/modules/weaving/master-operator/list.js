@@ -14,11 +14,8 @@ export class List {
   context = ["detail"];
 
   columns = [{
-      field: "CoreAccount",
-      title: "Nama Operator",
-      formatter: function (value, data, index) {
-        return value.name;
-      }
+      field: "Username",
+      title: "Nama Operator"
     },
     {
       field: "UnitId",

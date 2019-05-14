@@ -23,12 +23,16 @@ export class View {
       .getById(Id)
       .then(result => {
         dataResult = result;
-        return this.service.getUnitById(result.Unit);
+        return this.service.getUnitById(result.UnitId);
       })
       .then(unit => {
-        dataResult.UnitId.Id = unit;
+        dataResult.UnitId = unit;
         return dataResult;
       });
+      
+      this.UnitId = this.data.UnitId.Name;
+      this.CoreAccount = this.data.CoreAccount.Name;
+      this.Assignment = this.data.Assignment;
   }
 
   list() {

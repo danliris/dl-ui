@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-3">
           <au-autocomplete placeholder="Nama Operator" value.bind="CoreAccount" error.bind="error.CoreAccount"
-            read-only.bind="readOnly"loader.one-time="accounts" text="username">
+            read-only.bind="readOnly" loader.one-time="accounts" text="username">
           </au-autocomplete>
         </div>
       </div>
@@ -17,7 +17,7 @@
           <p style="white-space: nowrap;">Unit Weaving</p>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Unit Weaving" value.bind="data.UnitId" error.bind="error.WeavingUnit"
+          <au-autocomplete placeholder="Unit Weaving" value.bind="UnitId" error.bind="error.UnitId"
             read-only.bind="readOnly" loader.one-time="units" text="Name">
           </au-autocomplete>
         </div>
@@ -28,8 +28,8 @@
           <p style="white-space: nowrap;">Grup</p>
         </div>
         <div class="col-md-3">
-          <au-dropdown value.bind="data.Group" error.bind="error.Group" read-only.bind="readOnly"
-            items.bind="groups"></au-dropdown>
+          <au-dropdown value.bind="data.Group" error.bind="error.Group" read-only.bind="readOnly" items.bind="groups">
+          </au-dropdown>
         </div>
       </div>
 
@@ -48,8 +48,8 @@
           <p style="white-space: nowrap;">Tipe</p>
         </div>
         <div class="col-md-3">
-          <au-dropdown value.bind="data.Type" error.bind="error.Type" read-only.bind="readOnly"
-            items.bind="types"></au-dropdown>
+          <au-dropdown value.bind="data.Type" error.bind="error.Type" read-only.bind="readOnly" items.bind="types">
+          </au-dropdown>
         </div>
       </div>
     </div>
