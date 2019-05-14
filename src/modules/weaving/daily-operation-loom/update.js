@@ -11,22 +11,24 @@ export class Update {
         this.error = {};
     }
 
+    loader = [];
+
     async activate(params) {
         var Id = params.Id;
         var dataResult;
 
-        // this.data = await this.service.getById(Id)
-        //     .then(result => {
-        //         dataResult = result;
-        //         return this.service.getUnitById(result.UnitDepartementId);
-        //     })
-        //     .then(unit => {
+        this.data = await this.service.getById(Id)
+            .then(result => {
+                dataResult = result;
+                return this.service.getUnitById(result.UnitDepartementId);
+            })
+            .then(unit => {
 
-        //         if (unit) {
-        //             dataResult.WeavingUnit = unit;
-        //         }
+                if (unit) {
+                    dataResult.WeavingUnit = unit;
+                }
 
-        //         return dataResult;
-        //     });
+                return dataResult;
+            });
     }
 }
