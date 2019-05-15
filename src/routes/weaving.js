@@ -78,6 +78,32 @@ module.exports = [
     }
   },
   {
+    route: "weaving/machine-shift",
+    name: "weaving-machine-shift",
+    moduleId: "./modules/weaving/master-machine-shift/index",
+    nav: true,
+    title: "Master Shift Mesin",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/master-beam",
+    name: "weaving-master-beam",
+    moduleId: "./modules/weaving/master-beam/index",
+    nav: true,
+    title: "Master Beam",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/master-operator",
     name: "master-operator",
     moduleId: "./modules/weaving/master-operator/index",
@@ -156,11 +182,24 @@ module.exports = [
     }
   },
   {
-    route: "weaving/daily-operational-machine-input",
-    name: "daily-operational-machine-input",
-    moduleId: "./modules/weaving/daily-operational-machine-input/index",
+    route: "weaving/beam-monitoring",
+    name: "beam-monitoring",
+    moduleId: "./modules/weaving/beam-monitoring/index",
     nav: true,
-    title: "Input Mesin Operasional Harian",
+    title: "Pemantauan Beam",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/daily-operation-sizing",
+    name: "daily-operation-sizing",
+    moduleId: "./modules/weaving/daily-operation-sizing/index",
+    nav: true,
+    title: "Operasional Mesin Harian Sizing",
     auth: true,
     settings: {
       group: "weaving",
@@ -173,7 +212,7 @@ module.exports = [
     name: "production-results",
     moduleId: "./modules/weaving/production-results/index",
     nav: true,
-    title: "Input Hasil Produksi",
+    title: "Hasil Produksi",
     auth: true,
     settings: {
       group: "weaving",
@@ -195,63 +234,11 @@ module.exports = [
     }
   },
   {
-    route: "weaving/daily-operational-machine-sizing",
-    name: "daily-operational-machine-sizing",
-    moduleId: "./modules/weaving/daily-operational-machine-sizing/index",
-    nav: true,
-    title: "Input Mesin Operasional Harian Sizing",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/beam-monitoring",
-    name: "beam-monitoring",
-    moduleId: "./modules/weaving/beam-monitoring/index",
-    nav: true,
-    title: "Pemantauan Beam",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
     route: "weaving/daily-operation-loom",
     name: "weaving-daily-operation-loom",
     moduleId: "./modules/weaving/daily-operation-loom/index",
     nav: true,
-    title: "Operasi Harian Loom",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/machine-shift",
-    name: "weaving-machine-shift",
-    moduleId: "./modules/weaving/master-machine-shift/index",
-    nav: true,
-    title: "Shift Mesin",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/master-beam",
-    name: "weaving-master-beam",
-    moduleId: "./modules/weaving/master-beam/index",
-    nav: true,
-    title: "Master Beam",
+    title: "Operasional Mesin Harian Loom",
     auth: true,
     settings: {
       group: "weaving",

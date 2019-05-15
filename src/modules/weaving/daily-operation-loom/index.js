@@ -6,21 +6,21 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Operasional Loom"
+          title: "List Operasional Mesin Harian Loom"
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Operasional Loom"
+          title: "Create: Operasional Mesin Harian Loom"
         },
         {
           route: "update/:Id",
           moduleId: "./update",
           name: "update",
           nav: false,
-          title: "update: Operasional Loom"
+          title: "update: Operasional Mesin Harian Loom"
         }
       ]);
   

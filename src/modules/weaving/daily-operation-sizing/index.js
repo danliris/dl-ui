@@ -1,33 +1,25 @@
 export class Index {
   configureRouter(config, router) {
-    config.map([
-      {
+    config.map([{
         route: ["", "list"],
         moduleId: "./list",
         name: "list",
         nav: false,
-        title: "List: Mesin Operasional Harian"
+        title: "List: Operasional Mesin Harian Sizing"
       },
       {
         route: "create",
         moduleId: "./create",
         name: "create",
         nav: false,
-        title: "Create: Mesin Operasional Harian"
+        title: "Create: Operasional Mesin Harian Sizing"
       },
       {
         route: "view/:Id",
         moduleId: "./view",
         name: "view",
         nav: false,
-        title: "View: Mesin Operasional Harian"
-      },
-      {
-        route: "edit/:Id",
-        moduleId: "./edit",
-        name: "edit",
-        nav: false,
-        title: "Edit: Mesin Operasional Harian"
+        title: "View: Operasional Mesin Harian Sizing"
       }
     ]);
 
