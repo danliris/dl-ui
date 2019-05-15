@@ -31,16 +31,15 @@
                     <textbox label="Waktu Mulai" read-only="true" style="display: inline-block"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <input value.bind="data.StartTime" type="time" error.bind="error.StartTime"
-                        read-only.bind="readOnly">
+                    <input value.bind="StartTime" type="time" error.bind="error.StartTime" read-only.bind="readOnly">
                 </div>
 
                 <div class="col-md-2">
                     <textbox label="Shift Mesin" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox placeholder="Shift Mesin" value.bind="Shift" error.bind="error.Shift"
-                        read-only.bind="readOnly">
+                    <au-textbox placeholder="Shift Mesin" value.bind="Shift.Name" error.bind="error.Shift"
+                        read-only.bind="true">
                     </au-textbox>
                 </div>
             </div>
@@ -102,16 +101,16 @@
                     <textbox label="Asal Lusi" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox placeholder="Asal Lusi" value.bind="data.OrderProduction.WarpOrigin" error.bind="error.WarpOrigin"
-                        read-only.bind="true">
+                    <au-textbox placeholder="Asal Lusi" value.bind="data.OrderProduction.WarpOrigin"
+                        error.bind="error.WarpOrigin" read-only.bind="true">
                     </au-textbox>
                 </div>
                 <div class="col-md-2">
                     <textbox label="Asal Pakan" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox placeholder="Asal Pakan" value.bind="data.OrderProduction.WeftOrigin" error.bind="error.WaftOrigin"
-                        read-only.bind="true">
+                    <au-textbox placeholder="Asal Pakan" value.bind="data.OrderProduction.WeftOrigin"
+                        error.bind="error.WaftOrigin" read-only.bind="true">
                     </au-textbox>
                 </div>
             </div>
@@ -134,7 +133,8 @@
                 </div>
                 <div class="col-md-2">
                     <au-autocomplete placeholder="Cari No Mesin" value.bind="Machine" error.bind="error.Machine"
-                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Machines" text="MachineNumber">
+                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Machines"
+                        text="MachineNumber">
                     </au-autocomplete>
                 </div>
             </div>
