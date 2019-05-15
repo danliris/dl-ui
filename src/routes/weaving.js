@@ -234,8 +234,8 @@ module.exports = [
     }
   },
   {
-    route: "weaving/beam",
-    name: "weaving-beam",
+    route: "weaving/master-beam",
+    name: "weaving-master-beam",
     moduleId: "./modules/weaving/master-beam/index",
     nav: true,
     title: "Master Beam",
