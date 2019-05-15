@@ -221,9 +221,9 @@ module.exports = [
     }
   },
   {
-    route: "weaving/machine-shift",
-    name: "weaving-machine-shift",
-    moduleId: "./modules/weaving/master-machine-shift/index",
+    route: "weaving/shift",
+    name: "weaving-shift",
+    moduleId: "./modules/weaving/master-shift/index",
     nav: true,
     title: "Shift Mesin",
     auth: true,
