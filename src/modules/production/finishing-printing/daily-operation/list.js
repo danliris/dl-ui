@@ -260,15 +260,15 @@ export class List {
         this.dailyOperationTable.refresh();
     }
 
-    machineChanged(value) {
-        if (value) {
-            this.filter = {
-                "MachineName": value.Name
-            };
-        }
-        else
-            this.filter = {};
+    // machineChanged(value) {
+    //     if (value) {
+    //         this.filter = {
+    //             "MachineName": value.Name
+    //         };
+    //     }
+    //     else
+    //         this.filter = {};
 
-        this.dailyOperationTable.refresh();
-    }
+    //     this.dailyOperationTable.refresh();
+    // }
 }
