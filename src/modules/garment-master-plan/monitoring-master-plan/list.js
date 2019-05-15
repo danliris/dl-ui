@@ -118,7 +118,7 @@ export class List {
             dataTemp.usedEH = pr.items.map(value => { return value.usedTotal});
             dataTemp.remainingEH = pr.items.map(value => { return value.remainingEH});
             dataTemp.dataCount = pr.count;
-            dataTemp.WHBooking= pr.items.map(value => { return parseFloat(value.WHBooking.toFixed(2))});
+            dataTemp.WHBooking= pr.items.map(value => { return parseFloat(value.WHBooking).toFixed(2)});
             dataTemp.EHBooking= pr.UsedEH;
             for (var j = 0; j < pr.items.length; j++) {
               dataTemp.efficiency[j] = pr.items[j].efficiency.toString() + '%';
@@ -128,9 +128,9 @@ export class List {
             }
 
             for (var l = 0; l < pr.items.length; l++) {
-              dataTemp.backgroundColorWH[l] = dataTemp.WHBooking[l] <= 45.5 ? "#FFFF00" : 
-                dataTemp.WHBooking[l] <= 50.5 && dataTemp.WHBooking[l] > 45.5 ? "#52df46" : 
-                dataTemp.WHBooking[l] <= 56.5 && dataTemp.WHBooking[l] > 50.5 ? "#f62c2c" :
+              dataTemp.backgroundColorWH[l] = parseFloat(dataTemp.WHBooking[l]) <= 45.5 ? "#FFFF00" : 
+                parseFloat(dataTemp.WHBooking[l]) <= 50.5 && parseFloat(dataTemp.WHBooking[l]) > 45.5 ? "#52df46" : 
+                parseFloat(dataTemp.WHBooking[l]) <= 56.5 && parseFloat(dataTemp.WHBooking[l]) > 50.5 ? "#f62c2c" :
                   "#797978";
             }
             dataTemp.weekSewingBlocking = pr.weekSewingBlocking;
@@ -412,7 +412,7 @@ export class List {
 
                   if (k == 0) {
                     categ = (j + "smv" + i.buyer);
-                    data.quantity[k] = (cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]) ? parseFloat((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]).toFixed(2)) : '-';
+                    data.quantity[k] = (cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]) ? parseFloat((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer])).toFixed(2) : '-';
                     smvTot += parseFloat((cat[j + "smv" + i.buyer] / cat[j + "count" + i.buyer]).toFixed(2));
                     counts += 1;
                   } else {
@@ -454,7 +454,7 @@ export class List {
               var categ = j + "Total Booking" + (y + 1).toString();
 
               qty[y + 1] = cat[categ] ? cat[categ] : '-';
-              qty[0] = parseFloat((smvTot / counts).toFixed(2));
+              qty[0] = parseFloat((smvTot / counts)).toFixed(2);
 
               var usedEHConf = j + "usedEHConfirm" + (y + 1).toString();
 
@@ -488,7 +488,7 @@ export class List {
               var categwh = j + "WHConfirm" + (y + 1).toString();
               var eff= parseFloat(efisiensi[y].replace('%',''));
 
-              conf[y + 1] = cat[categwh] ? parseFloat((cat[categwh]/(op[y]*(eff/100))).toFixed(2)) : '0';
+              conf[y + 1] = cat[categwh] ? parseFloat((cat[categwh]/(op[y]*(eff/100)))).toFixed(2) : '0.00';
 
               var bgc = conf[y + 1] <= 45.5 ? "#FFFF00" : 
                 conf[y + 1] <= 50.5 && conf[y + 1] > 45.5 ? "#52df46" : 
@@ -760,7 +760,7 @@ export class List {
             }
             else {
               var avg=(confTot[y+1]/qtyTot[y+1])*100;
-              avgConf[y+1]=parseFloat(avg.toFixed(2))+"%";
+              avgConf[y+1]=parseFloat(avg).toFixed(2)+"%";
             }
 
             avgConfUnit[0]="";
@@ -779,14 +779,13 @@ export class List {
             }
             else {
               var avg=(confTotUnit[y+1]/qtyUnitTot[y+1])*100;
-              avgConfUnit[y+1]=parseFloat(avg.toFixed(2))+"%";
+              avgConfUnit[y+1]=parseFloat(avg).toFixed(2)+"%";
             }
 
             avgEff[0]="";
             avgEff[y+1]=parseFloat((totalEfisiensi[y + 1]/unitCount).toFixed(2))+"%";
             effAvg[y+1]=parseFloat((totalEfisiensi[y + 1]/unitCount).toFixed(2));
 
-console.log(totalEfisiensi[y + 1], unitCount)
             avgEffUnit[0]="";
             avgEffUnit[y+1]=parseFloat((totalEfisiensi_Unit[y + 1]/unitNotSKCount).toFixed(2))+"%";
 
@@ -806,49 +805,49 @@ console.log(totalEfisiensi[y + 1], unitCount)
             
             //WH All
             avgWHConfirm[0]="";
-            avgWHConfirm[y+1]=parseFloat((ehConf[y+1]/(totalOP[y+1]*effAvg[y+1]/100)).toFixed(2));
+            avgWHConfirm[y+1]=parseFloat((ehConf[y+1]/(totalOP[y+1]*effAvg[y+1]/100))).toFixed(2);
             //avgWHConfirm[y+1]=parseFloat((totalWHConfirm[y + 1]/unitCount).toFixed(2));
             
             avgWHBooking[0]="";
-            avgWHBooking[y+1]=parseFloat((totalUsedEH[y+1]/(totalOP[y+1]*effAvg[y+1]/100)).toFixed(2));
+            avgWHBooking[y+1]=parseFloat((totalUsedEH[y+1]/(totalOP[y+1]*effAvg[y+1]/100))).toFixed(2);
             //avgWHBooking[y+1]=parseFloat((totalWHBooking[y + 1]/unitCount).toFixed(2));
 
             avgWH[0]="";
             avgWH[y+1]=parseFloat((totalWH[y + 1]/unitCount).toFixed(2));
 
-            bgcWH[y + 1] = avgWHBooking[y + 1] <= 45.5 ? "#FFFF00" : 
-                avgWHBooking[y + 1] <= 50.5 && avgWHBooking[y + 1] > 45.5 ? "#52df46" : 
-                avgWHBooking[y + 1] <= 56.5 && avgWHBooking[y + 1] > 50.5 ? "#f62c2c" :
+            bgcWH[y + 1] = parseFloat(avgWHBooking[y + 1]) <= 45.5 ? "#FFFF00" : 
+                parseFloat(avgWHBooking[y + 1]) <= 50.5 && parseFloat(avgWHBooking[y + 1]) > 45.5 ? "#52df46" : 
+                parseFloat(avgWHBooking[y + 1]) <= 56.5 && parseFloat(avgWHBooking[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWH[0]="transparent";
 
-            bgcWHC[y + 1] = avgWHConfirm[y + 1] <= 45.5 ? "#FFFF00" : 
-                avgWHConfirm[y + 1] <= 50.5 && avgWHConfirm[y + 1] > 45.5 ? "#52df46" : 
-                avgWHConfirm[y + 1] <= 56.5 && avgWHConfirm[y + 1] > 50.5 ? "#f62c2c" :
+            bgcWHC[y + 1] = parseFloat(avgWHConfirm[y + 1]) <= 45.5 ? "#FFFF00" : 
+                parseFloat(avgWHConfirm[y + 1]) <= 50.5 && parseFloat(avgWHConfirm[y + 1]) > 45.5 ? "#52df46" : 
+                parseFloat(avgWHConfirm[y + 1]) <= 56.5 && parseFloat(avgWHConfirm[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWHC[0]="transparent";
 
             //WH Unit
              avgWHConfirmUnit[0]="";
-             avgWHConfirmUnit[y+1]=parseFloat((ehConfUnit[y+1]/(totalOP_Unit[y+1]*effUnit[y+1]/100)).toFixed(2));
+             avgWHConfirmUnit[y+1]=parseFloat((ehConfUnit[y+1]/(totalOP_Unit[y+1]*effUnit[y+1]/100))).toFixed(2);
             // avgWHConfirmUnit[y+1]=parseFloat((totalWHConfirm_Unit[y + 1]/unitNotSKCount).toFixed(2));
             
              avgWHBookingUnit[0]="";
-             avgWHBookingUnit[y+1]=parseFloat((totalUsedEH_Unit[y+1]/(totalOP_Unit[y+1]*effUnit[y+1]/100)).toFixed(2));
+             avgWHBookingUnit[y+1]=parseFloat((totalUsedEH_Unit[y+1]/(totalOP_Unit[y+1]*effUnit[y+1]/100))).toFixed(2);
             // avgWHBookingUnit[y+1]=parseFloat((totalWHBooking_Unit[y + 1]/unitNotSKCount).toFixed(2));
 
-            bgcWHUnit[y + 1] = avgWHBookingUnit[y + 1] <= 45.5 ? "#FFFF00" : 
-                avgWHBookingUnit[y + 1] <= 50.5 && avgWHBookingUnit[y + 1] > 45.5 ? "#52df46" : 
-                avgWHBookingUnit[y + 1] <= 56.5 && avgWHBookingUnit[y + 1] > 50.5 ? "#f62c2c" :
+            bgcWHUnit[y + 1] = parseFloat(avgWHBookingUnit[y + 1]) <= 45.5 ? "#FFFF00" : 
+                parseFloat(avgWHBookingUnit[y + 1]) <= 50.5 && parseFloat(avgWHBookingUnit[y + 1]) > 45.5 ? "#52df46" : 
+                parseFloat(avgWHBookingUnit[y + 1]) <= 56.5 && parseFloat(avgWHBookingUnit[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWHUnit[0]="transparent";
 
-            bgcWHCUnit[y + 1] = avgWHConfirmUnit[y + 1] <= 45.5 ? "#FFFF00" : 
-                avgWHConfirmUnit[y + 1] <= 50.5 && avgWHConfirmUnit[y + 1] > 45.5 ? "#52df46" : 
-                avgWHConfirmUnit[y + 1] <= 56.5 && avgWHConfirmUnit[y + 1] > 50.5 ? "#f62c2c" :
+            bgcWHCUnit[y + 1] = parseFloat(avgWHConfirmUnit[y + 1]) <= 45.5 ? "#FFFF00" : 
+                parseFloat(avgWHConfirmUnit[y + 1]) <= 50.5 && parseFloat(avgWHConfirmUnit[y + 1]) > 45.5 ? "#52df46" : 
+                parseFloat(avgWHConfirmUnit[y + 1]) <= 56.5 && parseFloat(avgWHConfirmUnit[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
             
             bgcWHCUnit[0]="transparent";
