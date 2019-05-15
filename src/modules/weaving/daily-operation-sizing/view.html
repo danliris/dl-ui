@@ -44,6 +44,10 @@
 
       <div class="row">
         <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+          <button class="btn btn-default" click.delegate="start()"
+            style="margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            Mulai
+          </button>
           <button class="btn btn-default" click.delegate="pause()"
             style="margin-bottom: 16px; background-color: #4c7ae7; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
             Jeda
@@ -56,6 +60,38 @@
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
             Doff/ Selesai
           </button>
+        </div>
+      </div>
+
+      <div class="row" id="startMenu" show.bind="showHideStartMenu">
+        <div class="col-md-12"
+          style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
+
+          <div class="row" style="margin-top: 16px; white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Waktu Mulai" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <input value.bind="data.ProductionTime.Start" type="time" error.bind="error.ProductionTime.Start"
+                read-only.bind="readOnly">
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-textbox placeholder="Shift" value.bind="data.Shift" error.bind="error.Shift" read-only.bind="true">
+              </au-textbox>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-12">
+              <button class="btn btn-default" click.delegate="save()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+              width: 96px; border: 1px solid #777777;">
+                Simpan
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

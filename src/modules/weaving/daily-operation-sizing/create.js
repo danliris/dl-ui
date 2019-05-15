@@ -16,6 +16,8 @@ var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service)
 export class Create {
+  // @bindable MachineDocument;
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -23,8 +25,10 @@ export class Create {
     this.error = {};
 
     var date = new Date();
-    var today = moment(date, "DD/MM/YYYY");
+    var today = moment();
     this.data.ProductionDate = today;
+    console.log(date);
+    console.log(today);
   }
 
   formOptions = {
@@ -32,9 +36,12 @@ export class Create {
     saveText: 'Simpan',
   };
 
-  columns = [{
+  beamColumns = [{
     value: "BeamNumber",
     header: "No. Beam"
+  },{
+    value: "EmptyWeight",
+    header: "Berat Kosong Beam"
   }];
 
   // shifts = ["", "1 - Pagi", "2 - Siang", "3 - Malam"];
@@ -46,13 +53,6 @@ export class Create {
       this.showHideStartMenu = true;
     }
   }
-
-  // hideMenu() {
-  //   // console.log(this.data);
-  //   if (this.showStartMenu === true) {
-  //     this.showStartMenu = false;
-  //   }
-  // }
 
   get machines() {
     return MachineLoader;
@@ -79,8 +79,8 @@ export class Create {
   save() {
     debugger;
     var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-    this.data.ProductionTime.Start = time;
-    console.log(this.data.ProductionTime.Start);
+    this.data.DailyOperationSizingDetails.History.TimeOnMachine = time;
+    console.log(this.data.DailyOperationSizingDetails.History.TimeOnMachine);
 
     // this.data = {};
     // this.data.DailyOperationSizingDetails = {};

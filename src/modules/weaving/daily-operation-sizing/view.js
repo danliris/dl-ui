@@ -28,6 +28,9 @@ export class View {
   beamColumns = [{
     value: "BeamNumber",
     header: "No. Beam"
+  }, {
+    value: "EmptyWeight",
+    header: "Berat Kosong Beam"
   }];
 
   logColumns = [{
@@ -102,10 +105,22 @@ export class View {
     return BeamLoader;
   }
 
+  start() {
+    if (this.showHideStartMenu === true) {
+      this.showHideStartMenu = false;
+    } else {
+      this.showHideStartMenu = true;
+      this.showHidePauseMenu = false;
+      this.showHideResumeMenu = false;
+      this.showHideDoffMenu = false;
+    }
+  }
+
   pause() {
     if (this.showHidePauseMenu === true) {
       this.showHidePauseMenu = false;
     } else {
+      this.showHideStartMenu = false;
       this.showHidePauseMenu = true;
       this.showHideResumeMenu = false;
       this.showHideDoffMenu = false;
@@ -116,8 +131,9 @@ export class View {
     if (this.showHideResumeMenu === true) {
       this.showHideResumeMenu = false;
     } else {
-      this.showHideResumeMenu = true;
+      this.showHideStartMenu = false;
       this.showHidePauseMenu = false;
+      this.showHideResumeMenu = true;
       this.showHideDoffMenu = false;
     }
   }
@@ -126,9 +142,10 @@ export class View {
     if (this.showHideDoffMenu === true) {
       this.showHideDoffMenu = false;
     } else {
-      this.showHideDoffMenu = true;
+      this.showHideStartMenu = false;
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = false;
+      this.showHideDoffMenu = true;
     }
   }
 
