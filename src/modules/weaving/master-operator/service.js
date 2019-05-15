@@ -1,8 +1,10 @@
 import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
+import { Container } from "aurelia-dependency-injection";
+import { Config } from "aurelia-api";
 
-// const serviceUri = "weaving/daily-operational-machine";
+const serviceUri = "weaving/operators";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -32,5 +34,15 @@ export class Service extends RestService {
   delete(data) {
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
+  }
+
+  getUnitById(Id) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/units/${Id}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
   }
 }
