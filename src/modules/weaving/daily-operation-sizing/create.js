@@ -89,14 +89,14 @@ export class Create {
     // console.log(this.data);
 
     // this.data.ProductionDate = moment(new Date(), "DD/MM/YYYY");
-    // this.data.MachineDocumentId = this.MachineDocument.Id;
-    // this.data.WeavingUnitId = this.WeavingDocument.Id;
+    this.data.MachineDocumentId = this.MachineDocument.Id;
+    this.data.WeavingUnitId = this.WeavingDocument.Id;
     // this.data.DailyOperationSizingDetails.ConstructionDocumentId = this.ConstructionDocument.Id;
     // this.data.DailyOperationSizingDetails.BeamDocumentId = this.BeamDocument.Id;
     // this.data.DailyOperationSizingDetails.ShiftDocumentId = this.ShiftDocument.Id;
 
     // console.log(this.data.DailyOperationSizingDetails);
-    // console.log(this.data);
+    console.log(this.data);
 
     this.service
       .create(this.data)

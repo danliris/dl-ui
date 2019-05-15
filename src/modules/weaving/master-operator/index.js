@@ -6,21 +6,28 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Operasional Mesin Harian Loom"
+          title: "List: Master Operator"
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Operasional Mesin Harian Loom"
+          title: "Create: Master Operator"
         },
         {
-          route: "update/:Id",
-          moduleId: "./update",
-          name: "update",
+          route: "view/:Id",
+          moduleId: "./view",
+          name: "view",
           nav: false,
-          title: "update: Operasional Mesin Harian Loom"
+          title: "View: Master Operator"
+        },
+        {
+          route: "edit/:Id",
+          moduleId: "./edit",
+          name: "edit",
+          nav: false,
+          title: "Edit: Master Operator"
         }
       ]);
   
