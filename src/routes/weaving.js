@@ -82,7 +82,7 @@ module.exports = [
     name: "weaving-shift",
     moduleId: "./modules/weaving/master-shift/index",
     nav: true,
-    title: "Master Shift Mesin",
+    title: "Master Shift",
     auth: true,
     settings: {
       group: "weaving",
@@ -208,6 +208,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/daily-operation-loom",
+    name: "weaving-daily-operation-loom",
+    moduleId: "./modules/weaving/daily-operation-loom/index",
+    nav: true,
+    title: "Operasional Mesin Harian Loom",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/production-results",
     name: "production-results",
     moduleId: "./modules/weaving/production-results/index",
@@ -226,19 +239,6 @@ module.exports = [
     moduleId: "./modules/weaving/weaving-efficiency-report/index",
     nav: true,
     title: "Laporan Efisiensi Weaving",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: { W1: 1, W2: 1, "*": 1 },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/daily-operation-loom",
-    name: "weaving-daily-operation-loom",
-    moduleId: "./modules/weaving/daily-operation-loom/index",
-    nav: true,
-    title: "Operasional Mesin Harian Loom",
     auth: true,
     settings: {
       group: "weaving",
