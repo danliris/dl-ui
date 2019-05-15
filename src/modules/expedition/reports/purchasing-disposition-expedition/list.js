@@ -46,7 +46,7 @@ export class List {
                 rowspan: 2,
             },
             { title: 'Verifikasi', colspan: 3 },
-            { title: 'Kasir', colspan: 3 },
+            { title: 'Kasir', colspan: 5 },
             { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
         ], [
             {
@@ -76,6 +76,14 @@ export class List {
             },
             {
                 field: 'BankExpenditureNoteNo', title: 'No Kuitansi'
+            },
+            {
+                field: 'PayToSupplier', title: 'Nominal yang dibayar',formatter: function(value, data, index) {
+                    return value ? numeral(value).format('0,000.0000')  : '-';
+                },
+            },
+            {
+                field: 'Currency', title: 'Mata Uang'
             },
             // {
             //     field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
