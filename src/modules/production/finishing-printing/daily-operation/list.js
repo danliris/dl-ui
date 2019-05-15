@@ -11,6 +11,11 @@ export class List {
     @bindable kanban;
     @bindable step;
     @bindable machine;
+    @bindable orderNo;
+    @bindable stepProcess;
+    @bindable cartNo;
+    @bindable startDate;
+    @bindable endDate;
 
     data = [];
 
@@ -42,7 +47,7 @@ export class List {
     searchList = ["Nomor SPP", "Kereta", "Proses", "Mesin"];
 
     tableOptions = {
-        search: true
+        search: false
     };
 
     context = ["Rincian"];
@@ -52,20 +57,18 @@ export class List {
         this.serviceCore = serviceCore;
         this.router = router;
 
+        this.endDate = new Date();
+        this.startDate = new Date().setDate(new Date().getDate() - 1);
+
         this.sppVisibility = false;
         this.cartVisiblity = false;
         this.processVisibility = false;
         this.machineVisibility = false;
 
-        
+
 
         this.filter = {};
     }
-
-    // async bind() {
-    //     this.selectedSearch = await this.service.getColumnsToSearch();
-    //     console.log(optionResult);
-    // }
 
     activate() {
 
@@ -105,7 +108,6 @@ export class List {
     // }
 
     loader = (info) => {
-        // console.log(this.selectedSearch);
         var order = {};
 
         if (info.sort)
@@ -117,9 +119,16 @@ export class List {
             keyword: info.search,
             order: order,
             columnToSearch: this.selectedSearch,
+            machine: this.machine,
+            orderNo: this.orderNo,
+            stepProcess: this.stepProcess,
+            cartNo: this.cartNo,
+            startDate: moment(this.startDate).format("YYYY-MM-DD"),
+            endDate: moment(this.endDate).format("YYYY-MM-DD"),
             filter: JSON.stringify(this.filter),
             // select: ["machine.name", "step.process", "shift", "kanban.productionOrder.orderNo", "kanban.cart.cartNumber", "dateInput", "input", "dateOutput", "goodOutput", "badOutput", "type"]
         };
+
 
         return this.service.search(arg)
             .then(result => {
@@ -128,6 +137,23 @@ export class List {
                     data: result.data
                 }
             });
+
+        // console.log(this.machine);
+        // console.log(this.orderNo);
+        // console.log(this.stepProcess);
+        // console.log(this.cartNo);
+        // console.log(this.startDate);
+        // console.log(this.endDate);
+
+        // console.log(info);
+        // return {
+        //     total: 0,
+        //     data: []
+        // }
+    }
+
+    search() {
+        this.dailyOperationTable.refresh();
     }
 
     contextClickCallback(event) {
