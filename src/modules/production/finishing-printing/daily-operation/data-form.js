@@ -363,7 +363,8 @@ export class DataForm {
     }
 
     get stepLoader() {
-        return this.data.Machine ? this.data.Machine.MachineSteps : [];
+        console.log(this.data.Machine);
+        return this.data.Machine && this.data.Machine.Steps ? this.data.Machine.Steps : [];
     }
 
     get kanbanLoader() {
