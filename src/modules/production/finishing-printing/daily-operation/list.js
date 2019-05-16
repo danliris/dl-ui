@@ -11,6 +11,11 @@ export class List {
     @bindable kanban;
     @bindable step;
     @bindable machine;
+    @bindable orderNo;
+    @bindable stepProcess;
+    @bindable cartNo;
+    @bindable startDate;
+    @bindable endDate;
 
     data = [];
 
@@ -52,10 +57,15 @@ export class List {
         this.serviceCore = serviceCore;
         this.router = router;
 
+        this.endDate = new Date();
+        this.startDate = new Date().setDate(new Date().getDate() - 1);
+
         this.sppVisibility = false;
         this.cartVisiblity = false;
         this.processVisibility = false;
         this.machineVisibility = false;
+
+
 
         this.filter = {};
     }
@@ -64,38 +74,38 @@ export class List {
 
     }
 
-    selectedSearchChanged(newValue, oldValue) {
-        switch (newValue) {
-            case this.searchList[0]: {
-                this.sppVisibility = true;
-                this.cartVisiblity = false;
-                this.processVisibility = false;
-                this.machineVisibility = false;
-                break;
-            }
-            case this.searchList[1]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = true;
-                this.processVisibility = false;
-                this.machineVisibility = false;
-                break
-            }
-            case this.searchList[2]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = false;
-                this.processVisibility = true;
-                this.machineVisibility = false;
-                break;
-            }
-            case this.searchList[3]: {
-                this.sppVisibility = false;
-                this.cartVisiblity = false;
-                this.processVisibility = false;
-                this.machineVisibility = true;
-                break;
-            }
-        }
-    }
+    // selectedSearchChanged(newValue, oldValue) {
+    //     switch (newValue) {
+    //         case this.searchList[0]: {
+    //             this.sppVisibility = true;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = false;
+    //             break;
+    //         }
+    //         case this.searchList[1]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = true;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = false;
+    //             break
+    //         }
+    //         case this.searchList[2]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = true;
+    //             this.machineVisibility = false;
+    //             break;
+    //         }
+    //         case this.searchList[3]: {
+    //             this.sppVisibility = false;
+    //             this.cartVisiblity = false;
+    //             this.processVisibility = false;
+    //             this.machineVisibility = true;
+    //             break;
+    //         }
+    //     }
+    // }
 
     loader = (info) => {
         var order = {};
@@ -108,9 +118,17 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
+            columnToSearch: this.selectedSearch,
+            machine: this.machine,
+            orderNo: this.orderNo,
+            stepProcess: this.stepProcess,
+            cartNo: this.cartNo,
+            startDate: moment(this.startDate).format("YYYY-MM-DD"),
+            endDate: moment(this.endDate).format("YYYY-MM-DD"),
             filter: JSON.stringify(this.filter),
             // select: ["machine.name", "step.process", "shift", "kanban.productionOrder.orderNo", "kanban.cart.cartNumber", "dateInput", "input", "dateOutput", "goodOutput", "badOutput", "type"]
         };
+
 
         return this.service.search(arg)
             .then(result => {
@@ -119,6 +137,23 @@ export class List {
                     data: result.data
                 }
             });
+
+        // console.log(this.machine);
+        // console.log(this.orderNo);
+        // console.log(this.stepProcess);
+        // console.log(this.cartNo);
+        // console.log(this.startDate);
+        // console.log(this.endDate);
+
+        // console.log(info);
+        // return {
+        //     total: 0,
+        //     data: []
+        // }
+    }
+
+    search() {
+        this.dailyOperationTable.refresh();
     }
 
     contextClickCallback(event) {
@@ -225,15 +260,15 @@ export class List {
         this.dailyOperationTable.refresh();
     }
 
-    machineChanged(value) {
-        if (value) {
-            this.filter = {
-                "MachineName": value.Name
-            };
-        }
-        else
-            this.filter = {};
+    // machineChanged(value) {
+    //     if (value) {
+    //         this.filter = {
+    //             "MachineName": value.Name
+    //         };
+    //     }
+    //     else
+    //         this.filter = {};
 
-        this.dailyOperationTable.refresh();
-    }
+    //     this.dailyOperationTable.refresh();
+    // }
 }

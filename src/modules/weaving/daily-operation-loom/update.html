@@ -1,0 +1,50 @@
+<template>
+    <div class="col-md-12">
+
+        <!-- Document Flow -->
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="Tanggal Operasi" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-datepicker value.bind="data.OperationDate" read-only="true">
+                </au-datepicker>
+            </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="Unit Weaving" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-autocomplete placeholder="Cari Unit" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
+                    read-only.bind="readOnly" options.bind="customOptions" loader.bind="WeavingUnits" text="Name">
+                </au-autocomplete>
+            </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="No Order Produksi" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-textbox placeholder="No Order Produksi" value.bind="data.OrderProductionNumber"
+                    read-only.bind="true">
+                </au-textbox>
+            </div>
+
+            <div class="col-md-2">
+                <textbox label="No Konstruksi" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-textbox placeholder="No Konstruksi" value.bind="data.FabricConstructionNumber"
+                    read-only.bind="true">
+                </au-textbox>
+            </div>
+        </div>
+
+        <!-- History Flow -->
+        <au-table data.bind="loader" columns.bind="columns" sortable.bind="false" page-size="25" context.bind="context">
+        </au-table>
+    </div>
+</template>

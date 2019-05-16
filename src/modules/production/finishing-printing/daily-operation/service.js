@@ -13,12 +13,17 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}`;
+    var endpoint = `${serviceUri}/by-selected-column`;
     return super.list(endpoint, info);
   }
 
   getData(id) {
     var endpoint = `${serviceUri}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getColumnsToSearch() {
+    var endpoint = `${serviceUri}/filter-options`;
     return super.get(endpoint);
   }
 
