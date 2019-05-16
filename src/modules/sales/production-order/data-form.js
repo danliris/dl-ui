@@ -148,8 +148,9 @@ export class DataForm {
     return this.run;
   }
 
-  SalesContractChanged() {
-    if (this.SalesContract) {
+  SalesContractChanged(newVal, oldVal) {
+    // console.log(newVal)
+    if (newVal) {
       // if (this.data && this.data.Details && this.data.Details.length > 0) {
       //   var count = this.data.Details.length;
 
@@ -157,7 +158,7 @@ export class DataForm {
       //     this.data.Details.splice((a - 1), 1);
       //   }
       // }
-      this.data.FinishingPrintingSalesContract = this.SalesContract;
+      this.data.FinishingPrintingSalesContract = newVal;
       this.data.Buyer = this.data.FinishingPrintingSalesContract.Buyer;
       this.data.OrderType = this.data.FinishingPrintingSalesContract.OrderType;
 
@@ -184,7 +185,7 @@ export class DataForm {
       }
     } else {
       this.data = {};
-      this.data = null;
+      // this.data = null;
     }
   }
 

@@ -18,7 +18,7 @@
           <!-- <buyer-auto-suggest         label="Buyer"               value.bind="data.Buyer"                 error.bind="error.Buyer"           read-only="true"   change.delegate="buyerChanged($event)"></buyer-auto-suggest> -->
           <textbox label="Tipe Buyer" value.bind="data.Buyer.Type" error.bind="error.Buyer" read-only="true"></textbox>
           <div class="col-sm-10" style="padding-left:18%">
-            <au-autocomplete value.bind="OrderType" label="Jenis Order" error.bind="error.OrderType" read-only="true" text="Name">
+            <au-autocomplete value.bind="data.OrderType" label="Jenis Order" error.bind="error.OrderType" read-only="true" text="Name">
             </au-autocomplete>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
