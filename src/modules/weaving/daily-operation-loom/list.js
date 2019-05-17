@@ -1,7 +1,7 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
-// import moment from "moment";
+import moment from "moment";
 
 @inject(Router, Service)
 export class List {
@@ -48,6 +48,16 @@ export class List {
             order: order
         }
 
+        // Test data
+        var testData = [{
+            Id : "32323424242",
+            DailyOperationNumber : "001/DOL/Weaving/09080",
+            DateOperated : "12/5/2018",
+            OrderNumber : "Test Number",
+            WeavingUnit : {Name : "TestUnit"},
+            DailyOperationStatus : "Processing"
+        }];
+
         return this.service.search(arg).then(result => {
             if (result.data && result.data.length > 0) {
                 let getUnitPromises = result.data.map(datum =>
@@ -70,9 +80,11 @@ export class List {
                     };
                 });
             } else {
+                console.log("wow");
                 return {
                     total: result.info.total,
-                    data: result.data
+                    // data: result.data
+                    data: testData
                 };
             }
         });
@@ -83,7 +95,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Update":
-                this.router.navigateToRoute("view", { Id: data.Id });
+                this.router.navigateToRoute("update", { Id: data.Id });
                 break;
         }
     }
