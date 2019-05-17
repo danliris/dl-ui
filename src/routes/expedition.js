@@ -51,4 +51,95 @@ module.exports =  [
             iconClass: 'fa fa-calendar-check-o'
         }
     },
+    {
+        route: '/expedition/purchasing-disposition-expedition',
+        name: 'purchasing-disposition-expedition',
+        moduleId: './modules/expedition/purchasing-disposition-expedition/index',
+        nav: true,
+        title: 'Penyerahan Dokumen Disposisi Pembayaran ke Verifikasi',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/purchasing-disposition-acceptance',
+        name: 'purchasing-disposition-acceptance',
+        moduleId: './modules/expedition/purchasing-disposition-acceptance/index',
+        nav: true,
+        title: 'Penerimaan Dokumen Disposisi Pembayaran',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: '/verification/disposition-verification',
+        name: 'disposition-verification',
+        moduleId: './modules/verification/disposition-verification/index',
+        nav: true,
+        title: 'Verifikasi Disposisi',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "C5": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
+    },
+    {
+        route: '/expedition/reports/purchasing-disposition-expedition',
+        name: 'purchasing-disposition-expedition',
+        moduleId: './modules/expedition/reports/purchasing-disposition-expedition/index',
+        nav: true,
+        title: 'Laporan Ekspedisi Disposisi Pembayaran',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: '/expedition/payment-disposition-note',
+        name: 'payment-disposition-note',
+        moduleId: './modules/expedition/payment-disposition-note/index',
+        nav: true,
+        title: 'Bukti Pembayaran Disposisi',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'payment-disposition-not-verified-report',
+        name: 'payment-disposition-not-verified-report',
+        moduleId: './modules/expedition/reports/payment-disposition-not-verified-report/index',
+        nav: true,
+        title: 'Laporan Disposisi Not Verified',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'payment-disposition-not-verified-history-report',
+        name: 'payment-disposition-not-verified-history-report',
+        moduleId: './modules/expedition/reports/payment-disposition-not-verified-history-report/index',
+        nav: true,
+        title: 'Histori Disposisi Not Verified',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ];

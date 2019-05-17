@@ -1,0 +1,182 @@
+<template>
+    <require from="./template/start-form"></require>
+    <require from="./template/stop-form"></require>
+    <require from="./template/resume-form"></require>
+    <require from="./template/finish-form"></require>
+    <div class="col-md-12">
+
+        <h3>Operasi Harian Loom</h3>
+        <hr>
+        <!-- Document Flow -->
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="Tanggal Operasi" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-datepicker value.bind="data.OperationDate" read-only="true">
+                </au-datepicker>
+            </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="Unit Weaving" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-textbox placeholder="Cari Unit" value.bind="data.WeavingUnit" read-only.bind="true">
+                </au-textbox>
+            </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="No Mesin" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-textbox placeholder="Cari No Mesin" value.bind="data.MachineNumber" read-only.bind="true">
+                </au-textbox>
+            </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="No Order Produksi" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-textbox placeholder="No Order Produksi" value.bind="data.OrderNumber" read-only.bind="true">
+                </au-textbox>
+            </div>
+        </div>
+
+        <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2">
+                <textbox label="No Konstruksi" read-only="true"></textbox>
+            </div>
+            <div class="col-md-2">
+                <au-textbox placeholder="No Konstruksi" value.bind="data.FabricConstructionNumber"
+                    read-only.bind="true">
+                </au-textbox>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row" style="white-space: nowrap; padding-left: 30px;">
+            <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#Mulai">
+                    Mulai
+                </button>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#Berhenti">
+                    Berhenti
+                </button>
+                <button class="btn btn-info" data-toggle="modal" data-target="#Melanjutkan">
+                    Melanjutkan
+                </button>
+                <button class="btn btn-success" data-toggle="modal" data-target="#Selesai">
+                    Selesai
+                </button>
+            </div>
+        </div>
+        <br>
+
+        <!-- Collapsing UI -->
+        <div id="accordion">
+            <div class="card" style="background-color: #EEEEEE">
+                <div class="card-header" id="headingTwo">
+                    <h1 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo" style="text-decoration: none;">
+                            <bold>Operasi Harian Loom History</bold>
+                        </button>
+                    </h1>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                        squid.
+                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
+                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
+                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
+                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
+                        heard
+                        of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="Mulai" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <start-form title="Memulai Operasi Loom" error.bind="error" data.bind="data">
+                        </start-form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" click.delegate="start()">Mulai</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Berhenti" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <stop-form title="Operasi Berhenti" error.bind="error" data.bind="data">
+                        </stop-form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" click.delegate="stop()">Berhenti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Melanjutkan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <resume-form title="Melanjutkan Operasi" error.bind="error" data.bind="data">
+                        </resume-form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" click.delegate="resume()">Melanjutkan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Selesai" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <finish-form title="Selesai Operasi" error.bind="error" data.bind="data">
+                        </finish-form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" click.delegate="finish()">Selesai</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
