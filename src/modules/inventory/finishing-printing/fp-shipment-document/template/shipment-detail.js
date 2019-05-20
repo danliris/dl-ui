@@ -18,13 +18,16 @@ export class ShipmentDetail {
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
+        // console.log(this.data);
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
         this.selectedBuyerName = this.context.options.selectedBuyerName;
         this.selectedBuyerId = this.context.options.selectedBuyerId;
         this.selectedStorageCode = this.context.options.selectedStorageCode;
+        this.selectedStorageId = this.context.options.selectedStorageId;
+        // console.log(this.selectedStorageId);
         // this.isNewStructure = this.context.options.isNewStructure;
 
-        console.log(this.context);
+        // console.log(this.context);
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
 
         // if (this.data.productionOrderId) {
@@ -48,8 +51,10 @@ export class ShipmentDetail {
 
     @bindable selectedProductionOrder;
     async selectedProductionOrderChanged(newVal, oldVal) {
+        // console.log(newVal);
         this.selectedProductionOrder = newVal;
         if (newVal) {
+            // console.log(newVal);
             this.data.ProductionOrder = newVal;
 
             this.data.ProductionOrderColorType = newVal.Details && newVal.Details.length > 0 ? newVal.Details[0].Color : "";
@@ -69,6 +74,7 @@ export class ShipmentDetail {
 
             var info = { filter: JSON.stringify(packingReceiptFilter), size: Number.MAX_SAFE_INTEGER };
             var packingReceipts = await this.service.searchPackingReceipts(info);
+            // console.log(packingReceipts);
 
             if (packingReceipts.length > 0) {
 
@@ -82,10 +88,19 @@ export class ShipmentDetail {
                     _item.StorageName = packingReceipt.Storage.name;
                     _item.ReferenceNo = packingReceipt.ReferenceNo;
                     _item.ReferenceType = packingReceipt.ReferenceType;
-                    _item.packingReceiptItems = [];
+                    _item.PackingReceiptItems = [];
 
                     //find products
-                    var productList = packingReceipt.Items.map((packingReceiptItem) => packingReceiptItem.ProductId.toString());
+                    var productPromises = packingReceipt.Items.map((packingReceiptItem) => this.service.getProductById(packingReceiptItem.ProductId));
+                    var products = await Promise.all(productPromises);
+                    // console.log(products)
+
+                    var summaryPromises = packingReceipt.Items.map((packingReceiptItem) => this.service.getSummaryByParams(this.selectedStorageId, packingReceiptItem.ProductId, packingReceiptItem.UomId));
+                    var summaries = await Promise.all(summaryPromises);
+
+                    // var packingPromises = packingReceipt.Items.map((packingReceiptItem) => this.service.getPackingByProductName(packingReceiptItem.Product));
+                    // var packings = await Promise.all(packingPromises);
+                    // console.log(packings);
                     // console.log(productIds);
                     // var productFilter = {
                     //     "name": {
@@ -93,8 +108,9 @@ export class ShipmentDetail {
                     //     }
                     // }
                     // var productInfo = { filter: JSON.stringify(productFilter), select: this.productFields, size: 100 };
-                    var products = await this.service.searchProducts(productList);
-                    console.log(products);
+
+                    // cons
+                    // console.log(products);
 
                     //find summaries
                     // var inventorySummariesFilter = {
@@ -110,34 +126,51 @@ export class ShipmentDetail {
                     // var inventorySummariesInfo = { filter: JSON.stringify(inventorySummariesFilter), size: 100 };
                     // var inventorySummaries = await this.service.searchInventorySummaries(inventorySummariesInfo);
 
-                    // for (var packingReceiptItem of packingReceipt.items) {
-                    //     var _packingReceiptItem = {};
-                    //     var product = products.find((product) => packingReceiptItem.product.toString().toLowerCase() === product.name.toString().toLowerCase());
-                    //     var summary = inventorySummaries.find((inventorySummary) => inventorySummary.productName.toString().toLowerCase() === product.name.toString().toLowerCase());
+                    // console.log(packingReceipt);
+                    // console.log(summaries);
+                    // console.log(products);
+                    for (var packingReceiptItem of packingReceipt.Items) {
+                        var _packingReceiptItem = {};
+                        var product = products.find((product) => packingReceiptItem.ProductId === product.Id);
+                        var summary = summaries.find((summary) => summary.ProductId === packingReceiptItem.ProductId);
+                        // var packing = packings.find((packing) => packing && packing.Name === packingReceiptItem.Product);
 
-                    //     if (product && summary && summary.quantity > 0) {
-                    //         _packingReceiptItem.productId = product._id;
-                    //         _packingReceiptItem.productCode = product.code;
-                    //         _packingReceiptItem.productName = product.name;
-                    //         _packingReceiptItem.designCode = product.properties.designCode;
-                    //         _packingReceiptItem.designNumber = product.properties.designNumber;
-                    //         _packingReceiptItem.colorType = packingReceipt.colorName;
-                    //         _packingReceiptItem.uomId = summary.uomId;
-                    //         _packingReceiptItem.uomUnit = summary.uom;
-                    //         _packingReceiptItem.quantity = packingReceiptItem.availableQuantity;
-                    //         _packingReceiptItem.length = product.properties.length;
-                    //         _packingReceiptItem.weight = product.properties.weight;
+                        // console.log(summary);
+                        // console.log(product);
+                        // console.log(packingReceiptItem);
 
-                    //         _item.packingReceiptItems.push(_packingReceiptItem);
-                    //     }
-                    // }
 
-                    // if (_item.packingReceiptItems.length > 0) {
-                    //     items.push(_item);
-                    // }
+
+                        if (product && summary && summary.Quantity > 0) {
+                            // console.log("A")
+                            _packingReceiptItem.ProductId = product.Id;
+                            _packingReceiptItem.ProductCode = product.Code;
+                            _packingReceiptItem.ProductName = product.Name;
+                            _packingReceiptItem.ColorType = packingReceipt.ColorName;
+                            _packingReceiptItem.UomId = summary.UomId;
+                            _packingReceiptItem.UomUnit = summary.UomUnit;
+                            _packingReceiptItem.Quantity = summary.Quantity;
+                            // if (packing) {
+                            // console.log(packing)
+                            _packingReceiptItem.Length = packingReceiptItem.Length;
+                            _packingReceiptItem.Weight = packingReceiptItem.Weight;
+                            _packingReceiptItem.DesignCode = packingReceipt.DesignCode;
+                            _packingReceiptItem.DesignNumber = packingReceipt.DesignNumber;
+                            // }
+
+
+                            _item.PackingReceiptItems.push(_packingReceiptItem);
+                        }
+                    }
+
+                    if (_item.PackingReceiptItems.length > 0) {
+                        items.push(_item);
+                    }
+                    // console.log("B")
 
                 }
-                // this.data.items = items;
+                // console.log("C")
+                this.data.Items = items;
             } else {
                 this.data.Items = [];
             }

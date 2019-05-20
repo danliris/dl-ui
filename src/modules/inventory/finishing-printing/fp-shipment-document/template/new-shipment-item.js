@@ -16,6 +16,7 @@ export class NewShipmentItem {
 
     activate(context) {
         this.data = context.data;
+        // console.log(this.data);
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
