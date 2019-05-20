@@ -18,7 +18,9 @@ export class List {
         else
           return {}
       }
-    context = ["detail"]
+    context = ["detail"];
+
+    options = {};
 
     columns = [
         { field: "BookingOrderNo", title: "Kode Booking" },
@@ -90,6 +92,7 @@ export class List {
                 var data = {};
                 data.total = result.info.total;
                 data.data = result.data;
+
                 return {
                     total: result.info.total,
                     data: result.data
@@ -101,6 +104,10 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+    }
+
+    attached() {
+        this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
     }
 
     contextClickCallback(event) {
