@@ -35,32 +35,11 @@
     <br>
     <br>
   
-    <div class="table-responsive" if.bind="data.length > 0">
-      <table class="table table-bordered table-hover" border="1" id="myTable">
-        <thead>
-          <tr>
-            <th class="text-center">UNIT</th>
-            <th class="text-center" repeat.for="plan of units">${plan}</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr repeat.for="week of qty">
-            <td show.bind="week[0].month!='total'">${week[0].weeks}</td>
-            <td show.bind="week[0].month=='total'"><b>${week[0].weeks}</b></td>
-            <td show.bind="week[0].month!='total'" repeat.for="unit of week">${unit.quantity}</td>
-            <td show.bind="week[0].month=='total'" repeat.for="unit of week"><b>${unit.quantity}</b></td>
-          </tr>
-          <tr>
-            <td><b>TOTAL</b></td>
-            <td repeat.for="i of total"><b>${i}</b></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
+
     <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
       Tidak ada data.
-  </div>
+    </div>
   
   </template>
   

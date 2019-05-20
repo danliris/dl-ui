@@ -19,6 +19,7 @@ export class List {
         { field: "SMVSewing", title: "SMV Sewing" },
         { field: "SMVFinishing", title: "SMV Finishing" },
     ];
+    options = {};
 
     loader = (info) => {
         var order = {};
@@ -44,6 +45,10 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+    }
+
+    attached() {
+      this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
     }
 
     contextClickCallback(event) {
