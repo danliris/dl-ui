@@ -98,7 +98,7 @@
               <textbox value="Lebar RUN (cm)" read-only="true" if.bind="isPrinting && data.RunWidth.length"></textbox>
             </div>
             <div class="col-sm-2" repeat.for="i of data.RunWidth.length">
-              <numeric value.bind="data.RunWidth[i]" read-only.bind="(readOnly)" if.bind="isPrinting && (isRUN || run)" error.bind="error.RunWidth"></numeric>
+              <numeric value.bind="data.RunWidth[i].Value" read-only.bind="(readOnly)" if.bind="isPrinting && (isRUN || run)" error.bind="error.RunWidth"></numeric>
             </div>
           </div>
           <textbox label="Tulisan Pinggir Kain" value.bind="data.ArticleFabricEdge" error.bind="error.ArticleFabricEdge" read-only.bind="(readOnly)"

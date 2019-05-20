@@ -273,9 +273,9 @@ export class DataForm {
       if (selectedRUN == "1 RUN") {
 
         this.run = true;
-        this.data.RunWidth[0] = 0;
+        this.data.RunWidth[0] = {Value : 0};
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth[0] = 0;
+          this.data.RunWidth[0] = {Value : 0};
         }
 
       }
@@ -283,21 +283,21 @@ export class DataForm {
         this.run = true;
         this.data.RunWidth.length = 0;
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth.push(0, 0);
+          this.data.RunWidth.push({Value : 0}, {Value : 0});
         }
       }
       if (selectedRUN == "3 RUN") {
         this.run = true;
         this.data.RunWidth.length = 0;
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth.push(0, 0, 0);
+          this.data.RunWidth.push({Value : 0}, {Value : 0}, {Value : 0});
         }
       }
       if (selectedRUN == "4 RUN") {
         this.run = true;
         this.data.RunWidth.length = 0;
         if (this.data.RunWidth.length == 0) {
-          this.data.RunWidth.push(0, 0, 0, 0);
+          this.data.RunWidth.push({Value : 0}, {Value : 0}, {Value : 0}, {Value : 0});
         }
       }
 
