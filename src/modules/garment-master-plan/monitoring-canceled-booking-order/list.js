@@ -95,8 +95,48 @@ export class List {
                 count++; 
                }
             
+               this.fillTable();
             });
             
+    }
+
+    fillTable() {
+        const columns = [
+            { field: 'BookingOrderNo', title: 'Kode<br>Booking' }, 
+            { field: 'BookingOrderDate', title: 'Tanggal<br>Booking' }, 
+            { field: 'BuyerName', title: 'Buyer' }, 
+            { field: 'EarlyBooking', title: 'Jumlah Booking<br>Order Awal' }, 
+            { field: 'OrderQuantity', title: 'Jumlah Booking<br>Order Akhir' }, 
+            { field: 'DeliveryDate', title: 'Tanggal Pengiriman<br>(booking)' }, 
+            { field: 'ComodityName', title: 'Komoditi' }, 
+            { field: 'ConfirmQuantity', title: 'Jumlah<br>Confirm' }, 
+            { field: 'ConfirmDate', title: 'Tanggal<br>Confirm' }, 
+            { field: 'DeliveryDateItem', title: 'Tanggal Pengiriman<br>(confirm)' }, 
+            { field: 'Remark', title: 'Keterangan' }, 
+            { field: 'CanceledDate', title: 'Tanggal Cancel' }, 
+            { field: 'CanceledQuantity', title: 'Jumlah<br>Dicancel' }, 
+            { field: 'CancelStatus', title: 'Status<br>Cancel' }, 
+        ];
+
+        var bootstrapTableOptions = {
+            undefinedText: '',
+            columns: columns,
+            data: this.data,
+        };
+
+        bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
+        $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
+
+        for (const rowIndex in this.data) {
+            if(this.data[rowIndex].BookingOrderNo) {
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "BookingOrderNo", rowspan: this.data[rowIndex].row_count, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "BookingOrderDate", rowspan: this.data[rowIndex].row_count, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "BuyerName", rowspan: this.data[rowIndex].row_count, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "EarlyBooking", rowspan: this.data[rowIndex].row_count, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "OrderQuantity", rowspan: this.data[rowIndex].row_count, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "DeliveryDate", rowspan: this.data[rowIndex].row_count, colspan: 1 });
+            }
+        }
     }
 
     changePage(e) {

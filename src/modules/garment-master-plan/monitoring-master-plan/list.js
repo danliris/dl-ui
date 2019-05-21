@@ -6,8 +6,8 @@ import "bootstrap-table";
 import "bootstrap-table/dist/bootstrap-table.css";
 import "bootstrap-table/dist/locale/bootstrap-table-id-ID.js";
 
-import "./fixed-columns/bootstrap-table-fixed-columns";
-import "./fixed-columns/bootstrap-table-fixed-columns.css";
+import "../../../components/bootstrap-table-fixed-columns/bootstrap-table-fixed-columns";
+import "../../../components/bootstrap-table-fixed-columns/bootstrap-table-fixed-columns.css";
 
 var moment = require('moment');
 

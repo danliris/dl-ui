@@ -45,47 +45,8 @@
        <br>
     </br>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover" border="1" id="myTable">
-            <thead align="center">
-                <tr>
-                    <td>Kode Booking</td>
-                    <td>Tanggal Booking</td>
-                    <td>Buyer</td>
-                    <td>Jumlah Booking Order Awal</td>
-                    <td>Jumlah Booking Order Akhir</td>
-                    <td>Tanggal Pengiriman(booking)</td>
-                    <td>Komoditi</td>
-                    <td>Jumlah Confirm</td>
-                    <td>Tanggal Confirm</td>
-                    <td>Tanggal Pengiriman(confirm)</td>
-                    <td>Keterangan</td>
-                    <td>Tanggal Cancel</td>
-                    <td>Jumlah yang Dicancel</td>
-                    <td>Status Cancel</td>
-                </tr>
-            </thead>
-            <tbody>
-             
-                <tr repeat.for="item of data">
-                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderNo}</td>
-                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderDate}</td>
-                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BuyerName}</td>
-                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.EarlyBooking}</td>
-                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.OrderQuantity}</td>
-                        <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.DeliveryDate}</td>
-                        <td>${item.ComodityName}</td>
-                        <td>${item.ConfirmQuantity}</td>
-                        <td>${item.ConfirmDate}</td>
-                        <td>${item.DeliveryDateItem}</td>
-                        <td>${item.Remark}</td>
-                        <td>${item.CanceledDate}</td>
-                        <td>${item.CanceledQuantity}</td>
-                        <td>${item.CancelStatus}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
+
     <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
         Tidak ada data.
     </div>

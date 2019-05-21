@@ -27,6 +27,8 @@ export class List {
 
     context = ["detail"]
 
+    options = {}
+
     columns = [
         { field: "BookingOrderNo", title: "Nomor Booking" },
         { field: "BookingOrderDate", title: "Tanggal Booking", formatter: function (value, data, index) {
@@ -91,6 +93,10 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
+    }
+
+    attached() {
+        this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
     }
 
     contextClickCallback(event) {
