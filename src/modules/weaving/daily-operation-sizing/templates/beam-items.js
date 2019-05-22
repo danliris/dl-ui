@@ -1,10 +1,16 @@
-import { inject, bindable, BindingEngine } from "aurelia-framework";
-import { Service } from "../service";
+import {
+  inject,
+  bindable,
+  BindingEngine
+} from "aurelia-framework";
+import {
+  Service
+} from "../service";
 var BeamLoader = require("../../../../loader/weaving-beam-loader");
 
 @inject(BindingEngine, Service)
 export class BeamItems {
-//   @bindable Yarn;
+  // @bindable BeamDocument;
 
   constructor(bindingEngine, service) {
     this.service = service;
@@ -14,10 +20,6 @@ export class BeamItems {
   get beams() {
     return BeamLoader;
   }
-
-//   get yarnsWarp() {
-//     return YarnLoader;
-//   }
 
   async activate(context) {
     this.data = context.data;
@@ -31,20 +33,14 @@ export class BeamItems {
     //   this.data.Code = retrieveValue.Code;
     // }
 
+    this.BeamDocument = this.data.BeamDocument;
+
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
 
-  // Change on Kode Lusi, affected when Benang Lusi change
-//   async YarnChanged(newValue) {
-    
-//     if (newValue) {
-//       this.data.Yarn = newValue;
-
-//       this.data.YarnId = newValue.Id ? newValue.Id : "";
-//       this.data.Code = newValue.Code ? newValue.Code : "";
-//       this.data.Quantity = 0;
-//       this.data.Information = "";
-//     }
-//   }
+  // async BeamDocumentChanged(newValue) {
+  //   this.data.BeamDocument = newValue;
+  //   this.data.WarpingBeamCollectionDocumentId = newValue.Id;
+  // }
 }

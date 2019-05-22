@@ -69,48 +69,48 @@ export class List {
     //   };
     // });
 
-    // return this.service.search(arg).then(result => {
-    //   if (result.data && result.data.length > 0) {
-    //     let getUnitPromises = result.data.map(operation =>
-    //       this.service.getUnitById(operation.WeavingUnitDocumentId)
-    //     );
+    return this.service.search(arg).then(result => {
+      if (result.data && result.data.length > 0) {
+        let getUnitPromises = result.data.map(operation =>
+          this.service.getUnitById(operation.WeavingUnitDocumentId)
+        );
 
-    //     return Promise.all(getUnitPromises).then(units => {
-    //       for (var datum of result.data) {
-    //         if (units && units.length > 0) {
-    //           let unit = units.find(
-    //             unitResult => datum.WeavingUnitDocumentId == unitResult.Id
-    //           );
-    //           datum.WeavingUnitDocumentId = unit.Name;
-    //         }
-    //       }
+        return Promise.all(getUnitPromises).then(units => {
+          for (var datum of result.data) {
+            if (units && units.length > 0) {
+              let unit = units.find(
+                unitResult => datum.WeavingUnitDocumentId == unitResult.Id
+              );
+              datum.WeavingUnitDocumentId = unit.Name;
+            }
+          }
 
-    //       return {
-    //         total: result.info.total,
-    //         data: result.data
-    //       };
-    //     });
-    //   } else {
-    //     return {
-    //       total: result.info.total,
-    //       data: result.data
-    //     };
-    //   }
-    // });
+          return {
+            total: result.info.total,
+            data: result.data
+          };
+        });
+      } else {
+        return {
+          total: result.info.total,
+          data: result.data
+        };
+      }
+    });
 
-    return {
-      total: 1,
-      data: [{
-        Id: 1,
-        ProductionDate: "02/02/2019",
-        WeavingUnit: "Weaving 1",
-        MachineNumber: "2/1",
-        Shift: "Shift 1",
-        BeamNumber: "TS 108",
-        ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
-        PIS: "16"
-      }]
-    };
+    // return {
+    //   total: 1,
+    //   data: [{
+    //     Id: 1,
+    //     ProductionDate: "02/02/2019",
+    //     WeavingUnit: "Weaving 1",
+    //     MachineNumber: "2/1",
+    //     Shift: "Shift 1",
+    //     BeamNumber: "TS 108",
+    //     ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
+    //     PIS: "16"
+    //   }]
+    // };
   };
 
   contextCallback(event) {
