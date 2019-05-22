@@ -28,7 +28,6 @@ export class StartForm {
 
     //bindable method
     StartTimeChanged(newValue) {
-        console.log(newValue);
         this.data.StartTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {
