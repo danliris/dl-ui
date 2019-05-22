@@ -324,6 +324,19 @@ module.exports = [
         }
     },
     {
+        route: '/garment/unit-delivery-order-retur',
+        name: 'unit-delivery-order-retur',
+        moduleId: './modules/garment-purchasing/unit-delivery-order-retur/index',
+        nav: true,
+        title: 'Retur Delivery Order',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/unit-expenditure-note',
         name: 'unit-expenditure-note',
         moduleId: './modules/garment-purchasing/unit-expenditure-note/index',
