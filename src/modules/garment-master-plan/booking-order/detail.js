@@ -29,6 +29,7 @@ export class Detail {
             var StartDate=moment(a.StartDate).format("DD MMM YYYY");
             a.week=`W${a.WeekNumber} - ${StartDate} s/d ${EndDate}`;
             this.total+=a.OrderQuantity;
+            a.SMVSewing= a.SMVSewing.toFixed(2);
         }
     }
 

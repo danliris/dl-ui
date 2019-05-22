@@ -73,52 +73,8 @@
            <br>
         </br>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="myTable">
-                <thead align="center">
-                    <tr>
-                        <td>Kode Booking</td>
-                        <td>Tanggal Booking</td>
-                        <td>Buyer</td>
-                        <td>Jumlah Order</td>
-                        <td>Tanggal Pengiriman(booking)</td>
-                        <td>Komoditi</td>
-                        <td>Jumlah Confirm</td>
-                        <td>Tanggal Pengiriman(confirm)</td>
-                        <td>Tanggal Confirm</td>
-                        <td>Keterangan</td>
-                        <td>Status Confirm</td>
-                        <td>Status Booking Order</td>    
-                        <td>Sisa Order (Belum Confirm)</td>         
-                        <td>Selisih Hari (dari Tanggal Pengiriman)</td>   
-                        <td>Not Confirmed Order (MINUS)</td>  
-                        <td>Over Confirm (SURPLUS)</td>           
-                    </tr>
-                </thead>
-                <tbody>
-                 
-                    <tr repeat.for="item of data">
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderNo}</td>
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BookingOrderDate}</td>
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.BuyerName}</td>
-                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.OrderQuantity}</td>
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.DeliveryDate}</td>
-                            <td class="text-left">${item.ComodityName}</td>
-                            <td class="text-right">${item.ConfirmQuantity}</td>
-                            <td class="text-left">${item.DeliveryDateItems}</td>
-                            <td class="text-left">${item.ConfirmDate}</td>
-                            <td class="text-left">${item.Remark}</td>
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.StatusConfirm}</td>
-                            <td class="text-left" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.StatusBooking}</td>
-                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.OrderLeft}</td>
-                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.DateDiff}</td>
-                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.NotConfirmedQuantity}</td>
-                            <td class="text-right" if.bind="item.BookingOrderNo!=null" rowspan="${item.row_count}">${item.SurplusQuantity}</td>
-                            
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
+
         <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
             Tidak ada data.
         </div>

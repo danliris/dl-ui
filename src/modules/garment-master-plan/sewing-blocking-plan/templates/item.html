@@ -19,13 +19,14 @@
         </au-autocomplete>
     </td>
     <td width="5%">
-        <numeric 
+        <au-numeric 
             value.bind="data.SMVSewing" 
             error.bind="error.SMVSewing" 
             read-only="true" 
+            format = "0,0.00"
             change.delegate="SMVChanged($event)"
             options.bind="controlOption">
-        </numeric>
+        </au-numeric>
     </td>
     <td width="10%">
         <au-autocomplete 
