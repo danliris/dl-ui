@@ -5,9 +5,9 @@
     }
 
   </style>
-  <au-input-form title="View: Operasional Mesin Harian Sizing" options.bind="formOptions">
+  <au-input-form title="Update: Operasional Mesin Harian Sizing" options.bind="formOptions">
     <div class="col-md-12">
-      <div class="row" style="white-space: nowrap;">
+      <!-- <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
           <textbox label="Tanggal" read-only="true" style="display: inline-block"></textbox>
         </div>
@@ -16,14 +16,14 @@
             error.bind="error.ProductionDate" read-only.bind="true">
           </au-datepicker>
         </div>
-      </div>
+      </div> -->
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
           <textbox label="No. Mesin" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="No. Mesin" value.bind="MachineDocument" error.bind="error.MachineDocument"
-            read-only.bind="true" loader.bind="machines" text="MachineNumber"></au-autocomplete>
+          <au-textbox placeholder="No. Mesin" value.bind="MachineDocument" error.bind="error.MachineDocument"
+            read-only.bind="true"></au-textbox>
         </div>
       </div>
       <div class="row" style="white-space: nowrap;">
@@ -31,8 +31,18 @@
           <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-autocomplete placeholder="Unit Weaving" value.bind="WeavingDocument" error.bind="error.WeavingDocument"
-            read-only.bind="true" loader.bind="units" text="Name"></au-autocomplete>
+          <au-textbox placeholder="Unit Weaving" value.bind="WeavingDocument.Name" error.bind="error.WeavingDocument"
+            read-only.bind="true"></au-textbox>
+        </div>
+      </div>
+      <div class="row" style="white-space: nowrap">
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-textbox placeholder="No. Konstruksi" value.bind="ConstructionNumber"
+            error.bind="error.ConstructionDocument" read-only.bind="true">
+          </au-textbox>
         </div>
       </div>
 

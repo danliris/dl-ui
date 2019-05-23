@@ -13,7 +13,7 @@ var BeamLoader = require("../../../loader/weaving-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
 @inject(Router, Service)
-export class View {
+export class Update {
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -72,8 +72,18 @@ export class View {
   ];
 
   async activate(params) {
-    // var Id = params.Id;
-    // this.data = await this.service.getById(Id);
+    var Id = params.Id;
+    var dataResult;
+    this.data = await this.service
+      .getById(Id)
+      .then(result => {
+        dataResult = result;
+        return this.service.getUnitById(result.Unit);
+      })
+      .then(unit => {
+        dataResult.WeavingDocument = unit;
+        return dataResult;
+      });
 
     // this.data = {
     //   Id: 1,

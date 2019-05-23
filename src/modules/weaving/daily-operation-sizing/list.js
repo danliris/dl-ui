@@ -28,21 +28,17 @@ export class List {
       field: "WeavingUnitDocumentId",
       title: "Unit Weaving"
     },
-    {
-      field: "BeamNumber",
-      title: "No. Beam"
-    },
+    // {
+    //   field: "BeamNumber",
+    //   title: "No. Beam"
+    // },
     {
       field: "ConstructionNumber",
       title: "No. Konstruksi"
     },
     {
-      field: "Shift",
+      field: "ShiftName",
       title: "Shift"
-    },
-    {
-      field: "PIS",
-      title: "PIS"
     }
   ];
 
@@ -116,9 +112,10 @@ export class List {
   contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
+    console.log(data);
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", {
+        this.router.navigateToRoute("update", {
           Id: data.Id
         });
         break;

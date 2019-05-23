@@ -15,11 +15,11 @@ export class Index {
         title: "Create: Operasional Mesin Harian Sizing"
       },
       {
-        route: "view/:Id",
-        moduleId: "./view",
-        name: "view",
+        route: "update/:Id",
+        moduleId: "./update",
+        name: "update",
         nav: false,
-        title: "View: Operasional Mesin Harian Sizing"
+        title: "Update: Operasional Mesin Harian Sizing"
       }
     ]);
 

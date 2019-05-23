@@ -111,10 +111,17 @@ export class Create {
     this.data.Details.History.MachineTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
-        if (result) {
+        // if (result) {
+          this.error.Shift = "";
+          this.Shift = {};
           this.Shift = result;
-          this.data.Details.ShiftDocumentId = result.Id;
-        }
+          this.data.Details.ShiftDocumentId = this.Shift.Id;
+        // }
+      })
+      .catch(e => {
+        this.Shift = {};
+        this.data.ShiftId = this.Shift.Id;
+        this.error.Shift = " Shift tidak ditemukan ";
       });
   }
 

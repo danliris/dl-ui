@@ -27,16 +27,6 @@ export class Service extends RestService {
     return super.list(endpoint);
   }
 
-  getUnitById(Id) {
-    var config = Container.instance.get(Config);
-    var _endpoint = config.getEndpoint("core");
-    var _serviceUri = `master/units/${Id}`;
-
-    return _endpoint.find(_serviceUri).then(result => {
-      return result.data;
-    });
-  }
-
   getById(Id) {
     var endpoint = `${serviceUri}/${Id}`;
     return super.get(endpoint);
@@ -45,6 +35,16 @@ export class Service extends RestService {
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
+  }
+
+  getUnitById(Id) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("core");
+    var _serviceUri = `master/units/${Id}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
   }
 
   getShiftByTime(value) {
