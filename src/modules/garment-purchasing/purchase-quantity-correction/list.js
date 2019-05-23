@@ -66,7 +66,6 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (const data of result.data) {
-                    console.log(data);
                     data.SupplierName = data.Supplier.Name;
                 }
                 
