@@ -196,7 +196,7 @@ module.exports = [
     {
         route: '/garment/monitoring-delivery-order-all',
         name: 'monitoring-delivery-order-all',
-        moduleId: './modules/garment-purchasing/monitoring-delivery-order-new/index',
+        moduleId: './modules/garment-purchasing/monitoring-delivery-order-all/index',
         nav: true,
         title: 'Monitoring Surat Jalan',
         auth: true,
