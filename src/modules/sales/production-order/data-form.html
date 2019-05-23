@@ -91,7 +91,7 @@
         </div>
         <div class="col-md-6" style="padding:0">
           <textbox label="Standar Handling" value.bind="data.HandlingStandard" error.bind="error.HandlingStandard" read-only.bind="(readOnly)"></textbox>
-          <dropdown label="RUN" value.bind="data.RUN" error.bind="error.RUN" read-only.bind="(readOnly)" items.bind="RUNOptions" if.bind="isPrintingOnly"
+          <dropdown label="RUN" value.bind="data.Run" error.bind="error.Run" read-only.bind="(readOnly)" items.bind="RUNOptions" if.bind="isPrintingOnly"
             change.delegate="RUNChanged($event)"></dropdown>
           <div class="row">
             <div class="col-sm-4" style="padding-left:20%">
