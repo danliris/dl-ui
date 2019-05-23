@@ -25,7 +25,7 @@ export class InventoryDocumentItem {
     this.options = context.options;
 
     if (!this.data.productId) {
-      this.data.productId = "";
+      this.data.productId = 0;
     } else {
       if (!this.data.selectedProduct) {
         this.selectedProduct = await this.service.getProductById(this.data.productId, this.productFields);
@@ -36,7 +36,7 @@ export class InventoryDocumentItem {
       }
     }
     if (!this.data.uomId) {
-      this.data.uomId = "";
+      this.data.uomId = 0;
     } else {
       if (!this.data.selectedUom) {
         this.selectedUom = await this.service.getUomById(this.data.uomId);
@@ -59,7 +59,7 @@ export class InventoryDocumentItem {
       this.data.productName = this.selectedProduct.Name;
     }
     else {
-      this.data.productId = "";
+      this.data.productId = 0;
       this.data.productCode = "";
       this.data.productName = "";
     }
@@ -80,7 +80,7 @@ export class InventoryDocumentItem {
       this.data.uom = this.selectedUom.Unit;
     }
     else {
-      this.data.uomId = "";
+      this.data.uomId = 0;
       this.data.uom = "";
     }
   }
