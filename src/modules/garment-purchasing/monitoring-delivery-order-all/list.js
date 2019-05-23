@@ -201,12 +201,16 @@ export class List {
         return (keyword) => {
             var info = {
                 keyword: keyword,
-                select: JSON.stringify({ "doNo": "DONo" }),
-                search: JSON.stringify([ "DONo" ])
+                select: JSON.stringify({ "doNo": "DONo", "Id" : "1", "supplierName" : "SupplierName" }),
+                search: JSON.stringify([ "DONo" ]),
+                order: {"DONo": "asc"}
             };
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
-                    return result.data;
+                    return result.data.map(data => {
+                        data.toString = function() { return `${this.doNo} - ${this.supplierName}`; };
+                        return data;
+                    });
                 });
         }
     }
