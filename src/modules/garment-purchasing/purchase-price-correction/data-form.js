@@ -70,12 +70,16 @@ export class DataForm {
             var info = {
                 keyword: keyword,
                 filter: JSON.stringify({ "BillNo != null": true }),
-                select: JSON.stringify({ "doNo": "DONo", "Id" : "1" }),
-                search: JSON.stringify([ "DONo" ])
+                select: JSON.stringify({ "doNo": "DONo", "Id" : "1", "supplierName" : "SupplierName" }),
+                search: JSON.stringify([ "DONo" ]),
+                order: {"DONo": "asc"}
             };
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
-                    return result.data;
+                    return result.data.map(data => {
+                        data.toString = function() { return `${this.doNo} - ${this.supplierName}`; };
+                        return data;
+                    });
                 });
         }
     }
