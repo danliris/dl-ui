@@ -131,7 +131,7 @@
             read-only.bind="readOnly || isEdit"
             change.delegate="currencyChange($event)"
             text.bind="currencyView"
-            show.bind="data.supplier"
+            show.bind="data.supplier && data.beacukaiNo"
             options.bind="controlOptions"     
           ></au-autocomplete>
             <!--item-template="modules/garment-purchasing/customs/template/currency"-->
