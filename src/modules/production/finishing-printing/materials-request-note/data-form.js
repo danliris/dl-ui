@@ -36,7 +36,7 @@ export class DataForm {
 
         this.type = this.data.RequestType || null;
 
-        if (this.data.Unit && this.data.Unit._id) {
+        if (this.data.Unit && this.data.Unit.Id) {
             this.selectedUnit = this.data.Unit;
         }
 
@@ -64,21 +64,30 @@ export class DataForm {
         }
     }
 
-    @bindable unitFilter = { "division.name": "FINISHING & PRINTING" };
+    @bindable unitFilter = { "DivisionName": "DYEING & PRINTING" };
     typeItems = ["", "AWAL", "PENGGANTI BAD OUTPUT", "TEST", "PEMBELIAN"];
 
     itemsOptions = {};
     @bindable selectedUnit;
     selectedUnitChanged(newVal, oldVal) {
-        if (this.selectedUnit && this.selectedUnit._id) {
+        if (this.selectedUnit && this.selectedUnit.Id) {
             this.data.Unit = this.selectedUnit;
-
-            delete this.itemsOptions.productionOrderFilter["orderType"];
-            var filter = this.selectedUnit.name && this.selectedUnit.name.toUpperCase() === "PRINTING" ? { "orderType.name": "PRINTING" } : { "orderType.name": { "$nin": ["PRINTING"] } };
+            this.data.Unit._id = this.data.Unit.Id;
+            this.data.Unit.name = this.data.Unit.Name;
+            this.data.Unit.code = this.data.Unit.Code;
+            console.log(this.data.Unit)
+            if(this.itemsOptions.productionOrderFilter["OrderTypeName"]){
+                delete this.itemsOptions.productionOrderFilter["OrderTypeName"];
+            } else {
+                delete this.itemsOptions.productionOrderFilter['OrderTypeName.Contains("PRINTING")'];
+            }
+            var filter = this.selectedUnit.Name && this.selectedUnit.Name.toUpperCase() === "PRINTING" ? { "OrderTypeName": "PRINTING" } : { 'OrderTypeName.Contains("PRINTING")': "false" };
             Object.assign(this.itemsOptions.productionOrderFilter, filter);
-
-            if (oldVal)
+            console.log(oldVal)
+            console.log(filter)
+            if (oldVal){
                 this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
+            }
         }
         else {
             this.data = {};
@@ -102,8 +111,9 @@ export class DataForm {
             Object.assign(this.itemsOptions.productionOrderFilter, filter);
         }
 
-        if (oldVal)
+        if (oldVal){
             this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
+        }
     }
 
     get itemHeader() {
@@ -144,5 +154,9 @@ export class DataForm {
         onRemove: function () {
 
         }.bind(this)
+    }
+
+    unitView = (unit) => {
+        return `${unit.Division.Name} - ${unit.Name}`
     }
 } 
