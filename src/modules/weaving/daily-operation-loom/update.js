@@ -12,6 +12,14 @@ export class Update {
         this.error = {};
     }
 
+    loomHistory = [
+        { header: "Tanggal", value: "DateOrdered" },
+        { header: "No. SOP", value: "OrderNumber" },
+        { header: "No. Konstruksi", value: "ConstructionNumber"},
+        { header: "Total Gram", value: "TotalGramEstimation" },
+        { header: "Jumlah Order(Meter)", value: "WholeGrade" }
+      ];
+
     async activate(params) {
         var Id = params.Id;
         var dataResult;
@@ -45,20 +53,59 @@ export class Update {
     start() {
         $("#Mulai").modal('hide');
         console.log(this.data);
+        this.error = {};
+        var startDataDummy = {
+            DateOrdered :  moment(new Date("12/3/2018")),
+            OrderNumber : '12131411',
+            ConstructionNumber : '231313213',
+            TotalGramEstimation : 120000,
+            WholeGrade : 990000
+        }
+
+        this.data.loomHistory.push(startDataDummy);
+
+        // this.service
+        //     .updateForStartProcess(this.data)
+        //     .then(result => {
+                
+                
+        //         // Refereshing list of history
+        //     });
     }
 
     stop() {
         $("#Berhenti").modal('hide');
         console.log(this.data);
+        this.error = {};
+
+        this.service
+            .updateForStopProcess(this.data)
+            .then(result => {
+                // Refereshing list of history
+            });
     }
 
     resume() {
         $("#Melanjutkan").modal('hide');
         console.log(this.data);
+        this.error = {};
+
+        this.service
+            .updateForResumeProcess(this.data)
+            .then(result => {
+                // Refereshing list of history
+            });
     }
 
     finish() {
         $("#Melanjutkan").modal('hide');
         console.log(this.data);
+        this.error = {};
+
+        this.service
+            .updateForFinishProcess(this.data)
+            .then(result => {
+                // Refereshing list of history
+            });
     }
 }

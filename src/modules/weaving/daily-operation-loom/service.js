@@ -2,6 +2,11 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 const serviceUri = 'weaving/daily-operations-loom';
+const entryProcess = 'entry-process';
+const startProcess = 'start-process';
+const stopProcess = 'stop-process';
+const resumeProcess = 'resume-process';
+const finishProcess = 'finish-process';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -33,9 +38,29 @@ export class Service extends RestService {
         });
     }
 
-    create(data) {
-        var endpoint = `${serviceUri}`;
+    createOnEntryProcess(data) {
+        var endpoint = `${serviceUri}/${entryProcess}`;
         return super.post(endpoint, data);
+    }
+
+    updateForStartProcess(data) {
+        var endpoint = `${serviceUri}/${startProcess}/${data.Id}`;
+        return super.put(endpoint, data);
+    }
+
+    updateForStopProcess(data) {
+        var endpoint = `${serviceUri}/${stopProcess}/${data.Id}`;
+        return super.put(endpoint, data);
+    }
+
+    updateForResumeProcess(data) {
+        var endpoint = `${serviceUri}/${resumeProcess}/${data.Id}`;
+        return super.put(endpoint, data);
+    }
+
+    updateForFinishProcess(data) {
+        var endpoint = `${serviceUri}/${finishProcess}/${data.Id}`;
+        return super.put(endpoint, data);
     }
 
     getById(Id) {
