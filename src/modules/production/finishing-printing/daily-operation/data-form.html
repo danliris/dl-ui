@@ -173,7 +173,7 @@
                 <au-textbox    label="Material"        value.bind="data.Kanban.ProductionOrder.Material.Name"              if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
                 <au-textbox    label="Konstruksi"      value.bind="data.Kanban.ProductionOrder.MaterialConstruction.Name"  if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
                 <au-textbox    label="Nomor Benang"    value.bind="data.Kanban.ProductionOrder.YarnMaterial.Name"          if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
-                <au-textbox    label="Lebar Finish"    value.bind="data.Kanban.FinishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
+                <au-textbox    label="Lebar Finish"    value.bind="data.Kanban.ProductionOrder.FinishWidth"                if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
                 <au-textbox    label="Warna"           value.bind="data.Kanban.SelectedProductionOrderDetail.ColorRequest" if.bind="hasKanban" read-only="true" options.bind="auInputOptions"></au-textbox>
             </div>
         </div>
