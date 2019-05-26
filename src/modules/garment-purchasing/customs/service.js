@@ -56,7 +56,8 @@ export class Service extends RestService {
         var arc = {
                 filter : JSON.stringify(filter),
                 select : ["doNo","doDate","arrivalDate","items"],
-                size: 200
+                size: 200,
+                billNo : info.billNo || ""
             }
         return super.list(endpoint, arc);
     }
