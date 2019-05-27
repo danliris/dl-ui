@@ -40,7 +40,7 @@
                                     read-only.bind="readOnly"
                                     options.bind="smallControlOptions"></au-textbox>
 
-                        <au-autocomplete value.bind="selectedBuyer"
+                        <au-autocomplete value.bind="data.Buyer"
                                          error.bind="error.Buyer"
                                          label="Buyer"
                                          loader.one-time="buyerLoader"
@@ -48,17 +48,19 @@
                                          read-only.bind="readOnly"
                                          key="Name"
                                          text="Name"
+                                         change.delegate="buyerChanged($event)"
                                          options.bind="mediumControlOptions"></au-autocomplete>
 
                         <au-textbox label="Tipe Buyer"
                                     value.bind="data.Buyer.Type"
                                     read-only.bind="true"></au-textbox>
 
-                        <au-autocomplete value.bind="selectedStorage"
+                        <au-autocomplete value.bind="data.Storage"
                                          error.bind="error.Storage"
                                          label="Gudang"
                                          loader.one-time="storageLoader"
                                          text.bind="storageView"
+                                         change.delegate="storageChanged($event)"
                                          placeholder="Cari penyimpanan"
                                          read-only.bind="readOnly"
                                          options.bind="mediumControlOptions"></au-autocomplete>

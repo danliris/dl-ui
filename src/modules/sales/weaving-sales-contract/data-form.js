@@ -43,7 +43,9 @@ export class DataForm {
         this.element = element;
 
     }
-
+    materialQuery = {
+        "Tags": "MATERIAL"
+    }
     bind(context) {
         this.context = context;
         this.data = this.context.data;

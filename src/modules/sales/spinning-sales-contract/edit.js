@@ -33,7 +33,7 @@ export class Edit {
   }
 
   save(event) {
-    this.data.deliverySchedule = moment(this.data.deliverySchedule).format("YYYY-MM-DD");
+    this.data.DeliverySchedule = moment(this.data.DeliverySchedule).format("YYYY-MM-DD");
     this.service.update(this.data)
       .then(result => {
         this.cancel();

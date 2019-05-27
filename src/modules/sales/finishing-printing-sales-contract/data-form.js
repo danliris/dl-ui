@@ -33,6 +33,10 @@ export class DataForm {
     "isExport": false
   };
 
+  materialQuery = {
+    "Tags" : "MATERIAL"
+  }
+
   constructor(bindingEngine, service, element) {
     this.bindingEngine = bindingEngine;
     this.element = element;

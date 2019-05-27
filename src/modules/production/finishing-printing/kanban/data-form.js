@@ -281,11 +281,10 @@ export class DataForm {
                 };
             }
 
-            this.service.getDurationEstimation(this.data.ProductionOrder.ProcessType.Code, ["areas"])
+            this.service.getDurationEstimationByProcessType(this.data.ProductionOrder.ProcessType.Code)
                 .then((result) => {
-                    console.log(result);
-                    if (result.data.length > 0) {
-                        this.data.durationEstimation = result.data[0];
+                    if (result) {
+                        this.data.durationEstimation = result
                     }
                     else {
                         delete this.data.durationEstimation;
