@@ -3,6 +3,13 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
+import "bootstrap-table";
+import "bootstrap-table/dist/bootstrap-table.css";
+import "bootstrap-table/dist/locale/bootstrap-table-id-ID.js";
+
+import "../../../components/bootstrap-table-fixed-columns/bootstrap-table-fixed-columns";
+import "../../../components/bootstrap-table-fixed-columns/bootstrap-table-fixed-columns.css";
+
 var YearLoader = require('../../../loader/garment-master-plan-weekly-plan-year-loader');
 var UnitLoader = require('../../../loader/weekly-plan-unit-loader');
 
@@ -11,6 +18,11 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    
+    this.onContentResize = (e) => {
+      this.refreshOptionsTable();
+    }
+
   }
 
   controlOptions = {
@@ -20,6 +32,14 @@ export class List {
     control: {
       length: 5
     }
+  }
+
+  attached() {
+    window.addEventListener("resize", this.onContentResize);
+  }
+
+  detached() {
+    window.removeEventListener("resize", this.onContentResize);
   }
 
   get yearLoader() {
@@ -104,8 +124,83 @@ export class List {
             };
             this.weeks.push(week);
           }
+
+          this.fillTable();
         });
     }
+  }
+
+  fillTable() {
+    let columns = [
+      {
+        field: 'unit', title: 'UNIT'
+      },
+    ];
+
+    // for(let plan of this.data) {
+    //   columns.push({
+    //     field: plan.Unit, title: plan.Unit,
+    //     cellStyle: (cell) => { return { css: { background: cell.background, "border-left": "none" } } },
+    //     formatter: (cell) => { return cell.value },
+    //   });
+    // }
+    for(let plan of this.data) {
+      columns.push({
+        field: plan.Unit, title: plan.Unit,
+        cellStyle: (cell) => { return { css: { background: cell.background, "border-right": "none" } } },
+        formatter: (cell) => { return cell.value },
+      });
+    }
+
+    if(this.isTotal) {
+      columns.push({
+        field: 'totalRemainingEH', title: 'Total Remaining EH'
+      });
+    }
+    columns.push({
+      field: 'headCountUnit', title: 'Head Count Unit'
+    });
+    columns.push({
+      field: 'headCountTotal', title: 'Head Count Total'
+    });
+
+    let data = [];
+    for(let week of this.weeks) {
+      let rowData = {
+        unit: week.week,
+        totalRemainingEH: week.eh,
+        headCountUnit: week.headCountUnit,
+        headCountTotal: week.headCount
+      };
+
+      // for(let unit of week.units) {
+      //   rowData[unit.code] = { value: unit.remainingEH, background: unit.background };
+      // }
+      for(let unit of week.units) {
+        rowData[unit.code] = { value: unit.remainingEH, background: unit.background };
+      }
+
+      data.push(rowData);
+    }
+
+    var bootstrapTableOptions = {
+      columns: columns,
+      data: data,
+      fixedColumns: true,
+      fixedNumber: 1
+    };
+
+    bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
+    $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
+  }
+
+  refreshOptionsTable() {
+    var bootstrapTableOptions = {
+      fixedColumns: true,
+      fixedNumber: 1
+    };
+    bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
+    $(this.table).bootstrapTable('refreshOptions', bootstrapTableOptions);
   }
 
   ExportToExcel() {

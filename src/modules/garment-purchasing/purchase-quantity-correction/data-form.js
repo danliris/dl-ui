@@ -63,6 +63,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
+              order: {"DONo": "asc"}
             };
             return this.service.searchDeliveryOrder(info)
                 .then((result) => {
