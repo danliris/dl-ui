@@ -20,6 +20,15 @@ export class List {
         this.router = router;
     }
 
+    rowFormatter(data, index) {
+        if (data.status === "Belum")
+            return { classes: "danger" };
+        else if(data.status === "Sudah")
+            return { classes: "success" };
+        else
+            return {};
+    }
+
     controlOptions = {
         label: {
         length: 4
@@ -121,34 +130,57 @@ export class List {
     }
 
     fillTable() {
-
-        const columns = [
-            { field: 'bookingOrderNo', title: 'No. Booking Order' },
-            { field: 'bookingOrderDate', title: 'Tgl Booking'  },
-            { field: 'buyer', title: 'Buyer' },
-            { field: 'orderQuantity', title: 'Jumlah<br>Order<br>(Booking)' },
-            { field: 'confirmQty', title: 'Jumlah<br>Confirm' },
-            { field: 'deliveryDate', title: 'Tgl Pengiriman<br>(Booking)'},
-            //{ title: 'Detail Confirm', colspan:3 },
-            // { field: 'confirmComodity', title: 'Komoditi' },
-            // { field: 'confirmQuantity', title: 'Jumlah<br>Confirm' },
-            // { field: 'confirmDeliveryDate', title: 'Tgl Pengiriman(Booking)' },
-            //{ title: 'Jadwal Pengerjaan', colspan:9 },
+        const columns =[
+        [
+            { field:"bookingOrderNo", rowspan:"2", title:"No.<br/>Booking<br/>Order",
+                cellStyle: (value, row, index, field) => {
+                    return { css: { "background": "transparent" } };
+                },
+            },
+            { field:"bookingOrderDate", rowspan:"2", title:"Tanggal<br/>Booking",
+                cellStyle: (value, row, index, field) => {
+                    return { css: { "background": "transparent" } };
+                }, 
+            },
+            { field:"buyer", rowspan:"2", title:"Buyer" ,
+                cellStyle: (value, row, index, field) => {
+                    return { css: { "background": "transparent" } };
+                }, 
+            },
+            { field:"orderQuantity", rowspan:"2", title:"Jumlah<br/>Order",
+                cellStyle: (value, row, index, field) => {
+                    return { css: { "background": "transparent" } };
+                }, 
+            },
+            { field:"confirmQty", rowspan:"2", title:"Jumlah<br/>Confirm" ,
+                cellStyle: (value, row, index, field) => {
+                    return { css: { "background": "transparent" } };
+                }, 
+            },
+            { field:"deliveryDate", rowspan:"2", title:"Tanggal<br/>Pengiriman<br/>(booking)" ,
+                cellStyle: (value, row, index, field) => {
+                    return { css: { "background": "transparent" } };
+                }, 
+            },
+            { colspan:"9", title:"Jadwal Pengerjaan" },
+        ],
+        [
             { field: 'workingComodity', title: 'Komoditi' },
             { field: 'smv', title: 'SMV' },
             { field: 'unit', title: 'Unit' },
             { field: 'year', title: 'Tahun' },
-            { field: 'week', title: 'Week<br>(Pengerjaan)' },
+            { field: 'week', title: 'Week' },
             { field: 'quantity', title: 'Jumlah' },
             { field: 'remark', title: 'Ket' },
-            { field: 'workingDeliveryDate', title: 'Tgl Pengiriman<br>(Pengerjaan)' },
+            { field: 'workingDeliveryDate', title: 'Tgl Pengiriman' },
             { field: 'status', title: 'Status<br/>Confirm' }
-        ];
+        ]];
 
         var bootstrapTableOptions = {
             undefinedText: '',
             columns: columns,
             data: this.data,
+            rowStyle:this.rowFormatter
         };
 
         bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
@@ -157,7 +189,7 @@ export class List {
         for (const rowIndex in this.data) {
             if(this.data[rowIndex].bookingOrderNo) {
                 var rowSpan=this.data[rowIndex].row_count;
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "bookingOrderNo", rowspan: rowSpan, colspan: 1 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "bookingOrderNo", rowspan: rowSpan, colspan: 1, rowFormatter:"red" });
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "bookingOrderDate", rowspan: rowSpan, colspan: 1 });
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "buyer", rowspan: rowSpan, colspan: 1 });
                 $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "orderQuantity", rowspan: rowSpan, colspan: 1 });
