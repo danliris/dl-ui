@@ -3,6 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = "journal-transactions";
+const subLedgerReportServiceUri = 'journal-transactions/report/sub-ledgers';
 
 export class Service extends RestService {
 
@@ -43,5 +44,20 @@ export class Service extends RestService {
     posting(data) {
         let endpoint = `${serviceUri}/posting-transaction/${data.Id}`;
         return super.put(endpoint);
+    }
+
+    postingUpdateCOA(data) {
+        let endpoint = `${serviceUri}/posting-transaction-update-coa/${data.Id}`;
+        return super.put(endpoint, data);
+    }
+
+    getMonths() {
+        let endpoint = `${subLedgerReportServiceUri}/options/months`;
+        return super.list(endpoint);
+    }
+
+    getUnpostedTransactions(month, year) {
+        let endpoint = `${serviceUri}/unposted-transactions?month=${month}&year=${year}`;
+        return super.list(endpoint);
     }
 }

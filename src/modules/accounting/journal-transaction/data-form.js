@@ -37,8 +37,6 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
-
-        console.log(this);
     }
 
     columns = [
