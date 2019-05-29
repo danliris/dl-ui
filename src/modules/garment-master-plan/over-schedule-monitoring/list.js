@@ -56,9 +56,9 @@ export class List {
             dateDeliveryTo: this.dateDeliveryTo ? moment(this.dateDeliveryTo).format("YYYY-MM-DD") : ""
         }
 
-        info.filter=JSON.stringify(filter);
+        this.args.filter=JSON.stringify(filter);
 
-        this.service.search(info)
+        this.service.search(this.args)
 
             .then(result => {
                 this.data = result.data;

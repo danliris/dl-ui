@@ -98,9 +98,9 @@ export class List {
             info.page= this.args.page;
             info.size= this.args.size;
 
-            info.filter=JSON.stringify(info);
+            this.args.filter=JSON.stringify(info);
 
-            this.service.search(info)
+            this.service.search(this.args)
             .then(result => {
                 this.data = result.data;
                 console.log(result)
