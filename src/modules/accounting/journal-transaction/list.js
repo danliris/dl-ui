@@ -58,4 +58,8 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    post() {
+        this.router.navigateToRoute('post');
+    }
 }

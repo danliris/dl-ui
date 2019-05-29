@@ -89,12 +89,10 @@ export class List {
     }
 
     async bind() {
-        console.log("hello");
         this.info.year = (new Date()).getFullYear();
         for (var i = this.info.year; i > 2010; i--) {
             this.yearOptions.push(i);
         }
-
 
         let monthResult = await this.service.getMonths();
         this.monthOptions = monthResult.data;
@@ -113,19 +111,15 @@ export class List {
             this.error.COA = "COA harus diisi";
         } else {
             this.error = {};
-            // this.data = this.apiResult.info;
 
             let query = {
                 month: this.info.month.MonthNumber,
                 year: this.info.year,
                 coaId: this.info.COA.Id
             }
-            // console.log(query);
 
             let apiResult = await this.service.search(query);
             this.data = apiResult.data.Info
-
-            // console.log(data);
 
             this.initialBalance = apiResult.data.InitialBalance;
             this.closingBalance = apiResult.data.ClosingBalance;
