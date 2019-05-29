@@ -13,8 +13,8 @@ export class Service extends RestService {
     }
 
     search(info) { 
-        var endpoint = `${serviceUri}?filter=${info}`;
-        return super.get(endpoint);
+        var endpoint = `${serviceUri}`;
+        return super.list(endpoint,info);
         
     }
     

@@ -43,6 +43,9 @@ export class List {
         let info = {
             page: this.args.page,
             size: this.args.size,
+        }
+
+        let filter={
             section: this.section ? this.section.Code : "",
             bookingCode: this.no ? this.no.BookingOrderNo : "",
             buyer: this.buyerCode ? this.buyerCode.Code : "",
@@ -52,12 +55,14 @@ export class List {
             dateDeliveryFrom: this.dateDeliveryFrom ? moment(this.dateDeliveryFrom).format("YYYY-MM-DD") : "",
             dateDeliveryTo: this.dateDeliveryTo ? moment(this.dateDeliveryTo).format("YYYY-MM-DD") : ""
         }
-        this.service.search(JSON.stringify(info))
+
+        info.filter=JSON.stringify(filter);
+
+        this.service.search(info)
 
             .then(result => {
-                this.data = result;
-                this.args.total = result.length;
-                console.log(this.args)
+                this.data = result.data;
+                this.args.total = result.info.total;
                 var temp = [];
                 var count = 0;
                 for (var item of this.data) {
