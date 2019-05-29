@@ -101,6 +101,7 @@ export class List {
         .then(result => {
         this.data = result;
         var temp = [];
+        this.args.total = result.length;
                 var count = 0;
                 for (var item of this.data) {
                     if (!temp[item.bookingOrderNo]) {
