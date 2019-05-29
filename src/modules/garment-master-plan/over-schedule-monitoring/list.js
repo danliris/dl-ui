@@ -56,6 +56,8 @@ export class List {
 
             .then(result => {
                 this.data = result;
+                this.args.total = result.length;
+                console.log(this.args)
                 var temp = [];
                 var count = 0;
                 for (var item of this.data) {
