@@ -1,127 +1,125 @@
 <template>
-    <!--<au-input-form title.bind="title" with.bind="context">-->
-        <style>
-            table>tbody>tr>td {
-                white-space: pre;
-            }
-        </style>
+    <h1 class="page-header">Monitoring Surat Jalan</h1>
+    <form class="form-horizontal">
+        <!-- <delivery-order-auto-suggest label="No. Surat Jalan" value.bind="no"></delivery-order-auto-suggest> -->
+        <au-autocomplete 
+            value.bind="no" 
+            label="No. Surat Jalan" 
+            loader.bind="dOLoader"
+            placeholder="cari nomor SJ" 
+            key="_id"
+            options.bind="controlOptions">
+        </au-autocomplete>
 
-        <h1 class="page-header">Monitoring Surat Jalan All User</h1>
-        <form class="form-horizontal">
-
-            <au-autocomplete 
-                value.bind="deliveryOrder" 
-                label="Nomor Surat Jalan" 
-                loader.bind="deliveryOrderLoader"
-                placeholder="Cari Nomor Surat Jalan" 
-                read-only.bind="readOnly" 
-                key="_id" 
-                text="no"
-                options.bind="controlOptions">
-            </au-autocomplete>
-
-            <au-autocomplete 
+   <au-autocomplete 
                 value.bind="purchaseOrderExternal" 
                 label="Nomor PO Eksternal" 
                 loader.bind="poEksLoader"
                 placeholder="Cari Nomor PO Eksternal" 
                 read-only.bind="readOnly" 
                 key="_id" 
-                text="no"
+                text="EPONo"
                 options.bind="controlOptions">
             </au-autocomplete>
+            
+        <au-autocomplete 
+            value.bind="supplier" 
+            label="Supplier" 
+            loader.bind="supplierLoader"
+            placeholder="cari supplier" 
+            key="code" 
+            options.bind="controlOptions">
+        </au-autocomplete>
+        <!-- <supplier-auto-suggest label="Supplier" value.bind="supplierId"></supplier-auto-suggest> -->
+        <au-datepicker
+            value.bind="dateFrom"
+            label="Dari Tgl"
+            options.bind="controlOptions"
+            error.bind="error.date">
+        </au-datepicker>
+        
+        <au-datepicker
+            value.bind="dateTo"
+            label="Sampai Tgl"
+            options.bind="controlOptions"
+            error.bind="error.date">
+        </au-datepicker>
 
-            <au-autocomplete 
-                value.bind="supplier" 
-                label="Supplier" 
-                loader.bind="supplierLoader"
-                placeholder="Cari Supplier" 
-                read-only.bind="readOnly" 
-                key="_id" 
-                text="name"
-                options.bind="controlOptions">
-            </au-autocomplete>
-
-            <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
-            <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
-
-            <div class="form-group">
-                <label for="contact" class="col-sm-6 control-label"></label>
-                <div class="col-sm-3">
-                    <button click.delegate="searching()" class='btn btn-success'>Cari</button>
-                    <button click.delegate="reset()" class='btn btn-success'>Reset</button>
-                </div>
+        <!-- <datepicker label="Tanggal Awal" value.bind="dateFrom" change.delegate="dateFromChanged($event)"></datepicker>
+        <datepicker label="Tanggal Akhir" value.bind="dateTo" min.bind="dateFrom"></datepicker> -->
+        <div class="form-group">
+            <label for="contact" class="col-sm-5 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
+        </div>
 
-            <div class="btn-group pull-left">
-                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        <au-table
+            view-model.ref="doTable"
+            data.bind="loader"
+            columns.bind="columns"
+            sortable.bind="true"
+            page-size="25"
+            options.bind="tableOptions">
+            
+            <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="xls()">Cetak Excel</button>
             </div>
-        </form>
-
-        <br>
-        </br>
-
+        </au-table>
+        <hr/>
+    </form>
+</template>
+        <!-- <div >
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="myTable">
+            <table class="table table-bordered table-hover" border="1" id="doReport">
                 <thead align="center">
                     <tr>
-                        <td>No</td>
-                        <td>Nomor Surat Jalan</td>
-                        <td>Tanggal Surat Jalan</td>
-                        <td>Tanggal Tiba</td>
-                        <td>Supplier</td>
-                        <td>Jenis Supplier</td>
-                        <td>Pengiriman</td>
-                        <td>Nomor BL</td>
-                        <td>Dikenakan Bea Cukai</td>
-                        <td>Nomor PO Eksternal</td>
-                        <td>Nomor PR</td>
-                        <td>Nomor Referensi PR</td>
-                        <td>Nomor RO</td>
-                        <td>Kode Barang</td>
-                        <td>Nama Barang</td>
-                        <td>Jumlah Dipesan</td>
-                        <td>Jumlah Diterima</td>
-                        <td>Satuan</td>
-                        <td>Harga</td>
-                        <td>Mata Uang</td>
-                        <td>Keterangan</td>
-                        <td>Staff Pembelian</td>
+                        <td colspan="2">SUPPLIER</td>
+                        <td colspan="3">SURAT JALAN</td>
+                        <td rowspan="2">NO PO EXTERNAL</td>
+                        <td colspan="7">BARANG</td>
+                    </tr>
+                    <tr>
+                        <td>KODE</td>
+                        <td>NAMA</td>
+                        <td>NOMOR</td>
+                        <td>TANGGAL SURAT JALAN</td>
+                        <td>TANGGAL DATANG BARANG</td>
+                        <td>KODE</td>
+                        <td>NAMA</td>
+                        <td>DESKRIPSI</td>
+                        <td>JUMLAH YANG DIMINTA</td>
+                        <td>JUMLAH YANG DATANG</td>
+                        <td>SISA QTY</td>
+                        <td>SATUAN</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <require from="../../../lib/number-format-value-converter"></require>
-                    <tr repeat.for="item of data">
-                        <td>${$index + 1}</td>
-                        <td >${item.no}</td>
-                        <td >${item.doDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td >${item.arrivedDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td >${item.supplier}</td>
-                        <td >${item.supplierType}</td>
-                        <td >${item.shipmentType}</td>
-                        <td >${item.shipmentNo}</td>
-                        <td >${item.customs}</td>
-                        <td >${item.poEksNo}</td>
-                        <td >${item.prNo}</td>
-                        <td >${item.prRefNo}</td>
-                        <td >${item.roNo}</td>
-                        <td >${item.productCode}</td>
-                        <td >${item.productName}</td>
-                        <td >${item.qty}</td>
-                        <td >${item.delivered}</td>
-                        <td >${item.uom}</td>
-                        <td >${item.price}</td>
-                        <td >${item.currency}</td>
-                        <td >${item.remark}</td>
-                        <td >${item._createdBy}</td>
+                    <tr repeat.for="SJ of data">
+                        <td>${SJ['Kode Supplier']}</td>
+                        <td>${SJ['Nama Supplier']}</td>
+                        <td>${SJ['Nomor Surat Jalan']}</td>
+                        <td>${SJ['Tanggal Surat Jalan']}</td>
+                        <td>${SJ['Tanggal Datang Barang']}</td>
+                        <td>${SJ['Nomor PO Eksternal']}</td>
+                        <td>${SJ['Kode Barang']}</td>
+                        <td>${SJ['Nama Barang']}</td>
+                        <td>${SJ['Deskripsi Barang']}</td>
+                        <td align="right">${SJ['Jumlah Barang yang Diminta']}</td>
+                        <td align="right">${SJ['Jumlah Barang yang Datang']}</td>
+                        <td align="right">${SJ['Jumlah Sisa Barang']}</td>
+                        <td>${SJ['Satuan Barang']}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-            Tidak ada data.
+
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada data ditemukan.
         </div>
         <hr/>
-        </form>
-    </au-input-form>
-</template>
+    </form>
+</template> -->

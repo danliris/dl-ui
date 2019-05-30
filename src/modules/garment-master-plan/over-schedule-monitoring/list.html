@@ -66,28 +66,6 @@
     </br>
 
     <table ref="table" class="table table-bordered table-hover" border="1" id="myTable">
-        <thead align="center">
-            <tr>
-                <th data-field="bookingCode" rowspan="2">No.<br/>Booking<br/>Order</th>
-                <th data-field="bookingDate" rowspan="2">Tanggal<br/>Booking</th>
-                <th data-field="buyer" rowspan="2">Buyer</th>
-                <th data-field="bookingOrderQty" rowspan="2">Jumlah<br/>Order</th>
-                <th data-field="confirmQty" rowspan="2">Jumlah<br/>Confirm</th>
-                <th data-field="bookingDeliveryDate" rowspan="2">Tanggal<br/>Pengiriman<br/>(booking)</th>
-                <th colspan="9">Jadwal Pengerjaan</th>
-            </tr>
-            <tr>
-                <th data-field="comodity">Komoditi</th>
-                <th data-field="smv">SMV</th>
-                <th data-field="unit">Unit</th>
-                <th data-field="year">Tahun</th>
-                <th data-field="week">Week</th>
-                <th data-field="quantity">Jumlah</th>
-                <th data-field="remark">Keterangan</th>
-                <th data-field="deliveryDate">Tanggal Pengiriman</th>
-                <th data-field="usedEH">Used<br/>EH</th>
-            </tr>
-        </thead>
     </table>
 
     <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">

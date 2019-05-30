@@ -17,22 +17,22 @@ export class ShipmentItem {
         this.options = context.options;
         this.context = context.context;
 
-        if (!this.data && !this.data.weight) {
-            this.data.weight = 0;
+        if (!this.data && !this.data.Weight) {
+            this.data.Weight = 0;
         }
-        if (!this.data && !this.data.length) {
-            this.data.length = 0;
+        if (!this.data && !this.data.Length) {
+            this.data.Length = 0;
         }
     }
 
-    @computedFrom("data.quantity", "data.weight")
+    @computedFrom("data.Quantity", "data.Weight")
     get weightTotal() {
-        return (this.data.weight * this.data.quantity).toFixed(2);
+        return (this.data.Weight * this.data.Quantity).toFixed(2);
     }
 
-    @computedFrom("data.quantity", "data.weight")
+    @computedFrom("data.Quantity", "data.Weight")
     get lengthTotal() {
-        return (this.data.length * this.data.quantity).toFixed(2);
+        return (this.data.Length * this.data.Quantity).toFixed(2);
     }
 
     removeItems() {
