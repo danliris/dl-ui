@@ -112,10 +112,10 @@ export class Create {
     this.service.getShiftByTime(newValue)
       .then(result => {
         // if (result) {
-          this.error.Shift = "";
-          this.Shift = {};
-          this.Shift = result;
-          this.data.Details.ShiftDocumentId = this.Shift.Id;
+        this.error.Shift = "";
+        this.Shift = {};
+        this.Shift = result;
+        this.data.Details.ShiftDocumentId = this.Shift.Id;
         // }
       })
       .catch(e => {
@@ -147,7 +147,7 @@ export class Create {
 
     if (this.BeamsWarping) {
       if (this.BeamsWarping.length > 0) {
-        this.data.WarpingBeamCollectionDocumentId = [];
+        this.data.WarpingBeamsId = [];
         for (let beam of this.BeamsWarping) {
           // if (beam.BeamDocument && beam.BeamDocument.Id && beam.BeamDocument.EmptyWeight != 0) {
           //   this.data.WarpingBeamCollectionDocumentId.push(this.beamDetail(beam));
@@ -170,16 +170,19 @@ export class Create {
   // }
 
   saveCallback(event) {
-    this.data.WarpingBeamCollectionDocumentId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
-
-    debugger;
+    this.BeamId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
+    this.BeamId.forEach(id => {
+      var BeamId = id;
+      this.data.WarpingBeamsId.push(BeamId);
+    });
 
     this.data.MachineDocumentId = this.MachineDocument.Id;
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
     this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
     this.data.Details.OperatorDocumentId = this.OperatorDocument.Id;
-
-    console.log(this.data);
+    // debugger;
+    // var formatDate = this.data.Details.History.MachineDate.split(" ");
+    // this.data.Details.History.MachineDate = new Date(formatDate[2], formatDate[1] - 1, formatDate[0]);
 
     this.service
       .create(this.data)

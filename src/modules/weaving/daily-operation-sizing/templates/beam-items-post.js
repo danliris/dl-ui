@@ -9,7 +9,7 @@ import {
 var BeamLoader = require("../../../../loader/weaving-beam-loader");
 
 @inject(BindingEngine, Service)
-export class BeamItems {
+export class BeamItemsPost {
   // @bindable BeamDocument;
 
   constructor(bindingEngine, service) {
@@ -38,9 +38,4 @@ export class BeamItems {
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
-
-  // async BeamDocumentChanged(newValue) {
-  //   this.data.BeamDocument = newValue;
-  //   this.data.WarpingBeamCollectionDocumentId = newValue.Id;
-  // }
 }

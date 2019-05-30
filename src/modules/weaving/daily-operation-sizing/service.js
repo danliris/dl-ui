@@ -62,22 +62,28 @@ export class Service extends RestService {
   //   return super.put(endpoint, data);
   // }
 
-  updatePauseEntry(Id) {
+  updateStartEntry(Id, data) {
+    status = "start";
+    var endpoint = `${serviceUri}/${Id}/${status}`;
+    return super.put(endpoint, data);
+  }
+
+  updatePauseEntry(Id, data) {
     status = "pause";
     var endpoint = `${serviceUri}/${Id}/${status}`;
-    return super.get(endpoint);
+    return super.put(endpoint, data);
   }
 
-  updateResumeEntry(Id) {
+  updateResumeEntry(Id, data) {
     status = "resume";
     var endpoint = `${serviceUri}/${Id}/${status}`;
-    return super.get(endpoint);
+    return super.put(endpoint, data);
   }
 
-  updateDoffEntry(Id) {
+  updateDoffEntry(Id, data) {
     status = "doff";
     var endpoint = `${serviceUri}/${Id}/${status}`;
-    return super.get(endpoint);
+    return super.put(endpoint, data);
   }
 
   // delete(data) {
