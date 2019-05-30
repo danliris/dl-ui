@@ -56,7 +56,7 @@ export class DataForm {
             this.data.storageName = this.selectedStorage.name;
         }
         else {
-            this.data.storageId = {};
+            this.data.storageId = 0;
             this.data.storageCode = "";
             this.data.storageName = "";
         }
