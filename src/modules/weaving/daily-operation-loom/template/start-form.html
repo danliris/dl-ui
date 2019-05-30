@@ -36,7 +36,7 @@
                     <textbox label="Shift" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox placeholder="Shift" value.bind="data.ShiftName" error.bind="error.GroupLoom"
+                    <au-textbox placeholder="Shift" value.bind="data.StartShiftName" error.bind="error.GroupLoom"
                         read-only.bind="true">
                     </au-textbox>
                 </div>
@@ -47,7 +47,7 @@
                     <textbox label="Operator" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Operator" value.bind="Operator" error.bind="error.Operator"
+                    <au-autocomplete placeholder="Cari Operator" value.bind="OnStartOperator" error.bind="error.OnStartOperator"
                         read-only.bind="readOnly" options.bind="customOptions" loader.bind="Operators" text="Username">
                     </au-autocomplete>
                 </div>

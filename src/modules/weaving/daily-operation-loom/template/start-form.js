@@ -10,7 +10,7 @@ export class StartForm {
     @bindable OrderProduction;
     @bindable StartTime;
     @bindable Beam;
-    @bindable Operator;
+    @bindable OnStartOperator;
 
     constructor(service, router) {
 
@@ -32,21 +32,21 @@ export class StartForm {
     }
 
     //bindable method
-    OperatorChanged(newValue) {
+    OnStartOperatorChanged(newValue) {
 
         if (newValue) {
 
             if (newValue.Id && newValue.Assignment == "AJL") {
 
-                if (this.error.Operator) {
-                    this.error.Operator = "";
+                if (this.error.OnStartOperator) {
+                    this.error.OnStartOperator = "";
                 }
 
                 this.data.OperatorId = newValue.Id;
 
             } else {
 
-                this.error.Operator = " Bukan Operator AJL ";
+                this.error.OnStartOperator = " Bukan Operator AJL ";
             }
         }
     }
@@ -65,7 +65,7 @@ export class StartForm {
         this.service.getShiftByTime(newValue)
         .then(result => {
 
-            this.data.ShiftName = result.Name;
+            this.data.StartShiftName = result.Name;
             this.data.ShiftId = result.Id;
         });
     }

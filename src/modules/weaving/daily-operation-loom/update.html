@@ -23,7 +23,7 @@
                 <textbox label="Unit Weaving" read-only="true"></textbox>
             </div>
             <div class="col-md-2">
-                <au-textbox placeholder="Cari Unit" value.bind="data.WeavingUnit" read-only.bind="true">
+                <au-textbox placeholder="Cari Unit" value.bind="data.WeavingUnit.Name" read-only.bind="true">
                 </au-textbox>
             </div>
         </div>
@@ -93,8 +93,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                     <div class="card-body">
                         <au-collection
-                            items.bind="data.loomHistory"
-                            error.bind="error.loomHistory"
+                            items.bind="data.LoomHistory"
+                            error.bind="error.LoomHistory"
                             columns.bind="loomHistory"
                             options.bind="loomHistoryTableOptions"
                             read-only.bind="readOnly"
@@ -104,9 +104,13 @@
                 </div>
             </div>
         </div>
+
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="onBack($event)" >Kembali</button>
+        </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for update history form -->
     <div class="modal fade" id="Mulai" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

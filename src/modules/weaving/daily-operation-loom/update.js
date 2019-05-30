@@ -13,99 +13,96 @@ export class Update {
     }
 
     loomHistory = [
-        { header: "Tanggal", value: "DateOrdered" },
-        { header: "No. SOP", value: "OrderNumber" },
-        { header: "No. Konstruksi", value: "ConstructionNumber"},
-        { header: "Total Gram", value: "TotalGramEstimation" },
-        { header: "Jumlah Order(Meter)", value: "WholeGrade" }
+        { header: "Tanggal", value: "DateOperation" },
+        { header: "Waktu", value: "TimeOperation" },
+        { header: "Operator", value: "BeamOperatorName" },
+        { header: "Group", value: "BeamOperatorGroup" },
+        { header: "Status", value: "OperationStatus" }
       ];
 
     async activate(params) {
         var Id = params.Id;
         var dataResult;
 
-        //Test Data
-        this.data = {
-            OperationDate: moment(new Date("12/3/2018")),
-            WeavingUnit: "testUnit",
-            OrderNumber: "Test Number",
-            MachineNumber: "007",
-            FabricConstructionNumber: "Test Number"
-        };
+        this.data = await this.service.getById(Id)
+            .then(result => {
+                dataResult = result;
+                return this.service.getUnitById(result.WeavingUnit);
+            })
+            .then(unit => {
 
+                if (unit) {
+                    dataResult.WeavingUnit = unit;
+                }
 
+                return dataResult;
+            });
 
-        // this.data = await this.service.getById(Id)
-        //     .then(result => {
-        //         dataResult = result;
-        //         return this.service.getUnitById(result.UnitDepartementId);
-        //     })
-        //     .then(unit => {
+        if (this.data.LoomHistory.length > 0) {
+            var result = this.data.LoomHistory.map( item => {
+                var DateOperation = moment(new Date(item.DateTimeOperation)).format('DD/MM/YYYY');
+                var TimeOperation =  moment(new Date(item.DateTimeOperation)).format('LT');
 
-        //         if (unit) {
-        //             dataResult.WeavingUnit = unit;
-        //         }
+                item.DateOperation = DateOperation;
+                item.TimeOperation = TimeOperation;
 
-        //         return dataResult;
-        //     });
+                return item;
+            });
+
+            this.data.LoomHistory = result;
+        }
     }
 
     start() {
         $("#Mulai").modal('hide');
-        console.log(this.data);
         this.error = {};
-        var startDataDummy = {
-            DateOrdered :  moment(new Date("12/3/2018")),
-            OrderNumber : '12131411',
-            ConstructionNumber : '231313213',
-            TotalGramEstimation : 120000,
-            WholeGrade : 990000
-        }
 
-        this.data.loomHistory.push(startDataDummy);
-
-        // this.service
-        //     .updateForStartProcess(this.data)
-        //     .then(result => {
+        this.service
+            .updateForStartProcess(this.data)
+            .then(result => {
                 
-                
-        //         // Refereshing list of history
-        //     });
+                this.data.LoomHistory = [];
+                this.data.LoomHistory = result;
+            });
     }
 
     stop() {
         $("#Berhenti").modal('hide');
-        console.log(this.data);
         this.error = {};
 
         this.service
             .updateForStopProcess(this.data)
             .then(result => {
-                // Refereshing list of history
+                this.data.LoomHistory = [];
+                this.data.LoomHistory = result;
             });
     }
 
     resume() {
         $("#Melanjutkan").modal('hide');
-        console.log(this.data);
         this.error = {};
 
         this.service
             .updateForResumeProcess(this.data)
             .then(result => {
-                // Refereshing list of history
+                this.data.LoomHistory = [];
+                this.data.LoomHistory = result;
             });
     }
 
     finish() {
         $("#Melanjutkan").modal('hide');
-        console.log(this.data);
         this.error = {};
 
         this.service
             .updateForFinishProcess(this.data)
             .then(result => {
-                // Refereshing list of history
+                this.data.LoomHistory = [];
+                this.data.LoomHistory = result;
             });
+    }
+
+    onBack(event) {
+        this.router.navigateToRoute("list");
     }
 }
