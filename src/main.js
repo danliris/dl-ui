@@ -88,6 +88,7 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 5;
     })
     .plugin('aurelia-dragula')
+    .plugin('aurelia-bootstrap')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.
