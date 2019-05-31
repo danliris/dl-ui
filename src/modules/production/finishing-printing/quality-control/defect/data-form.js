@@ -311,7 +311,7 @@ export class DataForm {
     }
     selectedPcsNoChanged() {
         if (this.selectedFabricGradeTest) {
-            this.selectedFabricGradeTest.pcsNo = this.selectedPcsNo;
+            this.selectedFabricGradeTest.PcsNo = this.selectedPcsNo;
             this.fabricGradeTestTable.refresh();
             this.totalTable.refresh();
         }
@@ -440,6 +440,21 @@ export class DataForm {
                 }
                 // })
             }
+            if(!this.data.Id){
+                
+                this.data.FabricGradeTests = [];
+                if(this.selectedFabricGradeTest){
+                    this.selectedPcsNo = null;
+                    this.selectedPcsLength = 0;
+                    this.selectedPcsWidth = 0;
+
+                    this.selectedFabricGradeTest.Criteria = [];
+                }
+                this.computeGrade(this.selectedFabricGradeTest);
+                this.fabricGradeTestTable.refresh();
+                this.totalTable.refresh();
+            }
+                
         }
         else
             this.data.KanbanId = null;
@@ -472,7 +487,7 @@ class FabricGradeTest {
 
         this.FabricGradeTest = 0;
 
-        this.Criteria = [].concat(generalCriteria(), this.type === "PRINTING" ? printingCriteria() : finishingCriteria());
+        this.Criteria = [].concat(generalCriteria(), this.Type === "PRINTING" ? printingCriteria() : finishingCriteria());
     }
 }
 
