@@ -7,7 +7,8 @@ var Operator = require("../../../../loader/weaving-operator-loader");
 export class StopForm {
     @bindable title;
     @bindable readOnly;
-    @bindable StopTime
+    @bindable StopTime;
+    @bindable OnStopOperator;
 
     constructor(service, router) {
         this.service = service;
@@ -26,12 +27,33 @@ export class StopForm {
     }
 
     //bindable method
+
+    OnStopOperatorChanged(newValue) {
+
+        if (newValue) {
+
+            if (newValue.Id && newValue.Assignment == "AJL") {
+
+                if (this.error.OnStopOperator) {
+                    this.error.OnStopOperator = "";
+                }
+
+                this.data.OperatorId = newValue.Id;
+
+            } else {
+
+                this.error.OnStopOperator = " Bukan Operator AJL ";
+            }
+        }
+    }
+
     StopTimeChanged(newValue) {
         console.log(newValue);
-        this.data.StartTime = newValue;
+        this.data.StopTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {
-            this.data.Shift = result;
+            this.data.StopShiftName = result.Name;
+            this.data.ShiftId = result.Id;
         });
     }
 }

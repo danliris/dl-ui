@@ -7,7 +7,8 @@ var Operator = require("../../../../loader/weaving-operator-loader");
 export class FinishForm {
     @bindable title;
     @bindable readOnly;
-    @bindable FinishTime
+    @bindable FinishTime;
+    @bindable OnFinishOperator;
 
     constructor(service, router) {
         this.service = service;
@@ -26,12 +27,32 @@ export class FinishForm {
     }
 
     //bindable method
+    OnFinishOperatorChanged(newValue) {
+
+        if (newValue) {
+
+            if (newValue.Id && newValue.Assignment == "AJL") {
+
+                if (this.error.OnFinishOperator) {
+                    this.error.OnFinishOperator = "";
+                }
+
+                this.data.OperatorId = newValue.Id;
+
+            } else {
+
+                this.error.OnFinishOperator = " Bukan Operator AJL ";
+            }
+        }
+    }
+    
     FinishTimeChanged(newValue) {
         console.log(newValue);
-        this.data.StartTime = newValue;
+        this.data.FinishTime = newValue;
         this.service.getShiftByTime(newValue)
-        .then(result => {
-            this.data.Shift = result;
-        });
+            .then(result => {
+                this.data.FinishShiftName = result.Name;
+                this.data.ShiftId = result.Id;
+            });
     }
 }
