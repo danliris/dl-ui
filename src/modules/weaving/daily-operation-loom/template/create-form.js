@@ -5,6 +5,7 @@ var Operator = require("../../../../loader/weaving-operator-loader");
 var Unit = require("../../../../loader/unit-loader");
 var WeavingOrder = require("../../../../loader/weaving-order-loader");
 var Machine = require("../../../../loader/weaving-machine-loader");
+var Beam = require("../../../../loader/weaving-beam-loader");
 
 @inject(Service, Router)
 export class CreateForm {
@@ -17,6 +18,7 @@ export class CreateForm {
     @bindable WeavingUnit;
     @bindable PreparationTime;
     @bindable Machine;
+    @bindable Beam;
 
     constructor(service, router) {
 
@@ -37,6 +39,11 @@ export class CreateForm {
     }
 
     // Bindable Method
+    BeamChanged(newValue) {
+        if (newValue) {
+            this.data.BeamId = newValue.Id;
+        }
+    }
 
     WeavingUnitChanged(newValue) {
 
@@ -98,6 +105,8 @@ export class CreateForm {
 
             if (newValue.Id) {
                 this.data.OrderId = newValue.Id;
+                this.data.WarpOrigin = newValue.WarpOrigin;
+                this.data.WeftOrigin = newValue.WeftOrigin;
             }
         }
     }
@@ -121,5 +130,9 @@ export class CreateForm {
     get Machines() {
 
         return Machine;
+    }
+
+    get Beams() {
+        return Beam;
     }
 }

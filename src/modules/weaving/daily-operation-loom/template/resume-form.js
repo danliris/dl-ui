@@ -7,7 +7,8 @@ var Operator = require("../../../../loader/weaving-operator-loader");
 export class ResumeForm {
     @bindable title;
     @bindable readOnly;
-    @bindable ResumeTime
+    @bindable ResumeTime;
+    @bindable OnResumeOperator;
 
     constructor(service, router) {
         this.service = service;
@@ -25,13 +26,33 @@ export class ResumeForm {
         return Operator;
     }
 
+    OnResumeOperatorChanged(newValue) {
+
+        if (newValue) {
+
+            if (newValue.Id && newValue.Assignment == "AJL") {
+
+                if (this.error.OnResumeOperator) {
+                    this.error.OnResumeOperator = "";
+                }
+
+                this.data.OperatorId = newValue.Id;
+
+            } else {
+
+                this.error.OnResumeOperator = " Bukan Operator AJL ";
+            }
+        }
+    }
+
     //bindable method
     ResumeTimeChanged(newValue) {
         console.log(newValue);
-        this.data.StartTime = newValue;
+        this.data.ResumeTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {
-            this.data.Shift = result;
+            this.data.ResumeShiftName = result.Name;
+            this.data.ShiftId - result.Id;
         });
     }
 }

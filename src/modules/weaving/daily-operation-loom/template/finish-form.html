@@ -13,7 +13,7 @@
                     </div>
     
                     <div class="col-md-2" style="text-align:left;">
-                        <textbox label="Waktu Melanjutkan" read-only="true" style="display: inline-block"></textbox>
+                        <textbox label="Waktu Selesai" read-only="true" style="display: inline-block"></textbox>
                     </div>
                     <div class="col-md-2">
                         <input value.bind="FinishTime" type="time" error.bind="error.FinishTime" read-only.bind="readOnly">
@@ -25,7 +25,7 @@
                         <textbox label="Shift" read-only="true"></textbox>
                     </div>
                     <div class="col-md-2">
-                        <au-textbox placeholder="Shift" value.bind="data.Shift.Name" error.bind="error.GroupLoom"
+                        <au-textbox placeholder="Shift" value.bind="data.FinishShiftName" error.bind="error.GroupLoom"
                             read-only.bind="true">
                         </au-textbox>
                     </div>
@@ -36,8 +36,8 @@
                         <textbox label="Operator" read-only="true"></textbox>
                     </div>
                     <div class="col-md-2">
-                        <au-autocomplete placeholder="Cari Operator" value.bind="Operator" error.bind="error.Operator"
-                            read-only.bind="readOnly" options.bind="customOptions" loader.bind="Operators" text="Name">
+                        <au-autocomplete placeholder="Cari Operator" value.bind="OnFinishOperator" error.bind="error.OnFinishOperator"
+                            read-only.bind="readOnly" options.bind="customOptions" loader.bind="Operators" text="Username">
                         </au-autocomplete>
                     </div>
     
