@@ -170,6 +170,12 @@ export class Create {
   // }
 
   saveCallback(event) {
+    // this.error = {};
+    // if(this.data.Weight.Netto == "" || this.data.Weight.Netto == 0 || this.data.Weight.Netto == null || this.data.Weight.Netto == undefined){
+    //   e.Netto = "Counter Awal Harus Diisi";
+    //   this.error = e;
+    // }
+
     this.BeamId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
     this.BeamId.forEach(id => {
       var BeamId = id;

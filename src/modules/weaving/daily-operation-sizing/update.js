@@ -259,8 +259,6 @@ export class Update {
   }
 
   saveResume() {
-    debugger;
-    
     var IdContainer = this.data.Id;
     var HistoryDateContainer = this.ResumeDate;
     var HistoryTimeContainer = this.ResumeTime;
@@ -300,8 +298,6 @@ export class Update {
   }  
 
   saveDoff() {
-    debugger;
-    
     var IdContainer = this.data.Id;
     var FinishCounterContainer = this.DoffFinishCounter;
     var BrutoWeightContainer = this.DoffBrutoWeight;
