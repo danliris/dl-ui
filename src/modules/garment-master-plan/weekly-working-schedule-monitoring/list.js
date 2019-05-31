@@ -85,23 +85,27 @@ export class List {
         alert("Tahun Harus Diisi");
         }
         else {
-        let info = {
-            year: this.year.year
-        }
-        if (this.week) {
-            info.week = this.week.WeekNumber
-        }
-        
-        let yr = {
-            Year:this.year.year
-        };
-      
-      
-    this.service.search(JSON.stringify(info))
-        .then(result => {
-        this.data = result;
-        var temp = [];
-        this.args.total = result.length;
+            let info = {
+                year: this.year.year
+            }
+            if (this.week) {
+                info.week = this.week.WeekNumber
+            }
+            
+            let yr = {
+                Year:this.year.year
+            };
+            info.page= this.args.page;
+            info.size= this.args.size;
+
+            this.args.filter=JSON.stringify(info);
+
+            this.service.search(this.args)
+            .then(result => {
+                this.data = result.data;
+                console.log(result)
+                var temp = [];
+                this.args.total = result.info.total;
                 var count = 0;
                 for (var item of this.data) {
                     if (!temp[item.bookingOrderNo]) {
