@@ -1,7 +1,7 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
-// import moment from "moment";
+import moment from "moment";
 
 @inject(Router, Service)
 export class List {
@@ -12,6 +12,7 @@ export class List {
 
     context = ["Update"];
     columns = [
+        {field: "DailyOperationNumber", title: "No Operasi Harian"},
         {
             field: "DateOperated",
             title: "Tanggal Produksi",
@@ -26,14 +27,13 @@ export class List {
             valign: "top",
             formatter: function (value, data, index) {
                 if (value) {
+                    console.log(value);
                     return value.Name;
                 } else {
                     return "-";
                 }
             }
         },
-        { field: "MachineNumber", title: "No Mesin Produksi" },
-        { field: "UnitName", title: "Unit" },
         { field: "DailyOperationStatus", title: "Status Produksi" }
     ];
 
@@ -59,12 +59,12 @@ export class List {
                     for (var datum of result.data) {
                         if (units && units.length > 0) {
                             let unit = units.find(
-                                unitResult => datum.WeavingUnit == unitResult.Id
+                                unitResult => datum.UnitId == unitResult.Id
                             );
                             datum.WeavingUnit = unit;
                         }
                     }
-
+                    
                     return {
                         total: result.info.total,
                         data: result.data
@@ -84,7 +84,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Update":
-                this.router.navigateToRoute("view", { Id: data.Id });
+                this.router.navigateToRoute("update", { Id: data.Id });
                 break;
         }
     }

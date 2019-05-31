@@ -223,6 +223,20 @@ module.exports = [
             permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+
+    {
+        route: '/garment-master-plan/weekly-working-schedule-monitoring',
+        name: 'weekly-working-schedule-monitoring',
+        moduleId: './modules/garment-master-plan/weekly-working-schedule-monitoring/index',
+        nav: true,
+        title: 'Monitoring Jadwal Pengerjaan Per Week',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 
 ]

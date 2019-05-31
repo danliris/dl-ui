@@ -53,13 +53,11 @@ export class DataForm {
                 this.data.customType = selectedBeacukai.BCType;
                 this.data.billNo=selectedBeacukai.BonNo;
                 this.context.beacukaiAU.editorValue="";
-                console.log(selectedBeacukai);
             }else {
                 this.data.beacukaiDate = null;
                 this.data.beacukaiNo = null;
                 this.data.customType=null;
                 this.data.billNo="";
-                console.log("dsdsds");
             }
         //     if (oldValue) {
         //         this.data.beacukaiDate = null;
@@ -99,7 +97,6 @@ export class DataForm {
        }
     }
     bind(context) {
-        console.log(this.data.billNo);
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -177,7 +174,6 @@ export class DataForm {
     }
 
     valueChange(e){
-        console.log(e);
     }
     customsView = (customs) => {
        if(customs.BCNo)
@@ -220,7 +216,7 @@ export class DataForm {
         if (this.data.currency && this.data.currency.Id){
             this.data.currencyId = this.data.currency.Id;
             if(!this.hasView){
-                var result = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.Id}`, "currency" : `${this.data.currency.code}` });
+                var result = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.Id}`, "currency" : `${this.data.currency.code}`, "billNo" : this.data.billNo });
                 var dataDelivery = [];
               
                 for(var a of result.data){
