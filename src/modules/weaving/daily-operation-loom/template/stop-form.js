@@ -48,7 +48,6 @@ export class StopForm {
     }
 
     StopTimeChanged(newValue) {
-        console.log(newValue);
         this.data.StopTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {

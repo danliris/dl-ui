@@ -47,7 +47,6 @@ export class FinishForm {
     }
     
     FinishTimeChanged(newValue) {
-        console.log(newValue);
         this.data.FinishTime = newValue;
         this.service.getShiftByTime(newValue)
             .then(result => {
