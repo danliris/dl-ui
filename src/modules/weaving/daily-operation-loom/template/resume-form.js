@@ -47,12 +47,11 @@ export class ResumeForm {
 
     //bindable method
     ResumeTimeChanged(newValue) {
-        console.log(newValue);
         this.data.ResumeTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {
             this.data.ResumeShiftName = result.Name;
-            this.data.ShiftId - result.Id;
+            this.data.ShiftId = result.Id;
         });
     }
 }
