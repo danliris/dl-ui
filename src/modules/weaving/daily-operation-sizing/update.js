@@ -50,11 +50,15 @@ export class Update {
       header: "Putus"
     },
     {
-      value: "MachineDateHistory",
-      header: "Waktu"
+      value: "OperationDateHistory",
+      header: "Tanggal"
     },
     {
-      value: "MachineStatusHistory",
+      value: "OperationTimeHistory",
+      header: "Jam"
+    },
+    {
+      value: "OperationStatusHistory",
       header: "Status"
     },
     {
@@ -171,9 +175,8 @@ export class Update {
     this.data = {};
     this.data.Id = IdContainer;
     this.data.Details = {};
-    this.data.Details.History = {};
-    this.data.Details.History.MachineDate = HistoryDateContainer;
-    this.data.Details.History.MachineTime = HistoryTimeContainer;
+    this.data.Details.StartDate = HistoryDateContainer;
+    this.data.Details.StartTime = HistoryTimeContainer;
     this.data.Details.ShiftDocumentId = ShiftContainer.Id;
 
     this.service
@@ -226,10 +229,9 @@ export class Update {
     this.data = {};
     this.data.Id = IdContainer;
     this.data.Details = {};
-    this.data.Details.History = {};
-    this.data.Details.History.MachineDate = HistoryDateContainer;
-    this.data.Details.History.MachineTime = HistoryTimeContainer;
-    this.data.Details.History.Information = InformationContainer;
+    this.data.Details.PauseDate = HistoryDateContainer;
+    this.data.Details.PauseTime = HistoryTimeContainer;
+    this.data.Details.Information = InformationContainer;
     this.data.Details.ShiftDocumentId = ShiftContainer;
     this.data.Details.Causes = {};
     this.data.Details.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
@@ -245,17 +247,17 @@ export class Update {
       });
   }
 
-  ResumeTimeChanged(newValue){
+  ResumeTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
-    .then(result => {
-      this.error.ResumeShift = "";
-      this.ResumeShift = {};
-      this.ResumeShift = result;
-    })
-    .catch(e => {
-      this.ResumeShift = {};
-      this.error.ResumeShift = " Shift tidak ditemukan ";
-    });
+      .then(result => {
+        this.error.ResumeShift = "";
+        this.ResumeShift = {};
+        this.ResumeShift = result;
+      })
+      .catch(e => {
+        this.ResumeShift = {};
+        this.error.ResumeShift = " Shift tidak ditemukan ";
+      });
   }
 
   saveResume() {
@@ -268,9 +270,8 @@ export class Update {
     this.data = {};
     this.data.Id = IdContainer;
     this.data.Details = {};
-    this.data.Details.History = {};
-    this.data.Details.History.MachineDate = HistoryDateContainer;
-    this.data.Details.History.MachineTime = HistoryTimeContainer;
+    this.data.Details.ResumeDate = HistoryDateContainer;
+    this.data.Details.ResumeTime = HistoryTimeContainer;
     this.data.Details.ShiftDocumentId = ShiftContainer;
     this.data.Details.OperatorDocumentId = OperatorContainer;
 
@@ -284,18 +285,18 @@ export class Update {
       });
   }
 
-  DoffTimeChanged(newValue){
+  DoffTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
-    .then(result => {
-      this.error.DoffShift = "";
-      this.DoffShift = {};
-      this.DoffShift = result;
-    })
-    .catch(e => {
-      this.DoffShift = {};
-      this.error.DoffShift = " Shift tidak ditemukan ";
-    });
-  }  
+      .then(result => {
+        this.error.DoffShift = "";
+        this.DoffShift = {};
+        this.DoffShift = result;
+      })
+      .catch(e => {
+        this.DoffShift = {};
+        this.error.DoffShift = " Shift tidak ditemukan ";
+      });
+  }
 
   saveDoff() {
     var IdContainer = this.data.Id;
@@ -323,9 +324,8 @@ export class Update {
     this.data.SPU = SPUContainer;
     this.data.SizingBeamDocumentId = SizingBeamIdContainer;
     this.data.Details = {};
-    this.data.Details.History = {};
-    this.data.Details.History.MachineDate = HistoryDateContainer;
-    this.data.Details.History.MachineTime = HistoryTimeContainer;
+    this.data.Details.FinishDate = HistoryDateContainer;
+    this.data.Details.FinishTime = HistoryTimeContainer;
 
     this.service
       .updateDoffEntry(this.data.Id, this.data)

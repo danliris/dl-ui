@@ -6,8 +6,9 @@ import {
 import {
   Service
 } from "../service";
+import moment from "moment";
 
-var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
+// var ConstructionLoader = require("../../../../loader/weaving-constructions-loader");
 
 @inject(BindingEngine, Service)
 export class LogItems {
@@ -23,17 +24,13 @@ export class LogItems {
     this.data = context.data;
     this.error = context.error;
 
-    // if (this.data) {
-      // if (this.data.BrokenBeamCauses == "" || this.data.BrokenBeamCauses == 0) {
-      //   this.data.BrokenBeamCauses = 0;
-      // }
-      // if (this.data.MachineTroubledCauses == "" || this.data.MachineTroubledCauses == 0) {
-      //   this.data.MachineTroubledCauses = 0;
-      // }
-      // if (this.data.InformationHistory === "" || this.data.InformationHistory === null || this.data.InformationHistory === undefined) {
-      //   this.data.InformationHistory = "-";
-      // }
-    // }
+    if (this.data.DateTimeOperationHistory) {
+        var DateOperation = moment(this.data.DateTimeOperationHistory).format('DD/MM/YYYY');
+        var TimeOperation = moment(this.data.DateTimeOperationHistory).format('LT');
+  
+        this.data.OperationDateHistory = DateOperation;
+        this.data.OperationTimeHistory = TimeOperation;
+    }
 
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;

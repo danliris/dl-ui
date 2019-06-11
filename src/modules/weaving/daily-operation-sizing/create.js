@@ -52,7 +52,7 @@ export class Create {
 
     this.data = {};
     this.data.Details = {};
-    this.data.Details.History = {};
+    // this.data.Details.History = {};
     this.data.Weight = {};
     this.data.Weight.Netto = "";
     this.BeamsWarping = [];
@@ -108,7 +108,7 @@ export class Create {
   }
 
   EntryTimeChanged(newValue) {
-    this.data.Details.History.MachineTime = newValue;
+    this.data.Details.PreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
         // if (result) {
@@ -189,7 +189,7 @@ export class Create {
     // debugger;
     // var formatDate = this.data.Details.History.MachineDate.split(" ");
     // this.data.Details.History.MachineDate = new Date(formatDate[2], formatDate[1] - 1, formatDate[0]);
-
+    
     this.service
       .create(this.data)
       .then(result => {

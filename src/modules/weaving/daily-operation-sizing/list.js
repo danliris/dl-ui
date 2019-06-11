@@ -14,11 +14,11 @@ export class List {
   context = ["detail"];
 
   columns = [{
-      field: "ProductionDate",
-      title: "Tanggal",
-      formatter: function (value, data, index) {
-        return moment(value).format("DD MMMM YYYY");
-      }
+      field: "OperationDateHistory",
+      title: "Tanggal"
+    }, {
+      field: "OperationTimeHistory",
+      title: "Jam"
     },
     {
       field: "MachineNumber",
@@ -28,10 +28,6 @@ export class List {
       field: "WeavingUnitDocumentId",
       title: "Unit Weaving"
     },
-    // {
-    //   field: "BeamNumber",
-    //   title: "No. Beam"
-    // },
     {
       field: "ConstructionNumber",
       title: "No. Konstruksi"
@@ -79,8 +75,14 @@ export class List {
               );
               datum.WeavingUnitDocumentId = unit.Name;
             }
-          }
+            if (datum.DateTimeOperationHistory) {
+              var DateOperation = moment(datum.DateTimeOperationHistory).format('DD/MM/YYYY');
+              var TimeOperation = moment(datum.DateTimeOperationHistory).format('LT');
 
+              datum.OperationDateHistory = DateOperation;
+              datum.OperationTimeHistory = TimeOperation;
+            }
+          }
           return {
             total: result.info.total,
             data: result.data
@@ -93,20 +95,6 @@ export class List {
         };
       }
     });
-
-    // return {
-    //   total: 1,
-    //   data: [{
-    //     Id: 1,
-    //     ProductionDate: "02/02/2019",
-    //     WeavingUnit: "Weaving 1",
-    //     MachineNumber: "2/1",
-    //     Shift: "Shift 1",
-    //     BeamNumber: "TS 108",
-    //     ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
-    //     PIS: "16"
-    //   }]
-    // };
   };
 
   contextCallback(event) {
