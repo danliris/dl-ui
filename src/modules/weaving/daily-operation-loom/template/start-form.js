@@ -60,7 +60,7 @@ export class StartForm {
     }
 
     StartTimeChanged(newValue) {
-
+        this.data.StartDate =  moment(this.data.StartDate).utcOffset("+07:00").format();
         this.data.StartTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {

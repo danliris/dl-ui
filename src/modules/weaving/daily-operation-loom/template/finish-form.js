@@ -1,6 +1,7 @@
 import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "../service";
+import moment  from "moment";
 var Operator = require("../../../../loader/weaving-operator-loader");
 
 @inject(Service, Router)
@@ -47,6 +48,7 @@ export class FinishForm {
     }
     
     FinishTimeChanged(newValue) {
+        this.data.FinishDate =  moment(this.data.FinishDate).utcOffset("+07:00").format();
         this.data.FinishTime = newValue;
         this.service.getShiftByTime(newValue)
             .then(result => {

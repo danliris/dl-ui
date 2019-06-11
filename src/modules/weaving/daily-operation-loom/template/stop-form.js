@@ -48,6 +48,7 @@ export class StopForm {
     }
 
     StopTimeChanged(newValue) {
+        this.data.StopDate =  moment(this.data.StopDate).utcOffset("+07:00").format();
         this.data.StopTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {
