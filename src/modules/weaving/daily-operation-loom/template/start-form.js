@@ -1,6 +1,7 @@
 import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "../service";
+import moment from "moment";
 var Operator = require("../../../../loader/weaving-operator-loader");
 
 @inject(Service, Router)
@@ -11,6 +12,7 @@ export class StartForm {
     @bindable StartTime;
     @bindable Beam;
     @bindable OnStartOperator;
+    @bindable StartDate;
 
     constructor(service, router) {
 
@@ -32,6 +34,10 @@ export class StartForm {
     }
 
     //bindable method
+    StartDateChanged(newValue) {
+        this.data.StartDate =  moment(newValue).utcOffset("+07:00").format();
+    }
+
     OnStartOperatorChanged(newValue) {
 
         if (newValue) {
@@ -60,7 +66,7 @@ export class StartForm {
     }
 
     StartTimeChanged(newValue) {
-
+        
         this.data.StartTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {
