@@ -20,6 +20,7 @@ export class CreateForm {
     @bindable PreparationTime;
     @bindable Machine;
     @bindable Beam;
+    @bindable PreparationDate;
 
     constructor(service, router) {
 
@@ -40,6 +41,10 @@ export class CreateForm {
     }
 
     // Bindable Method
+    PreparationDateChanged(newValue) {
+        this.data.PreparationDate = moment(newValue).utcOffset("+07:00").format();
+    }
+
     BeamChanged(newValue) {
         if (newValue) {
             this.data.BeamId = newValue.Id;
@@ -65,8 +70,6 @@ export class CreateForm {
     }
 
     PreparationTimeChanged(newValue) {
-
-        this.data.PreparationDate = moment(this.data.PreparationDate).utcOffset("+07:00").format();
         this.data.PreparationTime = newValue;
         this.service.getShiftByTime(newValue)
             .then(result => {

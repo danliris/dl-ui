@@ -10,6 +10,7 @@ export class FinishForm {
     @bindable readOnly;
     @bindable FinishTime;
     @bindable OnFinishOperator;
+    @bindable FinishDate;
 
     constructor(service, router) {
         this.service = service;
@@ -28,6 +29,10 @@ export class FinishForm {
     }
 
     //bindable method
+    FinishDateChanged(newValue){
+        this.data.FinishDate =  moment(newValue).utcOffset("+07:00").format();
+    }
+
     OnFinishOperatorChanged(newValue) {
 
         if (newValue) {
@@ -48,7 +53,6 @@ export class FinishForm {
     }
     
     FinishTimeChanged(newValue) {
-        this.data.FinishDate =  moment(this.data.FinishDate).utcOffset("+07:00").format();
         this.data.FinishTime = newValue;
         this.service.getShiftByTime(newValue)
             .then(result => {
