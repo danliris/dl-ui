@@ -95,6 +95,11 @@ export class Service extends RestService {
       });
   }
 
+  getDurationEstimationByProcessType(processType) {
+    var endpoint = `master/fp-duration-estimations/by-process-type/${processType}`;
+    return super.get(endpoint);
+  }
+
   getDurationEstimation(code, select) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("production-azure");
