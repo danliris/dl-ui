@@ -5,21 +5,10 @@
             <br>
             <div class="row" style="white-space: nowrap;">
                 <div class="col-md-2">
-                    <textbox label="No Beam" read-only="true"></textbox>
-                </div>
-                <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Beam" value.bind="Beam" error.bind="error.Beam"
-                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Beams" text="Number">
-                    </au-autocomplete>
-                </div>
-            </div>
-
-            <div class="row" style="white-space: nowrap;">
-                <div class="col-md-2">
                     <textbox label="Tanggal Mulai" read-only="true"></textbox>
                 </div>
                 <div class="col-md-3">
-                    <au-datepicker value.bind="data.StartDate" error.bind="error.StartDate">
+                    <au-datepicker value.bind="StartDate" error.bind="error.StartDate">
                     </au-datepicker>
                 </div>
 
@@ -47,8 +36,9 @@
                     <textbox label="Operator" read-only="true"></textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-autocomplete placeholder="Cari Operator" value.bind="OnStartOperator" error.bind="error.OnStartOperator"
-                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Operators" text="Username">
+                    <au-autocomplete placeholder="Cari Operator" value.bind="OnStartOperator"
+                        error.bind="error.OnStartOperator" read-only.bind="readOnly" options.bind="customOptions"
+                        loader.bind="Operators" text="Username">
                     </au-autocomplete>
                 </div>
 

@@ -27,7 +27,6 @@ export class List {
             valign: "top",
             formatter: function (value, data, index) {
                 if (value) {
-                    console.log(value);
                     return value.Name;
                 } else {
                     return "-";

@@ -1,6 +1,7 @@
 import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "../service";
+import moment  from "moment";
 var Operator = require("../../../../loader/weaving-operator-loader");
 var Unit = require("../../../../loader/unit-loader");
 var WeavingOrder = require("../../../../loader/weaving-order-loader");
@@ -19,6 +20,7 @@ export class CreateForm {
     @bindable PreparationTime;
     @bindable Machine;
     @bindable Beam;
+    @bindable PreparationDate;
 
     constructor(service, router) {
 
@@ -39,6 +41,10 @@ export class CreateForm {
     }
 
     // Bindable Method
+    PreparationDateChanged(newValue) {
+        this.data.PreparationDate = moment(newValue).utcOffset("+07:00").format();
+    }
+
     BeamChanged(newValue) {
         if (newValue) {
             this.data.BeamId = newValue.Id;
@@ -64,7 +70,6 @@ export class CreateForm {
     }
 
     PreparationTimeChanged(newValue) {
-
         this.data.PreparationTime = newValue;
         this.service.getShiftByTime(newValue)
             .then(result => {
