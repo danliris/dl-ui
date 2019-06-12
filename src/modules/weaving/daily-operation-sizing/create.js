@@ -115,7 +115,7 @@ export class Create {
         this.error.Shift = "";
         this.Shift = {};
         this.Shift = result;
-        this.data.Details.ShiftDocumentId = this.Shift.Id;
+        this.data.Details.ShiftId = this.Shift.Id;
         // }
       })
       .catch(e => {

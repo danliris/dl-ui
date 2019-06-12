@@ -14,10 +14,10 @@ export class List {
   context = ["detail"];
 
   columns = [{
-      field: "OperationDateHistory",
+      field: "MachineDateHistory",
       title: "Tanggal"
     }, {
-      field: "OperationTimeHistory",
+      field: "MachineTimeHistory",
       title: "Jam"
     },
     {
@@ -75,12 +75,12 @@ export class List {
               );
               datum.WeavingUnitDocumentId = unit.Name;
             }
-            if (datum.DateTimeOperationHistory) {
-              var DateOperation = moment(datum.DateTimeOperationHistory).format('DD/MM/YYYY');
-              var TimeOperation = moment(datum.DateTimeOperationHistory).format('LT');
+            if (datum.DateTimeMachineHistory) {
+              var DateMachine = moment(datum.DateTimeMachineHistory).format('DD/MM/YYYY');
+              var TimeMachine = moment(datum.DateTimeMachineHistory).format('LT');
 
-              datum.OperationDateHistory = DateOperation;
-              datum.OperationTimeHistory = TimeOperation;
+              datum.MachineDateHistory = DateMachine;
+              datum.MachineTimeHistory = TimeMachine;
             }
           }
           return {

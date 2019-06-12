@@ -24,12 +24,12 @@ export class LogItems {
     this.data = context.data;
     this.error = context.error;
 
-    if (this.data.DateTimeOperationHistory) {
-        var DateOperation = moment(this.data.DateTimeOperationHistory).format('DD/MM/YYYY');
-        var TimeOperation = moment(this.data.DateTimeOperationHistory).format('LT');
+    if (this.data.DateTimeMachineHistory) {
+        var DateMachine = moment(this.data.DateTimeMachineHistory).format('DD/MM/YYYY');
+        var TimeMachine = moment(this.data.DateTimeMachineHistory).format('LT');
   
-        this.data.OperationDateHistory = DateOperation;
-        this.data.OperationTimeHistory = TimeOperation;
+        this.data.MachineDateHistory = DateMachine;
+        this.data.MachineTimeHistory = TimeMachine;
     }
 
     this.options = context.context.options;

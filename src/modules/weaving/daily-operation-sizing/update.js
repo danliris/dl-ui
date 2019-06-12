@@ -50,15 +50,15 @@ export class Update {
       header: "Putus"
     },
     {
-      value: "OperationDateHistory",
+      value: "MachineDateHistory",
       header: "Tanggal"
     },
     {
-      value: "OperationTimeHistory",
+      value: "MachineTimeHistory",
       header: "Jam"
     },
     {
-      value: "OperationStatusHistory",
+      value: "MachineStatusHistory",
       header: "Status"
     },
     {
@@ -177,7 +177,7 @@ export class Update {
     this.data.Details = {};
     this.data.Details.StartDate = HistoryDateContainer;
     this.data.Details.StartTime = HistoryTimeContainer;
-    this.data.Details.ShiftDocumentId = ShiftContainer.Id;
+    this.data.Details.ShiftId = ShiftContainer.Id;
 
     this.service
       .updateStartEntry(this.data.Id, this.data)
@@ -232,7 +232,7 @@ export class Update {
     this.data.Details.PauseDate = HistoryDateContainer;
     this.data.Details.PauseTime = HistoryTimeContainer;
     this.data.Details.Information = InformationContainer;
-    this.data.Details.ShiftDocumentId = ShiftContainer;
+    this.data.Details.ShiftId = ShiftContainer;
     this.data.Details.Causes = {};
     this.data.Details.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
     this.data.Details.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
@@ -272,7 +272,7 @@ export class Update {
     this.data.Details = {};
     this.data.Details.ResumeDate = HistoryDateContainer;
     this.data.Details.ResumeTime = HistoryTimeContainer;
-    this.data.Details.ShiftDocumentId = ShiftContainer;
+    this.data.Details.ShiftId = ShiftContainer;
     this.data.Details.OperatorDocumentId = OperatorContainer;
 
     this.service
@@ -310,6 +310,7 @@ export class Update {
     var SizingBeamIdContainer = this.SizingBeamDocumentId.Id;
     var HistoryDateContainer = this.DoffDate;
     var HistoryTimeContainer = this.DoffTime;
+    var ShiftContainer = this.DoffShift.Id;
 
     this.data = {};
     this.data.Id = IdContainer;
@@ -326,6 +327,7 @@ export class Update {
     this.data.Details = {};
     this.data.Details.FinishDate = HistoryDateContainer;
     this.data.Details.FinishTime = HistoryTimeContainer;
+    this.data.Details.ShiftId = ShiftContainer;
 
     this.service
       .updateDoffEntry(this.data.Id, this.data)
