@@ -96,7 +96,7 @@ export class Service extends RestService {
   }
 
   getDurationEstimationByProcessType(processType) {
-    var endpoint = `master/fp-duration-estimations/by-process-type/${processType}`;
+    var endpoint = `master/fp-duration-estimations/by-process-type?processTypeCode=${processType}`;
     return super.get(endpoint);
   }
 

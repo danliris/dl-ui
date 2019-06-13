@@ -422,7 +422,7 @@ export class DataForm {
 
     generateDeadline() {
         if (this.hasInstruction && this.hasProductionOrder) {
-            if (this.data.durationEstimation) {
+            if (this.data.durationEstimation.Areas) {
                 var deliveryDate = this.data.ProductionOrder.DeliveryDate;
 
                 this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
@@ -456,7 +456,7 @@ export class DataForm {
     }
 
     generateDeadlineReprocess() {
-        if (this.data.durationEstimation) {
+        if (this.data.durationEstimation.Areas) {
             var deliveryDate = this.data.ProductionOrder.DeliveryDate;
 
             this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
