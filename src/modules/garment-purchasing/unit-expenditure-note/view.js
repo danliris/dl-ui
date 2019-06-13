@@ -49,7 +49,10 @@ export class View {
                 item.IsSave = true;
             }
         }
-
+        if(this.data.ExpenditureType === "EXTERNAL"){
+            this.hasDelete=false;
+            this.hasEdit=false;
+        }
         // this.
     }
 
