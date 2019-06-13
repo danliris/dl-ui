@@ -1,13 +1,15 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import { Dialog } from '../../../components/dialog/dialog';
 import moment from "moment";
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class Update {
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
         this.data = {};
         this.error = {};
     }
@@ -63,11 +65,10 @@ export class Update {
     start() {
         $("#Mulai").modal('hide');
         this.error = {};
-
+        
         this.service
             .updateForStartProcess(this.data)
             .then(result => {
-
                 this.data.LoomHistory = [];
 
                 if (result.length > 0) {
@@ -75,6 +76,9 @@ export class Update {
                 }
 
                 this.data.LoomHistory = result;
+            }).catch(e => {
+                var errorStatus = e.Status;
+                this.dialog.errorPrompt(errorStatus);
             });
     }
 
@@ -93,6 +97,9 @@ export class Update {
                 }
 
                 this.data.LoomHistory = result;
+            }).catch(e => {
+                var errorStatus = e.Status;
+                this.dialog.errorPrompt(errorStatus);
             });
     }
 
@@ -111,6 +118,9 @@ export class Update {
                 }
 
                 this.data.LoomHistory = result;
+            }).catch(e => {
+                var errorStatus = e.Status;
+                this.dialog.errorPrompt(errorStatus);
             });
     }
 
@@ -121,7 +131,7 @@ export class Update {
         this.service
             .updateForFinishProcess(this.data)
             .then(result => {
-                
+
                 this.data.LoomHistory = [];
 
                 if (result.length > 0) {
@@ -129,6 +139,9 @@ export class Update {
                 }
 
                 this.data.LoomHistory = result;
+            }).catch(e => {
+                var errorStatus = e.Status;
+                this.dialog.errorPrompt(errorStatus);
             });
     }
 
