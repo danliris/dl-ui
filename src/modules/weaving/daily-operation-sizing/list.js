@@ -14,11 +14,11 @@ export class List {
   context = ["detail"];
 
   columns = [{
-      field: "ProductionDate",
-      title: "Tanggal",
-      formatter: function (value, data, index) {
-        return moment(value).format("DD MMMM YYYY");
-      }
+      field: "MachineDateHistory",
+      title: "Tanggal"
+    }, {
+      field: "MachineTimeHistory",
+      title: "Jam"
     },
     {
       field: "MachineNumber",
@@ -29,20 +29,12 @@ export class List {
       title: "Unit Weaving"
     },
     {
-      field: "BeamNumber",
-      title: "No. Beam"
-    },
-    {
       field: "ConstructionNumber",
       title: "No. Konstruksi"
     },
     {
-      field: "Shift",
+      field: "ShiftName",
       title: "Shift"
-    },
-    {
-      field: "PIS",
-      title: "PIS"
     }
   ];
 
@@ -62,55 +54,40 @@ export class List {
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data
-    //   };
-    // });
+    return this.service.search(arg).then(result => {
+      if (result.data && result.data.length > 0) {
+        let getUnitPromises = result.data.map(operation =>
+          this.service.getUnitById(operation.WeavingUnitDocumentId)
+        );
 
-    // return this.service.search(arg).then(result => {
-    //   if (result.data && result.data.length > 0) {
-    //     let getUnitPromises = result.data.map(operation =>
-    //       this.service.getUnitById(operation.WeavingUnitDocumentId)
-    //     );
+        return Promise.all(getUnitPromises).then(units => {
+          for (var datum of result.data) {
+            if (units && units.length > 0) {
+              let unit = units.find(
+                unitResult => datum.WeavingUnitDocumentId == unitResult.Id
+              );
+              datum.WeavingUnitDocumentId = unit.Name;
+            }
+            if (datum.DateTimeMachineHistory) {
+              var DateMachine = moment(datum.DateTimeMachineHistory).format('DD/MM/YYYY');
+              var TimeMachine = moment(datum.DateTimeMachineHistory).format('LT');
 
-    //     return Promise.all(getUnitPromises).then(units => {
-    //       for (var datum of result.data) {
-    //         if (units && units.length > 0) {
-    //           let unit = units.find(
-    //             unitResult => datum.WeavingUnitDocumentId == unitResult.Id
-    //           );
-    //           datum.WeavingUnitDocumentId = unit.Name;
-    //         }
-    //       }
-
-    //       return {
-    //         total: result.info.total,
-    //         data: result.data
-    //       };
-    //     });
-    //   } else {
-    //     return {
-    //       total: result.info.total,
-    //       data: result.data
-    //     };
-    //   }
-    // });
-
-    return {
-      total: 1,
-      data: [{
-        Id: 1,
-        ProductionDate: "02/02/2019",
-        WeavingUnit: "Weaving 1",
-        MachineNumber: "2/1",
-        Shift: "Shift 1",
-        BeamNumber: "TS 108",
-        ConstructionNumber: "PC AB 120 44 55 Tencelaa Puyoaa",
-        PIS: "16"
-      }]
-    };
+              datum.MachineDateHistory = DateMachine;
+              datum.MachineTimeHistory = TimeMachine;
+            }
+          }
+          return {
+            total: result.info.total,
+            data: result.data
+          };
+        });
+      } else {
+        return {
+          total: result.info.total,
+          data: result.data
+        };
+      }
+    });
   };
 
   contextCallback(event) {
@@ -118,7 +95,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", {
+        this.router.navigateToRoute("update", {
           Id: data.Id
         });
         break;
