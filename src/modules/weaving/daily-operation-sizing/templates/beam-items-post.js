@@ -10,7 +10,6 @@ var BeamLoader = require("../../../../loader/weaving-beam-loader");
 
 @inject(BindingEngine, Service)
 export class BeamItemsPost {
-  // @bindable BeamDocument;
 
   constructor(bindingEngine, service) {
     this.service = service;
@@ -24,14 +23,6 @@ export class BeamItemsPost {
   async activate(context) {
     this.data = context.data;
     this.error = context.error;
-
-    // if (this.data.Yarn) {
-
-    //   var retrieveValue = this.data.Yarn;
-    //   this.data.YarnId = retrieveValue.Id;
-    //   this.Yarn = retrieveValue;
-    //   this.data.Code = retrieveValue.Code;
-    // }
 
     this.BeamDocument = this.data.BeamDocument;
 

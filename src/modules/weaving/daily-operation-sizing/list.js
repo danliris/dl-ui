@@ -54,13 +54,6 @@ export class List {
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data
-    //   };
-    // });
-
     return this.service.search(arg).then(result => {
       if (result.data && result.data.length > 0) {
         let getUnitPromises = result.data.map(operation =>

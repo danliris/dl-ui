@@ -35,13 +35,4 @@ export class LogItems {
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
-
-  //   get orders() {
-  //     return ConstructionLoader;
-  //   }
-
-  //   OrderDocumentChanged(newValue) {
-  //     console.log(newValue);
-  //     this.data.ConstructionNumber = newValue.ConstructionNumber;
-  //   }
 }

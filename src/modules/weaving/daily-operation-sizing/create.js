@@ -25,17 +25,6 @@ export class Create {
   @bindable OperatorDocument;
   @bindable EntryTime;
   @bindable BeamsWarping;
-  // @bindable Netto;
-
-  // beamColumns = [{
-  //   value: "__check"
-  // }, {
-  //   value: "BeamNumber",
-  //   header: "No. Beam"
-  // }, {
-  //   value: "EmptyWeight",
-  //   header: "Berat Kosong Beam"
-  // }];
 
   beamColumns = [{
     value: "BeamNumber",
@@ -52,33 +41,11 @@ export class Create {
 
     this.data = {};
     this.data.Details = {};
-    // this.data.Details.History = {};
     this.data.Weight = {};
     this.data.Weight.Netto = "";
     this.BeamsWarping = [];
 
     this.error = {};
-
-    // if (this.readOnly) {
-    //   //Collections Columns on readOnly state
-    //   this.beamColumns = [{
-    //     value: "BeamNumber",
-    //     header: "No. Beam"
-    //   }, {
-    //     value: "EmptyWeight",
-    //     header: "Berat Kosong Beam"
-    //   }];
-    // } else {
-    //   this.beamColumns = [{
-    //     value: "__check"
-    //   }, {
-    //     value: "BeamNumber",
-    //     header: "No. Beam"
-    //   }, {
-    //     value: "EmptyWeight",
-    //     header: "Berat Kosong Beam"
-    //   }];
-    // }
   }
 
   formOptions = {
@@ -103,7 +70,6 @@ export class Create {
   }
 
   OperatorDocumentChanged(newValue) {
-    // this.data.SizingGroup = {};
     this.SizingGroup = newValue.Group;
   }
 
@@ -111,12 +77,10 @@ export class Create {
     this.data.Details.PreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
-        // if (result) {
         this.error.Shift = "";
         this.Shift = {};
         this.Shift = result;
         this.data.Details.ShiftId = this.Shift.Id;
-        // }
       })
       .catch(e => {
         this.Shift = {};
@@ -136,9 +100,6 @@ export class Create {
     beam.Id = data.Id;
     beam.EmptyWeight = data.EmptyWeight;
 
-    // if (data.Id) {
-    //   this.data.ConstructionNumber = this.ConstructionNumber;
-    // }
     return beam;
   }
 
@@ -149,10 +110,6 @@ export class Create {
       if (this.BeamsWarping.length > 0) {
         this.data.WarpingBeamsId = [];
         for (let beam of this.BeamsWarping) {
-          // if (beam.BeamDocument && beam.BeamDocument.Id && beam.BeamDocument.EmptyWeight != 0) {
-          //   this.data.WarpingBeamCollectionDocumentId.push(this.beamDetail(beam));
-          //   result += beam.BeamDocument.EmptyWeight;
-          // }
           if (beam.BeamDocument && beam.BeamDocument.EmptyWeight != 0) {
             result += beam.BeamDocument.EmptyWeight;
           }
@@ -165,16 +122,9 @@ export class Create {
 
   }
 
-  // BeamsWarpingChanged(n, o) {
-  //   console.log(n);
-  // }
-
   saveCallback(event) {
-    // this.error = {};
-    // if(this.data.Weight.Netto == "" || this.data.Weight.Netto == 0 || this.data.Weight.Netto == null || this.data.Weight.Netto == undefined){
-    //   e.Netto = "Counter Awal Harus Diisi";
-    //   this.error = e;
-    // }
+    var PreparationDateContainer = this.data.Details.PreparationDate;
+    this.data.Details.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
 
     this.BeamId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
     this.BeamId.forEach(id => {
@@ -186,10 +136,7 @@ export class Create {
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
     this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
     this.data.Details.OperatorDocumentId = this.OperatorDocument.Id;
-    // debugger;
-    // var formatDate = this.data.Details.History.MachineDate.split(" ");
-    // this.data.Details.History.MachineDate = new Date(formatDate[2], formatDate[1] - 1, formatDate[0]);
-    
+
     this.service
       .create(this.data)
       .then(result => {

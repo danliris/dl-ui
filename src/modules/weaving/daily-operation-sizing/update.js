@@ -10,6 +10,7 @@ import {
 import {
   Service
 } from "./service";
+import moment from 'moment';
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var BeamLoader = require("../../../loader/weaving-beam-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
@@ -84,7 +85,6 @@ export class Update {
       this.BeamsWarping = this.data.WarpingBeamsDocument;
       this.Log = this.data.Details;
     }
-    console.log(this.data);
   }
 
   causes = ["", "Putus Beam", "Mesin Bermasalah"];
@@ -168,7 +168,7 @@ export class Update {
 
   saveStart() {
     var IdContainer = this.data.Id;
-    var HistoryDateContainer = this.StartDate;
+    var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.StartTime;
     var ShiftContainer = this.StartShift;
 
@@ -205,9 +205,7 @@ export class Update {
   savePause() {
     var LastDetails = this.data.Details[this.data.Details.length - 1];
     var LastCausesBrokenBeam = parseInt(LastDetails.BrokenBeamCauses);
-    // var LastCausesBrokenBeam = 0;
     var LastCausesMachineTroubled = parseInt(LastDetails.MachineTroubledCauses);
-    // var LastCausesMachineTroubled = 0;
 
     switch (this.CauseOfStopping) {
       case "Putus Beam":
@@ -221,7 +219,7 @@ export class Update {
     }
 
     var IdContainer = this.data.Id;
-    var HistoryDateContainer = this.PauseDate;
+    var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.PauseTime;
     var ShiftContainer = this.PauseShift.Id;
     var InformationContainer = this.Information;
@@ -262,7 +260,7 @@ export class Update {
 
   saveResume() {
     var IdContainer = this.data.Id;
-    var HistoryDateContainer = this.ResumeDate;
+    var HistoryDateContainer = moment(this.ResumeDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.ResumeTime;
     var ShiftContainer = this.ResumeShift.Id;
     var OperatorContainer = this.ResumeOperator.Id;
@@ -308,7 +306,7 @@ export class Update {
     var PISContainer = this.DoffPIS;
     var SPUContainer = this.DoffSPU;
     var SizingBeamIdContainer = this.SizingBeamDocumentId.Id;
-    var HistoryDateContainer = this.DoffDate;
+    var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.DoffTime;
     var ShiftContainer = this.DoffShift.Id;
 
