@@ -38,7 +38,13 @@ export class DataForm {
         this.isTransfer = false;
         this.isItem = false;
         this.data.ExpenditureTo = "PROSES";
-        
+        this.isExternal=false;
+        this.options.isExternal=false;
+
+        if(this.data.ExpenditureType === "EXTERNAL"){
+            this.isExternal = true;
+            this.options.isExternal=true;
+        }
 
         if(this.data.ExpenditureType === "TRANSFER"){
             this.isTransfer = true;
@@ -83,6 +89,14 @@ export class DataForm {
             }
             else {
                 this.isTransfer = false;
+            }
+            if (this.data.ExpenditureType === "EXTERNAL") {
+                this.isExternal = true;
+                this.options.isExternal=true;
+            }
+            else {
+                this.isExternal = false;
+                this.options.isExternal=false;
             }
             if(this.data.ExpenditureType === "TRANSFER"){
                 this.data.ExpenditureTo = "GUDANG LAIN";
