@@ -4,12 +4,11 @@
     <td click.delegate="onItemClicked(step, $event)" ref="tdStep">
       <au-autocomplete 
         value.bind="temp" 
-        error.bind="error.process"
+        error.bind="error.Process"
         loader.bind="stepLoader"
         placeholder="search step" 
-        select.bind="selectStep"
-        key="process"
-        text="process"
+        key="Process"
+        text="Process"
         read-only.bind="(readOnly || isEdit || step.isNotDone)"
         options.bind="controlOptions">
       </au-autocomplete>
@@ -19,48 +18,47 @@
     </td>
     <td click.delegate="onItemClicked(step, $event)" ref="tdMachine" width="20%">
       <au-autocomplete 
-        value.bind="context.data.machine" 
-        error.bind="error.machine"
+        value.bind="context.data.Machine" 
+        error.bind="error.Machine"
         query.bind="query"
         loader.bind="machineLoader"
-        placeholder="search machine" 
-        select.bind="selectMachine"
-        text="name"
-        read-only.bind="(readOnly || isEdit || step.isNotDone)"
+        placeholder="search machine"
+        text="Name"
+        read-only.bind="(readOnly || isEdit || step.IsNotDone)"
         options.bind="controlOptions"
         view-model.ref="machineVM">
       </au-autocomplete>
     </td>
     <td ref="tdArea" width="20%">
       <au-dropdown
-          value.bind="context.data.processArea"
+          value.bind="context.data.ProcessArea"
           items.bind="areaOptions"
-          error.bind="error.processArea"
+          error.bind="error.ProcessArea"
           options.bind="controlOptions"
-          read-only.bind="(readOnly || isEdit || step.isNotDone)">
+          read-only.bind="(readOnly || isEdit || step.IsNotDone)">
       </au-dropdown>
     </td>
     <td ref="tdDeadline">
       <au-datepicker
-        value.bind="context.data.deadline"
-        error.bind="error.deadline"
+        value.bind="context.data.Deadline"
+        error.bind="error.Deadline"
         read-only.bind="(readOnly || isEdit)"
         options.bind="controlOptions">
       </au-datepicker>
     </td>
     <td click.delegate="onItemClicked(step, $event)" ref="tdButton" if.bind="!options.readOnly && !options.disabledStepAdd">
-      <button class="btn btn-danger pull-right" click.delegate="onremove(context.data)" if.bind="!step.isNotDone">-</button>
+      <button class="btn btn-danger pull-right" click.delegate="onremove(context.data)" if.bind="!step.IsNotDone">-</button>
     </td>
   </tr>
   <tr if.bind="isShowing">
     <td></td>
     <td>
       <au-collection 
-        items.bind="step.stepIndicators" 
+        items.bind="step.StepIndicators" 
         columns.bind="stepIndicatorColumns"
         read-only.bind="readOnly"
         options.bind="options"
-        item-template="modules/production/finishing-printing/kanban/template/step-indicator-item">
+        item-template="modules/production/finishing-printing/bad-output-kanban/template/step-indicator-item">
       </au-collection>
     </td>
     <td colspan="3"></td>

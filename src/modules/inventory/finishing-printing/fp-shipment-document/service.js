@@ -5,14 +5,14 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 
-const serviceUri = "inventory/fp-shipment-document";
+const serviceUri = "finishing-printing/inventory/fp-shipment-documents";
 const inventoryServiceUri = "inventory/inventory-summary";
 const productServiceUri = "master/product";
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "inventory");
+        super(http, aggregator, config, "production-azure");
     }
 
     search(info) {
@@ -51,7 +51,7 @@ export class Service extends RestService {
     }
 
     getPdfById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
     }
 
@@ -66,23 +66,34 @@ export class Service extends RestService {
             });
     }
 
-    searchInventorySummaries(info) {
+    getSummaryByParams(storageId, productId, uomId) {
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("inventory");
-        var _serviceUri = `inventory/inventory-summary`;
+        var _endpoint = config.getEndpoint("inventory-azure");
+        var _serviceUri = `inventory/inventory-summary-reports/${storageId}/${productId}/${uomId}`;
 
-        return _endpoint.find(_serviceUri, info)
+        return _endpoint.find(_serviceUri)
             .then(result => {
                 return result.data;
             });
     }
 
-    searchProducts(productIds) {
+    searchProducts(id) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
-        var _serviceUri = `master/products/byId`;
+        var _serviceUri = `master/products/${id}`;
 
-        return _endpoint.find(_serviceUri, { productIds })
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    getProductById(id) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/products/${id}`;
+
+        return _endpoint.find(_serviceUri)
             .then(result => {
                 return result.data;
             });
@@ -103,6 +114,21 @@ export class Service extends RestService {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("production");
         var _serviceUri = `sales/production-orders/${id}`;
+
+        return _endpoint.find(_serviceUri)
+            .then(result => {
+                return result.data;
+            });
+    }
+
+    getPackingByProductName(productName) {
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("production-azure");
+        var _serviceUri = `finishing-printing/quality-control/packings/details/by-product-name?productName=${productName}`;
+
+        var info = {
+            productName: productName
+        }
 
         return _endpoint.find(_serviceUri)
             .then(result => {

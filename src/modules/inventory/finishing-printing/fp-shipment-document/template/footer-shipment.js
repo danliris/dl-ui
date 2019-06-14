@@ -10,15 +10,17 @@ export class FooterShipment {
 
     // @computedFrom("context.items.data.items.packingReceiptItems.quantity")
     get totalQuantityShipment() {
+        // console.log(this.context)
         if (this.context.items.length > 0) {
             var total = this.context.items
                 .map((item) => {
-                    if (item.data.items instanceof Array) {
-                        var qty = item.data.items
+                    if (item.data.Items instanceof Array) {
+                        var qty = item.data.Items
                             .map((detailItem) => {
-                                if (detailItem.packingReceiptItems instanceof Array) {
-                                    var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity));
+                                // console.log(detailItem)
+                                if (detailItem.PackingReceiptItems instanceof Array) {
+                                    var quantity = detailItem.PackingReceiptItems
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.Quantity));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
@@ -45,12 +47,12 @@ export class FooterShipment {
         if (this.context.items.length > 0) {
             var total = this.context.items
                 .map((item) => {
-                    if (item.data.items instanceof Array) {
-                        var qty = item.data.items
+                    if (item.data.Items instanceof Array) {
+                        var qty = item.data.Items
                             .map((detailItem) => {
-                                if (detailItem.packingReceiptItems instanceof Array) {
-                                    var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity) * Number(packingReceiptItem.length));
+                                if (detailItem.PackingReceiptItems instanceof Array) {
+                                    var quantity = detailItem.PackingReceiptItems
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.Quantity) * Number(packingReceiptItem.Length));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }
@@ -77,12 +79,12 @@ export class FooterShipment {
         if (this.context.items.length > 0) {
             var total = this.context.items
                 .map((item) => {
-                    if (item.data.items instanceof Array) {
-                        var qty = item.data.items
+                    if (item.data.Items instanceof Array) {
+                        var qty = item.data.Items
                             .map((detailItem) => {
-                                if (detailItem.packingReceiptItems instanceof Array) {
-                                    var quantity = detailItem.packingReceiptItems
-                                        .map((packingReceiptItem) => Number(packingReceiptItem.quantity) * Number(packingReceiptItem.weight));
+                                if (detailItem.PackingReceiptItems instanceof Array) {
+                                    var quantity = detailItem.PackingReceiptItems
+                                        .map((packingReceiptItem) => Number(packingReceiptItem.Quantity) * Number(packingReceiptItem.Weight));
                                     return quantity
                                         .reduce((prev, curr, index) => { return prev + curr }, 0)
                                 }

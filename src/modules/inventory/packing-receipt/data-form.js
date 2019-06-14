@@ -70,7 +70,12 @@ export class DataForm {
             console.log(newValue);
             // this.data.Packing.PackingDetails.map((item) => {
             for (var item of this.data.Packing.PackingDetails) {
-                var productName = this.data.Packing.ProductionOrderNo + "/" + this.data.Packing.ColorName + "/" + this.data.Packing.Construction + "/" + item.Lot + "/" + item.Grade + "/" + item.Length + "/" + item.Remark
+                var productName = this.data.Packing.ProductionOrderNo + "/" + this.data.Packing.ColorName + "/" + this.data.Packing.Construction + "/" + item.Lot + "/" + item.Grade + "/" + item.Length;
+
+                if(item.Remark){
+                    productName = productName + "/" + item.Remark;
+                }
+
                 var arg = {
                     filter: JSON.stringify({ Name: productName })
                 };

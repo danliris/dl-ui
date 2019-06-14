@@ -4,7 +4,7 @@ var StorageLoader = require('../../../loader/storage-loader');
 //var UnitLoader = require('../../../loader/garment-units-loader');
 var UnitSenderLoader = require('../../../loader/garment-units-loader');
 var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader');
-var DeliveryOrderLoader= require('../../../loader/garment-delivery-order-basic-loader');
+var DeliveryOrderLoader= require('../../../loader/garment-delivery-order-by-garment-unit-receipt-note-loader');
 import moment from 'moment';
 
 @containerless()
@@ -74,6 +74,16 @@ export class DataForm {
         return storageFilter;
     }  
 
+    @computedFrom("data.UnitSender", "data.Storage")
+    get filterURN(){
+        if(this.data.UnitSender && this.data.Storage)
+            var doFilter={
+                UnitCode: this.data.UnitSender.Code,
+                StorageCode: this.data.Storage.code
+            };
+        return doFilter;
+    }
+
     get storageLoader() {
         return StorageLoader;
     }
@@ -83,7 +93,8 @@ export class DataForm {
     }
 
     deliveryOrderView=(DO)=>{
-        return DO.doNo;
+        console.log(DO)
+        return DO.DONo;
     }
 
     storageView = (storage) => {
@@ -100,10 +111,13 @@ export class DataForm {
         else {
             this.data.UnitSender = null;
             this.context.unitSenderViewModel.editorValue = "";
+            this.context.deliveryOrderViewModel.editorValue = "";
+            this.deliveryOrder = null;
         }
         this.storage = null;
         this.deliveryOrder = null;
         this.context.storageViewModel.editorValue = "";
+        this.context.deliveryOrderViewModel.editorValue = "";
         this.data.Items = [];
     }
 
@@ -115,6 +129,8 @@ export class DataForm {
         else {
             this.data.Storage = null;
             this.context.storageViewModel.editorValue = "";
+            this.context.deliveryOrderViewModel.editorValue = "";
+            this.deliveryOrder = null;
         }
         this.deliveryOrder = null;
         this.data.Items = [];
@@ -123,12 +139,13 @@ export class DataForm {
     async deliveryOrderChanged(newValue){
         var selectedDO= newValue;
         if(selectedDO){
-            this.data.DONo=selectedDO.doNo;
-            this.data.DOId=selectedDO.Id;
+            this.data.DONo=selectedDO.DONo;
+            this.data.DOId=selectedDO.DOId;
+
             var doFilter={
                 UnitCode: this.data.UnitSender.Code,
                 StorageCode: this.data.Storage.code,
-                DONo: selectedDO.doNo
+                DONo: selectedDO.DONo
             };
             var info={
                 filter: JSON.stringify(doFilter)
@@ -136,7 +153,9 @@ export class DataForm {
             var urn= await this.service.searchUnitReceiptNote(info).then(result=>{return result.data;});
             var dataItems=[];
             if(urn){
+        console.log(urn)
                 for (var item of urn) {
+                    
                     var Items = {};
                     Items.URNItemId = item.Id;
                     Items.URNNo = item.URNNo;
@@ -163,7 +182,8 @@ export class DataForm {
                     Items.ReturUomId = item.UomId;
                     Items.ReturUomUnit = item.UomUnit;
                     Items.Conversion=item.Conversion;
-
+                    Items.DOCurrency={};
+                    Items.DOCurrency.Rate= item.DOCurrencyRate;
                     dataItems.push(Items);
                 }
                 this.data.Items=dataItems;

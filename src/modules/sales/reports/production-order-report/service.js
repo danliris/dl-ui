@@ -54,7 +54,7 @@ export class Service extends RestService {
             if (query === '') query = `accountId=${info.accountId}`;
             else query = `${query}&accountId=${info.accountId}`;
         }
-        if (info.sdate) {
+        if (info.dateFrom) {
             if (query === '') query = `dateFrom=${info.dateFrom}`;
             else query = `${query}&dateFrom=${info.dateFrom}`;
         }

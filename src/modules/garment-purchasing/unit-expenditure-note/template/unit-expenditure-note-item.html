@@ -3,7 +3,7 @@
         <td>
             <au-checkbox 
                 value.bind="data.IsSave"
-                disabled.bind="readOnly"
+                disabled.bind="readOnly || isExternal"
                 change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
@@ -34,7 +34,7 @@
         <td>
             <au-numeric 
                 value.bind="data.Quantity"
-                read-only.bind="options.readOnly"
+                read-only.bind="options.readOnly || isExternal"
                 error.bind="error.Quantity">
             </au-numeric>
         </td>

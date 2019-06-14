@@ -42,32 +42,34 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         // this.detailOptions = {};
+        // console.log(this.data.Details)
+        // this.selectedBuyer = this.data.Buyer || undefined;
+        // this.selectedStorage = this.data.Storage || undefined;
 
-        this.selectedBuyer = this.data.Buyer || undefined;
-        this.selectedStorage = this.data.Storage || undefined;
-
-        if (this.selectedBuyer) {
-            this.detailOptions.selectedBuyerName = this.selectedBuyer.Name;
-            this.detailOptions.selectedBuyerId = this.selectedBuyer.Id;
+        if (this.data.Buyer) {
+            this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
+            this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
         }
 
-        if (this.selectedStorage) {
-            this.detailOptions.selectedStorageCode = this.selectedStorage.Code;
+        if (this.data.Storage) {
+            this.detailOptions.selectedStorageCode = this.data.Buyer.Code;
         }
     }
 
     @bindable detailOptions = {};
     @bindable selectedBuyer;
-    selectedBuyerChanged(newValue, oldValue) {
-        this.data.Buyer = newValue;
-        if (newValue) {
-            this.detailOptions.selectedBuyerName = newValue.Name;
-            this.detailOptions.selectedBuyerId = newValue.Id;
+    buyerChanged(e) {
+        // this.data.Buyer = newValue;
+        // console.log(newValue && )
+        if (this.data.Buyer) {
+            this.detailOptions.selectedBuyerName = this.data.Buyer.Name;
+            this.detailOptions.selectedBuyerId = this.data.Buyer.Id;
             this.data.Details = [];
             // if (!this.context.buyerReadOnly) {
             //     this.data.details = [];
             // }
         } else {
+            console.log("here 1");
             this.data.Details = [];
             this.data.Buyer = undefined;
             this.detailOptions.selectedBuyerName = undefined;
@@ -76,17 +78,19 @@ export class DataForm {
     }
 
     @bindable selectedStorage;
-    selectedStorageChanged(newValue, oldValue) {
-        this.data.Storage = newValue;
-        if (newValue) {
-            this.detailOptions.selectedStorageCode = newValue.code;
-            this.data.Storage = newValue;
+    storageChanged(e) {
+        // this.data.Storage = newValue;
+        if (this.data.Storage) {
+            this.detailOptions.selectedStorageCode = this.data.Storage.code;
+            this.detailOptions.selectedStorageId = this.data.Storage._id;
+            // this.data.Storage = newValue;
             this.data.Details = [];
             // if (!this.context.buyerReadOnly) {
             //     this.data.details = [];
             // }
         }
         else {
+            console.log("here 2");
             this.data.Details = [];
             this.data.Storage = undefined;
             this.detailOptions.selectedStorageCode = "";
@@ -112,9 +116,9 @@ export class DataForm {
         return BuyerLoader;
     }
 
-    @computedFrom("selectedBuyer", "selectedStorage")
+    @computedFrom("data.Buyer", "data.Storage")
     get detailVisibility() {
         // console.log();
-        return this.selectedBuyer && this.selectedStorage;
+        return this.data.Buyer && this.data.Storage;
     }
 } 
