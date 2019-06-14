@@ -111,10 +111,13 @@ export class DataForm {
         else {
             this.data.UnitSender = null;
             this.context.unitSenderViewModel.editorValue = "";
+            this.context.deliveryOrderViewModel.editorValue = "";
+            this.deliveryOrder = null;
         }
         this.storage = null;
         this.deliveryOrder = null;
         this.context.storageViewModel.editorValue = "";
+        this.context.deliveryOrderViewModel.editorValue = "";
         this.data.Items = [];
     }
 
@@ -126,6 +129,8 @@ export class DataForm {
         else {
             this.data.Storage = null;
             this.context.storageViewModel.editorValue = "";
+            this.context.deliveryOrderViewModel.editorValue = "";
+            this.deliveryOrder = null;
         }
         this.deliveryOrder = null;
         this.data.Items = [];
