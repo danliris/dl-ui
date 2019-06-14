@@ -359,6 +359,7 @@ export class DataForm {
             steps.splice(steps[0].SelectedIndex - 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex - 1);
         }
+        this.context.StepsCollection.bind();
     }
 
     moveItemDown(event) {
@@ -369,6 +370,7 @@ export class DataForm {
             steps.splice(steps[0].SelectedIndex + 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex + 1);
         }
+        this.context.StepsCollection.bind();
     }
 
     setCurrentIndex(currentIndex) {
