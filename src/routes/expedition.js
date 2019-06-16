@@ -143,6 +143,19 @@ module.exports = [
         }
     },
     {
+        route: '/expedition/bank-expenditure-note',
+        name: 'purchasing-document-expedition',
+        moduleId: './modules/expedition/bank-expenditure-note/index',
+        nav: true,
+        title: 'Bukti Pengeluaran Bank DPP + PPN',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
+    },
+    {
         route: '/expedition/daily-bank-transaction-document-in',
         name: 'daily-bank-transaction-document-in',
         moduleId: './modules/expedition/daily-bank-transaction-document-in/index',
