@@ -40,7 +40,7 @@ export class Edit {
 
             if (this.data.DONo) {
                 this.deliveryOrder={};
-                this.deliveryOrder.doNo = this.data.DONo;
+                this.deliveryOrder.DONo = this.data.DONo;
                 this.deliveryOrder.Id= this.data.DOId;
             }
 
