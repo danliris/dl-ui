@@ -75,7 +75,6 @@ export class DataForm {
             this.data.Unit._id = this.data.Unit.Id;
             this.data.Unit.name = this.data.Unit.Name;
             this.data.Unit.code = this.data.Unit.Code;
-            console.log(this.data.Unit)
             if(this.itemsOptions.productionOrderFilter["OrderTypeName"]){
                 delete this.itemsOptions.productionOrderFilter["OrderTypeName"];
             } else {
@@ -83,8 +82,6 @@ export class DataForm {
             }
             var filter = this.selectedUnit.Name && this.selectedUnit.Name.toUpperCase() === "PRINTING" ? { "OrderTypeName": "PRINTING" } : { 'OrderTypeName.Contains("PRINTING")': "false" };
             Object.assign(this.itemsOptions.productionOrderFilter, filter);
-            console.log(oldVal)
-            console.log(filter)
             if (oldVal){
                 this.data.MaterialsRequestNote_Items.splice(0, this.data.MaterialsRequestNote_Items.length);
             }
