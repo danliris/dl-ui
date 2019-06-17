@@ -7,6 +7,7 @@ const startProcess = 'start-process';
 const stopProcess = 'stop-process';
 const resumeProcess = 'resume-process';
 const finishProcess = 'finish-process';
+const updateShiftProcess = 'update-loom-shift'; 
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -60,6 +61,11 @@ export class Service extends RestService {
 
     updateForFinishProcess(data) {
         var endpoint = `${serviceUri}/${finishProcess}`;
+        return super.put(endpoint, data);
+    }
+
+    updateForShiftProcess(data) {
+        var endpoint = `${serviceUri}/${updateShiftProcess}`;
         return super.put(endpoint, data);
     }
 
