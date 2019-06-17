@@ -145,6 +145,27 @@ export class Update {
             });
     }
 
+    updateShift(){
+        $("#UbahShift").modal('hide');
+        this.error = {};
+
+        this.service
+            .updateForShiftProcess(this.data)
+            .then(result => {
+
+                this.data.LoomHistory = [];
+
+                if (result.length > 0) {
+                    result = this.remappingModels(result);
+                }
+
+                this.data.LoomHistory = result;
+            }).catch(e => {
+                var errorStatus = e.Status;
+                this.dialog.errorPrompt(errorStatus);
+            });
+    }
+
     onBack(event) {
         this.router.navigateToRoute("list");
     }
