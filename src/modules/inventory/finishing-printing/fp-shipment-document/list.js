@@ -15,9 +15,9 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "BuyerCode", title: "Kode Buyer" },
-        { field: "BuyerName", title: "Nama Buyer" },
-        { field: "_CreatedBy", title: "Dibuat Oleh" }
+        { field: "Buyer.Code", title: "Kode Buyer" },
+        { field: "Buyer.Name", title: "Nama Buyer" },
+        { field: "CreatedBy", title: "Dibuat Oleh" }
     ];
 
     loader = (info) => {
@@ -53,7 +53,7 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "detail":
+            case "Detail":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
             case "Cetak PDF":

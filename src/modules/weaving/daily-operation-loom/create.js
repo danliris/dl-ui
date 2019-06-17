@@ -22,15 +22,16 @@ export class Create {
 
   saveCallback(event) {
     this.error = {};
-    console.log(this.data);
-
-    // this.service
-    //   .create(this.data)
-    //   .then(result => {
-    //     this.list();
-    //   })
-    //   .catch(e => {
-    //     this.error = e;
-    //   });
+    //test when not have monitoring id
+    this.data.DailyOperationMonitoringId = "85ef56b2-eb9d-40e9-9d0b-dad79cb273cf";
+    
+    this.service
+      .createOnEntryProcess(this.data)
+      .then(result => {
+        this.list();
+      })
+      .catch(e => {
+        this.error = e;
+      });
   }
 }

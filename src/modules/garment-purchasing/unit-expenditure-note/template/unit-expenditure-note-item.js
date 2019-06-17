@@ -8,7 +8,7 @@ export class UnitExpenditureNoteItem {
     this.error = this.context.error;		
     this.options = this.context.options;    
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
-
+    this.isExternal= this.context.context.options.isExternal;
   }
 
   @computedFrom("data.Id")

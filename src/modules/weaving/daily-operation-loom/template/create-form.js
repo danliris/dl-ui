@@ -1,10 +1,12 @@
 import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "../service";
+import moment  from "moment";
 var Operator = require("../../../../loader/weaving-operator-loader");
 var Unit = require("../../../../loader/unit-loader");
 var WeavingOrder = require("../../../../loader/weaving-order-loader");
 var Machine = require("../../../../loader/weaving-machine-loader");
+var Beam = require("../../../../loader/weaving-beam-loader");
 
 @inject(Service, Router)
 export class CreateForm {
@@ -17,6 +19,8 @@ export class CreateForm {
     @bindable WeavingUnit;
     @bindable PreparationTime;
     @bindable Machine;
+    @bindable Beam;
+    @bindable PreparationDate;
 
     constructor(service, router) {
 
@@ -37,6 +41,15 @@ export class CreateForm {
     }
 
     // Bindable Method
+    PreparationDateChanged(newValue) {
+        this.data.PreparationDate = moment(newValue).utcOffset("+07:00").format();
+    }
+
+    BeamChanged(newValue) {
+        if (newValue) {
+            this.data.BeamId = newValue.Id;
+        }
+    }
 
     WeavingUnitChanged(newValue) {
 
@@ -57,7 +70,6 @@ export class CreateForm {
     }
 
     PreparationTimeChanged(newValue) {
-
         this.data.PreparationTime = newValue;
         this.service.getShiftByTime(newValue)
             .then(result => {
@@ -98,6 +110,8 @@ export class CreateForm {
 
             if (newValue.Id) {
                 this.data.OrderId = newValue.Id;
+                this.data.WarpOrigin = newValue.WarpOrigin;
+                this.data.WeftOrigin = newValue.WeftOrigin;
             }
         }
     }
@@ -121,5 +135,9 @@ export class CreateForm {
     get Machines() {
 
         return Machine;
+    }
+
+    get Beams() {
+        return Beam;
     }
 }

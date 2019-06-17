@@ -43,6 +43,9 @@ export class List {
         let info = {
             page: this.args.page,
             size: this.args.size,
+        }
+
+        let filter={
             section: this.section ? this.section.Code : "",
             bookingCode: this.no ? this.no.BookingOrderNo : "",
             buyer: this.buyerCode ? this.buyerCode.Code : "",
@@ -52,10 +55,14 @@ export class List {
             dateDeliveryFrom: this.dateDeliveryFrom ? moment(this.dateDeliveryFrom).format("YYYY-MM-DD") : "",
             dateDeliveryTo: this.dateDeliveryTo ? moment(this.dateDeliveryTo).format("YYYY-MM-DD") : ""
         }
-        this.service.search(JSON.stringify(info))
+
+        this.args.filter=JSON.stringify(filter);
+
+        this.service.search(this.args)
 
             .then(result => {
-                this.data = result;
+                this.data = result.data;
+                this.args.total = result.info.total;
                 var temp = [];
                 var count = 0;
                 for (var item of this.data) {
@@ -87,13 +94,36 @@ export class List {
     }
 
     fillTable() {
+        let columns = [
+            [
+                { field:"bookingCode", rowspan:"2", title:"No.<br/>Booking<br/>Order" },
+                { field:"bookingDate", rowspan:"2", title:"Tanggal<br/>Booking" },
+                { field:"buyer", rowspan:"2", title:"Buyer" },
+                { field:"bookingOrderQty", rowspan:"2", title:"Jumlah<br/>Order" },
+                { field:"confirmQty", rowspan:"2", title:"Jumlah<br/>Confirm" },
+                { field:"bookingDeliveryDate", rowspan:"2", title:"Tanggal<br/>Pengiriman<br/>(booking)" },
+                { colspan:"9", title:"Jadwal Pengerjaan" },
+            ],
+            [
+                { field:"comodity", title:"Komoditi" },
+                { field:"smv", title:"SMV" },
+                { field:"unit", title:"Unit" },
+                { field:"year", title:"Tahun" },
+                { field:"week", title:"Week" },
+                { field:"quantity", title:"Jumlah" },
+                { field:"remark", title:"Keterangan" },
+                { field:"deliveryDate", title:"Tanggal Pengiriman" },
+                { field:"usedEH", title:"Used<br/>EH" },
+            ]
+        ];
+
         var bootstrapTableOptions = {
+            columns: columns,
+            data: this.data,
             undefinedText: '',
         };
         bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
-
-        $(this.table).bootstrapTable({ data: this.data });
-        $(this.table).bootstrapTable('refreshOptions', bootstrapTableOptions);
+        $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
         let mergedRows = [];
         for (const rowIndex in this.data) {

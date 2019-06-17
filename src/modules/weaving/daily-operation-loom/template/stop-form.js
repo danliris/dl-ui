@@ -1,13 +1,16 @@
 import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "../service";
+import moment from "moment";
 var Operator = require("../../../../loader/weaving-operator-loader");
 
 @inject(Service, Router)
 export class StopForm {
     @bindable title;
     @bindable readOnly;
-    @bindable StopTime
+    @bindable StopTime;
+    @bindable OnStopOperator;
+    @bindable StopDate;
 
     constructor(service, router) {
         this.service = service;
@@ -26,12 +29,36 @@ export class StopForm {
     }
 
     //bindable method
+    StopDateChanged(newValue) {
+        this.data.StopDate =  moment(newValue).utcOffset("+07:00").format();
+    }
+
+    OnStopOperatorChanged(newValue) {
+
+        if (newValue) {
+
+            if (newValue.Id && newValue.Assignment == "AJL") {
+
+                if (this.error.OnStopOperator) {
+                    this.error.OnStopOperator = "";
+                }
+
+                this.data.OperatorId = newValue.Id;
+
+            } else {
+
+                this.error.OnStopOperator = " Bukan Operator AJL ";
+            }
+        }
+    }
+
     StopTimeChanged(newValue) {
-        console.log(newValue);
-        this.data.StartTime = newValue;
+       
+        this.data.StopTime = newValue;
         this.service.getShiftByTime(newValue)
         .then(result => {
-            this.data.Shift = result;
+            this.data.StopShiftName = result.Name;
+            this.data.ShiftId = result.Id;
         });
     }
 }

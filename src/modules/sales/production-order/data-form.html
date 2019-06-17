@@ -18,7 +18,7 @@
           <!-- <buyer-auto-suggest         label="Buyer"               value.bind="data.Buyer"                 error.bind="error.Buyer"           read-only="true"   change.delegate="buyerChanged($event)"></buyer-auto-suggest> -->
           <textbox label="Tipe Buyer" value.bind="data.Buyer.Type" error.bind="error.Buyer" read-only="true"></textbox>
           <div class="col-sm-10" style="padding-left:18%">
-            <au-autocomplete value.bind="OrderType" label="Jenis Order" error.bind="error.OrderType" read-only="true" text="Name">
+            <au-autocomplete value.bind="data.OrderType" label="Jenis Order" error.bind="error.OrderType" read-only="true" text="Name">
             </au-autocomplete>
           </div>
           <div class="col-sm-10" style="padding-left:18%">
@@ -91,14 +91,14 @@
         </div>
         <div class="col-md-6" style="padding:0">
           <textbox label="Standar Handling" value.bind="data.HandlingStandard" error.bind="error.HandlingStandard" read-only.bind="(readOnly)"></textbox>
-          <dropdown label="RUN" value.bind="data.RUN" error.bind="error.RUN" read-only.bind="(readOnly)" items.bind="RUNOptions" if.bind="isPrintingOnly"
+          <dropdown label="RUN" value.bind="data.Run" error.bind="error.Run" read-only.bind="(readOnly)" items.bind="RUNOptions" if.bind="isPrintingOnly"
             change.delegate="RUNChanged($event)"></dropdown>
           <div class="row">
             <div class="col-sm-4" style="padding-left:20%">
               <textbox value="Lebar RUN (cm)" read-only="true" if.bind="isPrinting && data.RunWidth.length"></textbox>
             </div>
             <div class="col-sm-2" repeat.for="i of data.RunWidth.length">
-              <numeric value.bind="data.RunWidth[i]" read-only.bind="(readOnly)" if.bind="isPrinting && (isRUN || run)" error.bind="error.RunWidth"></numeric>
+              <numeric value.bind="data.RunWidth[i].Value" read-only.bind="(readOnly)" if.bind="isPrinting && (isRUN || run)" error.bind="error.RunWidth"></numeric>
             </div>
           </div>
           <textbox label="Tulisan Pinggir Kain" value.bind="data.ArticleFabricEdge" error.bind="error.ArticleFabricEdge" read-only.bind="(readOnly)"

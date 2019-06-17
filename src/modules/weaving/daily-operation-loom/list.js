@@ -48,16 +48,6 @@ export class List {
             order: order
         }
 
-        // Test data
-        var testData = [{
-            Id : "32323424242",
-            DailyOperationNumber : "001/DOL/Weaving/09080",
-            DateOperated : "12/5/2018",
-            OrderNumber : "Test Number",
-            WeavingUnit : {Name : "TestUnit"},
-            DailyOperationStatus : "Processing"
-        }];
-
         return this.service.search(arg).then(result => {
             if (result.data && result.data.length > 0) {
                 let getUnitPromises = result.data.map(datum =>
@@ -68,23 +58,21 @@ export class List {
                     for (var datum of result.data) {
                         if (units && units.length > 0) {
                             let unit = units.find(
-                                unitResult => datum.WeavingUnit == unitResult.Id
+                                unitResult => datum.UnitId == unitResult.Id
                             );
                             datum.WeavingUnit = unit;
                         }
                     }
-
+                    
                     return {
                         total: result.info.total,
                         data: result.data
                     };
                 });
             } else {
-                console.log("wow");
                 return {
                     total: result.info.total,
-                    // data: result.data
-                    data: testData
+                    data: result.data
                 };
             }
         });

@@ -88,6 +88,7 @@
                     value.bind="data.UnitRequest" 
                     error.bind="error.UnitRequest" 
                     read-only.bind="true"
+                    if.bind="!isExternal"
                     options.bind="controlOptions">
                 </au-textbox>
 
@@ -96,7 +97,7 @@
                     value.bind="data.StorageRequest"
                     error.bind="error.StorageRequest"
                     read-only.bind="true"
-                    if.bind = "isTransfer"
+                    if.bind = "isTransfer "
                     options.bind="controlOptions">
                 </au-textbox>
             </div>
@@ -110,8 +111,19 @@
             columns.bind="items.columns"
             options.bind="options"
             read-only.bind="readOnly" 
-            show.bind="isItem"
+            show.bind="isItem && !isExternal"
             header-template="modules/garment-purchasing/unit-expenditure-note/template/unit-expenditure-note-item-header"
+            item-template="modules/garment-purchasing/unit-expenditure-note/template/unit-expenditure-note-item">
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items"
+            columns.bind="items.columns"
+            options.bind="options"
+            read-only.bind="readOnly" 
+            show.bind="isItem && isExternal"
+            header-template="modules/garment-purchasing/unit-expenditure-note/template/unit-expenditure-note-item-external-header"
             item-template="modules/garment-purchasing/unit-expenditure-note/template/unit-expenditure-note-item">
         </au-collection>
   </au-input-form>
