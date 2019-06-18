@@ -227,6 +227,68 @@ export class List {
     // this.error = "";
   }
 
+  searchDailyOperations() {
+    console.log(this.data);
+    var MonthContainer = this.data.MonthlyPeriod;
+    var ShiftIdContainer = this.data.Shift.Id;
+    var WeavingUnitIdContainer = this.data.WeavingUnit.Id;
+    this.data = {};
+    this.data.Month = " ";
+    switch (MonthContainer) {
+      case "Januari":
+        MonthContainer = 1;
+        break;
+      case "Februari":
+        MonthContainer = 2;
+        break;
+      case "Maret":
+        MonthContainer = 3;
+        break;
+      case "April":
+        MonthContainer = 4;
+        break;
+      case "Mei":
+        MonthContainer = 5;
+        break;
+      case "Juni":
+        MonthContainer = 6;
+        break;
+      case "Juli":
+        MonthContainer = 7;
+        break;
+      case "Agustus":
+        MonthContainer = 8;
+        break;
+      case "September":
+        MonthContainer = 9;
+        break;
+      case "Oktober":
+        MonthContainer = 10;
+        break;
+      case "November":
+        MonthContainer = 11;
+        break;
+      case "Desember":
+        MonthContainer = 12;
+        break;
+      default:
+        MonthContainer = 0;
+        break;
+    }
+    this.data.Month = MonthContainer;
+    this.data.ShiftId = " ";
+    this.data.ShiftId = ShiftIdContainer;
+    this.data.WeavingUnitId = 0;
+    this.data.WeavingUnitId = WeavingUnitIdContainer;
+    console.log(this.data);
+    this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+      return {
+        data: result.data,
+        total: result.data.length
+      };
+    })
+  }
+
   get shifts() {
     return ShiftLoader;
   }

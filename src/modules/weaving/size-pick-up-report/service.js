@@ -13,41 +13,41 @@ import {
 } from 'util';
 var moment = require('moment');
 
-// const serviceUri = 'SpinningInputProduction';
+const serviceUri = 'weaving/daily-operations-sizing/size-pickup';
 
 export class Service extends RestService {
 
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "weaving");
   }
-
-  // search(info) {
-  //     var endpoint = `${serviceUri}`;
-  //     return super.list(endpoint, info);
-  // }
-
+  
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
   }
 
-  search(info) {
-    // var yarn = info.Filter.YarnName ? info.Filter.YarnName :"all";
-    // var spinning = info.Filter.UnitName ? info.Filter.UnitName : "all";
-    // var dateFrom = info.Filter.DateFrom ? info.Filter.DateFrom : " ";
-    // var dateTo = info.Filter.DateTo ? info.Filter.DateTo : " ";
-    var endpoint = `${serviceUri}/report/${spinning}/${yarn}/${dateFrom}/${dateTo}`;
+  getDataByPeriod(StartDate, EndDate, WeavingUnitId, ShiftId) {
+    var periodType = "daterange";
+    var endpoint = `${serviceUri}/${periodType}/start-date/${StartDate}/end-date/${EndDate}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
+    return super.list(endpoint);
+  }
+
+  getDataByMonth(Month, WeavingUnitId, ShiftId) {
+    var periodType = "month";
+    var endpoint = `${serviceUri}/${periodType}/${Month}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
+    console.log(endpoint);
     return super.get(endpoint);
   }
 
-  generateExcel(info) {
-    // var yarn = info.Filter.YarnName ? info.Filter.YarnName :"all"; 
-    // var spinning = info.Filter.UnitName ? info.Filter.UnitName : "all";
-    // var dateFrom = info.Filter.DateFrom ? info.Filter.DateFrom : " ";
-    // var dateTo = info.Filter.DateTo ? info.Filter.DateTo : " ";
-    // var endpoint = `${serviceUri}/download/${spinning}/${yarn}/${dateFrom}/${dateTo}`;
-    return super.getXls(endpoint);
+  getPdfByPeriod(StartDate, EndDate, WeavingUnitId, ShiftId) {
+    var periodType = "daterange";
+    var endpoint = `${serviceUri}/${periodType}/start-date/${StartDate}/end-date/${EndDate}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
+    return super.getPdf(endpoint);
   }
 
-
+  getPdfByMonth(Month, WeavingUnitId, ShiftId) {
+    var periodType = "month";
+    var endpoint = `${serviceUri}/${periodType}/${Month}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
+    return super.getPdf(endpoint);
+  }
 }

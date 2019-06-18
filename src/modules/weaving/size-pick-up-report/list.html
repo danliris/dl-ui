@@ -46,24 +46,24 @@
 
   <div class="row">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-autocomplete label="Unit Weaving" value.bind="data.Unit" error.bind="error.Unit" read-only.bind="readOnly"
+      <au-autocomplete label="Unit Weaving" value.bind="data.WeavingUnit" error.bind="error.WeavingUnit" read-only.bind="readOnly"
         loader.bind="units" text="Name" options.bind="controlOptions"></au-autocomplete>
     </div>
   </div>
 
   <div class="row" style="margin-top: 20px;">
-    <div class="col-md-12">
+    <div class="col-md-4">
+      <button class="btn btn-primary" click.delegate="printXls()"
+        style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
+        Print Laporan
+      </button>
       <button class="btn btn-success" click.delegate="searchDailyOperations()"
-        style="margin-bottom: 8px; white-space: nowrap; width: 64px; border: 1px solid #777777;">
+        style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
         Cari
       </button>
       <button class="btn btn-success" click.delegate="reset()"
         style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777;">
         Atur Ulang
-      </button>
-      <button class="btn btn-primary" click.delegate="printXls()"
-        style="float: right; margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
-        Print Laporan
       </button>
     </div>
   </div>
