@@ -17,6 +17,7 @@ export class Update {
     loomHistory = [
         { header: "Tanggal", value: "DateOperation" },
         { header: "Waktu", value: "TimeOperation" },
+        { header: "Shift", value: "ShiftName" },
         { header: "Operator", value: "BeamOperatorName" },
         { header: "Group", value: "BeamOperatorGroup" },
         { header: "Status", value: "OperationStatus" }
