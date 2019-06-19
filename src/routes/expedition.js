@@ -143,6 +143,32 @@ module.exports = [
         }
     },
     {
+        route: '/expedition/bank-expenditure-note',
+        name: 'purchasing-document-expedition',
+        moduleId: './modules/expedition/bank-expenditure-note/index',
+        nav: true,
+        title: 'Bukti Pengeluaran Bank DPP + PPN',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
+    },
+    {
+        route: '/expedition/reports/bank-expenditure-note-dpp-ppn',
+        name: 'bank-expenditure-note',
+        moduleId: './modules/expedition/reports/bank-expenditure-note-dpp-ppn/index',
+        nav: true,
+        title: 'Laporan Bukti Pengeluaran Bank DPP + PPN',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
         route: '/expedition/daily-bank-transaction-document-in',
         name: 'daily-bank-transaction-document-in',
         moduleId: './modules/expedition/daily-bank-transaction-document-in/index',
@@ -174,6 +200,58 @@ module.exports = [
         moduleId: './modules/expedition/reports/daily-bank-mutation-report/index',
         nav: true,
         title: 'Laporan Mutasi Bank',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/pph-bank-expenditure-note',
+        name: 'pph-bank-expenditure-note',
+        moduleId: './modules/expedition/pph-bank-expenditure-note/index',
+        nav: true,
+        title: 'Pengajuan Pembayaran PPH',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
+    },
+    {
+        route: '/expedition/reports/pph-bank-expenditure-note',
+        name: 'pph-bank-expenditure-note',
+        moduleId: './modules/expedition/reports/pph-bank-expenditure-note/index',
+        nav: true,
+        title: 'Laporan Bukti Pengeluaran Bank PPH',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calendar-check-o'
+        }
+    },
+    {
+        route: '/expedition/reports/credit-balance',
+        name: 'credit-balance-report',
+        moduleId: './modules/expedition/reports/credit-balance-report/index',
+        nav: true,
+        title: 'Saldo Hutang',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/reports/creditor-account',
+        name: 'creditor-account-report',
+        moduleId: './modules/expedition/reports/creditor-account-report/index',
+        nav: true,
+        title: 'Kartu Hutang',
         auth: true,
         settings: {
             group: "finance",

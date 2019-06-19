@@ -36,7 +36,7 @@
       value.bind="selectedProductionOrder"
       label="Nomor Order"
       read-only.bind="readOnly || isEdit"
-      error.bind="error.ProductionOrderId"
+      error.bind="error.ProductionOrder"
       loader.bind="productionOrderLoader"
       key="OrderNo"
       text.bind="productionOrderTextFormatter"
@@ -66,7 +66,7 @@
       value.bind="selectedBuyer"
       label="Tujuan Pengiriman"
       read-only.bind="readOnly"
-      error.bind="error.BuyerId"
+      error.bind="error.Buyer"
       loader.bind="buyersLoader"
       key="Name"
       text="Name"
@@ -83,7 +83,7 @@
       value.bind="selectedMaterialConstructionFinish"
       label="Konstruksi Finish"
       read-only.bind="readOnly"
-      error.bind="error.MaterialConstructionFinishId"
+      error.bind="error.MaterialConstructionFinish"
       loader.bind="materialConstructionFinishLoader"
       key="Name"
       text="Name"
@@ -113,6 +113,8 @@
       error.bind="error.PackingUom"
       read-only.bind="readOnly">
     </au-dropdown>
+
+    <au-textbox show.bind="error.PackingDetail" error.bind="error.PackingDetail" read-only.bind="true"></au-textbox>
 
     <au-collection
       columns.bind="packingDetailsInfo.columns"

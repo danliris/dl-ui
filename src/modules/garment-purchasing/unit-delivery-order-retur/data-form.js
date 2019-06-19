@@ -54,7 +54,6 @@ export class DataForm {
                 this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
                 
             }
-            
         }
     }
 
@@ -93,7 +92,6 @@ export class DataForm {
     }
 
     deliveryOrderView=(DO)=>{
-        console.log(DO)
         return DO.DONo;
     }
 
@@ -133,6 +131,7 @@ export class DataForm {
             this.deliveryOrder = null;
         }
         this.deliveryOrder = null;
+        this.context.deliveryOrderViewModel.editorValue = "";
         this.data.Items = [];
     }
 

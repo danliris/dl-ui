@@ -30,6 +30,7 @@ export class EditInput {
 
     save(event) {
         event.toElement.disabled = true;
+        this.data.IsEdit = true;
         this.service.update(this.data)
             .then(result => {
                 this.view();
