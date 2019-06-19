@@ -24,33 +24,29 @@ export class List {
     this.ShowHideMonthlyPeriod = false;
   }
 
+  listDataFlag = false;
+
   periods = ["", "Harian/ Rekap", "Bulanan"];
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
   columns = [{
-      field: "OperatedDate",
+      field: "DateTimeMachineHistory",
       title: "Tanggal",
       formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
       }
     },
     {
-      field: "Operator",
-      title: "Grup Sizing",
-      formatter: function (value, data, index) {
-        return value.SizingGroup;
-      }
+      field: "OperatorGroup",
+      title: "Grup Sizing"
     },
+    // {
+    //   field: "OperatorName",
+    //   title: "Operator"
+    // },
     {
-      field: "Operator",
-      title: "Operator",
-      formatter: function (value, data, index) {
-        return value.Name;
-      }
-    },
-    {
-      field: "Recipe Code",
+      field: "RecipeCode",
       title: "Kode Resep"
     },
     {
@@ -74,25 +70,16 @@ export class List {
       title: "PIS"
     },
     {
-      field: "Counter",
-      title: "Counter Akhir",
-      formatter: function (value, data, index) {
-        return value.Finish;
-      }
+      field: "Finish",
+      title: "Counter Akhir"
     },
     {
-      field: "Weight",
-      title: "Netto",
-      formatter: function (value, data, index) {
-        return value.Netto;
-      }
+      field: "Netto",
+      title: "Netto"
     },
     {
-      field: "Weight",
-      title: "Bruto",
-      formatter: function (value, data, index) {
-        return value.Bruto;
-      }
+      field: "Bruto",
+      title: "Bruto"
     },
     {
       field: "SPU",
@@ -109,7 +96,7 @@ export class List {
     }
   }
 
-  StartPeriodOptions = {
+  startPeriodOptions = {
     label: {
       length: 4
     },
@@ -118,7 +105,7 @@ export class List {
     }
   }
 
-  EndPeriodOptions = {
+  endPeriodOptions = {
     control: {
       length: 7
     }
@@ -148,92 +135,33 @@ export class List {
     }
   }
 
-  //   shiftAll(){
-  //     var isAllShift = document.getElementById("ShiftAll");
-
-  //     if (isAllShift.checked === true){
-  //         this.ShowHideShift = false;
-  //       } else {
-  //         this.ShowHideShift = true;
-  //       }
-  //   }
-
-  //   listDataFlag = false;
-  //   spinningFilter = {
-  //     "division.name": {
-  //       "$regex": "SPINNING",
-  //       "$options": "i"
-  //     }
-  //   };
-
-  //   filter() {
-  //     this.arg = {};
-  //     this.arg.Filter = {
-  //       "UnitName": this.unit != null || this.unit != undefined ? this.unit.name : "all",
-  //       "YarnName": this.yarn != null || this.yarn != undefined ? this.yarn.Name : "all",
-  //       "DateFrom": moment(this.dateFrom ? this.dateFrom : new Date("12-25-1900")).format("DD MMM YYYY HH:mm"),
-  //       "DateTo": moment(this.dateTo ? this.dateTo : new Date()).format("DD MMM YYYY HH:mm")
-  //     };
-  //   }
-
-  ExportToExcel() {
-    this.filter()
-    this.service.generateExcel(this.arg)
+  get shifts() {
+    return ShiftLoader;
   }
 
-  //   loader = (info) => {
-  //     var order = {};
-  //     if (info.sort)
-  //       order[info.sort] = info.order;
-
-  //     this.arg = {
-  //       page: parseInt(info.offset / info.limit, 10) + 1,
-  //       size: info.limit,
-  //       keyword: info.search,
-  //       order: order,
-  //     }
-
-  // return this.listDataFlag ? (
-  //   this.filter(),
-  //   this.service.search(this.arg).then((result) => {
-
-  //     for (var i of result) {
-  //       i.FirstShift = parseFloat(i.FirstShift.toFixed(2));
-  //       i.SecondShift = parseFloat(i.FirstShift.toFixed(2));
-  //       i.ThirdShift = parseFloat(i.FirstShift.toFixed(2));
-  //       i.Total = parseFloat(i.Total.toFixed(2));
-  //     }
-
-  //     return {
-  //       data: result
-  //     }
-  //   })
-  // ) : {
-  //   total: 0,
-  //   data: {}
-  // };
-  //   }
-
-  search() {
-    // this.listDataFlag = true;
-    // this.table.refresh();
+  get units() {
+    return UnitLoader;
   }
 
-  reset() {
-    // this.unit = null;
-    // this.yarn = null;
-    // this.dateFrom = undefined;
-    // this.dateTo = undefined;
-    // this.error = "";
-  }
+  loader = (info) => {
+    // debugger;
+    this.info = {};
+    var MonthContainer;
+    var ShiftIdContainer;
+    var WeavingUnitIdContainer;
 
-  searchDailyOperations() {
-    console.log(this.data);
-    var MonthContainer = this.data.MonthlyPeriod;
-    var ShiftIdContainer = this.data.Shift.Id;
-    var WeavingUnitIdContainer = this.data.WeavingUnit.Id;
-    this.data = {};
-    this.data.Month = " ";
+    // if (this.data) {
+      MonthContainer = this.MonthlyPeriod;
+      if(this.Shift){
+        ShiftIdContainer = this.Shift.Id;
+      }
+      if(this.WeavingUnit){
+        WeavingUnitIdContainer = this.WeavingUnit.Id;
+      }
+    // }
+
+    // this.data = {};
+    // this.data.Month = " ";
     switch (MonthContainer) {
       case "Januari":
         MonthContainer = 1;
@@ -275,25 +203,41 @@ export class List {
         MonthContainer = 0;
         break;
     }
-    this.data.Month = MonthContainer;
-    this.data.ShiftId = " ";
-    this.data.ShiftId = ShiftIdContainer;
-    this.data.WeavingUnitId = 0;
-    this.data.WeavingUnitId = WeavingUnitIdContainer;
-    console.log(this.data);
-    this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+    // this.data.Month = MonthContainer;
+    // this.data.ShiftId = " ";
+    // this.data.ShiftId = ShiftIdContainer;
+    // this.data.WeavingUnitId = 0;
+    // this.data.WeavingUnitId = WeavingUnitIdContainer;
+
+    return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+      console.log(result);
+      // debugger;
       return {
-        data: result.data,
-        total: result.data.length
+        data: result,
+        total: result.length
       };
-    })
+    }) : {
+      total: 0,
+      data: {}
+    };
   }
 
-  get shifts() {
-    return ShiftLoader;
+  searchDailyOperations() {
+    this.listDataFlag = true;
+
+    this.sizePickupsTable.refresh();
   }
 
-  get units() {
-    return UnitLoader;
+  reset() {
+    this.listDataFlag = false;
+    this.MonthContainer = null;
+    this.ShiftIdContainer = null;
+    this.WeavingUnitIdContainer = null;
+    this.sizePickupsTable.refresh();
   }
+
+  // ExportToExcel() {
+  //   this.filter()
+  //   this.service.generateExcel(this.arg)
+  // }
 }
