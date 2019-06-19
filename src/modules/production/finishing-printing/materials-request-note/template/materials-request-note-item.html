@@ -8,7 +8,7 @@
         <td show.bind="isComplete">
             <au-checkbox
                 show.bind="isComplete"
-                value.bind="data.ProductionOrder.isCompleted">
+                value.bind="data.ProductionOrder.IsCompleted">
             </au-checkbox>
         </td>
         <td show.bind="!isTest">
@@ -20,8 +20,8 @@
                 loader.bind="productionOrderLoader"
                 placeholder="cari surat perintah produksi"
                 query.bind="productionOrderFilter"
-                key="orderNo"
-                text="orderNo"
+                key="OrderNo"
+                text="OrderNo"
                 read-only.bind="options.readOnly || isComplete"
                 options.bind="controlOptions">
             </au-autocomplete>
@@ -33,8 +33,8 @@
                 change.delegate="productChanged($event)"
                 loader.bind="productLoader"
                 placeholder="cari barang" 
-                key="name"
-                text="name"
+                key="Name"
+                text="Name"
                 read-only.bind="options.readOnly || isComplete"
                 options.bind="controlOptions">
             </au-autocomplete>
@@ -51,7 +51,7 @@
         <td if.bind="!isTest">
             <au-numeric
                 if.bind="data.ProductionOrder"
-                value.bind="data.ProductionOrder.orderQuantity"
+                value.bind="data.ProductionOrder.OrderQuantity"
                 read-only="true"
                 options.bind="controlOptions">
             </au-numeric>
@@ -81,7 +81,7 @@
             </au-textbox>
         </td>
         <td show.bind="!isEdit && isAwal || isComplete">
-            <p show.bind="!isEdit && isAwal || isComplete">${ data.ProductionOrder.isCompleted ? 'Sudah Complete' : 'Belum Complete' }</p>
+            <p show.bind="!isEdit && isAwal || isComplete">${ data.ProductionOrder.IsCompleted ? 'Sudah Complete' : 'Belum Complete' }</p>
         </td>
         <td show.bind="!options.readOnly">
             <button show.bind="!options.readOnly" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
