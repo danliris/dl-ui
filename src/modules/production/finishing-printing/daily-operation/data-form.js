@@ -112,7 +112,7 @@ export class DataForm {
             var dailyOperations = await this.service.search({ filter: JSON.stringify(filterDaily) });
             var _machineCode = [];
             _machineCode.push(this.data.Machine.Code);
-            for (var item of dailyOperations.Data) {
+            for (var item of dailyOperations.data) {
                 if (_machineCode.length > 0) {
                     var dup = _machineCode.find(mc => mc == item.Machine.Code);
                     if (!dup)
@@ -363,7 +363,7 @@ export class DataForm {
     }
 
     get stepLoader() {
-        console.log(this.data.Machine);
+        // console.log(this.data.Machine);
         return this.data.Machine && this.data.Machine.Steps ? this.data.Machine.Steps : [];
     }
 
