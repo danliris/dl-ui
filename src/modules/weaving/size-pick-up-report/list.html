@@ -10,7 +10,7 @@
 
   <div class="row" show.bind="ShowHideDailyPeriod">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-datepicker label="Harian/ Rekap" value.bind="data.StartPeriod" error.bind="error.StartPeriod"
+      <au-datepicker label="Harian/ Rekap" value.bind="StartDatePeriod" error.bind="error.StartDatePeriod"
         read-only.bind="readOnly" options.bind="startPeriodOptions">
       </au-datepicker>
     </div>
@@ -18,7 +18,7 @@
       <p>s.d</p>
     </div>
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-datepicker value.bind="data.EndPeriod" error.bind="error.EndPeriod" read-only.bind="readOnly"
+      <au-datepicker value.bind="EndDatePeriod" error.bind="error.EndDatePeriod" read-only.bind="readOnly"
         options.bind="endPeriodOptions">
       </au-datepicker>
     </div>

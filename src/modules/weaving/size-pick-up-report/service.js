@@ -26,20 +26,21 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getDataByPeriod(StartDate, EndDate, WeavingUnitId, ShiftId) {
+  getDataByDateRange(startDate, endDate, weavingUnitId, shiftId) {
     var periodType = "daterange";
-    var endpoint = `${serviceUri}/${periodType}/start-date/${StartDate}/end-date/${EndDate}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
-    return super.list(endpoint);
-  }
-
-  getDataByMonth(Month, WeavingUnitId, ShiftId) {
-    var periodType = "month";
-    var endpoint = `${serviceUri}/${periodType}/${Month}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
+    var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}`;
     console.log(endpoint);
     return super.get(endpoint);
   }
 
-  getPdfByPeriod(StartDate, EndDate, WeavingUnitId, ShiftId) {
+  getDataByMonth(month, weavingUnitId, shiftId) {
+    var periodType = "month";
+    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}`;
+    console.log(endpoint);
+    return super.get(endpoint);
+  }
+
+  getPdfByDateRange(StartDate, EndDate, WeavingUnitId, ShiftId) {
     var periodType = "daterange";
     var endpoint = `${serviceUri}/${periodType}/start-date/${StartDate}/end-date/${EndDate}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
     return super.getPdf(endpoint);
