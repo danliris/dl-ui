@@ -6,39 +6,35 @@
         read-only.bind="readOnly" options.bind="controlOptions">
       </au-dropdown>
     </div>
-    <!-- <div class="col-md-2">
-      <label class="checkbox-inline" style="padding-top:20px;"><input type="checkbox" id="ShiftAll" onclick="shiftAll()"
-          style="white-space: nowrap;">Semua Shift</label>
-    </div> -->
   </div>
 
   <div class="row" show.bind="ShowHideDailyPeriod">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-datepicker label="Harian/ Rekap" value.bind="data.StartPeriod" error.bind="error.StartPeriod"
-        read-only.bind="readOnly" options.bind="StartPeriodOptions">
+      <au-datepicker label="Harian/ Rekap" value.bind="StartDatePeriod" error.bind="error.StartDatePeriod"
+        read-only.bind="readOnly" options.bind="startPeriodOptions">
       </au-datepicker>
     </div>
     <div class="col-md-1" style="white-space: nowrap; padding-top: 20px;">
       <p>s.d</p>
     </div>
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-datepicker value.bind="data.EndPeriod" error.bind="error.EndPeriod" read-only.bind="readOnly"
-        options.bind="EndPeriodOptions">
+      <au-datepicker value.bind="EndDatePeriod" error.bind="error.EndDatePeriod" read-only.bind="readOnly"
+        options.bind="endPeriodOptions">
       </au-datepicker>
     </div>
   </div>
 
   <div class="row" show.bind="ShowHideMonthlyPeriod">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-dropdown label="Bulanan" value.bind="data.MonthlyPeriod" error.bind="error.MonthlyPeriod"
-        read-only.bind="readOnly" items.bind="months" options.bind="controlOptions">
+      <au-dropdown label="Bulanan" value.bind="MonthlyPeriod" error.bind="error.MonthlyPeriod" read-only.bind="readOnly"
+        items.bind="months" options.bind="controlOptions">
       </au-dropdown>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-autocomplete label="Shift" value.bind="data.Shift" error.bind="error.Period" read-only.bind="readOnly"
+      <au-autocomplete label="Shift" value.bind="Shift" error.bind="error.Period" read-only.bind="readOnly"
         loader.bind="shifts" text="Name" options.bind="controlOptions">
       </au-autocomplete>
     </div>
@@ -46,29 +42,29 @@
 
   <div class="row">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-autocomplete label="Unit Weaving" value.bind="data.Unit" error.bind="error.Unit" read-only.bind="readOnly"
-        loader.bind="units" text="Name" options.bind="controlOptions"></au-autocomplete>
+      <au-autocomplete label="Unit Weaving" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
+        read-only.bind="readOnly" loader.bind="units" text="Name" options.bind="controlOptions"></au-autocomplete>
     </div>
   </div>
 
   <div class="row" style="margin-top: 20px;">
-    <div class="col-md-12">
+    <div class="col-md-4">
+      <button class="btn btn-primary" click.delegate="printXls()"
+        style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
+        Print Laporan
+      </button>
       <button class="btn btn-success" click.delegate="searchDailyOperations()"
-        style="margin-bottom: 8px; white-space: nowrap; width: 64px; border: 1px solid #777777;">
+        style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
         Cari
       </button>
       <button class="btn btn-success" click.delegate="reset()"
         style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777;">
         Atur Ulang
       </button>
-      <button class="btn btn-primary" click.delegate="printXls()"
-        style="float: right; margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
-        Print Laporan
-      </button>
     </div>
   </div>
   <au-table style="white-space: nowrap; margin-top: 26px;" data.bind="loader" columns.bind="columns"
-    sortable.bind="true" view-model.ref="orderProductionsTable" page-size="25" options.bind="tableOptions"
+    sortable.bind="true" view-model.ref="sizePickupsTable" page-size="25" options.bind="tableOptions"
     context.bind="context">
   </au-table>
 </template>
