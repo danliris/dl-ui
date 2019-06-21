@@ -1,7 +1,5 @@
 import {
-  inject,
-  bindable,
-  Lazy
+  inject
 } from "aurelia-framework";
 import {
   Router
@@ -9,6 +7,7 @@ import {
 import {
   Service
 } from "./service";
+import moment from "moment";
 
 @inject(Router, Service)
 export class View {
@@ -28,28 +27,21 @@ export class View {
   }
 
   async activate(params) {
-    // var Id = params.Id;
-    // this.data = await this.service.getById(Id);
-    this.data = {
-      BeamNumber: "TS 108",
-      LatestStatus: "Warping",
-      History: [{
-        BeamDate: "21 March, 2014",
-        Status: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula...."
-      }, {
-        BeamDate: "21 March, 2014",
-        Status: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula...."
-      }]
-    };
-    this.data.History.forEach(log => {
-      console.log(log);
-      this.historyList.push(log);
-    });
-  }
+    var Id = params.Id;
+    var number = params.Number;
+    this.data = await this.service
+      .getById(Id, number)
+      .then(result => {
 
-  //   list() {
-  //     this.router.navigateToRoute("list");
-  //   }
+        var movementDetails = result.BeamMovementDetails.map(element => {
+          element.DateTimeOperation = moment(element.DateTimeOperation).format('DD/MM/YYYY hh:mm A');
+          return element;
+        });
+
+        result.BeamMovementDetails = movementDetails;
+        return result;
+      });
+  }
 
   cancelCallback(event) {
     this.router.navigateToRoute("list");
