@@ -40,15 +40,19 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getPdfByDateRange(StartDate, EndDate, WeavingUnitId, ShiftId) {
+  getXlsByDateRange(startDate, endDate, weavingUnitId, shiftId) {
+    debugger;
     var periodType = "daterange";
-    var endpoint = `${serviceUri}/${periodType}/start-date/${StartDate}/end-date/${EndDate}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
-    return super.getPdf(endpoint);
+    var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}`;
+    console.log(endpoint);
+    return super.getXls(endpoint);
   }
 
-  getPdfByMonth(Month, WeavingUnitId, ShiftId) {
+  getXlsByMonth(month, weavingUnitId, shiftId) {
+    debugger;
     var periodType = "month";
-    var endpoint = `${serviceUri}/${periodType}/${Month}/unit-id/${WeavingUnitId}/shift/${ShiftId}`;
-    return super.getPdf(endpoint);
+    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}`;
+    console.log(endpoint);
+    return super.getXls(endpoint);
   }
 }
