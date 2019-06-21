@@ -7,7 +7,6 @@ import {
 import {
   Router
 } from "aurelia-router";
-import moment from "moment";
 
 @inject(Router, Service)
 export class List {
@@ -34,23 +33,12 @@ export class List {
       order: order
     };
 
-    // return this.service.search(arg).then(result => {
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data
-    //   }.catch(error => {
-    //     console.log(error);
-    //   });
-    // });
-
-    return {
-      total: 1,
-      data: [{
-        Id: 1,
-        BeamNumber: "TS 108",
-        Status: "Warping"
-      }]
-    };
+    return this.service.search(arg).then(result => {
+      return {
+        total: result.info.total,
+        data: result.data
+      };
+    });
   };
 
   constructor(router, service) {
@@ -64,7 +52,8 @@ export class List {
     switch (arg.name) {
       case "detail":
         this.router.navigateToRoute("view", {
-          Id: data.Id
+          Id: data.Id,
+          Number: data.BeamNumber
         });
         break;
     }
