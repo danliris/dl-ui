@@ -359,6 +359,8 @@ export class DataForm {
             steps.splice(steps[0].SelectedIndex - 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex - 1);
         }
+        this.context.StepsCollection.bind();
+        // console.log(steps);
     }
 
     moveItemDown(event) {
@@ -369,6 +371,8 @@ export class DataForm {
             steps.splice(steps[0].SelectedIndex + 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex + 1);
         }
+        this.context.StepsCollection.bind();
+        // console.log(steps);
     }
 
     setCurrentIndex(currentIndex) {
@@ -398,7 +402,7 @@ export class DataForm {
 
     instructionChanged(newValue, oldValue) {
         this.data.Instruction = newValue;
-
+        // console.log(this.data.Instruction);
         if (!this.isReprocess)
             this.generateDeadline();
     }
@@ -422,7 +426,7 @@ export class DataForm {
 
     generateDeadline() {
         if (this.hasInstruction && this.hasProductionOrder) {
-            if (this.data.durationEstimation) {
+            if (this.data.durationEstimation.Areas) {
                 var deliveryDate = this.data.ProductionOrder.DeliveryDate;
 
                 this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
@@ -456,7 +460,7 @@ export class DataForm {
     }
 
     generateDeadlineReprocess() {
-        if (this.data.durationEstimation) {
+        if (this.data.durationEstimation.Areas) {
             var deliveryDate = this.data.ProductionOrder.DeliveryDate;
 
             this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
