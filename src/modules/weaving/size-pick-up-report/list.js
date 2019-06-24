@@ -251,7 +251,7 @@ export class List {
     this.sizePickupsTable.refresh();
   }
 
-  ExportToExcel() {
+  exportToExcel() {
     // this.filter()
     // this.service.generateExcel(this.arg)
     if (this.MonthlyPeriod) {

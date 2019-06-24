@@ -41,7 +41,7 @@ export class Service extends RestService {
   }
 
   getXlsByDateRange(startDate, endDate, weavingUnitId, shiftId) {
-    debugger;
+    // debugger;
     var periodType = "daterange";
     var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}`;
     console.log(endpoint);
@@ -49,7 +49,7 @@ export class Service extends RestService {
   }
 
   getXlsByMonth(month, weavingUnitId, shiftId) {
-    debugger;
+    // debugger;
     var periodType = "month";
     var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}`;
     console.log(endpoint);
