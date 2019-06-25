@@ -154,6 +154,6 @@ export class DataForm {
     }
 
     unitView = (unit) => {
-        return `${unit.Division.Name} - ${unit.Name}`
+        return `${unit.Name}`
     }
 } 
