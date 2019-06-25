@@ -26,9 +26,9 @@ export class View {
         //     }
         // }
 
-        // if (!this.data.isVoid && this.isNewStructure) {
-        //     this.isVoid = true
-        // }
+        if (!this.data.IsVoid) {
+            this.isVoidAble = true;
+        }
     }
 
     update() {

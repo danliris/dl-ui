@@ -144,6 +144,12 @@ export class List {
         }
     }
 
+    excelAll() {
+
+        this.service.getXlsAll();
+
+    }
+
     reset() {
         this.error = {};
         this.info = {};

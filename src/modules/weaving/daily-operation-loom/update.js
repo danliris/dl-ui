@@ -17,6 +17,7 @@ export class Update {
     loomHistory = [
         { header: "Tanggal", value: "DateOperation" },
         { header: "Waktu", value: "TimeOperation" },
+        { header: "Shift", value: "ShiftName" },
         { header: "Operator", value: "BeamOperatorName" },
         { header: "Group", value: "BeamOperatorGroup" },
         { header: "Status", value: "OperationStatus" }
@@ -130,6 +131,27 @@ export class Update {
 
         this.service
             .updateForFinishProcess(this.data)
+            .then(result => {
+
+                this.data.LoomHistory = [];
+
+                if (result.length > 0) {
+                    result = this.remappingModels(result);
+                }
+
+                this.data.LoomHistory = result;
+            }).catch(e => {
+                var errorStatus = e.Status;
+                this.dialog.errorPrompt(errorStatus);
+            });
+    }
+
+    updateShift(){
+        $("#UbahShift").modal('hide');
+        this.error = {};
+
+        this.service
+            .updateForShiftProcess(this.data)
             .then(result => {
 
                 this.data.LoomHistory = [];
