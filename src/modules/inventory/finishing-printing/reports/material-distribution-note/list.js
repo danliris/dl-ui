@@ -13,7 +13,7 @@ export class List {
 
         this.flag = false;
         this.types = ["", "PRODUKSI", "RE-GRADING", "TEST"];
-        this.unitQuery = { "division.name": "FINISHING & PRINTING" };
+        this.unitQuery = { "DivisionName":"DYEING & PRINTING" };
         this.error = {};
     }
 
@@ -89,7 +89,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             order: order,
-            unitId: this.unit ? this.unit._id : "",
+            unitId: this.unit ? this.unit.Id : "",
             type: this.type,
             date: moment(this.date).format("MM/DD/YYYY")
         };
@@ -117,8 +117,8 @@ export class List {
 
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             let args = {
-                unitId: this.unit ? this.unit._id : "",
-                unitName: this.unit ? this.unit.name : "",
+                unitId: this.unit ? this.unit.Id : "",
+                unitName: this.unit ? this.unit.Name : "",
                 type: this.type,
                 date: moment(this.date).format("MM/DD/YYYY")
             };

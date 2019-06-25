@@ -31,7 +31,7 @@ export class MaterialRequestNoteItem {
             this.materialRequestNote = { Code: this.data.MaterialRequestNoteCode };
 
         if (this.data.MaterialRequestNoteCreatedDateUtc)
-            this.materialRequestCreatedDateUtc = moment(this.data.materialRequestNoteCreatedDateUtc).format("DD-MMM-YYYY");
+            this.materialRequestCreatedDateUtc = moment(this.data.MaterialRequestNoteCreatedDateUtc).format("DD-MMM-YYYY");
 
         if (this.options.isTest)
             this.columns = ["Nama Barang", "Grade", "Panjang SPB (Meter)", "Panjang Barang Datang (Meter)", "Jumlah (Pieces)", "Asal"];
