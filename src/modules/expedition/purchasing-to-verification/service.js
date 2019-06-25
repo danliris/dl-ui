@@ -8,11 +8,11 @@ const uriURN = 'unit-receipt-notes';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing');
+        super(http, aggregator, config, 'purchasing-azure');
     }
 
     getURN(info) {
-        let endpoint = `${uriURN}`;
+        let endpoint = `${uriURN}/all/by-list-of-no`;
         return super.list(endpoint, info);
     }
 }
