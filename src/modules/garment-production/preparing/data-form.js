@@ -11,6 +11,7 @@ export class DataForm {
     @bindable isCreate = false;
     @bindable isEdit = false;
     @bindable isView = false;
+    @bindable hasDelete = false;
     @bindable readOnly;
     @bindable data = {};
     @bindable options = {};
@@ -45,6 +46,11 @@ export class DataForm {
         this.context = context;
         this.dataView = this.context.data;
         this.data = this.context.data;
+        for(var a of this.context.data.Items){
+            if(a.RemainingQuantity != a.Quantity){
+                this.context.hasDelete=false;
+            }
+        }
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
         this.options.isView = this.context.isView;
@@ -82,13 +88,12 @@ export class DataForm {
                             for(var item of this.data.Items){
                                 item.Product = item.ProductId;
                                 item.Uom = item.UomId;
-                                if(doItem.POItemId == item.POItemId )
-                                    item.DesignColor = doItem.DesignColor;
+                                if(doItem.POItemId == item.POItemId ){item.DesignColor = doItem.DesignColor;}
+                                
                             }                
                         }
                     }
                 });
-            
         }
     }
 
