@@ -1,5 +1,12 @@
 <template>
     <tr>
+        <td if.bind="options.isCreate" >
+            <au-checkbox 
+                value.bind="data.IsSave" 
+                if.bind="options.isCreate"
+                options.bind="controlOptions">
+            </au-checkbox>
+        </td>
         <td>
             <au-textbox 
                 value.bind="data.ProductCode"
@@ -21,24 +28,6 @@
         <td align='center'>
             <au-textbox 
                 value.bind="data.UomUnit" 
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td align='center'>
-            <au-textbox 
-                value.bind="data.BasicPrice"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td align='center'>
-            <au-textbox 
-                value.bind="data.Currency"
-                read-only.bind="true">
-            </au-textbox>
-        </td>
-        <td>
-            <au-textbox 
-                value.bind="data.FabricType"
                 read-only.bind="true">
             </au-textbox>
         </td>

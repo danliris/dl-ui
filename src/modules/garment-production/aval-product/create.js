@@ -33,9 +33,11 @@ export class Create {
     }
 
     save(event) {
-        if(!this.data.UnitId){this.data.UnitId=0;}
-        this.data.ProcessDate = this.data.ProcessDate ? moment(this.data.ProcessDate).format("DD MMM YYYY") : null;
-        this.service.create(this.data)
+        this.data.AvalDate = this.data.AvalDate ? moment(this.data.AvalDate).format("DD MMM YYYY") : null;
+        let objData = {};
+        let data = Object.assign(objData, this.data)
+        data.Items = data.Items.filter(x => x.IsSave==true);
+        this.service.create(data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
