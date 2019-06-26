@@ -7,7 +7,7 @@ module.exports = [
         title: 'Ekspedisi Penyerahan ke Verifikasi',
         auth: true,
         settings: {
-            group: "expedition",
+            group: "finance",
             permission: { "P1": 1,"P2": 1,"P3": 1,"P4": 1,"P5": 1,"P6": 1,"P7": 1,"PI": 1,"PG": 1,"PK": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
@@ -20,7 +20,7 @@ module.exports = [
         title: 'Penerimaan Dokumen Pembelian',
         auth: true,
         settings: {
-            group: "expedition",
+            group: "finance",
             permission: { "B4": 1,"B9": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
@@ -33,7 +33,7 @@ module.exports = [
         title: 'Laporan Ekspedisi Surat Perintah Bayar',
         auth: true,
         settings: {
-            group: "expedition",
+            group: "finance",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
@@ -46,7 +46,7 @@ module.exports = [
         title: 'Verifikasi Surat Perintah Bayar',
         auth: true,
         settings: {
-            group: "expedition",
+            group: "finance",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calendar-check-o'
         }
