@@ -3,6 +3,7 @@ export class Header {
         this.context = context;
         this.items = context.items;
         this.options = context.options;
+        this.isEdit = context.options.isEdit;
     }
 
     changeCheckedAll() {

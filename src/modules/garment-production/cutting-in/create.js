@@ -27,10 +27,7 @@ export class Create {
     }
 
     saveCallback(event) {
-        let data = {};
-        Object.assign(data, this.data);
-        data.Items = data.Items.filter(item => item.Details.filter(detail => detail.IsSave).length > 0);
-        this.service.create(data)
+        this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });

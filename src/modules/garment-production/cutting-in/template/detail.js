@@ -8,6 +8,7 @@ export class Item {
         this.options = context.options;
 
         this.readOnly = this.options.readOnly || this.data.IsDisabled;
+        this.isEdit = this.context.context.options.isEdit;
         this.showOrigin = this.context.context.options.isEdit || this.readOnly;
     }
 

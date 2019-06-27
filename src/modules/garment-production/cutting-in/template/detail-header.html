@@ -3,7 +3,7 @@
         <th>
             <au-checkbox
                 value.bind="options.checkedAll"
-                disabled.bind="readOnly"
+                disabled.bind="readOnly || isEdit"
                 change.delegate=changeCheckedAll()>
             </au-checkbox>
         </th>

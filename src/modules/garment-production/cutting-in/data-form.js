@@ -63,7 +63,18 @@ export class DataForm {
 
         this.itemOptions = {
             FC: this.data.FC || 0,
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            checkedAll: true
+        }
+
+        if (this.data && this.data.Items) {
+            this.data.Items.forEach(
+                item => item.Details.forEach(
+                    detail => {
+                        detail.IsSave = true;
+                    }
+                )
+            );
         }
     }
 
