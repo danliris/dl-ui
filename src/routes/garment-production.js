@@ -25,4 +25,17 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-production/cutting-in',
+        name: 'garment-production-cutting-in',
+        moduleId: './modules/garment-production/cutting-in/index',
+        nav: true,
+        title: 'Cutting-In',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    }
 ];

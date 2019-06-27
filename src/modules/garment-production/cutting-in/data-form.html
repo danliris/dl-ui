@@ -1,0 +1,84 @@
+<template>
+    <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <au-textbox
+            if.bind="data.CutInNo"
+            value.bind="data.CutInNo"
+            label="No Cutting In"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete
+            value.bind="data.Unit"
+            error.bind="error.Unit"
+            label="Unit"
+            loader.bind="unitLoader"
+            text.bind="unitView"
+            placeholder="Unit"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-dropdown
+            label="Tipe Cutting"
+            value.bind="data.CuttingType"
+            error.bind="error.CuttingType"
+            read-only.bind="readOnly || isEdit"
+            items.bind="cuttingTypes"
+            options.bind="controlOptions"
+            change.delegate="selectedPreparing = null">
+        </au-dropdown>
+
+        <au-datepicker 
+            label="Tanggal Cutting"
+            value.bind="data.CuttingInDate"
+            error.bind="error.CuttingInDate"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-datepicker> 
+
+        <au-autocomplete
+            value.bind="selectedPreparing"
+            error.bind="error.RONo"
+            label="RO"
+            loader.bind="preparingLoader"
+            query.bind="preparingFilter"
+            text="RONo"
+            placeholder="Nomor RO"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedPreparingViewModel">
+        </au-autocomplete>
+
+        <au-textbox
+            value.bind="data.Article"
+            label="No Artikel"
+            read-only="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-numeric
+            label="FC"
+            value.bind="data.FC"
+            error.bind="error.FC"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            change.delegate="changeFC($event)">
+        </au-numeric>
+
+        <au-collection
+            items.bind="data.Items"
+            errors.bind="error.Items"
+            columns.bind="itemsColumns"
+            read-only.bind="readOnly"
+            options.bind="itemOptions"
+            item-template="modules/garment-production/cutting-in/template/item">
+        </au-collection>
+
+    </au-input-form>
+    <div class="row"></div>
+</template>
