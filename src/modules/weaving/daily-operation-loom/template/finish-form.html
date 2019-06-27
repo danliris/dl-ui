@@ -50,6 +50,17 @@
                         </au-textbox>
                     </div>
                 </div>
+
+                <div class="row" style="white-space: nowrap;">
+                    <div class="col-md-4">
+                        <textbox label="Panjang Penggunaan Benang Beam" read-only="true"></textbox>
+                    </div>
+                    <div class="col-md-2">
+                        <au-numeric placeholder="Panjang" value.bind="data.YarnUsedOnLenght" error.bind="error.GroupLoom"
+                            read-only.bind="false">
+                        </au-numeric>
+                    </div>
+                </div>
             </div>
         </au-input-form>
     </template>
