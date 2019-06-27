@@ -32,9 +32,9 @@ export class List {
 
   columns = [{
       field: "DateTimeMachineHistory",
-      title: "Tanggal",
+      title: "Tanggal Selesai",
       formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY");
+        return moment(value).format("DD MMMM YYYY");
       }
     },
     {
@@ -70,20 +70,30 @@ export class List {
       title: "PIS"
     },
     {
-      field: "Finish",
+      field: "CounterStart",
+      title: "Counter Awal"
+    },
+    {
+      field: "CounterFinish",
       title: "Counter Akhir"
     },
     {
-      field: "Netto",
+      field: "WeightNetto",
       title: "Netto"
     },
     {
-      field: "Bruto",
+      field: "WeightBruto",
       title: "Bruto"
     },
     {
       field: "SPU",
       title: "SPU"
+    },{
+      field: "DateTimeMachineHistory",
+      title: "Waktu Doff",
+      formatter: function (value, data, index) {
+        return moment(value).format("HH:mm:ss");
+      }
     },
   ];
 
@@ -151,14 +161,6 @@ export class List {
       var ShiftIdContainer = this.Shift.Id;
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
 
-      // MonthContainer = this.MonthlyPeriod;
-      // if (this.Shift) {
-      //   ShiftIdContainer = this.Shift.Id;
-      // }
-      // if (this.WeavingUnit) {
-      //   WeavingUnitIdContainer = this.WeavingUnit.Id;
-      // }
-
       switch (MonthContainer) {
         case "Januari":
           MonthContainer = 1;
@@ -202,7 +204,6 @@ export class List {
       }
 
       return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
-        console.log(result);
         return {
           data: result,
           total: result.length
@@ -214,36 +215,14 @@ export class List {
     }
 
     if (this.StartDatePeriod && this.EndDatePeriod) {
-      // var StartDatePeriodContainer = this.StartDatePeriod;
-      // var EndDatePeriodContainer = this.EndDatePeriod;
       var ShiftIdContainer = this.Shift.Id;
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
-      // var startDay = this.StartDatePeriod.getDate();
-      // var startMonth = this.StartDatePeriod.getMonth();
-      // var startYear = this.StartDatePeriod.getFullYear();
-      // StartDatePeriodContainer = startDay + "/" + startMonth + "/" + startYear;
+
       var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MM YYYY") : null;
-      console.log(StartDatePeriodContainer);
-      // console.log(typeof StartDatePeriodContainer);
-
-
-      // var endDay = this.EndDatePeriod.getDate();
-      // var endMonth = this.EndDatePeriod.getMonth();
-      // var endYear = this.EndDatePeriod.getFullYear();
-      // EndDatePeriodContainer = endDay + "/" + endMonth + "/" + endYear;
       var EndDatePeriodContainer = this.EndDatePeriod? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
-      console.log(EndDatePeriodContainer);
-      // console.log(typeof EndDatePeriodContainer);
-
-      // if (this.Shift) {
-      //   ShiftIdContainer = this.Shift.Id;
-      // }
-      // if (this.WeavingUnit) {
-      //   WeavingUnitIdContainer = this.WeavingUnit.Id;
     }
 
     return this.listDataFlag ? this.service.getDataByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
-      console.log(result);
       return {
         data: result,
         total: result.length
@@ -262,14 +241,93 @@ export class List {
 
   reset() {
     this.listDataFlag = false;
+
+    this.StartDatePeriodContainer = null;
+    this.EndDatePeriodContainer = null;
     this.MonthContainer = null;
     this.ShiftIdContainer = null;
     this.WeavingUnitIdContainer = null;
+
     this.sizePickupsTable.refresh();
   }
 
-  // ExportToExcel() {
-  //   this.filter()
-  //   this.service.generateExcel(this.arg)
-  // }
+  exportToExcel() {
+    // this.filter()
+    // this.service.generateExcel(this.arg)
+    if (this.MonthlyPeriod) {
+      var MonthContainer = this.MonthlyPeriod;
+      var ShiftIdContainer = this.Shift.Id;
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+
+      switch (MonthContainer) {
+        case "Januari":
+          MonthContainer = 1;
+          break;
+        case "Februari":
+          MonthContainer = 2;
+          break;
+        case "Maret":
+          MonthContainer = 3;
+          break;
+        case "April":
+          MonthContainer = 4;
+          break;
+        case "Mei":
+          MonthContainer = 5;
+          break;
+        case "Juni":
+          MonthContainer = 6;
+          break;
+        case "Juli":
+          MonthContainer = 7;
+          break;
+        case "Agustus":
+          MonthContainer = 8;
+          break;
+        case "September":
+          MonthContainer = 9;
+          break;
+        case "Oktober":
+          MonthContainer = 10;
+          break;
+        case "November":
+          MonthContainer = 11;
+          break;
+        case "Desember":
+          MonthContainer = 12;
+          break;
+        default:
+          MonthContainer = 0;
+          break;
+      }
+
+      return this.listDataFlag ? this.service.getXlsByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+        return {
+          data: result,
+          total: result.length
+        };
+      }) : {
+        total: 0,
+        data: {}
+      };
+    }
+
+    if (this.StartDatePeriod && this.EndDatePeriod) {
+      var ShiftIdContainer = this.Shift.Id;
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+
+      var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MM YYYY") : null;
+      var EndDatePeriodContainer = this.EndDatePeriod? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
+    }
+
+    return this.listDataFlag ? this.service.getXlsByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+      return {
+        data: result,
+        total: result.length
+      };
+    }) : {
+      total: 0,
+      data: {}
+    };
+  }
 }
