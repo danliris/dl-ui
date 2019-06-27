@@ -9,16 +9,13 @@ export class List {
   // info = { page: 1, keyword: '' };
   context = ["Detail"];
   columns = [
-    { field: "Article", title: "No. Artikel" },
     { field: "RONo", title: "RO" },
-    { field: "UnitId.Name", title: "Unit" },
-    { field: "UENNo", title: "No Bukti Pengeluaran" },
+    { field: "Article", title: "No. Artikel" },
     {
-        field: "ProcessDate", title: "Tanggal Proses", formatter: function (value, data, index) {
+        field: "AvalDate", title: "Tanggal Aval", formatter: function (value, data, index) {
           return moment(value).format("DD MMM YYYY")
         }
     },
-    { field: "Items", title: "Kode Barang", sortable: false },
   ]
 
   loader = (info) => {
@@ -38,21 +35,21 @@ export class List {
         var data = {};
         data.total = result.info.total;
         data.data = result.data;
-          data.data.forEach(s => {
-            if(s.Items){
-              s.Items.toString = function () {
-                var str = "<ul>";
-                for (var item of s.Items) {
-                    str += `<li>${item.Product.Code}</li>`;
-                }
-                str += "</ul>";
-                return str;
-                    }
-            }
-            else{
-              s.Items = "-";
-            }
-        });
+        //   data.data.forEach(s => {
+        //     if(s.Items){
+        //       s.Items.toString = function () {
+        //         var str = "<ul>";
+        //         for (var item of s.Items) {
+        //             str += `<li>${item.Product.Code}</li>`;
+        //         }
+        //         str += "</ul>";
+        //         return str;
+        //             }
+        //     }
+        //     else{
+        //       s.Items = "-";
+        //     }
+        // });
         // }
         // return data;
         // for (var _data of result.data) {
