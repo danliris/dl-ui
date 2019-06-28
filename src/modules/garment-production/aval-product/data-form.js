@@ -55,7 +55,7 @@ export class DataForm {
     async roNoChanged(newValue){
         var selectedPreparing = newValue;
         if(selectedPreparing && this.options.isCreate){
-            this.data.Items=[];
+            this.data.Items.splice(0);
             this.data.RONo = selectedPreparing.RONo;
             this.data.Article = selectedPreparing.Article;
             var filterPreparing = {"RONo": selectedPreparing.RONo}
@@ -76,7 +76,7 @@ export class DataForm {
                             UomUnit : item.Uom.Unit,
                             IsSave : false,
                         };
-                        this.data.Items.push(items);    
+                        this.data.Items.push(items); 
                     }
                 }
             }
