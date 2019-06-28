@@ -97,13 +97,28 @@ export class DataForm {
 
         if (!this.data.ProcessType) {
             this.data.ProcessType = this.processType;
-         }
-        
+        }
+        if (!this.data.Id) {
+            this.data.Grain = 1;
+            this.data.Ne = 1;
+            this.data.Eff = 1;
+            this.data.RPM = 1;
+            this.data.Standard = 1;
+            this.data.TPI = 1;
+            this.data.TotalDraft = 1;
+            this.data.Constant = 1;
+            if (this.data.ProcessType == 'Winder') {
+                this.data.ConeWeight = 1.89;
+            } else {
+                this.data.ConeWeight = 1;
+            }
+
+        }
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
         }
 
-        if(!this.context.isCreate){
+        if (!this.context.isCreate) {
 
         }
         if (this.data.ProcessType == "Mix Drawing") {
@@ -112,7 +127,7 @@ export class DataForm {
             if (this.data.MixDrawingLotNo) {
                 this.mixDrawingLot = this.data.MixDrawingLotNo;
             }
-            if(this.data.MixDrawingCountId){
+            if (this.data.MixDrawingCountId) {
                 this.count = {};
                 this.count.Id = this.data.MixDrawingCountId;
                 this.count.Name = this.data.Count;
@@ -121,7 +136,7 @@ export class DataForm {
         } else {
             if (this.data.ProcessType == 'Winder')
                 this.data.ConeWeight = 1.89;
-            
+
             // this.data.MaterialComposition = [];
             this.showItemRegular = true;
             this.mixDrawing = false;
@@ -203,10 +218,10 @@ export class DataForm {
         }
     }
 
-    countChanged(n, o){
-        if(this.count){
+    countChanged(n, o) {
+        if (this.count) {
             this.data.Count = this.count.Id;
-            
+
         }
     }
 

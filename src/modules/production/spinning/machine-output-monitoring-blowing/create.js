@@ -58,14 +58,34 @@ export class Create {
         
         var outputItem = this.data.Items[0];
         
-        outputItem.Output = outputItem.BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+        // outputItem.Output = outputItem.BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+        // if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
+        //     outputItem.Bale = (outputItem.Output / 181.44) * this.data.MachineSpinning.Delivery;
+        // } else {
+        //     outputItem.Bale = outputItem.Output;
+        // }
+        // outputItem.Eff = outputItem.Bale * 100 / ((this.data.CountConfig.RPM * 345.6 * (22 / 7) * this.data.MachineSpinning.Delivery) / (this.data.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
-            outputItem.Bale = (outputItem.Output / 181.44) * this.data.MachineSpinning.Delivery;
+            var result = outputItem.BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+            outputItem.Output = result - (1.6 * outputItem.BlowingDetails.filter(a => a.Output != 0).length);
+            
         } else {
+            var result = outputItem.BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+            outputItem.Output = result - (1600 * outputItem.BlowingDetails.filter(a => a.Output != 0).length);
+            
+        }
+        if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
+
+            outputItem.Bale = (outputItem.Output / 181.44) * this.data.MachineSpinning.Delivery;
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "GRAM") {
+            outputItem.Bale = ((outputItem.Output / 1000) / 181.44) * this.data.MachineSpinning.Delivery;
+        }
+        else {
             outputItem.Bale = outputItem.Output;
         }
-        outputItem.Eff = outputItem.Bale * 100 / ((this.data.CountConfig.RPM * 345.6 * (22 / 7) * this.data.MachineSpinning.Delivery) / (this.data.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
 
+        outputItem.Eff = outputItem.Bale  * 100 / ((this.data.CountConfig.RPM * 345.6 * (22 / 7) * this.data.MachineSpinning.Delivery) / (this.data.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
         this.service.create(this.data)
             .then(result => {
                 alert('Data berhasil dibuat');
