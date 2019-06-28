@@ -34,7 +34,7 @@
         </au-dropdown>
 
         <au-datepicker 
-            label="Tanggal Cutting"
+            label="Tanggal Cutting In"
             value.bind="data.CuttingInDate"
             error.bind="error.CuttingInDate"
             read-only.bind="readOnly || isEdit"
@@ -61,13 +61,22 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-textbox
+            value.bind="data.FC.toFixed(2)"
+            label="FC"
+            read-only="true"
+            options.bind="controlOptions"
+            if.bind="readOnly || isEdit">
+        </au-textbox>
+
         <au-numeric
             label="FC"
             value.bind="data.FC"
             error.bind="error.FC"
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
-            change.delegate="changeFC($event)">
+            change.delegate="changeFC($event)"
+            if.bind="!(readOnly || isEdit)">
         </au-numeric>
 
         <au-collection

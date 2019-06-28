@@ -13,15 +13,15 @@ export class List {
     context = ["Rincian"];
 
     columns = [
-        { field: "CutInNo", title: "No" },
-        { field: "CuttingType", title: "Tiipe Cutting" },
+        { field: "CutInNo", title: "No Cutting In" },
+        { field: "CuttingType", title: "Tipe Cutting In" },
         { field: "Article", title: "No Artikel" },
         { field: "TotalCuttingInQuantity", title: "Jumlah Cutting", sortable: false },
         { field: "RONo", title: "RO" },
-        { field: "Unit.Name", title: "Unit" },
-        { field: "UENNos", title: "No Bukti Pengeluaran", sortable: false, formatter: value => `<ul>${value.map(v => `<li>${v}</li>`)}</ul>` },
-        { field: "CuttingInDate", title: "Tanggal", formatter: value => moment(value).format("DD MMM YYYY") },
-        { field: "Products", title: "Kode Barang", sortable: false, formatter: value => `<ul>${value.map(v => `<li>${v}</li>`)}</ul>` },
+        { field: "UnitName", title: "Unit" },
+        { field: "UENNos", title: "No Bukti Pengeluaran", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        { field: "CuttingInDate", title: "Tanggal Cutting In", formatter: value => moment(value).format("DD MMM YYYY") },
+        { field: "Products", title: "Kode Barang", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
     ]
 
     loader = (info) => {
@@ -38,6 +38,10 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                result.data.forEach(d => {
+                    d.UnitName = d.Unit.Name
+                    d.ProductList = `${d.Products.map(p => `- ${p}`).join("<br/>")}`
+                });
                 return {
                     total: result.info.total,
                     data: result.data

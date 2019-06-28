@@ -9,6 +9,16 @@ export class Item {
         "Satuan Potong",
     ];
 
+    itemsColumnsView = [
+        { value: "ProductCode", header: "Kode Barang" },
+        { value: "DesignColor", header: "Keterangan" },
+        { value: "CuttingInQuantity", header: "Jumlah Potong" },
+        { value: "RemainingQuantity", header: "Sisa" },
+        { value: "CuttingInUomUnit", header: "Satuan" },
+        { value: "BasicPrice", header: "Harga" },
+        { value: "Currency", header: "Mata Uang" },
+    ];
+
     activate(context) {
         this.context = context;
         this.data = context.data;
