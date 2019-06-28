@@ -1,0 +1,15 @@
+<template >
+    <tr>
+        <td>
+            <au-collection
+                items.bind="data.Details"
+                errors.bind="error.Details"
+                columns.bind="itemsColumns"
+                options.bind="context.context.options"
+                read-only.bind="readOnly"
+                header-template="modules/garment-production/cutting-in/template/detail-header"
+                item-template="modules/garment-production/cutting-in/template/detail">
+            </au-collection>
+        </td>
+    </tr>
+</template>
