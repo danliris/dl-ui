@@ -67,13 +67,10 @@ export class DataForm {
                         var items = {
                             PreparingId : dataHeader.Id,
                             PreparingItemId : item.Id,
-                            ProductId : item.Product.Id,
-                            ProductName : item.Product.Name,
-                            ProductCode : item.Product.Code,
+                            Product : item.Product,
                             DesignColor : item.DesignColor,
                             Quantity : item.RemainingQuantity,
-                            UomId : item.Uom.Id,
-                            UomUnit : item.Uom.Unit,
+                            Uom : item.Uom,
                             IsSave : false,
                         };
                         this.data.Items.push(items); 

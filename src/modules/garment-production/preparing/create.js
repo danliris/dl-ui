@@ -34,7 +34,7 @@ export class Create {
     }
 
     save(event) {
-        if(!this.data.UnitId){this.data.UnitId=0;}
+        if(!this.data.Unit.Id){this.data.Unit.Id=0;}
         this.data.ProcessDate = this.data.ProcessDate ? moment(this.data.ProcessDate).format("DD MMM YYYY") : null;
         this.service.create(this.data)
             .then(result => {
