@@ -28,7 +28,7 @@ export class DataForm {
 
     controlOptions = {
         label: {
-            length: 4
+            length: 2
         },
         control: {
             length: 5

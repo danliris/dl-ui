@@ -24,6 +24,10 @@ export class View {
                 this.data.Items.forEach(
                     item => item.Details.forEach(
                         detail => {
+                            detail.ProductCode = detail.Product.Code;
+                            detail.CuttingInUomUnit = detail.CuttingInUom.Unit;
+                            detail.Currency = "IDR";
+
                             dataRemainingQuantity += detail.RemainingQuantity;
                             dataCuttingInQuantity += detail.CuttingInQuantity;
                         }
