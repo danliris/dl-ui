@@ -66,14 +66,15 @@ export class DataForm {
         var selectedUEN = newValue;
         if(selectedUEN){
             this.data.ExpenditureDate = selectedUEN.ExpenditureDate;
+            this.data.Unit = {};
             if(!this.options.isView){
-                this.data.UnitId = selectedUEN.UnitRequestId;
-                this.data.UnitName = selectedUEN.UnitRequestName;
-                this.data.UnitCode = selectedUEN.UnitRequestCode;
+                this.data.Unit.Id = selectedUEN.UnitRequestId;
+                this.data.Unit.Name = selectedUEN.UnitRequestName;
+                this.data.Unit.Code = selectedUEN.UnitRequestCode;
             } else {
-                this.data.UnitId = selectedUEN.UnitRequest.Id;
-                this.data.UnitName = selectedUEN.UnitRequest.Name;
-                this.data.UnitCode = selectedUEN.UnitRequest.Code;
+                this.data.Unit.Id = selectedUEN.UnitRequest.Id;
+                this.data.Unit.Name = selectedUEN.UnitRequest.Name;
+                this.data.Unit.Code = selectedUEN.UnitRequest.Code;
             }
             
             this.data.UENId = selectedUEN.Id;
@@ -86,8 +87,15 @@ export class DataForm {
                         this.data.RONo = deliveryOrder.RONo;
                         for(var doItem of deliveryOrder.Items){
                             for(var item of this.data.Items){
-                                item.Product = item.ProductId;
-                                item.Uom = item.UomId;
+                                item.Product = {};
+                                item.Uom = {};
+                                item.Product.Id = item.ProductId;
+                                item.Product.Code = item.ProductCode;
+                                item.Product.Name = item.ProductName;
+
+                                item.Uom.Id = item.UomId;
+                                item.Uom.Unit = item.UomUnit
+
                                 if(doItem.POItemId == item.POItemId ){item.DesignColor = doItem.DesignColor;}
                                 
                             }                
@@ -99,10 +107,10 @@ export class DataForm {
 
     itemsInfo = {
         columns: [
-            {header: "Kode Barang", value: "ProductCode"},
+            {header: "Kode Barang", value: "Product.Code"},
             {header: "Keterangan Barang", value: "DesignColor"},
             {header: "Jumlah", value: "Quantity"},
-            {header: "Satuan", value: "UomUnit"},
+            {header: "Satuan", value: "Uom.Unit"},
             {header: "Harga", value: "BasicPrice"},
             {header: "Mata Uang", value: "currency"},
             {header: "Tipe Fabric", value: "FabricType"},

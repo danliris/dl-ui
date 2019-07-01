@@ -8,8 +8,8 @@ export class GarmentAvalProductItem {
         this.contextOptions = context.context.options;
         this.readOnly = this.options.readOnly;
         if(this.options.isView){
-            this.data.ProductCode = this.data.ProductId.Code;
-            this.data.UomUnit = this.data.UomId.Unit;
+            this.data.ProductCode = this.data.Product.Code;
+            this.data.UomUnit = this.data.Uom.Unit;
         }
     }
 }

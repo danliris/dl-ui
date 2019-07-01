@@ -55,7 +55,7 @@ export class DataForm {
     async roNoChanged(newValue){
         var selectedPreparing = newValue;
         if(selectedPreparing && this.options.isCreate){
-            this.data.Items=[];
+            this.data.Items.splice(0);
             this.data.RONo = selectedPreparing.RONo;
             this.data.Article = selectedPreparing.Article;
             var filterPreparing = {"RONo": selectedPreparing.RONo}
@@ -67,16 +67,13 @@ export class DataForm {
                         var items = {
                             PreparingId : dataHeader.Id,
                             PreparingItemId : item.Id,
-                            ProductId : item.Product.Id,
-                            ProductName : item.Product.Name,
-                            ProductCode : item.Product.Code,
+                            Product : item.Product,
                             DesignColor : item.DesignColor,
                             Quantity : item.RemainingQuantity,
-                            UomId : item.Uom.Id,
-                            UomUnit : item.Uom.Unit,
+                            Uom : item.Uom,
                             IsSave : false,
                         };
-                        this.data.Items.push(items);    
+                        this.data.Items.push(items); 
                     }
                 }
             }
