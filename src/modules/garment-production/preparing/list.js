@@ -11,10 +11,10 @@ export class List {
   columns = [
     { field: "Article", title: "No. Artikel" },
     { field: "RONo", title: "RO" },
-    { field: "UnitId.Name", title: "Unit" },
+    { field: "Unit.Name", title: "Unit" },
     { field: "UENNo", title: "No Bukti Pengeluaran" },
     {
-        field: "ProcessDate", title: "Tanggal Proses", formatter: function (value, data, index) {
+        field: "ProcessDate", title: "Tanggal Preparing", formatter: function (value, data, index) {
           return moment(value).format("DD MMM YYYY")
         }
     },
