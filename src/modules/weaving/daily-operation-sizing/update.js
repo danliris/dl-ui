@@ -38,8 +38,8 @@ export class Update {
     value: "BeamNumber",
     header: "No. Beam"
   }, {
-    value: "EmptyWeight",
-    header: "Berat Kosong Beam"
+    value: "Netto",
+    header: "Helai Benang Beam"
   }];
 
   logColumns = [{

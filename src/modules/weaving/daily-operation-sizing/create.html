@@ -48,6 +48,13 @@
             read-only.bind="readOnly">
           </au-textbox>
         </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="Cutmark" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-numeric placeholder="Cutmark" value.bind="Cutmark" error.bind="error.Cutmark" read-only.bind="readOnly">
+          </au-numeric>
+        </div>
       </div>
 
       <div class="row" style="white-space: nowrap;">
@@ -102,10 +109,10 @@
             read-only.bind="readOnly"></au-textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Total Berat Bersih (Netto)" read-only="true" style="display: inline-block"></textbox>
+          <textbox label="Total Helai Benang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Berat Bersih (Netto)" value.bind="Netto" error.bind="error.Netto"
+          <au-textbox placeholder="Total Helai Benang" value.bind="Netto" error.bind="error.Netto"
             read-only.bind="true"></au-textbox>
         </div>
       </div>

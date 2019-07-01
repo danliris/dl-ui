@@ -31,7 +31,7 @@ export class Create {
     header: "No. Beam"
   }, {
     value: "EmptyWeight",
-    header: "Berat Kosong Beam"
+    header: "Helai Benang Beam"
   }];
 
   constructor(service, router, bindingEngine) {

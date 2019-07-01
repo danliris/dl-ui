@@ -8,9 +8,17 @@
     </div>
   </div>
 
-  <div class="row" show.bind="ShowHideDailyPeriod">
+  <div class="row" show.bind="ShowHideByDatePeriod">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-datepicker label="Harian/ Rekap" value.bind="StartDatePeriod" error.bind="error.StartDatePeriod"
+      <au-datepicker label="Harian" value.bind="DatePeriod" error.bind="error.DatePeriod"
+        read-only.bind="readOnly" options.bind="startPeriodOptions">
+      </au-datepicker>
+    </div>
+  </div>
+
+  <div class="row" show.bind="ShowHideByDateRangePeriod">
+    <div class="col-md-4" style="white-space: nowrap;">
+      <au-datepicker label="Rekap" value.bind="StartDatePeriod" error.bind="error.StartDatePeriod"
         read-only.bind="readOnly" options.bind="startPeriodOptions">
       </au-datepicker>
     </div>

@@ -26,33 +26,41 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  //Export to Excel
+  getDataByDate(date, weavingUnitId, shiftId) {
+    var periodType = "date";
+    var endpoint = `${serviceUri}/${periodType}/${date}/unit-id/${weavingUnitId}/shift/${shiftId}`;
+    return super.get(endpoint);
+  }
+
   getDataByDateRange(startDate, endDate, weavingUnitId, shiftId) {
     var periodType = "daterange";
     var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}`;
-    console.log(endpoint);
     return super.get(endpoint);
   }
 
   getDataByMonth(month, weavingUnitId, shiftId) {
     var periodType = "month";
     var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}`;
-    console.log(endpoint);
     return super.get(endpoint);
   }
 
+  //Export to Excel
+  getXlsByDate(date, weavingUnitId, shiftId) {
+    var periodType = "date";
+    var endpoint = `${serviceUri}/${periodType}/date/${date}/unit-id/${weavingUnitId}/shift/${shiftId}`;
+    return super.getXls(endpoint);
+  }
+
   getXlsByDateRange(startDate, endDate, weavingUnitId, shiftId) {
-    // debugger;
     var periodType = "daterange";
     var endpoint = `${serviceUri}/${periodType}/start-date/${startDate}/end-date/${endDate}/unit-id/${weavingUnitId}/shift/${shiftId}`;
-    console.log(endpoint);
     return super.getXls(endpoint);
   }
 
   getXlsByMonth(month, weavingUnitId, shiftId) {
-    // debugger;
     var periodType = "month";
     var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}`;
-    console.log(endpoint);
     return super.getXls(endpoint);
   }
 }

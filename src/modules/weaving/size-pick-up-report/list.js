@@ -20,13 +20,14 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    this.ShowHideDailyPeriod = false;
+    this.ShowHideByDatePeriod = false;
+    this.ShowHideByDateRangePeriod = false;
     this.ShowHideMonthlyPeriod = false;
   }
 
   listDataFlag = false;
 
-  periods = ["", "Harian/ Rekap", "Bulanan"];
+  periods = ["", "Harian", "Rekap", "Bulanan"];
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
@@ -88,7 +89,7 @@ export class List {
     {
       field: "SPU",
       title: "SPU"
-    },{
+    }, {
       field: "DateTimeMachineHistory",
       title: "Waktu Doff",
       formatter: function (value, data, index) {
@@ -132,15 +133,23 @@ export class List {
   PeriodChanged(newValue) {
     switch (newValue) {
       case "":
-        this.ShowHideDailyPeriod = false;
+        this.ShowHideByDatePeriod = false;
+        this.ShowHideByDateRangePeriod = false;
         this.ShowHideMonthlyPeriod = false;
         break;
-      case "Harian/ Rekap":
-        this.ShowHideDailyPeriod = true;
+      case "Harian":
+        this.ShowHideByDatePeriod = true;
+        this.ShowHideByDateRangePeriod = false;
+        this.ShowHideMonthlyPeriod = false;
+        break;
+      case "Rekap":
+        this.ShowHideByDatePeriod = false;
+        this.ShowHideByDateRangePeriod = true;
         this.ShowHideMonthlyPeriod = false;
         break;
       case "Bulanan":
-        this.ShowHideDailyPeriod = false;
+        this.ShowHideByDatePeriod = false;
+        this.ShowHideByDateRangePeriod = false;
         this.ShowHideMonthlyPeriod = true;
     }
   }
@@ -204,33 +213,54 @@ export class List {
       }
 
       return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+        console.log(result);
         return {
           data: result,
-          total: result.length
+          total: length
         };
       }) : {
-        total: 0,
-        data: {}
+        data: {},
+        total: 0
       };
-    }
-
-    if (this.StartDatePeriod && this.EndDatePeriod) {
+    } else if (this.StartDatePeriod && this.EndDatePeriod) {
       var ShiftIdContainer = this.Shift.Id;
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
 
       var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MM YYYY") : null;
-      var EndDatePeriodContainer = this.EndDatePeriod? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
-    }
+      var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
 
-    return this.listDataFlag ? this.service.getDataByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
-      return {
-        data: result,
-        total: result.length
+      return this.listDataFlag ? this.service.getDataByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+        console.log(result);
+        return {
+          data: result,
+          total: length
+        };
+      }) : {
+        data: {},
+        total: 0
       };
-    }) : {
-      total: 0,
-      data: {}
-    };
+    } else if (this.DatePeriod) {
+      var ShiftIdContainer = this.Shift.Id;
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+
+      var DatePeriodContainer = this.DatePeriod ? moment(this.DatePeriod).format("DD MM YYYY") : null;
+
+      return this.listDataFlag ? this.service.getDataByDate(DatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+        console.log(result);
+        return {
+          data: result,
+          total: length
+        };
+      }) : {
+        data: {},
+        total: 0
+      };
+    } else {
+      return {
+        data: {},
+        total: 0
+      };
+    }
   }
 
   searchDailyOperations() {
@@ -252,8 +282,6 @@ export class List {
   }
 
   exportToExcel() {
-    // this.filter()
-    // this.service.generateExcel(this.arg)
     if (this.MonthlyPeriod) {
       var MonthContainer = this.MonthlyPeriod;
       var ShiftIdContainer = this.Shift.Id;
@@ -317,7 +345,7 @@ export class List {
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
 
       var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MM YYYY") : null;
-      var EndDatePeriodContainer = this.EndDatePeriod? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
+      var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
     }
 
     return this.listDataFlag ? this.service.getXlsByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {

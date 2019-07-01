@@ -31,8 +31,8 @@
           <textbox label="Unit Weaving" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox placeholder="Unit Weaving" value.bind="data.WeavingDocument.Name" error.bind="error.WeavingDocument"
-            read-only.bind="true"></au-textbox>
+          <au-textbox placeholder="Unit Weaving" value.bind="data.WeavingDocument.Name"
+            error.bind="error.WeavingDocument" read-only.bind="true"></au-textbox>
         </div>
       </div>
       <div class="row" style="white-space: nowrap">
@@ -98,8 +98,20 @@
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="StartShift.Name" error.bind="error.StartShift" read-only.bind="true">
+              <au-textbox placeholder="Shift" value.bind="StartShift.Name" error.bind="error.StartShift"
+                read-only.bind="true">
               </au-textbox>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Ne Real" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-numeric placeholder="Ne Real" value.bind="NeReal"
+                error.bind="error.NeReal" read-only.bind="readOnly">
+              </au-numeric>
             </div>
           </div>
 
@@ -139,7 +151,8 @@
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="PauseShift.Name" error.bind="error.PauseShift" read-only.bind="true">
+              <au-textbox placeholder="Shift" value.bind="PauseShift.Name" error.bind="error.PauseShift"
+                read-only.bind="true">
               </au-textbox>
             </div>
           </div>
@@ -153,7 +166,7 @@
                 error.bind="error.CauseOfStopping" read-only.bind="readOnly" items.bind="causes">
               </au-dropdown>
             </div>
-          <!-- </div>
+            <!-- </div>
 
           <div class="row" style="white-space: nowrap;"> -->
             <div class="col-md-2" style="text-align:left;">
@@ -179,7 +192,7 @@
       <div class="row" id="resumeMenu" show.bind="showHideResumeMenu">
         <div class="col-md-12"
           style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
-          
+
           <!-- <div class="row" style="margin-top: 16px; white-space: nowrap">
             <div class="col-md-2" style="text-align:left;">
               <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
@@ -212,7 +225,8 @@
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="ResumeShift.Name" error.bind="error.ResumeShift" read-only.bind="true">
+              <au-textbox placeholder="Shift" value.bind="ResumeShift.Name" error.bind="error.ResumeShift"
+                read-only.bind="true">
               </au-textbox>
             </div>
           </div>
@@ -270,7 +284,8 @@
               <textbox label="Shift" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Shift" value.bind="DoffShift.Name" error.bind="error.DoffShift" read-only.bind="true">
+              <au-textbox placeholder="Shift" value.bind="DoffShift.Name" error.bind="error.DoffShift"
+                read-only.bind="true">
               </au-textbox>
             </div>
           </div>
@@ -280,8 +295,8 @@
               <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-numeric placeholder="Kecepatan Mesin" value.bind="DoffMachineSpeed" error.bind="error.DoffMachineSpeed"
-                read-only.bind="readOnly">
+              <au-numeric placeholder="Kecepatan Mesin" value.bind="DoffMachineSpeed"
+                error.bind="error.DoffMachineSpeed" read-only.bind="readOnly">
               </au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
@@ -295,13 +310,6 @@
           </div>
 
           <div class="row" style="white-space: nowrap">
-            <!-- <div class="col-md-2" style="text-align:left;">
-              <textbox label="Waktu Selesai" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-4">
-              <input value.bind="data.ProductionTime.DoffFinish" type="time"
-                error.bind="error.ProductionTime.DoffFinish" read-only.bind="readOnly">
-            </div> -->
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Visco" read-only="true" style="display: inline-block"></textbox>
             </div>
@@ -313,14 +321,14 @@
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Counter Akhir" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Berat Bersih (Netto)" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-numeric placeholder="Counter Akhir" value.bind="DoffFinishCounter" error.bind="error.DoffFinishCounter"
-                read-only.bind="readOnly"></au-numeric>
+              <au-numeric placeholder="Berat Bersih (Netto)" value.bind="DoffNettoWeight"
+                error.bind="error.DoffNettoWeight" read-only.bind="readOnly"></au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Berat Kotor (Bruto)" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Berat Kotor (Netto)" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
               <au-numeric placeholder="Berat Kotor (Bruto)" value.bind="DoffBrutoWeight"
@@ -342,6 +350,16 @@
             <div class="col-md-4">
               <au-numeric placeholder="SPU" value.bind="DoffSPU" error.bind="error.DoffSPU" read-only.bind="readOnly">
               </au-numeric>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Counter Akhir" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-numeric placeholder="Counter Akhir" value.bind="DoffFinishCounter"
+                error.bind="error.DoffFinishCounter" read-only.bind="readOnly"></au-numeric>
             </div>
           </div>
 
