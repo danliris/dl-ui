@@ -842,7 +842,7 @@ export class List {
                 parseFloat(avgWHBookingUnit[y + 1]) <= 50.5 && parseFloat(avgWHBookingUnit[y + 1]) > 45.5 ? "#52df46" : 
                 parseFloat(avgWHBookingUnit[y + 1]) <= 58 && parseFloat(avgWHBookingUnit[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
-            console.log(bgcWHUnit[y + 1], avgWHBookingUnit[y + 1])
+            
             bgcWHUnit[0]="transparent";
 
             bgcWHCUnit[y + 1] = parseFloat(avgWHConfirmUnit[y + 1]) <= 45.5 ? "#FFFF00" : 
