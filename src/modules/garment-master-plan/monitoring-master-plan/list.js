@@ -842,7 +842,7 @@ export class List {
                 parseFloat(avgWHBookingUnit[y + 1]) <= 50.5 && parseFloat(avgWHBookingUnit[y + 1]) > 45.5 ? "#52df46" : 
                 parseFloat(avgWHBookingUnit[y + 1]) <= 58 && parseFloat(avgWHBookingUnit[y + 1]) > 50.5 ? "#f62c2c" :
                   "#797978";
-            
+            console.log(bgcWHUnit[y + 1], avgWHBookingUnit[y + 1])
             bgcWHUnit[0]="transparent";
 
             bgcWHCUnit[y + 1] = parseFloat(avgWHConfirmUnit[y + 1]) <= 45.5 ? "#FFFF00" : 
@@ -866,8 +866,8 @@ export class List {
           dataGrandUnit.collection.push({ name: "Used EH Booking", quantity: totalUsedEH_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           dataGrandUnit.collection.push({ name: "Used EH Confirm", quantity: ehConfUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           dataGrandUnit.collection.push({ name: "Remaining EH", quantity: totalremEh_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
-          dataGrandUnit.collection.push({ name: "WH Booking", quantity: avgWHBookingUnit, background: bgcWH, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
-          dataGrandUnit.collection.push({ name: "WH Confirm", quantity: avgWHConfirmUnit, background: bgcWHC,units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Booking", quantity: avgWHBookingUnit, background: bgcWHUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Confirm", quantity: avgWHConfirmUnit, background: bgcWHCUnit,units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           
           this.data.push(dataGrandUnit);
 
