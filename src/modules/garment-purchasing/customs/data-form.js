@@ -51,6 +51,7 @@ export class DataForm {
                 this.data.beacukaiNo = selectedBeacukai.BCNo;
                 this.data.beacukaiDate = selectedBeacukai.BCDate;
                 this.data.customType = selectedBeacukai.BCType;
+                this.data.arrivalDate = selectedBeacukai.TglDatang;
                 this.data.billNo=selectedBeacukai.BonNo;
                 this.context.beacukaiAU.editorValue="";
             }else {
@@ -58,6 +59,7 @@ export class DataForm {
                 this.data.beacukaiNo = null;
                 this.data.customType=null;
                 this.data.billNo="";
+                this.data.arrivalDate = null;
             }
         //     if (oldValue) {
         //         this.data.beacukaiDate = null;
