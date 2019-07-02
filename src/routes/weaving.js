@@ -208,6 +208,19 @@ module.exports = [
     }
   },
   {
+    route: "weaving/size-pick-up-report",
+    name: "size-pick-up-report",
+    moduleId: "./modules/weaving/size-pick-up-report/index",
+    nav: true,
+    title: "Laporan Size Pick Up",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
     route: "weaving/daily-operation-loom",
     name: "weaving-daily-operation-loom",
     moduleId: "./modules/weaving/daily-operation-loom/index",

@@ -1,5 +1,7 @@
 import {
   inject,
+  bindable,
+  BindingEngine,
   Lazy
 } from "aurelia-framework";
 import {
@@ -14,45 +16,42 @@ var MachineLoader = require("../../../loader/weaving-machine-loader");
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
 
-@inject(Router, Service)
+@inject(Service, Router, BindingEngine)
 export class Create {
-  constructor(router, service) {
+  @bindable readOnly;
+  @bindable MachineDocument;
+  @bindable WeavingDocument;
+  @bindable ConstructionDocument;
+  @bindable OperatorDocument;
+  @bindable EntryTime;
+  @bindable BeamsWarping;
+
+  beamColumns = [{
+    value: "BeamNumber",
+    header: "No. Beam"
+  }, {
+    value: "EmptyWeight",
+    header: "Berat Kosong Beam"
+  }];
+
+  constructor(service, router, bindingEngine) {
     this.router = router;
     this.service = service;
-    this.data = {};
-    this.error = {};
+    this.bindingEngine = bindingEngine;
 
-    var date = new Date();
-    var today = moment(date, "DD/MM/YYYY");
-    this.data.ProductionDate = today;
+    this.data = {};
+    this.data.Details = {};
+    this.data.Weight = {};
+    this.data.Weight.Netto = "";
+    this.BeamsWarping = [];
+
+    this.error = {};
   }
 
   formOptions = {
     cancelText: 'Kembali',
     saveText: 'Simpan',
   };
-
-  columns = [{
-    value: "BeamNumber",
-    header: "No. Beam"
-  }];
-
-  // shifts = ["", "1 - Pagi", "2 - Siang", "3 - Malam"];
-
-  start() {
-    if (this.showHideStartMenu === true) {
-      this.showHideStartMenu = false;
-    } else {
-      this.showHideStartMenu = true;
-    }
-  }
-
-  // hideMenu() {
-  //   // console.log(this.data);
-  //   if (this.showStartMenu === true) {
-  //     this.showStartMenu = false;
-  //   }
-  // }
 
   get machines() {
     return MachineLoader;
@@ -70,33 +69,73 @@ export class Create {
     return OperatorLoader;
   }
 
+  OperatorDocumentChanged(newValue) {
+    this.SizingGroup = newValue.Group;
+  }
+
+  EntryTimeChanged(newValue) {
+    this.data.Details.PreparationTime = newValue;
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.Shift = "";
+        this.Shift = {};
+        this.Shift = result;
+        this.data.Details.ShiftId = this.Shift.Id;
+      })
+      .catch(e => {
+        this.Shift = {};
+        this.data.ShiftId = this.Shift.Id;
+        this.error.Shift = " Shift tidak ditemukan ";
+      });
+  }
+
   get addBeamsWarping() {
     return event => {
       this.BeamsWarping.push({});
     };
   }
 
-  save() {
-    debugger;
-    var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-    this.data.ProductionTime.Start = time;
-    console.log(this.data.ProductionTime.Start);
+  beamDetail(data) {
+    var beam = {};
+    beam.Id = data.Id;
+    beam.EmptyWeight = data.EmptyWeight;
 
-    // this.data = {};
-    // this.data.DailyOperationSizingDetails = {};
+    return beam;
+  }
 
-    // console.log(this.data.DailyOperationSizingDetails);
-    // console.log(this.data);
+  get Netto() {
+    let result = 0;
 
-    // this.data.ProductionDate = moment(new Date(), "DD/MM/YYYY");
+    if (this.BeamsWarping) {
+      if (this.BeamsWarping.length > 0) {
+        this.data.WarpingBeamsId = [];
+        for (let beam of this.BeamsWarping) {
+          if (beam.BeamDocument && beam.BeamDocument.EmptyWeight != 0) {
+            result += beam.BeamDocument.EmptyWeight;
+          }
+        }
+      }
+
+      this.data.Weight.Netto = result.toString();
+    }
+    return result;
+
+  }
+
+  saveCallback(event) {
+    var PreparationDateContainer = this.data.Details.PreparationDate;
+    this.data.Details.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
+
+    this.BeamId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
+    this.BeamId.forEach(id => {
+      var BeamId = id;
+      this.data.WarpingBeamsId.push(BeamId);
+    });
+
     this.data.MachineDocumentId = this.MachineDocument.Id;
-    this.data.WeavingUnitId = this.WeavingDocument.Id;
-    // this.data.DailyOperationSizingDetails.ConstructionDocumentId = this.ConstructionDocument.Id;
-    // this.data.DailyOperationSizingDetails.BeamDocumentId = this.BeamDocument.Id;
-    // this.data.DailyOperationSizingDetails.ShiftDocumentId = this.ShiftDocument.Id;
-
-    // console.log(this.data.DailyOperationSizingDetails);
-    console.log(this.data);
+    this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
+    this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
+    this.data.Details.OperatorDocumentId = this.OperatorDocument.Id;
 
     this.service
       .create(this.data)

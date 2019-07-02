@@ -13,6 +13,9 @@ export class List {
         { field: "Year", title: "Tahun" },
         { field: "Condition", title: "Kondisi Mesin" },
         { field: "CounterCondition", title: "Kondisi Counter" },
+        { field: "Line", title: "Line" },
+        { field: "UnitName", title: "Unit" },
+        { field: "ProcessTypeList", title: "Jenis Proses" },
     ];
 
     loader = (info) => {
@@ -30,6 +33,15 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                for (var data of result.data) {
+                    data.ProcessTypeList = data.Types.map((item) => {
+                        if (item && item.Type) {
+                            return "- " + item.Type;
+                        }
+                    });
+                    data.ProcessTypeList = data.ProcessTypeList.join("\n");
+                }
+
                 return {
                     total: result.info.total,
                     data: result.data

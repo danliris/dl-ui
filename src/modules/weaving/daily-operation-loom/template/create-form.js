@@ -6,7 +6,7 @@ var Operator = require("../../../../loader/weaving-operator-loader");
 var Unit = require("../../../../loader/unit-loader");
 var WeavingOrder = require("../../../../loader/weaving-order-loader");
 var Machine = require("../../../../loader/weaving-machine-loader");
-var Beam = require("../../../../loader/weaving-beam-loader");
+var Beam = require("../../../../loader/weaving-movement-beam");
 
 @inject(Service, Router)
 export class CreateForm {

@@ -55,16 +55,16 @@
           <textbox label="Status Terakhir" read-only="true"></textbox>
         </div>
         <div class="col-md-3">
-          <au-textbox value.bind="data.LatestStatus" error.bind="error.LatestStatus" read-only.bind="true">
+          <au-textbox value.bind="data.Status" error.bind="error.LatestStatus" read-only.bind="true">
           </au-textbox>
         </div>
       </div>
       <ul class="timeline">
-        <li repeat.for="history of historyList">
-          <au-textbox value.bind="history.BeamDate" error.bind="error.BeamDate" read-only.bind="true"
+        <li repeat.for="history of data.BeamMovementDetails">
+          <au-textbox value.bind="history.DateTimeOperation" error.bind="error.BeamDate" read-only.bind="true"
             style="position: relative; bottom: 6px;">
           </au-textbox>
-          <au-textbox value.bind="history.Status" error.bind="error.Status" read-only.bind="true"
+          <au-textbox value.bind="history.Information" error.bind="error.Status" read-only.bind="true"
             style="position: relative; bottom: 16px; line-height:1.6; text-align: justify;">
           </au-textbox>
         </li>

@@ -281,11 +281,10 @@ export class DataForm {
                 };
             }
 
-            this.service.getDurationEstimation(this.data.ProductionOrder.ProcessType.Code, ["areas"])
+            this.service.getDurationEstimationByProcessType(this.data.ProductionOrder.ProcessType.Code)
                 .then((result) => {
-                    console.log(result);
-                    if (result.data.length > 0) {
-                        this.data.durationEstimation = result.data[0];
+                    if (result) {
+                        this.data.durationEstimation = result
                     }
                     else {
                         delete this.data.durationEstimation;
@@ -360,6 +359,7 @@ export class DataForm {
             steps.splice(steps[0].SelectedIndex - 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex - 1);
         }
+        this.context.StepsCollection.bind();
     }
 
     moveItemDown(event) {
@@ -370,6 +370,7 @@ export class DataForm {
             steps.splice(steps[0].SelectedIndex + 1, 0, selectedSteps[0])
             this.setCurrentIndex(steps[0].SelectedIndex + 1);
         }
+        this.context.StepsCollection.bind();
     }
 
     setCurrentIndex(currentIndex) {
@@ -423,7 +424,7 @@ export class DataForm {
 
     generateDeadline() {
         if (this.hasInstruction && this.hasProductionOrder) {
-            if (this.data.durationEstimation) {
+            if (this.data.durationEstimation.Areas) {
                 var deliveryDate = this.data.ProductionOrder.DeliveryDate;
 
                 this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
@@ -457,7 +458,7 @@ export class DataForm {
     }
 
     generateDeadlineReprocess() {
-        if (this.data.durationEstimation) {
+        if (this.data.durationEstimation.Areas) {
             var deliveryDate = this.data.ProductionOrder.DeliveryDate;
 
             this.data.Instruction.Steps = this.data.Instruction.Steps.map((step) => {
