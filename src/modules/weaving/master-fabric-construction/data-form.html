@@ -61,6 +61,28 @@
       </div>
 
       <div class="row">
+        <div class="col-md-2" style="white-space: nowrap;">
+          <textbox label="Reed Space" read-only.bind="readOnlyAll"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-textbox placeholder="Reed Space" value.bind="data.ReedSpace" error.bind="error.ReedSpace"
+            read-only.bind="readOnly">
+          </au-textbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2" style="white-space: nowrap;">
+          <textbox label="Jumlah Helai Benang" read-only.bind="readOnlyAll"></textbox>
+        </div>
+        <div class="col-md-2">
+          <au-textbox placeholder="Helai Benang" value.bind="data.TotalEnds" error.bind="error.TotalEnds"
+            read-only.bind="readOnly">
+          </au-textbox>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-md-offset-9 col-md-1" style="white-space: nowrap;">
           <textbox label="Total Benang" read-only="true"></textbox>
         </div>
