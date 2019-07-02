@@ -36,6 +36,11 @@ export class Create {
         this.error.Number = "Only Numbers (1-9) Allowed";
         errorIndex++;
       }
+
+      if (!CodeRegEx.test(this.data.AdditionalNumber)) {
+        this.error.AdditionalNumber = "Only Numbers (1-9) Allowed";
+        errorIndex++;
+      }
     }
 
     if (!this.data.RingType || this.data.RingType === "") {
