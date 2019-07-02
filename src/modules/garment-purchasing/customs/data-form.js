@@ -52,12 +52,14 @@ export class DataForm {
                 this.data.beacukaiDate = selectedBeacukai.BCDate;
                 this.data.customType = selectedBeacukai.BCType;
                 this.data.billNo=selectedBeacukai.BonNo;
+                this.data.arrivalDate = selectedBeacukai.TglDatang;
                 this.context.beacukaiAU.editorValue="";
             }else {
                 this.data.beacukaiDate = null;
                 this.data.beacukaiNo = null;
                 this.data.customType=null;
                 this.data.billNo="";
+                this.data.arrivalDate =null;
             }
         //     if (oldValue) {
         //         this.data.beacukaiDate = null;
@@ -86,6 +88,7 @@ export class DataForm {
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
             this.data.customType=undefined;
+            this.data.arrivalDate =undefined;
        }else
        {
             this.beacukai={};
@@ -94,6 +97,7 @@ export class DataForm {
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
             this.data.customType=undefined;
+            this.data.arrivalDate =undefined;
        }
     }
     bind(context) {
