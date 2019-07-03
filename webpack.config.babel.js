@@ -25,7 +25,7 @@ process.env.BABEL_ENV = 'webpack'
 const ENV = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() || (process.env.NODE_ENV = 'development')
 
 // basic configuration:
-const title = 'Danliris Management System'
+const title = 'Ambassador Garmindo Management System'
 const baseUrl = '/'
 const rootDir = path.resolve()
 const srcDir = path.resolve('src')
