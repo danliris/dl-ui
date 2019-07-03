@@ -17,9 +17,9 @@ export class DataForm {
     constructor() {
     }
 
-    @computedFrom("data.Id")
+    @computedFrom("data._id")
     get isEdit() {
-        return (this.data.Id || '').toString() != '';
+        return (this.data._id || '').toString() != '';
     }
 
     bind(context) {

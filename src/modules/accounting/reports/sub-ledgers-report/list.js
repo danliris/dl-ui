@@ -3,9 +3,11 @@ import moment from 'moment';
 // import numeral from 'numeral';
 import { Service } from './service';
 import { ifError } from 'assert';
+import { PeriodEditor } from './dialogs/period-editor';
+import { Dialog } from '../../../../au-components/dialog/dialog';
 const COALoader = require('../../../../loader/coa-loader');
 
-@inject(Service)
+@inject(Service, Dialog)
 export class List {
     controlOptions = {
         label: {
@@ -74,13 +76,13 @@ export class List {
     initialBalance = 0;
     closingBalance = 0;
 
-    constructor(service) {
+    constructor(service, dialog) {
         this.service = service;
         this.info = {};
         this.error = {};
         this.data = [];
         this.info = {};
-
+        this.dialog = dialog;
         this.isEmpty = true;
         this.totalCredit = 0;
         this.totalDebit = 0;
@@ -146,7 +148,10 @@ export class List {
 
     excelAll() {
 
-        this.service.getXlsAll();
+        this.dialog.show(PeriodEditor)
+            .then(response => {
+                return response;
+            });
 
     }
 

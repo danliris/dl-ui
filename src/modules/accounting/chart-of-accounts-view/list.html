@@ -29,14 +29,14 @@
   </p> -->
   <h1 class="page-header">Chart of Accounts</h1>
 
-  <div class="btn-group">
+  <!-- <div class="btn-group">
     <button class="btn btn-success"
             click.delegate="create()">Buat</button>
     <button class="btn btn-default"
             click.delegate="upload()">Unggah CSV</button>
     <button class="btn btn-default"
             click.delegate="download()">Download Template</button>
-  </div>
+  </div> -->
 
   <br></br>
 
@@ -56,8 +56,8 @@
               <tr repeat.for="ledger of subHeader.ledgers">
                 <td>${ledger.Code}</td>
                 <td>${ledger.Name}</td>
-                <td><a class="btn btn-success"
-                     click.delegate="edit(ledger.Id)">DETAIL</a></td>
+                <!-- <td><a class="btn btn-danger"
+                     click.delegate="delete(ledger.Id)">HAPUS</a></td> -->
               </tr>
             </tbody>
           </table>
