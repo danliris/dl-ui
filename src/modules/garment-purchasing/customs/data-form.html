@@ -56,6 +56,14 @@
             options.bind="controlOptions">
         </au-datepicker >
 
+        <au-datepicker  
+            label="Tanggal Kedatangan Barang" 
+            value.bind="data.arrivalDate"
+            error.bind="error.arrivalDate" 
+            read-only.bind="readOnlyBCDL "
+            options.bind="controlOptions">
+        </au-datepicker >
+
         <au-datepicker 
             label="Tanggal Pengesahan" 
             value.bind="data.validationDate"
