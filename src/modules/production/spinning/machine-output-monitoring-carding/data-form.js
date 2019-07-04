@@ -89,27 +89,31 @@ export class DataForm {
         this.detailOptions.ProcessType = this.processType;
         this.coreService.getMachineTypes()
             .then(result => {
-                this.coreService.searchMachineSpinning(this.data.UnitDepartmentId.toString(), this.data.ProcessType)
-                    .then(result2 => {
-                        if (this.data.ProcessType) {
-                            this.typeOptions = result;
-                        } else {
-                            this.typeOptions.push("");
-                            for (var list of result) {
-                                this.typeOptions.push(list);
+                if (this.data.ProcessType) {
+                    this.typeOptions = result;
+                } else {
+                    this.typeOptions.push("");
+                    for (var list of result) {
+                        this.typeOptions.push(list);
+                    }
+                }
+                if (this.data.UnitDepartmentId && this.data.ProcessType) {
+                    this.coreService.searchMachineSpinning(this.data.UnitDepartmentId, this.data.ProcessType)
+                        .then(result2 => {
+
+                            this.masterMachine = result2;
+                            if (this.data.Items) {
+                                for (var item of this.data.Items) {
+                                    item.Identity = item.Id;
+                                    item.MachineSpinningIdentity = item.MachineSpinning.Id;
+                                    var dbItem = result2.find(x => x.Id == item.MachineSpinning.Id);
+                                    item.MachineSpinning.Line = dbItem.Line;
+                                }
+                                this.itemTemp = this.data.Items
                             }
-                        }
-                        this.masterMachine = result2;
-                        if (this.data.Items) {
-                            for (var item of this.data.Items) {
-                                item.Identity = item.Id;
-                                item.MachineSpinningIdentity = item.MachineSpinning.Id;
-                                var dbItem = result2.find(x => x.Id == item.MachineSpinning.Id);
-                                item.MachineSpinning.Line = dbItem.Line;
-                            }
-                            this.itemTemp = this.data.Items
-                        }
-                    });
+                        });
+                }
+
 
             });
         this.detailOptions.isEdit = this.context.isEdit;

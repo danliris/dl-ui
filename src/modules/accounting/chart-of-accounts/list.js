@@ -112,8 +112,12 @@ export class List {
     }
   }
 
+  edit(Id){
+    this.router.navigateToRoute('view', { id: Id });
+  }
+
   create() {
-    // this.router.navigateToRoute('create');
+    this.router.navigateToRoute('create');
   }
 
   upload() {
