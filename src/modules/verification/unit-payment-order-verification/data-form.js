@@ -21,8 +21,8 @@ export class DataForm {
             'currency.code',
             'category.code', 'category.name',
             'paymentMethod',
-            'invoceNo',
-            'invoceDate',
+            'invoiceNo',
+            'invoiceDate',
             'pibNo',
             'useVat', //pph
             'useIncomeTax', //ppn
