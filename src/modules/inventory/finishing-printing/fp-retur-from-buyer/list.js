@@ -13,40 +13,39 @@ export class List {
     }
 
     rowFormatter(data, index) {
-    if (data.isPosted)
-        return { classes: "success" }
-    else
-        return {}
+        if (data.isPosted)
+            return { classes: "success" }
+        else
+            return {}
     }
 
-    context = ["detail","cetak PDF"]
+    context = ["detail"/*,"cetak PDF"*/]
 
     columns = [
-        { field: "code", title: "Nomor Retur" },
+        { field: "Code", title: "Nomor Retur" },
         {
-            field: "date", title: "Tanggal Retur", formatter: function (value, data, index) {
-            return moment(value).format("DD MMM YYYY");
+            field: "Date", title: "Tanggal Retur", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "destination", title: "Yang Menerima" },
-        { field: "buyer.name", title: "Terima Dari" },
-        { field: "spk", title: "SPK" },
-        { field: "coverLetter", title: "No. Surat Pengantar" }
+        { field: "Destination", title: "Yang Menerima" },
+        { field: "Buyer.Name", title: "Terima Dari" },
+        { field: "SpkNo", title: "SPK" },
+        { field: "CoverLetter", title: "No. Surat Pengantar" }
     ];
 
     loader = (info) => {
         var order = {};
         var filter = {
-                isVoid: false
-            }
+            IsVoid: false
+        }
         if (info.sort)
-        order[info.sort] = info.order;
+            order[info.sort] = info.order;
 
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            select: ["date", "code", "destination", "spk", "buyer", "coverLetter"],
             filter: JSON.stringify(filter),
             order: order
         }
@@ -64,21 +63,21 @@ export class List {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-        case "detail":
-            this.router.navigateToRoute('view', { id: data._id });
-            break;
-        case "cetak PDF":
-            this.service.getPdfById(data._id);
-            break;
+            case "detail":
+                this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "cetak PDF":
+                this.service.getPdfById(data.Id);
+                break;
         }
     }
 
     contextShowCallback(index, name, data) {
         switch (name) {
-        case "view":
-            return true;
-        default:
-            return true;
+            case "view":
+                return true;
+            default:
+                return true;
         }
     }
 
