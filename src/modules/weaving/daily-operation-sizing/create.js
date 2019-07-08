@@ -15,7 +15,7 @@ var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-
+var BeamLoader = require("../../../loader/weaving-beam-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
@@ -28,10 +28,10 @@ export class Create {
 
   beamColumns = [{
     value: "BeamNumber",
-    header: "No. Beam"
+    header: "Nomor Beam Warping"
   }, {
     value: "EmptyWeight",
-    header: "Helai Benang Beam"
+    header: "Helai Benang Beam Warping"
   }];
 
   constructor(service, router, bindingEngine) {
@@ -67,6 +67,10 @@ export class Create {
 
   get operators() {
     return OperatorLoader;
+  }
+
+  get beams() {
+    return BeamLoader;
   }
 
   OperatorDocumentChanged(newValue) {
@@ -132,6 +136,8 @@ export class Create {
       this.data.WarpingBeamsId.push(BeamId);
     });
 
+    this.data.NeReal = this.NeReal;
+    this.data.SizingBeamId = this.SizingBeamId.Id;
     this.data.MachineDocumentId = this.MachineDocument.Id;
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
     this.data.ConstructionDocumentId = this.ConstructionDocument.Id;

@@ -37,6 +37,14 @@
             text="ConstructionNumber">
           </au-autocomplete>
         </div>
+        <div class="col-md-2" style="text-align:left;">
+          <textbox label="No. Beam Sizing" read-only="true" style="display: inline-block"></textbox>
+        </div>
+        <div class="col-md-4">
+          <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamId"
+            error.bind="error.SizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
+          </au-autocomplete>
+        </div>
       </div>
 
       <div class="row" style="white-space: nowrap">
@@ -49,10 +57,10 @@
           </au-textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Cutmark" read-only="true" style="display: inline-block"></textbox>
+          <textbox label="Ne Real" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-numeric placeholder="Cutmark" value.bind="Cutmark" error.bind="error.Cutmark" read-only.bind="readOnly">
+          <au-numeric placeholder="Ne Real" value.bind="NeReal" error.bind="error.NeReal" read-only.bind="readOnly">
           </au-numeric>
         </div>
       </div>

@@ -57,6 +57,16 @@ export class Service extends RestService {
     });
   }
 
+  calculatePIS(value) {
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/pis/${value}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
   updateStartEntry(Id, data) {
     status = "start";
     var endpoint = `${serviceUri}/${Id}/${status}`;

@@ -46,6 +46,10 @@
         </div>
       </div>
 
+      <div class="row" style="white-space: nowrap;">
+        <h1 style="font-size: 16px; font-weight: 600;">Beam Warping</h1>
+      </div>
+
       <div class="row" style="white-space: nowrap; overflow: auto;">
         <au-collection items.bind="BeamsWarping" errors.bind="error.BeamsWarping" columns.bind="beamColumns"
           read-only.bind="true" item-template="modules/weaving/daily-operation-sizing/templates/beam-items-update">
@@ -55,7 +59,7 @@
       <div class="row">
         <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
           <button class="btn btn-default" click.delegate="start()"
-            style="margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            style="margin-bottom: 16px; background-color: rgb(56, 187, 23); color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
             Mulai
           </button>
           <button class="btn btn-default" click.delegate="pause()"
@@ -63,8 +67,12 @@
             Jeda
           </button>
           <button class="btn btn-default" click.delegate="resume()"
-            style="margin-bottom: 16px; background-color: #ebf74de1; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            style="margin-bottom: 16px; background-color: #c9d42a; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
             Lanjut
+          </button>
+          <button class="btn btn-default" click.delegate="beamProductionResume()"
+            style="margin-bottom: 16px; background-color: rgb(56, 187, 23); color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            Lanjutkan Beam
           </button>
           <button class="btn btn-default" click.delegate="finish()"
             style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
@@ -106,12 +114,18 @@
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Ne Real" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-2">
-              <au-numeric placeholder="Ne Real" value.bind="NeReal"
-                error.bind="error.NeReal" read-only.bind="readOnly">
-              </au-numeric>
+            <div class="col-md-4">
+              <au-autocomplete placeholder="Operator" value.bind="StartOperator" error.bind="error.StartOperator"
+                read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-textbox placeholder="Grup Sizing" value.bind="StartOperator.Group" error.bind="error.StartSizingGroup"
+                read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -154,6 +168,23 @@
               <au-textbox placeholder="Shift" value.bind="PauseShift.Name" error.bind="error.PauseShift"
                 read-only.bind="true">
               </au-textbox>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-autocomplete placeholder="Operator" value.bind="PauseOperator" error.bind="error.PauseOperator"
+                read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-textbox placeholder="Grup Sizing" value.bind="PauseOperator.Group" error.bind="error.StartSizingGroup"
+                read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -235,15 +266,15 @@
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-4">
-              <au-autocomplete placeholder="Operator" value.bind="ResumeOperator" error.bind="error.OperatorDocument"
+            <div class="col-md-3">
+              <au-autocomplete placeholder="Operator" value.bind="ResumeOperator" error.bind="error.ResumeOperator"
                 read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-textbox placeholder="Grup Sizing" value.bind="ResumeOperator.Group" error.bind="error.SizingGroup"
+              <au-textbox placeholder="Grup Sizing" value.bind="ResumeOperator.Group" error.bind="error.ResumeSizingGroup"
                 read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -317,6 +348,13 @@
               <au-textbox placeholder="Visco" value.bind="DoffVisco" error.bind="error.DoffVisco"
                 read-only.bind="readOnly"></au-textbox>
             </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="SPU" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-numeric placeholder="SPU" value.bind="DoffSPU" error.bind="error.DoffSPU" read-only.bind="readOnly">
+              </au-numeric>
+            </div>
           </div>
 
           <div class="row" style="white-space: nowrap;">
@@ -328,7 +366,7 @@
                 error.bind="error.DoffNettoWeight" read-only.bind="readOnly"></au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Berat Kotor (Netto)" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Berat Kotor (Bruto)" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
               <au-numeric placeholder="Berat Kotor (Bruto)" value.bind="DoffBrutoWeight"
@@ -343,12 +381,11 @@
             <div class="col-md-4">
               <au-numeric placeholder="PIS" value.bind="DoffPIS" error.bind="error.DoffPIS" read-only.bind="readOnly">
               </au-numeric>
-            </div>
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="SPU" read-only="true" style="display: inline-block"></textbox>
+            </div><div class="col-md-2" style="text-align:left;">
+              <textbox label="PIS(m)" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-numeric placeholder="SPU" value.bind="DoffSPU" error.bind="error.DoffSPU" read-only.bind="readOnly">
+              <au-numeric placeholder="PISM" value.bind="DoffPISM" error.bind="error.DoffPISM" read-only.bind="readOnly">
               </au-numeric>
             </div>
           </div>
@@ -383,6 +420,10 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="row" style="white-space: nowrap;">
+        <h1 style="font-size: 16px; font-weight: 600;">History Operasional Mesin Harian Sizing</h1>
       </div>
 
       <div class="row" style="white-space: nowrap; overflow: auto;">

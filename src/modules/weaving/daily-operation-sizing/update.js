@@ -21,6 +21,7 @@ export class Update {
   @bindable PauseTime;
   @bindable ResumeTime;
   @bindable DoffTime;
+  @bindable PIS;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -36,10 +37,10 @@ export class Update {
 
   beamColumns = [{
     value: "BeamNumber",
-    header: "No. Beam"
+    header: "Nomor Beam Warping"
   }, {
     value: "Netto",
-    header: "Helai Benang Beam"
+    header: "Helai Benang Beam Warping"
   }];
 
   logColumns = [{
@@ -170,14 +171,16 @@ export class Update {
     var IdContainer = this.data.Id;
     var HistoryDateContainer = moment(this.StartDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.StartTime;
-    var ShiftContainer = this.StartShift;
+    var ShiftContainer = this.StartShift.Id;
+    var OperatorContainer = this.StartOperator.Id;
 
     this.data = {};
     this.data.Id = IdContainer;
     this.data.Details = {};
     this.data.Details.StartDate = HistoryDateContainer;
     this.data.Details.StartTime = HistoryTimeContainer;
-    this.data.Details.ShiftId = ShiftContainer.Id;
+    this.data.Details.ShiftId = ShiftContainer;
+    this.data.Details.OperatorDocumentId = OperatorContainer;
 
     this.service
       .updateStartEntry(this.data.Id, this.data)
@@ -222,6 +225,7 @@ export class Update {
     var HistoryDateContainer = moment(this.PauseDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.PauseTime;
     var ShiftContainer = this.PauseShift.Id;
+    var OperatorContainer = this.PauseOperator.Id;
     var InformationContainer = this.Information;
 
     this.data = {};
@@ -231,6 +235,7 @@ export class Update {
     this.data.Details.PauseTime = HistoryTimeContainer;
     this.data.Details.Information = InformationContainer;
     this.data.Details.ShiftId = ShiftContainer;
+    this.data.Details.OperatorDocumentId = OperatorContainer;
     this.data.Details.Causes = {};
     this.data.Details.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
     this.data.Details.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
@@ -294,6 +299,17 @@ export class Update {
         this.DoffShift = {};
         this.error.DoffShift = " Shift tidak ditemukan ";
       });
+  }
+
+  PISChanged(newValue) {
+    this.service.calculatePIS(newValue).then(result => {
+      this.error.PIS = "";
+      this.PIS = result;
+      this.data.PIS = this.PIS;
+    }).catch(e => {
+      this.PIS = 0;
+      this.error.PIS = " PIS tidak dapat dihitung ";
+    })
   }
 
   saveDoff() {
