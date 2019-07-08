@@ -64,7 +64,7 @@ export class DataForm {
         { field: "no", title: "No Bon Terima Unit" },
         { field: "purchaseOrderExternalNo", title: "No PO Eksternal" },
         { field: "purchaseRequestNo", title: "No PR" },
-        { field: "correctionNo", title: "No Koreksi" },
+       // { field: "correctionNo", title: "No Koreksi" },
     ]
 
     formOptions = {
