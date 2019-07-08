@@ -2,7 +2,8 @@
     <tr>
         <require from="../../../../../lib/number-format-value-converter"></require>
         <td show.bind="false">
-            <au-textbox show.bind="false" value.bind="data.Id" error.bind="error.Id" read-only.bind="true" options.bind="controlOptions"></au-textbox>
+            <au-textbox show.bind="false" value.bind="data.Id" error.bind="error.Id" read-only.bind="true"
+                options.bind="controlOptions"></au-textbox>
 
         </td>
 
@@ -17,21 +18,28 @@
 
         </td>
         <td>
+            <au-textbox value.bind="data.MachineSpinning.Line" error.bind="error.MachineSpinning.Line"
+                read-only.bind="true" options.bind="controlOptions"></au-textbox>
+
+        </td>
+        <td>
             <au-textbox value.bind="data.MachineSpinning.No" error.bind="error.MachineSpinning.No" read-only.bind="true"
                 options.bind="controlOptions"></au-textbox>
 
         </td>
         <td>
-            <au-textbox value.bind="data.MachineSpinning.Name" error.bind="error.MachineSpinning.Name" read-only.bind="true"
-                options.bind="controlOptions"></au-textbox>
+            <au-textbox value.bind="data.MachineSpinning.Name" error.bind="error.MachineSpinning.Name"
+                read-only.bind="true" options.bind="controlOptions"></au-textbox>
 
         </td>
         <td class="alert alert-warning" show.bind="data.ExistedItem==true && isEdit">
-            <au-numeric format="0,000.0000"  value.bind="output" error.bind="error.Output" read-only.bind="options.readOnly" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="output" error.bind="error.Output"
+                read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="data.ExistedItem!=true">
-            <au-numeric format="0,000.0000"  value.bind="output" error.bind="error.Output" read-only.bind="options.readOnly" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="output" error.bind="error.Output"
+                read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
@@ -40,31 +48,38 @@
 
         </td>
         <td>
-            <au-numeric format="0,000.0000"  value.bind="data.Bale" error.bind="error.Bale" read-only.bind="true" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="data.Bale" error.bind="error.Bale" read-only.bind="true"
+                options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="isBlowing">
-            <au-numeric format="0,000.0000"  value.bind="badOutput" error.bind="error.BadOutput" read-only.bind="options.readOnly" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="badOutput" error.bind="error.BadOutput"
+                read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="isFlyer">
-            <au-numeric format="0,000.0000"  value.bind="deliveryTotal" error.bind="error.DeliveryTotal" read-only.bind="options.readOnly" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="deliveryTotal" error.bind="error.DeliveryTotal"
+                read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="isFlyer">
-            <au-numeric format="0,000.0000"  value.bind="spindle" error.bind="error.Spindle" read-only.bind="options.readOnly" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="spindle" error.bind="error.Spindle"
+                read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="isWinder">
-            <au-numeric format="0,000.0000"  value.bind="waste" error.bind="error.Waste" read-only.bind="options.readOnly" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="waste" error.bind="error.Waste"
+                read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td show.bind="isWinder">
-            <au-numeric format="0,000.0000"  value.bind="drumTotal" error.bind="error.DrumTotal" read-only.bind="options.readOnly" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="drumTotal" error.bind="error.DrumTotal"
+                read-only.bind="options.readOnly" options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
-            <au-numeric format="0,000.0000"  value.bind="data.Eff" error.bind="error.Eff" read-only.bind="true" options.bind="controlOptions">
+            <au-numeric format="0,000.0000" value.bind="data.Eff" error.bind="error.Eff" read-only.bind="true"
+                options.bind="controlOptions">
             </au-numeric>
         </td>
 

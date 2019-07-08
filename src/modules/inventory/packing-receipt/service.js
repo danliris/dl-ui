@@ -83,6 +83,11 @@ export class ServiceProduct extends RestService {
         return super.list(endpoint, info);
     }
 
+    searchProductByName(info) {
+        var endpoint = `${serviceUriCore}/by-name`;
+        return super.list(endpoint, info);
+    }
+
     searchUom(info) {
         var endpoint = `${serviceUriCoreUom}`;
         return super.list(endpoint, info);

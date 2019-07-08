@@ -15,11 +15,11 @@ export class Create {
     }
 
     bind() {
-        this.data = { details: [] };
+        this.data = {};
         this.error = {};
     }
 
-    cancel(event) {
+    cancelCallback(event) {
         this.router.navigateToRoute('list');
     }
 
@@ -29,19 +29,21 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    save(event) {
-        if(this.data.date == "undefined")
-            delete this.data.date;
-        if(this.data.date && this.data.date !== "" )
-            this.data.date = moment(this.data.date).format("YYYY-MM-DD");
-        this.service.create(this.data)
-            .then((result) => {
-                alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
-            })
-            .catch((e) => {
-                console.log(e);
-                this.error = e;
-            })
+    saveCallback(event) {
+        // if(this.data.Date == "undefined")
+        //     delete this.data.Date;
+        // if(this.data.Date && this.data.Date !== "" )
+        //     this.data.Date = moment(this.data.Date).format("YYYY-MM-DD");
+
+        // this.service.create(this.data)
+        //     .then((result) => {
+        //         alert("Data berhasil dibuat");
+        //         this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+        //     })
+        //     .catch((e) => {
+        //         this.error = e;
+        //     })
+
+        console.log(this.data);
     }
 }

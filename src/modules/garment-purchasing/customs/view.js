@@ -72,6 +72,7 @@ this.data.deliveryOrders= this.data.items;
 
     this.data.beacukaiDate = moment(this.data.beacukaiDate).format("YYYY-MM-DD");
     this.data.validationDate = moment(this.data.validationDate).format("YYYY-MM-DD");
+    this.data.arrivalDate = moment(this.data.arrivalDate).format("YYYY-MM-DD");
   }
 
   cancel(event) {
