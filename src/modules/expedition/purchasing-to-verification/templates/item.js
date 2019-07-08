@@ -2,7 +2,7 @@ import { bindable, inject } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Service } from '../service';
-const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
+const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-orders-for-verification-loader');
 
 @inject(Service)
 export class Item {
@@ -10,7 +10,7 @@ export class Item {
 
     constructor(service) {
         this.service = service;
-        this.queryUPO = { Position: 1 }; // PURCHASING_DIVISION
+       // this.queryUPO = { Position: 6}; // PURCHASING_DIVISION
         // this.selectUPO = [
         //     'invoceNo', 'division.code', 'division.name',
         //     'supplier.code', 'supplier.name',
@@ -56,7 +56,7 @@ export class Item {
             this.service.getURN(filter)
                 .then((response) => {
                     let urn = response.data;
-
+                    console.log(urn)
                     for (let item of newV.items) {
                         let urnObj = urn.find(p => p.no === item.unitReceiptNote.no);
 
@@ -102,27 +102,35 @@ export class Item {
                         }
                     }
 
-                    let vat = newV.useIncomeTax ? Number((totalPaid * 0.1).toFixed(2)) : 0;
-                    let incomeTax = newV.useVat ? Number(((newV.vat.rate * totalPaid) / 100).toFixed(2)) : 0;
+                    console.log(newV)
+                    let vat = newV.useVat ?Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
+                    let incomeTax = newV.useIncomeTax ?  Number((totalPaid * 0.1).toFixed(2)) : 0;
+                    let income= newV.useIncomeTax? newV.incomeTax : null;
                     Object.assign(this.data, {
                         id: newV._id,
                         no: newV.no,
                         date: newV.date,
                         dueDate: newV.dueDate,
-                        invoceNo: newV.invoceNo,
+                        invoiceNo: newV.invoiceNo,
                         supplierCode: newV.supplier.code,
                         supplierName: newV.supplier.name,
                         divisionCode: newV.division.code,
                         divisionName: newV.division.name,
                         incomeTax: incomeTax,
                         vat: vat,
-                        // incomeTaxId: newV.vat._id,
-                        // incomeTaxName: newV.vat.name,
-                        // incomeTaxRate: newV.vat.rate,
+                        category:newV.category,
+                        paymentMethod:newV.paymentMethod,
                         totalPaid: Number((totalPaid + vat).toFixed(2)),
                         currency: newV.currency.code,
                         items: items,
+                        useIncomeTax:newV.useIncomeTax,
+                        useVat:newV.useVat
                     });
+                    if(newV.useIncomeTax){
+                        this.data.incomeTaxId= newV.incomeTax._id ;
+                        this.data.incomeTaxName= newV.incomeTax.name ;
+                        this.data.incomeTaxRate= newV.incomeTax.rate;
+                    }
                 });
         }
         else {
@@ -143,6 +151,7 @@ export class Item {
                 incomeTaxRate: undefined,
                 totalPaid: undefined,
                 currency: undefined,
+                category:undefined,
                 details: [],
             });
         }
