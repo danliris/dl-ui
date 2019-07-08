@@ -30,15 +30,15 @@ export class Detail {
     }
 
     itemColumns = [
-        { header: "Barang", value: "productName" },
-        { header: "Design", value: "designNumber" },
-        { header: "CW", value: "colorWay" },
-        { header: "Keterangan", value: "remark" },
-        { header: "Jumlah Retur", value: "returQuantity" },
-        { header: "Satuan", value: "uom" },
-        { header: "Panjang (Meter)", value: "length" },
+        { header: "Barang", value: "ProductName" },
+        { header: "Design", value: "DesignNumber" },
+        { header: "CW", value: "ColorWay" },
+        { header: "Keterangan", value: "Remark" },
+        { header: "Jumlah Retur", value: "ReturnQuantity" },
+        { header: "Satuan", value: "UOM" },
+        { header: "Panjang (Meter)", value: "Length" },
         { header: "Total Panjang", value: "totLength" },
-        { header: "Berat (Kg)", value: "weight" },
+        { header: "Berat (Kg)", value: "Weight" },
         { header: "Total Berat", value: "totWeight" }]
 
     newProductColumns = [
@@ -106,7 +106,6 @@ export class Detail {
         this.data.ProductionOrder = newValue;
         if (newValue) {
             var shipmentProducts = await this.finishingPrintingService.getShipmentProducts(newValue.Id, this.contextOptions.buyerId);
-            console.log(shipmentProducts);
 
             var products = [];
             if (shipmentProducts.length > 0)
