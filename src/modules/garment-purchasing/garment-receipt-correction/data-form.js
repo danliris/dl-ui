@@ -112,6 +112,8 @@ export class DataForm {
         if (!this.readOnly) {
             this.itemHeader.columns.push({ header: "" });
         }
+        
+        
         // if (this.data && this.data.Items) {
         //     this.collectionOptions.checkedAll = this.data.Items.reduce((acc, curr) => acc && curr.IsSave, true);
         // }
@@ -120,6 +122,7 @@ export class DataForm {
     
     unitReceiptNoteChanged(newValue, oldValue) {
         var selectedURN = newValue;
+        console.log(selectedURN)
         if (selectedURN) {
             this.data.URNId = selectedURN.Id;
             this.data.URNNo = selectedURN.URNNo;
@@ -144,7 +147,7 @@ export class DataForm {
                 item.SmallQuantity=i.SmallQuantity;
                 item.UomId=i.UomId;
                 item.UomUnit=i.UomUnit;
-                item.Conversion=i.Conversion;
+                item.Conversion=i.CorrectionConversion;
                 item.DODetailId=i.DODetailId;
                 item.EPOItemId=i.EPOItemId;
                 item.POItemId=i.POItemId;
@@ -154,11 +157,11 @@ export class DataForm {
                 item.SmallUomUnit=i.SmallUomUnit;
                 item.PricePerDealUnit=i.PricePerDealUnit;
                 item.DesignColor=i.DesignColor;
-                item.leftOverQty=i.ReceiptCorrection-(i.OrderQuantity/i.Conversion);
-                item.OriginConversion=i.Conversion;
+                item.leftOverQty=i.ReceiptCorrection-(i.OrderQuantity/i.CorrectionConversion);
+                item.OriginConversion=i.CorrectionConversion;
                 item.IsSave=false;
                 item.QuantityCheck=item.leftOverQty;
-                item.CorrectionConversion=i.Conversion;
+                item.CorrectionConversion=i.CorrectionConversion;
                 this.data.Items.push(item);
             }
 
@@ -182,6 +185,9 @@ export class DataForm {
             this.collectionOptions.Qty = false;
             this.collectionOptions.Conv = true;
             this.itemHeader=this.itemHeaderConv;
+            for(var a of this.data.Items){
+                a.CorrectionConversion=a.Conversion;
+            }
         }
 
     }
@@ -193,5 +199,10 @@ export class DataForm {
 
     get unitReceiptNoteLoader() {
         return UnitReceiptNoteLoader;
+    }
+
+    urnView= (urn) => {
+        console.log(urn)
+        return urn.URNNo;
     }
 }
