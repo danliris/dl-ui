@@ -349,9 +349,9 @@ export class DataForm {
             let outputDisplay = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
             if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
 
-                return (outputDisplay / 181.44) * this.machineSpinning.Delivery;
+                return (outputDisplay / 181.44);
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return ((outputDisplay / 1000) / 181.44) * this.machineSpinning.Delivery;
+                return ((outputDisplay / 1000) / 181.44);
             }
             else {
                 return outputDisplay;
@@ -373,9 +373,9 @@ export class DataForm {
             }
             if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
 
-                return (outputDisplay / 181.44) * this.machineSpinning.Delivery;
+                return (outputDisplay / 181.44);
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return ((outputDisplay / 1000) / 181.44) * this.machineSpinning.Delivery;
+                return ((outputDisplay / 1000) / 181.44);
             }
             else {
                 return outputDisplay;

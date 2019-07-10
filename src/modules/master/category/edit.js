@@ -4,7 +4,7 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class View {
+export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -15,16 +15,17 @@ export class View {
         this.data = await this.service.getById(id);
     }
 
-    list() {
-        this.router.navigateToRoute('list');
-    }  
-
     cancelCallback(event) {
-      this.list();
+        this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+    saveCallback(event) {
+        this.service.update(this.data)
+            .then(result => {
+                this.router.navigateToRoute('view', { id: this.data._id });
+            })
+            .catch(e => {
+                this.error = e;
+            })
     }
 }
-
