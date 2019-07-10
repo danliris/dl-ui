@@ -170,10 +170,15 @@ export class Item {
 
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "MTR") {
             this.data.Bale = this.CountConfig.Constant * (this.data.Output / 0.914 * this.CountConfig.Grain) / 16800000; //6 * 7000 * 400
+
+            if (this.data.MachineSpinning.Name.toUpperCase() == "MING CHENG") {
+                this.data.Bale = (this.data.Output * this.CountConfig.Constant) / (768 * this.CountConfig.Ne * 400);
+            }
         } else {
             this.data.Bale = this.data.Output;
         }
-        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 24 * MachineSpinning.Delivery) / 181.44) / 3);
+        this.data.Eff = (this.data.Bale / (MachineSpinning.Delivery / 3)) * 100;
+        // this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 24 * MachineSpinning.Delivery) / 181.44) / 3);
     }
 
     combingFormula(MachineSpinning) {
