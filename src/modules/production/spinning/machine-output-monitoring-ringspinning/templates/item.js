@@ -206,7 +206,8 @@ export class Item {
 
     ringFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
-            this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / (this.CountConfig.Ne * 100)) / 400;
+            this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / 9775);
+            // this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / (this.CountConfig.Ne * 100)) / 400;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "RND") {
             this.data.Bale = ((this.data.Output / (768 / (((22 / 7) * 2.5) / 100)) / this.CountConfig.Ne) / 400) * MachineSpinning.Delivery;
 

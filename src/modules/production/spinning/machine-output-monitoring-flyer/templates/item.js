@@ -237,7 +237,8 @@ export class Item {
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "MTR") {
             this.data.Bale = (((MachineSpinning.Delivery - this.data.Spindle) * this.data.Output) / (768 * this.CountConfig.Ne)) / 400;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
-            this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
+            this.data.Bale = (this.data.Output * this.data.DeliveryTotal) / (this.CountConfig.Ne * 400);
+            // this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
 
         } else {
             this.data.Bale = this.data.Output;
