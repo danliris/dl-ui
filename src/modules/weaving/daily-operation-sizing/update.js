@@ -43,6 +43,44 @@ export class Update {
     header: "Helai Benang Beam Warping"
   }];
 
+  produceBeamsColumns = [{
+    value: "ProduceBeamsDate",
+    header: "Tanggal Pasang"
+  }, {
+    value: "ProduceBeamsTime",
+    header: "Waktu Pasang"
+  }, {
+    value: "ProduceBeamsShift",
+    header: "Shift"
+  }, {
+    value: "ProduceBeamsOperator",
+    header: "Operator"
+  }, {
+  //   value: "ProduceBeamsSizingGroup",
+  //   header: "Sizing Grup"
+  // }, {
+    value: "ProduceBeamsSizingBeamId",
+    header: "Beam Sizing"
+  }, {
+    value: "ProduceBeamsDoffStartCounter",
+    header: "Counter Awal"
+  }, {
+    value: "ProduceBeamsDoffFinishCounter",
+    header: "Counter Akhir"
+  }, {
+    value: "ProduceBeamsNettoWeight",
+    header: "Netto"
+  }, {
+    value: "ProduceBeamsBrutoWeight",
+    header: "Bruto"
+  }, {
+    value: "ProduceBeamsSPU",
+    header: "SPU"
+  }, {
+    value: "ProduceBeamsAction",
+    header: "Aksi"
+  }];
+
   logColumns = [{
       value: "ShiftName",
       header: "Shift"
@@ -109,6 +147,7 @@ export class Update {
       this.showHideStartMenu = true;
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = false;
+      this.showHideProduceBeamsMenu = false;
       this.showHideDoffMenu = false;
     }
   }
@@ -120,6 +159,7 @@ export class Update {
       this.showHideStartMenu = false;
       this.showHidePauseMenu = true;
       this.showHideResumeMenu = false;
+      this.showHideProduceBeamsMenu = false;
       this.showHideDoffMenu = false;
     }
   }
@@ -131,6 +171,19 @@ export class Update {
       this.showHideStartMenu = false;
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = true;
+      this.showHideProduceBeamsMenu = false;
+      this.showHideDoffMenu = false;
+    }
+  }
+
+  produceBeams() {
+    if (this.showHideProduceBeamsMenu === true) {
+      this.showHideProduceBeamsMenu = false;
+    } else {
+      this.showHideStartMenu = false;
+      this.showHidePauseMenu = false;
+      this.showHideResumeMenu = false;
+      this.showHideProduceBeamsMenu = true;
       this.showHideDoffMenu = false;
     }
   }
@@ -142,16 +195,15 @@ export class Update {
       this.showHideStartMenu = false;
       this.showHidePauseMenu = false;
       this.showHideResumeMenu = false;
+      this.showHideProduceBeamsMenu = false;
       this.showHideDoffMenu = true;
     }
   }
 
-  hideMenu() {
-    if (this.showResumeMenu === true || this.showDoffMenu === true || this.showPauseMenu === true) {
-      this.showPauseMenu = false;
-      this.showResumeMenu = false;
-      this.showDoffMenu = false;
-    }
+  get produceBeamsConstructions() {
+    return event => {
+      this.ProduceBeams.push({});
+    };
   }
 
   StartTimeChanged(newValue) {
@@ -321,7 +373,7 @@ export class Update {
     var ViscoContainer = this.DoffVisco;
     var PISContainer = this.DoffPIS;
     var SPUContainer = this.DoffSPU;
-    var SizingBeamIdContainer = this.SizingBeamDocumentId.Id;
+    var SizingBeamIdContainer = this.DoffSizingBeamId.Id;
     var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.DoffTime;
     var ShiftContainer = this.DoffShift.Id;

@@ -88,7 +88,7 @@ export class Create {
       })
       .catch(e => {
         this.Shift = {};
-        this.data.ShiftId = this.Shift.Id;
+        this.data.Details.ShiftId = this.Shift.Id;
         this.error.Shift = " Shift tidak ditemukan ";
       });
   }

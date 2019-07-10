@@ -12,8 +12,8 @@
           <textbox label="Tanggal" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-3">
-          <au-datepicker placeholder="Tanggal Produksi" value.bind="data.ProductionDate"
-            error.bind="error.ProductionDate" read-only.bind="true">
+          <au-datepicker placeholder="Tanggal Produksi" value.bind="data.ProduceDate"
+            error.bind="error.ProduceDate" read-only.bind="true">
           </au-datepicker>
         </div>
       </div> -->
@@ -57,25 +57,25 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+        <div class="col-md-8" style="padding-left: 0px; padding-right: 0px;">
           <button class="btn btn-default" click.delegate="start()"
-            style="margin-bottom: 16px; background-color: rgb(56, 187, 23); color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Mulai
           </button>
           <button class="btn btn-default" click.delegate="pause()"
-            style="margin-bottom: 16px; background-color: #4c7ae7; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            style="margin-bottom: 16px; background-color: #4c7ae7; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Jeda
           </button>
           <button class="btn btn-default" click.delegate="resume()"
-            style="margin-bottom: 16px; background-color: #c9d42a; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            style="margin-bottom: 16px; background-color: #eeeb38; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Lanjut
           </button>
-          <button class="btn btn-default" click.delegate="beamProductionResume()"
-            style="margin-bottom: 16px; background-color: rgb(56, 187, 23); color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
-            Lanjutkan Beam
+          <button class="btn btn-default" click.delegate="produceBeams()"
+            style="margin-bottom: 16px; background-color: rgb(32, 124, 8); color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
+            Produksi Beam
           </button>
           <button class="btn btn-default" click.delegate="finish()"
-            style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 128px; border: 1px solid #777777;">
+            style="margin-bottom: 16px; background-color: #d65151; color:white; white-space: nowrap; width: 136px; border: 1px solid #777777;">
             Doff/ Selesai
           </button>
         </div>
@@ -183,7 +183,7 @@
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-2">
-              <au-textbox placeholder="Grup Sizing" value.bind="PauseOperator.Group" error.bind="error.StartSizingGroup"
+              <au-textbox placeholder="Grup Sizing" value.bind="PauseOperator.Group" error.bind="error.PauseSizingGroup"
                 read-only.bind="true"></au-textbox>
             </div>
           </div>
@@ -197,9 +197,7 @@
                 error.bind="error.CauseOfStopping" read-only.bind="readOnly" items.bind="causes">
               </au-dropdown>
             </div>
-            <!-- </div>
 
-          <div class="row" style="white-space: nowrap;"> -->
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Keterangan" read-only="true" style="display: inline-block"></textbox>
             </div>
@@ -223,17 +221,6 @@
       <div class="row" id="resumeMenu" show.bind="showHideResumeMenu">
         <div class="col-md-12"
           style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-left: 24px;">
-
-          <!-- <div class="row" style="margin-top: 16px; white-space: nowrap">
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="No. Konstruksi" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-4">
-              <au-autocomplete placeholder="No. Konstruksi" value.bind="ConstructionDocument"
-                error.bind="error.ConstructionDocument" read-only.bind="true">
-              </au-autocomplete>
-            </div>
-          </div> -->
 
           <div class="row" style="margin-top: 16px; white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
@@ -274,8 +261,8 @@
               <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-textbox placeholder="Grup Sizing" value.bind="ResumeOperator.Group" error.bind="error.ResumeSizingGroup"
-                read-only.bind="true"></au-textbox>
+              <au-textbox placeholder="Grup Sizing" value.bind="ResumeOperator.Group"
+                error.bind="error.ResumeSizingGroup" read-only.bind="true"></au-textbox>
             </div>
           </div>
 
@@ -287,6 +274,16 @@
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="row" id="produceBeamsMenu" show.bind="showHideProduceBeamsMenu">
+        <div class="col-md-12"
+          style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-top: 16px; white-space: nowrap; overflow: auto;">
+
+          <au-collection items.bind="ProduceBeams" add.bind="produceBeamsConstructions" remove.bind="onremove" errors.bind="error.ProduceBeams" columns.bind="produceBeamsColumns" read-only.bind="readOnly"
+            item-template="modules/weaving/daily-operation-sizing/templates/produce-beams">
+          </au-collection>
         </div>
       </div>
 
@@ -381,11 +378,13 @@
             <div class="col-md-4">
               <au-numeric placeholder="PIS" value.bind="DoffPIS" error.bind="error.DoffPIS" read-only.bind="readOnly">
               </au-numeric>
-            </div><div class="col-md-2" style="text-align:left;">
+            </div>
+            <div class="col-md-2" style="text-align:left;">
               <textbox label="PIS(m)" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-numeric placeholder="PISM" value.bind="DoffPISM" error.bind="error.DoffPISM" read-only.bind="readOnly">
+              <au-numeric placeholder="PISM" value.bind="DoffPISM" error.bind="error.DoffPISM"
+                read-only.bind="readOnly">
               </au-numeric>
             </div>
           </div>
@@ -405,8 +404,8 @@
               <textbox label="No. Beam Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocumentId"
-                error.bind="error.SizingBeamDocumentId" read-only.bind="readOnly" loader.bind="beams" text="Number">
+              <au-autocomplete placeholder="No. Beam Sizing" value.bind="DoffSizingBeamId"
+                error.bind="error.DoffSizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
               </au-autocomplete>
             </div>
           </div>

@@ -57,10 +57,55 @@ export class Service extends RestService {
     });
   }
 
-  calculatePIS(value) {
+  calculatePISMeter(startValue, finishValue) {
+    var task = "pis-in-meter";
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("weaving");
-    var _serviceUri = `weaving/daily-operations-sizing/calculate/pis/${value}`;
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${startValue}/finish/${finishValue}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
+  calculatePISPieces(startValue, finishValue) {
+    var task = "pis-in-pieces";
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${startValue}/finish/${finishValue}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
+  calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal) {
+    var task = "theoritical-kawamoto";
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
+  calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal) {
+    var task = "theoritical-sucker-muller";
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/pis/${pisMeter}/yarn-strands/${yarnStrands}/ne-real/${neReal}`;
+
+    return _endpoint.find(_serviceUri).then(result => {
+      return result.data;
+    });
+  }
+
+  calculateSPU(netto, theoritical) {
+    var task = "spu";
+    var config = Container.instance.get(Config);
+    var _endpoint = config.getEndpoint("weaving");
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/netto/${netto}/theoritical/${theoritical}`;
 
     return _endpoint.find(_serviceUri).then(result => {
       return result.data;
@@ -68,25 +113,31 @@ export class Service extends RestService {
   }
 
   updateStartEntry(Id, data) {
-    status = "start";
+    var status = "start";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
   updatePauseEntry(Id, data) {
-    status = "pause";
+    var status = "pause";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
   updateResumeEntry(Id, data) {
-    status = "resume";
+    var status = "resume";
+    var endpoint = `${serviceUri}/${Id}/${status}`;
+    return super.put(endpoint, data);
+  }
+
+  updateReuseBeamsEntry(Id, data) {
+    var status = "reuse";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
   updateDoffEntry(Id, data) {
-    status = "doff";
+    var status = "doff";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
