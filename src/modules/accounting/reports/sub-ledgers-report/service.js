@@ -23,8 +23,8 @@ export class Service extends RestService {
         let endpoint = `${serviceUri}/download/xls?month=${info.month}&year=${info.year}&coaId=${info.coaId}`;
         return super.getXls(endpoint);
     }
-    getXlsAll() {
-        let endpoint = `${serviceUri}/download/xls`;
+    getXlsAll(query) {
+        let endpoint = `${serviceUri}/download/xls?month=${query.month}&year=${query.year}`;
         return super.getXls(endpoint);
     }
 }

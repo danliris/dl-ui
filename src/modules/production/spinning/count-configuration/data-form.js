@@ -93,7 +93,22 @@ export class DataForm {
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
         }
+        if (!this.data.Id) {
+            this.data.Grain = 1;
+            this.data.Ne = 1;
+            this.data.Eff = 1;
+            this.data.RPM = 1;
+            this.data.Standard = 1;
+            this.data.TPI = 1;
+            this.data.TotalDraft = 1;
+            this.data.Constant = 1;
+            if (this.data.ProcessType == 'Winder') {
+                this.data.ConeWeight = 1.89;
+            } else {
+                this.data.ConeWeight = 1;
+            }
 
+        }
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
         }

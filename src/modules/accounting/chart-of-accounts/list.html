@@ -56,8 +56,8 @@
               <tr repeat.for="ledger of subHeader.ledgers">
                 <td>${ledger.Code}</td>
                 <td>${ledger.Name}</td>
-                <td><a class="btn btn-danger"
-                     click.delegate="delete(ledger.Id)">HAPUS</a></td>
+                <td><a class="btn btn-success"
+                     click.delegate="edit(ledger.Id)">DETAIL</a></td>
               </tr>
             </tbody>
           </table>

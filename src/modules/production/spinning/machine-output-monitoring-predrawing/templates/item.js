@@ -188,11 +188,14 @@ export class Item {
     drawingFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
             this.data.Bale = (this.data.Output / 181.44) * MachineSpinning.Delivery;
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "YARD" || this.data.MachineSpinning.UomUnit.toUpperCase() == "YDS") {
+            this.data.Bale = (this.data.Output * 10 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 400);
         } else {
             this.data.Bale = this.data.Output;
         }
 
-        this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 1440 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 307200)) / 3); //24*60 & 768 * 400
+        this.data.Eff = (this.data.Bale / (MachineSpinning.Delivery / 3)) * 100; //24*60 & 768 * 400
+        // this.data.Eff = this.data.Bale * 100 / (((this.CountConfig.RPM * 1440 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 307200)) / 3); //24*60 & 768 * 400
     }
 
     lapFormerFormula(MachineSpinning) {

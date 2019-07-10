@@ -44,7 +44,9 @@ export class Create {
                     } else {
                         Data.SubmitPosition = 6;
                         Data.Remark = response.output.Remark;
+                        Data.Reason = response.output.Remark;
                     }
+                    console.log(Data)
                     this.service.create(Data).then(result => {
                         alert("Data berhasil dibuat");
                         this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
