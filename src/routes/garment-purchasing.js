@@ -311,6 +311,19 @@ module.exports = [
         }
     },
     {
+        route: 'garment-receipt-correction',
+        name: 'garment-receipt-correction',
+        moduleId: './modules/garment-purchasing/garment-receipt-correction/index',
+        nav: true,
+        title: 'Koreksi Bon Terima Unit',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1, "PG": 1,  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/unit-delivery-order',
         name: 'unit-receipt-note',
         moduleId: './modules/garment-purchasing/unit-delivery-order/index',
@@ -502,19 +515,6 @@ module.exports = [
         settings: {
             group: "g-purchasing",
             permission: {"C9": 1, "PG": 1, "B9": 1, "B1": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'garment-receipt-correction',
-        name: 'garment-receipt-correction',
-        moduleId: './modules/garment-purchasing/garment-receipt-correction/index',
-        nav: true,
-        title: 'Koreksi Bon Terima Unit',
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1, "PG": 1,  },
             iconClass: 'fa fa-dashboard'
         }
     }
