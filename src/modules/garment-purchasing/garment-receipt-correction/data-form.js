@@ -202,7 +202,6 @@ export class DataForm {
     }
 
     urnView= (urn) => {
-        console.log(urn)
         return urn.URNNo;
     }
 }
