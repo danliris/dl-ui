@@ -10,6 +10,18 @@ module.exports = function(keyword, filter) {
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
-            return results.data
+            var data=[];
+            for (var a of results.data){
+                if(data.lengh==0){
+                    data.push(a);
+                }
+                else{
+                    var dup= data.find(c=>c.UnitPaymentOrderNo==a.UnitPaymentOrderNo);
+                    if(!dup){
+                        data.push(a);
+                    }
+                }
+            }
+            return data;
         });
 }

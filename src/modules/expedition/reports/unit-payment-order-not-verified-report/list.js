@@ -84,7 +84,7 @@ export class List {
             size: info.limit,
             no: this.spb ? this.spb.UnitPaymentOrderNo : "",
             supplier: this.supplier ? this.supplier.code : "",
-            division: this.division?this.division.code : "",
+            division: this.division?this.division.Code : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
@@ -111,7 +111,7 @@ export class List {
             let args = {
             no: this.spb ? this.spb.UnitPaymentOrderNo : "",
             supplier: this.supplier ? this.supplier.code : "",
-            division: this.division?this.division.code : "",
+            division: this.division?this.division.Code : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
