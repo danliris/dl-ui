@@ -169,11 +169,11 @@ export class Item {
             this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
 
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "MTR") {
-            this.data.Bale = this.CountConfig.Constant * (this.data.Output / 0.914 * this.CountConfig.Grain) / 16800000; //6 * 7000 * 400
+//             this.data.Bale = this.CountConfig.Constant * (this.data.Output / 0.914 * this.CountConfig.Grain) / 16800000; //6 * 7000 * 400
 
-            if (this.data.MachineSpinning.Name.toUpperCase() == "MING CHENG") {
+//             if (this.data.MachineSpinning.Name.toUpperCase() == "MING CHENG") {
                 this.data.Bale = (this.data.Output * this.CountConfig.Constant) / (768 * this.CountConfig.Ne * 400);
-            }
+//              }
         } else {
             this.data.Bale = this.data.Output;
         }
