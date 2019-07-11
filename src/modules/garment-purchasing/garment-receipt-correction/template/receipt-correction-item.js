@@ -48,9 +48,12 @@ export class GarmentReceiptCorrectionItem {
 		
     }
 
+    qtyChanged(e){
+      console.log(e)
+      this.data.CorrectionQuantity=e.srcElement.value;
+    }
+
     
-    
-	
 	conversionChanged(e) {
 		if(!this.error)
 		  this.error={};
