@@ -52,32 +52,6 @@ module.exports = [
         }
     },
     {
-        route: '/expedition/purchasing-disposition-expedition',
-        name: 'purchasing-disposition-expedition',
-        moduleId: './modules/expedition/purchasing-disposition-expedition/index',
-        nav: true,
-        title: 'Penyerahan Dokumen Disposisi Pembayaran ke Verifikasi',
-        auth: true,
-        settings: {
-            group: "finance",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/expedition/purchasing-disposition-acceptance',
-        name: 'purchasing-disposition-acceptance',
-        moduleId: './modules/expedition/purchasing-disposition-acceptance/index',
-        nav: true,
-        title: 'Penerimaan Dokumen Disposisi Pembayaran',
-        auth: true,
-        settings: {
-            group: "finance",
-            permission: { "B4": 1, "B9": 1, "C9": 1 },
-            iconClass: 'fa fa-clone'
-        }
-    },
-    {
         route: 'unit-payment-order-not-verified-report',
         name: 'unit-payment-order-not-verified-report',
         moduleId: './modules/expedition/reports/unit-payment-order-not-verified-report/index',
@@ -101,6 +75,32 @@ module.exports = [
             group: "finance",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/purchasing-disposition-expedition',
+        name: 'purchasing-disposition-expedition',
+        moduleId: './modules/expedition/purchasing-disposition-expedition/index',
+        nav: true,
+        title: 'Penyerahan Dokumen Disposisi Pembayaran ke Verifikasi',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/expedition/purchasing-disposition-acceptance',
+        name: 'purchasing-disposition-acceptance',
+        moduleId: './modules/expedition/purchasing-disposition-acceptance/index',
+        nav: true,
+        title: 'Penerimaan Dokumen Disposisi Pembayaran',
+        auth: true,
+        settings: {
+            group: "finance",
+            permission: { "B4": 1, "B9": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
         }
     },
     {
