@@ -23,7 +23,7 @@ export class List {
     setColumns() {
         this.columns = [
             { field: "Code", title: "No. SPB" },
-            { field: "Unit.name", title: "Unit" },
+            { field: "Unit.Name", title: "Unit" },
             { field: "RequestType", title: "Tipe" },
             { field: "ProductionOrderList", title: "No. SPP" },
             {
@@ -51,8 +51,8 @@ export class List {
             .then((result) => {
                 for (var data of result.data) {
                     data.ProductionOrderList = data.MaterialsRequestNote_Items.map((item) => {
-                        if (item && item.ProductionOrder.orderNo)
-                            return "- " + item.ProductionOrder.orderNo;
+                        if (item && item.ProductionOrder.OrderNo)
+                            return "- " + item.ProductionOrder.OrderNo;
                     });
                     data.ProductionOrderList = data.ProductionOrderList.join("\n");
                 }
