@@ -41,8 +41,8 @@
           <textbox label="No. Beam Sizing" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamId"
-            error.bind="error.SizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
+          <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocuments"
+            error.bind="error.SizingBeamDocuments" read-only.bind="readOnly" loader.bind="beams" text="Number">
           </au-autocomplete>
         </div>
       </div>
@@ -87,7 +87,7 @@
           <textbox label="Tanggal Pasang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-2">
-          <au-datepicker value.bind="data.Details.PreparationDate" error.bind="error.EntryDate">
+          <au-datepicker value.bind="data.SizingDetails.PreparationDate" error.bind="error.EntryDate">
           </au-datepicker>
         </div>
       </div>
@@ -113,7 +113,7 @@
           <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Counter Awal" value.bind="data.Counter.Start" error.bind="error.Counter.Start"
+          <au-textbox placeholder="Counter Awal" value.bind="data.SizingBeamDocuments.Counter.Start" error.bind="error.Counter.Start"
             read-only.bind="readOnly"></au-textbox>
         </div>
         <div class="col-md-2" style="text-align:left;">

@@ -122,7 +122,7 @@ export class Update {
       });
     if (this.data.Id) {
       this.BeamsWarping = this.data.WarpingBeamsDocument;
-      this.Log = this.data.Details;
+      this.Log = this.data.SizingDetails;
     }
   }
 
@@ -228,11 +228,11 @@ export class Update {
 
     this.data = {};
     this.data.Id = IdContainer;
-    this.data.Details = {};
-    this.data.Details.StartDate = HistoryDateContainer;
-    this.data.Details.StartTime = HistoryTimeContainer;
-    this.data.Details.ShiftId = ShiftContainer;
-    this.data.Details.OperatorDocumentId = OperatorContainer;
+    this.data.SizingDetails = {};
+    this.data.SizingDetails.StartDate = HistoryDateContainer;
+    this.data.SizingDetails.StartTime = HistoryTimeContainer;
+    this.data.SizingDetails.ShiftId = ShiftContainer;
+    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
 
     this.service
       .updateStartEntry(this.data.Id, this.data)
@@ -258,7 +258,7 @@ export class Update {
   }
 
   savePause() {
-    var LastDetails = this.data.Details[this.data.Details.length - 1];
+    var LastDetails = this.data.SizingDetails[this.data.SizingDetails.length - 1];
     var LastCausesBrokenBeam = parseInt(LastDetails.BrokenBeamCauses);
     var LastCausesMachineTroubled = parseInt(LastDetails.MachineTroubledCauses);
 
@@ -282,15 +282,15 @@ export class Update {
 
     this.data = {};
     this.data.Id = IdContainer;
-    this.data.Details = {};
-    this.data.Details.PauseDate = HistoryDateContainer;
-    this.data.Details.PauseTime = HistoryTimeContainer;
-    this.data.Details.Information = InformationContainer;
-    this.data.Details.ShiftId = ShiftContainer;
-    this.data.Details.OperatorDocumentId = OperatorContainer;
-    this.data.Details.Causes = {};
-    this.data.Details.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
-    this.data.Details.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
+    this.data.SizingDetails = {};
+    this.data.SizingDetails.PauseDate = HistoryDateContainer;
+    this.data.SizingDetails.PauseTime = HistoryTimeContainer;
+    this.data.SizingDetails.Information = InformationContainer;
+    this.data.SizingDetails.ShiftId = ShiftContainer;
+    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
+    this.data.SizingDetails.Causes = {};
+    this.data.SizingDetails.Causes.BrokenBeam = LastCausesBrokenBeam.toString();
+    this.data.SizingDetails.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
 
     this.service
       .updatePauseEntry(this.data.Id, this.data)
@@ -324,11 +324,11 @@ export class Update {
 
     this.data = {};
     this.data.Id = IdContainer;
-    this.data.Details = {};
-    this.data.Details.ResumeDate = HistoryDateContainer;
-    this.data.Details.ResumeTime = HistoryTimeContainer;
-    this.data.Details.ShiftId = ShiftContainer;
-    this.data.Details.OperatorDocumentId = OperatorContainer;
+    this.data.SizingDetails = {};
+    this.data.SizingDetails.ResumeDate = HistoryDateContainer;
+    this.data.SizingDetails.ResumeTime = HistoryTimeContainer;
+    this.data.SizingDetails.ShiftId = ShiftContainer;
+    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
 
     this.service
       .updateResumeEntry(this.data.Id, this.data)
@@ -389,11 +389,11 @@ export class Update {
     this.data.Visco = ViscoContainer;
     this.data.PIS = PISContainer;
     this.data.SPU = SPUContainer;
-    this.data.SizingBeamDocumentId = SizingBeamIdContainer;
-    this.data.Details = {};
-    this.data.Details.FinishDate = HistoryDateContainer;
-    this.data.Details.FinishTime = HistoryTimeContainer;
-    this.data.Details.ShiftId = ShiftContainer;
+    this.data.SizingBeamDocuments.SizingBeamId = SizingBeamIdContainer;
+    this.data.SizingDetails = {};
+    this.data.SizingDetails.FinishDate = HistoryDateContainer;
+    this.data.SizingDetails.FinishTime = HistoryTimeContainer;
+    this.data.SizingDetails.ShiftId = ShiftContainer;
 
     this.service
       .updateDoffEntry(this.data.Id, this.data)

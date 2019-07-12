@@ -40,7 +40,7 @@ export class Create {
     this.bindingEngine = bindingEngine;
 
     this.data = {};
-    this.data.Details = {};
+    this.data.SizingDetails = {};
     this.data.Weight = {};
     this.data.Weight.Netto = "";
     this.BeamsWarping = [];
@@ -78,17 +78,17 @@ export class Create {
   }
 
   EntryTimeChanged(newValue) {
-    this.data.Details.PreparationTime = newValue;
+    this.data.SizingDetails.PreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
         this.error.Shift = "";
         this.Shift = {};
         this.Shift = result;
-        this.data.Details.ShiftId = this.Shift.Id;
+        this.data.SizingDetails.ShiftId = this.Shift.Id;
       })
       .catch(e => {
         this.Shift = {};
-        this.data.Details.ShiftId = this.Shift.Id;
+        this.data.SizingDetails.ShiftId = this.Shift.Id;
         this.error.Shift = " Shift tidak ditemukan ";
       });
   }
@@ -127,8 +127,12 @@ export class Create {
   }
 
   saveCallback(event) {
-    var PreparationDateContainer = this.data.Details.PreparationDate;
-    this.data.Details.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
+    var PreparationDateContainer = this.data.SizingDetails.PreparationDate;
+    this.data.SizingDetails.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
+
+    this.data.MachineDocumentId = this.MachineDocument.Id;
+    this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
+    this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
 
     this.BeamId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
     this.BeamId.forEach(id => {
@@ -137,11 +141,8 @@ export class Create {
     });
 
     this.data.NeReal = this.NeReal;
-    this.data.SizingBeamId = this.SizingBeamId.Id;
-    this.data.MachineDocumentId = this.MachineDocument.Id;
-    this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
-    this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
-    this.data.Details.OperatorDocumentId = this.OperatorDocument.Id;
+    this.data.SizingBeamDocuments.SizingBeamId = this.SizingBeamDocuments.Id;
+    this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
 
     this.service
       .create(this.data)
