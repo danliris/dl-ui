@@ -64,4 +64,17 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: '/merchandiser/garment-purchase-request-master',
+        name: 'purchase-request-master',
+        moduleId: './modules/merchandiser/garment-purchase-request-master/index',
+        nav: true,
+        title: 'Garment Purchase Request Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
 ];
