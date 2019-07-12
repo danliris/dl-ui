@@ -156,6 +156,9 @@ export class Item {
     blowingFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
             this.data.Bale = (this.data.Output / 181.44) * MachineSpinning.Delivery;
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "GRAM") {
+            this.data.Bale = this.data.Output / (1000 * 181.44);
+            // this.data.Bale = (this.data.Output / 181.44) * MachineSpinning.Delivery;
         } else {
             this.data.Bale = this.data.Output;
         }

@@ -122,7 +122,7 @@ export class Edit {
   }
 
   validateStepsDurationEstimation() {
-    if (this.data.durationEstimation) {
+    if (this.data.durationEstimation && this.data.durationEstimation.Areas) {
       var deliveryDate = this.data.ProductionOrder.DeliveryDate;
       var sumDay = 0;
 

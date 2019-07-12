@@ -44,12 +44,12 @@ export class DataForm {
 
     @computedFrom("data.Unit")
     get preparingFilter() {
+        this.selectedPreparing = null;
         if (this.data.Unit) {
             return {
                 UnitId: this.data.Unit.Id
             };
         } else {
-            this.selectedPreparing = null;
             return {
                 UnitId: 0
             };
@@ -92,13 +92,14 @@ export class DataForm {
 
     async selectedPreparingChanged(newValue, oldValue){
         if(newValue) {
+            this.context.error.Items = [];
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
 
             let uomResult = await this.coreService.getUom({ size: 1, filter: JSON.stringify({ Unit: "PCS" }) });
             let uom = uomResult.data[0];
             
-            Promise.resolve(this.service.getPreparing({ filter: JSON.stringify({ RONo: this.data.RONo }) }))
+            Promise.resolve(this.service.getPreparing({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
                 .then(result => {
                     this.data.Items = result.data
                         .filter(data => data.Items

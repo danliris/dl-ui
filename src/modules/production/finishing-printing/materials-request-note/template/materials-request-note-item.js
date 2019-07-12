@@ -8,13 +8,12 @@ export class MaterialsRequestNoteItem {
         this.error = context.error;
         this.options = context.options;
         this.productionOrderFilter = context.context.options.productionOrderFilter;
-        console.log(this.productionOrderFilter)
+        // console.log(this.productionOrderFilter)
         this.isTest = context.context.options.isTest;
         this.isComplete = context.context.options.isComplete;
         this.isView = context.context.options.isView;
         this.isAwal = context.context.options.isAwal;
         this.isEdit = context.context.options.isEdit;
-        this.data.ProductionOrder = null;
         this.isDisabled = this.data.isDisabled;
         
     }
@@ -31,10 +30,13 @@ export class MaterialsRequestNoteItem {
 
     productChanged(e) {
         this.data.Product = this.data && this.data.Product && this.data.Product.Id ? this.data.Product : null;
-        this.data.Product._id = this.data.Product.Id;
-        this.data.Product.code = this.data.Product.Code;
-        this.data.Product.name = this.data.Product.Name;
-        console.log(this.data.Product)
+        if(this.data.Product && this.data.Product.Id){
+            this.data.Product._id = this.data.Product.Id;
+            this.data.Product.code = this.data.Product.Code;
+            this.data.Product.name = this.data.Product.Name;
+        }
+        
+        // console.log(this.data.Product)
     }
 
     get productionOrderLoader() {
@@ -55,9 +57,9 @@ export class MaterialsRequestNoteItem {
             this.data.ProductionOrder.orderType.name = this.data.ProductionOrder.OrderType.Name;
             this.data.ProductionOrderId = this.data.ProductionOrder.Id;
             this.data.ProductionOrderNo = this.data.ProductionOrder.OrderNo;
-            console.log(this.data.ProductionOrder)
+            // console.log(this.data.ProductionOrder)
         }
-        console.log(this.data.ProductionOrder)
+        // console.log(this.data.ProductionOrder)
     }
 
     controlOptions = {

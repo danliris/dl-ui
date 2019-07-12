@@ -7,7 +7,7 @@ const uriUPO = 'unit-payment-orders-expedition-report';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, 'purchasing');
+        super(http, aggregator, config, 'purchasing-azure');
     }
     
     search(info) {
