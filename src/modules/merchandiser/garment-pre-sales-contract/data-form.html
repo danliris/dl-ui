@@ -21,7 +21,7 @@
         <au-autocomplete 
             label="Seksi"
             value.bind="section"
-            error.bind="error.sectionId"
+            error.bind="error.Section"
             loader.bind="sectionLoader"
             text.bind = "sectionView"
             key="SectionCode"
@@ -50,7 +50,7 @@
         <au-autocomplete 
             label="Buyer Agent"
             value.bind="buyerAgent"
-            error.bind="error.BuyerAgentId"
+            error.bind="error.BuyerAgent"
             loader.bind="garmentBuyerLoader"
             text.bind = "buyerAgentView"
             key="Code"
@@ -62,7 +62,7 @@
         <au-autocomplete 
             label="Buyer Brand"
             value.bind="buyerBrand"
-            error.bind="error.BuyerBrandId"
+            error.bind="error.BuyerBrand"
             loader.bind="garmentBuyerBrandLoader"
             text.bind = "buyerBrandView"
             key="Code"

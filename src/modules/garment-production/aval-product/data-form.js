@@ -77,16 +77,20 @@ export class DataForm {
                     }
                 }
             }
+        } else if(!selectedPreparing && this.options.isCreate){
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.AvalDate = null;
+            this.data.Items=[];
         }
     }
 
     itemsInfo = {
         columns: [
-            { header: " "},
-            {header: "Kode Barang"},
-            {header: "Keterangan"},
-            {header: "Jumlah"},
-            {header: "Satuan"},
+            "Kode Barang",
+            "Keterangan",
+            "Jumlah",
+            "Satuan",
         ]
     }
 

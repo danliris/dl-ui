@@ -12,4 +12,11 @@ export class AvalItemHeader {
         length: 12
       }
     };
+
+    changeCheckedAll() {
+      this.data
+            .forEach(item => {
+                item.data.IsSave = (this.options.checkedAll === true);
+            });
+    }
   }
