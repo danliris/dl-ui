@@ -17,6 +17,16 @@
                 <au-autocomplete value.bind="category" label="Kategori" loader.bind="categoryLoader" placeholder="nama kategori" key="code">
                 </au-autocomplete>
 
+                <au-autocomplete 
+                value.bind="division" 
+                label="Divisi" 
+                loader.bind="divisionLoader"
+                placeholder="cari divisi" 
+                key="name"
+                text.bind="divisionView"
+                options.bind="controlOptions">
+                </au-autocomplete>
+
                 <au-autocomplete value.bind="budget" label="Budget" loader.bind="budgetLoader" placeholder="nama budget" key="code">
                 </au-autocomplete>
 

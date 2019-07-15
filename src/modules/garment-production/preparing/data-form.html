@@ -18,6 +18,7 @@
             text.bind = "uenView"
             key="UENNo"
             aria-placeholder="Cari No Bukti Pengeluaran"
+            query.bind="filterUen"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-autocomplete>
@@ -34,6 +35,7 @@
             label="Unit"
             value.bind="data.Unit.Name"
             error.bind="error.Unit.Name"
+            if.bind="data.Unit.Name"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -42,6 +44,7 @@
             label="RO"
             value.bind="data.RONo"
             error.bind="error.RONo"
+            if.bind="data.RONo"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
@@ -50,6 +53,7 @@
             label="No. Artikel"
             value.bind="data.Article"
             error.bind="error.Article"
+            if.bind="data.Article"
             read-only.bind="true"
             options.bind="controlOptions">
         </au-textbox>
