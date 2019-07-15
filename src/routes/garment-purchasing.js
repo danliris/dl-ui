@@ -274,7 +274,7 @@ module.exports = [
     {
         route: '/garment/monitoring-intern-note',
         name: 'monitoring-intern-note',
-        moduleId: './modules/garment-purchasing/monitoring-intern-note/index',
+        moduleId: './modules/garment-purchasing/monitoring-intern-note-new/index',
         nav: true,
         title: 'Monitoring Nota Intern',
         auth: true,
