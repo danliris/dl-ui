@@ -3,7 +3,7 @@ import { Service } from './service';
 
 import SectionLoader from "../../../loader/garment-sections-loader";
 import GarmentBuyerLoader from "../../../loader/garment-buyers-loader";
-import GarmentBuyerBrandLoader from "../../../loader/garment-buyer-brand-loader";
+import GarmentBuyerBrandLoader from "../../../loader/garment-buyer-brands-loader";
 
 @containerless()
 @inject(BindingEngine, Service, Element)
@@ -70,7 +70,7 @@ export class DataForm {
             this.data.BuyerAgentId = selectedBuyerAgent.Id;
             this.data.BuyerAgentCode = selectedBuyerAgent.Code;
             this.data.BuyerAgentName = selectedBuyerAgent.Name;
-            this.filterBuyerBrand = {"BuyerId":this.data.BuyerAgentId};
+            this.filterBuyerBrand = {"BuyerName":this.data.BuyerAgentName};
             if(newValue.Type){
                 this.buyerBrand = null;
                 this.data.BuyerBrandId = null;
