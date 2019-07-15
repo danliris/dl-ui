@@ -159,7 +159,8 @@ export class Item {
         } else {
             this.data.Bale = this.data.Output;
         }
-        this.data.Eff = this.data.Bale * 100 / ((this.CountConfig.RPM * 345.6 * (22 / 7) * MachineSpinning.Delivery) / (this.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+        // this.data.Eff = this.data.Bale * 100 / ((this.CountConfig.RPM * 345.6 * (22 / 7) * MachineSpinning.Delivery) / (this.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+        this.data.Eff = (this.data.Bale / (MachineSpinning.CapacityPerHour / 3)) * 100;
     }
 
     cardingFormula(MachineSpinning) {
