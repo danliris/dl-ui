@@ -37,14 +37,6 @@
             text="ConstructionNumber">
           </au-autocomplete>
         </div>
-        <div class="col-md-2" style="text-align:left;">
-          <textbox label="No. Beam Sizing" read-only="true" style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-4">
-          <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocuments"
-            error.bind="error.SizingBeamDocuments" read-only.bind="readOnly" loader.bind="beams" text="Number">
-          </au-autocomplete>
-        </div>
       </div>
 
       <div class="row" style="white-space: nowrap">
@@ -110,17 +102,10 @@
 
       <div class="row" style="white-space: nowrap;">
         <div class="col-md-2" style="text-align:left;">
-          <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
-        </div>
-        <div class="col-md-4">
-          <au-textbox placeholder="Counter Awal" value.bind="data.SizingBeamDocuments.Counter.Start" error.bind="error.Counter.Start"
-            read-only.bind="readOnly"></au-textbox>
-        </div>
-        <div class="col-md-2" style="text-align:left;">
           <textbox label="Total Helai Benang" read-only="true" style="display: inline-block"></textbox>
         </div>
         <div class="col-md-4">
-          <au-textbox placeholder="Total Helai Benang" value.bind="Netto" error.bind="error.Netto"
+          <au-textbox placeholder="Total Helai Benang" value.bind="YarnStrands" error.bind="error.YarnStrands"
             read-only.bind="true"></au-textbox>
         </div>
       </div>

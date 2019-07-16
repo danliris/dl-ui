@@ -130,6 +130,24 @@
           </div>
 
           <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="No. Beam Sizing" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocuments"
+                error.bind="error.SizingBeamDocuments" read-only.bind="readOnly" loader.bind="beams" text="Number">
+              </au-autocomplete>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-textbox placeholder="Counter Awal" value.bind="data.SizingBeamDocuments.Counter.Start"
+                error.bind="error.Counter.Start" read-only.bind="readOnly"></au-textbox>
+            </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
               <button class="btn btn-default" click.delegate="saveStart()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
               width: 96px; border: 1px solid #777777;">
@@ -281,7 +299,8 @@
         <div class="col-md-12"
           style="border-style: double; border-color: black; border-width: 4px; border-radius: 5px;margin-bottom: 16px; padding-top: 16px; white-space: nowrap; overflow: auto;">
 
-          <au-collection items.bind="ProduceBeams" add.bind="produceBeamsConstructions" remove.bind="onremove" errors.bind="error.ProduceBeams" columns.bind="produceBeamsColumns" read-only.bind="readOnly"
+          <au-collection items.bind="ProduceBeams" add.bind="produceBeamsConstructions" remove.bind="onremove"
+            errors.bind="error.ProduceBeams" columns.bind="produceBeamsColumns" read-only.bind="readOnly"
             item-template="modules/weaving/daily-operation-sizing/templates/produce-beams">
           </au-collection>
         </div>

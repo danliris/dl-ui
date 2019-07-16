@@ -44,27 +44,27 @@ export class Update {
   }];
 
   produceBeamsColumns = [{
-    value: "ProduceBeamsDate",
-    header: "Tanggal Pasang"
-  }, {
-    value: "ProduceBeamsTime",
-    header: "Waktu Pasang"
-  }, {
-    value: "ProduceBeamsShift",
-    header: "Shift"
-  }, {
-    value: "ProduceBeamsOperator",
-    header: "Operator"
-  }, {
+  //   value: "ProduceBeamsDate",
+  //   header: "Tanggal Pasang"
+  // }, {
+  //   value: "ProduceBeamsTime",
+  //   header: "Waktu Pasang"
+  // }, {
+  //   value: "ProduceBeamsShift",
+  //   header: "Shift"
+  // }, {
+  //   value: "ProduceBeamsOperator",
+  //   header: "Operator"
+  // }, {
   //   value: "ProduceBeamsSizingGroup",
   //   header: "Sizing Grup"
   // }, {
-    value: "ProduceBeamsSizingBeamId",
-    header: "Beam Sizing"
-  }, {
-    value: "ProduceBeamsDoffStartCounter",
-    header: "Counter Awal"
-  }, {
+  //   value: "ProduceBeamsSizingBeamId",
+  //   header: "Beam Sizing"
+  // }, {
+  //   value: "ProduceBeamsDoffStartCounter",
+  //   header: "Counter Awal"
+  // }, {
     value: "ProduceBeamsDoffFinishCounter",
     header: "Counter Akhir"
   }, {
@@ -200,11 +200,11 @@ export class Update {
     }
   }
 
-  get produceBeamsConstructions() {
-    return event => {
-      this.ProduceBeams.push({});
-    };
-  }
+  // get produceBeamsConstructions() {
+  //   return event => {
+  //     this.ProduceBeams.push({});
+  //   };
+  // }
 
   StartTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)

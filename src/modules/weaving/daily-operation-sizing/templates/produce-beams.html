@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td class="col-sm-1" style="white-space: nowrap;">
+    <!-- <td class="col-sm-1" style="white-space: nowrap;">
       <au-datepicker value.bind="data.ProduceBeamsDate" error.bind="error.ProduceBeamsDate" read-only.bind="readOnly">
       </au-datepicker>
     </td>
@@ -16,13 +16,13 @@
     <td class="col-sm-1" style="white-space: nowrap;">
       <au-autocomplete placeholder="Operator" value.bind="ProduceBeamsOperator" error.bind="error.ProduceBeamsOperator"
         read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
-    </td>
+    </td> -->
     <!-- <td style="white-space: nowrap;">
       <au-textbox placeholder="Grup Sizing" value.bind="ProduceBeamsOperator.Group" error.bind="error.ProduceBeamsOperator"
         read-only.bind="true"></au-textbox>
       </au-textbox>
     </td> -->
-    <td class="col-sm-1" style="white-space: nowrap;">
+    <!-- <td class="col-sm-1" style="white-space: nowrap;">
       <au-autocomplete placeholder="No. Beam Sizing" value.bind="data.ProduceBeamsSizingBeamId"
         error.bind="error.ProduceBeamsSizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
       </au-autocomplete>
@@ -30,27 +30,27 @@
     <td class="col-sm-1" style="white-space: nowrap;">
       <au-numeric placeholder="Counter Awal" value.bind="data.ProduceBeamsDoffStartCounter"
         error.bind="error.ProduceBeamsDoffStartCounter" read-only.bind="readOnly"></au-numeric>
-    </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
+    </td> -->
+    <td class="col-sm-2" style="white-space: nowrap;">
       <au-numeric placeholder="Counter Akhir" value.bind="data.ProduceBeamsDoffFinishCounter"
         error.bind="error.ProduceBeamsDoffFinishCounter" read-only.bind="readOnly"></au-numeric>
     </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
+    <td class="col-sm-2" style="white-space: nowrap;">
       <au-numeric placeholder="Berat Bersih (Netto)" value.bind="data.ProduceBeamsNettoWeight"
         error.bind="error.ProduceBeamsNettoWeight" read-only.bind="readOnly"></au-numeric>
       </au-textbox>
     </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
+    <td class="col-sm-2" style="white-space: nowrap;">
       <au-numeric placeholder="Berat Kotor (Bruto)" value.bind="data.ProduceBeamsBrutoWeight"
         error.bind="error.ProduceBeamsBrutoWeight" read-only.bind="readOnly"></au-numeric>
       </au-textbox>
     </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
+    <td class="col-sm-2" style="white-space: nowrap;">
       <au-numeric placeholder="SPU" value.bind="data.ProduceBeamsSPU" error.bind="error.ProduceBeamsSPU"
         read-only.bind="true">
       </au-numeric>
     </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
+    <td class="col-sm-3" style="white-space: nowrap;">
       <au-dropdown value.bind="action" error.bind="error.action" read-only.bind="readOnly"
       items.bind="actions"></au-dropdown>
     </td>
@@ -61,8 +61,8 @@
       </button>
     </td> -->
     <td class="col-sm-1" if.bind="!readOnly">
-      <button class="btn btn-danger pull-right" click.delegate="onremove(sizingBeamData, $event)">
-        -
+      <button class="btn btn-success pull-right" click.delegate="onremove(sizingBeamData, $event)">
+        Simpan
       </button>
     </td>
   </tr>

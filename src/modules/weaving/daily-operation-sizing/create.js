@@ -30,7 +30,7 @@ export class Create {
     value: "BeamNumber",
     header: "Nomor Beam Warping"
   }, {
-    value: "EmptyWeight",
+    value: "YarnStrands",
     header: "Helai Benang Beam Warping"
   }];
 
@@ -41,9 +41,9 @@ export class Create {
 
     this.data = {};
     this.data.SizingDetails = {};
-    this.data.Weight = {};
-    this.data.Weight.Netto = "";
     this.BeamsWarping = [];
+    // this.data.Weight = {};
+    // this.data.Weight.Netto = "";
 
     this.error = {};
   }
@@ -99,28 +99,29 @@ export class Create {
     };
   }
 
-  beamDetail(data) {
-    var beam = {};
-    beam.Id = data.Id;
-    beam.EmptyWeight = data.EmptyWeight;
+  // beamDetail(data) {
+  //   var beam = {};
+  //   beam.Id = data.Id;
+  //   beam.YarnStrands = data.YarnStrands;
 
-    return beam;
-  }
+  //   return beam;
+  // }
 
-  get Netto() {
+  get YarnStrands() {
     let result = 0;
 
     if (this.BeamsWarping) {
       if (this.BeamsWarping.length > 0) {
-        this.data.WarpingBeamsId = [];
+        this.data.BeamsWarping = [];
         for (let beam of this.BeamsWarping) {
-          if (beam.BeamDocument && beam.BeamDocument.EmptyWeight != 0) {
-            result += beam.BeamDocument.EmptyWeight;
+          if (beam.BeamDocument && beam.BeamDocument.YarnStrands != 0) {
+            result += beam.BeamDocument.YarnStrands;
           }
         }
       }
 
-      this.data.Weight.Netto = result.toString();
+      this.data.YarnStrands = result;
+      console.log(result);
     }
     return result;
 
@@ -134,14 +135,22 @@ export class Create {
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
     this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
 
-    this.BeamId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
-    this.BeamId.forEach(id => {
-      var BeamId = id;
-      this.data.WarpingBeamsId.push(BeamId);
+    this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
+    this.BeamDocument.forEach(doc => {
+      console.log(document);
+      var WarpingBeamDocument = {};
+
+      var beamId = doc.Id;
+      WarpingBeamDocument.BeamId = beamId;
+
+      var yarnStrands = doc.YarnStrands;
+      WarpingBeamDocument.YarnStrands = yarnStrands;
+
+      console.log(WarpingBeamDocument);
+      this.data.BeamsWarping.push(WarpingBeamDocument);
     });
 
     this.data.NeReal = this.NeReal;
-    this.data.SizingBeamDocuments.SizingBeamId = this.SizingBeamDocuments.Id;
     this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
 
     this.service
