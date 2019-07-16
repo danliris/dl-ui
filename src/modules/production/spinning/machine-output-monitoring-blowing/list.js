@@ -16,8 +16,20 @@ export class List {
         { field: "ProcessType", title: "Jenis Proses" },
         { field: "MaterialType.Name", title: "Jenis Material" },
         { field: "Lot.LotNo", title: "Lot" },
-        { field: "Shift", title: "Shift"},
-        { field: "UnitDepartment.Name", title: "Unit"},
+        { field: "Shift", title: "Shift" },
+        { field: "UnitDepartment.Name", title: "Unit" },
+        {
+            field: "TotalBale", title: "Total Bale (Nett)", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.0000');
+            }
+        },
+        {
+            field: "TotalEff", title: "%Eff (Nett)", formatter: function (value, data, index) {
+                return numeral(value).format('0,000.0000');
+            }
+        },
+        { field: "MachineNo", title: "No Mesin" },
+        { field: "MachineName", title: "Merk Mesin" },
     ];
 
     loader = (info) => {
@@ -29,11 +41,18 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({"ProcessType" : "Blowing"})
+            filter: JSON.stringify({ "ProcessType": "Blowing" })
         }
 
         return this.service.search(arg)
             .then(result => {
+                for(var data of result.data){
+                    data.TotalBale = data.Items[0].Bale;
+                    data.TotalEff = data.Items[0].Eff;
+                    data.MachineNo = data.Items[0].MachineSpinning.No;
+                    data.MachineName = data.Items[0].MachineSpinning.Name;
+                }
+               
                 return {
                     total: result.info.count,
                     data: result.data

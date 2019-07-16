@@ -1,8 +1,10 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { PermissionHelper } from '../../../utils/permission-helper';
 
 var CurrencyLoader = require('../../../loader/currency-loader');
 var UomLoader = require('../../../loader/uom-loader');
 
+@inject(PermissionHelper)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -16,7 +18,24 @@ export class DataForm {
         editText: "Ubah",
     }
 
-    constructor() { }
+    constructor(permissionHelper) {
+        this.permissions = permissionHelper.getUserPermissions();
+        console.log(this.permissions);
+        this.isPermitted = this.isPermittedRole();
+    }
+
+    isPermittedRole() {
+        // this.roles = [VERIFICATION, CASHIER, ACCOUNTING];
+        let roleRules = ["C9", "B1"];
+
+        for (var key in this.permissions) {
+            let hasPermittedRole = roleRules.find((roleRule) => roleRule == key)
+            if (hasPermittedRole)
+                return true;
+        }
+
+        return false;
+    }
 
     @computedFrom("data.Id")
     get isEdit() {
@@ -62,5 +81,15 @@ export class DataForm {
 
     get uomLoader() {
         return UomLoader;
+    }
+
+    columns = [
+        { header: "Kategori - Divisi", value: "CategoryDivision" }
+    ];
+
+    get addItems() {
+        return (event) => {
+            this.data.MappingCategories.push({})
+        };
     }
 }

@@ -294,7 +294,8 @@ export class DataForm {
                 Items.UomUnit = item.SmallUomUnit;
                 Items.PricePerDealUnit = item.PricePerDealUnit;
                 Items.DesignColor = item.DesignColor;
-                Items.DefaultDOQuantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                Items.DefaultDOQuantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
+                //parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
                 Items.Quantity = Items.DefaultDOQuantity;
                 Items.IsSave = Items.Quantity > 0;
                 Items.IsDisabled = !(Items.Quantity > 0);

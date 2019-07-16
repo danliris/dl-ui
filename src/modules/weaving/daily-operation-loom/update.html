@@ -3,6 +3,7 @@
     <require from="./template/stop-form"></require>
     <require from="./template/resume-form"></require>
     <require from="./template/finish-form"></require>
+    <require from="./template/update-shift-form"></require>
     <div class="col-md-12">
 
         <h3>Operasi Harian Loom</h3>
@@ -84,6 +85,9 @@
                 </button>
                 <button class="btn btn-success" data-toggle="modal" data-target="#Selesai">
                     Selesai
+                </button>
+                <button class="btn btn-dark" data-toggle="modal" data-target="#UbahShift">
+                    Ubah Shift
                 </button>
             </div>
         </div>
@@ -187,6 +191,24 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-primary" click.delegate="finish()">Selesai</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="UbahShift" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <update-shift-form title="Ubah Shift" error.bind="error" data.bind="data">
+                        </update-shift-form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" click.delegate="updateShift()">Ubah Shift</button>
                     </div>
                 </div>
             </div>

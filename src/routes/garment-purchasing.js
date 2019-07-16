@@ -274,7 +274,7 @@ module.exports = [
     {
         route: '/garment/monitoring-intern-note',
         name: 'monitoring-intern-note',
-        moduleId: './modules/garment-purchasing/monitoring-intern-note/index',
+        moduleId: './modules/garment-purchasing/monitoring-intern-note-new/index',
         nav: true,
         title: 'Monitoring Nota Intern',
         auth: true,
@@ -307,6 +307,19 @@ module.exports = [
         settings: {
             group: "g-purchasing",
             permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1  },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'garment-receipt-correction',
+        name: 'garment-receipt-correction',
+        moduleId: './modules/garment-purchasing/garment-receipt-correction/index',
+        nav: true,
+        title: 'Koreksi Bon Terima Unit',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            permission: { "C9": 1, "C1B" : 1, "C1A" : 1, "C2C" : 1, "C2B" : 1, "C2A" : 1, "PG": 1,  },
             iconClass: 'fa fa-dashboard'
         }
     },

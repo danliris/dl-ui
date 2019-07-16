@@ -1,0 +1,56 @@
+<template >
+    <tr>
+        <td>
+            <au-checkbox 
+                value.bind="data.IsSave" 
+                disabled.bind="readOnly || isEdit"
+                change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.Product.Code"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.DesignColor"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="data.PreparingRemainingQuantity"
+                error.bind = "error.PreparingRemainingQuantity"
+                read-only.bind="true">
+            </au-numeric>                    
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="dataPreparingQuantity"
+                error.bind = "error.PreparingQuantity"
+                read-only.bind="true">
+            </au-numeric>                    
+        </td>
+        <td>
+            <au-textbox
+                value.bind="data.PreparingUom.Unit"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric 
+                value.bind="data.CuttingInQuantity"
+                error.bind = "error.CuttingInQuantity"
+                read-only.bind="readOnly" >
+            </au-numeric>                    
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.CuttingInUom.Unit"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+    </tr>
+</template>

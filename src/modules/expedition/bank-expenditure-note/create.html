@@ -1,0 +1,69 @@
+<template>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <au-input-form title="Buat Bukti Pengeluaran Bank DPP + PPN"
+                   options.bind="formOptions">
+
+        <au-autocomplete label="Bank"
+                         placeholder="pilih bank"
+                         value.bind="selectedBank"
+                         error.bind="error.Bank"
+                         loader.one-time="bankLoader"
+                         text.bind="bankView"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox label="No. Rekening"
+                    value.bind="data.Bank.AccountNumber"
+                    read-only.bind="true"
+                    options.bind="controlOptions"
+                    show.bind="selectedBank">
+        </au-textbox>
+
+        <au-textbox label="Mata Uang"
+                    value.bind="data.Bank.Currency.Code"
+                    read-only.bind="true"
+                    options.bind="controlOptions"
+                    show.bind="selectedBank">
+        </au-textbox>
+
+        <au-autocomplete label="Supplier"
+                         placeholder="pilih supplier"
+                         value.bind="selectedSupplier"
+                         error.bind="error.Supplier"
+                         loader.one-time="supplierLoader"
+                         text="name"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-textbox label="No. BG/Cek"
+                    value.bind="data.BGCheckNumber"
+                    error.bind="error.BGCheckNumber"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions"
+                    show.bind="isExistBankAndSupplier">
+        </au-textbox>
+
+        <au-datepicker label="Tanggal"
+                       value.bind="data.Date"
+                       error.bind="error.Date"
+                       show.bind="isExistBankAndSupplier"
+                       options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-textbox error.bind="error.Details"
+                    show.bind="error.Details"
+                    read-only.bind="true">
+        </au-textbox>
+
+        <au-collection show.bind="isExistBankAndSupplier"
+                       items.bind="UPOResults"
+                       columns.bind="collection.columns"
+                       checkall.delegate="onCheckAll($event)"
+                       item-template="modules/expedition/bank-expenditure-note/templates/item">
+        </au-collection>
+
+        TOTAL BAYAR DPP + PPN ${grandTotal | numberFormat: '0,000.0000'} ${currency}
+    </au-input-form>
+</template>

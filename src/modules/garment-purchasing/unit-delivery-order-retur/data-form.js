@@ -54,7 +54,6 @@ export class DataForm {
                 this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
                 
             }
-            
         }
     }
 
@@ -93,7 +92,6 @@ export class DataForm {
     }
 
     deliveryOrderView=(DO)=>{
-        console.log(DO)
         return DO.DONo;
     }
 
@@ -111,10 +109,13 @@ export class DataForm {
         else {
             this.data.UnitSender = null;
             this.context.unitSenderViewModel.editorValue = "";
+            this.context.deliveryOrderViewModel.editorValue = "";
+            this.deliveryOrder = null;
         }
         this.storage = null;
         this.deliveryOrder = null;
         this.context.storageViewModel.editorValue = "";
+        this.context.deliveryOrderViewModel.editorValue = "";
         this.data.Items = [];
     }
 
@@ -126,8 +127,11 @@ export class DataForm {
         else {
             this.data.Storage = null;
             this.context.storageViewModel.editorValue = "";
+            this.context.deliveryOrderViewModel.editorValue = "";
+            this.deliveryOrder = null;
         }
         this.deliveryOrder = null;
+        this.context.deliveryOrderViewModel.editorValue = "";
         this.data.Items = [];
     }
 
@@ -170,8 +174,9 @@ export class DataForm {
                     Items.UomUnit = item.SmallUomUnit;
                     Items.PricePerDealUnit = item.PricePerDealUnit;
                     Items.DesignColor = item.DesignColor;
-                    Items.ReturQuantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)/item.Conversion).toFixed(2));
-                    Items.Quantity = parseFloat(((item.SmallQuantity - item.OrderQuantity)).toFixed(2));
+                    Items.ReturQuantity = parseFloat(((item.ReceiptCorrection) -( item.OrderQuantity/item.CorrectionConversion)).toFixed(2));
+                    //parseFloat(((item.SmallQuantity - item.OrderQuantity)/item.Conversion).toFixed(2));
+                    Items.Quantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
                     Items.IsSave = Items.Quantity > 0;
                     Items.IsDisabled = !(Items.Quantity > 0);
                     Items.ReturUomId = item.UomId;

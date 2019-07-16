@@ -53,6 +53,7 @@ export class DataForm {
                 this.data.customType = selectedBeacukai.BCType;
                 this.data.arrivalDate = selectedBeacukai.TglDatang;
                 this.data.billNo=selectedBeacukai.BonNo;
+                this.data.arrivalDate = selectedBeacukai.TglDatang;
                 this.context.beacukaiAU.editorValue="";
             }else {
                 this.data.beacukaiDate = null;
@@ -88,6 +89,7 @@ export class DataForm {
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
             this.data.customType=undefined;
+            this.data.arrivalDate =undefined;
        }else
        {
             this.beacukai={};
@@ -96,6 +98,7 @@ export class DataForm {
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
             this.data.customType=undefined;
+            this.data.arrivalDate =undefined;
        }
     }
     bind(context) {
