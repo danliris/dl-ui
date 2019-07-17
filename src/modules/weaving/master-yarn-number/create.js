@@ -44,7 +44,7 @@ export class Create {
         errorIndex++;
       }
 
-      if (this.data.AdditionalNumber != "") {
+      if (this.data.AdditionalNumber) {
         if (!CodeRegEx.test(this.data.AdditionalNumber)) {
           this.error.AdditionalNumber = "Only Numbers (1-9) Allowed";
           errorIndex++;
