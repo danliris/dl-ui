@@ -11,6 +11,9 @@ module.exports = function(keyword, filter) {
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
             return results.data.map(category => {
+                category.Id = category.Id || category._id;
+                category.Code = category.Code || category.code;
+                category.Name = category.Name || category.name;
                 category.toString = function () {
                     return [this.code, this.name]
                         .filter((item, index) => {

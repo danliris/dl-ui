@@ -21,8 +21,8 @@ export class DataForm {
             'currency.code',
             'category.code', 'category.name',
             'paymentMethod',
-            'invoceNo',
-            'invoceDate',
+            'invoiceNo',
+            'invoiceDate',
             'pibNo',
             'useVat', //pph
             'useIncomeTax', //ppn
@@ -64,7 +64,7 @@ export class DataForm {
         { field: "no", title: "No Bon Terima Unit" },
         { field: "purchaseOrderExternalNo", title: "No PO Eksternal" },
         { field: "purchaseRequestNo", title: "No PR" },
-        { field: "correctionNo", title: "No Koreksi" },
+       // { field: "correctionNo", title: "No Koreksi" },
     ]
 
     formOptions = {
@@ -102,7 +102,7 @@ export class DataForm {
 
     SPBChanged(newValue, oldValue) {
         if (this.SPB) {
-
+console.log(this.SPB)
             this.data = Object.assign(this.data, this.SPB)
 
             this.mapItems(this.data);
@@ -115,6 +115,7 @@ export class DataForm {
     }
 
     mapItems(data) {
+        console.log(data)
         var dataItems = [];
         for (var dataItem of data.items) {
             for (var unitItem of dataItem.unitReceiptNote.items) {
@@ -122,12 +123,12 @@ export class DataForm {
                 item.no = dataItem.unitReceiptNote.no;
                 item.productName = unitItem.product.name;
                 item.deliveredQuantity = unitItem.deliveredQuantity;
-                item.currency = unitItem.currency.code;
+                item.currency = data.currency.code;
                 item.pricePerDealUnit = unitItem.pricePerDealUnit;
                 item.totalPrice = parseFloat(item.deliveredQuantity) * parseFloat(item.pricePerDealUnit);
-                item.correctionNo = unitItem.correction.correctionNo;
-                item.purchaseOrderExternalNo = unitItem.purchaseOrder.purchaseOrderExternal.no;
-                item.purchaseRequestNo = unitItem.purchaseOrder.purchaseRequest.no;
+                //item.correctionNo = unitItem.correction.correctionNo;
+                item.purchaseOrderExternalNo = unitItem.EPONo;
+                item.purchaseRequestNo = unitItem.PRNo;
                 dataItems.push(item);
             }
         }

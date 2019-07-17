@@ -349,9 +349,9 @@ export class DataForm {
             let outputDisplay = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
             if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
 
-                return (outputDisplay / 181.44) * this.machineSpinning.Delivery;
+                return (outputDisplay / 181.44);
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return ((outputDisplay / 1000) / 181.44) * this.machineSpinning.Delivery;
+                return ((outputDisplay / 1000) / 181.44);
             }
             else {
                 return outputDisplay;
@@ -373,9 +373,9 @@ export class DataForm {
             }
             if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
 
-                return (outputDisplay / 181.44) * this.machineSpinning.Delivery;
+                return (outputDisplay / 181.44);
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return ((outputDisplay / 1000) / 181.44) * this.machineSpinning.Delivery;
+                return ((outputDisplay / 1000) / 181.44);
             }
             else {
                 return outputDisplay;
@@ -395,7 +395,9 @@ export class DataForm {
             } else {
                 baleDisplay = outputDisplay;
             }
-            return baleDisplay * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+            // this.data.Eff = (this.data.Bale / (MachineSpinning.CapacityPerHour / 3)) * 100;
+            // return baleDisplay * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+            return (baleDisplay / (this.machineSpinning.CapacityPerHour / 3)) * 100;
         }
 
     }
@@ -422,8 +424,8 @@ export class DataForm {
             else {
                 baleDisplay = outputDisplay;
             }
-
-            return baleDisplay * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+            return (baleDisplay / (this.machineSpinning.CapacityPerHour / 3)) * 100;
+            // return baleDisplay * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
         }
 
     }

@@ -22,5 +22,9 @@ export class View {
     cancelCallback(event) {
       this.list();
     }
+
+    editCallback(event) {
+        this.router.navigateToRoute('edit', { id: this.data._id });
+    }
 }
 
