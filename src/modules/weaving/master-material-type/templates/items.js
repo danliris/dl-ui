@@ -29,10 +29,14 @@ export class Items {
   }
 
   CodeChanged(newValue) {
-    console.log(newValue);
     if (newValue) {
+      var yarnNumber = newValue.Number.split("/");
+      this.data.Id = newValue.Id;
       this.data.Code = newValue.Code;
-      this.data.Number = newValue.Number;
+      
+      this.data.Number = yarnNumber[0];
+      this.data.AdditionalNumber = yarnNumber[1];
+      this.data.FullNumber = newValue.Number;
     }
   }
 }

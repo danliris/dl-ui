@@ -37,9 +37,11 @@ export class Create {
         errorIndex++;
       }
 
-      if (!CodeRegEx.test(this.data.AdditionalNumber)) {
-        this.error.AdditionalNumber = "Only Numbers (1-9) Allowed";
-        errorIndex++;
+      if (this.data.AdditionalNumber) {
+        if (!CodeRegEx.test(this.data.AdditionalNumber)) {
+          this.error.AdditionalNumber = "Only Numbers (1-9) Allowed";
+          errorIndex++;
+        }
       }
     }
 
