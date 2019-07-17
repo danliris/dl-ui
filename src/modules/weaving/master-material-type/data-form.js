@@ -18,7 +18,7 @@ export class DataForm {
 
   ringDocumentsColumns = [
     { header: "Kode Nomor Benang", value: "Code" },
-    { header: "Nomor Benang", value: "Number" }
+    { header: "Nomor Benang", value: "FullNumber" }
   ];
 
   bind(context) {
