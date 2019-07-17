@@ -120,8 +120,7 @@ export class Create {
         }
       }
 
-      this.data.YarnStrands = result;
-      console.log(result);
+      // this.data.YarnStrands = result;
     }
     return result;
 
@@ -136,18 +135,10 @@ export class Create {
     this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
 
     this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
+    console.log(this.BeamDocument);
     this.BeamDocument.forEach(doc => {
-      console.log(document);
-      var WarpingBeamDocument = {};
-
-      var beamId = doc.Id;
-      WarpingBeamDocument.BeamId = beamId;
-
-      var yarnStrands = doc.YarnStrands;
-      WarpingBeamDocument.YarnStrands = yarnStrands;
-
-      console.log(WarpingBeamDocument);
-      this.data.BeamsWarping.push(WarpingBeamDocument);
+      var BeamId = doc.Id;
+      this.data.BeamsWarping.push(BeamId);
     });
 
     this.data.NeReal = this.NeReal;
