@@ -1,6 +1,13 @@
-import { inject, Lazy } from "aurelia-framework";
-import { Router } from "aurelia-router";
-import { Service } from "./service";
+import {
+  inject,
+  Lazy
+} from "aurelia-framework";
+import {
+  Router
+} from "aurelia-router";
+import {
+  Service
+} from "./service";
 
 @inject(Router, Service)
 export class Create {
@@ -11,7 +18,7 @@ export class Create {
     this.error = {};
   }
 
-  activate(params) { }
+  activate(params) {}
 
   list() {
     this.router.navigateToRoute("list");
@@ -37,9 +44,11 @@ export class Create {
         errorIndex++;
       }
 
-      if (!CodeRegEx.test(this.data.AdditionalNumber)) {
-        this.error.AdditionalNumber = "Only Numbers (1-9) Allowed";
-        errorIndex++;
+      if (this.data.AdditionalNumber != "") {
+        if (!CodeRegEx.test(this.data.AdditionalNumber)) {
+          this.error.AdditionalNumber = "Only Numbers (1-9) Allowed";
+          errorIndex++;
+        }
       }
     }
 
