@@ -37,5 +37,18 @@ module.exports = [
             permission: {"C9": 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/garment-production/delivery-return',
+        name: 'garment-production-delivery-return',
+        moduleId: './modules/garment-production/delivery-return/index',
+        nav: true,
+        title: 'Delivery-Return',
+        auth: true,
+        settings: {
+            group: "g-production",
+            permission: {"C9": 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
