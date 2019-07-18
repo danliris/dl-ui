@@ -183,13 +183,15 @@ export class View {
   }
 
   deleteCallback(event) {
-    this.service
-      .delete(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        this.dialog.alert(e, "Hapus Cost Calculation");
-      });
+    if(confirm("Delete data?")) {
+      this.service
+        .delete(this.data)
+        .then(result => {
+          this.list();
+        })
+        .catch(e => {
+          this.dialog.alert(e, "Hapus Cost Calculation");
+        });
+    }
   }
 }
