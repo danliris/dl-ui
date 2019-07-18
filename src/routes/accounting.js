@@ -128,5 +128,18 @@ module.exports = [
             permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
+    },
+    {
+        route: 'garment-correction-note-reception/reports',
+        name: 'garment-correction-note-reception-report',
+        moduleId: './modules/accounting/reports/correction-note-reception-report/index',
+        nav: true,
+        title: 'Laporan Data Penerimaan Nota Koreksi',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
     }
 ];
