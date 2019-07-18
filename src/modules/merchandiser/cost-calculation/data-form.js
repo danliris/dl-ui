@@ -109,7 +109,6 @@ export class DataForm {
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
-  console.log(this.data);
     this.error = this.context.error;
     this.selectedSMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
     this.selectedSMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
@@ -213,19 +212,18 @@ export class DataForm {
     return ComodityLoader;
   }
   comodityView = (comodity) => {
-    console.log(comodity);
     return`${comodity.Code} - ${comodity.Name}`
   }
-
 
   get uomLoader() {
     return UOMLoader;
   }
+
   get unitLoader() {
     return UnitLoader;
   }
+
   unitView = (unit) => {
-  
     return `${unit.Code} - ${unit.Name}`
   }
   get buyerLoader() {
