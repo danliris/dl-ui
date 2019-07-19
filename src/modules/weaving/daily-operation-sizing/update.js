@@ -44,27 +44,36 @@ export class Update {
   }];
 
   produceBeamsColumns = [{
-  //   value: "ProduceBeamsDate",
-  //   header: "Tanggal Pasang"
-  // }, {
-  //   value: "ProduceBeamsTime",
-  //   header: "Waktu Pasang"
-  // }, {
-  //   value: "ProduceBeamsShift",
-  //   header: "Shift"
-  // }, {
-  //   value: "ProduceBeamsOperator",
-  //   header: "Operator"
-  // }, {
-  //   value: "ProduceBeamsSizingGroup",
-  //   header: "Sizing Grup"
-  // }, {
-  //   value: "ProduceBeamsSizingBeamId",
-  //   header: "Beam Sizing"
-  // }, {
-  //   value: "ProduceBeamsDoffStartCounter",
-  //   header: "Counter Awal"
-  // }, {
+    //   value: "ProduceBeamsDate",
+    //   header: "Tanggal Pasang"
+    // }, {
+    //   value: "ProduceBeamsTime",
+    //   header: "Waktu Pasang"
+    // }, {
+    //   value: "ProduceBeamsShift",
+    //   header: "Shift"
+    // }, {
+    //   value: "ProduceBeamsOperator",
+    //   header: "Operator"
+    // }, {
+    //   value: "ProduceBeamsSizingGroup",
+    //   header: "Sizing Grup"
+    // }, {
+    //   value: "ProduceBeamsSizingBeamId",
+    //   header: "Beam Sizing"
+    // }, {
+    //   value: "ProduceBeamsDoffStartCounter",
+    //   header: "Counter Awal"
+    // }, {
+    value: "ProduceBeamsDate",
+    header: "Tanggal"
+  }, {
+    value: "ProduceBeamsTime",
+    header: "Waktu"
+  }, {
+    value: "ProduceBeamsOperator",
+    header: "Operator"
+  }, {
     value: "ProduceBeamsDoffFinishCounter",
     header: "Counter Akhir"
   }, {
@@ -225,6 +234,8 @@ export class Update {
     var HistoryTimeContainer = this.StartTime;
     var ShiftContainer = this.StartShift.Id;
     var OperatorContainer = this.StartOperator.Id;
+    var SizingBeamIdContainer = this.StartSizingBeamDocuments.Id;
+    var SizingBeamCounterContainer = this.StartSizingBeamCounter;
 
     this.data = {};
     this.data.Id = IdContainer;
@@ -233,6 +244,10 @@ export class Update {
     this.data.SizingDetails.StartTime = HistoryTimeContainer;
     this.data.SizingDetails.ShiftId = ShiftContainer;
     this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
+    this.data.SizingBeamDocuments = {};
+    this.data.SizingBeamDocuments.SizingBeamId = SizingBeamIdContainer;
+    this.data.SizingBeamDocuments.Counter = {};
+    this.data.SizingBeamDocuments.Counter.Start = SizingBeamCounterContainer;
 
     this.service
       .updateStartEntry(this.data.Id, this.data)

@@ -134,16 +134,16 @@
               <textbox label="No. Beam Sizing" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-autocomplete placeholder="No. Beam Sizing" value.bind="SizingBeamDocuments"
-                error.bind="error.SizingBeamDocuments" read-only.bind="readOnly" loader.bind="beams" text="Number">
+              <au-autocomplete placeholder="No. Beam Sizing" value.bind="StartSizingBeamDocuments"
+                error.bind="error.StartSizingBeamDocuments" read-only.bind="readOnly" loader.bind="beams" text="Number">
               </au-autocomplete>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Counter Awal" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-4">
-              <au-textbox placeholder="Counter Awal" value.bind="data.SizingBeamDocuments.Counter.Start"
-                error.bind="error.Counter.Start" read-only.bind="readOnly"></au-textbox>
+              <au-textbox placeholder="Counter Awal" value.bind="StartSizingBeamCounter"
+                error.bind="error.StartSizingBeamCounter" read-only.bind="readOnly"></au-textbox>
             </div>
           </div>
 
@@ -254,7 +254,7 @@
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Waktu Lanjutkan" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <au-timepicker value.bind="ResumeTime" error.bind="error.ResumeTime" read-only.bind="readOnly">
             </div>
             <div class="col-md-2 col-md-offset-2" style="text-align:left;">

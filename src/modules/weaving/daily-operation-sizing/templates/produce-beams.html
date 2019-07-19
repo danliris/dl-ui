@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <!-- <td class="col-sm-1" style="white-space: nowrap;">
+    <td class="col-sm-1" style="white-space: nowrap;">
       <au-datepicker value.bind="data.ProduceBeamsDate" error.bind="error.ProduceBeamsDate" read-only.bind="readOnly">
       </au-datepicker>
     </td>
@@ -8,15 +8,15 @@
       <au-timepicker value.bind="ProduceBeamsTime" error.bind="error.ProduceBeamsTime" read-only.bind="readOnly">
       </au-timepicker>
     </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
+    <!-- <td class="col-sm-1" style="white-space: nowrap;">
       <au-textbox value.bind="ProduceBeamsShift" error.bind="error.ProduceBeamsShift" read-only.bind="true"
         placeholder="Shift">
       </au-textbox>
-    </td>
+    </td> -->
     <td class="col-sm-1" style="white-space: nowrap;">
       <au-autocomplete placeholder="Operator" value.bind="ProduceBeamsOperator" error.bind="error.ProduceBeamsOperator"
         read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
-    </td> -->
+    </td>
     <!-- <td style="white-space: nowrap;">
       <au-textbox placeholder="Grup Sizing" value.bind="ProduceBeamsOperator.Group" error.bind="error.ProduceBeamsOperator"
         read-only.bind="true"></au-textbox>

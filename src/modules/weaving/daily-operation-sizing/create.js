@@ -135,7 +135,6 @@ export class Create {
     this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
 
     this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
-    console.log(this.BeamDocument);
     this.BeamDocument.forEach(doc => {
       var BeamId = doc.Id;
       this.data.BeamsWarping.push(BeamId);
