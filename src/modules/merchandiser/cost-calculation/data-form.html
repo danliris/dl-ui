@@ -2,6 +2,16 @@
     <au-input-form title.bind="title" with.bind="context">
         <div class="row">
             <div class="col-md-3">
+                <au-autocomplete
+                    value.bind="selectedPreSalesContract"
+                    error.bind="error.PreSalesContract"
+                    label="No Sales Contract"
+                    loader.bind="preSalesContractLoader"
+                    text="SCNo"
+                    placeholder="No Sales Contract"
+                    read-only.bind="readOnly || isEdit"
+                    options.bind="length4">
+                </au-autocomplete>
                 <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"
                     read-only.bind="isEdit"></au-textbox>
                
@@ -14,8 +24,7 @@
                 <au-numeric label="Accessories (%)" value.bind="accessoriesAllowance" error.bind="error.AccessoriesAllowance" options.bind="length4"></au-numeric>
             </div>
             <div class="col-md-3">
-                <au-dropdown label="Seksi" value.bind="data.Section" read-only.bind="readOnly" placeholder="pilih seksi" items.bind="sectionsList"
-                    options.bind="length4"></au-dropdown>
+                <au-textbox label="Seksi" value.bind="dataSection" read-only="true" options.bind="length4"></au-textbox>
                 <au-numeric label="Quantity" format="0" value.bind="quantity" error.bind="error.Quantity" options.bind="length4"></au-numeric>
                 <au-autocomplete label="Satuan" placeholder="Cari Satuan" value.bind="data.UOM" error.bind="error.UOM" text.bind="uomView" loader.one-time="uomLoader"
                     options.bind="length4"></au-autocomplete>
@@ -33,13 +42,8 @@
                 <au-numeric label="SMV Total" value.bind="SMV_Total" options.bind="length4" read-only="disabled"></au-numeric>
             </div>
             <div class="col-md-3">
-                <au-autocomplete label="Buyer Agent" placeholder="Cari Buyer" value.bind="selectedBuyer" error.bind="error.Buyer" text.bind="buyerView" loader.one-time="buyerLoader"
-                    options.bind="length4"  ></au-autocomplete>
-                <au-autocomplete label="Buyer Brand" placeholder="Cari Brand"
-                 value.bind="selectedBuyerBrand" error.bind="error.BuyerBrand" text.bind="buyerBrandView" loader.one-time="buyerBrandLoader"
-                  options.bind="length4" query.bind="filterBuyer"  show.bind="selectedBuyer" 
-                  view-model.ref="buyerBrandAU"></au-autocomplete>
-               
+                <au-textbox label="Buyer Agent" value.bind="dataBuyer" read-only="true" options.bind="length4"></au-textbox>
+                <au-textbox label="Buyer Brand" value.bind="dataBuyerBrand" read-only="true" options.bind="length4"></au-textbox>
                 <div class="row">
                     <div class="col-md-6">
                         <au-numeric label="Eff (%)" value.bind="data.Efficiency.Value" format = "0,0.00" options.bind="length4" read-only="disabled"></au-numeric>

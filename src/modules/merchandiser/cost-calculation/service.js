@@ -23,7 +23,6 @@ export class Service extends RestService {
 
     create(data) {
         var endpoint = `${serviceUri}`;
-        console.log(data);
         return super.post(endpoint, data);
     }
 
@@ -39,7 +38,6 @@ export class Service extends RestService {
 
     update(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
-        console.log(data);
         return super.put(endpoint, data);
     }
 
@@ -122,7 +120,6 @@ export class Service extends RestService {
     }
 
     getGarmentProductsDistinctDescription(keyword, filter) {
-        console.log(keyword,filter);
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
