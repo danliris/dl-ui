@@ -7,9 +7,8 @@ import { RateService } from './service-rate';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
+var PreSalesContractLoader = require('../../../loader/garment-pre-sales-contracts-loader');
 var SizeRangeLoader = require('../../../loader/size-range-loader');
-var BuyersLoader = require('../../../loader/garment-buyers-loader');
-var BuyerBrandLoader = require('../../../loader/garment-buyer-brand-loader');
 var ComodityLoader = require('../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../loader/uom-loader');
 var UnitLoader = require('../../../loader/garment-units-loader');
@@ -27,7 +26,6 @@ export class DataForm {
   @bindable error = {};
   @bindable SelectedRounding;
  
-  sectionsList = ["", "A", "B", "C", "D", "E"];
   leadTimeList = ["", "30 hari", "45 hari"];
 
   
@@ -109,7 +107,6 @@ export class DataForm {
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
-  console.log(this.data);
     this.error = this.context.error;
     this.selectedSMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
     this.selectedSMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
@@ -121,8 +118,6 @@ export class DataForm {
     this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "#") : "#";
     this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
     this.selectedUnit = this.data.Unit?this.data.Unit:"";
-    this.selectedBuyer = this.data.Buyer?this.data.Buyer:"";
-    this.selectedBuyerBrand = this.data.BuyerBrand?this.data.BuyerBrand:"";
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
     this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
     this.data.ConfirmPrice =this.data.ConfirmPrice ? this.data.ConfirmPrice .toLocaleString('en-EN', { minimumFractionDigits: 4}):0 ;
@@ -137,7 +132,7 @@ export class DataForm {
     }
     else {
       this.data.Wage = this.defaultRate;
-      wage = this.rateService.search({ keyword: "OL" })
+      wage = this.rateService.search({ filter: "{Name:\"OL\"}" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
           result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
@@ -155,7 +150,7 @@ export class DataForm {
     }
     else {
       this.data.THR = this.defaultRate;
-      THR = this.rateService.search({ keyword: "THR" })
+      THR = this.rateService.search({ filter: "{Name:\"THR\"}" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
           result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
@@ -172,7 +167,7 @@ export class DataForm {
     }
     else {
       this.data.Rate = this.defaultRate;
-      rate = this.rateService.search({ keyword: "USD" })
+      rate = this.rateService.search({ filter: "{Name:\"USD\"}" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
           result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
@@ -205,6 +200,10 @@ export class DataForm {
     }
   }
 
+  get preSalesContractLoader() {
+    return PreSalesContractLoader;
+  }
+
   get sizeRangeLoader() {
     return SizeRangeLoader;
   }
@@ -213,41 +212,61 @@ export class DataForm {
     return ComodityLoader;
   }
   comodityView = (comodity) => {
-    console.log(comodity);
     return`${comodity.Code} - ${comodity.Name}`
   }
-
 
   get uomLoader() {
     return UOMLoader;
   }
+
   get unitLoader() {
     return UnitLoader;
   }
-  unitView = (unit) => {
-  
-    return `${unit.Code} - ${unit.Name}`
-  }
-  get buyerLoader() {
-    return BuyersLoader;
-  }
-  buyerView = (buyer) => {
 
-    return `${buyer.Name}`
-  } 
-  get buyerBrandLoader() {
-    return BuyerBrandLoader;
-  }
-  buyerBrandView = (buyer) => {
-    return `${buyer.Name}`
-    console.log(buyer);
+  unitView = (unit) => {
+    return `${unit.Code} - ${unit.Name}`
   }
 
   uomView =(uom)=>{
-   
     return uom?`${uom.Unit}` : '';
-}
+  }
 
+  get dataSection() {
+    return this.data.Section || "-";
+  } 
+
+  get dataBuyer() {
+    return this.data.Buyer ? this.data.Buyer.Name : "-";
+  } 
+
+  get dataBuyerBrand() {
+    return this.data.BuyerBrand ? this.data.BuyerBrand.Name : "-";
+  }
+
+  @bindable selectedPreSalesContract;
+  selectedPreSalesContractChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.PreSCId = newValue.Id;
+      this.data.PreSCNo = newValue.SCNo;
+      this.data.Section = newValue.SectionCode;
+      this.data.Buyer = {
+        Id: newValue.BuyerAgentId,
+        Code: newValue.BuyerAgentCode,
+        Name: newValue.BuyerAgentName
+      };
+      this.data.BuyerBrand = {
+        Id: newValue.BuyerBrandId,
+        Code: newValue.BuyerBrandCode,
+        Name: newValue.BuyerBrandName
+      };
+    } else {
+      this.data.PreSCId = 0;
+      this.data.PreSCNo = null;
+      this.data.Section = null;
+      this.data.Buyer = null;
+      this.data.BuyerBrand = null;
+    }
+  }
 
   @bindable selectedComodity = "";
   selectedComodityChanged(newVal) {
@@ -256,45 +275,6 @@ export class DataForm {
      this.data.ComodityId=newVal.Id;
      this.data.ComodityCode=newVal.Code;
      this.data.ComodityName=newVal.Name;
-    }
-  }
-
-  @computedFrom("data.Buyer")
-  get filterBuyer() {
-    var filter={};
-  
-    if (this.data.Buyer) {
-     
-      filter = JSON.stringify({ "BuyerName": this.data.Buyer.Name })
-     
-    }
-    return filter;
-  }
-  @bindable selectedBuyer = "";
- 
-  selectedBuyerChanged(newVal) {
-    console.log(this.data.Buyer,newVal);
-    if(this.data.Buyer != newVal)
-   
-    this.context.buyerBrandAU.editorValue="";
-    this.data.Buyer = newVal;
-   
-    if (newVal) {
-     this.data.BuyerId=newVal.Id;
-     this.data.BuyerCode=newVal.Code;
-     this.data.BuyerName=newVal.Name;
-    
-    }
-  }
-
-  @bindable selectedBuyerBrand= "";
-  selectedBuyerBrandChanged(newVal) {
-    this.data.BuyerBrand = newVal;
-    console.log(newVal);
-    if (newVal) {
-     this.data.BuyerBrandId=newVal.Id;
-     this.data.BuyerBrandCode=newVal.Code;
-     this.data.BuyerBrandName=newVal.Name;  
     }
   }
 
@@ -350,10 +330,6 @@ export class DataForm {
     return lineLoader;
   }
 
-  get buyersLoader() {
-    return BuyersLoader;
-  }
- 
   @bindable quantity;
   async quantityChanged(newValue) {
     this.data.Quantity = newValue;
@@ -433,14 +409,14 @@ export class DataForm {
       let UnitCode = newVal.Code;
 
       let promises = [];
-      let OTL1 = this.rateService.search({ keyword: `OTL 1 - ${UnitCode}` }).then((results) => {
+      let OTL1 = this.rateService.search({ filter: JSON.stringify({ Name: "OTL 1", UnitCode: UnitCode }) }).then((results) => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
         return result;
       });
       promises.push(OTL1);
 
-      let OTL2 = this.rateService.search({ keyword: `OTL 2 - ${UnitCode}` }).then((results) => {
+      let OTL2 = this.rateService.search({ keyword: JSON.stringify({ Name: "OTL 2", UnitCode: UnitCode }) }).then((results) => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
         return result;

@@ -15,6 +15,11 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if(this.data) {
+            this.selectedPreSalesContract = {
+                SCNo: this.data.PreSCNo
+            }
+        }
     }
 
     cancelCallback(event) {
