@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: '/garment-master-plan/max-wh-confirm',
+        name: 'max-wh-confirm,',
+        moduleId: './modules/garment-master-plan/max-wh-confirm/index',
+        nav: true,
+        title: 'Maksimal WH Confirm',
+        auth: true,
+        settings: {
+            group: "g-master-plan",
+            permission: { "B7": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment-master-plan/standard-minute-value',
         name: 'standard-hour',
         moduleId: './modules/garment-master-plan/standard-hour/index',

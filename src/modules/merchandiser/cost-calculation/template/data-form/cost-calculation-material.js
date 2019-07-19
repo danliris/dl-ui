@@ -82,7 +82,6 @@ export class CostCalculationMaterial {
 
             this.isReadOnly=true;
         }
-        console.log(this.data);
     }
 
     bind() {
@@ -292,7 +291,6 @@ get garmentProductWidthLoader() {
         
     return (keyword) => {
         var filter = "";
-        console.log(this.selectedCategory,this.selectedComposition,this.selectedConstruction);
         if (this.selectedCategory && this.selectedCategory.name) {
             if (this.selectedComposition && this.selectedComposition.Composition) {
                 if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
@@ -366,8 +364,6 @@ get garmentProductWidthLoader() {
     get garmentProductDistinctDescriptionLoader() {
         return (keyword) => {
             var filter = "";
-
-            console.log(this.selectedCategory,this.selectedComposition,this.selectedConstruction);
             if (this.selectedCategory && this.selectedCategory.name) {
                 if (this.selectedComposition && this.selectedComposition.Composition) {
                     if (this.selectedConstruction && this.selectedConstruction.Const && this.selectedConstruction.Const.length > 0) {
@@ -442,7 +438,6 @@ uomView =(uom)=>{
         let budgetQuantity = this.data.Quantity && this.data.Conversion ? this.data.Quantity * this.data.QuantityOrder / this.data.Conversion + allowance * this.data.Quantity * this.data.QuantityOrder / this.data.Conversion : 0;
         budgetQuantity = Math.ceil(budgetQuantity);
         this.data.BudgetQuantity = Math.ceil(budgetQuantity);
-        console.log(Math.ceil(budgetQuantity));
         return budgetQuantity;
     }
 }
