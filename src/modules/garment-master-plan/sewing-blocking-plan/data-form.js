@@ -345,8 +345,6 @@ export class DataForm {
                     detail.oldVal={};
                 }
             }
-            console.log(remEH);
-            
             for (let detail of this.data.Items) {
                 if(detail.Year && detail.Unit.Code && detail.WeekNumber){
                     let category = detail.Year.toString() + detail.Unit.Code.toString();
@@ -393,7 +391,6 @@ export class DataForm {
             }
             this.tempEH=[];
             for(let eh of this.data.Items){
-                console.log(eh)
                 if(eh.Year && eh.Unit.Code && eh.WeekNumber){
                     let cat=eh.Year.toString() + eh.Unit.Code.toString()+eh.WeekNumber.toString();
                     if(!this.tempEH[cat]){

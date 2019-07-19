@@ -310,7 +310,6 @@ export class Item {
   ConfirmChanged(e){
     if(this.data.IsConfirm){
       this.data.whConfirm= this.data.EHBooking/(this.data.Operator * this.data.Efficiency);
-      console.log(this.data.EHBooking,this.data.Operator , this.data.Efficiency)
     }
     else{
       this.data.whConfirm=0;
@@ -322,7 +321,6 @@ export class Item {
     if(this.data.IsConfirm){
       var calc=(this.data.Operator * this.data.Efficiency);
       this.data.whConfirm= this.data.EHBooking/calc;
-      console.log(calc)
     }
     else{
       this.data.whConfirm=0;
