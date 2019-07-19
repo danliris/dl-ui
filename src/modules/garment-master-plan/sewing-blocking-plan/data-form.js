@@ -59,6 +59,7 @@ export class DataForm {
         { header: "Efisiensi (%)" },
         { header: "EH Booking" },
         { header: "Sisa EH" },
+        { header: "WH Confirm" }
         //{ header: "Plan Working Hours" }
     ];
     previewColumns = [{ header: "Konveksi" }];

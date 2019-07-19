@@ -58,7 +58,7 @@ export class Item {
           await endpoint.find(resource)
             .then((result) => {
               this.selectedWeek = result.data;
-              
+              this.data.Operator = this.selectedWeek.Operator;
               this.data.RemainingEH=this.selectedWeek.RemainingEH;
               for (var a = this.items.length-1; a >=0; a--) {
                   if(this.data.Year==this.items[a].Year && this.data.Unit.Code==this.items[a].Unit.Code&& this.data.WeekNumber==this.items[a].WeekNumber){
@@ -195,6 +195,7 @@ export class Item {
       this.data.RemainingEH = _selectedData.RemainingEH;
       this.data.WeeklyPlanItemId=_selectedData.Id;
       this.data.Efficiency = _selectedData.Efficiency;
+      this.data.Operator = _selectedData.Operator;
       this.data.EHBooking = Math.round((this.data.SMVSewing * this.data.OrderQuantity) / 60);
       this.data.sisaEH = this.data.RemainingEH - this.data.EHBooking;
       
@@ -263,6 +264,7 @@ export class Item {
             this.data.sisaEH = 0;
             this.data.planWorkingHours = 0;
             this.data.shSewing = 0;
+            this.data.SMVSewing =0;
           }
         });
     }
@@ -303,5 +305,28 @@ export class Item {
   yearView = (week) => {
     if(week.Year)
       return `${week.Year}`
+  }
+
+  ConfirmChanged(e){
+    if(this.data.IsConfirm){
+      this.data.whConfirm= this.data.EHBooking/(this.data.Operator * this.data.Efficiency);
+      console.log(this.data.EHBooking,this.data.Operator , this.data.Efficiency)
+    }
+    else{
+      this.data.whConfirm=0;
+    }
+  }
+  @computedFrom("data.EHBooking && data.Operator && data.Efficiency && data.IsConfirm")
+  get whConfirm(){
+    this.data.whConfirm=0;
+    if(this.data.IsConfirm){
+      var calc=(this.data.Operator * this.data.Efficiency);
+      this.data.whConfirm= this.data.EHBooking/calc;
+      console.log(calc)
+    }
+    else{
+      this.data.whConfirm=0;
+    }
+    return this.data.whConfirm;
   }
 }
