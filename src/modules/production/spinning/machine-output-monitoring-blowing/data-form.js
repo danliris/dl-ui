@@ -351,7 +351,7 @@ export class DataForm {
 
                 return (outputDisplay / 181.44);
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return ((outputDisplay / 1000) / 181.44);
+                return (outputDisplay / (1000 * 181.44));
             }
             else {
                 return outputDisplay;
@@ -375,7 +375,7 @@ export class DataForm {
 
                 return (outputDisplay / 181.44);
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return ((outputDisplay / 1000) / 181.44);
+                return (outputDisplay / (1000 * 181.44));
             }
             else {
                 return outputDisplay;
@@ -391,7 +391,7 @@ export class DataForm {
 
                 baleDisplay = (outputDisplay / 181.44) * this.machineSpinning.Delivery;
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                baleDisplay = ((outputDisplay / 1000) / 181.44) * this.machineSpinning.Delivery;
+                baleDisplay = (outputDisplay / (1000 * 181.44)) * this.machineSpinning.Delivery;
             } else {
                 baleDisplay = outputDisplay;
             }
@@ -419,7 +419,7 @@ export class DataForm {
 
                 baleDisplay = (outputDisplay / 181.44) * this.machineSpinning.Delivery;
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                baleDisplay = ((outputDisplay / 1000) / 181.44) * this.machineSpinning.Delivery;
+                baleDisplay = (outputDisplay / (1000 * 181.44)) * this.machineSpinning.Delivery;
             }
             else {
                 baleDisplay = outputDisplay;
