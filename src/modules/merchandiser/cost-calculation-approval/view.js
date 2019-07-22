@@ -101,10 +101,6 @@ export class View {
 
         var id = params.id;
         this.data = await this.service.getById(id);
-        if (this.data.SCGarmentId) {
-            this.editCallback = null;
-            this.deleteCallback = null;
-        }
         this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
         this.data.AccessoriesAllowance = numeral(
             this.data.AccessoriesAllowance
