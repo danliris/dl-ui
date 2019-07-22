@@ -26,6 +26,62 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/cost-calculation-approval/md',
+        name: 'cost-calculation-approval-md',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - MD',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "md"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/purchasing',
+        name: 'cost-calculation-approval-purchasing',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "purchasing"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/ie',
+        name: 'cost-calculation-approval-ie',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - IE',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "ie"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/ppic',
+        name: 'cost-calculation-approval-ppic',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - PPIC',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "ppic"
+        }
+    },
+    {
         route: '/merchandiser/ro-garment',
         name: 'ro-garment',
         moduleId: './modules/merchandiser/ro-garment/index',
