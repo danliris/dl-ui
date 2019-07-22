@@ -9,7 +9,7 @@ var SupplierLoader = require('../../../loader/supplier-loader');
 var AccountLoader = require('../../../loader/account-loader');
 var PurchaseOrderLoader = require('../../../loader/purchase-request-by-user-loader');
 var EPOLoader = require('../../../loader/purchase-order-external-loader');
-
+var DivisionLoader = require('../../../loader/division-loader');
 
 @inject(Router, Service)
 export class List {
@@ -51,6 +51,7 @@ export class List {
             size: this.info.size,
             prNo: this.pr ? this.pr.no : "",
             supplierId:this.supplier? this.supplier._id : "",
+            divisionCode: this.division ? this.division.Code : "",
             unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             budgetId: this.budget ? this.budget._id : "",
@@ -124,6 +125,7 @@ export class List {
             categoryId: this.category ? this.category._id : "",
             budgetId: this.budget ? this.budget._id : "",
             supplierId:this.supplier? this.supplier._id : "",
+            divisionCode: this.division ? this.division.Code : "",
             epoNo:this.epo? this.epo.no : "",
             staff: this.staffName? this.staffName.username : "",
             status: this.poState,
@@ -177,4 +179,11 @@ export class List {
     get accountLoader() {
         return AccountLoader;
     }
+    get divisionLoader() {
+        return DivisionLoader;
+    }
+    divisionView = (division) => {
+      return `${division.Name}`;
+    }
+    
 }

@@ -44,7 +44,7 @@ export class DataForm {
     get isSolid() {
         if (this.data.Packing) {
             if (this.data.Packing.OrderTypeName) {
-                console.log((this.data.Packing.OrderTypeName || "").toString().toLowerCase() === "solid")
+                // console.log((this.data.Packing.OrderTypeName || "").toString().toLowerCase() === "solid")
                 return (this.data.Packing.OrderTypeName || "").toString().toLowerCase() === "solid";
             }
         }
@@ -67,7 +67,7 @@ export class DataForm {
             this.data.PackingCode = this.data.Packing.Code;
             this.data.DesignCode = this.data.Packing.DesignCode;
             this.data.DesignNumber = this.data.Packing.DesignNumber;
-            console.log(newValue);
+            // console.log(newValue);
             // this.data.Packing.PackingDetails.map((item) => {
             for (var item of this.data.Packing.PackingDetails) {
                 var productName = this.data.Packing.ProductionOrderNo + "/" + this.data.Packing.ColorName + "/" + this.data.Packing.Construction + "/" + item.Lot + "/" + item.Grade + "/" + item.Length;
@@ -76,22 +76,24 @@ export class DataForm {
                     productName = productName + "/" + item.Remark;
                 }
 
-                var arg = {
-                    filter: JSON.stringify({ Name: productName })
+                var productQuery = {
+                    productName: productName
                 };
 
                 var uomFilter = {
                     filter: JSON.stringify({ Unit: this.data.PackingUom })
                 };
 
-                var data = await this.serviceProduct.searchProduct(arg);
+                var data = await this.serviceProduct.searchProductByName(productQuery);
+                console.log(data);
+                var product = data.data;
                 var Uom = await this.serviceProduct.searchUom(uomFilter);
                 var _item = {};
                 _item.Uom = this.data.PackingUom;
                 _item.UomId = Uom.data[0].Id;
-                _item.ProductId = data.data[0].Id;
-                _item.ProductCode = data.data[0].Code;
-                _item.Product = item.Remark !== "" && item.Remark !== null ? `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}/${item.Remark}` : `${this.data.Packing.ProductionOrderNo}/${this.data.Packing.ColorName}/${this.data.Packing.Construction}/${item.Lot}/${item.Grade}/${item.Length}`;
+                _item.ProductId = product.Id;
+                _item.ProductCode = product.Code;
+                _item.Product = product.Name;
                 _item.Quantity = item.Quantity;
                 _item.AvailableQuantity = item.AvailableQuantity ? item.AvailableQuantity : item.Quantity;
                 _item.Length = item.Length;

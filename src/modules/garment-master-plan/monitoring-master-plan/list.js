@@ -866,8 +866,8 @@ export class List {
           dataGrandUnit.collection.push({ name: "Used EH Booking", quantity: totalUsedEH_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           dataGrandUnit.collection.push({ name: "Used EH Confirm", quantity: ehConfUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           dataGrandUnit.collection.push({ name: "Remaining EH", quantity: totalremEh_Unit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
-          dataGrandUnit.collection.push({ name: "WH Booking", quantity: avgWHBookingUnit, background: bgcWH, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
-          dataGrandUnit.collection.push({ name: "WH Confirm", quantity: avgWHConfirmUnit, background: bgcWHC,units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Booking", quantity: avgWHBookingUnit, background: bgcWHUnit, units: "GRAND TOTAL UNIT", fontWeight: "bold" });
+          dataGrandUnit.collection.push({ name: "WH Confirm", quantity: avgWHConfirmUnit, background: bgcWHCUnit,units: "GRAND TOTAL UNIT", fontWeight: "bold" });
           
           this.data.push(dataGrandUnit);
 

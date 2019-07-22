@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "accounting",
-            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "accounting",
-            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -31,6 +31,19 @@ module.exports = [
         moduleId: './modules/accounting/reports/journal-transaction-report/index',
         nav: true,
         title: 'Laporan Jurnal Transaksi',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: '/accounting/chart-of-accounts-view',
+        name: 'chart-of-accounts',
+        moduleId: './modules/accounting/chart-of-accounts-view/index',
+        nav: true,
+        title: 'Chart of Account',
         auth: true,
         settings: {
             group: "accounting",
@@ -47,7 +60,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "accounting",
-            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -60,7 +73,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "accounting",
-            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -73,7 +86,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "accounting",
-            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -86,7 +99,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "accounting",
-            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     },
@@ -99,7 +112,33 @@ module.exports = [
         auth: true,
         settings: {
             group: "accounting",
-            permission: { "P1": 1, "P2": 1, "P3": 1, "P4": 1, "P5": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-central-bill-expenditure/reports',
+        name: 'garment-central-bill-expenditure-report',
+        moduleId: './modules/accounting/reports/central-bill-expenditure-report/index',
+        nav: true,
+        title: 'Laporan Data Pengeluaran Bon Pusat',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
+    {
+        route: 'garment-correction-note-reception/reports',
+        name: 'garment-correction-note-reception-report',
+        moduleId: './modules/accounting/reports/correction-note-reception-report/index',
+        nav: true,
+        title: 'Laporan Data Penerimaan Nota Koreksi',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
     }

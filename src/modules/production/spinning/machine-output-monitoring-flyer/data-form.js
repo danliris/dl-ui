@@ -51,6 +51,7 @@ export class DataForm {
     shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
     detailOptions = {};
     itemsColumnsHeader = [
+        "Line Mesin",
         "Nomor Mesin",
         "Merk Mesin",
         "Output (Counter)",
@@ -97,6 +98,25 @@ export class DataForm {
                         this.typeOptions.push(list);
                     }
                 }
+                if (this.data.UnitDepartment && this.data.UnitDepartment.Id && this.data.ProcessType) {
+                    this.coreService.searchMachineSpinning(this.data.UnitDepartment.Id, this.data.ProcessType)
+                        .then(result2 => {
+
+                            this.masterMachine = result2;
+                            if (this.data.Items) {
+                                for (var item of this.data.Items) {
+                                    item.Identity = item.Id;
+                                    item.MachineSpinningIdentity = item.MachineSpinning.Id;
+                                    var dbItem = result2.find(x => x.Id == item.MachineSpinning.Id);
+                                    item.MachineSpinning.Line = dbItem.Line;
+                                    item.MachineSpinning.DeliveryTotal = dbItem.Delivery;
+                                }
+                                this.itemTemp = this.data.Items
+                            }
+                        });
+                }
+
+
             });
         this.detailOptions.isEdit = this.context.isEdit;
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
@@ -139,6 +159,7 @@ export class DataForm {
 
     items = {
         columns: [
+            "Line Mesin",
             "Nomor Mesin",
             "Nama Mesin",
             "Output (Counter)",
@@ -205,7 +226,6 @@ export class DataForm {
                     var newItems = [];
                     for (var item of results) {
                         var dbItem = existedItem.Items.find(x => x.MachineSpinning.Id == item.Id);
-
                         var newData = {};
                         newData.MachineSpinning = {};
                         newData.Output = dbItem ? dbItem.Output : 0;
@@ -213,11 +233,12 @@ export class DataForm {
                         newData.MachineSpinning.Name = item.Name;
                         newData.MachineSpinning.UomUnit = item.UomUnit;
                         newData.MachineSpinning.Id = item.Id;
+                        newData.MachineSpinning.Line = item.Line;
                         newData.MachineSpinningIdentity = item.Id;
                         newData.Bale = dbItem ? dbItem.Bale : 0;
                         newData.Eff = dbItem ? dbItem.Eff : 0;
                         newData.BadOutput = dbItem ? dbItem.BadOutput : 0;
-                        newData.DeliveryTotal = dbItem ? dbItem.DeliveryTotal : 0;
+                        newData.DeliveryTotal = dbItem ? dbItem.DeliveryTotal : item.Delivery;
                         newData.Spindle = dbItem ? dbItem.Spindle : 0;
                         newData.Waste = dbItem ? dbItem.Waste : 0;
                         newData.DrumTotal = dbItem ? dbItem.DrumTotal : 0;

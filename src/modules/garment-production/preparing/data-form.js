@@ -19,6 +19,7 @@ export class DataForm {
     @bindable title;
     @bindable uenNo;
 
+
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -32,6 +33,12 @@ export class DataForm {
         },
         control: {
             length: 5
+        }
+    }
+
+    get filterUen(){
+        return{
+            ExpenditureType : "PROSES"
         }
     }
 
@@ -76,7 +83,6 @@ export class DataForm {
                 this.data.Unit.Name = selectedUEN.UnitRequest.Name;
                 this.data.Unit.Code = selectedUEN.UnitRequest.Code;
             }
-            
             this.data.UENId = selectedUEN.Id;
             this.data.UENNo = selectedUEN.UENNo;
             this.data.Items = selectedUEN.Items;
@@ -102,6 +108,15 @@ export class DataForm {
                         }
                     }
                 });
+        } else {
+            this.data.ExpenditureDate = null;
+            this.data.Unit = {};
+            this.data.UENId = null;
+            this.data.UENNo = null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.ProcessDate = null;
+            this.data.Items = [];
         }
     }
 

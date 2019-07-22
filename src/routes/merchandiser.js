@@ -1,5 +1,18 @@
 module.exports = [
     {
+        route: '/merchandiser/garment-pre-sales-contract',
+        name: 'garment-pre-sales-contract',
+        moduleId: './modules/merchandiser/garment-pre-sales-contract/index',
+        nav: true,
+        title: 'Pre Sales Contract - Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
         route: '/merchandiser/cost-calculation',
         name: 'cost-calculation',
         moduleId: './modules/merchandiser/cost-calculation/index',
@@ -10,6 +23,62 @@ module.exports = [
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
             iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/md',
+        name: 'cost-calculation-approval-md',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - MD',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "md"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/purchasing',
+        name: 'cost-calculation-approval-purchasing',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - Purchasing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "purchasing"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/ie',
+        name: 'cost-calculation-approval-ie',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - IE',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "ie"
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/ppic',
+        name: 'cost-calculation-approval-ppic',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - PPIC',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator',
+            type: "ppic"
         }
     },
     {
@@ -48,6 +117,19 @@ module.exports = [
         settings: {
             group: "merchandiser",
             permission: { "C5": 1, "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
+    {
+        route: '/merchandiser/garment-purchase-request-master',
+        name: 'purchase-request-master',
+        moduleId: './modules/merchandiser/garment-purchase-request-master/index',
+        nav: true,
+        title: 'PR Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
             iconClass: 'fa fa-calculator'
         }
     },
