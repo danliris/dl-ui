@@ -118,7 +118,24 @@ export class RestService {
       })
   }
 
-
+  patch(endpoint, data, header) {
+    var promise = this.endpoint.patch(endpoint, null, data);
+    this.publish(promise);
+    return promise
+      .catch(e => {
+        return e.json().then(result => {
+          if (result.error)
+            return Promise.resolve(result);
+        });
+      })
+      .then(result => {
+        this.publish(promise);
+        if (result)
+          return this.parseResult(result);
+        else
+          return Promise.resolve({});
+      })
+  }
 
   getXls(endpoint, header) {
     var request = {
