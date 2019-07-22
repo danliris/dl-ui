@@ -2,18 +2,21 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import moment from 'moment';
+import { Dialog } from '../../../components/dialog/dialog';
+import { AlertView } from './custom-dialog-view/alert-view';
 
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
   hasCancel = true;
   hasEdit = true;
   hasDelete = true;
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
         this.isView=true;
+        this.dialog = dialog;
     }
 
     bind() {
@@ -96,9 +99,19 @@ export class View {
     }   
     
     delete(event) {
-        this.service.delete(this.data)
-            .then(result => {
-            this.cancel();
+        // this.service.delete(this.data)
+        //     .then(result => {
+        //     this.cancel();
+        //     });
+
+        this.dialog.show(AlertView, { message: "<div>Apakah anda yakin akan menghapus data ini?</div>" })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.service.delete(this.data)
+                        .then(result => {
+                            this.cancel();
+                        });
+                }
             });
     }  
 }

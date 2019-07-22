@@ -9,7 +9,7 @@ var SupplierLoader = require('../../../loader/supplier-loader');
 var AccountLoader = require('../../../loader/account-loader');
 var PurchaseOrderLoader = require('../../../loader/purchase-request-by-user-loader');
 var EPOLoader = require('../../../loader/purchase-order-external-loader');
-
+var DivisionLoader = require('../../../loader/division-loader');
 
 @inject(Router, Service)
 export class List {
@@ -179,4 +179,11 @@ export class List {
     get accountLoader() {
         return AccountLoader;
     }
+    get divisionLoader() {
+        return DivisionLoader;
+    }
+    divisionView = (division) => {
+      return `${division.Name}`;
+    }
+    
 }
