@@ -69,7 +69,7 @@ module.exports = [
         name: 'purchase-request-master',
         moduleId: './modules/merchandiser/garment-purchase-request-master/index',
         nav: true,
-        title: 'Garment Purchase Request Master',
+        title: 'PR Master',
         auth: true,
         settings: {
             group: "merchandiser",
