@@ -59,6 +59,7 @@
             text.bind="unitView"
             placeholder="Unit"
             read-only.bind="readOnly || data.PRType!='SAMPLE' || isEdit"
+            if.bind="data.PRType=='SAMPLE'"
             options.bind="controlOptions"
             view-model.ref="unitViewModel">
         </au-autocomplete>
@@ -95,6 +96,8 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-multiline>
+
+        <au-textbox  error.bind="error.ItemsCount" read-only="true"></au-textbox>
 
         <au-collection 
             items.bind="data.Items" 
