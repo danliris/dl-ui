@@ -6,6 +6,7 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Detail", "Cetak Cost Calculation", "Cetak Budget"];
     columns = [
+        { field: "PreSCNo", title: "No Sales Contract" },
         { field: "RO_Number", title: "No RO" },
         { field: "Article", title: "Artikel" },
         { field: "UnitName", title: "Unit" },
@@ -28,7 +29,6 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                console.log(result)
                 return {
                     total: result.info.total,
                     data: result.data

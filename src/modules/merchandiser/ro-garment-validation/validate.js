@@ -49,7 +49,7 @@ export class Create {
     }
 
     get costCalculationGarmentUnpostedFilter() {
-        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0": true };
+        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0 && IsValidatedROSample == true && IsValidatedROPPIC == false": true };
     }
 
     constructor(router, service) {

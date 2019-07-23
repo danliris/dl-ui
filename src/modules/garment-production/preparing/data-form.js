@@ -83,7 +83,6 @@ export class DataForm {
                 this.data.Unit.Name = selectedUEN.UnitRequest.Name;
                 this.data.Unit.Code = selectedUEN.UnitRequest.Code;
             }
-            
             this.data.UENId = selectedUEN.Id;
             this.data.UENNo = selectedUEN.UENNo;
             this.data.Items = selectedUEN.Items;
