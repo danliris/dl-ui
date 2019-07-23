@@ -94,7 +94,7 @@ export class DataForm {
         this.data.UomUnit="";
         this.data.Price=0;
         this.data.DeliveryDate=null;
-        this.data.Items = [];
+        this.data.Items.splice(0);
         this.data.comodity="";
         this.data.buyer="";
         this.data.Amount=0;
@@ -146,7 +146,7 @@ export class DataForm {
       this.data.UomUnit="";
       this.data.DeliveryDate=null;
       this.data.Price=0;
-      this.data.Items = [];
+      this.data.Items.splice(0);
       this.data.comodity="";
       this.data.buyer="";
       this.data.BuyerBrandName= "";
