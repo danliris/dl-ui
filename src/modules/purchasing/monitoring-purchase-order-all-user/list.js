@@ -112,6 +112,7 @@ export class List {
         this.pr=null;
         this.purchaseOrder = "";
         this.supplier = "";
+        this.division = "";
         this.dateFrom = null;
         this.dateTo = null;
         this.poState ="";
