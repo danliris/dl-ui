@@ -18,6 +18,8 @@ export class DataForm {
     @bindable tittle;
     // @bindable error = {};
     @bindable selectedUnitDO;
+    @bindable Unit;
+    @bindable Storage = {};
     @bindable itemOptions = {};
 
     constructor(bindingEngine, service, purchasingService) {
@@ -67,15 +69,18 @@ export class DataForm {
             isCreate : this.context.isCreate,
             isEdit: this.context.isEdit,
         }
-
         if (this.data.DRNo && this.data.Items) {
-            this.data.Storage.code = this.data.Storage.Code;
-            this.data.Storage.name = this.data.Storage.Name;
+            this.Storage._id = this.data.Storage.Id;
+            this.Storage.name = this.data.Storage.Name;
+            this.Storage.code = this.data.Storage.Code;
+            this.Unit = this.data.Unit;
+            
+            
             this.selectedUnitDO = {
                         UnitDONo: this.data.UnitDONo
                     };
             this.data.Items.forEach(
-                item => item.IsSave = true
+                item => item.IsSave = true,
             );
         }
     }
@@ -100,14 +105,58 @@ export class DataForm {
         return UnitDOLoader;
     }
 
+    async UnitChanged(newValue){
+        if(!newValue){
+            this.context.UnitViewModel.editorValue = "";
+        } else if(newValue != this.data.Unit && this.isCreate){
+            this.data.Unit = newValue;
+            this.context.StorageViewModel.editorValue = "";
+            this.Storage = null;
+            this.data.Storage = null;
+            this.selectedUnitDO = null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.ReturnDate = null;
+            this.data.UENId = null;
+            this.data.UnitDOId = null;
+            this.data.UnitDONo = null;
+            this.data.PreparingId = null;
+            this.data.Items = [];
+        }
+    }
+
+    async StorageChanged(newValue){
+        if(!newValue){
+            this.context.StorageViewModel.editorValue = "";
+        } else if(newValue._id != this.data.Storage.Id && this.isCreate){
+            this.data.Storage.Id = newValue._id;
+            this.data.Storage.Name = newValue.name;
+            this.data.Storage.Code = newValue.code;
+            this.context.selectedUnitDOViewModel.editorValue = "";
+            this.selectedUnitDO = null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.ReturnDate = null;
+            this.data.UENId = null;
+            this.data.UnitDOId = null;
+            this.data.UnitDONo = null;
+            this.data.PreparingId = null;
+            this.data.Items = [];
+        }
+    }
+
     async selectedUnitDOChanged(newValue){
-        if(!newValue) {
+        if(!newValue && this.isCreate) {
             this.context.selectedUnitDOViewModel.editorValue = "";
             this.data.RONo = null;
             this.data.Article = null;
             this.data.ReturnDate = null;
+            this.data.UENId = null;
+            this.data.UnitDOId = null;
+            this.data.UnitDONo = null;
+            this.data.PreparingId = null;
             this.data.Items = [];
-        } else if(newValue.Id) {
+        } else if(newValue.Id && this.isCreate) {
             this.data.Items.splice(0);
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
@@ -131,7 +180,7 @@ export class DataForm {
                                 preparingItemId = itemPreparing.Id;
                                 RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
                                 QuantityUENItem = item.Quantity;
-                                if(item.ProductName="FABRIC"){
+                                if(item.ProductName == "FABRIC"){
                                     qty = itemPreparing.RemainingQuantity
                                 } else {
                                     qty = item.Quantity;
@@ -156,7 +205,8 @@ export class DataForm {
                                 UnitDOItemId : itemUnitDO.Id,
                                 UENItemId : item.Id,
                                 PreparingItemId : preparingItemId,
-                                QuantityUENItem : qty
+                                QuantityUENItem : qty,
+                                RemainingQuantityPreparingItem : qty,
                             }
                             this.data.Items.push(items);
                         }
@@ -164,6 +214,23 @@ export class DataForm {
                 }
             }
         } 
+        else {
+            let dataExpenditure = await this.purchasingService.getExpenditureNote({size: 1, filter : JSON.stringify({UnitDONo : newValue.UnitDONo})});
+            let dataPreparing = await this.service.getPreparingByUENNo({size: 1, filter : JSON.stringify({UENNo : dataExpenditure.data[0].UENNo})});
+            for(var dataItem of this.data.Items){
+                for(var itemExpenditure of dataExpenditure.data[0].Items){
+                    if(dataItem.Product.Code == itemExpenditure.ProductCode){
+                        for(var itemPreparing of dataPreparing.data[0].Items){
+                            if(itemPreparing.UENItemId == itemExpenditure.Id){
+                                dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
+                                dataItem.QuantityUENItem = itemExpenditure.Quantity;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
     }
 
     itemsInfo = {
