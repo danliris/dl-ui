@@ -17,9 +17,10 @@ export class DataForm {
     @bindable error;
     @bindable tittle;
     // @bindable error = {};
+    @bindable filterByUnit;
     @bindable selectedUnitDO;
     @bindable Unit;
-    @bindable Storage = {};
+    @bindable Storages;
     @bindable itemOptions = {};
 
     constructor(bindingEngine, service, purchasingService) {
@@ -46,21 +47,8 @@ export class DataForm {
 
     itemsColumns = [""];
 
-    @computedFrom("data.Unit")
-    get filterByUnit() {
-        if (this.data.Unit) {
-            return {
-                UnitId: this.data.Unit.Id
-            };
-        } else {
-            this.selectedPreparing = null;
-            return {
-                UnitId: 0
-            };
-        }
-    }
-
     bind(context) {
+        var storageTempId = 0;
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -70,9 +58,10 @@ export class DataForm {
             isEdit: this.context.isEdit,
         }
         if (this.data.DRNo && this.data.Items) {
-            this.Storage._id = this.data.Storage.Id;
-            this.Storage.name = this.data.Storage.Name;
-            this.Storage.code = this.data.Storage.Code;
+            this.Storages = {};
+            this.Storages._id = this.data.Storage.Id;
+            this.Storages.name = this.data.Storage.Name;
+            this.Storages.code = this.data.Storage.Code;
             this.Unit = this.data.Unit;
             
             
@@ -108,10 +97,21 @@ export class DataForm {
     async UnitChanged(newValue){
         if(!newValue){
             this.context.UnitViewModel.editorValue = "";
-        } else if(newValue != this.data.Unit && this.isCreate){
+            this.Storages = null;
+            this.selectedUnitDO = null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.ReturnDate = null;
+            this.data.UENId = null;
+            this.data.UnitDOId = null;
+            this.data.UnitDONo = null;
+            this.data.PreparingId = null;
+            this.data.Items = [];
+        } else if(newValue != this.data.Unit && this.context.isCreate){
             this.data.Unit = newValue;
             this.context.StorageViewModel.editorValue = "";
-            this.Storage = null;
+            this.filterByUnit = {UnitId: this.data.Unit.Id};
+            this.Storages = null;
             this.data.Storage = null;
             this.selectedUnitDO = null;
             this.data.RONo = null;
@@ -125,10 +125,20 @@ export class DataForm {
         }
     }
 
-    async StorageChanged(newValue){
+    async StoragesChanged(newValue){
         if(!newValue){
             this.context.StorageViewModel.editorValue = "";
-        } else if(newValue._id != this.data.Storage.Id && this.isCreate){
+            this.selectedUnitDO = null;
+            this.data.RONo = null;
+            this.data.Article = null;
+            this.data.ReturnDate = null;
+            this.data.UENId = null;
+            this.data.UnitDOId = null;
+            this.data.UnitDONo = null;
+            this.data.PreparingId = null;
+            this.data.Items = [];
+        } else if(newValue && this.context.isCreate){
+            this.data.Storage = {};
             this.data.Storage.Id = newValue._id;
             this.data.Storage.Name = newValue.name;
             this.data.Storage.Code = newValue.code;
@@ -146,7 +156,7 @@ export class DataForm {
     }
 
     async selectedUnitDOChanged(newValue){
-        if(!newValue && this.isCreate) {
+        if(!newValue && this.context.isCreate) {
             this.context.selectedUnitDOViewModel.editorValue = "";
             this.data.RONo = null;
             this.data.Article = null;
@@ -156,7 +166,7 @@ export class DataForm {
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
             this.data.Items = [];
-        } else if(newValue.Id && this.isCreate) {
+        } else if(newValue.Id && this.context.isCreate) {
             this.data.Items.splice(0);
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
