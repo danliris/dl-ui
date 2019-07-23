@@ -12,15 +12,15 @@ var BeamLoader = require("../../../../loader/weaving-beam-loader");
 
 @inject(Service, BindingEngine)
 export class ProduceBeams {
-  @bindable ProduceBeamsTime;
-  @bindable ProduceBeamsShift;
+  // @bindable ProduceBeamsTime;
+  // @bindable ProduceBeamsShift;
 
   constructor(service, bindingEngine) {
     this.service = service;
     this.bindingEngine = bindingEngine;
   }
-  
-  actions =  ["", "Finish", "Produce New Beam"];
+
+  // actions = ["", "Finish", "Produce New Beam"];
 
   async activate(context) {
     this.data = context.data;
@@ -30,40 +30,47 @@ export class ProduceBeams {
 
     this.error = context.error || {};
 
+    if (this.data.DateTimeBeamDocument) {
+      var DateMachine = moment(this.data.DateTimeBeamDocument).format('DD/MM/YYYY');
+      var TimeMachine = moment(this.data.DateTimeBeamDocument).format('LT');
+
+      this.data.ProduceBeamsDate = DateMachine;
+      this.data.ProduceBeamsTime = TimeMachine;
+    }
+
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
   }
 
-  get operators() {
-    return OperatorLoader;
-  }
+  // get operators() {
+  //   return OperatorLoader;
+  // }
 
-  get beams() {
-    return BeamLoader;
-  }
+  // get beams() {
+  //   return BeamLoader;
+  // }
 
-  async ProduceBeamsTimeChanged(newValue) {
-    this.data.Details.PreparationTime = newValue;
+  // async ProduceBeamsTimeChanged(newValue) {
+  //   this.data.Details.PreparationTime = newValue;
 
-    if (newValue) {
-      let timeResult = await this.service.getShiftByTime(newValue)
-        .then(result => {
-          return result;
-        })
-        .catch(e => {
-          return null;
-        });
+  //   if (newValue) {
+  //     let timeResult = await this.service.getShiftByTime(newValue)
+  //       .then(result => {
+  //         return result;
+  //       })
+  //       .catch(e => {
+  //         return null;
+  //       });
 
-      if (timeResult) {
-        this.error.ProduceBeamsShift = undefined;
-        this.ProduceBeamsShift = timeResult.Name;
-        this.data.Details.ShiftId = timeResult.Id;
-      } else {
-        this.ProduceBeamsShift = {};
-        this.data.Details.ShiftId = this.ProduceBeamsShift.Id;
-        this.error.ProduceBeamsShift = " Shift tidak ditemukan ";
-      }
-    }
-
-  }
+  //     if (timeResult) {
+  //       this.error.ProduceBeamsShift = undefined;
+  //       this.ProduceBeamsShift = timeResult.Name;
+  //       this.data.Details.ShiftId = timeResult.Id;
+  //     } else {
+  //       this.ProduceBeamsShift = {};
+  //       this.data.Details.ShiftId = this.ProduceBeamsShift.Id;
+  //       this.error.ProduceBeamsShift = " Shift tidak ditemukan ";
+  //     }
+  //   }
+  // }
 }

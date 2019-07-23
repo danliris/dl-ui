@@ -1,69 +1,42 @@
 <template>
   <tr>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-datepicker value.bind="data.ProduceBeamsDate" error.bind="error.ProduceBeamsDate" read-only.bind="readOnly">
-      </au-datepicker>
-    </td>
-    <td class="col-sm-1" style="white-space: nowrap;">
-      <au-timepicker value.bind="ProduceBeamsTime" error.bind="error.ProduceBeamsTime" read-only.bind="readOnly">
-      </au-timepicker>
-    </td>
-    <!-- <td class="col-sm-1" style="white-space: nowrap;">
-      <au-textbox value.bind="ProduceBeamsShift" error.bind="error.ProduceBeamsShift" read-only.bind="true"
-        placeholder="Shift">
+      <au-textbox value.bind="data.SizingBeamNumber" error.bind="error.SizingBeamNumber" read-only.bind="true">
       </au-textbox>
-    </td> -->
-    <td class="col-sm-1" style="white-space: nowrap;">
-      <au-autocomplete placeholder="Operator" value.bind="ProduceBeamsOperator" error.bind="error.ProduceBeamsOperator"
-        read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
     </td>
-    <!-- <td style="white-space: nowrap;">
-      <au-textbox placeholder="Grup Sizing" value.bind="ProduceBeamsOperator.Group" error.bind="error.ProduceBeamsOperator"
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.ProduceBeamsDate" error.bind="error.ProduceBeamsDate" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox value.bind="data.ProduceBeamsTime" error.bind="error.ProduceBeamsTime" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Counter Akhir" value.bind="data.FinishCounter" error.bind="error.FinishCounter"
+        read-only.bind="true"></au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="PIS(m)" value.bind="data.PISMeter" error.bind="error.PISMeter" read-only.bind="true">
+      </au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Berat Bersih (Netto)" value.bind="data.NettoWeight" error.bind="error.NettoWeight"
+        read-only.bind="true"></au-textbox>
+    </td>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Berat Kotor (Bruto)" value.bind="data.BrutoWeight" error.bind="error.BrutoWeight"
         read-only.bind="true"></au-textbox>
       </au-textbox>
-    </td> -->
-    <!-- <td class="col-sm-1" style="white-space: nowrap;">
-      <au-autocomplete placeholder="No. Beam Sizing" value.bind="data.ProduceBeamsSizingBeamId"
-        error.bind="error.ProduceBeamsSizingBeamId" read-only.bind="readOnly" loader.bind="beams" text="Number">
-      </au-autocomplete>
     </td>
     <td class="col-sm-1" style="white-space: nowrap;">
-      <au-numeric placeholder="Counter Awal" value.bind="data.ProduceBeamsDoffStartCounter"
-        error.bind="error.ProduceBeamsDoffStartCounter" read-only.bind="readOnly"></au-numeric>
-    </td> -->
-    <td class="col-sm-2" style="white-space: nowrap;">
-      <au-numeric placeholder="Counter Akhir" value.bind="data.ProduceBeamsDoffFinishCounter"
-        error.bind="error.ProduceBeamsDoffFinishCounter" read-only.bind="readOnly"></au-numeric>
-    </td>
-    <td class="col-sm-2" style="white-space: nowrap;">
-      <au-numeric placeholder="Berat Bersih (Netto)" value.bind="data.ProduceBeamsNettoWeight"
-        error.bind="error.ProduceBeamsNettoWeight" read-only.bind="readOnly"></au-numeric>
+      <au-textbox placeholder="SPU" value.bind="data.SPU" error.bind="error.SPU" read-only.bind="true">
       </au-textbox>
     </td>
-    <td class="col-sm-2" style="white-space: nowrap;">
-      <au-numeric placeholder="Berat Kotor (Bruto)" value.bind="data.ProduceBeamsBrutoWeight"
-        error.bind="error.ProduceBeamsBrutoWeight" read-only.bind="readOnly"></au-numeric>
+    <td class="col-sm-1" style="white-space: nowrap;">
+      <au-textbox placeholder="Status Beam Sizing" value.bind="data.SizingBeamStatus"
+        error.bind="error.SizingBeamStatus" read-only.bind="true">
       </au-textbox>
-    </td>
-    <td class="col-sm-2" style="white-space: nowrap;">
-      <au-numeric placeholder="SPU" value.bind="data.ProduceBeamsSPU" error.bind="error.ProduceBeamsSPU"
-        read-only.bind="true">
-      </au-numeric>
-    </td>
-    <td class="col-sm-3" style="white-space: nowrap;">
-      <au-dropdown value.bind="action" error.bind="error.action" read-only.bind="readOnly"
-      items.bind="actions"></au-dropdown>
-    </td>
-    <!-- <td class="col-sm-1" style="white-space: nowrap;">
-      <button class="btn btn-default" click.delegate="saveDoff()"
-        style="background-color: #01C8A2; color:white; white-space: nowrap; border: 1px solid #777777;">
-        Simpan
-      </button>
-    </td> -->
-    <td class="col-sm-1" if.bind="!readOnly">
-      <button class="btn btn-success pull-right" click.delegate="onremove(sizingBeamData, $event)">
-        Simpan
-      </button>
     </td>
   </tr>
 </template>

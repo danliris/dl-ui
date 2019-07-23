@@ -21,7 +21,9 @@ export class Update {
   @bindable PauseTime;
   @bindable ResumeTime;
   @bindable DoffTime;
-  @bindable PIS;
+  @bindable ProduceBeamsTime;
+  @bindable ProduceBeamsFinishCounter;
+  @bindable ProduceBeamsNetto;
 
   constructor(router, service, bindingEngine) {
     this.router = router;
@@ -44,53 +46,38 @@ export class Update {
   }];
 
   produceBeamsColumns = [{
-    //   value: "ProduceBeamsDate",
-    //   header: "Tanggal Pasang"
-    // }, {
-    //   value: "ProduceBeamsTime",
-    //   header: "Waktu Pasang"
-    // }, {
-    //   value: "ProduceBeamsShift",
-    //   header: "Shift"
-    // }, {
-    //   value: "ProduceBeamsOperator",
-    //   header: "Operator"
-    // }, {
-    //   value: "ProduceBeamsSizingGroup",
-    //   header: "Sizing Grup"
-    // }, {
-    //   value: "ProduceBeamsSizingBeamId",
-    //   header: "Beam Sizing"
-    // }, {
-    //   value: "ProduceBeamsDoffStartCounter",
-    //   header: "Counter Awal"
-    // }, {
+    value: "SizingBeamNumber",
+    header: "Nomor Beam Sizing"
+  }, {
     value: "ProduceBeamsDate",
     header: "Tanggal"
   }, {
     value: "ProduceBeamsTime",
     header: "Waktu"
   }, {
-    value: "ProduceBeamsOperator",
-    header: "Operator"
-  }, {
-    value: "ProduceBeamsDoffFinishCounter",
+    value: "FinishCounter",
     header: "Counter Akhir"
   }, {
-    value: "ProduceBeamsNettoWeight",
+    value: "PISMeter",
+    header: "PIS(m)"
+  }, {
+    value: "NettoWeight",
     header: "Netto"
   }, {
-    value: "ProduceBeamsBrutoWeight",
+    value: "BrutoWeight",
     header: "Bruto"
   }, {
-    value: "ProduceBeamsSPU",
+    value: "SPU",
     header: "SPU"
   }, {
-    value: "ProduceBeamsAction",
-    header: "Aksi"
+    value: "SizingBeamStatus",
+    header: "Status Beam Sizing"
   }];
 
   logColumns = [{
+      value: "SizingBeamNumber",
+      header: "Nomor Beam Sizing"
+    }, {
       value: "ShiftName",
       header: "Shift"
     },
@@ -131,6 +118,7 @@ export class Update {
       });
     if (this.data.Id) {
       this.BeamsWarping = this.data.WarpingBeamsDocument;
+      this.ProduceBeams = this.data.SizingBeamDocuments;
       this.Log = this.data.SizingDetails;
     }
   }
@@ -353,6 +341,23 @@ export class Update {
       .catch(e => {
         this.error = e;
       });
+  }
+
+  ProduceBeamsTimeChanged(newValue){
+    this.service.getShiftByTime(newValue)
+      .then(result => {
+        this.error.ProduceBeamsShift = "";
+        this.ProduceBeamsShift = {};
+        this.ProduceBeamsShift = result;
+      })
+      .catch(e => {
+        this.ProduceBeamsShift = {};
+        this.error.ProduceBeamsShift = " Shift tidak ditemukan ";
+      });
+  }
+
+  ProduceBeamsFinishCounterChanged(newValue){
+    this.service.calculatePISMeter()
   }
 
   DoffTimeChanged(newValue) {
