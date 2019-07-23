@@ -90,7 +90,7 @@
                 item-template="modules/production/spinning/count-configuration/template/count-configuration-detail">
             </au-collection>
 
-            <au-collection show.bind="data.ProcessType == 'Mix Drawing'" items.bind="data.MaterialComposition"
+            <au-collection show.bind="data.ProcessType == 'Mix Drawing'" items.bind="mixItems"
                 errors.bind="error.MaterialComposition" add.bind="mixDrawingColumns.onAdd" remove.bind="removeItems"
                 columns.bind="mixDrawingColumns.columns" read-only.bind="readOnly" view-model.ref="ItemsCollection"
                 options.bind="detailOptions"

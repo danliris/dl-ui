@@ -221,30 +221,58 @@ export class DataForm {
             this.data.YarnMaterialTypeName = selectedProcess.Name;
             var yarn = selectedProcess.Id;
             if (yarn) {
-                this.service.getLotByYarnType(yarn, this.unit.Id).then(result => {
-                    if (result) {
-                        this.lot = result.LotNo;
-                        this.data.LotId = result.Id;
-                        this.data.LotNo = result.LotNo;
-                        if (this.error) {
-                            this.error.YarnId = null;
-                        }
-                        if (this.data.ProcessType != "Mix Drawing") {
+                if (this.data.Id) {
+                    this.service.getLotById(this.data.MaterialComposition[0].LotId).then(result => {
+                        if (result) {
+                            this.lot = result.LotNo;
+                            this.data.LotId = result.Id;
+                            this.data.LotNo = result.LotNo;
+                            if (this.error) {
+                                this.error.YarnId = null;
+                            }
+                            if (this.data.ProcessType != "Mix Drawing") {
 
-                            this.regularItems = result.CottonCompositions;
+                                this.regularItems = result.CottonCompositions;
+                            }
+                        } else {
+                            this.error.YarnId = "Lot tidak ditemukan";
+                            this.data.MaterialComposition = [];
+                            this.data.LotId = null;
+                            this.data.LotNo = null;
+                            this.cottonLot = null;
+                            this.regularItems = null;
+                            this.data.YarnMaterialTypeId = null;
+                            this.data.YarnMaterialTypeCode = null;
+                            this.data.YarnMaterialTypeName = null;
                         }
-                    } else {
-                        this.error.YarnId = "Lot tidak ditemukan";
-                        this.data.MaterialComposition = [];
-                        this.data.LotId = null;
-                        this.data.LotNo = null;
-                        this.cottonLot = null;
-                        this.regularItems = null;
-                        this.data.YarnMaterialTypeId = null;
-                        this.data.YarnMaterialTypeCode = null;
-                        this.data.YarnMaterialTypeName = null;
-                    }
-                });
+                    });
+                } else {
+                    this.service.getLotByYarnType(yarn, this.unit.Id).then(result => {
+                        if (result) {
+                            this.lot = result.LotNo;
+                            this.data.LotId = result.Id;
+                            this.data.LotNo = result.LotNo;
+                            if (this.error) {
+                                this.error.YarnId = null;
+                            }
+                            if (this.data.ProcessType != "Mix Drawing") {
+
+                                this.regularItems = result.CottonCompositions;
+                            }
+                        } else {
+                            this.error.YarnId = "Lot tidak ditemukan";
+                            this.data.MaterialComposition = [];
+                            this.data.LotId = null;
+                            this.data.LotNo = null;
+                            this.cottonLot = null;
+                            this.regularItems = null;
+                            this.data.YarnMaterialTypeId = null;
+                            this.data.YarnMaterialTypeCode = null;
+                            this.data.YarnMaterialTypeName = null;
+                        }
+                    });
+                }
+
             }
 
         }

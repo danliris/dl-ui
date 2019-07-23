@@ -49,8 +49,8 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
-    getCountByProcessAndYarn(processType, yarnId){
-        var endpoint = `${countUri}/by-process-yarn?processType=${processType}&yarnId=${yarnId}`;
+    getCountByProcessAndYarn(processType, yarnId, lotId, unitId){
+        var endpoint = `${countUri}/by-process-yarn?processType=${processType}&yarnId=${yarnId}&unitId=${unitId}&lotId=${lotId}`;
         return super.get(endpoint);
     }
 

@@ -42,11 +42,13 @@ export class Service extends RestService {
                 });
 
                 return Promise.all(setItem).then((setItemResult) => {
+                    data.mixItems = setItemResult;
                     data.MaterialComposition = setItemResult;
                     return Promise.resolve(data);
                 });
-            } else {
-                return this.getLotByYarnType(data.MaterialComposition[0].YarnId, data.UnitDepartment.Id, false).then(result => {
+            } 
+            else {
+                return this.getLotById(data.MaterialComposition[0].LotId).then(result => {
                     if (result) {
                         data.LotId = result.Id;
                         data.LotNo = result.LotNo;
