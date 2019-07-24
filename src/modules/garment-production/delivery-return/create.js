@@ -35,11 +35,6 @@ export class Create {
 
     saveCallback(event) {
         this.data.ReturnDate = this.data.ReturnDate ? moment(this.data.ReturnDate).format("DD MMM YYYY") : null;
-        if(this.data.Storage){
-            this.data.Storage.Id = this.data.Storage._id;
-            this.data.Storage.Code = this.data.Storage.code;
-            this.data.Storage.Name = this.data.Storage.name;
-        }
         let objData = {};
         let data = Object.assign(objData, this.data);
         data.Items = data.Items.filter(x => x.IsSave==true);

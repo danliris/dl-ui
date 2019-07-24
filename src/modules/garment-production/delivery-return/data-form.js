@@ -18,6 +18,7 @@ export class DataForm {
     @bindable tittle;
     // @bindable error = {};
     @bindable filterByUnit;
+    @bindable filterDO;
     @bindable selectedUnitDO;
     @bindable Unit;
     @bindable Storages;
@@ -142,6 +143,8 @@ export class DataForm {
             this.data.Storage.Id = newValue._id;
             this.data.Storage.Name = newValue.name;
             this.data.Storage.Code = newValue.code;
+            this.filterDO = {UnitRequestName: this.data.Unit.Name, StorageRequestName: this.data.Storage.Name};
+            console.log(this.filterDO)
             this.context.selectedUnitDOViewModel.editorValue = "";
             this.selectedUnitDO = null;
             this.data.RONo = null;
@@ -173,53 +176,56 @@ export class DataForm {
             this.data.ReturnDate = new Date();
             let dataExpenditure = await this.purchasingService.getExpenditureNote({size: 1, filter : JSON.stringify({UnitDONo : newValue.UnitDONo})});
             let dataPreparing = await this.service.getPreparingByUENNo({size: 1, filter : JSON.stringify({UENNo : dataExpenditure.data[0].UENNo})});
+            console.log(dataExpenditure)
+            console.log(dataPreparing)
             this.data.UENId = dataExpenditure.data[0].Id;
             this.data.UnitDOId = newValue.Id;
             this.data.UnitDONo = newValue.UnitDONo;
 
-            if(dataPreparing.data.length>0){
-                this.data.PreparingId = dataPreparing.data[0].Id;
-                for(var itemUnitDO of newValue.Items){
-                    for(var item of dataExpenditure.data[0].Items){
-                        var qty = 0;
-                        var preparingItemId = null;
-                        var RemainingQuantityPreparingItem = 0;
-                        var QuantityUENItem = 0;
+            this.data.PreparingId = dataPreparing.data.length>0 ? dataPreparing.data[0].Id : null;
+            console.log(this.data.PreparingId)
+            for(var itemUnitDO of newValue.Items){
+                for(var item of dataExpenditure.data[0].Items){
+                    var qty = 0;
+                    var preparingItemId = null;
+                    var RemainingQuantityPreparingItem = 0;
+                    var QuantityUENItem = 0;
+                    qty = item.Quantity;
+                    QuantityUENItem = item.Quantity;
+                    if(dataPreparing.data.length>0){
                         for(var itemPreparing of dataPreparing.data[0].Items){
                             if(itemPreparing.UENItemId==item.Id){
                                 preparingItemId = itemPreparing.Id;
                                 RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
-                                QuantityUENItem = item.Quantity;
                                 if(item.ProductName == "FABRIC"){
                                     qty = itemPreparing.RemainingQuantity
-                                } else {
-                                    qty = item.Quantity;
                                 }
                             }
                         }
-                        var product = {};
-                        var uom = {};
-                        var designColor = "";
-                        product.Id = item.ProductId;
-                        product.Code = item.ProductCode;
-                        product.Name = item.ProductName;
-                        uom.Id = item.UomId;
-                        uom.Unit = item.UomUnit;
-                        if(itemUnitDO.ProductCode == item.ProductCode){
-                            var items = {
-                                Product : product,
-                                DesignColor : itemUnitDO.DesignColor,
-                                RONo : item.RONo,
-                                Quantity : qty,
-                                Uom : uom,
-                                UnitDOItemId : itemUnitDO.Id,
-                                UENItemId : item.Id,
-                                PreparingItemId : preparingItemId,
-                                QuantityUENItem : qty,
-                                RemainingQuantityPreparingItem : qty,
-                            }
-                            this.data.Items.push(items);
+                    }
+                    
+                    var product = {};
+                    var uom = {};
+                    var designColor = "";
+                    product.Id = item.ProductId;
+                    product.Code = item.ProductCode;
+                    product.Name = item.ProductName;
+                    uom.Id = item.UomId;
+                    uom.Unit = item.UomUnit;
+                    if(itemUnitDO.ProductCode == item.ProductCode){
+                        var items = {
+                            Product : product,
+                            DesignColor : itemUnitDO.DesignColor,
+                            RONo : item.RONo,
+                            Quantity : qty,
+                            Uom : uom,
+                            UnitDOItemId : itemUnitDO.Id,
+                            UENItemId : item.Id,
+                            PreparingItemId : preparingItemId,
+                            QuantityUENItem : qty,
+                            RemainingQuantityPreparingItem : qty,
                         }
+                        this.data.Items.push(items);
                     }
                 }
             }
@@ -230,10 +236,12 @@ export class DataForm {
             for(var dataItem of this.data.Items){
                 for(var itemExpenditure of dataExpenditure.data[0].Items){
                     if(dataItem.Product.Code == itemExpenditure.ProductCode){
-                        for(var itemPreparing of dataPreparing.data[0].Items){
-                            if(itemPreparing.UENItemId == itemExpenditure.Id){
-                                dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
-                                dataItem.QuantityUENItem = itemExpenditure.Quantity;
+                        dataItem.QuantityUENItem = itemExpenditure.Quantity;
+                        if(dataPreparing.data.length>0){
+                            for(var itemPreparing of dataPreparing.data[0].Items){
+                                if(itemPreparing.UENItemId == itemExpenditure.Id){
+                                    dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
+                                }
                             }
                         }
                     }
