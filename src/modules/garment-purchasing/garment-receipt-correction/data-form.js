@@ -17,7 +17,8 @@ export class DataForm {
     @bindable collectionOptions;
 
     filter={
-        IsStorage:true
+        IsStorage:true,
+        URNType: "PEMBELIAN"
     };
 
     constructor(service) {
