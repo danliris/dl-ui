@@ -16,10 +16,34 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getYearlyXls(info) {
+        var endpoint = `${serviceUri}/yearly/downloads/xls?year=${parseInt(info.year)}&orderTypeId=${info.orderTypeId}`;
+        return super.getXls(endpoint);
+    }
+
     getMonthly(info) {
         var endpoint = `${serviceUri}/monthly/?year=${parseInt(info.year)}&month=${parseInt(info.month)}&orderTypeId=${info.orderTypeId}`;
         return super.get(endpoint);
     }
+
+    getMonthlyXls(info) {
+        var endpoint = `${serviceUri}/monthly/downloads/xls?year=${parseInt(info.year)}&month=${parseInt(info.month)}&orderTypeId=${info.orderTypeId}`;
+        return super.getXls(endpoint);
+    }
+
+    getByOrderId(info) {
+        var endpoint = `${serviceUri}/by-order-id/?orderId=${parseInt(info.orderId)}`;
+        return super.get(endpoint);
+    }
+
+    getByOrderIdXls(info) {
+        var endpoint = `${serviceUri}/by-order-id/downloads/xls?orderId=${parseInt(info.orderId)}`;
+        return super.getXls(endpoint);
+    }
+
+    // getByProductionOrderId(info) {
+    //     var endpoint = ``
+    // }
 
     detail(info) {
         var endpoint = `${serviceUri}/${info.year}/${info.month}/${info.orderType}`;
