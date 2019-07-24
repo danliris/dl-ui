@@ -109,23 +109,23 @@ export class List {
 
     async search() {
 
-        if (this.info.COA == null || this.info.COA.Id == 0) {
-            this.error.COA = "COA harus diisi";
-        } else {
-            this.error = {};
+        // if (this.info.COA == null || this.info.COA.Id == 0) {
+        //     this.error.COA = "COA harus diisi";
+        // } else {
+        this.error = {};
 
-            let query = {
-                month: this.info.month.MonthNumber,
-                year: this.info.year,
-                coaId: this.info.COA.Id
-            }
-
-            let apiResult = await this.service.search(query);
-            this.data = apiResult.data.Info
-
-            this.initialBalance = apiResult.data.InitialBalance;
-            this.closingBalance = apiResult.data.ClosingBalance;
+        let query = {
+            month: this.info.month.MonthNumber,
+            year: this.info.year,
+            coaId: this.info.COA.Id
         }
+
+        let apiResult = await this.service.search(query);
+        this.data = apiResult.data.Info
+
+        this.initialBalance = apiResult.data.InitialBalance;
+        this.closingBalance = apiResult.data.ClosingBalance;
+        // }
 
     }
 
