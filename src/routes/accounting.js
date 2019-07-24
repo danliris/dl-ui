@@ -103,6 +103,19 @@ module.exports = [
             iconClass: 'fa fa-clone'
         }
     },
+      {
+        route: '/accounting/reports/flow-penerimaan',
+        name: 'flow-penerimaan',
+        moduleId: './modules/accounting/reports/flow-penerimaan/index',
+        nav: true,
+        title: 'Laporan Flow Detail Penerimaan',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
+    },
     {
         route: 'garment-central-bill-reception/reports',
         name: 'garment-central-bill-reception-report',
