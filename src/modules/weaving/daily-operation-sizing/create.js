@@ -120,7 +120,7 @@ export class Create {
         }
       }
 
-      // this.data.YarnStrands = result;
+      this.data.YarnStrands = result;
     }
     return result;
 
@@ -140,6 +140,7 @@ export class Create {
       this.data.BeamsWarping.push(BeamId);
     });
 
+    // this.data.YarnStrands = this.YarnStrands;
     this.data.NeReal = this.NeReal;
     this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
 

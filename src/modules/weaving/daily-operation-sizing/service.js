@@ -57,22 +57,22 @@ export class Service extends RestService {
     });
   }
 
-  calculatePISMeter(startValue, finishValue) {
+  calculatePISMeter(counterStart, counterFinish) {
     var task = "pis-in-meter";
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("weaving");
-    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${startValue}/finish/${finishValue}`;
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
 
     return _endpoint.find(_serviceUri).then(result => {
       return result.data;
     });
   }
 
-  calculatePISPieces(startValue, finishValue) {
+  calculatePISPieces(counterStart, counterFinish) {
     var task = "pis-in-pieces";
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("weaving");
-    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${startValue}/finish/${finishValue}`;
+    var _serviceUri = `weaving/daily-operations-sizing/calculate/${task}/start/${counterStart}/finish/${counterFinish}`;
 
     return _endpoint.find(_serviceUri).then(result => {
       return result.data;
@@ -112,31 +112,31 @@ export class Service extends RestService {
     });
   }
 
-  updateStartEntry(Id, data) {
+  updateStart(Id, data) {
     var status = "start";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updatePauseEntry(Id, data) {
+  updatePause(Id, data) {
     var status = "pause";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updateResumeEntry(Id, data) {
+  updateResume(Id, data) {
     var status = "resume";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updateReuseBeamsEntry(Id, data) {
-    var status = "reuse";
+  updateProduceBeams(Id, data) {
+    var status = "produce-beams";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);
   }
 
-  updateDoffEntry(Id, data) {
+  updateDoff(Id, data) {
     var status = "doff";
     var endpoint = `${serviceUri}/${Id}/${status}`;
     return super.put(endpoint, data);

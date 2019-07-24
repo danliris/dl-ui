@@ -238,7 +238,7 @@ export class Update {
     this.data.SizingBeamDocuments.Counter.Start = SizingBeamCounterContainer;
 
     this.service
-      .updateStartEntry(this.data.Id, this.data)
+      .updateStart(this.data.Id, this.data)
       .then(result => {
         location.reload();
       })
@@ -296,7 +296,7 @@ export class Update {
     this.data.SizingDetails.Causes.MachineTroubled = LastCausesMachineTroubled.toString();
 
     this.service
-      .updatePauseEntry(this.data.Id, this.data)
+      .updatePause(this.data.Id, this.data)
       .then(result => {
         location.reload();
       })
@@ -334,7 +334,7 @@ export class Update {
     this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
 
     this.service
-      .updateResumeEntry(this.data.Id, this.data)
+      .updateResume(this.data.Id, this.data)
       .then(result => {
         location.reload();
       })
@@ -343,7 +343,7 @@ export class Update {
       });
   }
 
-  ProduceBeamsTimeChanged(newValue){
+  ProduceBeamsTimeChanged(newValue) {
     this.service.getShiftByTime(newValue)
       .then(result => {
         this.error.ProduceBeamsShift = "";
@@ -356,8 +356,127 @@ export class Update {
       });
   }
 
-  ProduceBeamsFinishCounterChanged(newValue){
-    this.service.calculatePISMeter()
+  ProduceBeamsFinishCounterChanged(newValue) {
+    if (newValue) {
+      let sizingBeamDocumentContainer = this.data.SizingBeamDocuments.find(doc => true);
+      let startCounter = sizingBeamDocumentContainer.StartCounter;
+      this.service.calculatePISMeter(startCounter, newValue)
+        .then(resultPISMeter => {
+          this.error.ProduceBeamsPISMeter = "";
+
+          this.data.ProduceBeamsPISMeter = resultPISMeter;
+          this.ProduceBeamsPISMeter = resultPISMeter;
+          return this.service.calculatePISPieces(startCounter, newValue);
+        }).then(resultPISPieces => {
+          this.error.ProduceBeamsPISPieces = "";
+
+          this.data.ProduceBeamsPISPieces = resultPISPieces;
+          this.ProduceBeamsPISPieces = resultPISPieces;
+        })
+        .catch(e => {
+          this.error.ProduceBeamsPISMeter = " Tidak dapat menghitung PIS(m) ";
+          this.error.ProduceBeamsPISPieces = " Tidak dapat menghitung PIS(pieces) ";
+
+          this.data.ProduceBeamsPISMeter = 0;
+          this.data.ProduceBeamsPISPieces = 0;
+
+          this.ProduceBeamsPISMeter = 0;
+          this.ProduceBeamsPISPieces = 0;
+        });
+    }
+  }
+
+  ProduceBeamsNettoChanged(newValue) {
+    if (newValue) {
+      let dataContainer = this.data;
+      let nettoContainer = this.ProduceBeamsNetto;
+      let machineType = dataContainer.MachineType;
+      let pisMeter;
+      let yarnStrands;
+      let neReal;
+      if (dataContainer.ProduceBeamsPISMeter) {
+        pisMeter = dataContainer.ProduceBeamsPISMeter;
+      }
+      if (dataContainer.YarnStrands) {
+        yarnStrands = dataContainer.YarnStrands;
+      }
+      if (dataContainer.NeReal) {
+        neReal = dataContainer.NeReal;
+      }
+      if (machineType == "Kawamoto") {
+        this.service.calculateTheoriticalKawamoto(pisMeter, yarnStrands, neReal)
+          .then(resultKawamoto => {
+            this.error.ProduceBeamsNettoTheoritical = "";
+            this.ProduceBeamsNettoTheoritical = resultKawamoto;
+            return this.service.calculateSPU(nettoContainer, resultKawamoto);
+          }).then(resultSPU => {
+            this.error.ProduceBeamsSPU = "";
+            this.ProduceBeamsSPU = resultSPU;
+          }).catch(e => {
+            this.ProduceBeamsNettoTheoritical = 0;
+            this.ProduceBeamsSPU = 0;
+
+            this.error.ProduceBeamsNettoTheoritical = " Tidak dapat menghitung Netto Teoritis ";
+            this.error.ProduceBeamsSPU = " Tidak dapat menghitung SPU ";
+          });
+      } else if (machineType == "Sucker Muller") {
+        this.service.calculateTheoriticalSuckerMuller(pisMeter, yarnStrands, neReal)
+          .then(resultSuckerMuller => {
+            this.error.ProduceBeamsNettoTheoritical = "";
+            this.ProduceBeamsNettoTheoritical = resultSuckerMuller;
+            return this.service.calculateSPU(nettoContainer, resultSuckerMuller);
+          }).then(resultSPU => {
+            this.error.ProduceBeamsSPU = "";
+            this.ProduceBeamsSPU = resultSPU;
+          }).catch(e => {
+            this.ProduceBeamsNettoTheoritical = 0;
+            this.ProduceBeamsSPU = 0;
+
+            this.error.ProduceBeamsNettoTheoritical = " Tidak dapat menghitung Netto Teoritis ";
+            this.error.ProduceBeamsSPU = " Tidak dapat menghitung SPU ";
+          });
+      }
+    }
+  }
+
+  saveProduceBeam(){
+    var IdContainer = this.data.Id;
+    var FinishCounterContainer = this.ProduceBeamsFinishCounter;
+    var PISMeterContainer = this.ProduceBeamsPISMeter;
+    var SPUContainer = this.ProduceBeamsSPU;
+    var BrutoWeightContainer = this.ProduceBeamsBruto;
+    var NettoWeightContainer = this.ProduceBeamsNetto;
+    var NettoTheoriticalWeightContainer = this.ProduceBeamsNettoTheoritical;
+    var HistoryDateContainer = moment(this.ProduceBeamsDate).utcOffset("+07:00").format();
+    var HistoryTimeContainer = this.ProduceBeamsTime;
+    var ShiftContainer = this.ProduceBeamsShift.Id;
+    var OperatorContainer = this.ProduceBeamsOperator.Id;
+
+    this.data = {};
+    this.data.Id = IdContainer;
+    this.data.SizingBeamDocuments = {};
+    this.data.SizingBeamDocuments.Counter = {};
+    this.data.SizingBeamDocuments.FinishCounter = FinishCounterContainer;
+    this.data.SizingBeamDocuments.PISMeter = PISMeterContainer;
+    this.data.SizingBeamDocuments.SPU = SPUContainer;
+    this.data.SizingBeamDocuments.Weight = {};
+    this.data.SizingBeamDocuments.Weight.Netto = NettoWeightContainer;
+    this.data.SizingBeamDocuments.Weight.Bruto = BrutoWeightContainer;
+    this.data.SizingBeamDocuments.Weight.Theoritical = NettoTheoriticalWeightContainer;
+    this.data.SizingDetails = {};
+    this.data.SizingDetails.ProduceBeamDate = HistoryDateContainer;
+    this.data.SizingDetails.ProduceBeamTime = HistoryTimeContainer;
+    this.data.SizingDetails.ShiftId = ShiftContainer;
+    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
+
+    this.service
+      .updateProduceBeams(this.data.Id, this.data)
+      .then(result => {
+        location.reload();
+      })
+      .catch(e => {
+        this.error = e;
+      });
   }
 
   DoffTimeChanged(newValue) {
@@ -373,50 +492,27 @@ export class Update {
       });
   }
 
-  PISChanged(newValue) {
-    this.service.calculatePIS(newValue).then(result => {
-      this.error.PIS = "";
-      this.PIS = result;
-      this.data.PIS = this.PIS;
-    }).catch(e => {
-      this.PIS = 0;
-      this.error.PIS = " PIS tidak dapat dihitung ";
-    })
-  }
-
   saveDoff() {
     var IdContainer = this.data.Id;
-    var FinishCounterContainer = this.DoffFinishCounter;
-    var BrutoWeightContainer = this.DoffBrutoWeight;
     var MachineSpeedContainer = this.DoffMachineSpeed;
     var TexSQContainer = this.DoffTexSQ;
     var ViscoContainer = this.DoffVisco;
-    var PISContainer = this.DoffPIS;
-    var SPUContainer = this.DoffSPU;
-    var SizingBeamIdContainer = this.DoffSizingBeamId.Id;
     var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.DoffTime;
     var ShiftContainer = this.DoffShift.Id;
 
     this.data = {};
     this.data.Id = IdContainer;
-    this.data.Counter = {};
-    this.data.Counter.Finish = FinishCounterContainer;
-    this.data.Weight = {};
-    this.data.Weight.Bruto = BrutoWeightContainer;
     this.data.MachineSpeed = MachineSpeedContainer;
     this.data.TexSQ = TexSQContainer;
     this.data.Visco = ViscoContainer;
-    this.data.PIS = PISContainer;
-    this.data.SPU = SPUContainer;
-    this.data.SizingBeamDocuments.SizingBeamId = SizingBeamIdContainer;
     this.data.SizingDetails = {};
     this.data.SizingDetails.FinishDate = HistoryDateContainer;
     this.data.SizingDetails.FinishTime = HistoryTimeContainer;
     this.data.SizingDetails.ShiftId = ShiftContainer;
 
     this.service
-      .updateDoffEntry(this.data.Id, this.data)
+      .updateDoff(this.data.Id, this.data)
       .then(result => {
         location.reload();
       })

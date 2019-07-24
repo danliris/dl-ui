@@ -351,15 +351,25 @@
               <textbox label="Counter Akhir" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Counter Akhir" value.bind="ProduceBeamsFinishCounter"
-                error.bind="error.ProduceBeamsFinishCounter" read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Counter Akhir" value.bind="ProduceBeamsFinishCounter"
+                error.bind="error.ProduceBeamsFinishCounter" read-only.bind="readOnly"></au-numeric>
             </div>
+          </div>
+
+          <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
               <textbox label="PIS(m)" read-only="true" style="display: inline-block"></textbox>
             </div>
-            <div class="col-md-3">
-              <au-textbox placeholder="PIS(m)" value.bind="ProduceBeamsPISMeter" error.bind="error.ProduceBeamsPISMeter"
-                read-only.bind="true"></au-textbox>
+            <div class="col-md-3" style="text-align: left;">
+              <au-numeric placeholder="PIS(m)" value.bind="ProduceBeamsPISMeter" error.bind="error.ProduceBeamsPISMeter"
+                read-only.bind="true"></au-numeric>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="PIS(pieces)" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3" style="text-align: left;">
+              <au-numeric placeholder="PIS(pieces)" value.bind="ProduceBeamsPISPieces"
+                error.bind="error.ProduceBeamsPISPieces" read-only.bind="true"></au-numeric>
             </div>
           </div>
 
@@ -368,31 +378,38 @@
               <textbox label="Bruto" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Bruto" value.bind="ProduceBeamsBruto" error.bind="error.ProduceBeamsBruto"
-                read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Bruto" value.bind="ProduceBeamsBruto" error.bind="error.ProduceBeamsBruto"
+                read-only.bind="readOnly"></au-numeric>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Netto" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-numeric placeholder="Netto" value.bind="ProduceBeamsNetto" error.bind="error.ProduceBeamsNetto"
+                read-only.bind="readOnly"></au-numeric>
             </div>
           </div>
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-2" style="text-align:left;">
-              <textbox label="Netto" read-only="true" style="display: inline-block"></textbox>
+              <textbox label="Netto Teoritis" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="Netto" value.bind="ProduceBeamsNetto" error.bind="error.ProduceBeamsNetto"
-                read-only.bind="readOnly"></au-textbox>
+              <au-numeric placeholder="Netto Teoritis" value.bind="ProduceBeamsNettoTheoritical" error.bind="error.ProduceBeamsNettoTheoritical"
+                read-only.bind="true"></au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="SPU" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-textbox placeholder="SPU" value.bind="ProduceBeamsSPU" error.bind="error.ProduceBeamsSPU"
-                read-only.bind="true"></au-textbox>
+              <au-numeric placeholder="SPU" value.bind="ProduceBeamsSPU" error.bind="error.ProduceBeamsSPU"
+                read-only.bind="true"></au-numeric>
             </div>
           </div>
 
           <div class="row" style="white-space: nowrap;">
             <div class="col-md-12">
-              <button class="btn btn-default" click.delegate="saveResume()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
+              <button class="btn btn-default" click.delegate="saveProduceBeam()" style="float: right; margin-bottom: 16px; background-color: #01C8A2; color:white; white-space: nowrap;
                       width: 96px; border: 1px solid #777777;">
                 Simpan
               </button>
