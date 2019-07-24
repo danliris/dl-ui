@@ -182,7 +182,7 @@ export class List {
 
     exportToExcel() {
         this.fillValues();
-        this.service.generateExcel(this.info);
+        this.service.getYearlyXls(this.info);
     }
 
     reset() {
