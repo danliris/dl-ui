@@ -190,7 +190,7 @@ export class Item {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "KG") {
             this.data.Bale = (this.data.Output / 181.44) * MachineSpinning.Delivery;
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "YARD") {
-            this.data.Bale = ((this.data.Output * 10 * MachineSpinning.Delivery) / (this.CountConfig.Ne * 400));
+            this.data.Bale = ((this.data.Output * 10 * MachineSpinning.Delivery) / (840 * this.CountConfig.Ne * 400));
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
             this.data.Bale = this.data.Output / (this.CountConfig.Ne * 400);
         }

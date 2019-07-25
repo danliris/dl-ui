@@ -81,6 +81,11 @@ export class List {
         this.info = {};
         this.error = {};
         this.data = [];
+        this.textileLokals = [];
+        this.textileImports = [];
+        this.garmentImports = [];
+        this.garmentLokals = [];
+        this.others = [];
         this.info = {};
         this.dialog = dialog;
         this.isEmpty = true;
@@ -98,52 +103,68 @@ export class List {
 
         let monthResult = await this.service.getMonths();
         this.monthOptions = monthResult.data;
-        this.info.month = this.monthOptions[(new Date()).getMonth() - 1];
+        this.info.month = this.monthOptions[(new Date()).getMonth()];
     }
 
     get coaLoader() {
         return COALoader;
     }
 
-
+    coaView(coa) {
+        return coa.Name ? `${coa.Code} - ${coa.Name}` : coa.Code;
+    }
 
     async search() {
 
+        // if (this.info.COA == null || this.info.COA.Id == 0) {
+        //     this.error.COA = "COA harus diisi";
+        // } else {
+        this.error = {};
+        let query = {};
         if (this.info.COA == null || this.info.COA.Id == 0) {
-            this.error.COA = "COA harus diisi";
+            query = {
+                month: this.info.month.MonthNumber,
+                year: this.info.year
+            }
         } else {
-            this.error = {};
-
-            let query = {
+            query = {
                 month: this.info.month.MonthNumber,
                 year: this.info.year,
                 coaId: this.info.COA.Id
             }
-
-            let apiResult = await this.service.search(query);
-            this.data = apiResult.data.Info
-
-            this.initialBalance = apiResult.data.InitialBalance;
-            this.closingBalance = apiResult.data.ClosingBalance;
         }
+
+
+        let apiResult = await this.service.search(query);
+        this.textileLokals = apiResult.data.TextileLokals;
+        this.textileImports = apiResult.data.TextileImports;
+        this.garmentLokals = apiResult.data.GarmentLokals;
+        this.garmentImports = apiResult.data.GarmentImports;
+        this.others = apiResult.data.Others;
+        this.initialBalance = apiResult.data.InitialBalance;
+        this.closingBalance = apiResult.data.ClosingBalance;
+        // }
 
     }
 
     excel() {
 
+        this.error = {};
+        let query = {};
         if (this.info.COA == null || this.info.COA.Id == 0) {
-            this.error.COA = "COA harus diisi";
+            query = {
+                month: this.info.month.MonthNumber,
+                year: this.info.year
+            }
         } else {
-            this.error = {};
-
-            let query = {
+            query = {
                 month: this.info.month.MonthNumber,
                 year: this.info.year,
                 coaId: this.info.COA.Id
             }
-
-            this.service.getXls(query);
         }
+
+        this.service.getXls(query);
     }
 
     excelAll() {
@@ -159,6 +180,11 @@ export class List {
         this.error = {};
         this.info = {};
         this.data = [];
+        this.textileLokals = [];
+        this.textileImports = [];
+        this.garmentImports = [];
+        this.garmentLokals = [];
+        this.others = [];
         this.initialBalance = 0;
         this.closingBalance = 0;
         this.info.year = (new Date()).getFullYear();
