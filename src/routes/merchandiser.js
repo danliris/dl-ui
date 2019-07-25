@@ -133,4 +133,17 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: '/merchandiser/approve-pr-master',
+        name: 'approve-purchase-request-master',
+        moduleId: './modules/merchandiser/approve-pr-master/index',
+        nav: true,
+        title: 'Approve PR Master',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
 ];
