@@ -116,16 +116,16 @@ export class List {
 
     async search() {
 
-        if (this.info.COA == null || this.info.COA.Id == 0) {
-            this.error.COA = "COA harus diisi";
-        } else {
-            this.error = {};
+        // if (this.info.COA == null || this.info.COA.Id == 0) {
+        //     this.error.COA = "COA harus diisi";
+        // } else {
+        this.error = {};
 
-            let query = {
-                month: this.info.month.MonthNumber,
-                year: this.info.year,
-                coaId: this.info.COA.Id
-            }
+        let query = {
+            month: this.info.month.MonthNumber,
+            year: this.info.year,
+            coaId: this.info.COA.Id
+        }
 
             let apiResult = await this.service.search(query);
             this.textileLokals = apiResult.data.TextileLokals;
@@ -133,10 +133,9 @@ export class List {
             this.garmentLokals = apiResult.data.GarmentLokals;
             this.garmentImports = apiResult.data.GarmentImports;
             this.others = apiResult.data.Others;
-
             this.initialBalance = apiResult.data.InitialBalance;
             this.closingBalance = apiResult.data.ClosingBalance;
-        }
+        // }
 
     }
 

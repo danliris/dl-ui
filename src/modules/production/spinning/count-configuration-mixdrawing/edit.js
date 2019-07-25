@@ -39,6 +39,7 @@ export class Edit {
             this.data.MaterialComposition.push(itemDetail);
         } else {
             this.data.IsMixDrawing = true;
+            this.data.MaterialComposition = this.ItemsCollection.items;
         }
         this.service.update(this.data).then(result => {
             this.cancelCallback();
