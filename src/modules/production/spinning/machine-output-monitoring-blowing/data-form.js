@@ -169,7 +169,7 @@ export class DataForm {
             this.isItem = true;
             this.detailOptions.UomUnit = this.machineSpinning.UomUnit;
 
-            this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId);
+            this.detailOptions.CountConfig = this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId, this.data.LotId, this.data.UnitDepartmentId);
             if (!this.detailOptions.CountConfig) {
                 if (this.error) {
                     this.error.LotId = "Count is not created with this Lot";

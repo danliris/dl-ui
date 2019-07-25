@@ -45,8 +45,9 @@ export class Service extends RestService {
                     data.MaterialComposition = setItemResult;
                     return Promise.resolve(data);
                 });
-            } else {
-                return this.getLotByYarnType(data.MaterialComposition[0].YarnId, data.UnitDepartment.Id, false).then(result => {
+            } 
+            else {
+                return this.getLotById(data.MaterialComposition[0].LotId).then(result => {
                     if (result) {
                         data.LotId = result.Id;
                         data.LotNo = result.LotNo;
