@@ -149,19 +149,22 @@ export class List {
 
     excel() {
 
+        this.error = {};
+        let query = {};
         if (this.info.COA == null || this.info.COA.Id == 0) {
-            this.error.COA = "COA harus diisi";
+            query = {
+                month: this.info.month.MonthNumber,
+                year: this.info.year
+            }
         } else {
-            this.error = {};
-
-            let query = {
+            query = {
                 month: this.info.month.MonthNumber,
                 year: this.info.year,
                 coaId: this.info.COA.Id
             }
-
-            this.service.getXls(query);
         }
+
+        this.service.getXls(query);
     }
 
     excelAll() {
