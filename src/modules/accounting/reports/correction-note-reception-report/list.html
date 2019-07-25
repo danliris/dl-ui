@@ -28,7 +28,7 @@
                     <tr>
                         <td align="center" rowspan="3">NO</td>
                         <td colspan="7">K O R E K S I</td>                        
-                        <td colspan="30">P U S A T</td>
+                        <td colspan="31">P U S A T</td>
                         <td colspan="2">NOTA PEMBELIAN</td>
                         <td colspan="14">K O N F E K S I</td>
                      </tr>
@@ -38,10 +38,10 @@
                         <td rowspan="2">TIPE NK</td>
                         <td rowspan="2">JUMLAH</td>
                         <td rowspan="2">SATUAN</td>
-                        <td rowspan="2">MATA UANG</td>
                         <td rowspan="2">JUMLAH HARGA</td>
-                        <td rowspan="2">NOMOR BP</td>
+                        <td rowspan="2">NO BON PUSAT</td>
                         <td rowspan="2">TANGGAL BP</td>
+                        <td rowspan="2">NO BON KECIL</td>
                         <td rowspan="2">TIPE BEA CUKAI</td>
                         <td rowspan="2">NOMOR BEA CUKAI</td>
                         <td rowspan="2">TGL BEA CUKAI</td>
@@ -107,11 +107,11 @@
                         
                         <td align="right">${item.CorrectionQuantity}</td>
                         <td>${item.CorrectionUOMUnit}</td>
-                        <td>${item.CorrectionCurrencyCode}</td>                        
                         <td align="right">${item.CorrectionAmount}</td>
 
                         <td>${item.BillNo}</td>
                         <td>${item.BillDate | dateFormat:'DD MMM YYYY'}</td>
+                        <td>${item.PaymentBill}</td>
                         <td>${item.CustomsType}</td>
                         <td>${item.BeaCukaiNo}</td>
                         <td>${item.BeaCukaiDate | dateFormat:'DD MMM YYYY'}</td>
