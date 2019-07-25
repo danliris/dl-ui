@@ -395,8 +395,8 @@
               <textbox label="Netto Teoritis" read-only="true" style="display: inline-block"></textbox>
             </div>
             <div class="col-md-3">
-              <au-numeric placeholder="Netto Teoritis" value.bind="ProduceBeamsNettoTheoritical" error.bind="error.ProduceBeamsNettoTheoritical"
-                read-only.bind="true"></au-numeric>
+              <au-numeric placeholder="Netto Teoritis" value.bind="ProduceBeamsNettoTheoritical"
+                error.bind="error.ProduceBeamsNettoTheoritical" read-only.bind="true"></au-numeric>
             </div>
             <div class="col-md-2" style="text-align:left;">
               <textbox label="SPU" read-only="true" style="display: inline-block"></textbox>
@@ -449,6 +449,23 @@
             </div>
           </div>
 
+          <div class="row" style="white-space: nowrap;">
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="Operator" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-3">
+              <au-autocomplete placeholder="Operator" value.bind="DoffOperator" error.bind="error.DoffOperator"
+                read-only.bind="readOnly" loader.bind="operators" text="Username"></au-autocomplete>
+            </div>
+            <div class="col-md-2 col-md-offset-1" style="text-align:left;">
+              <textbox label="Grup Sizing" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-2">
+              <au-textbox placeholder="Grup Sizing" value.bind="DoffOperator.Group" error.bind="error.DoffOperator"
+                read-only.bind="true"></au-textbox>
+            </div>
+          </div>
+
           <div class="row" style="white-space: nowrap">
             <div class="col-md-2" style="text-align:left;">
               <textbox label="Kecepatan Mesin" read-only="true" style="display: inline-block"></textbox>
@@ -456,14 +473,6 @@
             <div class="col-md-4">
               <au-numeric placeholder="Kecepatan Mesin" value.bind="DoffMachineSpeed"
                 error.bind="error.DoffMachineSpeed" read-only.bind="readOnly">
-              </au-numeric>
-            </div>
-            <div class="col-md-2" style="text-align:left;">
-              <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
-            </div>
-            <div class="col-md-4">
-              <au-numeric placeholder="TexSQ" value.bind="DoffTexSQ" error.bind="error.DoffTexSQ"
-                read-only.bind="readOnly">
               </au-numeric>
             </div>
           </div>
@@ -475,6 +484,14 @@
             <div class="col-md-4">
               <au-textbox placeholder="Visco" value.bind="DoffVisco" error.bind="error.DoffVisco"
                 read-only.bind="readOnly"></au-textbox>
+            </div>
+            <div class="col-md-2" style="text-align:left;">
+              <textbox label="TexSQ" read-only="true" style="display: inline-block"></textbox>
+            </div>
+            <div class="col-md-4">
+              <au-textbox placeholder="TexSQ" value.bind="DoffTexSQ" error.bind="error.DoffTexSQ"
+                read-only.bind="readOnly">
+              </au-textbox>
             </div>
           </div>
 

@@ -366,6 +366,9 @@ export class Update {
 
           this.data.ProduceBeamsPISMeter = resultPISMeter;
           this.ProduceBeamsPISMeter = resultPISMeter;
+          this.ProduceBeamsNetto = 0;
+          this.ProduceBeamsNettoTheoritical = 0;
+          this.ProduceBeamsSPU = 0;
           return this.service.calculatePISPieces(startCounter, newValue);
         }).then(resultPISPieces => {
           this.error.ProduceBeamsPISPieces = "";
@@ -389,7 +392,6 @@ export class Update {
   ProduceBeamsNettoChanged(newValue) {
     if (newValue) {
       let dataContainer = this.data;
-      let nettoContainer = this.ProduceBeamsNetto;
       let machineType = dataContainer.MachineType;
       let pisMeter;
       let yarnStrands;
@@ -408,7 +410,7 @@ export class Update {
           .then(resultKawamoto => {
             this.error.ProduceBeamsNettoTheoritical = "";
             this.ProduceBeamsNettoTheoritical = resultKawamoto;
-            return this.service.calculateSPU(nettoContainer, resultKawamoto);
+            return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
           }).then(resultSPU => {
             this.error.ProduceBeamsSPU = "";
             this.ProduceBeamsSPU = resultSPU;
@@ -424,7 +426,7 @@ export class Update {
           .then(resultSuckerMuller => {
             this.error.ProduceBeamsNettoTheoritical = "";
             this.ProduceBeamsNettoTheoritical = resultSuckerMuller;
-            return this.service.calculateSPU(nettoContainer, resultSuckerMuller);
+            return this.service.calculateSPU(this.ProduceBeamsNetto, this.ProduceBeamsNettoTheoritical);
           }).then(resultSPU => {
             this.error.ProduceBeamsSPU = "";
             this.ProduceBeamsSPU = resultSPU;
@@ -439,7 +441,7 @@ export class Update {
     }
   }
 
-  saveProduceBeam(){
+  saveProduceBeam() {
     var IdContainer = this.data.Id;
     var FinishCounterContainer = this.ProduceBeamsFinishCounter;
     var PISMeterContainer = this.ProduceBeamsPISMeter;
@@ -500,6 +502,7 @@ export class Update {
     var HistoryDateContainer = moment(this.DoffDate).utcOffset("+07:00").format();
     var HistoryTimeContainer = this.DoffTime;
     var ShiftContainer = this.DoffShift.Id;
+    var OperatorContainer = this.DoffOperator.Id;
 
     this.data = {};
     this.data.Id = IdContainer;
@@ -510,6 +513,7 @@ export class Update {
     this.data.SizingDetails.FinishDate = HistoryDateContainer;
     this.data.SizingDetails.FinishTime = HistoryTimeContainer;
     this.data.SizingDetails.ShiftId = ShiftContainer;
+    this.data.SizingDetails.OperatorDocumentId = OperatorContainer;
 
     this.service
       .updateDoff(this.data.Id, this.data)
