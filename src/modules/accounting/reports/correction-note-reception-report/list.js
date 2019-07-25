@@ -36,9 +36,28 @@ export class List {
             .then(result => {
                 this.info.total=result.info.total; 
                 this.data = result.data;
+                var datas = [];
                 for (var item of this.data){
-                    item.IncomeTaxDate=moment(item.IncomeTaxDate).format("DD MMM YYYY")=="01 Jan 0001"? "-" : moment(item.IncomeTaxDate).format("DD MMM YYYY");
+                    item.IncomeTaxDate=moment(item.IncomeTaxDate).format("DD MMM YYYY")=="01 Jan 0001" || moment(item.IncomeTaxDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.IncomeTaxDate).format("DD MMM YYYY");
+                    item.INDate=moment(item.INDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.INDate).format("DD MMM YYYY");                    
+     
+                    item.CorrectionQuantity=item.CorrectionQuantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.CorrectionAmount=item.CorrectionAmount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.DOQuantity=item.DOQuantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.PricePerDealUnit=item.PricePerDealUnit.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.PriceTotal=item.PriceTotal.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.Conversion=item.Conversion.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.SmallQuantity=item.SmallQuantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.ReceiptQuantity=item.ReceiptQuantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.URNPricePerDealUnit=item.URNPricePerDealUnit.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.URNPriceTotal=item.URNPriceTotal.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.URNConversion=item.URNConversion.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.URNSmallQuantity=item.URNSmallQuantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+                    datas.push(item);
                 }
+                this.data = datas;
+
               })
     }
 
