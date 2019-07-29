@@ -67,30 +67,30 @@ export class List {
       title: "No. Beam"
     },
     {
-      field: "PIS",
-      title: "PIS"
+      field: "PISMeter",
+      title: "PIS(m)"
     },
     {
-      field: "CounterStart",
+      field: "StartCounter",
       title: "Counter Awal"
     },
     {
-      field: "CounterFinish",
+      field: "FinishCounter",
       title: "Counter Akhir"
     },
     {
-      field: "WeightNetto",
+      field: "NettoWeight",
       title: "Netto"
     },
     {
-      field: "WeightBruto",
+      field: "BrutoWeight",
       title: "Bruto"
     },
     {
       field: "SPU",
       title: "SPU"
     }, {
-      field: "DateTimeMachineHistory",
+      field: "DateTimeDoff",
       title: "Waktu Doff",
       formatter: function (value, data, index) {
         return moment(value).format("HH:mm:ss");
