@@ -144,7 +144,6 @@ export class DataForm {
             this.data.Storage.Name = newValue.name;
             this.data.Storage.Code = newValue.code;
             this.filterDO = {UnitRequestName: this.data.Unit.Name, StorageRequestName: this.data.Storage.Name};
-            console.log(this.filterDO)
             this.context.selectedUnitDOViewModel.editorValue = "";
             this.selectedUnitDO = null;
             this.data.RONo = null;
@@ -176,14 +175,11 @@ export class DataForm {
             this.data.ReturnDate = new Date();
             let dataExpenditure = await this.purchasingService.getExpenditureNote({size: 1, filter : JSON.stringify({UnitDONo : newValue.UnitDONo})});
             let dataPreparing = await this.service.getPreparingByUENNo({size: 1, filter : JSON.stringify({UENNo : dataExpenditure.data[0].UENNo})});
-            console.log(dataExpenditure)
-            console.log(dataPreparing)
             this.data.UENId = dataExpenditure.data[0].Id;
             this.data.UnitDOId = newValue.Id;
             this.data.UnitDONo = newValue.UnitDONo;
 
             this.data.PreparingId = dataPreparing.data.length>0 ? dataPreparing.data[0].Id : null;
-            console.log(this.data.PreparingId)
             for(var itemUnitDO of newValue.Items){
                 for(var item of dataExpenditure.data[0].Items){
                     var qty = 0;
@@ -191,7 +187,7 @@ export class DataForm {
                     var RemainingQuantityPreparingItem = 0;
                     var QuantityUENItem = 0;
                     qty = item.Quantity;
-                    QuantityUENItem = item.Quantity;
+                    QuantityUENItem = item.Quantity - item.ReturQuantity;
                     if(dataPreparing.data.length>0){
                         for(var itemPreparing of dataPreparing.data[0].Items){
                             if(itemPreparing.UENItemId==item.Id){
@@ -236,7 +232,7 @@ export class DataForm {
             for(var dataItem of this.data.Items){
                 for(var itemExpenditure of dataExpenditure.data[0].Items){
                     if(dataItem.Product.Code == itemExpenditure.ProductCode){
-                        dataItem.QuantityUENItem = itemExpenditure.Quantity;
+                        dataItem.QuantityUENItem = itemExpenditure.Quantity - itemExpenditure.ReturQuantity;
                         if(dataPreparing.data.length>0){
                             for(var itemPreparing of dataPreparing.data[0].Items){
                                 if(itemPreparing.UENItemId == itemExpenditure.Id){
