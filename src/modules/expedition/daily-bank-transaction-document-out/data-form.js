@@ -32,7 +32,7 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         // this.data.Status = this.context.status || this.statusOptions[0];
-        this.data.SourceType = this.context.sourceType || this.sourceTypes[0];
+        this.data.SourceType = this.context.sourceType || this.data.SourceType;
         this.data.Bank = this.context.bank || this.data.Bank;
     }
 
