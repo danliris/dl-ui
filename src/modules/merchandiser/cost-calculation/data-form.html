@@ -104,7 +104,7 @@
                         <au-numeric label="Biaya Angkut" value.bind="freightCost" options.bind="length4" read-only="disabled"></au-numeric>
                     </div>
                     <div class="col-md-6">
-                        <au-numeric label="NET/FOB (%)" value.bind="NETFOBP" options.bind="length4" read-only="disabled"></au-numeric>
+                        <au-numeric label="NET/FOB (%)" value.one-way="NETFOBP" options.bind="length4" read-only="disabled"></au-numeric>
                     </div>
                 </div>
                 <au-multiline label="Keterangan" placeholder="Keterangan" value.bind="data.Description" error.bind="error.Description" options.bind="length4"></au-multiline>

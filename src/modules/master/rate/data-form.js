@@ -38,5 +38,8 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        if (this.data && this.data.Unit && !this.data.Unit.Id) {
+            this.data.Unit = null;
+        }
     }
 } 

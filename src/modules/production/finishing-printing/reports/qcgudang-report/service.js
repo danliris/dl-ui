@@ -2,12 +2,12 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'finishing-printing/reports/qcgudang';
+const serviceUri = 'finishing-printing/quality-control/packings/reports/qcgudang';
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production");
+        super(http, aggregator, config, "production-azure");
     }
 
     getReport(sdate, edate) {
@@ -29,7 +29,7 @@ export class Service extends RestService {
     }
 
     generateExcel(sdate, edate) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/downloads/xls`;
         var query = '';
         if (sdate) {
             if (query === '') query = `dateFrom=${sdate}`;

@@ -56,6 +56,7 @@ export class Create {
             this.data.MaterialComposition.push(itemDetail);
         } else {
             this.data.IsMixDrawing = true;
+            this.data.MaterialComposition = this.ItemsCollection.items;
         }
         this.service.create(this.data)
             .then(result => {

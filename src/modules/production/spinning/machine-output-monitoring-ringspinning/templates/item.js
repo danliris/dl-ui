@@ -43,7 +43,7 @@ export class Item {
 
         if (this.data.DeliveryTotal) {
             this.deliveryTotal = this.data.DeliveryTotal;
-        } 
+        }
 
         if (this.data.Spindle) {
             this.spindle = this.data.Spindle;
@@ -118,16 +118,20 @@ export class Item {
         var MachineSpinning = this.MachineSpinnings.find(x => x.Id == this.data.MachineSpinning.Id);
         if (this.processType == "Ring Spinning") {
             this.ringFormula(MachineSpinning);
-        } 
+        }
     }
 
     ringFormula(MachineSpinning) {
         if (this.data.MachineSpinning.UomUnit.toUpperCase() == "HANK") {
-            this.data.Bale = this.data.Output / 9775;
-            // this.data.Bale = ((this.data.Output * MachineSpinning.Delivery) / (this.CountConfig.Ne * 100)) / 400;
+            // this.data.Bale = this.data.Output / 9775;
+            this.data.Bale = (this.data.Output * MachineSpinning.Delivery) / (this.CountConfig.Ne * 400);
         } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "RND") {
             this.data.Bale = ((this.data.Output / (768 / (((22 / 7) * 2.5) / 100)) / this.CountConfig.Ne) / 400) * MachineSpinning.Delivery;
 
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "COUNTER") {
+
+            var hank = this.data.Output / 9775;
+            this.data.Bale = (hank * MachineSpinning.Delivery) / (this.CountConfig.Ne * 400);
         }
         else {
             this.data.Bale = this.data.Output;
