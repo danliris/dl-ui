@@ -67,7 +67,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    if(this.data.SCGarmentId)
+    if(this.data.ApprovalMD.IsApproved || this.data.SCGarmentId)
     {
       this.editCallback=null;
       this.deleteCallback=null;
