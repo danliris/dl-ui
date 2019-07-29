@@ -416,7 +416,7 @@ export class DataForm {
       });
       promises.push(OTL1);
 
-      let OTL2 = this.rateService.search({ keyword: JSON.stringify({ Name: "OTL 2", UnitCode: UnitCode }) }).then((results) => {
+      let OTL2 = this.rateService.search({ filter: JSON.stringify({ Name: "OTL 2", UnitCode: UnitCode }) }).then((results) => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
         return result;
@@ -486,9 +486,9 @@ export class DataForm {
     return productionCost;
   }
 
-  @computedFrom('data.ConfirmPrice', 'data.Rate', 'data.CommissionRate')
+  @computedFrom('data.ConfirmPrice', 'data.Insurance', 'data.Freight', 'data.Rate', 'data.CommissionRate')
   get NETFOB() {
-    let NETFOB = this.data.ConfirmPrice * this.data.Rate.Value - this.data.CommissionRate;
+    let NETFOB = (this.data.ConfirmPrice - this.data.Insurance - this.data.Freight) * this.data.Rate.Value - this.data.CommissionRate;
     NETFOB = numeral(NETFOB).format();
     this.data.NETFOB = numeral(NETFOB).value();
     return NETFOB;
@@ -503,6 +503,7 @@ export class DataForm {
     }
     freightCost = numeral(freightCost).format();
     this.data.FreightCost = numeral(freightCost).value();
+    
     return freightCost;
   }
 
