@@ -17,9 +17,18 @@
         </au-datepicker> 
 
         <au-numeric  
-            label="Maksimal WH Confirm" 
-            value.bind="data.MaxValue"
-            error.bind="error.wh"
+            label="Maksimal WH Confirm Unit" 
+            value.bind="data.UnitMaxValue"
+            error.bind="error.Unitwh"
+            read-only.bind="readOnly"
+            options.bind="controlOptions2"
+            format="0.00">
+        </au-numeric>
+
+        <au-numeric  
+            label="Maksimal WH Confirm SK" 
+            value.bind="data.SKMaxValue"
+            error.bind="error.SKwh"
             read-only.bind="readOnly"
             options.bind="controlOptions2"
             format="0.00">
