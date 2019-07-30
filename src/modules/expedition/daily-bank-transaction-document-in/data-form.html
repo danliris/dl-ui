@@ -106,7 +106,7 @@
             text.bind="buyerView"
             placeholder="cari buyer"
             read-only.bind="readOnly"
-            if.bind="isFrom"
+            if.bind="isFrom && data.SourceType != 'Pendanaan'"
             options.bind="controlOptions">
         </au-autocomplete>
 
