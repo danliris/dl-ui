@@ -10,8 +10,8 @@
 
   <div class="row" show.bind="ShowHideByDatePeriod">
     <div class="col-md-4" style="white-space: nowrap;">
-      <au-datepicker label="Harian" value.bind="DatePeriod" error.bind="error.DatePeriod"
-        read-only.bind="readOnly" options.bind="startPeriodOptions">
+      <au-datepicker label="Harian" value.bind="DatePeriod" error.bind="error.DatePeriod" read-only.bind="readOnly"
+        options.bind="startPeriodOptions">
       </au-datepicker>
     </div>
   </div>
@@ -52,6 +52,13 @@
     <div class="col-md-4" style="white-space: nowrap;">
       <au-autocomplete label="Unit Weaving" value.bind="WeavingUnit" error.bind="error.WeavingUnit"
         read-only.bind="readOnly" loader.bind="units" text="Name" options.bind="controlOptions"></au-autocomplete>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4" style="white-space: nowrap;">
+      <au-dropdown label="SPU" value.bind="SPU" error.bind="error.SPU"
+        read-only.bind="readOnly" items.bind="pickups"options.bind="controlOptions"></au-dropdown>
     </div>
   </div>
 

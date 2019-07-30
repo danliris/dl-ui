@@ -31,6 +31,8 @@ export class List {
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
+  pickups = ["", "Diatas Standar", "Dibawah Standar", "Sesuai Standar"]
+
   columns = [{
       field: "DateTimeMachineHistory",
       title: "Tanggal Selesai",
@@ -90,7 +92,7 @@ export class List {
       field: "SPU",
       title: "SPU"
     }, {
-      field: "DateTimeDoff",
+      field: "DateTimeMachineHistory",
       title: "Waktu Doff",
       formatter: function (value, data, index) {
         return moment(value).format("HH:mm:ss");
@@ -167,8 +169,19 @@ export class List {
 
     if (this.MonthlyPeriod) {
       var MonthContainer = this.MonthlyPeriod;
-      var ShiftIdContainer = this.Shift.Id;
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        SPUContainer = this.SPU;
+      } else {
+        SPUContainer = "All"
+      }
 
       switch (MonthContainer) {
         case "Januari":
@@ -223,8 +236,19 @@ export class List {
         total: 0
       };
     } else if (this.StartDatePeriod && this.EndDatePeriod) {
-      var ShiftIdContainer = this.Shift.Id;
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        SPUContainer = this.SPU;
+      } else {
+        SPUContainer = "All"
+      }
 
       var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MM YYYY") : null;
       var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
@@ -240,8 +264,19 @@ export class List {
         total: 0
       };
     } else if (this.DatePeriod) {
-      var ShiftIdContainer = this.Shift.Id;
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        SPUContainer = this.SPU;
+      } else {
+        SPUContainer = "All"
+      }
 
       var DatePeriodContainer = this.DatePeriod ? moment(this.DatePeriod).format("DD MM YYYY") : null;
 
