@@ -40,7 +40,6 @@ export class Item {
         if (this.data.BadOutput) {
             this.badOutput = this.data.BadOutput;
         }
-        debugger;
         if (this.data.DeliveryTotal) {
             this.deliveryTotal = this.data.DeliveryTotal;
         } else {
@@ -51,7 +50,7 @@ export class Item {
             }
 
         }
-        
+
 
         if (this.data.Spindle) {
             this.spindle = this.data.Spindle;
@@ -143,6 +142,8 @@ export class Item {
             this.data.Bale = (this.data.Output * spd / (this.CountConfig.Ne * 400));
             // this.data.Bale = (this.data.Output * 0.01 / this.CountConfig.Ne) / 400;
 
+        } else if (this.data.MachineSpinning.UomUnit.toUpperCase() == "COUNTER") {
+            this.data.Bale = ((this.data.Output * 28.5 * 3.14 * this.CountConfig.TotalDraft) * (this.data.DeliveryTotal - this.data.Spindle)) / (this.CountConfig.Ne * 1000 * 768 * 400);
         } else {
             this.data.Bale = this.data.Output;
         }
