@@ -39,9 +39,9 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getDataByMonth(month, weavingUnitId, shiftId) {
+  getDataByMonth(month, weavingUnitId, shiftId, spu) {
     var periodType = "month";
-    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}`;
+    var endpoint = `${serviceUri}/${periodType}/${month}/unit-id/${weavingUnitId}/shift/${shiftId}/spu/${spu}`;
     return super.get(endpoint);
   }
 

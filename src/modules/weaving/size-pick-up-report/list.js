@@ -178,7 +178,17 @@ export class List {
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
       var SPUContainer;
       if (this.SPU) {
-        SPUContainer = this.SPU;
+        switch (this.SPU) {
+          case "Diatas Standar":
+            SPUContainer = "Upper Limit";
+            break;
+          case "Dibawah Standar":
+            SPUContainer = "Lower Limit";
+            break;
+          case "Sesuai Standar":
+            SPUContainer = "Standard";
+            break;
+        }
       } else {
         SPUContainer = "All"
       }
@@ -225,7 +235,7 @@ export class List {
           break;
       }
 
-      return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+      return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
         console.log(result);
         return {
           data: result,
