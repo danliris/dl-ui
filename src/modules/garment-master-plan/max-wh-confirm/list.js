@@ -12,7 +12,8 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "MaxValue", title: "Maksimal WH Confirm" },
+        { field: "UnitMaxValue", title: "Maksimal WH Confirm Unit" },
+        { field: "SKMaxValue", title: "Maksimal WH Confirm SK" },
     ];
     options = {};
 

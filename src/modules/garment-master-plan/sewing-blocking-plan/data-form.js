@@ -293,7 +293,6 @@ export class DataForm {
                     }
                 }
                 
-                    console.log(detail.oldVal)
                 if(detail.oldVal){
                     if(detail.oldVal.year && detail.oldVal.unitCode && detail.oldVal.weekNumber){
                         let cat=detail.oldVal.year.toString() + detail.oldVal.unitCode.toString()+ detail.oldVal.weekNumber.toString();
