@@ -102,10 +102,12 @@ export class Item {
                         }
                     }
 
-                    console.log(newV)
-                    let vat = newV.useVat ?Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
-                    let incomeTax = newV.useIncomeTax ?  Number((totalPaid * 0.1).toFixed(2)) : 0;
+                    // console.log(newV)
+                    // console.log(totalPaid);
+                    let vat = newV.useVat ?Number((totalPaid * 0.1).toFixed(2)) : 0;
+                    let incomeTax = newV.useIncomeTax ?  Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
                     let income= newV.useIncomeTax? newV.incomeTax : null;
+                    // console.log(vat);
                     Object.assign(this.data, {
                         id: newV._id,
                         no: newV.no,
