@@ -40,6 +40,17 @@ export class DataForm {
         if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
           this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
         }
+
+        var arg = {
+            page:  1,
+            size: 1,
+        }
+
+        this.data.maxWH= await this.service.searchWHConfirm(arg)
+            .then(result => {
+                return result.data[0].UnitMaxValue + result.data[0].SKMaxValue;
+                
+            });
     }
 
     @computedFrom("data.Id")
