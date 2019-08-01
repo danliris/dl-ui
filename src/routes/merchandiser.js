@@ -112,7 +112,7 @@ module.exports = [
         name: 'garment-sales-contract',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
         nav: true,
-        title: 'Sales Contract - Garment',
+        title: 'Sales Contract Per RO',
         auth: true,
         settings: {
             group: "merchandiser",
