@@ -99,7 +99,7 @@ module.exports = [
         name: 'ro-garment-validation',
         moduleId: './modules/merchandiser/ro-garment-validation/index',
         nav: true,
-        title: 'Validasi RO Garment',
+        title: 'Validasi RO PPIC',
         auth: true,
         settings: {
             group: "merchandiser",
