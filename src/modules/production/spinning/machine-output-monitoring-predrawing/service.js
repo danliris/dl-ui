@@ -37,7 +37,10 @@ export class Service extends RestService {
         let endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
-
+    getCountById(id){
+        var endpoint = `${countUri}/${id}`;
+        return super.get(endpoint);
+    }
     delete(data) {
         let endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);

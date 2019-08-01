@@ -260,69 +260,7 @@ export class DataForm {
         }
     }
 
-    // processTypeChanged(n, o) {
-    //     if (this.processType && this.processType != "") {
-    //         this.data.ProcessType = this.processType;
-    //         this.detailOptions.ProcessType = this.processType;
-    //         if (this.processType == "Blowing") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Bad Output",
-    //                 "Eff%"
-    //             ];
-
-    //         } else if (this.processType == "Flyer") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Total Delivery",
-    //                 "Spindle Kosong",
-    //                 "Eff%"
-    //             ];
-    //         } else if (this.processType == "Winder") {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Waste",
-    //                 "Total Drum",
-    //                 "Eff%"
-    //             ];
-    //         } else {
-    //             this.itemsColumnsHeader = [
-    //                 "Nomor Mesin",
-    //                 "Merk Mesin",
-    //                 "Output (Counter)",
-    //                 "UOM",
-    //                 "Bale",
-    //                 "Eff%"
-    //             ];
-    //         }
-    //         this.isItem = true;
-    //         this.fillItems();
-    //     } else {
-    //         this.data.ProcessType = null;
-    //         this.data.Items = [];
-    //         this.itemsColumnsHeader = [
-    //             "Nomor Mesin",
-    //             "Merk Mesin",
-    //             "Output (Counter)",
-    //             "UOM",
-    //             "Bale",
-    //             "Eff%"
-    //         ];
-    //         this.isItem = false;
-    //     }
-    // }
+    
 
     inputDateChanged(n, o) {
         if (this.inputDate) {
