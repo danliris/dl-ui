@@ -5,6 +5,7 @@ import moment from 'moment';
 var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
+var CountConfigurationLoader = require('../../../../loader/count-configuration-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -23,6 +24,7 @@ export class DataForm {
     @bindable isItem = true;
     @bindable detailOptions;
     @bindable error;
+    @bindable countConfiguration;
 
     formOptions = {
         cancelText: "Kembali",
@@ -41,7 +43,7 @@ export class DataForm {
         "Ring Spinning",
         "Winder"
     ];
-
+    countFilter = {};
     get filters() {
         var filters = {
             isEdit: this.context.isEdit,
@@ -126,7 +128,10 @@ export class DataForm {
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
         }
-
+        if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
+            
+            this.countConfiguration = this.data.countRes;
+        }
         if (this.data.MaterialType && this.data.MaterialType.Id) {
             this.materialType = {};
             this.materialType.Id = this.data.MaterialType.Id;
@@ -186,7 +191,7 @@ export class DataForm {
             this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
                 .then(async results => {
                     let existedItem = {};
-                    this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId, this.data.LotId, this.data.UnitDepartmentId);
+                    this.detailOptions.CountConfig = this.countConfiguration;
                     if (!this.detailOptions.CountConfig) {
                         this.error.LotId = "Count is not created with this Lot";
                         return [];
@@ -382,11 +387,34 @@ export class DataForm {
         }
 
     }
+    countConfigurationChanged(n, o) {
+        if (this.countConfiguration && this.countConfiguration.Id) {
+            this.data.CountConfigurationId = this.countConfiguration.Id;
 
+
+            var yarnInCount = this.countConfiguration.MaterialComposition[0];
+            if (yarnInCount) {
+                this.materialType = {
+                    "Id": yarnInCount.YarnId,
+                    "Name": yarnInCount.YarnName
+                };
+                this.lot = {
+                    "Id": yarnInCount.LotId,
+                    "LotNo": yarnInCount.LotNo
+                };
+            }
+
+
+
+        } else {
+            this.data.CountConfigurationId = null;
+        }
+    }
     unitChanged(newValue, oldValue) {
 
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
+            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = 0;
@@ -416,5 +444,9 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get countConfigurationLoader() {
+        return CountConfigurationLoader;
     }
 }
