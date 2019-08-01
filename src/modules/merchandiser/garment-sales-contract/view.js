@@ -5,6 +5,9 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class View {
+    hasEdit = true;
+    hasDelete = true;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -13,6 +16,13 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if (this.data && this.data.CostCalculationId) {
+            let costCal = await this.service.getCostCalById(this.data.CostCalculationId);
+            if (costCal.RO_GarmentId) {
+                this.hasEdit = false;
+                this.hasDelete = false;
+            }
+        }
         this.hasItems=true;
     }
 
