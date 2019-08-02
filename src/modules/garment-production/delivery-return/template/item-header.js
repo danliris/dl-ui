@@ -5,6 +5,18 @@ export class ItemHeader {
       this.data = context.items;
       this.error = context.error;
       this.options = this.context.options;
+      var count = 0;
+      if(this.data.length>0){
+        for(var item of this.data){
+          if(item.data.IsSave == true){
+            count = count+1;
+          }
+        }
+      }
+      if(this.options.isEdit == true && count>0)
+      {
+        this.options.checkedAll = true;
+      }
     }
   
     controlOptions = {
