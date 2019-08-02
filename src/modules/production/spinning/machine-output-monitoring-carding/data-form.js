@@ -142,7 +142,7 @@ export class DataForm {
         }
 
         if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
-            
+
             this.countConfiguration = this.data.countRes;
         }
 
@@ -201,7 +201,7 @@ export class DataForm {
                         existedItem = this.data;
                     }
                     else {
-                        
+
                         existedItem = {};
                         existedItem.Items = [];
                         // }
@@ -244,7 +244,7 @@ export class DataForm {
         }
     }
 
-    
+
     inputDateChanged(n, o) {
         if (this.inputDate) {
             this.data.Date = this.inputDate;
@@ -370,5 +370,16 @@ export class DataForm {
     }
     get countConfigurationLoader() {
         return CountConfigurationLoader;
+    }
+
+    countView(count) {
+        var materialComposition = count.MaterialComposition;
+        
+        if (materialComposition) {
+            return count.Count + " - " + materialComposition[0].LotNo;
+        } else {
+            return count.Count;
+        }
+
     }
 }

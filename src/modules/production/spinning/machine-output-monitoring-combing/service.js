@@ -44,7 +44,13 @@ export class Service extends RestService {
     }
     getCountById(id){
         var endpoint = `${countUri}/${id}`;
-        return super.get(endpoint);
+        return super.get(endpoint)
+            .then(result => {
+                return result;
+            })
+            .catch(err =>{
+                return {};
+            });
     }
     getByHeader(date, processType, yarnMaterialId, lotId, shift, group, unitId) {
         var newDate = moment(date).format("DD MMM YYYY")

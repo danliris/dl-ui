@@ -487,4 +487,15 @@ export class DataForm {
             this.data.UnitDepartmentId = null;
         }
     }
+
+    countView(count) {
+        var materialComposition = count.MaterialComposition;
+
+        if (materialComposition) {
+            return count.Count + " - " + materialComposition[0].LotNo;
+        } else {
+            return count.Count;
+        }
+
+    }
 }

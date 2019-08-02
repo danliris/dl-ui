@@ -15,9 +15,9 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-autocomplete show.bind="unit" query.bind="countFilter" label="Count" value.bind="countConfiguration"
-            error.bind="error.CountConfigurationId" loader.bind="countConfigurationLoader" placeholder="Cari count"
-            key="Id" text="Count" read-only.bind="readOnly" options.bind="controlOptions">
+        <au-autocomplete show.bind="unit" query.bind="countFilter" label="Count" value.bind="countConfiguration" error.bind="error.CountConfigurationId"
+            loader.bind="countConfigurationLoader" placeholder="Cari count" key="Id" text.bind="countView"
+            read-only.bind="readOnly" options.bind="controlOptions">
         </au-autocomplete>
 
         <au-autocomplete show.bind="unit" label="Nama Benang" value.bind="materialType"

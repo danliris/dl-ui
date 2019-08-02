@@ -78,7 +78,7 @@ export class DataForm {
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
-        console.log(this);
+        // console.log(this);
         // this.bindingEngine = bindingEngine
     }
 
@@ -192,6 +192,7 @@ export class DataForm {
                 .then(async results => {
                     let existedItem = {};
                     this.detailOptions.CountConfig = this.countConfiguration;
+                    console.log(this.countConfiguration);
                     if (!this.detailOptions.CountConfig) {
                         this.error.LotId = "Count is not created with this Lot";
                         return [];
@@ -358,7 +359,10 @@ export class DataForm {
                 this.data.LotId = this.lot.Id;
                 this.fillItems();
             } else {
-                this.error.LotId = "Count is not created with this Lot";
+                if (this.error) {
+                    this.error.LotId = "Count is not created with this Lot";
+                }
+
             }
 
         } else {
@@ -441,5 +445,16 @@ export class DataForm {
     }
     get countConfigurationLoader() {
         return CountConfigurationLoader;
+    }
+
+    countView(count) {
+        var mixDrawingLotNo = count.MixDrawingLotNo;
+
+        if (mixDrawingLotNo) {
+            return count.Count + " - " + mixDrawingLotNo;
+        } else {
+            return count.Count;
+        }
+
     }
 }
