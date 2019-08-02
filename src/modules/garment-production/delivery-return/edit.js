@@ -26,10 +26,10 @@ export class Edit {
     }
 
     saveCallback(event) {
-        let objData = {};
-        let data = Object.assign(objData, this.data)
-        data.Items = data.Items.filter(x => x.IsSave==true);
-        this.service.update(data)
+        // let objData = {};
+        // let data = Object.assign(objData, this.data)
+        // data.Items = data.Items.filter(x => x.IsSave==true);
+        this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();
             })
