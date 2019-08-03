@@ -5,7 +5,7 @@ import moment from 'moment';
 var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
-
+var CountConfigurationLoader = require('../../../../loader/count-configuration-loader');
 @inject(Service, CoreService)
 export class DataForm {
     @bindable isCreate = false;
@@ -23,7 +23,7 @@ export class DataForm {
     @bindable isItem = true;
     @bindable detailOptions;
     @bindable error;
-
+    @bindable countConfiguration;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -47,7 +47,7 @@ export class DataForm {
             isEdit: this.context.isEdit,
         }
     }
-
+    countFilter = {};
     shiftList = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"];
     detailOptions = {};
     itemsColumnsHeader = [
@@ -137,7 +137,10 @@ export class DataForm {
         if (this.data.Date) {
             this.inputDate = this.data.Date;
         }
-
+        if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
+            
+            this.countConfiguration = this.data.countRes;
+        }
         if (this.data.Shift) {
             this.shift = this.data.Shift;
         }
@@ -186,7 +189,7 @@ export class DataForm {
             this.data.Items = await this.coreService.searchMachineSpinning(this.filter.UnitId, this.filter.Type)
                 .then(async results => {
                     let existedItem = {};
-                    this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId, this.data.LotId, this.data.UnitDepartmentId);
+                    this.detailOptions.CountConfig = this.countConfiguration;
                     if (!this.detailOptions.CountConfig) {
                         this.error.LotId = "Count is not created with this Lot";
                         return [];
@@ -387,13 +390,36 @@ export class DataForm {
 
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
+            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = 0;
             this.data.Items = [];
         }
     }
+    countConfigurationChanged(n, o) {
+        if (this.countConfiguration && this.countConfiguration.Id) {
+            this.data.CountConfigurationId = this.countConfiguration.Id;
 
+
+            var yarnInCount = this.countConfiguration.MaterialComposition[0];
+            if (yarnInCount) {
+                this.materialType = {
+                    "Id": yarnInCount.YarnId,
+                    "Name": yarnInCount.YarnName
+                };
+                this.lot = {
+                    "Id": yarnInCount.LotId,
+                    "LotNo": yarnInCount.LotNo
+                };
+            }
+
+
+
+        } else {
+            this.data.CountConfigurationId = null;
+        }
+    }
     get lotLoader() {
         //return LotLoader;
         return LotLoader;
@@ -416,5 +442,20 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get countConfigurationLoader() {
+        return CountConfigurationLoader;
+    }
+
+    countView(count) {
+        var materialComposition = count.MaterialComposition;
+        
+        if (materialComposition) {
+            return count.Count + " - " + materialComposition[0].LotNo;
+        } else {
+            return count.Count;
+        }
+
     }
 }
