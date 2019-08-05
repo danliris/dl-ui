@@ -154,5 +154,18 @@ module.exports = [
             permission: { "B1": 1, "C9": 1 },
             iconClass: 'fa fa-clone'
         }
+    },
+    {
+        route: 'garment-correction-note-expenditure/reports',
+        name: 'garment-correction-note-expenditure-report',
+        moduleId: './modules/accounting/reports/correction-note-expenditure-report/index',
+        nav: true,
+        title: 'Laporan Data Pengeluaran Nota Koreksi',
+        auth: true,
+        settings: {
+            group: "accounting",
+            permission: { "B1": 1, "C9": 1 },
+            iconClass: 'fa fa-clone'
+        }
     }
 ];

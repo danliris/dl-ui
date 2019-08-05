@@ -238,7 +238,7 @@ export class DataForm {
                         if(dataPreparing.data.length>0){
                             for(var itemPreparing of dataPreparing.data[0].Items){
                                 if(itemPreparing.UENItemId == itemExpenditure.Id){
-                                    dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
+                                    dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity + dataItem.Quantity;
                                 }
                             }
                         }
