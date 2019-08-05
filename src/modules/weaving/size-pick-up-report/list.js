@@ -136,22 +136,34 @@ export class List {
     switch (newValue) {
       case "":
         this.ShowHideByDatePeriod = false;
+        this.DatePeriod = "";
         this.ShowHideByDateRangePeriod = false;
+        this.StartDatePeriod = "";
+        this.EndDatePeriod = "";
         this.ShowHideMonthlyPeriod = false;
+        this.MonthlyPeriod = "";
         break;
       case "Harian":
         this.ShowHideByDatePeriod = true;
         this.ShowHideByDateRangePeriod = false;
+        this.StartDatePeriod = "";
+        this.EndDatePeriod = "";
         this.ShowHideMonthlyPeriod = false;
+        this.MonthlyPeriod = "";
         break;
       case "Rekap":
         this.ShowHideByDatePeriod = false;
+        this.DatePeriod = "";
         this.ShowHideByDateRangePeriod = true;
         this.ShowHideMonthlyPeriod = false;
+        this.MonthlyPeriod = "";
         break;
       case "Bulanan":
         this.ShowHideByDatePeriod = false;
+        this.DatePeriod = "";
         this.ShowHideByDateRangePeriod = false;
+        this.StartDatePeriod = "";
+        this.EndDatePeriod = "";
         this.ShowHideMonthlyPeriod = true;
     }
   }
