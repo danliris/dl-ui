@@ -30,7 +30,6 @@ export class ROGarmentSizeBreakdown {
     }
 
     activate(context) {
-        console.log(context);
         this.context = context;
         this.data = this.context.data;
         this.columns = this.context.context.columns;

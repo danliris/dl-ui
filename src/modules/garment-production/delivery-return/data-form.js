@@ -143,7 +143,7 @@ export class DataForm {
             this.data.Storage.Id = newValue._id;
             this.data.Storage.Name = newValue.name;
             this.data.Storage.Code = newValue.code;
-            this.filterDO = {UnitRequestName: this.data.Unit.Name, StorageRequestName: this.data.Storage.Name};
+            this.filterDO = {UnitSenderName: this.data.Unit.Name, StorageName: this.data.Storage.Name, UnitDOType: "PROSES"};
             this.context.selectedUnitDOViewModel.editorValue = "";
             this.selectedUnitDO = null;
             this.data.RONo = null;
@@ -198,6 +198,8 @@ export class DataForm {
                                 }
                             }
                         }
+                    } else if(dataPreparing.data.length == 0 && item.ProductName == "FABRIC"){
+                        qty = 0;
                     }
                     
                     var product = {};
@@ -236,7 +238,7 @@ export class DataForm {
                         if(dataPreparing.data.length>0){
                             for(var itemPreparing of dataPreparing.data[0].Items){
                                 if(itemPreparing.UENItemId == itemExpenditure.Id){
-                                    dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity;
+                                    dataItem.RemainingQuantityPreparingItem = itemPreparing.RemainingQuantity + dataItem.Quantity;
                                 }
                             }
                         }

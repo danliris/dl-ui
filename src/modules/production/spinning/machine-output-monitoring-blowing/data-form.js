@@ -6,6 +6,7 @@ var LotLoader = require('../../../../loader/lot-configuration-loader');
 var MaterialTypeLoader = require('../../../../loader/material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var MachineSpinningLoader = require('../../../../loader/machine-spinning-for-blowing-loader');
+var CountConfigurationLoader = require('../../../../loader/count-configuration-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -30,6 +31,7 @@ export class DataForm {
     @bindable details2 = [];
     @bindable details3 = [];
     @bindable details4 = [];
+    @bindable countConfiguration;
 
     formOptions = {
         cancelText: "Kembali",
@@ -66,6 +68,7 @@ export class DataForm {
     machineSpinningFilter = {};
     masterFilter = {};
     lotFilter = {};
+    countFilter = {};
     controlOptions = {
         label: {
             length: 4,
@@ -78,13 +81,19 @@ export class DataForm {
     items = [];
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     machineSpinningFilter = {};
+    totalOutput = 0;
+    totalOutputNett = 0;
+    totalBale = 0;
+    totalBaleNett = 0;
+    totalEff = 0;
+    totalEffNet = 0;
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
 
     }
 
-    bind(context) {
+    async bind(context) {
 
         this.context = context;
         this.data = this.context.data;
@@ -116,6 +125,11 @@ export class DataForm {
         }
         if (this.data.ProcessType) {
             this.processType = this.data.ProcessType;
+        }
+
+        if (this.data.CountConfiguration && this.data.CountConfiguration.Id) {
+            
+            this.countConfiguration = this.data.countRes;
         }
 
         if (this.data.MaterialType && this.data.MaterialType.Id) {
@@ -168,8 +182,8 @@ export class DataForm {
         if (this.data.UnitDepartmentId && this.data.MaterialTypeId && this.data.LotId && this.machineSpinning) {
             this.isItem = true;
             this.detailOptions.UomUnit = this.machineSpinning.UomUnit;
-
-            this.detailOptions.CountConfig = this.detailOptions.CountConfig = await this.service.getCountByProcessAndYarn(this.data.ProcessType, this.data.MaterialTypeId, this.data.LotId, this.data.UnitDepartmentId);
+            await this.service.validateLotInCount(this.data.LotId, this.processType);
+            this.detailOptions.CountConfig = this.countConfiguration;
             if (!this.detailOptions.CountConfig) {
                 if (this.error) {
                     this.error.LotId = "Count is not created with this Lot";
@@ -189,13 +203,7 @@ export class DataForm {
 
                 this.data.Items[0].MachineSpinningIdentity = this.machineSpinning.Id;
                 this.data.Items[0].BlowingDetails = this.details1.concat(this.details2, this.details3, this.details4);
-                this.data.Items[0].Output = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-                if (this.machineSpinning.UomUnit.toUpperCase() == "KG") {
-                    this.data.Items[0].Bale = (this.data.Items[0].Output / 181.44) * this.machineSpinning.Delivery;
-                } else {
-                    this.data.Items[0].Bale = this.data.Items[0].Output;
-                }
-                this.data.Items[0].Eff = this.data.Items[0].Bale * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+                
                 this.data.MachineSpinning = this.machineSpinning;
                 this.data.CountConfig = this.detailOptions.CountConfig
 
@@ -217,13 +225,7 @@ export class DataForm {
                 var item = {};
                 item.MachineSpinningIdentity = this.machineSpinning.Id;
                 item.BlowingDetails = this.details1.concat(this.details2, this.details3, this.details4);
-                item.Output = item.BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-                if (this.machineSpinning.UomUnit.toUpperCase() == "KG") {
-                    item.Bale = (item.Output / 181.44) * this.machineSpinning.Delivery;
-                } else {
-                    item.Bale = item.Output;
-                }
-                item.Eff = item.Bale * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
+                
                 this.data.MachineSpinning = this.machineSpinning;
                 this.data.CountConfig = this.detailOptions.CountConfig
                 this.data.Items.push(item);
@@ -246,6 +248,30 @@ export class DataForm {
         } else {
             this.data.Date = null;
             // this.data.Items = [];
+        }
+    }
+
+    countConfigurationChanged(n, o) {
+        if (this.countConfiguration && this.countConfiguration.Id) {
+            this.data.CountConfigurationId = this.countConfiguration.Id;
+
+
+            var yarnInCount = this.countConfiguration.MaterialComposition[0];
+            if (yarnInCount) {
+                this.materialType = {
+                    "Id": yarnInCount.YarnId,
+                    "Name": yarnInCount.YarnName
+                };
+                this.lot = {
+                    "Id": yarnInCount.LotId,
+                    "LotNo": yarnInCount.LotNo
+                };
+            }
+
+
+
+        } else {
+            this.data.CountConfigurationId = null;
         }
     }
 
@@ -326,7 +352,8 @@ export class DataForm {
 
     get grandTotal() {
         if (this.data.Items) {
-            return this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+            this.totalOutput = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+            return this.totalOutput;
         }
     }
 
@@ -335,10 +362,25 @@ export class DataForm {
             if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
                 var result = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
                 result = result - (1.6 * this.data.Items[0].BlowingDetails.filter(a => a.Output != 0).length);
+                this.totalOutputNett = result;
+                if (this.data.Items[0]) {
+                    this.data.Items[0].Output = result;
+                }
+                return result;
+            } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
+                var result = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+                result = result - (1600 * this.data.Items[0].BlowingDetails.filter(a => a.Output != 0).length);
+                this.totalOutputNett = result;
+                if (this.data.Items[0]) {
+                    this.data.Items[0].Output = result;
+                }
                 return result;
             } else {
                 var result = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-                result = result - (1600 * this.data.Items[0].BlowingDetails.filter(a => a.Output != 0).length);
+                this.totalOutputNett = result;
+                if (this.data.Items[0]) {
+                    this.data.Items[0].Output = result;
+                }
                 return result;
             }
         }
@@ -346,85 +388,68 @@ export class DataForm {
 
     get grandTotalBale() {
         if (this.data.Items) {
-            let outputDisplay = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
+            let outputDisplay = this.totalOutput;
             if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
-
-                return (outputDisplay / 181.44);
+                this.totalBale = (outputDisplay / 181.44)
+                return this.totalBale;
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return (outputDisplay / (1000 * 181.44));
+                this.totalBale = (outputDisplay / (1000 * 181.44));
+                return this.totalBale
             }
             else {
-                return outputDisplay;
+
+                this.totalBale = outputDisplay;
+                return this.totalBale;
             }
         }
     }
 
     get grandTotalBaleNett() {
         if (this.data.Items) {
-            let outputDisplay = 0;
-            if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
-                var result = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-                outputDisplay = result - (1.6 * this.data.Items[0].BlowingDetails.filter(a => a.Output != 0).length);
-                
-            } else {
-                var result = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-                outputDisplay = result - (1600 * this.data.Items[0].BlowingDetails.filter(a => a.Output != 0).length);
-                
-            }
+            let outputDisplay = this.totalOutputNett;
+
             if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
 
-                return (outputDisplay / 181.44);
+                this.totalBaleNett = (outputDisplay / 181.44);
+                if (this.data.Items[0]) {
+                    this.data.Items[0].Bale = this.totalBaleNett;
+                }
+                return this.totalBaleNett;
             } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                return (outputDisplay / (1000 * 181.44));
+                this.totalBaleNett = (outputDisplay / (1000 * 181.44));
+                if (this.data.Items[0]) {
+                    this.data.Items[0].Bale = this.totalBaleNett;
+                }
+                return this.totalBaleNett;
             }
             else {
-                return outputDisplay;
+                this.totalBaleNett = outputDisplay;
+                return this.totalBaleNett;
             }
         }
     }
 
     get grandEff() {
         if (this.data.Items && this.detailOptions.CountConfig && this.machineSpinning) {
-            let baleDisplay = 0;
-            let outputDisplay = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-            if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
+            let baleDisplay = this.totalBale;
 
-                baleDisplay = (outputDisplay / 181.44) * this.machineSpinning.Delivery;
-            } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                baleDisplay = (outputDisplay / (1000 * 181.44)) * this.machineSpinning.Delivery;
-            } else {
-                baleDisplay = outputDisplay;
-            }
             // this.data.Eff = (this.data.Bale / (MachineSpinning.CapacityPerHour / 3)) * 100;
             // return baleDisplay * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
-            return (baleDisplay / (this.machineSpinning.CapacityPerHour / 3)) * 100;
+            this.totalEff = (baleDisplay / (this.machineSpinning.CapacityPerHour / 3)) * 100;
+            return this.totalEff;
         }
 
     }
 
     get grandEffNett() {
         if (this.data.Items && this.detailOptions.CountConfig && this.machineSpinning) {
-            let baleDisplay = 0;
-            let outputDisplay = 0;
-            if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
-                var result = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-                outputDisplay = result - (1.6 * this.data.Items[0].BlowingDetails.filter(a => a.Output != 0).length);
-                
-            } else {
-                var result = this.data.Items[0].BlowingDetails.reduce((a, b) => +a + +b.Output, 0);
-                outputDisplay = result - (1600 * this.data.Items[0].BlowingDetails.filter(a => a.Output != 0).length);
-                
-            }
-            if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "KG") {
+            let baleDisplay = this.totalBaleNett;
 
-                baleDisplay = (outputDisplay / 181.44) * this.machineSpinning.Delivery;
-            } else if (this.machineSpinning && this.machineSpinning.UomUnit.toUpperCase() == "GRAM") {
-                baleDisplay = (outputDisplay / (1000 * 181.44)) * this.machineSpinning.Delivery;
+            this.totalEffNet = (baleDisplay / (this.machineSpinning.CapacityPerHour / 3)) * 100;
+            if (this.data.Items[0]) {
+                this.data.Items[0].Eff = this.totalEffNet;
             }
-            else {
-                baleDisplay = outputDisplay;
-            }
-            return (baleDisplay / (this.machineSpinning.CapacityPerHour / 3)) * 100;
+            return this.totalEffNet;
             // return baleDisplay * 100 / ((this.detailOptions.CountConfig.RPM * 345.6 * (22 / 7) * this.machineSpinning.Delivery) / (this.detailOptions.CountConfig.Ne * 307200)); // 60 * 24 * 0.24 & 400 * 768
         }
 
@@ -447,14 +472,30 @@ export class DataForm {
         return MachineSpinningLoader;
     }
 
+    get countConfigurationLoader() {
+        return CountConfigurationLoader;
+    }
+
     unitChanged(newValue, oldValue) {
 
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
             this.machineSpinningFilter.UnitName = this.unit.Name;
+            this.countFilter = { "ProcessType": this.processType, "UnitDepartmentId": this.unit.Id };
             this.fillItems();
         } else {
             this.data.UnitDepartmentId = null;
         }
+    }
+
+    countView(count) {
+        var materialComposition = count.MaterialComposition;
+
+        if (materialComposition) {
+            return count.Count + " - " + materialComposition[0].LotNo;
+        } else {
+            return count.Count;
+        }
+
     }
 }

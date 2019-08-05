@@ -32,6 +32,17 @@ export class DataForm {
         editText: "Ubah"
     };
 
+    @computedFrom("data.PRType")
+    get salesContractFilter (){
+        let filter = {
+            SCType: this.data.PRType == "MASTER" ?  "JOB ORDER" : "SAMPLE"
+        };
+        if (this.data.PRType == "SAMPLE") {
+            filter.IsPR = false;
+        }
+        return filter;
+    }
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -79,6 +90,9 @@ export class DataForm {
 	}
     
     changePRType(e) {
+        this.context.selectedPreSalesContractViewModel.editorValue = "";
+        this.selectedPreSalesContract = null;
+
         if (e.target.value === "MASTER") {
             this.context.unitViewModel.editorValue = "";
             this.data.Unit = null;

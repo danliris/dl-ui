@@ -42,7 +42,16 @@ export class Service extends RestService {
         let endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
-
+    getCountById(id){
+        var endpoint = `${countUri}/${id}`;
+        return super.get(endpoint)
+            .then(result => {
+                return result;
+            })
+            .catch(err =>{
+                return {};
+            });
+    }
     getByHeader(date, processType, yarnMaterialId, lotId, shift, group, unitId) {
         var newDate = moment(date).format("DD MMM YYYY")
         var endpoint = `${serviceUri}/by-header?date=${newDate}&processType=${processType}&yarnMaterialTypeId=${yarnMaterialId}&lotId=${lotId}&shift=${shift}&group=${group}&unitDepartmentId=${unitId}`;
