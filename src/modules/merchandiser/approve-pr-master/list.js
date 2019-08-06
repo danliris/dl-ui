@@ -22,7 +22,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "IsValidated", title: "Status",
+        { field: "IsValidate", title: "Status",
           formatter: function (value,row,index){
               return value ? "APPROVED" : "NOT APPROVE";
           }},
@@ -50,7 +50,6 @@ export class List {
           order: order,
           filter: JSON.stringify(filter)
         }
-
         return this.service.search(arg)
         .then(result => {
             result.data.forEach(data => {

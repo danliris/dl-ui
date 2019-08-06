@@ -50,9 +50,9 @@ export class View {
                         });
                 }
             }
-            if(this.data.IsValidate){
+            if(this.data.IsValidate == true && this.data.IsUsed == false){
                 this.hasUnApprove=true;
-            } else {
+            } else if(this.data.IsValidate == false && this.data.IsPosted == true) {
                 this.hasApprove=true;
             }
 
