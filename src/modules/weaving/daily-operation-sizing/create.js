@@ -15,7 +15,7 @@ var UnitLoader = require("../../../loader/unit-loader");
 var MachineLoader = require("../../../loader/weaving-machine-loader");
 var ConstructionLoader = require("../../../loader/weaving-constructions-loader");
 var OperatorLoader = require("../../../loader/weaving-operator-loader");
-
+var BeamLoader = require("../../../loader/weaving-beam-loader");
 @inject(Service, Router, BindingEngine)
 export class Create {
   @bindable readOnly;
@@ -28,10 +28,10 @@ export class Create {
 
   beamColumns = [{
     value: "BeamNumber",
-    header: "No. Beam"
+    header: "Nomor Beam Warping"
   }, {
-    value: "EmptyWeight",
-    header: "Berat Kosong Beam"
+    value: "YarnStrands",
+    header: "Helai Benang Beam Warping"
   }];
 
   constructor(service, router, bindingEngine) {
@@ -40,10 +40,10 @@ export class Create {
     this.bindingEngine = bindingEngine;
 
     this.data = {};
-    this.data.Details = {};
-    this.data.Weight = {};
-    this.data.Weight.Netto = "";
+    this.data.SizingDetails = {};
     this.BeamsWarping = [];
+    // this.data.Weight = {};
+    // this.data.Weight.Netto = "";
 
     this.error = {};
   }
@@ -69,22 +69,26 @@ export class Create {
     return OperatorLoader;
   }
 
+  get beams() {
+    return BeamLoader;
+  }
+
   OperatorDocumentChanged(newValue) {
     this.SizingGroup = newValue.Group;
   }
 
   EntryTimeChanged(newValue) {
-    this.data.Details.PreparationTime = newValue;
+    this.data.SizingDetails.PreparationTime = newValue;
     this.service.getShiftByTime(newValue)
       .then(result => {
         this.error.Shift = "";
         this.Shift = {};
         this.Shift = result;
-        this.data.Details.ShiftId = this.Shift.Id;
+        this.data.SizingDetails.ShiftId = this.Shift.Id;
       })
       .catch(e => {
         this.Shift = {};
-        this.data.ShiftId = this.Shift.Id;
+        this.data.SizingDetails.ShiftId = this.Shift.Id;
         this.error.Shift = " Shift tidak ditemukan ";
       });
   }
@@ -95,47 +99,50 @@ export class Create {
     };
   }
 
-  beamDetail(data) {
-    var beam = {};
-    beam.Id = data.Id;
-    beam.EmptyWeight = data.EmptyWeight;
+  // beamDetail(data) {
+  //   var beam = {};
+  //   beam.Id = data.Id;
+  //   beam.YarnStrands = data.YarnStrands;
 
-    return beam;
-  }
+  //   return beam;
+  // }
 
-  get Netto() {
+  get YarnStrands() {
     let result = 0;
 
     if (this.BeamsWarping) {
       if (this.BeamsWarping.length > 0) {
-        this.data.WarpingBeamsId = [];
+        this.data.BeamsWarping = [];
         for (let beam of this.BeamsWarping) {
-          if (beam.BeamDocument && beam.BeamDocument.EmptyWeight != 0) {
-            result += beam.BeamDocument.EmptyWeight;
+          if (beam.BeamDocument && beam.BeamDocument.YarnStrands != 0) {
+            result += beam.BeamDocument.YarnStrands;
           }
         }
       }
 
-      this.data.Weight.Netto = result.toString();
+      this.data.YarnStrands = result;
     }
     return result;
 
   }
 
   saveCallback(event) {
-    var PreparationDateContainer = this.data.Details.PreparationDate;
-    this.data.Details.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
-
-    this.BeamId = this.BeamsWarping.map((beam) => beam.BeamDocument.Id);
-    this.BeamId.forEach(id => {
-      var BeamId = id;
-      this.data.WarpingBeamsId.push(BeamId);
-    });
+    var PreparationDateContainer = this.data.SizingDetails.PreparationDate;
+    this.data.SizingDetails.PreparationDate = moment(PreparationDateContainer).utcOffset("+07:00").format();
 
     this.data.MachineDocumentId = this.MachineDocument.Id;
     this.data.WeavingUnitId = this.WeavingUnitDocument.Id;
     this.data.ConstructionDocumentId = this.ConstructionDocument.Id;
-    this.data.Details.OperatorDocumentId = this.OperatorDocument.Id;
+
+    this.BeamDocument = this.BeamsWarping.map((beam) => beam.BeamDocument);
+    this.BeamDocument.forEach(doc => {
+      var BeamId = doc.Id;
+      this.data.BeamsWarping.push(BeamId);
+    });
+
+    // this.data.YarnStrands = this.YarnStrands;
+    this.data.NeReal = this.NeReal;
+    this.data.SizingDetails.OperatorDocumentId = this.OperatorDocument.Id;
 
     this.service
       .create(this.data)
