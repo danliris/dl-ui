@@ -54,6 +54,17 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getCountById(id){
+        var endpoint = `${countUri}/${id}`;
+        return super.get(endpoint)
+            .then(result => {
+                return result;
+            })
+            .catch(err =>{
+                return {};
+            });
+    }
+
     validateLotInCount(lotId, processType){
         var endpoint = `${countUri}/validate-lot?lotId=${lotId}&processType=${processType}`;
         return super.get(endpoint);

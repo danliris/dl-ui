@@ -99,7 +99,7 @@ module.exports = [
         name: 'ro-garment-validation',
         moduleId: './modules/merchandiser/ro-garment-validation/index',
         nav: true,
-        title: 'Validasi RO Garment',
+        title: 'Validasi RO PPIC',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -112,7 +112,7 @@ module.exports = [
         name: 'garment-sales-contract',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
         nav: true,
-        title: 'Sales Contract - Garment',
+        title: 'Sales Contract Per RO',
         auth: true,
         settings: {
             group: "merchandiser",

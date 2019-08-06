@@ -95,6 +95,10 @@ export class DataForm {
     Rupiah: "Rupiah"
   }
 
+  preSalesContractFilter = {
+    SCType: "JOB ORDER"
+  }
+
   constructor(router, bindingEngine, serviceEffeciency, rateService,element) {
     this.router = router;
     this.bindingEngine = bindingEngine;
