@@ -59,8 +59,7 @@
             loader.bind="unitLoader"
             text.bind="unitView"
             placeholder="Unit"
-            read-only.bind="readOnly || data.PRType!='SAMPLE' || isEdit"
-            if.bind="data.PRType=='SAMPLE'"
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions"
             view-model.ref="unitViewModel">
         </au-autocomplete>

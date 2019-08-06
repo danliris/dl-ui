@@ -20,15 +20,18 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    this.ShowHideDailyPeriod = false;
+    this.ShowHideByDatePeriod = false;
+    this.ShowHideByDateRangePeriod = false;
     this.ShowHideMonthlyPeriod = false;
   }
 
   listDataFlag = false;
 
-  periods = ["", "Harian/ Rekap", "Bulanan"];
+  periods = ["", "Harian", "Rekap", "Bulanan"];
 
   months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+  pickups = ["", "Diatas Standar", "Dibawah Standar", "Sesuai Standar"]
 
   columns = [{
       field: "DateTimeMachineHistory",
@@ -66,29 +69,29 @@ export class List {
       title: "No. Beam"
     },
     {
-      field: "PIS",
-      title: "PIS"
+      field: "PISMeter",
+      title: "PIS(m)"
     },
     {
-      field: "CounterStart",
+      field: "StartCounter",
       title: "Counter Awal"
     },
     {
-      field: "CounterFinish",
+      field: "FinishCounter",
       title: "Counter Akhir"
     },
     {
-      field: "WeightNetto",
+      field: "NettoWeight",
       title: "Netto"
     },
     {
-      field: "WeightBruto",
+      field: "BrutoWeight",
       title: "Bruto"
     },
     {
       field: "SPU",
       title: "SPU"
-    },{
+    }, {
       field: "DateTimeMachineHistory",
       title: "Waktu Doff",
       formatter: function (value, data, index) {
@@ -132,15 +135,35 @@ export class List {
   PeriodChanged(newValue) {
     switch (newValue) {
       case "":
-        this.ShowHideDailyPeriod = false;
+        this.ShowHideByDatePeriod = false;
+        this.DatePeriod = "";
+        this.ShowHideByDateRangePeriod = false;
+        this.StartDatePeriod = "";
+        this.EndDatePeriod = "";
         this.ShowHideMonthlyPeriod = false;
+        this.MonthlyPeriod = "";
         break;
-      case "Harian/ Rekap":
-        this.ShowHideDailyPeriod = true;
+      case "Harian":
+        this.ShowHideByDatePeriod = true;
+        this.ShowHideByDateRangePeriod = false;
+        this.StartDatePeriod = "";
+        this.EndDatePeriod = "";
         this.ShowHideMonthlyPeriod = false;
+        this.MonthlyPeriod = "";
+        break;
+      case "Rekap":
+        this.ShowHideByDatePeriod = false;
+        this.DatePeriod = "";
+        this.ShowHideByDateRangePeriod = true;
+        this.ShowHideMonthlyPeriod = false;
+        this.MonthlyPeriod = "";
         break;
       case "Bulanan":
-        this.ShowHideDailyPeriod = false;
+        this.ShowHideByDatePeriod = false;
+        this.DatePeriod = "";
+        this.ShowHideByDateRangePeriod = false;
+        this.StartDatePeriod = "";
+        this.EndDatePeriod = "";
         this.ShowHideMonthlyPeriod = true;
     }
   }
@@ -158,8 +181,29 @@ export class List {
 
     if (this.MonthlyPeriod) {
       var MonthContainer = this.MonthlyPeriod;
-      var ShiftIdContainer = this.Shift.Id;
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        switch (this.SPU) {
+          case "Diatas Standar":
+            SPUContainer = "Upper Limit";
+            break;
+          case "Dibawah Standar":
+            SPUContainer = "Lower Limit";
+            break;
+          case "Sesuai Standar":
+            SPUContainer = "Standard";
+            break;
+        }
+      } else {
+        SPUContainer = "All"
+      }
 
       switch (MonthContainer) {
         case "Januari":
@@ -203,34 +247,97 @@ export class List {
           break;
       }
 
-      return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+      return this.listDataFlag ? this.service.getDataByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
+        console.log(result);
         return {
           data: result,
-          total: result.length
+          total: length
         };
       }) : {
-        total: 0,
-        data: {}
+        data: {},
+        total: 0
       };
-    }
-
-    if (this.StartDatePeriod && this.EndDatePeriod) {
-      var ShiftIdContainer = this.Shift.Id;
+    } else if (this.StartDatePeriod && this.EndDatePeriod) {
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        switch (this.SPU) {
+          case "Diatas Standar":
+            SPUContainer = "Upper Limit";
+            break;
+          case "Dibawah Standar":
+            SPUContainer = "Lower Limit";
+            break;
+          case "Sesuai Standar":
+            SPUContainer = "Standard";
+            break;
+        }
+      } else {
+        SPUContainer = "All"
+      }
 
       var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MM YYYY") : null;
-      var EndDatePeriodContainer = this.EndDatePeriod? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
-    }
+      var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
 
-    return this.listDataFlag ? this.service.getDataByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
-      return {
-        data: result,
-        total: result.length
+      return this.listDataFlag ? this.service.getDataByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
+        console.log(result);
+        return {
+          data: result,
+          total: length
+        };
+      }) : {
+        data: {},
+        total: 0
       };
-    }) : {
-      total: 0,
-      data: {}
-    };
+    } else if (this.DatePeriod) {
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        switch (this.SPU) {
+          case "Diatas Standar":
+            SPUContainer = "Upper Limit";
+            break;
+          case "Dibawah Standar":
+            SPUContainer = "Lower Limit";
+            break;
+          case "Sesuai Standar":
+            SPUContainer = "Standard";
+            break;
+        }
+      } else {
+        SPUContainer = "All"
+      }
+
+      var DatePeriodContainer = this.DatePeriod ? moment(this.DatePeriod).format("DD MM YYYY") : null;
+
+      return this.listDataFlag ? this.service.getDataByDate(DatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
+        console.log(result);
+        return {
+          data: result,
+          total: length
+        };
+      }) : {
+        data: {},
+        total: 0
+      };
+    } else {
+      return {
+        data: {},
+        total: 0
+      };
+    }
   }
 
   searchDailyOperations() {
@@ -252,12 +359,31 @@ export class List {
   }
 
   exportToExcel() {
-    // this.filter()
-    // this.service.generateExcel(this.arg)
     if (this.MonthlyPeriod) {
       var MonthContainer = this.MonthlyPeriod;
-      var ShiftIdContainer = this.Shift.Id;
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        switch (this.SPU) {
+          case "Diatas Standar":
+            SPUContainer = "Upper Limit";
+            break;
+          case "Dibawah Standar":
+            SPUContainer = "Lower Limit";
+            break;
+          case "Sesuai Standar":
+            SPUContainer = "Standard";
+            break;
+        }
+      } else {
+        SPUContainer = "All"
+      }
 
       switch (MonthContainer) {
         case "Januari":
@@ -301,7 +427,7 @@ export class List {
           break;
       }
 
-      return this.listDataFlag ? this.service.getXlsByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
+      return this.listDataFlag ? this.service.getXlsByMonth(MonthContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
         return {
           data: result,
           total: result.length
@@ -310,24 +436,81 @@ export class List {
         total: 0,
         data: {}
       };
-    }
-
-    if (this.StartDatePeriod && this.EndDatePeriod) {
-      var ShiftIdContainer = this.Shift.Id;
+    } else if (this.StartDatePeriod && this.EndDatePeriod) {
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
       var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        switch (this.SPU) {
+          case "Diatas Standar":
+            SPUContainer = "Upper Limit";
+            break;
+          case "Dibawah Standar":
+            SPUContainer = "Lower Limit";
+            break;
+          case "Sesuai Standar":
+            SPUContainer = "Standard";
+            break;
+        }
+      } else {
+        SPUContainer = "All"
+      }
 
       var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MM YYYY") : null;
-      var EndDatePeriodContainer = this.EndDatePeriod? moment(this.EndDatePeriod).format("DD MMM YYYY") : null;
-    }
+      var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MM YYYY") : null;
 
-    return this.listDataFlag ? this.service.getXlsByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer).then(result => {
-      return {
-        data: result,
-        total: result.length
+
+      return this.listDataFlag ? this.service.getXlsByDateRange(StartDatePeriodContainer, EndDatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
+        return {
+          data: result,
+          total: result.length
+        };
+      }) : {
+        total: 0,
+        data: {}
       };
-    }) : {
-      total: 0,
-      data: {}
-    };
+    } else if (this.DatePeriod) {
+      var ShiftIdContainer;
+      if (this.Shift) {
+        ShiftIdContainer = this.Shift.Id;
+      } else {
+        ShiftIdContainer = "All";
+      }
+      var WeavingUnitIdContainer = this.WeavingUnit.Id;
+      var SPUContainer;
+      if (this.SPU) {
+        switch (this.SPU) {
+          case "Diatas Standar":
+            SPUContainer = "Upper Limit";
+            break;
+          case "Dibawah Standar":
+            SPUContainer = "Lower Limit";
+            break;
+          case "Sesuai Standar":
+            SPUContainer = "Standard";
+            break;
+        }
+      } else {
+        SPUContainer = "All"
+      }
+
+      var DatePeriodContainer = this.DatePeriod ? moment(this.DatePeriod).format("DD MM YYYY") : null;
+
+      return this.listDataFlag ? this.service.getXlsByDate(DatePeriodContainer, WeavingUnitIdContainer, ShiftIdContainer, SPUContainer).then(result => {
+        console.log(result);
+        return {
+          data: result,
+          total: length
+        };
+      }) : {
+        data: {},
+        total: 0
+      };
+    }
   }
 }
