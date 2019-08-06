@@ -146,4 +146,17 @@ module.exports = [
             iconClass: 'fa fa-calculator'
         }
     },
+    {
+        route: '/merchandiser/ro-sample-validation',
+        name: 'ro-sample-validation',
+        moduleId: './modules/merchandiser/ro-sample-validation/index',
+        nav: true,
+        title: 'Validasi RO Sample',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "C9": 1 },
+            iconClass: 'fa fa-calculator'
+        }
+    },
 ];
