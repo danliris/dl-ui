@@ -6,6 +6,12 @@ export class GarmentReceiptCorrectionItem {
         this.error = context.error;
         this.readOnly = context.options.readOnly;	
         this.options = this.context.context.options; 
+        
+        if(this.context.context.options.Conv){
+          if(this.data.OrderQuantity>0){
+            this.data.isDO =true;
+          }
+        }
 	}
 
 	get product() {
