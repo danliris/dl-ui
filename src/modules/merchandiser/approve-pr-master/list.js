@@ -41,7 +41,7 @@ export class List {
           order[info.sort] = info.order;
         }
         let filter = {};
-        filter["IsPosted == true && PRType == \"MASTER\" || PRType == \"SAMPLE\""] = true;
+        filter["IsPosted == true && (PRType == \"MASTER\" || PRType == \"SAMPLE\")"] = true;
         let arg = {
           page: parseInt(info.offset / info.limit, 10) + 1,
           size: info.limit,
