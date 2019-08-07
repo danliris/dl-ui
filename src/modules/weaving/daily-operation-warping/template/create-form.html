@@ -1,0 +1,91 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+        <div class="col-md-12">
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="No Konstruksi" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-autocomplete placeholder="Cari Konstruksi" value.bind="FabricConstruction"
+                        error.bind="error.FabricConstruction" read-only.bind="readOnly" options.bind="customOptions"
+                        loader.bind="FabricConstructions" text="ConstructionNumber">
+                    </au-autocomplete>
+                </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Jenis Material" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-autocomplete placeholder="Cari Material" value.bind="Material" error.bind="error.Beam"
+                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Materials" text="Name">
+                    </au-autocomplete>
+                </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Jumlah Cone" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-textbox placeholder="Jumlah Cone" value.bind="data.AmountOfCones"
+                        error.bind="error.AmountOfCones" read-only.bind="true">
+                    </au-textbox>
+                </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Warna Cone" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-textbox placeholder="Warna Cone" value.bind="data.ColourOfCone" error.bind="error.ColourOfCone"
+                        read-only.bind="true">
+                    </au-textbox>
+                </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Tanggal" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-datepicker value.bind="DateOperation" error.bind="error.DateOperation">
+                    </au-datepicker>
+                </div>
+
+                <div class="col-md-2" style="text-align:left;">
+                    <textbox label="Waktu" read-only="true" style="display: inline-block"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <input value.bind="data.TimeOperation" type="time" error.bind="error.TimeOperation"
+                        read-only.bind="readOnly">
+                </div>
+            </div>
+
+            <div class="row" style="white-space: nowrap;">
+                <div class="col-md-2">
+                    <textbox label="Operator" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-autocomplete placeholder="Cari Operator" value.bind="Operator" error.bind="error.Operator"
+                        read-only.bind="readOnly" options.bind="customOptions" loader.bind="Operators" text="Username">
+                    </au-autocomplete>
+                </div>
+
+                <div class="col-md-2">
+                    <textbox label="Group Loom" read-only="true"></textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-textbox placeholder="Group Loom" value.bind="Operator.Group" error.bind="error.Group"
+                        read-only.bind="true">
+                    </au-textbox>
+                </div>
+            </div>
+            
+        </div>
+    </au-input-form>
+
+</template>
