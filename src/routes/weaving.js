@@ -197,7 +197,7 @@ module.exports = [
   {
     route: "weaving/daily-operation-warping",
     name: "daily-operation-warping",
-    moduleId: "./modules/weaving/daily-operation-warping",
+    moduleId: "./modules/weaving/daily-operation-warping/index",
     nav: true,
     title: "Operasional Mesin Harian Warping",
     auth: true,

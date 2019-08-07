@@ -4,7 +4,7 @@ import { Config } from "aurelia-api";
 const serviceUri = 'weaving/daily-operations-warping';
 const entryProcess = 'entry-process-operation';
 const startProcess = 'start-process';
-const resumeProcess = 'pause-process';
+const pauseProcess = 'pause-process';
 const resumeProcess = 'resume-process';
 const finishProcess = 'finish-process';
 const finishDailyOperation = 'finish-process-operation'; 
@@ -50,7 +50,7 @@ export class Service extends RestService {
     }
 
     updateForStopProcess(data) {
-        var endpoint = `${serviceUri}/${resumeProcess}`;
+        var endpoint = `${serviceUri}/${pauseProcess}`;
         return super.put(endpoint, data);
     }
 
