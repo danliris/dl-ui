@@ -81,7 +81,7 @@ export class DataForm {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.AvalDate = null;
-            this.data.Items=[];
+            this.data.Items.splice(0);
         }
     }
 
