@@ -6,22 +6,22 @@ export class Index {
           moduleId: "./list",
           name: "list",
           nav: false,
-          title: "List Operasional Mesin Harian Loom"
+          title: "List Operasional Mesin Harian Warping"
         },
         {
           route: "create",
           moduleId: "./create",
           name: "create",
           nav: false,
-          title: "Create: Operasional Mesin Harian Loom"
+          title: "Create: Operasional Mesin Harian Warping"
         }
         ,
         // {
-        //   route: "update/:Id",
-        //   moduleId: "./update",
-        //   name: "update",
+        //   route: "view/:Id",
+        //   moduleId: "./view",
+        //   name: "view",
         //   nav: false,
-        //   title: "update: Operasional Mesin Harian Loom"
+        //   title: "view: Operasional Mesin Harian Warping"
         // }
       ]);
   

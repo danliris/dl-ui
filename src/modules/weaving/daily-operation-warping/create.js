@@ -22,7 +22,20 @@ export class Create {
 
   saveCallback(event) {
     this.error = {};
-    
+
+    if (this.data.ConstructionId == "" ||
+      this.data.ConstructionId == undefined) {
+        console.log(this.data.ConstructionId);
+
+    } else if (this.data.MaterialTypeId == "" ||
+      this.data.MaterialTypeId == undefined) {
+        console.log(this.data.MaterialTypeId);
+
+    } else if (this.data.AmountOfCones == "" ||
+      this.data.AmountOfCones == undefined) {
+        console.log(this.data.AmountOfCones);
+    }
+
     this.service
       .createOnEntryProcess(this.data)
       .then(result => {
