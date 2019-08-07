@@ -51,8 +51,7 @@ export class Create {
     }
 
     get costCalculationGarmentUnpostedFilter() {
-        // return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0 && IsValidatedROSample == true": true };
-        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0": true };
+        return { "CostCalculationGarment_Materials.Any(IsPosted == false) && SCGarmentId > 0": true, IsValidatedROSample: true };
     }
 
     constructor(router, service, purchaseRequestService) {
@@ -85,7 +84,7 @@ export class Create {
                 }
 
                 this.buyer = `${this.data.CostCalculationGarment.BuyerBrand.Code} - ${this.data.CostCalculationGarment.BuyerBrand.Name}`;
-                this.article = this.data.CostCalculationGarment.Article + " - " + this.data.CostCalculationGarment.PreSCNo;
+                this.article = this.data.CostCalculationGarment.Article;
 
                 let isAnyPostedMaterials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.reduce((acc, cur) => {
                     return acc || cur.IsPosted || false;

@@ -271,5 +271,18 @@ module.exports = [
       permission: { W1: 1, W2: 1, "*": 1 },
       iconClass: "fa fa-dashboard"
     }
-  }
+  },
+  {
+    route: "weaving/daily-operation-reaching-tying",
+    name: "weaving-daily-operation-reaching-tying",
+    moduleId: "./modules/weaving/daily-operation-reaching-tying/index",
+    nav: true,
+    title: "Operasional Mesin Harian Reaching/ Tying",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: { W1: 1, W2: 1, "*": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
 ];

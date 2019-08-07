@@ -3,7 +3,7 @@ import { Service } from './service';
 
 import SectionLoader from "../../../loader/garment-sections-loader";
 import GarmentBuyerLoader from "../../../loader/garment-buyers-loader";
-import GarmentBuyerBrandLoader from "../../../loader/garment-buyer-brands-loader";
+import GarmentBuyerBrandLoader from "../../../loader/garment-buyer-brand-loader";
 
 @containerless()
 @inject(BindingEngine, Service, Element)
