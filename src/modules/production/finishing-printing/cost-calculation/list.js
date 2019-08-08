@@ -25,15 +25,15 @@ export class List {
             keyword: info.search,
             order: order,
         }
-
-        return this.service.search(arg)
-            .then(result => {
-                console.log(result)
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-            });
+        return { total: 0, data: {} };
+        // return this.service.search(arg)
+        //     .then(result => {
+        //         console.log(result)
+        //         return {
+        //             total: result.info.total,
+        //             data: result.data
+        //         }
+        //     });
     }
 
     constructor(router, service) {

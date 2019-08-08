@@ -48,7 +48,16 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/by-header?date=${newDate}&processType=${processType}&yarnMaterialTypeId=${yarnMaterialId}&lotId=${lotId}&shift=${shift}&group=${group}&unitDepartmentId=${unitId}`;
         return super.get(endpoint);
     }
-
+    getCountById(id){
+        var endpoint = `${countUri}/${id}`;
+        return super.get(endpoint)
+            .then(result => {
+                return result;
+            })
+            .catch(err =>{
+                return {};
+            });
+    }
     getCountByProcessAndYarn(processType, yarnId, lotId, unitId){
         var endpoint = `${countUri}/by-process-yarn?processType=${processType}&yarnId=${yarnId}&unitId=${unitId}&lotId=${lotId}`;
         return super.get(endpoint);

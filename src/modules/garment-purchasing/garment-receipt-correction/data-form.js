@@ -17,7 +17,8 @@ export class DataForm {
     @bindable collectionOptions;
 
     filter={
-        IsStorage:true
+        IsStorage:true,
+        URNType: "PEMBELIAN"
     };
 
     constructor(service) {
@@ -143,7 +144,7 @@ export class DataForm {
                 item.URNItemId = i.Id;
                 item.RONo = i.RONo;
                 item.OrderQuantity=i.OrderQuantity;
-                item.Quantity=i.ReceiptQuantity;
+                item.Quantity=i.ReceiptCorrection;
                 item.SmallQuantity=i.SmallQuantity;
                 item.UomId=i.UomId;
                 item.UomUnit=i.UomUnit;
@@ -180,6 +181,9 @@ export class DataForm {
             this.collectionOptions.Qty = true;
             this.collectionOptions.Conv = false;
             this.itemHeader=this.itemHeaderQty;
+            for(var a of this.data.Items){
+                a.isDO=false;
+            }
         }
         else{
             this.collectionOptions.Qty = false;
@@ -187,6 +191,9 @@ export class DataForm {
             this.itemHeader=this.itemHeaderConv;
             for(var a of this.data.Items){
                 a.CorrectionConversion=a.Conversion;
+                if(a.OrderQuantity>0){
+                    a.isDO=true;
+                }
             }
         }
 

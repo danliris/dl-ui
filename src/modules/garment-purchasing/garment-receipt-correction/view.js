@@ -22,7 +22,7 @@ export class View {
             var urnItem= urn.Items.find(a=>a.Id==item.URNItemId);
             if(urnItem){
                 item.OriginConversion=urnItem.Conversion;
-                item.leftOverQty=urnItem.ReceiptQuantity-(urnItem.OrderQuantity/urnItem.Conversion);
+                item.leftOverQty=urnItem.ReceiptCorrection-(urnItem.OrderQuantity/urnItem.CorrectionConversion);
             }
         }
     }
